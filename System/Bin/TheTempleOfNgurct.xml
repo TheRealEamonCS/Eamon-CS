@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TheTempleOfNgurct</name>
+    </assembly>
+    <members>
+        <member name="T:TheTempleOfNgurct.Framework.IEngine">
+            <summary></summary>
+        </member>
+        <member name="M:TheTempleOfNgurct.Framework.IEngine.GetTrapMonsterList(System.Int64,System.Int64)">
+            <summary></summary>
+            <param name="numMonsters"></param>
+            <param name="roomUid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TheTempleOfNgurct.Framework.IEngine.ApplyTrapDamage(System.Action{EamonRT.Framework.States.IState},Eamon.Framework.IMonster,System.Int64,System.Int64,System.Boolean)">
+            <summary></summary>
+            <param name="setNextStateFunc"></param>
+            <param name="monster"></param>
+            <param name="numDice"></param>
+            <param name="numSides"></param>
+            <param name="omitArmor"></param>
+        </member>
+        <member name="M:TheTempleOfNgurct.Framework.IEngine.GetWanderingMonster">
+            <summary></summary>
+            <returns></returns>
+        </member>
+        <member name="T:TheTempleOfNgurct.Framework.IGameState">
+            <summary></summary>
+        </member>
+        <member name="P:TheTempleOfNgurct.Framework.IGameState.WanderingMonster">
+            <summary></summary>
+        </member>
+        <member name="P:TheTempleOfNgurct.Framework.IGameState.DwLoopCounter">
+            <summary></summary>
+        </member>
+        <member name="P:TheTempleOfNgurct.Framework.IGameState.WandCharges">
+            <summary></summary>
+        </member>
+        <member name="P:TheTempleOfNgurct.Framework.IGameState.Regenerate">
+            <summary></summary>
+        </member>
+        <member name="P:TheTempleOfNgurct.Framework.IGameState.KeyRingRoomUid">
+            <summary></summary>
+        </member>
+        <member name="P:TheTempleOfNgurct.Framework.IGameState.AlkandaKilled">
+            <summary></summary>
+        </member>
+        <member name="P:TheTempleOfNgurct.Framework.IGameState.AlignmentConflict">
+            <summary></summary>
+        </member>
+        <member name="P:TheTempleOfNgurct.Framework.IGameState.CobraAppeared">
+            <summary></summary>
+        </member>
+        <member name="T:TheTempleOfNgurct.Framework.Plugin.IPluginClassMappings">
+            <summary></summary>
+        </member>
+        <member name="T:TheTempleOfNgurct.Framework.Plugin.IPluginConstants">
+            <summary></summary>
+        </member>
+        <member name="T:TheTempleOfNgurct.Framework.Plugin.IPluginGlobals">
+            <summary></summary>
+        </member>
+        <member name="P:TheTempleOfNgurct.Framework.Plugin.IPluginGlobals.FireDamage">
+            <summary></summary>
+        </member>
+        <member name="M:TheTempleOfNgurct.Game.Helpers.GameStateHelper.ValidateWanderingMonster">
+            <summary></summary>
+            <returns></returns>
+        </member>
+        <member name="M:TheTempleOfNgurct.Game.Helpers.GameStateHelper.ValidateDwLoopCounter">
+            <summary></summary>
+            <returns></returns>
+        </member>
+        <member name="M:TheTempleOfNgurct.Game.Helpers.GameStateHelper.ValidateWandCharges">
+            <summary></summary>
+            <returns></returns>
+        </member>
+        <member name="M:TheTempleOfNgurct.Game.Helpers.GameStateHelper.ValidateRegenerate">
+            <summary></summary>
+            <returns></returns>
+        </member>
+        <member name="M:TheTempleOfNgurct.Game.Helpers.GameStateHelper.ValidateKeyRingRoomUid">
+            <summary></summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

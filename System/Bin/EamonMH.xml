@@ -1,0 +1,352 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>EamonMH</name>
+    </assembly>
+    <members>
+        <member name="T:EamonMH.Framework.IEngine">
+            <summary></summary>
+        </member>
+        <member name="M:EamonMH.Framework.IEngine.IsCharDOrM(System.Char)">
+            <summary></summary>
+            <param name="ch"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EamonMH.Framework.IEngine.IsCharROrT(System.Char)">
+            <summary></summary>
+            <param name="ch"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EamonMH.Framework.IEngine.IsCharDOrIOrX(System.Char)">
+            <summary></summary>
+            <param name="ch"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EamonMH.Framework.IEngine.IsCharDOrWOrX(System.Char)">
+            <summary></summary>
+            <param name="ch"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EamonMH.Framework.IEngine.IsCharUOrCOrX(System.Char)">
+            <summary></summary>
+            <param name="ch"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EamonMH.Framework.IEngine.IsChar1OrX(System.Char)">
+            <summary></summary>
+            <param name="ch"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EamonMH.Framework.IEngine.IsChar1Or2OrX(System.Char)">
+            <summary></summary>
+            <param name="ch"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EamonMH.Framework.IEngine.IsCharTOrL(System.Char)">
+            <summary></summary>
+            <param name="ch"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EamonMH.Framework.IEngine.IsCharBOrSOrAOrX(System.Char)">
+            <summary></summary>
+            <param name="ch"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EamonMH.Framework.IEngine.IsCharGOrFOrPOrX(System.Char)">
+            <summary></summary>
+            <param name="ch"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EamonMH.Framework.IEngine.IsCharWpnType(System.Char)">
+            <summary></summary>
+            <param name="ch"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EamonMH.Framework.IEngine.IsCharWpnTypeOrX(System.Char)">
+            <summary></summary>
+            <param name="ch"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EamonMH.Framework.IEngine.IsCharSpellType(System.Char)">
+            <summary></summary>
+            <param name="ch"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EamonMH.Framework.IEngine.IsCharSpellTypeOrX(System.Char)">
+            <summary></summary>
+            <param name="ch"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EamonMH.Framework.IEngine.IsCharMarcosNumOrX(System.Char)">
+            <summary></summary>
+            <param name="ch"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EamonMH.Framework.IEngine.IsCharWpnNumOrX(System.Char)">
+            <summary></summary>
+            <param name="ch"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EamonMH.Framework.IEngine.IsCharStat(System.Char)">
+            <summary></summary>
+            <param name="ch"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EamonMH.Framework.IEngine.GetMaxArmorMarcosNum">
+            <summary></summary>
+            <returns></returns>
+        </member>
+        <member name="M:EamonMH.Framework.IEngine.GetArmorByMarcosNum(System.Int64)">
+            <summary></summary>
+            <param name="marcosNum"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EamonMH.Framework.IEngine.MhProcessArgv(System.Boolean,System.Boolean@)">
+            <summary></summary>
+            <param name="secondPass"></param>
+            <param name="nlFlag"></param>
+        </member>
+        <member name="T:EamonMH.Framework.Menus.ActionMenus.IDrinkBeerMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonMH.Framework.Menus.ActionMenus.IOuterChamberMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonMH.Framework.Menus.ActionMenus.IRegistrationDeskMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonMH.Framework.Menus.ActionMenus.IExamineAbilitiesMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonMH.Framework.Menus.ActionMenus.IGoOnAdventureMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonMH.Framework.Menus.ActionMenus.IHokasTokasMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonMH.Framework.Menus.ActionMenus.IMarcosCavielliMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonMH.Framework.Menus.ActionMenus.IShylockMcFennyMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonMH.Framework.Menus.ActionMenus.IDonDiegoMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonMH.Framework.Menus.ActionMenus.IInfoBoothMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonMH.Framework.Menus.ActionMenus.ILicensedWizardMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonMH.Framework.Menus.ActionMenus.IMasterArmorMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonMH.Framework.Menus.ActionMenus.ICasinoSchmittMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonMH.Framework.Menus.ActionMenus.IGoodWitchMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonMH.Framework.Menus.ActionMenus.IGrendelSmithyMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonMH.Framework.Menus.ActionMenus.IVillageSquareMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonMH.Framework.Menus.HierarchicalMenus.IMainHallMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonMH.Framework.Menus.HierarchicalMenus.IPracticeAreaMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonMH.Framework.Menus.HierarchicalMenus.IVillageMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonMH.Framework.Menus.IMhMenu">
+            <summary></summary>
+        </member>
+        <member name="M:EamonMH.Framework.Menus.IMhMenu.PrintMainHallMenuSubtitle">
+            <summary></summary>
+        </member>
+        <member name="M:EamonMH.Framework.Menus.IMhMenu.PrintVillageMenuSubtitle">
+            <summary></summary>
+        </member>
+        <member name="M:EamonMH.Framework.Menus.IMhMenu.PrintPracticeAreaMenuSubtitle">
+            <summary></summary>
+        </member>
+        <member name="T:EamonMH.Framework.Plugin.IPluginClassMappings">
+            <summary></summary>
+        </member>
+        <member name="T:EamonMH.Framework.Plugin.IPluginConstants">
+            <summary></summary>
+        </member>
+        <member name="T:EamonMH.Framework.Plugin.IPluginGlobals">
+            <summary></summary>
+        </member>
+        <member name="P:EamonMH.Framework.Plugin.IPluginGlobals.Argv">
+            <summary></summary>
+        </member>
+        <member name="P:EamonMH.Framework.Plugin.IPluginGlobals.WordWrapCurrColumn">
+            <summary></summary>
+        </member>
+        <member name="P:EamonMH.Framework.Plugin.IPluginGlobals.WordWrapLastChar">
+            <summary></summary>
+        </member>
+        <member name="P:EamonMH.Framework.Plugin.IPluginGlobals.ConfigFileName">
+            <summary></summary>
+        </member>
+        <member name="P:EamonMH.Framework.Plugin.IPluginGlobals.CharacterName">
+            <summary></summary>
+        </member>
+        <member name="P:EamonMH.Framework.Plugin.IPluginGlobals.Engine">
+            <summary></summary>
+        </member>
+        <member name="P:EamonMH.Framework.Plugin.IPluginGlobals.MhMenu">
+            <summary></summary>
+        </member>
+        <member name="P:EamonMH.Framework.Plugin.IPluginGlobals.Menu">
+            <summary></summary>
+        </member>
+        <member name="P:EamonMH.Framework.Plugin.IPluginGlobals.Fileset">
+            <summary></summary>
+        </member>
+        <member name="P:EamonMH.Framework.Plugin.IPluginGlobals.Character">
+            <summary></summary>
+        </member>
+        <member name="P:EamonMH.Framework.Plugin.IPluginGlobals.Config">
+            <summary></summary>
+        </member>
+        <member name="P:EamonMH.Framework.Plugin.IPluginGlobals.GoOnAdventure">
+            <summary></summary>
+        </member>
+        <member name="P:EamonMH.Framework.Plugin.IPluginGlobals.ConfigsModified">
+            <summary></summary>
+        </member>
+        <member name="P:EamonMH.Framework.Plugin.IPluginGlobals.FilesetsModified">
+            <summary></summary>
+        </member>
+        <member name="P:EamonMH.Framework.Plugin.IPluginGlobals.CharactersModified">
+            <summary></summary>
+        </member>
+        <member name="P:EamonMH.Framework.Plugin.IPluginGlobals.EffectsModified">
+            <summary></summary>
+        </member>
+        <member name="M:EamonMH.Game.Menus.ActionMenus.GoOnAdventureMenu.SelectAdventure(System.Int64)">
+            <summary></summary>
+            <param name="index"></param>
+        </member>
+        <member name="P:EamonMH.Game.Menus.ActionMenus.HokasTokasMenu.Rtio">
+            <summary></summary>
+        </member>
+        <member name="T:EamonMH.Game.Menus.ActionMenus.MarcosCavielliMenu.MenuState">
+            <summary></summary>
+        </member>
+        <member name="F:EamonMH.Game.Menus.ActionMenus.MarcosCavielliMenu.MenuState.None">
+            <summary></summary>
+        </member>
+        <member name="F:EamonMH.Game.Menus.ActionMenus.MarcosCavielliMenu.MenuState.BuyOrSell">
+            <summary></summary>
+        </member>
+        <member name="F:EamonMH.Game.Menus.ActionMenus.MarcosCavielliMenu.MenuState.BuyWeapon">
+            <summary></summary>
+        </member>
+        <member name="F:EamonMH.Game.Menus.ActionMenus.MarcosCavielliMenu.MenuState.CheckShield">
+            <summary></summary>
+        </member>
+        <member name="F:EamonMH.Game.Menus.ActionMenus.MarcosCavielliMenu.MenuState.SellWeapon">
+            <summary></summary>
+        </member>
+        <member name="F:EamonMH.Game.Menus.ActionMenus.MarcosCavielliMenu.MenuState.BuyArmor">
+            <summary></summary>
+        </member>
+        <member name="F:EamonMH.Game.Menus.ActionMenus.MarcosCavielliMenu.MenuState.BuyShield">
+            <summary></summary>
+        </member>
+        <member name="F:EamonMH.Game.Menus.ActionMenus.MarcosCavielliMenu.MenuState.SetArmorClass">
+            <summary></summary>
+        </member>
+        <member name="F:EamonMH.Game.Menus.ActionMenus.MarcosCavielliMenu.MenuState.LeaveShop">
+            <summary></summary>
+        </member>
+        <member name="P:EamonMH.Game.Menus.ActionMenus.MarcosCavielliMenu.Rtio">
+            <summary></summary>
+        </member>
+        <member name="P:EamonMH.Game.Menus.ActionMenus.DonDiegoMenu.Rtio">
+            <summary></summary>
+        </member>
+        <member name="P:EamonMH.Game.Menus.ActionMenus.InfoBoothMenu.Rtio">
+            <summary></summary>
+        </member>
+        <member name="P:EamonMH.Game.Menus.ActionMenus.InfoBoothMenu.GotInfo">
+            <summary></summary>
+        </member>
+        <member name="P:EamonMH.Game.Menus.ActionMenus.LicensedWizardMenu.Rtio">
+            <summary></summary>
+        </member>
+        <member name="P:EamonMH.Game.Menus.ActionMenus.MasterArmorMenu.Rtio">
+            <summary></summary>
+        </member>
+        <member name="P:EamonMH.Game.Menus.ActionMenus.RegistrationDeskMenu.Rtio">
+            <summary></summary>
+        </member>
+        <member name="P:EamonMH.Game.Menus.ActionMenus.RegistrationDeskMenu.AdventureName">
+            <summary></summary>
+        </member>
+        <member name="P:EamonMH.Game.Menus.ActionMenus.RegistrationDeskMenu.NumChances">
+            <summary></summary>
+        </member>
+        <member name="M:EamonMH.Game.Menus.ActionMenus.RegistrationDeskMenu.BadCharacterName">
+            <summary></summary>
+        </member>
+        <member name="M:EamonMH.Game.Menus.ActionMenus.RegistrationDeskMenu.RecallCharacterFromAdventure">
+            <summary></summary>
+        </member>
+        <member name="M:EamonMH.Game.Menus.ActionMenus.RegistrationDeskMenu.CreateCharacter(Eamon.Framework.ICharacter)">
+            <summary></summary>
+            <param name="character"></param>
+        </member>
+        <member name="M:EamonMH.Game.Menus.ActionMenus.RegistrationDeskMenu.SelectCharacter">
+            <summary></summary>
+        </member>
+        <member name="P:EamonMH.Game.Menus.ActionMenus.GoodWitchMenu.Rtio">
+            <summary></summary>
+        </member>
+        <member name="P:EamonMH.Game.Menus.ActionMenus.GrendelSmithyMenu.Rtio">
+            <summary></summary>
+        </member>
+        <member name="M:EamonMH.Game.Menus.ActionMenus.GrendelSmithyMenu.GetWeaponType">
+            <summary></summary>
+            <returns></returns>
+        </member>
+        <member name="M:EamonMH.Game.Menus.ActionMenus.GrendelSmithyMenu.UpdateCharacterWeapon(System.Int64,System.Int64,System.String,System.Int64,System.Int64,System.Int64,System.Int64,System.Int64)">
+            <summary></summary>
+            <param name="i"></param>
+            <param name="ap"></param>
+            <param name="name"></param>
+            <param name="type"></param>
+            <param name="complexity"></param>
+            <param name="dice"></param>
+            <param name="sides"></param>
+            <param name="numHands"></param>
+        </member>
+        <member name="M:EamonMH.Game.Menus.ActionMenus.GrendelSmithyMenu.PrintNotEnoughGold">
+            <summary></summary>
+        </member>
+        <member name="P:EamonMH.Game.Menus.ActionMenus.VillageSquareMenu.AddedPotency">
+            <summary></summary>
+        </member>
+        <member name="P:EamonMH.Program.ProgramName">
+            <summary></summary>
+        </member>
+        <member name="P:EamonMH.Program.ConstantsType">
+            <summary></summary>
+        </member>
+        <member name="P:EamonMH.Program.ClassMappingsType">
+            <summary></summary>
+        </member>
+        <member name="P:EamonMH.Program.GlobalsType">
+            <summary></summary>
+        </member>
+    </members>
+</doc>

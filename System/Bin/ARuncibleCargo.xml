@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ARuncibleCargo</name>
+    </assembly>
+    <members>
+        <member name="T:ARuncibleCargo.Framework.IGameState">
+            <summary></summary>
+        </member>
+        <member name="P:ARuncibleCargo.Framework.IGameState.DreamCounter">
+            <summary></summary>
+        </member>
+        <member name="P:ARuncibleCargo.Framework.IGameState.SwarmyCounter">
+            <summary></summary>
+        </member>
+        <member name="P:ARuncibleCargo.Framework.IGameState.CargoOpenCounter">
+            <summary></summary>
+        </member>
+        <member name="P:ARuncibleCargo.Framework.IGameState.CargoInRoom">
+            <summary></summary>
+        </member>
+        <member name="P:ARuncibleCargo.Framework.IGameState.GiveAmazonMoney">
+            <summary></summary>
+        </member>
+        <member name="P:ARuncibleCargo.Framework.IGameState.PookaMet">
+            <summary></summary>
+        </member>
+        <member name="P:ARuncibleCargo.Framework.IGameState.AmazonMet">
+            <summary></summary>
+        </member>
+        <member name="P:ARuncibleCargo.Framework.IGameState.BillAndAmazonMeet">
+            <summary></summary>
+        </member>
+        <member name="P:ARuncibleCargo.Framework.IGameState.PrinceMet">
+            <summary></summary>
+        </member>
+        <member name="P:ARuncibleCargo.Framework.IGameState.AmazonLilWarning">
+            <summary></summary>
+        </member>
+        <member name="P:ARuncibleCargo.Framework.IGameState.BillLilWarning">
+            <summary></summary>
+        </member>
+        <member name="P:ARuncibleCargo.Framework.IGameState.FireEscaped">
+            <summary></summary>
+        </member>
+        <member name="P:ARuncibleCargo.Framework.IGameState.CampEntered">
+            <summary></summary>
+        </member>
+        <member name="P:ARuncibleCargo.Framework.IGameState.PaperRead">
+            <summary></summary>
+        </member>
+        <member name="P:ARuncibleCargo.Framework.IGameState.Explosive">
+            <summary></summary>
+        </member>
+        <member name="M:ARuncibleCargo.Framework.IGameState.GetPookaMet(System.Int64)">
+            <summary></summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ARuncibleCargo.Framework.IGameState.SetPookaMet(System.Int64,System.Boolean)">
+            <summary></summary>
+            <param name="index"></param>
+            <param name="value"></param>
+        </member>
+        <member name="T:ARuncibleCargo.Framework.IRoom">
+            <summary></summary>
+        </member>
+        <member name="M:ARuncibleCargo.Framework.IRoom.IsWaterRoom">
+            <summary>Indicates whether this <see cref="T:ARuncibleCargo.Framework.IRoom">Room</see> consists of open water (Malphigian Sea).</summary>
+            <returns>If so then <c>true</c>, otherwise <c>false</c>.</returns>
+        </member>
+        <member name="T:ARuncibleCargo.Framework.Plugin.IPluginClassMappings">
+            <summary></summary>
+        </member>
+        <member name="T:ARuncibleCargo.Framework.Plugin.IPluginConstants">
+            <summary></summary>
+        </member>
+        <member name="P:ARuncibleCargo.Framework.Plugin.IPluginConstants.SnapshotFileName">
+            <summary></summary>
+        </member>
+        <member name="T:ARuncibleCargo.Framework.Plugin.IPluginGlobals">
+            <summary></summary>
+        </member>
+        <member name="P:ARuncibleCargo.Framework.Plugin.IPluginGlobals.DoubleDoorList">
+            <summary></summary>
+        </member>
+        <member name="M:ARuncibleCargo.Game.Helpers.GameStateHelper.ValidateDreamCounter">
+            <summary></summary>
+            <returns></returns>
+        </member>
+        <member name="M:ARuncibleCargo.Game.Helpers.GameStateHelper.ValidateSwarmyCounter">
+            <summary></summary>
+            <returns></returns>
+        </member>
+        <member name="M:ARuncibleCargo.Game.Helpers.GameStateHelper.ValidateCargoOpenCounter">
+            <summary></summary>
+            <returns></returns>
+        </member>
+        <member name="M:ARuncibleCargo.Game.Helpers.GameStateHelper.ValidateCargoInRoom">
+            <summary></summary>
+            <returns></returns>
+        </member>
+        <member name="M:ARuncibleCargo.Game.Helpers.GameStateHelper.ValidateGiveAmazonMoney">
+            <summary></summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
