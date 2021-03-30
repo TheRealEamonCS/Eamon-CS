@@ -1179,11 +1179,11 @@ namespace Eamon.Game
 
 			if (fleeing)
 			{
-				result = string.Format("{0} {1}{2}!", monsterName, isPlural ? "flee" : "flees", exitDirection == Direction.Up || exitDirection == Direction.Down || exitDirection == Direction.In || exitDirection == Direction.Out ? string.Format(" {0}ward", exitDirection.ToString().ToLower()) : string.Format(" to the {0}", exitDirection.ToString().ToLower()));
+				result = string.Format("{0} {1}{2}!", monsterName, isPlural ? "flee" : "flees", exitDirection == Direction.Up ? " upward" : exitDirection == Direction.Down ? " downward" : exitDirection == Direction.In ? " inside" : exitDirection == Direction.Out ? " outside" : string.Format(" to the {0}", exitDirection.ToString().ToLower()));
 			}
 			else
 			{
-				result = string.Format("{0} {1}{2}.", monsterName, isPlural ? "go" : "goes", exitDirection == Direction.Up || exitDirection == Direction.Down || exitDirection == Direction.In || exitDirection == Direction.Out ? string.Format(" {0}ward", exitDirection.ToString().ToLower()) : string.Format(" to the {0}", exitDirection.ToString().ToLower()));
+				result = string.Format("{0} {1}{2}.", monsterName, isPlural ? "go" : "goes", exitDirection == Direction.Up ? " upward" : exitDirection == Direction.Down ? " downward" : exitDirection == Direction.In ? " inside" : exitDirection == Direction.Out ? " outside" : string.Format(" to the {0}", exitDirection.ToString().ToLower()));
 			}
 
 			return result;
@@ -1197,11 +1197,11 @@ namespace Eamon.Game
 
 			if (fleeing)
 			{
-				result = string.Format("{0} {1} in from{2}!", monsterName, isPlural ? "flee" : "flees", enterDirection == Direction.Up ? " above" : enterDirection == Direction.Down ? " below" : string.Format(" the {0}", enterDirection.ToString().ToLower()));
+				result = string.Format("{0} {1} {2} from{3}!", monsterName, isPlural ? "flee" : "flees", enterDirection == Direction.In ? "out" : "in", enterDirection == Direction.Up ? " above" : enterDirection == Direction.Down ? " below" : enterDirection == Direction.In ? " inside" : enterDirection == Direction.Out ? " outside" : string.Format(" the {0}", enterDirection.ToString().ToLower()));
 			}
 			else
 			{
-				result = string.Format("{0} {1} from{2}.", monsterName, isPlural ? "arrive" : "arrives", enterDirection == Direction.Up ? " above" : enterDirection == Direction.Down ? " below" : string.Format(" the {0}", enterDirection.ToString().ToLower()));
+				result = string.Format("{0} {1} from{2}.", monsterName, isPlural ? "arrive" : "arrives", enterDirection == Direction.Up ? " above" : enterDirection == Direction.Down ? " below" : enterDirection == Direction.In ? " inside" : enterDirection == Direction.Out ? " outside" : string.Format(" the {0}", enterDirection.ToString().ToLower()));
 			}
 
 			return result;
