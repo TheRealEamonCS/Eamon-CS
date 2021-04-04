@@ -27,7 +27,7 @@ namespace EamonDD.Game.Converters.EamonDeluxe
 
 		public string AdventureFolderPath { get; set; }
 
-		public bool LoadEDXAdventureList(params long[] advNums)         // Note: Adventure numbers are 1-based
+		public bool LoadAdventureList(params long[] advNums)         // Note: Adventure numbers are 1-based
 		{
 			var result = true;
 
@@ -288,7 +288,7 @@ namespace EamonDD.Game.Converters.EamonDeluxe
 			return result;
 		}
 
-		public bool LoadEDXHintList(params long[] hintNums)			// Note: Hint numbers are 1-based
+		public bool LoadHintList(params long[] hintNums)			// Note: Hint numbers are 1-based
 		{
 			var result = true;
 
@@ -358,7 +358,7 @@ namespace EamonDD.Game.Converters.EamonDeluxe
 			return result;
 		}
 
-		public bool ConvertEDXAdventures()
+		public bool ConvertAdventures()
 		{
 			var result = true;
 
@@ -480,7 +480,7 @@ namespace EamonDD.Game.Converters.EamonDeluxe
 			return result;
 		}
 
-		public bool ConvertEDXHints()
+		public bool ConvertHints()
 		{
 			var result = true;
 
