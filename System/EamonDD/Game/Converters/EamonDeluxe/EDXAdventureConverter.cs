@@ -21,9 +21,9 @@ namespace EamonDD.Game.Converters.EamonDeluxe
 
 		public long _nh;
 
-		public virtual List<EDXAdventure> EDXAdventureList { get; set; }
+		public virtual IList<EDXAdventure> EDXAdventureList { get; set; }
 
-		public virtual List<EDXHint> EDXHintList { get; set; }
+		public virtual IList<EDXHint> EDXHintList { get; set; }
 
 		public string AdventureFolderPath { get; set; }
 

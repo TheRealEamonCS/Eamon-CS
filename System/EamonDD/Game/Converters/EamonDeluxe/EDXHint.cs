@@ -15,7 +15,7 @@ namespace EamonDD.Game.Converters.EamonDeluxe
 
 		public long _hptr;
 
-		public virtual List<EDXDesc> AnswerList { get; set; }
+		public virtual IList<EDXDesc> AnswerList { get; set; }
 
 		public virtual string Question { get; set; }
 

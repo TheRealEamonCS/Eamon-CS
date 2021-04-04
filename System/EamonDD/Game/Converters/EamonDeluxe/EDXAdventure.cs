@@ -29,13 +29,13 @@ namespace EamonDD.Game.Converters.EamonDeluxe
 
 		public long _mptr;
 
-		public virtual List<EDXRoom> RoomList { get; set; }
+		public virtual IList<EDXRoom> RoomList { get; set; }
 
-		public virtual List<EDXArtifact> ArtifactList { get; set; }
+		public virtual IList<EDXArtifact> ArtifactList { get; set; }
 
-		public virtual List<EDXMonster> MonsterList { get; set; }
+		public virtual IList<EDXMonster> MonsterList { get; set; }
 
-		public virtual List<EDXDesc> EffectList { get; set; }
+		public virtual IList<EDXDesc> EffectList { get; set; }
 
 		public virtual string AdvName { get; set; }
 
