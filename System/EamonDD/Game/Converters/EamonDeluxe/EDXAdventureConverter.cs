@@ -27,8 +27,10 @@ namespace EamonDD.Game.Converters.EamonDeluxe
 
 		public string AdventureFolderPath { get; set; }
 
-		public void LoadEDXAdventureList(params long[] advNums)         // Note: Adventure numbers are 1-based
+		public bool LoadEDXAdventureList(params long[] advNums)         // Note: Adventure numbers are 1-based
 		{
+			var result = true;
+
 			try
 			{
 				var line = "";
@@ -45,24 +47,24 @@ namespace EamonDD.Game.Converters.EamonDeluxe
 
 					if (!long.TryParse(tokens[0], out edxa._nr))
 					{
-						// handle failure
+						throw new Exception("Error: TryParse function call failed for _nr");
 					}
 
 					if (tokens.Length > 1)
 					{
 						if (!long.TryParse(tokens[1], out edxa._na))
 						{
-							// handle failure
+							throw new Exception("Error: TryParse function call failed for _na");
 						}
 
 						if (!long.TryParse(tokens[2], out edxa._ne))
 						{
-							// handle failure
+							throw new Exception("Error: TryParse function call failed for _ne");
 						}
 
 						if (!long.TryParse(tokens[3], out edxa._nm))
 						{
-							// handle failure
+							throw new Exception("Error: TryParse function call failed for _nm");
 						}
 					}
 					else
@@ -71,21 +73,21 @@ namespace EamonDD.Game.Converters.EamonDeluxe
 
 						if (!long.TryParse(line.Trim(), out edxa._na))
 						{
-							// handle failure
+							throw new Exception("Error: TryParse function call failed for _na");
 						}
 
 						line = file.ReadLine();
 
 						if (!long.TryParse(line.Trim(), out edxa._ne))
 						{
-							// handle failure
+							throw new Exception("Error: TryParse function call failed for _ne");
 						}
 
 						line = file.ReadLine();
 
 						if (!long.TryParse(line.Trim(), out edxa._nm))
 						{
-							// handle failure
+							throw new Exception("Error: TryParse function call failed for _nm");
 						}
 					}
 
@@ -99,19 +101,19 @@ namespace EamonDD.Game.Converters.EamonDeluxe
 
 					if (!long.TryParse(tokens[0], out edxa._nd))
 					{
-						// handle failure
+						throw new Exception("Error: TryParse function call failed for _nd");
 					}
 
 					if (tokens.Length > 1)
 					{
 						if (!long.TryParse(tokens[1], out _ver))
 						{
-							// handle failure
+							throw new Exception("Error: TryParse function call failed for _ver");
 						}
 
 						if (!long.TryParse(tokens[2], out _nadv))
 						{
-							// handle failure
+							throw new Exception("Error: TryParse function call failed for _nadv");
 						}
 					}
 					else
@@ -120,14 +122,14 @@ namespace EamonDD.Game.Converters.EamonDeluxe
 
 						if (!long.TryParse(line.Trim(), out _ver))
 						{
-							// handle failure
+							throw new Exception("Error: TryParse function call failed for _ver");
 						}
 
 						line = file.ReadLine();
 
 						if (!long.TryParse(line.Trim(), out _nadv))
 						{
-							// handle failure
+							throw new Exception("Error: TryParse function call failed for _nadv");
 						}
 					}
 
@@ -147,24 +149,24 @@ namespace EamonDD.Game.Converters.EamonDeluxe
 
 							if (!long.TryParse(tokens[0], out edxa._nr))
 							{
-								// handle failure
+								throw new Exception(string.Format("Error: TryParse function call failed for record number {0} _nr", i));
 							}
 
 							if (tokens.Length > 1)
 							{
 								if (!long.TryParse(tokens[1], out edxa._na))
 								{
-									// handle failure
+									throw new Exception(string.Format("Error: TryParse function call failed for record number {0} _na", i));
 								}
 
 								if (!long.TryParse(tokens[2], out edxa._ne))
 								{
-									// handle failure
+									throw new Exception(string.Format("Error: TryParse function call failed for record number {0} _ne", i));
 								}
 
 								if (!long.TryParse(tokens[3], out edxa._nm))
 								{
-									// handle failure
+									throw new Exception(string.Format("Error: TryParse function call failed for record number {0} _nm", i));
 								}
 							}
 							else
@@ -173,21 +175,21 @@ namespace EamonDD.Game.Converters.EamonDeluxe
 
 								if (!long.TryParse(line.Trim(), out edxa._na))
 								{
-									// handle failure
+									throw new Exception(string.Format("Error: TryParse function call failed for record number {0} _na", i));
 								}
 
 								line = file.ReadLine();
 
 								if (!long.TryParse(line.Trim(), out edxa._ne))
 								{
-									// handle failure
+									throw new Exception(string.Format("Error: TryParse function call failed for record number {0} _ne", i));
 								}
 
 								line = file.ReadLine();
 
 								if (!long.TryParse(line.Trim(), out edxa._nm))
 								{
-									// handle failure
+									throw new Exception(string.Format("Error: TryParse function call failed for record number {0} _nm", i));
 								}
 							}
 
@@ -197,29 +199,29 @@ namespace EamonDD.Game.Converters.EamonDeluxe
 
 							if (!long.TryParse(tokens[0], out edxa._rptr))
 							{
-								// handle failure
+								throw new Exception(string.Format("Error: TryParse function call failed for record number {0} _rptr", i));
 							}
 
 							if (tokens.Length > 1)
 							{
 								if (!long.TryParse(tokens[1], out edxa._aptr))
 								{
-									// handle failure
+									throw new Exception(string.Format("Error: TryParse function call failed for record number {0} _aptr", i));
 								}
 
 								if (!long.TryParse(tokens[2], out edxa._eptr))
 								{
-									// handle failure
+									throw new Exception(string.Format("Error: TryParse function call failed for record number {0} _eptr", i));
 								}
 
 								if (!long.TryParse(tokens[3], out edxa._mptr))
 								{
-									// handle failure
+									throw new Exception(string.Format("Error: TryParse function call failed for record number {0} _mptr", i));
 								}
 
 								if (!long.TryParse(tokens[4], out edxa._nd))
 								{
-									// handle failure
+									throw new Exception(string.Format("Error: TryParse function call failed for record number {0} _nd", i));
 								}
 							}
 							else
@@ -228,28 +230,28 @@ namespace EamonDD.Game.Converters.EamonDeluxe
 
 								if (!long.TryParse(line.Trim(), out edxa._aptr))
 								{
-									// handle failure
+									throw new Exception(string.Format("Error: TryParse function call failed for record number {0} _aptr", i));
 								}
 
 								line = file.ReadLine();
 
 								if (!long.TryParse(line.Trim(), out edxa._eptr))
 								{
-									// handle failure
+									throw new Exception(string.Format("Error: TryParse function call failed for record number {0} _eptr", i));
 								}
 
 								line = file.ReadLine();
 
 								if (!long.TryParse(line.Trim(), out edxa._mptr))
 								{
-									// handle failure
+									throw new Exception(string.Format("Error: TryParse function call failed for record number {0} _mptr", i));
 								}
 
 								line = file.ReadLine();
 
 								if (!long.TryParse(line.Trim(), out edxa._nd))
 								{
-									// handle failure
+									throw new Exception(string.Format("Error: TryParse function call failed for record number {0} _nd", i));
 								}
 							}
 
@@ -278,12 +280,18 @@ namespace EamonDD.Game.Converters.EamonDeluxe
 			} 
 			catch (Exception ex)
 			{
-				// handle failure
+				Globals.Error.WriteLine("{0}{1}", Environment.NewLine, ex.Message);
+
+				result = false;
 			}
+
+			return result;
 		}
 
-		public void LoadEDXHintList(params long[] hintNums)			// Note: Hint numbers are 1-based
+		public bool LoadEDXHintList(params long[] hintNums)			// Note: Hint numbers are 1-based
 		{
+			var result = true;
+
 			try
 			{
 				var line = "";
@@ -296,7 +304,7 @@ namespace EamonDD.Game.Converters.EamonDeluxe
 
 					if (!long.TryParse(line.Trim(), out _nh))
 					{
-						// handle failure
+						throw new Exception("Error: TryParse function call failed for _nh");
 					}
 
 					for (var i = 0; i < _nh; i++)
@@ -313,14 +321,14 @@ namespace EamonDD.Game.Converters.EamonDeluxe
 
 						if (!long.TryParse(tokens[0], out edxh._hptr))
 						{
-							// handle failure
+							throw new Exception(string.Format("Error: TryParse function call failed for record number {0} _hptr", i));
 						}
 
 						if (tokens.Length > 1)
 						{
 							if (!long.TryParse(tokens[1], out edxh._nh))
 							{
-								// handle failure
+								throw new Exception(string.Format("Error: TryParse function call failed for record number {0} _nh", i));
 							}
 						}
 						else
@@ -329,7 +337,7 @@ namespace EamonDD.Game.Converters.EamonDeluxe
 
 							if (!long.TryParse(line.Trim(), out edxh._nh))
 							{
-								// handle failure
+								throw new Exception(string.Format("Error: TryParse function call failed for record number {0} _nh", i));
 							}
 						}
 
@@ -342,12 +350,18 @@ namespace EamonDD.Game.Converters.EamonDeluxe
 			}
 			catch (Exception ex)
 			{
-				// handle failure
+				Globals.Error.WriteLine("{0}{1}", Environment.NewLine, ex.Message);
+
+				result = false;
 			}
+
+			return result;
 		}
 
-		public void ConvertEDXAdventures()
+		public bool ConvertEDXAdventures()
 		{
+			var result = true;
+
 			try
 			{
 				var roomDatFile = Globals.Path.Combine(AdventureFolderPath, "ROOMS.DAT");
@@ -458,12 +472,18 @@ namespace EamonDD.Game.Converters.EamonDeluxe
 			}
 			catch (Exception ex)
 			{
-				// handle failure
+				Globals.Error.WriteLine("{0}{1}", Environment.NewLine, ex.Message);
+
+				result = false;
 			}
+
+			return result;
 		}
 
-		public void ConvertEDXHints()
+		public bool ConvertEDXHints()
 		{
+			var result = true;
+
 			try
 			{
 				var hintDscFile = Globals.Path.Combine(AdventureFolderPath, "HINTS.DSC");
@@ -487,8 +507,12 @@ namespace EamonDD.Game.Converters.EamonDeluxe
 			}
 			catch (Exception ex)
 			{
-				// handle failure
+				Globals.Error.WriteLine("{0}{1}", Environment.NewLine, ex.Message);
+
+				result = false;
 			}
+
+			return result;
 		}
 
 		public EDXAdventureConverter()

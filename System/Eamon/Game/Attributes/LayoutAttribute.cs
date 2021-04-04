@@ -15,7 +15,7 @@ namespace Eamon.Game.Attributes
 	[AttributeUsage(AttributeTargets.Field)]
 	public class LayoutAttribute : Attribute
 	{
-		public int _length;
+		protected int _length;
 
 		public int length
 		{
