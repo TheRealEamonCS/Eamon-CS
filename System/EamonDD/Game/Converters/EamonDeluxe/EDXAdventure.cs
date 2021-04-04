@@ -37,7 +37,7 @@ namespace EamonDD.Game.Converters.EamonDeluxe
 
 		public virtual IList<EDXDesc> EffectList { get; set; }
 
-		public virtual string AdvName { get; set; }
+		public virtual string Name { get; set; }
 
 		public EDXAdventure()
 		{
