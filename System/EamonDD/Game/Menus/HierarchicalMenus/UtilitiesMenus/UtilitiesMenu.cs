@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using Eamon.Framework.Menus;
 using Eamon.Game.Attributes;
 using Eamon.Game.Menus;
@@ -36,6 +37,16 @@ namespace EamonDD.Game.Menus.HierarchicalMenus
 
 			if (gEngine.IsAdventureFilesetLoaded())
 			{
+				if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows) || RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+				{
+					MenuItemList.Add(Globals.CreateInstance<IMenuItem>(x =>
+					{
+						x.SelectChar = (char)('1' + MenuItemList.Count);
+						x.LineText = string.Format("{0}{1}. Adventure conversion.", Environment.NewLine, MenuItemList.Count + 1);
+						x.SubMenu = Globals.CreateInstance<IAdventureConversionMenu>();
+					}));
+				}
+
 				MenuItemList.Add(Globals.CreateInstance<IMenuItem>(x =>
 				{
 					x.SelectChar = (char)('1' + MenuItemList.Count);
