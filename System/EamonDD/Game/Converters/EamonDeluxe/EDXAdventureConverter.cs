@@ -27,6 +27,8 @@ namespace EamonDD.Game.Converters.EamonDeluxe
 
 		public string AdventureFolderPath { get; set; }
 
+		public string ErrorMessage { get; set; }
+
 		public bool LoadAdventureList(params long[] advNums)         // Note: Adventure numbers are 1-based
 		{
 			var result = true;
@@ -280,7 +282,7 @@ namespace EamonDD.Game.Converters.EamonDeluxe
 			} 
 			catch (Exception ex)
 			{
-				Globals.Error.WriteLine("{0}{1}", Environment.NewLine, ex.Message);
+				ErrorMessage = ex.Message;
 
 				result = false;
 			}
@@ -350,7 +352,7 @@ namespace EamonDD.Game.Converters.EamonDeluxe
 			}
 			catch (Exception ex)
 			{
-				Globals.Error.WriteLine("{0}{1}", Environment.NewLine, ex.Message);
+				ErrorMessage = ex.Message;
 
 				result = false;
 			}
@@ -472,7 +474,7 @@ namespace EamonDD.Game.Converters.EamonDeluxe
 			}
 			catch (Exception ex)
 			{
-				Globals.Error.WriteLine("{0}{1}", Environment.NewLine, ex.Message);
+				ErrorMessage = ex.Message;
 
 				result = false;
 			}
@@ -507,7 +509,7 @@ namespace EamonDD.Game.Converters.EamonDeluxe
 			}
 			catch (Exception ex)
 			{
-				Globals.Error.WriteLine("{0}{1}", Environment.NewLine, ex.Message);
+				ErrorMessage = ex.Message;
 
 				result = false;
 			}
