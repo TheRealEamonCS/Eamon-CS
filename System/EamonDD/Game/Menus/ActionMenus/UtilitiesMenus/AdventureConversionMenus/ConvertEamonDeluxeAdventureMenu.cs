@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using Eamon;
 using Eamon.Framework;
 using Eamon.Framework.Primitive.Enums;
@@ -251,6 +252,12 @@ namespace EamonDD.Game.Menus.ActionMenus
 				{
 					edxRoom._rname = edxRoom._rname.Substring(8);
 				}
+				else if (edxRoom._rname.StartsWith("You Stand", StringComparison.OrdinalIgnoreCase))
+				{
+					edxRoom._rname = edxRoom._rname.Substring(10);
+				}
+
+				edxRoom._rname = Regex.Replace(edxRoom._rname, @"[.!?]* *\(.*\)$", "");
 
 				edxRoom._rdesc = edxRoom._rdesc.Trim();
 
