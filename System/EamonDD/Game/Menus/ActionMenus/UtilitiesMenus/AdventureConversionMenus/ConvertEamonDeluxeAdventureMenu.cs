@@ -257,7 +257,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 					edxRoom._rname = edxRoom._rname.Substring(10);
 				}
 
-				edxRoom._rname = Regex.Replace(edxRoom._rname, @"[.!?]* *\(.*\)$", "");
+				edxRoom._rname = Regex.Replace(edxRoom._rname, @"[ .!?]*(\(.*\))?[ .!?]*$", "");
 
 				edxRoom._rdesc = edxRoom._rdesc.Trim();
 
@@ -273,27 +273,27 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 					x.Zone = 1;
 
-					x.Dirs[(int)Direction.North] = edxRoom._rd1;
+					x.SetDirs(Direction.North, edxRoom._rd1);
 
-					x.Dirs[(int)Direction.South] = edxRoom._rd2;
+					x.SetDirs(Direction.South, edxRoom._rd2);
 
-					x.Dirs[(int)Direction.East] = edxRoom._rd3;
+					x.SetDirs(Direction.East, edxRoom._rd3);
 
-					x.Dirs[(int)Direction.West] = edxRoom._rd4;
+					x.SetDirs(Direction.West, edxRoom._rd4);
 
-					x.Dirs[(int)Direction.Up] = edxRoom._rd5;
+					x.SetDirs(Direction.Up, edxRoom._rd5);
 
-					x.Dirs[(int)Direction.Down] = edxRoom._rd6;
+					x.SetDirs(Direction.Down, edxRoom._rd6);
 
 					if (edxAdv._nd != 6)
 					{
-						x.Dirs[(int)Direction.Northeast] = edxRoom._rd7;
+						x.SetDirs(Direction.Northeast, edxRoom._rd7);
 
-						x.Dirs[(int)Direction.Northwest] = edxRoom._rd8;
+						x.SetDirs(Direction.Northwest, edxRoom._rd8);
 
-						x.Dirs[(int)Direction.Southeast] = edxRoom._rd9;
+						x.SetDirs(Direction.Southeast, edxRoom._rd9);
 
-						x.Dirs[(int)Direction.Southwest] = edxRoom._rd10;
+						x.SetDirs(Direction.Southwest, edxRoom._rd10);
 					}
 				});
 
@@ -302,13 +302,29 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			Globals.RoomsModified = true;
 
-
-
 			Globals.Database.FreeArtifacts();
 
 			Globals.ArtifactsModified = true;
 
 			Globals.Database.FreeEffects();
+
+			for (var i = 0; i < edxAdv._ne; i++)
+			{
+				var edxEffect = edxAdv.EffectList[i];
+
+				Debug.Assert(edxEffect != null);
+
+				edxEffect._text = edxEffect._text.Trim();
+
+				var effect = Globals.CreateInstance<IEffect>(x =>
+				{
+					x.Uid = Globals.Database.GetEffectUid();
+
+					x.Desc = edxEffect._text.Truncate(Constants.EffDescLen);
+				});
+
+				Globals.Database.AddEffect(effect);
+			}
 
 			Globals.EffectsModified = true;
 
@@ -317,6 +333,39 @@ namespace EamonDD.Game.Menus.ActionMenus
 			Globals.MonstersModified = true;
 
 			Globals.Database.FreeHints();
+
+			for (var i = 0; i < edxHintList.Count; i++)
+			{
+				var edxHint = edxHintList[i];
+
+				Debug.Assert(edxHint != null);
+
+				edxHint.Question = edxHint.Question.Trim();
+
+				var hint = Globals.CreateInstance<IHint>(x =>
+				{
+					x.Uid = Globals.Database.GetHintUid();
+
+					x.Active = true;
+
+					x.Question = edxHint.Question.Truncate(Constants.HntQuestionLen);
+
+					x.NumAnswers = edxHint._nh;
+
+					for (var j = 0; j < edxHint._nh; j++)
+					{
+						var edxAnswer = edxHint.AnswerList[j];
+
+						Debug.Assert(edxAnswer != null);
+
+						edxAnswer._text = edxAnswer._text.Trim();
+
+						x.SetAnswers(j, edxAnswer._text.Truncate(Constants.HntAnswerLen));
+					}
+				});
+
+				Globals.Database.AddHint(hint);
+			}
 
 			Globals.HintsModified = true;
 
@@ -327,7 +376,6 @@ namespace EamonDD.Game.Menus.ActionMenus
 			Globals.Database.FreeScripts();
 
 			Globals.ScriptsModified = true;
-
 
 		Cleanup:
 
