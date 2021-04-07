@@ -13,6 +13,18 @@ namespace TheVileGrimoireOfJaldial.Game.States
 	[ClassMappings]
 	public class PlayerMoveCheckState : EamonRT.Game.States.PlayerMoveCheckState, IPlayerMoveCheckState
 	{
+		public override void PrintRideOffIntoSunset()
+		{
+			if (gGameState.IsNightTime())
+			{
+				gOut.Print("You successfully ride off into the moonlight.");
+			}
+			else
+			{
+				base.PrintRideOffIntoSunset();
+			}
+		}
+
 		public override void ProcessEvents(EventType eventType)
 		{
 			if (eventType == EventType.AfterBlockingArtifactCheck && gGameState.R2 == -17)

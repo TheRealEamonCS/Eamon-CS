@@ -40,7 +40,7 @@ namespace Eamon.Game.Plugin
 
 		public virtual int HntAnswerLen { get; protected set; } = 256;
 
-		public virtual int ModNameLen { get; protected set; } = 40;
+		public virtual int ModNameLen { get; protected set; } = 50;
 
 		public virtual int ModDescLen { get; protected set; } = 256;
 
@@ -56,7 +56,7 @@ namespace Eamon.Game.Plugin
 
 		public virtual int MonDescLen { get; protected set; } = 256;
 
-		public virtual int RmNameLen { get; protected set; } = 40;
+		public virtual int RmNameLen { get; protected set; } = 50;
 
 		public virtual int RmDescLen { get; protected set; } = 256;
 

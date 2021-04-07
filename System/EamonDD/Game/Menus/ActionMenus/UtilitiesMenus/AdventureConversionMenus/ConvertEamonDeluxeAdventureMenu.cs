@@ -9,7 +9,10 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using Eamon;
+using Eamon.Framework;
+using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
+using Eamon.Game.Extensions;
 using Eamon.Game.Menus;
 using EamonDD.Framework.Menus.ActionMenus;
 using EamonDD.Game.Converters.EamonDeluxe;
@@ -201,6 +204,108 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			Globals.PushDatabase();
 
+			Globals.ModulesModified = true;
+
+			Globals.RoomsModified = true;
+
+			Globals.ArtifactsModified = true;
+
+			Globals.EffectsModified = true;
+
+			Globals.MonstersModified = true;
+
+			Globals.HintsModified = true;
+
+			Globals.TriggersModified = true;
+
+			Globals.ScriptsModified = true;
+
+			var module = Globals.CreateInstance<IModule>(x =>
+			{
+				x.Uid = Globals.Database.GetModuleUid();
+
+				x.Name = edxAdv.Name.Trim().Truncate(Constants.ModNameLen);
+
+				x.Desc = "TODO";
+
+				x.Author = "TODO";
+
+				x.VolLabel = "TODO";
+
+				x.SerialNum = "000";
+
+				x.LastMod = DateTime.Now;
+
+				x.NumDirs = edxAdv._nd != 6 ? 12 : 6;
+
+				x.NumRooms = edxAdv._nr;
+
+				x.NumArtifacts = edxAdv._na;
+
+				x.NumEffects = edxAdv._ne;
+
+				x.NumMonsters = edxAdv._nm;
+
+				x.NumHints = edxHintList.Count;
+			});
+
+			Globals.Database.AddModule(module);
+
+			Globals.Module = module;
+
+			for (var i = 0; i < edxAdv._nr; i++)
+			{
+				var edxRoom = edxAdv.RoomList[i];
+
+				Debug.Assert(edxRoom != null);
+
+				edxRoom._rname = edxRoom._rname.Trim();
+
+				if (edxRoom._rname.StartsWith("You are", StringComparison.OrdinalIgnoreCase))
+				{
+					edxRoom._rname = edxRoom._rname.Substring(8).FirstCharToUpper();
+				}
+
+				edxRoom._rdesc = edxRoom._rdesc.Trim();
+
+				var room = Globals.CreateInstance<IRoom>(x =>
+				{
+					x.Uid = Globals.Database.GetRoomUid();
+
+					x.Name = edxRoom._rname.Truncate(Constants.RmNameLen);
+
+					x.Desc = edxRoom._rdesc.Truncate(Constants.RmDescLen);
+
+					x.LightLvl = edxRoom._rlight != 0 ? LightLevel.Light : LightLevel.Dark;
+
+					x.Zone = 1;
+
+					x.Dirs[(int)Direction.North] = edxRoom._rd1;
+
+					x.Dirs[(int)Direction.South] = edxRoom._rd2;
+
+					x.Dirs[(int)Direction.East] = edxRoom._rd3;
+
+					x.Dirs[(int)Direction.West] = edxRoom._rd4;
+
+					x.Dirs[(int)Direction.Up] = edxRoom._rd5;
+
+					x.Dirs[(int)Direction.Down] = edxRoom._rd6;
+
+					if (edxAdv._nd != 6)
+					{
+						x.Dirs[(int)Direction.Northeast] = edxRoom._rd7;
+
+						x.Dirs[(int)Direction.Northwest] = edxRoom._rd8;
+
+						x.Dirs[(int)Direction.Southeast] = edxRoom._rd9;
+
+						x.Dirs[(int)Direction.Southwest] = edxRoom._rd10;
+					}
+				});
+
+				Globals.Database.AddRoom(room);
+			}
 
 
 
