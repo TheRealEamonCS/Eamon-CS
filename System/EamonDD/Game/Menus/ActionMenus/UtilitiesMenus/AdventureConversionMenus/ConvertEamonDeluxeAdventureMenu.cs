@@ -200,25 +200,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			Globals.Module = null;
 
-			Globals.PopDatabase();
-
-			Globals.PushDatabase();
-
-			Globals.ModulesModified = true;
-
-			Globals.RoomsModified = true;
-
-			Globals.ArtifactsModified = true;
-
-			Globals.EffectsModified = true;
-
-			Globals.MonstersModified = true;
-
-			Globals.HintsModified = true;
-
-			Globals.TriggersModified = true;
-
-			Globals.ScriptsModified = true;
+			Globals.Database.ModuleTable.Records.Clear();
 
 			var module = Globals.CreateInstance<IModule>(x =>
 			{
@@ -251,7 +233,11 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			Globals.Database.AddModule(module);
 
+			Globals.ModulesModified = true;
+
 			Globals.Module = module;
+
+			Globals.Database.RoomTable.Records.Clear();
 
 			for (var i = 0; i < edxAdv._nr; i++)
 			{
@@ -259,11 +245,11 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 				Debug.Assert(edxRoom != null);
 
-				edxRoom._rname = edxRoom._rname.Trim();
+				edxRoom._rname = edxRoom._rname.Trim().ToTitleCase();
 
-				if (edxRoom._rname.StartsWith("You are", StringComparison.OrdinalIgnoreCase))
+				if (edxRoom._rname.StartsWith("You Are", StringComparison.OrdinalIgnoreCase))
 				{
-					edxRoom._rname = edxRoom._rname.Substring(8).FirstCharToUpper();
+					edxRoom._rname = edxRoom._rname.Substring(8);
 				}
 
 				edxRoom._rdesc = edxRoom._rdesc.Trim();
@@ -307,7 +293,33 @@ namespace EamonDD.Game.Menus.ActionMenus
 				Globals.Database.AddRoom(room);
 			}
 
+			Globals.RoomsModified = true;
 
+
+
+			Globals.Database.ArtifactTable.Records.Clear();
+
+			Globals.ArtifactsModified = true;
+
+			Globals.Database.EffectTable.Records.Clear();
+
+			Globals.EffectsModified = true;
+
+			Globals.Database.MonsterTable.Records.Clear();
+
+			Globals.MonstersModified = true;
+
+			Globals.Database.HintTable.Records.Clear();
+
+			Globals.HintsModified = true;
+
+			Globals.Database.TriggerTable.Records.Clear();
+
+			Globals.TriggersModified = true;
+
+			Globals.Database.ScriptTable.Records.Clear();
+
+			Globals.ScriptsModified = true;
 
 
 		Cleanup:
