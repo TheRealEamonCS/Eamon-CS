@@ -200,7 +200,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			Globals.Module = null;
 
-			Globals.Database.ModuleTable.Records.Clear();
+			Globals.Database.FreeModules();
 
 			var module = Globals.CreateInstance<IModule>(x =>
 			{
@@ -237,7 +237,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			Globals.Module = module;
 
-			Globals.Database.RoomTable.Records.Clear();
+			Globals.Database.FreeRooms();
 
 			for (var i = 0; i < edxAdv._nr; i++)
 			{
@@ -297,27 +297,27 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 
 
-			Globals.Database.ArtifactTable.Records.Clear();
+			Globals.Database.FreeArtifacts();
 
 			Globals.ArtifactsModified = true;
 
-			Globals.Database.EffectTable.Records.Clear();
+			Globals.Database.FreeEffects();
 
 			Globals.EffectsModified = true;
 
-			Globals.Database.MonsterTable.Records.Clear();
+			Globals.Database.FreeMonsters();
 
 			Globals.MonstersModified = true;
 
-			Globals.Database.HintTable.Records.Clear();
+			Globals.Database.FreeHints();
 
 			Globals.HintsModified = true;
 
-			Globals.Database.TriggerTable.Records.Clear();
+			Globals.Database.FreeTriggers();
 
 			Globals.TriggersModified = true;
 
-			Globals.Database.ScriptTable.Records.Clear();
+			Globals.Database.FreeScripts();
 
 			Globals.ScriptsModified = true;
 
