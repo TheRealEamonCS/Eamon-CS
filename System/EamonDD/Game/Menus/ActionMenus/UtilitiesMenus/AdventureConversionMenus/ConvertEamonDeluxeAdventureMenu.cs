@@ -259,7 +259,17 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 				edxRoom._rname = Regex.Replace(edxRoom._rname, @"[ .!?]*(\(.*\))?[ .!?]*$", "");
 
+				if (edxRoom._rname.Length <= 0)
+				{
+					edxRoom._rname = "UNUSED";
+				}
+
 				edxRoom._rdesc = edxRoom._rdesc.Trim();
+
+				if (edxRoom._rdesc.Length <= 0)
+				{
+					edxRoom._rdesc = "UNUSED";
+				}
 
 				var room = Globals.CreateInstance<IRoom>(x =>
 				{
@@ -316,6 +326,11 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 				edxEffect._text = edxEffect._text.Trim();
 
+				if (edxEffect._text.Length <= 0)
+				{
+					edxEffect._text = "UNUSED";
+				}
+
 				var effect = Globals.CreateInstance<IEffect>(x =>
 				{
 					x.Uid = Globals.Database.GetEffectUid();
@@ -330,6 +345,72 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			Globals.Database.FreeMonsters();
 
+			for (var i = 0; i < edxAdv._nm; i++)
+			{
+				var edxMonster = edxAdv.MonsterList[i];
+
+				Debug.Assert(edxMonster != null);
+
+				edxMonster._mname = edxMonster._mname.Trim();
+
+				if (edxMonster._mname.Length <= 0)
+				{
+					edxMonster._mname = "UNUSED";
+				}
+
+				edxMonster._mdesc = edxMonster._mdesc.Trim();
+
+				if (edxMonster._mdesc.Length <= 0)
+				{
+					edxMonster._mdesc = "UNUSED";
+				}
+
+				var monster = Globals.CreateInstance<IMonster>(x =>
+				{
+					x.Uid = Globals.Database.GetMonsterUid();
+
+					x.Name = edxMonster._mname.Truncate(Constants.MonNameLen);
+
+					x.Desc = edxMonster._mdesc.Truncate(Constants.MonDescLen);
+
+					x.IsListed = true;
+
+					x.Hardiness = edxMonster._md1;
+
+					x.Agility = edxMonster._md2;
+
+					x.GroupCount = edxMonster._md3;
+
+					x.AttackCount = 1;
+
+					x.Courage = edxMonster._md4;
+
+					x.Location = edxMonster._md5;
+
+					x.CombatCode = (CombatCode)edxMonster._md6;
+
+					x.Armor = edxMonster._md7;
+
+					x.Weapon = edxMonster._md8;
+
+					x.NwDice = edxMonster._md9;
+
+					x.NwSides = edxMonster._md10;
+
+					x.Friendliness = (Friendliness)edxMonster._md11;
+
+					x.Gender = Gender.Neutral;
+
+					x.Field1 = edxMonster._md12;
+
+					x.Field2 = edxMonster._md13;
+				});
+
+				// TODO: verify monster.Name contains no illegal tokens
+
+				Globals.Database.AddMonster(monster);
+			}
+
 			Globals.MonstersModified = true;
 
 			Globals.Database.FreeHints();
@@ -341,6 +422,11 @@ namespace EamonDD.Game.Menus.ActionMenus
 				Debug.Assert(edxHint != null);
 
 				edxHint.Question = edxHint.Question.Trim();
+
+				if (edxHint.Question.Length <= 0)
+				{
+					edxHint.Question = "UNUSED";
+				}
 
 				var hint = Globals.CreateInstance<IHint>(x =>
 				{
