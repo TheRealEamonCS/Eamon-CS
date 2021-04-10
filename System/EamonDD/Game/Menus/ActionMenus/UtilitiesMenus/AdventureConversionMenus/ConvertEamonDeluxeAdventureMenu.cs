@@ -24,6 +24,8 @@ namespace EamonDD.Game.Menus.ActionMenus
 	[ClassMappings]
 	public class ConvertEamonDeluxeAdventureMenu : Menu, IConvertEamonDeluxeAdventureMenu
 	{
+		public virtual ArtifactType[] ArtifactTypeMappings { get; set; }
+
 		public override void Execute()
 		{
 			RetCode rc;
@@ -314,6 +316,107 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			Globals.Database.FreeArtifacts();
 
+			for (var i = 0; i < edxAdv._na; i++)
+			{
+				var edxArtifact = edxAdv.ArtifactList[i];
+
+				Debug.Assert(edxArtifact != null);
+
+				edxArtifact._artname = edxArtifact._artname.Trim();
+
+				if (edxArtifact._artname.Length <= 0)
+				{
+					edxArtifact._artname = "UNUSED";
+				}
+
+				edxArtifact._artdesc = edxArtifact._artdesc.Trim();
+
+				if (edxArtifact._artdesc.Length <= 0)
+				{
+					edxArtifact._artdesc = "UNUSED";
+				}
+
+				var artifact = Globals.CreateInstance<IArtifact>(x =>
+				{
+					x.Uid = Globals.Database.GetArtifactUid();
+
+					x.Name = edxArtifact._artname.Truncate(Constants.ArtNameLen);
+
+					x.Desc = edxArtifact._artdesc.Truncate(Constants.ArtDescLen);
+
+					x.IsListed = true;
+
+					x.Value = edxArtifact._ad1;
+
+					x.Weight = edxArtifact._ad3;
+
+					if (edxArtifact._ad4 == -1)
+					{
+						x.SetCarriedByCharacter();
+					}
+					else if (edxArtifact._ad4 == -999)
+					{
+						x.SetWornByCharacter();
+					}
+					else if (edxArtifact._ad4 < -1 && edxArtifact._ad4 > -1001)
+					{
+						x.SetCarriedByMonsterUid(Math.Abs(edxArtifact._ad4) - 1);
+					}
+					else if (edxArtifact._ad4 < -1000 && edxArtifact._ad4 > -2000)
+					{
+						x.SetWornByMonsterUid(Math.Abs(edxArtifact._ad4) - 1000);
+					}
+					else if (edxArtifact._ad4 == 0)
+					{
+						x.SetInLimbo();
+					}
+					else if (edxArtifact._ad4 > 0 && edxArtifact._ad4 < 1000)
+					{
+						x.SetInRoomUid(edxArtifact._ad4);
+					}
+					else if (edxArtifact._ad4 > 1000 && edxArtifact._ad4 < 2000)
+					{
+						x.SetCarriedByContainerUid(edxArtifact._ad4 - 1000);
+					}
+					else if (edxArtifact._ad4 > 2000 && edxArtifact._ad4 < 3000)
+					{
+						x.SetEmbeddedInRoomUid(edxArtifact._ad4 - 2000);
+					}
+					else
+					{
+						x.Location = edxArtifact._ad4;
+					}
+
+					x.Type = ArtifactTypeMappings[edxArtifact._ad2];
+
+					x.Field1 = edxArtifact._ad5;
+
+					x.Field2 = edxArtifact._ad6;
+
+					if (edxArtifact._ad2 == 4)
+					{
+						// TODO: finish container Max weight held
+					}
+					else
+					{
+						x.Field3 = edxArtifact._ad7;
+					}
+
+					x.Field4 = edxArtifact._ad8;
+
+					if (edxArtifact._ad2 == 2 || edxArtifact._ad2 == 3)
+					{
+						x.Field5 = edxArtifact._ad6 == 2 ? 2 : 1;
+					}
+				});
+
+				artifact.SetArtifactCategoryCount(1);
+
+				// TODO: verify artifact.Name contains no illegal tokens
+
+				Globals.Database.AddArtifact(artifact);
+			}
+
 			Globals.ArtifactsModified = true;
 
 			Globals.Database.FreeEffects();
@@ -471,6 +574,27 @@ namespace EamonDD.Game.Menus.ActionMenus
 		public ConvertEamonDeluxeAdventureMenu()
 		{
 			Buf = Globals.Buf;
+
+			ArtifactTypeMappings = new ArtifactType[]
+			{
+				ArtifactType.Gold,
+				ArtifactType.Treasure,
+				ArtifactType.Weapon,
+				ArtifactType.MagicWeapon,
+				ArtifactType.InContainer,
+				ArtifactType.LightSource,
+				ArtifactType.Drinkable,
+				ArtifactType.Readable,
+				ArtifactType.DoorGate,
+				ArtifactType.Edible,
+				ArtifactType.BoundMonster,
+				ArtifactType.Wearable,
+				ArtifactType.DisguisedMonster,
+				ArtifactType.DeadBody,
+				ArtifactType.User1,
+				ArtifactType.User2,
+				ArtifactType.User3
+			};
 		}
 	}
 }
