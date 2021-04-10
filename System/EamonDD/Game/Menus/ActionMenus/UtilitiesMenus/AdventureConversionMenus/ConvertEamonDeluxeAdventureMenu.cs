@@ -11,6 +11,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using Eamon;
 using Eamon.Framework;
+using Eamon.Framework.Helpers;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using Eamon.Game.Extensions;
@@ -39,6 +40,10 @@ namespace EamonDD.Game.Menus.ActionMenus
 			var edxac = new EDXAdventureConverter();
 
 			gOut.Print("Converting an Eamon Deluxe adventure requires you to enter several key pieces of data.  This operation clears the in-memory database contents before loading converted records; if data already exists, you may want to abort this process and save the data before continuing.");
+
+			gOut.Print("After converting the adventure, you can modify its data to your liking and then save it by exiting EamonDD from the main menu.  Select 'Y' when asked whether you would like to keep it.");
+
+			gOut.Print("The conversion process minimally validates an adventure's data; upon reloading into any Eamon CS program, a thorough validation occurs.  You may find that the data needs manual repairs to get it to load successfully.");
 
 			gOut.Write("{0}Enter the full (absolute) path of the Eamon Deluxe adventure folder: ", Environment.NewLine);
 
@@ -316,6 +321,10 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			Globals.Database.FreeArtifacts();
 
+			var artifactHelper = Globals.CreateInstance<IArtifactHelper>();
+
+			Debug.Assert(artifactHelper != null);
+
 			for (var i = 0; i < edxAdv._na; i++)
 			{
 				var edxArtifact = edxAdv.ArtifactList[i];
@@ -412,7 +421,12 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 				artifact.SetArtifactCategoryCount(1);
 
-				// TODO: verify artifact.Name contains no illegal tokens
+				artifactHelper.Record = artifact;
+
+				if (!artifactHelper.ValidateField("Name"))
+				{
+					artifact.Name = "TODO";
+				}
 
 				Globals.Database.AddArtifact(artifact);
 			}
@@ -447,6 +461,10 @@ namespace EamonDD.Game.Menus.ActionMenus
 			Globals.EffectsModified = true;
 
 			Globals.Database.FreeMonsters();
+
+			var monsterHelper = Globals.CreateInstance<IMonsterHelper>();
+
+			Debug.Assert(monsterHelper != null);
 
 			for (var i = 0; i < edxAdv._nm; i++)
 			{
@@ -509,7 +527,12 @@ namespace EamonDD.Game.Menus.ActionMenus
 					x.Field2 = edxMonster._md13;
 				});
 
-				// TODO: verify monster.Name contains no illegal tokens
+				monsterHelper.Record = monster;
+
+				if (!monsterHelper.ValidateField("Name"))
+				{
+					monster.Name = "TODO";
+				}
 
 				Globals.Database.AddMonster(monster);
 			}
@@ -565,6 +588,8 @@ namespace EamonDD.Game.Menus.ActionMenus
 			Globals.Database.FreeScripts();
 
 			Globals.ScriptsModified = true;
+
+			gOut.Print("The adventure was converted.");
 
 		Cleanup:
 
