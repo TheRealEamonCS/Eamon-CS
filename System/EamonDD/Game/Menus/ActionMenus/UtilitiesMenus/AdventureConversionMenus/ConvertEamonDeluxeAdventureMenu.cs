@@ -402,11 +402,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 					x.Field2 = edxArtifact._ad6;
 
-					if (edxArtifact._ad2 == 4)
-					{
-						// TODO: finish container Max weight held
-					}
-					else
+					if (edxArtifact._ad2 != 4)
 					{
 						x.Field3 = edxArtifact._ad7;
 					}
@@ -429,6 +425,25 @@ namespace EamonDD.Game.Menus.ActionMenus
 				}
 
 				Globals.Database.AddArtifact(artifact);
+			}
+
+			var containerList = gADB.Records.Where(a => a.Type == ArtifactType.InContainer).ToList();
+
+			foreach (var container in containerList)
+			{
+				var containedList = container.GetContainedList();
+
+				var containedWeight = 0L;
+
+				foreach (var containedArtifact in containedList)
+				{
+					if (!containedArtifact.IsUnmovable())
+					{
+						containedWeight += containedArtifact.Weight;
+					}
+				}
+
+				container.Field3 = containedWeight;
 			}
 
 			Globals.ArtifactsModified = true;
