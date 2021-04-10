@@ -589,7 +589,9 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			Globals.ScriptsModified = true;
 
-			gOut.Print("The adventure was converted.");
+			gOut.Print("{0}", Globals.LineSep);
+
+			gOut.Print("The adventure was successfully converted.");
 
 		Cleanup:
 
