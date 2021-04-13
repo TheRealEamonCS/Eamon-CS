@@ -118,6 +118,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Bin\RiddlesOfTheDuergarQuarry.dll</HintPath>
     </Reference>
+    <Reference Include="BeginnersCaveII, Version=1.8.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Bin\BeginnersCaveII.dll</HintPath>
+    </Reference>
     <Reference Include="TheWayfarersInn, Version=1.8.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Bin\TheWayfarersInn.dll</HintPath>
@@ -550,6 +554,30 @@
     <AndroidAsset Include="Assets\Adventures\RiddlesOfTheDuergarQuarry\MONSTERS.DAT" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidAsset Include="Assets\Adventures\BeginnersCaveII\ROOMS.DAT" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\Adventures\BeginnersCaveII\ARTIFACTS.DAT" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\Adventures\BeginnersCaveII\EFFECTS.DAT" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\Adventures\BeginnersCaveII\HINTS.DAT" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\Adventures\BeginnersCaveII\MODULE.DAT" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\Adventures\BeginnersCaveII\MONSTERS.DAT" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\Adventures\BeginnersCaveII\TRIGGERS.DAT" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\Adventures\BeginnersCaveII\SCRIPTS.DAT" />
+  </ItemGroup>
+  <ItemGroup>
     <AndroidAsset Include="Assets\Adventures\TheWayfarersInn\ROOMS.DAT" />
   </ItemGroup>
   <ItemGroup>
@@ -613,6 +641,7 @@ xcopy "$(TargetDir)..\..\Adventures\WrenholdsSecretVigil\*.DAT" "$(TargetDir)..\
 xcopy "$(TargetDir)..\..\Adventures\LandOfTheMountainKing\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\LandOfTheMountainKing" /I /S /Y
 xcopy "$(TargetDir)..\..\Adventures\TheVileGrimoireOfJaldial\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\TheVileGrimoireOfJaldial" /I /S /Y
 xcopy "$(TargetDir)..\..\Adventures\RiddlesOfTheDuergarQuarry\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\RiddlesOfTheDuergarQuarry" /I /S /Y
+xcopy "$(TargetDir)..\..\Adventures\BeginnersCaveII\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\BeginnersCaveII" /I /S /Y
 xcopy "$(TargetDir)..\..\Adventures\TheWayfarersInn\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\TheWayfarersInn" /I /S /Y
 </PreBuildEvent>
   </PropertyGroup>

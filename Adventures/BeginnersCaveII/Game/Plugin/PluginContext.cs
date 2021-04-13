@@ -45,5 +45,29 @@ namespace BeginnersCaveII.Game.Plugin
 				return (IRecordDb<Eamon.Framework.IRoom>)EamonRT.Game.Plugin.PluginContext.gRDB;
 			}
 		}
+
+		public static IRecordDb<Eamon.Framework.IArtifact> gADB
+		{
+			get
+			{
+				return (IRecordDb<Eamon.Framework.IArtifact>)EamonRT.Game.Plugin.PluginContext.gADB;
+			}
+		}
+
+		public static Eamon.Framework.IGameState gGameState
+		{
+			get
+			{
+				return (Eamon.Framework.IGameState)EamonRT.Game.Plugin.PluginContext.gGameState;
+			}
+		}
+
+		public static Eamon.Framework.ICharacter gCharacter
+		{
+			get
+			{
+				return (Eamon.Framework.ICharacter)EamonRT.Game.Plugin.PluginContext.gCharacter;
+			}
+		}
 	}
 }
