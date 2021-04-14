@@ -191,5 +191,10 @@ namespace EamonRT.Framework.Primitive.Enums
 		/// An event that fires after checking whether exits are available for fleeing, and it resolves that there are.
 		/// </summary>
 		AfterNumberOfExitsCheck,
+
+		/// <summary>
+		/// An event that fires after the player readies an <see cref="IArtifact">Artifact</see>.
+		/// </summary>
+		AfterArtifactReady,
 	}
 }

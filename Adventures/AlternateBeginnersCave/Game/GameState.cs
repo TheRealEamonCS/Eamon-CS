@@ -12,6 +12,13 @@ namespace AlternateBeginnersCave.Game
 	[ClassMappings(typeof(IGameState))]
 	public class GameState : Eamon.Game.GameState, Framework.IGameState
 	{
+		/// <summary></summary>
+		public virtual long MagicDaggerCounter { get; set; }
 
+		/// <summary></summary>
+		public virtual bool OpenedBox { get; set; }
+
+		/// <summary></summary>
+		public virtual bool DrankVial { get; set; }
 	}
 }

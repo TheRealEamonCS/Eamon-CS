@@ -9,6 +9,17 @@ namespace AlternateBeginnersCave.Framework
 {
 	public interface IGameState : Eamon.Framework.IGameState
 	{
+		#region Properties
 
+		/// <summary></summary>
+		long MagicDaggerCounter { get; set; }
+
+		/// <summary></summary>
+		bool OpenedBox { get; set; }
+
+		/// <summary></summary>
+		bool DrankVial { get; set; }
+
+		#endregion
 	}
 }

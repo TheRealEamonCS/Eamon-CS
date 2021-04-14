@@ -46,6 +46,22 @@ namespace AlternateBeginnersCave.Game
 			return artifact;
 		}
 
+		public override void ResetMonsterStats(IMonster monster)
+		{
+			Debug.Assert(monster != null && monster.IsCharacterMonster());
+
+			base.ResetMonsterStats(monster);
+
+			// Eighty-six the weird magic dagger-related Hardiness increase upon exit
+
+			if (gGameState.MagicDaggerCounter > 0)
+			{
+				monster.Hardiness -= 5;
+
+				gGameState.MagicDaggerCounter = -1;
+			}
+		}
+
 		public override void ConvertToCarriedInventory(IList<IArtifact> weaponList)
 		{
 			for (var i = 0; i < gGameState.HeldWpnUids.Length; i++)
