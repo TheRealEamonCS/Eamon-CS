@@ -64,7 +64,7 @@ namespace EamonRT.Game.Commands
 				goto Cleanup;
 			}
 
-			ProcessEvents(EventType.BeforeArtifactReadTextPrint);
+			ProcessEvents(EventType.BeforePrintArtifactReadText);
 
 			if (GotoCleanup)
 			{
@@ -93,7 +93,7 @@ namespace EamonRT.Game.Commands
 				gOut.Write("{0}", Globals.Buf);
 			}
 
-			ProcessEvents(EventType.AfterArtifactRead);
+			ProcessEvents(EventType.AfterReadArtifact);
 
 			if (GotoCleanup)
 			{

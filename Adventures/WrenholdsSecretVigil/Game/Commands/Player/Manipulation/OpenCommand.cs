@@ -70,7 +70,7 @@ namespace WrenholdsSecretVigil.Game.Commands
 		{
 			// Try to open running device, all flee
 
-			if (eventType == EventType.AfterArtifactOpenPrint && DobjArtifact.Uid == 44)
+			if (eventType == EventType.AfterPrintArtifactOpen && DobjArtifact.Uid == 44)
 			{
 				Globals.DeviceOpened = true;
 

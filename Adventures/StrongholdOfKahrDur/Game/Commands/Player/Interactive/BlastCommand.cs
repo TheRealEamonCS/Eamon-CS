@@ -22,7 +22,7 @@ namespace StrongholdOfKahrDur.Game.Commands
 
 			// Necromancer cannot be blasted unless wearing Wizard's Helm
 
-			if (eventType == EventType.AfterMonsterGetsAggravated && DobjMonster != null && DobjMonster.Uid == 22 && !helmArtifact.IsWornByCharacter())
+			if (eventType == EventType.AfterAggravateMonster && DobjMonster != null && DobjMonster.Uid == 22 && !helmArtifact.IsWornByCharacter())
 			{
 				var rl = gEngine.RollDice(1, 4, 56);
 

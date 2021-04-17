@@ -77,7 +77,7 @@ namespace EamonRT.Game.Commands
 				DobjArtAc.Field2--;
 			}
 
-			ProcessEvents(EventType.BeforeArtifactNowEmptyCheck);
+			ProcessEvents(EventType.BeforeNowEmptyArtifactCheck);
 
 			if (GotoCleanup)
 			{
@@ -134,7 +134,7 @@ namespace EamonRT.Game.Commands
 				}
 			}
 
-			ProcessEvents(EventType.AfterArtifactDrink);
+			ProcessEvents(EventType.AfterDrinkArtifact);
 
 			if (GotoCleanup)
 			{

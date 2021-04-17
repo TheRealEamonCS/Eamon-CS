@@ -26,7 +26,7 @@ namespace EamonRT.Game.Commands
 		{
 			Debug.Assert(DobjArtifact != null);
 
-			ProcessEvents(EventType.BeforeArtifactUse);
+			ProcessEvents(EventType.BeforeUseArtifact);
 
 			if (GotoCleanup)
 			{

@@ -199,7 +199,7 @@ namespace EamonRT.Game.Commands
 
 			gOut.Print("Done.");
 
-			ProcessEvents(EventType.AfterArtifactPut);
+			ProcessEvents(EventType.AfterPutArtifact);
 
 			if (GotoCleanup)
 			{

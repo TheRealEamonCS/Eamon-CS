@@ -21,7 +21,7 @@ namespace EamonRT.Game.States
 			{
 				Globals.LastCommandList.Clear();
 
-				ProcessEvents(EventType.AfterLastCommandListClear);
+				ProcessEvents(EventType.AfterClearLastCommandList);
 
 				if (GotoCleanup)
 				{

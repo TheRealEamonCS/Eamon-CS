@@ -17,7 +17,7 @@ namespace TheVileGrimoireOfJaldial.Game.Commands
 		{
 			// The Molten Iron Ale is a critical resource in the final battle with Jaldi'al... but it also restores Hardiness drained by shadows.  What to do?
 
-			if (eventType == EventType.AfterArtifactDrink && DobjArtifact.Uid == 15 && gGameState.PlayerHardinessPointsDrained > 0)
+			if (eventType == EventType.AfterDrinkArtifact && DobjArtifact.Uid == 15 && gGameState.PlayerHardinessPointsDrained > 0)
 			{
 				gOut.Print("You suddenly feel stronger as the warm afterglow of the ale fades!");
 

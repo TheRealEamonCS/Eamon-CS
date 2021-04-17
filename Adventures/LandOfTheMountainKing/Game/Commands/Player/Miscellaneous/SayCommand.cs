@@ -19,7 +19,7 @@ namespace LandOfTheMountainKing.Game.Commands
 	{
 		public override void ProcessEvents(EventType eventType)
 		{
-			if (eventType == EventType.BeforePlayerSayTextPrint)
+			if (eventType == EventType.BeforePrintSayText)
 			{
 				var Lisa = gMDB[3];
 

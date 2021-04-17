@@ -18,7 +18,7 @@ namespace StrongholdOfKahrDur.Game.Commands
 		{
 			// If the armoire is closed then hide the secret passage
 
-			if (eventType == EventType.AfterArtifactClose && DobjArtifact.Uid == 3)
+			if (eventType == EventType.AfterCloseArtifact && DobjArtifact.Uid == 3)
 			{
 				var secretDoorArtifact = gADB[4];
 

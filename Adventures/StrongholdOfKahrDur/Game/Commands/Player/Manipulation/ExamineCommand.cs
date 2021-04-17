@@ -16,7 +16,7 @@ namespace StrongholdOfKahrDur.Game.Commands
 	{
 		public override void ProcessEvents(EventType eventType)
 		{
-			if (eventType == EventType.AfterArtifactFullDescPrint)
+			if (eventType == EventType.AfterPrintArtifactFullDesc)
 			{
 				var eyeglassesArtifact = gADB[2];
 

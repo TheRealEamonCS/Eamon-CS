@@ -111,7 +111,7 @@ namespace EamonRT.Game.Commands
 
 			DobjArtAc.SetOpen(false);
 
-			ProcessEvents(EventType.AfterArtifactClose);
+			ProcessEvents(EventType.AfterCloseArtifact);
 
 			if (GotoCleanup)
 			{

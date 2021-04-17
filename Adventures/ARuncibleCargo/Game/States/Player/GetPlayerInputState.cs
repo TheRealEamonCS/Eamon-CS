@@ -19,7 +19,7 @@ namespace ARuncibleCargo.Game.States
 	{
 		public override void ProcessEvents(EventType eventType)
 		{
-			if (eventType == EventType.BeforeCommandPromptPrint && ShouldPreTurnProcess())
+			if (eventType == EventType.BeforePrintCommandPrompt && ShouldPreTurnProcess())
 			{
 				Debug.Assert(gCharMonster != null);
 

@@ -1,29 +1,28 @@
 ﻿
-// ReadyCommand.cs
+// AttackCommand.cs
 
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.Primitive.Enums;
+using EamonRT.Framework.States;
 using static AlternateBeginnersCave.Game.Plugin.PluginContext;
 
 namespace AlternateBeginnersCave.Game.Commands
 {
 	[ClassMappings]
-	public class ReadyCommand : EamonRT.Game.Commands.ReadyCommand, IReadyCommand
+	public class AttackCommand : EamonRT.Game.Commands.AttackCommand, IAttackCommand
 	{
 		public override void ProcessEvents(EventType eventType)
 		{
-			// Magic dagger
+			// Illusionary wall
 
-			if (eventType == EventType.AfterReadyArtifact && DobjArtifact.Uid == 8 && gGameState.MagicDaggerCounter == 0 && gGameState.DrankVial)
+			if (eventType == EventType.BeforeAttackArtifact && DobjArtifact.Uid == 37)
 			{
-				gGameState.MagicDaggerCounter = 35;
+				PrintDontFollowYou();
 
-				gEngine.PrintEffectDesc(9);
-
-				gCharMonster.Hardiness += 5;
+				NextState = Globals.CreateInstance<IStartState>();
 
 				GotoCleanup = true;
 			}

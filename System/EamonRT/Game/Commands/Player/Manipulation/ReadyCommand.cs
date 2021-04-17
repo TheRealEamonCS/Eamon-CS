@@ -111,7 +111,7 @@ namespace EamonRT.Game.Commands
 
 			gOut.Print("{0} readied.", DobjArtifact.GetNoneName(true, false));
 
-			ProcessEvents(EventType.AfterArtifactReady);
+			ProcessEvents(EventType.AfterReadyArtifact);
 
 			if (GotoCleanup)
 			{

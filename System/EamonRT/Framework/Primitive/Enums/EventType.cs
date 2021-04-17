@@ -12,23 +12,23 @@ namespace EamonRT.Framework.Primitive.Enums
 	public enum EventType : long
 	{
 		/// <summary>
-		/// An event that fires at the end of the current round, after all processing has been done.
+		/// An event that fires at the end of the current round, after all processing is done.
 		/// </summary>
-		AfterRoundEnd = 0,
+		AfterEndRound = 0,
 
 		/// <summary>
-		/// An event that fires at the start of a new round, before any processing has been done.
+		/// An event that fires at the start of a new round, before any processing is done.
 		/// </summary>
-		BeforeRoundStart,
+		BeforeStartRound,
 
 		/// <summary>
-		/// An event that fires after the player has moved to a new <see cref="IRoom">Room</see>, and any carried light
-		/// source has been extinguished (if necessary).
+		/// An event that fires after the player moves to a new <see cref="IRoom">Room</see>, and any carried light
+		/// source is extinguished (if necessary).
 		/// </summary>
 		AfterExtinguishLightSourceCheck,
 
 		/// <summary>
-		/// An event that fires after the player has moved to a new <see cref="IRoom">Room</see>, and any <see cref="IMonster">Monster</see>s
+		/// An event that fires after the player moves to a new <see cref="IRoom">Room</see>, and any <see cref="IMonster">Monster</see>s
 		/// in the exited Room (friendly or hostile) have followed.
 		/// </summary>
 		AfterMoveMonsters,
@@ -37,12 +37,12 @@ namespace EamonRT.Framework.Primitive.Enums
 		/// An event that fires after the player's destination <see cref="IRoom">Room</see> <see cref="IGameBase.Uid"> Uid</see>
 		/// is calculated and stored.
 		/// </summary>
-		AfterDestinationRoomSet,
+		AfterSetDestinationRoom,
 
 		/// <summary>
 		/// An event that fires before the player's command prompt is printed.
 		/// </summary>
-		BeforeCommandPromptPrint,
+		BeforePrintCommandPrompt,
 
 		/// <summary>
 		/// An event that fires before it is known whether the player can move to a <see cref="IRoom">Room</see>.
@@ -56,26 +56,26 @@ namespace EamonRT.Framework.Primitive.Enums
 		AfterBlockingArtifactCheck,
 
 		/// <summary>
-		/// An event that fires before the player's <see cref="IRoom">Room</see> has been printed.
+		/// An event that fires before the player's <see cref="IRoom">Room</see> is printed.
 		/// </summary>
-		BeforePlayerRoomPrint,
+		BeforePrintPlayerRoom,
 
 		/// <summary>
-		/// An event that fires after the player's command has been processed (but not executed)
+		/// An event that fires after the player's command is processed (but not executed)
 		/// and the <see cref="IPluginGlobals.LastCommandList">LastCommandList</see> cleared.
 		/// </summary>
-		AfterLastCommandListClear,
+		AfterClearLastCommandList,
 
 		/// <summary>
-		/// An event that fires after the player's spell cast attempt has resolved as successful.
+		/// An event that fires after a spell cast attempt is resolved as successful.
 		/// </summary>
-		AfterPlayerSpellCastCheck,
+		AfterCastSpellCheck,
 
 		/// <summary>
-		/// An event that fires after the <see cref="IMonster">Monster</see> targeted by the <see cref="Spell.Blast">Blast</see>
+		/// An event that fires after a <see cref="IMonster">Monster</see> targeted by the <see cref="Spell.Blast">Blast</see>
 		/// spell gets aggravated.
 		/// </summary>
-		AfterMonsterGetsAggravated,
+		AfterAggravateMonster,
 
 		/// <summary>
 		/// An event that fires before a guard <see cref="IMonster">Monster</see> prevents a bound Monster from being freed.
@@ -93,108 +93,120 @@ namespace EamonRT.Framework.Primitive.Enums
 		AfterEnforceMonsterWeightLimitsCheck,
 
 		/// <summary>
-		/// An event that fires after checking whether the player is giving away a readied weapon.
+		/// An event that fires after checking if a readied weapon is given away.
 		/// </summary>
-		AfterPlayerGivesReadiedWeaponCheck,
+		AfterGiveReadiedWeaponCheck,
 
 		/// <summary>
 		/// An event that fires before a <see cref="IMonster">Monster</see> takes the gold offered by the player.
 		/// </summary>
-		BeforeMonsterTakesGold,
+		BeforeTakePlayerGold,
 
 		/// <summary>
-		/// An event that fires after the player closes an <see cref="IArtifact">Artifact</see>.
+		/// An event that fires after an <see cref="IArtifact">Artifact</see> is closed.
 		/// </summary>
-		AfterArtifactClose,
+		AfterCloseArtifact,
 
 		/// <summary>
-		/// An event that fires before checking whether an <see cref="IArtifact">Artifact</see> has been fully drunk.
+		/// An event that fires before checking if an <see cref="IArtifact">Artifact</see> is fully drunk.
 		/// </summary>
-		BeforeArtifactNowEmptyCheck,
+		BeforeNowEmptyArtifactCheck,
 
 		/// <summary>
-		/// An event that fires after the player drinks an <see cref="IArtifact">Artifact</see>.
+		/// An event that fires after an <see cref="IArtifact">Artifact</see> is drunk.
 		/// </summary>
-		AfterArtifactDrink,
+		AfterDrinkArtifact,
 
 		/// <summary>
-		/// An event that fires after the player eats an <see cref="IArtifact">Artifact</see>.
+		/// An event that fires after an <see cref="IArtifact">Artifact</see> is eaten.
 		/// </summary>
-		AfterArtifactEat,
+		AfterEatArtifact,
 
 		/// <summary>
-		/// An event that fires after an <see cref="IArtifact">Artifact</see>'s full description has been printed (but before
+		/// An event that fires after an <see cref="IArtifact">Artifact</see>'s full description is printed (but before
 		/// units are listed for drinkables/edibles).
 		/// </summary>
-		AfterArtifactFullDescPrint,
+		AfterPrintArtifactFullDesc,
 
 		/// <summary>
 		/// An event that fires after an <see cref="IArtifact">Artifact</see>'s container contents are printed.
 		/// </summary>
-		AfterArtifactContentsPrint,
+		AfterPrintArtifactContents,
 
 		/// <summary>
-		/// An event that fires after an <see cref="IArtifact">Artifact</see>'s open message has been printed (but before
+		/// An event that fires after an <see cref="IArtifact">Artifact</see>'s open message is printed (but before
 		/// inventory is listed for containers).
 		/// </summary>
-		AfterArtifactOpenPrint,
+		AfterPrintArtifactOpen,
 
 		/// <summary>
-		/// An event that fires after the player opens an <see cref="IArtifact">Artifact</see>.
+		/// An event that fires after an <see cref="IArtifact">Artifact</see> is opened.
 		/// </summary>
-		AfterArtifactOpen,
+		AfterOpenArtifact,
 
 		/// <summary>
-		/// An event that fires after the player puts an <see cref="IArtifact">Artifact</see> into a container.
+		/// An event that fires after an <see cref="IArtifact">Artifact</see> is put into a container.
 		/// </summary>
-		AfterArtifactPut,
+		AfterPutArtifact,
 
 		/// <summary>
 		/// An event that fires before an <see cref="IArtifact">Artifact</see>'s read text is printed.
 		/// </summary>
-		BeforeArtifactReadTextPrint,
+		BeforePrintArtifactReadText,
 
 		/// <summary>
-		/// An event that fires after the player reads an <see cref="IArtifact">Artifact</see>.
+		/// An event that fires after an <see cref="IArtifact">Artifact</see> is read.
 		/// </summary>
-		AfterArtifactRead,
-
-		/// <summary></summary>
-		AfterWornArtifactRemove,
+		AfterReadArtifact,
 
 		/// <summary>
-		/// An event that fires before the player uses an <see cref="IArtifact">Artifact</see>.
+		/// An event that fires after a worn <see cref="IArtifact">Artifact</see> is removed.
 		/// </summary>
-		BeforeArtifactUse,
+		AfterRemoveWornArtifact,
 
 		/// <summary>
-		/// An event that fires after the player wears an <see cref="IArtifact">Artifact</see>.
+		/// An event that fires before an <see cref="IArtifact">Artifact</see> is used.
 		/// </summary>
-		AfterArtifactWear,
+		BeforeUseArtifact,
 
 		/// <summary>
-		/// An event that fires before the player's spoken text is printed.
+		/// An event that fires after an <see cref="IArtifact">Artifact</see> is worn.
 		/// </summary>
-		BeforePlayerSayTextPrint,
+		AfterWearArtifact,
 
 		/// <summary>
-		/// An event that fires after the player says something.
+		/// An event that fires before spoken text is printed.
 		/// </summary>
-		AfterPlayerSay,
+		BeforePrintSayText,
 
 		/// <summary>
-		/// An event that fires after the player's status text has been printed.
+		/// An event that fires after spoken text is printed.
 		/// </summary>
-		AfterPlayerStatus,
+		AfterPrintSayText,
 
 		/// <summary>
-		/// An event that fires after checking whether exits are available for fleeing, and it resolves that there are.
+		/// An event that fires after the player's status text is printed.
+		/// </summary>
+		AfterPrintPlayerStatus,
+
+		/// <summary>
+		/// An event that fires after checking if exits are available for fleeing, and it resolves that there are.
 		/// </summary>
 		AfterNumberOfExitsCheck,
 
 		/// <summary>
-		/// An event that fires after the player readies an <see cref="IArtifact">Artifact</see>.
+		/// An event that fires after an <see cref="IArtifact">Artifact</see> is readied.
 		/// </summary>
-		AfterArtifactReady,
+		AfterReadyArtifact,
+
+		/// <summary>
+		/// An event that fires before a <see cref="IMonster">Monster</see> is attacked or blasted.
+		/// </summary>
+		BeforeAttackMonster,
+
+		/// <summary>
+		/// An event that fires before an <see cref="IArtifact">Artifact</see> is attacked or blasted.
+		/// </summary>
+		BeforeAttackArtifact,
 	}
 }

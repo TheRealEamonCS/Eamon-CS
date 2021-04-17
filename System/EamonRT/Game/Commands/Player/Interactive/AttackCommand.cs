@@ -14,6 +14,7 @@ using Eamon.Game.Attributes;
 using Eamon.Game.Extensions;
 using EamonRT.Framework.Combat;
 using EamonRT.Framework.Commands;
+using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
 using static EamonRT.Game.Plugin.PluginContext;
 
@@ -96,6 +97,13 @@ namespace EamonRT.Game.Commands
 
 			if (DobjMonster != null)
 			{
+				ProcessEvents(EventType.BeforeAttackMonster);
+
+				if (GotoCleanup)
+				{
+					goto Cleanup;
+				}
+
 				if (!DobjMonster.IsAttackable(ActorMonster))
 				{
 					PrintWhyAttack(DobjMonster);
@@ -146,6 +154,13 @@ namespace EamonRT.Game.Commands
 
 				CombatSystem.ExecuteAttack();
 
+				goto Cleanup;
+			}
+
+			ProcessEvents(EventType.BeforeAttackArtifact);
+
+			if (GotoCleanup)
+			{
 				goto Cleanup;
 			}
 

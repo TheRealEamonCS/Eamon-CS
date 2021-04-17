@@ -19,7 +19,7 @@ namespace StrongholdOfKahrDur.Game.Commands
 	{
 		public override void ProcessEvents(EventType eventType)
 		{
-			if (eventType == EventType.AfterPlayerSay)
+			if (eventType == EventType.AfterPrintSayText)
 			{
 				// Restore monster stats to average for testing/debugging
 

@@ -15,7 +15,7 @@ namespace TheVileGrimoireOfJaldial.Game.States
 	{
 		public override void ProcessEvents(EventType eventType)
 		{
-			if (eventType == EventType.AfterRoundEnd)
+			if (eventType == EventType.AfterEndRound)
 			{
 				Globals.CarrionCrawlerFlails = false;
 

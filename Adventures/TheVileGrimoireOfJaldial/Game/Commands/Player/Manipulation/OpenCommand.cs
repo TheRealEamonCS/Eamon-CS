@@ -87,7 +87,7 @@ namespace TheVileGrimoireOfJaldial.Game.Commands
 		{
 			// If wine cask opened reveal crimson amoeba
 
-			if (eventType == EventType.AfterArtifactOpen && DobjArtifact.Uid == 17 && !gGameState.AmoebaAppeared)
+			if (eventType == EventType.AfterOpenArtifact && DobjArtifact.Uid == 17 && !gGameState.AmoebaAppeared)
 			{
 				var amoebaMonster = gMDB[25];
 

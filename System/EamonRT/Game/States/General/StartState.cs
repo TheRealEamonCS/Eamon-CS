@@ -16,7 +16,7 @@ namespace EamonRT.Game.States
 	{
 		public override void Execute()
 		{
-			ProcessEvents(EventType.BeforeRoundStart);
+			ProcessEvents(EventType.BeforeStartRound);
 
 			if (Globals.CommandPromptSeen && !ShouldPreTurnProcess())
 			{

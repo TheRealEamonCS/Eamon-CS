@@ -17,7 +17,7 @@ namespace WrenholdsSecretVigil.Game.States
 	{
 		public override void ProcessEvents(EventType eventType)
 		{
-			if (eventType == EventType.BeforeCommandPromptPrint)
+			if (eventType == EventType.BeforePrintCommandPrompt)
 			{
 				var lifeOrbArtifact = gADB[4];
 

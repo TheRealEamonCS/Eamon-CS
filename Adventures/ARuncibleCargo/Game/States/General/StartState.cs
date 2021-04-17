@@ -16,7 +16,7 @@ namespace ARuncibleCargo.Game.States
 	{
 		public override void ProcessEvents(EventType eventType)
 		{
-			if (eventType == EventType.BeforeRoundStart)
+			if (eventType == EventType.BeforeStartRound)
 			{
 				var room = gRDB[gGameState.Ro];
 

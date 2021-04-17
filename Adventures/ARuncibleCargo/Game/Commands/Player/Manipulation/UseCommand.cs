@@ -18,7 +18,7 @@ namespace ARuncibleCargo.Game.Commands
 	{
 		public override void ProcessEvents(EventType eventType)
 		{
-			if (eventType == EventType.BeforeArtifactUse)
+			if (eventType == EventType.BeforeUseArtifact)
 			{
 				switch (DobjArtifact.Uid)
 				{

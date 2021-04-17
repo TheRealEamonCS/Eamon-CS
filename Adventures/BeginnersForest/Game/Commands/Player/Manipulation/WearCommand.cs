@@ -17,7 +17,7 @@ namespace BeginnersForest.Game.Commands
 		{
 			// Magic Excercise Ring
 
-			if (eventType == EventType.AfterArtifactWear && DobjArtifact.Uid == 2 && gGameState.Speed <= 0)
+			if (eventType == EventType.AfterWearArtifact && DobjArtifact.Uid == 2 && gGameState.Speed <= 0)
 			{
 				var command = Globals.CreateInstance<ISpeedCommand>(x =>
 				{

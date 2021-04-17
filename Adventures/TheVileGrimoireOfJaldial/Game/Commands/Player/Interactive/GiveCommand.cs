@@ -16,7 +16,7 @@ namespace TheVileGrimoireOfJaldial.Game.Commands
 	{
 		public override void ProcessEvents(EventType eventType)
 		{
-			if (eventType == EventType.BeforeMonsterTakesGold)
+			if (eventType == EventType.BeforeTakePlayerGold)
 			{
 				var monsterUids = new long[] { 46, 47, 48, 49, 50 };
 

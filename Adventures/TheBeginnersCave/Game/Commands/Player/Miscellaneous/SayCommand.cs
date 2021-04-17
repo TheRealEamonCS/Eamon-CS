@@ -16,7 +16,7 @@ namespace TheBeginnersCave.Game.Commands
 	{
 		public override void ProcessEvents(EventType eventType)
 		{
-			if (eventType == EventType.AfterPlayerSay && ProcessedPhrase.IndexOf("trollsfire", StringComparison.OrdinalIgnoreCase) >= 0)
+			if (eventType == EventType.AfterPrintSayText && ProcessedPhrase.IndexOf("trollsfire", StringComparison.OrdinalIgnoreCase) >= 0)
 			{
 				var command = Globals.CreateInstance<Framework.Commands.ITrollsfireCommand>();
 

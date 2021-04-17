@@ -115,7 +115,7 @@ namespace EamonRT.Game.Commands
 					goto Cleanup;
 				}
 
-				ProcessEvents(EventType.BeforeMonsterTakesGold);
+				ProcessEvents(EventType.BeforeTakePlayerGold);
 
 				if (GotoCleanup)
 				{
@@ -246,7 +246,7 @@ namespace EamonRT.Game.Commands
 				ActorMonster.Weapon = -1;
 			}
 
-			ProcessEvents(EventType.AfterPlayerGivesReadiedWeaponCheck);
+			ProcessEvents(EventType.AfterGiveReadiedWeaponCheck);
 
 			if (GotoCleanup)
 			{

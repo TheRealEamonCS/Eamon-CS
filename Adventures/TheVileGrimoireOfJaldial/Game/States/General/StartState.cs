@@ -16,7 +16,7 @@ namespace TheVileGrimoireOfJaldial.Game.States
 	{
 		public override void ProcessEvents(EventType eventType)
 		{
-			if (eventType == EventType.BeforeRoundStart)
+			if (eventType == EventType.BeforeStartRound)
 			{
 				if (ShouldPreTurnProcess())
 				{

@@ -19,7 +19,7 @@ namespace TheTrainingGround.Game.Commands
 	{
 		public override void ProcessEvents(EventType eventType)
 		{
-			if (eventType == EventType.AfterPlayerSpellCastCheck)
+			if (eventType == EventType.AfterCastSpellCheck)
 			{
 				var hammerArtifact = gADB[24];
 

@@ -19,7 +19,7 @@ namespace TheVileGrimoireOfJaldial.Game.States
 	{
 		public override void ProcessEvents(EventType eventType)
 		{
-			if (eventType == EventType.BeforeCommandPromptPrint)
+			if (eventType == EventType.BeforePrintCommandPrompt)
 			{
 				Debug.Assert(gCharMonster != null);
 

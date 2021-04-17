@@ -97,7 +97,7 @@ namespace EamonRT.Game.Commands
 
 			PrintRemoved(DobjArtifact);
 
-			ProcessEvents(EventType.AfterWornArtifactRemove);
+			ProcessEvents(EventType.AfterRemoveWornArtifact);
 
 			if (GotoCleanup)
 			{

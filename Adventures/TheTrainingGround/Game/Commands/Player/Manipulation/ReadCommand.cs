@@ -19,7 +19,7 @@ namespace TheTrainingGround.Game.Commands
 		{
 			// Plain scroll increases BLAST ability
 
-			if (eventType == EventType.AfterArtifactRead && DobjArtifact.Uid == 29)
+			if (eventType == EventType.AfterReadArtifact && DobjArtifact.Uid == 29)
 			{
 				var spell = gEngine.GetSpells(Spell.Blast);
 

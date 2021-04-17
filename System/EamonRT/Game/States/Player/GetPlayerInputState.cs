@@ -25,7 +25,7 @@ namespace EamonRT.Game.States
 		{
 			if (!RestartCommand)
 			{
-				ProcessEvents(EventType.BeforeCommandPromptPrint);
+				ProcessEvents(EventType.BeforePrintCommandPrompt);
 
 				if (GotoCleanup)
 				{

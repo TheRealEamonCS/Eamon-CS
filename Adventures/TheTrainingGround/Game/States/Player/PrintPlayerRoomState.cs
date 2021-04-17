@@ -16,7 +16,7 @@ namespace TheTrainingGround.Game.States
 	{
 		public override void ProcessEvents(EventType eventType)
 		{
-			if (eventType == EventType.BeforePlayerRoomPrint && ShouldPreTurnProcess())
+			if (eventType == EventType.BeforePrintPlayerRoom && ShouldPreTurnProcess())
 			{
 				Debug.Assert(gCharMonster != null);
 

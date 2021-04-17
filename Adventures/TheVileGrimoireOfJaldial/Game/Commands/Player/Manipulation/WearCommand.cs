@@ -20,7 +20,7 @@ namespace TheVileGrimoireOfJaldial.Game.Commands
 		{
 			// Steel gauntlets boost weapon skills
 
-			if (eventType == EventType.AfterArtifactWear && DobjArtifact.Uid == 16)
+			if (eventType == EventType.AfterWearArtifact && DobjArtifact.Uid == 16)
 			{
 				var weaponValues = EnumUtil.GetValues<Weapon>();
 

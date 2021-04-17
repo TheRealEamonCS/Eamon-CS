@@ -35,7 +35,7 @@ namespace WrenholdsSecretVigil.Game.Commands
 
 		public override void ProcessEvents(EventType eventType)
 		{
-			if (eventType == EventType.AfterArtifactPut)
+			if (eventType == EventType.AfterPutArtifact)
 			{
 				// Put anything in slime destroys it
 

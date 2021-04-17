@@ -136,7 +136,7 @@ namespace EamonRT.Game.Commands
 
 				DobjArtifact.Seen = true;
 
-				ProcessEvents(EventType.AfterArtifactFullDescPrint);
+				ProcessEvents(EventType.AfterPrintArtifactFullDesc);
 
 				if (GotoCleanup)
 				{
@@ -216,7 +216,7 @@ namespace EamonRT.Game.Commands
 
 			gOut.Write("{0}", Globals.Buf);
 
-			ProcessEvents(EventType.AfterArtifactContentsPrint);
+			ProcessEvents(EventType.AfterPrintArtifactContents);
 
 			if (GotoCleanup)
 			{

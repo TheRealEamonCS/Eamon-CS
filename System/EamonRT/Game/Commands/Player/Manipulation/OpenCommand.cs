@@ -161,7 +161,7 @@ namespace EamonRT.Game.Commands
 				PrintOpened(DobjArtifact);
 			}
 
-			ProcessEvents(EventType.AfterArtifactOpenPrint);
+			ProcessEvents(EventType.AfterPrintArtifactOpen);
 
 			if (GotoCleanup)
 			{
@@ -188,7 +188,7 @@ namespace EamonRT.Game.Commands
 			}
 			*/
 
-			ProcessEvents(EventType.AfterArtifactOpen);
+			ProcessEvents(EventType.AfterOpenArtifact);
 
 			if (GotoCleanup)
 			{

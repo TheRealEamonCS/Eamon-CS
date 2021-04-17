@@ -22,7 +22,7 @@ namespace StrongholdOfKahrDur.Game.Commands
 
 			// If armoire opened and player is wearing eyeglasses reveal secret door
 
-			if (eventType == EventType.AfterArtifactOpen && DobjArtifact.Uid == 3 && eyeglassesArtifact.IsWornByCharacter())
+			if (eventType == EventType.AfterOpenArtifact && DobjArtifact.Uid == 3 && eyeglassesArtifact.IsWornByCharacter())
 			{
 				var secretDoorArtifact = gADB[4];
 
