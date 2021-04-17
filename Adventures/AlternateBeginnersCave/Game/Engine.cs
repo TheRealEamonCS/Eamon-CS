@@ -30,6 +30,25 @@ namespace AlternateBeginnersCave.Game
 			signArtifact.Name = signArtifact.Name.TrimEnd('#');
 		}
 
+		public override void InitArtifacts()
+		{
+			base.InitArtifacts();
+
+			var synonyms = new Dictionary<long, string[]>()
+			{
+				{ 5, new string[] { "label" } },
+				{ 20, new string[] { "vulture" } },
+				{ 21, new string[] { "odd-looking torch", "odd looking torch", "odd torch", "torch" } },
+				{ 22, new string[] { "massive inset ring", "inset ring", "ring" } },
+				{ 37, new string[] { "shimmering blank wall", "shimmering wall", "blank wall", "east wall", "blank", "wall" } },
+			};
+
+			foreach (var synonym in synonyms)
+			{
+				CreateArtifactSynonyms(synonym.Key, synonym.Value);
+			}
+		}
+
 		public override IArtifact ConvertWeaponToArtifact(ICharacterArtifact weapon)
 		{
 			var artifact = base.ConvertWeaponToArtifact(weapon);
