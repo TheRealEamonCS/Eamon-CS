@@ -7,6 +7,7 @@ using System.Diagnostics;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Combat;
 using EamonRT.Framework.Commands;
+using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
 using static AlternateBeginnersCave.Game.Plugin.PluginContext;
 
@@ -15,6 +16,24 @@ namespace AlternateBeginnersCave.Game.Commands
 	[ClassMappings]
 	public class OpenCommand : EamonRT.Game.Commands.OpenCommand, IOpenCommand
 	{
+		public override void ProcessEvents(EventType eventType)
+		{
+			// Unremarkable Box (Preserved text from the Classic Eamon version)
+
+			if (eventType == EventType.BeforePrintArtifactOpen && DobjArtifact.Uid == 7 && !gGameState.OpenedBox)
+			{
+				gGameState.OpenedBox = true;
+
+				gEngine.PrintEffectDesc(7);
+
+				GotoCleanup = true;
+			}
+			else
+			{
+				base.ProcessEvents(eventType);
+			}
+		}
+
 		public override void Execute()
 		{
 			Debug.Assert(DobjArtifact != null);

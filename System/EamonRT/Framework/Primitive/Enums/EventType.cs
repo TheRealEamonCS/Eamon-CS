@@ -134,10 +134,9 @@ namespace EamonRT.Framework.Primitive.Enums
 		AfterPrintArtifactContents,
 
 		/// <summary>
-		/// An event that fires after an <see cref="IArtifact">Artifact</see>'s open message is printed (but before
-		/// inventory is listed for containers).
+		/// An event that fires after an <see cref="IArtifact">Artifact</see> is opened but before the open message is printed.
 		/// </summary>
-		AfterPrintArtifactOpen,
+		BeforePrintArtifactOpen,
 
 		/// <summary>
 		/// An event that fires after an <see cref="IArtifact">Artifact</see> is opened.
