@@ -781,6 +781,8 @@ namespace Eamon.Game
 
 			Name = Globals.CloneInstance(character.Name);
 
+			Desc = Globals.CloneInstance(character.Desc);
+
 			Debug.Assert(Synonyms == null && character.Synonyms == null);
 
 			Seen = character.Seen;
