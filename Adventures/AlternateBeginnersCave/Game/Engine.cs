@@ -71,7 +71,7 @@ namespace AlternateBeginnersCave.Game
 
 			base.ResetMonsterStats(monster);
 
-			// Eighty-six the weird magic dagger-related Hardiness increase upon exit
+			// Eighty-six the weird magic dagger-related Hardiness increase upon exit (omitting the in-game death check for simplicity)
 
 			if (gGameState.MagicDaggerCounter > 0)
 			{

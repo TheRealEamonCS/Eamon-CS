@@ -5,6 +5,7 @@
 
 using System.Diagnostics;
 using Eamon.Game.Attributes;
+using EamonRT.Framework.Combat;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
 using static AlternateBeginnersCave.Game.Plugin.PluginContext;
@@ -29,6 +30,20 @@ namespace AlternateBeginnersCave.Game.States
 					gCharMonster.Hardiness -= 5;
 
 					gOut.Print("The spell of the dagger just wore off!");
+
+					var combatSystem = Globals.CreateInstance<ICombatSystem>(x =>
+					{
+						x.SetNextStateFunc = s => NextState = s;
+
+						x.DfMonster = gCharMonster;
+					});
+
+					combatSystem.ExecuteCheckMonsterStatus();
+
+					if (gGameState.Die > 0)
+					{
+						GotoCleanup = true;
+					}
 				}
 			}
 

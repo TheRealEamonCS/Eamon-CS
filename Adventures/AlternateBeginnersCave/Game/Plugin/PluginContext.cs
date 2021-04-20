@@ -12,6 +12,18 @@ namespace AlternateBeginnersCave.Game.Plugin
 {
 	public static class PluginContext
 	{
+		public static Framework.Plugin.IPluginConstants Constants
+		{
+			get
+			{
+				return (Framework.Plugin.IPluginConstants)EamonRT.Game.Plugin.PluginContext.Constants;
+			}
+			set
+			{
+				EamonRT.Game.Plugin.PluginContext.Constants = value;
+			}
+		}
+
 		public static Framework.Plugin.IPluginGlobals Globals
 		{
 			get

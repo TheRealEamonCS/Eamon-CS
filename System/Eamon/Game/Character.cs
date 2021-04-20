@@ -653,6 +653,10 @@ namespace Eamon.Game
 
 			rc = RetCode.Success;
 
+			var origPunctSpaceCode = gOut.PunctSpaceCode;
+
+			gOut.PunctSpaceCode = PunctSpaceCode.None;
+
 			buf01 = new StringBuilder(Constants.BufSize);
 
 			buf02 = new StringBuilder(Constants.BufSize);
@@ -754,6 +758,8 @@ namespace Eamon.Game
 			gOut.Print("Weight carried: {0}/{1} Gronds (One Grond = Ten DOS)",
 				args.Weight,
 				wcg);
+
+			gOut.PunctSpaceCode = origPunctSpaceCode;
 
 		Cleanup:
 
