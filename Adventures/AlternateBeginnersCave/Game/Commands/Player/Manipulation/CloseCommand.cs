@@ -18,9 +18,9 @@ namespace AlternateBeginnersCave.Game.Commands
 		{
 			Debug.Assert(DobjArtifact != null);
 
-			// Waspicide
+			// Waspicide and Illusionary wall
 
-			if (DobjArtifact.Uid == 5)
+			if (DobjArtifact.Uid == 5 || DobjArtifact.Uid == 37)
 			{
 				PrintDontFollowYou();
 

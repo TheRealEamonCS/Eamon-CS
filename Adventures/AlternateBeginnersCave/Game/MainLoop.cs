@@ -42,5 +42,10 @@ namespace AlternateBeginnersCave.Game
 				Globals.In.KeyPress(Globals.Buf);
 			}
 		}
+
+		public override void PrintWakingUpMonsters()
+		{
+			gOut.Print("(Please wait while I stir things up...)");
+		}
 	}
 }

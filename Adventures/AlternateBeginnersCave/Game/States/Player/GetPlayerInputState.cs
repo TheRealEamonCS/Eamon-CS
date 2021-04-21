@@ -23,7 +23,7 @@ namespace AlternateBeginnersCave.Game.States
 
 				// Magic dagger - Temp Hardiness increase spell
 
-				if (gGameState.MagicDaggerCounter > 0 && --gGameState.MagicDaggerCounter <= 0)		// TODO: verify 35 rounds
+				if (gGameState.MagicDaggerCounter > 0 && --gGameState.MagicDaggerCounter <= 0)
 				{
 					gGameState.MagicDaggerCounter = -1;
 
