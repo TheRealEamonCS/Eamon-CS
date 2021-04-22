@@ -17,10 +17,10 @@ namespace RiddlesOfTheDuergarQuarry.Game
 		{
 			var roomUids = new long[] 
 			{ 
-				49, 50, 51, 52, 
+				2, 45, 46, 47, 49, 50, 51, 52, 
 			};
 
-			// Suppress up for all rooms in roomUids; suppress down for all except room Uid 49
+			// Suppress up for everything in roomUids; suppress down for all except room Uid 49
 
 			return base.IsDirectionInObviousExitsList(index) && (roomUids.Contains(Uid) ? index != 5 && (Uid == 49 || index != 6) : true);
 		}
