@@ -4,6 +4,7 @@
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Eamon.Framework;
 using Eamon.Game.Attributes;
@@ -54,6 +55,7 @@ namespace RiddlesOfTheDuergarQuarry.Game
 				{ 77, new string[] { "narrow crevice", "vertical crevice", "crevice", "crevace", "fissure" } },
 				{ 78, new string[] { "large rock", "boulder", "rock" } },
 				{ 79, new string[] { "bell", "chime", "hammer" } },
+				{ 80, new string[] { "signpost", "sign" } },
 			};
 
 			foreach (var synonym in synonyms)
@@ -75,6 +77,17 @@ namespace RiddlesOfTheDuergarQuarry.Game
 			{
 				CreateMonsterSynonyms(synonym.Key, synonym.Value);
 			}
+		}
+
+		public override void ResetMonsterStats(IMonster monster)
+		{
+			Debug.Assert(monster != null && monster.IsCharacterMonster());
+
+			base.ResetMonsterStats(monster);
+
+			// Ensure monster not poisoned
+
+			gGameState.ViperPoisonVictimUids.Remove(monster.Uid);
 		}
 	}
 }
