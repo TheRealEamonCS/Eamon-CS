@@ -20,21 +20,7 @@ namespace RiddlesOfTheDuergarQuarry.Game.Combat
 
 			Debug.Assert(room != null);
 
-			// Viper
-
-			if (OfMonster?.Uid == 18 && !gGameState.ViperPoisonVictimUids.Contains(DfMonster.Uid))
-			{
-				if (DfMonster.IsCharacterMonster())
-				{
-					gOut.Write("{0}{1}You are poisoned!", Environment.NewLine, OmitBboaPadding ? "" : "  ");
-				}
-				else if (room.IsLit())
-				{
-					gOut.Write("{0}{1}{2} is poisoned!", Environment.NewLine, OmitBboaPadding ? "" : "  ", DfMonster.GetTheName(true));
-				}
-
-				gGameState.ViperPoisonVictimUids.Add(DfMonster.Uid);
-			}
+			// TODO: viper poisons defender
 
 			base.CheckMonsterStatus();
 		}

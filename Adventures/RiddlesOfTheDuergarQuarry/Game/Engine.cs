@@ -85,9 +85,7 @@ namespace RiddlesOfTheDuergarQuarry.Game
 
 			base.ResetMonsterStats(monster);
 
-			// Ensure monster not poisoned
-
-			gGameState.ViperPoisonVictimUids.Remove(monster.Uid);
+			// TODO: ensure monster not poisoned
 		}
 	}
 }
