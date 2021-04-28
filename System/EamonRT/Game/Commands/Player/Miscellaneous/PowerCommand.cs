@@ -39,7 +39,7 @@ namespace EamonRT.Game.Commands
 				goto Cleanup;
 			}
 
-			ProcessEvents(EventType.AfterPlayerSpellCastCheck);
+			ProcessEvents(EventType.AfterCastSpellCheck);
 
 			if (GotoCleanup)
 			{

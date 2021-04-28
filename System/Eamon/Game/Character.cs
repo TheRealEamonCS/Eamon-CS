@@ -653,6 +653,10 @@ namespace Eamon.Game
 
 			rc = RetCode.Success;
 
+			var origPunctSpaceCode = gOut.PunctSpaceCode;
+
+			gOut.PunctSpaceCode = PunctSpaceCode.None;
+
 			buf01 = new StringBuilder(Constants.BufSize);
 
 			buf02 = new StringBuilder(Constants.BufSize);
@@ -755,6 +759,8 @@ namespace Eamon.Game
 				args.Weight,
 				wcg);
 
+			gOut.PunctSpaceCode = origPunctSpaceCode;
+
 		Cleanup:
 
 			return rc;
@@ -780,6 +786,8 @@ namespace Eamon.Game
 			IsUidRecycled = character.IsUidRecycled;
 
 			Name = Globals.CloneInstance(character.Name);
+
+			Desc = Globals.CloneInstance(character.Desc);
 
 			Debug.Assert(Synonyms == null && character.Synonyms == null);
 

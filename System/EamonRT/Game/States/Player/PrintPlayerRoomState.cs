@@ -15,7 +15,7 @@ namespace EamonRT.Game.States
 	{
 		public override void Execute()
 		{
-			ProcessEvents(EventType.BeforePlayerRoomPrint);
+			ProcessEvents(EventType.BeforePrintPlayerRoom);
 
 			if (GotoCleanup)
 			{

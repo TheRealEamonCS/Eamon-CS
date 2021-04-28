@@ -28,7 +28,7 @@ namespace EamonRT.Game.States
 				monster.InitGroupCount = monster.CurrGroupCount;
 			}
 
-			ProcessEvents(EventType.AfterRoundEnd);
+			ProcessEvents(EventType.AfterEndRound);
 
 			if (NextState == null)
 			{

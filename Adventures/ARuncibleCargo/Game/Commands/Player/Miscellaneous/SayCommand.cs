@@ -19,7 +19,7 @@ namespace ARuncibleCargo.Game.Commands
 	{
 		public override void ProcessEvents(EventType eventType)
 		{
-			if (eventType == EventType.BeforePlayerSayTextPrint)
+			if (eventType == EventType.BeforePrintSayText)
 			{
 				var found = false;
 
@@ -66,7 +66,7 @@ namespace ARuncibleCargo.Game.Commands
 					gOut.Print("Thank you for flying Frank Black Airlines!");
 				}
 			}
-			else if (eventType == EventType.AfterPlayerSay)
+			else if (eventType == EventType.AfterPrintSayText)
 			{
 				var princeMonster = gMDB[38];
 

@@ -34,7 +34,7 @@ namespace EamonRT.Game.States
 
 			gGameState.R2 = DoorGateArtifact != null ? 0 : OldRoom.GetDirs(Direction);
 
-			ProcessEvents(EventType.AfterDestinationRoomSet);
+			ProcessEvents(EventType.AfterSetDestinationRoom);
 
 			if (GotoCleanup)
 			{

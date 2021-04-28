@@ -18,7 +18,7 @@ namespace TheTrainingGround.Game.Commands
 		{
 			// BLAST Bozworth
 
-			if (eventType == EventType.AfterPlayerSpellCastCheck && DobjMonster != null && DobjMonster.Uid == 20)
+			if (eventType == EventType.AfterCastSpellCheck && DobjMonster != null && DobjMonster.Uid == 20)
 			{
 				gEngine.PrintEffectDesc(21);
 

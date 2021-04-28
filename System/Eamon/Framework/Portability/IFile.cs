@@ -39,6 +39,14 @@ namespace Eamon.Framework.Portability
 
 		/// <summary></summary>
 		/// <param name="path"></param>
+		/// <remarks>
+		/// Note: only used to convert legacy Eamon games to Eamon CS
+		/// </remarks>
+		/// <returns></returns>
+		System.IO.FileStream OpenRead(string path);
+
+		/// <summary></summary>
+		/// <param name="path"></param>
 		/// <param name="contents"></param>
 		/// <param name="encoding"></param>
 		void WriteAllText(string path, string contents, Encoding encoding = null);

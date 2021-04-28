@@ -143,7 +143,7 @@ namespace EamonRT.Game.Commands
 
 			PrintWorn(DobjArtifact);
 
-			ProcessEvents(EventType.AfterArtifactWear);
+			ProcessEvents(EventType.AfterWearArtifact);
 
 			if (GotoCleanup)
 			{

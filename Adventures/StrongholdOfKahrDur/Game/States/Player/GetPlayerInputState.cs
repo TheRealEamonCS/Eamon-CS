@@ -16,7 +16,7 @@ namespace StrongholdOfKahrDur.Game.States
 	{
 		public override void ProcessEvents(EventType eventType)
 		{
-			if (eventType == EventType.BeforeCommandPromptPrint && ShouldPreTurnProcess())
+			if (eventType == EventType.BeforePrintCommandPrompt && ShouldPreTurnProcess())
 			{
 				var room = gRDB[84];
 

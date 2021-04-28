@@ -23,7 +23,7 @@ namespace TheVileGrimoireOfJaldial.Game.States
 		{
 			if (!Globals.EncounterSurprises)
 			{
-				if (eventType == EventType.BeforePlayerRoomPrint && ShouldPreTurnProcess())
+				if (eventType == EventType.BeforePrintPlayerRoom && ShouldPreTurnProcess())
 				{
 					Debug.Assert(gCharMonster != null);
 

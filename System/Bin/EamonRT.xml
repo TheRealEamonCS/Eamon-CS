@@ -1612,35 +1612,35 @@
         <member name="T:EamonRT.Framework.Primitive.Enums.EventType">
             <summary></summary>
         </member>
-        <member name="F:EamonRT.Framework.Primitive.Enums.EventType.AfterRoundEnd">
+        <member name="F:EamonRT.Framework.Primitive.Enums.EventType.AfterEndRound">
             <summary>
-            An event that fires at the end of the current round, after all processing has been done.
+            An event that fires at the end of the current round, after all processing is done.
             </summary>
         </member>
-        <member name="F:EamonRT.Framework.Primitive.Enums.EventType.BeforeRoundStart">
+        <member name="F:EamonRT.Framework.Primitive.Enums.EventType.BeforeStartRound">
             <summary>
-            An event that fires at the start of a new round, before any processing has been done.
+            An event that fires at the start of a new round, before any processing is done.
             </summary>
         </member>
         <member name="F:EamonRT.Framework.Primitive.Enums.EventType.AfterExtinguishLightSourceCheck">
             <summary>
-            An event that fires after the player has moved to a new <see cref="T:Eamon.Framework.IRoom">Room</see>, and any carried light
-            source has been extinguished (if necessary).
+            An event that fires after the player moves to a new <see cref="T:Eamon.Framework.IRoom">Room</see>, and any carried light
+            source is extinguished (if necessary).
             </summary>
         </member>
         <member name="F:EamonRT.Framework.Primitive.Enums.EventType.AfterMoveMonsters">
             <summary>
-            An event that fires after the player has moved to a new <see cref="T:Eamon.Framework.IRoom">Room</see>, and any <see cref="T:Eamon.Framework.IMonster">Monster</see>s
+            An event that fires after the player moves to a new <see cref="T:Eamon.Framework.IRoom">Room</see>, and any <see cref="T:Eamon.Framework.IMonster">Monster</see>s
             in the exited Room (friendly or hostile) have followed.
             </summary>
         </member>
-        <member name="F:EamonRT.Framework.Primitive.Enums.EventType.AfterDestinationRoomSet">
+        <member name="F:EamonRT.Framework.Primitive.Enums.EventType.AfterSetDestinationRoom">
             <summary>
             An event that fires after the player's destination <see cref="T:Eamon.Framework.IRoom">Room</see> <see cref="P:Eamon.Framework.IGameBase.Uid"> Uid</see>
             is calculated and stored.
             </summary>
         </member>
-        <member name="F:EamonRT.Framework.Primitive.Enums.EventType.BeforeCommandPromptPrint">
+        <member name="F:EamonRT.Framework.Primitive.Enums.EventType.BeforePrintCommandPrompt">
             <summary>
             An event that fires before the player's command prompt is printed.
             </summary>
@@ -1656,25 +1656,25 @@
             a door) prevents the player's movement.
             </summary>
         </member>
-        <member name="F:EamonRT.Framework.Primitive.Enums.EventType.BeforePlayerRoomPrint">
+        <member name="F:EamonRT.Framework.Primitive.Enums.EventType.BeforePrintPlayerRoom">
             <summary>
-            An event that fires before the player's <see cref="T:Eamon.Framework.IRoom">Room</see> has been printed.
+            An event that fires before the player's <see cref="T:Eamon.Framework.IRoom">Room</see> is printed.
             </summary>
         </member>
-        <member name="F:EamonRT.Framework.Primitive.Enums.EventType.AfterLastCommandListClear">
+        <member name="F:EamonRT.Framework.Primitive.Enums.EventType.AfterClearLastCommandList">
             <summary>
-            An event that fires after the player's command has been processed (but not executed)
+            An event that fires after the player's command is processed (but not executed)
             and the <see cref="!:IPluginGlobals.LastCommandList">LastCommandList</see> cleared.
             </summary>
         </member>
-        <member name="F:EamonRT.Framework.Primitive.Enums.EventType.AfterPlayerSpellCastCheck">
+        <member name="F:EamonRT.Framework.Primitive.Enums.EventType.AfterCastSpellCheck">
             <summary>
-            An event that fires after the player's spell cast attempt has resolved as successful.
+            An event that fires after a spell cast attempt is resolved as successful.
             </summary>
         </member>
-        <member name="F:EamonRT.Framework.Primitive.Enums.EventType.AfterMonsterGetsAggravated">
+        <member name="F:EamonRT.Framework.Primitive.Enums.EventType.AfterAggravateMonster">
             <summary>
-            An event that fires after the <see cref="T:Eamon.Framework.IMonster">Monster</see> targeted by the <see cref="F:Eamon.Framework.Primitive.Enums.Spell.Blast">Blast</see>
+            An event that fires after a <see cref="T:Eamon.Framework.IMonster">Monster</see> targeted by the <see cref="F:Eamon.Framework.Primitive.Enums.Spell.Blast">Blast</see>
             spell gets aggravated.
             </summary>
         </member>
@@ -1693,104 +1693,120 @@
             An event that fires after limits are enforced on the weight a <see cref="T:Eamon.Framework.IMonster">Monster</see> can carry.
             </summary>
         </member>
-        <member name="F:EamonRT.Framework.Primitive.Enums.EventType.AfterPlayerGivesReadiedWeaponCheck">
+        <member name="F:EamonRT.Framework.Primitive.Enums.EventType.AfterGiveReadiedWeaponCheck">
             <summary>
-            An event that fires after checking whether the player is giving away a readied weapon.
+            An event that fires after checking if a readied weapon is given away.
             </summary>
         </member>
-        <member name="F:EamonRT.Framework.Primitive.Enums.EventType.BeforeMonsterTakesGold">
+        <member name="F:EamonRT.Framework.Primitive.Enums.EventType.BeforeTakePlayerGold">
             <summary>
             An event that fires before a <see cref="T:Eamon.Framework.IMonster">Monster</see> takes the gold offered by the player.
             </summary>
         </member>
-        <member name="F:EamonRT.Framework.Primitive.Enums.EventType.AfterArtifactClose">
+        <member name="F:EamonRT.Framework.Primitive.Enums.EventType.AfterCloseArtifact">
             <summary>
-            An event that fires after the player closes an <see cref="T:Eamon.Framework.IArtifact">Artifact</see>.
+            An event that fires after an <see cref="T:Eamon.Framework.IArtifact">Artifact</see> is closed.
             </summary>
         </member>
-        <member name="F:EamonRT.Framework.Primitive.Enums.EventType.BeforeArtifactNowEmptyCheck">
+        <member name="F:EamonRT.Framework.Primitive.Enums.EventType.BeforeNowEmptyArtifactCheck">
             <summary>
-            An event that fires before checking whether an <see cref="T:Eamon.Framework.IArtifact">Artifact</see> has been fully drunk.
+            An event that fires before checking if an <see cref="T:Eamon.Framework.IArtifact">Artifact</see> is fully drunk.
             </summary>
         </member>
-        <member name="F:EamonRT.Framework.Primitive.Enums.EventType.AfterArtifactDrink">
+        <member name="F:EamonRT.Framework.Primitive.Enums.EventType.AfterDrinkArtifact">
             <summary>
-            An event that fires after the player drinks an <see cref="T:Eamon.Framework.IArtifact">Artifact</see>.
+            An event that fires after an <see cref="T:Eamon.Framework.IArtifact">Artifact</see> is drunk.
             </summary>
         </member>
-        <member name="F:EamonRT.Framework.Primitive.Enums.EventType.AfterArtifactEat">
+        <member name="F:EamonRT.Framework.Primitive.Enums.EventType.AfterEatArtifact">
             <summary>
-            An event that fires after the player eats an <see cref="T:Eamon.Framework.IArtifact">Artifact</see>.
+            An event that fires after an <see cref="T:Eamon.Framework.IArtifact">Artifact</see> is eaten.
             </summary>
         </member>
-        <member name="F:EamonRT.Framework.Primitive.Enums.EventType.AfterArtifactFullDescPrint">
+        <member name="F:EamonRT.Framework.Primitive.Enums.EventType.AfterPrintArtifactFullDesc">
             <summary>
-            An event that fires after an <see cref="T:Eamon.Framework.IArtifact">Artifact</see>'s full description has been printed (but before
+            An event that fires after an <see cref="T:Eamon.Framework.IArtifact">Artifact</see>'s full description is printed (but before
             units are listed for drinkables/edibles).
             </summary>
         </member>
-        <member name="F:EamonRT.Framework.Primitive.Enums.EventType.AfterArtifactContentsPrint">
+        <member name="F:EamonRT.Framework.Primitive.Enums.EventType.AfterPrintArtifactContents">
             <summary>
             An event that fires after an <see cref="T:Eamon.Framework.IArtifact">Artifact</see>'s container contents are printed.
             </summary>
         </member>
-        <member name="F:EamonRT.Framework.Primitive.Enums.EventType.AfterArtifactOpenPrint">
+        <member name="F:EamonRT.Framework.Primitive.Enums.EventType.BeforePrintArtifactOpen">
             <summary>
-            An event that fires after an <see cref="T:Eamon.Framework.IArtifact">Artifact</see>'s open message has been printed (but before
-            inventory is listed for containers).
+            An event that fires after an <see cref="T:Eamon.Framework.IArtifact">Artifact</see> is opened but before the open message is printed.
             </summary>
         </member>
-        <member name="F:EamonRT.Framework.Primitive.Enums.EventType.AfterArtifactOpen">
+        <member name="F:EamonRT.Framework.Primitive.Enums.EventType.AfterOpenArtifact">
             <summary>
-            An event that fires after the player opens an <see cref="T:Eamon.Framework.IArtifact">Artifact</see>.
+            An event that fires after an <see cref="T:Eamon.Framework.IArtifact">Artifact</see> is opened.
             </summary>
         </member>
-        <member name="F:EamonRT.Framework.Primitive.Enums.EventType.AfterArtifactPut">
+        <member name="F:EamonRT.Framework.Primitive.Enums.EventType.AfterPutArtifact">
             <summary>
-            An event that fires after the player puts an <see cref="T:Eamon.Framework.IArtifact">Artifact</see> into a container.
+            An event that fires after an <see cref="T:Eamon.Framework.IArtifact">Artifact</see> is put into a container.
             </summary>
         </member>
-        <member name="F:EamonRT.Framework.Primitive.Enums.EventType.BeforeArtifactReadTextPrint">
+        <member name="F:EamonRT.Framework.Primitive.Enums.EventType.BeforePrintArtifactReadText">
             <summary>
             An event that fires before an <see cref="T:Eamon.Framework.IArtifact">Artifact</see>'s read text is printed.
             </summary>
         </member>
-        <member name="F:EamonRT.Framework.Primitive.Enums.EventType.AfterArtifactRead">
+        <member name="F:EamonRT.Framework.Primitive.Enums.EventType.AfterReadArtifact">
             <summary>
-            An event that fires after the player reads an <see cref="T:Eamon.Framework.IArtifact">Artifact</see>.
+            An event that fires after an <see cref="T:Eamon.Framework.IArtifact">Artifact</see> is read.
             </summary>
         </member>
-        <member name="F:EamonRT.Framework.Primitive.Enums.EventType.AfterWornArtifactRemove">
-            <summary></summary>
-        </member>
-        <member name="F:EamonRT.Framework.Primitive.Enums.EventType.BeforeArtifactUse">
+        <member name="F:EamonRT.Framework.Primitive.Enums.EventType.AfterRemoveWornArtifact">
             <summary>
-            An event that fires before the player uses an <see cref="T:Eamon.Framework.IArtifact">Artifact</see>.
+            An event that fires after a worn <see cref="T:Eamon.Framework.IArtifact">Artifact</see> is removed.
             </summary>
         </member>
-        <member name="F:EamonRT.Framework.Primitive.Enums.EventType.AfterArtifactWear">
+        <member name="F:EamonRT.Framework.Primitive.Enums.EventType.BeforeUseArtifact">
             <summary>
-            An event that fires after the player wears an <see cref="T:Eamon.Framework.IArtifact">Artifact</see>.
+            An event that fires before an <see cref="T:Eamon.Framework.IArtifact">Artifact</see> is used.
             </summary>
         </member>
-        <member name="F:EamonRT.Framework.Primitive.Enums.EventType.BeforePlayerSayTextPrint">
+        <member name="F:EamonRT.Framework.Primitive.Enums.EventType.AfterWearArtifact">
             <summary>
-            An event that fires before the player's spoken text is printed.
+            An event that fires after an <see cref="T:Eamon.Framework.IArtifact">Artifact</see> is worn.
             </summary>
         </member>
-        <member name="F:EamonRT.Framework.Primitive.Enums.EventType.AfterPlayerSay">
+        <member name="F:EamonRT.Framework.Primitive.Enums.EventType.BeforePrintSayText">
             <summary>
-            An event that fires after the player says something.
+            An event that fires before spoken text is printed.
             </summary>
         </member>
-        <member name="F:EamonRT.Framework.Primitive.Enums.EventType.AfterPlayerStatus">
+        <member name="F:EamonRT.Framework.Primitive.Enums.EventType.AfterPrintSayText">
             <summary>
-            An event that fires after the player's status text has been printed.
+            An event that fires after spoken text is printed.
+            </summary>
+        </member>
+        <member name="F:EamonRT.Framework.Primitive.Enums.EventType.AfterPrintPlayerStatus">
+            <summary>
+            An event that fires after the player's status text is printed.
             </summary>
         </member>
         <member name="F:EamonRT.Framework.Primitive.Enums.EventType.AfterNumberOfExitsCheck">
             <summary>
-            An event that fires after checking whether exits are available for fleeing, and it resolves that there are.
+            An event that fires after checking if exits are available for fleeing, and it resolves that there are.
+            </summary>
+        </member>
+        <member name="F:EamonRT.Framework.Primitive.Enums.EventType.AfterReadyArtifact">
+            <summary>
+            An event that fires after an <see cref="T:Eamon.Framework.IArtifact">Artifact</see> is readied.
+            </summary>
+        </member>
+        <member name="F:EamonRT.Framework.Primitive.Enums.EventType.BeforeAttackMonster">
+            <summary>
+            An event that fires before a <see cref="T:Eamon.Framework.IMonster">Monster</see> is attacked or blasted.
+            </summary>
+        </member>
+        <member name="F:EamonRT.Framework.Primitive.Enums.EventType.BeforeAttackArtifact">
+            <summary>
+            An event that fires before an <see cref="T:Eamon.Framework.IArtifact">Artifact</see> is attacked or blasted.
             </summary>
         </member>
         <member name="T:EamonRT.Framework.Primitive.Enums.IntroStoryType">

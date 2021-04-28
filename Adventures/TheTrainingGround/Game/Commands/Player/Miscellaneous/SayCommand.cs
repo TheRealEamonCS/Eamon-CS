@@ -17,7 +17,7 @@ namespace TheTrainingGround.Game.Commands
 	{
 		public override void ProcessEvents(EventType eventType)
 		{
-			if (eventType == EventType.AfterPlayerSay)
+			if (eventType == EventType.AfterPrintSayText)
 			{
 				var hammerArtifact = gADB[24];
 

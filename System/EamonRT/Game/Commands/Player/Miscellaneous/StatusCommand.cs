@@ -105,7 +105,7 @@ namespace EamonRT.Game.Commands
 
 			Debug.Assert(gEngine.IsSuccess(rc));
 
-			ProcessEvents(EventType.AfterPlayerStatus);
+			ProcessEvents(EventType.AfterPrintPlayerStatus);
 
 			if (NextState == null)
 			{

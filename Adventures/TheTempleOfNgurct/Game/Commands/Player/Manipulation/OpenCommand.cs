@@ -104,7 +104,7 @@ namespace TheTempleOfNgurct.Game.Commands
 		{
 			// If chest opened reveal cobra
 
-			if (eventType == EventType.AfterArtifactOpen && DobjArtifact.Uid == 54 && !gGameState.CobraAppeared)
+			if (eventType == EventType.AfterOpenArtifact && DobjArtifact.Uid == 54 && !gGameState.CobraAppeared)
 			{
 				var cobraMonster = gMDB[52];
 

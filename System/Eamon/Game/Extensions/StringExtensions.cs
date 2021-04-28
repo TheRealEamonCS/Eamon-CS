@@ -5,6 +5,7 @@
 
 using System;
 using System.Diagnostics;
+using System.Globalization;
 
 namespace Eamon.Game.Extensions
 {
@@ -27,6 +28,18 @@ namespace Eamon.Game.Extensions
 			if (!string.IsNullOrEmpty(str))
 			{
 				return Char.ToUpper(str[0]) + str.Substring(1);
+			}
+			else
+			{
+				return str;
+			}
+		}
+
+		public static string ToTitleCase(this string str)
+		{
+			if (!string.IsNullOrEmpty(str))
+			{
+				return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(str);
 			}
 			else
 			{

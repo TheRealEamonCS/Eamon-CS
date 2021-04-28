@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BeginnersCaveII</name>
+    </assembly>
+    <members>
+        <member name="P:BeginnersCaveII.Game.Engine.HeldWpnIdx">
+            <summary></summary>
+        </member>
+    </members>
+</doc>

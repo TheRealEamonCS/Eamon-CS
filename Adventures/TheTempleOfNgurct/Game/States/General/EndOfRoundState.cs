@@ -16,7 +16,7 @@ namespace TheTempleOfNgurct.Game.States
 	{
 		public override void ProcessEvents(EventType eventType)
 		{
-			if (eventType == EventType.AfterRoundEnd)
+			if (eventType == EventType.AfterEndRound)
 			{
 				Debug.Assert(gCharMonster != null);
 

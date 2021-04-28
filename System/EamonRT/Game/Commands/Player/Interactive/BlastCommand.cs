@@ -53,7 +53,7 @@ namespace EamonRT.Game.Commands
 				goto Cleanup;
 			}
 
-			ProcessEvents(EventType.AfterPlayerSpellCastCheck);
+			ProcessEvents(EventType.AfterCastSpellCheck);
 
 			if (GotoCleanup)
 			{
@@ -65,7 +65,7 @@ namespace EamonRT.Game.Commands
 				gEngine.MonsterGetsAggravated(DobjMonster);
 			}
 
-			ProcessEvents(EventType.AfterMonsterGetsAggravated);
+			ProcessEvents(EventType.AfterAggravateMonster);
 
 			if (GotoCleanup)
 			{

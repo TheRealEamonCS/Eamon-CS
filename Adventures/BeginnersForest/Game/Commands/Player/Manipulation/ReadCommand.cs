@@ -16,7 +16,7 @@ namespace BeginnersForest.Game.Commands
 	{
 		public override void ProcessEvents(EventType eventType)
 		{
-			if (eventType == EventType.AfterArtifactRead)
+			if (eventType == EventType.AfterReadArtifact)
 			{
 				// Scroll vanishes
 

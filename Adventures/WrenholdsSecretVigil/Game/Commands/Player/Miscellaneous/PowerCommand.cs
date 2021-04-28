@@ -15,7 +15,7 @@ namespace WrenholdsSecretVigil.Game.Commands
 	{
 		public override void ProcessEvents(EventType eventType)
 		{
-			if (eventType == EventType.AfterPlayerSpellCastCheck)
+			if (eventType == EventType.AfterCastSpellCheck)
 			{
 				gEngine.PrintEffectDesc(45);
 

@@ -5217,6 +5217,14 @@
             <param name="encoding"></param>
             <returns></returns>
         </member>
+        <member name="M:Eamon.Framework.Portability.IFile.OpenRead(System.String)">
+            <summary></summary>
+            <param name="path"></param>
+            <remarks>
+            Note: only used to convert legacy Eamon games to Eamon CS
+            </remarks>
+            <returns></returns>
+        </member>
         <member name="M:Eamon.Framework.Portability.IFile.WriteAllText(System.String,System.String,System.Text.Encoding)">
             <summary></summary>
             <param name="path"></param>
@@ -6807,6 +6815,13 @@
             <see cref="P:Eamon.Framework.Plugin.IPluginClassMappings.ClassMappingsDictionary">ClassMappingsDictionary</see>;
             the Key is a corresponding interface with the same name but prefixed with "I".
             </summary>
+        </member>
+        <member name="T:Eamon.Game.Attributes.LayoutAttribute">
+            <summary>
+            </summary>
+            <remarks>
+            Full credit:  https://stackoverflow.com/questions/26060441/reading-data-from-fixed-length-file-into-class-objects
+            </remarks>
         </member>
         <member name="P:Eamon.Game.Engine.Rand">
             <summary></summary>
@@ -9610,6 +9625,13 @@
         <member name="M:Eamon.Game.Plugin.PluginGlobals.RestoreRecords(System.Collections.Generic.IList{Eamon.Framework.IGameBase})">
             <summary></summary>
             <param name="recordList"></param>
+        </member>
+        <member name="T:Eamon.Game.Utilities.FixedLengthReader">
+            <summary>
+            </summary>
+            <remarks>
+            Full credit:  https://stackoverflow.com/questions/26060441/reading-data-from-fixed-length-file-into-class-objects
+            </remarks>
         </member>
         <member name="T:Eamon.RetCode">
             <summary></summary>

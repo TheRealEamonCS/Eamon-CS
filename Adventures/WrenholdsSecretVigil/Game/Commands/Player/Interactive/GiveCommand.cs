@@ -65,7 +65,7 @@ namespace WrenholdsSecretVigil.Game.Commands
 					base.ProcessEvents(eventType);
 				}
 			}
-			else if (eventType == EventType.BeforeMonsterTakesGold)
+			else if (eventType == EventType.BeforeTakePlayerGold)
 			{
 				// Disable bribing
 

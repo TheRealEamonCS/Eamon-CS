@@ -37,7 +37,7 @@ namespace EamonRT.Game.Commands
 
 			ProcessedPhrase = PrintedPhrase.Trim(new char[] { '.', '?', '!' }).ToLower();
 
-			ProcessEvents(EventType.BeforePlayerSayTextPrint);
+			ProcessEvents(EventType.BeforePrintSayText);
 
 			if (GotoCleanup)
 			{
@@ -46,7 +46,7 @@ namespace EamonRT.Game.Commands
 
 			gOut.Print("Okay, \"{0}\"", PrintedPhrase);
 
-			ProcessEvents(EventType.AfterPlayerSay);
+			ProcessEvents(EventType.AfterPrintSayText);
 
 			if (GotoCleanup)
 			{

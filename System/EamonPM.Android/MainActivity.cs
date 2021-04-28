@@ -315,7 +315,11 @@ namespace EamonPM
 			pg = TheVileGrimoireOfJaldial.Game.Plugin.PluginContext.Globals;
 
 			pg = RiddlesOfTheDuergarQuarry.Game.Plugin.PluginContext.Globals;
-			
+
+			pg = BeginnersCaveII.Game.Plugin.PluginContext.Globals;
+
+			pg = AlternateBeginnersCave.Game.Plugin.PluginContext.Globals;
+
 			pg = TheWayfarersInn.Game.Plugin.PluginContext.Globals;
 
 			// Note: The Eamon CS datafile upgrade logic now auto-converts System.Private.CoreLib references

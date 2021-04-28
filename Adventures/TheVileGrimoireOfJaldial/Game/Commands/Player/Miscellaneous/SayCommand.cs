@@ -18,7 +18,7 @@ namespace TheVileGrimoireOfJaldial.Game.Commands
 	{
 		public override void ProcessEvents(EventType eventType)
 		{
-			if (eventType == EventType.AfterPlayerSay)
+			if (eventType == EventType.AfterPrintSayText)
 			{
 				var waterWeirdMonster = gMDB[38];
 

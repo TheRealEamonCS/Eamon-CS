@@ -20,7 +20,7 @@ namespace TheTempleOfNgurct.Game.Commands
 		{
 			// Summon Alkanda
 
-			if (eventType == EventType.BeforePlayerSayTextPrint && ProcessedPhrase.Equals("annal natthrac", StringComparison.OrdinalIgnoreCase))
+			if (eventType == EventType.BeforePrintSayText && ProcessedPhrase.Equals("annal natthrac", StringComparison.OrdinalIgnoreCase))
 			{
 				var medallionArtifact = gADB[77];
 

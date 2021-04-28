@@ -17,7 +17,7 @@ namespace WrenholdsSecretVigil.Game.States
 		{
 			// Try to open running device, all flee
 
-			if (eventType == EventType.AfterRoundEnd && Globals.DeviceOpened)
+			if (eventType == EventType.AfterEndRound && Globals.DeviceOpened)
 			{
 				gOut.Print("Your attempts to open the glowing device are unsuccessful.");
 

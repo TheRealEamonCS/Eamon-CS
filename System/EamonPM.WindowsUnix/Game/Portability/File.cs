@@ -110,6 +110,13 @@ namespace EamonPM.Game.Portability
 			return contents;
 		}
 
+		public virtual System.IO.FileStream OpenRead(string path)
+		{
+			var normalizedPath = NormalizePath(path);
+
+			return System.IO.File.OpenRead(normalizedPath);
+		}
+
 		public virtual void WriteAllText(string path, string contents, Encoding encoding = null)
 		{
 			var normalizedPath = NormalizePath(path);

@@ -114,6 +114,13 @@ namespace EamonRT.Game.Commands
 			{
 				DobjArtAc.SetOpen(true);
 
+				ProcessEvents(EventType.BeforePrintArtifactOpen);
+
+				if (GotoCleanup)
+				{
+					goto Cleanup;
+				}
+
 				PrintOpened(DobjArtifact);
 
 				goto Cleanup;
@@ -152,6 +159,17 @@ namespace EamonRT.Game.Commands
 				goto Cleanup;
 			}
 
+			DobjArtAc.SetKeyUid(0);
+
+			DobjArtAc.SetOpen(true);
+
+			ProcessEvents(EventType.BeforePrintArtifactOpen);
+
+			if (GotoCleanup)
+			{
+				goto Cleanup;
+			}
+
 			if (KeyArtifact != null)
 			{
 				PrintOpenObjWithKey(DobjArtifact, KeyArtifact);
@@ -161,13 +179,6 @@ namespace EamonRT.Game.Commands
 				PrintOpened(DobjArtifact);
 			}
 
-			ProcessEvents(EventType.AfterArtifactOpenPrint);
-
-			if (GotoCleanup)
-			{
-				goto Cleanup;
-			}
-
 			if (DobjArtAc.Type == ArtifactType.InContainer && DobjArtifact.ShouldShowContentsWhenOpened())
 			{
 				NextState = Globals.CreateInstance<IInventoryCommand>();
@@ -175,20 +186,7 @@ namespace EamonRT.Game.Commands
 				CopyCommandData(NextState as ICommand);
 			}
 
-			DobjArtAc.SetKeyUid(0);
-
-			DobjArtAc.SetOpen(true);
-
-			/*
-			Note: duplicated above?
-
-			if (DobjArtAc.Type != ArtifactType.InContainer)
-			{
-				DobjArtAc.Field4 = 0;
-			}
-			*/
-
-			ProcessEvents(EventType.AfterArtifactOpen);
+			ProcessEvents(EventType.AfterOpenArtifact);
 
 			if (GotoCleanup)
 			{

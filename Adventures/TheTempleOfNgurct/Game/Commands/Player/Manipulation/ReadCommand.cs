@@ -25,7 +25,7 @@ namespace TheTempleOfNgurct.Game.Commands
 		{
 			// Book
 
-			if (eventType == EventType.AfterArtifactRead && DobjArtifact.Uid == 61)
+			if (eventType == EventType.AfterReadArtifact && DobjArtifact.Uid == 61)
 			{
 				DobjArtifact.SetInRoom(ActorRoom);
 

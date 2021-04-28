@@ -373,6 +373,10 @@ namespace Eamon.Game.Plugin
 
 				Database.FreeHints();
 
+				Database.FreeTriggers();
+
+				Database.FreeScripts();
+
 				Database.FreeGameStates();
 			}
 
@@ -488,6 +492,10 @@ namespace Eamon.Game.Plugin
 			RestoreRecords(database?.MonsterTable?.Records?.Cast<IGameBase>().ToList());
 
 			RestoreRecords(database?.HintTable?.Records?.Cast<IGameBase>().ToList());
+
+			RestoreRecords(database?.TriggerTable?.Records?.Cast<IGameBase>().ToList());
+
+			RestoreRecords(database?.ScriptTable?.Records?.Cast<IGameBase>().ToList());
 
 			RestoreRecords(database?.GameStateTable?.Records?.Cast<IGameBase>().ToList());
 

@@ -17,7 +17,7 @@ namespace TheBeginnersCave.Game.Commands
 	{
 		public override void ProcessEvents(EventType eventType)
 		{
-			if (eventType == EventType.AfterPlayerStatus)
+			if (eventType == EventType.AfterPrintPlayerStatus)
 			{
 				var trollsfireArtifact = gADB[10];
 

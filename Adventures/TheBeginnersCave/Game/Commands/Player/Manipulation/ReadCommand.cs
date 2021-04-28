@@ -18,7 +18,7 @@ namespace TheBeginnersCave.Game.Commands
 	{
 		public override void ProcessEvents(EventType eventType)
 		{
-			if (eventType == EventType.BeforeArtifactReadTextPrint)
+			if (eventType == EventType.BeforePrintArtifactReadText)
 			{
 				// saving throw vs. intellect for book trap warning
 
@@ -47,7 +47,7 @@ namespace TheBeginnersCave.Game.Commands
 					base.ProcessEvents(eventType);
 				}
 			}
-			else if (eventType == EventType.AfterArtifactRead)
+			else if (eventType == EventType.AfterReadArtifact)
 			{
 				// book trap
 

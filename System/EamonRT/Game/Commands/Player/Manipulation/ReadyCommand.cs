@@ -10,6 +10,7 @@ using Eamon.Framework.Primitive.Classes;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
+using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
 using static EamonRT.Game.Plugin.PluginContext;
 
@@ -109,6 +110,13 @@ namespace EamonRT.Game.Commands
 			Debug.Assert(gEngine.IsSuccess(rc));
 
 			gOut.Print("{0} readied.", DobjArtifact.GetNoneName(true, false));
+
+			ProcessEvents(EventType.AfterReadyArtifact);
+
+			if (GotoCleanup)
+			{
+				goto Cleanup;
+			}
 
 		Cleanup:
 

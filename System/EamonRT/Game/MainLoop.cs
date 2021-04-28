@@ -84,7 +84,7 @@ namespace EamonRT.Game
 		{
 			gOut.WriteLine("{0}{1}{0}", Environment.NewLine, Globals.LineSep);
 
-			gOut.WriteLine("Please wait a short while (waking up the monsters...)");
+			PrintWakingUpMonsters();
 
 			Globals.Thread.Sleep(3000);
 
@@ -113,6 +113,11 @@ namespace EamonRT.Game
 
 				Globals.NextState = null;
 			}
+		}
+
+		public virtual void PrintWakingUpMonsters()
+		{
+			gOut.WriteLine("Please wait a short while (waking up the monsters...)");
 		}
 
 		public MainLoop()

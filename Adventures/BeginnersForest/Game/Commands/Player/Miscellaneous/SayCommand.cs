@@ -21,7 +21,7 @@ namespace BeginnersForest.Game.Commands
 			//          Spook Reducer 2.0
 			//  (c) 2012 Frank Black Productions
 
-			if (eventType == EventType.AfterPlayerSay && ProcessedPhrase.Equals("less spooks", StringComparison.OrdinalIgnoreCase) && gGameState.SpookCounter < 8)
+			if (eventType == EventType.AfterPrintSayText && ProcessedPhrase.Equals("less spooks", StringComparison.OrdinalIgnoreCase) && gGameState.SpookCounter < 8)
 			{
 				var spookMonster = gMDB[9];
 

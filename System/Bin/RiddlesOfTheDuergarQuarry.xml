@@ -4,5 +4,8 @@
         <name>RiddlesOfTheDuergarQuarry</name>
     </assembly>
     <members>
+        <member name="P:RiddlesOfTheDuergarQuarry.Framework.IGameState.ViperPoisonVictimUids">
+            <summary></summary>
+        </member>
     </members>
 </doc>
