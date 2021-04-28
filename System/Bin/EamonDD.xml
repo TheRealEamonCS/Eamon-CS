@@ -332,6 +332,9 @@
         <member name="T:EamonDD.Framework.Menus.ActionMenus.IListRoomRecordNameMenu">
             <summary></summary>
         </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IConvertEamonDeluxeAdventureMenu">
+            <summary></summary>
+        </member>
         <member name="T:EamonDD.Framework.Menus.ActionMenus.IAddCustomAdventureClassesMenu">
             <summary></summary>
         </member>
@@ -497,6 +500,9 @@
         <member name="T:EamonDD.Framework.Menus.HierarchicalMenus.ITriggerRecordUtilitiesMenu">
             <summary></summary>
         </member>
+        <member name="T:EamonDD.Framework.Menus.HierarchicalMenus.IAdventureConversionMenu">
+            <summary></summary>
+        </member>
         <member name="T:EamonDD.Framework.Menus.HierarchicalMenus.IAdventureSupportMenu">
             <summary></summary>
         </member>
@@ -631,6 +637,34 @@
         </member>
         <member name="F:EamonDD.Framework.Primitive.Enums.SupportMenuType.DeleteClasses">
             <summary></summary>
+        </member>
+        <member name="T:EamonDD.Game.Converters.EamonDeluxe.EDXAdventure">
+            <summary>
+            </summary>
+        </member>
+        <member name="T:EamonDD.Game.Converters.EamonDeluxe.EDXAdventureConverter">
+            <summary>
+            </summary>
+        </member>
+        <member name="T:EamonDD.Game.Converters.EamonDeluxe.EDXArtifact">
+            <summary>
+            </summary>
+        </member>
+        <member name="T:EamonDD.Game.Converters.EamonDeluxe.EDXDesc">
+            <summary>
+            </summary>
+        </member>
+        <member name="T:EamonDD.Game.Converters.EamonDeluxe.EDXHint">
+            <summary>
+            </summary>
+        </member>
+        <member name="T:EamonDD.Game.Converters.EamonDeluxe.EDXMonster">
+            <summary>
+            </summary>
+        </member>
+        <member name="T:EamonDD.Game.Converters.EamonDeluxe.EDXRoom">
+            <summary>
+            </summary>
         </member>
         <member name="P:EamonDD.Game.Menus.ActionMenus.AnalyseRecordInterdependenciesMenu01`1.AnalyseMenu">
             <summary></summary>
