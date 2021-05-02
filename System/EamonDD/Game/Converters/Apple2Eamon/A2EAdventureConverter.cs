@@ -44,6 +44,11 @@ namespace EamonDD.Game.Converters.Apple2Eamon
 			return buffer;
 		}
 
+		/// <summary>
+		/// </summary>
+		/// <remarks>
+		/// Full credit:  referencing DUNGEON LIST Z by John Nelson and Tom Zuchowski
+		/// </remarks>
 		public virtual bool LoadAdventure()
 		{
 			var result = true;
@@ -62,6 +67,11 @@ namespace EamonDD.Game.Converters.Apple2Eamon
 			return result;
 		}
 
+		/// <summary>
+		/// </summary>
+		/// <remarks>
+		/// Full credit:  referencing DUNGEON LIST Z by John Nelson and Tom Zuchowski
+		/// </remarks>
 		public virtual bool ConvertAdventure()
 		{
 			var result = true;
