@@ -33,6 +33,8 @@ namespace EamonDD.Game.Converters.Apple2Eamon
 
 		public long _mlen;
 
+		public string _ver;
+
 		public virtual IList<A2ERoom> RoomList { get; set; }
 
 		public virtual IList<A2EArtifact> ArtifactList { get; set; }
