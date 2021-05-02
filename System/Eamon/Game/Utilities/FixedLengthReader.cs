@@ -34,7 +34,7 @@ namespace Eamon.Game.Utilities
 			stream.Seek(origin, SeekOrigin.Begin);
 		}
 
-		public void read<T>(T data)
+		public virtual void read<T>(T data)
 		{
 			foreach (FieldInfo fi in typeof(T).GetFields())
 			{
