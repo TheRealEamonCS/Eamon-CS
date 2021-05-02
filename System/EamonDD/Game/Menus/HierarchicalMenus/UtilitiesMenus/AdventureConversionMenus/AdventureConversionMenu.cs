@@ -37,6 +37,13 @@ namespace EamonDD.Game.Menus.HierarchicalMenus
 
 			MenuItemList.Add(Globals.CreateInstance<IMenuItem>(x =>
 			{
+				x.SelectChar = (char)('1' + MenuItemList.Count);
+				x.LineText = string.Format("{0}{1}. Convert an Apple II Eamon adventure.", Environment.NewLine, MenuItemList.Count + 1);
+				x.SubMenu = Globals.CreateInstance<IConvertApple2EamonAdventureMenu>();
+			}));
+			
+			MenuItemList.Add(Globals.CreateInstance<IMenuItem>(x =>
+			{
 				x.SelectChar = 'X';
 				x.LineText = string.Format("{0}X. Exit.{0}", Environment.NewLine);
 				x.SubMenu = null;
