@@ -113,7 +113,7 @@ namespace EamonDD.Game.Converters.Apple2Eamon
 
 					try
 					{
-						adventure._ver = tokens[2];
+						adventure._ver = tokens[2].Trim();
 					}
 					catch (Exception)
 					{
