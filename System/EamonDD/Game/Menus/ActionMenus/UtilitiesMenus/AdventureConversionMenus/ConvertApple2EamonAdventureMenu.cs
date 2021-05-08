@@ -7,6 +7,7 @@ using System;
 using System.Diagnostics;
 using System.Globalization;
 using System.Text;
+using System.Text.RegularExpressions;
 using Eamon;
 using Eamon.Framework;
 using Eamon.Game.Attributes;
@@ -111,7 +112,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 			{
 				x.Uid = Globals.Database.GetModuleUid();
 
-				x.Name = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(a2eAdv.Name.ToLower().Trim(new char[] { ' ', '\"' } ).Truncate(Constants.ModNameLen));
+				x.Name = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(a2eAdv.Name.ToLower().Trim(new char[] { ' ', '\"' }).Truncate(Constants.ModNameLen));
 
 				x.Desc = "TODO";
 
@@ -141,6 +142,41 @@ namespace EamonDD.Game.Menus.ActionMenus
 			Globals.Module = module;
 
 
+
+
+
+			Globals.Database.FreeEffects();
+
+			for (var i = 0; i < a2eAdv._ne; i++)
+			{
+				var a2eEffect = a2eAdv.EffectList[i];
+
+				Debug.Assert(a2eEffect != null);
+
+				a2eEffect._text = a2eEffect._text.ToLower().Trim(new char[] { ' ', '\"' });
+
+				a2eEffect._text = Regex.Replace(a2eEffect._text, @"\s+", " ");
+
+				var regex = new Regex(@"(^[a-z])|[?!.]\s+(.)", RegexOptions.ExplicitCapture);
+
+				a2eEffect._text = regex.Replace(a2eEffect._text, s => s.Value.ToUpper());
+
+				if (a2eEffect._text.Length <= 0)
+				{
+					a2eEffect._text = "UNUSED";
+				}
+
+				var effect = Globals.CreateInstance<IEffect>(x =>
+				{
+					x.Uid = Globals.Database.GetEffectUid();
+
+					x.Desc = a2eEffect._text.Truncate(Constants.EffDescLen);
+				});
+
+				Globals.Database.AddEffect(effect);
+			}
+
+			Globals.EffectsModified = true;
 
 
 
