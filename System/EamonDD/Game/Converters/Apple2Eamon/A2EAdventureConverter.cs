@@ -284,9 +284,9 @@ namespace EamonDD.Game.Converters.Apple2Eamon
 
 								tokens = line.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
 
-								for (var j = tokens.Length; j < Adventure._nd; j++)
+								for (var j = tokens.Length; j < Adventure._nd + 1; j++)
 								{
-									tokens = tokens.Append("-9999").ToArray();
+									tokens = tokens.Append(j != Adventure._nd ? "-9999" : "1").ToArray();
 								}
 
 								if (!short.TryParse(tokens[0].Trim(), out room._rd1))
@@ -340,6 +340,11 @@ namespace EamonDD.Game.Converters.Apple2Eamon
 									{
 										throw new Exception("Error: TryParse function call failed for _rd10");
 									}
+								}
+
+								if (!short.TryParse(tokens[Adventure._nd].Trim(), out room._rlight))
+								{
+									throw new Exception("Error: TryParse function call failed for _rlight");
 								}
 
 								Adventure.RoomList.Add(room);

@@ -32,5 +32,7 @@ namespace EamonDD.Game.Converters.Apple2Eamon
 		public short _rd9;
 
 		public short _rd10;
+
+		public short _rlight;
 	}
 }
