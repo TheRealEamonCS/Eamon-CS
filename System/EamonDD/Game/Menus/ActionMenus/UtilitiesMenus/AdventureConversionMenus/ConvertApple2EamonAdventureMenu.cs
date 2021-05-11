@@ -5,10 +5,12 @@
 
 using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using Eamon;
 using Eamon.Framework;
+using Eamon.Framework.Helpers;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using Eamon.Game.Extensions;
@@ -22,6 +24,8 @@ namespace EamonDD.Game.Menus.ActionMenus
 	[ClassMappings]
 	public class ConvertApple2EamonAdventureMenu : Menu, IConvertApple2EamonAdventureMenu
 	{
+		public virtual ArtifactType[] ArtifactTypeMappings { get; set; }
+
 		public override void Execute()
 		{
 			RetCode rc;
@@ -337,9 +341,133 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			Globals.RoomsModified = true;
 
+			Globals.Database.FreeArtifacts();
+
+			var artifactHelper = Globals.CreateInstance<IArtifactHelper>();
+
+			Debug.Assert(artifactHelper != null);
+
+			for (var i = 0; i < a2eAdv._na; i++)
+			{
+				var a2eArtifact = a2eAdv.ArtifactList[i];
+
+				Debug.Assert(a2eArtifact != null);
+
+				if (!a2eArtifact._artname.Equals("TODO", StringComparison.OrdinalIgnoreCase))
+				{
+					a2eArtifact._artname = a2eArtifact._artname.ToLower().Trim(new char[] { ' ', '\"' });
+				}
+
+				if (a2eArtifact._artname.Length <= 0)
+				{
+					a2eArtifact._artname = "UNUSED";
+				}
+
+				if (!a2eArtifact._artdesc.Equals("TODO", StringComparison.OrdinalIgnoreCase))
+				{
+					a2eArtifact._artdesc = a2eArtifact._artdesc.ToLower().Trim(new char[] { ' ', '\"' });
+				}
+
+				a2eArtifact._artdesc = Regex.Replace(a2eArtifact._artdesc, @"\s+", " ");
+
+				var regex = new Regex(@"(^[a-z])|[?!.]\s+(.)", RegexOptions.ExplicitCapture);
+
+				a2eArtifact._artdesc = regex.Replace(a2eArtifact._artdesc, s => s.Value.ToUpper());
+
+				a2eArtifact._artdesc = a2eArtifact._artdesc.Replace(" i ", " I ");
+
+				if (a2eArtifact._artdesc.Length <= 0)
+				{
+					a2eArtifact._artdesc = "UNUSED";
+				}
+
+				var artifact = Globals.CreateInstance<IArtifact>(x =>
+				{
+					x.Uid = Globals.Database.GetArtifactUid();
+
+					x.Name = a2eArtifact._artname.Truncate(Constants.ArtNameLen);
+
+					x.Desc = a2eArtifact._artdesc.Truncate(Constants.ArtDescLen);
+
+					x.IsListed = true;
+
+					x.Value = a2eArtifact._ad1;
+
+					x.Weight = a2eArtifact._ad3;
+
+					if (a2eArtifact._ad4 == -1)
+					{
+						x.SetCarriedByCharacter();
+					}
+					else if (a2eArtifact._ad4 == -999)
+					{
+						x.SetWornByCharacter();
+					}
+					else if (a2eArtifact._ad4 < -1 && a2eArtifact._ad4 > -501)
+					{
+						x.SetCarriedByMonsterUid(Math.Abs(a2eArtifact._ad4) - 1);
+					}
+					else if (a2eArtifact._ad4 == 0)
+					{
+						x.SetInLimbo();
+					}
+					else if (a2eArtifact._ad4 > 0 && a2eArtifact._ad4 < 201)
+					{
+						x.SetInRoomUid(a2eArtifact._ad4);
+					}
+					else if (a2eArtifact._ad4 > 500 && a2eArtifact._ad4 < 1001)
+					{
+						x.SetCarriedByContainerUid(a2eArtifact._ad4 - 500);
+					}
+					else if (a2eArtifact._ad4 > 200 && a2eArtifact._ad4 < 501)
+					{
+						x.SetEmbeddedInRoomUid(a2eArtifact._ad4 - 200);
+					}
+					else
+					{
+						x.Location = a2eArtifact._ad4;
+					}
+
+					x.Type = ArtifactTypeMappings[a2eArtifact._ad2];
 
 
+					// TODO
 
+
+				});
+
+				artifact.SetArtifactCategoryCount(1);
+
+				artifactHelper.Record = artifact;
+
+				if (!artifactHelper.ValidateField("Name"))
+				{
+					artifact.Name = "TODO";
+				}
+
+				Globals.Database.AddArtifact(artifact);
+			}
+
+			var containerList = gADB.Records.Where(a => a.Type == ArtifactType.InContainer).ToList();
+
+			foreach (var container in containerList)
+			{
+				var containedList = container.GetContainedList();
+
+				var containedWeight = 0L;
+
+				foreach (var containedArtifact in containedList)
+				{
+					if (!containedArtifact.IsUnmovable())
+					{
+						containedWeight += containedArtifact.Weight;
+					}
+				}
+
+				container.Field3 = containedWeight;
+			}
+
+			Globals.ArtifactsModified = true;
 
 			Globals.Database.FreeEffects();
 
@@ -381,6 +509,18 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 
 
+			var monsterList = gMDB.Records.Where(m => m.Weapon > 0).ToList();
+
+			foreach (var monster in monsterList)
+			{
+				var weaponArtifact = gADB[monster.Weapon];
+
+				if (weaponArtifact != null && weaponArtifact.IsInLimbo())
+				{
+					weaponArtifact.SetCarriedByMonsterUid(monster.Uid);
+				}
+			}
+
 
 
 			Globals.Database.FreeTriggers();
@@ -403,6 +543,22 @@ namespace EamonDD.Game.Menus.ActionMenus
 		public ConvertApple2EamonAdventureMenu()
 		{
 			Buf = Globals.Buf;
+
+			ArtifactTypeMappings = new ArtifactType[]
+			{
+				ArtifactType.Gold,
+				ArtifactType.Treasure,
+				ArtifactType.Weapon,
+				ArtifactType.MagicWeapon,
+				ArtifactType.InContainer,
+				ArtifactType.LightSource,
+				ArtifactType.Drinkable,
+				ArtifactType.Readable,
+				ArtifactType.DoorGate,
+				ArtifactType.Treasure,
+				ArtifactType.BoundMonster,
+				ArtifactType.Wearable
+			};
 		}
 	}
 }
