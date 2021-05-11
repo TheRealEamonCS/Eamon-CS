@@ -430,10 +430,73 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 					x.Type = ArtifactTypeMappings[a2eArtifact._ad2];
 
+					switch(a2eArtifact._ad2)
+					{
+						case 0:
+						case 1:
+						case 9:
 
-					// TODO
+							// do nothing
 
+							break;
 
+						case 2:
+						case 3:
+
+							x.Field1 = a2eArtifact._ad5;
+
+							x.Field2 = a2eArtifact._ad6;
+
+							x.Field3 = a2eArtifact._ad7;
+
+							x.Field4 = a2eArtifact._ad8;
+
+							x.Field5 = a2eArtifact._ad6 == 2 ? 2 : 1;
+
+							break;
+
+						case 4:
+
+							// TODO
+
+							break;
+
+						case 5:
+
+							// TODO
+
+							break;
+
+						case 6:
+
+							// TODO
+
+							break;
+
+						case 7:
+
+							// TODO
+
+							break;
+
+						case 8:
+
+							// TODO
+
+							break;
+
+						case 10:
+
+							// TODO
+
+							break;
+
+						case 11:
+
+							// TODO
+
+							break;
+					}
 				});
 
 				artifact.SetArtifactCategoryCount(1);
