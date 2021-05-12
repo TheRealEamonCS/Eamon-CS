@@ -381,6 +381,8 @@ namespace EamonDD.Game.Menus.ActionMenus
 					a2eArtifact._artdesc = "UNUSED";
 				}
 
+				var embedArtifactInRoom = false;
+
 				var artifact = Globals.CreateInstance<IArtifact>(x =>
 				{
 					x.Uid = Globals.Database.GetArtifactUid();
@@ -428,18 +430,17 @@ namespace EamonDD.Game.Menus.ActionMenus
 						x.Location = a2eArtifact._ad4;
 					}
 
-					x.Type = ArtifactTypeMappings[a2eArtifact._ad2];
+					try
+					{
+						x.Type = ArtifactTypeMappings[a2eArtifact._ad2];
+					}
+					catch (Exception)
+					{
+						x.Type = a2eArtifact._ad2 > 11 ? ArtifactType.User1 + (a2eArtifact._ad2 - 12) : (ArtifactType)a2eArtifact._ad2;
+					}
 
 					switch(a2eArtifact._ad2)
 					{
-						case 0:
-						case 1:
-						case 9:
-
-							// do nothing
-
-							break;
-
 						case 2:
 						case 3:
 
@@ -457,43 +458,55 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 						case 4:
 
-							// TODO
+							x.Field1 = a2eArtifact._ad5;
+
+							x.Field2 = a2eArtifact._ad6 > 0 ? 1000 + a2eArtifact._ad6 : a2eArtifact._ad7;
 
 							break;
 
 						case 5:
 
-							// TODO
+							x.Field1 = a2eArtifact._ad5;
 
 							break;
 
 						case 6:
-
-							// TODO
-
-							break;
-
 						case 7:
+						case 10:
 
-							// TODO
+							x.Field1 = a2eArtifact._ad5;
+
+							x.Field2 = a2eArtifact._ad6;
+
+							x.Field3 = a2eArtifact._ad7;
 
 							break;
 
 						case 8:
 
-							// TODO
+							x.Field1 = a2eArtifact._ad5;
 
-							break;
+							x.Field2 = a2eArtifact._ad6;
 
-						case 10:
+							x.Field3 = a2eArtifact._ad7 > 0 ? 1000 + a2eArtifact._ad7 : a2eArtifact._ad6 != 0 || a2eArtifact._ad8 == 1 ? 1 : 0;
 
-							// TODO
+							x.Field4 = a2eArtifact._ad8;
+
+							embedArtifactInRoom = a2eArtifact._ad8 == 1;
 
 							break;
 
 						case 11:
 
-							// TODO
+							x.Field1 = a2eArtifact._ad5;
+
+							x.Field2 = a2eArtifact._ad6;
+
+							break;
+
+						default:
+
+							// do nothing
 
 							break;
 					}
@@ -506,6 +519,16 @@ namespace EamonDD.Game.Menus.ActionMenus
 				if (!artifactHelper.ValidateField("Name"))
 				{
 					artifact.Name = "TODO";
+				}
+
+				if (embedArtifactInRoom && !artifact.IsEmbeddedInRoom())
+				{
+					var roomUid = artifact.GetInRoomUid(true);
+
+					if (roomUid > 0)
+					{
+						artifact.SetEmbeddedInRoomUid(roomUid);
+					}
 				}
 
 				Globals.Database.AddArtifact(artifact);
@@ -528,6 +551,8 @@ namespace EamonDD.Game.Menus.ActionMenus
 				}
 
 				container.Field3 = containedWeight;
+
+				container.Field4 = containedList.Count;
 			}
 
 			Globals.ArtifactsModified = true;
