@@ -595,7 +595,120 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			Globals.EffectsModified = true;
 
+			Globals.Database.FreeMonsters();
 
+			var monsterHelper = Globals.CreateInstance<IMonsterHelper>();
+
+			Debug.Assert(monsterHelper != null);
+
+			for (var i = 0; i < a2eAdv._nm; i++)
+			{
+				var a2eMonster = a2eAdv.MonsterList[i];
+
+				Debug.Assert(a2eMonster != null);
+
+				if (!a2eMonster._mname.Equals("TODO", StringComparison.OrdinalIgnoreCase))
+				{
+					a2eMonster._mname = a2eMonster._mname.ToLower().Trim(new char[] { ' ', '\"' });
+				}
+
+				if (a2eMonster._mname.Length <= 0)
+				{
+					a2eMonster._mname = "UNUSED";
+				}
+
+				if (!a2eMonster._mdesc.Equals("TODO", StringComparison.OrdinalIgnoreCase))
+				{
+					a2eMonster._mdesc = a2eMonster._mdesc.ToLower().Trim(new char[] { ' ', '\"' });
+				}
+
+				a2eMonster._mdesc = Regex.Replace(a2eMonster._mdesc, @"\s+", " ");
+
+				var regex = new Regex(@"(^[a-z])|[?!.]\s+(.)", RegexOptions.ExplicitCapture);
+
+				a2eMonster._mdesc = regex.Replace(a2eMonster._mdesc, s => s.Value.ToUpper());
+
+				a2eMonster._mdesc = a2eMonster._mdesc.Replace(" i ", " I ");
+
+				if (a2eMonster._mdesc.Length <= 0)
+				{
+					a2eMonster._mdesc = "UNUSED";
+				}
+
+				var monster = Globals.CreateInstance<IMonster>(x =>
+				{
+					x.Uid = Globals.Database.GetMonsterUid();
+
+					x.Name = a2eMonster._mname.Truncate(Constants.MonNameLen);
+
+					x.Desc = a2eMonster._mdesc.Truncate(Constants.MonDescLen);
+
+					x.IsListed = true;
+
+					x.Hardiness = a2eMonster._md1;
+
+					x.Agility = a2eMonster._md2;
+
+					x.GroupCount = !string.IsNullOrWhiteSpace(a2eAdv._ver) && a2eAdv._ver.StartsWith("7") ? a2eMonster._md3 : 1;
+
+					x.AttackCount = 1;
+
+					x.Courage = a2eMonster._md4 > 100 ? 200 : a2eMonster._md4 == 100 ? 105 : a2eMonster._md4;			// TODO: verify
+
+					x.Location = a2eMonster._md5;
+
+					x.CombatCode = CombatCode.Attacks;
+
+					if (!string.IsNullOrWhiteSpace(a2eAdv._ver) && a2eAdv._ver.StartsWith("7"))
+					{
+						x.Armor = a2eMonster._md7;
+
+						x.Weapon = a2eMonster._md8;
+
+						x.NwDice = a2eMonster._md9;
+
+						x.NwSides = a2eMonster._md10;
+
+						x.Friendliness = (Friendliness)(100 + a2eMonster._md11);
+					}
+					else
+					{
+						x.Armor = a2eMonster._md8;
+
+						x.Weapon = a2eMonster._md9;
+
+						x.NwDice = a2eMonster._md11;
+
+						x.NwSides = a2eMonster._md12;
+
+						x.Friendliness = (Friendliness)(100 + a2eMonster._md3);
+					}
+
+					x.Gender = Gender.Neutral;
+
+					if (string.IsNullOrWhiteSpace(a2eAdv._ver) || !a2eAdv._ver.StartsWith("7"))
+					{
+						x.Field1 = a2eMonster._md7;
+
+						x.Field2 = a2eMonster._md10;
+					}
+					else
+					{
+						x.Field1 = 0;
+
+						x.Field2 = 0;
+					}
+				});
+
+				monsterHelper.Record = monster;
+
+				if (!monsterHelper.ValidateField("Name"))
+				{
+					monster.Name = "TODO";
+				}
+
+				Globals.Database.AddMonster(monster);
+			}
 
 			var monsterList = gMDB.Records.Where(m => m.Weapon > 0).ToList();
 
@@ -609,7 +722,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 				}
 			}
 
-
+			Globals.MonstersModified = true;
 
 			Globals.Database.FreeTriggers();
 
