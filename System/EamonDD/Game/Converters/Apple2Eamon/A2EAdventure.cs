@@ -21,6 +21,12 @@ namespace EamonDD.Game.Converters.Apple2Eamon
 
 		public long _nd;
 
+		public long _aptr;
+
+		public long _eptr;
+
+		public long _mptr;
+
 		public long _type;
 
 		public long _dlen;

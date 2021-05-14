@@ -49,7 +49,7 @@ namespace EamonDD.Game.Converters.Apple2Eamon
 		/// <summary>
 		/// </summary>
 		/// <remarks>
-		/// Full credit:  referencing DUNGEON LIST Z by John Nelson and Tom Zuchowski
+		/// Full credit:  referencing DUNGEON LIST Z, DUNGEON LIST 7.1 by John Nelson and Tom Zuchowski
 		/// </remarks>
 		public virtual bool LoadAdventure()
 		{
@@ -66,6 +66,12 @@ namespace EamonDD.Game.Converters.Apple2Eamon
 				var nameDatFile = Globals.Path.Combine(AdventureFolderPath, "EAMON.NAME#040000");
 
 				var adventure = new A2EAdventure();
+
+				adventure._aptr = 101;
+
+				adventure._eptr = 201;
+
+				adventure._mptr = 301;
 
 				adventure._type = 4;
 
@@ -118,6 +124,17 @@ namespace EamonDD.Game.Converters.Apple2Eamon
 					catch (Exception)
 					{
 						adventure._ver = "???";
+					}
+
+					if (!string.IsNullOrWhiteSpace(adventure._ver) && adventure._ver.StartsWith("7"))
+					{
+						adventure._aptr = 201;
+
+						adventure._eptr = 401;
+
+						adventure._mptr = 601;
+
+						adventure._dlen = 242;
 					}
 
 					if (adventure.Name.Equals("THE BEGINNERS CAVE", StringComparison.OrdinalIgnoreCase))
@@ -183,6 +200,24 @@ namespace EamonDD.Game.Converters.Apple2Eamon
 					{
 						throw new Exception("Error: TryParse function call failed for _nm");
 					}
+
+					if (!string.IsNullOrWhiteSpace(adventure._ver) && adventure._ver.StartsWith("7"))
+					{
+						if (!long.TryParse(tokens[4].Trim(), out adventure._rlen))
+						{
+							throw new Exception("Error: TryParse function call failed for _rlen");
+						}
+
+						if (!long.TryParse(tokens[5].Trim(), out adventure._mlen))
+						{
+							throw new Exception("Error: TryParse function call failed for _mlen");
+						}
+
+						if (!long.TryParse(tokens[6].Trim(), out adventure._alen))
+						{
+							throw new Exception("Error: TryParse function call failed for _alen");
+						}
+					}
 				}
 
 				Adventure = adventure;
@@ -200,7 +235,7 @@ namespace EamonDD.Game.Converters.Apple2Eamon
 		/// <summary>
 		/// </summary>
 		/// <remarks>
-		/// Full credit:  referencing DUNGEON LIST Z by John Nelson and Tom Zuchowski
+		/// Full credit:  referencing DUNGEON LIST Z, DUNGEON LIST 7.1 by John Nelson and Tom Zuchowski
 		/// </remarks>
 		public virtual bool ConvertAdventure()
 		{
@@ -226,129 +261,146 @@ namespace EamonDD.Game.Converters.Apple2Eamon
 
 				using (var descDatStream = Globals.File.OpenRead(descDatFile))
 				{
-					using (var roomNameDatStream = Globals.File.OpenRead(roomNameDatFile))
+					using (var roomDatStream = Globals.File.OpenRead(roomDatFile))
 					{
-						using (var roomDatStream = Globals.File.OpenRead(roomDatFile))
+						for (var i = 0; i < Adventure._nr; i++)
 						{
-							for (var i = 0; i < Adventure._nr; i++)
+							var room = new A2ERoom();
+
+							if (string.IsNullOrWhiteSpace(Adventure._ver) || !Adventure._ver.StartsWith("7"))
 							{
-								var room = new A2ERoom();
-
-								buffer = new byte[Adventure._rnlen];
-
-								roomNameDatStream.Seek((int)((i + 1) * Adventure._rnlen), SeekOrigin.Begin);
-
-								roomNameDatStream.Read(buffer, 0, (int)Adventure._rnlen);
-
-								buffer = ConvertApple2ByteBuffer(buffer);
-
-								line = System.Text.Encoding.Default.GetString(buffer).Trim();
-
-								tokens = line.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
-
-								if (tokens.Length < 1)
+								using (var roomNameDatStream = Globals.File.OpenRead(roomNameDatFile))
 								{
-									tokens = new string[] { "TODO" };
+									buffer = new byte[Adventure._rnlen];
+
+									roomNameDatStream.Seek((int)((i + 1) * Adventure._rnlen), SeekOrigin.Begin);
+
+									roomNameDatStream.Read(buffer, 0, (int)Adventure._rnlen);
+
+									buffer = ConvertApple2ByteBuffer(buffer);
+
+									line = System.Text.Encoding.Default.GetString(buffer).Trim();
+
+									tokens = line.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
+
+									if (tokens.Length < 1)
+									{
+										tokens = new string[] { "TODO" };
+									}
+
+									room._rname = tokens[0].Trim();
+								}
+							}
+
+							buffer = new byte[Adventure._dlen];
+
+							descDatStream.Seek((int)((i + 1) * Adventure._dlen), SeekOrigin.Begin);
+
+							descDatStream.Read(buffer, 0, (int)Adventure._dlen);
+
+							buffer = ConvertApple2ByteBuffer(buffer);
+
+							line = System.Text.Encoding.Default.GetString(buffer).Trim();
+
+							tokens = line.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
+
+							if (tokens.Length < 1)
+							{
+								tokens = new string[] { "TODO" };
+							}
+
+							room._rdesc = tokens[0].Trim();
+
+							buffer = new byte[Adventure._rlen];
+
+							roomDatStream.Seek((int)((i + 1) * Adventure._rlen), SeekOrigin.Begin);
+
+							roomDatStream.Read(buffer, 0, (int)Adventure._rlen);
+
+							buffer = ConvertApple2ByteBuffer(buffer);
+
+							line = System.Text.Encoding.Default.GetString(buffer).Trim();
+
+							tokens = line.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
+
+							var idx = 0;
+
+							if (!string.IsNullOrWhiteSpace(Adventure._ver) && Adventure._ver.StartsWith("7"))
+							{
+								for (var j = tokens.Length; j < Adventure._nd + 2; j++)
+								{
+									tokens = tokens.Append(j == 0 ? "TODO" : j != Adventure._nd + 1 ? "-9999" : "1").ToArray();
 								}
 
-								room._rname = tokens[0].Trim();
-
-								buffer = new byte[Adventure._dlen];
-
-								descDatStream.Seek((int)((i + 1) * Adventure._dlen), SeekOrigin.Begin);
-
-								descDatStream.Read(buffer, 0, (int)Adventure._dlen);
-
-								buffer = ConvertApple2ByteBuffer(buffer);
-
-								line = System.Text.Encoding.Default.GetString(buffer).Trim();
-
-								tokens = line.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
-
-								if (tokens.Length < 1)
-								{
-									tokens = new string[] { "TODO" };
-								}
-
-								room._rdesc = tokens[0].Trim();
-
-								buffer = new byte[Adventure._rlen];
-
-								roomDatStream.Seek((int)((i + 1) * Adventure._rlen), SeekOrigin.Begin);
-
-								roomDatStream.Read(buffer, 0, (int)Adventure._rlen);
-
-								buffer = ConvertApple2ByteBuffer(buffer);
-
-								line = System.Text.Encoding.Default.GetString(buffer).Trim();
-
-								tokens = line.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
-
+								room._rname = tokens[idx++].Trim();
+							}
+							else
+							{
 								for (var j = tokens.Length; j < Adventure._nd + 1; j++)
 								{
 									tokens = tokens.Append(j != Adventure._nd ? "-9999" : "1").ToArray();
 								}
-
-								if (!short.TryParse(tokens[0].Trim(), out room._rd1))
-								{
-									throw new Exception("Error: TryParse function call failed for _rd1");
-								}
-
-								if (!short.TryParse(tokens[1].Trim(), out room._rd2))
-								{
-									throw new Exception("Error: TryParse function call failed for _rd2");
-								}
-
-								if (!short.TryParse(tokens[2].Trim(), out room._rd3))
-								{
-									throw new Exception("Error: TryParse function call failed for _rd3");
-								}
-
-								if (!short.TryParse(tokens[3].Trim(), out room._rd4))
-								{
-									throw new Exception("Error: TryParse function call failed for _rd4");
-								}
-
-								if (!short.TryParse(tokens[4].Trim(), out room._rd5))
-								{
-									throw new Exception("Error: TryParse function call failed for _rd5");
-								}
-
-								if (!short.TryParse(tokens[5].Trim(), out room._rd6))
-								{
-									throw new Exception("Error: TryParse function call failed for _rd6");
-								}
-
-								if (Adventure._nd == 10)
-								{
-									if (!short.TryParse(tokens[6].Trim(), out room._rd7))
-									{
-										throw new Exception("Error: TryParse function call failed for _rd7");
-									}
-
-									if (!short.TryParse(tokens[7].Trim(), out room._rd8))
-									{
-										throw new Exception("Error: TryParse function call failed for _rd8");
-									}
-
-									if (!short.TryParse(tokens[8].Trim(), out room._rd9))
-									{
-										throw new Exception("Error: TryParse function call failed for _rd9");
-									}
-
-									if (!short.TryParse(tokens[9].Trim(), out room._rd10))
-									{
-										throw new Exception("Error: TryParse function call failed for _rd10");
-									}
-								}
-
-								if (!short.TryParse(tokens[Adventure._nd].Trim(), out room._rlight))
-								{
-									throw new Exception("Error: TryParse function call failed for _rlight");
-								}
-
-								Adventure.RoomList.Add(room);
 							}
+
+							if (!short.TryParse(tokens[idx++].Trim(), out room._rd1))
+							{
+								room._rd1 = -9999;
+							}
+
+							if (!short.TryParse(tokens[idx++].Trim(), out room._rd2))
+							{
+								room._rd2 = -9999;
+							}
+
+							if (!short.TryParse(tokens[idx++].Trim(), out room._rd3))
+							{
+								room._rd3 = -9999;
+							}
+
+							if (!short.TryParse(tokens[idx++].Trim(), out room._rd4))
+							{
+								room._rd4 = -9999;
+							}
+
+							if (!short.TryParse(tokens[idx++].Trim(), out room._rd5))
+							{
+								room._rd5 = -9999;
+							}
+
+							if (!short.TryParse(tokens[idx++].Trim(), out room._rd6))
+							{
+								room._rd6 = -9999;
+							}
+
+							if (Adventure._nd == 10)
+							{
+								if (!short.TryParse(tokens[idx++].Trim(), out room._rd7))
+								{
+									room._rd7 = -9999;
+								}
+
+								if (!short.TryParse(tokens[idx++].Trim(), out room._rd8))
+								{
+									room._rd8 = -9999;
+								}
+
+								if (!short.TryParse(tokens[idx++].Trim(), out room._rd9))
+								{
+									room._rd9 = -9999;
+								}
+
+								if (!short.TryParse(tokens[idx++].Trim(), out room._rd10))
+								{
+									room._rd10 = -9999;
+								}
+							}
+
+							if (!short.TryParse(tokens[idx++].Trim(), out room._rlight))
+							{
+								room._rlight = 1;
+							}
+
+							Adventure.RoomList.Add(room);
 						}
 					}
 
@@ -360,7 +412,7 @@ namespace EamonDD.Game.Converters.Apple2Eamon
 
 							buffer = new byte[Adventure._dlen];
 
-							descDatStream.Seek((int)((i + 101) * Adventure._dlen), SeekOrigin.Begin);
+							descDatStream.Seek((int)((i + Adventure._aptr) * Adventure._dlen), SeekOrigin.Begin);
 
 							descDatStream.Read(buffer, 0, (int)Adventure._dlen);
 
@@ -405,44 +457,44 @@ namespace EamonDD.Game.Converters.Apple2Eamon
 
 							if (!short.TryParse(tokens[1].Trim(), out artifact._ad1))
 							{
-								throw new Exception("Error: TryParse function call failed for _ad1");
+								artifact._ad1 = -9999;
 							}
 
 							if (!short.TryParse(tokens[2].Trim(), out artifact._ad2))
 							{
-								throw new Exception("Error: TryParse function call failed for _ad2");
+								artifact._ad2 = -9999;
 							}
 
 							if (!short.TryParse(tokens[3].Trim(), out artifact._ad3))
 							{
-								throw new Exception("Error: TryParse function call failed for _ad3");
+								artifact._ad3 = -9999;
 							}
 
 							if (!short.TryParse(tokens[4].Trim(), out artifact._ad4))
 							{
-								throw new Exception("Error: TryParse function call failed for _ad4");
+								artifact._ad4 = -9999;
 							}
 
 							if (artifact._ad2 > 1)
 							{
 								if (!short.TryParse(tokens[5].Trim(), out artifact._ad5))
 								{
-									throw new Exception("Error: TryParse function call failed for _ad5");
+									artifact._ad5 = -9999;
 								}
 
 								if (!short.TryParse(tokens[6].Trim(), out artifact._ad6))
 								{
-									throw new Exception("Error: TryParse function call failed for _ad6");
+									artifact._ad6 = -9999;
 								}
 
 								if (!short.TryParse(tokens[7].Trim(), out artifact._ad7))
 								{
-									throw new Exception("Error: TryParse function call failed for _ad7");
+									artifact._ad7 = -9999;
 								}
 
 								if (!short.TryParse(tokens[8].Trim(), out artifact._ad8))
 								{
-									throw new Exception("Error: TryParse function call failed for _ad8");
+									artifact._ad8 = -9999;
 								}
 							}
 
@@ -456,7 +508,7 @@ namespace EamonDD.Game.Converters.Apple2Eamon
 
 						buffer = new byte[Adventure._dlen];
 
-						descDatStream.Seek((int)((i + 201) * Adventure._dlen), SeekOrigin.Begin);
+						descDatStream.Seek((int)((i + Adventure._eptr) * Adventure._dlen), SeekOrigin.Begin);
 
 						descDatStream.Read(buffer, 0, (int)Adventure._dlen);
 
@@ -484,7 +536,7 @@ namespace EamonDD.Game.Converters.Apple2Eamon
 
 							buffer = new byte[Adventure._dlen];
 
-							descDatStream.Seek((int)((i + 301) * Adventure._dlen), SeekOrigin.Begin);
+							descDatStream.Seek((int)((i + Adventure._mptr) * Adventure._dlen), SeekOrigin.Begin);
 
 							descDatStream.Read(buffer, 0, (int)Adventure._dlen);
 
@@ -529,62 +581,62 @@ namespace EamonDD.Game.Converters.Apple2Eamon
 
 							if (!short.TryParse(tokens[1].Trim(), out monster._md1))
 							{
-								throw new Exception("Error: TryParse function call failed for _md1");
+								monster._md1 = -9999;
 							}
 
 							if (!short.TryParse(tokens[2].Trim(), out monster._md2))
 							{
-								throw new Exception("Error: TryParse function call failed for _md2");
+								monster._md2 = -9999;
 							}
 
 							if (!short.TryParse(tokens[3].Trim(), out monster._md3))
 							{
-								throw new Exception("Error: TryParse function call failed for _md3");
+								monster._md3 = -9999;
 							}
 
 							if (!short.TryParse(tokens[4].Trim(), out monster._md4))
 							{
-								throw new Exception("Error: TryParse function call failed for _md4");
+								monster._md4 = -9999;
 							}
 
 							if (!short.TryParse(tokens[5].Trim(), out monster._md5))
 							{
-								throw new Exception("Error: TryParse function call failed for _md5");
+								monster._md5 = -9999;
 							}
 
 							if (!short.TryParse(tokens[6].Trim(), out monster._md6))
 							{
-								throw new Exception("Error: TryParse function call failed for _md6");
+								monster._md6 = -9999;
 							}
 
 							if (!short.TryParse(tokens[7].Trim(), out monster._md7))
 							{
-								throw new Exception("Error: TryParse function call failed for _md7");
+								monster._md7 = -9999;
 							}
 
 							if (!short.TryParse(tokens[8].Trim(), out monster._md8))
 							{
-								throw new Exception("Error: TryParse function call failed for _md8");
+								monster._md8 = -9999;
 							}
 
 							if (!short.TryParse(tokens[9].Trim(), out monster._md9))
 							{
-								throw new Exception("Error: TryParse function call failed for _md9");
+								monster._md9 = -9999;
 							}
 
 							if (!short.TryParse(tokens[10].Trim(), out monster._md10))
 							{
-								throw new Exception("Error: TryParse function call failed for _md10");
+								monster._md10 = -9999;
 							}
 
 							if (!short.TryParse(tokens[11].Trim(), out monster._md11))
 							{
-								throw new Exception("Error: TryParse function call failed for _md11");
+								monster._md11 = -9999;
 							}
 
 							if (!short.TryParse(tokens[12].Trim(), out monster._md12))
 							{
-								throw new Exception("Error: TryParse function call failed for _md12");
+								monster._md12 = -9999;
 							}
 
 							Adventure.MonsterList.Add(monster);

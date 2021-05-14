@@ -118,7 +118,14 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 				if (!a2eAdv.Name.Equals("TODO", StringComparison.OrdinalIgnoreCase))
 				{
-					x.Name = a2eAdv.Name.ToLower().Trim(new char[] { ' ', '\"' }).ToTitleCase().Truncate(Constants.ModNameLen);
+					x.Name = a2eAdv.Name;
+
+					if (!x.Name.Any(char.IsLower))
+					{
+						x.Name = x.Name.ToLower();
+					}
+
+					x.Name = x.Name.Trim(new char[] { ' ', '\"' }).ToTitleCase().Truncate(Constants.ModNameLen);
 				}
 				else
 				{
@@ -162,7 +169,12 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 				if (!a2eRoom._rname.Equals("TODO", StringComparison.OrdinalIgnoreCase))
 				{
-					a2eRoom._rname = a2eRoom._rname.ToLower().Trim(new char[] { ' ', '\"' }).ToTitleCase();
+					if (!a2eRoom._rname.Any(char.IsLower))
+					{
+						a2eRoom._rname = a2eRoom._rname.ToLower();
+					}
+
+					a2eRoom._rname = a2eRoom._rname.Trim(new char[] { ' ', '\"' }).ToTitleCase();
 				}
 
 				a2eRoom._rname = Regex.Replace(a2eRoom._rname, @"[ .!?]*(\(.*\))?[ .!?]*$", "");
@@ -174,7 +186,17 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 				if (!a2eRoom._rdesc.Equals("TODO", StringComparison.OrdinalIgnoreCase))
 				{
-					a2eRoom._rdesc = a2eRoom._rdesc.ToLower().Trim(new char[] { ' ', '\"' });
+					if (!a2eRoom._rdesc.Any(char.IsLower))
+					{
+						a2eRoom._rdesc = a2eRoom._rdesc.ToLower();
+					}
+
+					a2eRoom._rdesc = a2eRoom._rdesc.Trim(new char[] { ' ', '\"' });
+
+					if (a2eRoom._rdesc.Length > 0 && !Regex.IsMatch(a2eRoom._rdesc, @".*\p{P}$"))
+					{
+						a2eRoom._rdesc += ".";
+					}
 				}
 
 				a2eRoom._rdesc = Regex.Replace(a2eRoom._rdesc, @"\s+", " ");
@@ -355,7 +377,12 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 				if (!a2eArtifact._artname.Equals("TODO", StringComparison.OrdinalIgnoreCase))
 				{
-					a2eArtifact._artname = a2eArtifact._artname.ToLower().Trim(new char[] { ' ', '\"' });
+					if (!a2eArtifact._artname.Any(char.IsLower))
+					{
+						a2eArtifact._artname = a2eArtifact._artname.ToLower();
+					}
+
+					a2eArtifact._artname = a2eArtifact._artname.Trim(new char[] { ' ', '\"' });
 				}
 
 				if (a2eArtifact._artname.Length <= 0)
@@ -365,7 +392,17 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 				if (!a2eArtifact._artdesc.Equals("TODO", StringComparison.OrdinalIgnoreCase))
 				{
-					a2eArtifact._artdesc = a2eArtifact._artdesc.ToLower().Trim(new char[] { ' ', '\"' });
+					if (!a2eArtifact._artdesc.Any(char.IsLower))
+					{
+						a2eArtifact._artdesc = a2eArtifact._artdesc.ToLower();
+					}
+
+					a2eArtifact._artdesc = a2eArtifact._artdesc.Trim(new char[] { ' ', '\"' });
+
+					if (a2eArtifact._artdesc.Length > 0 && !Regex.IsMatch(a2eArtifact._artdesc, @".*\p{P}$"))
+					{
+						a2eArtifact._artdesc += ".";
+					}
 				}
 
 				a2eArtifact._artdesc = Regex.Replace(a2eArtifact._artdesc, @"\s+", " ");
@@ -567,7 +604,17 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 				if (!a2eEffect._text.Equals("TODO", StringComparison.OrdinalIgnoreCase))
 				{
-					a2eEffect._text = a2eEffect._text.ToLower().Trim(new char[] { ' ', '\"' });
+					if (!a2eEffect._text.Any(char.IsLower))
+					{
+						a2eEffect._text = a2eEffect._text.ToLower();
+					}
+
+					a2eEffect._text = a2eEffect._text.Trim(new char[] { ' ', '\"' });
+
+					if (a2eEffect._text.Length > 0 && !Regex.IsMatch(a2eEffect._text, @".*\p{P}$"))
+					{
+						a2eEffect._text += ".";
+					}
 				}
 
 				a2eEffect._text = Regex.Replace(a2eEffect._text, @"\s+", " ");
@@ -609,7 +656,12 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 				if (!a2eMonster._mname.Equals("TODO", StringComparison.OrdinalIgnoreCase))
 				{
-					a2eMonster._mname = a2eMonster._mname.ToLower().Trim(new char[] { ' ', '\"' });
+					if (!a2eMonster._mname.Any(char.IsLower))
+					{
+						a2eMonster._mname = a2eMonster._mname.ToLower();
+					}
+
+					a2eMonster._mname = a2eMonster._mname.Trim(new char[] { ' ', '\"' });
 				}
 
 				if (a2eMonster._mname.Length <= 0)
@@ -619,7 +671,17 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 				if (!a2eMonster._mdesc.Equals("TODO", StringComparison.OrdinalIgnoreCase))
 				{
-					a2eMonster._mdesc = a2eMonster._mdesc.ToLower().Trim(new char[] { ' ', '\"' });
+					if (!a2eMonster._mdesc.Any(char.IsLower))
+					{
+						a2eMonster._mdesc = a2eMonster._mdesc.ToLower();
+					}
+
+					a2eMonster._mdesc = a2eMonster._mdesc.Trim(new char[] { ' ', '\"' });
+
+					if (a2eMonster._mdesc.Length > 0 && !Regex.IsMatch(a2eMonster._mdesc, @".*\p{P}$"))
+					{
+						a2eMonster._mdesc += ".";
+					}
 				}
 
 				a2eMonster._mdesc = Regex.Replace(a2eMonster._mdesc, @"\s+", " ");
@@ -653,7 +715,14 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 					x.AttackCount = 1;
 
-					x.Courage = a2eMonster._md4 > 100 ? 200 : a2eMonster._md4 == 100 ? 105 : a2eMonster._md4;			// TODO: verify
+					if (!string.IsNullOrWhiteSpace(a2eAdv._ver) && a2eAdv._ver.StartsWith("7"))
+					{
+						x.Courage = a2eMonster._md4;
+					}
+					else
+					{
+						x.Courage = a2eMonster._md4 > 100 ? 200 : a2eMonster._md4 == 100 ? 105 : a2eMonster._md4;				// Another possible formula: a2eMonster._md4 >= 100 ? 200 : a2eMonster._md4;
+					}
 
 					x.Location = a2eMonster._md5;
 
@@ -669,7 +738,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 						x.NwSides = a2eMonster._md10;
 
-						x.Friendliness = (Friendliness)(100 + a2eMonster._md11);
+						x.Friendliness = (Friendliness)a2eMonster._md11;
 					}
 					else
 					{
