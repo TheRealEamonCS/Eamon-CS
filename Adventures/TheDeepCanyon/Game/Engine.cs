@@ -27,12 +27,32 @@ namespace TheDeepCanyon.Game
 
 			var synonyms = new Dictionary<long, string[]>()
 			{
-
+				{ 2, new string[] { "bag" } },
+				{ 6, new string[] { "miners pick", "pick" } },
+				{ 15, new string[] { "gold", "ore" } },
+				{ 16, new string[] { "big stick" } },
+				{ 17, new string[] { "trap" } },
 			};
 
 			foreach (var synonym in synonyms)
 			{
 				CreateArtifactSynonyms(synonym.Key, synonym.Value);
+			}
+		}
+
+		public override void InitMonsters()
+		{
+			base.InitMonsters();
+
+			var synonyms = new Dictionary<long, string[]>()
+			{
+				{ 2, new string[] { "cougar", "lion", "puma", "wildcat", "bobcat" } },
+
+			};
+
+			foreach (var synonym in synonyms)
+			{
+				CreateMonsterSynonyms(synonym.Key, synonym.Value);
 			}
 		}
 	}
