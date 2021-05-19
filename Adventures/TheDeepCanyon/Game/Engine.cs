@@ -6,6 +6,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using Eamon.Framework;
+using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using static TheDeepCanyon.Game.Plugin.PluginContext;
 
@@ -47,13 +48,39 @@ namespace TheDeepCanyon.Game
 			var synonyms = new Dictionary<long, string[]>()
 			{
 				{ 2, new string[] { "cougar", "lion", "puma", "wildcat", "bobcat" } },
-
 			};
 
 			foreach (var synonym in synonyms)
 			{
 				CreateMonsterSynonyms(synonym.Key, synonym.Value);
 			}
+		}
+
+		public override void CheckNumberOfExits(IRoom room, IMonster monster, bool fleeing, ref long numExits)
+		{
+			Debug.Assert(room != null);
+
+			base.CheckNumberOfExits(room, monster, fleeing, ref numExits);
+
+			// Exclude west exit in Falconer's camp
+
+			if (room.Uid == 8)
+			{
+				numExits--;
+			}
+		}
+
+		public override void GetRandomMoveDirection(IRoom room, IMonster monster, bool fleeing, ref Direction direction, ref bool found, ref long roomUid)
+		{
+			Debug.Assert(room != null);
+
+			// Exclude west exit in Falconer's camp
+
+			do
+			{
+				base.GetRandomMoveDirection(room, monster, fleeing, ref direction, ref found, ref roomUid);
+			}
+			while (room.Uid == 8 && direction == Direction.West);
 		}
 	}
 }
