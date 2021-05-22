@@ -44,6 +44,7 @@ namespace TheDeepCanyon.Game
 				{ 15, new string[] { "gold", "ore" } },
 				{ 16, new string[] { "big stick" } },
 				{ 17, new string[] { "trap" } },
+				{ 52, new string[] { "tracks", "track" } },
 			};
 
 			foreach (var synonym in synonyms)
