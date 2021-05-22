@@ -12,6 +12,18 @@ namespace TheDeepCanyon.Game
 	[ClassMappings]
 	public class Monster : Eamon.Game.Monster, IMonster
 	{
+		public override bool CanMoveToRoom(bool fleeing)
+		{
+			// Fido can't flee or follow
 
+			return Uid != 11 ? base.CanMoveToRoom(fleeing) : false;
+		}
+
+		public override bool ShouldProcessInGameLoop()
+		{
+			// Fido is always active
+
+			return (Uid == 11 && !IsInLimbo()) || base.ShouldProcessInGameLoop();
+		}
 	}
 }

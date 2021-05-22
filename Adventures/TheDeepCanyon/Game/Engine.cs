@@ -15,6 +15,17 @@ namespace TheDeepCanyon.Game
 	[ClassMappings(typeof(IEngine))]
 	public class Engine : EamonRT.Game.Engine, EamonRT.Framework.IEngine
 	{
+		public override void AddUniqueCharsToArtifactAndMonsterNames()
+		{
+			base.AddUniqueCharsToArtifactAndMonsterNames();
+
+			var diamondsArtifact = gADB[10];
+
+			Debug.Assert(diamondsArtifact != null);
+
+			diamondsArtifact.Name = diamondsArtifact.Name.TrimEnd('#');
+		}
+
 		public override void InitArtifacts()
 		{
 			base.InitArtifacts();

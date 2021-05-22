@@ -9,6 +9,16 @@ namespace TheDeepCanyon.Framework
 {
 	public interface IGameState : Eamon.Framework.IGameState
 	{
+		long FidoSleepCounter { get; set; }
 
+		bool Peanuts { get; set; }
+
+		bool ElephantStatue { get; set; }
+
+		bool Diamonds { get; set; }
+
+		bool SquirrelRing { get; set; }
+
+		bool BlueDragon { get; set; }
 	}
 }
