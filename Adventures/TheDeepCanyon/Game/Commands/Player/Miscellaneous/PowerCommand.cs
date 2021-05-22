@@ -93,6 +93,11 @@ namespace TheDeepCanyon.Game.Commands
 
 										artifact.GeneralWeapon.Field1 -= dec;
 
+										if (artifact.GeneralWeapon.Field1 < Constants.MinWeaponComplexity)
+										{
+											artifact.GeneralWeapon.Field1 = Constants.MinWeaponComplexity;
+										}
+
 										processed = true;
 
 										break;

@@ -216,6 +216,12 @@ namespace Eamon.Framework.Plugin
 		long LimboLocation { get; }
 
 		/// <summary></summary>
+		long MinWeaponComplexity { get; }
+
+		/// <summary></summary>
+		long MaxWeaponComplexity { get; }
+
+		/// <summary></summary>
 		long MinGoldValue { get; }
 
 		/// <summary></summary>
