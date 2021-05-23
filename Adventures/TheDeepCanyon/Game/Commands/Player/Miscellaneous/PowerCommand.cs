@@ -3,8 +3,9 @@
 
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
+using System;
 using System.Diagnostics;
-using System.Linq;
+using Eamon.Framework;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using Eamon.Game.Extensions;
@@ -23,7 +24,9 @@ namespace TheDeepCanyon.Game.Commands
 		{
 			if (eventType == EventType.AfterCastSpellCheck)
 			{
-				var artifactList = gEngine.GetArtifactList(a => a.Uid >= 29 && a.Uid <= 51 && (a.IsCarriedByCharacter() || a.IsInRoom(ActorRoom)));
+				Func<IArtifact, bool> findDeadBodiesFunc = a => a.Uid >= 29 && a.Uid <= 51 && (a.IsCarriedByCharacter() || a.IsInRoom(ActorRoom));
+
+				var artifactList = gEngine.GetArtifactList(findDeadBodiesFunc);
 
 				do
 				{
@@ -35,23 +38,13 @@ namespace TheDeepCanyon.Game.Commands
 
 				switch (PowerEventRoll)
 				{
-					case 1:		// TODO: reuse gEngine.ResurrectDeadBodies if possible
-						
-						foreach (var artifact in artifactList)
-						{
-							var monster = Globals.Database.MonsterTable.Records.FirstOrDefault(m => m.DeadBody == artifact.Uid);
+					case 1:
 
-							if (monster != null && monster.GroupCount == 1)
-							{
-								monster.SetInRoom(ActorRoom);
+						Globals.RulesetVersion = 5;
 
-								monster.DmgTaken = 0;
+						gEngine.ResurrectDeadBodies(ActorRoom, findDeadBodiesFunc);
 
-								artifact.SetInLimbo();
-
-								gOut.Print("{0} comes alive!", artifact.GetTheName(true));
-							}
-						}
+						Globals.RulesetVersion = 0;
 
 						break;
 
