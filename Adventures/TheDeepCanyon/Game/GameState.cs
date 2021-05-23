@@ -23,5 +23,7 @@ namespace TheDeepCanyon.Game
 		public virtual bool SquirrelRing { get; set; }
 
 		public virtual bool BlueDragon { get; set; }
+
+		public virtual bool BoxOpened { get; set; }
 	}
 }

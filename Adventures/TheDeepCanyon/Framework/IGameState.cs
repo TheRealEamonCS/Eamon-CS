@@ -20,5 +20,7 @@ namespace TheDeepCanyon.Framework
 		bool SquirrelRing { get; set; }
 
 		bool BlueDragon { get; set; }
+
+		bool BoxOpened { get; set; }
 	}
 }

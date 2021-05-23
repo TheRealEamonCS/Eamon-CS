@@ -39,7 +39,7 @@ namespace TheDeepCanyon.Game
 
 			var synonyms = new Dictionary<long, string[]>()
 			{
-				{ 2, new string[] { "bag" } },
+				{ 2, new string[] { "bag", "sack" } },
 				{ 6, new string[] { "miners pick", "pick" } },
 				{ 15, new string[] { "gold", "ore" } },
 				{ 16, new string[] { "big stick" } },
