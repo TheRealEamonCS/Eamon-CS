@@ -2239,7 +2239,7 @@ namespace EamonRT.Game
 			{
 				whereClauseFuncs = new Func<IArtifact, bool>[]
 				{
-					a => (a.IsCarriedByCharacter() || a.IsInRoomUid(gGameState.Ro)) && a.DeadBody != null
+					a => (a.IsCarriedByCharacter() || a.IsInRoom(room)) && a.DeadBody != null
 				};
 			}
 
@@ -2253,7 +2253,7 @@ namespace EamonRT.Game
 
 				if (monster != null && monster.GroupCount == 1)
 				{
-					monster.SetInRoomUid(gGameState.Ro);
+					monster.SetInRoom(room);
 
 					monster.DmgTaken = 0;
 
@@ -2276,7 +2276,7 @@ namespace EamonRT.Game
 			{
 				whereClauseFuncs = new Func<IArtifact, bool>[]
 				{
-					a => a.IsInRoomUid(gGameState.Ro) && !a.IsUnmovable()
+					a => a.IsInRoom(room) && !a.IsUnmovable()
 				};
 			}
 

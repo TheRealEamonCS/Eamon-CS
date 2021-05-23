@@ -4,6 +4,7 @@
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
 using System.Diagnostics;
+using System.Linq;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using Eamon.Game.Extensions;
@@ -22,15 +23,35 @@ namespace TheDeepCanyon.Game.Commands
 		{
 			if (eventType == EventType.AfterCastSpellCheck)
 			{
-				PowerEventRoll = gEngine.RollDice(1, 6, 0);
+				var artifactList = gEngine.GetArtifactList(a => a.Uid >= 29 && a.Uid <= 51 && (a.IsCarriedByCharacter() || a.IsInRoom(ActorRoom)));
+
+				do
+				{
+					PowerEventRoll = gEngine.RollDice(1, 6, 0);
+				}
+				while (PowerEventRoll == 1 && artifactList.Count <= 0);
 
 				var rl = gEngine.RollDice(1, 100, 0);
 
 				switch (PowerEventRoll)
 				{
-					case 1:
+					case 1:		// TODO: reuse gEngine.ResurrectDeadBodies if possible
 						
-						// TODO: implement
+						foreach (var artifact in artifactList)
+						{
+							var monster = Globals.Database.MonsterTable.Records.FirstOrDefault(m => m.DeadBody == artifact.Uid);
+
+							if (monster != null && monster.GroupCount == 1)
+							{
+								monster.SetInRoom(ActorRoom);
+
+								monster.DmgTaken = 0;
+
+								artifact.SetInLimbo();
+
+								gOut.Print("{0} comes alive!", artifact.GetTheName(true));
+							}
+						}
 
 						break;
 
@@ -38,13 +59,13 @@ namespace TheDeepCanyon.Game.Commands
 
 						var processed = false;
 
-						var artifactList = ActorMonster.GetCarriedList();
+						artifactList = ActorMonster.GetCarriedList();
 
 						foreach (var artifact in artifactList)
 						{
 							if (rl > 80)
 							{
-								gOut.Print("{0} disappears!", artifact.GetTheName(true));
+								gOut.Print("{0} disappear{1}!", artifact.GetTheName(true), artifact.EvalPlural("s", ""));
 
 								gOut.EnableOutput = false;
 
