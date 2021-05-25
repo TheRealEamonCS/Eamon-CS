@@ -67,14 +67,7 @@ namespace TheDeepCanyon.Game.States
 				{
 					if (mouseArtifact.IsInRoom(room))
 					{
-						if (room.IsLit())
-						{
-							gOut.Print("As you release the mouse it darts to the elephants. The elephants run away in fright.");
-						}
-						else
-						{
-							gOut.Print("You hear a brief panicked stampede and then silence.");
-						}
+						gOut.Print(room.IsLit() ? "As you release the mouse it darts to the elephants. The elephants run away in fright." : "You hear a brief panicked stampede and then silence.");
 					}
 
 					elephantsMonster.SetInLimbo();
