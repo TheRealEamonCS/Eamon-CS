@@ -18,44 +18,11 @@ namespace TheDeepCanyon.Game.Commands
 		{
 			Debug.Assert(DobjArtifact != null);
 
-			// Mouse trap
-
-			if (DobjArtifact.Uid == 17)
-			{
-				// TODO: implement
-
-				NextState = Globals.CreateInstance<IMonsterStartState>();
-			}
-
 			// Leather bag
 
-			else if (DobjArtifact.Uid == 2)
+			if (DobjArtifact.Uid == 2)
 			{
 				gOut.Print("The gold dust is in there, alright.");
-
-				NextState = Globals.CreateInstance<IMonsterStartState>();
-			}
-
-			// Box
-
-			else if (DobjArtifact.Uid == 23)
-			{
-				var netArtifact = gADB[24];
-
-				Debug.Assert(netArtifact != null);
-
-				if (!gGameState.BoxOpened)
-				{
-					gOut.Print("The box had a net in it.");
-
-					netArtifact.SetInRoom(ActorRoom);
-
-					gGameState.BoxOpened = true;
-				}
-				else
-				{
-					gOut.Print("The box is empty.");
-				}
 
 				NextState = Globals.CreateInstance<IMonsterStartState>();
 			}

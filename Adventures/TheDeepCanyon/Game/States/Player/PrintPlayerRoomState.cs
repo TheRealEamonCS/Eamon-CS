@@ -25,8 +25,81 @@ namespace TheDeepCanyon.Game.States
 
 				Debug.Assert(room != null);
 
+				var rl = gEngine.RollDice(1, 100, 0);
 
+				var trapArtifact = gADB[17];
 
+				Debug.Assert(trapArtifact != null);
+
+				var mouseArtifact = gADB[19];
+
+				Debug.Assert(mouseArtifact != null);
+
+				var elephantsMonster = gMDB[24];
+
+				Debug.Assert(elephantsMonster != null);
+
+				// Mouse trap catches mouse
+
+				if (mouseArtifact.IsInLimbo() && trapArtifact.IsInRoomUid(80) && rl >= 85 && gGameState.TrapSet)
+				{
+					if (room.Uid == 80)
+					{
+						gOut.Print(room.IsLit() ? "You see a mouse scrurry around in the shadows and run back into a hole." : "You hear something scrurry around in the darkness.");
+					}
+					else if (room.Uid == 23 || room.Uid == 20)
+					{
+						gOut.Print("You hear something scurrying around and a bell ring!");
+
+						gGameState.TrapSet = false;
+
+						trapArtifact.InContainer.SetOpen(false);
+
+						mouseArtifact.SetCarriedByContainer(trapArtifact);
+					}
+				}
+
+				var mouseRoom = mouseArtifact.GetInRoom();
+
+				// Mouse scares off elephants
+
+				if (mouseRoom != null && elephantsMonster.IsInRoom(mouseRoom))
+				{
+					if (mouseArtifact.IsInRoom(room))
+					{
+						if (room.IsLit())
+						{
+							gOut.Print("As you release the mouse it darts to the elephants. The elephants run away in fright.");
+						}
+						else
+						{
+							gOut.Print("You hear a brief panicked stampede and then silence.");
+						}
+					}
+
+					elephantsMonster.SetInLimbo();
+				}
+
+				rl = gEngine.RollDice(1, 100, 0);
+
+				// Mouse escapes
+
+				if (mouseRoom != null && rl >= 50)
+				{
+					if (mouseArtifact.IsInRoom(room))
+					{
+						if (room.IsLit())
+						{
+							gOut.Print("The mouse scurries off {0}.", room.EvalRoomType("into the shadows", "into the underbrush"));
+						}
+						else
+						{
+							gOut.Print("You hear something scrurry around in the darkness.");
+						}
+					}
+
+					mouseArtifact.SetInLimbo();
+				}
 
 				var ringArtifact = gADB[22];
 
@@ -43,7 +116,7 @@ namespace TheDeepCanyon.Game.States
 					gGameState.SquirrelRing = true;
 				}
 
-				var rl = gEngine.RollDice(1, 100, 0);
+				rl = gEngine.RollDice(1, 100, 0);
 
 				// Blue Dragon appears
 

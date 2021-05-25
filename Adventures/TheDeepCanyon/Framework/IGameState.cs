@@ -21,6 +21,6 @@ namespace TheDeepCanyon.Framework
 
 		bool BlueDragon { get; set; }
 
-		bool BoxOpened { get; set; }
+		bool TrapSet { get; set; }
 	}
 }
