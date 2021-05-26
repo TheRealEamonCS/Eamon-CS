@@ -3,6 +3,7 @@
 
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using Eamon.Framework;
@@ -65,6 +66,50 @@ namespace TheDeepCanyon.Game
 			foreach (var synonym in synonyms)
 			{
 				CreateMonsterSynonyms(synonym.Key, synonym.Value);
+			}
+		}
+
+		public override void MonsterDies(IMonster OfMonster, IMonster DfMonster)
+		{
+			Debug.Assert(DfMonster != null);
+
+			var room = DfMonster.GetInRoom();
+
+			Debug.Assert(room != null);
+
+			base.MonsterDies(OfMonster, DfMonster);
+
+			var goldCoinsArtifact = gADB[3];
+
+			Debug.Assert(goldCoinsArtifact != null);
+
+			var silverCoinsArtifact = gADB[4];
+
+			Debug.Assert(silverCoinsArtifact != null);
+
+			// Gold miner
+
+			if (DfMonster.Uid == 3 && goldCoinsArtifact.IsInLimbo())
+			{
+				gOut.Print("{0}The gold miner drops his only fortune to the ground.", Environment.NewLine);
+
+				goldCoinsArtifact.SetInRoom(room);
+			}
+
+			// Falconer
+
+			else if (DfMonster.Uid == 4 && silverCoinsArtifact.IsInLimbo())
+			{
+				gOut.Print("{0}The falconer drops some silver coins as he dies.", Environment.NewLine);
+
+				silverCoinsArtifact.SetInRoom(room);
+			}
+
+			// Fido
+
+			else if (DfMonster.Uid == 11)
+			{
+				gGameState.FidoSleepCounter = 0;
 			}
 		}
 
