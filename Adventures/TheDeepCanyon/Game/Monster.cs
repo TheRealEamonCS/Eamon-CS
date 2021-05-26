@@ -25,5 +25,12 @@ namespace TheDeepCanyon.Game
 
 			return (Uid == 11 && !IsInLimbo()) || base.ShouldProcessInGameLoop();
 		}
+
+		public override bool ShouldRefuseToAcceptGift(IArtifact artifact)
+		{
+			// Elephants need special handling
+
+			return Uid != 24 && base.ShouldRefuseToAcceptGift(artifact);
+		}
 	}
 }
