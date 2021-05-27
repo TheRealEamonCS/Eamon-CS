@@ -7,6 +7,6 @@ namespace TheDeepCanyon.Game.Plugin
 {
 	public class PluginGlobals : EamonRT.Game.Plugin.PluginGlobals, Framework.Plugin.IPluginGlobals
 	{
-
+		public virtual long ResurrectMonsterUid { get; set; }
 	}
 }

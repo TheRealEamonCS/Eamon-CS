@@ -7,6 +7,6 @@ namespace TheDeepCanyon.Framework.Plugin
 {
 	public interface IPluginGlobals : EamonRT.Framework.Plugin.IPluginGlobals
 	{
-
+		long ResurrectMonsterUid { get; set; }
 	}
 }

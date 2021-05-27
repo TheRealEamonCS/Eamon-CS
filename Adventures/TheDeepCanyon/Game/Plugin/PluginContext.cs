@@ -24,18 +24,6 @@ namespace TheDeepCanyon.Game.Plugin
 			}
 		}
 
-		public static Framework.Plugin.IPluginClassMappings ClassMappings
-		{
-			get
-			{
-				return (Framework.Plugin.IPluginClassMappings)EamonRT.Game.Plugin.PluginContext.ClassMappings;
-			}
-			set
-			{
-				EamonRT.Game.Plugin.PluginContext.ClassMappings = value;
-			}
-		}
-
 		public static Framework.Plugin.IPluginGlobals Globals
 		{
 			get
@@ -80,51 +68,11 @@ namespace TheDeepCanyon.Game.Plugin
 			}
 		}
 
-		public static IRecordDb<Eamon.Framework.IEffect> gEDB
-		{
-			get
-			{
-				return (IRecordDb<Eamon.Framework.IEffect>)EamonRT.Game.Plugin.PluginContext.gEDB;
-			}
-		}
-
 		public static IRecordDb<Eamon.Framework.IMonster> gMDB
 		{
 			get
 			{
 				return (IRecordDb<Eamon.Framework.IMonster>)EamonRT.Game.Plugin.PluginContext.gMDB;
-			}
-		}
-
-		public static IRecordDb<Eamon.Framework.ITrigger> gTDB
-		{
-			get
-			{
-				return (IRecordDb<Eamon.Framework.ITrigger>)EamonRT.Game.Plugin.PluginContext.gTDB;
-			}
-		}
-
-		public static IRecordDb<Eamon.Framework.IScript> gSDB
-		{
-			get
-			{
-				return (IRecordDb<Eamon.Framework.IScript>)EamonRT.Game.Plugin.PluginContext.gSDB;
-			}
-		}
-
-		public static EamonRT.Framework.Parsing.ISentenceParser gSentenceParser
-		{
-			get
-			{
-				return (EamonRT.Framework.Parsing.ISentenceParser)EamonRT.Game.Plugin.PluginContext.gSentenceParser;
-			}
-		}
-
-		public static EamonRT.Framework.Parsing.ICommandParser gCommandParser
-		{
-			get
-			{
-				return (EamonRT.Framework.Parsing.ICommandParser)EamonRT.Game.Plugin.PluginContext.gCommandParser;
 			}
 		}
 
@@ -149,102 +97,6 @@ namespace TheDeepCanyon.Game.Plugin
 			get
 			{
 				return (Eamon.Framework.IMonster)EamonRT.Game.Plugin.PluginContext.gCharMonster;
-			}
-		}
-
-		public static Eamon.Framework.IMonster gActorMonster(object obj)
-		{
-			if (obj is ICommandParser commandParser)
-			{
-				return (Eamon.Framework.IMonster)commandParser?.ActorMonster;
-			}
-			else if (obj is ICommand command)
-			{
-				return (Eamon.Framework.IMonster)command?.ActorMonster;
-			}
-			else
-			{
-				return null;
-			}
-		}
-
-		public static Eamon.Framework.IRoom gActorRoom(object obj)
-		{
-			if (obj is ICommandParser commandParser)
-			{
-				return (Eamon.Framework.IRoom)commandParser?.ActorRoom;
-			}
-			else if (obj is ICommand command)
-			{
-				return (Eamon.Framework.IRoom)command?.ActorRoom;
-			}
-			else
-			{
-				return null;
-			}
-		}
-
-		public static Eamon.Framework.IArtifact gDobjArtifact(object obj)
-		{
-			if (obj is ICommandParser commandParser)
-			{
-				return (Eamon.Framework.IArtifact)commandParser?.DobjArtifact;
-			}
-			else if (obj is ICommand command)
-			{
-				return (Eamon.Framework.IArtifact)command?.DobjArtifact;
-			}
-			else
-			{
-				return null;
-			}
-		}
-
-		public static Eamon.Framework.IMonster gDobjMonster(object obj)
-		{
-			if (obj is ICommandParser commandParser)
-			{
-				return (Eamon.Framework.IMonster)commandParser?.DobjMonster;
-			}
-			else if (obj is ICommand command)
-			{
-				return (Eamon.Framework.IMonster)command?.DobjMonster;
-			}
-			else
-			{
-				return null;
-			}
-		}
-
-		public static Eamon.Framework.IArtifact gIobjArtifact(object obj)
-		{
-			if (obj is ICommandParser commandParser)
-			{
-				return (Eamon.Framework.IArtifact)commandParser?.IobjArtifact;
-			}
-			else if (obj is ICommand command)
-			{
-				return (Eamon.Framework.IArtifact)command?.IobjArtifact;
-			}
-			else
-			{
-				return null;
-			}
-		}
-
-		public static Eamon.Framework.IMonster gIobjMonster(object obj)
-		{
-			if (obj is ICommandParser commandParser)
-			{
-				return (Eamon.Framework.IMonster)commandParser?.IobjMonster;
-			}
-			else if (obj is ICommand command)
-			{
-				return (Eamon.Framework.IMonster)command?.IobjMonster;
-			}
-			else
-			{
-				return null;
 			}
 		}
 	}

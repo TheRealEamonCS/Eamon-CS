@@ -3,6 +3,7 @@
 
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
+using System;
 using System.Diagnostics;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
@@ -26,6 +27,34 @@ namespace TheDeepCanyon.Game.States
 				Debug.Assert(room != null);
 
 				var rl = gEngine.RollDice(1, 100, 0);
+
+				// Resurrect monster
+
+				if (Globals.ResurrectMonsterUid > 0)
+				{
+					var resurrectMonster = gMDB[Globals.ResurrectMonsterUid];
+
+					Debug.Assert(resurrectMonster != null);
+
+					var weaponArtifact = resurrectMonster.Weapon > 0 ? gADB[resurrectMonster.Weapon] : null;
+
+					gOut.Print("{0}{1} comes back to life!", Environment.NewLine, room.IsLit() ? resurrectMonster.GetTheName(true) : "Something");
+
+					if (weaponArtifact != null)
+					{
+						weaponArtifact.SetInRoom(room);
+
+						weaponArtifact.RemoveStateDesc(weaponArtifact.GetReadyWeaponDesc());
+
+						resurrectMonster.Weapon = -weaponArtifact.Uid - 1;
+					}
+
+					resurrectMonster.DmgTaken = 0;
+
+					resurrectMonster.SetInRoom(room);
+
+					Globals.ResurrectMonsterUid = 0;
+				}
 
 				var trapArtifact = gADB[17];
 

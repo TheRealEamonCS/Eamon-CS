@@ -19,13 +19,6 @@ namespace TheDeepCanyon.Game
 			return Uid != 11 ? base.CanMoveToRoom(fleeing) : false;
 		}
 
-		public override bool ShouldProcessInGameLoop()
-		{
-			// Fido is always active
-
-			return (Uid == 11 && !IsInLimbo()) || base.ShouldProcessInGameLoop();
-		}
-
 		public override bool ShouldRefuseToAcceptGift(IArtifact artifact)
 		{
 			// Elephants need special handling

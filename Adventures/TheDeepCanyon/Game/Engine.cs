@@ -110,6 +110,10 @@ namespace TheDeepCanyon.Game
 			else if (DfMonster.Uid == 11)
 			{
 				gGameState.FidoSleepCounter = 0;
+
+				DfMonster.StateDesc = "";
+
+				DfMonster.Reaction = Friendliness.Enemy;
 			}
 		}
 
