@@ -61,26 +61,6 @@ namespace TheDeepCanyon.Game.Combat
 
 					if (ringArtifact.IsCarriedByCharacter() || ringArtifact.IsWornByCharacter())
 					{
-						DfWeapon = DfMonster.Weapon > 0 ? gADB[DfMonster.Weapon] : null;
-
-						if (DfWeapon != null)
-						{
-							gOut.EnableOutput = false;
-
-							var dropCommand = Globals.CreateInstance<IDropCommand>(x =>
-							{
-								x.ActorMonster = DfMonster;
-
-								x.ActorRoom = room;
-
-								x.Dobj = DfWeapon;
-							});
-
-							dropCommand.Execute();
-
-							gOut.EnableOutput = true;
-						}
-
 						gOut.Print("{0}", Globals.LineSep);
 
 						gOut.Write("{0}Press any key to continue: ", Environment.NewLine);
@@ -95,17 +75,15 @@ namespace TheDeepCanyon.Game.Combat
 
 						gOut.Print("{0}", Globals.LineSep);
 
+						// gSentenceParser.PrintDiscardingCommands() not called for this abrupt reality shift
+
+						gSentenceParser.Clear();
+
 						gEngine.PrintEffectDesc(3);
 
-						room = gRDB[1];
-
-						room.Seen = false;
-
-						DfMonster.SetInRoom(room);
-
-						gGameState.R2 = gGameState.Ro;
-
 						DfMonster.DmgTaken = 0;
+
+						gEngine.ResetMonsterStats(DfMonster);
 
 						var stat = gEngine.GetStats(Stat.Hardiness);
 
@@ -129,13 +107,52 @@ namespace TheDeepCanyon.Game.Combat
 							DfMonster.Agility = stat.MinValue;
 						}
 
+						DfWeapon = DfMonster.Weapon > 0 ? gADB[DfMonster.Weapon] : null;
+
+						if (DfWeapon != null)
+						{
+							gOut.EnableOutput = false;
+
+							var dropCommand = Globals.CreateInstance<IDropCommand>(x =>
+							{
+								x.ActorMonster = DfMonster;
+
+								x.ActorRoom = room;
+
+								x.Dobj = DfWeapon;
+							});
+
+							dropCommand.Execute();
+
+							gOut.EnableOutput = true;
+						}
+
 						ringArtifact.SetInLimbo();
 
-						DfMonster.EnforceFullInventoryWeightLimits(recurse: true);
+						room = gRDB[1];
+
+						Debug.Assert(room != null);
+
+						room.Seen = false;
+
+						var artifactList = DfMonster.GetContainedList();
+
+						gOut.EnableOutput = false;
+
+						// TODO: enforce full inventory weight limits
+
+						gOut.EnableOutput = true;
+
+						gGameState.Ro = 1;
+
+						gGameState.R2 = gGameState.Ro;
 
 						if (SetNextStateFunc != null)
 						{
-							SetNextStateFunc(Globals.CreateInstance<IStartState>());
+							SetNextStateFunc(Globals.CreateInstance<IAfterPlayerMoveState>(x =>
+							{
+								x.MoveMonsters = false;
+							}));
 						}
 					}
 					else

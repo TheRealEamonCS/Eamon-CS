@@ -76,6 +76,14 @@ namespace TheDeepCanyon.Game.Plugin
 			}
 		}
 
+		public static EamonRT.Framework.Parsing.ISentenceParser gSentenceParser
+		{
+			get
+			{
+				return (EamonRT.Framework.Parsing.ISentenceParser)EamonRT.Game.Plugin.PluginContext.gSentenceParser;
+			}
+		}
+
 		public static Framework.IGameState gGameState
 		{
 			get
