@@ -162,10 +162,7 @@ namespace EamonRT.Game
 		{
 			var enableOutput = gOut.EnableOutput;
 
-			if (!printOutput)
-			{
-				gOut.EnableOutput = false;
-			}
+			gOut.EnableOutput = printOutput;
 
 			if (room == null)
 			{
@@ -219,10 +216,7 @@ namespace EamonRT.Game
 				}
 			}
 
-			if (!printOutput)
-			{
-				gOut.EnableOutput = enableOutput;
-			}
+			gOut.EnableOutput = enableOutput;
 		}
 
 		public virtual void AddUniqueCharsToArtifactAndMonsterNames()
