@@ -18,6 +18,27 @@ namespace TheDeepCanyon.Game.Combat
 	[ClassMappings]
 	public class CombatSystem : EamonRT.Game.Combat.CombatSystem, ICombatSystem
 	{
+		public override void ExecuteAttack()
+		{
+			var origAgility = 0L;
+
+			// Falcon versus various bats
+
+			if (OfMonster.Weapon == 5 && DfMonster.Uid > 6 && DfMonster.Uid < 11)
+			{
+				origAgility = DfMonster.Agility;
+
+				DfMonster.Agility /= 3;
+			}
+
+			base.ExecuteAttack();
+
+			if (origAgility != 0)
+			{
+				DfMonster.Agility = origAgility;
+			}
+		}
+
 		public override void PrintHealthStatus()
 		{
 			base.PrintHealthStatus();
