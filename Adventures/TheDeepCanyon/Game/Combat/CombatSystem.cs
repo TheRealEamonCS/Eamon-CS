@@ -135,13 +135,7 @@ namespace TheDeepCanyon.Game.Combat
 
 						room.Seen = false;
 
-						var artifactList = DfMonster.GetContainedList();
-
-						gOut.EnableOutput = false;
-
-						// TODO: enforce full inventory weight limits
-
-						gOut.EnableOutput = true;
+						gEngine.EnforceCharacterWeightLimits02(room);
 
 						gGameState.Ro = 1;
 

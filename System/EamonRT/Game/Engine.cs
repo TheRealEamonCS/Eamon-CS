@@ -158,6 +158,73 @@ namespace EamonRT.Game
 			}
 		}
 
+		public virtual void EnforceCharacterWeightLimits02(IRoom room = null, bool printOutput = false)
+		{
+			var enableOutput = gOut.EnableOutput;
+
+			if (!printOutput)
+			{
+				gOut.EnableOutput = false;
+			}
+
+			if (room == null)
+			{
+				room = gCharMonster.GetInRoom();
+
+				Debug.Assert(room != null);
+			}
+
+			var artifactList = GetArtifactList(a => a.IsCarriedByCharacter() || a.IsWornByCharacter());
+
+			foreach (var artifact in artifactList)
+			{
+				Debug.Assert(!artifact.IsUnmovable01());
+
+				var charWeight = 0L;
+
+				var rc = gCharMonster.GetFullInventoryWeight(ref charWeight, recurse: true);
+
+				Debug.Assert(IsSuccess(rc));
+
+				if (charWeight > gCharMonster.GetWeightCarryableGronds())
+				{
+					if (artifact.IsWornByCharacter())
+					{
+						var removeCommand = Globals.CreateInstance<IRemoveCommand>(x =>
+						{
+							x.ActorMonster = gCharMonster;
+
+							x.ActorRoom = room;
+
+							x.Dobj = artifact;
+						});
+
+						removeCommand.Execute();
+					}
+
+					var dropCommand = Globals.CreateInstance<IDropCommand>(x =>
+					{
+						x.ActorMonster = gCharMonster;
+
+						x.ActorRoom = room;
+
+						x.Dobj = artifact;
+					});
+
+					dropCommand.Execute();
+				}
+				else
+				{
+					break;
+				}
+			}
+
+			if (!printOutput)
+			{
+				gOut.EnableOutput = enableOutput;
+			}
+		}
+
 		public virtual void AddUniqueCharsToArtifactAndMonsterNames()
 		{
 			var recordList = new List<IGameBase>();
