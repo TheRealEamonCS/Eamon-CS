@@ -39,6 +39,20 @@ namespace TheDeepCanyon.Game.Combat
 			}
 		}
 
+		public override void PrintWeaponHitsUser()
+		{
+			// Falcon
+
+			if (OfWeapon.Uid == 5)
+			{
+				gOut.Write("{0}  Weapon injures user!", Environment.NewLine);
+			}
+			else
+			{
+				base.PrintWeaponHitsUser();
+			}
+		}
+
 		public override void PrintSparksFly()
 		{
 			// Falcon
