@@ -69,6 +69,32 @@ namespace TheDeepCanyon.Game
 			}
 		}
 
+		public override void MonsterGetsAggravated(IMonster monster, bool printFinalNewLine = true)
+		{
+			Debug.Assert(monster != null);
+
+			var room = monster.GetInRoom();
+
+			Debug.Assert(room != null);
+
+			// Fido wakes up
+
+			if (monster.Uid == 11 && gGameState.FidoSleepCounter > 0)
+			{
+				gOut.Print("{0} wakes up!", room.IsLit() ? "Fido" : "Something");
+
+				gGameState.FidoSleepCounter = 0;
+
+				monster.StateDesc = "";
+
+				monster.Reaction = Friendliness.Enemy;
+			}
+			else
+			{
+				base.MonsterGetsAggravated(monster, printFinalNewLine);
+			}
+		}
+
 		public override void MonsterDies(IMonster OfMonster, IMonster DfMonster)
 		{
 			Debug.Assert(DfMonster != null);

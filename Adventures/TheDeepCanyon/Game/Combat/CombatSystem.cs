@@ -20,11 +20,15 @@ namespace TheDeepCanyon.Game.Combat
 	{
 		public override void ExecuteAttack()
 		{
+			Debug.Assert(OfMonster != null);
+
+			Debug.Assert(DfMonster != null);
+
 			var origAgility = 0L;
 
-			// Falcon versus various bats
+			// Various bats versus falcon
 
-			if (OfMonster.Weapon == 5 && DfMonster.Uid > 6 && DfMonster.Uid < 11)
+			if (DfMonster.Uid > 6 && DfMonster.Uid < 11 && OfMonster.Weapon == 5)
 			{
 				origAgility = DfMonster.Agility;
 
