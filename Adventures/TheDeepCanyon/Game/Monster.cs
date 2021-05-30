@@ -25,5 +25,12 @@ namespace TheDeepCanyon.Game
 
 			return Uid != 24 && base.ShouldRefuseToAcceptGift(artifact);
 		}
+
+		public override string[] GetWeaponAttackDescs(IArtifact artifact)
+		{
+			// Falcon
+
+			return artifact != null && artifact.Uid == 5 ? new string[] { "attack{0}" } : base.GetWeaponAttackDescs(artifact);
+		}
 	}
 }
