@@ -62,6 +62,48 @@ namespace TheDeepCanyon.Game.Combat
 			}
 		}
 
+		public override void PrintWeaponDamaged()
+		{
+			// Falcon
+
+			if (OfWeapon.Uid == 5)
+			{
+				gOut.Write("{0}  Weapon injured!", Environment.NewLine);
+			}
+			else
+			{
+				base.PrintWeaponDamaged();
+			}
+		}
+
+		public override void PrintWeaponBroken()
+		{
+			// Falcon
+
+			if (OfWeapon.Uid == 5)
+			{
+				gOut.Write("{0}  Weapon flees!", Environment.NewLine);
+			}
+			else
+			{
+				base.PrintWeaponBroken();
+			}
+		}
+
+		public override void PrintBrokenWeaponHitsUser()
+		{
+			// Falcon
+
+			if (OfWeapon.Uid == 5)
+			{
+				gOut.Write("{0}  Fleeing weapon injures user!", Environment.NewLine);
+			}
+			else
+			{
+				base.PrintBrokenWeaponHitsUser();
+			}
+		}
+
 		public override void PrintHealthStatus()
 		{
 			base.PrintHealthStatus();
