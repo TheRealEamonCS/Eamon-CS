@@ -39,6 +39,29 @@ namespace TheDeepCanyon.Game.Combat
 			}
 		}
 
+		public override void PrintSparksFly()
+		{
+			// Falcon
+
+			if (OfWeapon.Uid == 5)
+			{
+				gOut.Write("{0}  {1} fails to launch!",
+					Environment.NewLine,
+					OfMonster.IsCharacterMonster() || OfMonster.IsInRoomLit() ?
+						(
+							(WeaponRevealType == WeaponRevealType.Never ||
+							(WeaponRevealType == WeaponRevealType.OnlyIfSeen && !OfWeapon.Seen)) ?
+								OfWeapon.GetArticleName(true) :
+								OfWeapon.GetTheName(true)
+						) :
+						"A weapon");
+			}
+			else
+			{
+				base.PrintSparksFly();
+			}
+		}
+
 		public override void PrintHealthStatus()
 		{
 			base.PrintHealthStatus();
