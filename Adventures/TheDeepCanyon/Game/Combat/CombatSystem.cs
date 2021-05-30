@@ -132,6 +132,43 @@ namespace TheDeepCanyon.Game.Combat
 			}
 		}
 
+		public override void AttackHit()
+		{
+			base.AttackHit();
+
+			var room = DfMonster.GetInRoom();
+
+			Debug.Assert(room != null);
+
+			var netArtifact = gADB[24];
+
+			Debug.Assert(netArtifact != null);
+
+			var rl = gEngine.RollDice(1, 100, 0);
+
+			var isNetCarriedByDefender = DfMonster.IsCharacterMonster() ? netArtifact.IsCarriedByCharacter() : netArtifact.IsCarriedByMonster(DfMonster);
+
+			// Various bats strangled by net
+
+			if (OfMonster.Uid > 6 && OfMonster.Uid < 11 && isNetCarriedByDefender && rl > 50)
+			{
+				if (DfMonster.IsCharacterMonster() || room.IsLit())
+				{
+					gOut.Write("{0}{1}{2} flies into the net that {3} carrying and is strangled!", Environment.NewLine, OmitBboaPadding ? "" : "  ", room.EvalLightLevel("The offender", OfMonster.GetTheName(true)), DfMonster.IsCharacterMonster() ? "you are" : DfMonster.GetTheName() + " is");
+				}
+				else
+				{
+					gOut.Write("{0}{1}The offender is strangled by the defender!", Environment.NewLine, OmitBboaPadding ? "" : "  ");
+				}
+
+				DfMonster = OfMonster;
+
+				_d2 = DfMonster.Hardiness - DfMonster.DmgTaken;
+
+				CombatState = CombatState.CheckArmor;
+			}
+		}
+
 		public override void CheckMonsterStatus()
 		{
 			Debug.Assert(DfMonster != null);
