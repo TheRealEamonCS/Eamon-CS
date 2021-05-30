@@ -17,9 +17,46 @@ namespace TheDeepCanyon.Game.Commands
 		{
 			if (eventType == EventType.AfterEnforceMonsterWeightLimitsCheck)
 			{
+				// Fido
+
+				if (IobjMonster.Uid == 11)
+				{
+					// Dead bodies
+
+					if (DobjArtifact.Uid >= 29 && DobjArtifact.Uid <= 51 && gGameState.FidoSleepCounter <= 0)
+					{
+						gOut.Print("You give {0} to Fido.", DobjArtifact.GetTheName());
+
+						gOut.EnableOutput = false;
+
+						var dropCommand = Globals.CreateInstance<IDropCommand>(x =>
+						{
+							x.ActorMonster = ActorMonster;
+
+							x.ActorRoom = ActorRoom;
+
+							x.Dobj = DobjArtifact;
+						});
+
+						dropCommand.Execute();
+
+						gOut.EnableOutput = true;
+
+						GotoCleanup = true;
+					}
+					else
+					{
+						gEngine.MonsterEmotes(IobjMonster);
+
+						gOut.WriteLine();
+
+						GotoCleanup = true;
+					}
+				}
+
 				// Elephants
 
-				if (IobjMonster.Uid == 24)
+				else if (IobjMonster.Uid == 24)
 				{
 					// Peanuts
 

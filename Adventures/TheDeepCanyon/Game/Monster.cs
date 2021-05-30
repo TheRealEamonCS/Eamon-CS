@@ -21,9 +21,9 @@ namespace TheDeepCanyon.Game
 
 		public override bool ShouldRefuseToAcceptGift(IArtifact artifact)
 		{
-			// Elephants need special handling
+			// Fido and elephants need special handling
 
-			return Uid != 24 && base.ShouldRefuseToAcceptGift(artifact);
+			return Uid != 11 && Uid != 24 && base.ShouldRefuseToAcceptGift(artifact);
 		}
 
 		public override string[] GetWeaponAttackDescs(IArtifact artifact)
