@@ -332,6 +332,9 @@
         <member name="T:EamonDD.Framework.Menus.ActionMenus.IListRoomRecordNameMenu">
             <summary></summary>
         </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IConvertApple2EamonAdventureMenu">
+            <summary></summary>
+        </member>
         <member name="T:EamonDD.Framework.Menus.ActionMenus.IConvertEamonDeluxeAdventureMenu">
             <summary></summary>
         </member>
@@ -637,6 +640,51 @@
         </member>
         <member name="F:EamonDD.Framework.Primitive.Enums.SupportMenuType.DeleteClasses">
             <summary></summary>
+        </member>
+        <member name="T:EamonDD.Game.Converters.Apple2Eamon.A2EAdventure">
+            <summary>
+            </summary>
+        </member>
+        <member name="T:EamonDD.Game.Converters.Apple2Eamon.A2EAdventureConverter">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:EamonDD.Game.Converters.Apple2Eamon.A2EAdventureConverter.ConvertApple2ByteBuffer(System.Byte[])">
+            <summary>
+            </summary>
+            <remarks>
+            Full credit:  https://github.com/malfunct/eamon.net/blob/master/AppleTextFileConvertor/Program.cs
+            </remarks>
+        </member>
+        <member name="M:EamonDD.Game.Converters.Apple2Eamon.A2EAdventureConverter.LoadAdventure">
+            <summary>
+            </summary>
+            <remarks>
+            Full credit:  referencing DUNGEON LIST Z, DUNGEON LIST 7.1 by John Nelson and Tom Zuchowski
+            </remarks>
+        </member>
+        <member name="M:EamonDD.Game.Converters.Apple2Eamon.A2EAdventureConverter.ConvertAdventure">
+            <summary>
+            </summary>
+            <remarks>
+            Full credit:  referencing DUNGEON LIST Z, DUNGEON LIST 7.1 by John Nelson and Tom Zuchowski
+            </remarks>
+        </member>
+        <member name="T:EamonDD.Game.Converters.Apple2Eamon.A2EArtifact">
+            <summary>
+            </summary>
+        </member>
+        <member name="T:EamonDD.Game.Converters.Apple2Eamon.A2EEffect">
+            <summary>
+            </summary>
+        </member>
+        <member name="T:EamonDD.Game.Converters.Apple2Eamon.A2EMonster">
+            <summary>
+            </summary>
+        </member>
+        <member name="T:EamonDD.Game.Converters.Apple2Eamon.A2ERoom">
+            <summary>
+            </summary>
         </member>
         <member name="T:EamonDD.Game.Converters.EamonDeluxe.EDXAdventure">
             <summary>

@@ -4880,6 +4880,12 @@
         <member name="P:Eamon.Framework.Plugin.IPluginConstants.LimboLocation">
             <summary></summary>
         </member>
+        <member name="P:Eamon.Framework.Plugin.IPluginConstants.MinWeaponComplexity">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IPluginConstants.MaxWeaponComplexity">
+            <summary></summary>
+        </member>
         <member name="P:Eamon.Framework.Plugin.IPluginConstants.MinGoldValue">
             <summary></summary>
         </member>

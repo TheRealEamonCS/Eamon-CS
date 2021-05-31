@@ -867,6 +867,9 @@
         <member name="M:EamonRT.Framework.IEngine.EnforceCharacterWeightLimits">
             <summary></summary>
         </member>
+        <member name="M:EamonRT.Framework.IEngine.EnforceCharacterWeightLimits02(Eamon.Framework.IRoom,System.Boolean)">
+            <summary></summary>
+        </member>
         <member name="M:EamonRT.Framework.IEngine.AddUniqueCharsToArtifactAndMonsterNames">
             <summary></summary>
         </member>
