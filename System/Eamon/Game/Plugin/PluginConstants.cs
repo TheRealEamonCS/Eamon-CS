@@ -148,6 +148,10 @@ namespace Eamon.Game.Plugin
 
 		public virtual long LimboLocation { get; protected set; } = 0;
 
+		public virtual long MinWeaponComplexity { get; protected set; } = -50;
+
+		public virtual long MaxWeaponComplexity { get; protected set; } = 50;
+
 		public virtual long MinGoldValue { get; protected set; } = -99999;
 
 		public virtual long MaxGoldValue { get; protected set; } = 999999;

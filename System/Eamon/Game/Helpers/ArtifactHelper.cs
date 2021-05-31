@@ -529,7 +529,7 @@ namespace Eamon.Game.Helpers
 					case ArtifactType.Weapon:
 					case ArtifactType.MagicWeapon:
 
-						result = Record.GetCategories(i).Field1 >= -50 && Record.GetCategories(i).Field1 <= 50;
+						result = Record.GetCategories(i).Field1 >= Constants.MinWeaponComplexity && Record.GetCategories(i).Field1 <= Constants.MaxWeaponComplexity;
 
 						break;
 

@@ -25,11 +25,11 @@ namespace EamonDD.Game.Converters.EamonDeluxe
 
 		public virtual IList<EDXHint> HintList { get; set; }
 
-		public string AdventureFolderPath { get; set; }
+		public virtual string AdventureFolderPath { get; set; }
 
-		public string ErrorMessage { get; set; }
+		public virtual string ErrorMessage { get; set; }
 
-		public bool LoadAdventureList(params long[] advNums)         // Note: Adventure numbers are 1-based
+		public virtual bool LoadAdventureList(params long[] advNums)         // Note: Adventure numbers are 1-based
 		{
 			var result = true;
 
@@ -37,9 +37,9 @@ namespace EamonDD.Game.Converters.EamonDeluxe
 			{
 				var line = "";
 
-				var nameDatFilePath = Globals.Path.Combine(AdventureFolderPath, "NAME.DAT");
+				var nameDatFile = Globals.Path.Combine(AdventureFolderPath, "NAME.DAT");
 
-				using (var file = new System.IO.StreamReader(nameDatFilePath))
+				using (var file = new System.IO.StreamReader(nameDatFile))
 				{
 					var adventure = new EDXAdventure();
 
@@ -290,7 +290,7 @@ namespace EamonDD.Game.Converters.EamonDeluxe
 			return result;
 		}
 
-		public bool LoadHintList(params long[] hintNums)			// Note: Hint numbers are 1-based
+		public virtual bool LoadHintList(params long[] hintNums)			// Note: Hint numbers are 1-based
 		{
 			var result = true;
 
@@ -360,7 +360,7 @@ namespace EamonDD.Game.Converters.EamonDeluxe
 			return result;
 		}
 
-		public bool ConvertAdventures()
+		public virtual bool ConvertAdventures()
 		{
 			var result = true;
 
@@ -482,7 +482,7 @@ namespace EamonDD.Game.Converters.EamonDeluxe
 			return result;
 		}
 
-		public bool ConvertHints()
+		public virtual bool ConvertHints()
 		{
 			var result = true;
 

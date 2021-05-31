@@ -90,11 +90,7 @@ namespace EamonRT.Game
 
 			gOut.WriteLine("{0}{1}{0}", Environment.NewLine, Globals.LineSep);
 
-			gOut.WriteLine("[Base Program {0}]", Constants.RtProgVersion);
-
-			gOut.Print("Welcome to the Eamon CS fantasy gaming system!");
-
-			gOut.Print("{0}", Globals.LineSep);
+			PrintWelcomeToEamonCS();
 
 			while (Globals.GameRunning)
 			{
@@ -118,6 +114,15 @@ namespace EamonRT.Game
 		public virtual void PrintWakingUpMonsters()
 		{
 			gOut.WriteLine("Please wait a short while (waking up the monsters...)");
+		}
+
+		public virtual void PrintWelcomeToEamonCS()
+		{
+			gOut.WriteLine("[Base Program {0}]", Constants.RtProgVersion);
+
+			gOut.Print("Welcome to the Eamon CS fantasy gaming system!");
+
+			gOut.Print("{0}", Globals.LineSep);
 		}
 
 		public MainLoop()

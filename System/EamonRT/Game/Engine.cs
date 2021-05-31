@@ -158,6 +158,67 @@ namespace EamonRT.Game
 			}
 		}
 
+		public virtual void EnforceCharacterWeightLimits02(IRoom room = null, bool printOutput = false)
+		{
+			var enableOutput = gOut.EnableOutput;
+
+			gOut.EnableOutput = printOutput;
+
+			if (room == null)
+			{
+				room = gCharMonster.GetInRoom();
+
+				Debug.Assert(room != null);
+			}
+
+			var artifactList = GetArtifactList(a => a.IsCarriedByCharacter() || a.IsWornByCharacter());
+
+			foreach (var artifact in artifactList)
+			{
+				Debug.Assert(!artifact.IsUnmovable01());
+
+				var charWeight = 0L;
+
+				var rc = gCharMonster.GetFullInventoryWeight(ref charWeight, recurse: true);
+
+				Debug.Assert(IsSuccess(rc));
+
+				if (charWeight > gCharMonster.GetWeightCarryableGronds())
+				{
+					if (artifact.IsWornByCharacter())
+					{
+						var removeCommand = Globals.CreateInstance<IRemoveCommand>(x =>
+						{
+							x.ActorMonster = gCharMonster;
+
+							x.ActorRoom = room;
+
+							x.Dobj = artifact;
+						});
+
+						removeCommand.Execute();
+					}
+
+					var dropCommand = Globals.CreateInstance<IDropCommand>(x =>
+					{
+						x.ActorMonster = gCharMonster;
+
+						x.ActorRoom = room;
+
+						x.Dobj = artifact;
+					});
+
+					dropCommand.Execute();
+				}
+				else
+				{
+					break;
+				}
+			}
+
+			gOut.EnableOutput = enableOutput;
+		}
+
 		public virtual void AddUniqueCharsToArtifactAndMonsterNames()
 		{
 			var recordList = new List<IGameBase>();
@@ -2239,7 +2300,7 @@ namespace EamonRT.Game
 			{
 				whereClauseFuncs = new Func<IArtifact, bool>[]
 				{
-					a => (a.IsCarriedByCharacter() || a.IsInRoomUid(gGameState.Ro)) && a.DeadBody != null
+					a => (a.IsCarriedByCharacter() || a.IsInRoom(room)) && a.DeadBody != null
 				};
 			}
 
@@ -2253,7 +2314,7 @@ namespace EamonRT.Game
 
 				if (monster != null && monster.GroupCount == 1)
 				{
-					monster.SetInRoomUid(gGameState.Ro);
+					monster.SetInRoom(room);
 
 					monster.DmgTaken = 0;
 
@@ -2276,7 +2337,7 @@ namespace EamonRT.Game
 			{
 				whereClauseFuncs = new Func<IArtifact, bool>[]
 				{
-					a => a.IsInRoomUid(gGameState.Ro) && !a.IsUnmovable()
+					a => a.IsInRoom(room) && !a.IsUnmovable()
 				};
 			}
 

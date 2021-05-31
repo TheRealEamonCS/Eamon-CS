@@ -89,6 +89,9 @@ namespace EamonRT.Framework
 		void EnforceCharacterWeightLimits();
 
 		/// <summary></summary>
+		void EnforceCharacterWeightLimits02(IRoom room = null, bool printOutput = false);
+
+		/// <summary></summary>
 		void AddUniqueCharsToArtifactAndMonsterNames();
 
 		/// <summary></summary>

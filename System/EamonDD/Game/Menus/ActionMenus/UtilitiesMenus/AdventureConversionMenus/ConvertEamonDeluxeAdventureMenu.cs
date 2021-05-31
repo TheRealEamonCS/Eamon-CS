@@ -273,6 +273,11 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 				edxRoom._rdesc = edxRoom._rdesc.Trim();
 
+				if (edxRoom._rdesc.Length > 0 && !Regex.IsMatch(edxRoom._rdesc, @".*\p{P}$"))
+				{
+					edxRoom._rdesc += ".";
+				}
+
 				if (edxRoom._rdesc.Length <= 0)
 				{
 					edxRoom._rdesc = "UNUSED";
@@ -339,6 +344,11 @@ namespace EamonDD.Game.Menus.ActionMenus
 				}
 
 				edxArtifact._artdesc = edxArtifact._artdesc.Trim();
+
+				if (edxArtifact._artdesc.Length > 0 && !Regex.IsMatch(edxArtifact._artdesc, @".*\p{P}$"))
+				{
+					edxArtifact._artdesc += ".";
+				}
 
 				if (edxArtifact._artdesc.Length <= 0)
 				{
@@ -458,6 +468,11 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 				edxEffect._text = edxEffect._text.Trim();
 
+				if (edxEffect._text.Length > 0 && !Regex.IsMatch(edxEffect._text, @".*\p{P}$"))
+				{
+					edxEffect._text += ".";
+				}
+
 				if (edxEffect._text.Length <= 0)
 				{
 					edxEffect._text = "UNUSED";
@@ -495,6 +510,11 @@ namespace EamonDD.Game.Menus.ActionMenus
 				}
 
 				edxMonster._mdesc = edxMonster._mdesc.Trim();
+
+				if (edxMonster._mdesc.Length > 0 && !Regex.IsMatch(edxMonster._mdesc, @".*\p{P}$"))
+				{
+					edxMonster._mdesc += ".";
+				}
 
 				if (edxMonster._mdesc.Length <= 0)
 				{

@@ -37,6 +37,8 @@ namespace AlternateBeginnersCave.Game
 			var synonyms = new Dictionary<long, string[]>()
 			{
 				{ 5, new string[] { "label" } },
+				{ 8, new string[] { "ornate knife", "knife" } },
+				{ 9, new string[] { "scrap of parchment", "scrap" } },
 				{ 20, new string[] { "vulture" } },
 				{ 21, new string[] { "odd-looking torch", "odd looking torch", "odd torch", "torch" } },
 				{ 22, new string[] { "massive inset ring", "inset ring", "ring" } },
