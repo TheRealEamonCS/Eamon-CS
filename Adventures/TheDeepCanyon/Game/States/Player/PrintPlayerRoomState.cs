@@ -129,7 +129,7 @@ namespace TheDeepCanyon.Game.States
 
 				// Squirrel gives ring
 
-				if (room.Uid == 2 && room.Seen && !gGameState.SquirrelRing)
+				if (room.Uid == 2 && room.Seen && !gGameState.SquirrelRing)		// TODO: account for LookCommand
 				{
 					gEngine.PrintEffectDesc(2);
 
