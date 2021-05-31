@@ -130,7 +130,7 @@ namespace TheDeepCanyon.Game.States
 
 				// Squirrel gives ring
 
-				if (room.Uid == 2 && (room.Seen || Globals.LastCommand is ILookCommand) && !gGameState.SquirrelRing)
+				if (room.Uid == 2 && Globals.LastCommand != null && Globals.LastCommand.Type != CommandType.Movement && !gGameState.SquirrelRing)
 				{
 					gEngine.PrintEffectDesc(2);
 
