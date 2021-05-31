@@ -7,6 +7,7 @@ using System;
 using System.Diagnostics;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
+using EamonRT.Framework.Commands;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
 using static TheDeepCanyon.Game.Plugin.PluginContext;
@@ -129,7 +130,7 @@ namespace TheDeepCanyon.Game.States
 
 				// Squirrel gives ring
 
-				if (room.Uid == 2 && room.Seen && !gGameState.SquirrelRing)		// TODO: account for LookCommand
+				if (room.Uid == 2 && (room.Seen || Globals.LastCommand is ILookCommand) && !gGameState.SquirrelRing)
 				{
 					gEngine.PrintEffectDesc(2);
 
