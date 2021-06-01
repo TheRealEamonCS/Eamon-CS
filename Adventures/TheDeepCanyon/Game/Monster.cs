@@ -26,6 +26,17 @@ namespace TheDeepCanyon.Game
 			return Uid != 11 && Uid != 24 && base.ShouldRefuseToAcceptGift(artifact);
 		}
 
+		public override bool CheckCourage()
+		{
+			Globals.RulesetVersion = 5;
+
+			var result = base.CheckCourage();
+
+			Globals.RulesetVersion = 0;
+
+			return result;
+		}
+
 		public override string[] GetWeaponAttackDescs(IArtifact artifact)
 		{
 			// Falcon
