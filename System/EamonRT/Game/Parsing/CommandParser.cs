@@ -333,7 +333,7 @@ namespace EamonRT.Game.Parsing
 
 		public virtual void FinishParsingHealCommand()
 		{
-			if (!Globals.IsRulesetVersion(5) && CurrToken < Tokens.Length)
+			if (!Globals.IsRulesetVersion(5, 25) && CurrToken < Tokens.Length)
 			{
 				ResolveRecord(true, false);
 			}

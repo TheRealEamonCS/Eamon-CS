@@ -75,7 +75,7 @@ namespace Eamon.Game.Helpers
 		/// <returns></returns>
 		public virtual string GetNameDTTL(bool addToNameList)
 		{
-			if (Globals.IsRulesetVersion(5))
+			if (Globals.IsRulesetVersion(5, 25))
 			{
 				var friendlinessValues = EnumUtil.GetValues<Friendliness>();
 
@@ -97,7 +97,7 @@ namespace Eamon.Game.Helpers
 		{
 			string result = string.Empty;
 
-			if (Globals.IsRulesetVersion(5))
+			if (Globals.IsRulesetVersion(5, 25))
 			{
 				var i = Index;
 
@@ -367,7 +367,7 @@ namespace Eamon.Game.Helpers
 		{
 			var result = true;
 
-			if (Globals.IsRulesetVersion(5))
+			if (Globals.IsRulesetVersion(5, 25))
 			{
 				var friendlinessValues = EnumUtil.GetValues<Friendliness>();
 
@@ -393,7 +393,7 @@ namespace Eamon.Game.Helpers
 		{
 			var i = Index;
 
-			return !Globals.IsRulesetVersion(5) || Record.GetDTTL(i) >= 0;
+			return !Globals.IsRulesetVersion(5, 25) || Record.GetDTTL(i) >= 0;
 		}
 
 		/// <summary></summary>

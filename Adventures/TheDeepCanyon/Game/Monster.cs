@@ -3,7 +3,9 @@
 
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
+using System.Diagnostics;
 using Eamon.Framework;
+using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using static TheDeepCanyon.Game.Plugin.PluginContext;
 
@@ -26,15 +28,24 @@ namespace TheDeepCanyon.Game
 			return Uid != 11 && Uid != 24 && base.ShouldRefuseToAcceptGift(artifact);
 		}
 
-		public override bool CheckCourage()
+		public override void CalculateGiftFriendliness(long value, bool isArtifactValue)
 		{
-			Globals.PushRulesetVersion(5);
+			Debug.Assert(Globals.IsRulesetVersion(5, 25));
 
-			var result = base.CheckCourage();
+			long f = (long)(Friendliness - 100);
 
-			Globals.PopRulesetVersion();
+			f = (long)((double)f * (1 + (double)value / 200.0));
 
-			return result;
+			if (f < 0)
+			{
+				f = 0;
+			}
+			else if (f > 100)
+			{
+				f = 100;
+			}
+
+			Friendliness = (Friendliness)(f + 100);
 		}
 
 		public override string[] GetWeaponAttackDescs(IArtifact artifact)

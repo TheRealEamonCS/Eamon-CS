@@ -250,7 +250,7 @@ namespace EamonRT.Game.Commands
 
 			if (BlastSpell)
 			{
-				if (Globals.IsRulesetVersion(5, 15))
+				if (Globals.IsRulesetVersion(5, 15, 25))
 				{
 					BreakageDice = 1;
 

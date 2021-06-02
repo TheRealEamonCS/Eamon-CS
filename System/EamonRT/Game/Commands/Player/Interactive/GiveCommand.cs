@@ -128,7 +128,7 @@ namespace EamonRT.Game.Commands
 
 				gCharacter.HeldGold -= GoldAmount;
 
-				if (Globals.IsRulesetVersion(5))
+				if (Globals.IsRulesetVersion(5, 25))
 				{
 					IobjMonster.CalculateGiftFriendliness(GoldAmount, false);
 
@@ -257,11 +257,11 @@ namespace EamonRT.Game.Commands
 
 			DobjArtAc = DobjArtifact.GetArtifactCategory(new ArtifactType[] { ArtifactType.Drinkable, ArtifactType.Edible });
 
-			if (Globals.IsRulesetVersion(5) || DobjArtAc == null || DobjArtAc.Field2 <= 0)
+			if (Globals.IsRulesetVersion(5, 25) || DobjArtAc == null || DobjArtAc.Field2 <= 0)
 			{
 				DobjArtifact.SetCarriedByMonster(IobjMonster);
 
-				if (Globals.IsRulesetVersion(5))
+				if (Globals.IsRulesetVersion(5, 25))
 				{
 					IobjMonster.CalculateGiftFriendliness(DobjArtifact.Value, true);
 

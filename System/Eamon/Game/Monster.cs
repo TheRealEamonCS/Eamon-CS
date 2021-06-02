@@ -50,7 +50,7 @@ namespace Eamon.Game
 		{
 			get
 			{
-				return Globals.EnableGameOverrides && Globals.IsRulesetVersion(5, 15) && IsWeaponless(false) && _courage < 200 ? _courage / 2 : _courage;
+				return Globals.EnableGameOverrides && Globals.IsRulesetVersion(5, 15, 25) && IsWeaponless(false) && _courage < 200 ? _courage / 2 : _courage;
 			}
 
 			set
@@ -559,7 +559,7 @@ namespace Eamon.Game
 		{
 			Debug.Assert(artifact != null);
 
-			return !Globals.IsRulesetVersion(5) && (Reaction == Friendliness.Enemy || (Reaction == Friendliness.Neutral && artifact.Value < 3000));
+			return !Globals.IsRulesetVersion(5, 25) && (Reaction == Friendliness.Enemy || (Reaction == Friendliness.Neutral && artifact.Value < 3000));
 		}
 
 		public virtual bool ShouldRefuseToAcceptDeadBody(IArtifact artifact)
@@ -582,7 +582,7 @@ namespace Eamon.Game
 			{
 				var gameState = gEngine.GetGameState();
 
-				if (Globals.IsRulesetVersion(5) && gameState != null)
+				if (Globals.IsRulesetVersion(5, 25) && gameState != null)
 				{
 					var rl = (long)Math.Round((double)gameState.GetDTTL(Reaction) / (double)gameState.GetNBTL(Reaction) * 100 + gEngine.RollDice(1, 41, -21));
 
@@ -625,7 +625,7 @@ namespace Eamon.Game
 		{
 			if (gEngine.IsValidMonsterFriendlinessPct(Friendliness))
 			{
-				if (Globals.IsRulesetVersion(5))
+				if (Globals.IsRulesetVersion(5, 25))
 				{
 					var f = (long)Friendliness - 100;
 
@@ -703,7 +703,7 @@ namespace Eamon.Game
 
 		public virtual void CalculateGiftFriendliness(long value, bool isArtifactValue)
 		{
-			Debug.Assert(Globals.IsRulesetVersion(5));
+			Debug.Assert(Globals.IsRulesetVersion(5, 25));
 
 			if (isArtifactValue)       // Scaled from EDX to original Eamon values
 			{
@@ -984,7 +984,7 @@ namespace Eamon.Game
 
 				if (x == 4)
 				{
-					result = (Globals.IsRulesetVersion(5, 15) ? "very " : "") + "badly injured.";
+					result = (Globals.IsRulesetVersion(5, 15, 25) ? "very " : "") + "badly injured.";
 				}
 				else if (x == 3)
 				{

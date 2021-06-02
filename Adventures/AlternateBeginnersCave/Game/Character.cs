@@ -51,7 +51,7 @@ namespace AlternateBeginnersCave.Game
 
 			buf03 = new StringBuilder(Constants.BufSize);
 
-			var omitSkillStats = Globals.IsRulesetVersion(15) && gEngine.GetGameState() != null;
+			var omitSkillStats = Globals.IsRulesetVersion(15, 25) && gEngine.GetGameState() != null;
 
 			gOut.Print("{0,-36}Gender: {1,-9}Damage Taken: {2}/{3}",
 				args.Monster.Name.ToUpper(),

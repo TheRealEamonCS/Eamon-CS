@@ -40,11 +40,7 @@ namespace TheDeepCanyon.Game.Commands
 				{
 					case 1:
 
-						Globals.PushRulesetVersion(5);
-
 						gEngine.ResurrectDeadBodies(ActorRoom, findDeadBodiesFunc);
-
-						Globals.PopRulesetVersion();
 
 						break;
 
