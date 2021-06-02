@@ -30,7 +30,7 @@ namespace TheTempleOfNgurct.Game.Plugin
 
 		public PluginClassMappings()
 		{
-			RulesetVersion = 5;
+			PushRulesetVersion(5);
 		}
 	}
 }

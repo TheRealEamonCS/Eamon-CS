@@ -50,7 +50,13 @@ namespace Eamon.Game.Plugin
 
 		public virtual string FilePrefix { get; set; } = "";
 
-		public virtual long RulesetVersion { get; set; }
+		public virtual long RulesetVersion
+		{
+			get
+			{
+				return RulesetVersions != null && RvStackTop >= 0 && RvStackTop < RulesetVersions.Length ? RulesetVersions[RvStackTop] : 0;
+			}
+		}
 
 		public virtual bool EnableGameOverrides
 		{
@@ -69,6 +75,12 @@ namespace Eamon.Game.Plugin
 		public virtual bool DeleteGameStateFromMainHall { get; set; }
 
 		public virtual Action<IDictionary<Type, Type>> LoadPortabilityClassMappings { get; set; }
+
+		/// <summary></summary>
+		public virtual long[] RulesetVersions { get; set; } = new long[Constants.NumRulesetVersions];
+
+		/// <summary></summary>
+		public virtual long RvStackTop { get; set; } = -1;
 
 		public virtual void HandleException(Exception ex, string stackTraceFile, string errorMessage)
 		{
@@ -270,6 +282,87 @@ namespace Eamon.Game.Plugin
 			}
 
 		Cleanup:
+
+			return rc;
+		}
+
+		public virtual RetCode PushRulesetVersion(long rulesetVersion)
+		{
+			RetCode rc;
+
+			rc = RetCode.Success;
+
+			if (RulesetVersions == null || RvStackTop + 1 >= RulesetVersions.Length)
+			{
+				rc = RetCode.IsFull;
+
+				goto Cleanup;
+			}
+
+			RulesetVersions[++RvStackTop] = rulesetVersion;
+
+		Cleanup:
+
+			return rc;
+		}
+
+		public virtual RetCode PopRulesetVersion()
+		{
+			RetCode rc;
+
+			rc = RetCode.Success;
+
+			if (RulesetVersions == null || RvStackTop < 0)
+			{
+				rc = RetCode.IsEmpty;
+
+				goto Cleanup;
+			}
+
+			RulesetVersions[RvStackTop--] = 0;
+
+		Cleanup:
+
+			return rc;
+		}
+
+		public virtual RetCode ClearRvStack()
+		{
+			RetCode rc;
+
+			rc = RetCode.Success;
+
+			while (RvStackTop >= 0)
+			{
+				rc = PopRulesetVersion();
+
+				if (rc != RetCode.Success)
+				{
+					break;
+				}
+			}
+
+			return rc;
+		}
+
+		public virtual RetCode GetRvStackTop(ref long rvStackTop)
+		{
+			RetCode rc;
+
+			rc = RetCode.Success;
+
+			rvStackTop = RvStackTop;
+
+			return rc;
+		}
+
+		public virtual RetCode GetRvStackSize(ref long rvStackSize)
+		{
+			RetCode rc;
+
+			rc = RetCode.Success;
+
+			rvStackSize = RulesetVersions != null ? RulesetVersions.Length : 0;
 
 			return rc;
 		}

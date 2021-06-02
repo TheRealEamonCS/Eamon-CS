@@ -28,11 +28,11 @@ namespace TheDeepCanyon.Game
 
 		public override bool CheckCourage()
 		{
-			Globals.RulesetVersion = 5;
+			Globals.PushRulesetVersion(5);
 
 			var result = base.CheckCourage();
 
-			Globals.RulesetVersion = 0;
+			Globals.PopRulesetVersion();
 
 			return result;
 		}

@@ -214,10 +214,6 @@ namespace Eamon.Game.Plugin
 			{
 				return ClassMappings.RulesetVersion;
 			}
-			set
-			{
-				ClassMappings.RulesetVersion = value;
-			}
 		}
 
 		public virtual bool EnableGameOverrides
@@ -596,6 +592,31 @@ namespace Eamon.Game.Plugin
 		public virtual void DeinitSystem()
 		{
 			ClearDbStack();
+		}
+
+		public virtual RetCode PushRulesetVersion(long rulesetVersion)
+		{
+			return ClassMappings.PushRulesetVersion(rulesetVersion);
+		}
+
+		public virtual RetCode PopRulesetVersion()
+		{
+			return ClassMappings.PopRulesetVersion();
+		}
+
+		public virtual RetCode ClearRvStack()
+		{
+			return ClassMappings.ClearRvStack();
+		}
+
+		public virtual RetCode GetRvStackTop(ref long rvStackTop)
+		{
+			return ClassMappings.GetRvStackTop(ref rvStackTop);
+		}
+
+		public virtual RetCode GetRvStackSize(ref long rvStackSize)
+		{
+			return ClassMappings.GetRvStackSize(ref rvStackSize);
 		}
 
 		public virtual T CreateInstance<T>(Type ifaceType, Action<T> initialize = null) where T : class

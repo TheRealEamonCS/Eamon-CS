@@ -30,7 +30,7 @@ namespace TheVileGrimoireOfJaldial.Game.Plugin
 
 		public PluginClassMappings()
 		{
-			RulesetVersion = 15;
+			PushRulesetVersion(15);
 		}
 	}
 }

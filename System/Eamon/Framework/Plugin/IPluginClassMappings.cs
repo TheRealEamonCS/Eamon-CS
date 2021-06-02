@@ -95,13 +95,14 @@ namespace Eamon.Framework.Plugin
 		string FilePrefix { get; set; }
 
 		/// <summary>
-		/// Gets or sets a value indicating which Eamon ruleset applies to the current game.
+		/// Gets a value indicating which Eamon ruleset applies to the current game.
 		/// </summary>
 		/// <remarks>
 		/// Earlier rulesets of Eamon gave a different "vibe" to the gameplay experience, so a means to support them was introduced.  Currently supported
-		/// rulesets include 5 for DDD5 and 0 for Eamon Deluxe.  The Temple of Ngurct is the only game using DDD5 at the time of this writing.
+		/// rulesets include 5 for DDD5 and 0 for Eamon Deluxe.  The Temple of Ngurct is the only game using DDD5 at the time of this writing.  Recent
+		/// enhancements allow a game to change rulesets dynamically at runtime.
 		/// </remarks>
-		long RulesetVersion { get; set; }
+		long RulesetVersion { get; }
 
 		/// <summary>
 		/// Gets a value indicating whether "mutating properties" (those that are dynamically calculated) should be enabled.
@@ -222,6 +223,29 @@ namespace Eamon.Framework.Plugin
 		/// <param name="plugin"></param>
 		/// <returns></returns>
 		RetCode LoadPluginClassMappings01(Assembly plugin);
+
+		/// <summary></summary>
+		/// <param name="rulesetVersion"></param>
+		/// <returns></returns>
+		RetCode PushRulesetVersion(long rulesetVersion);
+
+		/// <summary></summary>
+		/// <returns></returns>
+		RetCode PopRulesetVersion();
+
+		/// <summary></summary>
+		/// <returns></returns>
+		RetCode ClearRvStack();
+
+		/// <summary></summary>
+		/// <param name="rvStackTop"></param>
+		/// <returns></returns>
+		RetCode GetRvStackTop(ref long rvStackTop);
+
+		/// <summary></summary>
+		/// <param name="rvStackSize"></param>
+		/// <returns></returns>
+		RetCode GetRvStackSize(ref long rvStackSize);
 
 		/// <summary></summary>
 		/// <param name="ifaceType"></param>
