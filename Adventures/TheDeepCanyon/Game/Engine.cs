@@ -41,10 +41,24 @@ namespace TheDeepCanyon.Game
 			var synonyms = new Dictionary<long, string[]>()
 			{
 				{ 2, new string[] { "bag", "sack" } },
+				{ 5, new string[] { "raptor", "bird" } },
 				{ 6, new string[] { "miners pick", "pick" } },
+				{ 7, new string[] { "lantern" } },
+				{ 11, new string[] { "pitchfork", "fork" } },
 				{ 15, new string[] { "gold", "ore" } },
 				{ 16, new string[] { "big stick" } },
 				{ 17, new string[] { "trap" } },
+				{ 29, new string[] { "dead baby worm", "dead sand worm", "dead worm" } },
+				{ 30, new string[] { "dead lion", "dead cougar", "dead puma", "dead wildcat", "dead bobcat" } },
+				{ 31, new string[] { "dead miner" } },
+				{ 34, new string[] { "dead fox" } },
+				{ 35, new string[] { "dead small bat", "dead vampire bat", "dead bat" } },
+				{ 36, new string[] { "dead large bat", "dead fruit bat", "dead bat" } },
+				{ 37, new string[] { "dead small bat", "dead fruit bat", "dead bat" } },
+				{ 38, new string[] { "dead large bat", "dead vampire bat", "dead bat" } },
+				{ 44, new string[] { "dead Daisy" } },
+				{ 46, new string[] { "dead ferret" } },
+				{ 47, new string[] { "dead ferret" } },
 				{ 52, new string[] { "tracks", "track" } },
 			};
 
@@ -60,7 +74,17 @@ namespace TheDeepCanyon.Game
 
 			var synonyms = new Dictionary<long, string[]>()
 			{
+				{ 1, new string[] { "baby worm", "sand worm", "worm" } },
 				{ 2, new string[] { "cougar", "lion", "puma", "wildcat", "bobcat" } },
+				{ 3, new string[] { "miner" } },
+				{ 6, new string[] { "fox" } },
+				{ 7, new string[] { "small bat", "vampire bat", "bat" } },
+				{ 8, new string[] { "large bat", "fruit bat", "bat" } },
+				{ 9, new string[] { "small bat", "fruit bat", "bat" } },
+				{ 10, new string[] { "large bat", "vampire bat", "bat" } },
+				{ 16, new string[] { "cow" } },
+				{ 18, new string[] { "ferret" } },
+				{ 19, new string[] { "ferret" } },
 			};
 
 			foreach (var synonym in synonyms)
