@@ -28,6 +28,13 @@ namespace TheDeepCanyon.Game
 			return Uid != 11 && Uid != 24 && base.ShouldRefuseToAcceptGift(artifact);
 		}
 
+		public override bool ShouldRefuseToAcceptDeadBody(IArtifact artifact)
+		{
+			// Original game behavior
+
+			return false;
+		}
+
 		public override void CalculateGiftFriendliness(long value, bool isArtifactValue)
 		{
 			Debug.Assert(Globals.IsRulesetVersion(5, 25));
