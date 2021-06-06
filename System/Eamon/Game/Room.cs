@@ -491,7 +491,7 @@ namespace Eamon.Game
 			{
 				buf.AppendFormat("{0}{1}", Environment.NewLine, Desc);
 
-				if (monsterList.Any() || artifactList.Any())
+				if (monsterList.FirstOrDefault(m => m.Seen) != null || artifactList.FirstOrDefault(a => a.Seen) != null)
 				{
 					while (buf.Length > 0 && Char.IsWhiteSpace(buf[buf.Length - 1]))
 					{
