@@ -119,6 +119,129 @@ namespace TheDeepCanyon.Game
 			}
 		}
 
+		public override void MonsterEmotes(IMonster monster, bool friendSmile = true)
+		{
+			Debug.Assert(monster != null);
+
+			var rl = RollDice(1, 100, 0);
+
+			// Mountain lion
+
+			if (monster.Uid == 2)
+			{
+				gOut.Write("{0}{1} {2} at you!", Environment.NewLine, monster.GetTheName(true), rl > 66 ? "roars" : rl > 33 ? "snarls" : "hisses");
+			}
+
+			// Various bats
+
+			else if (monster.Uid >= 6 && monster.Uid <= 10)
+			{
+				if (monster.Reaction == Friendliness.Neutral)
+				{
+					gOut.Write("{0}{1} ignores you.", Environment.NewLine, monster.GetTheName(true));
+				}
+				else
+				{
+					gOut.Write("{0}{1} {2} at you{3}", Environment.NewLine, monster.GetTheName(true), rl > 50 ? "squeaks" : "hisses", monster.EvalReaction("!", ".", "."));
+				}
+			}
+
+			// Pig
+
+			else if (monster.Uid == 13)
+			{
+				gOut.Write("{0}{1} squeals at you!", Environment.NewLine, monster.GetTheName(true));
+			}
+
+			// Goose
+
+			else if (monster.Uid == 14)
+			{
+				gOut.Write("{0}{1} honks at you!", Environment.NewLine, monster.GetTheName(true));
+			}
+
+			// Horse
+
+			else if (monster.Uid == 15)
+			{
+				if (monster.Reaction == Friendliness.Neutral)
+				{
+					gOut.Write("{0}{1} ignores you.", Environment.NewLine, monster.GetTheName(true));
+				}
+				else
+				{
+					gOut.Write("{0}{1} {2} at you{3}", Environment.NewLine, monster.GetTheName(true), rl > 66 ? "whinnies" : rl > 33 ? "snorts" : monster.EvalReaction("squeals", "nickers", "nickers"), monster.EvalReaction("!", ".", "."));
+				}
+			}
+
+			// Daisy
+
+			else if (monster.Uid == 16)
+			{
+				if (monster.Reaction == Friendliness.Neutral)
+				{
+					gOut.Write("{0}{1} ignores you.", Environment.NewLine, monster.GetTheName(true));
+				}
+				else
+				{
+					gOut.Write("{0}{1} {2} at you{3}", Environment.NewLine, monster.GetTheName(true), rl > 66 ? "moos" : rl > 33 ? "snorts" : monster.EvalReaction("bellows", "grunts", "grunts"), monster.EvalReaction("!", ".", "."));
+				}
+			}
+
+			// Groundhog
+
+			else if (monster.Uid == 17)
+			{
+				gOut.Write("{0}{1} {2} at you!", Environment.NewLine, monster.GetTheName(true), rl > 66 ? "chatters" : rl > 33 ? "hisses" : "whistles");
+			}
+
+			// Brown ferret/Black ferret
+
+			else if (monster.Uid == 18 || monster.Uid == 19)
+			{
+				if (monster.Reaction == Friendliness.Neutral)
+				{
+					gOut.Write("{0}{1} ignores you.", Environment.NewLine, monster.GetTheName(true));
+				}
+				else
+				{
+					gOut.Write("{0}{1} {2} at you{3}", Environment.NewLine, monster.GetTheName(true), rl > 66 ? "chatters" : rl > 33 ? "hisses" : monster.EvalReaction("barks", "dooks", "dooks"), monster.EvalReaction("!", ".", "."));
+				}
+			}
+
+			// Kiord
+
+			else if (monster.Uid == 21)
+			{
+				gOut.Write("{0}{1} {2} at you!", Environment.NewLine, monster.GetTheName(true), rl > 66 ? "screeches" : rl > 33 ? "hisses" : "squawks");
+			}
+
+			// Goat
+
+			else if (monster.Uid == 22)
+			{
+				gOut.Write("{0}{1} {2} at you!", Environment.NewLine, monster.GetTheName(true), rl > 50 ? "bleats" : "bellows");
+			}
+
+			// Chicken
+
+			else if (monster.Uid == 23)
+			{
+				if (monster.Reaction == Friendliness.Neutral)
+				{
+					gOut.Write("{0}{1} ignores you.", Environment.NewLine, monster.GetTheName(true));
+				}
+				else
+				{
+					gOut.Write("{0}{1} {2} at you{3}", Environment.NewLine, monster.GetTheName(true), rl > 66 ? "clucks" : rl > 33 ? "cackles" : monster.EvalReaction("squawks", "warbles", "warbles"), monster.EvalReaction("!", ".", "."));
+				}
+			}
+			else
+			{
+				base.MonsterEmotes(monster, friendSmile);
+			}
+		}
+
 		public override void MonsterDies(IMonster OfMonster, IMonster DfMonster)
 		{
 			Debug.Assert(DfMonster != null);
