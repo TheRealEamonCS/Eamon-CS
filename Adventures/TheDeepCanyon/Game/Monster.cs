@@ -14,6 +14,20 @@ namespace TheDeepCanyon.Game
 	[ClassMappings]
 	public class Monster : Eamon.Game.Monster, IMonster
 	{
+		public override bool HasWornInventory()
+		{
+			// Only humanoids have a worn inventory list
+
+			return Uid == 3 || Uid == 4 || Uid == 5 || Uid == 12;
+		}
+
+		public override bool HasCarriedInventory()
+		{
+			// Only humanoids have a carried inventory list
+
+			return Uid == 3 || Uid == 4 || Uid == 5 || Uid == 12 || Uid == 20;
+		}
+
 		public override bool CanMoveToRoom(bool fleeing)
 		{
 			// Fido can't flee or follow
