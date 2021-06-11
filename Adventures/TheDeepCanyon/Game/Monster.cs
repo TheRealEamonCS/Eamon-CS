@@ -18,14 +18,14 @@ namespace TheDeepCanyon.Game
 		{
 			// Only humanoids have a worn inventory list
 
-			return Uid == 3 || Uid == 4 || Uid == 5 || Uid == 12;
+			return Uid == 3 || Uid == 4 || Uid == 5 || Uid == 12 || (gGameState != null && Uid == gGameState.Cm);
 		}
 
 		public override bool HasCarriedInventory()
 		{
 			// Only humanoids have a carried inventory list
 
-			return Uid == 3 || Uid == 4 || Uid == 5 || Uid == 12 || Uid == 20;
+			return Uid == 3 || Uid == 4 || Uid == 5 || Uid == 12 || Uid == 20 || (gGameState != null && Uid == gGameState.Cm);
 		}
 
 		public override bool CanMoveToRoom(bool fleeing)
