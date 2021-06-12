@@ -131,7 +131,9 @@ namespace EamonRT.Game
 
 		public virtual void EnforceCharacterWeightLimits()
 		{
-			var artifactList = GetArtifactList(a => a.IsCarriedByCharacter() || a.IsWornByCharacter());
+			Globals.RevealContentCounter--;
+
+			var artifactList = GetArtifactList(a => a.IsCarriedByCharacter() || a.IsWornByCharacter()).OrderByDescending(a => a.RecursiveWeight).ToList();
 
 			foreach (var artifact in artifactList)
 			{
@@ -155,11 +157,19 @@ namespace EamonRT.Game
 				{
 					artifact.SetInRoomUid(StartRoom);
 				}
+				else
+				{
+					break;
+				}
 			}
+
+			Globals.RevealContentCounter++;
 		}
 
 		public virtual void EnforceCharacterWeightLimits02(IRoom room = null, bool printOutput = false)
 		{
+			Globals.RevealContentCounter--;
+
 			var enableOutput = gOut.EnableOutput;
 
 			gOut.EnableOutput = printOutput;
@@ -171,7 +181,7 @@ namespace EamonRT.Game
 				Debug.Assert(room != null);
 			}
 
-			var artifactList = GetArtifactList(a => a.IsCarriedByCharacter() || a.IsWornByCharacter());
+			var artifactList = GetArtifactList(a => a.IsCarriedByCharacter() || a.IsWornByCharacter()).OrderByDescending(a => a.RecursiveWeight).ToList();
 
 			foreach (var artifact in artifactList)
 			{
@@ -217,6 +227,8 @@ namespace EamonRT.Game
 			}
 
 			gOut.EnableOutput = enableOutput;
+
+			Globals.RevealContentCounter++;
 		}
 
 		public virtual void AddUniqueCharsToArtifactAndMonsterNames()

@@ -48,6 +48,28 @@ namespace Eamon.Game
 
 		public virtual long Weight { get; set; }
 
+		[ExcludeFromSerialization]
+		public virtual long RecursiveWeight 
+		{ 
+			get
+			{
+				RetCode rc;
+
+				long c = 0;
+
+				long w = Weight;
+
+				if (gEngine != null && !gEngine.IsUnmovable01(w) && GeneralContainer != null)
+				{
+					rc = GetContainerInfo(ref c, ref w, (ContainerType)(-1), true);
+
+					Debug.Assert(gEngine.IsSuccess(rc));
+				}
+
+				return w;
+			}
+		}
+
 		public virtual long Location
 		{
 			get

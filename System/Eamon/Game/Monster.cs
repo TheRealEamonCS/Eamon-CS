@@ -892,11 +892,13 @@ namespace Eamon.Game
 
 			long c, w, mwt;
 
+			Globals.RevealContentCounter--;
+
 			rc = RetCode.Success;
 
 			mwt = 0;
 
-			var artifactList = GetContainedList(monsterFindFunc, artifactFindFunc);
+			var artifactList = GetContainedList(monsterFindFunc, artifactFindFunc).OrderBy(a => recurse ? a.RecursiveWeight : a.Weight).ToList();
 
 			foreach (var a in artifactList)
 			{
@@ -936,6 +938,8 @@ namespace Eamon.Game
 			}
 
 		Cleanup:
+
+			Globals.RevealContentCounter++;
 
 			return rc;
 		}
