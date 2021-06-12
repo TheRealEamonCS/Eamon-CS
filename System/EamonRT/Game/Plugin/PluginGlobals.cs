@@ -73,7 +73,7 @@ namespace EamonRT.Game.Plugin
 
 			set
 			{
-				if (_currState != null && EnableRevealContentOverrides && RevealContentArtifactList != null && RevealContentArtifactList.Count > 0)
+				if (_currState != null && RevealContentCounter > 0 && RevealContentArtifactList != null && RevealContentArtifactList.Count > 0)
 				{
 					_currState.ProcessRevealContentArtifactList();
 				}

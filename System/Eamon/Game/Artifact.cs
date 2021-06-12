@@ -57,7 +57,7 @@ namespace Eamon.Game
 
 			set
 			{
-				if (Globals.EnableGameOverrides && Globals.EnableRevealContentOverrides && _location != value && !Globals.RevealContentArtifactList.Contains(this))
+				if (Globals.EnableGameOverrides && Globals.RevealContentCounter > 0 && _location != value && !Globals.RevealContentArtifactList.Contains(this))
 				{
 					Globals.RevealContentArtifactList.Add(this);
 

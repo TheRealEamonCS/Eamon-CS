@@ -74,7 +74,7 @@ namespace Eamon.Framework.Plugin
 		IList<long> RevealContentLocationList { get; set; }
 
 		/// <summary></summary>
-		bool EnableRevealContentOverrides { get; set; }
+		long RevealContentCounter { get; set; }
 
 		/// <summary></summary>
 		string WorkDir { get; set; }

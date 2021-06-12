@@ -180,7 +180,7 @@ namespace Eamon.Game.Plugin
 
 		public virtual IList<long> RevealContentLocationList { get; set; }
 
-		public virtual bool EnableRevealContentOverrides { get; set; }
+		public virtual long RevealContentCounter { get; set; }
 
 		public virtual string WorkDir
 		{
@@ -556,7 +556,7 @@ namespace Eamon.Game.Plugin
 
 			RevealContentLocationList = new List<long>();
 
-			EnableRevealContentOverrides = true;
+			RevealContentCounter = 1;
 
 			Databases = new IDatabase[Constants.NumDatabases];
 

@@ -35,7 +35,7 @@ namespace EamonRT.Game.Commands
 
 			set
 			{
-				if (Globals.EnableRevealContentOverrides)
+				if (Globals.RevealContentCounter > 0)
 				{
 					Globals.RevealContentMonster = value;
 				}
