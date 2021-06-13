@@ -56,6 +56,7 @@ namespace TheDeepCanyon.Game
 				{ 36, new string[] { "dead large bat", "dead fruit bat", "dead bat" } },
 				{ 37, new string[] { "dead small bat", "dead fruit bat", "dead bat" } },
 				{ 38, new string[] { "dead large bat", "dead vampire bat", "dead bat" } },
+				{ 39, new string[] { "dead Fido" } },
 				{ 44, new string[] { "dead Daisy" } },
 				{ 46, new string[] { "dead ferret" } },
 				{ 47, new string[] { "dead ferret" } },
