@@ -53,7 +53,7 @@ namespace TheDeepCanyon.Game.Commands
 
 					gOut.Print("Okay, the trap is set.");
 
-					DobjArtifact.SetInRoom(ActorRoom);
+					// DobjArtifact.SetInRoom(ActorRoom);
 
 					DobjArtifact.InContainer.SetOpen(true);
 
