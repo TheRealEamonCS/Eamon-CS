@@ -44,9 +44,12 @@ namespace TheDeepCanyon.Game.Commands
 				}
 				else
 				{
-					if (mouseArtifact.IsCarriedByContainer(DobjArtifact))
+					if (!mouseArtifact.IsInLimbo())
 					{
-						gOut.Print("The mouse escapes as you set the trap.");
+						if (mouseArtifact.IsCarriedByCharacter() || mouseArtifact.IsCarriedByContainer(DobjArtifact) || mouseArtifact.IsInRoom(ActorRoom))
+						{
+							gOut.Print("The mouse escapes as you set the trap.");
+						}
 
 						mouseArtifact.SetInLimbo();
 					}
