@@ -299,7 +299,7 @@ namespace TheDeepCanyon.Game
 
 			// Exclude various "invisible" exits
 
-			if (room.Uid == 8 || room.Uid == 41 || room.Uid == 43 || room.Uid == 44 || room.Uid == 61)
+			if (room.Uid == 8 || (monster.IsCharacterMonster() && (room.Uid == 41 || room.Uid == 43 || room.Uid == 44 || room.Uid == 61)))
 			{
 				numExits--;
 			}
