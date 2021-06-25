@@ -1100,6 +1100,11 @@
             Gets or sets the weight of this <see cref="T:Eamon.Framework.IArtifact">Artifact</see> in Gronds.
             </summary>
         </member>
+        <member name="P:Eamon.Framework.IArtifact.RecursiveWeight">
+            <summary>
+            Gets the recursive weight of this <see cref="T:Eamon.Framework.IArtifact">Artifact</see> in Gronds.
+            </summary>
+        </member>
         <member name="P:Eamon.Framework.IArtifact.Location">
             <summary>
             Gets or sets the location of this <see cref="T:Eamon.Framework.IArtifact">Artifact</see> in the game (typically a <see cref="T:Eamon.Framework.IRoom">Room</see>
@@ -4507,11 +4512,12 @@
         </member>
         <member name="P:Eamon.Framework.Plugin.IPluginClassMappings.RulesetVersion">
             <summary>
-            Gets or sets a value indicating which Eamon ruleset applies to the current game.
+            Gets a value indicating which Eamon ruleset applies to the current game.
             </summary>
             <remarks>
             Earlier rulesets of Eamon gave a different "vibe" to the gameplay experience, so a means to support them was introduced.  Currently supported
-            rulesets include 5 for DDD5 and 0 for Eamon Deluxe.  The Temple of Ngurct is the only game using DDD5 at the time of this writing.
+            rulesets include 5 for DDD5 and 0 for Eamon Deluxe.  The Temple of Ngurct is the only game using DDD5 at the time of this writing.  Recent
+            enhancements allow a game to change rulesets dynamically at runtime.
             </remarks>
         </member>
         <member name="P:Eamon.Framework.Plugin.IPluginClassMappings.EnableGameOverrides">
@@ -4632,6 +4638,29 @@
             of Eamon CS.
             </remarks>
             <param name="plugin"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IPluginClassMappings.PushRulesetVersion(System.Int64)">
+            <summary></summary>
+            <param name="rulesetVersion"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IPluginClassMappings.PopRulesetVersion">
+            <summary></summary>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IPluginClassMappings.ClearRvStack">
+            <summary></summary>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IPluginClassMappings.GetRvStackTop(System.Int64@)">
+            <summary></summary>
+            <param name="rvStackTop"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IPluginClassMappings.GetRvStackSize(System.Int64@)">
+            <summary></summary>
+            <param name="rvStackSize"></param>
             <returns></returns>
         </member>
         <member name="M:Eamon.Framework.Plugin.IPluginClassMappings.CreateInstance``1(System.Type,System.Action{``0})">
@@ -4814,6 +4843,9 @@
         <member name="P:Eamon.Framework.Plugin.IPluginConstants.NumDatabases">
             <summary></summary>
         </member>
+        <member name="P:Eamon.Framework.Plugin.IPluginConstants.NumRulesetVersions">
+            <summary></summary>
+        </member>
         <member name="P:Eamon.Framework.Plugin.IPluginConstants.NumArtifactCategories">
             <summary></summary>
         </member>
@@ -4976,7 +5008,7 @@
         <member name="P:Eamon.Framework.Plugin.IPluginGlobals.RevealContentLocationList">
             <summary></summary>
         </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginGlobals.EnableRevealContentOverrides">
+        <member name="P:Eamon.Framework.Plugin.IPluginGlobals.RevealContentCounter">
             <summary></summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IPluginGlobals.WorkDir">
@@ -5097,6 +5129,29 @@
         </member>
         <member name="M:Eamon.Framework.Plugin.IPluginGlobals.DeinitSystem">
             <summary></summary>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IPluginGlobals.PushRulesetVersion(System.Int64)">
+            <summary></summary>
+            <param name="rulesetVersion"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IPluginGlobals.PopRulesetVersion">
+            <summary></summary>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IPluginGlobals.ClearRvStack">
+            <summary></summary>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IPluginGlobals.GetRvStackTop(System.Int64@)">
+            <summary></summary>
+            <param name="rvStackTop"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IPluginGlobals.GetRvStackSize(System.Int64@)">
+            <summary></summary>
+            <param name="rvStackSize"></param>
+            <returns></returns>
         </member>
         <member name="M:Eamon.Framework.Plugin.IPluginGlobals.CreateInstance``1(System.Type,System.Action{``0})">
             <summary></summary>
@@ -9621,6 +9676,12 @@
         <member name="M:Eamon.Game.Helpers.TriggerHelper.ValidateField5">
             <summary></summary>
             <returns></returns>
+        </member>
+        <member name="P:Eamon.Game.Plugin.PluginClassMappings.RulesetVersions">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Game.Plugin.PluginClassMappings.RvStackTop">
+            <summary></summary>
         </member>
         <member name="P:Eamon.Game.Plugin.PluginGlobals.Databases">
             <summary></summary>
