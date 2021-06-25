@@ -102,7 +102,7 @@ namespace EamonRT.Game.Commands
 		{
 			RetCode rc;
 
-			Globals.EnableRevealContentOverrides = false;
+			Globals.RevealContentCounter--;
 
 			SaveFilesetsCount = Globals.Database.GetFilesetsCount();
 
@@ -415,7 +415,7 @@ namespace EamonRT.Game.Commands
 				NextState = Globals.CreateInstance<IStartState>();
 			}
 
-			Globals.EnableRevealContentOverrides = true;
+			Globals.RevealContentCounter++;
 		}
 
 		public override bool ShouldPreTurnProcess()

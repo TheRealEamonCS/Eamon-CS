@@ -74,7 +74,7 @@ namespace Eamon.Framework.Plugin
 		IList<long> RevealContentLocationList { get; set; }
 
 		/// <summary></summary>
-		bool EnableRevealContentOverrides { get; set; }
+		long RevealContentCounter { get; set; }
 
 		/// <summary></summary>
 		string WorkDir { get; set; }
@@ -86,7 +86,7 @@ namespace Eamon.Framework.Plugin
 		string LineSep { get; set; }
 
 		/// <summary></summary>
-		long RulesetVersion { get; set; }
+		long RulesetVersion { get; }
 
 		/// <summary></summary>
 		bool EnableGameOverrides { get; }
@@ -194,6 +194,29 @@ namespace Eamon.Framework.Plugin
 
 		/// <summary></summary>
 		void DeinitSystem();
+
+		/// <summary></summary>
+		/// <param name="rulesetVersion"></param>
+		/// <returns></returns>
+		RetCode PushRulesetVersion(long rulesetVersion);
+
+		/// <summary></summary>
+		/// <returns></returns>
+		RetCode PopRulesetVersion();
+
+		/// <summary></summary>
+		/// <returns></returns>
+		RetCode ClearRvStack();
+
+		/// <summary></summary>
+		/// <param name="rvStackTop"></param>
+		/// <returns></returns>
+		RetCode GetRvStackTop(ref long rvStackTop);
+
+		/// <summary></summary>
+		/// <param name="rvStackSize"></param>
+		/// <returns></returns>
+		RetCode GetRvStackSize(ref long rvStackSize);
 
 		/// <summary></summary>
 		/// <param name="ifaceType"></param>

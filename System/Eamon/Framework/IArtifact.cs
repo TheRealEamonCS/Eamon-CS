@@ -54,6 +54,11 @@ namespace Eamon.Framework
 		long Weight { get; set; }
 
 		/// <summary>
+		/// Gets the recursive weight of this <see cref="IArtifact">Artifact</see> in Gronds.
+		/// </summary>
+		long RecursiveWeight { get; }
+
+		/// <summary>
 		/// Gets or sets the location of this <see cref="IArtifact">Artifact</see> in the game (typically a <see cref="IRoom">Room</see>
 		/// <see cref="IGameBase.Uid">Uid</see> or a special code).
 		/// </summary>

@@ -27,5 +27,10 @@ namespace TheDeepCanyon.Game.Plugin
 
 			return rc;
 		}
+
+		public PluginClassMappings()
+		{
+			PushRulesetVersion(25);
+		}
 	}
 }

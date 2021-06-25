@@ -35,7 +35,7 @@ namespace EamonRT.Game.Commands
 
 			set
 			{
-				if (Globals.EnableRevealContentOverrides)
+				if (Globals.RevealContentCounter > 0)
 				{
 					Globals.RevealContentMonster = value;
 				}
@@ -326,7 +326,7 @@ namespace EamonRT.Game.Commands
 		{
 			Debug.Assert(artifact != null);
 
-			if (Globals.IsRulesetVersion(5, 15))
+			if (Globals.IsRulesetVersion(5, 15, 25))
 			{
 				gOut.Print("You're wearing {0}.", artifact.EvalPlural("it", "them"));
 			}
@@ -340,7 +340,7 @@ namespace EamonRT.Game.Commands
 		{
 			Debug.Assert(artifact != null);
 
-			if (Globals.IsRulesetVersion(5, 15))
+			if (Globals.IsRulesetVersion(5, 15, 25))
 			{
 				gOut.Print("You're wearing {0}.", artifact.GetTheName());
 			}
@@ -495,7 +495,7 @@ namespace EamonRT.Game.Commands
 
 		public virtual void PrintNotEnoughGold()
 		{
-			if (Globals.IsRulesetVersion(5, 15) || gCharacter.HeldGold < 0)
+			if (Globals.IsRulesetVersion(5, 15, 25) || gCharacter.HeldGold < 0)
 			{
 				gOut.Print("You aren't carrying that much gold of your own!");
 			}
@@ -509,7 +509,7 @@ namespace EamonRT.Game.Commands
 
 		public virtual void PrintMustFirstReadyWeapon()
 		{
-			if (Globals.IsRulesetVersion(5, 15))
+			if (Globals.IsRulesetVersion(5, 15, 25))
 			{
 				gOut.Print("You have no weapon ready!");
 			}
@@ -576,7 +576,7 @@ namespace EamonRT.Game.Commands
 
 		public virtual void PrintCalmDown()
 		{
-			if (Globals.IsRulesetVersion(5, 15))
+			if (Globals.IsRulesetVersion(5, 15, 25))
 			{
 				gOut.Print("There's nothing to flee from!");
 			}

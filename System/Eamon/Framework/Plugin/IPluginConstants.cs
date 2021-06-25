@@ -150,6 +150,9 @@ namespace Eamon.Framework.Plugin
 		long NumDatabases { get; }
 
 		/// <summary></summary>
+		long NumRulesetVersions { get; }
+
+		/// <summary></summary>
 		long NumArtifactCategories { get; }
 
 		/// <summary></summary>

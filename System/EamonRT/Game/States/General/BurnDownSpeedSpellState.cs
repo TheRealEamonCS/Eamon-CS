@@ -49,7 +49,7 @@ namespace EamonRT.Game.States
 
 			PrintSpellExpiredRoll = gEngine.RollDice(1, 100, 0);
 
-			if (PrintSpellExpiredRoll > 80 || !Globals.IsRulesetVersion(5, 15))
+			if (PrintSpellExpiredRoll > 80 || !Globals.IsRulesetVersion(5, 15, 25))
 			{
 				PrintSpeedSpellExpired();
 			}
@@ -66,7 +66,7 @@ namespace EamonRT.Game.States
 
 		public virtual void PrintSpeedSpellExpired()
 		{
-			gOut.Print("Your speed spell has{0} expired!", Globals.IsRulesetVersion(5, 15) ? " just" : "");
+			gOut.Print("Your speed spell has{0} expired!", Globals.IsRulesetVersion(5, 15, 25) ? " just" : "");
 		}
 
 		public BurnDownSpeedSpellState()

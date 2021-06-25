@@ -38,7 +38,7 @@ namespace EamonRT.Game.Commands
 
 			if (DobjMonster.DmgTaken > 0)
 			{
-				if (Globals.IsRulesetVersion(5, 15))
+				if (Globals.IsRulesetVersion(5, 15, 25))
 				{
 					Globals.Buf.SetFormat("{0}Some of {1}", 
 						Environment.NewLine,
@@ -60,7 +60,7 @@ namespace EamonRT.Game.Commands
 					gEngine.GetPossessiveName(Globals.Buf);
 				}
 
-				if (Globals.IsRulesetVersion(5, 15))
+				if (Globals.IsRulesetVersion(5, 15, 25))
 				{
 					Globals.Buf.AppendFormat(" wounds seem to clear up.{0}", Environment.NewLine);
 				}
@@ -71,7 +71,7 @@ namespace EamonRT.Game.Commands
 
 				gOut.Write("{0}", Globals.Buf);
 
-				DamageHealed = gEngine.RollDice(1, Globals.IsRulesetVersion(5, 15) ? 10 : 12, 0);
+				DamageHealed = gEngine.RollDice(1, Globals.IsRulesetVersion(5, 15, 25) ? 10 : 12, 0);
 
 				DobjMonster.DmgTaken -= DamageHealed;
 			}

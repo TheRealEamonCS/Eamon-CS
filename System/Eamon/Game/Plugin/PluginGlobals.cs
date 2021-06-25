@@ -180,7 +180,7 @@ namespace Eamon.Game.Plugin
 
 		public virtual IList<long> RevealContentLocationList { get; set; }
 
-		public virtual bool EnableRevealContentOverrides { get; set; }
+		public virtual long RevealContentCounter { get; set; }
 
 		public virtual string WorkDir
 		{
@@ -213,10 +213,6 @@ namespace Eamon.Game.Plugin
 			get
 			{
 				return ClassMappings.RulesetVersion;
-			}
-			set
-			{
-				ClassMappings.RulesetVersion = value;
 			}
 		}
 
@@ -560,7 +556,7 @@ namespace Eamon.Game.Plugin
 
 			RevealContentLocationList = new List<long>();
 
-			EnableRevealContentOverrides = true;
+			RevealContentCounter = 1;
 
 			Databases = new IDatabase[Constants.NumDatabases];
 
@@ -596,6 +592,31 @@ namespace Eamon.Game.Plugin
 		public virtual void DeinitSystem()
 		{
 			ClearDbStack();
+		}
+
+		public virtual RetCode PushRulesetVersion(long rulesetVersion)
+		{
+			return ClassMappings.PushRulesetVersion(rulesetVersion);
+		}
+
+		public virtual RetCode PopRulesetVersion()
+		{
+			return ClassMappings.PopRulesetVersion();
+		}
+
+		public virtual RetCode ClearRvStack()
+		{
+			return ClassMappings.ClearRvStack();
+		}
+
+		public virtual RetCode GetRvStackTop(ref long rvStackTop)
+		{
+			return ClassMappings.GetRvStackTop(ref rvStackTop);
+		}
+
+		public virtual RetCode GetRvStackSize(ref long rvStackSize)
+		{
+			return ClassMappings.GetRvStackSize(ref rvStackSize);
 		}
 
 		public virtual T CreateInstance<T>(Type ifaceType, Action<T> initialize = null) where T : class

@@ -31,7 +31,7 @@ namespace EamonRT.Game.Commands
 				ActorMonster.Agility *= 2;
 			}
 
-			SpeedTurns = Globals.IsRulesetVersion(5, 15) ? gEngine.RollDice(1, 25, 9) : gEngine.RollDice(1, 10, 10);
+			SpeedTurns = Globals.IsRulesetVersion(5, 15, 25) ? gEngine.RollDice(1, 25, 9) : gEngine.RollDice(1, 10, 10);
 
 			gGameState.Speed += (SpeedTurns + 1);
 

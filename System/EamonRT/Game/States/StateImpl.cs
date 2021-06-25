@@ -78,7 +78,7 @@ namespace EamonRT.Game.States
 
 		public virtual void ProcessRevealContentArtifactList(bool printOutput = true)
 		{
-			Globals.EnableRevealContentOverrides = false;
+			Globals.RevealContentCounter--;
 
 			var containerTypes = new ContainerType[] { ContainerType.In, ContainerType.On, ContainerType.Under, ContainerType.Behind };
 
@@ -135,7 +135,7 @@ namespace EamonRT.Game.States
 
 			Globals.ResetRevealContentProperties();
 
-			Globals.EnableRevealContentOverrides = true;
+			Globals.RevealContentCounter++;
 		}
 
 		public virtual string GetDarkName(IGameBase target, ArticleType articleType, string nameType, bool upshift, bool groupCountOne)

@@ -4,6 +4,7 @@
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
 using System.Diagnostics;
+using System.Linq;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.States;
@@ -29,11 +30,13 @@ namespace TheDeepCanyon.Game.Commands
 
 			gOut.Print("Okay.");
 
+			// Note: the peanuts existed in the Apple II game but weren't used, for whatever reason; it seems appropriate to put them back in!
+
 			var peanutsArtifact = gADB[20];
 
 			Debug.Assert(peanutsArtifact != null);
 
-			if (ActorRoom.Uid == 31 && !gGameState.Peanuts)			// TODO: verify this wasn't excised
+			if (ActorRoom.Uid == 31 && !gGameState.Peanuts)
 			{
 				gOut.Print("You dug up some peanuts.");
 
@@ -55,6 +58,23 @@ namespace TheDeepCanyon.Game.Commands
 				elephantStatueArtifact.SetInRoom(ActorRoom);
 
 				gGameState.ElephantStatue = true;
+
+				goto Cleanup;
+			}
+
+			// Note: the baby sand worm existed in the Apple II game but wasn't used, for whatever reason; it seems appropriate to put it back in!
+
+			var sandyRoomUids = new long[] { 1, 2, 5, 6, 7, 8, 9, 10, 45, 46, 47, 48, 49, 50, 51, 52, 54, 57, 58 };
+
+			var babySandWormMonster = gMDB[1];
+
+			Debug.Assert(babySandWormMonster != null);
+
+			if (sandyRoomUids.Contains(ActorRoom.Uid) && babySandWormMonster.Location == -1)
+			{
+				gEngine.PrintEffectDesc(8);
+
+				babySandWormMonster.SetInRoom(ActorRoom);
 
 				goto Cleanup;
 			}

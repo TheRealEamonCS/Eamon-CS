@@ -131,7 +131,9 @@ namespace EamonRT.Game
 
 		public virtual void EnforceCharacterWeightLimits()
 		{
-			var artifactList = GetArtifactList(a => a.IsCarriedByCharacter() || a.IsWornByCharacter());
+			Globals.RevealContentCounter--;
+
+			var artifactList = GetArtifactList(a => a.IsCarriedByCharacter() || a.IsWornByCharacter()).OrderByDescending(a => a.RecursiveWeight).ToList();
 
 			foreach (var artifact in artifactList)
 			{
@@ -155,11 +157,19 @@ namespace EamonRT.Game
 				{
 					artifact.SetInRoomUid(StartRoom);
 				}
+				else
+				{
+					break;
+				}
 			}
+
+			Globals.RevealContentCounter++;
 		}
 
 		public virtual void EnforceCharacterWeightLimits02(IRoom room = null, bool printOutput = false)
 		{
+			Globals.RevealContentCounter--;
+
 			var enableOutput = gOut.EnableOutput;
 
 			gOut.EnableOutput = printOutput;
@@ -171,7 +181,7 @@ namespace EamonRT.Game
 				Debug.Assert(room != null);
 			}
 
-			var artifactList = GetArtifactList(a => a.IsCarriedByCharacter() || a.IsWornByCharacter());
+			var artifactList = GetArtifactList(a => a.IsCarriedByCharacter() || a.IsWornByCharacter()).OrderByDescending(a => a.RecursiveWeight).ToList();
 
 			foreach (var artifact in artifactList)
 			{
@@ -217,6 +227,8 @@ namespace EamonRT.Game
 			}
 
 			gOut.EnableOutput = enableOutput;
+
+			Globals.RevealContentCounter++;
 		}
 
 		public virtual void AddUniqueCharsToArtifactAndMonsterNames()
@@ -1022,7 +1034,7 @@ namespace EamonRT.Game
 		{
 			Debug.Assert(monster != null);
 
-			if (Globals.IsRulesetVersion(5, 15) && monster.Reaction == Friendliness.Friend)
+			if (Globals.IsRulesetVersion(5, 15, 25) && monster.Reaction == Friendliness.Friend)
 			{
 				gOut.Write("{0}{1} {2}{3} back.",
 					Environment.NewLine,
@@ -1038,7 +1050,7 @@ namespace EamonRT.Game
 					monster.EvalReaction("growl", "ignore", friendSmile ? "smile" : "wave"),
 					monster.EvalPlural("s", ""),
 					monster.Reaction != Friendliness.Neutral ? "at " : "",
-					Globals.IsRulesetVersion(5, 15) && monster.Reaction == Friendliness.Enemy ? "!" : ".");
+					Globals.IsRulesetVersion(5, 15, 25) && monster.Reaction == Friendliness.Enemy ? "!" : ".");
 			}
 		}
 
@@ -2320,7 +2332,7 @@ namespace EamonRT.Game
 
 					artifact.SetInLimbo();
 
-					gOut.Print("{0} {1}", artifact.GetTheName(true), Globals.IsRulesetVersion(5, 15) ? "comes alive!" : "comes to life!");
+					gOut.Print("{0} {1}", artifact.GetTheName(true), Globals.IsRulesetVersion(5, 15, 25) ? "comes alive!" : "comes to life!");
 
 					found = true;
 				}
@@ -2393,7 +2405,7 @@ namespace EamonRT.Game
 
 					if (rl > gCharacter.GetSpellAbilities(s))
 					{
-						if (!Globals.IsRulesetVersion(5, 15))
+						if (!Globals.IsRulesetVersion(5, 15, 25))
 						{
 							gOut.Print("Your ability to cast {0} just increased!", spell.Name);
 						}
@@ -2485,7 +2497,7 @@ namespace EamonRT.Game
 
 					Debug.Assert(weapon != null);
 
-					if (!Globals.IsRulesetVersion(5, 15))
+					if (!Globals.IsRulesetVersion(5, 15, 25))
 					{
 						gOut.Print("Your {0} ability just increased!", weapon.Name);
 					}
@@ -2508,7 +2520,7 @@ namespace EamonRT.Game
 
 					if (rl > gCharacter.ArmorExpertise)
 					{
-						if (!Globals.IsRulesetVersion(5, 15))
+						if (!Globals.IsRulesetVersion(5, 15, 25))
 						{
 							gOut.Print("Your armor expertise just increased!");
 						}
@@ -3225,11 +3237,11 @@ namespace EamonRT.Game
 
 			Debug.Assert(spell != null);
 
-			gOut.Print("The strain of attempting to cast {0} overloads your brain and you forget it completely{1}.", spell.Name, Globals.IsRulesetVersion(5, 15) ? "" : " for the rest of this adventure");
+			gOut.Print("The strain of attempting to cast {0} overloads your brain and you forget it completely{1}.", spell.Name, Globals.IsRulesetVersion(5, 15, 25) ? "" : " for the rest of this adventure");
 
 			gGameState.SetSa(s, 0);
 
-			if (Globals.IsRulesetVersion(5, 15))
+			if (Globals.IsRulesetVersion(5, 15, 25))
 			{
 				gCharacter.SetSpellAbilities(s, 0);
 			}

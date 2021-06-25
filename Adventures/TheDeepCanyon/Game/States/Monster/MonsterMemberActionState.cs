@@ -28,7 +28,7 @@ namespace TheDeepCanyon.Game.States
 
 			if (LoopMonster.Uid == 11 && gGameState.FidoSleepCounter <= 0)
 			{
-				var artifactList = gEngine.GetArtifactList(a => a.Uid >= 29 && a.Uid <= 51 && a.IsInRoom(LoopMonsterRoom));
+				var artifactList = gEngine.GetArtifactList(a => a.DeadBody != null && a.IsInRoom(LoopMonsterRoom));
 
 				if (artifactList.Count > 0)
 				{

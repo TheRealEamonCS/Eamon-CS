@@ -48,7 +48,7 @@ namespace EamonRT.Game.Commands
 
 			PowerEventRoll = gEngine.RollDice(1, 100, 0);
 
-			if (!Globals.IsRulesetVersion(5, 15))
+			if (!Globals.IsRulesetVersion(5, 15, 25))
 			{
 				// 50% chance of boom
 
@@ -131,7 +131,7 @@ namespace EamonRT.Game.Commands
 
 		public virtual void PrintSonicBoom()
 		{
-			if (Globals.IsRulesetVersion(5, 15))
+			if (Globals.IsRulesetVersion(5, 15, 25))
 			{
 				gOut.Print("You hear a very loud sonic boom that echoes through the {0}.", ActorRoom.EvalRoomType("tunnels", "area"));
 			}

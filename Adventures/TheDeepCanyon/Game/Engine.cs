@@ -41,10 +41,25 @@ namespace TheDeepCanyon.Game
 			var synonyms = new Dictionary<long, string[]>()
 			{
 				{ 2, new string[] { "bag", "sack" } },
+				{ 5, new string[] { "raptor", "bird" } },
 				{ 6, new string[] { "miners pick", "pick" } },
+				{ 7, new string[] { "lantern" } },
+				{ 11, new string[] { "pitchfork", "fork" } },
 				{ 15, new string[] { "gold", "ore" } },
 				{ 16, new string[] { "big stick" } },
 				{ 17, new string[] { "trap" } },
+				{ 29, new string[] { "dead baby worm", "dead sand worm", "dead worm" } },
+				{ 30, new string[] { "dead lion", "dead cougar", "dead puma", "dead wildcat", "dead bobcat" } },
+				{ 31, new string[] { "dead miner" } },
+				{ 34, new string[] { "dead fox" } },
+				{ 35, new string[] { "dead small bat", "dead vampire bat", "dead bat" } },
+				{ 36, new string[] { "dead large bat", "dead fruit bat", "dead bat" } },
+				{ 37, new string[] { "dead small bat", "dead fruit bat", "dead bat" } },
+				{ 38, new string[] { "dead large bat", "dead vampire bat", "dead bat" } },
+				{ 39, new string[] { "dead Fido" } },
+				{ 44, new string[] { "dead Daisy" } },
+				{ 46, new string[] { "dead ferret" } },
+				{ 47, new string[] { "dead ferret" } },
 				{ 52, new string[] { "tracks", "track" } },
 			};
 
@@ -60,7 +75,17 @@ namespace TheDeepCanyon.Game
 
 			var synonyms = new Dictionary<long, string[]>()
 			{
+				{ 1, new string[] { "baby worm", "sand worm", "worm" } },
 				{ 2, new string[] { "cougar", "lion", "puma", "wildcat", "bobcat" } },
+				{ 3, new string[] { "miner" } },
+				{ 6, new string[] { "fox" } },
+				{ 7, new string[] { "small bat", "vampire bat", "bat" } },
+				{ 8, new string[] { "large bat", "fruit bat", "bat" } },
+				{ 9, new string[] { "small bat", "fruit bat", "bat" } },
+				{ 10, new string[] { "large bat", "vampire bat", "bat" } },
+				{ 16, new string[] { "cow" } },
+				{ 18, new string[] { "ferret" } },
+				{ 19, new string[] { "ferret" } },
 			};
 
 			foreach (var synonym in synonyms)
@@ -92,6 +117,129 @@ namespace TheDeepCanyon.Game
 			else
 			{
 				base.MonsterGetsAggravated(monster, printFinalNewLine);
+			}
+		}
+
+		public override void MonsterEmotes(IMonster monster, bool friendSmile = true)
+		{
+			Debug.Assert(monster != null);
+
+			var rl = RollDice(1, 100, 0);
+
+			// Mountain lion
+
+			if (monster.Uid == 2)
+			{
+				gOut.Write("{0}{1} {2} at you!", Environment.NewLine, monster.GetTheName(true), rl > 66 ? "roars" : rl > 33 ? "snarls" : "hisses");
+			}
+
+			// Various bats
+
+			else if (monster.Uid >= 6 && monster.Uid <= 10)
+			{
+				if (monster.Reaction == Friendliness.Neutral)
+				{
+					gOut.Write("{0}{1} ignores you.", Environment.NewLine, monster.GetTheName(true));
+				}
+				else
+				{
+					gOut.Write("{0}{1} {2} at you{3}", Environment.NewLine, monster.GetTheName(true), rl > 50 ? "squeaks" : "hisses", monster.EvalReaction("!", ".", "."));
+				}
+			}
+
+			// Pig
+
+			else if (monster.Uid == 13)
+			{
+				gOut.Write("{0}{1} squeals at you!", Environment.NewLine, monster.GetTheName(true));
+			}
+
+			// Goose
+
+			else if (monster.Uid == 14)
+			{
+				gOut.Write("{0}{1} honks at you!", Environment.NewLine, monster.GetTheName(true));
+			}
+
+			// Horse
+
+			else if (monster.Uid == 15)
+			{
+				if (monster.Reaction == Friendliness.Neutral)
+				{
+					gOut.Write("{0}{1} ignores you.", Environment.NewLine, monster.GetTheName(true));
+				}
+				else
+				{
+					gOut.Write("{0}{1} {2} at you{3}", Environment.NewLine, monster.GetTheName(true), rl > 66 ? "whinnies" : rl > 33 ? "snorts" : monster.EvalReaction("squeals", "nickers", "nickers"), monster.EvalReaction("!", ".", "."));
+				}
+			}
+
+			// Daisy
+
+			else if (monster.Uid == 16)
+			{
+				if (monster.Reaction == Friendliness.Neutral)
+				{
+					gOut.Write("{0}{1} ignores you.", Environment.NewLine, monster.GetTheName(true));
+				}
+				else
+				{
+					gOut.Write("{0}{1} {2} at you{3}", Environment.NewLine, monster.GetTheName(true), rl > 66 ? "moos" : rl > 33 ? "snorts" : monster.EvalReaction("bellows", "grunts", "grunts"), monster.EvalReaction("!", ".", "."));
+				}
+			}
+
+			// Groundhog
+
+			else if (monster.Uid == 17)
+			{
+				gOut.Write("{0}{1} {2} at you!", Environment.NewLine, monster.GetTheName(true), rl > 66 ? "chatters" : rl > 33 ? "hisses" : "whistles");
+			}
+
+			// Brown ferret/Black ferret
+
+			else if (monster.Uid == 18 || monster.Uid == 19)
+			{
+				if (monster.Reaction == Friendliness.Neutral)
+				{
+					gOut.Write("{0}{1} ignores you.", Environment.NewLine, monster.GetTheName(true));
+				}
+				else
+				{
+					gOut.Write("{0}{1} {2} at you{3}", Environment.NewLine, monster.GetTheName(true), rl > 66 ? "chatters" : rl > 33 ? "hisses" : monster.EvalReaction("barks", "dooks", "dooks"), monster.EvalReaction("!", ".", "."));
+				}
+			}
+
+			// Kiord
+
+			else if (monster.Uid == 21)
+			{
+				gOut.Write("{0}{1} {2} at you!", Environment.NewLine, monster.GetTheName(true), rl > 66 ? "screeches" : rl > 33 ? "hisses" : "squawks");
+			}
+
+			// Goat
+
+			else if (monster.Uid == 22)
+			{
+				gOut.Write("{0}{1} {2} at you!", Environment.NewLine, monster.GetTheName(true), rl > 50 ? "bleats" : "bellows");
+			}
+
+			// Chicken
+
+			else if (monster.Uid == 23)
+			{
+				if (monster.Reaction == Friendliness.Neutral)
+				{
+					gOut.Write("{0}{1} ignores you.", Environment.NewLine, monster.GetTheName(true));
+				}
+				else
+				{
+					gOut.Write("{0}{1} {2} at you{3}", Environment.NewLine, monster.GetTheName(true), rl > 66 ? "clucks" : rl > 33 ? "cackles" : monster.EvalReaction("squawks", "warbles", "warbles"), monster.EvalReaction("!", ".", "."));
+				}
+			}
+			else
+			{
+				base.MonsterEmotes(monster, friendSmile);
 			}
 		}
 
@@ -149,9 +297,9 @@ namespace TheDeepCanyon.Game
 
 			base.CheckNumberOfExits(room, monster, fleeing, ref numExits);
 
-			// Exclude west exit in Falconer's camp
+			// Exclude various "invisible" exits
 
-			if (room.Uid == 8)
+			if (room.Uid == 8 || (monster.IsCharacterMonster() && (room.Uid == 41 || room.Uid == 43 || room.Uid == 44 || room.Uid == 61)))
 			{
 				numExits--;
 			}
@@ -161,13 +309,13 @@ namespace TheDeepCanyon.Game
 		{
 			Debug.Assert(room != null);
 
-			// Exclude west exit in Falconer's camp
+			// Exclude various "invisible" exits
 
 			do
 			{
 				base.GetRandomMoveDirection(room, monster, fleeing, ref direction, ref found, ref roomUid);
 			}
-			while (room.Uid == 8 && direction == Direction.West);
+			while ((room.Uid == 8 && direction == Direction.West) || (room.Uid == 41 && direction == Direction.North) || (room.Uid == 43 && direction == Direction.East) || (room.Uid == 44 && direction == Direction.West) || (room.Uid == 61 && direction == Direction.West));
 		}
 	}
 }

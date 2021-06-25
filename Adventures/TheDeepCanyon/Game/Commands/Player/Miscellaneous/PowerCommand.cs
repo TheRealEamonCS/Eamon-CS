@@ -24,7 +24,7 @@ namespace TheDeepCanyon.Game.Commands
 		{
 			if (eventType == EventType.AfterCastSpellCheck)
 			{
-				Func<IArtifact, bool> findDeadBodiesFunc = a => a.Uid >= 29 && a.Uid <= 51 && (a.IsCarriedByCharacter() || a.IsInRoom(ActorRoom));
+				Func<IArtifact, bool> findDeadBodiesFunc = a => a.DeadBody != null && (a.IsCarriedByCharacter() || a.IsInRoom(ActorRoom));
 
 				var artifactList = gEngine.GetArtifactList(findDeadBodiesFunc);
 
@@ -40,11 +40,7 @@ namespace TheDeepCanyon.Game.Commands
 				{
 					case 1:
 
-						Globals.RulesetVersion = 5;
-
 						gEngine.ResurrectDeadBodies(ActorRoom, findDeadBodiesFunc);
-
-						Globals.RulesetVersion = 0;
 
 						break;
 

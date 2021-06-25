@@ -23,7 +23,7 @@ namespace TheDeepCanyon.Game.Commands
 				{
 					// Dead bodies
 
-					if (DobjArtifact.Uid >= 29 && DobjArtifact.Uid <= 51 && gGameState.FidoSleepCounter <= 0)
+					if (DobjArtifact.DeadBody != null && gGameState.FidoSleepCounter <= 0)
 					{
 						gOut.Print("You give {0} to Fido.", DobjArtifact.GetTheName());
 
@@ -100,6 +100,17 @@ namespace TheDeepCanyon.Game.Commands
 
 						GotoCleanup = true;
 					}
+				}
+
+				// Disable further bribing
+
+				else if (!IobjMonster.HasCarriedInventory())
+				{
+					gEngine.MonsterEmotes(IobjMonster);
+
+					gOut.WriteLine();
+
+					GotoCleanup = true;
 				}
 				else
 				{
