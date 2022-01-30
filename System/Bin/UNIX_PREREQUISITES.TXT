@@ -1,0 +1,9 @@
+
+Eamon CS requires the .NET 6 Runtime or SDK (for developers) installed on your system.
+
+For gamers who want to play:
+
+https://dotnet.microsoft.com/en-us/download/dotnet/6.0
+
+Please download the appropriate prerequisites and install them to proceed.
+
