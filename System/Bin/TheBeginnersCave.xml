@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TheBeginnersCave</name>
+    </assembly>
+    <members>
+        <member name="T:TheBeginnersCave.Framework.Commands.ITrollsfireCommand">
+            <summary>
+            This is the <see cref="T:EamonRT.Framework.Commands.ICommand">Command</see> used by the player to activate/deactivate the Trollsfire sword.
+            </summary>
+        </member>
+        <member name="T:TheBeginnersCave.Framework.IGameState">
+            <summary></summary>
+        </member>
+        <member name="P:TheBeginnersCave.Framework.IGameState.Trollsfire">
+            <summary>
+            Gets or sets a value indicating the Trollsfire sword's activation state.
+            </summary>
+        </member>
+        <member name="P:TheBeginnersCave.Framework.IGameState.BookWarning">
+            <summary></summary>
+        </member>
+        <member name="T:TheBeginnersCave.Framework.Plugin.IPluginClassMappings">
+            <summary></summary>
+        </member>
+        <member name="T:TheBeginnersCave.Framework.Plugin.IPluginConstants">
+            <summary></summary>
+        </member>
+        <member name="P:TheBeginnersCave.Framework.Plugin.IPluginConstants.AlightDesc">
+            <summary></summary>
+        </member>
+        <member name="T:TheBeginnersCave.Framework.Plugin.IPluginGlobals">
+            <summary></summary>
+        </member>
+        <member name="T:TheBeginnersCave.Game.Commands.TrollsfireCommand">
+            <seealso cref="T:TheBeginnersCave.Framework.Commands.ITrollsfireCommand" />
+        </member>
+        <member name="P:TheBeginnersCave.Game.Engine.HeldWpnIdx">
+            <summary></summary>
+        </member>
+        <member name="M:TheBeginnersCave.Game.Helpers.GameStateHelper.ValidateTrollsfire">
+            <summary></summary>
+            <returns></returns>
+        </member>
+        <member name="M:TheBeginnersCave.Game.Helpers.GameStateHelper.ValidateBookWarning">
+            <summary></summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

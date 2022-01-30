@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BeginnersForest</name>
+    </assembly>
+    <members>
+        <member name="T:BeginnersForest.Framework.IGameState">
+            <summary></summary>
+        </member>
+        <member name="P:BeginnersForest.Framework.IGameState.QueenGiftEffectUid">
+            <summary></summary>
+        </member>
+        <member name="P:BeginnersForest.Framework.IGameState.QueenGiftArtifactUid">
+            <summary></summary>
+        </member>
+        <member name="P:BeginnersForest.Framework.IGameState.SpookCounter">
+            <summary></summary>
+        </member>
+        <member name="T:BeginnersForest.Framework.Plugin.IPluginClassMappings">
+            <summary></summary>
+        </member>
+        <member name="T:BeginnersForest.Framework.Plugin.IPluginConstants">
+            <summary></summary>
+        </member>
+        <member name="T:BeginnersForest.Framework.Plugin.IPluginGlobals">
+            <summary></summary>
+        </member>
+        <member name="P:BeginnersForest.Game.Engine.HeldWpnIdx">
+            <summary></summary>
+        </member>
+        <member name="M:BeginnersForest.Game.Helpers.GameStateHelper.ValidateQueenGiftEffectUid">
+            <summary></summary>
+            <returns></returns>
+        </member>
+        <member name="M:BeginnersForest.Game.Helpers.GameStateHelper.ValidateQueenGiftArtifactUid">
+            <summary></summary>
+            <returns></returns>
+        </member>
+        <member name="M:BeginnersForest.Game.Helpers.GameStateHelper.ValidateSpookCounter">
+            <summary></summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

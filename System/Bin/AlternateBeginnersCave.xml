@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AlternateBeginnersCave</name>
+    </assembly>
+    <members>
+        <member name="P:AlternateBeginnersCave.Framework.IGameState.MagicDaggerCounter">
+            <summary></summary>
+        </member>
+        <member name="P:AlternateBeginnersCave.Framework.IGameState.OpenedBox">
+            <summary></summary>
+        </member>
+        <member name="P:AlternateBeginnersCave.Framework.IGameState.DrankVial">
+            <summary></summary>
+        </member>
+        <member name="P:AlternateBeginnersCave.Game.Engine.HeldWpnIdx">
+            <summary></summary>
+        </member>
+        <member name="P:AlternateBeginnersCave.Game.GameState.MagicDaggerCounter">
+            <summary></summary>
+        </member>
+        <member name="P:AlternateBeginnersCave.Game.GameState.OpenedBox">
+            <summary></summary>
+        </member>
+        <member name="P:AlternateBeginnersCave.Game.GameState.DrankVial">
+            <summary></summary>
+        </member>
+        <member name="M:AlternateBeginnersCave.Game.Helpers.GameStateHelper.ValidateMagicDaggerCounter">
+            <summary></summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,913 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>EamonDD</name>
+    </assembly>
+    <members>
+        <member name="T:EamonDD.Framework.IEngine">
+            <summary></summary>
+        </member>
+        <member name="M:EamonDD.Framework.IEngine.IsAdventureFilesetLoaded">
+            <summary></summary>
+            <returns></returns>
+        </member>
+        <member name="M:EamonDD.Framework.IEngine.DdProcessArgv(System.Boolean,System.Boolean@,System.Boolean@)">
+            <summary></summary>
+            <param name="secondPass"></param>
+            <param name="ddfnFlag"></param>
+            <param name="nlFlag"></param>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IAddArtifactRecordCopyMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IAddArtifactRecordManualMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IAnalyseArtifactRecordInterdependenciesMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IAnalyseArtifactRecordInterdependenciesMenu01">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IDeleteArtifactRecordMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IEditArtifactRecordManyFieldsMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IEditArtifactRecordOneFieldMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IGenerateDeadBodyArtifactRecordsMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IGenerateDummyArtifactRecordsMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IListArtifactRecordDetailMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IListArtifactRecordNameMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IAddCharacterRecordCopyMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IAddCharacterRecordManualMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IDeleteCharacterRecordMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IEditCharacterRecordManyFieldsMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IEditCharacterRecordOneFieldMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IListCharacterRecordDetailMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IListCharacterRecordNameMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IShowCharacterStatusSummaryMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IEditConfigRecordManyFieldsMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IEditConfigRecordMenu">
+            <summary></summary>
+        </member>
+        <member name="P:EamonDD.Framework.Menus.ActionMenus.IEditConfigRecordMenu.EditRecord">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IEditConfigRecordOneFieldMenu">
+            <summary></summary>
+        </member>
+        <member name="P:EamonDD.Framework.Menus.ActionMenus.IEditConfigRecordOneFieldMenu.EditFieldName">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IListConfigRecordMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IAddEffectRecordMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IAnalyseEffectRecordInterdependenciesMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IAnalyseEffectRecordInterdependenciesMenu01">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IDeleteEffectRecordMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IEditEffectRecordMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IListEffectRecordMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IAddFilesetRecordCopyMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IAddFilesetRecordManualMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IDeleteFilesetRecordMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IEditFilesetRecordManyFieldsMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IEditFilesetRecordOneFieldMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IListFilesetRecordDetailMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IListFilesetRecordNameMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IAddHintRecordMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IAnalyseHintRecordInterdependenciesMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IAnalyseHintRecordInterdependenciesMenu01">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IDeleteHintRecordMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IEditHintRecordManyFieldsMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IEditHintRecordOneFieldMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IListHintRecordDetailMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IListHintRecordNameMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IAddRecordCopyMenu`1">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IAddRecordManualMenu`1">
+            <summary></summary>
+        </member>
+        <member name="P:EamonDD.Framework.Menus.ActionMenus.IAddRecordManualMenu`1.NewRecordUid">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IAnalyseRecordInterdependenciesMenu`1">
+            <summary></summary>
+        </member>
+        <member name="P:EamonDD.Framework.Menus.ActionMenus.IAnalyseRecordInterdependenciesMenu`1.SkipNameList">
+            <summary></summary>
+        </member>
+        <member name="P:EamonDD.Framework.Menus.ActionMenus.IAnalyseRecordInterdependenciesMenu`1.ErrorRecord">
+            <summary></summary>
+        </member>
+        <member name="P:EamonDD.Framework.Menus.ActionMenus.IAnalyseRecordInterdependenciesMenu`1.ClearSkipNameList">
+            <summary></summary>
+        </member>
+        <member name="P:EamonDD.Framework.Menus.ActionMenus.IAnalyseRecordInterdependenciesMenu`1.ModifyFlag">
+            <summary></summary>
+        </member>
+        <member name="P:EamonDD.Framework.Menus.ActionMenus.IAnalyseRecordInterdependenciesMenu`1.ExitFlag">
+            <summary></summary>
+        </member>
+        <member name="M:EamonDD.Framework.Menus.ActionMenus.IAnalyseRecordInterdependenciesMenu`1.ProcessInterdependency">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IAnalyseRecordInterdependenciesMenu01`1">
+            <summary></summary>
+        </member>
+        <member name="P:EamonDD.Framework.Menus.ActionMenus.IAnalyseRecordInterdependenciesMenu01`1.SkipFieldNameList">
+            <summary></summary>
+        </member>
+        <member name="P:EamonDD.Framework.Menus.ActionMenus.IAnalyseRecordInterdependenciesMenu01`1.ClearSkipFieldNameList">
+            <summary></summary>
+        </member>
+        <member name="P:EamonDD.Framework.Menus.ActionMenus.IAnalyseRecordInterdependenciesMenu01`1.ModifyFlag">
+            <summary></summary>
+        </member>
+        <member name="P:EamonDD.Framework.Menus.ActionMenus.IAnalyseRecordInterdependenciesMenu01`1.ExitFlag">
+            <summary></summary>
+        </member>
+        <member name="M:EamonDD.Framework.Menus.ActionMenus.IAnalyseRecordInterdependenciesMenu01`1.Execute">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IDeleteRecordMenu`1">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IEditRecordManyFieldsMenu`1">
+            <summary></summary>
+        </member>
+        <member name="P:EamonDD.Framework.Menus.ActionMenus.IEditRecordManyFieldsMenu`1.EditRecord">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IEditRecordOneFieldMenu`1">
+            <summary></summary>
+        </member>
+        <member name="P:EamonDD.Framework.Menus.ActionMenus.IEditRecordOneFieldMenu`1.EditRecord">
+            <summary></summary>
+        </member>
+        <member name="P:EamonDD.Framework.Menus.ActionMenus.IEditRecordOneFieldMenu`1.EditFieldName">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IListRecordDetailMenu`1">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IListRecordNameMenu`1">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IRecordMenu`1">
+            <summary></summary>
+        </member>
+        <member name="P:EamonDD.Framework.Menus.ActionMenus.IRecordMenu`1.RecordTable">
+            <summary></summary>
+        </member>
+        <member name="P:EamonDD.Framework.Menus.ActionMenus.IRecordMenu`1.RecordTypeName">
+            <summary></summary>
+        </member>
+        <member name="M:EamonDD.Framework.Menus.ActionMenus.IRecordMenu`1.PrintPostListLineSep">
+            <summary></summary>
+        </member>
+        <member name="M:EamonDD.Framework.Menus.ActionMenus.IRecordMenu`1.UpdateGlobals">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IAddModuleRecordMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IAnalyseModuleRecordInterdependenciesMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IAnalyseModuleRecordInterdependenciesMenu01">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IDeleteModuleRecordMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IEditModuleRecordManyFieldsMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IEditModuleRecordMenu">
+            <summary></summary>
+        </member>
+        <member name="P:EamonDD.Framework.Menus.ActionMenus.IEditModuleRecordMenu.EditRecord">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IEditModuleRecordOneFieldMenu">
+            <summary></summary>
+        </member>
+        <member name="P:EamonDD.Framework.Menus.ActionMenus.IEditModuleRecordOneFieldMenu.EditFieldName">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IListModuleRecordMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IAddMonsterRecordCopyMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IAddMonsterRecordManualMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IAnalyseMonsterRecordInterdependenciesMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IAnalyseMonsterRecordInterdependenciesMenu01">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IDeleteMonsterRecordMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IEditMonsterRecordManyFieldsMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IEditMonsterRecordOneFieldMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IListMonsterRecordDetailMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IListMonsterRecordNameMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IAddRoomRecordCopyMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IAddRoomRecordManualMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IAnalyseRoomRecordInterdependenciesMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IAnalyseRoomRecordInterdependenciesMenu01">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IBriefMapRoomRecordConnectionsMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IDeleteRoomRecordMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IEditRoomRecordManyFieldsMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IEditRoomRecordOneFieldMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IFullMapRoomRecordConnectionsMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IListRoomRecordDetailMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IListRoomRecordNameMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IConvertApple2EamonAdventureMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IConvertEamonDeluxeAdventureMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IAddCustomAdventureClassesMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IAddCustomAdventureMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IAddStandardAdventureMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IAdventureSupportMenu01">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IDeleteAdventureMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IDeleteCustomAdventureClassesMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IAnalyseAdventureRecordTreeMenu">
+            <summary></summary>
+        </member>
+        <member name="P:EamonDD.Framework.Menus.ActionMenus.IAnalyseAdventureRecordTreeMenu.RecordTreeStringList">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IAnalyseAllRecordInterdependenciesMenu">
+            <summary></summary>
+        </member>
+        <member name="P:EamonDD.Framework.Menus.ActionMenus.IAnalyseAllRecordInterdependenciesMenu.AnalyseMenus">
+            <summary></summary>
+        </member>
+        <member name="P:EamonDD.Framework.Menus.ActionMenus.IAnalyseAllRecordInterdependenciesMenu.SkipFieldNameList">
+            <summary></summary>
+        </member>
+        <member name="P:EamonDD.Framework.Menus.ActionMenus.IAnalyseAllRecordInterdependenciesMenu.ModifyFlag">
+            <summary></summary>
+        </member>
+        <member name="P:EamonDD.Framework.Menus.ActionMenus.IAnalyseAllRecordInterdependenciesMenu.ExitFlag">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.HierarchicalMenus.IAddArtifactRecordMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.HierarchicalMenus.IArtifactRecordMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.HierarchicalMenus.IArtifactRecordUtilitiesMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.HierarchicalMenus.IEditArtifactRecordMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.HierarchicalMenus.IListArtifactRecordMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.HierarchicalMenus.IAddCharacterRecordMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.HierarchicalMenus.ICharacterRecordMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.HierarchicalMenus.ICharacterRecordUtilitiesMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.HierarchicalMenus.IEditCharacterRecordMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.HierarchicalMenus.IListCharacterRecordMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.HierarchicalMenus.IConfigRecordMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.HierarchicalMenus.IConfigRecordUtilitiesMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.HierarchicalMenus.IEditConfigRecordMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.HierarchicalMenus.IEffectRecordMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.HierarchicalMenus.IEffectRecordUtilitiesMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.HierarchicalMenus.IAddFilesetRecordMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.HierarchicalMenus.IEditFilesetRecordMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.HierarchicalMenus.IFilesetRecordMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.HierarchicalMenus.IFilesetRecordUtilitiesMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.HierarchicalMenus.IListFilesetRecordMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.HierarchicalMenus.IEditHintRecordMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.HierarchicalMenus.IHintRecordMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.HierarchicalMenus.IHintRecordUtilitiesMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.HierarchicalMenus.IListHintRecordMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.HierarchicalMenus.IMainMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.HierarchicalMenus.IEditModuleRecordMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.HierarchicalMenus.IModuleRecordMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.HierarchicalMenus.IModuleRecordUtilitiesMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.HierarchicalMenus.IAddMonsterRecordMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.HierarchicalMenus.IEditMonsterRecordMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.HierarchicalMenus.IListMonsterRecordMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.HierarchicalMenus.IMonsterRecordMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.HierarchicalMenus.IMonsterRecordUtilitiesMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.HierarchicalMenus.IAddRoomRecordMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.HierarchicalMenus.IEditRoomRecordMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.HierarchicalMenus.IListRoomRecordMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.HierarchicalMenus.IRoomRecordMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.HierarchicalMenus.IRoomRecordUtilitiesMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.HierarchicalMenus.IScriptRecordMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.HierarchicalMenus.IScriptRecordUtilitiesMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.HierarchicalMenus.ITriggerRecordMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.HierarchicalMenus.ITriggerRecordUtilitiesMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.HierarchicalMenus.IAdventureConversionMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.HierarchicalMenus.IAdventureSupportMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.HierarchicalMenus.IUtilitiesMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.IDdMenu">
+            <summary></summary>
+        </member>
+        <member name="M:EamonDD.Framework.Menus.IDdMenu.PrintMainMenuSubtitle">
+            <summary></summary>
+        </member>
+        <member name="M:EamonDD.Framework.Menus.IDdMenu.PrintConfigMenuSubtitle">
+            <summary></summary>
+        </member>
+        <member name="M:EamonDD.Framework.Menus.IDdMenu.PrintFilesetMenuSubtitle">
+            <summary></summary>
+        </member>
+        <member name="M:EamonDD.Framework.Menus.IDdMenu.PrintCharacterMenuSubtitle">
+            <summary></summary>
+        </member>
+        <member name="M:EamonDD.Framework.Menus.IDdMenu.PrintModuleMenuSubtitle">
+            <summary></summary>
+        </member>
+        <member name="M:EamonDD.Framework.Menus.IDdMenu.PrintRoomMenuSubtitle">
+            <summary></summary>
+        </member>
+        <member name="M:EamonDD.Framework.Menus.IDdMenu.PrintArtifactMenuSubtitle">
+            <summary></summary>
+        </member>
+        <member name="M:EamonDD.Framework.Menus.IDdMenu.PrintEffectMenuSubtitle">
+            <summary></summary>
+        </member>
+        <member name="M:EamonDD.Framework.Menus.IDdMenu.PrintMonsterMenuSubtitle">
+            <summary></summary>
+        </member>
+        <member name="M:EamonDD.Framework.Menus.IDdMenu.PrintHintMenuSubtitle">
+            <summary></summary>
+        </member>
+        <member name="M:EamonDD.Framework.Menus.IDdMenu.PrintTriggerMenuSubtitle">
+            <summary></summary>
+        </member>
+        <member name="M:EamonDD.Framework.Menus.IDdMenu.PrintScriptMenuSubtitle">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Plugin.IPluginClassMappings">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Plugin.IPluginConstants">
+            <summary></summary>
+        </member>
+        <member name="P:EamonDD.Framework.Plugin.IPluginConstants.DdProgVersion">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Plugin.IPluginGlobals">
+            <summary></summary>
+        </member>
+        <member name="P:EamonDD.Framework.Plugin.IPluginGlobals.Argv">
+            <summary></summary>
+        </member>
+        <member name="P:EamonDD.Framework.Plugin.IPluginGlobals.WordWrapCurrColumn">
+            <summary></summary>
+        </member>
+        <member name="P:EamonDD.Framework.Plugin.IPluginGlobals.WordWrapLastChar">
+            <summary></summary>
+        </member>
+        <member name="P:EamonDD.Framework.Plugin.IPluginGlobals.ConfigFileName">
+            <summary></summary>
+        </member>
+        <member name="P:EamonDD.Framework.Plugin.IPluginGlobals.Engine">
+            <summary></summary>
+        </member>
+        <member name="P:EamonDD.Framework.Plugin.IPluginGlobals.DdMenu">
+            <summary></summary>
+        </member>
+        <member name="P:EamonDD.Framework.Plugin.IPluginGlobals.Menu">
+            <summary></summary>
+        </member>
+        <member name="P:EamonDD.Framework.Plugin.IPluginGlobals.Module">
+            <summary></summary>
+        </member>
+        <member name="P:EamonDD.Framework.Plugin.IPluginGlobals.Config">
+            <summary></summary>
+        </member>
+        <member name="P:EamonDD.Framework.Plugin.IPluginGlobals.ConfigsModified">
+            <summary></summary>
+        </member>
+        <member name="P:EamonDD.Framework.Plugin.IPluginGlobals.FilesetsModified">
+            <summary></summary>
+        </member>
+        <member name="P:EamonDD.Framework.Plugin.IPluginGlobals.CharactersModified">
+            <summary></summary>
+        </member>
+        <member name="P:EamonDD.Framework.Plugin.IPluginGlobals.ModulesModified">
+            <summary></summary>
+        </member>
+        <member name="P:EamonDD.Framework.Plugin.IPluginGlobals.RoomsModified">
+            <summary></summary>
+        </member>
+        <member name="P:EamonDD.Framework.Plugin.IPluginGlobals.ArtifactsModified">
+            <summary></summary>
+        </member>
+        <member name="P:EamonDD.Framework.Plugin.IPluginGlobals.EffectsModified">
+            <summary></summary>
+        </member>
+        <member name="P:EamonDD.Framework.Plugin.IPluginGlobals.MonstersModified">
+            <summary></summary>
+        </member>
+        <member name="P:EamonDD.Framework.Plugin.IPluginGlobals.HintsModified">
+            <summary></summary>
+        </member>
+        <member name="P:EamonDD.Framework.Plugin.IPluginGlobals.TriggersModified">
+            <summary></summary>
+        </member>
+        <member name="P:EamonDD.Framework.Plugin.IPluginGlobals.ScriptsModified">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Primitive.Enums.SupportMenuType">
+            <summary></summary>
+        </member>
+        <member name="F:EamonDD.Framework.Primitive.Enums.SupportMenuType.None">
+            <summary></summary>
+        </member>
+        <member name="F:EamonDD.Framework.Primitive.Enums.SupportMenuType.AddAdventure">
+            <summary></summary>
+        </member>
+        <member name="F:EamonDD.Framework.Primitive.Enums.SupportMenuType.AddClasses">
+            <summary></summary>
+        </member>
+        <member name="F:EamonDD.Framework.Primitive.Enums.SupportMenuType.DeleteAdventure">
+            <summary></summary>
+        </member>
+        <member name="F:EamonDD.Framework.Primitive.Enums.SupportMenuType.DeleteClasses">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Game.Converters.Apple2Eamon.A2EAdventure">
+            <summary>
+            </summary>
+        </member>
+        <member name="T:EamonDD.Game.Converters.Apple2Eamon.A2EAdventureConverter">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:EamonDD.Game.Converters.Apple2Eamon.A2EAdventureConverter.ConvertApple2ByteBuffer(System.Byte[])">
+            <summary>
+            </summary>
+            <remarks>
+            Full credit:  https://github.com/malfunct/eamon.net/blob/master/AppleTextFileConvertor/Program.cs
+            </remarks>
+        </member>
+        <member name="M:EamonDD.Game.Converters.Apple2Eamon.A2EAdventureConverter.LoadAdventure">
+            <summary>
+            </summary>
+            <remarks>
+            Full credit:  referencing DUNGEON LIST Z, DUNGEON LIST 7.1 by John Nelson and Tom Zuchowski
+            </remarks>
+        </member>
+        <member name="M:EamonDD.Game.Converters.Apple2Eamon.A2EAdventureConverter.ConvertAdventure">
+            <summary>
+            </summary>
+            <remarks>
+            Full credit:  referencing DUNGEON LIST Z, DUNGEON LIST 7.1 by John Nelson and Tom Zuchowski
+            </remarks>
+        </member>
+        <member name="T:EamonDD.Game.Converters.Apple2Eamon.A2EArtifact">
+            <summary>
+            </summary>
+        </member>
+        <member name="T:EamonDD.Game.Converters.Apple2Eamon.A2EEffect">
+            <summary>
+            </summary>
+        </member>
+        <member name="T:EamonDD.Game.Converters.Apple2Eamon.A2EMonster">
+            <summary>
+            </summary>
+        </member>
+        <member name="T:EamonDD.Game.Converters.Apple2Eamon.A2ERoom">
+            <summary>
+            </summary>
+        </member>
+        <member name="T:EamonDD.Game.Converters.EamonDeluxe.EDXAdventure">
+            <summary>
+            </summary>
+        </member>
+        <member name="T:EamonDD.Game.Converters.EamonDeluxe.EDXAdventureConverter">
+            <summary>
+            </summary>
+        </member>
+        <member name="T:EamonDD.Game.Converters.EamonDeluxe.EDXArtifact">
+            <summary>
+            </summary>
+        </member>
+        <member name="T:EamonDD.Game.Converters.EamonDeluxe.EDXDesc">
+            <summary>
+            </summary>
+        </member>
+        <member name="T:EamonDD.Game.Converters.EamonDeluxe.EDXHint">
+            <summary>
+            </summary>
+        </member>
+        <member name="T:EamonDD.Game.Converters.EamonDeluxe.EDXMonster">
+            <summary>
+            </summary>
+        </member>
+        <member name="T:EamonDD.Game.Converters.EamonDeluxe.EDXRoom">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:EamonDD.Game.Menus.ActionMenus.AnalyseRecordInterdependenciesMenu01`1.AnalyseMenu">
+            <summary></summary>
+        </member>
+        <member name="P:EamonDD.Game.Menus.ActionMenus.AddCustomAdventureClassesMenu.IncludeInterfaceList">
+            <summary></summary>
+        </member>
+        <member name="M:EamonDD.Game.Menus.ActionMenus.AddCustomAdventureClassesMenu.SelectClassFilesToAdd">
+            <summary></summary>
+        </member>
+        <member name="M:EamonDD.Game.Menus.ActionMenus.AddCustomAdventureClassesMenu.AddSelectedClassFiles">
+            <summary></summary>
+        </member>
+        <member name="P:EamonDD.Game.Menus.ActionMenus.AddCustomAdventureMenu.ProgramCsText">
+            <summary></summary>
+        </member>
+        <member name="P:EamonDD.Game.Menus.ActionMenus.AddCustomAdventureMenu.IPluginCsText">
+            <summary></summary>
+        </member>
+        <member name="P:EamonDD.Game.Menus.ActionMenus.AddCustomAdventureMenu.PluginCsText">
+            <summary></summary>
+        </member>
+        <member name="P:EamonDD.Game.Menus.ActionMenus.AddCustomAdventureMenu.EngineCsText">
+            <summary></summary>
+        </member>
+        <member name="P:EamonDD.Game.Menus.ActionMenus.AddCustomAdventureMenu.ChangeLogText">
+            <summary></summary>
+        </member>
+        <member name="P:EamonDD.Game.Menus.ActionMenus.AddCustomAdventureMenu.AdventureCsprojText">
+            <summary></summary>
+        </member>
+        <member name="M:EamonDD.Game.Menus.ActionMenus.AddCustomAdventureMenu.CreateCustomFiles">
+            <summary></summary>
+        </member>
+        <member name="M:EamonDD.Game.Menus.ActionMenus.AddCustomAdventureMenu.AddProjectToSolution">
+            <summary></summary>
+        </member>
+        <member name="P:EamonDD.Game.Menus.ActionMenus.AdventureSupportMenu01.GotoCleanup">
+            <summary></summary>
+        </member>
+        <member name="P:EamonDD.Game.Menus.ActionMenus.AdventureSupportMenu01.IncludeInterface">
+            <summary></summary>
+        </member>
+        <member name="P:EamonDD.Game.Menus.ActionMenus.AdventureSupportMenu01.SupportMenuType">
+            <summary></summary>
+        </member>
+        <member name="P:EamonDD.Game.Menus.ActionMenus.AdventureSupportMenu01.AdventureName">
+            <summary></summary>
+        </member>
+        <member name="P:EamonDD.Game.Menus.ActionMenus.AdventureSupportMenu01.AdventureName01">
+            <summary></summary>
+        </member>
+        <member name="P:EamonDD.Game.Menus.ActionMenus.AdventureSupportMenu01.AuthorName">
+            <summary></summary>
+        </member>
+        <member name="P:EamonDD.Game.Menus.ActionMenus.AdventureSupportMenu01.AuthorInitials">
+            <summary></summary>
+        </member>
+        <member name="P:EamonDD.Game.Menus.ActionMenus.AdventureSupportMenu01.ParentClassFileName">
+            <summary></summary>
+        </member>
+        <member name="P:EamonDD.Game.Menus.ActionMenus.AdventureSupportMenu01.HintsXmlText">
+            <summary></summary>
+        </member>
+        <member name="P:EamonDD.Game.Menus.ActionMenus.AdventureSupportMenu01.EditAdventureShText">
+            <summary></summary>
+        </member>
+        <member name="P:EamonDD.Game.Menus.ActionMenus.AdventureSupportMenu01.ResumeAdventureShText">
+            <summary></summary>
+        </member>
+        <member name="P:EamonDD.Game.Menus.ActionMenus.AdventureSupportMenu01.EditAdventureBatText">
+            <summary></summary>
+        </member>
+        <member name="P:EamonDD.Game.Menus.ActionMenus.AdventureSupportMenu01.ResumeAdventureBatText">
+            <summary></summary>
+        </member>
+        <member name="P:EamonDD.Game.Menus.ActionMenus.AdventureSupportMenu01.InterfaceCsText">
+            <summary></summary>
+        </member>
+        <member name="P:EamonDD.Game.Menus.ActionMenus.AdventureSupportMenu01.InterfaceCsText01">
+            <summary></summary>
+        </member>
+        <member name="P:EamonDD.Game.Menus.ActionMenus.AdventureSupportMenu01.ClassWithInterfaceCsText">
+            <summary></summary>
+        </member>
+        <member name="P:EamonDD.Game.Menus.ActionMenus.AdventureSupportMenu01.ClassWithInterfaceCsText01">
+            <summary></summary>
+        </member>
+        <member name="P:EamonDD.Game.Menus.ActionMenus.AdventureSupportMenu01.ClassCsText">
+            <summary></summary>
+        </member>
+        <member name="P:EamonDD.Game.Menus.ActionMenus.AdventureSupportMenu01.SelectedAdvDbDataFileList">
+            <summary></summary>
+        </member>
+        <member name="P:EamonDD.Game.Menus.ActionMenus.AdventureSupportMenu01.SelectedClassFileList">
+            <summary></summary>
+        </member>
+        <member name="M:EamonDD.Game.Menus.ActionMenus.AdventureSupportMenu01.ReplaceMacros(System.String)">
+            <summary></summary>
+            <param name="fileText"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EamonDD.Game.Menus.ActionMenus.AdventureSupportMenu01.IsAdventureNameValid">
+            <summary></summary>
+            <returns></returns>
+        </member>
+        <member name="M:EamonDD.Game.Menus.ActionMenus.AdventureSupportMenu01.CheckForPrerequisites">
+            <summary></summary>
+        </member>
+        <member name="M:EamonDD.Game.Menus.ActionMenus.AdventureSupportMenu01.GetAdventureName">
+            <summary></summary>
+        </member>
+        <member name="M:EamonDD.Game.Menus.ActionMenus.AdventureSupportMenu01.GetAuthorName">
+            <summary></summary>
+        </member>
+        <member name="M:EamonDD.Game.Menus.ActionMenus.AdventureSupportMenu01.GetAuthorInitials">
+            <summary></summary>
+        </member>
+        <member name="M:EamonDD.Game.Menus.ActionMenus.AdventureSupportMenu01.SelectAdvDbDataFiles">
+            <summary></summary>
+        </member>
+        <member name="M:EamonDD.Game.Menus.ActionMenus.AdventureSupportMenu01.QueryToAddAdventure">
+            <summary></summary>
+        </member>
+        <member name="M:EamonDD.Game.Menus.ActionMenus.AdventureSupportMenu01.QueryToProcessAdventure">
+            <summary></summary>
+        </member>
+        <member name="M:EamonDD.Game.Menus.ActionMenus.AdventureSupportMenu01.CreateQuickLaunchFiles">
+            <summary></summary>
+        </member>
+        <member name="M:EamonDD.Game.Menus.ActionMenus.AdventureSupportMenu01.CreateAdventureFolder">
+            <summary></summary>
+        </member>
+        <member name="M:EamonDD.Game.Menus.ActionMenus.AdventureSupportMenu01.CreateCustomClassFile">
+            <summary></summary>
+        </member>
+        <member name="M:EamonDD.Game.Menus.ActionMenus.AdventureSupportMenu01.CreateHintsXml">
+            <summary></summary>
+        </member>
+        <member name="M:EamonDD.Game.Menus.ActionMenus.AdventureSupportMenu01.UpdateAdvDbDataFiles">
+            <summary></summary>
+        </member>
+        <member name="M:EamonDD.Game.Menus.ActionMenus.AdventureSupportMenu01.UpdateDatFileClasses">
+            <summary></summary>
+        </member>
+        <member name="M:EamonDD.Game.Menus.ActionMenus.AdventureSupportMenu01.RebuildProject">
+            <summary></summary>
+        </member>
+        <member name="M:EamonDD.Game.Menus.ActionMenus.AdventureSupportMenu01.DeleteAdvBinaryFiles">
+            <summary></summary>
+        </member>
+        <member name="M:EamonDD.Game.Menus.ActionMenus.AdventureSupportMenu01.PrintAdventureCreated">
+            <summary></summary>
+        </member>
+        <member name="M:EamonDD.Game.Menus.ActionMenus.AdventureSupportMenu01.PrintAdventureProcessed">
+            <summary></summary>
+        </member>
+        <member name="M:EamonDD.Game.Menus.ActionMenus.DeleteAdventureMenu.QueryToDeleteAdventure">
+            <summary></summary>
+        </member>
+        <member name="M:EamonDD.Game.Menus.ActionMenus.DeleteAdventureMenu.RemoveProjectFromSolution">
+            <summary></summary>
+        </member>
+        <member name="M:EamonDD.Game.Menus.ActionMenus.DeleteAdventureMenu.DeleteAdventureFolder">
+            <summary></summary>
+        </member>
+        <member name="M:EamonDD.Game.Menus.ActionMenus.DeleteAdventureMenu.DeleteQuickLaunchFiles">
+            <summary></summary>
+        </member>
+        <member name="M:EamonDD.Game.Menus.ActionMenus.DeleteAdventureMenu.PrintAdventureDeleted">
+            <summary></summary>
+        </member>
+        <member name="M:EamonDD.Game.Menus.ActionMenus.DeleteCustomAdventureClassesMenu.SelectClassFilesToDelete">
+            <summary></summary>
+        </member>
+        <member name="M:EamonDD.Game.Menus.ActionMenus.DeleteCustomAdventureClassesMenu.DeleteSelectedClassFiles">
+            <summary></summary>
+        </member>
+        <member name="M:EamonDD.Game.Menus.ActionMenus.AnalyseAdventureRecordTreeMenu.AnalyseArtifactRecordTree(Eamon.Framework.IArtifact,System.String,System.Int64)">
+            <summary></summary>
+            <param name="artifact"></param>
+            <param name="tag"></param>
+            <param name="indentLevel"></param>
+        </member>
+        <member name="M:EamonDD.Game.Menus.ActionMenus.AnalyseAdventureRecordTreeMenu.AnalyseMonsterRecordTree(Eamon.Framework.IMonster,System.String,System.Int64)">
+            <summary></summary>
+            <param name="monster"></param>
+            <param name="tag"></param>
+            <param name="indentLevel"></param>
+        </member>
+        <member name="M:EamonDD.Game.Menus.ActionMenus.AnalyseAdventureRecordTreeMenu.AnalyseRoomRecordTree(Eamon.Framework.IRoom,System.String,System.Int64)">
+            <summary></summary>
+            <param name="room"></param>
+            <param name="tag"></param>
+            <param name="indentLevel"></param>
+        </member>
+    </members>
+</doc>
