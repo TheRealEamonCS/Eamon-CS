@@ -1,0 +1,277 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TheVileGrimoireOfJaldial</name>
+    </assembly>
+    <members>
+        <member name="P:TheVileGrimoireOfJaldial.Framework.Commands.IWaitCommand.Minutes">
+            <summary></summary>
+        </member>
+        <member name="P:TheVileGrimoireOfJaldial.Framework.IArtifact.Seen02">
+            <summary></summary>
+        </member>
+        <member name="M:TheVileGrimoireOfJaldial.Framework.IArtifact.IsDecoration">
+            <summary></summary>
+        </member>
+        <member name="M:TheVileGrimoireOfJaldial.Framework.IArtifact.GetLeverageBonus">
+            <summary></summary>
+        </member>
+        <member name="P:TheVileGrimoireOfJaldial.Framework.IGameState.FoggyRoomWeatherIntensity">
+            <summary></summary>
+        </member>
+        <member name="P:TheVileGrimoireOfJaldial.Framework.IGameState.PlayerResurrections">
+            <summary></summary>
+        </member>
+        <member name="P:TheVileGrimoireOfJaldial.Framework.IGameState.PlayerHardinessPointsDrained">
+            <summary></summary>
+        </member>
+        <member name="P:TheVileGrimoireOfJaldial.Framework.IGameState.BloodnettleVictimUid">
+            <summary></summary>
+        </member>
+        <member name="P:TheVileGrimoireOfJaldial.Framework.IGameState.EfreetiSummons">
+            <summary></summary>
+        </member>
+        <member name="P:TheVileGrimoireOfJaldial.Framework.IGameState.LightningBolts">
+            <summary></summary>
+        </member>
+        <member name="P:TheVileGrimoireOfJaldial.Framework.IGameState.IceBolts">
+            <summary></summary>
+        </member>
+        <member name="P:TheVileGrimoireOfJaldial.Framework.IGameState.MentalBlasts">
+            <summary></summary>
+        </member>
+        <member name="P:TheVileGrimoireOfJaldial.Framework.IGameState.MysticMissiles">
+            <summary></summary>
+        </member>
+        <member name="P:TheVileGrimoireOfJaldial.Framework.IGameState.FireBalls">
+            <summary></summary>
+        </member>
+        <member name="P:TheVileGrimoireOfJaldial.Framework.IGameState.ClumsySpells">
+            <summary></summary>
+        </member>
+        <member name="P:TheVileGrimoireOfJaldial.Framework.IGameState.TorchRounds">
+            <summary></summary>
+        </member>
+        <member name="P:TheVileGrimoireOfJaldial.Framework.IGameState.Minute">
+            <summary></summary>
+        </member>
+        <member name="P:TheVileGrimoireOfJaldial.Framework.IGameState.Hour">
+            <summary></summary>
+        </member>
+        <member name="P:TheVileGrimoireOfJaldial.Framework.IGameState.Day">
+            <summary></summary>
+        </member>
+        <member name="P:TheVileGrimoireOfJaldial.Framework.IGameState.WeatherIntensity">
+            <summary></summary>
+        </member>
+        <member name="P:TheVileGrimoireOfJaldial.Framework.IGameState.WeatherDuration">
+            <summary></summary>
+        </member>
+        <member name="P:TheVileGrimoireOfJaldial.Framework.IGameState.WeatherType">
+            <summary></summary>
+        </member>
+        <member name="P:TheVileGrimoireOfJaldial.Framework.IGameState.WeatherFreqPct">
+            <summary></summary>
+        </member>
+        <member name="P:TheVileGrimoireOfJaldial.Framework.IGameState.EncounterFreqPct">
+            <summary></summary>
+        </member>
+        <member name="P:TheVileGrimoireOfJaldial.Framework.IGameState.FlavorFreqPct">
+            <summary></summary>
+        </member>
+        <member name="P:TheVileGrimoireOfJaldial.Framework.IGameState.GriffinAngered">
+            <summary></summary>
+        </member>
+        <member name="P:TheVileGrimoireOfJaldial.Framework.IGameState.GiantCrayfishKilled">
+            <summary></summary>
+        </member>
+        <member name="P:TheVileGrimoireOfJaldial.Framework.IGameState.WaterWeirdKilled">
+            <summary></summary>
+        </member>
+        <member name="P:TheVileGrimoireOfJaldial.Framework.IGameState.EfreetiKilled">
+            <summary></summary>
+        </member>
+        <member name="P:TheVileGrimoireOfJaldial.Framework.IGameState.AmoebaAppeared">
+            <summary></summary>
+        </member>
+        <member name="P:TheVileGrimoireOfJaldial.Framework.IGameState.ShowCombatDamage">
+            <summary></summary>
+        </member>
+        <member name="P:TheVileGrimoireOfJaldial.Framework.IGameState.ExitDirNames">
+            <summary></summary>
+        </member>
+        <member name="P:TheVileGrimoireOfJaldial.Framework.IGameState.SecretDoors">
+            <summary></summary>
+        </member>
+        <member name="P:TheVileGrimoireOfJaldial.Framework.IGameState.ParalyzedTargets">
+            <summary></summary>
+        </member>
+        <member name="P:TheVileGrimoireOfJaldial.Framework.IGameState.ClumsyTargets">
+            <summary></summary>
+        </member>
+        <member name="M:TheVileGrimoireOfJaldial.Framework.IGameState.IsNightTime">
+            <summary></summary>
+        </member>
+        <member name="M:TheVileGrimoireOfJaldial.Framework.IGameState.IsDayTime">
+            <summary></summary>
+        </member>
+        <member name="M:TheVileGrimoireOfJaldial.Framework.IGameState.IsRaining">
+            <summary></summary>
+        </member>
+        <member name="M:TheVileGrimoireOfJaldial.Framework.IGameState.IsFoggy">
+            <summary></summary>
+        </member>
+        <member name="M:TheVileGrimoireOfJaldial.Framework.IGameState.IsFoggyHours">
+            <summary></summary>
+        </member>
+        <member name="M:TheVileGrimoireOfJaldial.Framework.IGameState.GetSecretDoors(System.Int64)">
+            <summary></summary>
+        </member>
+        <member name="M:TheVileGrimoireOfJaldial.Framework.IGameState.SetSecretDoors(System.Int64,System.Boolean)">
+            <summary></summary>
+        </member>
+        <member name="M:TheVileGrimoireOfJaldial.Framework.IGameState.SetFoggyRoomWeatherIntensity(TheVileGrimoireOfJaldial.Framework.IRoom)">
+            <summary></summary>
+        </member>
+        <member name="P:TheVileGrimoireOfJaldial.Framework.IMonster.Seen02">
+            <summary></summary>
+        </member>
+        <member name="P:TheVileGrimoireOfJaldial.Framework.IMonster.AttackDesc">
+            <summary></summary>
+        </member>
+        <member name="M:TheVileGrimoireOfJaldial.Framework.IMonster.SetAttackModality">
+            <summary></summary>
+        </member>
+        <member name="P:TheVileGrimoireOfJaldial.Framework.IRoom.Seen02">
+            <summary></summary>
+        </member>
+        <member name="M:TheVileGrimoireOfJaldial.Framework.IRoom.IsGroundsRoom">
+            <summary></summary>
+        </member>
+        <member name="M:TheVileGrimoireOfJaldial.Framework.IRoom.IsCryptRoom">
+            <summary></summary>
+        </member>
+        <member name="M:TheVileGrimoireOfJaldial.Framework.IRoom.IsFenceRoom">
+            <summary></summary>
+        </member>
+        <member name="M:TheVileGrimoireOfJaldial.Framework.IRoom.IsSwampRoom">
+            <summary></summary>
+        </member>
+        <member name="M:TheVileGrimoireOfJaldial.Framework.IRoom.IsBodyChamberRoom">
+            <summary></summary>
+        </member>
+        <member name="M:TheVileGrimoireOfJaldial.Framework.IRoom.IsRainyRoom">
+            <summary></summary>
+        </member>
+        <member name="M:TheVileGrimoireOfJaldial.Framework.IRoom.IsFoggyRoom">
+            <summary></summary>
+        </member>
+        <member name="M:TheVileGrimoireOfJaldial.Framework.IRoom.IsDimLightRoom">
+            <summary></summary>
+        </member>
+        <member name="M:TheVileGrimoireOfJaldial.Framework.IRoom.IsDimLightRoomWithoutGlowingMonsters">
+            <summary></summary>
+        </member>
+        <member name="M:TheVileGrimoireOfJaldial.Framework.IRoom.GetWeatherIntensity">
+            <summary></summary>
+        </member>
+        <member name="P:TheVileGrimoireOfJaldial.Framework.Plugin.IPluginGlobals.EncounterSurprises">
+            <summary></summary>
+        </member>
+        <member name="P:TheVileGrimoireOfJaldial.Framework.Plugin.IPluginGlobals.CarrionCrawlerFlails">
+            <summary></summary>
+        </member>
+        <member name="P:TheVileGrimoireOfJaldial.Framework.Plugin.IPluginGlobals.EventRoll">
+            <summary></summary>
+        </member>
+        <member name="P:TheVileGrimoireOfJaldial.Framework.Plugin.IPluginGlobals.FrequencyRoll">
+            <summary></summary>
+        </member>
+        <member name="P:TheVileGrimoireOfJaldial.Framework.Plugin.IPluginGlobals.InitiativeMonsterUid">
+            <summary></summary>
+        </member>
+        <member name="T:TheVileGrimoireOfJaldial.Framework.Primitive.Enums.WeatherType">
+            <summary></summary>
+        </member>
+        <member name="F:TheVileGrimoireOfJaldial.Framework.Primitive.Enums.WeatherType.None">
+            <summary></summary>
+        </member>
+        <member name="F:TheVileGrimoireOfJaldial.Framework.Primitive.Enums.WeatherType.Rain">
+            <summary></summary>
+        </member>
+        <member name="F:TheVileGrimoireOfJaldial.Framework.Primitive.Enums.WeatherType.Fog">
+            <summary></summary>
+        </member>
+        <member name="M:TheVileGrimoireOfJaldial.Game.Helpers.GameStateHelper.ValidateFoggyRoomWeatherIntensity">
+            <summary></summary>
+            <returns></returns>
+        </member>
+        <member name="M:TheVileGrimoireOfJaldial.Game.Helpers.GameStateHelper.ValidatePlayerResurrections">
+            <summary></summary>
+            <returns></returns>
+        </member>
+        <member name="M:TheVileGrimoireOfJaldial.Game.Helpers.GameStateHelper.ValidatePlayerHardinessPointsDrained">
+            <summary></summary>
+            <returns></returns>
+        </member>
+        <member name="M:TheVileGrimoireOfJaldial.Game.Helpers.GameStateHelper.ValidateBloodnettleVictimUid">
+            <summary></summary>
+            <returns></returns>
+        </member>
+        <member name="M:TheVileGrimoireOfJaldial.Game.Helpers.GameStateHelper.ValidateEfreetiSummons">
+            <summary></summary>
+            <returns></returns>
+        </member>
+        <member name="M:TheVileGrimoireOfJaldial.Game.Helpers.GameStateHelper.ValidateLightningBolts">
+            <summary></summary>
+            <returns></returns>
+        </member>
+        <member name="M:TheVileGrimoireOfJaldial.Game.Helpers.GameStateHelper.ValidateIceBolts">
+            <summary></summary>
+            <returns></returns>
+        </member>
+        <member name="M:TheVileGrimoireOfJaldial.Game.Helpers.GameStateHelper.ValidateMentalBlasts">
+            <summary></summary>
+            <returns></returns>
+        </member>
+        <member name="M:TheVileGrimoireOfJaldial.Game.Helpers.GameStateHelper.ValidateMysticMissiles">
+            <summary></summary>
+            <returns></returns>
+        </member>
+        <member name="M:TheVileGrimoireOfJaldial.Game.Helpers.GameStateHelper.ValidateFireBalls">
+            <summary></summary>
+            <returns></returns>
+        </member>
+        <member name="M:TheVileGrimoireOfJaldial.Game.Helpers.GameStateHelper.ValidateClumsySpells">
+            <summary></summary>
+            <returns></returns>
+        </member>
+        <member name="M:TheVileGrimoireOfJaldial.Game.Helpers.GameStateHelper.ValidateTorchRounds">
+            <summary></summary>
+            <returns></returns>
+        </member>
+        <member name="M:TheVileGrimoireOfJaldial.Game.Helpers.GameStateHelper.ValidateMinute">
+            <summary></summary>
+            <returns></returns>
+        </member>
+        <member name="M:TheVileGrimoireOfJaldial.Game.Helpers.GameStateHelper.ValidateHour">
+            <summary></summary>
+            <returns></returns>
+        </member>
+        <member name="M:TheVileGrimoireOfJaldial.Game.Helpers.GameStateHelper.ValidateDay">
+            <summary></summary>
+            <returns></returns>
+        </member>
+        <member name="M:TheVileGrimoireOfJaldial.Game.Helpers.GameStateHelper.ValidateWeatherIntensity">
+            <summary></summary>
+            <returns></returns>
+        </member>
+        <member name="M:TheVileGrimoireOfJaldial.Game.Helpers.GameStateHelper.ValidateWeatherDuration">
+            <summary></summary>
+            <returns></returns>
+        </member>
+        <member name="M:TheVileGrimoireOfJaldial.Game.Parsing.SentenceParser.IsValidTokenCommandMatch">
+            <summary></summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TheTrainingGround</name>
+    </assembly>
+    <members>
+        <member name="T:TheTrainingGround.Framework.IGameState">
+            <summary></summary>
+        </member>
+        <member name="P:TheTrainingGround.Framework.IGameState.GenderChangeCounter">
+            <summary></summary>
+        </member>
+        <member name="P:TheTrainingGround.Framework.IGameState.RedSunSpeaks">
+            <summary></summary>
+        </member>
+        <member name="P:TheTrainingGround.Framework.IGameState.JacquesShouts">
+            <summary></summary>
+        </member>
+        <member name="P:TheTrainingGround.Framework.IGameState.JacquesRecoversRapier">
+            <summary></summary>
+        </member>
+        <member name="P:TheTrainingGround.Framework.IGameState.KoboldsAppear">
+            <summary></summary>
+        </member>
+        <member name="P:TheTrainingGround.Framework.IGameState.SylvaniSpeaks">
+            <summary></summary>
+        </member>
+        <member name="P:TheTrainingGround.Framework.IGameState.ThorsHammerAppears">
+            <summary></summary>
+        </member>
+        <member name="P:TheTrainingGround.Framework.IGameState.LibrarySecretPassageFound">
+            <summary></summary>
+        </member>
+        <member name="P:TheTrainingGround.Framework.IGameState.ScuffleSoundsHeard">
+            <summary></summary>
+        </member>
+        <member name="P:TheTrainingGround.Framework.IGameState.CharismaBoosted">
+            <summary></summary>
+        </member>
+        <member name="T:TheTrainingGround.Framework.Plugin.IPluginClassMappings">
+            <summary></summary>
+        </member>
+        <member name="T:TheTrainingGround.Framework.Plugin.IPluginConstants">
+            <summary></summary>
+        </member>
+        <member name="T:TheTrainingGround.Framework.Plugin.IPluginGlobals">
+            <summary></summary>
+        </member>
+        <member name="M:TheTrainingGround.Game.Helpers.GameStateHelper.ValidateGenderChangeCounter">
+            <summary></summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

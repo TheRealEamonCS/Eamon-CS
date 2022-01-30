@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>StrongholdOfKahrDur</name>
+    </assembly>
+    <members>
+        <member name="T:StrongholdOfKahrDur.Framework.IEngine">
+            <summary></summary>
+        </member>
+        <member name="M:StrongholdOfKahrDur.Framework.IEngine.SpellReagentsInCauldron(Eamon.Framework.IArtifact)">
+            <summary></summary>
+            <param name="cauldronArtifact"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StrongholdOfKahrDur.Framework.IEngine.SummonMonster(Eamon.Framework.IRoom,System.Int64)">
+            <summary></summary>
+            <param name="room"></param>
+            <param name="monsterUid"></param>
+        </member>
+        <member name="T:StrongholdOfKahrDur.Framework.IGameState">
+            <summary></summary>
+        </member>
+        <member name="P:StrongholdOfKahrDur.Framework.IGameState.LichState">
+            <summary></summary>
+        </member>
+        <member name="P:StrongholdOfKahrDur.Framework.IGameState.UsedCauldron">
+            <summary></summary>
+        </member>
+        <member name="T:StrongholdOfKahrDur.Framework.Plugin.IPluginClassMappings">
+            <summary></summary>
+        </member>
+        <member name="T:StrongholdOfKahrDur.Framework.Plugin.IPluginConstants">
+            <summary></summary>
+        </member>
+        <member name="T:StrongholdOfKahrDur.Framework.Plugin.IPluginGlobals">
+            <summary></summary>
+        </member>
+        <member name="T:StrongholdOfKahrDur.Framework.States.INecromancerAttackActionState">
+            <summary></summary>
+        </member>
+        <member name="M:StrongholdOfKahrDur.Game.Helpers.GameStateHelper.ValidateLichState">
+            <summary></summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
