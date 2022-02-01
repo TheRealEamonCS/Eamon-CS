@@ -3,6 +3,7 @@
 
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Eamon.Framework;
@@ -27,6 +28,15 @@ namespace EamonRT.Framework.Plugin
 
 		/// <summary></summary>
 		IList<ICommand> LastCommandList { get; set; }
+
+		/// <summary></summary>
+		Action SpellSkillIncreaseFunc { get; set; }
+
+		/// <summary></summary>
+		Action WeaponSkillIncreaseFunc { get; set; }
+
+		/// <summary></summary>
+		Action ArmorSkillIncreaseFunc { get; set; }
 
 		/// <summary></summary>
 		long LoopMonsterUid { get; set; }

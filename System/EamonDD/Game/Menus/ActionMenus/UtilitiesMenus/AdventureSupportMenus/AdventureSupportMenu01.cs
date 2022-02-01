@@ -119,15 +119,105 @@ namespace EamonDD.Game.Menus.ActionMenus
 		/// <summary></summary>
 		public virtual string EditAdventureBatText { get; set; } =
 @"@echo off
+
+REM Copyright (c) 2014+ by Michael Penner.  All rights reserved.
+
 cd ..\..\..\System\Bin
+
+set WINDOWS_PREREQUISITES_TXT="".\WINDOWS_PREREQUISITES.TXT""
+set DOTNET_SDK_REGEX_TXT="".\DOTNET_SDK_REGEX.TXT""
+set DOTNET_RUNTIME_REGEX_TXT="".\DOTNET_RUNTIME_REGEX.TXT""
+
+set UN=%RANDOM%
+
+set DOTNET_SDKS_TXT="".\DOTNET_SDKS_%UN%.TXT""
+set DOTNET_RUNTIMES_TXT="".\DOTNET_RUNTIMES_%UN%.TXT""
+
+if not exist %WINDOWS_PREREQUISITES_TXT% (
+	goto dotnet_found
+)
+
+set /p DOTNET_SDK_REGEX=<%DOTNET_SDK_REGEX_TXT%
+dotnet --list-sdks >%DOTNET_SDKS_TXT% 2>&1
+findstr /r ""%DOTNET_SDK_REGEX%"" %DOTNET_SDKS_TXT% >nul 2>&1
+set DOTNET_SDK_FOUND=%ERRORLEVEL%
+del /f /q %DOTNET_SDKS_TXT% >nul 2>&1
+
+if ""%DOTNET_SDK_FOUND%""==""0"" (
+	goto dotnet_found
+)
+
+set /p DOTNET_RUNTIME_REGEX=<%DOTNET_RUNTIME_REGEX_TXT%
+dotnet --list-runtimes >%DOTNET_RUNTIMES_TXT% 2>&1
+findstr /r ""%DOTNET_RUNTIME_REGEX%"" %DOTNET_RUNTIMES_TXT% >nul 2>&1
+set DOTNET_RUNTIME_FOUND=%ERRORLEVEL%
+del /f /q %DOTNET_RUNTIMES_TXT% >nul 2>&1
+
+if ""%DOTNET_RUNTIME_FOUND%""==""0"" (
+	goto dotnet_found
+)
+
+mode con: cols=100 lines=50
+type %WINDOWS_PREREQUISITES_TXT%
+pause
+exit 1
+
+:dotnet_found
+
 dotnet .\EamonPM.WindowsUnix.dll -pfn YourLibraryName.dll -wd ..\..\Adventures\YourAdventureName -la -rge
+exit 0
 ";
 
 		/// <summary></summary>
 		public virtual string ResumeAdventureBatText { get; set; } =
 @"@echo off
+
+REM Copyright (c) 2014+ by Michael Penner.  All rights reserved.
+
 cd ..\..\..\System\Bin
+
+set WINDOWS_PREREQUISITES_TXT="".\WINDOWS_PREREQUISITES.TXT""
+set DOTNET_SDK_REGEX_TXT="".\DOTNET_SDK_REGEX.TXT""
+set DOTNET_RUNTIME_REGEX_TXT="".\DOTNET_RUNTIME_REGEX.TXT""
+
+set UN=%RANDOM%
+
+set DOTNET_SDKS_TXT="".\DOTNET_SDKS_%UN%.TXT""
+set DOTNET_RUNTIMES_TXT="".\DOTNET_RUNTIMES_%UN%.TXT""
+
+if not exist %WINDOWS_PREREQUISITES_TXT% (
+	goto dotnet_found
+)
+
+set /p DOTNET_SDK_REGEX=<%DOTNET_SDK_REGEX_TXT%
+dotnet --list-sdks >%DOTNET_SDKS_TXT% 2>&1
+findstr /r ""%DOTNET_SDK_REGEX%"" %DOTNET_SDKS_TXT% >nul 2>&1
+set DOTNET_SDK_FOUND=%ERRORLEVEL%
+del /f /q %DOTNET_SDKS_TXT% >nul 2>&1
+
+if ""%DOTNET_SDK_FOUND%""==""0"" (
+	goto dotnet_found
+)
+
+set /p DOTNET_RUNTIME_REGEX=<%DOTNET_RUNTIME_REGEX_TXT%
+dotnet --list-runtimes >%DOTNET_RUNTIMES_TXT% 2>&1
+findstr /r ""%DOTNET_RUNTIME_REGEX%"" %DOTNET_RUNTIMES_TXT% >nul 2>&1
+set DOTNET_RUNTIME_FOUND=%ERRORLEVEL%
+del /f /q %DOTNET_RUNTIMES_TXT% >nul 2>&1
+
+if ""%DOTNET_RUNTIME_FOUND%""==""0"" (
+	goto dotnet_found
+)
+
+mode con: cols=100 lines=50
+type %WINDOWS_PREREQUISITES_TXT%
+pause
+exit 1
+
+:dotnet_found
+
 dotnet .\EamonPM.WindowsUnix.dll -pfn YourLibraryName.dll -wd ..\..\Adventures\YourAdventureName
+exit 0
 ";
 
 		/// <summary></summary>
@@ -978,9 +1068,9 @@ namespace YourAdventureName.YourGameNamespaceName
 									this is IDeleteAdventureMenu ? SupportMenuType.DeleteAdventure :
 									SupportMenuType.DeleteClasses;
 
-			EditAdventureShText = string.Format(@"#!/bin/sh{0}cd ../../../System/Bin{0}xterm -e dotnet ./EamonPM.WindowsUnix.dll -pfn YourLibraryName.dll -wd ../../Adventures/YourAdventureName -la -rge{0}", '\n');
+			EditAdventureShText = string.Format(@"#!/bin/sh{0}{0}# Copyright (c) 2014+ by Michael Penner.  All rights reserved.{0}{0}dotnet_found(){0}{{{0}	xterm -e dotnet ./EamonPM.WindowsUnix.dll -pfn YourLibraryName.dll -wd ../../Adventures/YourAdventureName -la -rge{0}	exit 0{0}}}{0}{0}cd ../../../System/Bin{0}{0}UNIX_PREREQUISITES_SH=""./UnixPrerequisites.sh""{0}UNIX_PREREQUISITES_TXT=""./UNIX_PREREQUISITES.TXT""{0}DOTNET_SDK_REGEX_TXT=""./DOTNET_SDK_REGEX.TXT""{0}DOTNET_RUNTIME_REGEX_TXT=""./DOTNET_RUNTIME_REGEX.TXT""{0}{0}UN=$${0}{0}DOTNET_SDKS_TXT=""./DOTNET_SDKS_$UN.TXT""{0}DOTNET_RUNTIMES_TXT=""./DOTNET_RUNTIMES_$UN.TXT""{0}{0}if [ ! -f $UNIX_PREREQUISITES_TXT ]{0}then{0}	dotnet_found{0}fi{0}{0}DOTNET_SDK_REGEX=`cat $DOTNET_SDK_REGEX_TXT`{0}dotnet --list-sdks >$DOTNET_SDKS_TXT 2>&1{0}grep ""$DOTNET_SDK_REGEX"" $DOTNET_SDKS_TXT >/dev/null 2>&1{0}DOTNET_SDK_FOUND=$?{0}rm -f $DOTNET_SDKS_TXT >/dev/null 2>&1{0}{0}if [ ""$DOTNET_SDK_FOUND"" -eq ""0"" ]{0}then{0}	dotnet_found{0}fi{0}{0}DOTNET_RUNTIME_REGEX=`cat $DOTNET_RUNTIME_REGEX_TXT`{0}dotnet --list-runtimes >$DOTNET_RUNTIMES_TXT 2>&1{0}grep ""$DOTNET_RUNTIME_REGEX"" $DOTNET_RUNTIMES_TXT >/dev/null 2>&1{0}DOTNET_RUNTIME_FOUND=$?{0}rm -f $DOTNET_RUNTIMES_TXT >/dev/null 2>&1{0}{0}if [ ""$DOTNET_RUNTIME_FOUND"" -eq ""0"" ]{0}then{0}	dotnet_found{0}fi{0}{0}xterm -geometry 100x45 -e $UNIX_PREREQUISITES_SH{0}exit 1{0}", '\n');
 
-			ResumeAdventureShText = string.Format(@"#!/bin/sh{0}cd ../../../System/Bin{0}xterm -e dotnet ./EamonPM.WindowsUnix.dll -pfn YourLibraryName.dll -wd ../../Adventures/YourAdventureName{0}", '\n');
+			ResumeAdventureShText = string.Format(@"#!/bin/sh{0}{0}# Copyright (c) 2014+ by Michael Penner.  All rights reserved.{0}{0}dotnet_found(){0}{{{0}	xterm -e dotnet ./EamonPM.WindowsUnix.dll -pfn YourLibraryName.dll -wd ../../Adventures/YourAdventureName{0}	exit 0{0}}}{0}{0}cd ../../../System/Bin{0}{0}UNIX_PREREQUISITES_SH=""./UnixPrerequisites.sh""{0}UNIX_PREREQUISITES_TXT=""./UNIX_PREREQUISITES.TXT""{0}DOTNET_SDK_REGEX_TXT=""./DOTNET_SDK_REGEX.TXT""{0}DOTNET_RUNTIME_REGEX_TXT=""./DOTNET_RUNTIME_REGEX.TXT""{0}{0}UN=$${0}{0}DOTNET_SDKS_TXT=""./DOTNET_SDKS_$UN.TXT""{0}DOTNET_RUNTIMES_TXT=""./DOTNET_RUNTIMES_$UN.TXT""{0}{0}if [ ! -f $UNIX_PREREQUISITES_TXT ]{0}then{0}	dotnet_found{0}fi{0}{0}DOTNET_SDK_REGEX=`cat $DOTNET_SDK_REGEX_TXT`{0}dotnet --list-sdks >$DOTNET_SDKS_TXT 2>&1{0}grep ""$DOTNET_SDK_REGEX"" $DOTNET_SDKS_TXT >/dev/null 2>&1{0}DOTNET_SDK_FOUND=$?{0}rm -f $DOTNET_SDKS_TXT >/dev/null 2>&1{0}{0}if [ ""$DOTNET_SDK_FOUND"" -eq ""0"" ]{0}then{0}	dotnet_found{0}fi{0}{0}DOTNET_RUNTIME_REGEX=`cat $DOTNET_RUNTIME_REGEX_TXT`{0}dotnet --list-runtimes >$DOTNET_RUNTIMES_TXT 2>&1{0}grep ""$DOTNET_RUNTIME_REGEX"" $DOTNET_RUNTIMES_TXT >/dev/null 2>&1{0}DOTNET_RUNTIME_FOUND=$?{0}rm -f $DOTNET_RUNTIMES_TXT >/dev/null 2>&1{0}{0}if [ ""$DOTNET_RUNTIME_FOUND"" -eq ""0"" ]{0}then{0}	dotnet_found{0}fi{0}{0}xterm -geometry 100x45 -e $UNIX_PREREQUISITES_SH{0}exit 1{0}", '\n');
 		}
 	}
 }

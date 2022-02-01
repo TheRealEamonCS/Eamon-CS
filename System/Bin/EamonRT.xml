@@ -2115,6 +2115,15 @@
         <member name="P:EamonRT.Framework.Plugin.IPluginGlobals.LastCommandList">
             <summary></summary>
         </member>
+        <member name="P:EamonRT.Framework.Plugin.IPluginGlobals.SpellSkillIncreaseFunc">
+            <summary></summary>
+        </member>
+        <member name="P:EamonRT.Framework.Plugin.IPluginGlobals.WeaponSkillIncreaseFunc">
+            <summary></summary>
+        </member>
+        <member name="P:EamonRT.Framework.Plugin.IPluginGlobals.ArmorSkillIncreaseFunc">
+            <summary></summary>
+        </member>
         <member name="P:EamonRT.Framework.Plugin.IPluginGlobals.LoopMonsterUid">
             <summary></summary>
         </member>
