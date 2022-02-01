@@ -2831,17 +2831,20 @@ namespace EamonRT.Game
 
 					if (rl > gCharacter.GetSpellAbilities(s))
 					{
-						if (!Globals.IsRulesetVersion(5, 15, 25))
+						Globals.SpellSkillIncreaseFunc = () =>
 						{
-							PrintSpellAbilityIncreased(s, spell);
-						}
+							if (!Globals.IsRulesetVersion(5, 15, 25))
+							{
+								PrintSpellAbilityIncreased(s, spell);
+							}
 
-						gCharacter.ModSpellAbilities(s, 2);
+							gCharacter.ModSpellAbilities(s, 2);
 
-						if (gCharacter.GetSpellAbilities(s) > spell.MaxValue)
-						{
-							gCharacter.SetSpellAbilities(s, spell.MaxValue);
-						}
+							if (gCharacter.GetSpellAbilities(s) > spell.MaxValue)
+							{
+								gCharacter.SetSpellAbilities(s, spell.MaxValue);
+							}
+						};
 					}
 				}
 			}
@@ -2923,17 +2926,20 @@ namespace EamonRT.Game
 
 					Debug.Assert(weapon != null);
 
-					if (!Globals.IsRulesetVersion(5, 15, 25))
+					Globals.WeaponSkillIncreaseFunc = () =>
 					{
-						PrintWeaponAbilityIncreased(s, weapon);
-					}
+						if (!Globals.IsRulesetVersion(5, 15, 25))
+						{
+							PrintWeaponAbilityIncreased(s, weapon);
+						}
 
-					gCharacter.ModWeaponAbilities(s, 2);
+						gCharacter.ModWeaponAbilities(s, 2);
 
-					if (gCharacter.GetWeaponAbilities(s) > weapon.MaxValue)
-					{
-						gCharacter.SetWeaponAbilities(s, weapon.MaxValue);
-					}
+						if (gCharacter.GetWeaponAbilities(s) > weapon.MaxValue)
+						{
+							gCharacter.SetWeaponAbilities(s, weapon.MaxValue);
+						}
+					};
 				}
 
 				var x = Math.Abs(af);
@@ -2946,22 +2952,25 @@ namespace EamonRT.Game
 
 					if (rl > gCharacter.ArmorExpertise)
 					{
-						if (!Globals.IsRulesetVersion(5, 15, 25))
+						Globals.ArmorSkillIncreaseFunc = () =>
 						{
-							PrintArmorExpertiseIncreased();
-						}
+							if (!Globals.IsRulesetVersion(5, 15, 25))
+							{
+								PrintArmorExpertiseIncreased();
+							}
 
-						gCharacter.ArmorExpertise += 2;
+							gCharacter.ArmorExpertise += 2;
 
-						if (gCharacter.ArmorExpertise <= 66 && gCharacter.ArmorExpertise > x)
-						{
-							gCharacter.ArmorExpertise = x;
-						}
+							if (gCharacter.ArmorExpertise <= 66 && gCharacter.ArmorExpertise > x)
+							{
+								gCharacter.ArmorExpertise = x;
+							}
 
-						if (gCharacter.ArmorExpertise > 79)
-						{
-							gCharacter.ArmorExpertise = 79;
-						}
+							if (gCharacter.ArmorExpertise > 79)
+							{
+								gCharacter.ArmorExpertise = 79;
+							}
+						};
 					}
 				}
 			}
