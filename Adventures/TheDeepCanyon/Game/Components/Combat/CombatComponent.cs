@@ -21,13 +21,11 @@ namespace TheDeepCanyon.Game.Components
 	{
 		public override void ExecuteAttack()
 		{
-			Debug.Assert(ActorMonster != null);
-
 			var origAgility = 0L;
 
 			// Various bats versus falcon
 
-			if (DobjMonster != null && DobjMonster.Uid > 6 && DobjMonster.Uid < 11 && ActorMonster.Weapon == 5)
+			if (DobjMonster != null && DobjMonster.Uid > 6 && DobjMonster.Uid < 11 && !BlastSpell && ActorMonster?.Weapon == 5)
 			{
 				origAgility = DobjMonster.Agility;
 
