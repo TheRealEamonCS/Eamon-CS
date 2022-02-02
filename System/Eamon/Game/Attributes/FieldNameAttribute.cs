@@ -11,7 +11,7 @@ namespace Eamon.Game.Attributes
 	/// </summary>
 	/// <remarks>
 	/// </remarks>
-	[AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
+	[AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = true)]
 	public class FieldNameAttribute : Attribute
 	{
 		public long SortOrder { get; set; }
