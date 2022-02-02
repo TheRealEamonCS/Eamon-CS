@@ -18,7 +18,7 @@ namespace StrongholdOfKahrDur.Game.Components
 	{
 		public override void ExecuteAttack()
 		{
-			if (BlastSpell)
+			if (DobjMonster != null && BlastSpell)
 			{
 				var helmArtifact = gADB[25];
 
