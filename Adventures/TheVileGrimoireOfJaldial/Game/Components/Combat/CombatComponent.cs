@@ -35,7 +35,7 @@ namespace TheVileGrimoireOfJaldial.Game.Components
 
 			if (DobjMonster != null && DobjMonster.Uid == 41 && !griffinMonster.IsInLimbo() && !gGameState.GriffinAngered)
 			{
-				if (griffinMonster.IsInRoomUid(gGameState.Ro) && griffinMonster.GetInRoom().IsLit())
+				if (griffinMonster.IsInRoom(ActorRoom) && ActorRoom.IsLit())
 				{
 					gEngine.PrintEffectDesc(82);
 				}
