@@ -50,8 +50,8 @@ namespace Eamon.Game.Helpers.Generic
 						_fieldNameList.Clear();
 
 						var propAttrList = value.GetType().GetProperties()
-							.Where(p => p.GetCustomAttributes(typeof(FieldNameAttribute), true).Length > 0)
-							.Select(p => new { Property = p, Attribute = p.GetCustomAttributes(typeof(FieldNameAttribute), true)[0] as FieldNameAttribute })
+							.Where(p => p.GetCustomAttribute(typeof(FieldNameAttribute), true) != null)
+							.Select(p => new { Property = p, Attribute = p.GetCustomAttribute(typeof(FieldNameAttribute), true) as FieldNameAttribute })
 							.OrderBy(pa => pa.Attribute.SortOrder)
 							.ToList();
 
