@@ -456,11 +456,6 @@ namespace EamonRT.Game.Commands
 			CommandImpl.PrintBrokeIt(artifact);
 		}
 
-		public virtual void PrintAlreadyBrokeIt(IArtifact artifact)
-		{
-			CommandImpl.PrintAlreadyBrokeIt(artifact);
-		}
-
 		public virtual void PrintHaveToForceOpen(IArtifact artifact)
 		{
 			CommandImpl.PrintHaveToForceOpen(artifact);
@@ -564,11 +559,6 @@ namespace EamonRT.Game.Commands
 		public virtual void PrintAlreadyWearingObj(IArtifact artifact)
 		{
 			CommandImpl.PrintAlreadyWearingObj(artifact);
-		}
-
-		public virtual void PrintWhamHitObj(IArtifact artifact)
-		{
-			CommandImpl.PrintWhamHitObj(artifact);
 		}
 
 		public virtual void PrintFullDesc(IArtifact artifact, bool showName)
@@ -699,16 +689,6 @@ namespace EamonRT.Game.Commands
 		public virtual void PrintPutObjPrepContainer(IArtifact artifact, IArtifact container, ContainerType containerType)
 		{
 			CommandImpl.PrintPutObjPrepContainer(artifact, container, containerType);
-		}
-
-		public virtual void PrintHackToBits(IArtifact artifact, IMonster monster, bool blastSpell)
-		{
-			CommandImpl.PrintHackToBits(artifact, monster, blastSpell);
-		}
-
-		public virtual void PrintSmashesToPieces(IRoom room, IArtifact artifact, bool contentsSpilled)
-		{
-			CommandImpl.PrintSmashesToPieces(room, artifact, contentsSpilled);
 		}
 
 		public virtual void PrintActorRemovesObjPrepContainer(IMonster monster, IArtifact artifact, IArtifact container, ContainerType containerType, bool omitWeightCheck)
@@ -991,14 +971,14 @@ namespace EamonRT.Game.Commands
 			return CommandImpl.ShouldPreTurnProcess();
 		}
 
+		public override void Stage()
+		{
+			CommandImpl.Stage();
+		}
+		
 		public override void Execute()
 		{
 			CommandImpl.Execute();
-		}
-
-		public override void PreExecute()
-		{
-			CommandImpl.PreExecute();
 		}
 
 		public virtual string GetPrintedVerb()

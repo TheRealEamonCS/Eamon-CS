@@ -206,10 +206,6 @@ namespace EamonRT.Framework.Commands
 
 		/// <summary></summary>
 		/// <param name="artifact"></param>
-		void PrintAlreadyBrokeIt(IArtifact artifact);
-
-		/// <summary></summary>
-		/// <param name="artifact"></param>
 		void PrintHaveToForceOpen(IArtifact artifact);
 
 		/// <summary></summary>
@@ -293,10 +289,6 @@ namespace EamonRT.Framework.Commands
 		/// <summary></summary>
 		/// <param name="artifact"></param>
 		void PrintAlreadyWearingObj(IArtifact artifact);
-
-		/// <summary></summary>
-		/// <param name="artifact"></param>
-		void PrintWhamHitObj(IArtifact artifact);
 
 		/// <summary></summary>
 		/// <param name="artifact"></param>
@@ -429,18 +421,6 @@ namespace EamonRT.Framework.Commands
 		/// <param name="container"></param>
 		/// <param name="containerType"></param>
 		void PrintPutObjPrepContainer(IArtifact artifact, IArtifact container, ContainerType containerType);
-
-		/// <summary></summary>
-		/// <param name="artifact"></param>
-		/// <param name="monster"></param>
-		/// <param name="blastSpell"></param>
-		void PrintHackToBits(IArtifact artifact, IMonster monster, bool blastSpell);
-
-		/// <summary></summary>
-		/// <param name="room"></param>
-		/// <param name="artifact"></param>
-		/// <param name="contentsSpilled"></param>
-		void PrintSmashesToPieces(IRoom room, IArtifact artifact, bool contentsSpilled);
 
 		/// <summary></summary>
 		/// <param name="monster"></param>
@@ -620,7 +600,7 @@ namespace EamonRT.Framework.Commands
 		void PrintFortuneCookie();
 
 		/// <summary></summary>
-		void PreExecute();
+		void Stage();
 
 		/// <summary></summary>
 		/// <returns></returns>

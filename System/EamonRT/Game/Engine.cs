@@ -164,42 +164,9 @@ namespace EamonRT.Game
 				Globals.Buf01);
 		}
 
-		public virtual void PrintHackToBits(IArtifact artifact, IMonster monster, bool blastSpell)
-		{
-			Debug.Assert(artifact != null && monster != null);
-
-			gOut.Print("You {0} {1} to bits!", blastSpell ? "blast" : monster.Weapon > 0 ? "hack" : "tear", artifact.EvalPlural("it", "them"));
-		}
-
-		public virtual void PrintAlreadyBrokeIt(IArtifact artifact)
-		{
-			Debug.Assert(artifact != null);
-
-			gOut.Print("You already broke {0}!", artifact.EvalPlural("it", "them"));
-		}
-
 		public virtual void PrintNothingHappens()
 		{
 			gOut.Print("Nothing happens.");
-		}
-
-		public virtual void PrintWhamHitObj(IArtifact artifact)
-		{
-			Debug.Assert(artifact != null);
-
-			gOut.Print("Wham!  You hit {0}!", artifact.GetTheName());
-		}
-
-		public virtual void PrintSmashesToPieces(IRoom room, IArtifact artifact, bool contentsSpilled)
-		{
-			Debug.Assert(room != null && artifact != null);
-
-			gOut.Print("{0}{1} {2} to pieces{3}!",
-				Environment.NewLine,
-				artifact.GetTheName(true),
-				artifact.EvalPlural("smashes", "smash"),
-				contentsSpilled ? string.Format("; {0} contents spill to the {1}", artifact.EvalPlural("its", "their"), room.EvalRoomType("floor", "ground")) :
-				"");
 		}
 
 		public virtual void PrintFullDesc(IArtifact artifact, bool showName)
@@ -317,18 +284,6 @@ namespace EamonRT.Game
 			Debug.Assert(Enum.IsDefined(typeof(Spell), s) && spell != null);
 
 			gOut.Print("Nothing happens.");
-		}
-
-		public virtual void PrintWeaponAbilityIncreased(Weapon w, IWeapon weapon)
-		{
-			Debug.Assert(Enum.IsDefined(typeof(Weapon), w) && weapon != null);
-
-			gOut.Print("Your {0} ability just increased!", weapon.Name);
-		}
-
-		public virtual void PrintArmorExpertiseIncreased()
-		{
-			gOut.Print("Your armor expertise just increased!");
 		}
 
 		public virtual void PrintTooManyWeapons()
@@ -2905,77 +2860,6 @@ namespace EamonRT.Game
 
 			return rl <= value;
 		}
-
-		public virtual void CheckPlayerSkillGains(IArtifactCategory ac, long af)
-		{
-			Debug.Assert(ac != null && ac.IsWeapon01());
-
-			var s = (Weapon)ac.Field2;
-
-			var rl = RollDice(1, 100, 0);
-
-			if (rl > 75)
-			{
-				rl = RollDice(1, 100, 0);
-
-				rl += gCharacter.GetIntellectBonusPct();
-
-				if (rl > gCharacter.GetWeaponAbilities(s))
-				{
-					var weapon = GetWeapons(s);
-
-					Debug.Assert(weapon != null);
-
-					Globals.WeaponSkillIncreaseFunc = () =>
-					{
-						if (!Globals.IsRulesetVersion(5, 15, 25))
-						{
-							PrintWeaponAbilityIncreased(s, weapon);
-						}
-
-						gCharacter.ModWeaponAbilities(s, 2);
-
-						if (gCharacter.GetWeaponAbilities(s) > weapon.MaxValue)
-						{
-							gCharacter.SetWeaponAbilities(s, weapon.MaxValue);
-						}
-					};
-				}
-
-				var x = Math.Abs(af);
-
-				if (x > 0)
-				{
-					rl = RollDice(1, x, 0);
-
-					rl += (long)Math.Round(((double)x / 100.0) * (double)gCharacter.GetIntellectBonusPct());
-
-					if (rl > gCharacter.ArmorExpertise)
-					{
-						Globals.ArmorSkillIncreaseFunc = () =>
-						{
-							if (!Globals.IsRulesetVersion(5, 15, 25))
-							{
-								PrintArmorExpertiseIncreased();
-							}
-
-							gCharacter.ArmorExpertise += 2;
-
-							if (gCharacter.ArmorExpertise <= 66 && gCharacter.ArmorExpertise > x)
-							{
-								gCharacter.ArmorExpertise = x;
-							}
-
-							if (gCharacter.ArmorExpertise > 79)
-							{
-								gCharacter.ArmorExpertise = 79;
-							}
-						};
-					}
-				}
-			}
-		}
-
 		public virtual void CheckToExtinguishLightSource()
 		{
 			Debug.Assert(gGameState.Ls > 0);

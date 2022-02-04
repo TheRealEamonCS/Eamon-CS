@@ -6,6 +6,7 @@
 using System;
 using Eamon.Framework;
 using Eamon.Framework.Primitive.Classes;
+using Eamon.Framework.Primitive.Enums;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
@@ -152,5 +153,28 @@ namespace EamonRT.Framework.Components
 		/// <param name="artifact"></param>
 		/// <param name="contentsSpilled"></param>
 		void PrintSmashesToPieces(IRoom room, IArtifact artifact, bool contentsSpilled);
+
+		/// <summary></summary>
+		/// <param name="w"></param>
+		/// <param name="weapon"></param>
+		void PrintWeaponAbilityIncreased(Weapon w, IWeapon weapon);
+
+		/// <summary></summary>
+		void PrintArmorExpertiseIncreased();
+
+		/// <summary></summary>
+		/// <param name="s"></param>
+		/// <param name="spell"></param>
+		void PrintSpellOverloadsBrain(Spell s, ISpell spell);
+
+		/// <summary></summary>
+		/// <param name="s"></param>
+		/// <param name="spell"></param>
+		void PrintSpellAbilityIncreased(Spell s, ISpell spell);
+
+		/// <summary></summary>
+		/// <param name="s"></param>
+		/// <param name="spell"></param>
+		void PrintSpellCastFailed(Spell s, ISpell spell);
 	}
 }

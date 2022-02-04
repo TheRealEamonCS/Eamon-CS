@@ -318,11 +318,6 @@ namespace EamonRT.Game.Commands
 			gOut.Print("You broke {0}!", artifact.EvalPlural("it", "them"));
 		}
 
-		public virtual void PrintAlreadyBrokeIt(IArtifact artifact)
-		{
-			gEngine.PrintAlreadyBrokeIt(artifact);
-		}
-
 		public virtual void PrintHaveToForceOpen(IArtifact artifact)
 		{
 			Debug.Assert(artifact != null);
@@ -483,11 +478,6 @@ namespace EamonRT.Game.Commands
 			Debug.Assert(artifact != null);
 
 			gOut.Print("You're already wearing {0}!", artifact.EvalPlural("it", "them"));
-		}
-
-		public virtual void PrintWhamHitObj(IArtifact artifact)
-		{
-			gEngine.PrintWhamHitObj(artifact);
 		}
 
 		public virtual void PrintFullDesc(IArtifact artifact, bool showName)
@@ -785,16 +775,6 @@ namespace EamonRT.Game.Commands
 			Debug.Assert(artifact != null && container != null && Enum.IsDefined(typeof(ContainerType), containerType));
 
 			gOut.Print("Done.");
-		}
-
-		public virtual void PrintHackToBits(IArtifact artifact, IMonster monster, bool blastSpell)
-		{
-			gEngine.PrintHackToBits(artifact, monster, blastSpell);
-		}
-
-		public virtual void PrintSmashesToPieces(IRoom room, IArtifact artifact, bool contentsSpilled)
-		{
-			gEngine.PrintSmashesToPieces(room, artifact, contentsSpilled);
 		}
 
 		public virtual void PrintActorRemovesObjPrepContainer(IMonster monster, IArtifact artifact, IArtifact container, ContainerType containerType, bool omitWeightCheck)
@@ -1252,12 +1232,7 @@ namespace EamonRT.Game.Commands
 			return true;
 		}
 
-		public virtual void Execute()
-		{
-
-		}
-
-		public virtual void PreExecute()
+		public virtual void Stage()
 		{
 			Debug.Assert(Command.ActorMonster != null);
 
@@ -1318,6 +1293,11 @@ namespace EamonRT.Game.Commands
 			Globals.NextState = Command.NextState;
 		}
 
+		public virtual void Execute()
+		{
+
+		}
+		
 		public virtual string GetPrintedVerb()
 		{
 			return Command.Verb.ToUpper();

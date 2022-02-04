@@ -212,10 +212,6 @@
             <summary></summary>
             <param name="artifact"></param>
         </member>
-        <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintAlreadyBrokeIt(Eamon.Framework.IArtifact)">
-            <summary></summary>
-            <param name="artifact"></param>
-        </member>
         <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintHaveToForceOpen(Eamon.Framework.IArtifact)">
             <summary></summary>
             <param name="artifact"></param>
@@ -299,10 +295,6 @@
             <param name="artifact"></param>
         </member>
         <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintAlreadyWearingObj(Eamon.Framework.IArtifact)">
-            <summary></summary>
-            <param name="artifact"></param>
-        </member>
-        <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintWhamHitObj(Eamon.Framework.IArtifact)">
             <summary></summary>
             <param name="artifact"></param>
         </member>
@@ -437,18 +429,6 @@
             <param name="artifact"></param>
             <param name="container"></param>
             <param name="containerType"></param>
-        </member>
-        <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintHackToBits(Eamon.Framework.IArtifact,Eamon.Framework.IMonster,System.Boolean)">
-            <summary></summary>
-            <param name="artifact"></param>
-            <param name="monster"></param>
-            <param name="blastSpell"></param>
-        </member>
-        <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintSmashesToPieces(Eamon.Framework.IRoom,Eamon.Framework.IArtifact,System.Boolean)">
-            <summary></summary>
-            <param name="room"></param>
-            <param name="artifact"></param>
-            <param name="contentsSpilled"></param>
         </member>
         <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintActorRemovesObjPrepContainer(Eamon.Framework.IMonster,Eamon.Framework.IArtifact,Eamon.Framework.IArtifact,Eamon.Framework.Primitive.Enums.ContainerType,System.Boolean)">
             <summary></summary>
@@ -627,7 +607,7 @@
         <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintFortuneCookie">
             <summary></summary>
         </member>
-        <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PreExecute">
+        <member name="M:EamonRT.Framework.Commands.ICommandSignatures.Stage">
             <summary></summary>
         </member>
         <member name="M:EamonRT.Framework.Commands.ICommandSignatures.IsAllowedInRoom">
@@ -1178,6 +1158,50 @@
             <param name="artifact"></param>
             <param name="contentsSpilled"></param>
         </member>
+        <member name="M:EamonRT.Framework.Components.IComponentSignatures.PrintWeaponAbilityIncreased(Eamon.Framework.Primitive.Enums.Weapon,Eamon.Framework.Primitive.Classes.IWeapon)">
+            <summary></summary>
+            <param name="w"></param>
+            <param name="weapon"></param>
+        </member>
+        <member name="M:EamonRT.Framework.Components.IComponentSignatures.PrintArmorExpertiseIncreased">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Framework.Components.IComponentSignatures.PrintSpellOverloadsBrain(Eamon.Framework.Primitive.Enums.Spell,Eamon.Framework.Primitive.Classes.ISpell)">
+            <summary></summary>
+            <param name="s"></param>
+            <param name="spell"></param>
+        </member>
+        <member name="M:EamonRT.Framework.Components.IComponentSignatures.PrintSpellAbilityIncreased(Eamon.Framework.Primitive.Enums.Spell,Eamon.Framework.Primitive.Classes.ISpell)">
+            <summary></summary>
+            <param name="s"></param>
+            <param name="spell"></param>
+        </member>
+        <member name="M:EamonRT.Framework.Components.IComponentSignatures.PrintSpellCastFailed(Eamon.Framework.Primitive.Enums.Spell,Eamon.Framework.Primitive.Classes.ISpell)">
+            <summary></summary>
+            <param name="s"></param>
+            <param name="spell"></param>
+        </member>
+        <member name="T:EamonRT.Framework.Components.IMagicComponent">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Framework.Components.IMagicComponent.CheckPlayerSpellCast(Eamon.Framework.Primitive.Enums.Spell,System.Boolean)">
+            <summary></summary>
+            <param name="spellValue"></param>
+            <param name="shouldAllowSkillGains"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EamonRT.Framework.Components.IMagicComponent.ExecuteBlastSpell">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Framework.Components.IMagicComponent.ExecuteHealSpell">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Framework.Components.IMagicComponent.ExecuteSpeedSpell">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Framework.Components.IMagicComponent.ExecutePowerSpell">
+            <summary></summary>
+        </member>
         <member name="T:EamonRT.Framework.IEngine">
             <summary></summary>
         </member>
@@ -1271,28 +1295,8 @@
             <param name="artifact"></param>
             <param name="goldAmount"></param>
         </member>
-        <member name="M:EamonRT.Framework.IEngine.PrintHackToBits(Eamon.Framework.IArtifact,Eamon.Framework.IMonster,System.Boolean)">
-            <summary></summary>
-            <param name="artifact"></param>
-            <param name="monster"></param>
-            <param name="blastSpell"></param>
-        </member>
-        <member name="M:EamonRT.Framework.IEngine.PrintAlreadyBrokeIt(Eamon.Framework.IArtifact)">
-            <summary></summary>
-            <param name="artifact"></param>
-        </member>
         <member name="M:EamonRT.Framework.IEngine.PrintNothingHappens">
             <summary></summary>
-        </member>
-        <member name="M:EamonRT.Framework.IEngine.PrintWhamHitObj(Eamon.Framework.IArtifact)">
-            <summary></summary>
-            <param name="artifact"></param>
-        </member>
-        <member name="M:EamonRT.Framework.IEngine.PrintSmashesToPieces(Eamon.Framework.IRoom,Eamon.Framework.IArtifact,System.Boolean)">
-            <summary></summary>
-            <param name="room"></param>
-            <param name="artifact"></param>
-            <param name="contentsSpilled"></param>
         </member>
         <member name="M:EamonRT.Framework.IEngine.PrintFullDesc(Eamon.Framework.IArtifact,System.Boolean)">
             <summary></summary>
@@ -1366,14 +1370,6 @@
             <summary></summary>
             <param name="s"></param>
             <param name="spell"></param>
-        </member>
-        <member name="M:EamonRT.Framework.IEngine.PrintWeaponAbilityIncreased(Eamon.Framework.Primitive.Enums.Weapon,Eamon.Framework.Primitive.Classes.IWeapon)">
-            <summary></summary>
-            <param name="w"></param>
-            <param name="weapon"></param>
-        </member>
-        <member name="M:EamonRT.Framework.IEngine.PrintArmorExpertiseIncreased">
-            <summary></summary>
         </member>
         <member name="M:EamonRT.Framework.IEngine.PrintTooManyWeapons">
             <summary></summary>
@@ -1788,11 +1784,6 @@
             <param name="stat"></param>
             <param name="bonus"></param>
             <returns></returns>
-        </member>
-        <member name="M:EamonRT.Framework.IEngine.CheckPlayerSkillGains(Eamon.Framework.Primitive.Classes.IArtifactCategory,System.Int64)">
-            <summary></summary>
-            <param name="ac"></param>
-            <param name="af"></param>
         </member>
         <member name="M:EamonRT.Framework.IEngine.CheckToExtinguishLightSource">
             <summary></summary>
@@ -2662,10 +2653,10 @@
             <summary></summary>
             <returns></returns>
         </member>
-        <member name="M:EamonRT.Framework.States.IStateSignatures.Execute">
+        <member name="M:EamonRT.Framework.States.IStateSignatures.Stage">
             <summary></summary>
         </member>
-        <member name="M:EamonRT.Framework.States.IStateSignatures.PreExecute">
+        <member name="M:EamonRT.Framework.States.IStateSignatures.Execute">
             <summary></summary>
         </member>
         <member name="T:EamonRT.Framework.States.IMonsterActionState">
@@ -3337,6 +3328,11 @@
         <member name="P:EamonRT.Game.Components.CombatComponent.S2">
             <summary></summary>
         </member>
+        <member name="M:EamonRT.Game.Components.CombatComponent.CheckPlayerCombatSkillGains(Eamon.Framework.Primitive.Classes.IArtifactCategory,System.Int64)">
+            <summary></summary>
+            <param name="ac"></param>
+            <param name="af"></param>
+        </member>
         <member name="M:EamonRT.Game.Components.CombatComponent.RollToHitOrMiss">
             <summary></summary>
         </member>
@@ -3390,6 +3386,11 @@
         </member>
         <member name="M:EamonRT.Game.Components.CombatComponent.ExecuteStateMachine">
             <summary></summary>
+        </member>
+        <member name="M:EamonRT.Game.Components.MagicComponent.PlayerSpellCastBrainOverload(Eamon.Framework.Primitive.Enums.Spell,Eamon.Framework.Primitive.Classes.ISpell)">
+            <summary></summary>
+            <param name="s"></param>
+            <param name="spell"></param>
         </member>
         <member name="M:EamonRT.Game.Engine.ConvertWeaponsToArtifacts">
             <summary></summary>

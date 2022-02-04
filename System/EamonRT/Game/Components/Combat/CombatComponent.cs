@@ -187,6 +187,79 @@ namespace EamonRT.Game.Components
 		}
 
 		/// <summary></summary>
+		/// <param name="ac"></param>
+		/// <param name="af"></param>
+		public virtual void CheckPlayerCombatSkillGains(IArtifactCategory ac, long af)
+		{
+			Debug.Assert(ac != null && ac.IsWeapon01());
+
+			var s = (Weapon)ac.Field2;
+
+			var rl = gEngine.RollDice(1, 100, 0);
+
+			if (rl > 75)
+			{
+				rl = gEngine.RollDice(1, 100, 0);
+
+				rl += gCharacter.GetIntellectBonusPct();
+
+				if (rl > gCharacter.GetWeaponAbilities(s))
+				{
+					var weapon = gEngine.GetWeapons(s);
+
+					Debug.Assert(weapon != null);
+
+					Globals.WeaponSkillIncreaseFunc = () =>
+					{
+						if (!Globals.IsRulesetVersion(5, 15, 25))
+						{
+							PrintWeaponAbilityIncreased(s, weapon);
+						}
+
+						gCharacter.ModWeaponAbilities(s, 2);
+
+						if (gCharacter.GetWeaponAbilities(s) > weapon.MaxValue)
+						{
+							gCharacter.SetWeaponAbilities(s, weapon.MaxValue);
+						}
+					};
+				}
+
+				var x = Math.Abs(af);
+
+				if (x > 0)
+				{
+					rl = gEngine.RollDice(1, x, 0);
+
+					rl += (long)Math.Round(((double)x / 100.0) * (double)gCharacter.GetIntellectBonusPct());
+
+					if (rl > gCharacter.ArmorExpertise)
+					{
+						Globals.ArmorSkillIncreaseFunc = () =>
+						{
+							if (!Globals.IsRulesetVersion(5, 15, 25))
+							{
+								PrintArmorExpertiseIncreased();
+							}
+
+							gCharacter.ArmorExpertise += 2;
+
+							if (gCharacter.ArmorExpertise <= 66 && gCharacter.ArmorExpertise > x)
+							{
+								gCharacter.ArmorExpertise = x;
+							}
+
+							if (gCharacter.ArmorExpertise > 79)
+							{
+								gCharacter.ArmorExpertise = 79;
+							}
+						};
+					}
+				}
+			}
+		}
+
+		/// <summary></summary>
 		public virtual void RollToHitOrMiss()
 		{
 			if (FixedResult != AttackResult.None)
@@ -284,7 +357,7 @@ namespace EamonRT.Game.Components
 
 			if (ActorMonster.IsCharacterMonster() && _rl < 97 && (_rl < 5 || _rl <= _odds) && ActorAc != null && !OmitSkillGains)
 			{
-				gEngine.CheckPlayerSkillGains(ActorAc, Af);
+				CheckPlayerCombatSkillGains(ActorAc, Af);
 			}
 
 			ActorWeaponType = (Weapon)(ActorAc != null ? ActorAc.Field2 : 0);

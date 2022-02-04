@@ -6,6 +6,7 @@
 using System;
 using Eamon.Framework;
 using Eamon.Framework.Primitive.Classes;
+using Eamon.Framework.Primitive.Enums;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.Components;
 using EamonRT.Framework.Primitive.Enums;
@@ -257,6 +258,31 @@ namespace EamonRT.Game.Components
 		public virtual void PrintSmashesToPieces(IRoom room, IArtifact artifact, bool contentsSpilled)
 		{
 			ComponentImpl.PrintSmashesToPieces(room, artifact, contentsSpilled);
+		}
+
+		public virtual void PrintWeaponAbilityIncreased(Weapon w, IWeapon weapon)
+		{
+			ComponentImpl.PrintWeaponAbilityIncreased(w, weapon);
+		}
+
+		public virtual void PrintArmorExpertiseIncreased()
+		{
+			ComponentImpl.PrintArmorExpertiseIncreased();
+		}
+
+		public virtual void PrintSpellOverloadsBrain(Spell s, ISpell spell)
+		{
+			ComponentImpl.PrintSpellOverloadsBrain(s, spell);
+		}
+
+		public virtual void PrintSpellAbilityIncreased(Spell s, ISpell spell)
+		{
+			ComponentImpl.PrintSpellAbilityIncreased(s, spell);
+		}
+
+		public virtual void PrintSpellCastFailed(Spell s, ISpell spell)
+		{
+			ComponentImpl.PrintSpellCastFailed(s, spell);
 		}
 
 		public Component()
