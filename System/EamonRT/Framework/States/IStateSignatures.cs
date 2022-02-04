@@ -107,7 +107,7 @@ namespace EamonRT.Framework.States
 
 		/// <summary></summary>
 		void Stage();
-		
+
 		/// <summary></summary>
 		void Execute();
 

@@ -192,7 +192,7 @@ namespace EamonRT.Game.States
 		{
 			StateImpl.Stage();
 		}
-		
+
 		public virtual void Execute()
 		{
 			StateImpl.Execute();

@@ -975,7 +975,7 @@ namespace EamonRT.Game.Commands
 		{
 			CommandImpl.Stage();
 		}
-		
+
 		public override void Execute()
 		{
 			CommandImpl.Execute();

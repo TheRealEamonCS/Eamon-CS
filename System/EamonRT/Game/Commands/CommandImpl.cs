@@ -1297,7 +1297,7 @@ namespace EamonRT.Game.Commands
 		{
 
 		}
-		
+
 		public virtual string GetPrintedVerb()
 		{
 			return Command.Verb.ToUpper();

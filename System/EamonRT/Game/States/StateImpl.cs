@@ -309,7 +309,7 @@ namespace EamonRT.Game.States
 		{
 			State.Execute();
 		}
-		
+
 		public virtual void Execute()
 		{
 
