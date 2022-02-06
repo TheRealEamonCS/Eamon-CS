@@ -3,11 +3,9 @@
 
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
-using System;
 using System.Diagnostics;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
-using Eamon.Game.Extensions;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.States;
 using static EamonRT.Game.Plugin.PluginContext;

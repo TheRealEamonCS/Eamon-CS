@@ -154,6 +154,8 @@ namespace EamonRT.Game.Components
 
 		public virtual void ExecuteAttack()
 		{
+			Debug.Assert(DobjArtifact != null || DobjMonster != null);
+
 			if (DobjMonster != null)
 			{ 
 				if (BlastSpell)
