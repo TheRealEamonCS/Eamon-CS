@@ -595,9 +595,6 @@
         <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintAlreadyWearingShield">
             <summary></summary>
         </member>
-        <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintFeelNewAgility">
-            <summary></summary>
-        </member>
         <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintAllWoundsHealed">
             <summary></summary>
         </member>
@@ -978,12 +975,6 @@
             Gets or sets a value indicating whether <see cref="!:DobjMonster">DobjMonster</see>'s armor should be omitted from damage calculations.
             </summary>
         </member>
-        <member name="P:EamonRT.Framework.Components.ICombatComponent.OmitSkillGains">
-            <summary>
-            Gets or sets a value indicating whether this <see cref="T:EamonRT.Framework.Components.ICombatComponent">CombatComponent</see> should omit skill gains if the player
-            character's attack is successful.
-            </summary>
-        </member>
         <member name="P:EamonRT.Framework.Components.ICombatComponent.OmitMonsterStatus">
             <summary>
             Gets or sets a value indicating whether this <see cref="T:EamonRT.Framework.Components.ICombatComponent">CombatComponent</see> should omit printing <see cref="!:DobjMonster">DobjMonster</see>'s
@@ -1057,6 +1048,12 @@
         </member>
         <member name="P:EamonRT.Framework.Components.IComponentSignatures.DobjArtAc">
             <summary></summary>
+        </member>
+        <member name="P:EamonRT.Framework.Components.IComponentSignatures.OmitSkillGains">
+            <summary>
+            Gets or sets a value indicating whether this <see cref="T:EamonRT.Framework.Components.IComponent">Component</see> should omit skill gains if the player
+            character's action is successful.
+            </summary>
         </member>
         <member name="P:EamonRT.Framework.Components.IComponentSignatures.OmitFinalNewLine">
             <summary>
@@ -1181,14 +1178,14 @@
             <param name="s"></param>
             <param name="spell"></param>
         </member>
+        <member name="M:EamonRT.Framework.Components.IComponentSignatures.PrintFeelNewAgility">
+            <summary></summary>
+        </member>
         <member name="T:EamonRT.Framework.Components.IMagicComponent">
             <summary></summary>
         </member>
-        <member name="M:EamonRT.Framework.Components.IMagicComponent.CheckPlayerSpellCast(Eamon.Framework.Primitive.Enums.Spell,System.Boolean)">
+        <member name="P:EamonRT.Framework.Components.IMagicComponent.CastSpell">
             <summary></summary>
-            <param name="spellValue"></param>
-            <param name="shouldAllowSkillGains"></param>
-            <returns></returns>
         </member>
         <member name="M:EamonRT.Framework.Components.IMagicComponent.ExecuteBlastSpell">
             <summary></summary>
@@ -3211,7 +3208,7 @@
         <member name="P:EamonRT.Game.Commands.SaveCommand.GameSaved">
             <summary></summary>
         </member>
-        <member name="P:EamonRT.Game.Commands.SpeedCommand.SpeedTurns">
+        <member name="P:EamonRT.Game.Commands.SpeedCommand.MagicComponent">
             <summary></summary>
         </member>
         <member name="P:EamonRT.Game.Commands.StatusCommand.ArmorArtifactUids">
@@ -3386,6 +3383,14 @@
         </member>
         <member name="M:EamonRT.Game.Components.CombatComponent.ExecuteStateMachine">
             <summary></summary>
+        </member>
+        <member name="P:EamonRT.Game.Components.MagicComponent.SpeedTurns">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Game.Components.MagicComponent.CheckPlayerSpellCast(Eamon.Framework.Primitive.Enums.Spell)">
+            <summary></summary>
+            <param name="spellValue"></param>
+            <returns></returns>
         </member>
         <member name="M:EamonRT.Game.Components.MagicComponent.PlayerSpellCastBrainOverload(Eamon.Framework.Primitive.Enums.Spell,Eamon.Framework.Primitive.Classes.ISpell)">
             <summary></summary>

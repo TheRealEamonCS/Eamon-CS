@@ -69,6 +69,8 @@ namespace EamonRT.Game.Components
 
 		public virtual IArtifactCategory DobjArtAc { get; set; }
 
+		public virtual bool OmitSkillGains { get; set; }
+
 		public virtual bool OmitFinalNewLine { get; set; }
 
 		public virtual void PrintAttack(IRoom room, IMonster actorMonster, IMonster dobjMonster, IArtifact weapon, long attackNumber, WeaponRevealType weaponRevealType)
@@ -296,6 +298,11 @@ namespace EamonRT.Game.Components
 			Debug.Assert(Enum.IsDefined(typeof(Spell), s) && spell != null);
 
 			gOut.Print("Nothing happens.");
+		}
+
+		public virtual void PrintFeelNewAgility()
+		{
+			gOut.Print("You can feel the new agility flowing through you!");
 		}
 
 		public ComponentImpl()

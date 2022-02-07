@@ -16,7 +16,55 @@ namespace EamonRT.Game.Components
 	[ClassMappings]
 	public class MagicComponent : Component, IMagicComponent
 	{
-		public virtual bool CheckPlayerSpellCast(Spell spellValue, bool shouldAllowSkillGains)
+		public virtual bool CastSpell { get; set; }
+
+		/// <summary></summary>
+		public virtual long SpeedTurns { get; set; }
+
+		public virtual void ExecuteBlastSpell()
+		{
+			// TODO: implement
+		}
+
+		public virtual void ExecuteHealSpell()
+		{
+			// TODO: implement
+		}
+
+		public virtual void ExecuteSpeedSpell()
+		{
+			Debug.Assert(ActorMonster != null);
+
+			if (CastSpell && !CheckPlayerSpellCast(Spell.Speed))
+			{
+				goto Cleanup;
+			}
+
+			if (gGameState.Speed <= 0)
+			{
+				ActorMonster.Agility *= 2;
+			}
+
+			SpeedTurns = Globals.IsRulesetVersion(5, 15, 25) ? gEngine.RollDice(1, 25, 9) : gEngine.RollDice(1, 10, 10);
+
+			gGameState.Speed += (SpeedTurns + 1);
+
+			PrintFeelNewAgility();
+
+		Cleanup:
+
+			;
+		}
+
+		public virtual void ExecutePowerSpell()
+		{
+			// TODO: implement
+		}
+
+		/// <summary></summary>
+		/// <param name="spellValue"></param>
+		/// <returns></returns>
+		public virtual bool CheckPlayerSpellCast(Spell spellValue)
 		{
 			Debug.Assert(Enum.IsDefined(typeof(Spell), spellValue));
 
@@ -48,7 +96,7 @@ namespace EamonRT.Game.Components
 
 				gGameState.SetSa(s, (long)((double)gGameState.GetSa(s) * .5 + 1));
 
-				if (shouldAllowSkillGains)
+				if (!OmitSkillGains)
 				{
 					rl = gEngine.RollDice(1, 100, 0);
 
@@ -83,26 +131,6 @@ namespace EamonRT.Game.Components
 		Cleanup:
 
 			return result;
-		}
-
-		public virtual void ExecuteBlastSpell()
-		{
-			// TODO: implement
-		}
-
-		public virtual void ExecuteHealSpell()
-		{
-			// TODO: implement
-		}
-
-		public virtual void ExecuteSpeedSpell()
-		{
-			// TODO: implement
-		}
-
-		public virtual void ExecutePowerSpell()
-		{
-			// TODO: implement
 		}
 
 		/// <summary></summary>

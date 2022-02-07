@@ -12,10 +12,7 @@ namespace EamonRT.Framework.Components
 	public interface IMagicComponent : IComponent
 	{
 		/// <summary></summary>
-		/// <param name="spellValue"></param>
-		/// <param name="shouldAllowSkillGains"></param>
-		/// <returns></returns>
-		bool CheckPlayerSpellCast(Spell spellValue, bool shouldAllowSkillGains);
+		bool CastSpell { get; set; }
 
 		/// <summary></summary>
 		void ExecuteBlastSpell();
