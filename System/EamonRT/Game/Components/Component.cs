@@ -142,19 +142,6 @@ namespace EamonRT.Game.Components
 			}
 		}
 
-		public virtual bool OmitSkillGains
-		{
-			get
-			{
-				return ComponentImpl.OmitSkillGains;
-			}
-
-			set
-			{
-				ComponentImpl.OmitSkillGains = value;
-			}
-		}
-
 		public virtual bool OmitFinalNewLine
 		{
 			get
@@ -296,11 +283,6 @@ namespace EamonRT.Game.Components
 		public virtual void PrintSpellCastFailed(Spell s, ISpell spell)
 		{
 			ComponentImpl.PrintSpellCastFailed(s, spell);
-		}
-
-		public virtual void PrintFeelNewAgility()
-		{
-			ComponentImpl.PrintFeelNewAgility();
 		}
 
 		public Component()

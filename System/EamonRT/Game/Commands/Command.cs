@@ -931,6 +931,11 @@ namespace EamonRT.Game.Commands
 			CommandImpl.PrintAlreadyWearingShield();
 		}
 
+		public virtual void PrintFeelNewAgility()
+		{
+			CommandImpl.PrintFeelNewAgility();
+		}
+
 		public virtual void PrintAllWoundsHealed()
 		{
 			CommandImpl.PrintAllWoundsHealed();

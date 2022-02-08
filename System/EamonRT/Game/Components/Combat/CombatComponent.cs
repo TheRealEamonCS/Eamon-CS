@@ -43,6 +43,8 @@ namespace EamonRT.Game.Components
 
 		public virtual bool OmitArmor { get; set; }
 
+		public virtual bool OmitSkillGains { get; set; }
+
 		public virtual bool OmitMonsterStatus { get; set; }
 
 		public virtual AttackResult FixedResult { get; set; }

@@ -6,7 +6,6 @@
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
-using EamonRT.Framework.Components;
 using EamonRT.Framework.States;
 using static EamonRT.Game.Plugin.PluginContext;
 
@@ -18,24 +17,27 @@ namespace EamonRT.Game.Commands
 		public virtual bool CastSpell { get; set; }
 
 		/// <summary></summary>
-		public virtual IMagicComponent MagicComponent { get; set; }
+		public virtual long SpeedTurns { get; set; }
 
 		public override void Execute()
 		{
-			MagicComponent = Globals.CreateInstance<IMagicComponent>(x =>
+			if (CastSpell && !gEngine.CheckPlayerSpellCast(Spell.Speed, ShouldAllowSkillGains()))
 			{
-				x.SetNextStateFunc = s => NextState = s;
+				goto Cleanup;
+			}
 
-				x.ActorMonster = ActorMonster;
+			if (gGameState.Speed <= 0)
+			{
+				ActorMonster.Agility *= 2;
+			}
 
-				x.ActorRoom = ActorRoom;
+			SpeedTurns = Globals.IsRulesetVersion(5, 15, 25) ? gEngine.RollDice(1, 25, 9) : gEngine.RollDice(1, 10, 10);
 
-				x.OmitSkillGains = !ShouldAllowSkillGains();
+			gGameState.Speed += (SpeedTurns + 1);
 
-				x.CastSpell = CastSpell;
-			});
+			PrintFeelNewAgility();
 
-			MagicComponent.ExecuteSpeedSpell();
+		Cleanup:
 
 			if (NextState == null)
 			{

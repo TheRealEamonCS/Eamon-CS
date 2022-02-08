@@ -1084,6 +1084,11 @@ namespace EamonRT.Game.Commands
 			gOut.Print("You're already wearing a shield!");
 		}
 
+		public virtual void PrintFeelNewAgility()
+		{
+			gOut.Print("You can feel the new agility flowing through you!");
+		}
+
 		public virtual void PrintAllWoundsHealed()
 		{
 			gOut.Print("All of your wounds are healed.");

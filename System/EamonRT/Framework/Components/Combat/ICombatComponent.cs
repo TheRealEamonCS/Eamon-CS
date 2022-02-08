@@ -43,6 +43,12 @@ namespace EamonRT.Framework.Components
 		bool OmitArmor { get; set; }
 
 		/// <summary>
+		/// Gets or sets a value indicating whether this <see cref="ICombatComponent">CombatComponent</see> should omit skill gains if the player
+		/// character's attack is successful.
+		/// </summary>
+		bool OmitSkillGains { get; set; }
+
+		/// <summary>
 		/// Gets or sets a value indicating whether this <see cref="ICombatComponent">CombatComponent</see> should omit printing <see cref="DobjMonster">DobjMonster</see>'s
 		/// health status after damage is calculated.
 		/// </summary>

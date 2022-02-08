@@ -588,6 +588,9 @@ namespace EamonRT.Framework.Commands
 		void PrintAlreadyWearingShield();
 
 		/// <summary></summary>
+		void PrintFeelNewAgility();
+
+		/// <summary></summary>
 		void PrintAllWoundsHealed();
 
 		/// <summary></summary>
