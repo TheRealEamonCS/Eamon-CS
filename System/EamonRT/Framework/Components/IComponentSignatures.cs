@@ -55,6 +55,12 @@ namespace EamonRT.Framework.Components
 		IArtifactCategory DobjArtAc { get; set; }
 
 		/// <summary>
+		/// Gets or sets a value indicating whether this <see cref="IComponent">Component</see> should omit skill gains if the player
+		/// character's action is successful.
+		/// </summary>
+		bool OmitSkillGains { get; set; }
+
+		/// <summary>
 		/// Gets or sets a value indicating whether this <see cref="IComponent">Component</see> should print a final newline after
 		/// processing completes.
 		/// </summary>
@@ -176,5 +182,8 @@ namespace EamonRT.Framework.Components
 		/// <param name="s"></param>
 		/// <param name="spell"></param>
 		void PrintSpellCastFailed(Spell s, ISpell spell);
+
+		/// <summary></summary>
+		void PrintFeelNewAgility();
 	}
 }

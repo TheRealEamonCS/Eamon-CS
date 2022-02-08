@@ -3,19 +3,13 @@
 
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
-using Eamon.Framework.Primitive.Classes;
-using Eamon.Framework.Primitive.Enums;
-
 namespace EamonRT.Framework.Components
 {
 	/// <summary></summary>
 	public interface IMagicComponent : IComponent
 	{
 		/// <summary></summary>
-		/// <param name="spellValue"></param>
-		/// <param name="shouldAllowSkillGains"></param>
-		/// <returns></returns>
-		bool CheckPlayerSpellCast(Spell spellValue, bool shouldAllowSkillGains);
+		bool CastSpell { get; set; }
 
 		/// <summary></summary>
 		void ExecuteBlastSpell();

@@ -43,8 +43,6 @@ namespace EamonRT.Game.Components
 
 		public virtual bool OmitArmor { get; set; }
 
-		public virtual bool OmitSkillGains { get; set; }
-
 		public virtual bool OmitMonsterStatus { get; set; }
 
 		public virtual AttackResult FixedResult { get; set; }
@@ -675,6 +673,8 @@ namespace EamonRT.Game.Components
 		/// <summary></summary>
 		public virtual void CheckMonsterStatus()
 		{
+			Debug.Assert(SetNextStateFunc != null);
+
 			Debug.Assert(DobjMonster != null);
 
 			Debug.Assert(_d2 >= 0);
@@ -692,13 +692,10 @@ namespace EamonRT.Game.Components
 				{
 					gGameState.Die = 1;
 
-					if (SetNextStateFunc != null)
+					SetNextStateFunc(Globals.CreateInstance<IPlayerDeadState>(x =>
 					{
-						SetNextStateFunc(Globals.CreateInstance<IPlayerDeadState>(x =>
-						{
-							x.PrintLineSep = true;
-						}));
-					}
+						x.PrintLineSep = true;
+					}));
 				}
 				else
 				{
@@ -712,6 +709,8 @@ namespace EamonRT.Game.Components
 		/// <summary></summary>
 		public virtual void CheckDisguisedMonster()
 		{
+			Debug.Assert(SetNextStateFunc != null && CopyCommandDataFunc != null);
+
 			Debug.Assert(DobjArtAc != null);
 
 			if (DobjArtAc.Type == ArtifactType.DisguisedMonster)

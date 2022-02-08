@@ -9,6 +9,7 @@ using Eamon.Framework.Primitive.Classes;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Components;
+using EamonRT.Framework.Primitive.Enums;
 using static EamonRT.Game.Plugin.PluginContext;
 
 namespace EamonRT.Game.Components
@@ -16,7 +17,81 @@ namespace EamonRT.Game.Components
 	[ClassMappings]
 	public class MagicComponent : Component, IMagicComponent
 	{
-		public virtual bool CheckPlayerSpellCast(Spell spellValue, bool shouldAllowSkillGains)
+		public virtual bool CastSpell { get; set; }
+
+		/// <summary></summary>
+		public virtual long SpeedTurns { get; set; }
+
+		/// <summary></summary>
+		public virtual MagicState MagicState { get; set; }
+
+		public virtual void ExecuteBlastSpell()
+		{
+			// TODO: implement
+		}
+
+		public virtual void ExecuteHealSpell()
+		{
+			// TODO: implement
+		}
+
+		public virtual void ExecuteSpeedSpell()
+		{
+			MagicState = MagicState.BeginSpeedSpell;
+
+			ExecuteStateMachine();
+		}
+
+		public virtual void ExecutePowerSpell()
+		{
+			// TODO: implement
+		}
+
+		public virtual void BeginSpeedSpell()
+		{
+			if (CastSpell && !CheckPlayerSpellCast(Spell.Speed))
+			{
+				MagicState = MagicState.EndMagic;
+
+				goto Cleanup;
+			}
+
+			MagicState = MagicState.BoostAgility;
+
+		Cleanup:
+
+			;
+		}
+
+		public virtual void BoostAgility()
+		{
+			Debug.Assert(ActorMonster != null);
+
+			if (gGameState.Speed <= 0)
+			{
+				ActorMonster.Agility *= 2;
+			}
+
+			MagicState = MagicState.CalculateSpeedTurns;
+		}
+
+		public virtual void CalculateSpeedTurns()
+		{
+			SpeedTurns = Globals.IsRulesetVersion(5, 15, 25) ? gEngine.RollDice(1, 25, 9) : gEngine.RollDice(1, 10, 10);
+
+			gGameState.Speed += (SpeedTurns + 1);
+
+			MagicState = MagicState.FeelNewAgility;
+		}
+
+		public virtual void FeelNewAgility()
+		{
+			PrintFeelNewAgility();
+
+			MagicState = MagicState.EndMagic;
+		}
+
+		public virtual bool CheckPlayerSpellCast(Spell spellValue)
 		{
 			Debug.Assert(Enum.IsDefined(typeof(Spell), spellValue));
 
@@ -48,7 +123,7 @@ namespace EamonRT.Game.Components
 
 				gGameState.SetSa(s, (long)((double)gGameState.GetSa(s) * .5 + 1));
 
-				if (shouldAllowSkillGains)
+				if (!OmitSkillGains)
 				{
 					rl = gEngine.RollDice(1, 100, 0);
 
@@ -85,26 +160,6 @@ namespace EamonRT.Game.Components
 			return result;
 		}
 
-		public virtual void ExecuteBlastSpell()
-		{
-			// TODO: implement
-		}
-
-		public virtual void ExecuteHealSpell()
-		{
-			// TODO: implement
-		}
-
-		public virtual void ExecuteSpeedSpell()
-		{
-			// TODO: implement
-		}
-
-		public virtual void ExecutePowerSpell()
-		{
-			// TODO: implement
-		}
-
 		/// <summary></summary>
 		/// <param name="s"></param>
 		/// <param name="spell"></param>
@@ -121,6 +176,59 @@ namespace EamonRT.Game.Components
 			if (Globals.IsRulesetVersion(5, 15, 25))
 			{
 				gCharacter.SetSpellAbilities(s, 0);
+			}
+		}
+
+		/// <summary></summary>
+		public virtual void ExecuteStateMachine()
+		{
+			Debug.Assert(MagicState == MagicState.BeginSpeedSpell);
+
+			while (true)
+			{
+				switch (MagicState)
+				{
+					case MagicState.BeginSpeedSpell:
+
+						BeginSpeedSpell();
+
+						break;
+
+					case MagicState.BoostAgility:
+
+						BoostAgility();
+
+						break;
+
+					case MagicState.CalculateSpeedTurns:
+
+						CalculateSpeedTurns();
+
+						break;
+
+					case MagicState.FeelNewAgility:
+
+						FeelNewAgility();
+
+						break;
+
+					case MagicState.EndMagic:
+
+						goto Cleanup;
+
+					default:
+
+						Debug.Assert(false, "Invalid MagicState");
+
+						break;
+				}
+			}
+
+		Cleanup:
+
+			if (!OmitFinalNewLine)
+			{
+				gOut.WriteLine();
 			}
 		}
 
