@@ -1178,6 +1178,15 @@
             <param name="s"></param>
             <param name="spell"></param>
         </member>
+        <member name="M:EamonRT.Framework.Components.IComponentSignatures.PrintHealthImproves(Eamon.Framework.IMonster)">
+            <summary></summary>
+            <param name="monster"></param>
+        </member>
+        <member name="M:EamonRT.Framework.Components.IComponentSignatures.PrintHealthStatus(Eamon.Framework.IMonster,System.Boolean)">
+            <summary></summary>
+            <param name="monster"></param>
+            <param name="includeUninjuredGroupMonsters"></param>
+        </member>
         <member name="M:EamonRT.Framework.Components.IComponentSignatures.PrintFeelNewAgility">
             <summary></summary>
         </member>
@@ -1348,6 +1357,15 @@
             <summary></summary>
             <param name="monster"></param>
             <param name="showName"></param>
+        </member>
+        <member name="M:EamonRT.Framework.IEngine.PrintHealthImproves(Eamon.Framework.IMonster)">
+            <summary></summary>
+            <param name="monster"></param>
+        </member>
+        <member name="M:EamonRT.Framework.IEngine.PrintHealthStatus(Eamon.Framework.IMonster,System.Boolean)">
+            <summary></summary>
+            <param name="monster"></param>
+            <param name="includeUninjuredGroupMonsters"></param>
         </member>
         <member name="M:EamonRT.Framework.IEngine.PrintDoesntHaveIt(Eamon.Framework.IMonster)">
             <summary></summary>
@@ -2520,6 +2538,15 @@
         <member name="F:EamonRT.Framework.Primitive.Enums.MagicState.None">
             <summary></summary>
         </member>
+        <member name="F:EamonRT.Framework.Primitive.Enums.MagicState.BeginHealSpell">
+            <summary></summary>
+        </member>
+        <member name="F:EamonRT.Framework.Primitive.Enums.MagicState.HealInjury">
+            <summary></summary>
+        </member>
+        <member name="F:EamonRT.Framework.Primitive.Enums.MagicState.ShowHealthStatus">
+            <summary></summary>
+        </member>
         <member name="F:EamonRT.Framework.Primitive.Enums.MagicState.BeginSpeedSpell">
             <summary></summary>
         </member>
@@ -2529,7 +2556,7 @@
         <member name="F:EamonRT.Framework.Primitive.Enums.MagicState.CalculateSpeedTurns">
             <summary></summary>
         </member>
-        <member name="F:EamonRT.Framework.Primitive.Enums.MagicState.FeelNewAgility">
+        <member name="F:EamonRT.Framework.Primitive.Enums.MagicState.FeelEnergized">
             <summary></summary>
         </member>
         <member name="F:EamonRT.Framework.Primitive.Enums.MagicState.EndMagic">
@@ -2893,10 +2920,7 @@
         <member name="P:EamonRT.Game.Commands.GiveCommand.ObjOpened">
             <summary></summary>
         </member>
-        <member name="P:EamonRT.Game.Commands.HealCommand.IsCharMonster">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Game.Commands.HealCommand.DamageHealed">
+        <member name="P:EamonRT.Game.Commands.HealCommand.MagicComponent">
             <summary></summary>
         </member>
         <member name="P:EamonRT.Game.Commands.SmileCommand.SmilingMonsterList">
@@ -3414,11 +3438,40 @@
         <member name="M:EamonRT.Game.Components.CombatComponent.ExecuteStateMachine">
             <summary></summary>
         </member>
+        <member name="P:EamonRT.Game.Components.MagicComponent.DamageHealed">
+            <summary></summary>
+        </member>
         <member name="P:EamonRT.Game.Components.MagicComponent.SpeedTurns">
             <summary></summary>
         </member>
         <member name="P:EamonRT.Game.Components.MagicComponent.MagicState">
             <summary></summary>
+        </member>
+        <member name="M:EamonRT.Game.Components.MagicComponent.BeginHealSpell">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Game.Components.MagicComponent.HealInjury">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Game.Components.MagicComponent.ShowHealthStatus">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Game.Components.MagicComponent.BeginSpeedSpell">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Game.Components.MagicComponent.BoostAgility">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Game.Components.MagicComponent.CalculateSpeedTurns">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Game.Components.MagicComponent.FeelEnergized">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Game.Components.MagicComponent.CheckPlayerSpellCast(Eamon.Framework.Primitive.Enums.Spell)">
+            <summary></summary>
+            <param name="spellValue"></param>
+            <returns></returns>
         </member>
         <member name="M:EamonRT.Game.Components.MagicComponent.PlayerSpellCastBrainOverload(Eamon.Framework.Primitive.Enums.Spell,Eamon.Framework.Primitive.Classes.ISpell)">
             <summary></summary>

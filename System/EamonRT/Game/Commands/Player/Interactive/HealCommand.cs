@@ -7,6 +7,7 @@ using System.Diagnostics;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
+using EamonRT.Framework.Components;
 using EamonRT.Framework.States;
 using static EamonRT.Game.Plugin.PluginContext;
 
@@ -18,39 +19,28 @@ namespace EamonRT.Game.Commands
 		public virtual bool CastSpell { get; set; }
 
 		/// <summary></summary>
-		public virtual bool IsCharMonster { get; set; }
-
-		/// <summary></summary>
-		public virtual long DamageHealed { get; set; }
+		public virtual IMagicComponent MagicComponent { get; set; }
 
 		public override void Execute()
 		{
 			Debug.Assert(DobjMonster != null);
 
-			if (CastSpell && !gEngine.CheckPlayerSpellCast(Spell.Heal, ShouldAllowSkillGains()))
+			MagicComponent = Globals.CreateInstance<IMagicComponent>(x =>
 			{
-				goto Cleanup;
-			}
+				x.SetNextStateFunc = s => NextState = s;
 
-			IsCharMonster = DobjMonster.IsCharacterMonster();
+				x.ActorMonster = ActorMonster;
 
-			if (DobjMonster.DmgTaken > 0)
-			{
-				PrintHealthImproves(DobjMonster);
+				x.ActorRoom = ActorRoom;
 
-				DamageHealed = gEngine.RollDice(1, Globals.IsRulesetVersion(5, 15, 25) ? 10 : 12, 0);
+				x.Dobj = DobjMonster;
 
-				DobjMonster.DmgTaken -= DamageHealed;
-			}
+				x.OmitSkillGains = !ShouldAllowSkillGains();
 
-			if (DobjMonster.DmgTaken < 0)
-			{
-				DobjMonster.DmgTaken = 0;
-			}
+				x.CastSpell = CastSpell;
+			});
 
-			PrintHealthStatus(DobjMonster, false);
-
-		Cleanup:
+			MagicComponent.ExecuteHealSpell();
 
 			if (NextState == null)
 			{

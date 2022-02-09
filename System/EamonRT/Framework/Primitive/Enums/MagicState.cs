@@ -12,6 +12,15 @@ namespace EamonRT.Framework.Primitive.Enums
 		None = 0,
 
 		/// <summary></summary>
+		BeginHealSpell,
+
+		/// <summary></summary>
+		HealInjury,
+
+		/// <summary></summary>
+		ShowHealthStatus,
+
+		/// <summary></summary>
 		BeginSpeedSpell,
 
 		/// <summary></summary>
@@ -21,7 +30,7 @@ namespace EamonRT.Framework.Primitive.Enums
 		CalculateSpeedTurns,
 
 		/// <summary></summary>
-		FeelNewAgility,
+		FeelEnergized,
 
 		/// <summary></summary>
 		EndMagic,

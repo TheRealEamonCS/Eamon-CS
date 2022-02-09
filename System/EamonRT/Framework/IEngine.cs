@@ -166,6 +166,15 @@ namespace EamonRT.Framework
 
 		/// <summary></summary>
 		/// <param name="monster"></param>
+		void PrintHealthImproves(IMonster monster);
+
+		/// <summary></summary>
+		/// <param name="monster"></param>
+		/// <param name="includeUninjuredGroupMonsters"></param>
+		void PrintHealthStatus(IMonster monster, bool includeUninjuredGroupMonsters);
+
+		/// <summary></summary>
+		/// <param name="monster"></param>
 		void PrintDoesntHaveIt(IMonster monster);
 
 		/// <summary></summary>

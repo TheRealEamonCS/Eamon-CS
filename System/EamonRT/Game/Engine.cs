@@ -258,6 +258,46 @@ namespace EamonRT.Game
 			gOut.Write("{0}", Globals.Buf);
 		}
 
+		public virtual void PrintHealthImproves(IMonster monster)
+		{
+			Debug.Assert(monster != null);
+
+			var isCharMonster = monster.IsCharacterMonster();
+
+			if (Globals.IsRulesetVersion(5, 15, 25))
+			{
+				gOut.Print("Some of {0} wounds seem to clear up.",
+					isCharMonster ? "your" :
+					monster.EvalPlural(monster.GetTheName(), monster.GetArticleName(false, true, false, true, Globals.Buf01)).AddPossessiveSuffix());
+			}
+			else
+			{
+				gOut.Print("{0} health improves!",
+					isCharMonster ? "Your" :
+					monster.EvalPlural(monster.GetTheName(true), monster.GetArticleName(true, true, false, true, Globals.Buf01)).AddPossessiveSuffix());
+			}
+		}
+
+		public virtual void PrintHealthStatus(IMonster monster, bool includeUninjuredGroupMonsters)
+		{
+			Debug.Assert(monster != null);
+
+			var isCharMonster = monster.IsCharacterMonster();
+
+			var isUninjuredGroupMonster = includeUninjuredGroupMonsters && monster.CurrGroupCount > 1 && monster.DmgTaken == 0;
+
+			Globals.Buf.SetFormat("{0}{1} {2} ",
+				Environment.NewLine,
+				isCharMonster ? "You" :
+				isUninjuredGroupMonster ? "They" :
+				monster.GetTheName(true, true, false, true, Globals.Buf01),
+				isCharMonster || isUninjuredGroupMonster ? "are" : "is");
+
+			monster.AddHealthStatus(Globals.Buf);
+
+			gOut.Write("{0}", Globals.Buf);
+		}
+
 		public virtual void PrintDoesntHaveIt(IMonster monster)
 		{
 			Debug.Assert(monster != null);

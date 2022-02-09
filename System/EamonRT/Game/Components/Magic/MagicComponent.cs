@@ -20,6 +20,9 @@ namespace EamonRT.Game.Components
 		public virtual bool CastSpell { get; set; }
 
 		/// <summary></summary>
+		public virtual long DamageHealed { get; set; }
+
+		/// <summary></summary>
 		public virtual long SpeedTurns { get; set; }
 
 		/// <summary></summary>
@@ -32,7 +35,11 @@ namespace EamonRT.Game.Components
 
 		public virtual void ExecuteHealSpell()
 		{
-			// TODO: implement
+			Debug.Assert(DobjMonster != null);
+
+			MagicState = MagicState.BeginHealSpell;
+
+			ExecuteStateMachine();
 		}
 
 		public virtual void ExecuteSpeedSpell()
@@ -47,6 +54,54 @@ namespace EamonRT.Game.Components
 			// TODO: implement
 		}
 
+		/// <summary></summary>
+		public virtual void BeginHealSpell()
+		{
+			if (CastSpell && !CheckPlayerSpellCast(Spell.Heal))
+			{
+				MagicState = MagicState.EndMagic;
+
+				goto Cleanup;
+			}
+
+			MagicState = MagicState.HealInjury;
+
+		Cleanup:
+
+			;
+		}
+
+		/// <summary></summary>
+		public virtual void HealInjury()
+		{
+			Debug.Assert(DobjMonster != null);
+
+			if (DobjMonster.DmgTaken > 0)
+			{
+				PrintHealthImproves(DobjMonster);
+
+				DamageHealed = gEngine.RollDice(1, Globals.IsRulesetVersion(5, 15, 25) ? 10 : 12, 0);
+
+				DobjMonster.DmgTaken -= DamageHealed;
+			}
+
+			if (DobjMonster.DmgTaken < 0)
+			{
+				DobjMonster.DmgTaken = 0;
+			}
+
+			MagicState = MagicState.ShowHealthStatus;
+		}
+
+		/// <summary></summary>
+		public virtual void ShowHealthStatus()
+		{
+			PrintHealthStatus(DobjMonster, false);
+
+			MagicState = MagicState.EndMagic;
+		}
+
+		/// <summary></summary>
 		public virtual void BeginSpeedSpell()
 		{
 			if (CastSpell && !CheckPlayerSpellCast(Spell.Speed))
@@ -63,6 +118,7 @@ namespace EamonRT.Game.Components
 			;
 		}
 
+		/// <summary></summary>
 		public virtual void BoostAgility()
 		{
 			Debug.Assert(ActorMonster != null);
@@ -75,22 +131,27 @@ namespace EamonRT.Game.Components
 			MagicState = MagicState.CalculateSpeedTurns;
 		}
 
+		/// <summary></summary>
 		public virtual void CalculateSpeedTurns()
 		{
 			SpeedTurns = Globals.IsRulesetVersion(5, 15, 25) ? gEngine.RollDice(1, 25, 9) : gEngine.RollDice(1, 10, 10);
 
 			gGameState.Speed += (SpeedTurns + 1);
 
-			MagicState = MagicState.FeelNewAgility;
+			MagicState = MagicState.FeelEnergized;
 		}
 
-		public virtual void FeelNewAgility()
+		/// <summary></summary>
+		public virtual void FeelEnergized()
 		{
 			PrintFeelNewAgility();
 
 			MagicState = MagicState.EndMagic;
 		}
 
+		/// <summary></summary>
+		/// <param name="spellValue"></param>
+		/// <returns></returns>
 		public virtual bool CheckPlayerSpellCast(Spell spellValue)
 		{
 			Debug.Assert(Enum.IsDefined(typeof(Spell), spellValue));
@@ -188,6 +249,24 @@ namespace EamonRT.Game.Components
 			{
 				switch (MagicState)
 				{
+					case MagicState.BeginHealSpell:
+
+						BeginHealSpell();
+
+						break;
+
+					case MagicState.HealInjury:
+
+						HealInjury();
+
+						break;
+
+					case MagicState.ShowHealthStatus:
+
+						ShowHealthStatus();
+
+						break;
+
 					case MagicState.BeginSpeedSpell:
 
 						BeginSpeedSpell();
@@ -206,9 +285,9 @@ namespace EamonRT.Game.Components
 
 						break;
 
-					case MagicState.FeelNewAgility:
+					case MagicState.FeelEnergized:
 
-						FeelNewAgility();
+						FeelEnergized();
 
 						break;
 

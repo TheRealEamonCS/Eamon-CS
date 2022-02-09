@@ -300,6 +300,16 @@ namespace EamonRT.Game.Components
 			gOut.Print("Nothing happens.");
 		}
 
+		public virtual void PrintHealthImproves(IMonster monster)
+		{
+			gEngine.PrintHealthImproves(monster);
+		}
+
+		public virtual void PrintHealthStatus(IMonster monster, bool includeUninjuredGroupMonsters)
+		{
+			gEngine.PrintHealthStatus(monster, includeUninjuredGroupMonsters);
+		}
+
 		public virtual void PrintFeelNewAgility()
 		{
 			gOut.Print("You can feel the new agility flowing through you!");

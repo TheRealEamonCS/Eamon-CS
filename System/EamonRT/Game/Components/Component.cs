@@ -298,6 +298,16 @@ namespace EamonRT.Game.Components
 			ComponentImpl.PrintSpellCastFailed(s, spell);
 		}
 
+		public virtual void PrintHealthImproves(IMonster monster)
+		{
+			ComponentImpl.PrintHealthImproves(monster);
+		}
+
+		public virtual void PrintHealthStatus(IMonster monster, bool includeUninjuredGroupMonsters)
+		{
+			ComponentImpl.PrintHealthStatus(monster, includeUninjuredGroupMonsters);
+		}
+
 		public virtual void PrintFeelNewAgility()
 		{
 			ComponentImpl.PrintFeelNewAgility();
