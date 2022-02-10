@@ -12,7 +12,10 @@ namespace EamonRT.Framework.Primitive.Enums
 		None = 0,
 
 		/// <summary></summary>
-		BeginHealSpell,
+		BeginSpellHeal,
+
+		/// <summary></summary>
+		CheckAfterCastHeal,
 
 		/// <summary></summary>
 		HealInjury,
@@ -21,7 +24,10 @@ namespace EamonRT.Framework.Primitive.Enums
 		ShowHealthStatus,
 
 		/// <summary></summary>
-		BeginSpeedSpell,
+		BeginSpellSpeed,
+
+		/// <summary></summary>
+		CheckAfterCastSpeed,
 
 		/// <summary></summary>
 		BoostAgility,
@@ -31,6 +37,27 @@ namespace EamonRT.Framework.Primitive.Enums
 
 		/// <summary></summary>
 		FeelEnergized,
+
+		/// <summary></summary>
+		BeginSpellPower,
+
+		/// <summary></summary>
+		CheckAfterCastPower,
+
+		/// <summary></summary>
+		SonicBoomFortuneCookie,
+
+		/// <summary></summary>
+		RaiseDeadVanishArtifacts,
+
+		/// <summary></summary>
+		TunnelCollapses,
+
+		/// <summary></summary>
+		SonicBoom,
+
+		/// <summary></summary>
+		AllWoundsHealed,
 
 		/// <summary></summary>
 		EndMagic,

@@ -52,6 +52,9 @@ namespace EamonRT.Framework.Components
 		IMonster IobjMonster { get; }
 
 		/// <summary></summary>
+		ICommand RedirectCommand { get; set; }
+
+		/// <summary></summary>
 		IArtifactCategory DobjArtAc { get; set; }
 
 		/// <summary>
@@ -194,5 +197,19 @@ namespace EamonRT.Framework.Components
 
 		/// <summary></summary>
 		void PrintFeelNewAgility();
+
+		/// <summary></summary>
+		/// <param name="room"></param>
+		void PrintSonicBoom(IRoom room);
+
+		/// <summary></summary>
+		void PrintFortuneCookie();
+
+		/// <summary></summary>
+		/// <param name="room"></param>
+		void PrintTunnelCollapses(IRoom room);
+
+		/// <summary></summary>
+		void PrintAllWoundsHealed();
 	}
 }

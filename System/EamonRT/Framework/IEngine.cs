@@ -205,6 +205,9 @@ namespace EamonRT.Framework
 		void PrintEnterWeaponToSell();
 
 		/// <summary></summary>
+		void PrintAllWoundsHealed();
+
+		/// <summary></summary>
 		void PrintYouHavePerished();
 
 		/// <summary></summary>

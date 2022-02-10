@@ -377,14 +377,6 @@
             <param name="monster"></param>
             <param name="monsterCarriedArtifactList"></param>
         </member>
-        <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintSonicBoom(Eamon.Framework.IRoom)">
-            <summary></summary>
-            <param name="room"></param>
-        </member>
-        <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintTunnelCollapses(Eamon.Framework.IRoom)">
-            <summary></summary>
-            <param name="room"></param>
-        </member>
         <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintOpensConsumesAndHandsBack(Eamon.Framework.IArtifact,Eamon.Framework.IMonster,System.Boolean,System.Boolean)">
             <summary></summary>
             <param name="artifact"></param>
@@ -595,13 +587,7 @@
         <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintAlreadyWearingShield">
             <summary></summary>
         </member>
-        <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintAllWoundsHealed">
-            <summary></summary>
-        </member>
         <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintZapDirectHit">
-            <summary></summary>
-        </member>
-        <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintFortuneCookie">
             <summary></summary>
         </member>
         <member name="M:EamonRT.Framework.Commands.ICommandSignatures.Stage">
@@ -819,13 +805,13 @@
         <member name="T:EamonRT.Framework.Commands.IPowerCommand">
             <summary></summary>
         </member>
-        <member name="P:EamonRT.Framework.Commands.IPowerCommand.CastSpell">
-            <summary></summary>
-        </member>
         <member name="P:EamonRT.Framework.Commands.IPowerCommand.ResurrectWhereClauseFuncs">
             <summary></summary>
         </member>
         <member name="P:EamonRT.Framework.Commands.IPowerCommand.VanishWhereClauseFuncs">
+            <summary></summary>
+        </member>
+        <member name="P:EamonRT.Framework.Commands.IPowerCommand.CastSpell">
             <summary></summary>
         </member>
         <member name="T:EamonRT.Framework.Commands.IQuitCommand">
@@ -1046,6 +1032,9 @@
         <member name="P:EamonRT.Framework.Components.IComponentSignatures.IobjMonster">
             <summary></summary>
         </member>
+        <member name="P:EamonRT.Framework.Components.IComponentSignatures.RedirectCommand">
+            <summary></summary>
+        </member>
         <member name="P:EamonRT.Framework.Components.IComponentSignatures.DobjArtAc">
             <summary></summary>
         </member>
@@ -1190,7 +1179,27 @@
         <member name="M:EamonRT.Framework.Components.IComponentSignatures.PrintFeelNewAgility">
             <summary></summary>
         </member>
+        <member name="M:EamonRT.Framework.Components.IComponentSignatures.PrintSonicBoom(Eamon.Framework.IRoom)">
+            <summary></summary>
+            <param name="room"></param>
+        </member>
+        <member name="M:EamonRT.Framework.Components.IComponentSignatures.PrintFortuneCookie">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Framework.Components.IComponentSignatures.PrintTunnelCollapses(Eamon.Framework.IRoom)">
+            <summary></summary>
+            <param name="room"></param>
+        </member>
+        <member name="M:EamonRT.Framework.Components.IComponentSignatures.PrintAllWoundsHealed">
+            <summary></summary>
+        </member>
         <member name="T:EamonRT.Framework.Components.IMagicComponent">
+            <summary></summary>
+        </member>
+        <member name="P:EamonRT.Framework.Components.IMagicComponent.ResurrectWhereClauseFuncs">
+            <summary></summary>
+        </member>
+        <member name="P:EamonRT.Framework.Components.IMagicComponent.VanishWhereClauseFuncs">
             <summary></summary>
         </member>
         <member name="P:EamonRT.Framework.Components.IMagicComponent.CastSpell">
@@ -1396,6 +1405,9 @@
             <summary></summary>
         </member>
         <member name="M:EamonRT.Framework.IEngine.PrintEnterWeaponToSell">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Framework.IEngine.PrintAllWoundsHealed">
             <summary></summary>
         </member>
         <member name="M:EamonRT.Framework.IEngine.PrintYouHavePerished">
@@ -2538,7 +2550,10 @@
         <member name="F:EamonRT.Framework.Primitive.Enums.MagicState.None">
             <summary></summary>
         </member>
-        <member name="F:EamonRT.Framework.Primitive.Enums.MagicState.BeginHealSpell">
+        <member name="F:EamonRT.Framework.Primitive.Enums.MagicState.BeginSpellHeal">
+            <summary></summary>
+        </member>
+        <member name="F:EamonRT.Framework.Primitive.Enums.MagicState.CheckAfterCastHeal">
             <summary></summary>
         </member>
         <member name="F:EamonRT.Framework.Primitive.Enums.MagicState.HealInjury">
@@ -2547,7 +2562,10 @@
         <member name="F:EamonRT.Framework.Primitive.Enums.MagicState.ShowHealthStatus">
             <summary></summary>
         </member>
-        <member name="F:EamonRT.Framework.Primitive.Enums.MagicState.BeginSpeedSpell">
+        <member name="F:EamonRT.Framework.Primitive.Enums.MagicState.BeginSpellSpeed">
+            <summary></summary>
+        </member>
+        <member name="F:EamonRT.Framework.Primitive.Enums.MagicState.CheckAfterCastSpeed">
             <summary></summary>
         </member>
         <member name="F:EamonRT.Framework.Primitive.Enums.MagicState.BoostAgility">
@@ -2557,6 +2575,27 @@
             <summary></summary>
         </member>
         <member name="F:EamonRT.Framework.Primitive.Enums.MagicState.FeelEnergized">
+            <summary></summary>
+        </member>
+        <member name="F:EamonRT.Framework.Primitive.Enums.MagicState.BeginSpellPower">
+            <summary></summary>
+        </member>
+        <member name="F:EamonRT.Framework.Primitive.Enums.MagicState.CheckAfterCastPower">
+            <summary></summary>
+        </member>
+        <member name="F:EamonRT.Framework.Primitive.Enums.MagicState.SonicBoomFortuneCookie">
+            <summary></summary>
+        </member>
+        <member name="F:EamonRT.Framework.Primitive.Enums.MagicState.RaiseDeadVanishArtifacts">
+            <summary></summary>
+        </member>
+        <member name="F:EamonRT.Framework.Primitive.Enums.MagicState.TunnelCollapses">
+            <summary></summary>
+        </member>
+        <member name="F:EamonRT.Framework.Primitive.Enums.MagicState.SonicBoom">
+            <summary></summary>
+        </member>
+        <member name="F:EamonRT.Framework.Primitive.Enums.MagicState.AllWoundsHealed">
             <summary></summary>
         </member>
         <member name="F:EamonRT.Framework.Primitive.Enums.MagicState.EndMagic">
@@ -3199,10 +3238,7 @@
         <member name="P:EamonRT.Game.Commands.InventoryCommand.IsUninjuredGroup">
             <summary></summary>
         </member>
-        <member name="P:EamonRT.Game.Commands.PowerCommand.RedirectCommand">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Game.Commands.PowerCommand.PowerEventRoll">
+        <member name="P:EamonRT.Game.Commands.PowerCommand.MagicComponent">
             <summary></summary>
         </member>
         <member name="P:EamonRT.Game.Commands.RestoreCommand.FullArtifactList">
@@ -3311,9 +3347,6 @@
             <summary></summary>
         </member>
         <member name="P:EamonRT.Game.Components.CombatComponent.DisguisedMonster">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Game.Components.CombatComponent.RedirectCommand">
             <summary></summary>
         </member>
         <member name="P:EamonRT.Game.Components.CombatComponent.ActorAc">
@@ -3444,10 +3477,16 @@
         <member name="P:EamonRT.Game.Components.MagicComponent.SpeedTurns">
             <summary></summary>
         </member>
+        <member name="P:EamonRT.Game.Components.MagicComponent.PowerEventRoll">
+            <summary></summary>
+        </member>
         <member name="P:EamonRT.Game.Components.MagicComponent.MagicState">
             <summary></summary>
         </member>
-        <member name="M:EamonRT.Game.Components.MagicComponent.BeginHealSpell">
+        <member name="M:EamonRT.Game.Components.MagicComponent.BeginSpellHeal">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Game.Components.MagicComponent.CheckAfterCastHeal">
             <summary></summary>
         </member>
         <member name="M:EamonRT.Game.Components.MagicComponent.HealInjury">
@@ -3456,7 +3495,10 @@
         <member name="M:EamonRT.Game.Components.MagicComponent.ShowHealthStatus">
             <summary></summary>
         </member>
-        <member name="M:EamonRT.Game.Components.MagicComponent.BeginSpeedSpell">
+        <member name="M:EamonRT.Game.Components.MagicComponent.BeginSpellSpeed">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Game.Components.MagicComponent.CheckAfterCastSpeed">
             <summary></summary>
         </member>
         <member name="M:EamonRT.Game.Components.MagicComponent.BoostAgility">
@@ -3466,6 +3508,27 @@
             <summary></summary>
         </member>
         <member name="M:EamonRT.Game.Components.MagicComponent.FeelEnergized">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Game.Components.MagicComponent.BeginSpellPower">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Game.Components.MagicComponent.CheckAfterCastPower">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Game.Components.MagicComponent.SonicBoomFortuneCookie">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Game.Components.MagicComponent.RaiseDeadVanishArtifacts">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Game.Components.MagicComponent.TunnelCollapses">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Game.Components.MagicComponent.SonicBoom">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Game.Components.MagicComponent.AllWoundsHealed">
             <summary></summary>
         </member>
         <member name="M:EamonRT.Game.Components.MagicComponent.CheckPlayerSpellCast(Eamon.Framework.Primitive.Enums.Spell)">

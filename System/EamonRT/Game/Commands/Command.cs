@@ -641,16 +641,6 @@ namespace EamonRT.Game.Commands
 			CommandImpl.PrintActorIsCarrying(monster, monsterCarriedArtifactList);
 		}
 
-		public virtual void PrintSonicBoom(IRoom room)
-		{
-			CommandImpl.PrintSonicBoom(room);
-		}
-
-		public virtual void PrintTunnelCollapses(IRoom room)
-		{
-			CommandImpl.PrintTunnelCollapses(room);
-		}
-
 		public virtual void PrintOpensConsumesAndHandsBack(IArtifact artifact, IMonster monster, bool objOpened, bool objEdible)
 		{
 			CommandImpl.PrintOpensConsumesAndHandsBack(artifact, monster, objOpened, objEdible);
@@ -931,19 +921,9 @@ namespace EamonRT.Game.Commands
 			CommandImpl.PrintAlreadyWearingShield();
 		}
 
-		public virtual void PrintAllWoundsHealed()
-		{
-			CommandImpl.PrintAllWoundsHealed();
-		}
-
 		public virtual void PrintZapDirectHit()
 		{
 			CommandImpl.PrintZapDirectHit();
-		}
-
-		public virtual void PrintFortuneCookie()
-		{
-			CommandImpl.PrintFortuneCookie();
 		}
 
 		public virtual bool IsAllowedInRoom()

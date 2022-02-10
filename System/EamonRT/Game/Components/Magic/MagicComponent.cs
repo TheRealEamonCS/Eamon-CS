@@ -5,11 +5,13 @@
 
 using System;
 using System.Diagnostics;
+using Eamon.Framework;
 using Eamon.Framework.Primitive.Classes;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Components;
 using EamonRT.Framework.Primitive.Enums;
+using EamonRT.Framework.States;
 using static EamonRT.Game.Plugin.PluginContext;
 
 namespace EamonRT.Game.Components
@@ -17,6 +19,10 @@ namespace EamonRT.Game.Components
 	[ClassMappings]
 	public class MagicComponent : Component, IMagicComponent
 	{
+		public virtual Func<IArtifact, bool>[] ResurrectWhereClauseFuncs { get; set; }
+
+		public virtual Func<IArtifact, bool>[] VanishWhereClauseFuncs { get; set; }
+
 		public virtual bool CastSpell { get; set; }
 
 		/// <summary></summary>
@@ -24,6 +30,9 @@ namespace EamonRT.Game.Components
 
 		/// <summary></summary>
 		public virtual long SpeedTurns { get; set; }
+
+		/// <summary></summary>
+		public virtual long PowerEventRoll { get; set; }
 
 		/// <summary></summary>
 		public virtual MagicState MagicState { get; set; }
@@ -37,25 +46,29 @@ namespace EamonRT.Game.Components
 		{
 			Debug.Assert(DobjMonster != null);
 
-			MagicState = MagicState.BeginHealSpell;
+			MagicState = MagicState.BeginSpellHeal;
 
 			ExecuteStateMachine();
 		}
 
 		public virtual void ExecuteSpeedSpell()
 		{
-			MagicState = MagicState.BeginSpeedSpell;
+			MagicState = MagicState.BeginSpellSpeed;
 
 			ExecuteStateMachine();
 		}
 
 		public virtual void ExecutePowerSpell()
 		{
-			// TODO: implement
+			Debug.Assert(SetNextStateFunc != null && ActorMonster != null);
+
+			MagicState = MagicState.BeginSpellPower;
+
+			ExecuteStateMachine();
 		}
 
 		/// <summary></summary>
-		public virtual void BeginHealSpell()
+		public virtual void BeginSpellHeal()
 		{
 			if (CastSpell && !CheckPlayerSpellCast(Spell.Heal))
 			{
@@ -64,11 +77,17 @@ namespace EamonRT.Game.Components
 				goto Cleanup;
 			}
 
-			MagicState = MagicState.HealInjury;
+			MagicState = MagicState.CheckAfterCastHeal;
 
 		Cleanup:
 
 			;
+		}
+
+		/// <summary></summary>
+		public virtual void CheckAfterCastHeal()
+		{
+			MagicState = MagicState.HealInjury;
 		}
 
 		/// <summary></summary>
@@ -102,7 +121,7 @@ namespace EamonRT.Game.Components
 		}
 
 		/// <summary></summary>
-		public virtual void BeginSpeedSpell()
+		public virtual void BeginSpellSpeed()
 		{
 			if (CastSpell && !CheckPlayerSpellCast(Spell.Speed))
 			{
@@ -111,11 +130,17 @@ namespace EamonRT.Game.Components
 				goto Cleanup;
 			}
 
-			MagicState = MagicState.BoostAgility;
+			MagicState = MagicState.CheckAfterCastSpeed;
 
 		Cleanup:
 
 			;
+		}
+
+		/// <summary></summary>
+		public virtual void CheckAfterCastSpeed()
+		{
+			MagicState = MagicState.BoostAgility;
 		}
 
 		/// <summary></summary>
@@ -147,6 +172,157 @@ namespace EamonRT.Game.Components
 			PrintFeelNewAgility();
 
 			MagicState = MagicState.EndMagic;
+		}
+
+		/// <summary></summary>
+		public virtual void BeginSpellPower()
+		{
+			if (CastSpell && !CheckPlayerSpellCast(Spell.Power))
+			{
+				MagicState = MagicState.EndMagic;
+
+				goto Cleanup;
+			}
+
+			MagicState = MagicState.CheckAfterCastPower;
+
+		Cleanup:
+
+			;
+		}
+
+		/// <summary></summary>
+		public virtual void CheckAfterCastPower()
+		{
+			MagicState = MagicState.SonicBoomFortuneCookie;
+		}
+
+		/// <summary></summary>
+		public virtual void SonicBoomFortuneCookie()
+		{
+			PowerEventRoll = gEngine.RollDice(1, 100, 0);
+
+			if (!Globals.IsRulesetVersion(5, 15, 25))
+			{
+				// 50% chance of boom
+
+				if (PowerEventRoll > 50)
+				{
+					PrintSonicBoom(ActorRoom);
+				}
+
+				// 50% chance of fortune cookie
+
+				else
+				{
+					PrintFortuneCookie();
+				}
+
+				MagicState = MagicState.EndMagic;
+
+				goto Cleanup;
+			}
+
+			MagicState = MagicState.RaiseDeadVanishArtifacts;
+
+		Cleanup:
+
+			;
+		}
+
+		/// <summary></summary>
+		public virtual void RaiseDeadVanishArtifacts()
+		{
+			// Raise the dead / Make stuff vanish
+
+			if (gEngine.ResurrectDeadBodies(ActorRoom, ResurrectWhereClauseFuncs) || gEngine.MakeArtifactsVanish(ActorRoom, VanishWhereClauseFuncs))
+			{
+				MagicState = MagicState.EndMagic;
+
+				goto Cleanup;
+			}
+
+			MagicState = MagicState.TunnelCollapses;
+
+		Cleanup:
+
+			;
+		}
+
+		/// <summary></summary>
+		public virtual void TunnelCollapses()
+		{
+			// 10% chance of death trap
+
+			if (PowerEventRoll < 11)
+			{
+				PrintTunnelCollapses(ActorRoom);
+
+				gGameState.Die = 1;
+
+				SetNextStateFunc(Globals.CreateInstance<IPlayerDeadState>(x =>
+				{
+					x.PrintLineSep = true;
+				}));
+
+				MagicState = MagicState.EndMagic;
+
+				goto Cleanup;
+			}
+
+			MagicState = MagicState.SonicBoom;
+
+		Cleanup:
+
+			;
+		}
+
+		/// <summary></summary>
+		public virtual void SonicBoom()
+		{
+			// 75% chance of boom
+
+			if (PowerEventRoll < 86)
+			{
+				PrintSonicBoom(ActorRoom);
+
+				MagicState = MagicState.EndMagic;
+
+				goto Cleanup;
+			}
+
+			MagicState = MagicState.AllWoundsHealed;
+
+		Cleanup:
+
+			;
+		}
+
+		/// <summary></summary>
+		public virtual void AllWoundsHealed()
+		{
+			// 5% chance of full heal
+
+			if (PowerEventRoll > 95)
+			{
+				PrintAllWoundsHealed();
+
+				ActorMonster.DmgTaken = 0;
+
+				MagicState = MagicState.EndMagic;
+
+				goto Cleanup;
+			}
+
+			// 10% chance of SPEED spell
+
+			CastSpell = false;
+
+			MagicState = MagicState.BeginSpellSpeed;
+
+		Cleanup:
+
+			;
 		}
 
 		/// <summary></summary>
@@ -243,15 +419,21 @@ namespace EamonRT.Game.Components
 		/// <summary></summary>
 		public virtual void ExecuteStateMachine()
 		{
-			Debug.Assert(MagicState == MagicState.BeginSpeedSpell);
+			Debug.Assert(MagicState == MagicState.BeginSpellHeal || MagicState == MagicState.BeginSpellSpeed || MagicState == MagicState.BeginSpellPower);
 
 			while (true)
 			{
 				switch (MagicState)
 				{
-					case MagicState.BeginHealSpell:
+					case MagicState.BeginSpellHeal:
 
-						BeginHealSpell();
+						BeginSpellHeal();
+
+						break;
+
+					case MagicState.CheckAfterCastHeal:
+
+						CheckAfterCastHeal();
 
 						break;
 
@@ -267,9 +449,15 @@ namespace EamonRT.Game.Components
 
 						break;
 
-					case MagicState.BeginSpeedSpell:
+					case MagicState.BeginSpellSpeed:
 
-						BeginSpeedSpell();
+						BeginSpellSpeed();
+
+						break;
+
+					case MagicState.CheckAfterCastSpeed:
+
+						CheckAfterCastSpeed();
 
 						break;
 
@@ -288,6 +476,48 @@ namespace EamonRT.Game.Components
 					case MagicState.FeelEnergized:
 
 						FeelEnergized();
+
+						break;
+
+					case MagicState.BeginSpellPower:
+
+						BeginSpellPower();
+
+						break;
+
+					case MagicState.CheckAfterCastPower:
+
+						CheckAfterCastPower();
+
+						break;
+
+					case MagicState.SonicBoomFortuneCookie:
+
+						SonicBoomFortuneCookie();
+
+						break;
+
+					case MagicState.RaiseDeadVanishArtifacts:
+
+						RaiseDeadVanishArtifacts();
+
+						break;
+
+					case MagicState.TunnelCollapses:
+
+						TunnelCollapses();
+
+						break;
+
+					case MagicState.SonicBoom:
+
+						SonicBoom();
+
+						break;
+
+					case MagicState.AllWoundsHealed:
+
+						AllWoundsHealed();
 
 						break;
 

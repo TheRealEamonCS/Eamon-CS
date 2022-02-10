@@ -653,27 +653,6 @@ namespace EamonRT.Game.Commands
 			gOut.Write("{0}", Globals.Buf);
 		}
 
-		public virtual void PrintSonicBoom(IRoom room)
-		{
-			Debug.Assert(room != null);
-
-			if (Globals.IsRulesetVersion(5, 15, 25))
-			{
-				gOut.Print("You hear a very loud sonic boom that echoes through the {0}.", room.EvalRoomType("tunnels", "area"));
-			}
-			else
-			{
-				gOut.Print("You hear a loud sonic boom which echoes all around you!");
-			}
-		}
-
-		public virtual void PrintTunnelCollapses(IRoom room)
-		{
-			Debug.Assert(room != null);
-
-			gOut.Print("The section of {0} collapses and you die.", room.EvalRoomType("tunnel you are in", "ground you are on"));
-		}
-
 		public virtual void PrintOpensConsumesAndHandsBack(IArtifact artifact, IMonster monster, bool objOpened, bool objEdible)
 		{
 			Debug.Assert(artifact != null && monster != null);
@@ -1054,24 +1033,9 @@ namespace EamonRT.Game.Commands
 			gOut.Print("You're already wearing a shield!");
 		}
 
-		public virtual void PrintAllWoundsHealed()
-		{
-			gOut.Print("All of your wounds are healed.");
-		}
-
 		public virtual void PrintZapDirectHit()
 		{
 			gEngine.PrintZapDirectHit();
-		}
-
-		public virtual void PrintFortuneCookie()
-		{
-			var rl = gEngine.RollDice(1, 100, 0);
-
-			gOut.Print("A fortune cookie appears in mid-air and explodes!  The smoking paper left behind reads, \"{0}\"  How strange.", 
-				rl > 50 ? 
-				"THE SECTION OF TUNNEL YOU ARE IN COLLAPSES AND YOU DIE." : 
-				"YOU SUDDENLY FIND YOU CANNOT CARRY ALL OF THE ITEMS YOU ARE CARRYING, AND THEY ALL FALL TO THE GROUND.");
 		}
 
 		public virtual bool IsAllowedInRoom()

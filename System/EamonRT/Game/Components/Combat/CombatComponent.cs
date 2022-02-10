@@ -59,9 +59,6 @@ namespace EamonRT.Game.Components
 		public virtual IMonster DisguisedMonster { get; set; }
 
 		/// <summary></summary>
-		public virtual ICommand RedirectCommand { get; set; }
-
-		/// <summary></summary>
 		public virtual IArtifactCategory ActorAc { get; set; }
 
 		/// <summary></summary>

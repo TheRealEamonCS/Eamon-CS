@@ -370,14 +370,6 @@ namespace EamonRT.Framework.Commands
 		void PrintActorIsCarrying(IMonster monster, IList<IArtifact> monsterCarriedArtifactList);
 
 		/// <summary></summary>
-		/// <param name="room"></param>
-		void PrintSonicBoom(IRoom room);
-
-		/// <summary></summary>
-		/// <param name="room"></param>
-		void PrintTunnelCollapses(IRoom room);
-
-		/// <summary></summary>
 		/// <param name="artifact"></param>
 		/// <param name="monster"></param>
 		/// <param name="objOpened"></param>
@@ -588,13 +580,7 @@ namespace EamonRT.Framework.Commands
 		void PrintAlreadyWearingShield();
 
 		/// <summary></summary>
-		void PrintAllWoundsHealed();
-
-		/// <summary></summary>
 		void PrintZapDirectHit();
-
-		/// <summary></summary>
-		void PrintFortuneCookie();
 
 		/// <summary></summary>
 		void Stage();

@@ -129,6 +129,19 @@ namespace EamonRT.Game.Components
 			}
 		}
 
+		public virtual ICommand RedirectCommand
+		{
+			get
+			{
+				return ComponentImpl.RedirectCommand;
+			}
+
+			set
+			{
+				ComponentImpl.RedirectCommand = value;
+			}
+		}
+
 		public virtual IArtifactCategory DobjArtAc
 		{
 			get
@@ -311,6 +324,26 @@ namespace EamonRT.Game.Components
 		public virtual void PrintFeelNewAgility()
 		{
 			ComponentImpl.PrintFeelNewAgility();
+		}
+
+		public virtual void PrintSonicBoom(IRoom room)
+		{
+			ComponentImpl.PrintSonicBoom(room);
+		}
+
+		public virtual void PrintFortuneCookie()
+		{
+			ComponentImpl.PrintFortuneCookie();
+		}
+
+		public virtual void PrintTunnelCollapses(IRoom room)
+		{
+			ComponentImpl.PrintTunnelCollapses(room);
+		}
+
+		public virtual void PrintAllWoundsHealed()
+		{
+			ComponentImpl.PrintAllWoundsHealed();
 		}
 
 		public Component()

@@ -346,6 +346,11 @@ namespace EamonRT.Game
 			gOut.Write("{0}Enter the number of a weapon to sell: ", Environment.NewLine);
 		}
 
+		public virtual void PrintAllWoundsHealed()
+		{
+			gOut.Print("All of your wounds are healed.");
+		}
+
 		public virtual void PrintYouHavePerished()
 		{
 			gOut.Print("You have perished.  Now what?");
