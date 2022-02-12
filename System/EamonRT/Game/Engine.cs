@@ -305,27 +305,6 @@ namespace EamonRT.Game
 			gOut.Print("{0}{1} have it.", monster.GetTheName(true), monster.EvalPlural(" doesn't", " don't"));
 		}
 
-		public virtual void PrintSpellOverloadsBrain(Spell s, ISpell spell)
-		{
-			Debug.Assert(Enum.IsDefined(typeof(Spell), s) && spell != null);
-
-			gOut.Print("The strain of attempting to cast {0} overloads your brain and you forget it completely{1}.", spell.Name, Globals.IsRulesetVersion(5, 15, 25) ? "" : " for the rest of this adventure");
-		}
-
-		public virtual void PrintSpellAbilityIncreased(Spell s, ISpell spell)
-		{
-			Debug.Assert(Enum.IsDefined(typeof(Spell), s) && spell != null);
-
-			gOut.Print("Your ability to cast {0} just increased!", spell.Name);
-		}
-
-		public virtual void PrintSpellCastFailed(Spell s, ISpell spell)
-		{
-			Debug.Assert(Enum.IsDefined(typeof(Spell), s) && spell != null);
-
-			gOut.Print("Nothing happens.");
-		}
-
 		public virtual void PrintTooManyWeapons()
 		{
 			gOut.Print("As you enter the Main Hall, Lord William Missilefire approaches you and says, \"You have too many weapons to keep them all, four is the legal limit.\"");
@@ -2791,75 +2770,6 @@ namespace EamonRT.Game
 			return artifactList.Count > 0;
 		}
 
-		public virtual bool CheckPlayerSpellCast(Spell spellValue, bool shouldAllowSkillGains)
-		{
-			Debug.Assert(Enum.IsDefined(typeof(Spell), spellValue));
-
-			var result = false;
-
-			var rl = 0L;
-
-			var s = spellValue;
-
-			var spell = GetSpells(spellValue);
-
-			Debug.Assert(spell != null);
-
-			if (gGameState.GetSa(s) > 0 && gCharacter.GetSpellAbilities(s) > 0)
-			{
-				rl = RollDice(1, 100, 0);
-			}
-
-			if (rl == 100)
-			{
-				PlayerSpellCastBrainOverload(s, spell);
-
-				goto Cleanup;
-			}
-
-			if (rl > 0 && rl < 95 && (rl < 5 || rl <= gGameState.GetSa(s)))
-			{
-				result = true;
-
-				gGameState.SetSa(s, (long)((double)gGameState.GetSa(s) * .5 + 1));
-
-				if (shouldAllowSkillGains)
-				{
-					rl = RollDice(1, 100, 0);
-
-					rl += gCharacter.GetIntellectBonusPct();
-
-					if (rl > gCharacter.GetSpellAbilities(s))
-					{
-						Globals.SpellSkillIncreaseFunc = () =>
-						{
-							if (!Globals.IsRulesetVersion(5, 15, 25))
-							{
-								PrintSpellAbilityIncreased(s, spell);
-							}
-
-							gCharacter.ModSpellAbilities(s, 2);
-
-							if (gCharacter.GetSpellAbilities(s) > spell.MaxValue)
-							{
-								gCharacter.SetSpellAbilities(s, spell.MaxValue);
-							}
-						};
-					}
-				}
-			}
-			else
-			{
-				PrintSpellCastFailed(s, spell);
-
-				goto Cleanup;
-			}
-
-		Cleanup:
-
-			return result;
-		}
-
 		public virtual bool SaveThrow(Stat stat, long bonus = 0)
 		{
 			Debug.Assert(gCharMonster != null);
@@ -3537,25 +3447,6 @@ namespace EamonRT.Game
 			if (monster.Field1 > 0)
 			{
 				monster.Hardiness = damageFactor * monster.Field1;
-			}
-		}
-
-		/// <summary></summary>
-		/// <param name="s"></param>
-		/// <param name="spell"></param>
-		public virtual void PlayerSpellCastBrainOverload(Spell s, ISpell spell)
-		{
-			Debug.Assert(Enum.IsDefined(typeof(Spell), s));
-
-			Debug.Assert(spell != null);
-
-			PrintSpellOverloadsBrain(s, spell);
-
-			gGameState.SetSa(s, 0);
-
-			if (Globals.IsRulesetVersion(5, 15, 25))
-			{
-				gCharacter.SetSpellAbilities(s, 0);
 			}
 		}
 

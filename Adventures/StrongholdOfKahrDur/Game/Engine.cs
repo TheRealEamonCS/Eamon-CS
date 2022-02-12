@@ -183,20 +183,6 @@ namespace StrongholdOfKahrDur.Game
 			}
 		}
 
-		public override void PlayerSpellCastBrainOverload(Spell s, ISpell spell)
-		{
-			Debug.Assert(Enum.IsDefined(typeof(Spell), s));
-
-			Debug.Assert(spell != null);
-
-			gOut.Print("Spell backlash!  Your ability to cast {0} temporarily diminishes!", spell.Name);
-
-			if (gGameState.GetSa(s) > 10)
-			{
-				gGameState.SetSa(s, 10);
-			}
-		}
-
 		public virtual bool SpellReagentsInCauldron(IArtifact cauldronArtifact)
 		{
 			Debug.Assert(cauldronArtifact != null);

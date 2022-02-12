@@ -12,6 +12,21 @@ namespace EamonRT.Framework.Primitive.Enums
 		None = 0,
 
 		/// <summary></summary>
+		BeginSpellBlast,
+
+		/// <summary></summary>
+		CheckAfterCastBlast,
+
+		/// <summary></summary>
+		AggravateMonster,
+
+		/// <summary></summary>
+		CheckAfterAggravateMonster,
+
+		/// <summary></summary>
+		AttackDobj,
+
+		/// <summary></summary>
 		BeginSpellHeal,
 
 		/// <summary></summary>

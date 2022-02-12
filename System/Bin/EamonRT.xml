@@ -1380,21 +1380,6 @@
             <summary></summary>
             <param name="monster"></param>
         </member>
-        <member name="M:EamonRT.Framework.IEngine.PrintSpellOverloadsBrain(Eamon.Framework.Primitive.Enums.Spell,Eamon.Framework.Primitive.Classes.ISpell)">
-            <summary></summary>
-            <param name="s"></param>
-            <param name="spell"></param>
-        </member>
-        <member name="M:EamonRT.Framework.IEngine.PrintSpellAbilityIncreased(Eamon.Framework.Primitive.Enums.Spell,Eamon.Framework.Primitive.Classes.ISpell)">
-            <summary></summary>
-            <param name="s"></param>
-            <param name="spell"></param>
-        </member>
-        <member name="M:EamonRT.Framework.IEngine.PrintSpellCastFailed(Eamon.Framework.Primitive.Enums.Spell,Eamon.Framework.Primitive.Classes.ISpell)">
-            <summary></summary>
-            <param name="s"></param>
-            <param name="spell"></param>
-        </member>
         <member name="M:EamonRT.Framework.IEngine.PrintTooManyWeapons">
             <summary></summary>
         </member>
@@ -1798,12 +1783,6 @@
             <summary></summary>
             <param name="room"></param>
             <param name="whereClauseFuncs"></param>
-            <returns></returns>
-        </member>
-        <member name="M:EamonRT.Framework.IEngine.CheckPlayerSpellCast(Eamon.Framework.Primitive.Enums.Spell,System.Boolean)">
-            <summary></summary>
-            <param name="spellValue"></param>
-            <param name="shouldAllowSkillGains"></param>
             <returns></returns>
         </member>
         <member name="M:EamonRT.Framework.IEngine.SaveThrow(Eamon.Framework.Primitive.Enums.Stat,System.Int64)">
@@ -2368,15 +2347,10 @@
             and the <see cref="!:IPluginGlobals.LastCommandList">LastCommandList</see> cleared.
             </summary>
         </member>
-        <member name="F:EamonRT.Framework.Primitive.Enums.EventType.AfterCastSpellCheck">
-            <summary>
-            An event that fires after a spell cast attempt is resolved as successful.
-            </summary>
-        </member>
         <member name="F:EamonRT.Framework.Primitive.Enums.EventType.AfterAggravateMonster">
             <summary>
-            An event that fires after a <see cref="T:Eamon.Framework.IMonster">Monster</see> targeted by the <see cref="F:Eamon.Framework.Primitive.Enums.Spell.Blast">Blast</see>
-            spell gets aggravated.
+            An event that fires after a <see cref="T:Eamon.Framework.IMonster">Monster</see> targeted by an attack
+            gets aggravated.
             </summary>
         </member>
         <member name="F:EamonRT.Framework.Primitive.Enums.EventType.BeforeGuardMonsterCheck">
@@ -2548,6 +2522,21 @@
             <summary></summary>
         </member>
         <member name="F:EamonRT.Framework.Primitive.Enums.MagicState.None">
+            <summary></summary>
+        </member>
+        <member name="F:EamonRT.Framework.Primitive.Enums.MagicState.BeginSpellBlast">
+            <summary></summary>
+        </member>
+        <member name="F:EamonRT.Framework.Primitive.Enums.MagicState.CheckAfterCastBlast">
+            <summary></summary>
+        </member>
+        <member name="F:EamonRT.Framework.Primitive.Enums.MagicState.AggravateMonster">
+            <summary></summary>
+        </member>
+        <member name="F:EamonRT.Framework.Primitive.Enums.MagicState.CheckAfterAggravateMonster">
+            <summary></summary>
+        </member>
+        <member name="F:EamonRT.Framework.Primitive.Enums.MagicState.AttackDobj">
             <summary></summary>
         </member>
         <member name="F:EamonRT.Framework.Primitive.Enums.MagicState.BeginSpellHeal">
@@ -2918,6 +2907,9 @@
             <summary></summary>
         </member>
         <member name="P:EamonRT.Game.Commands.BlastCommand.DobjArtAc">
+            <summary></summary>
+        </member>
+        <member name="P:EamonRT.Game.Commands.BlastCommand.MagicComponent">
             <summary></summary>
         </member>
         <member name="P:EamonRT.Game.Commands.FreeCommand.DobjArtAc">
@@ -3483,6 +3475,21 @@
         <member name="P:EamonRT.Game.Components.MagicComponent.MagicState">
             <summary></summary>
         </member>
+        <member name="M:EamonRT.Game.Components.MagicComponent.BeginSpellBlast">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Game.Components.MagicComponent.CheckAfterCastBlast">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Game.Components.MagicComponent.AggravateMonster">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Game.Components.MagicComponent.CheckAfterAggravateMonster">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Game.Components.MagicComponent.AttackDobj">
+            <summary></summary>
+        </member>
         <member name="M:EamonRT.Game.Components.MagicComponent.BeginSpellHeal">
             <summary></summary>
         </member>
@@ -3556,11 +3563,6 @@
             <summary></summary>
             <param name="monster"></param>
             <param name="damageFactor"></param>
-        </member>
-        <member name="M:EamonRT.Game.Engine.PlayerSpellCastBrainOverload(Eamon.Framework.Primitive.Enums.Spell,Eamon.Framework.Primitive.Classes.ISpell)">
-            <summary></summary>
-            <param name="s"></param>
-            <param name="spell"></param>
         </member>
         <member name="M:EamonRT.Game.IntroStory.IsCharWpnNum(System.Char)">
             <summary></summary>

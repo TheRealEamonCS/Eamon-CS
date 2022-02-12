@@ -16,6 +16,32 @@ namespace TheTrainingGround.Game.Components
 	[ClassMappings]
 	public class MagicComponent : EamonRT.Game.Components.MagicComponent, IMagicComponent
 	{
+		public override void CheckAfterCastBlast()
+		{
+			// BLAST Bozworth
+
+			if (DobjMonster != null && DobjMonster.Uid == 20)
+			{
+				gEngine.PrintEffectDesc(21);
+
+				DobjMonster.SetInLimbo();
+
+				SetNextStateFunc(Globals.CreateInstance<IStartState>());
+
+				OmitFinalNewLine = false;
+
+				MagicState = MagicState.EndMagic;
+
+				goto Cleanup;
+			}
+
+			base.CheckAfterCastBlast();
+
+		Cleanup:
+
+			;
+		}
+
 		public override void CheckAfterCastPower()
 		{
 			var hammerArtifact = gADB[24];

@@ -9,6 +9,7 @@ using Eamon.Framework.Primitive.Classes;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
+using EamonRT.Framework.Components;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
 using static EamonRT.Game.Plugin.PluginContext;
@@ -35,6 +36,9 @@ namespace EamonRT.Game.Commands
 				_dobjArtAc = value;
 			}
 		}
+
+		/// <summary></summary>
+		public virtual IMagicComponent MagicComponent { get; set; }
 
 		public override void Execute()
 		{
@@ -92,36 +96,24 @@ namespace EamonRT.Game.Commands
 					goto Cleanup;
 				}
 
-				if (CastSpell && !gEngine.CheckPlayerSpellCast(Spell.Blast, ShouldAllowSkillGains()))
+				MagicComponent = Globals.CreateInstance<IMagicComponent>(x =>
 				{
-					goto Cleanup;
-				}
+					x.SetNextStateFunc = s => NextState = s;
 
-				ProcessEvents(EventType.AfterCastSpellCheck);
+					x.CopyCommandDataFunc = c => CopyCommandData(c);
 
-				if (GotoCleanup)
-				{
-					goto Cleanup;
-				}
+					x.ActorMonster = ActorMonster;
 
-				if (DobjMonster.Reaction != Friendliness.Enemy)
-				{
-					gEngine.MonsterGetsAggravated(DobjMonster);
-				}
+					x.ActorRoom = ActorRoom;
 
-				ProcessEvents(EventType.AfterAggravateMonster);
+					x.Dobj = DobjMonster;
 
-				if (GotoCleanup)
-				{
-					goto Cleanup;
-				}
+					x.OmitSkillGains = !ShouldAllowSkillGains();
 
-				NextState = Globals.CreateInstance<IAttackCommand>(x =>
-				{
-					x.BlastSpell = true;
+					x.CastSpell = CastSpell;
 				});
 
-				CopyCommandData(NextState as ICommand);
+				MagicComponent.ExecuteBlastSpell();
 
 				goto Cleanup;
 			}
@@ -146,24 +138,26 @@ namespace EamonRT.Game.Commands
 
 			Debug.Assert(DobjArtAc != null);
 
-			if (CastSpell && !gEngine.CheckPlayerSpellCast(Spell.Blast, ShouldAllowSkillGains()))
+			MagicComponent = Globals.CreateInstance<IMagicComponent>(x =>
 			{
-				goto Cleanup;
-			}
+				x.SetNextStateFunc = s => NextState = s;
 
-			ProcessEvents(EventType.AfterCastSpellCheck);
+				x.CopyCommandDataFunc = c => CopyCommandData(c);
 
-			if (GotoCleanup)
-			{
-				goto Cleanup;
-			}
+				x.ActorMonster = ActorMonster;
 
-			NextState = Globals.CreateInstance<IAttackCommand>(x =>
-			{
-				x.BlastSpell = true;
+				x.ActorRoom = ActorRoom;
+
+				x.Dobj = DobjArtifact;
+
+				x.DobjArtAc = DobjArtAc;
+
+				x.OmitSkillGains = !ShouldAllowSkillGains();
+
+				x.CastSpell = CastSpell;
 			});
 
-			CopyCommandData(NextState as ICommand);
+			MagicComponent.ExecuteBlastSpell();
 
 		Cleanup:
 

@@ -3,7 +3,9 @@
 
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
+using System;
 using System.Diagnostics;
+using Eamon.Framework.Primitive.Classes;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Components;
@@ -18,6 +20,34 @@ namespace StrongholdOfKahrDur.Game.Components
 		public override void PrintFortuneCookie()
 		{
 			gOut.Print("The air crackles with magical energy but nothing interesting happens.");
+		}
+
+		public override void CheckAfterAggravateMonster()
+		{
+			var helmArtifact = gADB[25];
+
+			Debug.Assert(helmArtifact != null);
+
+			// Necromancer cannot be blasted unless wearing Wizard's Helm
+
+			if (DobjMonster != null && DobjMonster.Uid == 22 && !helmArtifact.IsWornByCharacter())
+			{
+				var rl = gEngine.RollDice(1, 4, 56);
+
+				gEngine.PrintEffectDesc(rl);
+
+				OmitFinalNewLine = false;
+
+				MagicState = MagicState.EndMagic;
+
+				goto Cleanup;
+			}
+
+			base.CheckAfterAggravateMonster();
+
+		Cleanup:
+
+			;
 		}
 
 		public override void CheckAfterCastPower()
@@ -116,6 +146,20 @@ namespace StrongholdOfKahrDur.Game.Components
 		Cleanup:
 
 			;
+		}
+
+		public override void PlayerSpellCastBrainOverload(Spell s, ISpell spell)
+		{
+			Debug.Assert(Enum.IsDefined(typeof(Spell), s));
+
+			Debug.Assert(spell != null);
+
+			gOut.Print("Spell backlash!  Your ability to cast {0} temporarily diminishes!", spell.Name);
+
+			if (gGameState.GetSa(s) > 10)
+			{
+				gGameState.SetSa(s, 10);
+			}
 		}
 	}
 }

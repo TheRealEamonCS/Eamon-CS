@@ -133,7 +133,7 @@ namespace EamonRT.Game.Commands
 
 					x.BlastSpell = BlastSpell;
 
-					x.OmitSkillGains = !BlastSpell && (ActorMonster.Weapon == 0 || !ShouldAllowSkillGains());
+					x.OmitSkillGains = BlastSpell || ActorMonster.Weapon == 0 || !ShouldAllowSkillGains();
 				});
 
 				CombatComponent.ExecuteAttack();
@@ -183,6 +183,8 @@ namespace EamonRT.Game.Commands
 				x.AttackNumber = AttackNumber;
 
 				x.BlastSpell = BlastSpell;
+
+				x.OmitSkillGains = true;
 			});
 
 			CombatComponent.ExecuteAttack();

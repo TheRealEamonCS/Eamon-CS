@@ -20,6 +20,28 @@ namespace TheDeepCanyon.Game.Components
 	[ClassMappings]
 	public class MagicComponent : EamonRT.Game.Components.MagicComponent, IMagicComponent
 	{
+		public override void CheckAfterCastBlast()
+		{
+			// BLAST elephants
+
+			if (DobjMonster != null && DobjMonster.Uid == 24)
+			{
+				gOut.Print("The power of Elzod protects the elephants from your magical attack!");
+
+				OmitFinalNewLine = false;
+
+				MagicState = MagicState.EndMagic;
+
+				goto Cleanup;
+			}
+
+			base.CheckAfterCastBlast();
+
+		Cleanup:
+
+			;
+		}
+
 		public override void CheckAfterCastPower()
 		{
 			Func<IArtifact, bool> findDeadBodiesFunc = a => a.DeadBody != null && (a.IsCarriedByCharacter() || a.IsInRoom(ActorRoom));

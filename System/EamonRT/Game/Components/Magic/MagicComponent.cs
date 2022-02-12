@@ -9,6 +9,7 @@ using Eamon.Framework;
 using Eamon.Framework.Primitive.Classes;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
+using EamonRT.Framework.Commands;
 using EamonRT.Framework.Components;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
@@ -39,7 +40,15 @@ namespace EamonRT.Game.Components
 
 		public virtual void ExecuteBlastSpell()
 		{
-			// TODO: implement
+			Debug.Assert(SetNextStateFunc != null && CopyCommandDataFunc != null);
+
+			Debug.Assert(DobjArtifact != null || DobjMonster != null);
+
+			OmitFinalNewLine = true;
+
+			MagicState = MagicState.BeginSpellBlast;
+
+			ExecuteStateMachine();
 		}
 
 		public virtual void ExecuteHealSpell()
@@ -53,6 +62,8 @@ namespace EamonRT.Game.Components
 
 		public virtual void ExecuteSpeedSpell()
 		{
+			Debug.Assert(ActorMonster != null);
+
 			MagicState = MagicState.BeginSpellSpeed;
 
 			ExecuteStateMachine();
@@ -65,6 +76,65 @@ namespace EamonRT.Game.Components
 			MagicState = MagicState.BeginSpellPower;
 
 			ExecuteStateMachine();
+		}
+
+		/// <summary></summary>
+		public virtual void BeginSpellBlast()
+		{
+			if (CastSpell && !CheckPlayerSpellCast(Spell.Blast))
+			{
+				OmitFinalNewLine = false;
+
+				MagicState = MagicState.EndMagic;
+
+				goto Cleanup;
+			}
+
+			MagicState = MagicState.CheckAfterCastBlast;
+
+		Cleanup:
+
+			;
+		}
+
+		/// <summary></summary>
+		public virtual void CheckAfterCastBlast()
+		{
+			MagicState = DobjMonster != null ? MagicState.AggravateMonster : MagicState.AttackDobj;
+		}
+
+		/// <summary></summary>
+		public virtual void AggravateMonster()
+		{
+			if (DobjMonster.Reaction != Friendliness.Enemy)
+			{
+				gEngine.MonsterGetsAggravated(DobjMonster);
+
+				OmitFinalNewLine = false;
+			}
+
+			MagicState = MagicState.CheckAfterAggravateMonster;
+		}
+
+		/// <summary></summary>
+		public virtual void CheckAfterAggravateMonster()
+		{
+			MagicState = MagicState.AttackDobj;
+		}
+
+		/// <summary></summary>
+		public virtual void AttackDobj()
+		{
+			RedirectCommand = Globals.CreateInstance<IAttackCommand>(x =>
+			{
+				x.BlastSpell = true;
+			});
+
+			CopyCommandDataFunc(RedirectCommand);
+
+			SetNextStateFunc(RedirectCommand);
+
+			MagicState = MagicState.EndMagic;
 		}
 
 		/// <summary></summary>
@@ -93,8 +163,6 @@ namespace EamonRT.Game.Components
 		/// <summary></summary>
 		public virtual void HealInjury()
 		{
-			Debug.Assert(DobjMonster != null);
-
 			if (DobjMonster.DmgTaken > 0)
 			{
 				PrintHealthImproves(DobjMonster);
@@ -146,8 +214,6 @@ namespace EamonRT.Game.Components
 		/// <summary></summary>
 		public virtual void BoostAgility()
 		{
-			Debug.Assert(ActorMonster != null);
-
 			if (gGameState.Speed <= 0)
 			{
 				ActorMonster.Agility *= 2;
@@ -419,12 +485,42 @@ namespace EamonRT.Game.Components
 		/// <summary></summary>
 		public virtual void ExecuteStateMachine()
 		{
-			Debug.Assert(MagicState == MagicState.BeginSpellHeal || MagicState == MagicState.BeginSpellSpeed || MagicState == MagicState.BeginSpellPower);
+			Debug.Assert(MagicState == MagicState.BeginSpellBlast || MagicState == MagicState.BeginSpellHeal || MagicState == MagicState.BeginSpellSpeed || MagicState == MagicState.BeginSpellPower);
 
 			while (true)
 			{
 				switch (MagicState)
 				{
+					case MagicState.BeginSpellBlast:
+
+						BeginSpellBlast();
+
+						break;
+
+					case MagicState.CheckAfterCastBlast:
+
+						CheckAfterCastBlast();
+
+						break;
+
+					case MagicState.AggravateMonster:
+
+						AggravateMonster();
+
+						break;
+
+					case MagicState.CheckAfterAggravateMonster:
+
+						CheckAfterAggravateMonster();
+
+						break;
+
+					case MagicState.AttackDobj:
+
+						AttackDobj();
+
+						break;
+
 					case MagicState.BeginSpellHeal:
 
 						BeginSpellHeal();

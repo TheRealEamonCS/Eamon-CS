@@ -178,21 +178,6 @@ namespace EamonRT.Framework
 		void PrintDoesntHaveIt(IMonster monster);
 
 		/// <summary></summary>
-		/// <param name="s"></param>
-		/// <param name="spell"></param>
-		void PrintSpellOverloadsBrain(Spell s, ISpell spell);
-
-		/// <summary></summary>
-		/// <param name="s"></param>
-		/// <param name="spell"></param>
-		void PrintSpellAbilityIncreased(Spell s, ISpell spell);
-
-		/// <summary></summary>
-		/// <param name="s"></param>
-		/// <param name="spell"></param>
-		void PrintSpellCastFailed(Spell s, ISpell spell);
-
-		/// <summary></summary>
 		void PrintTooManyWeapons();
 
 		/// <summary></summary>
@@ -596,12 +581,6 @@ namespace EamonRT.Framework
 		/// <param name="whereClauseFuncs"></param>
 		/// <returns></returns>
 		bool MakeArtifactsVanish(IRoom room, params Func<IArtifact, bool>[] whereClauseFuncs);
-
-		/// <summary></summary>
-		/// <param name="spellValue"></param>
-		/// <param name="shouldAllowSkillGains"></param>
-		/// <returns></returns>
-		bool CheckPlayerSpellCast(Spell spellValue, bool shouldAllowSkillGains);
 
 		/// <summary></summary>
 		/// <param name="stat"></param>
