@@ -110,7 +110,10 @@ namespace EamonRT.Game.Components
 			{
 				gEngine.MonsterGetsAggravated(DobjMonster);
 
-				OmitFinalNewLine = false;
+				if (DobjMonster.Reaction == Friendliness.Enemy)
+				{ 
+					OmitFinalNewLine = false;
+				}
 			}
 
 			MagicState = MagicState.CheckAfterAggravateMonster;
