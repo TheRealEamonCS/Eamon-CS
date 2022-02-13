@@ -37,7 +37,7 @@ namespace TheBeginnersCave.Game
 
 					// if this is the pirate going from not wielding Trollsfire to wielding Trollsfire
 
-					if (Uid == 8 && base.Weapon != 10 && value == 10)
+					else if (Uid == 8 && base.Weapon != 10 && value == 10)
 					{
 						// activate Trollsfire effect
 
