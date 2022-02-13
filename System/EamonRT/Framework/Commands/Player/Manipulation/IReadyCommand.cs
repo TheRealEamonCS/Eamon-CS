@@ -12,5 +12,8 @@ namespace EamonRT.Framework.Commands
 	{
 		/// <summary></summary>
 		ArtifactType[] ArtTypes { get; set; }
+
+		/// <summary></summary>
+		bool OmitReadySameWeapon { get; set; }
 	}
 }

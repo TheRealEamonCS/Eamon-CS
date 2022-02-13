@@ -775,6 +775,9 @@
         <member name="P:EamonRT.Framework.Commands.IReadyCommand.ArtTypes">
             <summary></summary>
         </member>
+        <member name="P:EamonRT.Framework.Commands.IReadyCommand.OmitReadySameWeapon">
+            <summary></summary>
+        </member>
         <member name="T:EamonRT.Framework.Commands.IRemoveCommand">
             <summary></summary>
         </member>
