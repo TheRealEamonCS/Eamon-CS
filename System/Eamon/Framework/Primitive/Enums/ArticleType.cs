@@ -37,8 +37,8 @@ namespace Eamon.Framework.Primitive.Enums
 		/// For <see cref="IArtifact">Artifact</see>s, it is important to distinguish between singular Artifacts (like the leather armor) and
 		/// plural Artifacts (the silver cups).  Plural Artifacts should be named as singular; this article type combined with the right plural
 		/// type will produce the correct name.  The situation for <see cref="IMonster">Monster</see>s is similar; it is important to distinguish
-		/// between singular Monsters (like the green slime) and group Monsters.  Group Monsters have their own plural syntax (eg, "seven kobolds").
-		/// Group Monsters should be named as singular, but with a singular article type (eg, "a kobold"), and the right plural type.
+		/// between singular Monsters (like the green slime) and group Monsters.  Group Monsters have their own plural syntax (e.g., "seven kobolds").
+		/// Group Monsters should be named as singular, but with a singular article type (e.g., "a kobold"), and the right plural type.
 		/// </remarks>
 		Some,
 

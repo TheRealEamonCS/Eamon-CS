@@ -2166,29 +2166,29 @@
         </member>
         <member name="P:Eamon.Framework.IEngine.Preps">
             <summary>
-            Gets or sets an array of sentence prepositions (eg, "to", "from", "inside", etc).
+            Gets or sets an array of sentence prepositions (e.g., "to", "from", "inside", etc).
             </summary>
         </member>
         <member name="P:Eamon.Framework.IEngine.Articles">
             <summary>
-            Gets or sets an array of sentence articles (eg, "a", "some", "the", etc).
+            Gets or sets an array of sentence articles (e.g., "a", "some", "the", etc).
             </summary>
         </member>
         <member name="P:Eamon.Framework.IEngine.UnknownName">
             <summary>
-            Gets or sets a generic string representing an unknown name (eg, "???").
+            Gets or sets a generic string representing an unknown name (e.g., "???").
             </summary>
         </member>
         <member name="M:Eamon.Framework.IEngine.GetPreps(System.Int64)">
             <summary>
-            Gets the sentence preposition (eg, "to", "from", "inside", etc).
+            Gets the sentence preposition (e.g., "to", "from", "inside", etc).
             </summary>
             <param name="index"></param>
             <returns></returns>
         </member>
         <member name="M:Eamon.Framework.IEngine.GetArticles(System.Int64)">
             <summary>
-            Gets the sentence article (eg, "a", "some", "the", etc).
+            Gets the sentence article (e.g., "a", "some", "the", etc).
             </summary>
             <param name="index"></param>
             <returns></returns>
@@ -6240,8 +6240,8 @@
             For <see cref="T:Eamon.Framework.IArtifact">Artifact</see>s, it is important to distinguish between singular Artifacts (like the leather armor) and
             plural Artifacts (the silver cups).  Plural Artifacts should be named as singular; this article type combined with the right plural
             type will produce the correct name.  The situation for <see cref="T:Eamon.Framework.IMonster">Monster</see>s is similar; it is important to distinguish
-            between singular Monsters (like the green slime) and group Monsters.  Group Monsters have their own plural syntax (eg, "seven kobolds").
-            Group Monsters should be named as singular, but with a singular article type (eg, "a kobold"), and the right plural type.
+            between singular Monsters (like the green slime) and group Monsters.  Group Monsters have their own plural syntax (e.g., "seven kobolds").
+            Group Monsters should be named as singular, but with a singular article type (e.g., "a kobold"), and the right plural type.
             </remarks>
         </member>
         <member name="F:Eamon.Framework.Primitive.Enums.ArticleType.The">
@@ -6617,7 +6617,7 @@
             improve the aesthetics of the output, making it more natural to read.  You can modify any record at runtime to change its
             plural type, if desired.  The plural type is only applicable to plural Artifacts and group Monsters, although if possible
             you should still assign the correct one even when it won't be used.  If you have a special situation where none of the
-            following values applies (eg, "Rings of Xylo"), customized plural names can be created using <see cref="T:Eamon.Framework.IEffect">Effect</see>s.
+            following values applies (e.g., "Rings of Xylo"), customized plural names can be created using <see cref="T:Eamon.Framework.IEffect">Effect</see>s.
             </remarks>
         </member>
         <member name="F:Eamon.Framework.Primitive.Enums.PluralType.None">
