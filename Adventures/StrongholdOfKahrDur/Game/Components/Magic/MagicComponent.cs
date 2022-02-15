@@ -36,8 +36,6 @@ namespace StrongholdOfKahrDur.Game.Components
 
 				gEngine.PrintEffectDesc(rl);
 
-				OmitFinalNewLine = false;
-
 				MagicState = MagicState.EndMagic;
 
 				goto Cleanup;

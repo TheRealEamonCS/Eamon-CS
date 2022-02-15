@@ -36,6 +36,9 @@ namespace EamonRT.Game.Components
 		public virtual long PowerEventRoll { get; set; }
 
 		/// <summary></summary>
+		public virtual bool BlastSpell { get; set; }
+
+		/// <summary></summary>
 		public virtual MagicState MagicState { get; set; }
 
 		public virtual void ExecuteBlastSpell()
@@ -43,8 +46,6 @@ namespace EamonRT.Game.Components
 			Debug.Assert(SetNextStateFunc != null && CopyCommandDataFunc != null);
 
 			Debug.Assert(DobjArtifact != null || DobjMonster != null);
-
-			OmitFinalNewLine = true;
 
 			MagicState = MagicState.BeginSpellBlast;
 
@@ -79,12 +80,117 @@ namespace EamonRT.Game.Components
 		}
 
 		/// <summary></summary>
+		/// <param name="spellValue"></param>
+		/// <returns></returns>
+		public virtual bool CheckPlayerSpellCast(Spell spellValue)
+		{
+			Debug.Assert(Enum.IsDefined(typeof(Spell), spellValue));
+
+			var result = false;
+
+			var rl = 0L;
+
+			var s = spellValue;
+
+			var spell = gEngine.GetSpells(spellValue);
+
+			Debug.Assert(spell != null);
+
+			if (gGameState.GetSa(s) > 0 && gCharacter.GetSpellAbilities(s) > 0)
+			{
+				rl = gEngine.RollDice(1, 100, 0);
+			}
+
+			if (rl == 100)
+			{
+				PlayerSpellCastBrainOverload(s, spell);
+
+				goto Cleanup;
+			}
+
+			if (rl > 0 && rl < 95 && (rl < 5 || rl <= gGameState.GetSa(s)))
+			{
+				result = true;
+
+				gGameState.SetSa(s, (long)((double)gGameState.GetSa(s) * .5 + 1));
+
+				if (!OmitSkillGains)
+				{
+					rl = gEngine.RollDice(1, 100, 0);
+
+					rl += gCharacter.GetIntellectBonusPct();
+
+					if (rl > gCharacter.GetSpellAbilities(s))
+					{
+						Globals.SpellSkillIncreaseFunc = () =>
+						{
+							if (!Globals.IsRulesetVersion(5, 15, 25))
+							{
+								PrintSpellAbilityIncreased(s, spell);
+							}
+
+							gCharacter.ModSpellAbilities(s, 2);
+
+							if (gCharacter.GetSpellAbilities(s) > spell.MaxValue)
+							{
+								gCharacter.SetSpellAbilities(s, spell.MaxValue);
+							}
+						};
+					}
+				}
+			}
+			else
+			{
+				PrintSpellCastFailed(s, spell);
+
+				goto Cleanup;
+			}
+
+		Cleanup:
+
+			return result;
+		}
+
+		/// <summary></summary>
+		public virtual void ApplyPlayerSpellSkillGains()
+		{
+			if (!BlastSpell && Globals.SpellSkillIncreaseFunc != null)
+			{
+				if (gGameState.Die <= 0)
+				{
+					Globals.SpellSkillIncreaseFunc();
+				}
+
+				Globals.SpellSkillIncreaseFunc = null;
+			}
+		}
+
+		/// <summary></summary>
+		/// <param name="s"></param>
+		/// <param name="spell"></param>
+		public virtual void PlayerSpellCastBrainOverload(Spell s, ISpell spell)
+		{
+			Debug.Assert(Enum.IsDefined(typeof(Spell), s));
+
+			Debug.Assert(spell != null);
+
+			PrintSpellOverloadsBrain(s, spell);
+
+			gGameState.SetSa(s, 0);
+
+			if (Globals.IsRulesetVersion(5, 15, 25))
+			{
+				gCharacter.SetSpellAbilities(s, 0);
+			}
+		}
+
+		/// <summary></summary>
 		public virtual void BeginSpellBlast()
 		{
+			BlastSpell = true;
+
 			if (CastSpell && !CheckPlayerSpellCast(Spell.Blast))
 			{
-				OmitFinalNewLine = false;
-
 				MagicState = MagicState.EndMagic;
 
 				goto Cleanup;
@@ -109,11 +215,6 @@ namespace EamonRT.Game.Components
 			if (DobjMonster.Reaction != Friendliness.Enemy)
 			{
 				gEngine.MonsterGetsAggravated(DobjMonster);
-
-				if (DobjMonster.Reaction == Friendliness.Enemy)
-				{ 
-					OmitFinalNewLine = false;
-				}
 			}
 
 			MagicState = MagicState.CheckAfterAggravateMonster;
@@ -128,6 +229,15 @@ namespace EamonRT.Game.Components
 		/// <summary></summary>
 		public virtual void AttackDobj()
 		{
+			if (DobjArtifact?.DisguisedMonster == null)
+			{
+				PrintZapDirectHit();
+			}
+			else
+			{
+				OmitFinalNewLine = true;
+			}
+
 			RedirectCommand = Globals.CreateInstance<IAttackCommand>(x =>
 			{
 				x.BlastSpell = true;
@@ -395,97 +505,6 @@ namespace EamonRT.Game.Components
 		}
 
 		/// <summary></summary>
-		/// <param name="spellValue"></param>
-		/// <returns></returns>
-		public virtual bool CheckPlayerSpellCast(Spell spellValue)
-		{
-			Debug.Assert(Enum.IsDefined(typeof(Spell), spellValue));
-
-			var result = false;
-
-			var rl = 0L;
-
-			var s = spellValue;
-
-			var spell = gEngine.GetSpells(spellValue);
-
-			Debug.Assert(spell != null);
-
-			if (gGameState.GetSa(s) > 0 && gCharacter.GetSpellAbilities(s) > 0)
-			{
-				rl = gEngine.RollDice(1, 100, 0);
-			}
-
-			if (rl == 100)
-			{
-				PlayerSpellCastBrainOverload(s, spell);
-
-				goto Cleanup;
-			}
-
-			if (rl > 0 && rl < 95 && (rl < 5 || rl <= gGameState.GetSa(s)))
-			{
-				result = true;
-
-				gGameState.SetSa(s, (long)((double)gGameState.GetSa(s) * .5 + 1));
-
-				if (!OmitSkillGains)
-				{
-					rl = gEngine.RollDice(1, 100, 0);
-
-					rl += gCharacter.GetIntellectBonusPct();
-
-					if (rl > gCharacter.GetSpellAbilities(s))
-					{
-						Globals.SpellSkillIncreaseFunc = () =>
-						{
-							if (!Globals.IsRulesetVersion(5, 15, 25))
-							{
-								PrintSpellAbilityIncreased(s, spell);
-							}
-
-							gCharacter.ModSpellAbilities(s, 2);
-
-							if (gCharacter.GetSpellAbilities(s) > spell.MaxValue)
-							{
-								gCharacter.SetSpellAbilities(s, spell.MaxValue);
-							}
-						};
-					}
-				}
-			}
-			else
-			{
-				PrintSpellCastFailed(s, spell);
-
-				goto Cleanup;
-			}
-
-		Cleanup:
-
-			return result;
-		}
-
-		/// <summary></summary>
-		/// <param name="s"></param>
-		/// <param name="spell"></param>
-		public virtual void PlayerSpellCastBrainOverload(Spell s, ISpell spell)
-		{
-			Debug.Assert(Enum.IsDefined(typeof(Spell), s));
-
-			Debug.Assert(spell != null);
-
-			PrintSpellOverloadsBrain(s, spell);
-
-			gGameState.SetSa(s, 0);
-
-			if (Globals.IsRulesetVersion(5, 15, 25))
-			{
-				gCharacter.SetSpellAbilities(s, 0);
-			}
-		}
-
-		/// <summary></summary>
 		public virtual void ExecuteStateMachine()
 		{
 			Debug.Assert(MagicState == MagicState.BeginSpellBlast || MagicState == MagicState.BeginSpellHeal || MagicState == MagicState.BeginSpellSpeed || MagicState == MagicState.BeginSpellPower);
@@ -638,6 +657,8 @@ namespace EamonRT.Game.Components
 			{
 				gOut.WriteLine();
 			}
+
+			ApplyPlayerSpellSkillGains();
 		}
 
 		public MagicComponent()

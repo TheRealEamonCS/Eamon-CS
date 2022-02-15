@@ -28,8 +28,6 @@ namespace TheDeepCanyon.Game.Components
 			{
 				gOut.Print("The power of Elzod protects the elephants from your magical attack!");
 
-				OmitFinalNewLine = false;
-
 				MagicState = MagicState.EndMagic;
 
 				goto Cleanup;

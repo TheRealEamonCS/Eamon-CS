@@ -3371,6 +3371,9 @@
         <member name="P:EamonRT.Game.Components.CombatComponent.UseFractionalStrength">
             <summary></summary>
         </member>
+        <member name="P:EamonRT.Game.Components.CombatComponent.RevealedDisguisedMonster">
+            <summary></summary>
+        </member>
         <member name="P:EamonRT.Game.Components.CombatComponent.OmitBboaPadding">
             <summary></summary>
         </member>
@@ -3411,6 +3414,9 @@
             <summary></summary>
             <param name="ac"></param>
             <param name="af"></param>
+        </member>
+        <member name="M:EamonRT.Game.Components.CombatComponent.ApplyPlayerCombatSkillGains">
+            <summary></summary>
         </member>
         <member name="M:EamonRT.Game.Components.CombatComponent.RollToHitOrMiss">
             <summary></summary>
@@ -3475,8 +3481,24 @@
         <member name="P:EamonRT.Game.Components.MagicComponent.PowerEventRoll">
             <summary></summary>
         </member>
+        <member name="P:EamonRT.Game.Components.MagicComponent.BlastSpell">
+            <summary></summary>
+        </member>
         <member name="P:EamonRT.Game.Components.MagicComponent.MagicState">
             <summary></summary>
+        </member>
+        <member name="M:EamonRT.Game.Components.MagicComponent.CheckPlayerSpellCast(Eamon.Framework.Primitive.Enums.Spell)">
+            <summary></summary>
+            <param name="spellValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EamonRT.Game.Components.MagicComponent.ApplyPlayerSpellSkillGains">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Game.Components.MagicComponent.PlayerSpellCastBrainOverload(Eamon.Framework.Primitive.Enums.Spell,Eamon.Framework.Primitive.Classes.ISpell)">
+            <summary></summary>
+            <param name="s"></param>
+            <param name="spell"></param>
         </member>
         <member name="M:EamonRT.Game.Components.MagicComponent.BeginSpellBlast">
             <summary></summary>
@@ -3540,16 +3562,6 @@
         </member>
         <member name="M:EamonRT.Game.Components.MagicComponent.AllWoundsHealed">
             <summary></summary>
-        </member>
-        <member name="M:EamonRT.Game.Components.MagicComponent.CheckPlayerSpellCast(Eamon.Framework.Primitive.Enums.Spell)">
-            <summary></summary>
-            <param name="spellValue"></param>
-            <returns></returns>
-        </member>
-        <member name="M:EamonRT.Game.Components.MagicComponent.PlayerSpellCastBrainOverload(Eamon.Framework.Primitive.Enums.Spell,Eamon.Framework.Primitive.Classes.ISpell)">
-            <summary></summary>
-            <param name="s"></param>
-            <param name="spell"></param>
         </member>
         <member name="M:EamonRT.Game.Components.MagicComponent.ExecuteStateMachine">
             <summary></summary>

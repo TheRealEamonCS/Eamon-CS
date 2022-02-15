@@ -1174,36 +1174,6 @@ namespace EamonRT.Game.Commands
 				if (Command.IsAllowedInRoom())
 				{
 					Command.Execute();
-
-					if (Globals.SpellSkillIncreaseFunc != null && (Command is IHealCommand || Command is ISpeedCommand || Command is IPowerCommand || Command is IAttackCommand))
-					{
-						if (gGameState.Die <= 0)
-						{
-							Globals.SpellSkillIncreaseFunc();
-						}
-
-						Globals.SpellSkillIncreaseFunc = null;
-					}
-
-					if (Globals.WeaponSkillIncreaseFunc != null)
-					{
-						if (gGameState.Die <= 0)
-						{
-							Globals.WeaponSkillIncreaseFunc();
-						}
-
-						Globals.WeaponSkillIncreaseFunc = null;
-					}
-
-					if (Globals.ArmorSkillIncreaseFunc != null)
-					{
-						if (gGameState.Die <= 0)
-						{
-							Globals.ArmorSkillIncreaseFunc();
-						}
-
-						Globals.ArmorSkillIncreaseFunc = null;
-					}
 				}
 				else
 				{

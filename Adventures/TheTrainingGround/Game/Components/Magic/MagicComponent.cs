@@ -28,8 +28,6 @@ namespace TheTrainingGround.Game.Components
 
 				SetNextStateFunc(Globals.CreateInstance<IStartState>());
 
-				OmitFinalNewLine = false;
-
 				MagicState = MagicState.EndMagic;
 
 				goto Cleanup;
