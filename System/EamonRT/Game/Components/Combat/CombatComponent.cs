@@ -80,13 +80,13 @@ namespace EamonRT.Game.Components
 		public virtual Weapon DobjWeaponType { get; set; }
 
 		/// <summary></summary>
-		public virtual bool ContentsSpilled { get; set; }
+		public virtual bool SpillContents { get; set; }
 
 		/// <summary></summary>
 		public virtual bool UseFractionalStrength { get; set; }
 
 		/// <summary></summary>
-		public virtual bool RevealedDisguisedMonster { get; set; }
+		public virtual bool RevealDisguisedMonster { get; set; }
 
 		/// <summary></summary>
 		public virtual bool OmitBboaPadding { get; set; }
@@ -260,7 +260,7 @@ namespace EamonRT.Game.Components
 		/// <summary></summary>
 		public virtual void ApplyPlayerCombatSkillGains()
 		{
-			if (!RevealedDisguisedMonster && Globals.SpellSkillIncreaseFunc != null)
+			if (!RevealDisguisedMonster && Globals.SpellSkillIncreaseFunc != null)
 			{
 				if (gGameState.Die <= 0)
 				{
@@ -773,7 +773,7 @@ namespace EamonRT.Game.Components
 
 				SetNextStateFunc(RedirectCommand);
 
-				RevealedDisguisedMonster = true;
+				RevealDisguisedMonster = true;
 
 				CombatState = CombatState.EndAttack;
 
@@ -969,7 +969,7 @@ namespace EamonRT.Game.Components
 
 			Debug.Assert(gEngine.IsSuccess(rc));
 
-			CombatState = CombatState.CheckContentsSpilled;
+			CombatState = CombatState.CheckSpillContents;
 
 		Cleanup:
 
@@ -977,11 +977,11 @@ namespace EamonRT.Game.Components
 		}
 
 		/// <summary></summary>
-		public virtual void CheckContentsSpilled()
+		public virtual void CheckSpillContents()
 		{
 			Debug.Assert(DobjArtifact != null && DobjArtAc != null);
 
-			ContentsSpilled = false;
+			SpillContents = false;
 
 			if (DobjArtAc.Type == ArtifactType.InContainer)
 			{
@@ -999,13 +999,13 @@ namespace EamonRT.Game.Components
 
 				if (SpilledArtifactList.Count > 0)
 				{
-					ContentsSpilled = true;
+					SpillContents = true;
 				}
 
 				DobjArtAc.Field3 = 0;
 			}
 
-			PrintSmashesToPieces(ActorRoom, DobjArtifact, ContentsSpilled);
+			PrintSmashesToPieces(ActorRoom, DobjArtifact, SpillContents);
 
 			CombatState = CombatState.EndAttack;
 		}
@@ -1103,9 +1103,9 @@ namespace EamonRT.Game.Components
 
 						break;
 
-					case CombatState.CheckContentsSpilled:
+					case CombatState.CheckSpillContents:
 
-						CheckContentsSpilled();
+						CheckSpillContents();
 
 						break;
 

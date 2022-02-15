@@ -281,9 +281,9 @@ namespace EamonRT.Game.Components
 			ComponentImpl.PrintWhamHitObj(artifact);
 		}
 
-		public virtual void PrintSmashesToPieces(IRoom room, IArtifact artifact, bool contentsSpilled)
+		public virtual void PrintSmashesToPieces(IRoom room, IArtifact artifact, bool spillContents)
 		{
-			ComponentImpl.PrintSmashesToPieces(room, artifact, contentsSpilled);
+			ComponentImpl.PrintSmashesToPieces(room, artifact, spillContents);
 		}
 
 		public virtual void PrintWeaponAbilityIncreased(Weapon w, IWeapon weapon)

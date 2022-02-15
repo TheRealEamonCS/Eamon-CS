@@ -257,7 +257,7 @@ namespace EamonRT.Game.Components
 			gOut.Print("Wham!  You hit {0}!", artifact.GetTheName());
 		}
 
-		public virtual void PrintSmashesToPieces(IRoom room, IArtifact artifact, bool contentsSpilled)
+		public virtual void PrintSmashesToPieces(IRoom room, IArtifact artifact, bool spillContents)
 		{
 			Debug.Assert(room != null && artifact != null);
 
@@ -265,7 +265,7 @@ namespace EamonRT.Game.Components
 				Environment.NewLine,
 				artifact.GetTheName(true),
 				artifact.EvalPlural("smashes", "smash"),
-				contentsSpilled ? string.Format("; {0} contents spill to the {1}", artifact.EvalPlural("its", "their"), room.EvalRoomType("floor", "ground")) :
+				spillContents ? string.Format("; {0} contents spill to the {1}", artifact.EvalPlural("its", "their"), room.EvalRoomType("floor", "ground")) :
 				"");
 		}
 

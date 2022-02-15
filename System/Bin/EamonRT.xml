@@ -1145,7 +1145,7 @@
             <summary></summary>
             <param name="room"></param>
             <param name="artifact"></param>
-            <param name="contentsSpilled"></param>
+            <param name="spillContents"></param>
         </member>
         <member name="M:EamonRT.Framework.Components.IComponentSignatures.PrintWeaponAbilityIncreased(Eamon.Framework.Primitive.Enums.Weapon,Eamon.Framework.Primitive.Classes.IWeapon)">
             <summary></summary>
@@ -2277,7 +2277,7 @@
         <member name="F:EamonRT.Framework.Primitive.Enums.CombatState.CheckArtifactStatus">
             <summary></summary>
         </member>
-        <member name="F:EamonRT.Framework.Primitive.Enums.CombatState.CheckContentsSpilled">
+        <member name="F:EamonRT.Framework.Primitive.Enums.CombatState.CheckSpillContents">
             <summary></summary>
         </member>
         <member name="F:EamonRT.Framework.Primitive.Enums.CombatState.EndAttack">
@@ -3365,13 +3365,13 @@
         <member name="P:EamonRT.Game.Components.CombatComponent.DobjWeaponType">
             <summary></summary>
         </member>
-        <member name="P:EamonRT.Game.Components.CombatComponent.ContentsSpilled">
+        <member name="P:EamonRT.Game.Components.CombatComponent.SpillContents">
             <summary></summary>
         </member>
         <member name="P:EamonRT.Game.Components.CombatComponent.UseFractionalStrength">
             <summary></summary>
         </member>
-        <member name="P:EamonRT.Game.Components.CombatComponent.RevealedDisguisedMonster">
+        <member name="P:EamonRT.Game.Components.CombatComponent.RevealDisguisedMonster">
             <summary></summary>
         </member>
         <member name="P:EamonRT.Game.Components.CombatComponent.OmitBboaPadding">
@@ -3466,7 +3466,7 @@
         <member name="M:EamonRT.Game.Components.CombatComponent.CheckArtifactStatus">
             <summary></summary>
         </member>
-        <member name="M:EamonRT.Game.Components.CombatComponent.CheckContentsSpilled">
+        <member name="M:EamonRT.Game.Components.CombatComponent.CheckSpillContents">
             <summary></summary>
         </member>
         <member name="M:EamonRT.Game.Components.CombatComponent.ExecuteStateMachine">

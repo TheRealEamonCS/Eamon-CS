@@ -54,7 +54,7 @@ namespace EamonRT.Framework.Primitive.Enums
 		CheckArtifactStatus,
 
 		/// <summary></summary>
-		CheckContentsSpilled,
+		CheckSpillContents,
 
 		/// <summary></summary>
 		EndAttack,

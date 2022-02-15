@@ -160,8 +160,8 @@ namespace EamonRT.Framework.Components
 		/// <summary></summary>
 		/// <param name="room"></param>
 		/// <param name="artifact"></param>
-		/// <param name="contentsSpilled"></param>
-		void PrintSmashesToPieces(IRoom room, IArtifact artifact, bool contentsSpilled);
+		/// <param name="spillContents"></param>
+		void PrintSmashesToPieces(IRoom room, IArtifact artifact, bool spillContents);
 
 		/// <summary></summary>
 		/// <param name="w"></param>
