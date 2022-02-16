@@ -1128,7 +1128,10 @@ namespace EamonRT.Game.Components
 				gOut.WriteLine();
 			}
 
-			ApplyPlayerCombatSkillGains();
+			if (ActorMonster != null && ActorMonster.IsCharacterMonster())
+			{
+				ApplyPlayerCombatSkillGains();
+			}
 
 			if (LightOut && ActorWeapon != null)
 			{

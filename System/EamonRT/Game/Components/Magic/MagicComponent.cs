@@ -658,7 +658,10 @@ namespace EamonRT.Game.Components
 				gOut.WriteLine();
 			}
 
-			ApplyPlayerSpellSkillGains();
+			if (ActorMonster != null && ActorMonster.IsCharacterMonster())
+			{
+				ApplyPlayerSpellSkillGains();
+			}
 		}
 
 		public MagicComponent()
