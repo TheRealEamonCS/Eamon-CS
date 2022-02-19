@@ -69,7 +69,7 @@ namespace TheBeginnersCave.Game.Commands
 
 				var combatComponent = Globals.CreateInstance<ICombatComponent>(x =>
 				{
-					// the lambda is used if the combat component needs to set this Command's NextState property (eg, player character dies)
+					// the lambda is used if the combat component needs to set this Command's NextState property (e.g., player character dies)
 
 					x.SetNextStateFunc = s => NextState = s;
 

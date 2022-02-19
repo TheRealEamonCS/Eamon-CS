@@ -67,13 +67,8 @@ namespace EamonRT.Framework.Primitive.Enums
 		AfterClearLastCommandList,
 
 		/// <summary>
-		/// An event that fires after a spell cast attempt is resolved as successful.
-		/// </summary>
-		AfterCastSpellCheck,
-
-		/// <summary>
-		/// An event that fires after a <see cref="IMonster">Monster</see> targeted by the <see cref="Spell.Blast">Blast</see>
-		/// spell gets aggravated.
+		/// An event that fires after a <see cref="IMonster">Monster</see> targeted by an attack
+		/// gets aggravated.
 		/// </summary>
 		AfterAggravateMonster,
 

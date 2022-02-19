@@ -318,11 +318,6 @@ namespace EamonRT.Game.Commands
 			gOut.Print("You broke {0}!", artifact.EvalPlural("it", "them"));
 		}
 
-		public virtual void PrintAlreadyBrokeIt(IArtifact artifact)
-		{
-			gEngine.PrintAlreadyBrokeIt(artifact);
-		}
-
 		public virtual void PrintHaveToForceOpen(IArtifact artifact)
 		{
 			Debug.Assert(artifact != null);
@@ -485,11 +480,6 @@ namespace EamonRT.Game.Commands
 			gOut.Print("You're already wearing {0}!", artifact.EvalPlural("it", "them"));
 		}
 
-		public virtual void PrintWhamHitObj(IArtifact artifact)
-		{
-			gEngine.PrintWhamHitObj(artifact);
-		}
-
 		public virtual void PrintFullDesc(IArtifact artifact, bool showName)
 		{
 			gEngine.PrintFullDesc(artifact, showName);
@@ -588,22 +578,7 @@ namespace EamonRT.Game.Commands
 
 		public virtual void PrintHealthImproves(IMonster monster)
 		{
-			Debug.Assert(monster != null);
-
-			var isCharMonster = monster.IsCharacterMonster();
-
-			if (Globals.IsRulesetVersion(5, 15, 25))
-			{
-				gOut.Print("Some of {0} wounds seem to clear up.",
-					isCharMonster ? "your" :
-					monster.EvalPlural(monster.GetTheName(), monster.GetArticleName(false, true, false, true, Globals.Buf01)).AddPossessiveSuffix());
-			}
-			else
-			{
-				gOut.Print("{0} health improves!",
-					isCharMonster ? "Your" :
-					monster.EvalPlural(monster.GetTheName(true), monster.GetArticleName(true, true, false, true, Globals.Buf01)).AddPossessiveSuffix());
-			}
+			gEngine.PrintHealthImproves(monster);
 		}
 
 		public virtual void PrintHaventSavedGameYet(IMonster monster)
@@ -622,22 +597,7 @@ namespace EamonRT.Game.Commands
 
 		public virtual void PrintHealthStatus(IMonster monster, bool includeUninjuredGroupMonsters)
 		{
-			Debug.Assert(monster != null);
-
-			var isCharMonster = monster.IsCharacterMonster();
-
-			var isUninjuredGroupMonster = includeUninjuredGroupMonsters && monster.CurrGroupCount > 1 && monster.DmgTaken == 0;
-
-			Globals.Buf.SetFormat("{0}{1} {2} ",
-				Environment.NewLine,
-				isCharMonster ? "You" :
-				isUninjuredGroupMonster ? "They" :
-				monster.GetTheName(true, true, false, true, Globals.Buf01),
-				isCharMonster || isUninjuredGroupMonster ? "are" : "is");
-
-			monster.AddHealthStatus(Globals.Buf);
-
-			gOut.Write("{0}", Globals.Buf);
+			gEngine.PrintHealthStatus(monster, includeUninjuredGroupMonsters);
 		}
 
 		public virtual void PrintGiveGoldPiecesTo(IMonster monster, long goldAmount)
@@ -691,27 +651,6 @@ namespace EamonRT.Game.Commands
 			Globals.Buf.AppendFormat(".{0}", Environment.NewLine);
 
 			gOut.Write("{0}", Globals.Buf);
-		}
-
-		public virtual void PrintSonicBoom(IRoom room)
-		{
-			Debug.Assert(room != null);
-
-			if (Globals.IsRulesetVersion(5, 15, 25))
-			{
-				gOut.Print("You hear a very loud sonic boom that echoes through the {0}.", room.EvalRoomType("tunnels", "area"));
-			}
-			else
-			{
-				gOut.Print("You hear a loud sonic boom which echoes all around you!");
-			}
-		}
-
-		public virtual void PrintTunnelCollapses(IRoom room)
-		{
-			Debug.Assert(room != null);
-
-			gOut.Print("The section of {0} collapses and you die.", room.EvalRoomType("tunnel you are in", "ground you are on"));
 		}
 
 		public virtual void PrintOpensConsumesAndHandsBack(IArtifact artifact, IMonster monster, bool objOpened, bool objEdible)
@@ -785,16 +724,6 @@ namespace EamonRT.Game.Commands
 			Debug.Assert(artifact != null && container != null && Enum.IsDefined(typeof(ContainerType), containerType));
 
 			gOut.Print("Done.");
-		}
-
-		public virtual void PrintHackToBits(IArtifact artifact, IMonster monster, bool blastSpell)
-		{
-			gEngine.PrintHackToBits(artifact, monster, blastSpell);
-		}
-
-		public virtual void PrintSmashesToPieces(IRoom room, IArtifact artifact, bool contentsSpilled)
-		{
-			gEngine.PrintSmashesToPieces(room, artifact, contentsSpilled);
 		}
 
 		public virtual void PrintActorRemovesObjPrepContainer(IMonster monster, IArtifact artifact, IArtifact container, ContainerType containerType, bool omitWeightCheck)
@@ -1104,29 +1033,9 @@ namespace EamonRT.Game.Commands
 			gOut.Print("You're already wearing a shield!");
 		}
 
-		public virtual void PrintFeelNewAgility()
-		{
-			gOut.Print("You can feel the new agility flowing through you!");
-		}
-
-		public virtual void PrintAllWoundsHealed()
-		{
-			gOut.Print("All of your wounds are healed.");
-		}
-
 		public virtual void PrintZapDirectHit()
 		{
 			gEngine.PrintZapDirectHit();
-		}
-
-		public virtual void PrintFortuneCookie()
-		{
-			var rl = gEngine.RollDice(1, 100, 0);
-
-			gOut.Print("A fortune cookie appears in mid-air and explodes!  The smoking paper left behind reads, \"{0}\"  How strange.", 
-				rl > 50 ? 
-				"THE SECTION OF TUNNEL YOU ARE IN COLLAPSES AND YOU DIE." : 
-				"YOU SUDDENLY FIND YOU CANNOT CARRY ALL OF THE ITEMS YOU ARE CARRYING, AND THEY ALL FALL TO THE GROUND.");
 		}
 
 		public virtual bool IsAllowedInRoom()
@@ -1252,12 +1161,7 @@ namespace EamonRT.Game.Commands
 			return true;
 		}
 
-		public virtual void Execute()
-		{
-
-		}
-
-		public virtual void PreExecute()
+		public virtual void Stage()
 		{
 			Debug.Assert(Command.ActorMonster != null);
 
@@ -1270,36 +1174,6 @@ namespace EamonRT.Game.Commands
 				if (Command.IsAllowedInRoom())
 				{
 					Command.Execute();
-
-					if (Globals.SpellSkillIncreaseFunc != null && (Command is IHealCommand || Command is ISpeedCommand || Command is IPowerCommand || Command is IAttackCommand))
-					{
-						if (gGameState.Die <= 0)
-						{
-							Globals.SpellSkillIncreaseFunc();
-						}
-
-						Globals.SpellSkillIncreaseFunc = null;
-					}
-
-					if (Globals.WeaponSkillIncreaseFunc != null)
-					{
-						if (gGameState.Die <= 0)
-						{
-							Globals.WeaponSkillIncreaseFunc();
-						}
-
-						Globals.WeaponSkillIncreaseFunc = null;
-					}
-
-					if (Globals.ArmorSkillIncreaseFunc != null)
-					{
-						if (gGameState.Die <= 0)
-						{
-							Globals.ArmorSkillIncreaseFunc();
-						}
-
-						Globals.ArmorSkillIncreaseFunc = null;
-					}
 				}
 				else
 				{
@@ -1316,6 +1190,11 @@ namespace EamonRT.Game.Commands
 			}
 
 			Globals.NextState = Command.NextState;
+		}
+
+		public virtual void Execute()
+		{
+
 		}
 
 		public virtual string GetPrintedVerb()

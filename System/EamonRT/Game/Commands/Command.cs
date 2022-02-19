@@ -456,11 +456,6 @@ namespace EamonRT.Game.Commands
 			CommandImpl.PrintBrokeIt(artifact);
 		}
 
-		public virtual void PrintAlreadyBrokeIt(IArtifact artifact)
-		{
-			CommandImpl.PrintAlreadyBrokeIt(artifact);
-		}
-
 		public virtual void PrintHaveToForceOpen(IArtifact artifact)
 		{
 			CommandImpl.PrintHaveToForceOpen(artifact);
@@ -566,11 +561,6 @@ namespace EamonRT.Game.Commands
 			CommandImpl.PrintAlreadyWearingObj(artifact);
 		}
 
-		public virtual void PrintWhamHitObj(IArtifact artifact)
-		{
-			CommandImpl.PrintWhamHitObj(artifact);
-		}
-
 		public virtual void PrintFullDesc(IArtifact artifact, bool showName)
 		{
 			CommandImpl.PrintFullDesc(artifact, showName);
@@ -651,16 +641,6 @@ namespace EamonRT.Game.Commands
 			CommandImpl.PrintActorIsCarrying(monster, monsterCarriedArtifactList);
 		}
 
-		public virtual void PrintSonicBoom(IRoom room)
-		{
-			CommandImpl.PrintSonicBoom(room);
-		}
-
-		public virtual void PrintTunnelCollapses(IRoom room)
-		{
-			CommandImpl.PrintTunnelCollapses(room);
-		}
-
 		public virtual void PrintOpensConsumesAndHandsBack(IArtifact artifact, IMonster monster, bool objOpened, bool objEdible)
 		{
 			CommandImpl.PrintOpensConsumesAndHandsBack(artifact, monster, objOpened, objEdible);
@@ -699,16 +679,6 @@ namespace EamonRT.Game.Commands
 		public virtual void PrintPutObjPrepContainer(IArtifact artifact, IArtifact container, ContainerType containerType)
 		{
 			CommandImpl.PrintPutObjPrepContainer(artifact, container, containerType);
-		}
-
-		public virtual void PrintHackToBits(IArtifact artifact, IMonster monster, bool blastSpell)
-		{
-			CommandImpl.PrintHackToBits(artifact, monster, blastSpell);
-		}
-
-		public virtual void PrintSmashesToPieces(IRoom room, IArtifact artifact, bool contentsSpilled)
-		{
-			CommandImpl.PrintSmashesToPieces(room, artifact, contentsSpilled);
 		}
 
 		public virtual void PrintActorRemovesObjPrepContainer(IMonster monster, IArtifact artifact, IArtifact container, ContainerType containerType, bool omitWeightCheck)
@@ -951,24 +921,9 @@ namespace EamonRT.Game.Commands
 			CommandImpl.PrintAlreadyWearingShield();
 		}
 
-		public virtual void PrintFeelNewAgility()
-		{
-			CommandImpl.PrintFeelNewAgility();
-		}
-
-		public virtual void PrintAllWoundsHealed()
-		{
-			CommandImpl.PrintAllWoundsHealed();
-		}
-
 		public virtual void PrintZapDirectHit()
 		{
 			CommandImpl.PrintZapDirectHit();
-		}
-
-		public virtual void PrintFortuneCookie()
-		{
-			CommandImpl.PrintFortuneCookie();
 		}
 
 		public virtual bool IsAllowedInRoom()
@@ -991,14 +946,14 @@ namespace EamonRT.Game.Commands
 			return CommandImpl.ShouldPreTurnProcess();
 		}
 
+		public override void Stage()
+		{
+			CommandImpl.Stage();
+		}
+
 		public override void Execute()
 		{
 			CommandImpl.Execute();
-		}
-
-		public override void PreExecute()
-		{
-			CommandImpl.PreExecute();
 		}
 
 		public virtual string GetPrintedVerb()

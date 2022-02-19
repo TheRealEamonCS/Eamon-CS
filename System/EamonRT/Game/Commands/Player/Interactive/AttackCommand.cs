@@ -3,15 +3,11 @@
 
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using Eamon;
-using Eamon.Framework;
 using Eamon.Framework.Primitive.Classes;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
-using Eamon.Game.Extensions;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.Components;
 using EamonRT.Framework.Primitive.Enums;
@@ -137,7 +133,7 @@ namespace EamonRT.Game.Commands
 
 					x.BlastSpell = BlastSpell;
 
-					x.OmitSkillGains = !BlastSpell && (ActorMonster.Weapon == 0 || !ShouldAllowSkillGains());
+					x.OmitSkillGains = BlastSpell || ActorMonster.Weapon == 0 || !ShouldAllowSkillGains();
 				});
 
 				CombatComponent.ExecuteAttack();
@@ -187,6 +183,8 @@ namespace EamonRT.Game.Commands
 				x.AttackNumber = AttackNumber;
 
 				x.BlastSpell = BlastSpell;
+
+				x.OmitSkillGains = true;
 			});
 
 			CombatComponent.ExecuteAttack();

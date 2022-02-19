@@ -43,8 +43,6 @@ namespace EamonRT.Game.Components
 
 		public virtual bool OmitArmor { get; set; }
 
-		public virtual bool OmitSkillGains { get; set; }
-
 		public virtual bool OmitMonsterStatus { get; set; }
 
 		public virtual AttackResult FixedResult { get; set; }
@@ -59,9 +57,6 @@ namespace EamonRT.Game.Components
 
 		/// <summary></summary>
 		public virtual IMonster DisguisedMonster { get; set; }
-
-		/// <summary></summary>
-		public virtual ICommand RedirectCommand { get; set; }
 
 		/// <summary></summary>
 		public virtual IArtifactCategory ActorAc { get; set; }
@@ -85,10 +80,13 @@ namespace EamonRT.Game.Components
 		public virtual Weapon DobjWeaponType { get; set; }
 
 		/// <summary></summary>
-		public virtual bool ContentsSpilled { get; set; }
+		public virtual bool SpillContents { get; set; }
 
 		/// <summary></summary>
 		public virtual bool UseFractionalStrength { get; set; }
+
+		/// <summary></summary>
+		public virtual bool RevealDisguisedMonster { get; set; }
 
 		/// <summary></summary>
 		public virtual bool OmitBboaPadding { get; set; }
@@ -154,12 +152,12 @@ namespace EamonRT.Game.Components
 
 		public virtual void ExecuteAttack()
 		{
+			Debug.Assert(DobjArtifact != null || DobjMonster != null);
+
 			if (DobjMonster != null)
 			{ 
 				if (BlastSpell)
 				{
-					PrintZapDirectHit();
-
 					if (Globals.IsRulesetVersion(5, 15, 25))
 					{
 						ExecuteCalculateDamage(1, 6);
@@ -183,6 +181,113 @@ namespace EamonRT.Game.Components
 				CombatState = CombatState.CheckDisguisedMonster;
 
 				ExecuteStateMachine();
+			}
+		}
+
+		/// <summary></summary>
+		/// <param name="ac"></param>
+		/// <param name="af"></param>
+		public virtual void CheckPlayerCombatSkillGains(IArtifactCategory ac, long af)
+		{
+			Debug.Assert(ac != null && ac.IsWeapon01());
+
+			var s = (Weapon)ac.Field2;
+
+			var rl = gEngine.RollDice(1, 100, 0);
+
+			if (rl > 75)
+			{
+				rl = gEngine.RollDice(1, 100, 0);
+
+				rl += gCharacter.GetIntellectBonusPct();
+
+				if (rl > gCharacter.GetWeaponAbilities(s))
+				{
+					var weapon = gEngine.GetWeapons(s);
+
+					Debug.Assert(weapon != null);
+
+					Globals.WeaponSkillIncreaseFunc = () =>
+					{
+						if (!Globals.IsRulesetVersion(5, 15, 25))
+						{
+							PrintWeaponAbilityIncreased(s, weapon);
+						}
+
+						gCharacter.ModWeaponAbilities(s, 2);
+
+						if (gCharacter.GetWeaponAbilities(s) > weapon.MaxValue)
+						{
+							gCharacter.SetWeaponAbilities(s, weapon.MaxValue);
+						}
+					};
+				}
+
+				var x = Math.Abs(af);
+
+				if (x > 0)
+				{
+					rl = gEngine.RollDice(1, x, 0);
+
+					rl += (long)Math.Round(((double)x / 100.0) * (double)gCharacter.GetIntellectBonusPct());
+
+					if (rl > gCharacter.ArmorExpertise)
+					{
+						Globals.ArmorSkillIncreaseFunc = () =>
+						{
+							if (!Globals.IsRulesetVersion(5, 15, 25))
+							{
+								PrintArmorExpertiseIncreased();
+							}
+
+							gCharacter.ArmorExpertise += 2;
+
+							if (gCharacter.ArmorExpertise <= 66 && gCharacter.ArmorExpertise > x)
+							{
+								gCharacter.ArmorExpertise = x;
+							}
+
+							if (gCharacter.ArmorExpertise > 79)
+							{
+								gCharacter.ArmorExpertise = 79;
+							}
+						};
+					}
+				}
+			}
+		}
+
+		/// <summary></summary>
+		public virtual void ApplyPlayerCombatSkillGains()
+		{
+			if (!RevealDisguisedMonster && Globals.SpellSkillIncreaseFunc != null)
+			{
+				if (gGameState.Die <= 0)
+				{
+					Globals.SpellSkillIncreaseFunc();
+				}
+
+				Globals.SpellSkillIncreaseFunc = null;
+			}
+
+			if (Globals.WeaponSkillIncreaseFunc != null)
+			{
+				if (gGameState.Die <= 0)
+				{
+					Globals.WeaponSkillIncreaseFunc();
+				}
+
+				Globals.WeaponSkillIncreaseFunc = null;
+			}
+
+			if (Globals.ArmorSkillIncreaseFunc != null)
+			{
+				if (gGameState.Die <= 0)
+				{
+					Globals.ArmorSkillIncreaseFunc();
+				}
+
+				Globals.ArmorSkillIncreaseFunc = null;
 			}
 		}
 
@@ -284,7 +389,7 @@ namespace EamonRT.Game.Components
 
 			if (ActorMonster.IsCharacterMonster() && _rl < 97 && (_rl < 5 || _rl <= _odds) && ActorAc != null && !OmitSkillGains)
 			{
-				gEngine.CheckPlayerSkillGains(ActorAc, Af);
+				CheckPlayerCombatSkillGains(ActorAc, Af);
 			}
 
 			ActorWeaponType = (Weapon)(ActorAc != null ? ActorAc.Field2 : 0);
@@ -600,6 +705,8 @@ namespace EamonRT.Game.Components
 		/// <summary></summary>
 		public virtual void CheckMonsterStatus()
 		{
+			Debug.Assert(SetNextStateFunc != null);
+
 			Debug.Assert(DobjMonster != null);
 
 			Debug.Assert(_d2 >= 0);
@@ -617,13 +724,10 @@ namespace EamonRT.Game.Components
 				{
 					gGameState.Die = 1;
 
-					if (SetNextStateFunc != null)
+					SetNextStateFunc(Globals.CreateInstance<IPlayerDeadState>(x =>
 					{
-						SetNextStateFunc(Globals.CreateInstance<IPlayerDeadState>(x =>
-						{
-							x.PrintLineSep = true;
-						}));
-					}
+						x.PrintLineSep = true;
+					}));
 				}
 				else
 				{
@@ -637,6 +741,8 @@ namespace EamonRT.Game.Components
 		/// <summary></summary>
 		public virtual void CheckDisguisedMonster()
 		{
+			Debug.Assert(SetNextStateFunc != null && CopyCommandDataFunc != null);
+
 			Debug.Assert(DobjArtAc != null);
 
 			if (DobjArtAc.Type == ArtifactType.DisguisedMonster)
@@ -667,9 +773,16 @@ namespace EamonRT.Game.Components
 
 				SetNextStateFunc(RedirectCommand);
 
+				RevealDisguisedMonster = true;
+
 				CombatState = CombatState.EndAttack;
 
 				goto Cleanup;
+			}
+
+			if (!BlastSpell)
+			{
+				PrintWhamHitObj(DobjArtifact);
 			}
 
 			CombatState = CombatState.CheckDeadBody;
@@ -686,11 +799,6 @@ namespace EamonRT.Game.Components
 
 			if (DobjArtAc.Type == ArtifactType.DeadBody)
 			{
-				if (BlastSpell)
-				{
-					PrintZapDirectHit();
-				}
-
 				DobjArtifact.SetInLimbo();
 
 				PrintHackToBits(DobjArtifact, ActorMonster, BlastSpell);
@@ -778,8 +886,6 @@ namespace EamonRT.Game.Components
 
 					S = 5;
 				}
-
-				PrintZapDirectHit();
 			}
 			else
 			{
@@ -801,8 +907,6 @@ namespace EamonRT.Game.Components
 
 					S = ActorMonster.NwSides;
 				}
-
-				PrintWhamHitObj(DobjArtifact);
 			}
 
 			CombatState = CombatState.CalculateDamageArtifact;
@@ -865,7 +969,7 @@ namespace EamonRT.Game.Components
 
 			Debug.Assert(gEngine.IsSuccess(rc));
 
-			CombatState = CombatState.CheckContentsSpilled;
+			CombatState = CombatState.CheckSpillContents;
 
 		Cleanup:
 
@@ -873,11 +977,11 @@ namespace EamonRT.Game.Components
 		}
 
 		/// <summary></summary>
-		public virtual void CheckContentsSpilled()
+		public virtual void CheckSpillContents()
 		{
 			Debug.Assert(DobjArtifact != null && DobjArtAc != null);
 
-			ContentsSpilled = false;
+			SpillContents = false;
 
 			if (DobjArtAc.Type == ArtifactType.InContainer)
 			{
@@ -895,13 +999,13 @@ namespace EamonRT.Game.Components
 
 				if (SpilledArtifactList.Count > 0)
 				{
-					ContentsSpilled = true;
+					SpillContents = true;
 				}
 
 				DobjArtAc.Field3 = 0;
 			}
 
-			PrintSmashesToPieces(ActorRoom, DobjArtifact, ContentsSpilled);
+			PrintSmashesToPieces(ActorRoom, DobjArtifact, SpillContents);
 
 			CombatState = CombatState.EndAttack;
 		}
@@ -999,9 +1103,9 @@ namespace EamonRT.Game.Components
 
 						break;
 
-					case CombatState.CheckContentsSpilled:
+					case CombatState.CheckSpillContents:
 
-						CheckContentsSpilled();
+						CheckSpillContents();
 
 						break;
 
@@ -1022,6 +1126,11 @@ namespace EamonRT.Game.Components
 			if (!OmitFinalNewLine)
 			{
 				gOut.WriteLine();
+			}
+
+			if (ActorMonster != null && ActorMonster.IsCharacterMonster())
+			{
+				ApplyPlayerCombatSkillGains();
 			}
 
 			if (LightOut && ActorWeapon != null)

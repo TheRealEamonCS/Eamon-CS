@@ -188,14 +188,14 @@ namespace EamonRT.Game.States
 			return StateImpl.ShouldPreTurnProcess();
 		}
 
+		public virtual void Stage()
+		{
+			StateImpl.Stage();
+		}
+
 		public virtual void Execute()
 		{
 			StateImpl.Execute();
-		}
-
-		public virtual void PreExecute()
-		{
-			StateImpl.PreExecute();
 		}
 
 		#endregion

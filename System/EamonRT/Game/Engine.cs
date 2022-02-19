@@ -164,42 +164,9 @@ namespace EamonRT.Game
 				Globals.Buf01);
 		}
 
-		public virtual void PrintHackToBits(IArtifact artifact, IMonster monster, bool blastSpell)
-		{
-			Debug.Assert(artifact != null && monster != null);
-
-			gOut.Print("You {0} {1} to bits!", blastSpell ? "blast" : monster.Weapon > 0 ? "hack" : "tear", artifact.EvalPlural("it", "them"));
-		}
-
-		public virtual void PrintAlreadyBrokeIt(IArtifact artifact)
-		{
-			Debug.Assert(artifact != null);
-
-			gOut.Print("You already broke {0}!", artifact.EvalPlural("it", "them"));
-		}
-
 		public virtual void PrintNothingHappens()
 		{
 			gOut.Print("Nothing happens.");
-		}
-
-		public virtual void PrintWhamHitObj(IArtifact artifact)
-		{
-			Debug.Assert(artifact != null);
-
-			gOut.Print("Wham!  You hit {0}!", artifact.GetTheName());
-		}
-
-		public virtual void PrintSmashesToPieces(IRoom room, IArtifact artifact, bool contentsSpilled)
-		{
-			Debug.Assert(room != null && artifact != null);
-
-			gOut.Print("{0}{1} {2} to pieces{3}!",
-				Environment.NewLine,
-				artifact.GetTheName(true),
-				artifact.EvalPlural("smashes", "smash"),
-				contentsSpilled ? string.Format("; {0} contents spill to the {1}", artifact.EvalPlural("its", "their"), room.EvalRoomType("floor", "ground")) :
-				"");
 		}
 
 		public virtual void PrintFullDesc(IArtifact artifact, bool showName)
@@ -291,44 +258,51 @@ namespace EamonRT.Game
 			gOut.Write("{0}", Globals.Buf);
 		}
 
+		public virtual void PrintHealthImproves(IMonster monster)
+		{
+			Debug.Assert(monster != null);
+
+			var isCharMonster = monster.IsCharacterMonster();
+
+			if (Globals.IsRulesetVersion(5, 15, 25))
+			{
+				gOut.Print("Some of {0} wounds seem to clear up.",
+					isCharMonster ? "your" :
+					monster.EvalPlural(monster.GetTheName(), monster.GetArticleName(false, true, false, true, Globals.Buf01)).AddPossessiveSuffix());
+			}
+			else
+			{
+				gOut.Print("{0} health improves!",
+					isCharMonster ? "Your" :
+					monster.EvalPlural(monster.GetTheName(true), monster.GetArticleName(true, true, false, true, Globals.Buf01)).AddPossessiveSuffix());
+			}
+		}
+
+		public virtual void PrintHealthStatus(IMonster monster, bool includeUninjuredGroupMonsters)
+		{
+			Debug.Assert(monster != null);
+
+			var isCharMonster = monster.IsCharacterMonster();
+
+			var isUninjuredGroupMonster = includeUninjuredGroupMonsters && monster.CurrGroupCount > 1 && monster.DmgTaken == 0;
+
+			Globals.Buf.SetFormat("{0}{1} {2} ",
+				Environment.NewLine,
+				isCharMonster ? "You" :
+				isUninjuredGroupMonster ? "They" :
+				monster.GetTheName(true, true, false, true, Globals.Buf01),
+				isCharMonster || isUninjuredGroupMonster ? "are" : "is");
+
+			monster.AddHealthStatus(Globals.Buf);
+
+			gOut.Write("{0}", Globals.Buf);
+		}
+
 		public virtual void PrintDoesntHaveIt(IMonster monster)
 		{
 			Debug.Assert(monster != null);
 
 			gOut.Print("{0}{1} have it.", monster.GetTheName(true), monster.EvalPlural(" doesn't", " don't"));
-		}
-
-		public virtual void PrintSpellOverloadsBrain(Spell s, ISpell spell)
-		{
-			Debug.Assert(Enum.IsDefined(typeof(Spell), s) && spell != null);
-
-			gOut.Print("The strain of attempting to cast {0} overloads your brain and you forget it completely{1}.", spell.Name, Globals.IsRulesetVersion(5, 15, 25) ? "" : " for the rest of this adventure");
-		}
-
-		public virtual void PrintSpellAbilityIncreased(Spell s, ISpell spell)
-		{
-			Debug.Assert(Enum.IsDefined(typeof(Spell), s) && spell != null);
-
-			gOut.Print("Your ability to cast {0} just increased!", spell.Name);
-		}
-
-		public virtual void PrintSpellCastFailed(Spell s, ISpell spell)
-		{
-			Debug.Assert(Enum.IsDefined(typeof(Spell), s) && spell != null);
-
-			gOut.Print("Nothing happens.");
-		}
-
-		public virtual void PrintWeaponAbilityIncreased(Weapon w, IWeapon weapon)
-		{
-			Debug.Assert(Enum.IsDefined(typeof(Weapon), w) && weapon != null);
-
-			gOut.Print("Your {0} ability just increased!", weapon.Name);
-		}
-
-		public virtual void PrintArmorExpertiseIncreased()
-		{
-			gOut.Print("Your armor expertise just increased!");
 		}
 
 		public virtual void PrintTooManyWeapons()
@@ -349,6 +323,11 @@ namespace EamonRT.Game
 		public virtual void PrintEnterWeaponToSell()
 		{
 			gOut.Write("{0}Enter the number of a weapon to sell: ", Environment.NewLine);
+		}
+
+		public virtual void PrintAllWoundsHealed()
+		{
+			gOut.Print("All of your wounds are healed.");
 		}
 
 		public virtual void PrintYouHavePerished()
@@ -2791,75 +2770,6 @@ namespace EamonRT.Game
 			return artifactList.Count > 0;
 		}
 
-		public virtual bool CheckPlayerSpellCast(Spell spellValue, bool shouldAllowSkillGains)
-		{
-			Debug.Assert(Enum.IsDefined(typeof(Spell), spellValue));
-
-			var result = false;
-
-			var rl = 0L;
-
-			var s = spellValue;
-
-			var spell = GetSpells(spellValue);
-
-			Debug.Assert(spell != null);
-
-			if (gGameState.GetSa(s) > 0 && gCharacter.GetSpellAbilities(s) > 0)
-			{
-				rl = RollDice(1, 100, 0);
-			}
-
-			if (rl == 100)
-			{
-				PlayerSpellCastBrainOverload(s, spell);
-
-				goto Cleanup;
-			}
-
-			if (rl > 0 && rl < 95 && (rl < 5 || rl <= gGameState.GetSa(s)))
-			{
-				result = true;
-
-				gGameState.SetSa(s, (long)((double)gGameState.GetSa(s) * .5 + 1));
-
-				if (shouldAllowSkillGains)
-				{
-					rl = RollDice(1, 100, 0);
-
-					rl += gCharacter.GetIntellectBonusPct();
-
-					if (rl > gCharacter.GetSpellAbilities(s))
-					{
-						Globals.SpellSkillIncreaseFunc = () =>
-						{
-							if (!Globals.IsRulesetVersion(5, 15, 25))
-							{
-								PrintSpellAbilityIncreased(s, spell);
-							}
-
-							gCharacter.ModSpellAbilities(s, 2);
-
-							if (gCharacter.GetSpellAbilities(s) > spell.MaxValue)
-							{
-								gCharacter.SetSpellAbilities(s, spell.MaxValue);
-							}
-						};
-					}
-				}
-			}
-			else
-			{
-				PrintSpellCastFailed(s, spell);
-
-				goto Cleanup;
-			}
-
-		Cleanup:
-
-			return result;
-		}
-
 		public virtual bool SaveThrow(Stat stat, long bonus = 0)
 		{
 			Debug.Assert(gCharMonster != null);
@@ -2905,77 +2815,6 @@ namespace EamonRT.Game
 
 			return rl <= value;
 		}
-
-		public virtual void CheckPlayerSkillGains(IArtifactCategory ac, long af)
-		{
-			Debug.Assert(ac != null && ac.IsWeapon01());
-
-			var s = (Weapon)ac.Field2;
-
-			var rl = RollDice(1, 100, 0);
-
-			if (rl > 75)
-			{
-				rl = RollDice(1, 100, 0);
-
-				rl += gCharacter.GetIntellectBonusPct();
-
-				if (rl > gCharacter.GetWeaponAbilities(s))
-				{
-					var weapon = GetWeapons(s);
-
-					Debug.Assert(weapon != null);
-
-					Globals.WeaponSkillIncreaseFunc = () =>
-					{
-						if (!Globals.IsRulesetVersion(5, 15, 25))
-						{
-							PrintWeaponAbilityIncreased(s, weapon);
-						}
-
-						gCharacter.ModWeaponAbilities(s, 2);
-
-						if (gCharacter.GetWeaponAbilities(s) > weapon.MaxValue)
-						{
-							gCharacter.SetWeaponAbilities(s, weapon.MaxValue);
-						}
-					};
-				}
-
-				var x = Math.Abs(af);
-
-				if (x > 0)
-				{
-					rl = RollDice(1, x, 0);
-
-					rl += (long)Math.Round(((double)x / 100.0) * (double)gCharacter.GetIntellectBonusPct());
-
-					if (rl > gCharacter.ArmorExpertise)
-					{
-						Globals.ArmorSkillIncreaseFunc = () =>
-						{
-							if (!Globals.IsRulesetVersion(5, 15, 25))
-							{
-								PrintArmorExpertiseIncreased();
-							}
-
-							gCharacter.ArmorExpertise += 2;
-
-							if (gCharacter.ArmorExpertise <= 66 && gCharacter.ArmorExpertise > x)
-							{
-								gCharacter.ArmorExpertise = x;
-							}
-
-							if (gCharacter.ArmorExpertise > 79)
-							{
-								gCharacter.ArmorExpertise = 79;
-							}
-						};
-					}
-				}
-			}
-		}
-
 		public virtual void CheckToExtinguishLightSource()
 		{
 			Debug.Assert(gGameState.Ls > 0);
@@ -3608,25 +3447,6 @@ namespace EamonRT.Game
 			if (monster.Field1 > 0)
 			{
 				monster.Hardiness = damageFactor * monster.Field1;
-			}
-		}
-
-		/// <summary></summary>
-		/// <param name="s"></param>
-		/// <param name="spell"></param>
-		public virtual void PlayerSpellCastBrainOverload(Spell s, ISpell spell)
-		{
-			Debug.Assert(Enum.IsDefined(typeof(Spell), s));
-
-			Debug.Assert(spell != null);
-
-			PrintSpellOverloadsBrain(s, spell);
-
-			gGameState.SetSa(s, 0);
-
-			if (Globals.IsRulesetVersion(5, 15, 25))
-			{
-				gCharacter.SetSpellAbilities(s, 0);
 			}
 		}
 
