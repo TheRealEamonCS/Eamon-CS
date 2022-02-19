@@ -106,6 +106,13 @@ namespace EamonRT.Game
 			gOut.Write("{0}Use {1} on who or what? ", Environment.NewLine, artifact.EvalPlural("it", "them"));
 		}
 
+		public virtual void PrintWhamHitObj(IArtifact artifact)
+		{
+			Debug.Assert(artifact != null);
+
+			gOut.Print("Wham!  You hit {0}!", artifact.GetTheName());
+		}
+
 		public virtual void PrintMonsterAlive(IArtifact artifact)
 		{
 			Debug.Assert(artifact != null);

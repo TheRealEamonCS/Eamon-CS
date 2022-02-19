@@ -298,6 +298,10 @@
             <summary></summary>
             <param name="artifact"></param>
         </member>
+        <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintWhamHitObj(Eamon.Framework.IArtifact)">
+            <summary></summary>
+            <param name="artifact"></param>
+        </member>
         <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintFullDesc(Eamon.Framework.IArtifact,System.Boolean)">
             <summary></summary>
             <param name="artifact"></param>
@@ -1285,6 +1289,10 @@
             <param name="artifact"></param>
         </member>
         <member name="M:EamonRT.Framework.IEngine.PrintUseObjOnWhoOrWhat(Eamon.Framework.IArtifact)">
+            <summary></summary>
+            <param name="artifact"></param>
+        </member>
+        <member name="M:EamonRT.Framework.IEngine.PrintWhamHitObj(Eamon.Framework.IArtifact)">
             <summary></summary>
             <param name="artifact"></param>
         </member>

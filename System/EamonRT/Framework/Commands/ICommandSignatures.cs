@@ -292,6 +292,10 @@ namespace EamonRT.Framework.Commands
 
 		/// <summary></summary>
 		/// <param name="artifact"></param>
+		void PrintWhamHitObj(IArtifact artifact);
+
+		/// <summary></summary>
+		/// <param name="artifact"></param>
 		/// <param name="showName"></param>
 		void PrintFullDesc(IArtifact artifact, bool showName);
 

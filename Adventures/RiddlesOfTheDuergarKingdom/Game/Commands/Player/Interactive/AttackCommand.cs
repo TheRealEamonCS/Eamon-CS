@@ -48,6 +48,11 @@ namespace RiddlesOfTheDuergarKingdom.Game.Commands
 
 						if (gGameState.WinchCounter > 0)
 						{
+							if (!BlastSpell)
+							{
+								PrintWhamHitObj(DobjArtifact);
+							}
+
 							gEngine.PrintEffectDesc(11);
 
 							gGameState.Die = 1;
@@ -67,6 +72,11 @@ namespace RiddlesOfTheDuergarKingdom.Game.Commands
 					case 39:
 
 						// Attack wooden support beams = Death
+
+						if (!BlastSpell)
+						{
+							PrintWhamHitObj(DobjArtifact);
+						}
 
 						gEngine.PrintEffectDesc(63);
 

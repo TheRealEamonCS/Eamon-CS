@@ -84,6 +84,10 @@ namespace EamonRT.Framework
 
 		/// <summary></summary>
 		/// <param name="artifact"></param>
+		void PrintWhamHitObj(IArtifact artifact);
+
+		/// <summary></summary>
+		/// <param name="artifact"></param>
 		void PrintMonsterAlive(IArtifact artifact);
 
 		/// <summary></summary>
