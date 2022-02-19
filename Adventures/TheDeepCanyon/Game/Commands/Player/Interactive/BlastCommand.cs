@@ -13,20 +13,6 @@ namespace TheDeepCanyon.Game.Commands
 	[ClassMappings]
 	public class BlastCommand : EamonRT.Game.Commands.BlastCommand, IBlastCommand
 	{
-		public override void ProcessEvents(EventType eventType)
-		{
-			base.ProcessEvents(eventType);
-
-			// BLAST elephants
-
-			if (eventType == EventType.AfterCastSpellCheck && DobjMonster != null && DobjMonster.Uid == 24)
-			{
-				gOut.Print("The power of Elzod protects the elephants from your magical attack!");
-
-				GotoCleanup = true;
-			}
-		}
-
 		public override bool ShouldAllowSkillGains()
 		{
 			// BLASTing elephants never increases skill

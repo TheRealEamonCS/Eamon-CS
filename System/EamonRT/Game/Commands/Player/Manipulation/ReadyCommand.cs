@@ -21,6 +21,8 @@ namespace EamonRT.Game.Commands
 	{
 		public virtual ArtifactType[] ArtTypes { get; set; }
 
+		public virtual bool OmitReadySameWeapon { get; set; }
+
 		/// <summary></summary>
 		public virtual IArtifactCategory DobjArtAc { get; set; }
 
@@ -94,20 +96,23 @@ namespace EamonRT.Game.Commands
 				goto Cleanup;
 			}
 
-			ActorWeapon = gADB[ActorMonster.Weapon];
-
-			if (ActorWeapon != null)
+			if (!OmitReadySameWeapon || ActorMonster.Weapon != DobjArtifact.Uid)
 			{
-				rc = ActorWeapon.RemoveStateDesc(ActorWeapon.GetReadyWeaponDesc());
+				ActorWeapon = gADB[ActorMonster.Weapon];
+
+				if (ActorWeapon != null)
+				{
+					rc = ActorWeapon.RemoveStateDesc(ActorWeapon.GetReadyWeaponDesc());
+
+					Debug.Assert(gEngine.IsSuccess(rc));
+				}
+
+				ActorMonster.Weapon = DobjArtifact.Uid;
+
+				rc = DobjArtifact.AddStateDesc(DobjArtifact.GetReadyWeaponDesc());
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 			}
-
-			ActorMonster.Weapon = DobjArtifact.Uid;
-
-			rc = DobjArtifact.AddStateDesc(DobjArtifact.GetReadyWeaponDesc());
-
-			Debug.Assert(gEngine.IsSuccess(rc));
 
 			PrintReadied(DobjArtifact);
 

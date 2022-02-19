@@ -14,24 +14,6 @@ namespace TheTrainingGround.Game.Commands
 	[ClassMappings]
 	public class BlastCommand : EamonRT.Game.Commands.BlastCommand, IBlastCommand
 	{
-		public override void ProcessEvents(EventType eventType)
-		{
-			base.ProcessEvents(eventType);
-
-			// BLAST Bozworth
-
-			if (eventType == EventType.AfterCastSpellCheck && DobjMonster != null && DobjMonster.Uid == 20)
-			{
-				gEngine.PrintEffectDesc(21);
-
-				DobjMonster.SetInLimbo();
-
-				NextState = Globals.CreateInstance<IStartState>();
-
-				GotoCleanup = true;
-			}
-		}
-
 		public override bool ShouldAllowSkillGains()
 		{
 			// BLASTing Bozworth never increases skill

@@ -165,7 +165,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 				gOut.Print("\"What name should I inscribe on it?\"");
 
-				gOut.Print("Note: this should be a capitalized singular proper name (eg, Trollsfire)");
+				gOut.Print("Note: this should be a capitalized singular proper name (e.g., Trollsfire)");
 
 				gOut.Print("{0}", Globals.LineSep);
 

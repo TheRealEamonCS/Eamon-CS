@@ -106,10 +106,10 @@ namespace EamonRT.Framework.States
 		bool ShouldPreTurnProcess();
 
 		/// <summary></summary>
-		void Execute();
+		void Stage();
 
 		/// <summary></summary>
-		void PreExecute();
+		void Execute();
 
 		#endregion
 	}

@@ -29,17 +29,17 @@ namespace Eamon.Framework
 		IList<IArtifact> ArtifactContainedList { get; set; }
 
 		/// <summary>
-		/// Gets or sets an array of sentence prepositions (eg, "to", "from", "inside", etc).
+		/// Gets or sets an array of sentence prepositions (e.g., "to", "from", "inside", etc).
 		/// </summary>
 		IPrep[] Preps { get; set; }
 
 		/// <summary>
-		/// Gets or sets an array of sentence articles (eg, "a", "some", "the", etc).
+		/// Gets or sets an array of sentence articles (e.g., "a", "some", "the", etc).
 		/// </summary>
 		string[] Articles { get; set; }
 
 		/// <summary>
-		/// Gets or sets a generic string representing an unknown name (eg, "???").
+		/// Gets or sets a generic string representing an unknown name (e.g., "???").
 		/// </summary>
 		string UnknownName { get; set; }
 
@@ -48,14 +48,14 @@ namespace Eamon.Framework
 		#region Methods
 
 		/// <summary>
-		/// Gets the sentence preposition (eg, "to", "from", "inside", etc).
+		/// Gets the sentence preposition (e.g., "to", "from", "inside", etc).
 		/// </summary>
 		/// <param name="index"></param>
 		/// <returns></returns>
 		IPrep GetPreps(long index);
 
 		/// <summary>
-		/// Gets the sentence article (eg, "a", "some", "the", etc).
+		/// Gets the sentence article (e.g., "a", "some", "the", etc).
 		/// </summary>
 		/// <param name="index"></param>
 		/// <returns></returns>

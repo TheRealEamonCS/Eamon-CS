@@ -12,12 +12,12 @@ namespace EamonRT.Framework.Commands
 	public interface IPowerCommand : ICommand
 	{
 		/// <summary></summary>
-		bool CastSpell { get; set; }
-
-		/// <summary></summary>
 		Func<IArtifact, bool>[] ResurrectWhereClauseFuncs { get; set; }
 
 		/// <summary></summary>
 		Func<IArtifact, bool>[] VanishWhereClauseFuncs { get; set; }
+
+		/// <summary></summary>
+		bool CastSpell { get; set; }
 	}
 }

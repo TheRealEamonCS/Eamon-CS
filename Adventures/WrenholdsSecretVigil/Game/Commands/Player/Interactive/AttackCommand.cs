@@ -16,22 +16,6 @@ namespace WrenholdsSecretVigil.Game.Commands
 	[ClassMappings]
 	public class AttackCommand : EamonRT.Game.Commands.AttackCommand, IAttackCommand
 	{
-		public override void PrintAlreadyBrokeIt(IArtifact artifact)
-		{
-			Debug.Assert(artifact != null);
-
-			// Swallower shark
-
-			if (artifact.Uid == 31)
-			{
-				gOut.Print("You already mangled {0}!", artifact.EvalPlural("it", "them"));
-			}
-			else
-			{
-				base.PrintAlreadyBrokeIt(artifact);
-			}
-		}
-
 		public override void Execute()
 		{
 			Debug.Assert(DobjArtifact != null || DobjMonster != null);

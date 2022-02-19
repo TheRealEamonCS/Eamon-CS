@@ -24,36 +24,24 @@ namespace TheBeginnersCave.Game
 
 			set
 			{
-				if (Globals.EnableGameOverrides && base.Weapon != value)
+				if (Globals.EnableGameOverrides && gGameState != null)
 				{
-					Debug.Assert(gGameState != null);
+					// if this is any monster going from wielding Trollsfire to not wielding Trollsfire
 
-					// if this is the character monster or the pirate
-
-					if (Uid == gGameState.Cm || Uid == 8)
+					if (base.Weapon == 10 && value != 10)
 					{
-						// if going from wielding Trollsfire to not wielding Trollsfire and the Trollsfire effect is active
+						// deactivate Trollsfire effect; the Trollsfire property is complex and does a fair bit of processing
 
-						if (base.Weapon == 10 && value != 10 && gGameState.Trollsfire == 1)
-						{
-							// deactivate Trollsfire effect; the Trollsfire property is complex and does a fair bit of processing
-
-							gGameState.Trollsfire = 0;
-						}
+						gGameState.Trollsfire = 0;
 					}
 
-					// if this is the pirate
+					// if this is the pirate going from not wielding Trollsfire to wielding Trollsfire
 
-					if (Uid == 8)
+					else if (Uid == 8 && base.Weapon != 10 && value == 10)
 					{
-						// if going from not wielding Trollsfire to wielding Trollsfire and the Trollsfire effect is not active
+						// activate Trollsfire effect
 
-						if (base.Weapon != 10 && value == 10 && gGameState.Trollsfire == 0)
-						{
-							// activate Trollsfire effect
-
-							gGameState.Trollsfire = 1;
-						}
+						gGameState.Trollsfire = 1;
 					}
 				}
 

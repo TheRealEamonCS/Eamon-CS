@@ -6,6 +6,7 @@
 using System;
 using Eamon.Framework;
 using Eamon.Framework.Primitive.Classes;
+using Eamon.Framework.Primitive.Enums;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.Components;
 using EamonRT.Framework.Primitive.Enums;
@@ -128,6 +129,19 @@ namespace EamonRT.Game.Components
 			}
 		}
 
+		public virtual ICommand RedirectCommand
+		{
+			get
+			{
+				return ComponentImpl.RedirectCommand;
+			}
+
+			set
+			{
+				ComponentImpl.RedirectCommand = value;
+			}
+		}
+
 		public virtual IArtifactCategory DobjArtAc
 		{
 			get
@@ -138,6 +152,19 @@ namespace EamonRT.Game.Components
 			set
 			{
 				ComponentImpl.DobjArtAc = value;
+			}
+		}
+
+		public virtual bool OmitSkillGains
+		{
+			get
+			{
+				return ComponentImpl.OmitSkillGains;
+			}
+
+			set
+			{
+				ComponentImpl.OmitSkillGains = value;
 			}
 		}
 
@@ -254,9 +281,69 @@ namespace EamonRT.Game.Components
 			ComponentImpl.PrintWhamHitObj(artifact);
 		}
 
-		public virtual void PrintSmashesToPieces(IRoom room, IArtifact artifact, bool contentsSpilled)
+		public virtual void PrintSmashesToPieces(IRoom room, IArtifact artifact, bool spillContents)
 		{
-			ComponentImpl.PrintSmashesToPieces(room, artifact, contentsSpilled);
+			ComponentImpl.PrintSmashesToPieces(room, artifact, spillContents);
+		}
+
+		public virtual void PrintWeaponAbilityIncreased(Weapon w, IWeapon weapon)
+		{
+			ComponentImpl.PrintWeaponAbilityIncreased(w, weapon);
+		}
+
+		public virtual void PrintArmorExpertiseIncreased()
+		{
+			ComponentImpl.PrintArmorExpertiseIncreased();
+		}
+
+		public virtual void PrintSpellOverloadsBrain(Spell s, ISpell spell)
+		{
+			ComponentImpl.PrintSpellOverloadsBrain(s, spell);
+		}
+
+		public virtual void PrintSpellAbilityIncreased(Spell s, ISpell spell)
+		{
+			ComponentImpl.PrintSpellAbilityIncreased(s, spell);
+		}
+
+		public virtual void PrintSpellCastFailed(Spell s, ISpell spell)
+		{
+			ComponentImpl.PrintSpellCastFailed(s, spell);
+		}
+
+		public virtual void PrintHealthImproves(IMonster monster)
+		{
+			ComponentImpl.PrintHealthImproves(monster);
+		}
+
+		public virtual void PrintHealthStatus(IMonster monster, bool includeUninjuredGroupMonsters)
+		{
+			ComponentImpl.PrintHealthStatus(monster, includeUninjuredGroupMonsters);
+		}
+
+		public virtual void PrintFeelNewAgility()
+		{
+			ComponentImpl.PrintFeelNewAgility();
+		}
+
+		public virtual void PrintSonicBoom(IRoom room)
+		{
+			ComponentImpl.PrintSonicBoom(room);
+		}
+
+		public virtual void PrintFortuneCookie()
+		{
+			ComponentImpl.PrintFortuneCookie();
+		}
+
+		public virtual void PrintTunnelCollapses(IRoom room)
+		{
+			ComponentImpl.PrintTunnelCollapses(room);
+		}
+
+		public virtual void PrintAllWoundsHealed()
+		{
+			ComponentImpl.PrintAllWoundsHealed();
 		}
 
 		public Component()

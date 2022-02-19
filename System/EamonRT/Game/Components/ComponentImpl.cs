@@ -7,6 +7,7 @@ using System;
 using System.Diagnostics;
 using Eamon.Framework;
 using Eamon.Framework.Primitive.Classes;
+using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using Eamon.Game.Extensions;
 using EamonRT.Framework.Commands;
@@ -66,7 +67,11 @@ namespace EamonRT.Game.Components
 			}
 		}
 
+		public virtual ICommand RedirectCommand { get; set; }
+
 		public virtual IArtifactCategory DobjArtAc { get; set; }
+
+		public virtual bool OmitSkillGains { get; set; }
 
 		public virtual bool OmitFinalNewLine { get; set; }
 
@@ -228,12 +233,16 @@ namespace EamonRT.Game.Components
 
 		public virtual void PrintHackToBits(IArtifact artifact, IMonster monster, bool blastSpell)
 		{
-			gEngine.PrintHackToBits(artifact, monster, blastSpell);
+			Debug.Assert(artifact != null && monster != null);
+
+			gOut.Print("You {0} {1} to bits!", blastSpell ? "blast" : monster.Weapon > 0 ? "hack" : "tear", artifact.EvalPlural("it", "them"));
 		}
 
 		public virtual void PrintAlreadyBrokeIt(IArtifact artifact)
 		{
-			gEngine.PrintAlreadyBrokeIt(artifact);
+			Debug.Assert(artifact != null);
+
+			gOut.Print("You already broke {0}!", artifact.EvalPlural("it", "them"));
 		}
 
 		public virtual void PrintNothingHappens()
@@ -243,12 +252,105 @@ namespace EamonRT.Game.Components
 
 		public virtual void PrintWhamHitObj(IArtifact artifact)
 		{
-			gEngine.PrintWhamHitObj(artifact);
+			Debug.Assert(artifact != null);
+
+			gOut.Print("Wham!  You hit {0}!", artifact.GetTheName());
 		}
 
-		public virtual void PrintSmashesToPieces(IRoom room, IArtifact artifact, bool contentsSpilled)
+		public virtual void PrintSmashesToPieces(IRoom room, IArtifact artifact, bool spillContents)
 		{
-			gEngine.PrintSmashesToPieces(room, artifact, contentsSpilled);
+			Debug.Assert(room != null && artifact != null);
+
+			gOut.Print("{0}{1} {2} to pieces{3}!",
+				Environment.NewLine,
+				artifact.GetTheName(true),
+				artifact.EvalPlural("smashes", "smash"),
+				spillContents ? string.Format("; {0} contents spill to the {1}", artifact.EvalPlural("its", "their"), room.EvalRoomType("floor", "ground")) :
+				"");
+		}
+
+		public virtual void PrintWeaponAbilityIncreased(Weapon w, IWeapon weapon)
+		{
+			Debug.Assert(Enum.IsDefined(typeof(Weapon), w) && weapon != null);
+
+			gOut.Print("Your {0} ability just increased!", weapon.Name);
+		}
+
+		public virtual void PrintArmorExpertiseIncreased()
+		{
+			gOut.Print("Your armor expertise just increased!");
+		}
+
+		public virtual void PrintSpellOverloadsBrain(Spell s, ISpell spell)
+		{
+			Debug.Assert(Enum.IsDefined(typeof(Spell), s) && spell != null);
+
+			gOut.Print("The strain of attempting to cast {0} overloads your brain and you forget it completely{1}.", spell.Name, Globals.IsRulesetVersion(5, 15, 25) ? "" : " for the rest of this adventure");
+		}
+
+		public virtual void PrintSpellAbilityIncreased(Spell s, ISpell spell)
+		{
+			Debug.Assert(Enum.IsDefined(typeof(Spell), s) && spell != null);
+
+			gOut.Print("Your ability to cast {0} just increased!", spell.Name);
+		}
+
+		public virtual void PrintSpellCastFailed(Spell s, ISpell spell)
+		{
+			Debug.Assert(Enum.IsDefined(typeof(Spell), s) && spell != null);
+
+			gOut.Print("Nothing happens.");
+		}
+
+		public virtual void PrintHealthImproves(IMonster monster)
+		{
+			gEngine.PrintHealthImproves(monster);
+		}
+
+		public virtual void PrintHealthStatus(IMonster monster, bool includeUninjuredGroupMonsters)
+		{
+			gEngine.PrintHealthStatus(monster, includeUninjuredGroupMonsters);
+		}
+
+		public virtual void PrintFeelNewAgility()
+		{
+			gOut.Print("You can feel the new agility flowing through you!");
+		}
+
+		public virtual void PrintSonicBoom(IRoom room)
+		{
+			Debug.Assert(room != null);
+
+			if (Globals.IsRulesetVersion(5, 15, 25))
+			{
+				gOut.Print("You hear a very loud sonic boom that echoes through the {0}.", room.EvalRoomType("tunnels", "area"));
+			}
+			else
+			{
+				gOut.Print("You hear a loud sonic boom which echoes all around you!");
+			}
+		}
+
+		public virtual void PrintFortuneCookie()
+		{
+			var rl = gEngine.RollDice(1, 100, 0);
+
+			gOut.Print("A fortune cookie appears in mid-air and explodes!  The smoking paper left behind reads, \"{0}\"  How strange.",
+				rl > 50 ?
+				"THE SECTION OF TUNNEL YOU ARE IN COLLAPSES AND YOU DIE." :
+				"YOU SUDDENLY FIND YOU CANNOT CARRY ALL OF THE ITEMS YOU ARE CARRYING, AND THEY ALL FALL TO THE GROUND.");
+		}
+
+		public virtual void PrintTunnelCollapses(IRoom room)
+		{
+			Debug.Assert(room != null);
+
+			gOut.Print("The section of {0} collapses and you die.", room.EvalRoomType("tunnel you are in", "ground you are on"));
+		}
+
+		public virtual void PrintAllWoundsHealed()
+		{
+			gEngine.PrintAllWoundsHealed();
 		}
 
 		public ComponentImpl()
