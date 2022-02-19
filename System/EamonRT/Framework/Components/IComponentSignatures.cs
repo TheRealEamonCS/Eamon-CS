@@ -6,6 +6,7 @@
 using System;
 using Eamon.Framework;
 using Eamon.Framework.Primitive.Classes;
+using Eamon.Framework.Primitive.Enums;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
@@ -51,7 +52,16 @@ namespace EamonRT.Framework.Components
 		IMonster IobjMonster { get; }
 
 		/// <summary></summary>
+		ICommand RedirectCommand { get; set; }
+
+		/// <summary></summary>
 		IArtifactCategory DobjArtAc { get; set; }
+
+		/// <summary>
+		/// Gets or sets a value indicating whether this <see cref="IComponent">Component</see> should omit skill gains if the player
+		/// character's action is successful.
+		/// </summary>
+		bool OmitSkillGains { get; set; }
 
 		/// <summary>
 		/// Gets or sets a value indicating whether this <see cref="IComponent">Component</see> should print a final newline after
@@ -150,7 +160,56 @@ namespace EamonRT.Framework.Components
 		/// <summary></summary>
 		/// <param name="room"></param>
 		/// <param name="artifact"></param>
-		/// <param name="contentsSpilled"></param>
-		void PrintSmashesToPieces(IRoom room, IArtifact artifact, bool contentsSpilled);
+		/// <param name="spillContents"></param>
+		void PrintSmashesToPieces(IRoom room, IArtifact artifact, bool spillContents);
+
+		/// <summary></summary>
+		/// <param name="w"></param>
+		/// <param name="weapon"></param>
+		void PrintWeaponAbilityIncreased(Weapon w, IWeapon weapon);
+
+		/// <summary></summary>
+		void PrintArmorExpertiseIncreased();
+
+		/// <summary></summary>
+		/// <param name="s"></param>
+		/// <param name="spell"></param>
+		void PrintSpellOverloadsBrain(Spell s, ISpell spell);
+
+		/// <summary></summary>
+		/// <param name="s"></param>
+		/// <param name="spell"></param>
+		void PrintSpellAbilityIncreased(Spell s, ISpell spell);
+
+		/// <summary></summary>
+		/// <param name="s"></param>
+		/// <param name="spell"></param>
+		void PrintSpellCastFailed(Spell s, ISpell spell);
+
+		/// <summary></summary>
+		/// <param name="monster"></param>
+		void PrintHealthImproves(IMonster monster);
+
+		/// <summary></summary>
+		/// <param name="monster"></param>
+		/// <param name="includeUninjuredGroupMonsters"></param>
+		void PrintHealthStatus(IMonster monster, bool includeUninjuredGroupMonsters);
+
+		/// <summary></summary>
+		void PrintFeelNewAgility();
+
+		/// <summary></summary>
+		/// <param name="room"></param>
+		void PrintSonicBoom(IRoom room);
+
+		/// <summary></summary>
+		void PrintFortuneCookie();
+
+		/// <summary></summary>
+		/// <param name="room"></param>
+		void PrintTunnelCollapses(IRoom room);
+
+		/// <summary></summary>
+		void PrintAllWoundsHealed();
 	}
 }

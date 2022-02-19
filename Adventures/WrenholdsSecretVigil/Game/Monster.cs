@@ -56,68 +56,29 @@ namespace WrenholdsSecretVigil.Game
 
 		public override void AddHealthStatus(StringBuilder buf, bool addNewLine = true)
 		{
-			string result = null;
+			base.AddHealthStatus(buf, addNewLine);
 
-			if (buf == null)
-			{
-				// PrintError
+			buf.Replace("badly injured", "very badly injured");
 
-				goto Cleanup;
-			}
-
-			if (IsDead())
-			{
-				result = "dead!";
-			}
-			else
+			if (Globals.MonsterCurses)
 			{
 				var rl = gEngine.RollDice(1, 3, 6);
 
-				var x = DmgTaken;
+				var effectUid = buf.IndexOf("very badly injured") >= 0 ? rl + 3 : buf.IndexOf("in pain") >= 0 ? rl : 0;
 
-				x = (((long)((double)(x * 5) / (double)Hardiness)) + 1) * (x > 0 ? 1 : 0);
-
-				result = "at death's door, knocking loudly.";
-
-				if (x == 4)
+				if (effectUid > 0)
 				{
-					result = "very badly injured.";
-
-					if (Globals.MonsterCurses)
+					Globals.MonsterCurseFunc = () =>
 					{
-						result += gEngine.GetMonsterCurse(this, rl + 3);
-					}
-				}
-				else if (x == 3)
-				{
-					result = "in pain.";
+						var curseString = gEngine.GetMonsterCurse(this, effectUid);
 
-					if (Globals.MonsterCurses)
-					{
-						result += gEngine.GetMonsterCurse(this, rl);
-					}
-				}
-				else if (x == 2)
-				{
-					result = "hurting.";
-				}
-				else if (x == 1)
-				{
-					result = "still in good shape.";
-				}
-				else if (x < 1)
-				{
-					result = "in perfect health.";
+						if (!string.IsNullOrWhiteSpace(curseString))
+						{
+							gOut.Print("{0}", curseString);
+						}
+					};
 				}
 			}
-
-			Debug.Assert(result != null);
-
-			buf.AppendFormat("{0}{1}", result, addNewLine ? Environment.NewLine : "");
-
-		Cleanup:
-
-			;
 		}
 	}
 }

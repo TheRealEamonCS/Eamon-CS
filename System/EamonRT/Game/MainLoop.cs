@@ -107,7 +107,7 @@ namespace EamonRT.Game
 					Globals.LastCommandList.Add(command);
 				}
 
-				Globals.CurrState.PreExecute();
+				Globals.CurrState.Stage();
 
 				Globals.CurrState = Globals.NextState;
 

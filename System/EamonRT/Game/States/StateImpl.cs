@@ -305,14 +305,14 @@ namespace EamonRT.Game.States
 			return room.IsLit() || Globals.LastCommandList.Count > 0 ? Globals.LastCommandList.FirstOrDefault(x => x.ShouldPreTurnProcess()) != null : true;
 		}
 
+		public virtual void Stage()
+		{
+			State.Execute();
+		}
+
 		public virtual void Execute()
 		{
 
-		}
-
-		public virtual void PreExecute()
-		{
-			State.Execute();
 		}
 
 		public StateImpl()

@@ -108,27 +108,7 @@ namespace EamonRT.Framework
 		void PrintArtifactIsWorth(IArtifact artifact, long goldAmount);
 
 		/// <summary></summary>
-		/// <param name="artifact"></param>
-		/// <param name="monster"></param>
-		/// <param name="blastSpell"></param>
-		void PrintHackToBits(IArtifact artifact, IMonster monster, bool blastSpell);
-
-		/// <summary></summary>
-		/// <param name="artifact"></param>
-		void PrintAlreadyBrokeIt(IArtifact artifact);
-
-		/// <summary></summary>
 		void PrintNothingHappens();
-
-		/// <summary></summary>
-		/// <param name="artifact"></param>
-		void PrintWhamHitObj(IArtifact artifact);
-
-		/// <summary></summary>
-		/// <param name="room"></param>
-		/// <param name="artifact"></param>
-		/// <param name="contentsSpilled"></param>
-		void PrintSmashesToPieces(IRoom room, IArtifact artifact, bool contentsSpilled);
 
 		/// <summary></summary>
 		/// <param name="artifact"></param>
@@ -186,30 +166,16 @@ namespace EamonRT.Framework
 
 		/// <summary></summary>
 		/// <param name="monster"></param>
+		void PrintHealthImproves(IMonster monster);
+
+		/// <summary></summary>
+		/// <param name="monster"></param>
+		/// <param name="includeUninjuredGroupMonsters"></param>
+		void PrintHealthStatus(IMonster monster, bool includeUninjuredGroupMonsters);
+
+		/// <summary></summary>
+		/// <param name="monster"></param>
 		void PrintDoesntHaveIt(IMonster monster);
-
-		/// <summary></summary>
-		/// <param name="s"></param>
-		/// <param name="spell"></param>
-		void PrintSpellOverloadsBrain(Spell s, ISpell spell);
-
-		/// <summary></summary>
-		/// <param name="s"></param>
-		/// <param name="spell"></param>
-		void PrintSpellAbilityIncreased(Spell s, ISpell spell);
-
-		/// <summary></summary>
-		/// <param name="s"></param>
-		/// <param name="spell"></param>
-		void PrintSpellCastFailed(Spell s, ISpell spell);
-
-		/// <summary></summary>
-		/// <param name="w"></param>
-		/// <param name="weapon"></param>
-		void PrintWeaponAbilityIncreased(Weapon w, IWeapon weapon);
-
-		/// <summary></summary>
-		void PrintArmorExpertiseIncreased();
 
 		/// <summary></summary>
 		void PrintTooManyWeapons();
@@ -222,6 +188,9 @@ namespace EamonRT.Framework
 
 		/// <summary></summary>
 		void PrintEnterWeaponToSell();
+
+		/// <summary></summary>
+		void PrintAllWoundsHealed();
 
 		/// <summary></summary>
 		void PrintYouHavePerished();
@@ -614,21 +583,10 @@ namespace EamonRT.Framework
 		bool MakeArtifactsVanish(IRoom room, params Func<IArtifact, bool>[] whereClauseFuncs);
 
 		/// <summary></summary>
-		/// <param name="spellValue"></param>
-		/// <param name="shouldAllowSkillGains"></param>
-		/// <returns></returns>
-		bool CheckPlayerSpellCast(Spell spellValue, bool shouldAllowSkillGains);
-
-		/// <summary></summary>
 		/// <param name="stat"></param>
 		/// <param name="bonus"></param>
 		/// <returns></returns>
 		bool SaveThrow(Stat stat, long bonus = 0);
-
-		/// <summary></summary>
-		/// <param name="ac"></param>
-		/// <param name="af"></param>
-		void CheckPlayerSkillGains(IArtifactCategory ac, long af);
 
 		/// <summary></summary>
 		void CheckToExtinguishLightSource();
