@@ -5,7 +5,6 @@
 
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
-using EamonRT.Framework.Primitive.Enums;
 using static TheDeepCanyon.Game.Plugin.PluginContext;
 
 namespace TheDeepCanyon.Game.Commands

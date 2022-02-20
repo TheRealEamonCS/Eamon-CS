@@ -1802,6 +1802,9 @@
             <param name="bonus"></param>
             <returns></returns>
         </member>
+        <member name="M:EamonRT.Framework.IEngine.CheckPlayerSkillGains">
+            <summary></summary>
+        </member>
         <member name="M:EamonRT.Framework.IEngine.CheckToExtinguishLightSource">
             <summary></summary>
         </member>
@@ -3379,9 +3382,6 @@
         <member name="P:EamonRT.Game.Components.CombatComponent.UseFractionalStrength">
             <summary></summary>
         </member>
-        <member name="P:EamonRT.Game.Components.CombatComponent.RevealDisguisedMonster">
-            <summary></summary>
-        </member>
         <member name="P:EamonRT.Game.Components.CombatComponent.OmitBboaPadding">
             <summary></summary>
         </member>
@@ -3422,9 +3422,6 @@
             <summary></summary>
             <param name="ac"></param>
             <param name="af"></param>
-        </member>
-        <member name="M:EamonRT.Game.Components.CombatComponent.ApplyPlayerCombatSkillGains">
-            <summary></summary>
         </member>
         <member name="M:EamonRT.Game.Components.CombatComponent.RollToHitOrMiss">
             <summary></summary>
@@ -3489,9 +3486,6 @@
         <member name="P:EamonRT.Game.Components.MagicComponent.PowerEventRoll">
             <summary></summary>
         </member>
-        <member name="P:EamonRT.Game.Components.MagicComponent.BlastSpell">
-            <summary></summary>
-        </member>
         <member name="P:EamonRT.Game.Components.MagicComponent.MagicState">
             <summary></summary>
         </member>
@@ -3500,13 +3494,13 @@
             <param name="spellValue"></param>
             <returns></returns>
         </member>
-        <member name="M:EamonRT.Game.Components.MagicComponent.ApplyPlayerSpellSkillGains">
-            <summary></summary>
-        </member>
         <member name="M:EamonRT.Game.Components.MagicComponent.PlayerSpellCastBrainOverload(Eamon.Framework.Primitive.Enums.Spell,Eamon.Framework.Primitive.Classes.ISpell)">
             <summary></summary>
             <param name="s"></param>
             <param name="spell"></param>
+        </member>
+        <member name="M:EamonRT.Game.Components.MagicComponent.ShouldShowBlastSpellAttack">
+            <summary></summary>
         </member>
         <member name="M:EamonRT.Game.Components.MagicComponent.BeginSpellBlast">
             <summary></summary>

@@ -68,15 +68,12 @@ namespace WrenholdsSecretVigil.Game
 
 				if (effectUid > 0)
 				{
-					Globals.MonsterCurseFunc = () =>
-					{
-						var curseString = gEngine.GetMonsterCurse(this, effectUid);
+					var curseString = gEngine.GetMonsterCurse(this, effectUid);
 
-						if (!string.IsNullOrWhiteSpace(curseString))
-						{
-							gOut.Print("{0}", curseString);
-						}
-					};
+					if (!string.IsNullOrWhiteSpace(curseString))
+					{
+						gOut.Print("{0}", curseString);
+					}
 				}
 			}
 		}

@@ -593,6 +593,9 @@ namespace EamonRT.Framework
 		bool SaveThrow(Stat stat, long bonus = 0);
 
 		/// <summary></summary>
+		void CheckPlayerSkillGains();
+
+		/// <summary></summary>
 		void CheckToExtinguishLightSource();
 
 		/// <summary></summary>

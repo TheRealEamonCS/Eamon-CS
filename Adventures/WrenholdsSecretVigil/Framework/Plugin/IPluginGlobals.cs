@@ -11,9 +11,6 @@ namespace WrenholdsSecretVigil.Framework.Plugin
 	public interface IPluginGlobals : EamonRT.Framework.Plugin.IPluginGlobals
 	{
 		/// <summary></summary>
-		Action MonsterCurseFunc { get; set; }
-
-		/// <summary></summary>
 		bool MonsterCurses { get; set; }
 
 		/// <summary></summary>
