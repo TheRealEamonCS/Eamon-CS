@@ -16,6 +16,11 @@ namespace TheTrainingGround.Game.Components
 	[ClassMappings]
 	public class MagicComponent : EamonRT.Game.Components.MagicComponent, IMagicComponent
 	{
+		public override bool ShouldShowBlastSpellAttack()
+		{
+			return (DobjMonster != null || DobjArtifact.Uid != 13) && base.ShouldShowBlastSpellAttack();
+		}
+
 		public override void CheckAfterCastBlast()
 		{
 			// BLAST Bozworth
