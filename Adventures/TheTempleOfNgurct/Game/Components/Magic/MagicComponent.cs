@@ -16,6 +16,11 @@ namespace TheTempleOfNgurct.Game.Components
 	[ClassMappings]
 	public class MagicComponent : EamonRT.Game.Components.MagicComponent, IMagicComponent
 	{
+		public override bool ShouldShowBlastSpellAttack()
+		{
+			return (DobjMonster != null || DobjArtifact.Uid != 50) && base.ShouldShowBlastSpellAttack();
+		}
+
 		public override void CheckAfterCastPower()
 		{
 			var rl = 0L;

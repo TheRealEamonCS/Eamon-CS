@@ -86,9 +86,6 @@ namespace EamonRT.Game.Components
 		public virtual bool UseFractionalStrength { get; set; }
 
 		/// <summary></summary>
-		public virtual bool RevealDisguisedMonster { get; set; }
-
-		/// <summary></summary>
 		public virtual bool OmitBboaPadding { get; set; }
 
 		/// <summary></summary>
@@ -254,40 +251,6 @@ namespace EamonRT.Game.Components
 						};
 					}
 				}
-			}
-		}
-
-		/// <summary></summary>
-		public virtual void ApplyPlayerCombatSkillGains()
-		{
-			if (!RevealDisguisedMonster && Globals.SpellSkillIncreaseFunc != null)
-			{
-				if (gGameState.Die <= 0)
-				{
-					Globals.SpellSkillIncreaseFunc();
-				}
-
-				Globals.SpellSkillIncreaseFunc = null;
-			}
-
-			if (Globals.WeaponSkillIncreaseFunc != null)
-			{
-				if (gGameState.Die <= 0)
-				{
-					Globals.WeaponSkillIncreaseFunc();
-				}
-
-				Globals.WeaponSkillIncreaseFunc = null;
-			}
-
-			if (Globals.ArmorSkillIncreaseFunc != null)
-			{
-				if (gGameState.Die <= 0)
-				{
-					Globals.ArmorSkillIncreaseFunc();
-				}
-
-				Globals.ArmorSkillIncreaseFunc = null;
 			}
 		}
 
@@ -773,8 +736,6 @@ namespace EamonRT.Game.Components
 
 				SetNextStateFunc(RedirectCommand);
 
-				RevealDisguisedMonster = true;
-
 				CombatState = CombatState.EndAttack;
 
 				goto Cleanup;
@@ -1126,11 +1087,6 @@ namespace EamonRT.Game.Components
 			if (!OmitFinalNewLine)
 			{
 				gOut.WriteLine();
-			}
-
-			if (ActorMonster != null && ActorMonster.IsCharacterMonster())
-			{
-				ApplyPlayerCombatSkillGains();
 			}
 
 			if (LightOut && ActorWeapon != null)

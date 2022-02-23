@@ -5,8 +5,6 @@
 
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
-using EamonRT.Framework.Primitive.Enums;
-using EamonRT.Framework.States;
 using static TheTrainingGround.Game.Plugin.PluginContext;
 
 namespace TheTrainingGround.Game.Commands

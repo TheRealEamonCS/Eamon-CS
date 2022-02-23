@@ -15,6 +15,8 @@ namespace EamonRT.Game.States
 	{
 		public override void Execute()
 		{
+			gEngine.CheckPlayerSkillGains();
+
 			ProcessEvents(EventType.BeforePrintPlayerRoom);
 
 			if (GotoCleanup)

@@ -84,6 +84,10 @@ namespace EamonRT.Framework
 
 		/// <summary></summary>
 		/// <param name="artifact"></param>
+		void PrintWhamHitObj(IArtifact artifact);
+
+		/// <summary></summary>
+		/// <param name="artifact"></param>
 		void PrintMonsterAlive(IArtifact artifact);
 
 		/// <summary></summary>
@@ -587,6 +591,9 @@ namespace EamonRT.Framework
 		/// <param name="bonus"></param>
 		/// <returns></returns>
 		bool SaveThrow(Stat stat, long bonus = 0);
+
+		/// <summary></summary>
+		void CheckPlayerSkillGains();
 
 		/// <summary></summary>
 		void CheckToExtinguishLightSource();

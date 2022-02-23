@@ -252,9 +252,7 @@ namespace EamonRT.Game.Components
 
 		public virtual void PrintWhamHitObj(IArtifact artifact)
 		{
-			Debug.Assert(artifact != null);
-
-			gOut.Print("Wham!  You hit {0}!", artifact.GetTheName());
+			gEngine.PrintWhamHitObj(artifact);
 		}
 
 		public virtual void PrintSmashesToPieces(IRoom room, IArtifact artifact, bool spillContents)
