@@ -4,7 +4,6 @@
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
 using Eamon.Game.Attributes;
-using Eamon.Game.Extensions;
 using EamonRT.Framework.Commands;
 using static ARuncibleCargo.Game.Plugin.PluginContext;
 

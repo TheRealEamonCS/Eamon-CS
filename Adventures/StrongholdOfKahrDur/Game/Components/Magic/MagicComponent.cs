@@ -5,6 +5,7 @@
 
 using System;
 using System.Diagnostics;
+using System.Linq;
 using Eamon.Framework.Primitive.Classes;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
@@ -20,6 +21,27 @@ namespace StrongholdOfKahrDur.Game.Components
 		public override void PrintFortuneCookie()
 		{
 			gOut.Print("The air crackles with magical energy but nothing interesting happens.");
+		}
+
+		public override void PlayerSpellCastBrainOverload(Spell s, ISpell spell)
+		{
+			Debug.Assert(Enum.IsDefined(typeof(Spell), s));
+
+			Debug.Assert(spell != null);
+
+			gOut.Print("Spell backlash!  Your ability to cast {0} temporarily diminishes!", spell.Name);
+
+			if (gGameState.GetSa(s) > 10)
+			{
+				gGameState.SetSa(s, 10);
+			}
+		}
+
+		public override bool ShouldShowBlastSpellAttack()
+		{
+			var artUids = new long[] { 3, 15 };
+
+			return (DobjMonster != null || !artUids.Contains(DobjArtifact.Uid)) && base.ShouldShowBlastSpellAttack();
 		}
 
 		public override void CheckAfterAggravateMonster()
@@ -144,20 +166,6 @@ namespace StrongholdOfKahrDur.Game.Components
 		Cleanup:
 
 			;
-		}
-
-		public override void PlayerSpellCastBrainOverload(Spell s, ISpell spell)
-		{
-			Debug.Assert(Enum.IsDefined(typeof(Spell), s));
-
-			Debug.Assert(spell != null);
-
-			gOut.Print("Spell backlash!  Your ability to cast {0} temporarily diminishes!", spell.Name);
-
-			if (gGameState.GetSa(s) > 10)
-			{
-				gGameState.SetSa(s, 10);
-			}
 		}
 	}
 }

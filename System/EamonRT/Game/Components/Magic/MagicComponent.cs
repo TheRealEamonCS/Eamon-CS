@@ -36,9 +36,6 @@ namespace EamonRT.Game.Components
 		public virtual long PowerEventRoll { get; set; }
 
 		/// <summary></summary>
-		public virtual bool BlastSpell { get; set; }
-
-		/// <summary></summary>
 		public virtual MagicState MagicState { get; set; }
 
 		public virtual void ExecuteBlastSpell()
@@ -152,20 +149,6 @@ namespace EamonRT.Game.Components
 		}
 
 		/// <summary></summary>
-		public virtual void ApplyPlayerSpellSkillGains()
-		{
-			if (!BlastSpell && Globals.SpellSkillIncreaseFunc != null)
-			{
-				if (gGameState.Die <= 0)
-				{
-					Globals.SpellSkillIncreaseFunc();
-				}
-
-				Globals.SpellSkillIncreaseFunc = null;
-			}
-		}
-
-		/// <summary></summary>
 		/// <param name="s"></param>
 		/// <param name="spell"></param>
 		public virtual void PlayerSpellCastBrainOverload(Spell s, ISpell spell)
@@ -185,10 +168,14 @@ namespace EamonRT.Game.Components
 		}
 
 		/// <summary></summary>
+		public virtual bool ShouldShowBlastSpellAttack()
+		{
+			return DobjMonster != null || DobjArtifact.DisguisedMonster == null;
+		}
+
+		/// <summary></summary>
 		public virtual void BeginSpellBlast()
 		{
-			BlastSpell = true;
-
 			if (CastSpell && !CheckPlayerSpellCast(Spell.Blast))
 			{
 				MagicState = MagicState.EndMagic;
@@ -229,7 +216,7 @@ namespace EamonRT.Game.Components
 		/// <summary></summary>
 		public virtual void AttackDobj()
 		{
-			if (DobjArtifact?.DisguisedMonster == null)
+			if (ShouldShowBlastSpellAttack())
 			{
 				PrintZapDirectHit();
 			}
@@ -656,11 +643,6 @@ namespace EamonRT.Game.Components
 			if (!OmitFinalNewLine)
 			{
 				gOut.WriteLine();
-			}
-
-			if (ActorMonster != null && ActorMonster.IsCharacterMonster())
-			{
-				ApplyPlayerSpellSkillGains();
 			}
 		}
 

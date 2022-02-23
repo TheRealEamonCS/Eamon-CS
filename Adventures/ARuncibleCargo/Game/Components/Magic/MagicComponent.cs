@@ -6,26 +6,18 @@
 using System.Linq;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Components;
-using EamonRT.Framework.Primitive.Enums;
-using static WrenholdsSecretVigil.Game.Plugin.PluginContext;
+using static ARuncibleCargo.Game.Plugin.PluginContext;
 
-namespace WrenholdsSecretVigil.Game.Components
+namespace ARuncibleCargo.Game.Components
 {
 	[ClassMappings]
 	public class MagicComponent : EamonRT.Game.Components.MagicComponent, IMagicComponent
 	{
 		public override bool ShouldShowBlastSpellAttack()
 		{
-			var artUids = new long[] { 17, 24, 25 };
+			var artUids = new long[] { 30, 80, 41, 129 };
 
 			return (DobjMonster != null || !artUids.Contains(DobjArtifact.Uid)) && base.ShouldShowBlastSpellAttack();
-		}
-
-		public override void CheckAfterCastPower()
-		{
-			gEngine.PrintEffectDesc(45);
-
-			MagicState = MagicState.EndMagic;
 		}
 	}
 }

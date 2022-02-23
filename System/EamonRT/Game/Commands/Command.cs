@@ -561,6 +561,11 @@ namespace EamonRT.Game.Commands
 			CommandImpl.PrintAlreadyWearingObj(artifact);
 		}
 
+		public virtual void PrintWhamHitObj(IArtifact artifact)
+		{
+			CommandImpl.PrintWhamHitObj(artifact);
+		}
+
 		public virtual void PrintFullDesc(IArtifact artifact, bool showName)
 		{
 			CommandImpl.PrintFullDesc(artifact, showName);

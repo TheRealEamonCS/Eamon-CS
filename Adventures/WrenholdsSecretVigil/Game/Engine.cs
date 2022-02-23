@@ -272,7 +272,7 @@ namespace WrenholdsSecretVigil.Game
 
 				Debug.Assert(effect != null);
 
-				curseString = string.Format("{0} says, {1}", monster.GetTheName(true, true, false, true, Globals.Buf), effect.Desc);
+				curseString = string.Format("{0}{0}{1} says, {2}", Environment.NewLine, monster.GetTheName(true, true, false, true, Globals.Buf01), effect.Desc);
 
 				gGameState.SetMonsterCurses(effectUid - 7, true);
 			}
