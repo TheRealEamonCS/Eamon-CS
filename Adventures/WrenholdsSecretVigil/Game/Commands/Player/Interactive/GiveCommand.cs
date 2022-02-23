@@ -5,7 +5,6 @@
 
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
-using Eamon.Game.Extensions;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.Primitive.Enums;
 using static WrenholdsSecretVigil.Game.Plugin.PluginContext;
@@ -32,6 +31,8 @@ namespace WrenholdsSecretVigil.Game.Commands
 						IobjMonster.Friendliness = (Friendliness)150;
 
 						IobjMonster.ResolveReaction(gCharacter);
+
+						IobjMonster.Friendliness = IobjMonster.Reaction;
 
 						PrintGiveObjToActor(DobjArtifact, IobjMonster);
 

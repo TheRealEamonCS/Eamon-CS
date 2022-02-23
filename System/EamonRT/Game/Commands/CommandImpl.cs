@@ -480,6 +480,11 @@ namespace EamonRT.Game.Commands
 			gOut.Print("You're already wearing {0}!", artifact.EvalPlural("it", "them"));
 		}
 
+		public virtual void PrintWhamHitObj(IArtifact artifact)
+		{
+			gEngine.PrintWhamHitObj(artifact);
+		}
+
 		public virtual void PrintFullDesc(IArtifact artifact, bool showName)
 		{
 			gEngine.PrintFullDesc(artifact, showName);

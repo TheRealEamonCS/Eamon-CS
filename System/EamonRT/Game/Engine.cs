@@ -106,6 +106,13 @@ namespace EamonRT.Game
 			gOut.Write("{0}Use {1} on who or what? ", Environment.NewLine, artifact.EvalPlural("it", "them"));
 		}
 
+		public virtual void PrintWhamHitObj(IArtifact artifact)
+		{
+			Debug.Assert(artifact != null);
+
+			gOut.Print("Wham!  You hit {0}!", artifact.GetTheName());
+		}
+
 		public virtual void PrintMonsterAlive(IArtifact artifact)
 		{
 			Debug.Assert(artifact != null);
@@ -2815,6 +2822,40 @@ namespace EamonRT.Game
 
 			return rl <= value;
 		}
+
+		public virtual void CheckPlayerSkillGains()
+		{
+			if (Globals.SpellSkillIncreaseFunc != null)
+			{
+				if (gGameState.Die <= 0)
+				{
+					Globals.SpellSkillIncreaseFunc();
+				}
+
+				Globals.SpellSkillIncreaseFunc = null;
+			}
+
+			if (Globals.WeaponSkillIncreaseFunc != null)
+			{
+				if (gGameState.Die <= 0)
+				{
+					Globals.WeaponSkillIncreaseFunc();
+				}
+
+				Globals.WeaponSkillIncreaseFunc = null;
+			}
+
+			if (Globals.ArmorSkillIncreaseFunc != null)
+			{
+				if (gGameState.Die <= 0)
+				{
+					Globals.ArmorSkillIncreaseFunc();
+				}
+
+				Globals.ArmorSkillIncreaseFunc = null;
+			}
+		}
+
 		public virtual void CheckToExtinguishLightSource()
 		{
 			Debug.Assert(gGameState.Ls > 0);

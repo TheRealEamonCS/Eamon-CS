@@ -16,6 +16,8 @@ namespace EamonRT.Game.States
 	{
 		public override void Execute()
 		{
+			gEngine.CheckPlayerSkillGains();
+
 			ProcessEvents(EventType.BeforeStartRound);
 
 			if (Globals.CommandPromptSeen && !ShouldPreTurnProcess())

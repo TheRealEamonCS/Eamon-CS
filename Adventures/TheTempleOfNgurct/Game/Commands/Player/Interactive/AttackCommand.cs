@@ -29,6 +29,11 @@ namespace TheTempleOfNgurct.Game.Commands
 				{
 					gEngine.PrintMonsterAlive(DobjArtifact);
 
+					if (BlastSpell)
+					{
+						PrintZapDirectHit();
+					}
+
 					DobjArtifact.SetInLimbo();
 
 					var ngurctMonster = gMDB[53];
