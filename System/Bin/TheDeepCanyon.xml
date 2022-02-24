@@ -4,6 +4,11 @@
         <name>TheDeepCanyon</name>
     </assembly>
     <members>
+        <member name="M:TheDeepCanyon.Framework.IEngine.MagicRingLowersMonsterStats(Eamon.Framework.IMonster)">
+            <summary></summary>
+            <param name="monster"></param>
+            <returns></returns>
+        </member>
         <member name="M:TheDeepCanyon.Game.Parsing.SentenceParser.IsValidTokenCommandMatch">
             <summary></summary>
         </member>
