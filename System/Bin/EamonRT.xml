@@ -2198,6 +2198,9 @@
         <member name="P:EamonRT.Framework.Plugin.IPluginGlobals.CommandPromptSeen">
             <summary></summary>
         </member>
+        <member name="P:EamonRT.Framework.Plugin.IPluginGlobals.PauseCombatAfterSkillGains">
+            <summary></summary>
+        </member>
         <member name="P:EamonRT.Framework.Plugin.IPluginGlobals.PlayerMoved">
             <summary></summary>
         </member>

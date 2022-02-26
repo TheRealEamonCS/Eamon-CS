@@ -2854,6 +2854,13 @@ namespace EamonRT.Game
 
 				Globals.ArmorSkillIncreaseFunc = null;
 			}
+
+			if (Globals.PauseCombatAfterSkillGains)
+			{
+				Globals.Thread.Sleep(gGameState.PauseCombatMs);
+
+				Globals.PauseCombatAfterSkillGains = false;
+			}
 		}
 
 		public virtual void CheckToExtinguishLightSource()

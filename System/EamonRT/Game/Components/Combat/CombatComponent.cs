@@ -171,7 +171,12 @@ namespace EamonRT.Game.Components
 					ExecuteStateMachine();
 				}
 
-				Globals.Thread.Sleep(gGameState.PauseCombatMs);
+				Globals.PauseCombatAfterSkillGains = Globals.SpellSkillIncreaseFunc != null || Globals.WeaponSkillIncreaseFunc != null || Globals.ArmorSkillIncreaseFunc != null;
+				
+				if (!Globals.PauseCombatAfterSkillGains)
+				{ 
+					Globals.Thread.Sleep(gGameState.PauseCombatMs);
+				}
 			}
 			else
 			{

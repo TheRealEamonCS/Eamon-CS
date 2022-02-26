@@ -102,6 +102,9 @@ namespace EamonRT.Framework.Plugin
 		bool CommandPromptSeen { get; set; }
 
 		/// <summary></summary>
+		bool PauseCombatAfterSkillGains { get; set; }
+
+		/// <summary></summary>
 		bool PlayerMoved { get; set; }
 
 		/// <summary></summary>
