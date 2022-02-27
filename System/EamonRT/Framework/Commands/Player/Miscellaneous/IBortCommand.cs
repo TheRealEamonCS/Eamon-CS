@@ -3,6 +3,7 @@
 
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
+using System.Collections.Generic;
 using Eamon.Framework;
 
 namespace EamonRT.Framework.Commands
@@ -18,6 +19,10 @@ namespace EamonRT.Framework.Commands
 	/// </remarks>
 	public interface IBortCommand : ICommand
 	{
+		/// <summary></summary>
+		IList<IGameBase> RecordList { get; set; }
 
+		/// <summary></summary>
+		string Action { get; set; }
 	}
 }

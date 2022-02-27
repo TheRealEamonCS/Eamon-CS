@@ -650,6 +650,14 @@ namespace EamonRT.Game.Parsing
 
 		public virtual void FinishParsingBortCommand()
 		{
+			var bortCommand = NextCommand as IBortCommand;
+
+			Debug.Assert(bortCommand != null);
+
+			bortCommand.Action = "visitroom";
+
+			bortCommand.RecordList.Add(gRDB[1]);
+
 			// TODO: implement
 		}
 

@@ -805,6 +805,12 @@
             since it can leave the game engine in an indeterminate (and possibly crash-prone) state.
             </remarks>
         </member>
+        <member name="P:EamonRT.Framework.Commands.IBortCommand.RecordList">
+            <summary></summary>
+        </member>
+        <member name="P:EamonRT.Framework.Commands.IBortCommand.Action">
+            <summary></summary>
+        </member>
         <member name="T:EamonRT.Framework.Commands.IHintsCommand">
             <summary></summary>
         </member>
