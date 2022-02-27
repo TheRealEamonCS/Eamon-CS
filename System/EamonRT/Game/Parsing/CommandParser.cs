@@ -648,6 +648,11 @@ namespace EamonRT.Game.Parsing
 			ResolveRecord(false);
 		}
 
+		public virtual void FinishParsingBortCommand()
+		{
+			// TODO: implement
+		}
+
 		public virtual void FinishParsingInventoryCommand()
 		{
 			if (CurrToken < Tokens.Length)
