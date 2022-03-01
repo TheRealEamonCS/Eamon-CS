@@ -781,6 +781,61 @@ namespace EamonRT.Game.Commands
 			gOut.Print("{0} readies a weapon.", monsterName);
 		}
 
+		public virtual void PrintBortVisitArtifact(IRoom room, IArtifact artifact)
+		{
+			gEngine.PrintBortVisitArtifact(room, artifact);
+		}
+
+		public virtual void PrintBortVisitMonster(IRoom room, IMonster monster)
+		{
+			gEngine.PrintBortVisitMonster(room, monster);
+		}
+
+		public virtual void PrintBortVisitRoom(IRoom room)
+		{
+			gEngine.PrintBortVisitRoom(room);
+		}
+
+		public virtual void PrintBortRecallArtifacts(IList<IGameBase> recordList)
+		{
+			gEngine.PrintBortRecallArtifacts(recordList);
+		}
+
+		public virtual void PrintBortRecallMonsters(IList<IGameBase> recordList)
+		{
+			gEngine.PrintBortRecallMonsters(recordList);
+		}
+
+		public virtual void PrintBortArtifactRoomInvalid(IArtifact artifact)
+		{
+			gEngine.PrintBortArtifactRoomInvalid(artifact);
+		}
+
+		public virtual void PrintBortMonsterRoomInvalid(IMonster monster)
+		{
+			gEngine.PrintBortMonsterRoomInvalid(monster);
+		}
+
+		public virtual void PrintBortArtifactInvalid()
+		{
+			gEngine.PrintBortArtifactInvalid();
+		}
+
+		public virtual void PrintBortMonsterInvalid()
+		{
+			gEngine.PrintBortMonsterInvalid();
+		}
+
+		public virtual void PrintBortRoomInvalid()
+		{
+			gEngine.PrintBortRoomInvalid();
+		}
+
+		public virtual void PrintBortActionInvalid()
+		{
+			gEngine.PrintBortActionInvalid();
+		}
+
 		public virtual void PrintHintsQuestion(long hintNum, string question)
 		{
 			Debug.Assert(hintNum > 0 && question != null);
@@ -807,6 +862,11 @@ namespace EamonRT.Game.Commands
 			Debug.Assert(printedPhrase != null);
 
 			gOut.Print("Okay, \"{0}\"", printedPhrase);
+		}
+
+		public virtual void PrintBortUsage()
+		{
+			// +++ IMPLEMENT +++
 		}
 
 		public virtual void PrintSettingsUsage()

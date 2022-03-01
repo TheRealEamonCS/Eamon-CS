@@ -460,6 +460,48 @@
             <summary></summary>
             <param name="monster"></param>
         </member>
+        <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintBortVisitArtifact(Eamon.Framework.IRoom,Eamon.Framework.IArtifact)">
+            <summary></summary>
+            <param name="room"></param>
+            <param name="artifact"></param>
+        </member>
+        <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintBortVisitMonster(Eamon.Framework.IRoom,Eamon.Framework.IMonster)">
+            <summary></summary>
+            <param name="room"></param>
+            <param name="monster"></param>
+        </member>
+        <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintBortVisitRoom(Eamon.Framework.IRoom)">
+            <summary></summary>
+            <param name="room"></param>
+        </member>
+        <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintBortRecallArtifacts(System.Collections.Generic.IList{Eamon.Framework.IGameBase})">
+            <summary></summary>
+            <param name="recordList"></param>
+        </member>
+        <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintBortRecallMonsters(System.Collections.Generic.IList{Eamon.Framework.IGameBase})">
+            <summary></summary>
+            <param name="recordList"></param>
+        </member>
+        <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintBortArtifactRoomInvalid(Eamon.Framework.IArtifact)">
+            <summary></summary>
+            <param name="artifact"></param>
+        </member>
+        <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintBortMonsterRoomInvalid(Eamon.Framework.IMonster)">
+            <summary></summary>
+            <param name="monster"></param>
+        </member>
+        <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintBortArtifactInvalid">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintBortMonsterInvalid">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintBortRoomInvalid">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintBortActionInvalid">
+            <summary></summary>
+        </member>
         <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintHintsQuestion(System.Int64,System.String)">
             <summary></summary>
             <param name="hintNum"></param>
@@ -475,6 +517,9 @@
             <param name="buf"></param>
         </member>
         <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintSayText(System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintBortUsage">
             <summary></summary>
         </member>
         <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintSettingsUsage">
@@ -1407,6 +1452,48 @@
         <member name="M:EamonRT.Framework.IEngine.PrintDoesntHaveIt(Eamon.Framework.IMonster)">
             <summary></summary>
             <param name="monster"></param>
+        </member>
+        <member name="M:EamonRT.Framework.IEngine.PrintBortVisitArtifact(Eamon.Framework.IRoom,Eamon.Framework.IArtifact)">
+            <summary></summary>
+            <param name="room"></param>
+            <param name="artifact"></param>
+        </member>
+        <member name="M:EamonRT.Framework.IEngine.PrintBortVisitMonster(Eamon.Framework.IRoom,Eamon.Framework.IMonster)">
+            <summary></summary>
+            <param name="room"></param>
+            <param name="monster"></param>
+        </member>
+        <member name="M:EamonRT.Framework.IEngine.PrintBortVisitRoom(Eamon.Framework.IRoom)">
+            <summary></summary>
+            <param name="room"></param>
+        </member>
+        <member name="M:EamonRT.Framework.IEngine.PrintBortRecallArtifacts(System.Collections.Generic.IList{Eamon.Framework.IGameBase})">
+            <summary></summary>
+            <param name="recordList"></param>
+        </member>
+        <member name="M:EamonRT.Framework.IEngine.PrintBortRecallMonsters(System.Collections.Generic.IList{Eamon.Framework.IGameBase})">
+            <summary></summary>
+            <param name="recordList"></param>
+        </member>
+        <member name="M:EamonRT.Framework.IEngine.PrintBortArtifactRoomInvalid(Eamon.Framework.IArtifact)">
+            <summary></summary>
+            <param name="artifact"></param>
+        </member>
+        <member name="M:EamonRT.Framework.IEngine.PrintBortMonsterRoomInvalid(Eamon.Framework.IMonster)">
+            <summary></summary>
+            <param name="monster"></param>
+        </member>
+        <member name="M:EamonRT.Framework.IEngine.PrintBortArtifactInvalid">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Framework.IEngine.PrintBortMonsterInvalid">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Framework.IEngine.PrintBortRoomInvalid">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Framework.IEngine.PrintBortActionInvalid">
+            <summary></summary>
         </member>
         <member name="M:EamonRT.Framework.IEngine.PrintTooManyWeapons">
             <summary></summary>

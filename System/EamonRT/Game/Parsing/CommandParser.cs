@@ -654,11 +654,55 @@ namespace EamonRT.Game.Parsing
 
 			Debug.Assert(bortCommand != null);
 
-			bortCommand.Action = "visitroom";
+			if (CurrToken + 1 < Tokens.Length)
+			{
+				if (Tokens[CurrToken].Equals("visitartifact", StringComparison.OrdinalIgnoreCase))
+				{
+					CurrToken += 1;
 
-			bortCommand.RecordList.Add(gRDB[1]);
+					// +++ IMPLEMENT +++
+				}
+				else if (Tokens[CurrToken].Equals("visitmonster", StringComparison.OrdinalIgnoreCase))
+				{
+					CurrToken += 1;
 
-			// TODO: implement
+					// +++ IMPLEMENT +++
+				}
+				else if (Tokens[CurrToken].Equals("visitroom", StringComparison.OrdinalIgnoreCase))
+				{
+					CurrToken += 1;
+
+					bortCommand.Action = "visitroom";
+
+					bortCommand.RecordList.Add(gRDB[1]);
+
+					// +++ IMPLEMENT +++
+				}
+				else if (Tokens[CurrToken].Equals("recallartifact", StringComparison.OrdinalIgnoreCase))
+				{
+					CurrToken += 1;
+
+					// +++ IMPLEMENT +++
+				}
+				else if (Tokens[CurrToken].Equals("recallmonster", StringComparison.OrdinalIgnoreCase))
+				{
+					CurrToken += 1;
+
+					// +++ IMPLEMENT +++
+				}
+				else
+				{
+					bortCommand.PrintBortUsage();
+
+					NextState = Globals.CreateInstance<IStartState>();
+				}
+			}
+			else
+			{
+				bortCommand.PrintBortUsage();
+
+				NextState = Globals.CreateInstance<IStartState>();
+			}
 		}
 
 		public virtual void FinishParsingInventoryCommand()

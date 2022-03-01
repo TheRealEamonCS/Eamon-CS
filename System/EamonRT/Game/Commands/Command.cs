@@ -716,6 +716,61 @@ namespace EamonRT.Game.Commands
 			CommandImpl.PrintActorReadiesWeapon(monster);
 		}
 
+		public virtual void PrintBortVisitArtifact(IRoom room, IArtifact artifact)
+		{
+			CommandImpl.PrintBortVisitArtifact(room, artifact);
+		}
+
+		public virtual void PrintBortVisitMonster(IRoom room, IMonster monster)
+		{
+			CommandImpl.PrintBortVisitMonster(room, monster);
+		}
+
+		public virtual void PrintBortVisitRoom(IRoom room)
+		{
+			CommandImpl.PrintBortVisitRoom(room);
+		}
+
+		public virtual void PrintBortRecallArtifacts(IList<IGameBase> recordList)
+		{
+			CommandImpl.PrintBortRecallArtifacts(recordList);
+		}
+
+		public virtual void PrintBortRecallMonsters(IList<IGameBase> recordList)
+		{
+			CommandImpl.PrintBortRecallMonsters(recordList);
+		}
+
+		public virtual void PrintBortArtifactRoomInvalid(IArtifact artifact)
+		{
+			CommandImpl.PrintBortArtifactRoomInvalid(artifact);
+		}
+
+		public virtual void PrintBortMonsterRoomInvalid(IMonster monster)
+		{
+			CommandImpl.PrintBortMonsterRoomInvalid(monster);
+		}
+
+		public virtual void PrintBortArtifactInvalid()
+		{
+			CommandImpl.PrintBortArtifactInvalid();
+		}
+
+		public virtual void PrintBortMonsterInvalid()
+		{
+			CommandImpl.PrintBortMonsterInvalid();
+		}
+
+		public virtual void PrintBortRoomInvalid()
+		{
+			CommandImpl.PrintBortRoomInvalid();
+		}
+
+		public virtual void PrintBortActionInvalid()
+		{
+			CommandImpl.PrintBortActionInvalid();
+		}
+
 		public virtual void PrintHintsQuestion(long hintNum, string question)
 		{
 			CommandImpl.PrintHintsQuestion(hintNum, question);
@@ -734,6 +789,11 @@ namespace EamonRT.Game.Commands
 		public virtual void PrintSayText(string printedPhrase)
 		{
 			CommandImpl.PrintSayText(printedPhrase);
+		}
+
+		public virtual void PrintBortUsage()
+		{
+			CommandImpl.PrintBortUsage();
 		}
 
 		public virtual void PrintSettingsUsage()

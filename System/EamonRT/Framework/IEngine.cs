@@ -182,6 +182,48 @@ namespace EamonRT.Framework
 		void PrintDoesntHaveIt(IMonster monster);
 
 		/// <summary></summary>
+		/// <param name="room"></param>
+		/// <param name="artifact"></param>
+		void PrintBortVisitArtifact(IRoom room, IArtifact artifact);
+
+		/// <summary></summary>
+		/// <param name="room"></param>
+		/// <param name="monster"></param>
+		void PrintBortVisitMonster(IRoom room, IMonster monster);
+
+		/// <summary></summary>
+		/// <param name="room"></param>
+		void PrintBortVisitRoom(IRoom room);
+
+		/// <summary></summary>
+		/// <param name="recordList"></param>
+		void PrintBortRecallArtifacts(IList<IGameBase> recordList);
+
+		/// <summary></summary>
+		/// <param name="recordList"></param>
+		void PrintBortRecallMonsters(IList<IGameBase> recordList);
+
+		/// <summary></summary>
+		/// <param name="artifact"></param>
+		void PrintBortArtifactRoomInvalid(IArtifact artifact);
+
+		/// <summary></summary>
+		/// <param name="monster"></param>
+		void PrintBortMonsterRoomInvalid(IMonster monster);
+
+		/// <summary></summary>
+		void PrintBortArtifactInvalid();
+
+		/// <summary></summary>
+		void PrintBortMonsterInvalid();
+
+		/// <summary></summary>
+		void PrintBortRoomInvalid();
+
+		/// <summary></summary>
+		void PrintBortActionInvalid();
+
+		/// <summary></summary>
 		void PrintTooManyWeapons();
 
 		/// <summary></summary>

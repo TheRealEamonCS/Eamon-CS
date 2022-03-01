@@ -37,7 +37,7 @@ namespace EamonRT.Game.Commands
 
 						if (room != null)
 						{
-							gOut.Print("Using Bort to visit artifact.");
+							PrintBortVisitArtifact(room, artifact);
 
 							gGameState.R2 = room.Uid;
 
@@ -48,12 +48,12 @@ namespace EamonRT.Game.Commands
 						}
 						else
 						{
-							gOut.Print("The Bort artifact room is invalid.");
+							PrintBortArtifactRoomInvalid(artifact);
 						}
 					}
 					else
 					{
-						gOut.Print("The Bort artifact is invalid.");
+						PrintBortArtifactInvalid();
 					}
 
 					break;
@@ -69,7 +69,7 @@ namespace EamonRT.Game.Commands
 
 						if (room != null)
 						{
-							gOut.Print("Using Bort to visit monster.");
+							PrintBortVisitMonster(room, monster);
 
 							gGameState.R2 = room.Uid;
 
@@ -80,12 +80,12 @@ namespace EamonRT.Game.Commands
 						}
 						else
 						{
-							gOut.Print("The Bort monster room is invalid.");
+							PrintBortMonsterRoomInvalid(monster);
 						}
 					}
 					else
 					{
-						gOut.Print("The Bort monster is invalid.");
+						PrintBortMonsterInvalid();
 					}
 
 					break;
@@ -97,7 +97,7 @@ namespace EamonRT.Game.Commands
 
 					if (room != null)
 					{
-						gOut.Print("Using Bort to visit room.");
+						PrintBortVisitRoom(room);
 
 						gGameState.R2 = room.Uid;
 
@@ -108,7 +108,7 @@ namespace EamonRT.Game.Commands
 					}
 					else
 					{
-						gOut.Print("The Bort room is invalid.");
+						PrintBortRoomInvalid();
 					}
 
 					break;
@@ -116,7 +116,7 @@ namespace EamonRT.Game.Commands
 
 				case "recallartifact":
 				{
-					gOut.Print("Using Bort to recall artifact{0}.", RecordList.Count != 1 ? "s" : "");
+					PrintBortRecallArtifacts(RecordList);
 
 					foreach (var record in RecordList)
 					{
@@ -133,7 +133,7 @@ namespace EamonRT.Game.Commands
 
 				case "recallmonster":
 				{
-					gOut.Print("Using Bort to recall monster{0}.", RecordList.Count != 1 ? "s" : "");
+					PrintBortRecallMonsters(RecordList);
 
 					foreach (var record in RecordList)
 					{
@@ -150,7 +150,7 @@ namespace EamonRT.Game.Commands
 
 				default:
 				{
-					gOut.Print("The Bort Action is invalid.");
+					PrintBortActionInvalid();
 
 					break;
 				}

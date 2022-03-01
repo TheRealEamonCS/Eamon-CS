@@ -312,6 +312,75 @@ namespace EamonRT.Game
 			gOut.Print("{0}{1} have it.", monster.GetTheName(true), monster.EvalPlural(" doesn't", " don't"));
 		}
 
+		public virtual void PrintBortVisitArtifact(IRoom room, IArtifact artifact)
+		{
+			Debug.Assert(room != null && artifact != null);
+
+			gOut.Print("Using Bort to visit artifact.");
+		}
+
+		public virtual void PrintBortVisitMonster(IRoom room, IMonster monster)
+		{
+			Debug.Assert(room != null && monster != null);
+
+			gOut.Print("Using Bort to visit monster.");
+		}
+
+		public virtual void PrintBortVisitRoom(IRoom room)
+		{
+			Debug.Assert(room != null);
+
+			gOut.Print("Using Bort to visit room.");
+		}
+
+		public virtual void PrintBortRecallArtifacts(IList<IGameBase> recordList)
+		{
+			Debug.Assert(recordList != null);
+
+			gOut.Print("Using Bort to recall artifact{0}.", recordList.Count != 1 ? "s" : "");
+		}
+
+		public virtual void PrintBortRecallMonsters(IList<IGameBase> recordList)
+		{
+			Debug.Assert(recordList != null);
+
+			gOut.Print("Using Bort to recall monster{0}.", recordList.Count != 1 ? "s" : "");
+		}
+
+		public virtual void PrintBortArtifactRoomInvalid(IArtifact artifact)
+		{
+			Debug.Assert(artifact != null);
+
+			gOut.Print("The Bort artifact room is invalid.");
+		}
+
+		public virtual void PrintBortMonsterRoomInvalid(IMonster monster)
+		{
+			Debug.Assert(monster != null);
+
+			gOut.Print("The Bort monster room is invalid.");
+		}
+
+		public virtual void PrintBortArtifactInvalid()
+		{
+			gOut.Print("The Bort artifact is invalid.");
+		}
+
+		public virtual void PrintBortMonsterInvalid()
+		{
+			gOut.Print("The Bort monster is invalid.");
+		}
+
+		public virtual void PrintBortRoomInvalid()
+		{
+			gOut.Print("The Bort room is invalid.");
+		}
+
+		public virtual void PrintBortActionInvalid()
+		{
+			gOut.Print("The Bort Action is invalid.");
+		}
+
 		public virtual void PrintTooManyWeapons()
 		{
 			gOut.Print("As you enter the Main Hall, Lord William Missilefire approaches you and says, \"You have too many weapons to keep them all, four is the legal limit.\"");
