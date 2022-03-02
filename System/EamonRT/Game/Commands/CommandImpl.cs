@@ -785,69 +785,69 @@ namespace EamonRT.Game.Commands
 		{
 			Debug.Assert(room != null && artifact != null);
 
-			gOut.Print("Using Bort to visit artifact.");
+			gOut.Print("Visiting artifact {0}:  [{1}].", artifact.Uid, artifact.GetArticleName(true));
 		}
 
 		public virtual void PrintBortVisitMonster(IRoom room, IMonster monster)
 		{
 			Debug.Assert(room != null && monster != null);
 
-			gOut.Print("Using Bort to visit monster.");
+			gOut.Print("Visiting monster {0}:  [{1}].", monster.Uid, monster.GetArticleName(true));
 		}
 
 		public virtual void PrintBortVisitRoom(IRoom room)
 		{
 			Debug.Assert(room != null);
 
-			gOut.Print("Using Bort to visit room.");
+			gOut.Print("Visiting room {0}:  [{1}].", room.Uid, room.Name);
 		}
 
-		public virtual void PrintBortRecallArtifacts(IList<IGameBase> recordList)
+		public virtual void PrintBortRecallArtifact(IRoom room, IArtifact artifact)
 		{
-			Debug.Assert(recordList != null);
+			Debug.Assert(room != null && artifact != null);
 
-			gOut.Print("Using Bort to recall artifact{0}.", recordList.Count != 1 ? "s" : "");
+			gOut.Print("Recalling artifact {0}:  [{1}].", artifact.Uid, artifact.GetArticleName(true));
 		}
 
-		public virtual void PrintBortRecallMonsters(IList<IGameBase> recordList)
+		public virtual void PrintBortRecallMonster(IRoom room, IMonster monster)
 		{
-			Debug.Assert(recordList != null);
+			Debug.Assert(room != null && monster != null);
 
-			gOut.Print("Using Bort to recall monster{0}.", recordList.Count != 1 ? "s" : "");
+			gOut.Print("Recalling monster {0}:  [{1}].", monster.Uid, monster.GetArticleName(true));
 		}
 
 		public virtual void PrintBortArtifactRoomInvalid(IArtifact artifact)
 		{
 			Debug.Assert(artifact != null);
 
-			gOut.Print("The Bort artifact room is invalid.");
+			gOut.Print("The artifact room is invalid.");
 		}
 
 		public virtual void PrintBortMonsterRoomInvalid(IMonster monster)
 		{
 			Debug.Assert(monster != null);
 
-			gOut.Print("The Bort monster room is invalid.");
+			gOut.Print("The monster room is invalid.");
 		}
 
 		public virtual void PrintBortArtifactInvalid()
 		{
-			gOut.Print("The Bort artifact is invalid.");
+			gOut.Print("The artifact is invalid.");
 		}
 
 		public virtual void PrintBortMonsterInvalid()
 		{
-			gOut.Print("The Bort monster is invalid.");
+			gOut.Print("The monster is invalid.");
 		}
 
 		public virtual void PrintBortRoomInvalid()
 		{
-			gOut.Print("The Bort room is invalid.");
+			gOut.Print("The room is invalid.");
 		}
 
 		public virtual void PrintBortActionInvalid()
 		{
-			gOut.Print("The Bort Action is invalid.");
+			gOut.Print("The action is invalid.");
 		}
 
 		public virtual void PrintHintsQuestion(long hintNum, string question)

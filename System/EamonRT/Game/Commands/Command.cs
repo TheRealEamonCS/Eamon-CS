@@ -731,14 +731,14 @@ namespace EamonRT.Game.Commands
 			CommandImpl.PrintBortVisitRoom(room);
 		}
 
-		public virtual void PrintBortRecallArtifacts(IList<IGameBase> recordList)
+		public virtual void PrintBortRecallArtifact(IRoom room, IArtifact artifact)
 		{
-			CommandImpl.PrintBortRecallArtifacts(recordList);
+			CommandImpl.PrintBortRecallArtifact(room, artifact);
 		}
 
-		public virtual void PrintBortRecallMonsters(IList<IGameBase> recordList)
+		public virtual void PrintBortRecallMonster(IRoom room, IMonster monster)
 		{
-			CommandImpl.PrintBortRecallMonsters(recordList);
+			CommandImpl.PrintBortRecallMonster(room, monster);
 		}
 
 		public virtual void PrintBortArtifactRoomInvalid(IArtifact artifact)

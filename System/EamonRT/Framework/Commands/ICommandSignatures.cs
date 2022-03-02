@@ -467,12 +467,14 @@ namespace EamonRT.Framework.Commands
 		void PrintBortVisitRoom(IRoom room);
 
 		/// <summary></summary>
-		/// <param name="recordList"></param>
-		void PrintBortRecallArtifacts(IList<IGameBase> recordList);
+		/// <param name="room"></param>
+		/// <param name="artifact"></param>
+		void PrintBortRecallArtifact(IRoom room, IArtifact artifact);
 
 		/// <summary></summary>
-		/// <param name="recordList"></param>
-		void PrintBortRecallMonsters(IList<IGameBase> recordList);
+		/// <param name="room"></param>
+		/// <param name="monster"></param>
+		void PrintBortRecallMonster(IRoom room, IMonster monster);
 
 		/// <summary></summary>
 		/// <param name="artifact"></param>

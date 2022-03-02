@@ -106,13 +106,13 @@ namespace EamonRT.Game.Commands
 
 				case "recallartifact":
 				{
-					PrintBortRecallArtifacts(RecordList);
-
 					foreach (var record in RecordList)
 					{
 						var artifact = record as IArtifact;
 
 						Debug.Assert(artifact != null);
+
+						PrintBortRecallArtifact(ActorRoom, artifact);
 
 						artifact.SetInRoom(ActorRoom);
 					}
@@ -122,13 +122,13 @@ namespace EamonRT.Game.Commands
 
 				case "recallmonster":
 				{
-					PrintBortRecallMonsters(RecordList);
-
 					foreach (var record in RecordList)
 					{
 						var monster = record as IMonster;
 
 						Debug.Assert(monster != null);
+
+						PrintBortRecallMonster(ActorRoom, monster);
 
 						monster.SetInRoom(ActorRoom);
 					}
