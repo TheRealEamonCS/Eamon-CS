@@ -1453,48 +1453,6 @@
             <summary></summary>
             <param name="monster"></param>
         </member>
-        <member name="M:EamonRT.Framework.IEngine.PrintBortVisitArtifact(Eamon.Framework.IRoom,Eamon.Framework.IArtifact)">
-            <summary></summary>
-            <param name="room"></param>
-            <param name="artifact"></param>
-        </member>
-        <member name="M:EamonRT.Framework.IEngine.PrintBortVisitMonster(Eamon.Framework.IRoom,Eamon.Framework.IMonster)">
-            <summary></summary>
-            <param name="room"></param>
-            <param name="monster"></param>
-        </member>
-        <member name="M:EamonRT.Framework.IEngine.PrintBortVisitRoom(Eamon.Framework.IRoom)">
-            <summary></summary>
-            <param name="room"></param>
-        </member>
-        <member name="M:EamonRT.Framework.IEngine.PrintBortRecallArtifacts(System.Collections.Generic.IList{Eamon.Framework.IGameBase})">
-            <summary></summary>
-            <param name="recordList"></param>
-        </member>
-        <member name="M:EamonRT.Framework.IEngine.PrintBortRecallMonsters(System.Collections.Generic.IList{Eamon.Framework.IGameBase})">
-            <summary></summary>
-            <param name="recordList"></param>
-        </member>
-        <member name="M:EamonRT.Framework.IEngine.PrintBortArtifactRoomInvalid(Eamon.Framework.IArtifact)">
-            <summary></summary>
-            <param name="artifact"></param>
-        </member>
-        <member name="M:EamonRT.Framework.IEngine.PrintBortMonsterRoomInvalid(Eamon.Framework.IMonster)">
-            <summary></summary>
-            <param name="monster"></param>
-        </member>
-        <member name="M:EamonRT.Framework.IEngine.PrintBortArtifactInvalid">
-            <summary></summary>
-        </member>
-        <member name="M:EamonRT.Framework.IEngine.PrintBortMonsterInvalid">
-            <summary></summary>
-        </member>
-        <member name="M:EamonRT.Framework.IEngine.PrintBortRoomInvalid">
-            <summary></summary>
-        </member>
-        <member name="M:EamonRT.Framework.IEngine.PrintBortActionInvalid">
-            <summary></summary>
-        </member>
         <member name="M:EamonRT.Framework.IEngine.PrintTooManyWeapons">
             <summary></summary>
         </member>

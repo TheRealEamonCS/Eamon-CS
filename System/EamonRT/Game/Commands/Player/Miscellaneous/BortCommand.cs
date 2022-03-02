@@ -31,73 +31,18 @@ namespace EamonRT.Game.Commands
 				{
 					var artifact = RecordList[0] as IArtifact;
 
-					if (artifact != null)
+					Debug.Assert(artifact != null);
+
+					var room = artifact.GetInRoom(true);
+
+					if (room == null)
 					{
-						var room = artifact.GetInRoom(true);
-
-						if (room != null)
-						{
-							PrintBortVisitArtifact(room, artifact);
-
-							gGameState.R2 = room.Uid;
-
-							NextState = Globals.CreateInstance<IAfterPlayerMoveState>(x =>
-							{
-								x.MoveMonsters = false;
-							});
-						}
-						else
-						{
-							PrintBortArtifactRoomInvalid(artifact);
-						}
+							room = artifact.GetEmbeddedInRoom(true);
 					}
-					else
-					{
-						PrintBortArtifactInvalid();
-					}
-
-					break;
-				}
-
-				case "visitmonster":
-				{
-					var monster = RecordList[0] as IMonster;
-
-					if (monster != null)
-					{
-						var room = monster.GetInRoom();
-
-						if (room != null)
-						{
-							PrintBortVisitMonster(room, monster);
-
-							gGameState.R2 = room.Uid;
-
-							NextState = Globals.CreateInstance<IAfterPlayerMoveState>(x =>
-							{
-								x.MoveMonsters = false;
-							});
-						}
-						else
-						{
-							PrintBortMonsterRoomInvalid(monster);
-						}
-					}
-					else
-					{
-						PrintBortMonsterInvalid();
-					}
-
-					break;
-				}
-
-				case "visitroom":
-				{
-					var room = RecordList[0] as IRoom;
 
 					if (room != null)
 					{
-						PrintBortVisitRoom(room);
+						PrintBortVisitArtifact(room, artifact);
 
 						gGameState.R2 = room.Uid;
 
@@ -108,8 +53,53 @@ namespace EamonRT.Game.Commands
 					}
 					else
 					{
-						PrintBortRoomInvalid();
+						PrintBortArtifactRoomInvalid(artifact);
 					}
+
+					break;
+				}
+
+				case "visitmonster":
+				{
+					var monster = RecordList[0] as IMonster;
+
+					Debug.Assert(monster != null);
+
+					var room = monster.GetInRoom();
+
+					if (room != null)
+					{
+						PrintBortVisitMonster(room, monster);
+
+						gGameState.R2 = room.Uid;
+
+						NextState = Globals.CreateInstance<IAfterPlayerMoveState>(x =>
+						{
+							x.MoveMonsters = false;
+						});
+					}
+					else
+					{
+						PrintBortMonsterRoomInvalid(monster);
+					}
+
+					break;
+				}
+
+				case "visitroom":
+				{
+					var room = RecordList[0] as IRoom;
+
+					Debug.Assert(room != null);
+
+					PrintBortVisitRoom(room);
+
+					gGameState.R2 = room.Uid;
+
+					NextState = Globals.CreateInstance<IAfterPlayerMoveState>(x =>
+					{
+						x.MoveMonsters = false;
+					});
 
 					break;
 				}
@@ -122,10 +112,9 @@ namespace EamonRT.Game.Commands
 					{
 						var artifact = record as IArtifact;
 
-						if (artifact != null)
-						{
-							artifact.SetInRoom(ActorRoom);
-						}
+						Debug.Assert(artifact != null);
+
+						artifact.SetInRoom(ActorRoom);
 					}
 
 					break;
@@ -139,10 +128,9 @@ namespace EamonRT.Game.Commands
 					{
 						var monster = record as IMonster;
 
-						if (monster != null)
-						{
-							monster.SetInRoom(ActorRoom);
-						}
+						Debug.Assert(monster != null);
+
+						monster.SetInRoom(ActorRoom);
 					}
 
 					break;
@@ -150,7 +138,7 @@ namespace EamonRT.Game.Commands
 
 				default:
 				{
-					PrintBortActionInvalid();
+					Debug.Assert(1 == 0);
 
 					break;
 				}

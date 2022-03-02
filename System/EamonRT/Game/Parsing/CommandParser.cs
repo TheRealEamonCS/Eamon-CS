@@ -660,23 +660,91 @@ namespace EamonRT.Game.Parsing
 				{
 					CurrToken += 1;
 
-					// +++ IMPLEMENT +++
+					long artifactUid;
+
+					if (long.TryParse(Tokens[CurrToken], out artifactUid))
+					{
+						CurrToken += 1;
+
+						var artifact = gADB[artifactUid];
+
+						if (artifact != null)
+						{
+							bortCommand.Action = "visitartifact";
+
+							bortCommand.RecordList.Add(artifact);
+						}
+						else
+						{
+							bortCommand.PrintBortArtifactInvalid();
+
+							NextState = Globals.CreateInstance<IStartState>();
+						}
+					}
+					else
+					{
+						// +++ IMPLEMENT +++
+					}
 				}
 				else if (Tokens[CurrToken].Equals("visitmonster", StringComparison.OrdinalIgnoreCase))
 				{
 					CurrToken += 1;
 
-					// +++ IMPLEMENT +++
+					long monsterUid;
+
+					if (long.TryParse(Tokens[CurrToken], out monsterUid))
+					{
+						CurrToken += 1;
+
+						var monster = gMDB[monsterUid];
+
+						if (monster != null)
+						{
+							bortCommand.Action = "visitmonster";
+
+							bortCommand.RecordList.Add(monster);
+						}
+						else
+						{
+							bortCommand.PrintBortMonsterInvalid();
+
+							NextState = Globals.CreateInstance<IStartState>();
+						}
+					}
+					else
+					{
+						// +++ IMPLEMENT +++
+					}
 				}
 				else if (Tokens[CurrToken].Equals("visitroom", StringComparison.OrdinalIgnoreCase))
 				{
 					CurrToken += 1;
 
-					bortCommand.Action = "visitroom";
+					long roomUid;
 
-					bortCommand.RecordList.Add(gRDB[1]);
+					if (long.TryParse(Tokens[CurrToken], out roomUid))
+					{
+						CurrToken += 1;
 
-					// +++ IMPLEMENT +++
+						var room = gRDB[roomUid];
+
+						if (room != null)
+						{
+							bortCommand.Action = "visitroom";
+
+							bortCommand.RecordList.Add(room);
+						}
+						else
+						{
+							bortCommand.PrintBortRoomInvalid();
+
+							NextState = Globals.CreateInstance<IStartState>();
+						}
+					}
+					else
+					{
+						// +++ IMPLEMENT +++
+					}
 				}
 				else if (Tokens[CurrToken].Equals("recallartifact", StringComparison.OrdinalIgnoreCase))
 				{
@@ -692,7 +760,7 @@ namespace EamonRT.Game.Parsing
 				}
 				else
 				{
-					bortCommand.PrintBortUsage();
+					bortCommand.PrintBortActionInvalid();
 
 					NextState = Globals.CreateInstance<IStartState>();
 				}

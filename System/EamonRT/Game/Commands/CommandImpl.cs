@@ -783,57 +783,71 @@ namespace EamonRT.Game.Commands
 
 		public virtual void PrintBortVisitArtifact(IRoom room, IArtifact artifact)
 		{
-			gEngine.PrintBortVisitArtifact(room, artifact);
+			Debug.Assert(room != null && artifact != null);
+
+			gOut.Print("Using Bort to visit artifact.");
 		}
 
 		public virtual void PrintBortVisitMonster(IRoom room, IMonster monster)
 		{
-			gEngine.PrintBortVisitMonster(room, monster);
+			Debug.Assert(room != null && monster != null);
+
+			gOut.Print("Using Bort to visit monster.");
 		}
 
 		public virtual void PrintBortVisitRoom(IRoom room)
 		{
-			gEngine.PrintBortVisitRoom(room);
+			Debug.Assert(room != null);
+
+			gOut.Print("Using Bort to visit room.");
 		}
 
 		public virtual void PrintBortRecallArtifacts(IList<IGameBase> recordList)
 		{
-			gEngine.PrintBortRecallArtifacts(recordList);
+			Debug.Assert(recordList != null);
+
+			gOut.Print("Using Bort to recall artifact{0}.", recordList.Count != 1 ? "s" : "");
 		}
 
 		public virtual void PrintBortRecallMonsters(IList<IGameBase> recordList)
 		{
-			gEngine.PrintBortRecallMonsters(recordList);
+			Debug.Assert(recordList != null);
+
+			gOut.Print("Using Bort to recall monster{0}.", recordList.Count != 1 ? "s" : "");
 		}
 
 		public virtual void PrintBortArtifactRoomInvalid(IArtifact artifact)
 		{
-			gEngine.PrintBortArtifactRoomInvalid(artifact);
+			Debug.Assert(artifact != null);
+
+			gOut.Print("The Bort artifact room is invalid.");
 		}
 
 		public virtual void PrintBortMonsterRoomInvalid(IMonster monster)
 		{
-			gEngine.PrintBortMonsterRoomInvalid(monster);
+			Debug.Assert(monster != null);
+
+			gOut.Print("The Bort monster room is invalid.");
 		}
 
 		public virtual void PrintBortArtifactInvalid()
 		{
-			gEngine.PrintBortArtifactInvalid();
+			gOut.Print("The Bort artifact is invalid.");
 		}
 
 		public virtual void PrintBortMonsterInvalid()
 		{
-			gEngine.PrintBortMonsterInvalid();
+			gOut.Print("The Bort monster is invalid.");
 		}
 
 		public virtual void PrintBortRoomInvalid()
 		{
-			gEngine.PrintBortRoomInvalid();
+			gOut.Print("The Bort room is invalid.");
 		}
 
 		public virtual void PrintBortActionInvalid()
 		{
-			gEngine.PrintBortActionInvalid();
+			gOut.Print("The Bort Action is invalid.");
 		}
 
 		public virtual void PrintHintsQuestion(long hintNum, string question)
