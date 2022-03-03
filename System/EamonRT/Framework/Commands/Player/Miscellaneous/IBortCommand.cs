@@ -20,7 +20,7 @@ namespace EamonRT.Framework.Commands
 	public interface IBortCommand : ICommand
 	{
 		/// <summary></summary>
-		IList<IGameBase> RecordList { get; set; }
+		IGameBase Record { get; set; }
 
 		/// <summary></summary>
 		string Action { get; set; }

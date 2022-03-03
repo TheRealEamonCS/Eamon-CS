@@ -852,7 +852,7 @@
             since it can leave the game engine in an indeterminate (and possibly crash-prone) state.
             </remarks>
         </member>
-        <member name="P:EamonRT.Framework.Commands.IBortCommand.RecordList">
+        <member name="P:EamonRT.Framework.Commands.IBortCommand.Record">
             <summary></summary>
         </member>
         <member name="P:EamonRT.Framework.Commands.IBortCommand.Action">
@@ -1977,13 +1977,7 @@
         <member name="P:EamonRT.Framework.Parsing.ICommandParser.Tokens">
             <summary></summary>
         </member>
-        <member name="P:EamonRT.Framework.Parsing.ICommandParser.BortTokens">
-            <summary></summary>
-        </member>
         <member name="P:EamonRT.Framework.Parsing.ICommandParser.CurrToken">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Framework.Parsing.ICommandParser.BortCurrToken">
             <summary></summary>
         </member>
         <member name="P:EamonRT.Framework.Parsing.ICommandParser.PrepTokenIndex">

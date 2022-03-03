@@ -3,7 +3,6 @@
 
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
-using System.Collections.Generic;
 using System.Diagnostics;
 using Eamon.Framework;
 using Eamon.Framework.Primitive.Enums;
@@ -17,19 +16,19 @@ namespace EamonRT.Game.Commands
 	[ClassMappings]
 	public class BortCommand : Command, IBortCommand
 	{
-		public virtual IList<IGameBase> RecordList { get; set; }
+		public virtual IGameBase Record { get; set; }
 
 		public virtual string Action { get; set; }
 
 		public override void Execute()
 		{
-			Debug.Assert(RecordList.Count > 0 && !string.IsNullOrWhiteSpace(Action));
+			Debug.Assert(Record != null && !string.IsNullOrWhiteSpace(Action));
 
 			switch(Action)
 			{
 				case "visitartifact":
 				{
-					var artifact = RecordList[0] as IArtifact;
+					var artifact = Record as IArtifact;
 
 					Debug.Assert(artifact != null);
 
@@ -61,7 +60,7 @@ namespace EamonRT.Game.Commands
 
 				case "visitmonster":
 				{
-					var monster = RecordList[0] as IMonster;
+					var monster = Record as IMonster;
 
 					Debug.Assert(monster != null);
 
@@ -88,7 +87,7 @@ namespace EamonRT.Game.Commands
 
 				case "visitroom":
 				{
-					var room = RecordList[0] as IRoom;
+					var room = Record as IRoom;
 
 					Debug.Assert(room != null);
 
@@ -106,32 +105,26 @@ namespace EamonRT.Game.Commands
 
 				case "recallartifact":
 				{
-					foreach (var record in RecordList)
-					{
-						var artifact = record as IArtifact;
+					var artifact = Record as IArtifact;
 
-						Debug.Assert(artifact != null);
+					Debug.Assert(artifact != null);
 
-						PrintBortRecallArtifact(ActorRoom, artifact);
+					PrintBortRecallArtifact(ActorRoom, artifact);
 
-						artifact.SetInRoom(ActorRoom);
-					}
+					artifact.SetInRoom(ActorRoom);
 
 					break;
 				}
 
 				case "recallmonster":
 				{
-					foreach (var record in RecordList)
-					{
-						var monster = record as IMonster;
+					var monster = Record as IMonster;
 
-						Debug.Assert(monster != null);
+					Debug.Assert(monster != null);
 
-						PrintBortRecallMonster(ActorRoom, monster);
+					PrintBortRecallMonster(ActorRoom, monster);
 
-						monster.SetInRoom(ActorRoom);
-					}
+					monster.SetInRoom(ActorRoom);
 
 					break;
 				}
@@ -169,8 +162,6 @@ namespace EamonRT.Game.Commands
 			Verb = "bort";
 
 			Type = CommandType.Miscellaneous;
-
-			RecordList = new List<IGameBase>();
 		}
 	}
 }
