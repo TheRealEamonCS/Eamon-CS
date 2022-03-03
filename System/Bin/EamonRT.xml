@@ -1977,7 +1977,13 @@
         <member name="P:EamonRT.Framework.Parsing.ICommandParser.Tokens">
             <summary></summary>
         </member>
+        <member name="P:EamonRT.Framework.Parsing.ICommandParser.BortTokens">
+            <summary></summary>
+        </member>
         <member name="P:EamonRT.Framework.Parsing.ICommandParser.CurrToken">
+            <summary></summary>
+        </member>
+        <member name="P:EamonRT.Framework.Parsing.ICommandParser.BortCurrToken">
             <summary></summary>
         </member>
         <member name="P:EamonRT.Framework.Parsing.ICommandParser.PrepTokenIndex">

@@ -126,7 +126,11 @@ namespace EamonRT.Game.Parsing
 
 		public virtual string[] Tokens { get; set; }
 
+		public virtual string[] BortTokens { get; set; }
+
 		public virtual long CurrToken { get; set; }
+
+		public virtual long BortCurrToken { get; set; }
 
 		public virtual long NameIndex { get; set; }
 
@@ -658,13 +662,13 @@ namespace EamonRT.Game.Parsing
 			{
 				if (Tokens[CurrToken].Equals("visitartifact", StringComparison.OrdinalIgnoreCase))
 				{
-					CurrToken += 1;
+					CurrToken++;
 
 					long artifactUid;
 
 					if (long.TryParse(Tokens[CurrToken], out artifactUid))
 					{
-						CurrToken += 1;
+						CurrToken++;
 
 						var artifact = gADB[artifactUid];
 
@@ -688,13 +692,13 @@ namespace EamonRT.Game.Parsing
 				}
 				else if (Tokens[CurrToken].Equals("visitmonster", StringComparison.OrdinalIgnoreCase))
 				{
-					CurrToken += 1;
+					CurrToken++;
 
 					long monsterUid;
 
 					if (long.TryParse(Tokens[CurrToken], out monsterUid))
 					{
-						CurrToken += 1;
+						CurrToken++;
 
 						var monster = gMDB[monsterUid];
 
@@ -718,13 +722,13 @@ namespace EamonRT.Game.Parsing
 				}
 				else if (Tokens[CurrToken].Equals("visitroom", StringComparison.OrdinalIgnoreCase))
 				{
-					CurrToken += 1;
+					CurrToken++;
 
 					long roomUid;
 
 					if (long.TryParse(Tokens[CurrToken], out roomUid))
 					{
-						CurrToken += 1;
+						CurrToken++;
 
 						var room = gRDB[roomUid];
 
@@ -746,17 +750,81 @@ namespace EamonRT.Game.Parsing
 						// +++ IMPLEMENT +++
 					}
 				}
-				else if (Tokens[CurrToken].Equals("recallartifact", StringComparison.OrdinalIgnoreCase))
+				else if (Tokens[CurrToken].Equals("recallartifact", StringComparison.OrdinalIgnoreCase) || Tokens[CurrToken].Equals("recallartifacts", StringComparison.OrdinalIgnoreCase))
 				{
-					CurrToken += 1;
+					CurrToken++;
 
-					// +++ IMPLEMENT +++
+					BortTokens = string.Join(" ", Tokens, (int)CurrToken, (int)(Tokens.Length - CurrToken)).Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+					long artifactUid;
+
+					for (BortCurrToken = 0; BortCurrToken < BortTokens.Length; BortCurrToken++)
+					{
+						BortTokens[BortCurrToken] = BortTokens[BortCurrToken].Trim();
+						
+						if (long.TryParse(BortTokens[BortCurrToken], out artifactUid))
+						{
+							var artifact = gADB[artifactUid];
+
+							if (artifact != null)
+							{
+								bortCommand.Action = "recallartifact";
+
+								bortCommand.RecordList.Add(artifact);
+							}
+							else
+							{
+								bortCommand.PrintBortArtifactInvalid();
+							}
+						}
+						else
+						{
+							// +++ IMPLEMENT +++
+						}
+					}
+
+					if (bortCommand.RecordList.Count == 0)
+					{
+						NextState = Globals.CreateInstance<IStartState>();
+					}
 				}
-				else if (Tokens[CurrToken].Equals("recallmonster", StringComparison.OrdinalIgnoreCase))
+				else if (Tokens[CurrToken].Equals("recallmonster", StringComparison.OrdinalIgnoreCase) || Tokens[CurrToken].Equals("recallmonsters", StringComparison.OrdinalIgnoreCase))
 				{
-					CurrToken += 1;
+					CurrToken++;
 
-					// +++ IMPLEMENT +++
+					BortTokens = string.Join(" ", Tokens, (int)CurrToken, (int)(Tokens.Length - CurrToken)).Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+					long monsterUid;
+
+					for (BortCurrToken = 0; BortCurrToken < BortTokens.Length; BortCurrToken++)
+					{
+						BortTokens[BortCurrToken] = BortTokens[BortCurrToken].Trim();
+						
+						if (long.TryParse(BortTokens[BortCurrToken], out monsterUid))
+						{
+							var monster = gMDB[monsterUid];
+
+							if (monster != null)
+							{
+								bortCommand.Action = "recallmonster";
+
+								bortCommand.RecordList.Add(monster);
+							}
+							else
+							{
+								bortCommand.PrintBortMonsterInvalid();
+							}
+						}
+						else
+						{
+							// +++ IMPLEMENT +++
+						}
+					}
+
+					if (bortCommand.RecordList.Count == 0)
+					{
+						NextState = Globals.CreateInstance<IStartState>();
+					}
 				}
 				else
 				{
@@ -1396,7 +1464,11 @@ namespace EamonRT.Game.Parsing
 
 			Tokens = null;
 
+			BortTokens = null;
+
 			CurrToken = 0;
+
+			BortCurrToken = 0;
 
 			NameIndex = -1;
 

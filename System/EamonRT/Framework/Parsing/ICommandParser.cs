@@ -36,7 +36,13 @@ namespace EamonRT.Framework.Parsing
 		string[] Tokens { get; set; }
 
 		/// <summary></summary>
+		string[] BortTokens { get; set; }
+
+		/// <summary></summary>
 		long CurrToken { get; set; }
+
+		/// <summary></summary>
+		long BortCurrToken { get; set; }
 
 		/// <summary></summary>
 		long PrepTokenIndex { get; set; }
