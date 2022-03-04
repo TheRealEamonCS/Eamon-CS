@@ -670,7 +670,22 @@ namespace EamonRT.Game.Parsing
 					}
 					else
 					{
-						// +++ IMPLEMENT +++
+						ObjData.RecordWhereClauseList = new List<Func<IGameBase, bool>>()
+						{
+							r => r is IArtifact a && (a.GetInRoom(true) != null || a.GetEmbeddedInRoom(true) != null)
+						};
+
+						ObjData.RecordMatchFunc = () =>
+						{
+							if (ObjData.FilterRecordList.Count > 0)
+							{
+								var rl = gEngine.RollDice(1, ObjData.FilterRecordList.Count, -1);
+
+								SetRecord(ObjData.FilterRecordList[(int)rl]);
+							}
+						};
+
+						ResolveRecord(false);
 					}
 
 					if (DobjArtifact != null)
@@ -700,7 +715,22 @@ namespace EamonRT.Game.Parsing
 					}
 					else
 					{
-						// +++ IMPLEMENT +++
+						ObjData.RecordWhereClauseList = new List<Func<IGameBase, bool>>()
+						{
+							r => r is IMonster m && m.GetInRoom() != null
+						};
+
+						ObjData.RecordMatchFunc = () =>
+						{
+							if (ObjData.FilterRecordList.Count > 0)
+							{
+								var rl = gEngine.RollDice(1, ObjData.FilterRecordList.Count, -1);
+
+								SetRecord(ObjData.FilterRecordList[(int)rl]);
+							}
+						};
+
+						ResolveRecord(true, false);
 					}
 
 					if (DobjMonster != null)
@@ -762,7 +792,22 @@ namespace EamonRT.Game.Parsing
 					}
 					else
 					{
-						// +++ IMPLEMENT +++
+						ObjData.RecordWhereClauseList = new List<Func<IGameBase, bool>>()
+						{
+							r => r is IArtifact a && (a.GetInRoom(true) != null || a.GetEmbeddedInRoom(true) != null)
+						};
+
+						ObjData.RecordMatchFunc = () =>
+						{
+							if (ObjData.FilterRecordList.Count > 0)
+							{
+								var rl = gEngine.RollDice(1, ObjData.FilterRecordList.Count, -1);
+
+								SetRecord(ObjData.FilterRecordList[(int)rl]);
+							}
+						};
+
+						ResolveRecord(false);
 					}
 
 					if (DobjArtifact != null)
@@ -792,7 +837,22 @@ namespace EamonRT.Game.Parsing
 					}
 					else
 					{
-						// +++ IMPLEMENT +++
+						ObjData.RecordWhereClauseList = new List<Func<IGameBase, bool>>()
+						{
+							r => r is IMonster m && m.GetInRoom() != null
+						};
+
+						ObjData.RecordMatchFunc = () =>
+						{
+							if (ObjData.FilterRecordList.Count > 0)
+							{
+								var rl = gEngine.RollDice(1, ObjData.FilterRecordList.Count, -1);
+
+								SetRecord(ObjData.FilterRecordList[(int)rl]);
+							}
+						};
+
+						ResolveRecord(true, false);
 					}
 
 					if (DobjMonster != null)

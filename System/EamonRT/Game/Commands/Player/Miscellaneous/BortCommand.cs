@@ -28,7 +28,7 @@ namespace EamonRT.Game.Commands
 			{
 				case "visitartifact":
 				{
-					var artifact = Record as IArtifact;
+					var artifact = Record as IArtifact;			// Make all vars properties
 
 					Debug.Assert(artifact != null);
 
@@ -111,7 +111,11 @@ namespace EamonRT.Game.Commands
 
 					PrintBortRecallArtifact(ActorRoom, artifact);
 
+					Globals.RevealContentCounter--;
+
 					artifact.SetInRoom(ActorRoom);
+
+					Globals.RevealContentCounter++;
 
 					break;
 				}
