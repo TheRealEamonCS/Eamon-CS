@@ -666,24 +666,24 @@ namespace EamonRT.Game.Parsing
 					{
 						CurrToken++;
 
-						var artifact = gADB[artifactUid];
-
-						if (artifact != null)
-						{
-							bortCommand.Action = "visitartifact";
-
-							bortCommand.Record = artifact;
-						}
-						else
-						{
-							bortCommand.PrintBortArtifactInvalid();
-
-							NextState = Globals.CreateInstance<IStartState>();
-						}
+						Dobj = gADB[artifactUid];
 					}
 					else
 					{
 						// +++ IMPLEMENT +++
+					}
+
+					if (DobjArtifact != null)
+					{
+						bortCommand.Action = "visitartifact";
+
+						bortCommand.Record = DobjArtifact;
+					}
+					else
+					{
+						bortCommand.PrintBortArtifactInvalid();
+
+						NextState = Globals.CreateInstance<IStartState>();
 					}
 				}
 				else if (Tokens[CurrToken].Equals("visitmonster", StringComparison.OrdinalIgnoreCase))
@@ -696,29 +696,31 @@ namespace EamonRT.Game.Parsing
 					{
 						CurrToken++;
 
-						var monster = gMDB[monsterUid];
-
-						if (monster != null)
-						{
-							bortCommand.Action = "visitmonster";
-
-							bortCommand.Record = monster;
-						}
-						else
-						{
-							bortCommand.PrintBortMonsterInvalid();
-
-							NextState = Globals.CreateInstance<IStartState>();
-						}
+						Dobj = gMDB[monsterUid];
 					}
 					else
 					{
 						// +++ IMPLEMENT +++
 					}
+
+					if (DobjMonster != null)
+					{
+						bortCommand.Action = "visitmonster";
+
+						bortCommand.Record = DobjMonster;
+					}
+					else
+					{
+						bortCommand.PrintBortMonsterInvalid();
+
+						NextState = Globals.CreateInstance<IStartState>();
+					}
 				}
 				else if (Tokens[CurrToken].Equals("visitroom", StringComparison.OrdinalIgnoreCase))
 				{
 					CurrToken++;
+
+					IRoom room = null;
 
 					long roomUid;
 
@@ -726,24 +728,24 @@ namespace EamonRT.Game.Parsing
 					{
 						CurrToken++;
 
-						var room = gRDB[roomUid];
-
-						if (room != null)
-						{
-							bortCommand.Action = "visitroom";
-
-							bortCommand.Record = room;
-						}
-						else
-						{
-							bortCommand.PrintBortRoomInvalid();
-
-							NextState = Globals.CreateInstance<IStartState>();
-						}
+						room = gRDB[roomUid];
 					}
 					else
 					{
 						// +++ IMPLEMENT +++
+					}
+
+					if (room != null)
+					{
+						bortCommand.Action = "visitroom";
+
+						bortCommand.Record = room;
+					}
+					else
+					{
+						bortCommand.PrintBortRoomInvalid();
+
+						NextState = Globals.CreateInstance<IStartState>();
 					}
 				}
 				else if (Tokens[CurrToken].Equals("recallartifact", StringComparison.OrdinalIgnoreCase))
@@ -756,24 +758,24 @@ namespace EamonRT.Game.Parsing
 					{
 						CurrToken++;
 
-						var artifact = gADB[artifactUid];
-
-						if (artifact != null)
-						{
-							bortCommand.Action = "recallartifact";
-
-							bortCommand.Record = artifact;
-						}
-						else
-						{
-							bortCommand.PrintBortArtifactInvalid();
-
-							NextState = Globals.CreateInstance<IStartState>();
-						}
+						Dobj = gADB[artifactUid];
 					}
 					else
 					{
 						// +++ IMPLEMENT +++
+					}
+
+					if (DobjArtifact != null)
+					{
+						bortCommand.Action = "recallartifact";
+
+						bortCommand.Record = DobjArtifact;
+					}
+					else
+					{
+						bortCommand.PrintBortArtifactInvalid();
+
+						NextState = Globals.CreateInstance<IStartState>();
 					}
 				}
 				else if (Tokens[CurrToken].Equals("recallmonster", StringComparison.OrdinalIgnoreCase))
@@ -786,24 +788,24 @@ namespace EamonRT.Game.Parsing
 					{
 						CurrToken++;
 
-						var monster = gMDB[monsterUid];
-
-						if (monster != null)
-						{
-							bortCommand.Action = "recallmonster";
-
-							bortCommand.Record = monster;
-						}
-						else
-						{
-							bortCommand.PrintBortMonsterInvalid();
-
-							NextState = Globals.CreateInstance<IStartState>();
-						}
+						Dobj = gMDB[monsterUid];
 					}
 					else
 					{
 						// +++ IMPLEMENT +++
+					}
+
+					if (DobjMonster != null)
+					{
+						bortCommand.Action = "recallmonster";
+
+						bortCommand.Record = DobjMonster;
+					}
+					else
+					{
+						bortCommand.PrintBortMonsterInvalid();
+
+						NextState = Globals.CreateInstance<IStartState>();
 					}
 				}
 				else
