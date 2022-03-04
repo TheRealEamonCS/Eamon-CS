@@ -679,9 +679,7 @@ namespace EamonRT.Game.Parsing
 						{
 							if (ObjData.FilterRecordList.Count > 0)
 							{
-								var rl = gEngine.RollDice(1, ObjData.FilterRecordList.Count, -1);
-
-								SetRecord(ObjData.FilterRecordList[(int)rl]);
+								SetRecord(ObjData.FilterRecordList[0]);
 							}
 						};
 
@@ -724,9 +722,7 @@ namespace EamonRT.Game.Parsing
 						{
 							if (ObjData.FilterRecordList.Count > 0)
 							{
-								var rl = gEngine.RollDice(1, ObjData.FilterRecordList.Count, -1);
-
-								SetRecord(ObjData.FilterRecordList[(int)rl]);
+								SetRecord(ObjData.FilterRecordList[0]);
 							}
 						};
 
@@ -801,9 +797,7 @@ namespace EamonRT.Game.Parsing
 						{
 							if (ObjData.FilterRecordList.Count > 0)
 							{
-								var rl = gEngine.RollDice(1, ObjData.FilterRecordList.Count, -1);
-
-								SetRecord(ObjData.FilterRecordList[(int)rl]);
+								SetRecord(ObjData.FilterRecordList[0]);
 							}
 						};
 
@@ -846,9 +840,7 @@ namespace EamonRT.Game.Parsing
 						{
 							if (ObjData.FilterRecordList.Count > 0)
 							{
-								var rl = gEngine.RollDice(1, ObjData.FilterRecordList.Count, -1);
-
-								SetRecord(ObjData.FilterRecordList[(int)rl]);
+								SetRecord(ObjData.FilterRecordList[0]);
 							}
 						};
 
