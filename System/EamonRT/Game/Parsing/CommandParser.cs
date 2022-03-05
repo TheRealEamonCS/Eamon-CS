@@ -790,7 +790,7 @@ namespace EamonRT.Game.Parsing
 					{
 						ObjData.RecordWhereClauseList = new List<Func<IGameBase, bool>>()
 						{
-							r => r is IArtifact a && (a.GetInRoom(true) != null || a.GetEmbeddedInRoom(true) != null)
+							r => r is IArtifact
 						};
 
 						ObjData.RecordMatchFunc = () =>
@@ -833,7 +833,7 @@ namespace EamonRT.Game.Parsing
 					{
 						ObjData.RecordWhereClauseList = new List<Func<IGameBase, bool>>()
 						{
-							r => r is IMonster m && m.GetInRoom() != null
+							r => r is IMonster
 						};
 
 						ObjData.RecordMatchFunc = () =>
