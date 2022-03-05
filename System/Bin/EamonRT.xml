@@ -501,9 +501,6 @@
         <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintBortRoomInvalid">
             <summary></summary>
         </member>
-        <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintBortActionInvalid">
-            <summary></summary>
-        </member>
         <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintHintsQuestion(System.Int64,System.String)">
             <summary></summary>
             <param name="hintNum"></param>

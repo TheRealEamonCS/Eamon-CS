@@ -494,9 +494,6 @@ namespace EamonRT.Framework.Commands
 		void PrintBortRoomInvalid();
 
 		/// <summary></summary>
-		void PrintBortActionInvalid();
-
-		/// <summary></summary>
 		/// <param name="hintNum"></param>
 		/// <param name="question"></param>
 		void PrintHintsQuestion(long hintNum, string question);

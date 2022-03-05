@@ -785,35 +785,35 @@ namespace EamonRT.Game.Commands
 		{
 			Debug.Assert(room != null && artifact != null);
 
-			gOut.Print("Visiting Artifact Uid {0}:  [{1}].", artifact.Uid, artifact.GetArticleName(true));
+			gOut.Print("Visiting Artifact Uid {0}:  {1}.", artifact.Uid, artifact.GetArticleName(true));
 		}
 
 		public virtual void PrintBortVisitMonster(IRoom room, IMonster monster)
 		{
 			Debug.Assert(room != null && monster != null);
 
-			gOut.Print("Visiting Monster Uid {0}:  [{1}].", monster.Uid, monster.GetArticleName(true));
+			gOut.Print("Visiting Monster Uid {0}:  {1}.", monster.Uid, monster.GetArticleName(true));
 		}
 
 		public virtual void PrintBortVisitRoom(IRoom room)
 		{
 			Debug.Assert(room != null);
 
-			gOut.Print("Visiting Room Uid {0}:  [{1}].", room.Uid, room.Name);
+			gOut.Print("Visiting Room Uid {0}:  {1}.", room.Uid, room.Name);
 		}
 
 		public virtual void PrintBortRecallArtifact(IRoom room, IArtifact artifact)
 		{
 			Debug.Assert(room != null && artifact != null);
 
-			gOut.Print("Recalling Artifact Uid {0}:  [{1}].", artifact.Uid, artifact.GetArticleName(true));
+			gOut.Print("Recalling Artifact Uid {0}:  {1}.", artifact.Uid, artifact.GetArticleName(true));
 		}
 
 		public virtual void PrintBortRecallMonster(IRoom room, IMonster monster)
 		{
 			Debug.Assert(room != null && monster != null);
 
-			gOut.Print("Recalling Monster Uid {0}:  [{1}].", monster.Uid, monster.GetArticleName(true));
+			gOut.Print("Recalling Monster Uid {0}:  {1}.", monster.Uid, monster.GetArticleName(true));
 		}
 
 		public virtual void PrintBortArtifactRoomInvalid(IArtifact artifact)
@@ -843,11 +843,6 @@ namespace EamonRT.Game.Commands
 		public virtual void PrintBortRoomInvalid()
 		{
 			gOut.Print("The Room is invalid.");
-		}
-
-		public virtual void PrintBortActionInvalid()
-		{
-			gOut.Print("The Action is invalid.");
 		}
 
 		public virtual void PrintHintsQuestion(long hintNum, string question)
@@ -880,7 +875,15 @@ namespace EamonRT.Game.Commands
 
 		public virtual void PrintBortUsage()
 		{
-			// +++ IMPLEMENT +++
+			gOut.Print("Usage:  BORT [Action] [Uid|Name]{0}", Environment.NewLine);
+
+			gOut.WriteLine("  {0,-22}{1,-22}", "Action", "Uid|Name");
+			gOut.WriteLine("  {0,-22}{1,-22}", "--------------", "--------------------");
+			gOut.WriteLine("  {0,-22}{1,-22}", "VisitArtifact", "Artifact Uid or Name");
+			gOut.WriteLine("  {0,-22}{1,-22}", "VisitMonster", "Monster Uid or Name");
+			gOut.WriteLine("  {0,-22}{1,-22}", "VisitRoom", "Room Uid or Name");
+			gOut.WriteLine("  {0,-22}{1,-22}", "RecallArtifact", "Artifact Uid or Name");
+			gOut.WriteLine("  {0,-22}{1,-22}", "RecallMonster", "Monster Uid or Name");
 		}
 
 		public virtual void PrintSettingsUsage()

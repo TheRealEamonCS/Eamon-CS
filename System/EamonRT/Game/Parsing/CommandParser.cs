@@ -758,7 +758,14 @@ namespace EamonRT.Game.Parsing
 					}
 					else
 					{
-						// +++ IMPLEMENT +++
+						var roomName = string.Join(" ", Tokens, (int)CurrToken, (int)(Tokens.Length - CurrToken));
+
+						room = gRDB.Records.FirstOrDefault(r => r.Name.Equals(roomName, StringComparison.OrdinalIgnoreCase));
+
+						if (room == null)
+						{
+							room = gRDB.Records.FirstOrDefault(r => r.Name.StartsWith(roomName, StringComparison.OrdinalIgnoreCase) || r.Name.EndsWith(roomName, StringComparison.OrdinalIgnoreCase));
+						}
 					}
 
 					if (room != null)
@@ -862,7 +869,7 @@ namespace EamonRT.Game.Parsing
 				}
 				else
 				{
-					bortCommand.PrintBortActionInvalid();
+					bortCommand.PrintBortUsage();
 
 					NextState = Globals.CreateInstance<IStartState>();
 				}

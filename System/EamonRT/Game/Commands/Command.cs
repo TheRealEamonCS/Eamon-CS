@@ -766,11 +766,6 @@ namespace EamonRT.Game.Commands
 			CommandImpl.PrintBortRoomInvalid();
 		}
 
-		public virtual void PrintBortActionInvalid()
-		{
-			CommandImpl.PrintBortActionInvalid();
-		}
-
 		public virtual void PrintHintsQuestion(long hintNum, string question)
 		{
 			CommandImpl.PrintHintsQuestion(hintNum, question);
