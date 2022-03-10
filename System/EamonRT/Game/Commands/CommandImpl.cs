@@ -878,12 +878,19 @@ namespace EamonRT.Game.Commands
 			gOut.Print("Usage:  BORT [Action] [Uid|Name]{0}", Environment.NewLine);
 
 			gOut.WriteLine("  {0,-22}{1,-22}", "Action", "Uid|Name");
-			gOut.WriteLine("  {0,-22}{1,-22}", "--------------", "--------------------");
+			gOut.WriteLine("  {0,-22}{1,-22}", "-----------------", "--------------------");
 			gOut.WriteLine("  {0,-22}{1,-22}", "VisitArtifact", "Artifact Uid or Name");
 			gOut.WriteLine("  {0,-22}{1,-22}", "VisitMonster", "Monster Uid or Name");
 			gOut.WriteLine("  {0,-22}{1,-22}", "VisitRoom", "Room Uid or Name");
 			gOut.WriteLine("  {0,-22}{1,-22}", "RecallArtifact", "Artifact Uid or Name");
 			gOut.WriteLine("  {0,-22}{1,-22}", "RecallMonster", "Monster Uid or Name");
+			gOut.WriteLine("  {0,-22}{1,-22}", "EditArtifactMany", "Artifact Uid or Name");
+			gOut.WriteLine("  {0,-22}{1,-22}", "EditMonsterMany", "Monster Uid or Name");
+			gOut.WriteLine("  {0,-22}{1,-22}", "EditRoomMany", "Room Uid or Name");
+			gOut.WriteLine("  {0,-22}{1,-22}", "EditArtifactOne", "Artifact Uid or Name");
+			gOut.WriteLine("  {0,-22}{1,-22}", "EditMonsterOne", "Monster Uid or Name");
+			gOut.WriteLine("  {0,-22}{1,-22}", "EditRoomOne", "Room Uid or Name");
+			gOut.WriteLine("  {0,-22}", "AnalyseRecordTree");
 		}
 
 		public virtual void PrintSettingsUsage()

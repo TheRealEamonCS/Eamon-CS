@@ -5,8 +5,12 @@
 
 using System.Diagnostics;
 using Eamon.Framework;
+using Eamon.Framework.Menus;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
+using Eamon.Game.Extensions;
+using EamonDD.Framework.Menus.ActionMenus;
+using EamonDD.Game.Menus.ActionMenus;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.States;
 using static EamonRT.Game.Plugin.PluginContext;
@@ -29,11 +33,16 @@ namespace EamonRT.Game.Commands
 		/// <summary></summary>
 		public virtual IRoom BortRoom { get; set; }
 
+		/// <summary></summary>
+		public virtual IMenu BortMenu { get; set; }
+
 		public override void Execute()
 		{
-			Debug.Assert(Record != null && !string.IsNullOrWhiteSpace(Action));
+			Debug.Assert(!string.IsNullOrWhiteSpace(Action));
 
-			switch(Action)
+			Globals.BortCommand = true;
+
+			switch (Action)
 			{
 				case "visitartifact":
 
@@ -137,12 +146,106 @@ namespace EamonRT.Game.Commands
 
 					break;
 
+				case "editartifactmany":
+
+					BortArtifact = Record as IArtifact;
+
+					Debug.Assert(BortArtifact != null);
+
+					BortMenu = new EditArtifactRecordManyFieldsMenu();
+
+					BortMenu.Cast<IEditArtifactRecordManyFieldsMenu>().EditRecord = BortArtifact;
+
+					BortMenu.Execute();
+
+					break;
+
+				case "editmonstermany":
+
+					BortMonster = Record as IMonster;
+
+					Debug.Assert(BortMonster != null);
+
+					BortMenu = new EditMonsterRecordManyFieldsMenu();
+
+					BortMenu.Cast<IEditMonsterRecordManyFieldsMenu>().EditRecord = BortMonster;
+
+					BortMenu.Execute();
+
+					break;
+
+				case "editroommany":
+
+					BortRoom = Record as IRoom;
+
+					Debug.Assert(BortRoom != null);
+
+					BortMenu = new EditRoomRecordManyFieldsMenu();
+
+					BortMenu.Cast<IEditRoomRecordManyFieldsMenu>().EditRecord = BortRoom;
+
+					BortMenu.Execute();
+
+					break;
+
+				case "editartifactone":
+
+					BortArtifact = Record as IArtifact;
+
+					Debug.Assert(BortArtifact != null);
+
+					BortMenu = new EditArtifactRecordOneFieldMenu();
+
+					BortMenu.Cast<IEditArtifactRecordOneFieldMenu>().EditRecord = BortArtifact;
+
+					BortMenu.Execute();
+
+					break;
+
+				case "editmonsterone":
+
+					BortMonster = Record as IMonster;
+
+					Debug.Assert(BortMonster != null);
+
+					BortMenu = new EditMonsterRecordOneFieldMenu();
+
+					BortMenu.Cast<IEditMonsterRecordOneFieldMenu>().EditRecord = BortMonster;
+
+					BortMenu.Execute();
+
+					break;
+
+				case "editroomone":
+
+					BortRoom = Record as IRoom;
+
+					Debug.Assert(BortRoom != null);
+
+					BortMenu = new EditRoomRecordOneFieldMenu();
+
+					BortMenu.Cast<IEditRoomRecordOneFieldMenu>().EditRecord = BortRoom;
+
+					BortMenu.Execute();
+
+					break;
+
+				case "analyserecordtree":
+
+					BortMenu = new AnalyseAdventureRecordTreeMenu();
+
+					BortMenu.Execute();
+
+					break;
+
 				default:
 
 					Debug.Assert(1 == 0);
 
 					break;
 			}
+
+			Globals.BortCommand = false;
 
 			if (NextState == null)
 			{

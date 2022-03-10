@@ -33,7 +33,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			gEngine.PrintTitle("ANALYSE ADVENTURE RECORD TREE", true);
 
-			Debug.Assert(gEngine.IsAdventureFilesetLoaded());
+			Debug.Assert(Globals.BortCommand || gEngine.IsAdventureFilesetLoaded());
 
 			RecordTreeStringList.Clear();
 

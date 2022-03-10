@@ -3269,6 +3269,9 @@
         <member name="P:EamonRT.Game.Commands.BortCommand.BortRoom">
             <summary></summary>
         </member>
+        <member name="P:EamonRT.Game.Commands.BortCommand.BortMenu">
+            <summary></summary>
+        </member>
         <member name="P:EamonRT.Game.Commands.HintsCommand.ActiveHintList">
             <summary></summary>
         </member>
