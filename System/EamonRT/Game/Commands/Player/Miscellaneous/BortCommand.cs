@@ -5,12 +5,10 @@
 
 using System.Diagnostics;
 using Eamon.Framework;
-using Eamon.Framework.Menus;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
-using Eamon.Game.Extensions;
-using EamonDD.Framework.Menus.ActionMenus;
-using EamonDD.Game.Menus.ActionMenus;
+using EamonDD.Framework.Menus;
+using EamonDD.Framework.Menus.HierarchicalMenus;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.States;
 using static EamonRT.Game.Plugin.PluginContext;
@@ -34,7 +32,13 @@ namespace EamonRT.Game.Commands
 		public virtual IRoom BortRoom { get; set; }
 
 		/// <summary></summary>
-		public virtual IMenu BortMenu { get; set; }
+		public virtual IMainMenu BortMenu { get; set; }
+
+		/// <summary></summary>
+		public virtual IConfig Config { get; set; }
+
+		/// <summary></summary>
+		public virtual bool SuppressNewLines { get; set; }
 
 		public override void Execute()
 		{
@@ -42,7 +46,7 @@ namespace EamonRT.Game.Commands
 
 			Globals.BortCommand = true;
 
-			switch (Action)
+			switch(Action)
 			{
 				case "visitartifact":
 
@@ -146,95 +150,51 @@ namespace EamonRT.Game.Commands
 
 					break;
 
-				case "editartifactmany":
+				case "rungameeditor":
 
-					BortArtifact = Record as IArtifact;
+					Config = Globals.CloneInstance(Globals.Config);
 
-					Debug.Assert(BortArtifact != null);
+					Debug.Assert(Config != null);
 
-					BortMenu = new EditArtifactRecordManyFieldsMenu();
+					Globals.Config.DdEditingModules = true;
 
-					BortMenu.Cast<IEditArtifactRecordManyFieldsMenu>().EditRecord = BortArtifact;
+					Globals.Config.DdEditingRooms = true;
 
-					BortMenu.Execute();
+					Globals.Config.DdEditingArtifacts = true;
 
-					break;
+					Globals.Config.DdEditingEffects = true;
 
-				case "editmonstermany":
+					Globals.Config.DdEditingMonsters = true;
 
-					BortMonster = Record as IMonster;
+					Globals.Config.DdEditingHints = true;
 
-					Debug.Assert(BortMonster != null);
+					Globals.Config.DdEditingTriggers = true;
 
-					BortMenu = new EditMonsterRecordManyFieldsMenu();
+					Globals.Config.DdEditingScripts = true;
 
-					BortMenu.Cast<IEditMonsterRecordManyFieldsMenu>().EditRecord = BortMonster;
+					SuppressNewLines = gOut.SuppressNewLines;
 
-					BortMenu.Execute();
+					gOut.SuppressNewLines = false;
 
-					break;
+					Globals.DdMenu = Globals.CreateInstance<IDdMenu>();
 
-				case "editroommany":
-
-					BortRoom = Record as IRoom;
-
-					Debug.Assert(BortRoom != null);
-
-					BortMenu = new EditRoomRecordManyFieldsMenu();
-
-					BortMenu.Cast<IEditRoomRecordManyFieldsMenu>().EditRecord = BortRoom;
+					BortMenu = Globals.CreateInstance<IMainMenu>();
 
 					BortMenu.Execute();
 
-					break;
+					BortMenu = null;
 
-				case "editartifactone":
+					Globals.DdMenu = null;
 
-					BortArtifact = Record as IArtifact;
+					gOut.SuppressNewLines = SuppressNewLines;
 
-					Debug.Assert(BortArtifact != null);
+					Globals.Config = Config;
 
-					BortMenu = new EditArtifactRecordOneFieldMenu();
+					Globals.Module = gEngine.GetModule();
 
-					BortMenu.Cast<IEditArtifactRecordOneFieldMenu>().EditRecord = BortArtifact;
+					Debug.Assert(Globals.Module != null && Globals.Module.Uid > 0);
 
-					BortMenu.Execute();
-
-					break;
-
-				case "editmonsterone":
-
-					BortMonster = Record as IMonster;
-
-					Debug.Assert(BortMonster != null);
-
-					BortMenu = new EditMonsterRecordOneFieldMenu();
-
-					BortMenu.Cast<IEditMonsterRecordOneFieldMenu>().EditRecord = BortMonster;
-
-					BortMenu.Execute();
-
-					break;
-
-				case "editroomone":
-
-					BortRoom = Record as IRoom;
-
-					Debug.Assert(BortRoom != null);
-
-					BortMenu = new EditRoomRecordOneFieldMenu();
-
-					BortMenu.Cast<IEditRoomRecordOneFieldMenu>().EditRecord = BortRoom;
-
-					BortMenu.Execute();
-
-					break;
-
-				case "analyserecordtree":
-
-					BortMenu = new AnalyseAdventureRecordTreeMenu();
-
-					BortMenu.Execute();
+					Debug.Assert(gRDB[gGameState.Ro] != null);
 
 					break;
 

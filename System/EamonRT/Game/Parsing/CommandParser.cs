@@ -658,7 +658,7 @@ namespace EamonRT.Game.Parsing
 			{
 				var action = Tokens[CurrToken];
 
-				if (action.Equals("visitartifact", StringComparison.OrdinalIgnoreCase) || action.Equals("recallartifact", StringComparison.OrdinalIgnoreCase) || action.Equals("editartifactmany", StringComparison.OrdinalIgnoreCase) || action.Equals("editartifactone", StringComparison.OrdinalIgnoreCase))
+				if (action.Equals("visitartifact", StringComparison.OrdinalIgnoreCase) || action.Equals("recallartifact", StringComparison.OrdinalIgnoreCase))
 				{
 					CurrToken++;
 
@@ -701,7 +701,7 @@ namespace EamonRT.Game.Parsing
 						NextState = Globals.CreateInstance<IStartState>();
 					}
 				}
-				else if (action.Equals("visitmonster", StringComparison.OrdinalIgnoreCase) || action.Equals("recallmonster", StringComparison.OrdinalIgnoreCase) || action.Equals("editmonstermany", StringComparison.OrdinalIgnoreCase) || action.Equals("editmonsterone", StringComparison.OrdinalIgnoreCase))
+				else if (action.Equals("visitmonster", StringComparison.OrdinalIgnoreCase) || action.Equals("recallmonster", StringComparison.OrdinalIgnoreCase))
 				{
 					CurrToken++;
 
@@ -744,7 +744,7 @@ namespace EamonRT.Game.Parsing
 						NextState = Globals.CreateInstance<IStartState>();
 					}
 				}
-				else if (action.Equals("visitroom", StringComparison.OrdinalIgnoreCase) || action.Equals("editroommany", StringComparison.OrdinalIgnoreCase) || action.Equals("editroomone", StringComparison.OrdinalIgnoreCase))
+				else if (action.Equals("visitroom", StringComparison.OrdinalIgnoreCase))
 				{
 					CurrToken++;
 
@@ -790,9 +790,9 @@ namespace EamonRT.Game.Parsing
 					NextState = Globals.CreateInstance<IStartState>();
 				}
 			}
-			else if (CurrToken < Tokens.Length && Tokens[CurrToken].Equals("analyserecordtree", StringComparison.OrdinalIgnoreCase))
+			else if (CurrToken < Tokens.Length && Tokens[CurrToken].Equals("rungameeditor", StringComparison.OrdinalIgnoreCase))
 			{
-				bortCommand.Action = "analyserecordtree";
+				bortCommand.Action = "rungameeditor";
 			}
 			else
 			{

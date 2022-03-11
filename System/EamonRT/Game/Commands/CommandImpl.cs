@@ -884,13 +884,7 @@ namespace EamonRT.Game.Commands
 			gOut.WriteLine("  {0,-22}{1,-22}", "VisitRoom", "Room Uid or Name");
 			gOut.WriteLine("  {0,-22}{1,-22}", "RecallArtifact", "Artifact Uid or Name");
 			gOut.WriteLine("  {0,-22}{1,-22}", "RecallMonster", "Monster Uid or Name");
-			gOut.WriteLine("  {0,-22}{1,-22}", "EditArtifactMany", "Artifact Uid or Name");
-			gOut.WriteLine("  {0,-22}{1,-22}", "EditMonsterMany", "Monster Uid or Name");
-			gOut.WriteLine("  {0,-22}{1,-22}", "EditRoomMany", "Room Uid or Name");
-			gOut.WriteLine("  {0,-22}{1,-22}", "EditArtifactOne", "Artifact Uid or Name");
-			gOut.WriteLine("  {0,-22}{1,-22}", "EditMonsterOne", "Monster Uid or Name");
-			gOut.WriteLine("  {0,-22}{1,-22}", "EditRoomOne", "Room Uid or Name");
-			gOut.WriteLine("  {0,-22}", "AnalyseRecordTree");
+			gOut.WriteLine("  {0,-22}", "RunGameEditor");
 		}
 
 		public virtual void PrintSettingsUsage()

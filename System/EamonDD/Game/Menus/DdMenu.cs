@@ -25,12 +25,12 @@ namespace EamonDD.Game.Menus
 
 			gOut.Write("{0}Configs: 1", Environment.NewLine);
 
-			if (Globals.Config.DdEditingFilesets)
+			if (!Globals.BortCommand && Globals.Config.DdEditingFilesets)
 			{
 				gOut.Write("{0}Filesets: {1}", "  ", Globals.Database.GetFilesetsCount());
 			}
 
-			if (Globals.Config.DdEditingCharacters)
+			if (!Globals.BortCommand && Globals.Config.DdEditingCharacters)
 			{
 				gOut.Write("{0}Characters: {1}", "  ", Globals.Database.GetCharactersCount());
 			}

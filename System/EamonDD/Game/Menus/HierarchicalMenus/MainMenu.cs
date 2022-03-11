@@ -36,7 +36,7 @@ namespace EamonDD.Game.Menus.HierarchicalMenus
 				x.SubMenu = Globals.CreateInstance<IConfigRecordMenu>();
 			}));
 
-			if (Globals.Config.DdEditingFilesets)
+			if (!Globals.BortCommand && Globals.Config.DdEditingFilesets)
 			{
 				MenuItemList.Add(Globals.CreateInstance<IMenuItem>(x =>
 				{
@@ -46,7 +46,7 @@ namespace EamonDD.Game.Menus.HierarchicalMenus
 				}));
 			}
 
-			if (Globals.Config.DdEditingCharacters)
+			if (!Globals.BortCommand && Globals.Config.DdEditingCharacters)
 			{
 				MenuItemList.Add(Globals.CreateInstance<IMenuItem>(x =>
 				{
