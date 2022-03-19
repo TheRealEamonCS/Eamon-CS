@@ -3110,14 +3110,6 @@ namespace EamonRT.Game
 						// do nothing
 					}
 				}
-				else if (Globals.Argv[i].Equals("--ignoreMutex", StringComparison.OrdinalIgnoreCase) || Globals.Argv[i].Equals("-im", StringComparison.OrdinalIgnoreCase))
-				{
-					// do nothing
-				}
-				else if (Globals.Argv[i].Equals("--disableValidation", StringComparison.OrdinalIgnoreCase) || Globals.Argv[i].Equals("-dv", StringComparison.OrdinalIgnoreCase))
-				{
-					// do nothing
-				}
 				else if (Globals.Argv[i].Equals("--configFileName", StringComparison.OrdinalIgnoreCase) || Globals.Argv[i].Equals("-cfgfn", StringComparison.OrdinalIgnoreCase))
 				{
 					if (++i < Globals.Argv.Length && !secondPass)
@@ -3223,6 +3215,14 @@ namespace EamonRT.Game
 
 						Globals.ConfigsModified = true;
 					}
+				}
+				else if (Globals.Argv[i].Equals("--ignoreMutex", StringComparison.OrdinalIgnoreCase) || Globals.Argv[i].Equals("-im", StringComparison.OrdinalIgnoreCase))
+				{
+					// do nothing
+				}
+				else if (Globals.Argv[i].Equals("--disableValidation", StringComparison.OrdinalIgnoreCase) || Globals.Argv[i].Equals("-dv", StringComparison.OrdinalIgnoreCase))
+				{
+					// do nothing
 				}
 				else if (Globals.Argv[i].Equals("--deleteGameState", StringComparison.OrdinalIgnoreCase) || Globals.Argv[i].Equals("-dgs", StringComparison.OrdinalIgnoreCase))
 				{

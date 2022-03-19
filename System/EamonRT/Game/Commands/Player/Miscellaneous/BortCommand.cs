@@ -32,10 +32,10 @@ namespace EamonRT.Game.Commands
 		public virtual IRoom BortRoom { get; set; }
 
 		/// <summary></summary>
-		public virtual IMainMenu BortMenu { get; set; }
+		public virtual IConfig BortConfig { get; set; }
 
 		/// <summary></summary>
-		public virtual IConfig Config { get; set; }
+		public virtual IMainMenu BortMenu { get; set; }
 
 		/// <summary></summary>
 		public virtual bool SuppressNewLines { get; set; }
@@ -152,9 +152,9 @@ namespace EamonRT.Game.Commands
 
 				case "rungameeditor":
 
-					Config = Globals.CloneInstance(Globals.Config);
+					BortConfig = Globals.CloneInstance(Globals.Config);
 
-					Debug.Assert(Config != null);
+					Debug.Assert(BortConfig != null);
 
 					Globals.Config.DdEditingModules = true;
 
@@ -188,7 +188,7 @@ namespace EamonRT.Game.Commands
 
 					gOut.SuppressNewLines = SuppressNewLines;
 
-					Globals.Config = Config;
+					Globals.Config = BortConfig;
 
 					Globals.Module = gEngine.GetModule();
 

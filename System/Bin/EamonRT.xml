@@ -839,16 +839,7 @@
             <summary></summary>
         </member>
         <member name="T:EamonRT.Framework.Commands.IBortCommand">
-            <summary>
-            Developers can use this <see cref="T:EamonRT.Framework.Commands.ICommand">Command</see> for adventure debugging purposes.
-            </summary>
-            <remarks>
-            This <see cref="T:EamonRT.Framework.Commands.ICommand">Command</see> is a comprehensive debugging tool used during game development and testing.  It allows
-            the player to visit <see cref="T:Eamon.Framework.IArtifact">Artifact</see>s, <see cref="T:Eamon.Framework.IMonster">Monster</see>s, and <see cref="T:Eamon.Framework.IRoom">Room</see>s
-            via teleportation and recall Artifacts and Monsters to the player's current location.  The Command can also print the adventure
-            record tree and edit all previously mentioned record types.  However, Bort should NEVER be used as a god-mode cheat for players
-            since it can leave the game engine in an indeterminate (and possibly crash-prone) state.
-            </remarks>
+            <summary></summary>
         </member>
         <member name="P:EamonRT.Framework.Commands.IBortCommand.Record">
             <summary></summary>
@@ -3270,10 +3261,10 @@
         <member name="P:EamonRT.Game.Commands.BortCommand.BortRoom">
             <summary></summary>
         </member>
-        <member name="P:EamonRT.Game.Commands.BortCommand.BortMenu">
+        <member name="P:EamonRT.Game.Commands.BortCommand.BortConfig">
             <summary></summary>
         </member>
-        <member name="P:EamonRT.Game.Commands.BortCommand.Config">
+        <member name="P:EamonRT.Game.Commands.BortCommand.BortMenu">
             <summary></summary>
         </member>
         <member name="P:EamonRT.Game.Commands.BortCommand.SuppressNewLines">
