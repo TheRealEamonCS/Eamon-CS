@@ -45,6 +45,8 @@ namespace EamonDD.Game.Plugin
 
 		public virtual IConfig Config { get; set; }
 
+		public virtual bool BortCommand { get; set; }
+
 		public virtual bool ConfigsModified { get; set; }
 
 		public virtual bool FilesetsModified { get; set; }

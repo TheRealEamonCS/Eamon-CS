@@ -6,7 +6,6 @@
 using System;
 using System.Diagnostics;
 using Eamon.Framework;
-using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.Components;
@@ -223,27 +222,7 @@ namespace TheDeepCanyon.Game.Components
 
 						gEngine.ResetMonsterStats(DobjMonster);
 
-						var stat = gEngine.GetStats(Stat.Hardiness);
-
-						Debug.Assert(stat != null);
-
-						DobjMonster.Hardiness -= (long)Math.Round((double)DobjMonster.Hardiness * 0.4);
-
-						if (DobjMonster.Hardiness < stat.MinValue)
-						{
-							DobjMonster.Hardiness = stat.MinValue;
-						}
-
-						stat = gEngine.GetStats(Stat.Agility);
-
-						Debug.Assert(stat != null);
-
-						DobjMonster.Agility -= (long)Math.Round((double)DobjMonster.Agility * 0.4);
-
-						if (DobjMonster.Agility < stat.MinValue)
-						{
-							DobjMonster.Agility = stat.MinValue;
-						}
+						gEngine.MagicRingLowersMonsterStats(DobjMonster);
 
 						DobjWeapon = DobjMonster.Weapon > 0 ? gADB[DobjMonster.Weapon] : null;
 

@@ -22,10 +22,14 @@ namespace EamonDD.Game.Plugin
 				goto Cleanup;
 			}
 
+#if !DEBUG
 			if (RunGameEditor)
 			{
 				rc = LoadPluginClassMappings01(Assembly.GetExecutingAssembly());
 			}
+#else
+			rc = LoadPluginClassMappings01(Assembly.GetExecutingAssembly());
+#endif
 
 		Cleanup:
 

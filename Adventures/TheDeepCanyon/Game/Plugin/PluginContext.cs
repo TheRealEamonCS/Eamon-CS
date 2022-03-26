@@ -44,11 +44,11 @@ namespace TheDeepCanyon.Game.Plugin
 			}
 		}
 
-		public static EamonRT.Framework.IEngine gEngine
+		public static Framework.IEngine gEngine
 		{
 			get
 			{
-				return (EamonRT.Framework.IEngine)EamonRT.Game.Plugin.PluginContext.gEngine;
+				return (Framework.IEngine)EamonRT.Game.Plugin.PluginContext.gEngine;
 			}
 		}
 

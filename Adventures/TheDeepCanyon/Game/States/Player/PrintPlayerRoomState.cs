@@ -38,9 +38,13 @@ namespace TheDeepCanyon.Game.States
 
 					Debug.Assert(resurrectMonster != null);
 
-					var weaponArtifact = resurrectMonster.Weapon > 0 ? gADB[resurrectMonster.Weapon] : null;
-
 					gOut.Print("{0}{1} comes back to life!", Environment.NewLine, room.IsLit() ? resurrectMonster.GetTheName(true) : "Something");
+
+					resurrectMonster.DmgTaken = 0;
+
+					gEngine.MagicRingLowersMonsterStats(resurrectMonster);
+
+					var weaponArtifact = resurrectMonster.Weapon > 0 ? gADB[resurrectMonster.Weapon] : null;
 
 					if (weaponArtifact != null)
 					{
@@ -50,8 +54,6 @@ namespace TheDeepCanyon.Game.States
 
 						resurrectMonster.Weapon = -weaponArtifact.Uid - 1;
 					}
-
-					resurrectMonster.DmgTaken = 0;
 
 					resurrectMonster.SetInRoom(room);
 

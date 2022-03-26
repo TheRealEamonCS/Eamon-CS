@@ -40,6 +40,9 @@ namespace EamonDD.Framework.Plugin
 		IConfig Config { get; set; }
 
 		/// <summary></summary>
+		bool BortCommand { get; set; }
+
+		/// <summary></summary>
 		bool ConfigsModified { get; set; }
 
 		/// <summary></summary>

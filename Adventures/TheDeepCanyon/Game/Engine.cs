@@ -14,7 +14,7 @@ using static TheDeepCanyon.Game.Plugin.PluginContext;
 namespace TheDeepCanyon.Game
 {
 	[ClassMappings(typeof(IEngine))]
-	public class Engine : EamonRT.Game.Engine, EamonRT.Framework.IEngine
+	public class Engine : EamonRT.Game.Engine, Framework.IEngine
 	{
 		public override void PrintMonsterEmotes(IMonster monster, bool friendSmile = true)
 		{
@@ -316,6 +316,33 @@ namespace TheDeepCanyon.Game
 				base.GetRandomMoveDirection(room, monster, fleeing, ref direction, ref found, ref roomUid);
 			}
 			while ((room.Uid == 8 && direction == Direction.West) || (room.Uid == 41 && direction == Direction.North) || (room.Uid == 43 && direction == Direction.East) || (room.Uid == 44 && direction == Direction.West) || (room.Uid == 61 && direction == Direction.West));
+		}
+
+		public virtual void MagicRingLowersMonsterStats(IMonster monster)
+		{
+			Debug.Assert(monster != null);
+
+			var stat = GetStats(Stat.Hardiness);
+
+			Debug.Assert(stat != null);
+
+			monster.Hardiness -= (long)Math.Round((double)monster.Hardiness * 0.4);
+
+			if (monster.Hardiness < stat.MinValue)
+			{
+				monster.Hardiness = stat.MinValue;
+			}
+
+			stat = GetStats(Stat.Agility);
+
+			Debug.Assert(stat != null);
+
+			monster.Agility -= (long)Math.Round((double)monster.Agility * 0.4);
+
+			if (monster.Agility < stat.MinValue)
+			{
+				monster.Agility = stat.MinValue;
+			}
 		}
 	}
 }
