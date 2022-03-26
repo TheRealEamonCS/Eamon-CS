@@ -590,6 +590,9 @@
         <member name="P:EamonDD.Framework.Plugin.IPluginGlobals.Config">
             <summary></summary>
         </member>
+        <member name="P:EamonDD.Framework.Plugin.IPluginGlobals.BortCommand">
+            <summary></summary>
+        </member>
         <member name="P:EamonDD.Framework.Plugin.IPluginGlobals.ConfigsModified">
             <summary></summary>
         </member>

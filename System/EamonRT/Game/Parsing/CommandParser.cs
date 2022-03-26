@@ -648,6 +648,160 @@ namespace EamonRT.Game.Parsing
 			ResolveRecord(false);
 		}
 
+		public virtual void FinishParsingBortCommand()
+		{
+			var bortCommand = NextCommand as IBortCommand;
+
+			Debug.Assert(bortCommand != null);
+
+			if (CurrToken + 1 < Tokens.Length)
+			{
+				var action = Tokens[CurrToken];
+
+				if (action.Equals("visitartifact", StringComparison.OrdinalIgnoreCase) || action.Equals("recallartifact", StringComparison.OrdinalIgnoreCase))
+				{
+					CurrToken++;
+
+					long artifactUid;
+
+					if (long.TryParse(Tokens[CurrToken], out artifactUid))
+					{
+						CurrToken++;
+
+						Dobj = gADB[artifactUid];
+					}
+					else
+					{
+						ObjData.RecordWhereClauseList = new List<Func<IGameBase, bool>>()
+						{
+							r => r is IArtifact
+						};
+
+						ObjData.RecordMatchFunc = () =>
+						{
+							if (ObjData.FilterRecordList.Count > 0)
+							{
+								SetRecord(ObjData.FilterRecordList[0]);
+							}
+						};
+
+						ResolveRecord(false);
+					}
+
+					if (DobjArtifact != null)
+					{
+						bortCommand.Action = action.ToLower();
+
+						bortCommand.Record = DobjArtifact;
+					}
+					else
+					{
+						bortCommand.PrintBortArtifactInvalid();
+
+						NextState = Globals.CreateInstance<IStartState>();
+					}
+				}
+				else if (action.Equals("visitmonster", StringComparison.OrdinalIgnoreCase) || action.Equals("recallmonster", StringComparison.OrdinalIgnoreCase))
+				{
+					CurrToken++;
+
+					long monsterUid;
+
+					if (long.TryParse(Tokens[CurrToken], out monsterUid))
+					{
+						CurrToken++;
+
+						Dobj = gMDB[monsterUid];
+					}
+					else
+					{
+						ObjData.RecordWhereClauseList = new List<Func<IGameBase, bool>>()
+						{
+							r => r is IMonster
+						};
+
+						ObjData.RecordMatchFunc = () =>
+						{
+							if (ObjData.FilterRecordList.Count > 0)
+							{
+								SetRecord(ObjData.FilterRecordList[0]);
+							}
+						};
+
+						ResolveRecord(true, false);
+					}
+
+					if (DobjMonster != null)
+					{
+						bortCommand.Action = action.ToLower();
+
+						bortCommand.Record = DobjMonster;
+					}
+					else
+					{
+						bortCommand.PrintBortMonsterInvalid();
+
+						NextState = Globals.CreateInstance<IStartState>();
+					}
+				}
+				else if (action.Equals("visitroom", StringComparison.OrdinalIgnoreCase))
+				{
+					CurrToken++;
+
+					IRoom room = null;
+
+					long roomUid;
+
+					if (long.TryParse(Tokens[CurrToken], out roomUid))
+					{
+						CurrToken++;
+
+						room = gRDB[roomUid];
+					}
+					else
+					{
+						var roomName = string.Join(" ", Tokens, (int)CurrToken, (int)(Tokens.Length - CurrToken));
+
+						room = gRDB.Records.FirstOrDefault(r => r.Name.Equals(roomName, StringComparison.OrdinalIgnoreCase));
+
+						if (room == null)
+						{
+							room = gRDB.Records.FirstOrDefault(r => r.Name.StartsWith(roomName, StringComparison.OrdinalIgnoreCase) || r.Name.EndsWith(roomName, StringComparison.OrdinalIgnoreCase));
+						}
+					}
+
+					if (room != null)
+					{
+						bortCommand.Action = action.ToLower();
+
+						bortCommand.Record = room;
+					}
+					else
+					{
+						bortCommand.PrintBortRoomInvalid();
+
+						NextState = Globals.CreateInstance<IStartState>();
+					}
+				}
+				else
+				{
+					bortCommand.PrintBortUsage();
+
+					NextState = Globals.CreateInstance<IStartState>();
+				}
+			}
+			else if (CurrToken < Tokens.Length && Tokens[CurrToken].Equals("rungameeditor", StringComparison.OrdinalIgnoreCase))
+			{
+				bortCommand.Action = "rungameeditor";
+			}
+			else
+			{
+				bortCommand.PrintBortUsage();
+
+				NextState = Globals.CreateInstance<IStartState>();
+			}
+		}
+
 		public virtual void FinishParsingInventoryCommand()
 		{
 			if (CurrToken < Tokens.Length)

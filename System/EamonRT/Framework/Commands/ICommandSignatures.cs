@@ -453,6 +453,47 @@ namespace EamonRT.Framework.Commands
 		void PrintActorReadiesWeapon(IMonster monster);
 
 		/// <summary></summary>
+		/// <param name="room"></param>
+		/// <param name="artifact"></param>
+		void PrintBortVisitArtifact(IRoom room, IArtifact artifact);
+
+		/// <summary></summary>
+		/// <param name="room"></param>
+		/// <param name="monster"></param>
+		void PrintBortVisitMonster(IRoom room, IMonster monster);
+
+		/// <summary></summary>
+		/// <param name="room"></param>
+		void PrintBortVisitRoom(IRoom room);
+
+		/// <summary></summary>
+		/// <param name="room"></param>
+		/// <param name="artifact"></param>
+		void PrintBortRecallArtifact(IRoom room, IArtifact artifact);
+
+		/// <summary></summary>
+		/// <param name="room"></param>
+		/// <param name="monster"></param>
+		void PrintBortRecallMonster(IRoom room, IMonster monster);
+
+		/// <summary></summary>
+		/// <param name="artifact"></param>
+		void PrintBortArtifactRoomInvalid(IArtifact artifact);
+
+		/// <summary></summary>
+		/// <param name="monster"></param>
+		void PrintBortMonsterRoomInvalid(IMonster monster);
+
+		/// <summary></summary>
+		void PrintBortArtifactInvalid();
+
+		/// <summary></summary>
+		void PrintBortMonsterInvalid();
+
+		/// <summary></summary>
+		void PrintBortRoomInvalid();
+
+		/// <summary></summary>
 		/// <param name="hintNum"></param>
 		/// <param name="question"></param>
 		void PrintHintsQuestion(long hintNum, string question);
@@ -468,6 +509,9 @@ namespace EamonRT.Framework.Commands
 
 		/// <summary></summary>
 		void PrintSayText(string printedPhrase);
+
+		/// <summary></summary>
+		void PrintBortUsage();
 
 		/// <summary></summary>
 		void PrintSettingsUsage();

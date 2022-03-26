@@ -460,6 +460,47 @@
             <summary></summary>
             <param name="monster"></param>
         </member>
+        <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintBortVisitArtifact(Eamon.Framework.IRoom,Eamon.Framework.IArtifact)">
+            <summary></summary>
+            <param name="room"></param>
+            <param name="artifact"></param>
+        </member>
+        <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintBortVisitMonster(Eamon.Framework.IRoom,Eamon.Framework.IMonster)">
+            <summary></summary>
+            <param name="room"></param>
+            <param name="monster"></param>
+        </member>
+        <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintBortVisitRoom(Eamon.Framework.IRoom)">
+            <summary></summary>
+            <param name="room"></param>
+        </member>
+        <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintBortRecallArtifact(Eamon.Framework.IRoom,Eamon.Framework.IArtifact)">
+            <summary></summary>
+            <param name="room"></param>
+            <param name="artifact"></param>
+        </member>
+        <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintBortRecallMonster(Eamon.Framework.IRoom,Eamon.Framework.IMonster)">
+            <summary></summary>
+            <param name="room"></param>
+            <param name="monster"></param>
+        </member>
+        <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintBortArtifactRoomInvalid(Eamon.Framework.IArtifact)">
+            <summary></summary>
+            <param name="artifact"></param>
+        </member>
+        <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintBortMonsterRoomInvalid(Eamon.Framework.IMonster)">
+            <summary></summary>
+            <param name="monster"></param>
+        </member>
+        <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintBortArtifactInvalid">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintBortMonsterInvalid">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintBortRoomInvalid">
+            <summary></summary>
+        </member>
         <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintHintsQuestion(System.Int64,System.String)">
             <summary></summary>
             <param name="hintNum"></param>
@@ -475,6 +516,9 @@
             <param name="buf"></param>
         </member>
         <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintSayText(System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintBortUsage">
             <summary></summary>
         </member>
         <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintSettingsUsage">
@@ -792,6 +836,15 @@
             <summary></summary>
         </member>
         <member name="T:EamonRT.Framework.Commands.IWearCommand">
+            <summary></summary>
+        </member>
+        <member name="T:EamonRT.Framework.Commands.IBortCommand">
+            <summary></summary>
+        </member>
+        <member name="P:EamonRT.Framework.Commands.IBortCommand.Record">
+            <summary></summary>
+        </member>
+        <member name="P:EamonRT.Framework.Commands.IBortCommand.Action">
             <summary></summary>
         </member>
         <member name="T:EamonRT.Framework.Commands.IHintsCommand">
@@ -2198,6 +2251,9 @@
         <member name="P:EamonRT.Framework.Plugin.IPluginGlobals.CommandPromptSeen">
             <summary></summary>
         </member>
+        <member name="P:EamonRT.Framework.Plugin.IPluginGlobals.PauseCombatAfterSkillGains">
+            <summary></summary>
+        </member>
         <member name="P:EamonRT.Framework.Plugin.IPluginGlobals.PlayerMoved">
             <summary></summary>
         </member>
@@ -3194,6 +3250,24 @@
             <summary></summary>
         </member>
         <member name="P:EamonRT.Game.Commands.WearCommand.WeaponArtifact">
+            <summary></summary>
+        </member>
+        <member name="P:EamonRT.Game.Commands.BortCommand.BortArtifact">
+            <summary></summary>
+        </member>
+        <member name="P:EamonRT.Game.Commands.BortCommand.BortMonster">
+            <summary></summary>
+        </member>
+        <member name="P:EamonRT.Game.Commands.BortCommand.BortRoom">
+            <summary></summary>
+        </member>
+        <member name="P:EamonRT.Game.Commands.BortCommand.BortConfig">
+            <summary></summary>
+        </member>
+        <member name="P:EamonRT.Game.Commands.BortCommand.BortMenu">
+            <summary></summary>
+        </member>
+        <member name="P:EamonRT.Game.Commands.BortCommand.SuppressNewLines">
             <summary></summary>
         </member>
         <member name="P:EamonRT.Game.Commands.HintsCommand.ActiveHintList">
