@@ -5,6 +5,8 @@
 
 using System;
 using System.Diagnostics;
+using Eamon;
+using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using Eamon.Game.Extensions;
 using EamonRT.Framework.Commands;
@@ -19,6 +21,8 @@ namespace TheTempleOfNgurct.Game.Commands
 	{
 		public override void Execute()
 		{
+			RetCode rc;
+
 			Debug.Assert(DobjArtifact != null || DobjMonster != null);
 
 			if (BlastSpell || ActorMonster.Weapon > 0)
@@ -58,6 +62,24 @@ namespace TheTempleOfNgurct.Game.Commands
 
 				else if (!BlastSpell && DobjMonster != null && ActorMonster.Weapon == 63)
 				{
+					if (DobjMonster.Reaction != Friendliness.Enemy)
+					{
+						PrintAttackNonEnemy();
+
+						Globals.Buf.Clear();
+
+						rc = Globals.In.ReadField(Globals.Buf, Constants.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, null);
+
+						Debug.Assert(gEngine.IsSuccess(rc));
+
+						if (Globals.Buf.Length == 0 || Globals.Buf[0] == 'N')
+						{
+							NextState = Globals.CreateInstance<IStartState>();
+
+							goto Cleanup;
+						}
+					}
+
 					gOut.Write("{0}What is the trigger word? ", Environment.NewLine);
 
 					Globals.Buf.SetFormat("{0}", Globals.In.ReadLine());
