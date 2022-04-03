@@ -2684,6 +2684,8 @@ namespace EamonRT.Game
 
 			buf = buf.Replace(" in to ", " into ");
 
+			buf = buf.Replace(" inside of ", " in ");
+
 			buf = buf.Replace(" inside ", " in ");
 
 			buf = buf.Replace(" from in ", " fromin ");
