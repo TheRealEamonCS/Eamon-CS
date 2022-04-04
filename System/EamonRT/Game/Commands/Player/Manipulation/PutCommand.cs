@@ -156,14 +156,14 @@ namespace EamonRT.Game.Commands
 
 			MaxItemsReached = IobjArtifactCount >= IobjArtAc.Field4;
 
-			if ((!MaxItemsReached && IobjArtifactWeight + DobjArtifact.Weight > IobjArtAc.Field3) || DobjArtifact.Weight > IobjArtAc.Field3 || !IobjArtifact.ShouldAddContents(DobjArtifact, ContainerType))
+			if (DobjArtifact.Weight > IobjArtAc.Field3 || (!MaxItemsReached && IobjArtifactWeight + DobjArtifact.Weight > IobjArtAc.Field3) || !IobjArtifact.ShouldAddContents(DobjArtifact, ContainerType))
 			{
 				PrintWontFit(DobjArtifact);
 
 				goto Cleanup;
 			}
 
-			if (MaxItemsReached || IobjArtifactWeight + DobjArtifact.Weight > IobjArtAc.Field3)
+			if (MaxItemsReached)
 			{
 				if (IobjArtAc == IobjArtifact.InContainer)
 				{
