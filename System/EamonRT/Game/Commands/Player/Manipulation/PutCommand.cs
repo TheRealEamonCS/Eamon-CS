@@ -58,6 +58,9 @@ namespace EamonRT.Game.Commands
 			}
 		}
 
+		/// <summary></summary>
+		public virtual bool MaxItemsReached { get; set; }
+
 		public override void Execute()
 		{
 			RetCode rc;
@@ -151,14 +154,16 @@ namespace EamonRT.Game.Commands
 				goto Cleanup;
 			}
 
-			if (DobjArtifact.Weight > IobjArtAc.Field3 || !IobjArtifact.ShouldAddContents(DobjArtifact, ContainerType))
+			MaxItemsReached = IobjArtifactCount >= IobjArtAc.Field4;
+
+			if ((!MaxItemsReached && IobjArtifactWeight + DobjArtifact.Weight > IobjArtAc.Field3) || DobjArtifact.Weight > IobjArtAc.Field3 || !IobjArtifact.ShouldAddContents(DobjArtifact, ContainerType))
 			{
 				PrintWontFit(DobjArtifact);
 
 				goto Cleanup;
 			}
 
-			if (IobjArtifactWeight + DobjArtifact.Weight > IobjArtAc.Field3 || IobjArtifactCount >= IobjArtAc.Field4)
+			if (MaxItemsReached || IobjArtifactWeight + DobjArtifact.Weight > IobjArtAc.Field3)
 			{
 				if (IobjArtAc == IobjArtifact.InContainer)
 				{
