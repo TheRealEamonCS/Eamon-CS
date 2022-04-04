@@ -3189,9 +3189,6 @@
         <member name="P:EamonRT.Game.Commands.PutCommand.IobjArtifactWeight">
             <summary></summary>
         </member>
-        <member name="P:EamonRT.Game.Commands.PutCommand.MaxItemsReached">
-            <summary></summary>
-        </member>
         <member name="P:EamonRT.Game.Commands.ReadCommand.DisguisedMonsterAc">
             <summary></summary>
         </member>
