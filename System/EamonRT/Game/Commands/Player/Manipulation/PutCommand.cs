@@ -58,9 +58,6 @@ namespace EamonRT.Game.Commands
 			}
 		}
 
-		/// <summary></summary>
-		public virtual bool MaxItemsReached { get; set; }
-
 		public override void Execute()
 		{
 			RetCode rc;
@@ -154,16 +151,14 @@ namespace EamonRT.Game.Commands
 				goto Cleanup;
 			}
 
-			MaxItemsReached = IobjArtifactCount >= IobjArtAc.Field4;
-
-			if (DobjArtifact.Weight > IobjArtAc.Field3 || (!MaxItemsReached && IobjArtifactWeight + DobjArtifact.Weight > IobjArtAc.Field3) || !IobjArtifact.ShouldAddContents(DobjArtifact, ContainerType))
+			if (DobjArtifact.Weight > IobjArtAc.Field3)
 			{
 				PrintWontFit(DobjArtifact);
 
 				goto Cleanup;
 			}
 
-			if (MaxItemsReached)
+			if (IobjArtifactCount >= IobjArtAc.Field4)
 			{
 				if (IobjArtAc == IobjArtifact.InContainer)
 				{
@@ -173,6 +168,13 @@ namespace EamonRT.Game.Commands
 				{
 					PrintOutOfSpace(IobjArtifact);
 				}
+
+				goto Cleanup;
+			}
+
+			if (IobjArtifactWeight + DobjArtifact.Weight > IobjArtAc.Field3 || !IobjArtifact.ShouldAddContents(DobjArtifact, ContainerType))
+			{
+				PrintWontFit(DobjArtifact);
 
 				goto Cleanup;
 			}
