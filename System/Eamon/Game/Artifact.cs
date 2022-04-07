@@ -87,11 +87,19 @@ namespace Eamon.Game
 
 			set
 			{
-				if (Globals.EnableGameOverrides && Globals.RevealContentCounter > 0 && _location != value && !Globals.RevealContentArtifactList.Contains(this))
+				if (Globals.EnableGameOverrides && Globals.RevealContentCounter > 0 && _location != value && GeneralContainer != null && !Globals.RevealContentArtifactList.Contains(this))
 				{
+					var origLocation = _location;
+
 					Globals.RevealContentArtifactList.Add(this);
 
-					Globals.RevealContentLocationList.Add(_location);
+					Globals.RevealContentFuncList.Add(() =>
+					{
+						if (gEngine != null && gEngine.RevealContainerContentsFunc != null)
+						{ 
+							gEngine.RevealContainerContentsFunc(this, origLocation, true);
+						}
+					});
 				}
 
 				_location = value;

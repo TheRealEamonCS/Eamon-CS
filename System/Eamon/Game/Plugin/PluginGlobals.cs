@@ -178,7 +178,7 @@ namespace Eamon.Game.Plugin
 
 		public virtual IList<IArtifact> RevealContentArtifactList { get; set; }
 
-		public virtual IList<long> RevealContentLocationList { get; set; }
+		public virtual IList<Action> RevealContentFuncList { get; set; }
 
 		public virtual long RevealContentCounter { get; set; }
 
@@ -566,7 +566,7 @@ namespace Eamon.Game.Plugin
 
 			RevealContentArtifactList = new List<IArtifact>();
 
-			RevealContentLocationList = new List<long>();
+			RevealContentFuncList = new List<Action>();
 
 			RevealContentCounter = 1;
 
@@ -1058,7 +1058,7 @@ namespace Eamon.Game.Plugin
 
 			RevealContentArtifactList.Clear();
 
-			RevealContentLocationList.Clear();
+			RevealContentFuncList.Clear();
 		}
 
 		/// <summary></summary>

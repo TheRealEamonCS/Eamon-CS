@@ -71,7 +71,7 @@ namespace Eamon.Framework.Plugin
 		IList<IArtifact> RevealContentArtifactList { get; set; }
 
 		/// <summary></summary>
-		IList<long> RevealContentLocationList { get; set; }
+		IList<Action> RevealContentFuncList { get; set; }
 
 		/// <summary></summary>
 		long RevealContentCounter { get; set; }

@@ -233,11 +233,9 @@ namespace EamonRT.Game.Commands
 				SaveConfig.Dispose();
 			}
 
-			Globals.SpellSkillIncreaseFunc = null;
+			Globals.SkillIncreaseFuncList.Clear();
 
-			Globals.WeaponSkillIncreaseFunc = null;
-
-			Globals.ArmorSkillIncreaseFunc = null;
+			Globals.ResetRevealContentProperties();
 
 			gSentenceParser.LastInputStr = "";
 

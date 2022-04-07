@@ -28,7 +28,7 @@ namespace EamonRT.Game.States
 		{
 			Debug.Assert(Enum.IsDefined(typeof(Direction), Direction) || DoorGateArtifact != null);
 
-			gEngine.CheckPlayerSkillGains();
+			gEngine.CheckToProcessActionLists();
 
 			OldRoom = gRDB[gGameState.Ro];
 

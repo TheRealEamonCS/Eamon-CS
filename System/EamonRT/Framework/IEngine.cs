@@ -434,11 +434,18 @@ namespace EamonRT.Framework
 		void RevealEmbeddedArtifact(IRoom room, IArtifact artifact);
 
 		/// <summary></summary>
+		/// <param name="artifact"></param>
+		/// <param name="location"></param>
+		/// <param name="printOutput"></param>
+		void RevealContainerContents(IArtifact artifact, long location, bool printOutput);
+
+		/// <summary></summary>
 		/// <param name="room"></param>
-		/// <param name="revealContentListIndex"></param>
+		/// <param name="artifact"></param>
+		/// <param name="location"></param>
 		/// <param name="containerTypes"></param>
 		/// <param name="containerContentsList"></param>
-		void RevealContainerContents(IRoom room, long revealContentListIndex, ContainerType[] containerTypes, IList<string> containerContentsList = null);
+		void RevealContainerContents02(IRoom room, IArtifact artifact, long location, ContainerType[] containerTypes, IList<string> containerContentsList = null);
 
 		/// <summary></summary>
 		/// <param name="ro"></param>
@@ -594,6 +601,12 @@ namespace EamonRT.Framework
 
 		/// <summary></summary>
 		void CheckPlayerSkillGains();
+
+		/// <summary></summary>
+		void CheckRevealContainerContents();
+
+		/// <summary></summary>
+		void CheckToProcessActionLists();
 
 		/// <summary></summary>
 		void CheckToExtinguishLightSource();

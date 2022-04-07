@@ -19,8 +19,6 @@ namespace EamonRT.Game.Plugin
 {
 	public class PluginGlobals : EamonDD.Game.Plugin.PluginGlobals, IPluginGlobals
 	{
-		public IState _currState;
-
 		public virtual StringBuilder Buf01 { get; set; } = new StringBuilder(Constants.BufSize);
 
 		public virtual StringBuilder Buf02 { get; set; } = new StringBuilder(Constants.BufSize);
@@ -29,11 +27,7 @@ namespace EamonRT.Game.Plugin
 
 		public virtual IList<ICommand> LastCommandList { get; set; }
 
-		public virtual Action SpellSkillIncreaseFunc { get; set; }
-
-		public virtual Action WeaponSkillIncreaseFunc { get; set; }
-
-		public virtual Action ArmorSkillIncreaseFunc { get; set; }
+		public virtual IList<Action> SkillIncreaseFuncList { get; set; }
 
 		public virtual long LoopMonsterUid { get; set; }
 
@@ -71,23 +65,7 @@ namespace EamonRT.Game.Plugin
 
 		public virtual ICommandParser CommandParser { get; set; }
 
-		public virtual IState CurrState 
-		{
-			get
-			{
-				return _currState;
-			}
-
-			set
-			{
-				if (_currState != null && RevealContentCounter > 0 && RevealContentArtifactList != null && RevealContentArtifactList.Count > 0)
-				{
-					_currState.ProcessRevealContentArtifactList();
-				}
-
-				_currState = value;
-			}
-		}
+		public virtual IState CurrState { get; set; }
 
 		public virtual IState NextState { get; set; }
 
@@ -200,6 +178,8 @@ namespace EamonRT.Game.Plugin
 			CommandList = new List<ICommand>();
 
 			LastCommandList = new List<ICommand>();
+
+			SkillIncreaseFuncList = new List<Action>();
 
 			IntroStory = CreateInstance<IIntroStory>();
 

@@ -1696,10 +1696,17 @@
             <param name="room"></param>
             <param name="artifact"></param>
         </member>
-        <member name="M:EamonRT.Framework.IEngine.RevealContainerContents(Eamon.Framework.IRoom,System.Int64,Eamon.Framework.Primitive.Enums.ContainerType[],System.Collections.Generic.IList{System.String})">
+        <member name="M:EamonRT.Framework.IEngine.RevealContainerContents(Eamon.Framework.IArtifact,System.Int64,System.Boolean)">
+            <summary></summary>
+            <param name="artifact"></param>
+            <param name="location"></param>
+            <param name="printOutput"></param>
+        </member>
+        <member name="M:EamonRT.Framework.IEngine.RevealContainerContents02(Eamon.Framework.IRoom,Eamon.Framework.IArtifact,System.Int64,Eamon.Framework.Primitive.Enums.ContainerType[],System.Collections.Generic.IList{System.String})">
             <summary></summary>
             <param name="room"></param>
-            <param name="revealContentListIndex"></param>
+            <param name="artifact"></param>
+            <param name="location"></param>
             <param name="containerTypes"></param>
             <param name="containerContentsList"></param>
         </member>
@@ -1856,6 +1863,12 @@
             <returns></returns>
         </member>
         <member name="M:EamonRT.Framework.IEngine.CheckPlayerSkillGains">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Framework.IEngine.CheckRevealContainerContents">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Framework.IEngine.CheckToProcessActionLists">
             <summary></summary>
         </member>
         <member name="M:EamonRT.Framework.IEngine.CheckToExtinguishLightSource">
@@ -2179,13 +2192,7 @@
         <member name="P:EamonRT.Framework.Plugin.IPluginGlobals.LastCommandList">
             <summary></summary>
         </member>
-        <member name="P:EamonRT.Framework.Plugin.IPluginGlobals.SpellSkillIncreaseFunc">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Framework.Plugin.IPluginGlobals.WeaponSkillIncreaseFunc">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Framework.Plugin.IPluginGlobals.ArmorSkillIncreaseFunc">
+        <member name="P:EamonRT.Framework.Plugin.IPluginGlobals.SkillIncreaseFuncList">
             <summary></summary>
         </member>
         <member name="P:EamonRT.Framework.Plugin.IPluginGlobals.LoopMonsterUid">
@@ -2787,10 +2794,6 @@
         <member name="M:EamonRT.Framework.States.IStateSignatures.ProcessEvents(EamonRT.Framework.Primitive.Enums.EventType)">
             <summary></summary>
             <param name="eventType"></param>
-        </member>
-        <member name="M:EamonRT.Framework.States.IStateSignatures.ProcessRevealContentArtifactList(System.Boolean)">
-            <summary></summary>
-            <param name="printOutput"></param>
         </member>
         <member name="M:EamonRT.Framework.States.IStateSignatures.GetDarkName(Eamon.Framework.IGameBase,Eamon.Framework.Primitive.Enums.ArticleType,System.String,System.Boolean,System.Boolean)">
             <summary></summary>
