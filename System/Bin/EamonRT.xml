@@ -1862,6 +1862,10 @@
             <param name="bonus"></param>
             <returns></returns>
         </member>
+        <member name="M:EamonRT.Framework.IEngine.CheckActionList(System.Collections.Generic.IList{System.Action})">
+            <summary></summary>
+            <param name="actionList"></param>
+        </member>
         <member name="M:EamonRT.Framework.IEngine.CheckPlayerSkillGains">
             <summary></summary>
         </member>
@@ -2190,6 +2194,15 @@
             <summary></summary>
         </member>
         <member name="P:EamonRT.Framework.Plugin.IPluginGlobals.LastCommandList">
+            <summary></summary>
+        </member>
+        <member name="P:EamonRT.Framework.Plugin.IPluginGlobals.MiscEventFuncList">
+            <summary></summary>
+        </member>
+        <member name="P:EamonRT.Framework.Plugin.IPluginGlobals.MiscEventFuncList02">
+            <summary></summary>
+        </member>
+        <member name="P:EamonRT.Framework.Plugin.IPluginGlobals.MiscEventFuncList03">
             <summary></summary>
         </member>
         <member name="P:EamonRT.Framework.Plugin.IPluginGlobals.SkillIncreaseFuncList">

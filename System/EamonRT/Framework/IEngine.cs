@@ -600,6 +600,10 @@ namespace EamonRT.Framework
 		bool SaveThrow(Stat stat, long bonus = 0);
 
 		/// <summary></summary>
+		/// <param name="actionList"></param>
+		void CheckActionList(IList<Action> actionList);
+
+		/// <summary></summary>
 		void CheckPlayerSkillGains();
 
 		/// <summary></summary>

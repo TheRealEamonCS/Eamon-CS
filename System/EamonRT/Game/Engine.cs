@@ -2874,17 +2874,24 @@ namespace EamonRT.Game
 			return rl <= value;
 		}
 
-		public virtual void CheckPlayerSkillGains()
+		public virtual void CheckActionList(IList<Action> actionList)
 		{
+			Debug.Assert(actionList != null);
+
 			if (gGameState.Die <= 0)
 			{
-				for (var i = 0; i < Globals.SkillIncreaseFuncList.Count; i++)
+				for (var i = 0; i < actionList.Count; i++)
 				{
-					Globals.SkillIncreaseFuncList[i]();
+					actionList[i]();
 				}
 			}
 
-			Globals.SkillIncreaseFuncList.Clear();
+			actionList.Clear();
+		}
+
+		public virtual void CheckPlayerSkillGains()
+		{
+			CheckActionList(Globals.SkillIncreaseFuncList);
 
 			if (Globals.PauseCombatAfterSkillGains)
 			{
@@ -2909,9 +2916,15 @@ namespace EamonRT.Game
 
 		public virtual void CheckToProcessActionLists()
 		{
+			CheckActionList(Globals.MiscEventFuncList);
+
 			CheckPlayerSkillGains();
 
+			CheckActionList(Globals.MiscEventFuncList02);
+
 			CheckRevealContainerContents();
+
+			CheckActionList(Globals.MiscEventFuncList03);
 		}
 
 		public virtual void CheckToExtinguishLightSource()

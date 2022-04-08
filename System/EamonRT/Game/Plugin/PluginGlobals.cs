@@ -27,6 +27,12 @@ namespace EamonRT.Game.Plugin
 
 		public virtual IList<ICommand> LastCommandList { get; set; }
 
+		public virtual IList<Action> MiscEventFuncList { get; set; }
+
+		public virtual IList<Action> MiscEventFuncList02 { get; set; }
+
+		public virtual IList<Action> MiscEventFuncList03 { get; set; }
+
 		public virtual IList<Action> SkillIncreaseFuncList { get; set; }
 
 		public virtual long LoopMonsterUid { get; set; }
@@ -178,6 +184,12 @@ namespace EamonRT.Game.Plugin
 			CommandList = new List<ICommand>();
 
 			LastCommandList = new List<ICommand>();
+
+			MiscEventFuncList = new List<Action>();
+
+			MiscEventFuncList02 = new List<Action>();
+
+			MiscEventFuncList03 = new List<Action>();
 
 			SkillIncreaseFuncList = new List<Action>();
 

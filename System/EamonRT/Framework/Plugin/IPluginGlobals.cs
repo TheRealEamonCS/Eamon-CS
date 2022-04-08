@@ -30,6 +30,15 @@ namespace EamonRT.Framework.Plugin
 		IList<ICommand> LastCommandList { get; set; }
 
 		/// <summary></summary>
+		IList<Action> MiscEventFuncList { get; set; }
+
+		/// <summary></summary>
+		IList<Action> MiscEventFuncList02 { get; set; }
+
+		/// <summary></summary>
+		IList<Action> MiscEventFuncList03 { get; set; }
+
+		/// <summary></summary>
 		IList<Action> SkillIncreaseFuncList { get; set; }
 
 		/// <summary></summary>
