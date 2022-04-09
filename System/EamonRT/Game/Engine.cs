@@ -2960,6 +2960,19 @@ namespace EamonRT.Game
 			}
 		}
 
+		public virtual void ClearActionLists()
+		{
+			Globals.MiscEventFuncList.Clear();
+
+			Globals.MiscEventFuncList02.Clear();
+
+			Globals.MiscEventFuncList03.Clear();
+
+			Globals.SkillIncreaseFuncList.Clear();
+
+			Globals.ResetRevealContentProperties();
+		}
+
 		public virtual void TransportRoomContentsBetweenRooms(IRoom oldRoom, IRoom newRoom, bool includeEmbedded = true)
 		{
 			Debug.Assert(oldRoom != null);

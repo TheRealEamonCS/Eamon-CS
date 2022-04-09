@@ -212,6 +212,8 @@ namespace TheDeepCanyon.Game.Components
 
 						gOut.Print("{0}", Globals.LineSep);
 
+						gEngine.ClearActionLists();
+
 						// gSentenceParser.PrintDiscardingCommands() not called for this abrupt reality shift
 
 						gSentenceParser.Clear();

@@ -233,15 +233,7 @@ namespace EamonRT.Game.Commands
 				SaveConfig.Dispose();
 			}
 
-			Globals.MiscEventFuncList.Clear();
-
-			Globals.MiscEventFuncList02.Clear();
-
-			Globals.MiscEventFuncList03.Clear();
-
-			Globals.SkillIncreaseFuncList.Clear();
-
-			Globals.ResetRevealContentProperties();
+			gEngine.ClearActionLists();
 
 			gSentenceParser.LastInputStr = "";
 

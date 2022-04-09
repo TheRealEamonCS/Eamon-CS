@@ -58,6 +58,8 @@ namespace EamonRT.Game.States
 				goto Cleanup;
 			}
 
+			gEngine.ClearActionLists();
+
 			gSentenceParser.Clear();
 
 			gCommandParser.Clear();
