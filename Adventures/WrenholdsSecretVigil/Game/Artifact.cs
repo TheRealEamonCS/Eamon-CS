@@ -28,6 +28,15 @@ namespace WrenholdsSecretVigil.Game
 			return Uid != 7 || monsterUid == 3 ? base.IsReadyableByMonsterUid(monsterUid) : false;
 		}
 
+		public override bool IsAttackable()
+		{
+			var artifactUids = new long[] { 24, 25 };
+
+			// Slime is attackable
+
+			return artifactUids.Contains(Uid) || base.IsAttackable();
+		}
+
 		public override bool IsAttackable01(ref IArtifactCategory ac)
 		{
 			var artifactUids = new long[] { 24, 25 };
