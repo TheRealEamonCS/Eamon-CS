@@ -151,68 +151,6 @@ namespace EamonRT.Game.States
 
 		}
 
-		public virtual void ProcessRevealContentArtifactList(bool printOutput = true)
-		{
-			Globals.RevealContentCounter--;
-
-			var containerTypes = new ContainerType[] { ContainerType.In, ContainerType.On, ContainerType.Under, ContainerType.Behind };
-
-			var containerTypeList = new List<ContainerType>();
-
-			var containerContentsList = new List<string>();
-
-			var monster = Globals.RevealContentMonster;
-
-			var room = monster != null ? monster.GetInRoom() : Globals.RevealContentRoom;
-
-			if (room != null)
-			{
-				Debug.Assert(Globals.RevealContentArtifactList.Count == Globals.RevealContentLocationList.Count);
-
-				for (var i = 0; i < Globals.RevealContentArtifactList.Count; i++)
-				{
-					var artifact = Globals.RevealContentArtifactList[i];
-
-					var location = Globals.RevealContentLocationList[i];
-
-					if (artifact.IsInLimbo())
-					{
-						foreach (var containerType in containerTypes)
-						{
-							if (artifact.ShouldRevealContentsWhenMovedIntoLimbo(containerType))
-							{
-								containerTypeList.Add(containerType);
-							}
-						}
-					}
-					else if (location != Constants.LimboLocation)
-					{
-						foreach (var containerType in containerTypes)
-						{
-							if (artifact.ShouldRevealContentsWhenMoved(containerType))
-							{
-								containerTypeList.Add(containerType);
-							}
-						}
-					}
-
-					if (containerTypeList.Count > 0)
-					{
-						gEngine.RevealContainerContents(room, i, containerTypeList.ToArray(), printOutput && room.IsLit() && monster != null && monster.IsCharacterMonster() ? containerContentsList : null);
-					}
-				}
-			}
-
-			foreach (var containerContentsDesc in containerContentsList)
-			{
-				gOut.Write("{0}", containerContentsDesc);
-			}
-
-			Globals.ResetRevealContentProperties();
-
-			Globals.RevealContentCounter++;
-		}
-
 		public virtual string GetDarkName(IGameBase target, ArticleType articleType, string nameType, bool upshift, bool groupCountOne)
 		{
 			string result = null;

@@ -33,9 +33,12 @@ namespace WrenholdsSecretVigil.Game.Commands
 			{
 				base.Execute();
 
-				gOut.Print("Inside the tattered shirt is a small cloth-bound book that appears to be a diary.");
+				Globals.MiscEventFuncList02.Add(() =>
+				{
+					gOut.Print("Inside the tattered shirt is a small cloth-bound book that appears to be a diary.");
 
-				diaryArtifact.SetInRoom(ActorRoom);
+					diaryArtifact.SetInRoom(ActorRoom);
+				});
 			}
 			else if (BlastSpell)
 			{

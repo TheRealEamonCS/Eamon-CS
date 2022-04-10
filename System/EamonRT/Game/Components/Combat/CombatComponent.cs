@@ -171,7 +171,7 @@ namespace EamonRT.Game.Components
 					ExecuteStateMachine();
 				}
 
-				Globals.PauseCombatAfterSkillGains = Globals.SpellSkillIncreaseFunc != null || Globals.WeaponSkillIncreaseFunc != null || Globals.ArmorSkillIncreaseFunc != null;
+				Globals.PauseCombatAfterSkillGains = Globals.SkillIncreaseFuncList.Count > 0;
 				
 				if (!Globals.PauseCombatAfterSkillGains)
 				{ 
@@ -209,7 +209,7 @@ namespace EamonRT.Game.Components
 
 					Debug.Assert(weapon != null);
 
-					Globals.WeaponSkillIncreaseFunc = () =>
+					Globals.SkillIncreaseFuncList.Add(() =>
 					{
 						if (!Globals.IsRulesetVersion(5, 15, 25))
 						{
@@ -222,7 +222,7 @@ namespace EamonRT.Game.Components
 						{
 							gCharacter.SetWeaponAbilities(s, weapon.MaxValue);
 						}
-					};
+					});
 				}
 
 				var x = Math.Abs(af);
@@ -235,7 +235,7 @@ namespace EamonRT.Game.Components
 
 					if (rl > gCharacter.ArmorExpertise)
 					{
-						Globals.ArmorSkillIncreaseFunc = () =>
+						Globals.SkillIncreaseFuncList.Add(() =>
 						{
 							if (!Globals.IsRulesetVersion(5, 15, 25))
 							{
@@ -253,7 +253,7 @@ namespace EamonRT.Game.Components
 							{
 								gCharacter.ArmorExpertise = 79;
 							}
-						};
+						});
 					}
 				}
 			}

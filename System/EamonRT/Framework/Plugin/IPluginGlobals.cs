@@ -30,13 +30,16 @@ namespace EamonRT.Framework.Plugin
 		IList<ICommand> LastCommandList { get; set; }
 
 		/// <summary></summary>
-		Action SpellSkillIncreaseFunc { get; set; }
+		IList<Action> MiscEventFuncList { get; set; }
 
 		/// <summary></summary>
-		Action WeaponSkillIncreaseFunc { get; set; }
+		IList<Action> MiscEventFuncList02 { get; set; }
 
 		/// <summary></summary>
-		Action ArmorSkillIncreaseFunc { get; set; }
+		IList<Action> MiscEventFuncList03 { get; set; }
+
+		/// <summary></summary>
+		IList<Action> SkillIncreaseFuncList { get; set; }
 
 		/// <summary></summary>
 		long LoopMonsterUid { get; set; }

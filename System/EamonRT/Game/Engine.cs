@@ -1663,22 +1663,71 @@ namespace EamonRT.Game
 			}
 		}
 
-		public virtual void RevealContainerContents(IRoom room, long revealContentListIndex, ContainerType[] containerTypes, IList<string> containerContentsList = null)
+		public virtual void RevealContainerContents(IArtifact artifact, long location, bool printOutput)
+		{
+			Debug.Assert(artifact != null);
+
+			Globals.RevealContentCounter--;
+
+			var containerTypes = new ContainerType[] { ContainerType.In, ContainerType.On, ContainerType.Under, ContainerType.Behind };
+
+			var containerTypeList = new List<ContainerType>();
+
+			var containerContentsList = new List<string>();
+
+			var monster = Globals.RevealContentMonster;
+
+			var room = monster != null ? monster.GetInRoom() : Globals.RevealContentRoom;
+
+			if (room != null)
+			{
+				if (artifact.IsInLimbo())
+				{
+					foreach (var containerType in containerTypes)
+					{
+						if (artifact.ShouldRevealContentsWhenMovedIntoLimbo(containerType))
+						{
+							containerTypeList.Add(containerType);
+						}
+					}
+				}
+				else if (location != Constants.LimboLocation)
+				{
+					foreach (var containerType in containerTypes)
+					{
+						if (artifact.ShouldRevealContentsWhenMoved(containerType))
+						{
+							containerTypeList.Add(containerType);
+						}
+					}
+				}
+
+				if (containerTypeList.Count > 0)
+				{
+					RevealContainerContents02(room, artifact, location, containerTypeList.ToArray(), printOutput && room.IsLit() && monster != null && monster.IsCharacterMonster() ? containerContentsList : null);
+				}
+			}
+
+			foreach (var containerContentsDesc in containerContentsList)
+			{
+				gOut.Write("{0}", containerContentsDesc);
+			}
+
+			Globals.RevealContentCounter++;
+		}
+
+		public virtual void RevealContainerContents02(IRoom room, IArtifact artifact, long location, ContainerType[] containerTypes, IList<string> containerContentsList = null)
 		{
 			RetCode rc;
 
 			Debug.Assert(room != null);
 
-			Debug.Assert(revealContentListIndex >= 0 && revealContentListIndex < Globals.RevealContentArtifactList.Count);
+			Debug.Assert(artifact != null);
 
 			if (containerTypes == null || containerTypes.Length < 1)
 			{
 				containerTypes = new ContainerType[] { ContainerType.Under, ContainerType.Behind };
 			}
-
-			var artifact = Globals.RevealContentArtifactList[(int)revealContentListIndex];
-
-			Debug.Assert(artifact != null);
 
 			var charMonster = gCharMonster;
 
@@ -1702,7 +1751,7 @@ namespace EamonRT.Game
 					{
 						revealContentsList.Add(revealArtifact);
 
-						revealArtifact.Location = Globals.RevealContentLocationList[(int)revealContentListIndex];
+						revealArtifact.Location = location;
 
 						if (revealShowCharOwned == null)
 						{
@@ -2684,6 +2733,8 @@ namespace EamonRT.Game
 
 			buf = buf.Replace(" in to ", " into ");
 
+			buf = buf.Replace(" inside of ", " in ");
+
 			buf = buf.Replace(" inside ", " in ");
 
 			buf = buf.Replace(" from in ", " fromin ");
@@ -2823,37 +2874,24 @@ namespace EamonRT.Game
 			return rl <= value;
 		}
 
+		public virtual void CheckActionList(IList<Action> actionList)
+		{
+			Debug.Assert(actionList != null);
+
+			if (gGameState.Die <= 0)
+			{
+				for (var i = 0; i < actionList.Count; i++)
+				{
+					actionList[i]();
+				}
+			}
+
+			actionList.Clear();
+		}
+
 		public virtual void CheckPlayerSkillGains()
 		{
-			if (Globals.SpellSkillIncreaseFunc != null)
-			{
-				if (gGameState.Die <= 0)
-				{
-					Globals.SpellSkillIncreaseFunc();
-				}
-
-				Globals.SpellSkillIncreaseFunc = null;
-			}
-
-			if (Globals.WeaponSkillIncreaseFunc != null)
-			{
-				if (gGameState.Die <= 0)
-				{
-					Globals.WeaponSkillIncreaseFunc();
-				}
-
-				Globals.WeaponSkillIncreaseFunc = null;
-			}
-
-			if (Globals.ArmorSkillIncreaseFunc != null)
-			{
-				if (gGameState.Die <= 0)
-				{
-					Globals.ArmorSkillIncreaseFunc();
-				}
-
-				Globals.ArmorSkillIncreaseFunc = null;
-			}
+			CheckActionList(Globals.SkillIncreaseFuncList);
 
 			if (Globals.PauseCombatAfterSkillGains)
 			{
@@ -2861,6 +2899,32 @@ namespace EamonRT.Game
 
 				Globals.PauseCombatAfterSkillGains = false;
 			}
+		}
+
+		public virtual void CheckRevealContainerContents()
+		{
+			if (gGameState.Die <= 0)
+			{
+				for (var i = 0; i < Globals.RevealContentFuncList.Count; i++)
+				{
+					Globals.RevealContentFuncList[i]();
+				}
+			}
+
+			Globals.ResetRevealContentProperties();
+		}
+
+		public virtual void CheckToProcessActionLists()
+		{
+			CheckActionList(Globals.MiscEventFuncList);
+
+			CheckPlayerSkillGains();
+
+			CheckActionList(Globals.MiscEventFuncList02);
+
+			CheckRevealContainerContents();
+
+			CheckActionList(Globals.MiscEventFuncList03);
 		}
 
 		public virtual void CheckToExtinguishLightSource()
@@ -2894,6 +2958,19 @@ namespace EamonRT.Game
 					gGameState.Ls = 0;
 				}
 			}
+		}
+
+		public virtual void ClearActionLists()
+		{
+			Globals.MiscEventFuncList.Clear();
+
+			Globals.MiscEventFuncList02.Clear();
+
+			Globals.MiscEventFuncList03.Clear();
+
+			Globals.SkillIncreaseFuncList.Clear();
+
+			Globals.ResetRevealContentProperties();
 		}
 
 		public virtual void TransportRoomContentsBetweenRooms(IRoom oldRoom, IRoom newRoom, bool includeEmbedded = true)
@@ -3500,6 +3577,8 @@ namespace EamonRT.Game
 
 		public Engine()
 		{
+			RevealContainerContentsFunc = RevealContainerContents;
+
 			StartRoom = Constants.StartRoom;
 
 			NumSaveSlots = Constants.NumSaveSlots;

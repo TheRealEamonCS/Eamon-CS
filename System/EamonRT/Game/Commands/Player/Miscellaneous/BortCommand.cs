@@ -180,7 +180,11 @@ namespace EamonRT.Game.Commands
 
 					BortMenu = Globals.CreateInstance<IMainMenu>();
 
+					Globals.RevealContentCounter--;
+
 					BortMenu.Execute();
+
+					Globals.RevealContentCounter++;
 
 					BortMenu = null;
 

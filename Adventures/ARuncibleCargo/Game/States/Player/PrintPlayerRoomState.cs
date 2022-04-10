@@ -52,6 +52,8 @@ namespace ARuncibleCargo.Game.States
 						Globals.Engine.PrintPlayerRoom();
 					}
 
+					gEngine.ClearActionLists();
+
 					// Globals.SentenceParser.PrintDiscardingCommands() not called for this abrupt reality shift
 
 					Globals.SentenceParser.Clear();

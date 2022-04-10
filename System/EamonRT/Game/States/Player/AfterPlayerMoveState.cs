@@ -36,7 +36,7 @@ namespace EamonRT.Game.States
 
 			Debug.Assert(Direction == 0 || Enum.IsDefined(typeof(Direction), Direction));
 
-			gEngine.CheckPlayerSkillGains();
+			gEngine.CheckToProcessActionLists();
 
 			Globals.PlayerMoved = true;
 

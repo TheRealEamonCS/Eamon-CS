@@ -24,6 +24,8 @@ namespace TheVileGrimoireOfJaldial.Game.States
 
 			Debug.Assert(room != null);
 
+			gEngine.ClearActionLists();
+
 			// gSentenceParser.PrintDiscardingCommands() not called for this abrupt reality shift
 
 			gSentenceParser.Clear();
