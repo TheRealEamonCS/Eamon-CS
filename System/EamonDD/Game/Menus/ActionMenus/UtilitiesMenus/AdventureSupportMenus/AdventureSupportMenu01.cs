@@ -292,7 +292,7 @@ namespace YourAdventureName.YourGameNamespaceName
 		/// <summary></summary>
 		public virtual void GetAdventureName()
 		{
-			var invalidAdventureNames = new string[] { "Adventures", "Catalog", "Characters", "Contemporary", "Fantasy", "SciFi", "Test", "Workbench", "WorkInProgress", "AdventureSupportMenu", "LoadAdventureSupportMenu", "YourAdventureName", "YourAuthorName", "YourAuthorInitials", "Con", "Prn", "Aux", "Nul", "Null", "Com1", "Com2", "Com3", "Com4", "Com5", "Com6", "Com7", "Com8", "Com9", "Com0", "Lpt1", "Lpt2", "Lpt3", "Lpt4", "Lpt5", "Lpt6", "Lpt7", "Lpt8", "Lpt9", "Lpt0"	};
+			var invalidAdventureNames = new string[] { "Adventures", "Catalog", "Characters", "Contemporary", "Fantasy", "SciFi", "Test", "Workbench", "WorkInProgress", "AdventureSupportMenu", "LoadAdventureSupportMenu", "YourAdventureName", "YourAuthorName", "YourAuthorInitials", "Con", "Prn", "Aux", "Nul", "Null", "Com1", "Com2", "Com3", "Com4", "Com5", "Com6", "Com7", "Com8", "Com9", "Com0", "Lpt1", "Lpt2", "Lpt3", "Lpt4", "Lpt5", "Lpt6", "Lpt7", "Lpt8", "Lpt9", "Lpt0", "Microsoft", "System" };
 
 			if (SupportMenuType == SupportMenuType.AddAdventure)
 			{
