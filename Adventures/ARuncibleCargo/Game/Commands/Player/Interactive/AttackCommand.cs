@@ -25,6 +25,15 @@ namespace ARuncibleCargo.Game.Commands
 					case 30:
 					case 80:
 
+						if (BlastSpell)
+						{
+							PrintZapDirectHit();
+						}
+						else
+						{
+							PrintWhamHitObj(DobjArtifact);
+						}
+
 						// Can't attack oven or safe
 
 						gEngine.PrintEffectDesc(162);
@@ -34,6 +43,17 @@ namespace ARuncibleCargo.Game.Commands
 						break;
 
 					case 41:
+
+						if (BlastSpell)
+						{
+							PrintZapDirectHit();
+						}
+						else
+						{
+							PrintWhamHitObj(DobjArtifact);
+						}
+
+						gEngine.CheckActionList(Globals.SkillIncreaseFuncList);
 
 						// Attack cell = Open Jail
 
@@ -53,7 +73,7 @@ namespace ARuncibleCargo.Game.Commands
 
 					case 129:
 
-						// Can't attack/blast the Runcible Cargo
+						// Can't attack the Runcible Cargo
 
 						gOut.Print("That sounds quite dangerous!");
 

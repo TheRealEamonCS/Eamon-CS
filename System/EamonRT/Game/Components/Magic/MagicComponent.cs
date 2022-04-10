@@ -119,7 +119,7 @@ namespace EamonRT.Game.Components
 
 					if (rl > gCharacter.GetSpellAbilities(s))
 					{
-						Globals.SpellSkillIncreaseFunc = () =>
+						Globals.SkillIncreaseFuncList.Add(() =>
 						{
 							if (!Globals.IsRulesetVersion(5, 15, 25))
 							{
@@ -132,7 +132,7 @@ namespace EamonRT.Game.Components
 							{
 								gCharacter.SetSpellAbilities(s, spell.MaxValue);
 							}
-						};
+						});
 					}
 				}
 			}

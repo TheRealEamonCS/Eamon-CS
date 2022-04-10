@@ -2164,6 +2164,9 @@
         <member name="P:Eamon.Framework.IEngine.ArtifactContainedList">
             <summary></summary>
         </member>
+        <member name="P:Eamon.Framework.IEngine.RevealContainerContentsFunc">
+            <summary></summary>
+        </member>
         <member name="P:Eamon.Framework.IEngine.Preps">
             <summary>
             Gets or sets an array of sentence prepositions (e.g., "to", "from", "inside", etc).
@@ -5014,7 +5017,7 @@
         <member name="P:Eamon.Framework.Plugin.IPluginGlobals.RevealContentArtifactList">
             <summary></summary>
         </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginGlobals.RevealContentLocationList">
+        <member name="P:Eamon.Framework.Plugin.IPluginGlobals.RevealContentFuncList">
             <summary></summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IPluginGlobals.RevealContentCounter">

@@ -45,7 +45,7 @@ namespace EamonRT.Game.States
 
 			Debug.Assert(gCharMonster != null);
 
-			gEngine.CheckPlayerSkillGains();
+			gEngine.CheckToProcessActionLists();
 
 			ProcessEvents(EventType.BeforeCanMoveToRoomCheck);
 

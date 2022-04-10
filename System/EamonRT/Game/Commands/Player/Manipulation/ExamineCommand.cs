@@ -118,7 +118,7 @@ namespace EamonRT.Game.Commands
 				DobjArtAc.Field4 = 0;
 			}
 
-			if (!Enum.IsDefined(typeof(ContainerType), ContainerType) || DobjArtifact.IsWornByCharacter())
+			if (!Enum.IsDefined(typeof(ContainerType), ContainerType) || (string.Format(" {0} ", DobjArtifact.Name).IndexOf(string.Format(" {0} ", ContainerType.ToString()), StringComparison.OrdinalIgnoreCase) >= 0 && DobjArtifact.GeneralContainer == null) || DobjArtifact.IsWornByCharacter())
 			{
 				PrintFullDesc(DobjArtifact, false);
 

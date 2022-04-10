@@ -54,13 +54,9 @@ namespace EamonPM.Game.Portability
 
 			var inputCh0Pos = Globals.Out.GetCursorPosition();
 
-			rows = (int)bufSize / Constants.WindowWidth;
+			rows = (int)(inputCh0Pos.X + bufSize) / Constants.WindowWidth;
 
-			if (bufSize == Constants.BufSize03)
-			{
-				rows += 2;
-			}
-			else if (!ReadLineMode)
+			if (!ReadLineMode)
 			{
 				rows++;
 			}
