@@ -28,8 +28,8 @@ namespace StrongholdOfKahrDur.Game.Components
 
 				ExecuteCalculateDamage(2, helmArtifact.IsWornByCharacter() ? 12 : 5);
 
-				Globals.PauseCombatAfterSkillGains = Globals.SpellSkillIncreaseFunc != null || Globals.WeaponSkillIncreaseFunc != null || Globals.ArmorSkillIncreaseFunc != null;
-				
+				Globals.PauseCombatAfterSkillGains = Globals.SkillIncreaseFuncList.Count > 0;
+
 				if (!Globals.PauseCombatAfterSkillGains)
 				{ 
 					Globals.Thread.Sleep(gGameState.PauseCombatMs);

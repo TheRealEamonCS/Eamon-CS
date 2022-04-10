@@ -173,11 +173,6 @@ namespace EamonRT.Game.States
 			StateImpl.ProcessEvents(eventType);
 		}
 
-		public virtual void ProcessRevealContentArtifactList(bool printOutput = true)
-		{
-			StateImpl.ProcessRevealContentArtifactList(printOutput);
-		}
-
 		public virtual string GetDarkName(IGameBase target, ArticleType articleType, string nameType, bool upshift, bool groupCountOne)
 		{
 			return StateImpl.GetDarkName(target, articleType, nameType, upshift, groupCountOne);

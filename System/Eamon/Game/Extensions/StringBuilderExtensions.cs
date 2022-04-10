@@ -4,6 +4,7 @@
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
 using System;
+using System.Linq;
 using System.Text;
 
 namespace Eamon.Game.Extensions
@@ -56,9 +57,11 @@ namespace Eamon.Game.Extensions
 
 		public static StringBuilder TrimEndPunctuationMinusUniqueChars(this StringBuilder buf)
 		{
+			var uniqueChars = new char[] { '#', '%', ')', ']', '}' };
+
 			if (buf != null)
 			{
-				while (buf.Length > 0 && char.IsPunctuation(buf[buf.Length - 1]) && buf[buf.Length - 1] != '#' && buf[buf.Length - 1] != '%')
+				while (buf.Length > 0 && char.IsPunctuation(buf[buf.Length - 1]) && !uniqueChars.Contains(buf[buf.Length - 1]))
 				{
 					buf.Length--;
 				}

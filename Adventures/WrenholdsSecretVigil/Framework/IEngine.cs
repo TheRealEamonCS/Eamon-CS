@@ -11,7 +11,6 @@ namespace WrenholdsSecretVigil.Framework
 		/// <summary></summary>
 		/// <param name="monster"></param>
 		/// <param name="effectUid"></param>
-		/// <returns></returns>
-		string GetMonsterCurse(Eamon.Framework.IMonster monster, long effectUid);
+		void PrintMonsterCurse(Eamon.Framework.IMonster monster, long effectUid);
 	}
 }
