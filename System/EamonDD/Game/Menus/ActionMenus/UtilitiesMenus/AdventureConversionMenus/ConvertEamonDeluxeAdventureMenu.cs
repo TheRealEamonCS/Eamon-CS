@@ -63,11 +63,11 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			gOut.WriteLine();
 
-			gOut.Write("Loading Eamon Deluxe adventure data... ");
+			gOut.Write("Loading Eamon Deluxe adventure data ... ");
 
 			if (!edxac.LoadAdventureList() || !edxac.ConvertAdventures())
 			{
-				gOut.WriteLine("failed");
+				gOut.WriteLine("failed.");
 
 				gOut.Print(edxac.ErrorMessage);
 
@@ -78,13 +78,13 @@ namespace EamonDD.Game.Menus.ActionMenus
 				goto Cleanup;
 			}
 
-			gOut.WriteLine("succeeded");
+			gOut.WriteLine("succeeded.");
 
-			gOut.Write("Loading Eamon Deluxe hint data... ");
+			gOut.Write("Loading Eamon Deluxe hint data ... ");
 
 			if (!edxac.LoadHintList() || !edxac.ConvertHints())
 			{
-				gOut.WriteLine("failed");
+				gOut.WriteLine("failed.");
 
 				gOut.Print(edxac.ErrorMessage);
 
@@ -95,7 +95,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 				goto Cleanup;
 			}
 
-			gOut.WriteLine("succeeded");
+			gOut.WriteLine("succeeded.");
 
 			Debug.Assert(edxac.AdventureList.Count > 0);
 

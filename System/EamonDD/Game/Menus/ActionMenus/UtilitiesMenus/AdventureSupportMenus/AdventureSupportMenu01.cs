@@ -893,7 +893,7 @@ namespace YourAdventureName.YourGameNamespaceName
 						process.StartInfo.Arguments = string.Format("build {0} --no-dependencies", projName);
 						process.StartInfo.WorkingDirectory = string.Format("..{0}..", Globals.Path.DirectorySeparatorChar);
 
-						gOut.Write("Rebuilding {0} project... ", Globals.Path.GetFileNameWithoutExtension(projName));
+						gOut.Write("Rebuilding {0} project ... ", Globals.Path.GetFileNameWithoutExtension(projName));
 
 						process.Start();
 
@@ -903,11 +903,11 @@ namespace YourAdventureName.YourGameNamespaceName
 
 						if (result == RetCode.Success)
 						{
-							gOut.WriteLine("succeeded");
+							gOut.WriteLine("succeeded.");
 						}
 						else
 						{
-							gOut.WriteLine("failed");
+							gOut.WriteLine("failed.");
 						}
 					}
 				}
