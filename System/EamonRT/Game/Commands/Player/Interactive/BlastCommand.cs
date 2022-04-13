@@ -127,7 +127,7 @@ namespace EamonRT.Game.Commands
 
 			DobjArtAc = null;
 
-			if (!DobjArtifact.IsAttackable01(ref _dobjArtAc))
+			if (!DobjArtifact.IsAttackable(ref _dobjArtAc))
 			{
 				PrintWhyAttack(DobjArtifact);
 
@@ -169,7 +169,7 @@ namespace EamonRT.Game.Commands
 
 		public override bool ShouldAllowSkillGains()
 		{
-			return DobjMonster != null || DobjArtifact.IsAttackable();
+			return DobjMonster != null || DobjArtifact.ShouldAllowBlastSkillGains();
 		}
 
 		public BlastCommand()

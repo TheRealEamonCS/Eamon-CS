@@ -28,16 +28,7 @@ namespace WrenholdsSecretVigil.Game
 			return Uid != 7 || monsterUid == 3 ? base.IsReadyableByMonsterUid(monsterUid) : false;
 		}
 
-		public override bool IsAttackable()
-		{
-			var artifactUids = new long[] { 24, 25 };
-
-			// Slime is attackable
-
-			return artifactUids.Contains(Uid) || base.IsAttackable();
-		}
-
-		public override bool IsAttackable01(ref IArtifactCategory ac)
+		public override bool IsAttackable(ref IArtifactCategory ac)
 		{
 			var artifactUids = new long[] { 24, 25 };
 
@@ -51,8 +42,17 @@ namespace WrenholdsSecretVigil.Game
 			}
 			else
 			{
-				return base.IsAttackable01(ref ac);
+				return base.IsAttackable(ref ac);
 			}
+		}
+
+		public override bool ShouldAllowBlastSkillGains()
+		{
+			var artifactUids = new long[] { 24, 25 };
+
+			// Slime allows Blast skill gains
+
+			return artifactUids.Contains(Uid) || base.ShouldAllowBlastSkillGains();
 		}
 
 		public override string GetBrokenDesc()

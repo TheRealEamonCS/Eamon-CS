@@ -1156,16 +1156,7 @@ namespace Eamon.Game
 			return ac != null && ac.IsWeapon(weapon);
 		}
 
-		public virtual bool IsAttackable()
-		{
-			var artTypes = new ArtifactType[] { ArtifactType.DisguisedMonster, ArtifactType.DeadBody, ArtifactType.InContainer, ArtifactType.DoorGate };
-
-			var ac = GetArtifactCategory(artTypes);
-
-			return ac != null && (ac.Type == ArtifactType.DisguisedMonster || ac.Type == ArtifactType.DeadBody || ac.GetBreakageStrength() >= 1000);
-		}
-
-		public virtual bool IsAttackable01(ref IArtifactCategory ac)
+		public virtual bool IsAttackable(ref IArtifactCategory ac)
 		{
 			var artTypes = new ArtifactType[] { ArtifactType.DisguisedMonster, ArtifactType.DeadBody, ArtifactType.InContainer, ArtifactType.DoorGate };
 
@@ -1225,6 +1216,15 @@ namespace Eamon.Game
 		public virtual bool IsInContainerOpenedFromTop()
 		{
 			return true;
+		}
+
+		public virtual bool ShouldAllowBlastSkillGains()
+		{
+			var artTypes = new ArtifactType[] { ArtifactType.DisguisedMonster, ArtifactType.DeadBody, ArtifactType.InContainer, ArtifactType.DoorGate };
+
+			var ac = GetArtifactCategory(artTypes);		// TODO: should this mirror IsAttackable ???
+
+			return ac != null && (ac.Type == ArtifactType.DisguisedMonster || ac.Type == ArtifactType.DeadBody || ac.GetBreakageStrength() >= 1000);
 		}
 
 		public virtual bool ShouldExposeInContentsWhenClosed()

@@ -546,13 +546,9 @@ namespace Eamon.Framework
 		bool IsWeapon(Weapon weapon);
 
 		/// <summary></summary>
-		/// <returns></returns>
-		bool IsAttackable();
-
-		/// <summary></summary>
 		/// <param name="ac"></param>
 		/// <returns></returns>
-		bool IsAttackable01(ref IArtifactCategory ac);
+		bool IsAttackable(ref IArtifactCategory ac);
 
 		/// <summary></summary>
 		/// <returns></returns>
@@ -585,6 +581,10 @@ namespace Eamon.Framework
 		/// <summary></summary>
 		/// <returns></returns>
 		bool IsInContainerOpenedFromTop();
+
+		/// <summary></summary>
+		/// <returns></returns>
+		bool ShouldAllowBlastSkillGains();
 
 		/// <summary></summary>
 		/// <returns></returns>
