@@ -1474,9 +1474,15 @@ namespace EamonRT.Game
 
 				monster.Reaction--;
 
-				if (monster.IsInRoom(room) && monster.Reaction == Friendliness.Enemy)
+				if (monster.Reaction == Friendliness.Enemy)
 				{
-					PrintMonsterGetsAngry(monster, printFinalNewLine);
+					Globals.MiscEventFuncList02.Add(() =>
+					{
+						if (monster.IsInRoom(room))
+						{ 
+							PrintMonsterGetsAngry(monster, printFinalNewLine);
+						}
+					});
 				}
 			}
 		}
