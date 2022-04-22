@@ -58,7 +58,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 				Debug.Assert(spell != null);
 
 				Buf.AppendFormat("{0}{1}{2} for {3}",
-					i == (long)spellValues[0] ? "" : i == (long)spellValues[spellValues.Count - 1] && (long)spellValues[spellValues.Count - 1] > 2 ? ", and " : i == (long)spellValues[spellValues.Count - 1] ? " and " : ", ",
+					i == (long)spellValues[0] ? "" : i == (long)spellValues[spellValues.Count - 1] && spellValues.Count > 2 ? ", and " : i == (long)spellValues[spellValues.Count - 1] ? " and " : ", ",
 					gEngine.GetMerchantAskPrice(spell.HokasPrice, (double)Rtio),
 					i == (long)spellValues[0] ? " gold pieces" : "",
 					spell.HokasName != null ? spell.HokasName : spell.Name);
