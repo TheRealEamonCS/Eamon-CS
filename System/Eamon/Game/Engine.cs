@@ -1761,7 +1761,7 @@ namespace Eamon.Game
 				}
 
 				buf.AppendFormat("{0}{1}{2}",
-					i == 0 ? "" : i == recordList.Count - 1 ? " and " : ", ",
+					i == 0 ? "" : i == recordList.Count - 1 && recordList.Count > 2 ? ", and " : i == recordList.Count - 1 ? " and " : ", ",
 					r.GetDecoratedName
 					(
 						"Name",

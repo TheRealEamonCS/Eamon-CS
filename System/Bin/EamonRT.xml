@@ -1560,8 +1560,9 @@
             <param name="str"></param>
             <param name="buf"></param>
         </member>
-        <member name="M:EamonRT.Framework.IEngine.BuildRevealContentsListDescString(Eamon.Framework.IArtifact,System.Collections.Generic.IList{Eamon.Framework.IArtifact},Eamon.Framework.Primitive.Enums.ContainerType,System.Nullable{System.Boolean},System.Boolean)">
+        <member name="M:EamonRT.Framework.IEngine.BuildRevealContentsListDescString(Eamon.Framework.IMonster,Eamon.Framework.IArtifact,System.Collections.Generic.IList{Eamon.Framework.IArtifact},Eamon.Framework.Primitive.Enums.ContainerType,System.Nullable{System.Boolean},System.Boolean)">
             <summary></summary>
+            <param name="monster"></param>
             <param name="artifact"></param>
             <param name="revealContentsList"></param>
             <param name="containerType"></param>

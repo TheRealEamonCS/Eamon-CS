@@ -298,12 +298,13 @@ namespace EamonRT.Framework
 		void PrintMacroReplacedPagedString(string str, StringBuilder buf);
 
 		/// <summary></summary>
+		/// <param name="monster"></param>
 		/// <param name="artifact"></param>
 		/// <param name="revealContentsList"></param>
 		/// <param name="containerType"></param>
 		/// <param name="revealShowCharOwned"></param>
 		/// <param name="showCharOwned"></param>
-		void BuildRevealContentsListDescString(IArtifact artifact, IList<IArtifact> revealContentsList, ContainerType containerType, bool? revealShowCharOwned, bool showCharOwned);
+		void BuildRevealContentsListDescString(IMonster monster, IArtifact artifact, IList<IArtifact> revealContentsList, ContainerType containerType, bool? revealShowCharOwned, bool showCharOwned);
 
 		/// <summary></summary>
 		/// <param name="artifact1"></param>

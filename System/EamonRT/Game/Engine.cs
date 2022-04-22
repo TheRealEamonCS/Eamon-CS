@@ -526,14 +526,19 @@ namespace EamonRT.Game
 			gOut.WriteLine();
 		}
 
-		public virtual void BuildRevealContentsListDescString(IArtifact artifact, IList<IArtifact> revealContentsList, ContainerType containerType, bool? revealShowCharOwned, bool showCharOwned)
+		public virtual void BuildRevealContentsListDescString(IMonster monster, IArtifact artifact, IList<IArtifact> revealContentsList, ContainerType containerType, bool? revealShowCharOwned, bool showCharOwned)
 		{
 			Debug.Assert(artifact != null && revealContentsList != null && revealContentsList.Count > 0 && Enum.IsDefined(typeof(ContainerType), containerType));
 
-			Globals.Buf.SetFormat("{0}{1} {2} you find ",
+			Globals.Buf02.SetFormat("{0} {1}", 
+				monster != null ? monster.GetTheName() : "you",
+				monster != null ? monster.EvalPlural("finds", "find") : "find");
+
+			Globals.Buf.SetFormat("{0}{1} {2}, {3} ",
 				Environment.NewLine,
 				EvalContainerType(containerType, "Inside", "On", "Under", "Behind"),
-				artifact.GetTheName(false, showCharOwned, false, false, Globals.Buf01));
+				artifact.GetTheName(false, showCharOwned, false, false, Globals.Buf01),
+				Globals.Buf02.ToString());
 
 			var rc = GetRecordNameList(revealContentsList.Cast<IGameBase>().ToList(), ArticleType.A, revealShowCharOwned != null ? (bool)revealShowCharOwned : false, StateDescDisplayCode.None, false, false, Globals.Buf);
 
@@ -1739,6 +1744,8 @@ namespace EamonRT.Game
 
 			Debug.Assert(charMonster != null);
 
+			IMonster monster = null;
+
 			var showCharOwned = !artifact.IsCarriedByCharacter() && !artifact.IsWornByCharacter();
 
 			bool? revealShowCharOwned = null;
@@ -1764,7 +1771,7 @@ namespace EamonRT.Game
 							revealShowCharOwned = !revealArtifact.IsCarriedByCharacter() && !revealArtifact.IsWornByCharacter();
 						}
 
-						var monster = revealArtifact.GetCarriedByMonster();
+						monster = revealArtifact.GetCarriedByMonster();
 
 						if (monster == null)
 						{
@@ -1876,7 +1883,7 @@ namespace EamonRT.Game
 
 					if (revealContentsList.Count > 0 && containerContentsList != null)
 					{
-						BuildRevealContentsListDescString(artifact, revealContentsList, containerType, revealShowCharOwned, showCharOwned);
+						BuildRevealContentsListDescString(monster, artifact, revealContentsList, containerType, revealShowCharOwned, showCharOwned);
 
 						containerContentsList.Add(Globals.Buf.ToString());
 					}
