@@ -1794,20 +1794,14 @@ namespace EamonRT.Game
 
 							var revealArtifactTooHeavy = charWeight > charMonster.GetWeightCarryableGronds();
 
-							if (revealArtifact.IsWornByCharacter())
+							if (revealArtifact.IsWornByCharacter() && (revealArtifact.Wearable == null || revealArtifactTooHeavy))
 							{
-								if (revealArtifact.Wearable == null || revealArtifactTooHeavy)
-								{
-									revealArtifact.SetCarriedByCharacter();
-								}
+								revealArtifact.SetCarriedByCharacter();
 							}
 
-							if (revealArtifact.IsCarriedByCharacter())
+							if (revealArtifact.IsCarriedByCharacter() && revealArtifactTooHeavy)
 							{
-								if (revealArtifactTooHeavy)
-								{
-									revealArtifact.SetInRoom(room);
-								}
+								revealArtifact.SetInRoom(room);
 							}
 						}
 						else if (monster != null)
@@ -1831,20 +1825,14 @@ namespace EamonRT.Game
 
 							var revealArtifactTooHeavy = EnforceMonsterWeightLimits && (artWeight > monster.GetWeightCarryableGronds() || monWeight > monster.GetWeightCarryableGronds() * monster.CurrGroupCount);
 
-							if (revealArtifact.IsWornByMonster())
+							if (revealArtifact.IsWornByMonster() && (revealArtifact.Wearable == null || revealArtifactTooHeavy))
 							{
-								if (revealArtifact.Wearable == null || revealArtifactTooHeavy)
-								{
-									revealArtifact.SetCarriedByMonster(monster);
-								}
+								revealArtifact.SetCarriedByMonster(monster);
 							}
 
-							if (revealArtifact.IsCarriedByMonster())
+							if (revealArtifact.IsCarriedByMonster() && revealArtifactTooHeavy)
 							{
-								if (revealArtifactTooHeavy)
-								{
-									revealArtifact.SetInRoom(room);
-								}
+								revealArtifact.SetInRoom(room);
 							}
 						}
 						else if (revealContainer != null && revealContainerAc != null)
@@ -1864,9 +1852,9 @@ namespace EamonRT.Game
 						}
 						else if (revealArtifact.IsEmbeddedInRoom())
 						{
-							if (artifact.IsInLimbo())
+							if (artifact.IsInLimbo() || !artifact.IsInRoom(room))
 							{
-								revealArtifact.SetInRoom(revealArtifact.GetEmbeddedInRoom());
+								revealArtifact.SetInRoom(room);
 							}
 							else
 							{
