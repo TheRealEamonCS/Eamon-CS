@@ -1852,15 +1852,15 @@ namespace EamonRT.Game
 						}
 						else if (revealArtifact.IsEmbeddedInRoom())
 						{
-							if (artifact.IsInLimbo() || !artifact.IsInRoom(room))
-							{
-								revealArtifact.SetInRoom(room);
-							}
-							else
+							if (artifact.IsInRoom(room))
 							{
 								revealArtifact.SetCarriedByContainer(artifact, containerType);
 
 								revealContentsList.Remove(revealArtifact);
+							}
+							else
+							{
+								revealArtifact.SetInRoom(room);
 							}
 						}
 						else if (revealArtifact.IsInLimbo())
