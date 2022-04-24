@@ -531,8 +531,8 @@ namespace EamonRT.Game
 			Debug.Assert(artifact != null && revealContentsList != null && revealContentsList.Count > 0 && Enum.IsDefined(typeof(ContainerType), containerType));
 
 			Globals.Buf02.SetFormat("{0} {1}", 
-				monster != null ? monster.GetTheName() : "you",
-				monster != null ? monster.EvalPlural("finds", "find") : "find");
+				monster != null && !monster.IsCharacterMonster() ? monster.GetTheName() : "you",
+				monster != null && !monster.IsCharacterMonster() ? monster.EvalPlural("finds", "find") : "find");
 
 			Globals.Buf.SetFormat("{0}{1} {2}, {3} ",
 				Environment.NewLine,
@@ -1715,7 +1715,7 @@ namespace EamonRT.Game
 
 				if (containerTypeList.Count > 0)
 				{
-					RevealContainerContents02(room, artifact, location, containerTypeList.ToArray(), printOutput && room.IsLit() && monster != null && monster.IsCharacterMonster() ? containerContentsList : null);
+					RevealContainerContents02(room, monster, artifact, location, containerTypeList.ToArray(), printOutput && room.IsLit() && monster != null ? containerContentsList : null);
 				}
 			}
 
@@ -1727,7 +1727,7 @@ namespace EamonRT.Game
 			Globals.RevealContentCounter++;
 		}
 
-		public virtual void RevealContainerContents02(IRoom room, IArtifact artifact, long location, ContainerType[] containerTypes, IList<string> containerContentsList = null)
+		public virtual void RevealContainerContents02(IRoom room, IMonster monster, IArtifact artifact, long location, ContainerType[] containerTypes, IList<string> containerContentsList = null)
 		{
 			RetCode rc;
 
@@ -1744,7 +1744,7 @@ namespace EamonRT.Game
 
 			Debug.Assert(charMonster != null);
 
-			IMonster monster = null;
+			IMonster revealMonster = null;
 
 			var showCharOwned = !artifact.IsCarriedByCharacter() && !artifact.IsWornByCharacter();
 
@@ -1771,11 +1771,11 @@ namespace EamonRT.Game
 							revealShowCharOwned = !revealArtifact.IsCarriedByCharacter() && !revealArtifact.IsWornByCharacter();
 						}
 
-						monster = revealArtifact.GetCarriedByMonster();
+						revealMonster = revealArtifact.GetCarriedByMonster();
 
-						if (monster == null)
+						if (revealMonster == null)
 						{
-							monster = revealArtifact.GetWornByMonster();
+							revealMonster = revealArtifact.GetWornByMonster();
 						}
 
 						var revealContainer = revealArtifact.GetCarriedByContainer();
@@ -1804,7 +1804,7 @@ namespace EamonRT.Game
 								revealArtifact.SetInRoom(room);
 							}
 						}
-						else if (monster != null)
+						else if (revealMonster != null)
 						{
 							var artCount = 0L;
 
@@ -1819,15 +1819,15 @@ namespace EamonRT.Game
 
 							var monWeight = 0L;
 
-							rc = monster.GetFullInventoryWeight(ref monWeight, recurse: true);
+							rc = revealMonster.GetFullInventoryWeight(ref monWeight, recurse: true);
 
 							Debug.Assert(IsSuccess(rc));
 
-							var revealArtifactTooHeavy = EnforceMonsterWeightLimits && (artWeight > monster.GetWeightCarryableGronds() || monWeight > monster.GetWeightCarryableGronds() * monster.CurrGroupCount);
+							var revealArtifactTooHeavy = EnforceMonsterWeightLimits && (artWeight > revealMonster.GetWeightCarryableGronds() || monWeight > revealMonster.GetWeightCarryableGronds() * revealMonster.CurrGroupCount);
 
 							if (revealArtifact.IsWornByMonster() && (revealArtifact.Wearable == null || revealArtifactTooHeavy))
 							{
-								revealArtifact.SetCarriedByMonster(monster);
+								revealArtifact.SetCarriedByMonster(revealMonster);
 							}
 
 							if (revealArtifact.IsCarriedByMonster() && revealArtifactTooHeavy)
@@ -1871,7 +1871,7 @@ namespace EamonRT.Game
 
 					if (revealContentsList.Count > 0 && containerContentsList != null)
 					{
-						BuildRevealContentsListDescString(monster, artifact, revealContentsList, containerType, revealShowCharOwned, showCharOwned);
+						BuildRevealContentsListDescString(revealMonster != null ? revealMonster : monster, artifact, revealContentsList, containerType, revealShowCharOwned, showCharOwned);
 
 						containerContentsList.Add(Globals.Buf.ToString());
 					}

@@ -1703,9 +1703,10 @@
             <param name="location"></param>
             <param name="printOutput"></param>
         </member>
-        <member name="M:EamonRT.Framework.IEngine.RevealContainerContents02(Eamon.Framework.IRoom,Eamon.Framework.IArtifact,System.Int64,Eamon.Framework.Primitive.Enums.ContainerType[],System.Collections.Generic.IList{System.String})">
+        <member name="M:EamonRT.Framework.IEngine.RevealContainerContents02(Eamon.Framework.IRoom,Eamon.Framework.IMonster,Eamon.Framework.IArtifact,System.Int64,Eamon.Framework.Primitive.Enums.ContainerType[],System.Collections.Generic.IList{System.String})">
             <summary></summary>
             <param name="room"></param>
+            <param name="monster"></param>
             <param name="artifact"></param>
             <param name="location"></param>
             <param name="containerTypes"></param>

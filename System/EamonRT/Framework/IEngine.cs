@@ -442,11 +442,12 @@ namespace EamonRT.Framework
 
 		/// <summary></summary>
 		/// <param name="room"></param>
+		/// <param name="monster"></param>
 		/// <param name="artifact"></param>
 		/// <param name="location"></param>
 		/// <param name="containerTypes"></param>
 		/// <param name="containerContentsList"></param>
-		void RevealContainerContents02(IRoom room, IArtifact artifact, long location, ContainerType[] containerTypes, IList<string> containerContentsList = null);
+		void RevealContainerContents02(IRoom room, IMonster monster, IArtifact artifact, long location, ContainerType[] containerTypes, IList<string> containerContentsList = null);
 
 		/// <summary></summary>
 		/// <param name="ro"></param>
