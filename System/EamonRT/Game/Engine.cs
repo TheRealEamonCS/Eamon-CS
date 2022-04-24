@@ -1692,7 +1692,7 @@ namespace EamonRT.Game
 
 			if (room != null)
 			{
-				if (artifact.IsInLimbo())
+				if (artifact.IsInLimbo() && location != Constants.LimboLocation)
 				{
 					foreach (var containerType in containerTypes)
 					{
@@ -1702,7 +1702,7 @@ namespace EamonRT.Game
 						}
 					}
 				}
-				else if (location != Constants.LimboLocation)
+				else if (!artifact.IsInLimbo() && location != Constants.LimboLocation)
 				{
 					foreach (var containerType in containerTypes)
 					{
