@@ -1500,6 +1500,8 @@ namespace EamonRT.Game
 
 			Debug.Assert(DobjMonster != null && !DobjMonster.IsCharacterMonster());
 
+			Globals.RevealContentCounter--;
+
 			var room = DobjMonster.GetInRoom();
 
 			Debug.Assert(room != null);
@@ -1571,6 +1573,8 @@ namespace EamonRT.Game
 					}
 				}
 			}
+
+			Globals.RevealContentCounter++;
 		}
 
 		public virtual void ProcessMonsterDeathEvents(IMonster monster)
@@ -1674,7 +1678,7 @@ namespace EamonRT.Game
 			}
 		}
 
-		public virtual void RevealContainerContents(IArtifact artifact, long location, bool printOutput)
+		public virtual void RevealContainerContents(IRoom room, IMonster monster, IArtifact artifact, long location, bool printOutput)
 		{
 			Debug.Assert(artifact != null);
 
@@ -1685,10 +1689,6 @@ namespace EamonRT.Game
 			var containerTypeList = new List<ContainerType>();
 
 			var containerContentsList = new List<string>();
-
-			var monster = Globals.RevealContentMonster;
-
-			var room = monster != null ? monster.GetInRoom() : Globals.RevealContentRoom;
 
 			if (room != null)
 			{
@@ -1756,14 +1756,12 @@ namespace EamonRT.Game
 
 				if (ac != null)
 				{
-					var contentsList = artifact.GetContainedList(containerType: containerType);
+					var revealContentsList = artifact.GetContainedList(containerType: containerType);
 
-					var revealContentsList = new List<IArtifact>();
+					var revealContents = revealContentsList.Count > 0;
 
-					foreach (var revealArtifact in contentsList)
+					foreach (var revealArtifact in revealContentsList)
 					{
-						revealContentsList.Add(revealArtifact);
-
 						revealArtifact.Location = location;
 
 						if (revealShowCharOwned == null)
@@ -1825,12 +1823,12 @@ namespace EamonRT.Game
 
 							var revealArtifactTooHeavy = EnforceMonsterWeightLimits && (artWeight > revealMonster.GetWeightCarryableGronds() || monWeight > revealMonster.GetWeightCarryableGronds() * revealMonster.CurrGroupCount);
 
-							if (revealArtifact.IsWornByMonster() && (revealArtifact.Wearable == null || revealArtifactTooHeavy))
+							if (revealArtifact.IsWornByMonster(revealMonster) && (revealArtifact.Wearable == null || revealArtifactTooHeavy))
 							{
 								revealArtifact.SetCarriedByMonster(revealMonster);
 							}
 
-							if (revealArtifact.IsCarriedByMonster() && revealArtifactTooHeavy)
+							if (revealArtifact.IsCarriedByMonster(revealMonster) && revealArtifactTooHeavy)
 							{
 								revealArtifact.SetInRoom(room);
 							}
@@ -1856,7 +1854,7 @@ namespace EamonRT.Game
 							{
 								revealArtifact.SetCarriedByContainer(artifact, containerType);
 
-								revealContentsList.Remove(revealArtifact);
+								revealContents = false;
 							}
 							else
 							{
@@ -1869,7 +1867,7 @@ namespace EamonRT.Game
 						}
 					}
 
-					if (revealContentsList.Count > 0 && containerContentsList != null)
+					if (revealContents && containerContentsList != null)
 					{
 						BuildRevealContentsListDescString(revealMonster != null ? revealMonster : monster, artifact, revealContentsList, containerType, revealShowCharOwned, showCharOwned);
 
@@ -2912,7 +2910,7 @@ namespace EamonRT.Game
 				}
 			}
 
-			Globals.ResetRevealContentProperties();
+			Globals.ResetRevealContentProperties(false);
 		}
 
 		public virtual void CheckToProcessActionLists()

@@ -741,6 +741,11 @@ namespace EamonRT.Game.Components
 
 				SetNextStateFunc(RedirectCommand);
 
+				if (BlastSpell)
+				{
+					Globals.ActionListCounter++;
+				}
+
 				CombatState = CombatState.EndAttack;
 
 				goto Cleanup;

@@ -435,10 +435,12 @@ namespace EamonRT.Framework
 		void RevealEmbeddedArtifact(IRoom room, IArtifact artifact);
 
 		/// <summary></summary>
+		/// <param name="room"></param>
+		/// <param name="monster"></param>
 		/// <param name="artifact"></param>
 		/// <param name="location"></param>
 		/// <param name="printOutput"></param>
-		void RevealContainerContents(IArtifact artifact, long location, bool printOutput);
+		void RevealContainerContents(IRoom room, IMonster monster, IArtifact artifact, long location, bool printOutput);
 
 		/// <summary></summary>
 		/// <param name="room"></param>

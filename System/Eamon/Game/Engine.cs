@@ -30,7 +30,7 @@ namespace Eamon.Game
 
 		public virtual IList<IArtifact> ArtifactContainedList { get; set; }
 
-		public virtual Action<IArtifact, long, bool> RevealContainerContentsFunc { get; set; }
+		public virtual Action<IRoom, IMonster, IArtifact, long, bool> RevealContainerContentsFunc { get; set; }
 
 		public virtual IPrep[] Preps { get; set; }
 

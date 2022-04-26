@@ -115,6 +115,11 @@ namespace EamonRT.Game.Commands
 
 				MagicComponent.ExecuteBlastSpell();
 
+				if (NextState is IAttackCommand)
+				{
+					Globals.ActionListCounter++;
+				}
+
 				goto Cleanup;
 			}
 
@@ -158,6 +163,11 @@ namespace EamonRT.Game.Commands
 			});
 
 			MagicComponent.ExecuteBlastSpell();
+
+			if (NextState is IAttackCommand)
+			{
+				Globals.ActionListCounter++;
+			}
 
 		Cleanup:
 

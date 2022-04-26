@@ -15,8 +15,6 @@ namespace EamonRT.Game.States
 	{
 		public override void Execute()
 		{
-			gEngine.CheckToProcessActionLists();
-
 			ProcessEvents(EventType.BeforePrintPlayerRoom);
 
 			if (GotoCleanup)

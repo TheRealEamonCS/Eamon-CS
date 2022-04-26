@@ -1697,8 +1697,10 @@
             <param name="room"></param>
             <param name="artifact"></param>
         </member>
-        <member name="M:EamonRT.Framework.IEngine.RevealContainerContents(Eamon.Framework.IArtifact,System.Int64,System.Boolean)">
+        <member name="M:EamonRT.Framework.IEngine.RevealContainerContents(Eamon.Framework.IRoom,Eamon.Framework.IMonster,Eamon.Framework.IArtifact,System.Int64,System.Boolean)">
             <summary></summary>
+            <param name="room"></param>
+            <param name="monster"></param>
             <param name="artifact"></param>
             <param name="location"></param>
             <param name="printOutput"></param>
@@ -2211,6 +2213,9 @@
             <summary></summary>
         </member>
         <member name="P:EamonRT.Framework.Plugin.IPluginGlobals.SkillIncreaseFuncList">
+            <summary></summary>
+        </member>
+        <member name="P:EamonRT.Framework.Plugin.IPluginGlobals.ActionListCounter">
             <summary></summary>
         </member>
         <member name="P:EamonRT.Framework.Plugin.IPluginGlobals.LoopMonsterUid">

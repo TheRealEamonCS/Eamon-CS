@@ -14,8 +14,6 @@ namespace EamonRT.Game.States
 	{
 		public override void Execute()
 		{
-			gEngine.CheckToProcessActionLists();
-
 			if (NextState == null)
 			{
 				NextState = Globals.CreateInstance<IMonsterLoopInitializeState>();

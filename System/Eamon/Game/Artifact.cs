@@ -89,6 +89,10 @@ namespace Eamon.Game
 			{
 				if (Globals.EnableGameOverrides && Globals.RevealContentCounter > 0 && _location != value && GeneralContainer != null && !Globals.RevealContentArtifactList.Contains(this))
 				{
+					var room = Globals.RevealContentRoom;
+
+					var monster = Globals.RevealContentMonster;
+
 					var origLocation = _location;
 
 					Globals.RevealContentArtifactList.Add(this);
@@ -97,7 +101,7 @@ namespace Eamon.Game
 					{
 						if (gEngine != null && gEngine.RevealContainerContentsFunc != null)
 						{ 
-							gEngine.RevealContainerContentsFunc(this, origLocation, true);
+							gEngine.RevealContainerContentsFunc(room, monster, this, origLocation, true);
 						}
 					});
 				}

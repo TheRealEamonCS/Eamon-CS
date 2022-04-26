@@ -5214,8 +5214,9 @@
             <summary></summary>
             <param name="fileName"></param>
         </member>
-        <member name="M:Eamon.Framework.Plugin.IPluginGlobals.ResetRevealContentProperties">
+        <member name="M:Eamon.Framework.Plugin.IPluginGlobals.ResetRevealContentProperties(System.Boolean)">
             <summary></summary>
+            <param name="resetObjects"></param>
         </member>
         <member name="T:Eamon.Framework.Portability.IDirectory">
             <summary></summary>
