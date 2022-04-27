@@ -255,16 +255,26 @@ namespace EamonRT.Game.Components
 			gEngine.PrintWhamHitObj(artifact);
 		}
 
-		public virtual void PrintSmashesToPieces(IRoom room, IArtifact artifact, bool spillContents)
+		public virtual void PrintSmashesToPieces(IGameBase record, IArtifact artifact, ContainerType containerType, bool spillContents)
 		{
-			Debug.Assert(room != null && artifact != null);
+			Debug.Assert(record != null && artifact != null);
+
+			var room = record as IRoom;
+
+			var containerArtifact = record as IArtifact;
+
+			Debug.Assert(!spillContents || room != null || (containerArtifact != null && Enum.IsDefined(typeof(ContainerType), containerType)));
 
 			gOut.Print("{0}{1} {2} to pieces{3}!",
 				Environment.NewLine,
 				artifact.GetTheName(true),
 				artifact.EvalPlural("smashes", "smash"),
-				spillContents ? string.Format("; {0} contents spill to the {1}", artifact.EvalPlural("its", "their"), room.EvalRoomType("floor", "ground")) :
-				"");
+				spillContents ? 
+					string.Format("; {0} contents spill {1} {2}", 
+						artifact.EvalPlural("its", "their"), 
+						room != null ? "to" : gEngine.EvalContainerType(containerType, "inside", "on", "under", "behind"),
+						room != null ? room.EvalRoomType("the floor", "the ground") : containerArtifact.GetTheName(buf: Globals.Buf01)) :
+					"");
 		}
 
 		public virtual void PrintWeaponAbilityIncreased(Weapon w, IWeapon weapon)

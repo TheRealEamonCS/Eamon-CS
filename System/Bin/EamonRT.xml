@@ -1198,10 +1198,11 @@
             <summary></summary>
             <param name="artifact"></param>
         </member>
-        <member name="M:EamonRT.Framework.Components.IComponentSignatures.PrintSmashesToPieces(Eamon.Framework.IRoom,Eamon.Framework.IArtifact,System.Boolean)">
+        <member name="M:EamonRT.Framework.Components.IComponentSignatures.PrintSmashesToPieces(Eamon.Framework.IGameBase,Eamon.Framework.IArtifact,Eamon.Framework.Primitive.Enums.ContainerType,System.Boolean)">
             <summary></summary>
-            <param name="room"></param>
+            <param name="record"></param>
             <param name="artifact"></param>
+            <param name="containerType"></param>
             <param name="spillContents"></param>
         </member>
         <member name="M:EamonRT.Framework.Components.IComponentSignatures.PrintWeaponAbilityIncreased(Eamon.Framework.Primitive.Enums.Weapon,Eamon.Framework.Primitive.Classes.IWeapon)">
@@ -3452,10 +3453,16 @@
         <member name="P:EamonRT.Game.Components.CombatComponent.DisguisedMonster">
             <summary></summary>
         </member>
+        <member name="P:EamonRT.Game.Components.CombatComponent.SpilledArtifactContainerAc">
+            <summary></summary>
+        </member>
         <member name="P:EamonRT.Game.Components.CombatComponent.ActorAc">
             <summary></summary>
         </member>
         <member name="P:EamonRT.Game.Components.CombatComponent.DobjAc">
+            <summary></summary>
+        </member>
+        <member name="P:EamonRT.Game.Components.CombatComponent.SpilledArtifactContainer">
             <summary></summary>
         </member>
         <member name="P:EamonRT.Game.Components.CombatComponent.WpnArtifact">
@@ -3465,6 +3472,9 @@
             <summary></summary>
         </member>
         <member name="P:EamonRT.Game.Components.CombatComponent.DobjWeapon">
+            <summary></summary>
+        </member>
+        <member name="P:EamonRT.Game.Components.CombatComponent.SpilledArtifactContainerType">
             <summary></summary>
         </member>
         <member name="P:EamonRT.Game.Components.CombatComponent.ActorWeaponType">
