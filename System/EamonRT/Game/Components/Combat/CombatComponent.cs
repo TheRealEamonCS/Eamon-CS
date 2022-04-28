@@ -89,6 +89,9 @@ namespace EamonRT.Game.Components
 		public virtual Weapon DobjWeaponType { get; set; }
 
 		/// <summary></summary>
+		public virtual bool SpilledArtifactContainerSeen { get; set; }
+
+		/// <summary></summary>
 		public virtual bool SpillContents { get; set; }
 
 		/// <summary></summary>
@@ -969,12 +972,6 @@ namespace EamonRT.Game.Components
 
 			if (DobjArtAc.Type == ArtifactType.InContainer)
 			{
-				SpilledArtifactContainer = DobjArtifact.GetCarriedByContainer();
-
-				SpilledArtifactContainerType = DobjArtifact.GetCarriedByContainerContainerType();
-
-				SpilledArtifactContainerAc = SpilledArtifactContainer != null && Enum.IsDefined(typeof(ContainerType), SpilledArtifactContainerType) ? gEngine.EvalContainerType(SpilledArtifactContainerType, SpilledArtifactContainer.InContainer, SpilledArtifactContainer.OnContainer, SpilledArtifactContainer.UnderContainer, SpilledArtifactContainer.BehindContainer) : null;
-
 				SpilledArtifactList = DobjArtifact.GetContainedList(containerType: ContainerType.In);
 
 				if (DobjArtifact.OnContainer != null && DobjArtifact.IsInContainerOpenedFromTop())
@@ -986,8 +983,18 @@ namespace EamonRT.Game.Components
 				{
 					artifact.Location = DobjArtifact.Location;
 
+ProcessSpilledArtifact:
+
+					SpilledArtifactContainer = artifact.GetCarriedByContainer();
+
+					SpilledArtifactContainerType = artifact.GetCarriedByContainerContainerType();
+
+					SpilledArtifactContainerAc = SpilledArtifactContainer != null && Enum.IsDefined(typeof(ContainerType), SpilledArtifactContainerType) ? gEngine.EvalContainerType(SpilledArtifactContainerType, SpilledArtifactContainer.InContainer, SpilledArtifactContainer.OnContainer, SpilledArtifactContainer.UnderContainer, SpilledArtifactContainer.BehindContainer) : null;
+
 					if (SpilledArtifactContainer != null && SpilledArtifactContainerAc != null)
 					{
+						SpilledArtifactContainerSeen = true;
+
 						var count = 0L;
 
 						var weight = 0L;
@@ -998,7 +1005,9 @@ namespace EamonRT.Game.Components
 
 						if (count > SpilledArtifactContainerAc.Field4 || weight > SpilledArtifactContainerAc.Field3)
 						{
-							artifact.SetInRoom(ActorRoom);
+							artifact.Location = SpilledArtifactContainer.Location;
+							
+							goto ProcessSpilledArtifact;			// TODO: find a replacement for goto that doesn't increase complexity
 						}
 					}
 				}
@@ -1011,7 +1020,7 @@ namespace EamonRT.Game.Components
 				DobjArtAc.Field3 = 0;
 			}
 
-			PrintSmashesToPieces(SpilledArtifactContainer != null ? (IGameBase)SpilledArtifactContainer : ActorRoom, DobjArtifact, SpilledArtifactContainer != null ? SpilledArtifactContainerType : (ContainerType)(-1), SpillContents);
+			PrintSmashesToPieces(SpilledArtifactContainerSeen ? null : ActorRoom, DobjArtifact, SpillContents);
 
 			Globals.RevealContentCounter++;
 

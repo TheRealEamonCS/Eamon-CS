@@ -158,11 +158,10 @@ namespace EamonRT.Framework.Components
 		void PrintWhamHitObj(IArtifact artifact);
 
 		/// <summary></summary>
-		/// <param name="record"></param>
+		/// <param name="room"></param>
 		/// <param name="artifact"></param>
-		/// <param name="containerType"></param>
 		/// <param name="spillContents"></param>
-		void PrintSmashesToPieces(IGameBase record, IArtifact artifact, ContainerType containerType, bool spillContents);
+		void PrintSmashesToPieces(IRoom room, IArtifact artifact, bool spillContents);
 
 		/// <summary></summary>
 		/// <param name="w"></param>

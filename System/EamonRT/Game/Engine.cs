@@ -526,7 +526,7 @@ namespace EamonRT.Game
 			gOut.WriteLine();
 		}
 
-		public virtual void BuildRevealContentsListDescString(IMonster monster, IArtifact artifact, IList<IArtifact> revealContentsList, ContainerType containerType, bool? revealShowCharOwned, bool showCharOwned)
+		public virtual void BuildRevealContentsListDescString(IMonster monster, IArtifact artifact, IList<IArtifact> revealContentsList, ContainerType containerType, bool revealShowCharOwned, bool showCharOwned)
 		{
 			Debug.Assert(artifact != null && revealContentsList != null && revealContentsList.Count > 0 && Enum.IsDefined(typeof(ContainerType), containerType));
 
@@ -540,7 +540,7 @@ namespace EamonRT.Game
 				artifact.GetTheName(false, showCharOwned, false, false, Globals.Buf01),
 				Globals.Buf02.ToString());
 
-			var rc = GetRecordNameList(revealContentsList.Cast<IGameBase>().ToList(), ArticleType.A, revealShowCharOwned != null ? (bool)revealShowCharOwned : false, StateDescDisplayCode.None, false, false, Globals.Buf);
+			var rc = GetRecordNameList(revealContentsList.Cast<IGameBase>().ToList(), ArticleType.A, revealShowCharOwned, StateDescDisplayCode.None, false, false, Globals.Buf);
 
 			Debug.Assert(IsSuccess(rc));
 
@@ -1748,7 +1748,7 @@ namespace EamonRT.Game
 
 			var showCharOwned = !artifact.IsCarriedByCharacter() && !artifact.IsWornByCharacter();
 
-			bool? revealShowCharOwned = null;
+			bool revealShowCharOwned = false;
 
 			foreach (var containerType in containerTypes)
 			{
@@ -1764,10 +1764,9 @@ namespace EamonRT.Game
 					{
 						revealArtifact.Location = location;
 
-						if (revealShowCharOwned == null)
-						{
-							revealShowCharOwned = !revealArtifact.IsCarriedByCharacter() && !revealArtifact.IsWornByCharacter();
-						}
+ProcessRevealArtifact:
+
+						revealShowCharOwned = !revealArtifact.IsCarriedByCharacter() && !revealArtifact.IsWornByCharacter();
 
 						revealMonster = revealArtifact.GetCarriedByMonster();
 
@@ -1845,7 +1844,9 @@ namespace EamonRT.Game
 
 							if (count > revealContainerAc.Field4 || weight > revealContainerAc.Field3)
 							{
-								revealArtifact.SetInRoom(room);
+								revealArtifact.Location = revealContainer.Location;
+
+								goto ProcessRevealArtifact;			// TODO: find a replacement for goto that doesn't increase complexity
 							}
 						}
 						else if (revealArtifact.IsEmbeddedInRoom())

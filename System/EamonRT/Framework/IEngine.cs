@@ -304,7 +304,7 @@ namespace EamonRT.Framework
 		/// <param name="containerType"></param>
 		/// <param name="revealShowCharOwned"></param>
 		/// <param name="showCharOwned"></param>
-		void BuildRevealContentsListDescString(IMonster monster, IArtifact artifact, IList<IArtifact> revealContentsList, ContainerType containerType, bool? revealShowCharOwned, bool showCharOwned);
+		void BuildRevealContentsListDescString(IMonster monster, IArtifact artifact, IList<IArtifact> revealContentsList, ContainerType containerType, bool revealShowCharOwned, bool showCharOwned);
 
 		/// <summary></summary>
 		/// <param name="artifact1"></param>
