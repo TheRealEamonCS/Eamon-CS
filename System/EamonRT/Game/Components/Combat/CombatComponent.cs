@@ -979,6 +979,8 @@ namespace EamonRT.Game.Components
 					SpilledArtifactList.AddRange(DobjArtifact.GetContainedList(containerType: ContainerType.On));
 				}
 
+				SpilledArtifactList = SpilledArtifactList.OrderByDescending(a => a.RecursiveWeight).ToList();
+
 				foreach (var artifact in SpilledArtifactList)
 				{
 					artifact.Location = DobjArtifact.Location;

@@ -1275,7 +1275,7 @@ namespace Eamon.Game
 
 		public virtual bool ShouldRevealContentsWhenMovedIntoLimbo(ContainerType containerType = ContainerType.In)
 		{
-			return containerType != ContainerType.In;
+			return false;
 		}
 
 		public virtual bool ShouldShowContentsWhenExamined()

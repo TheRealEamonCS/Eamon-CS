@@ -1715,7 +1715,7 @@ namespace EamonRT.Game
 
 				if (containerTypeList.Count > 0)
 				{
-					RevealContainerContents02(room, monster, artifact, location, containerTypeList.ToArray(), printOutput && room.IsLit() && monster != null ? containerContentsList : null);
+					RevealContainerContents02(room, monster, artifact, location, containerTypeList.ToArray(), printOutput && room.Uid == gGameState.Ro && room.IsLit() && monster != null ? containerContentsList : null);
 				}
 			}
 
@@ -1731,9 +1731,7 @@ namespace EamonRT.Game
 		{
 			RetCode rc;
 
-			Debug.Assert(room != null);
-
-			Debug.Assert(artifact != null);
+			Debug.Assert(room != null && artifact != null);
 
 			if (containerTypes == null || containerTypes.Length < 1)
 			{
@@ -1758,9 +1756,11 @@ namespace EamonRT.Game
 				{
 					var revealContentsList = artifact.GetContainedList(containerType: containerType);
 
-					var revealContents = revealContentsList.Count > 0;
+					var revealContentsList02 = revealContentsList.OrderByDescending(a => a.RecursiveWeight).ToList();
 
-					foreach (var revealArtifact in revealContentsList)
+					var revealContents = revealContentsList02.Count > 0;
+
+					foreach (var revealArtifact in revealContentsList02)
 					{
 						revealArtifact.Location = location;
 
