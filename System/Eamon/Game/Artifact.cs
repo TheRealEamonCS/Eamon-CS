@@ -99,7 +99,7 @@ namespace Eamon.Game
 
 					Globals.RevealContentFuncList.Add(() =>
 					{
-						if (gEngine != null && gEngine.RevealContainerContentsFunc != null)
+						if (gEngine != null && gEngine.RevealContainerContentsFunc != null && room != null)
 						{ 
 							gEngine.RevealContainerContentsFunc(room, monster, this, origLocation, true);
 						}

@@ -1680,7 +1680,7 @@ namespace EamonRT.Game
 
 		public virtual void RevealContainerContents(IRoom room, IMonster monster, IArtifact artifact, long location, bool printOutput)
 		{
-			Debug.Assert(artifact != null);
+			Debug.Assert(room != null && artifact != null);
 
 			Globals.RevealContentCounter--;
 
@@ -1690,33 +1690,30 @@ namespace EamonRT.Game
 
 			var containerContentsList = new List<string>();
 
-			if (room != null)
+			if (artifact.IsInLimbo() && location != Constants.LimboLocation)
 			{
-				if (artifact.IsInLimbo() && location != Constants.LimboLocation)
+				foreach (var containerType in containerTypes)
 				{
-					foreach (var containerType in containerTypes)
+					if (artifact.ShouldRevealContentsWhenMovedIntoLimbo(containerType))
 					{
-						if (artifact.ShouldRevealContentsWhenMovedIntoLimbo(containerType))
-						{
-							containerTypeList.Add(containerType);
-						}
+						containerTypeList.Add(containerType);
 					}
 				}
-				else if (!artifact.IsInLimbo() && location != Constants.LimboLocation)
+			}
+			else if (!artifact.IsInLimbo() && location != Constants.LimboLocation)
+			{
+				foreach (var containerType in containerTypes)
 				{
-					foreach (var containerType in containerTypes)
+					if (artifact.ShouldRevealContentsWhenMoved(containerType))
 					{
-						if (artifact.ShouldRevealContentsWhenMoved(containerType))
-						{
-							containerTypeList.Add(containerType);
-						}
+						containerTypeList.Add(containerType);
 					}
 				}
+			}
 
-				if (containerTypeList.Count > 0)
-				{
-					RevealContainerContents02(room, monster, artifact, location, containerTypeList.ToArray(), printOutput && room.Uid == gGameState.Ro && room.IsLit() && monster != null ? containerContentsList : null);
-				}
+			if (containerTypeList.Count > 0)
+			{
+				RevealContainerContents02(room, monster, artifact, location, containerTypeList.ToArray(), printOutput && room.Uid == gGameState.Ro && room.IsLit() && monster != null ? containerContentsList : null);
 			}
 
 			foreach (var containerContentsDesc in containerContentsList)
