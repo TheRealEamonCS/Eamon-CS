@@ -255,7 +255,7 @@ namespace RiddlesOfTheDuergarKingdom.Game
 			}
 		}
 
-		public override bool IsAttackable01(ref IArtifactCategory ac)
+		public override bool IsAttackable(ref IArtifactCategory ac)
 		{
 			var artifactUids = new long[] { 15, 18, 39 };
 
@@ -269,7 +269,7 @@ namespace RiddlesOfTheDuergarKingdom.Game
 			}
 			else
 			{
-				return base.IsAttackable01(ref ac);
+				return base.IsAttackable(ref ac);
 			}
 		}
 

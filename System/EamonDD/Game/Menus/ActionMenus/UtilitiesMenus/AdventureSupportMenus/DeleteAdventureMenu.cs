@@ -140,7 +140,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 						process.StartInfo.Arguments = string.Format("sln Eamon.Desktop.sln remove {0}", projName);
 						process.StartInfo.WorkingDirectory = string.Format("..{0}..", Globals.Path.DirectorySeparatorChar);
 
-						gOut.Write("Removing {0} project... ", Globals.Path.GetFileNameWithoutExtension(projName));
+						gOut.Write("Removing {0} project ... ", Globals.Path.GetFileNameWithoutExtension(projName));
 
 						process.Start();
 
@@ -150,11 +150,11 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 						if (result == RetCode.Success)
 						{
-							gOut.WriteLine("succeeded");
+							gOut.WriteLine("succeeded.");
 						}
 						else
 						{
-							gOut.WriteLine("failed");
+							gOut.WriteLine("failed.");
 						}
 					}
 				}

@@ -526,16 +526,21 @@ namespace EamonRT.Game
 			gOut.WriteLine();
 		}
 
-		public virtual void BuildRevealContentsListDescString(IArtifact artifact, IList<IArtifact> revealContentsList, ContainerType containerType, bool? revealShowCharOwned, bool showCharOwned)
+		public virtual void BuildRevealContentsListDescString(IMonster monster, IArtifact artifact, IList<IArtifact> revealContentsList, ContainerType containerType, bool revealShowCharOwned, bool showCharOwned)
 		{
 			Debug.Assert(artifact != null && revealContentsList != null && revealContentsList.Count > 0 && Enum.IsDefined(typeof(ContainerType), containerType));
 
-			Globals.Buf.SetFormat("{0}{1} {2} you find ",
+			Globals.Buf02.SetFormat("{0} {1}", 
+				monster != null && !monster.IsCharacterMonster() ? monster.GetTheName() : "you",
+				monster != null && !monster.IsCharacterMonster() ? monster.EvalPlural("finds", "find") : "find");
+
+			Globals.Buf.SetFormat("{0}{1} {2}, {3} ",
 				Environment.NewLine,
 				EvalContainerType(containerType, "Inside", "On", "Under", "Behind"),
-				artifact.GetTheName(false, showCharOwned, false, false, Globals.Buf01));
+				artifact.GetTheName(false, showCharOwned, false, false, Globals.Buf01),
+				Globals.Buf02.ToString());
 
-			var rc = GetRecordNameList(revealContentsList.Cast<IGameBase>().ToList(), ArticleType.A, revealShowCharOwned != null ? (bool)revealShowCharOwned : false, StateDescDisplayCode.None, false, false, Globals.Buf);
+			var rc = GetRecordNameList(revealContentsList.Cast<IGameBase>().ToList(), ArticleType.A, revealShowCharOwned, StateDescDisplayCode.None, false, false, Globals.Buf);
 
 			Debug.Assert(IsSuccess(rc));
 
@@ -1474,9 +1479,15 @@ namespace EamonRT.Game
 
 				monster.Reaction--;
 
-				if (monster.IsInRoom(room) && monster.Reaction == Friendliness.Enemy)
+				if (monster.Reaction == Friendliness.Enemy)
 				{
-					PrintMonsterGetsAngry(monster, printFinalNewLine);
+					Globals.MiscEventFuncList02.Add(() =>
+					{
+						if (monster.IsInRoom(room))
+						{ 
+							PrintMonsterGetsAngry(monster, printFinalNewLine);
+						}
+					});
 				}
 			}
 		}
@@ -1488,6 +1499,8 @@ namespace EamonRT.Game
 			// ActorMonster may be null or non-null
 
 			Debug.Assert(DobjMonster != null && !DobjMonster.IsCharacterMonster());
+
+			Globals.RevealContentCounter--;
 
 			var room = DobjMonster.GetInRoom();
 
@@ -1560,6 +1573,8 @@ namespace EamonRT.Game
 					}
 				}
 			}
+
+			Globals.RevealContentCounter++;
 		}
 
 		public virtual void ProcessMonsterDeathEvents(IMonster monster)
@@ -1663,9 +1678,9 @@ namespace EamonRT.Game
 			}
 		}
 
-		public virtual void RevealContainerContents(IArtifact artifact, long location, bool printOutput)
+		public virtual void RevealContainerContents(IRoom room, IMonster monster, IArtifact artifact, long location, bool printOutput)
 		{
-			Debug.Assert(artifact != null);
+			Debug.Assert(room != null && artifact != null);
 
 			Globals.RevealContentCounter--;
 
@@ -1675,37 +1690,30 @@ namespace EamonRT.Game
 
 			var containerContentsList = new List<string>();
 
-			var monster = Globals.RevealContentMonster;
-
-			var room = monster != null ? monster.GetInRoom() : Globals.RevealContentRoom;
-
-			if (room != null)
+			if (artifact.IsInLimbo() && location != Constants.LimboLocation)
 			{
-				if (artifact.IsInLimbo())
+				foreach (var containerType in containerTypes)
 				{
-					foreach (var containerType in containerTypes)
+					if (artifact.ShouldRevealContentsWhenMovedIntoLimbo(containerType))
 					{
-						if (artifact.ShouldRevealContentsWhenMovedIntoLimbo(containerType))
-						{
-							containerTypeList.Add(containerType);
-						}
+						containerTypeList.Add(containerType);
 					}
 				}
-				else if (location != Constants.LimboLocation)
+			}
+			else if (!artifact.IsInLimbo() && location != Constants.LimboLocation)
+			{
+				foreach (var containerType in containerTypes)
 				{
-					foreach (var containerType in containerTypes)
+					if (artifact.ShouldRevealContentsWhenMoved(containerType))
 					{
-						if (artifact.ShouldRevealContentsWhenMoved(containerType))
-						{
-							containerTypeList.Add(containerType);
-						}
+						containerTypeList.Add(containerType);
 					}
 				}
+			}
 
-				if (containerTypeList.Count > 0)
-				{
-					RevealContainerContents02(room, artifact, location, containerTypeList.ToArray(), printOutput && room.IsLit() && monster != null && monster.IsCharacterMonster() ? containerContentsList : null);
-				}
+			if (containerTypeList.Count > 0)
+			{
+				RevealContainerContents02(room, monster, artifact, location, containerTypeList.ToArray(), printOutput && room.Uid == gGameState.Ro && room.IsLit() && monster != null ? containerContentsList : null);
 			}
 
 			foreach (var containerContentsDesc in containerContentsList)
@@ -1716,13 +1724,11 @@ namespace EamonRT.Game
 			Globals.RevealContentCounter++;
 		}
 
-		public virtual void RevealContainerContents02(IRoom room, IArtifact artifact, long location, ContainerType[] containerTypes, IList<string> containerContentsList = null)
+		public virtual void RevealContainerContents02(IRoom room, IMonster monster, IArtifact artifact, long location, ContainerType[] containerTypes, IList<string> containerContentsList = null)
 		{
 			RetCode rc;
 
-			Debug.Assert(room != null);
-
-			Debug.Assert(artifact != null);
+			Debug.Assert(room != null && artifact != null);
 
 			if (containerTypes == null || containerTypes.Length < 1)
 			{
@@ -1733,9 +1739,11 @@ namespace EamonRT.Game
 
 			Debug.Assert(charMonster != null);
 
+			IMonster revealMonster = null;
+
 			var showCharOwned = !artifact.IsCarriedByCharacter() && !artifact.IsWornByCharacter();
 
-			bool? revealShowCharOwned = null;
+			bool revealShowCharOwned = false;
 
 			foreach (var containerType in containerTypes)
 			{
@@ -1743,26 +1751,25 @@ namespace EamonRT.Game
 
 				if (ac != null)
 				{
-					var contentsList = artifact.GetContainedList(containerType: containerType);
+					var revealContentsList = artifact.GetContainedList(containerType: containerType);
 
-					var revealContentsList = new List<IArtifact>();
+					var revealContentsList02 = revealContentsList.OrderByDescending(a => a.RecursiveWeight).ToList();
 
-					foreach (var revealArtifact in contentsList)
+					var revealContents = revealContentsList02.Count > 0;
+
+					foreach (var revealArtifact in revealContentsList02)
 					{
-						revealContentsList.Add(revealArtifact);
-
 						revealArtifact.Location = location;
 
-						if (revealShowCharOwned == null)
-						{
-							revealShowCharOwned = !revealArtifact.IsCarriedByCharacter() && !revealArtifact.IsWornByCharacter();
-						}
+ProcessRevealArtifact:
 
-						var monster = revealArtifact.GetCarriedByMonster();
+						revealShowCharOwned = !revealArtifact.IsCarriedByCharacter() && !revealArtifact.IsWornByCharacter();
 
-						if (monster == null)
+						revealMonster = revealArtifact.GetCarriedByMonster();
+
+						if (revealMonster == null)
 						{
-							monster = revealArtifact.GetWornByMonster();
+							revealMonster = revealArtifact.GetWornByMonster();
 						}
 
 						var revealContainer = revealArtifact.GetCarriedByContainer();
@@ -1781,57 +1788,34 @@ namespace EamonRT.Game
 
 							var revealArtifactTooHeavy = charWeight > charMonster.GetWeightCarryableGronds();
 
-							if (revealArtifact.IsWornByCharacter())
+							if (revealArtifact.IsWornByCharacter() && (revealArtifact.Wearable == null || revealArtifactTooHeavy))
 							{
-								if (revealArtifact.Wearable == null || revealArtifactTooHeavy)
-								{
-									revealArtifact.SetCarriedByCharacter();
-								}
+								revealArtifact.SetCarriedByCharacter();
 							}
 
-							if (revealArtifact.IsCarriedByCharacter())
+							if (revealArtifact.IsCarriedByCharacter() && revealArtifactTooHeavy)
 							{
-								if (revealArtifactTooHeavy)
-								{
-									revealArtifact.SetInRoom(room);
-								}
+								revealArtifact.SetInRoom(room);
 							}
 						}
-						else if (monster != null)
+						else if (revealMonster != null)
 						{
-							var artCount = 0L;
-
-							var artWeight = revealArtifact.Weight;
-
-							if (revealArtifact.GeneralContainer != null)
-							{
-								rc = revealArtifact.GetContainerInfo(ref artCount, ref artWeight, (ContainerType)(-1), true);
-
-								Debug.Assert(IsSuccess(rc));
-							}
-
 							var monWeight = 0L;
 
-							rc = monster.GetFullInventoryWeight(ref monWeight, recurse: true);
+							rc = revealMonster.GetFullInventoryWeight(ref monWeight, recurse: true);
 
 							Debug.Assert(IsSuccess(rc));
 
-							var revealArtifactTooHeavy = EnforceMonsterWeightLimits && (artWeight > monster.GetWeightCarryableGronds() || monWeight > monster.GetWeightCarryableGronds() * monster.CurrGroupCount);
+							var revealArtifactTooHeavy = EnforceMonsterWeightLimits && (revealArtifact.RecursiveWeight > revealMonster.GetWeightCarryableGronds() || monWeight > revealMonster.GetWeightCarryableGronds() * revealMonster.CurrGroupCount);
 
-							if (revealArtifact.IsWornByMonster())
+							if (revealArtifact.IsWornByMonster(revealMonster) && (revealArtifact.Wearable == null || revealArtifactTooHeavy))
 							{
-								if (revealArtifact.Wearable == null || revealArtifactTooHeavy)
-								{
-									revealArtifact.SetCarriedByMonster(monster);
-								}
+								revealArtifact.SetCarriedByMonster(revealMonster);
 							}
 
-							if (revealArtifact.IsCarriedByMonster())
+							if (revealArtifact.IsCarriedByMonster(revealMonster) && revealArtifactTooHeavy)
 							{
-								if (revealArtifactTooHeavy)
-								{
-									revealArtifact.SetInRoom(room);
-								}
+								revealArtifact.SetInRoom(room);
 							}
 						}
 						else if (revealContainer != null && revealContainerAc != null)
@@ -1846,31 +1830,35 @@ namespace EamonRT.Game
 
 							if (count > revealContainerAc.Field4 || weight > revealContainerAc.Field3)
 							{
-								revealArtifact.SetInRoom(room);
+								revealArtifact.Location = revealContainer.Location;
+
+								goto ProcessRevealArtifact;			// TODO: find a replacement for goto that doesn't increase complexity
 							}
 						}
-						else if (revealArtifact.IsEmbeddedInRoom())
+						else if (revealArtifact.IsEmbeddedInRoom(room))
 						{
-							if (artifact.IsInLimbo())
-							{
-								revealArtifact.SetInRoom(revealArtifact.GetEmbeddedInRoom());
-							}
-							else
+							if (artifact.IsInRoom(room))
 							{
 								revealArtifact.SetCarriedByContainer(artifact, containerType);
 
-								revealContentsList.Remove(revealArtifact);
+								revealContents = false;
+							}
+							else
+							{
+								revealArtifact.SetInRoom(room);
 							}
 						}
 						else if (revealArtifact.IsInLimbo())
 						{
-							revealArtifact.SetInRoom(room);
+							revealArtifact.SetCarriedByContainer(artifact, containerType);
+
+							revealContents = false;
 						}
 					}
 
-					if (revealContentsList.Count > 0 && containerContentsList != null)
+					if (revealContents && containerContentsList != null)
 					{
-						BuildRevealContentsListDescString(artifact, revealContentsList, containerType, revealShowCharOwned, showCharOwned);
+						BuildRevealContentsListDescString(revealMonster != null ? revealMonster : monster, artifact, revealContentsList, containerType, revealShowCharOwned, showCharOwned);
 
 						containerContentsList.Add(Globals.Buf.ToString());
 					}
@@ -2911,7 +2899,7 @@ namespace EamonRT.Game
 				}
 			}
 
-			Globals.ResetRevealContentProperties();
+			Globals.ResetRevealContentProperties(false);
 		}
 
 		public virtual void CheckToProcessActionLists()

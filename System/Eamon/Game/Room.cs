@@ -436,7 +436,7 @@ namespace Eamon.Game
 						Debug.Assert(direction != null);
 
 						buf.AppendFormat("{0}{1}",
-							j == 0 ? "" : j == i - 1 ? " and " : ", ",
+							j == 0 ? "" : j == i - 1 && i > 2 ? ", and " : j == i - 1 ? " and " : ", ",
 							useNames ? (modFunc != null ? modFunc(direction.Name) : direction.Name) :
 							(modFunc != null ? modFunc(direction.Abbr) : direction.Abbr));
 

@@ -37,20 +37,13 @@ namespace TheTrainingGround.Game.Commands
 		{
 			Debug.Assert(DobjArtifact != null || DobjMonster != null);
 
-			if (BlastSpell || ActorMonster.Weapon > 0)
+			// Attack backpack
+
+			if (ActorMonster.Weapon > 0 && DobjArtifact != null && DobjArtifact.Uid == 13)
 			{
-				// Attack/BLAST backpack
+				PrintDontNeedTo();
 
-				if (DobjArtifact != null && DobjArtifact.Uid == 13)
-				{
-					PrintDontNeedTo();
-
-					NextState = Globals.CreateInstance<IStartState>();
-				}
-				else
-				{
-					base.Execute();
-				}
+				NextState = Globals.CreateInstance<IStartState>();
 			}
 			else
 			{

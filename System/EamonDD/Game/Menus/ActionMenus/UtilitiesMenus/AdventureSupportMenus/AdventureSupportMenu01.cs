@@ -292,7 +292,18 @@ namespace YourAdventureName.YourGameNamespaceName
 		/// <summary></summary>
 		public virtual void GetAdventureName()
 		{
-			var invalidAdventureNames = new string[] { "Adventures", "Catalog", "Characters", "Contemporary", "Fantasy", "SciFi", "Test", "Workbench", "WorkInProgress", "AdventureSupportMenu", "LoadAdventureSupportMenu", "YourAdventureName", "YourAuthorName", "YourAuthorInitials", "Con", "Prn", "Aux", "Nul", "Null", "Com1", "Com2", "Com3", "Com4", "Com5", "Com6", "Com7", "Com8", "Com9", "Com0", "Lpt1", "Lpt2", "Lpt3", "Lpt4", "Lpt5", "Lpt6", "Lpt7", "Lpt8", "Lpt9", "Lpt0"	};
+			var invalidAdventureNames = new string[] 
+			{ 
+				"Adventures", "Catalog", "Characters", "Contemporary", "Fantasy", "SciFi", "Test", "Workbench", "WorkInProgress", "AdventureSupportMenu", 
+				"LoadAdventureSupportMenu", "YourAdventureName", "YourAuthorName", "YourAuthorInitials", "Con", "Prn", "Aux", "Nul", "Null", "Com0", "Com1",
+				"Com2", "Com3", "Com4", "Com5", "Com6", "Com7", "Com8", "Com9", "Lpt0", "Lpt1", "Lpt2", "Lpt3", "Lpt4", "Lpt5", "Lpt6", "Lpt7", "Lpt8", "Lpt9",
+				"Microsoft", "System", "abstract", "as", "base", "bool", "break", "byte", "case", "catch", "char", "checked", "class", "const", "continue",
+				"decimal", "default", "delegate", "do", "double", "else", "enum", "event", "explicit", "extern", "false", "finally", "fixed", "float", "for",
+				"foreach", "goto", "if", "implicit", "in", "int", "interface", "internal", "is", "lock", "long", "namespace", "new", "object", "operator",
+				"out", "override", "params", "private", "protected", "public", "readonly", "ref", "return", "sbyte", "sealed", "short", "sizeof", "stackalloc",
+				"static", "string", "struct", "switch", "this", "throw", "true", "try", "typeof", "uint", "ulong", "unchecked", "unsafe", "ushort", "using",
+				"virtual", "void", "volatile", "while"
+			};
 
 			if (SupportMenuType == SupportMenuType.AddAdventure)
 			{
@@ -882,7 +893,7 @@ namespace YourAdventureName.YourGameNamespaceName
 						process.StartInfo.Arguments = string.Format("build {0} --no-dependencies", projName);
 						process.StartInfo.WorkingDirectory = string.Format("..{0}..", Globals.Path.DirectorySeparatorChar);
 
-						gOut.Write("Rebuilding {0} project... ", Globals.Path.GetFileNameWithoutExtension(projName));
+						gOut.Write("Rebuilding {0} project ... ", Globals.Path.GetFileNameWithoutExtension(projName));
 
 						process.Start();
 
@@ -892,11 +903,11 @@ namespace YourAdventureName.YourGameNamespaceName
 
 						if (result == RetCode.Success)
 						{
-							gOut.WriteLine("succeeded");
+							gOut.WriteLine("succeeded.");
 						}
 						else
 						{
-							gOut.WriteLine("failed");
+							gOut.WriteLine("failed.");
 						}
 					}
 				}

@@ -59,7 +59,9 @@ namespace EamonPM.Game.Portability
 		{
 			get
 			{
+#pragma warning disable CA1416 // Validate platform compatibility
 				return Console.CursorVisible;
+#pragma warning restore CA1416 // Validate platform compatibility
 			}
 
 			set
@@ -121,7 +123,9 @@ namespace EamonPM.Game.Portability
 		{
 			if (EnableOutput && Stdout)
 			{
+#pragma warning disable CA1416 // Validate platform compatibility
 				Console.SetWindowSize((int)width, (int)height);
+#pragma warning restore CA1416 // Validate platform compatibility
 			}
 			else
 			{
@@ -133,7 +137,9 @@ namespace EamonPM.Game.Portability
 		{
 			if (EnableOutput && Stdout)
 			{
+#pragma warning disable CA1416 // Validate platform compatibility
 				Console.SetBufferSize((int)width, (int)height);
+#pragma warning restore CA1416 // Validate platform compatibility
 			}
 			else
 			{

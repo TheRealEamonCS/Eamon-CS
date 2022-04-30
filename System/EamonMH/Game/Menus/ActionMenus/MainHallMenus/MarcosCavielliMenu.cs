@@ -486,7 +486,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 							if (armor.MarcosNum > 0)
 							{
 								Buf.AppendFormat("{0}{1}{2} for the {3}",
-									armor.MarcosNum == 1 ? "" : armor.MarcosNum == j ? " and " : ", ",
+									armor.MarcosNum == 1 ? "" : armor.MarcosNum == j && j > 2 ? ", and " : armor.MarcosNum == j ? " and " : ", ",
 									gEngine.GetMerchantAskPrice(armor.MarcosPrice, (double)Rtio),
 									armor.MarcosNum == 1 ? " gold pieces" : "",
 									(armor.MarcosName ?? armor.Name).ToLower());

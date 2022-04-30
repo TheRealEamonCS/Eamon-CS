@@ -1050,11 +1050,14 @@ namespace Eamon.Game.Plugin
 			;
 		}
 
-		public virtual void ResetRevealContentProperties()
+		public virtual void ResetRevealContentProperties(bool resetObjects = true)
 		{
-			RevealContentRoom = null;
+			if (resetObjects)
+			{
+				RevealContentRoom = null;
 
-			RevealContentMonster = null;
+				RevealContentMonster = null;
+			}
 
 			RevealContentArtifactList.Clear();
 

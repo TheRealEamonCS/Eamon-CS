@@ -29,7 +29,7 @@ namespace Eamon.Framework
 		IList<IArtifact> ArtifactContainedList { get; set; }
 
 		/// <summary></summary>
-		Action<IArtifact, long, bool> RevealContainerContentsFunc { get; set; }
+		Action<IRoom, IMonster, IArtifact, long, bool> RevealContainerContentsFunc { get; set; }
 
 		/// <summary>
 		/// Gets or sets an array of sentence prepositions (e.g., "to", "from", "inside", etc).
