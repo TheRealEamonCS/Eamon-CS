@@ -30,7 +30,7 @@ namespace Eamon.Game
 
 		public virtual IList<IArtifact> ArtifactContainedList { get; set; }
 
-		public virtual Action<IArtifact, long, bool> RevealContainerContentsFunc { get; set; }
+		public virtual Action<IRoom, IMonster, IArtifact, long, bool> RevealContainerContentsFunc { get; set; }
 
 		public virtual IPrep[] Preps { get; set; }
 
@@ -1761,7 +1761,7 @@ namespace Eamon.Game
 				}
 
 				buf.AppendFormat("{0}{1}{2}",
-					i == 0 ? "" : i == recordList.Count - 1 ? " and " : ", ",
+					i == 0 ? "" : i == recordList.Count - 1 && recordList.Count > 2 ? ", and " : i == recordList.Count - 1 ? " and " : ", ",
 					r.GetDecoratedName
 					(
 						"Name",

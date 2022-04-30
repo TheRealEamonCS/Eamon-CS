@@ -89,15 +89,19 @@ namespace Eamon.Game
 			{
 				if (Globals.EnableGameOverrides && Globals.RevealContentCounter > 0 && _location != value && GeneralContainer != null && !Globals.RevealContentArtifactList.Contains(this))
 				{
+					var room = Globals.RevealContentRoom;
+
+					var monster = Globals.RevealContentMonster;
+
 					var origLocation = _location;
 
 					Globals.RevealContentArtifactList.Add(this);
 
 					Globals.RevealContentFuncList.Add(() =>
 					{
-						if (gEngine != null && gEngine.RevealContainerContentsFunc != null)
+						if (gEngine != null && gEngine.RevealContainerContentsFunc != null && room != null)
 						{ 
-							gEngine.RevealContainerContentsFunc(this, origLocation, true);
+							gEngine.RevealContainerContentsFunc(room, monster, this, origLocation, true);
 						}
 					});
 				}
@@ -1156,16 +1160,7 @@ namespace Eamon.Game
 			return ac != null && ac.IsWeapon(weapon);
 		}
 
-		public virtual bool IsAttackable()
-		{
-			var artTypes = new ArtifactType[] { ArtifactType.DisguisedMonster, ArtifactType.DeadBody, ArtifactType.InContainer, ArtifactType.DoorGate };
-
-			var ac = GetArtifactCategory(artTypes);
-
-			return ac != null && (ac.Type == ArtifactType.DisguisedMonster || ac.Type == ArtifactType.DeadBody || ac.GetBreakageStrength() >= 1000);
-		}
-
-		public virtual bool IsAttackable01(ref IArtifactCategory ac)
+		public virtual bool IsAttackable(ref IArtifactCategory ac)
 		{
 			var artTypes = new ArtifactType[] { ArtifactType.DisguisedMonster, ArtifactType.DeadBody, ArtifactType.InContainer, ArtifactType.DoorGate };
 
@@ -1227,6 +1222,15 @@ namespace Eamon.Game
 			return true;
 		}
 
+		public virtual bool ShouldAllowBlastSkillGains()
+		{
+			var artTypes = new ArtifactType[] { ArtifactType.DisguisedMonster, ArtifactType.DeadBody, ArtifactType.InContainer, ArtifactType.DoorGate };
+
+			var ac = GetArtifactCategory(artTypes);		// TODO: should this mirror IsAttackable ???
+
+			return ac != null && (ac.Type == ArtifactType.DisguisedMonster || ac.Type == ArtifactType.DeadBody || ac.GetBreakageStrength() >= 1000);
+		}
+
 		public virtual bool ShouldExposeInContentsWhenClosed()
 		{
 			return false;
@@ -1271,7 +1275,7 @@ namespace Eamon.Game
 
 		public virtual bool ShouldRevealContentsWhenMovedIntoLimbo(ContainerType containerType = ContainerType.In)
 		{
-			return containerType != ContainerType.In;
+			return false;
 		}
 
 		public virtual bool ShouldShowContentsWhenExamined()

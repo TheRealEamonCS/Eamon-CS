@@ -109,6 +109,13 @@ namespace EamonRT.Game
 
 				Globals.CurrState.Stage();
 
+				if (--Globals.ActionListCounter < 0)
+				{
+					gEngine.CheckToProcessActionLists();
+
+					Globals.ActionListCounter = 0;
+				}
+
 				Globals.CurrState = Globals.NextState;
 
 				Globals.NextState = null;

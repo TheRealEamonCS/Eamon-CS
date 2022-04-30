@@ -298,12 +298,13 @@ namespace EamonRT.Framework
 		void PrintMacroReplacedPagedString(string str, StringBuilder buf);
 
 		/// <summary></summary>
+		/// <param name="monster"></param>
 		/// <param name="artifact"></param>
 		/// <param name="revealContentsList"></param>
 		/// <param name="containerType"></param>
 		/// <param name="revealShowCharOwned"></param>
 		/// <param name="showCharOwned"></param>
-		void BuildRevealContentsListDescString(IArtifact artifact, IList<IArtifact> revealContentsList, ContainerType containerType, bool? revealShowCharOwned, bool showCharOwned);
+		void BuildRevealContentsListDescString(IMonster monster, IArtifact artifact, IList<IArtifact> revealContentsList, ContainerType containerType, bool revealShowCharOwned, bool showCharOwned);
 
 		/// <summary></summary>
 		/// <param name="artifact1"></param>
@@ -434,18 +435,21 @@ namespace EamonRT.Framework
 		void RevealEmbeddedArtifact(IRoom room, IArtifact artifact);
 
 		/// <summary></summary>
+		/// <param name="room"></param>
+		/// <param name="monster"></param>
 		/// <param name="artifact"></param>
 		/// <param name="location"></param>
 		/// <param name="printOutput"></param>
-		void RevealContainerContents(IArtifact artifact, long location, bool printOutput);
+		void RevealContainerContents(IRoom room, IMonster monster, IArtifact artifact, long location, bool printOutput);
 
 		/// <summary></summary>
 		/// <param name="room"></param>
+		/// <param name="monster"></param>
 		/// <param name="artifact"></param>
 		/// <param name="location"></param>
 		/// <param name="containerTypes"></param>
 		/// <param name="containerContentsList"></param>
-		void RevealContainerContents02(IRoom room, IArtifact artifact, long location, ContainerType[] containerTypes, IList<string> containerContentsList = null);
+		void RevealContainerContents02(IRoom room, IMonster monster, IArtifact artifact, long location, ContainerType[] containerTypes, IList<string> containerContentsList = null);
 
 		/// <summary></summary>
 		/// <param name="ro"></param>

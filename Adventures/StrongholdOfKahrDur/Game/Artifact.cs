@@ -11,9 +11,9 @@ namespace StrongholdOfKahrDur.Game
 	[ClassMappings]
 	public class Artifact : Eamon.Game.Artifact, IArtifact
 	{
-		public override bool IsAttackable()
+		public override bool ShouldAllowBlastSkillGains()
 		{
-			return Uid != 3 && Uid != 11 && Uid != 15 ? base.IsAttackable() : false;
+			return Uid != 3 && Uid != 11 && Uid != 15 ? base.ShouldAllowBlastSkillGains() : false;
 		}
 	}
 }

@@ -1560,8 +1560,9 @@
             <param name="str"></param>
             <param name="buf"></param>
         </member>
-        <member name="M:EamonRT.Framework.IEngine.BuildRevealContentsListDescString(Eamon.Framework.IArtifact,System.Collections.Generic.IList{Eamon.Framework.IArtifact},Eamon.Framework.Primitive.Enums.ContainerType,System.Nullable{System.Boolean},System.Boolean)">
+        <member name="M:EamonRT.Framework.IEngine.BuildRevealContentsListDescString(Eamon.Framework.IMonster,Eamon.Framework.IArtifact,System.Collections.Generic.IList{Eamon.Framework.IArtifact},Eamon.Framework.Primitive.Enums.ContainerType,System.Boolean,System.Boolean)">
             <summary></summary>
+            <param name="monster"></param>
             <param name="artifact"></param>
             <param name="revealContentsList"></param>
             <param name="containerType"></param>
@@ -1696,15 +1697,18 @@
             <param name="room"></param>
             <param name="artifact"></param>
         </member>
-        <member name="M:EamonRT.Framework.IEngine.RevealContainerContents(Eamon.Framework.IArtifact,System.Int64,System.Boolean)">
+        <member name="M:EamonRT.Framework.IEngine.RevealContainerContents(Eamon.Framework.IRoom,Eamon.Framework.IMonster,Eamon.Framework.IArtifact,System.Int64,System.Boolean)">
             <summary></summary>
+            <param name="room"></param>
+            <param name="monster"></param>
             <param name="artifact"></param>
             <param name="location"></param>
             <param name="printOutput"></param>
         </member>
-        <member name="M:EamonRT.Framework.IEngine.RevealContainerContents02(Eamon.Framework.IRoom,Eamon.Framework.IArtifact,System.Int64,Eamon.Framework.Primitive.Enums.ContainerType[],System.Collections.Generic.IList{System.String})">
+        <member name="M:EamonRT.Framework.IEngine.RevealContainerContents02(Eamon.Framework.IRoom,Eamon.Framework.IMonster,Eamon.Framework.IArtifact,System.Int64,Eamon.Framework.Primitive.Enums.ContainerType[],System.Collections.Generic.IList{System.String})">
             <summary></summary>
             <param name="room"></param>
+            <param name="monster"></param>
             <param name="artifact"></param>
             <param name="location"></param>
             <param name="containerTypes"></param>
@@ -2209,6 +2213,9 @@
             <summary></summary>
         </member>
         <member name="P:EamonRT.Framework.Plugin.IPluginGlobals.SkillIncreaseFuncList">
+            <summary></summary>
+        </member>
+        <member name="P:EamonRT.Framework.Plugin.IPluginGlobals.ActionListCounter">
             <summary></summary>
         </member>
         <member name="P:EamonRT.Framework.Plugin.IPluginGlobals.LoopMonsterUid">
@@ -3445,10 +3452,16 @@
         <member name="P:EamonRT.Game.Components.CombatComponent.DisguisedMonster">
             <summary></summary>
         </member>
+        <member name="P:EamonRT.Game.Components.CombatComponent.SpilledArtifactContainerAc">
+            <summary></summary>
+        </member>
         <member name="P:EamonRT.Game.Components.CombatComponent.ActorAc">
             <summary></summary>
         </member>
         <member name="P:EamonRT.Game.Components.CombatComponent.DobjAc">
+            <summary></summary>
+        </member>
+        <member name="P:EamonRT.Game.Components.CombatComponent.SpilledArtifactContainer">
             <summary></summary>
         </member>
         <member name="P:EamonRT.Game.Components.CombatComponent.WpnArtifact">
@@ -3460,10 +3473,16 @@
         <member name="P:EamonRT.Game.Components.CombatComponent.DobjWeapon">
             <summary></summary>
         </member>
+        <member name="P:EamonRT.Game.Components.CombatComponent.SpilledArtifactContainerType">
+            <summary></summary>
+        </member>
         <member name="P:EamonRT.Game.Components.CombatComponent.ActorWeaponType">
             <summary></summary>
         </member>
         <member name="P:EamonRT.Game.Components.CombatComponent.DobjWeaponType">
+            <summary></summary>
+        </member>
+        <member name="P:EamonRT.Game.Components.CombatComponent.SpilledArtifactContainerSeen">
             <summary></summary>
         </member>
         <member name="P:EamonRT.Game.Components.CombatComponent.SpillContents">
