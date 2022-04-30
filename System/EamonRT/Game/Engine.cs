@@ -1800,24 +1800,13 @@ ProcessRevealArtifact:
 						}
 						else if (revealMonster != null)
 						{
-							var artCount = 0L;
-
-							var artWeight = revealArtifact.Weight;
-
-							if (revealArtifact.GeneralContainer != null)
-							{
-								rc = revealArtifact.GetContainerInfo(ref artCount, ref artWeight, (ContainerType)(-1), true);
-
-								Debug.Assert(IsSuccess(rc));
-							}
-
 							var monWeight = 0L;
 
 							rc = revealMonster.GetFullInventoryWeight(ref monWeight, recurse: true);
 
 							Debug.Assert(IsSuccess(rc));
 
-							var revealArtifactTooHeavy = EnforceMonsterWeightLimits && (artWeight > revealMonster.GetWeightCarryableGronds() || monWeight > revealMonster.GetWeightCarryableGronds() * revealMonster.CurrGroupCount);
+							var revealArtifactTooHeavy = EnforceMonsterWeightLimits && (revealArtifact.RecursiveWeight > revealMonster.GetWeightCarryableGronds() || monWeight > revealMonster.GetWeightCarryableGronds() * revealMonster.CurrGroupCount);
 
 							if (revealArtifact.IsWornByMonster(revealMonster) && (revealArtifact.Wearable == null || revealArtifactTooHeavy))
 							{
@@ -1846,7 +1835,7 @@ ProcessRevealArtifact:
 								goto ProcessRevealArtifact;			// TODO: find a replacement for goto that doesn't increase complexity
 							}
 						}
-						else if (revealArtifact.IsEmbeddedInRoom())
+						else if (revealArtifact.IsEmbeddedInRoom(room))
 						{
 							if (artifact.IsInRoom(room))
 							{
@@ -1861,7 +1850,9 @@ ProcessRevealArtifact:
 						}
 						else if (revealArtifact.IsInLimbo())
 						{
-							revealArtifact.SetInRoom(room);
+							revealArtifact.SetCarriedByContainer(artifact, containerType);
+
+							revealContents = false;
 						}
 					}
 
