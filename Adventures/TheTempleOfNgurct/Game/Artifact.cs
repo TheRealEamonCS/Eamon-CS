@@ -19,7 +19,7 @@ namespace TheTempleOfNgurct.Game
 			return Uid != 63 && base.IsReadyableByMonsterUid(monsterUid);
 		}
 
-		public override bool IsAttackable01(ref IArtifactCategory ac)
+		public override bool IsAttackable(ref IArtifactCategory ac)
 		{
 			// Statue is attackable
 
@@ -31,8 +31,15 @@ namespace TheTempleOfNgurct.Game
 			}
 			else
 			{
-				return base.IsAttackable01(ref ac);
+				return base.IsAttackable(ref ac);
 			}
+		}
+
+		public override bool ShouldAllowBlastSkillGains()
+		{
+			// Statue allows Blast skill gains
+
+			return Uid == 50 || base.ShouldAllowBlastSkillGains();
 		}
 	}
 }

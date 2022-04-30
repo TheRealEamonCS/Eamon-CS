@@ -1586,11 +1586,7 @@
             <param name="weapon"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IArtifact.IsAttackable">
-            <summary></summary>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IArtifact.IsAttackable01(Eamon.Framework.Primitive.Classes.IArtifactCategory@)">
+        <member name="M:Eamon.Framework.IArtifact.IsAttackable(Eamon.Framework.Primitive.Classes.IArtifactCategory@)">
             <summary></summary>
             <param name="ac"></param>
             <returns></returns>
@@ -1624,6 +1620,10 @@
             <returns></returns>
         </member>
         <member name="M:Eamon.Framework.IArtifact.IsInContainerOpenedFromTop">
+            <summary></summary>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.IArtifact.ShouldAllowBlastSkillGains">
             <summary></summary>
             <returns></returns>
         </member>
@@ -5214,8 +5214,9 @@
             <summary></summary>
             <param name="fileName"></param>
         </member>
-        <member name="M:Eamon.Framework.Plugin.IPluginGlobals.ResetRevealContentProperties">
+        <member name="M:Eamon.Framework.Plugin.IPluginGlobals.ResetRevealContentProperties(System.Boolean)">
             <summary></summary>
+            <param name="resetObjects"></param>
         </member>
         <member name="T:Eamon.Framework.Portability.IDirectory">
             <summary></summary>

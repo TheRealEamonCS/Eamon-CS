@@ -25,6 +25,8 @@ namespace EamonRT.Game.Commands
 	{
 		public IMonster _actorMonster;
 
+		public IRoom _actorRoom;
+
 		public virtual ICommand Command { get; set; }
 
 		public virtual ICommandParser CommandParser { get; set; }
@@ -47,7 +49,23 @@ namespace EamonRT.Game.Commands
 			}
 		}
 
-		public virtual IRoom ActorRoom { get; set; }
+		public virtual IRoom ActorRoom
+		{
+			get
+			{
+				return _actorRoom;
+			}
+
+			set
+			{
+				if (Globals.RevealContentCounter > 0)
+				{
+					Globals.RevealContentRoom = value;
+				}
+
+				_actorRoom = value;
+			}
+		}
 
 		public virtual IGameBase Dobj { get; set; }
 
@@ -505,7 +523,7 @@ namespace EamonRT.Game.Commands
 		{
 			Debug.Assert(artifact != null && containerArtifactList != null && containerArtifactList.Count > 0 && Enum.IsDefined(typeof(ContainerType), containerType));
 
-			Globals.Buf.SetFormat("{0}{1} {2} you see ",
+			Globals.Buf.SetFormat("{0}{1} {2}, you see ",
 				Environment.NewLine,
 				gEngine.EvalContainerType(containerType, "Inside", "On", "Under", "Behind"),
 				artifact.GetTheName(false, showCharOwned, false, false, Globals.Buf01));

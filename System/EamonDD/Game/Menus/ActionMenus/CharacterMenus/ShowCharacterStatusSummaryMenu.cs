@@ -124,6 +124,13 @@ namespace EamonDD.Game.Menus.ActionMenus
 					var advChar = advCharList.FirstOrDefault(ac => ac.Character.Uid == character.Uid);
 
 					Buf.SetFormat("{0,3}. {1}: {2} ({3})", character.Uid, gEngine.Capitalize(character.Name), character.Status, advChar != null ? gEngine.Capitalize(advChar.Module.Name) : "???");
+
+					if (Buf.Length > Constants.RightMargin)
+					{
+						Buf.Length = (int)(Constants.RightMargin - 4);
+
+						Buf.Append("...)");
+					}
 				}
 				else
 				{

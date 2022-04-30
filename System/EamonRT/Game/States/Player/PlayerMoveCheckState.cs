@@ -45,8 +45,6 @@ namespace EamonRT.Game.States
 
 			Debug.Assert(gCharMonster != null);
 
-			gEngine.CheckToProcessActionLists();
-
 			ProcessEvents(EventType.BeforeCanMoveToRoomCheck);
 
 			if (GotoCleanup)

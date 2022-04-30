@@ -64,11 +64,11 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			gOut.WriteLine();
 
-			gOut.Write("Loading Apple II Eamon adventure data... ");
+			gOut.Write("Loading Apple II Eamon adventure data ... ");
 
 			if (!a2eac.LoadAdventure() || !a2eac.ConvertAdventure())
 			{
-				gOut.WriteLine("failed");
+				gOut.WriteLine("failed.");
 
 				gOut.Print(a2eac.ErrorMessage);
 
@@ -79,7 +79,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 				goto Cleanup;
 			}
 
-			gOut.WriteLine("succeeded");
+			gOut.WriteLine("succeeded.");
 
 			var a2eAdv = a2eac.Adventure;
 

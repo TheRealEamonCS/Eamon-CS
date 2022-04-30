@@ -53,8 +53,6 @@ namespace ARuncibleCargo.Game.Commands
 							PrintWhamHitObj(DobjArtifact);
 						}
 
-						gEngine.CheckActionList(Globals.SkillIncreaseFuncList);
-
 						// Attack cell = Open Jail
 
 						var ac = DobjArtifact.InContainer;

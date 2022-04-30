@@ -268,6 +268,7 @@ namespace Eamon.Framework.Plugin
 		void UpgradeDatafile(string fileName);
 
 		/// <summary></summary>
-		void ResetRevealContentProperties();
+		/// <param name="resetObjects"></param>
+		void ResetRevealContentProperties(bool resetObjects = true);
 	}
 }

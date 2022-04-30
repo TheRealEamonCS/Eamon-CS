@@ -153,7 +153,7 @@ namespace EamonRT.Game.Commands
 
 			DobjArtAc = null;
 
-			if (!DobjArtifact.IsAttackable01(ref _dobjArtAc))
+			if (!DobjArtifact.IsAttackable(ref _dobjArtAc))
 			{
 				PrintWhyAttack(DobjArtifact);
 

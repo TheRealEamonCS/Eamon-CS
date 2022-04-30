@@ -59,10 +59,16 @@ namespace EamonRT.Game.Components
 		public virtual IMonster DisguisedMonster { get; set; }
 
 		/// <summary></summary>
+		public virtual IArtifactCategory SpilledArtifactContainerAc { get; set; }
+
+		/// <summary></summary>
 		public virtual IArtifactCategory ActorAc { get; set; }
 
 		/// <summary></summary>
 		public virtual IArtifactCategory DobjAc { get; set; }
+
+		/// <summary></summary>
+		public virtual IArtifact SpilledArtifactContainer { get; set; }
 
 		/// <summary></summary>
 		public virtual IArtifact WpnArtifact { get; set; }
@@ -74,10 +80,16 @@ namespace EamonRT.Game.Components
 		public virtual IArtifact DobjWeapon { get; set; }
 
 		/// <summary></summary>
+		public virtual ContainerType SpilledArtifactContainerType { get; set; }
+
+		/// <summary></summary>
 		public virtual Weapon ActorWeaponType { get; set; }
 
 		/// <summary></summary>
 		public virtual Weapon DobjWeaponType { get; set; }
+
+		/// <summary></summary>
+		public virtual bool SpilledArtifactContainerSeen { get; set; }
 
 		/// <summary></summary>
 		public virtual bool SpillContents { get; set; }
@@ -741,6 +753,11 @@ namespace EamonRT.Game.Components
 
 				SetNextStateFunc(RedirectCommand);
 
+				if (BlastSpell)
+				{
+					Globals.ActionListCounter++;
+				}
+
 				CombatState = CombatState.EndAttack;
 
 				goto Cleanup;
@@ -945,7 +962,11 @@ namespace EamonRT.Game.Components
 		/// <summary></summary>
 		public virtual void CheckSpillContents()
 		{
+			RetCode rc;
+
 			Debug.Assert(DobjArtifact != null && DobjArtAc != null);
+
+			Globals.RevealContentCounter--;
 
 			SpillContents = false;
 
@@ -958,9 +979,39 @@ namespace EamonRT.Game.Components
 					SpilledArtifactList.AddRange(DobjArtifact.GetContainedList(containerType: ContainerType.On));
 				}
 
+				SpilledArtifactList = SpilledArtifactList.OrderByDescending(a => a.RecursiveWeight).ToList();
+
 				foreach (var artifact in SpilledArtifactList)
 				{
-					artifact.SetInRoom(ActorRoom);
+					artifact.Location = DobjArtifact.Location;
+
+ProcessSpilledArtifact:
+
+					SpilledArtifactContainer = artifact.GetCarriedByContainer();
+
+					SpilledArtifactContainerType = artifact.GetCarriedByContainerContainerType();
+
+					SpilledArtifactContainerAc = SpilledArtifactContainer != null && Enum.IsDefined(typeof(ContainerType), SpilledArtifactContainerType) ? gEngine.EvalContainerType(SpilledArtifactContainerType, SpilledArtifactContainer.InContainer, SpilledArtifactContainer.OnContainer, SpilledArtifactContainer.UnderContainer, SpilledArtifactContainer.BehindContainer) : null;
+
+					if (SpilledArtifactContainer != null && SpilledArtifactContainerAc != null)
+					{
+						SpilledArtifactContainerSeen = true;
+
+						var count = 0L;
+
+						var weight = 0L;
+
+						rc = SpilledArtifactContainer.GetContainerInfo(ref count, ref weight, SpilledArtifactContainerType, false);
+
+						Debug.Assert(gEngine.IsSuccess(rc));
+
+						if (count > SpilledArtifactContainerAc.Field4 || weight > SpilledArtifactContainerAc.Field3)
+						{
+							artifact.Location = SpilledArtifactContainer.Location;
+							
+							goto ProcessSpilledArtifact;			// TODO: find a replacement for goto that doesn't increase complexity
+						}
+					}
 				}
 
 				if (SpilledArtifactList.Count > 0)
@@ -971,7 +1022,9 @@ namespace EamonRT.Game.Components
 				DobjArtAc.Field3 = 0;
 			}
 
-			PrintSmashesToPieces(ActorRoom, DobjArtifact, SpillContents);
+			PrintSmashesToPieces(SpilledArtifactContainerSeen ? null : ActorRoom, DobjArtifact, SpillContents);
+
+			Globals.RevealContentCounter++;
 
 			CombatState = CombatState.EndAttack;
 		}

@@ -26,6 +26,8 @@ namespace TheDeepCanyon.Game.Components
 
 			if (DobjMonster != null && DobjMonster.Uid == 24)
 			{
+				PrintZapDirectHit();
+
 				gOut.Print("The power of Elzod protects the elephants from your magical attack!");
 
 				MagicState = MagicState.EndMagic;

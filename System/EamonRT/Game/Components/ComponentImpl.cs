@@ -257,14 +257,17 @@ namespace EamonRT.Game.Components
 
 		public virtual void PrintSmashesToPieces(IRoom room, IArtifact artifact, bool spillContents)
 		{
-			Debug.Assert(room != null && artifact != null);
+			Debug.Assert(artifact != null);
 
 			gOut.Print("{0}{1} {2} to pieces{3}!",
 				Environment.NewLine,
 				artifact.GetTheName(true),
 				artifact.EvalPlural("smashes", "smash"),
-				spillContents ? string.Format("; {0} contents spill to the {1}", artifact.EvalPlural("its", "their"), room.EvalRoomType("floor", "ground")) :
-				"");
+				spillContents ?
+					string.Format("; {0} contents spill {1}",
+						artifact.EvalPlural("its", "their"), 
+						room != null ? room.EvalRoomType("to the floor", "to the ground") : "forth") :
+					"");
 		}
 
 		public virtual void PrintWeaponAbilityIncreased(Weapon w, IWeapon weapon)

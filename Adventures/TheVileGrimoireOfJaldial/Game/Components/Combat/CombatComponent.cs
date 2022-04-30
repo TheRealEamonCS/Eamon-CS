@@ -35,12 +35,15 @@ namespace TheVileGrimoireOfJaldial.Game.Components
 
 			if (DobjMonster != null && DobjMonster.Uid == 41 && !griffinMonster.IsInLimbo() && !gGameState.GriffinAngered)
 			{
-				if (griffinMonster.IsInRoom(ActorRoom) && ActorRoom.IsLit())
+				Globals.MiscEventFuncList02.Add(() =>
 				{
-					gEngine.PrintEffectDesc(82);
-				}
+					if (griffinMonster.IsInRoom(ActorRoom) && ActorRoom.IsLit())
+					{
+						gEngine.PrintEffectDesc(82);
+					}
 
-				gGameState.GriffinAngered = true;
+					gGameState.GriffinAngered = true;
+				});
 			}
 
 			base.ExecuteAttack();

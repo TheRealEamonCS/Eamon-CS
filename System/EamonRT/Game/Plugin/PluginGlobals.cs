@@ -35,6 +35,8 @@ namespace EamonRT.Game.Plugin
 
 		public virtual IList<Action> SkillIncreaseFuncList { get; set; }
 
+		public virtual long ActionListCounter { get; set; }
+
 		public virtual long LoopMonsterUid { get; set; }
 
 		public virtual long LoopMemberNumber { get; set; }
