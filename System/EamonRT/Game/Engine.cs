@@ -532,7 +532,7 @@ namespace EamonRT.Game
 
 			Globals.Buf02.SetFormat("{0} {1}", 
 				monster != null && !monster.IsCharacterMonster() ? monster.GetTheName() : "you",
-				monster != null && !monster.IsCharacterMonster() ? monster.EvalPlural("finds", "find") : "find");
+				"found");			// monster != null && !monster.IsCharacterMonster() ? monster.EvalPlural("finds", "find") : "find"
 
 			Globals.Buf.SetFormat("{0}{1} {2}, {3} ",
 				Environment.NewLine,
