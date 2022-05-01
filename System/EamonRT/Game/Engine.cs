@@ -531,8 +531,8 @@ namespace EamonRT.Game
 			Debug.Assert(artifact != null && revealContentsList != null && revealContentsList.Count > 0 && Enum.IsDefined(typeof(ContainerType), containerType));
 
 			Globals.Buf02.SetFormat("{0} {1}", 
-				monster != null && !monster.IsCharacterMonster() ? monster.GetTheName() : "you",
-				"found");			// monster != null && !monster.IsCharacterMonster() ? monster.EvalPlural("finds", "find") : "find"
+				monster != null && !monster.IsCharacterMonster() ? monster.GetArticleName(groupCountOne: true) : "you",
+				monster != null && !monster.IsCharacterMonster() ? "finds" : "have found");
 
 			Globals.Buf.SetFormat("{0}{1} {2}, {3} ",
 				Environment.NewLine,
