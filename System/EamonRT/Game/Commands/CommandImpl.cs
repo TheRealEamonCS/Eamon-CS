@@ -718,7 +718,7 @@ namespace EamonRT.Game.Commands
 		{
 			Debug.Assert(artifact != null && monster != null);
 
-			gOut.Print("You give {0} to {1}.", artifact.GetTheName(), monster.GetTheName(buf: Globals.Buf01));
+			gOut.Print("You've given {0} to {1}.", artifact.GetTheName(), monster.GetTheName(buf: Globals.Buf01));
 		}
 
 		public virtual void PrintObjBelongsToActor(IArtifact artifact, IMonster monster)
@@ -739,7 +739,7 @@ namespace EamonRT.Game.Commands
 		{
 			Debug.Assert(artifact != null && key != null);
 
-			gOut.Print("You open {0} with {1}.", artifact.EvalPlural("it", "them"), key.GetTheName());
+			gOut.Print("You've opened {0} with {1}.", artifact.EvalPlural("it", "them"), key.GetTheName());
 		}
 
 		public virtual void PrintPutObjPrepContainer(IArtifact artifact, IArtifact container, ContainerType containerType)
