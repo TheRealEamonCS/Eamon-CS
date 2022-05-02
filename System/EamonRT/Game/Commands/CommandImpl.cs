@@ -718,7 +718,7 @@ namespace EamonRT.Game.Commands
 		{
 			Debug.Assert(artifact != null && monster != null);
 
-			gOut.Print("You've given {0} to {1}.", artifact.GetTheName(), monster.GetTheName(buf: Globals.Buf01));
+			gOut.Print("You have given {0} to {1}.", artifact.GetTheName(), monster.GetTheName(buf: Globals.Buf01));
 		}
 
 		public virtual void PrintObjBelongsToActor(IArtifact artifact, IMonster monster)
