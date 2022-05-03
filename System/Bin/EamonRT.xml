@@ -1204,12 +1204,12 @@
             <param name="artifact"></param>
             <param name="spillContents"></param>
         </member>
-        <member name="M:EamonRT.Framework.Components.IComponentSignatures.PrintWeaponAbilityIncreased(Eamon.Framework.Primitive.Enums.Weapon,Eamon.Framework.Primitive.Classes.IWeapon)">
+        <member name="M:EamonRT.Framework.Components.IComponentSignatures.PrintWeaponAbilityIncreases(Eamon.Framework.Primitive.Enums.Weapon,Eamon.Framework.Primitive.Classes.IWeapon)">
             <summary></summary>
             <param name="w"></param>
             <param name="weapon"></param>
         </member>
-        <member name="M:EamonRT.Framework.Components.IComponentSignatures.PrintArmorExpertiseIncreased">
+        <member name="M:EamonRT.Framework.Components.IComponentSignatures.PrintArmorExpertiseIncreases">
             <summary></summary>
         </member>
         <member name="M:EamonRT.Framework.Components.IComponentSignatures.PrintSpellOverloadsBrain(Eamon.Framework.Primitive.Enums.Spell,Eamon.Framework.Primitive.Classes.ISpell)">
@@ -1217,7 +1217,7 @@
             <param name="s"></param>
             <param name="spell"></param>
         </member>
-        <member name="M:EamonRT.Framework.Components.IComponentSignatures.PrintSpellAbilityIncreased(Eamon.Framework.Primitive.Enums.Spell,Eamon.Framework.Primitive.Classes.ISpell)">
+        <member name="M:EamonRT.Framework.Components.IComponentSignatures.PrintSpellAbilityIncreases(Eamon.Framework.Primitive.Enums.Spell,Eamon.Framework.Primitive.Classes.ISpell)">
             <summary></summary>
             <param name="s"></param>
             <param name="spell"></param>

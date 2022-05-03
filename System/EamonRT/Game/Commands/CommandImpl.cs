@@ -476,7 +476,7 @@ namespace EamonRT.Game.Commands
 		{
 			Debug.Assert(artifact != null);
 
-			gOut.Print("You've lit {0}.", artifact.GetTheName());
+			gOut.Print("You light {0}.", artifact.GetTheName());
 		}
 
 		public virtual void PrintExtinguishObj(IArtifact artifact)
@@ -718,7 +718,7 @@ namespace EamonRT.Game.Commands
 		{
 			Debug.Assert(artifact != null && monster != null);
 
-			gOut.Print("You have given {0} to {1}.", artifact.GetTheName(), monster.GetTheName(buf: Globals.Buf01));
+			gOut.Print("You give {0} to {1}.", artifact.GetTheName(), monster.GetTheName(buf: Globals.Buf01));
 		}
 
 		public virtual void PrintObjBelongsToActor(IArtifact artifact, IMonster monster)
@@ -732,14 +732,14 @@ namespace EamonRT.Game.Commands
 		{
 			Debug.Assert(monster != null);
 
-			gOut.Print("You have freed {0}{1}.", monster.GetTheName(), key != null ? string.Format(" with {0}", key.GetTheName(buf: Globals.Buf01)) : "");
+			gOut.Print("You free {0}{1}.", monster.GetTheName(), key != null ? string.Format(" with {0}", key.GetTheName(buf: Globals.Buf01)) : "");
 		}
 
 		public virtual void PrintOpenObjWithKey(IArtifact artifact, IArtifact key)
 		{
 			Debug.Assert(artifact != null && key != null);
 
-			gOut.Print("You've opened {0} with {1}.", artifact.EvalPlural("it", "them"), key.GetTheName());
+			gOut.Print("You open {0} with {1}.", artifact.EvalPlural("it", "them"), key.GetTheName());
 		}
 
 		public virtual void PrintPutObjPrepContainer(IArtifact artifact, IArtifact container, ContainerType containerType)

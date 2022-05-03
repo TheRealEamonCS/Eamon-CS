@@ -52,7 +52,7 @@ namespace ARuncibleCargo.Game.Commands
 
 						gEngine.PrintEffectDesc(76);
 
-						gOut.Print("Your ability to cast {0} just increased!", spell.Name);
+						gOut.Print("Your ability to cast {0} increases!", spell.Name);
 
 						gGameState.PaperRead = true;
 					}
