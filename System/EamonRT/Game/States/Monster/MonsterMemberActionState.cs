@@ -151,7 +151,11 @@ namespace EamonRT.Game.States
 
 							ActionCommand.Execute();
 
+							Globals.UseRevealContentMonsterTheName = true;
+
 							gEngine.CheckRevealContainerContents();
+
+							Globals.UseRevealContentMonsterTheName = false;
 						}
 
 						if (WeaponArtifact.IsCarriedByMonster(LoopMonster))
