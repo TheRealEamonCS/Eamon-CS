@@ -919,6 +919,7 @@ namespace EamonRT.Game.Commands
 
 			if (gGameState.EnhancedParser)
 			{
+				gOut.WriteLine("  {0,-22}{1,-22}{2,-22}", "IobjPronounAffinity", "True, False", gGameState.IobjPronounAffinity);
 				gOut.WriteLine("  {0,-22}{1,-22}{2,-22}", "ShowPronounChanges", "True, False", gGameState.ShowPronounChanges);
 				gOut.WriteLine("  {0,-22}{1,-22}{2,-22}", "ShowFulfillMessages", "True, False", gGameState.ShowFulfillMessages);
 			}

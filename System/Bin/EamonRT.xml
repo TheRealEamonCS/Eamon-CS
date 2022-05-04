@@ -925,6 +925,9 @@
         <member name="P:EamonRT.Framework.Commands.ISettingsCommand.EnhancedParser">
             <summary></summary>
         </member>
+        <member name="P:EamonRT.Framework.Commands.ISettingsCommand.IobjPronounAffinity">
+            <summary></summary>
+        </member>
         <member name="P:EamonRT.Framework.Commands.ISettingsCommand.ShowPronounChanges">
             <summary></summary>
         </member>

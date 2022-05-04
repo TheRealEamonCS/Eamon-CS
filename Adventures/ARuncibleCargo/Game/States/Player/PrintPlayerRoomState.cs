@@ -106,6 +106,8 @@ namespace ARuncibleCargo.Game.States
 
 					gameState.EnhancedParser = gameState01.EnhancedParser;
 
+					gameState.IobjPronounAffinity = gameState01.IobjPronounAffinity;
+
 					gameState.ShowPronounChanges = gameState01.ShowPronounChanges;
 
 					gameState.ShowFulfillMessages = gameState01.ShowFulfillMessages;

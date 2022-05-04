@@ -3365,6 +3365,9 @@
         <member name="P:Eamon.Framework.IGameState.EnhancedParser">
             <summary></summary>
         </member>
+        <member name="P:Eamon.Framework.IGameState.IobjPronounAffinity">
+            <summary></summary>
+        </member>
         <member name="P:Eamon.Framework.IGameState.ShowPronounChanges">
             <summary></summary>
         </member>
