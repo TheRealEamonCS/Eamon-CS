@@ -1118,7 +1118,7 @@ namespace EamonRT
 
 					Globals.Error.Write("{0}Error: {1}",
 						Environment.NewLine,
-						gCharacter == null ? "Use EamonMH to send a character on this adventure." :
+						gCharacter == null ? "Use EamonMH to send a character on this adventure" :
 						gCharacter.Uid <= 0 ? "gCharacter.Uid <= 0" :
 						gCharacter.Status != Status.Adventuring ? "gCharacter.Status != Status.Adventuring" :
 						string.IsNullOrWhiteSpace(gCharacter.Name) ? "string.IsNullOrWhiteSpace(gCharacter.Name)" :
@@ -1140,7 +1140,7 @@ namespace EamonRT
 
 					Globals.Error.Write("{0}Error: {1}",
 						Environment.NewLine,
-						Globals.Module == null ? "Use EamonDD to define a Module record for this adventure." :
+						Globals.Module == null ? "Use EamonDD to define a Module record for this adventure" :
 						"Globals.Module.Uid <= 0");
 
 					if (Globals.Module == null)
@@ -1175,7 +1175,7 @@ namespace EamonRT
 
 					Globals.Error.Write("{0}Error: {1}",
 						Environment.NewLine,
-						"Use EamonDD to define a start Room record for this adventure.");
+						"Use EamonDD to define a start Room record for this adventure");
 
 					gEngine.UnlinkOnFailure();
 
