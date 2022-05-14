@@ -890,7 +890,7 @@ namespace YourAdventureName.YourGameNamespaceName
 						process.StartInfo.CreateNoWindow = true;
 
 						process.StartInfo.FileName = "dotnet";
-						process.StartInfo.Arguments = string.Format("build {0} --no-dependencies", projName);
+						process.StartInfo.Arguments = string.Format("build \"{0}\" --no-dependencies", projName);
 						process.StartInfo.WorkingDirectory = string.Format("..{0}..", Globals.Path.DirectorySeparatorChar);
 
 						gOut.Write("Rebuilding {0} project ... ", Globals.Path.GetFileNameWithoutExtension(projName));
