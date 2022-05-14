@@ -105,11 +105,11 @@ namespace Eamon.Game.Plugin
 
 			var exceptionMessage = !string.IsNullOrWhiteSpace(ex.Message) ? ex.Message.Trim() : null;
 
-			errorBuf.AppendFormat("{0}Error: {1}{2}{3}",
+			errorBuf.AppendFormat("{0}Error: {1}{2}{3}.",
 				Environment.NewLine,
 				exceptionMessage != null ? exceptionMessage : "",
-				exceptionMessage != null && exceptionMessage.EndsWith(".") ? "  " : exceptionMessage != null ? ".  " : "",
-				string.Format("See stack trace file [{0}] for more details.", stackTraceFile));
+				exceptionMessage != null && exceptionMessage.EndsWith(".") ? " " : exceptionMessage != null ? ". " : "",
+				string.Format("See stack trace file [{0}] for more details", stackTraceFile));
 
 			errorBuf.AppendFormat("{0}", errorMessage);
 
@@ -274,9 +274,9 @@ namespace Eamon.Game.Plugin
 					{
 						var errorBuf = new StringBuilder(Constants.BufSize);
 
-						errorBuf.AppendFormat("{0}Error: Couldn't find ClassMappings interface for class [{1}]", Environment.NewLine, t.Name);
+						errorBuf.AppendFormat("{0}Error: Couldn't find ClassMappings interface for class [{1}].", Environment.NewLine, t.Name);
 
-						errorBuf.AppendFormat("{0}Error: LoadPluginClassMappings01 function call failed for plugin [{1}]", Environment.NewLine, plugin.GetShortName());
+						errorBuf.AppendFormat("{0}Error: LoadPluginClassMappings01 function call failed for plugin [{1}].", Environment.NewLine, plugin.GetShortName());
 
 						rc = RetCode.Failure;
 

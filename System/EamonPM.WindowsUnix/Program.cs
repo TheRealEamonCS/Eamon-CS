@@ -164,7 +164,7 @@ namespace EamonPM
 					(
 						ex,
 						Constants.StackTraceFile,
-						string.Format("{0}Error: Caught fatal exception; terminating program", Environment.NewLine)
+						string.Format("{0}Error: Caught fatal exception; terminating program.", Environment.NewLine)
 					);
 
 					goto Cleanup;

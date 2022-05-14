@@ -96,9 +96,9 @@ namespace Eamon.Game.DataStorage
 					{
 						rc = RetCode.Failure;
 
-						Globals.Error.WriteLine("{0}Error: expected valid [{1} value], found [{2}]", Environment.NewLine, helper.GetName(helper.ErrorFieldName), helper.GetValue(helper.ErrorFieldName) ?? "null");
+						Globals.Error.WriteLine("{0}Error: Expected valid [{1} value], found [{2}].", Environment.NewLine, helper.GetName(helper.ErrorFieldName), helper.GetValue(helper.ErrorFieldName) ?? "null");
 
-						Globals.Error.WriteLine("Error: Validate function call failed for record number {0}", i);
+						Globals.Error.WriteLine("Error: Validate function call failed for record number {0}.", i);
 
 						goto Cleanup;
 					}
@@ -141,7 +141,7 @@ namespace Eamon.Game.DataStorage
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: LoadRecords function call failed");
+				Globals.Error.WriteLine("Error: LoadRecords function call failed.");
 			}
 
 			ConfigTable = table;
@@ -159,7 +159,7 @@ namespace Eamon.Game.DataStorage
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: LoadRecords function call failed");
+				Globals.Error.WriteLine("Error: LoadRecords function call failed.");
 			}
 
 			FilesetTable = table;
@@ -177,7 +177,7 @@ namespace Eamon.Game.DataStorage
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: LoadRecords function call failed");
+				Globals.Error.WriteLine("Error: LoadRecords function call failed.");
 			}
 
 			CharacterTable = table;
@@ -195,7 +195,7 @@ namespace Eamon.Game.DataStorage
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: LoadRecords function call failed");
+				Globals.Error.WriteLine("Error: LoadRecords function call failed.");
 			}
 
 			ModuleTable = table;
@@ -213,7 +213,7 @@ namespace Eamon.Game.DataStorage
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: LoadRecords function call failed");
+				Globals.Error.WriteLine("Error: LoadRecords function call failed.");
 			}
 
 			RoomTable = table;
@@ -231,7 +231,7 @@ namespace Eamon.Game.DataStorage
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: LoadRecords function call failed");
+				Globals.Error.WriteLine("Error: LoadRecords function call failed.");
 			}
 
 			ArtifactTable = table;
@@ -249,7 +249,7 @@ namespace Eamon.Game.DataStorage
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: LoadRecords function call failed");
+				Globals.Error.WriteLine("Error: LoadRecords function call failed.");
 			}
 
 			EffectTable = table;
@@ -267,7 +267,7 @@ namespace Eamon.Game.DataStorage
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: LoadRecords function call failed");
+				Globals.Error.WriteLine("Error: LoadRecords function call failed.");
 			}
 
 			MonsterTable = table;
@@ -285,7 +285,7 @@ namespace Eamon.Game.DataStorage
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: LoadRecords function call failed");
+				Globals.Error.WriteLine("Error: LoadRecords function call failed.");
 			}
 
 			HintTable = table;
@@ -303,7 +303,7 @@ namespace Eamon.Game.DataStorage
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: LoadRecords function call failed");
+				Globals.Error.WriteLine("Error: LoadRecords function call failed.");
 			}
 
 			TriggerTable = table;
@@ -321,7 +321,7 @@ namespace Eamon.Game.DataStorage
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: LoadRecords function call failed");
+				Globals.Error.WriteLine("Error: LoadRecords function call failed.");
 			}
 
 			ScriptTable = table;
@@ -339,7 +339,7 @@ namespace Eamon.Game.DataStorage
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: LoadRecords function call failed");
+				Globals.Error.WriteLine("Error: LoadRecords function call failed.");
 			}
 
 			GameStateTable = table;
@@ -387,7 +387,7 @@ namespace Eamon.Game.DataStorage
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: SaveRecords function call failed");
+				Globals.Error.WriteLine("Error: SaveRecords function call failed.");
 			}
 
 			return rc;
@@ -401,7 +401,7 @@ namespace Eamon.Game.DataStorage
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: SaveRecords function call failed");
+				Globals.Error.WriteLine("Error: SaveRecords function call failed.");
 			}
 
 			return rc;
@@ -415,7 +415,7 @@ namespace Eamon.Game.DataStorage
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: SaveRecords function call failed");
+				Globals.Error.WriteLine("Error: SaveRecords function call failed.");
 			}
 
 			return rc;
@@ -429,7 +429,7 @@ namespace Eamon.Game.DataStorage
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: SaveRecords function call failed");
+				Globals.Error.WriteLine("Error: SaveRecords function call failed.");
 			}
 
 			return rc;
@@ -443,7 +443,7 @@ namespace Eamon.Game.DataStorage
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: SaveRecords function call failed");
+				Globals.Error.WriteLine("Error: SaveRecords function call failed.");
 			}
 
 			return rc;
@@ -457,7 +457,7 @@ namespace Eamon.Game.DataStorage
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: SaveRecords function call failed");
+				Globals.Error.WriteLine("Error: SaveRecords function call failed.");
 			}
 
 			return rc;
@@ -471,7 +471,7 @@ namespace Eamon.Game.DataStorage
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: SaveRecords function call failed");
+				Globals.Error.WriteLine("Error: SaveRecords function call failed.");
 			}
 
 			return rc;
@@ -485,7 +485,7 @@ namespace Eamon.Game.DataStorage
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: SaveRecords function call failed");
+				Globals.Error.WriteLine("Error: SaveRecords function call failed.");
 			}
 
 			return rc;
@@ -499,7 +499,7 @@ namespace Eamon.Game.DataStorage
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: SaveRecords function call failed");
+				Globals.Error.WriteLine("Error: SaveRecords function call failed.");
 			}
 
 			return rc;
@@ -513,7 +513,7 @@ namespace Eamon.Game.DataStorage
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: SaveRecords function call failed");
+				Globals.Error.WriteLine("Error: SaveRecords function call failed.");
 			}
 
 			return rc;
@@ -527,7 +527,7 @@ namespace Eamon.Game.DataStorage
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: SaveRecords function call failed");
+				Globals.Error.WriteLine("Error: SaveRecords function call failed.");
 			}
 
 			return rc;
@@ -541,7 +541,7 @@ namespace Eamon.Game.DataStorage
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: SaveRecords function call failed");
+				Globals.Error.WriteLine("Error: SaveRecords function call failed.");
 			}
 
 			return rc;
