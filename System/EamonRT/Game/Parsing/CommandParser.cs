@@ -1640,7 +1640,8 @@ namespace EamonRT.Game.Parsing
 						{
 							LastThemNameStr = Globals.CloneInstance(objDataName);
 						}
-						else
+
+						if (monster.CurrGroupCount == 1)
 						{
 							if (monster.Gender == Gender.Male)
 							{
