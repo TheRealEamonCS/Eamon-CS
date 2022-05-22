@@ -3,7 +3,7 @@ Eamon CS requires the .NET 6 Runtime or SDK (for developers) installed on your s
 
 For programmers who want to play, step-through, or develop the source code:
 
-https://dotnet.microsoft.com/download/dotnet-framework/thank-you/net48-offline-installer
+https://dotnet.microsoft.com/en-us/download/dotnet-framework/thank-you/net48-offline-installer
 https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=Community&rel=17
 
 	Installer option: .NET desktop development
