@@ -1,3 +1,3 @@
 #!/bin/sh
-cd ../../..
+cd ../../System/Bin
 google-chrome https://TheRealEamonCS.github.io
