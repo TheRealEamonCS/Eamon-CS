@@ -185,7 +185,7 @@ namespace Eamon.Game
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: LoadFilesets function call failed");
+				Globals.Error.WriteLine("Error: LoadFilesets function call failed.");
 
 				goto Cleanup;
 			}
@@ -194,7 +194,7 @@ namespace Eamon.Game
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: LoadCharacters function call failed");
+				Globals.Error.WriteLine("Error: LoadCharacters function call failed.");
 
 				goto Cleanup;
 			}
@@ -203,7 +203,7 @@ namespace Eamon.Game
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: LoadModules function call failed");
+				Globals.Error.WriteLine("Error: LoadModules function call failed.");
 
 				goto Cleanup;
 			}
@@ -212,7 +212,7 @@ namespace Eamon.Game
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: LoadRooms function call failed");
+				Globals.Error.WriteLine("Error: LoadRooms function call failed.");
 
 				goto Cleanup;
 			}
@@ -221,7 +221,7 @@ namespace Eamon.Game
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: LoadArtifacts function call failed");
+				Globals.Error.WriteLine("Error: LoadArtifacts function call failed.");
 
 				goto Cleanup;
 			}
@@ -230,7 +230,7 @@ namespace Eamon.Game
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: LoadEffects function call failed");
+				Globals.Error.WriteLine("Error: LoadEffects function call failed.");
 
 				goto Cleanup;
 			}
@@ -239,7 +239,7 @@ namespace Eamon.Game
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: LoadMonsters function call failed");
+				Globals.Error.WriteLine("Error: LoadMonsters function call failed.");
 
 				goto Cleanup;
 			}
@@ -248,7 +248,7 @@ namespace Eamon.Game
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: LoadHints function call failed");
+				Globals.Error.WriteLine("Error: LoadHints function call failed.");
 
 				goto Cleanup;
 			}
@@ -259,7 +259,7 @@ namespace Eamon.Game
 
 				if (gEngine.IsFailure(rc))
 				{
-					Globals.Error.WriteLine("Error: LoadTriggers function call failed");
+					Globals.Error.WriteLine("Error: LoadTriggers function call failed.");
 
 					goto Cleanup;
 				}
@@ -271,7 +271,7 @@ namespace Eamon.Game
 
 				if (gEngine.IsFailure(rc))
 				{
-					Globals.Error.WriteLine("Error: LoadScripts function call failed");
+					Globals.Error.WriteLine("Error: LoadScripts function call failed.");
 
 					goto Cleanup;
 				}
@@ -281,7 +281,7 @@ namespace Eamon.Game
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: LoadGameStates function call failed");
+				Globals.Error.WriteLine("Error: LoadGameStates function call failed.");
 
 				goto Cleanup;
 			}
@@ -299,7 +299,7 @@ namespace Eamon.Game
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: SaveGameStates function call failed");
+				Globals.Error.WriteLine("Error: SaveGameStates function call failed.");
 
 				goto Cleanup;
 			}
@@ -310,7 +310,7 @@ namespace Eamon.Game
 
 				if (gEngine.IsFailure(rc))
 				{
-					Globals.Error.WriteLine("Error: SaveScripts function call failed");
+					Globals.Error.WriteLine("Error: SaveScripts function call failed.");
 
 					goto Cleanup;
 				}
@@ -322,7 +322,7 @@ namespace Eamon.Game
 
 				if (gEngine.IsFailure(rc))
 				{
-					Globals.Error.WriteLine("Error: SaveTriggers function call failed");
+					Globals.Error.WriteLine("Error: SaveTriggers function call failed.");
 
 					goto Cleanup;
 				}
@@ -332,7 +332,7 @@ namespace Eamon.Game
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: SaveHints function call failed");
+				Globals.Error.WriteLine("Error: SaveHints function call failed.");
 
 				goto Cleanup;
 			}
@@ -341,7 +341,7 @@ namespace Eamon.Game
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: SaveMonsters function call failed");
+				Globals.Error.WriteLine("Error: SaveMonsters function call failed.");
 
 				goto Cleanup;
 			}
@@ -350,7 +350,7 @@ namespace Eamon.Game
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: SaveEffects function call failed");
+				Globals.Error.WriteLine("Error: SaveEffects function call failed.");
 
 				goto Cleanup;
 			}
@@ -359,7 +359,7 @@ namespace Eamon.Game
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: SaveArtifacts function call failed");
+				Globals.Error.WriteLine("Error: SaveArtifacts function call failed.");
 
 				goto Cleanup;
 			}
@@ -368,7 +368,7 @@ namespace Eamon.Game
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: SaveRooms function call failed");
+				Globals.Error.WriteLine("Error: SaveRooms function call failed.");
 
 				goto Cleanup;
 			}
@@ -377,7 +377,7 @@ namespace Eamon.Game
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: SaveModules function call failed");
+				Globals.Error.WriteLine("Error: SaveModules function call failed.");
 
 				goto Cleanup;
 			}
@@ -386,7 +386,7 @@ namespace Eamon.Game
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: SaveCharacters function call failed");
+				Globals.Error.WriteLine("Error: SaveCharacters function call failed.");
 
 				goto Cleanup;
 			}
@@ -395,7 +395,7 @@ namespace Eamon.Game
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: SaveFilesets function call failed");
+				Globals.Error.WriteLine("Error: SaveFilesets function call failed.");
 
 				goto Cleanup;
 			}

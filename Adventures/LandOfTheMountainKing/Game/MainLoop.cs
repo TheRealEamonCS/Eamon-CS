@@ -24,9 +24,9 @@ namespace LandOfTheMountainKing.Game
 			gLMKKP1.SaidHello = 0;
 			gLMKKP1.SwampMonsterKilled = 0;
 
-			// SET ARMOR EXPERTISE TO 65:
+			// SET ARMOR EXPERTISE TO 79:
 			gLMKKP1.Armor = gCharacter.ArmorExpertise; //remember original value
-			gCharacter.ArmorExpertise = 65;
+			gCharacter.ArmorExpertise = 79;
 
 			// SET WEAPON ABILITIES:
 			gLMKKP1.Axe = gCharacter.GetWeaponAbilities(Weapon.Axe);

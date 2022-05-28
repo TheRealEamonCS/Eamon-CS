@@ -616,7 +616,7 @@ Date            Version            Who            Notes
 					process.StartInfo.CreateNoWindow = true;
 
 					process.StartInfo.FileName = "dotnet";
-					process.StartInfo.Arguments = string.Format("sln Eamon.Desktop.sln add {0}", projName);
+					process.StartInfo.Arguments = string.Format("sln Eamon.Desktop.sln add \"{0}\"", projName);
 					process.StartInfo.WorkingDirectory = string.Format("..{0}..", Globals.Path.DirectorySeparatorChar);
 
 					gOut.Write("Adding {0} project ... ", Globals.Path.GetFileNameWithoutExtension(projName));

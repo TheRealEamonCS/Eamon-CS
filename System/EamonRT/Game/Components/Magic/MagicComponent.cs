@@ -123,7 +123,7 @@ namespace EamonRT.Game.Components
 						{
 							if (!Globals.IsRulesetVersion(5, 15, 25))
 							{
-								PrintSpellAbilityIncreased(s, spell);
+								PrintSpellAbilityIncreases(s, spell);
 							}
 
 							gCharacter.ModSpellAbilities(s, 2);

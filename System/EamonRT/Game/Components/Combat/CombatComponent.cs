@@ -225,7 +225,7 @@ namespace EamonRT.Game.Components
 					{
 						if (!Globals.IsRulesetVersion(5, 15, 25))
 						{
-							PrintWeaponAbilityIncreased(s, weapon);
+							PrintWeaponAbilityIncreases(s, weapon);
 						}
 
 						gCharacter.ModWeaponAbilities(s, 2);
@@ -251,7 +251,7 @@ namespace EamonRT.Game.Components
 						{
 							if (!Globals.IsRulesetVersion(5, 15, 25))
 							{
-								PrintArmorExpertiseIncreased();
+								PrintArmorExpertiseIncreases();
 							}
 
 							gCharacter.ArmorExpertise += 2;

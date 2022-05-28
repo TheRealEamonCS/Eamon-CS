@@ -1,3 +1,3 @@
 @echo off
-cd ..\..\..
+cd ..\..\System\Bin
 start iexplore https://TheRealEamonCS.github.io

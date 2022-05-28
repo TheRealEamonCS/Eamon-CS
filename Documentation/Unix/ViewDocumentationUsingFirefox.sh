@@ -1,3 +1,3 @@
 #!/bin/sh
-cd ../../..
+cd ../../System/Bin
 firefox https://TheRealEamonCS.github.io

@@ -121,7 +121,7 @@ namespace EamonRT
 
 			// make announcements
 
-			gOut.Write("{0}Eamon CS Dungeon Designer ({1}) {2}", Environment.NewLine, ProgramName, Constants.DdProgVersion);
+			gOut.Write("{0}Eamon CS Dungeon Designer ({1}) {2}.", Environment.NewLine, ProgramName, Constants.DdProgVersion);
 
 			gOut.Write("{0}Copyright (c) 2014+ by Michael Penner.  All rights reserved.", Environment.NewLine);
 
@@ -209,7 +209,7 @@ namespace EamonRT
 
 				if (gEngine.IsFailure(rc))
 				{
-					Globals.Error.Write("Error: LoadConfigs function call failed");
+					Globals.Error.Write("Error: LoadConfigs function call failed.");
 
 					goto Cleanup;
 				}
@@ -362,7 +362,7 @@ namespace EamonRT
 
 				if (gEngine.IsFailure(rc))
 				{
-					Globals.Error.Write("Error: LoadFilesets function call failed");
+					Globals.Error.Write("Error: LoadFilesets function call failed.");
 
 					goto Cleanup;
 				}
@@ -374,7 +374,7 @@ namespace EamonRT
 
 				if (gEngine.IsFailure(rc))
 				{
-					Globals.Error.Write("Error: LoadCharacters function call failed");
+					Globals.Error.Write("Error: LoadCharacters function call failed.");
 
 					goto Cleanup;
 				}
@@ -386,7 +386,7 @@ namespace EamonRT
 
 				if (gEngine.IsFailure(rc))
 				{
-					Globals.Error.Write("Error: LoadModules function call failed");
+					Globals.Error.Write("Error: LoadModules function call failed.");
 
 					goto Cleanup;
 				}
@@ -398,7 +398,7 @@ namespace EamonRT
 
 				if (gEngine.IsFailure(rc))
 				{
-					Globals.Error.Write("Error: LoadRooms function call failed");
+					Globals.Error.Write("Error: LoadRooms function call failed.");
 
 					goto Cleanup;
 				}
@@ -410,7 +410,7 @@ namespace EamonRT
 
 				if (gEngine.IsFailure(rc))
 				{
-					Globals.Error.Write("Error: LoadArtifacts function call failed");
+					Globals.Error.Write("Error: LoadArtifacts function call failed.");
 
 					goto Cleanup;
 				}
@@ -422,7 +422,7 @@ namespace EamonRT
 
 				if (gEngine.IsFailure(rc))
 				{
-					Globals.Error.Write("Error: LoadEffects function call failed");
+					Globals.Error.Write("Error: LoadEffects function call failed.");
 
 					goto Cleanup;
 				}
@@ -434,7 +434,7 @@ namespace EamonRT
 
 				if (gEngine.IsFailure(rc))
 				{
-					Globals.Error.Write("Error: LoadMonsters function call failed");
+					Globals.Error.Write("Error: LoadMonsters function call failed.");
 
 					goto Cleanup;
 				}
@@ -446,7 +446,7 @@ namespace EamonRT
 
 				if (gEngine.IsFailure(rc))
 				{
-					Globals.Error.Write("Error: LoadHints function call failed");
+					Globals.Error.Write("Error: LoadHints function call failed.");
 
 					goto Cleanup;
 				}
@@ -458,7 +458,7 @@ namespace EamonRT
 
 				if (gEngine.IsFailure(rc))
 				{
-					Globals.Error.Write("Error: LoadTriggers function call failed");
+					Globals.Error.Write("Error: LoadTriggers function call failed.");
 
 					goto Cleanup;
 				}
@@ -470,7 +470,7 @@ namespace EamonRT
 
 				if (gEngine.IsFailure(rc))
 				{
-					Globals.Error.Write("Error: LoadScripts function call failed");
+					Globals.Error.Write("Error: LoadScripts function call failed.");
 
 					goto Cleanup;
 				}
@@ -618,7 +618,7 @@ namespace EamonRT
 
 					if (gEngine.IsFailure(rc))
 					{
-						Globals.Error.Write("Error: SaveScripts function call failed");
+						Globals.Error.Write("Error: SaveScripts function call failed.");
 
 						rc = RetCode.Success;
 
@@ -632,7 +632,7 @@ namespace EamonRT
 
 					if (gEngine.IsFailure(rc))
 					{
-						Globals.Error.Write("Error: SaveTriggers function call failed");
+						Globals.Error.Write("Error: SaveTriggers function call failed.");
 
 						rc = RetCode.Success;
 
@@ -646,7 +646,7 @@ namespace EamonRT
 
 					if (gEngine.IsFailure(rc))
 					{
-						Globals.Error.Write("Error: SaveHints function call failed");
+						Globals.Error.Write("Error: SaveHints function call failed.");
 
 						rc = RetCode.Success;
 
@@ -660,7 +660,7 @@ namespace EamonRT
 
 					if (gEngine.IsFailure(rc))
 					{
-						Globals.Error.Write("Error: SaveMonsters function call failed");
+						Globals.Error.Write("Error: SaveMonsters function call failed.");
 
 						rc = RetCode.Success;
 
@@ -674,7 +674,7 @@ namespace EamonRT
 
 					if (gEngine.IsFailure(rc))
 					{
-						Globals.Error.Write("Error: SaveEffects function call failed");
+						Globals.Error.Write("Error: SaveEffects function call failed.");
 
 						rc = RetCode.Success;
 
@@ -688,7 +688,7 @@ namespace EamonRT
 
 					if (gEngine.IsFailure(rc))
 					{
-						Globals.Error.Write("Error: SaveArtifacts function call failed");
+						Globals.Error.Write("Error: SaveArtifacts function call failed.");
 
 						rc = RetCode.Success;
 
@@ -702,7 +702,7 @@ namespace EamonRT
 
 					if (gEngine.IsFailure(rc))
 					{
-						Globals.Error.Write("Error: SaveRooms function call failed");
+						Globals.Error.Write("Error: SaveRooms function call failed.");
 
 						rc = RetCode.Success;
 
@@ -716,7 +716,7 @@ namespace EamonRT
 
 					if (gEngine.IsFailure(rc))
 					{
-						Globals.Error.Write("Error: SaveModules function call failed");
+						Globals.Error.Write("Error: SaveModules function call failed.");
 
 						rc = RetCode.Success;
 
@@ -730,7 +730,7 @@ namespace EamonRT
 
 					if (gEngine.IsFailure(rc))
 					{
-						Globals.Error.Write("Error: SaveCharacters function call failed");
+						Globals.Error.Write("Error: SaveCharacters function call failed.");
 
 						rc = RetCode.Success;
 
@@ -744,7 +744,7 @@ namespace EamonRT
 
 					if (gEngine.IsFailure(rc))
 					{
-						Globals.Error.Write("Error: SaveFilesets function call failed");
+						Globals.Error.Write("Error: SaveFilesets function call failed.");
 
 						rc = RetCode.Success;
 
@@ -758,7 +758,7 @@ namespace EamonRT
 
 					if (gEngine.IsFailure(rc))
 					{
-						Globals.Error.Write("Error: SaveConfigs function call failed");
+						Globals.Error.Write("Error: SaveConfigs function call failed.");
 
 						rc = RetCode.Success;
 
@@ -824,7 +824,7 @@ namespace EamonRT
 
 			// make announcements
 
-			gOut.Write("{0}Eamon CS Runtime ({1}) {2}", Environment.NewLine, ProgramName, Constants.RtProgVersion);
+			gOut.Write("{0}Eamon CS Runtime ({1}) {2}.", Environment.NewLine, ProgramName, Constants.RtProgVersion);
 
 			gOut.Write("{0}Copyright (c) 2014+ by Michael Penner.  All rights reserved.", Environment.NewLine);
 
@@ -926,7 +926,7 @@ namespace EamonRT
 
 				if (gEngine.IsFailure(rc))
 				{
-					Globals.Error.Write("Error: LoadConfigs function call failed");
+					Globals.Error.Write("Error: LoadConfigs function call failed.");
 
 					goto Cleanup;
 				}
@@ -1076,7 +1076,7 @@ namespace EamonRT
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.Write("Error: LoadGameDatabase function call failed");
+				Globals.Error.Write("Error: LoadGameDatabase function call failed.");
 
 				goto Cleanup;
 			}
@@ -1116,13 +1116,13 @@ namespace EamonRT
 				{
 					rc = RetCode.InvalidObj;
 
-					Globals.Error.Write("{0}Error: {1}",
+					Globals.Error.Write(gCharacter == null ? "{0}Error: {1}." : "{0}Error: Assertion failed [{1}].",
 						Environment.NewLine,
-						gCharacter == null ? "Use EamonMH to send a character on this adventure." :
-						gCharacter.Uid <= 0 ? "gCharacter.Uid <= 0" :
-						gCharacter.Status != Status.Adventuring ? "gCharacter.Status != Status.Adventuring" :
-						string.IsNullOrWhiteSpace(gCharacter.Name) ? "string.IsNullOrWhiteSpace(gCharacter.Name)" :
-						"gCharacter.Name.Equals(\"NONE\", StringComparison.OrdinalIgnoreCase)");
+						gCharacter == null ? "Use EamonMH to send a character on this adventure" :
+						gCharacter.Uid <= 0 ? "gCharacter.Uid > 0" :
+						gCharacter.Status != Status.Adventuring ? "gCharacter.Status == Status.Adventuring" :
+						string.IsNullOrWhiteSpace(gCharacter.Name) ? "!string.IsNullOrWhiteSpace(gCharacter.Name)" :
+						"!gCharacter.Name.Equals(\"NONE\", StringComparison.OrdinalIgnoreCase)");
 
 					if (gCharacter == null)
 					{
@@ -1138,10 +1138,10 @@ namespace EamonRT
 				{
 					rc = RetCode.InvalidObj;
 
-					Globals.Error.Write("{0}Error: {1}",
+					Globals.Error.Write(Globals.Module == null ? "{0}Error: {1}." : "{0}Error: Assertion failed [{1}].",
 						Environment.NewLine,
-						Globals.Module == null ? "Use EamonDD to define a Module record for this adventure." :
-						"Globals.Module.Uid <= 0");
+						Globals.Module == null ? "Use EamonDD to define a Module record for this adventure" :
+						"Globals.Module.Uid > 0");
 
 					if (Globals.Module == null)
 					{
@@ -1173,9 +1173,9 @@ namespace EamonRT
 				{
 					rc = RetCode.InvalidObj;
 
-					Globals.Error.Write("{0}Error: {1}",
+					Globals.Error.Write("{0}Error: {1}.",
 						Environment.NewLine,
-						"Use EamonDD to define a start Room record for this adventure.");
+						"Use EamonDD to define a start Room record for this adventure");
 
 					gEngine.UnlinkOnFailure();
 
@@ -1186,7 +1186,7 @@ namespace EamonRT
 
 				if (gEngine.IsFailure(rc))
 				{
-					Globals.Error.Write("Error: ValidateRecordsAfterDatabaseLoaded function call failed");
+					Globals.Error.Write("Error: ValidateRecordsAfterDatabaseLoaded function call failed.");
 
 					gEngine.UnlinkOnFailure();
 
@@ -1327,7 +1327,7 @@ namespace EamonRT
 
 				if (gEngine.IsFailure(rc))
 				{
-					Globals.Error.Write("Error: DeleteGameState function call failed");
+					Globals.Error.Write("Error: DeleteGameState function call failed.");
 
 					goto Cleanup;
 				}

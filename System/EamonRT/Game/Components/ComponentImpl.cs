@@ -270,16 +270,16 @@ namespace EamonRT.Game.Components
 					"");
 		}
 
-		public virtual void PrintWeaponAbilityIncreased(Weapon w, IWeapon weapon)
+		public virtual void PrintWeaponAbilityIncreases(Weapon w, IWeapon weapon)
 		{
 			Debug.Assert(Enum.IsDefined(typeof(Weapon), w) && weapon != null);
 
-			gOut.Print("Your {0} ability just increased!", weapon.Name);
+			gOut.Print("Your {0} ability increases!", weapon.Name);
 		}
 
-		public virtual void PrintArmorExpertiseIncreased()
+		public virtual void PrintArmorExpertiseIncreases()
 		{
-			gOut.Print("Your armor expertise just increased!");
+			gOut.Print("Your armor expertise increases!");
 		}
 
 		public virtual void PrintSpellOverloadsBrain(Spell s, ISpell spell)
@@ -289,11 +289,11 @@ namespace EamonRT.Game.Components
 			gOut.Print("The strain of attempting to cast {0} overloads your brain and you forget it completely{1}.", spell.Name, Globals.IsRulesetVersion(5, 15, 25) ? "" : " for the rest of this adventure");
 		}
 
-		public virtual void PrintSpellAbilityIncreased(Spell s, ISpell spell)
+		public virtual void PrintSpellAbilityIncreases(Spell s, ISpell spell)
 		{
 			Debug.Assert(Enum.IsDefined(typeof(Spell), s) && spell != null);
 
-			gOut.Print("Your ability to cast {0} just increased!", spell.Name);
+			gOut.Print("Your ability to cast {0} increases!", spell.Name);
 		}
 
 		public virtual void PrintSpellCastFailed(Spell s, ISpell spell)

@@ -58,6 +58,8 @@ namespace StrongholdOfKahrDur.Game.Components
 
 				gEngine.PrintEffectDesc(rl);
 
+				Globals.Thread.Sleep(gGameState.PauseCombatMs);
+
 				MagicState = MagicState.EndMagic;
 
 				goto Cleanup;

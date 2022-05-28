@@ -476,7 +476,7 @@ namespace EamonRT.Game.Commands
 		{
 			Debug.Assert(artifact != null);
 
-			gOut.Print("You've lit {0}.", artifact.GetTheName());
+			gOut.Print("You light {0}.", artifact.GetTheName());
 		}
 
 		public virtual void PrintExtinguishObj(IArtifact artifact)
@@ -732,7 +732,7 @@ namespace EamonRT.Game.Commands
 		{
 			Debug.Assert(monster != null);
 
-			gOut.Print("You have freed {0}{1}.", monster.GetTheName(), key != null ? string.Format(" with {0}", key.GetTheName(buf: Globals.Buf01)) : "");
+			gOut.Print("You free {0}{1}.", monster.GetTheName(), key != null ? string.Format(" with {0}", key.GetTheName(buf: Globals.Buf01)) : "");
 		}
 
 		public virtual void PrintOpenObjWithKey(IArtifact artifact, IArtifact key)
@@ -919,6 +919,7 @@ namespace EamonRT.Game.Commands
 
 			if (gGameState.EnhancedParser)
 			{
+				gOut.WriteLine("  {0,-22}{1,-22}{2,-22}", "IobjPronounAffinity", "True, False", gGameState.IobjPronounAffinity);
 				gOut.WriteLine("  {0,-22}{1,-22}{2,-22}", "ShowPronounChanges", "True, False", gGameState.ShowPronounChanges);
 				gOut.WriteLine("  {0,-22}{1,-22}{2,-22}", "ShowFulfillMessages", "True, False", gGameState.ShowFulfillMessages);
 			}
