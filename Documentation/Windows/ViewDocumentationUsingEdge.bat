@@ -1,3 +1,3 @@
 @echo off
-cd ..\..\..
+cd ..\..\System\Bin
 start microsoft-edge:https://TheRealEamonCS.github.io

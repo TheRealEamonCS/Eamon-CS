@@ -25,6 +25,8 @@ namespace EamonRT.Game.Commands
 
 		public virtual bool? EnhancedParser { get; set; } = null;
 
+		public virtual bool? IobjPronounAffinity { get; set; } = null;
+
 		public virtual bool? ShowPronounChanges { get; set; } = null;
 
 		public virtual bool? ShowFulfillMessages { get; set; } = null;
@@ -33,7 +35,7 @@ namespace EamonRT.Game.Commands
 
 		public override void Execute()
 		{
-			Debug.Assert(VerboseRooms != null || VerboseMonsters != null || VerboseArtifacts != null || MatureContent != null || EnhancedParser != null || ShowPronounChanges != null || ShowFulfillMessages != null || PauseCombatMs != null);
+			Debug.Assert(VerboseRooms != null || VerboseMonsters != null || VerboseArtifacts != null || MatureContent != null || EnhancedParser != null || IobjPronounAffinity != null || ShowPronounChanges != null || ShowFulfillMessages != null || PauseCombatMs != null);
 
 			if (VerboseRooms != null)
 			{
@@ -73,10 +75,17 @@ namespace EamonRT.Game.Commands
 
 					gCommandParser.LastThemNameStr = "";
 
+					gGameState.IobjPronounAffinity = false;
+
 					gGameState.ShowPronounChanges = false;
 
 					gGameState.ShowFulfillMessages = false;
 				}
+			}
+
+			if (IobjPronounAffinity != null)
+			{
+				gGameState.IobjPronounAffinity = (bool)IobjPronounAffinity;
 			}
 
 			if (ShowPronounChanges != null)

@@ -380,7 +380,7 @@ namespace EamonRT.Game.Commands
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: SaveGameDatabase function call failed");
+				Globals.Error.WriteLine("Error: SaveGameDatabase function call failed.");
 
 				GameSaved = false;
 			}
@@ -401,7 +401,7 @@ namespace EamonRT.Game.Commands
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: SaveConfigs function call failed");
+				Globals.Error.WriteLine("Error: SaveConfigs function call failed.");
 
 				GameSaved = false;
 			}

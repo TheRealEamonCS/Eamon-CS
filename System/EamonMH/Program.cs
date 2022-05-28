@@ -134,7 +134,7 @@ namespace EamonMH
 
 					// make announcements
 
-					gOut.Write("{0}Eamon CS Main Hall ({1}) {2}", Environment.NewLine, ProgramName, Constants.ProgVersion);
+					gOut.Write("{0}Eamon CS Main Hall ({1}) {2}.", Environment.NewLine, ProgramName, Constants.ProgVersion);
 
 					gOut.Write("{0}Copyright (c) 2014+ by Michael Penner.  All rights reserved.", Environment.NewLine);
 
@@ -215,7 +215,7 @@ namespace EamonMH
 
 						if (gEngine.IsFailure(rc))
 						{
-							Globals.Error.Write("Error: LoadConfigs function call failed");
+							Globals.Error.Write("Error: LoadConfigs function call failed.");
 
 							goto Cleanup;
 						}
@@ -289,7 +289,7 @@ namespace EamonMH
 
 					if (gEngine.IsFailure(rc))
 					{
-						Globals.Error.Write("Error: LoadFilesets function call failed");
+						Globals.Error.Write("Error: LoadFilesets function call failed.");
 
 						goto Cleanup;
 					}
@@ -298,7 +298,7 @@ namespace EamonMH
 
 					if (gEngine.IsFailure(rc))
 					{
-						Globals.Error.Write("Error: LoadCharacters function call failed");
+						Globals.Error.Write("Error: LoadCharacters function call failed.");
 
 						goto Cleanup;
 					}
@@ -307,7 +307,7 @@ namespace EamonMH
 
 					if (gEngine.IsFailure(rc))
 					{
-						Globals.Error.Write("Error: LoadEffects function call failed");
+						Globals.Error.Write("Error: LoadEffects function call failed.");
 
 						goto Cleanup;
 					}
@@ -359,7 +359,7 @@ namespace EamonMH
 
 							if (gEngine.IsFailure(rc))
 							{
-								Globals.Error.Write("Error: SaveEffects function call failed");
+								Globals.Error.Write("Error: SaveEffects function call failed.");
 
 								rc = RetCode.Success;
 
@@ -373,7 +373,7 @@ namespace EamonMH
 
 							if (gEngine.IsFailure(rc))
 							{
-								Globals.Error.Write("Error: SaveCharacters function call failed");
+								Globals.Error.Write("Error: SaveCharacters function call failed.");
 
 								rc = RetCode.Success;
 
@@ -387,7 +387,7 @@ namespace EamonMH
 
 							if (gEngine.IsFailure(rc))
 							{
-								Globals.Error.Write("Error: SaveFilesets function call failed");
+								Globals.Error.Write("Error: SaveFilesets function call failed.");
 
 								rc = RetCode.Success;
 
@@ -401,7 +401,7 @@ namespace EamonMH
 
 							if (gEngine.IsFailure(rc))
 							{
-								Globals.Error.Write("Error: SaveConfigs function call failed");
+								Globals.Error.Write("Error: SaveConfigs function call failed.");
 
 								rc = RetCode.Success;
 

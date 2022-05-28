@@ -72,7 +72,7 @@ namespace EamonRT.Game.Commands
 
 				if (gEngine.IsFailure(rc))
 				{
-					Globals.Error.Write("Error: LoadConfigs function call failed");
+					Globals.Error.Write("Error: LoadConfigs function call failed.");
 
 					Globals.ExitType = ExitType.Error;
 
@@ -85,7 +85,7 @@ namespace EamonRT.Game.Commands
 
 				if (Globals.Config == null || Globals.Config.Uid <= 0)
 				{
-					Globals.Error.Write("{0}Error: {1}", Environment.NewLine, Globals.Config == null ? "Globals.Config == null" : "Globals.Config.Uid <= 0");
+					Globals.Error.Write("{0}Error: Assertion failed [{1}].", Environment.NewLine, Globals.Config == null ? "Globals.Config != null" : "Globals.Config.Uid > 0");
 
 					Globals.ExitType = ExitType.Error;
 
@@ -120,7 +120,7 @@ namespace EamonRT.Game.Commands
 
 				if (gEngine.IsFailure(rc))
 				{
-					Globals.Error.Write("Error: LoadGameDatabase function call failed");
+					Globals.Error.Write("Error: LoadGameDatabase function call failed.");
 
 					Globals.ExitType = ExitType.Error;
 
@@ -135,13 +135,13 @@ namespace EamonRT.Game.Commands
 
 				if (gCharacter == null || gCharacter.Uid <= 0 || gCharacter.Status != Status.Adventuring || string.IsNullOrWhiteSpace(gCharacter.Name) || gCharacter.Name.Equals("NONE", StringComparison.OrdinalIgnoreCase))
 				{
-					Globals.Error.Write("{0}Error: {1}",
+					Globals.Error.Write("{0}Error: Assertion failed [{1}].",
 						Environment.NewLine,
-						gCharacter == null ? "gCharacter == null" :
-						gCharacter.Uid <= 0 ? "gCharacter.Uid <= 0" :
-						gCharacter.Status != Status.Adventuring ? "gCharacter.Status != Status.Adventuring" :
-						string.IsNullOrWhiteSpace(gCharacter.Name) ? "string.IsNullOrWhiteSpace(gCharacter.Name)" :
-						"gCharacter.Name.Equals(\"NONE\", StringComparison.OrdinalIgnoreCase)");
+						gCharacter == null ? "gCharacter != null" :
+						gCharacter.Uid <= 0 ? "gCharacter.Uid > 0" :
+						gCharacter.Status != Status.Adventuring ? "gCharacter.Status == Status.Adventuring" :
+						string.IsNullOrWhiteSpace(gCharacter.Name) ? "!string.IsNullOrWhiteSpace(gCharacter.Name)" :
+						"!gCharacter.Name.Equals(\"NONE\", StringComparison.OrdinalIgnoreCase)");
 
 					Globals.ExitType = ExitType.Error;
 
@@ -154,7 +154,7 @@ namespace EamonRT.Game.Commands
 
 				if (Globals.Module == null || Globals.Module.Uid <= 0)
 				{
-					Globals.Error.Write("{0}Error: {1}", Environment.NewLine, Globals.Module == null ? "Globals.Module == null" : "Globals.Module.Uid <= 0");
+					Globals.Error.Write("{0}Error: Assertion failed [{1}].", Environment.NewLine, Globals.Module == null ? "Globals.Module != null" : "Globals.Module.Uid > 0");
 
 					Globals.ExitType = ExitType.Error;
 
@@ -167,7 +167,7 @@ namespace EamonRT.Game.Commands
 
 				if (gGameState == null || gGameState.Uid <= 0)
 				{
-					Globals.Error.Write("{0}Error: {1}", Environment.NewLine, gGameState == null ? "gGameState == null" : "gGameState.Uid <= 0");
+					Globals.Error.Write("{0}Error: Assertion failed [{1}].", Environment.NewLine, gGameState == null ? "gGameState != null" : "gGameState.Uid > 0");
 
 					Globals.ExitType = ExitType.Error;
 
@@ -180,7 +180,7 @@ namespace EamonRT.Game.Commands
 
 				if (CharacterRoom == null)
 				{
-					Globals.Error.Write("{0}Error: room == null", Environment.NewLine);
+					Globals.Error.Write("{0}Error: Assertion failed [{1}].", Environment.NewLine, "room != null");
 
 					Globals.ExitType = ExitType.Error;
 
@@ -219,7 +219,7 @@ namespace EamonRT.Game.Commands
 
 				if (gEngine.IsFailure(rc))
 				{
-					Globals.Error.Write("Error: ValidateRecordsAfterDatabaseLoaded function call failed");
+					Globals.Error.Write("Error: ValidateRecordsAfterDatabaseLoaded function call failed.");
 
 					Globals.ExitType = ExitType.Error;
 

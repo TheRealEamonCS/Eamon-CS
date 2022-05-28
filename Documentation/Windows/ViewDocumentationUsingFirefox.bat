@@ -1,3 +1,3 @@
 @echo off
-cd ..\..\..
+cd ..\..\System\Bin
 start firefox https://TheRealEamonCS.github.io

@@ -65,6 +65,9 @@ namespace Eamon.Game
 		[FieldName(900)]
 		public virtual bool EnhancedParser { get; set; }
 
+		[FieldName(910)]
+		public virtual bool IobjPronounAffinity { get; set; }
+
 		[FieldName(920)]
 		public virtual bool ShowPronounChanges { get; set; }
 

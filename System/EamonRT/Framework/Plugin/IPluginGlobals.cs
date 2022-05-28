@@ -111,6 +111,9 @@ namespace EamonRT.Framework.Plugin
 		bool PauseCombatAfterSkillGains { get; set; }
 
 		/// <summary></summary>
+		bool UseRevealContentMonsterTheName { get; set; }
+
+		/// <summary></summary>
 		bool PlayerMoved { get; set; }
 
 		/// <summary></summary>
