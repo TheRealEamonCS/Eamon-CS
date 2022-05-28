@@ -24,6 +24,9 @@ namespace EamonRT.Framework.Commands
 		bool? EnhancedParser { get; set; }
 
 		/// <summary></summary>
+		bool? IobjPronounAffinity { get; set; }
+
+		/// <summary></summary>
 		bool? ShowPronounChanges { get; set; }
 
 		/// <summary></summary>

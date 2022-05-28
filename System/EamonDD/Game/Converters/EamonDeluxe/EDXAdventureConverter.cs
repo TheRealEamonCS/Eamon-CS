@@ -49,24 +49,24 @@ namespace EamonDD.Game.Converters.EamonDeluxe
 
 					if (!long.TryParse(tokens[0], out adventure._nr))
 					{
-						throw new Exception("Error: TryParse function call failed for _nr");
+						throw new Exception("Error: TryParse function call failed for _nr.");
 					}
 
 					if (tokens.Length > 1)
 					{
 						if (!long.TryParse(tokens[1], out adventure._na))
 						{
-							throw new Exception("Error: TryParse function call failed for _na");
+							throw new Exception("Error: TryParse function call failed for _na.");
 						}
 
 						if (!long.TryParse(tokens[2], out adventure._ne))
 						{
-							throw new Exception("Error: TryParse function call failed for _ne");
+							throw new Exception("Error: TryParse function call failed for _ne.");
 						}
 
 						if (!long.TryParse(tokens[3], out adventure._nm))
 						{
-							throw new Exception("Error: TryParse function call failed for _nm");
+							throw new Exception("Error: TryParse function call failed for _nm.");
 						}
 					}
 					else
@@ -75,21 +75,21 @@ namespace EamonDD.Game.Converters.EamonDeluxe
 
 						if (!long.TryParse(line.Trim(), out adventure._na))
 						{
-							throw new Exception("Error: TryParse function call failed for _na");
+							throw new Exception("Error: TryParse function call failed for _na.");
 						}
 
 						line = file.ReadLine();
 
 						if (!long.TryParse(line.Trim(), out adventure._ne))
 						{
-							throw new Exception("Error: TryParse function call failed for _ne");
+							throw new Exception("Error: TryParse function call failed for _ne.");
 						}
 
 						line = file.ReadLine();
 
 						if (!long.TryParse(line.Trim(), out adventure._nm))
 						{
-							throw new Exception("Error: TryParse function call failed for _nm");
+							throw new Exception("Error: TryParse function call failed for _nm.");
 						}
 					}
 
@@ -103,19 +103,19 @@ namespace EamonDD.Game.Converters.EamonDeluxe
 
 					if (!long.TryParse(tokens[0], out adventure._nd))
 					{
-						throw new Exception("Error: TryParse function call failed for _nd");
+						throw new Exception("Error: TryParse function call failed for _nd.");
 					}
 
 					if (tokens.Length > 1)
 					{
 						if (!long.TryParse(tokens[1], out _ver))
 						{
-							throw new Exception("Error: TryParse function call failed for _ver");
+							throw new Exception("Error: TryParse function call failed for _ver.");
 						}
 
 						if (!long.TryParse(tokens[2], out _nadv))
 						{
-							throw new Exception("Error: TryParse function call failed for _nadv");
+							throw new Exception("Error: TryParse function call failed for _nadv.");
 						}
 					}
 					else
@@ -124,14 +124,14 @@ namespace EamonDD.Game.Converters.EamonDeluxe
 
 						if (!long.TryParse(line.Trim(), out _ver))
 						{
-							throw new Exception("Error: TryParse function call failed for _ver");
+							throw new Exception("Error: TryParse function call failed for _ver.");
 						}
 
 						line = file.ReadLine();
 
 						if (!long.TryParse(line.Trim(), out _nadv))
 						{
-							throw new Exception("Error: TryParse function call failed for _nadv");
+							throw new Exception("Error: TryParse function call failed for _nadv.");
 						}
 					}
 
@@ -151,24 +151,24 @@ namespace EamonDD.Game.Converters.EamonDeluxe
 
 							if (!long.TryParse(tokens[0], out adventure._nr))
 							{
-								throw new Exception(string.Format("Error: TryParse function call failed for record number {0} _nr", i));
+								throw new Exception(string.Format("Error: TryParse function call failed for record number {0} _nr.", i));
 							}
 
 							if (tokens.Length > 1)
 							{
 								if (!long.TryParse(tokens[1], out adventure._na))
 								{
-									throw new Exception(string.Format("Error: TryParse function call failed for record number {0} _na", i));
+									throw new Exception(string.Format("Error: TryParse function call failed for record number {0} _na.", i));
 								}
 
 								if (!long.TryParse(tokens[2], out adventure._ne))
 								{
-									throw new Exception(string.Format("Error: TryParse function call failed for record number {0} _ne", i));
+									throw new Exception(string.Format("Error: TryParse function call failed for record number {0} _ne.", i));
 								}
 
 								if (!long.TryParse(tokens[3], out adventure._nm))
 								{
-									throw new Exception(string.Format("Error: TryParse function call failed for record number {0} _nm", i));
+									throw new Exception(string.Format("Error: TryParse function call failed for record number {0} _nm.", i));
 								}
 							}
 							else
@@ -177,21 +177,21 @@ namespace EamonDD.Game.Converters.EamonDeluxe
 
 								if (!long.TryParse(line.Trim(), out adventure._na))
 								{
-									throw new Exception(string.Format("Error: TryParse function call failed for record number {0} _na", i));
+									throw new Exception(string.Format("Error: TryParse function call failed for record number {0} _na.", i));
 								}
 
 								line = file.ReadLine();
 
 								if (!long.TryParse(line.Trim(), out adventure._ne))
 								{
-									throw new Exception(string.Format("Error: TryParse function call failed for record number {0} _ne", i));
+									throw new Exception(string.Format("Error: TryParse function call failed for record number {0} _ne.", i));
 								}
 
 								line = file.ReadLine();
 
 								if (!long.TryParse(line.Trim(), out adventure._nm))
 								{
-									throw new Exception(string.Format("Error: TryParse function call failed for record number {0} _nm", i));
+									throw new Exception(string.Format("Error: TryParse function call failed for record number {0} _nm.", i));
 								}
 							}
 
@@ -201,29 +201,29 @@ namespace EamonDD.Game.Converters.EamonDeluxe
 
 							if (!long.TryParse(tokens[0], out adventure._rptr))
 							{
-								throw new Exception(string.Format("Error: TryParse function call failed for record number {0} _rptr", i));
+								throw new Exception(string.Format("Error: TryParse function call failed for record number {0} _rptr.", i));
 							}
 
 							if (tokens.Length > 1)
 							{
 								if (!long.TryParse(tokens[1], out adventure._aptr))
 								{
-									throw new Exception(string.Format("Error: TryParse function call failed for record number {0} _aptr", i));
+									throw new Exception(string.Format("Error: TryParse function call failed for record number {0} _aptr.", i));
 								}
 
 								if (!long.TryParse(tokens[2], out adventure._eptr))
 								{
-									throw new Exception(string.Format("Error: TryParse function call failed for record number {0} _eptr", i));
+									throw new Exception(string.Format("Error: TryParse function call failed for record number {0} _eptr.", i));
 								}
 
 								if (!long.TryParse(tokens[3], out adventure._mptr))
 								{
-									throw new Exception(string.Format("Error: TryParse function call failed for record number {0} _mptr", i));
+									throw new Exception(string.Format("Error: TryParse function call failed for record number {0} _mptr.", i));
 								}
 
 								if (!long.TryParse(tokens[4], out adventure._nd))
 								{
-									throw new Exception(string.Format("Error: TryParse function call failed for record number {0} _nd", i));
+									throw new Exception(string.Format("Error: TryParse function call failed for record number {0} _nd.", i));
 								}
 							}
 							else
@@ -232,28 +232,28 @@ namespace EamonDD.Game.Converters.EamonDeluxe
 
 								if (!long.TryParse(line.Trim(), out adventure._aptr))
 								{
-									throw new Exception(string.Format("Error: TryParse function call failed for record number {0} _aptr", i));
+									throw new Exception(string.Format("Error: TryParse function call failed for record number {0} _aptr.", i));
 								}
 
 								line = file.ReadLine();
 
 								if (!long.TryParse(line.Trim(), out adventure._eptr))
 								{
-									throw new Exception(string.Format("Error: TryParse function call failed for record number {0} _eptr", i));
+									throw new Exception(string.Format("Error: TryParse function call failed for record number {0} _eptr.", i));
 								}
 
 								line = file.ReadLine();
 
 								if (!long.TryParse(line.Trim(), out adventure._mptr))
 								{
-									throw new Exception(string.Format("Error: TryParse function call failed for record number {0} _mptr", i));
+									throw new Exception(string.Format("Error: TryParse function call failed for record number {0} _mptr.", i));
 								}
 
 								line = file.ReadLine();
 
 								if (!long.TryParse(line.Trim(), out adventure._nd))
 								{
-									throw new Exception(string.Format("Error: TryParse function call failed for record number {0} _nd", i));
+									throw new Exception(string.Format("Error: TryParse function call failed for record number {0} _nd.", i));
 								}
 							}
 
@@ -306,7 +306,7 @@ namespace EamonDD.Game.Converters.EamonDeluxe
 
 					if (!long.TryParse(line.Trim(), out _nh))
 					{
-						throw new Exception("Error: TryParse function call failed for _nh");
+						throw new Exception("Error: TryParse function call failed for _nh.");
 					}
 
 					for (var i = 0; i < _nh; i++)
@@ -323,14 +323,14 @@ namespace EamonDD.Game.Converters.EamonDeluxe
 
 						if (!long.TryParse(tokens[0], out hint._hptr))
 						{
-							throw new Exception(string.Format("Error: TryParse function call failed for record number {0} _hptr", i));
+							throw new Exception(string.Format("Error: TryParse function call failed for record number {0} _hptr.", i));
 						}
 
 						if (tokens.Length > 1)
 						{
 							if (!long.TryParse(tokens[1], out hint._nh))
 							{
-								throw new Exception(string.Format("Error: TryParse function call failed for record number {0} _nh", i));
+								throw new Exception(string.Format("Error: TryParse function call failed for record number {0} _nh.", i));
 							}
 						}
 						else
@@ -339,7 +339,7 @@ namespace EamonDD.Game.Converters.EamonDeluxe
 
 							if (!long.TryParse(line.Trim(), out hint._nh))
 							{
-								throw new Exception(string.Format("Error: TryParse function call failed for record number {0} _nh", i));
+								throw new Exception(string.Format("Error: TryParse function call failed for record number {0} _nh.", i));
 							}
 						}
 

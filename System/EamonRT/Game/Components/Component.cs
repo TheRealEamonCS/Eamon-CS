@@ -286,14 +286,14 @@ namespace EamonRT.Game.Components
 			ComponentImpl.PrintSmashesToPieces(room, artifact, spillContents);
 		}
 
-		public virtual void PrintWeaponAbilityIncreased(Weapon w, IWeapon weapon)
+		public virtual void PrintWeaponAbilityIncreases(Weapon w, IWeapon weapon)
 		{
-			ComponentImpl.PrintWeaponAbilityIncreased(w, weapon);
+			ComponentImpl.PrintWeaponAbilityIncreases(w, weapon);
 		}
 
-		public virtual void PrintArmorExpertiseIncreased()
+		public virtual void PrintArmorExpertiseIncreases()
 		{
-			ComponentImpl.PrintArmorExpertiseIncreased();
+			ComponentImpl.PrintArmorExpertiseIncreases();
 		}
 
 		public virtual void PrintSpellOverloadsBrain(Spell s, ISpell spell)
@@ -301,9 +301,9 @@ namespace EamonRT.Game.Components
 			ComponentImpl.PrintSpellOverloadsBrain(s, spell);
 		}
 
-		public virtual void PrintSpellAbilityIncreased(Spell s, ISpell spell)
+		public virtual void PrintSpellAbilityIncreases(Spell s, ISpell spell)
 		{
-			ComponentImpl.PrintSpellAbilityIncreased(s, spell);
+			ComponentImpl.PrintSpellAbilityIncreases(s, spell);
 		}
 
 		public virtual void PrintSpellCastFailed(Spell s, ISpell spell)

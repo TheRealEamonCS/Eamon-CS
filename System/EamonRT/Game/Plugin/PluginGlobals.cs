@@ -113,6 +113,8 @@ namespace EamonRT.Game.Plugin
 
 		public virtual bool PauseCombatAfterSkillGains { get; set; }
 
+		public virtual bool UseRevealContentMonsterTheName { get; set; }
+
 		public virtual bool PlayerMoved { get; set; }
 
 		public virtual bool GameRunning

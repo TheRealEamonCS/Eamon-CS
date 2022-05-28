@@ -1566,9 +1566,9 @@ namespace Eamon.Game
 				{
 					rc = RetCode.Failure;
 
-					Globals.Error.WriteLine("{0}Error: expected valid [{1} value], found [{2}]", Environment.NewLine, monsterHelper.GetName(monsterHelper.ErrorFieldName), monsterHelper.GetValue(monsterHelper.ErrorFieldName) ?? "null");
+					Globals.Error.WriteLine("{0}Error: Expected valid [{1} value], found [{2}].", Environment.NewLine, monsterHelper.GetName(monsterHelper.ErrorFieldName), monsterHelper.GetValue(monsterHelper.ErrorFieldName) ?? "null");
 
-					Globals.Error.WriteLine("Error: ValidateAfterDatabaseLoaded function call failed for Monster record number {0}", i);
+					Globals.Error.WriteLine("Error: ValidateAfterDatabaseLoaded function call failed for Monster record number {0}.", i);
 
 					goto Cleanup;
 				}

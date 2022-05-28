@@ -120,6 +120,8 @@ namespace StrongholdOfKahrDur.Game.States
 					break;
 			}
 
+			Globals.Thread.Sleep(gGameState.PauseCombatMs);
+
 		Cleanup:
 
 			if (NextState == null)

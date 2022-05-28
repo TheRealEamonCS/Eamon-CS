@@ -1102,6 +1102,12 @@ namespace EamonRT.Game.Parsing
 
 					CurrToken += 2;
 				}
+				else if (gGameState.EnhancedParser && Tokens[CurrToken].Equals("iobjpronounaffinity", StringComparison.OrdinalIgnoreCase) && bool.TryParse(Tokens[CurrToken + 1], out boolValue))
+				{
+					settingsCommand.IobjPronounAffinity = boolValue;
+
+					CurrToken += 2;
+				}
 				else if (gGameState.EnhancedParser && Tokens[CurrToken].Equals("showpronounchanges", StringComparison.OrdinalIgnoreCase) && bool.TryParse(Tokens[CurrToken + 1], out boolValue))
 				{
 					settingsCommand.ShowPronounChanges = boolValue;
@@ -1634,7 +1640,8 @@ namespace EamonRT.Game.Parsing
 						{
 							LastThemNameStr = Globals.CloneInstance(objDataName);
 						}
-						else
+
+						if (monster.CurrGroupCount == 1)
 						{
 							if (monster.Gender == Gender.Male)
 							{
@@ -1802,9 +1809,18 @@ namespace EamonRT.Game.Parsing
 
 				if (Dobj != null)
 				{
-					SetLastNameStrings(Dobj, DobjData.Name, DobjArtifact, DobjMonster);
+					if (gGameState.IobjPronounAffinity)
+					{
+						SetLastNameStrings(Dobj, DobjData.Name, DobjArtifact, DobjMonster);
 
-					SetLastNameStrings(Iobj, IobjData.Name, IobjArtifact, IobjMonster);
+						SetLastNameStrings(Iobj, IobjData.Name, IobjArtifact, IobjMonster);
+					}
+					else
+					{
+						SetLastNameStrings(Iobj, IobjData.Name, IobjArtifact, IobjMonster);
+
+						SetLastNameStrings(Dobj, DobjData.Name, DobjArtifact, DobjMonster);
+					}
 				}
 			}
 			catch (InvalidDobjNameListException ex)

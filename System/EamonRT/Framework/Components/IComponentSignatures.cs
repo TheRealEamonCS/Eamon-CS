@@ -166,10 +166,10 @@ namespace EamonRT.Framework.Components
 		/// <summary></summary>
 		/// <param name="w"></param>
 		/// <param name="weapon"></param>
-		void PrintWeaponAbilityIncreased(Weapon w, IWeapon weapon);
+		void PrintWeaponAbilityIncreases(Weapon w, IWeapon weapon);
 
 		/// <summary></summary>
-		void PrintArmorExpertiseIncreased();
+		void PrintArmorExpertiseIncreases();
 
 		/// <summary></summary>
 		/// <param name="s"></param>
@@ -179,7 +179,7 @@ namespace EamonRT.Framework.Components
 		/// <summary></summary>
 		/// <param name="s"></param>
 		/// <param name="spell"></param>
-		void PrintSpellAbilityIncreased(Spell s, ISpell spell);
+		void PrintSpellAbilityIncreases(Spell s, ISpell spell);
 
 		/// <summary></summary>
 		/// <param name="s"></param>
