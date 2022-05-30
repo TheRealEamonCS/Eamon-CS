@@ -178,6 +178,11 @@ namespace EamonRT.Game.States
 			return StateImpl.GetDarkName(target, articleType, nameType, upshift, groupCountOne);
 		}
 
+		public virtual IList<long> GetLoopMonsterUidList()
+		{
+			return StateImpl.GetLoopMonsterUidList();
+		}
+
 		public virtual bool ShouldPreTurnProcess()
 		{
 			return StateImpl.ShouldPreTurnProcess();

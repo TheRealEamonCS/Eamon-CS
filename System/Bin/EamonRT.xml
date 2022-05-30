@@ -2218,7 +2218,13 @@
         <member name="P:EamonRT.Framework.Plugin.IPluginGlobals.SkillIncreaseFuncList">
             <summary></summary>
         </member>
+        <member name="P:EamonRT.Framework.Plugin.IPluginGlobals.LoopMonsterUidList">
+            <summary></summary>
+        </member>
         <member name="P:EamonRT.Framework.Plugin.IPluginGlobals.ActionListCounter">
+            <summary></summary>
+        </member>
+        <member name="P:EamonRT.Framework.Plugin.IPluginGlobals.LoopMonsterUidListIndex">
             <summary></summary>
         </member>
         <member name="P:EamonRT.Framework.Plugin.IPluginGlobals.LoopMonsterUid">
@@ -2831,6 +2837,10 @@
             <param name="nameType"></param>
             <param name="upshift"></param>
             <param name="groupCountOne"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EamonRT.Framework.States.IStateSignatures.GetLoopMonsterUidList">
+            <summary></summary>
             <returns></returns>
         </member>
         <member name="M:EamonRT.Framework.States.IStateSignatures.ShouldPreTurnProcess">

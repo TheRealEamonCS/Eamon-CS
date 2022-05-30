@@ -234,6 +234,11 @@ namespace EamonRT.Game.States
 			return result;
 		}
 
+		public virtual IList<long> GetLoopMonsterUidList()
+		{
+			return Globals.Database.MonsterTable.Records.OrderBy(m => m.Uid).Select(m01 => m01.Uid).ToList();
+		}
+
 		public virtual bool ShouldPreTurnProcess()
 		{
 			var room = gRDB[gGameState.Ro];
