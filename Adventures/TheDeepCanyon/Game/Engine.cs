@@ -229,13 +229,16 @@ namespace TheDeepCanyon.Game
 
 			if (monster.Uid == 11 && gGameState.FidoSleepCounter > 0)
 			{
-				gOut.Print("{0} wakes up!", room.IsLit() ? "Fido" : "Something");
+				Globals.MiscEventFuncList02.Add(() =>
+				{
+					gOut.Print("{0} wakes up!", room.IsLit() ? "Fido" : "Something");
 
-				gGameState.FidoSleepCounter = 0;
+					gGameState.FidoSleepCounter = 0;
 
-				monster.StateDesc = "";
+					monster.StateDesc = "";
 
-				monster.Reaction = Friendliness.Enemy;
+					monster.Reaction = Friendliness.Enemy;
+				});
 			}
 			else
 			{
