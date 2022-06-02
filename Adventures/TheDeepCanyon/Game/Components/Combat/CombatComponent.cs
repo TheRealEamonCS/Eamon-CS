@@ -132,6 +132,29 @@ namespace TheDeepCanyon.Game.Components
 			}
 		}
 
+		public override void AttackMiss()
+		{
+			// Attack always hits sleeping Fido
+
+			if (DobjMonster.Uid == 11 && gGameState.FidoSleepCounter > 0)
+			{
+				if (_rl < 97 || ActorWeaponUid == 0)
+				{
+					_rl = _odds;
+
+					CombatState = CombatState.AttackHit;
+
+					goto Cleanup;
+				}
+			}
+
+			base.AttackMiss();
+
+		Cleanup:
+
+			;
+		}
+
 		public override void AttackHit()
 		{
 			base.AttackHit();
