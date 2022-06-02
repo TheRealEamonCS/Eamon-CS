@@ -231,7 +231,10 @@ namespace TheDeepCanyon.Game
 			{
 				Globals.MiscEventFuncList02.Add(() =>
 				{
-					gOut.Print("{0} wakes up!", room.IsLit() ? "Fido" : "Something");
+					if (monster.IsInRoom(room))
+					{
+						gOut.Print("{0} wakes up!", room.IsLit() ? "Fido" : "Something");
+					}
 
 					gGameState.FidoSleepCounter = 0;
 
