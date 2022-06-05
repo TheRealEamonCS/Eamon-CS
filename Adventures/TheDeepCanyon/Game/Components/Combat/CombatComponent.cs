@@ -177,11 +177,11 @@ namespace TheDeepCanyon.Game.Components
 			{
 				if (DobjMonster.IsCharacterMonster() || room.IsLit())
 				{
-					gOut.Write("{0}{1}{2} flies into the net that {3} carrying and is strangled!", Environment.NewLine, OmitBboaPadding ? "" : "  ", room.EvalLightLevel("The offender", ActorMonster.GetTheName(true)), DobjMonster.IsCharacterMonster() ? "you are" : DobjMonster.GetTheName() + " is");
+					gOut.Print("{0}{1} flies into the net that {2} carrying and is strangled!", Environment.NewLine, room.EvalLightLevel("The offender", ActorMonster.GetTheName(true)), DobjMonster.IsCharacterMonster() ? "you are" : DobjMonster.GetTheName() + " is");
 				}
 				else
 				{
-					gOut.Write("{0}{1}The offender is strangled by the defender!", Environment.NewLine, OmitBboaPadding ? "" : "  ");
+					gOut.Print("{0}The offender is strangled by the defender!", Environment.NewLine);
 				}
 
 				Dobj = ActorMonster;
