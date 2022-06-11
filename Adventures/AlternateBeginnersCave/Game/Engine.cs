@@ -164,6 +164,52 @@ namespace AlternateBeginnersCave.Game
 			return rc;
 		}
 
+		public override void PrintMonsterEmotes(IMonster monster, bool friendSmile = true)
+		{
+			Debug.Assert(monster != null);
+
+			var rl = RollDice(1, 100, 0);
+
+			// Bird
+
+			if (monster.Uid == 1)
+			{
+				gOut.Write("{0}{1} squawks at you!", Environment.NewLine, monster.GetTheName(true));
+			}
+
+			// Tiny dragon
+
+			else if (monster.Uid == 3)
+			{
+				gOut.Write("{0}{1} {2} at you!", Environment.NewLine, monster.GetTheName(true), rl > 66 ? "roars" : rl > 33 ? "hisses" : "growls");
+			}
+
+			// Mud-lobber wasp
+
+			else if (monster.Uid == 4)
+			{
+				gOut.Write("{0}{1} buzzes at you!", Environment.NewLine, monster.GetTheName(true));
+			}
+
+			// Lion / panther
+
+			else if (monster.Uid >= 6 && monster.Uid <= 7)
+			{
+				if (monster.Reaction == Friendliness.Neutral)
+				{
+					gOut.Write("{0}{1} ignores you.", Environment.NewLine, monster.GetTheName(true));
+				}
+				else
+				{
+					gOut.Write("{0}{1} {2} at you{3}", Environment.NewLine, monster.GetTheName(true), rl > 66 ? "roars" : rl > 33 ? "hisses" : monster.EvalReaction("growls", "purrs", "purrs"), monster.EvalReaction("!", ".", "."));
+				}
+			}
+			else
+			{
+				base.PrintMonsterEmotes(monster, friendSmile);
+			}
+		}
+
 		public override void PrintWakingUpMonsters()
 		{
 			gOut.Print("(Please wait while I stir things up...)");
