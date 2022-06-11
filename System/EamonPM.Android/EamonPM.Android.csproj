@@ -50,27 +50,27 @@
     <NoWarn>1591</NoWarn>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ARuncibleCargo, Version=1.8.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ARuncibleCargo, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Bin\ARuncibleCargo.dll</HintPath>
     </Reference>
-    <Reference Include="BeginnersForest, Version=1.8.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="BeginnersForest, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Bin\BeginnersForest.dll</HintPath>
     </Reference>
-    <Reference Include="Eamon, Version=1.8.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Eamon, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Bin\Eamon.dll</HintPath>
     </Reference>
-    <Reference Include="EamonDD, Version=1.8.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="EamonDD, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Bin\EamonDD.dll</HintPath>
     </Reference>
-    <Reference Include="EamonMH, Version=1.8.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="EamonMH, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Bin\EamonMH.dll</HintPath>
     </Reference>
-    <Reference Include="EamonRT, Version=1.8.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="EamonRT, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Bin\EamonRT.dll</HintPath>
     </Reference>
@@ -81,7 +81,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Bin\Polenter.SharpSerializer.dll</HintPath>
     </Reference>
-    <Reference Include="StrongholdOfKahrDur, Version=1.8.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="StrongholdOfKahrDur, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Bin\StrongholdOfKahrDur.dll</HintPath>
     </Reference>
@@ -90,47 +90,47 @@
     <Reference Include="System.Core" />
     <Reference Include="Mono.Android" />
     <Reference Include="System.Net.Http" />
-    <Reference Include="TheBeginnersCave, Version=1.8.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="TheBeginnersCave, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Bin\TheBeginnersCave.dll</HintPath>
     </Reference>
-    <Reference Include="TheTempleOfNgurct, Version=1.8.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="TheTempleOfNgurct, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Bin\TheTempleOfNgurct.dll</HintPath>
     </Reference>
-    <Reference Include="TheTrainingGround, Version=1.8.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="TheTrainingGround, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Bin\TheTrainingGround.dll</HintPath>
     </Reference>
-    <Reference Include="WrenholdsSecretVigil, Version=1.8.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="WrenholdsSecretVigil, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Bin\WrenholdsSecretVigil.dll</HintPath>
     </Reference>
-    <Reference Include="LandOfTheMountainKing, Version=1.8.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="LandOfTheMountainKing, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Bin\LandOfTheMountainKing.dll</HintPath>
     </Reference>
-    <Reference Include="TheVileGrimoireOfJaldial, Version=1.8.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="TheVileGrimoireOfJaldial, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Bin\TheVileGrimoireOfJaldial.dll</HintPath>
     </Reference>
-    <Reference Include="RiddlesOfTheDuergarKingdom, Version=1.8.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="RiddlesOfTheDuergarKingdom, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Bin\RiddlesOfTheDuergarKingdom.dll</HintPath>
     </Reference>
-    <Reference Include="BeginnersCaveII, Version=1.8.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="BeginnersCaveII, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Bin\BeginnersCaveII.dll</HintPath>
     </Reference>
-    <Reference Include="AlternateBeginnersCave, Version=1.8.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="AlternateBeginnersCave, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Bin\AlternateBeginnersCave.dll</HintPath>
     </Reference>
-    <Reference Include="TheDeepCanyon, Version=1.8.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="TheDeepCanyon, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Bin\TheDeepCanyon.dll</HintPath>
     </Reference>
-    <Reference Include="TheWayfarersInn, Version=1.8.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="TheWayfarersInn, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Bin\TheWayfarersInn.dll</HintPath>
     </Reference>
