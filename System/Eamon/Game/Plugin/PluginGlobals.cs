@@ -1055,6 +1055,22 @@ namespace Eamon.Game.Plugin
 								}
 							);
 						}
+
+						if (workDir.EndsWith(@"\Adventures\LandOfTheMountainKing"))
+						{
+							ReplaceDatafileValues
+							(
+								fileName,
+								new string[]
+								{
+									@"Eamon\.Game\.Monster, Eamon",
+								},
+								new string[]
+								{
+									"LandOfTheMountainKing.Game.Monster, LandOfTheMountainKing",
+								}
+							);
+						}
 					}
 
 					if (!upgraded)

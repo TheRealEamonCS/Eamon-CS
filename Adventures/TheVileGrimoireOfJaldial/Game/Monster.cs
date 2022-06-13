@@ -3,11 +3,8 @@
 
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
-using System;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using Eamon;
 using Eamon.Framework;
 using Eamon.Game.Attributes;
 using Enums = Eamon.Framework.Primitive.Enums;
@@ -177,11 +174,18 @@ namespace TheVileGrimoireOfJaldial.Game
 			return (Globals.InitiativeMonsterUid == 0 || Uid == Globals.InitiativeMonsterUid) && !gGameState.ParalyzedTargets.ContainsKey(Uid) && base.ShouldProcessInGameLoop();
 		}
 
+		public override bool ShouldRefuseToAcceptGold()
+		{
+			return false;
+		}
+
 		public override bool ShouldRefuseToAcceptGift(IArtifact artifact)
 		{
+			Debug.Assert(artifact != null);
+
 			// Pocket dragon and beholder never accept gifts
 
-			return Uid == 24 || Uid == 36 || base.ShouldRefuseToAcceptGift(artifact);
+			return Uid == 24 || Uid == 36 || (!Globals.IsRulesetVersion(5, 25) && (Reaction == Enums.Friendliness.Enemy || (Reaction == Enums.Friendliness.Neutral && artifact.Value < 3000)));
 		}
 
 		public override string[] GetWeaponAttackDescs(IArtifact artifact)

@@ -35,11 +35,18 @@ namespace TheDeepCanyon.Game
 			return Uid != 11 ? base.CanMoveToRoom(fleeing) : false;
 		}
 
+		public override bool ShouldRefuseToAcceptGold()
+		{
+			return false;
+		}
+
 		public override bool ShouldRefuseToAcceptGift(IArtifact artifact)
 		{
+			Debug.Assert(artifact != null);
+
 			// Fido and elephants need special handling
 
-			return Uid != 11 && Uid != 24 && base.ShouldRefuseToAcceptGift(artifact);
+			return Uid != 11 && Uid != 24 && (!Globals.IsRulesetVersion(5, 25) && (Reaction == Friendliness.Enemy || (Reaction == Friendliness.Neutral && artifact.Value < 3000)));
 		}
 
 		public override bool ShouldRefuseToAcceptDeadBody(IArtifact artifact)
