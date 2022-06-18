@@ -1056,6 +1056,22 @@ namespace Eamon.Game.Plugin
 							);
 						}
 
+						if (workDir.EndsWith(@"\Adventures\BeginnersCaveII"))
+						{
+							ReplaceDatafileValues
+							(
+								fileName,
+								new string[]
+								{
+									@"Eamon\.Game\.Monster, Eamon",
+								},
+								new string[]
+								{
+									"BeginnersCaveII.Game.Monster, BeginnersCaveII",
+								}
+							);
+						}
+
 						if (workDir.EndsWith(@"\Adventures\LandOfTheMountainKing"))
 						{
 							ReplaceDatafileValues
