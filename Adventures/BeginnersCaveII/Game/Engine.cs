@@ -29,7 +29,7 @@ namespace BeginnersCaveII.Game
 
 			if (monster.Uid == 3)
 			{
-				gOut.Write("{0}{1} {2} at you.", Environment.NewLine, monster.GetTheName(true), rl > 80 ? "squeals" : rl > 50 ? "squeaks" : "hisses");
+				gOut.Write("{0}{1} {2} at you.", Environment.NewLine, monster.GetTheName(true), rl > 66 ? "squeals" : rl > 33 ? "squeaks" : "hisses");
 			}
 
 			// Large snake
@@ -43,7 +43,7 @@ namespace BeginnersCaveII.Game
 
 			else if (monster.Uid == 6 || monster.Uid == 14)
 			{
-				gOut.Write("{0}{1} {2} at you.", Environment.NewLine, monster.GetTheName(true), rl > 80 ? "grunts" : rl > 50 ? "bellows" : "snorts");
+				gOut.Write("{0}{1} {2} at you.", Environment.NewLine, monster.GetTheName(true), rl > 66 ? "grunts" : rl > 33 ? "bellows" : "snorts");
 			}
 
 			// Wild dog
