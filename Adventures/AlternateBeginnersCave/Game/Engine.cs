@@ -193,7 +193,7 @@ namespace AlternateBeginnersCave.Game
 
 			// Lion / panther
 
-			else if (monster.Uid >= 6 && monster.Uid <= 7)
+			else if (monster.Uid == 6 || monster.Uid == 7)
 			{
 				if (monster.Reaction == Friendliness.Neutral)
 				{
