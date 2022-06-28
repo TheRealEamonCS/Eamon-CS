@@ -99,6 +99,10 @@ namespace EamonRT.Framework.States
 
 		/// <summary></summary>
 		/// <returns></returns>
+		IList<long> GetLoopMonsterUidList();
+
+		/// <summary></summary>
+		/// <returns></returns>
 		bool ShouldPreTurnProcess();
 
 		/// <summary></summary>

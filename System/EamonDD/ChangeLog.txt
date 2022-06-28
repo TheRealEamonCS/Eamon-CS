@@ -5,7 +5,7 @@ ChangeLog: EamonDD
 
 Date            Version            Who            Notes
 ----------------------------------------------------------------------------------------------------------------------------------
-20210331        1.8.0              MP             GZip datafile overhaul
+20210331        2.1.0              MP             GZip datafile overhaul
 20201031        1.7.0              MP             Visual Studio automation overhaul
 20201031                           MP             Direction overhaul
 20201031                           MP             CommandParser IGameBase overhaul

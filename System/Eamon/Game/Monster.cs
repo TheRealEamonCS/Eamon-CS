@@ -579,11 +579,16 @@ namespace Eamon.Game
 			return gameState != null && Location == gameState.Ro && !IsCharacterMonster();
 		}
 
+		public virtual bool ShouldRefuseToAcceptGold()
+		{
+			return !HasCarriedInventory();
+		}
+
 		public virtual bool ShouldRefuseToAcceptGift(IArtifact artifact)
 		{
 			Debug.Assert(artifact != null);
 
-			return !Globals.IsRulesetVersion(5, 25) && (Reaction == Friendliness.Enemy || (Reaction == Friendliness.Neutral && artifact.Value < 3000));
+			return !HasCarriedInventory() || (!Globals.IsRulesetVersion(5, 25) && (Reaction == Friendliness.Enemy || (Reaction == Friendliness.Neutral && artifact.Value < 3000)));
 		}
 
 		public virtual bool ShouldRefuseToAcceptDeadBody(IArtifact artifact)

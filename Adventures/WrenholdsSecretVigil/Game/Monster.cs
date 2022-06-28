@@ -3,10 +3,10 @@
 
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
-using System;
 using System.Diagnostics;
 using System.Text;
 using Eamon.Framework;
+using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using static WrenholdsSecretVigil.Game.Plugin.PluginContext;
 
@@ -38,7 +38,12 @@ namespace WrenholdsSecretVigil.Game
 		{
 			return Globals.DeviceOpened || base.ShouldFleeRoom();
 		}
-		
+
+		public override bool ShouldRefuseToAcceptGold()
+		{
+			return false;
+		}
+
 		public override bool ShouldRefuseToAcceptGift(IArtifact artifact)
 		{
 			return false;
@@ -46,7 +51,9 @@ namespace WrenholdsSecretVigil.Game
 
 		public virtual bool ShouldRefuseToAcceptGift01(IArtifact artifact)
 		{
-			return base.ShouldRefuseToAcceptGift(artifact);
+			Debug.Assert(artifact != null);
+
+			return !Globals.IsRulesetVersion(5, 25) && (Reaction == Friendliness.Enemy || (Reaction == Friendliness.Neutral && artifact.Value < 3000));
 		}
 
 		public override long GetFleeingMemberCount()

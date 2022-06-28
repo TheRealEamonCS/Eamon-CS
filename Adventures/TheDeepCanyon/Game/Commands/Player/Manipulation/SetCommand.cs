@@ -44,6 +44,13 @@ namespace TheDeepCanyon.Game.Commands
 				}
 				else
 				{
+					if (!DobjArtifact.InContainer.IsOpen())
+					{
+						PrintOpened(DobjArtifact);
+
+						DobjArtifact.InContainer.SetOpen(true);
+					}
+
 					if (!mouseArtifact.IsInLimbo())
 					{
 						if (mouseArtifact.IsCarriedByCharacter() || mouseArtifact.IsCarriedByContainer(DobjArtifact) || mouseArtifact.IsInRoom(ActorRoom))
@@ -57,8 +64,6 @@ namespace TheDeepCanyon.Game.Commands
 					gOut.Print("Okay, the trap is set.");
 
 					// DobjArtifact.SetInRoom(ActorRoom);
-
-					DobjArtifact.InContainer.SetOpen(true);
 
 					gGameState.TrapSet = true;
 				}

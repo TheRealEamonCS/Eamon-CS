@@ -14,6 +14,10 @@ namespace EamonRT.Game.States
 	{
 		public override void Execute()
 		{
+			Globals.LoopMonsterUidList = GetLoopMonsterUidList();
+
+			Globals.LoopMonsterUidListIndex = 0;
+
 			Globals.LoopMonsterUid = 0;
 
 			if (NextState == null)

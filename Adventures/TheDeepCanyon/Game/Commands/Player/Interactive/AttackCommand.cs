@@ -20,7 +20,7 @@ namespace TheDeepCanyon.Game.Commands
 
 			// ATTACK elephants
 
-			if (eventType == EventType.BeforeAttackMonster && DobjMonster.Uid == 24)
+			if (eventType == EventType.AfterAttackNonEnemyCheck && DobjMonster.Uid == 24)
 			{
 				gOut.Print("As you try to attack, one of the elephants takes your weapon.");
 

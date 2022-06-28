@@ -25,7 +25,10 @@ namespace TheDeepCanyon.Game.Commands
 
 			if (ActorRoom.Uid == 70 || ActorRoom.Uid == 71)
 			{
-				gOut.Print("{0}{1} fall{2} down into the darkness.", Environment.NewLine, artifact.GetTheName(true), artifact.EvalPlural("s", ""));
+				if (ActorRoom.IsLit())
+				{
+					gOut.Print("{0}{1} fall{2} down into the darkness.", Environment.NewLine, artifact.GetTheName(true), artifact.EvalPlural("s", ""));
+				}
 
 				artifact.SetInRoomUid(69);
 			}
