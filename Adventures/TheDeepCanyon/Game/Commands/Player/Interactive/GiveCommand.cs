@@ -125,6 +125,17 @@ namespace TheDeepCanyon.Game.Commands
 
 					GotoCleanup = true;
 				}
+
+				// Disable further bribing
+
+				else if (!IobjMonster.HasCarriedInventory())
+				{
+					gEngine.PrintMonsterEmotes(IobjMonster);
+
+					gOut.WriteLine();
+
+					GotoCleanup = true;
+				}
 			}
 		}
 	}

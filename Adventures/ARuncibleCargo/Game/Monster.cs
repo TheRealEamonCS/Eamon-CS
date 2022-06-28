@@ -77,6 +77,11 @@ namespace ARuncibleCargo.Game
 			}
 		}
 
+		public override bool ShouldRefuseToAcceptGold()
+		{
+			return false;
+		}
+
 		public override bool ShouldRefuseToAcceptGift(IArtifact artifact)
 		{
 			return false;

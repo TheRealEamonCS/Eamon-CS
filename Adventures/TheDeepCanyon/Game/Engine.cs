@@ -229,13 +229,19 @@ namespace TheDeepCanyon.Game
 
 			if (monster.Uid == 11 && gGameState.FidoSleepCounter > 0)
 			{
-				gOut.Print("{0} wakes up!", room.IsLit() ? "Fido" : "Something");
+				Globals.MiscEventFuncList02.Add(() =>
+				{
+					if (monster.IsInRoom(room))
+					{
+						gOut.Print("{0} wakes up!", room.IsLit() ? "Fido" : "Something");
+					}
 
-				gGameState.FidoSleepCounter = 0;
+					gGameState.FidoSleepCounter = 0;
 
-				monster.StateDesc = "";
+					monster.StateDesc = "";
 
-				monster.Reaction = Friendliness.Enemy;
+					monster.Reaction = Friendliness.Enemy;
+				});
 			}
 			else
 			{
@@ -299,7 +305,7 @@ namespace TheDeepCanyon.Game
 
 			// Exclude various "invisible" exits
 
-			if (room.Uid == 8 || (monster.IsCharacterMonster() && (room.Uid == 41 || room.Uid == 43 || room.Uid == 44 || room.Uid == 61)))
+			if (room.Uid == 8 || room.Uid == 22 || (monster.IsCharacterMonster() && (room.Uid == 41 || room.Uid == 43 || room.Uid == 44 || room.Uid == 61)))
 			{
 				numExits--;
 			}
@@ -315,7 +321,7 @@ namespace TheDeepCanyon.Game
 			{
 				base.GetRandomMoveDirection(room, monster, fleeing, ref direction, ref found, ref roomUid);
 			}
-			while ((room.Uid == 8 && direction == Direction.West) || (room.Uid == 41 && direction == Direction.North) || (room.Uid == 43 && direction == Direction.East) || (room.Uid == 44 && direction == Direction.West) || (room.Uid == 61 && direction == Direction.West));
+			while ((room.Uid == 8 && direction == Direction.West) || (room.Uid == 22 && direction == Direction.North) || (room.Uid == 41 && direction == Direction.North) || (room.Uid == 43 && direction == Direction.East) || (room.Uid == 44 && direction == Direction.West) || (room.Uid == 61 && direction == Direction.West));
 		}
 
 		public virtual void MagicRingLowersMonsterStats(IMonster monster)

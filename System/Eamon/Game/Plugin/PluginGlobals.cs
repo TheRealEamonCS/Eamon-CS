@@ -998,7 +998,6 @@ namespace Eamon.Game.Plugin
 				{
 					if (firstLine.Contains("Game.DataStorage.ConfigDbTable") || firstLine.Contains("Game.DataStorage.FilesetDbTable") || firstLine.Contains("Game.DataStorage.Database"))
 					{
-
 						ReplaceDatafileValues
 						(
 							fileName,
@@ -1033,6 +1032,77 @@ namespace Eamon.Game.Plugin
 							{
 								"Version=1.8.0.0",
 								"EAMON CS 1.8",
+							}
+						);
+					}
+				}
+				else if (firstLine.Contains("Version=1.8.0.0"))
+				{
+					if (firstLine.Contains("Game.DataStorage.MonsterDbTable") || firstLine.Contains("Game.DataStorage.Database"))
+					{
+						if (workDir.EndsWith(@"\Adventures\AlternateBeginnersCave"))
+						{
+							ReplaceDatafileValues
+							(
+								fileName,
+								new string[]
+								{
+									@"Eamon\.Game\.Monster, Eamon",
+								},
+								new string[]
+								{
+									"AlternateBeginnersCave.Game.Monster, AlternateBeginnersCave",
+								}
+							);
+						}
+
+						if (workDir.EndsWith(@"\Adventures\BeginnersCaveII"))
+						{
+							ReplaceDatafileValues
+							(
+								fileName,
+								new string[]
+								{
+									@"Eamon\.Game\.Monster, Eamon",
+								},
+								new string[]
+								{
+									"BeginnersCaveII.Game.Monster, BeginnersCaveII",
+								}
+							);
+						}
+
+						if (workDir.EndsWith(@"\Adventures\LandOfTheMountainKing"))
+						{
+							ReplaceDatafileValues
+							(
+								fileName,
+								new string[]
+								{
+									@"Eamon\.Game\.Monster, Eamon",
+								},
+								new string[]
+								{
+									"LandOfTheMountainKing.Game.Monster, LandOfTheMountainKing",
+								}
+							);
+						}
+					}
+
+					if (!upgraded)
+					{
+						ReplaceDatafileValues
+						(
+							fileName,
+							new string[]
+							{
+								@"Version=1\.8\.0\.0",
+								@"EAMON CS 1\.8",
+							},
+							new string[]
+							{
+								"Version=2.1.0.0",
+								"EAMON CS 2.1",
 							}
 						);
 					}

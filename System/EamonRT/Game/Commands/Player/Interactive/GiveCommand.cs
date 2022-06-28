@@ -113,6 +113,15 @@ namespace EamonRT.Game.Commands
 					goto Cleanup;
 				}
 
+				if (IobjMonster.ShouldRefuseToAcceptGold())
+				{
+					gEngine.PrintMonsterEmotes(IobjMonster);
+
+					gOut.WriteLine();
+
+					goto Cleanup;
+				}
+
 				ProcessEvents(EventType.BeforeTakePlayerGold);
 
 				if (GotoCleanup)

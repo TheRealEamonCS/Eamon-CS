@@ -44,9 +44,9 @@ namespace TheDeepCanyon.Game
 
 		public override bool IsDirectionInObviousExitsList(long index)
 		{
-			// Suppress west exit in Falconer's camp
+			// Suppress various "invisible" exits
 
-			return base.IsDirectionInObviousExitsList(index) && (Uid != 8 || index != 4);
+			return base.IsDirectionInObviousExitsList(index) && ((Uid != 8 && Uid != 22) || (Uid == 8 && index != 4) || (Uid == 22 && index != 1));
 		}
 
 		public override RetCode BuildPrintedTooDarkToSeeDesc(StringBuilder buf)

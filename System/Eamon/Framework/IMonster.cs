@@ -292,6 +292,10 @@ namespace Eamon.Framework
 		bool ShouldProcessInGameLoop();
 
 		/// <summary></summary>
+		/// <returns></returns>
+		bool ShouldRefuseToAcceptGold();
+
+		/// <summary></summary>
 		/// <param name="artifact"></param>
 		/// <returns></returns>
 		bool ShouldRefuseToAcceptGift(IArtifact artifact);

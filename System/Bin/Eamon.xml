@@ -3873,6 +3873,10 @@
             <summary></summary>
             <returns></returns>
         </member>
+        <member name="M:Eamon.Framework.IMonster.ShouldRefuseToAcceptGold">
+            <summary></summary>
+            <returns></returns>
+        </member>
         <member name="M:Eamon.Framework.IMonster.ShouldRefuseToAcceptGift(Eamon.Framework.IArtifact)">
             <summary></summary>
             <param name="artifact"></param>

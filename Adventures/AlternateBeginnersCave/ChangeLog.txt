@@ -5,5 +5,5 @@ ChangeLog: AlternateBeginnersCave
 
 Date            Version            Who            Notes
 ----------------------------------------------------------------------------------------------------------------------------------
-20211211        1.8.0              MP             ProcessEvents normalization overhaul
-20210420                           MP             Code complete 1.8.0
+20211211        2.1.0              MP             ProcessEvents normalization overhaul
+20210420                           MP             Code complete 2.1.0
