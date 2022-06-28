@@ -80,9 +80,12 @@ namespace TheDeepCanyon.Game.States
 					{
 						gOut.Print(room.IsLit() ? "You see a mouse scrurry around in the shadows and run back into a hole." : "You hear something scrurry around in the darkness.");
 					}
-					else if (room.Uid == 23 || room.Uid == 20)
+					else
 					{
-						gOut.Print("You hear something scurrying around and a bell ring!");
+						if (room.Uid == 23 || room.Uid == 20)
+						{
+							gOut.Print("You hear something scurrying around and a bell ring!");
+						}
 
 						gGameState.TrapSet = false;
 

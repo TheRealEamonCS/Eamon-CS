@@ -144,7 +144,7 @@ namespace Eamon.Game.Plugin
 
 		public virtual string StackTraceFile { get; protected set; } = "STACKTRACE.TXT";
 
-		public virtual string ProgVersion { get; protected set; } = "1.8.0";
+		public virtual string ProgVersion { get; protected set; } = "2.1.0";
 
 		public virtual long InfiniteDrinkableEdible { get; protected set; } = 9999;
 

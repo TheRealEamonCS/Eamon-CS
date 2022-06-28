@@ -42,7 +42,13 @@ namespace EamonRT.Framework.Plugin
 		IList<Action> SkillIncreaseFuncList { get; set; }
 
 		/// <summary></summary>
+		IList<long> LoopMonsterUidList { get; set; }
+
+		/// <summary></summary>
 		long ActionListCounter { get; set; }
+
+		/// <summary></summary>
+		long LoopMonsterUidListIndex { get; set; }
 
 		/// <summary></summary>
 		long LoopMonsterUid { get; set; }

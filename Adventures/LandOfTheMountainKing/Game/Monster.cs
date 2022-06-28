@@ -7,9 +7,9 @@ using System.Diagnostics;
 using Eamon.Framework;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
-using static TheTrainingGround.Game.Plugin.PluginContext;
+using static LandOfTheMountainKing.Game.Plugin.PluginContext;
 
-namespace TheTrainingGround.Game
+namespace LandOfTheMountainKing.Game
 {
 	[ClassMappings]
 	public class Monster : Eamon.Game.Monster, IMonster
@@ -23,7 +23,7 @@ namespace TheTrainingGround.Game
 		{
 			Debug.Assert(artifact != null);
 
-			return ((Uid == 5 && artifact.Uid == 8) || (Uid == 14 && artifact.Uid == 51)) ? false : (!Globals.IsRulesetVersion(5, 25) && (Reaction == Friendliness.Enemy || (Reaction == Friendliness.Neutral && artifact.Value < 3000)));
+			return !Globals.IsRulesetVersion(5, 25) && (Reaction == Friendliness.Enemy || (Reaction == Friendliness.Neutral && artifact.Value < 3000));
 		}
 	}
 }

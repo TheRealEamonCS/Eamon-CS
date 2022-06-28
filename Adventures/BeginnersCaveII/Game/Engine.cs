@@ -19,6 +19,52 @@ namespace BeginnersCaveII.Game
 		/// <summary></summary>
 		public virtual long HeldWpnIdx { get; set; }
 
+		public override void PrintMonsterEmotes(IMonster monster, bool friendSmile = true)
+		{
+			Debug.Assert(monster != null);
+
+			var rl = RollDice(1, 100, 0);
+
+			// Cave rat
+
+			if (monster.Uid == 3)
+			{
+				gOut.Write("{0}{1} {2} at you.", Environment.NewLine, monster.GetTheName(true), rl > 66 ? "squeals" : rl > 33 ? "squeaks" : "hisses");
+			}
+
+			// Large snake
+
+			else if (monster.Uid == 5)
+			{
+				gOut.Write("{0}{1} hisses at you.", Environment.NewLine, monster.GetTheName(true));
+			}
+
+			// Wild boar / bull
+
+			else if (monster.Uid == 6 || monster.Uid == 14)
+			{
+				gOut.Write("{0}{1} {2} at you.", Environment.NewLine, monster.GetTheName(true), rl > 66 ? "grunts" : rl > 33 ? "bellows" : "snorts");
+			}
+
+			// Wild dog
+
+			else if (monster.Uid == 10)
+			{
+				gOut.Write("{0}{1} {2} at you.", Environment.NewLine, monster.GetTheName(true), rl > 50 ? "growls" : "barks");
+			}
+
+			// Black widow
+
+			else if (monster.Uid == 16)
+			{
+				gOut.Write("{0}{1} is not responsive.", Environment.NewLine, monster.GetTheName(true));
+			}
+			else
+			{
+				base.PrintMonsterEmotes(monster, friendSmile);
+			}
+		}
+
 		public override void InitArtifacts()
 		{
 			base.InitArtifacts();

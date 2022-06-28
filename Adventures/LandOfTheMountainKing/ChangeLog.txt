@@ -5,7 +5,7 @@ ChangeLog: LandOfTheMountainKing
 
 Date            Version            Who            Notes
 ----------------------------------------------------------------------------------------------------------------------------------
-20211211        1.8.0              MP             ProcessEvents normalization overhaul
+20211211        2.1.0              MP             ProcessEvents normalization overhaul
 20210331                           MP             Player/Monster Command normalization overhaul
 20210331                           MP             GZip datafile overhaul
 20201031        1.7.0              MP             Direction overhaul

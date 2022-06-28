@@ -37,7 +37,7 @@ namespace EamonRT.Game.States
 
 			while (true)
 			{
-				Globals.LoopMonsterUid++;
+				Globals.LoopMonsterUid = Globals.LoopMonsterUidListIndex < Globals.LoopMonsterUidList.Count ? Globals.LoopMonsterUidList[(int)(Globals.LoopMonsterUidListIndex++)] : Globals.Database.GetMonsterUid(false) + 1;
 
 				LoopMonster = gMDB[Globals.LoopMonsterUid];
 

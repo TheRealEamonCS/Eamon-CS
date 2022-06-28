@@ -5,7 +5,7 @@ ChangeLog: EamonRT
 
 Date            Version            Who            Notes
 ----------------------------------------------------------------------------------------------------------------------------------
-20220131        1.8.0              MP             CombatSystem/Component hierarchy overhaul
+20220131        2.1.0              MP             CombatSystem/Component hierarchy overhaul
 20211231                           MP             Printed Text Extraction overhaul
 20210331                           MP             Player/Monster Command normalization overhaul
 20210331                           MP             GZip datafile overhaul
