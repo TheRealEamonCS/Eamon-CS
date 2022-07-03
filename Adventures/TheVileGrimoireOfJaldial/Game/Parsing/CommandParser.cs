@@ -5,6 +5,7 @@
 
 using System;
 using System.Diagnostics;
+using Eamon.Framework;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using Eamon.Game.Extensions;
@@ -444,6 +445,22 @@ namespace TheVileGrimoireOfJaldial.Game.Parsing
 				// Make note of the Decoration so it can be used later if the normal Artifact resolution process fails
 
 				ObjData.Cast<Framework.Parsing.IParserData>().DecorationArtifact = a;
+			}
+		}
+
+		public override void SetLastNameStrings(IGameBase obj, string objDataName, IArtifact artifact, IMonster monster)
+		{
+			base.SetLastNameStrings(obj, objDataName, artifact, monster);
+
+			// Decorations can also be referred to as "them" for ease of use
+
+			if (artifact != null && (artifact.Uid == 41 || artifact.Uid == 42))
+			{
+				artifact.IsPlural = true;
+
+				base.SetLastNameStrings(obj, objDataName, artifact, monster);
+
+				artifact.IsPlural = false;
 			}
 		}
 
