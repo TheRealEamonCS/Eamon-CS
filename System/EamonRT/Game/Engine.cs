@@ -1988,11 +1988,15 @@ ProcessRevealArtifact:
 		{
 			long rl;
 
-			Debug.Assert(room != null);
+#if DEBUG
 
-			Debug.Assert(room.Dirs.Count(x => x != 0 && x != room.Uid) > 0);
+			long numExits = 0;
 
-			Debug.Assert(monster != null);
+			CheckNumberOfExits(room, monster, fleeing, ref numExits);
+
+			Debug.Assert(numExits > 0);
+
+#endif
 
 			direction = 0;
 
