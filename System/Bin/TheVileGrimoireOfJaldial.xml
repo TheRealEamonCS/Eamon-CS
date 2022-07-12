@@ -202,6 +202,9 @@
         <member name="F:TheVileGrimoireOfJaldial.Framework.Primitive.Enums.WeatherType.Fog">
             <summary></summary>
         </member>
+        <member name="M:TheVileGrimoireOfJaldial.Game.Components.MagicComponent.TunnelCollapses">
+            <summary></summary>
+        </member>
         <member name="M:TheVileGrimoireOfJaldial.Game.Helpers.GameStateHelper.ValidateFoggyRoomWeatherIntensity">
             <summary></summary>
             <returns></returns>
