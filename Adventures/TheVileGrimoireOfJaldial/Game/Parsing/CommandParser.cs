@@ -382,7 +382,7 @@ namespace TheVileGrimoireOfJaldial.Game.Parsing
 			{
 				a.Field1 = 4;
 			}
-			else if (gActorRoom(this).IsCryptRoom() && ObjData.Name.ContainsAny(new string[] { "floor", "dust" }, StringComparison.OrdinalIgnoreCase))
+			else if (gActorRoom(this).IsCryptRoom() && ActorRoom.Uid != 91 && ActorRoom.Uid != 93 && ActorRoom.Uid != 97 && ObjData.Name.ContainsAny(new string[] { "floor", "dust" }, StringComparison.OrdinalIgnoreCase))
 			{
 				a.Field1 = 14;
 			}
