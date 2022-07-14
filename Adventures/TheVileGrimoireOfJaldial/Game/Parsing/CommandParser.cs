@@ -378,7 +378,7 @@ namespace TheVileGrimoireOfJaldial.Game.Parsing
 			{
 				a.Field1 = 3;
 			}
-			else if (gActorRoom(this).IsGroundsRoom() && !gActorRoom(this).IsSwampRoom() && ActorRoom.Uid != 16 && ActorRoom.Uid != 23 && ActorRoom.Uid != 39 && ObjData.Name.ContainsAny(new string[] { "tombstone", "gravestone" }, StringComparison.OrdinalIgnoreCase))
+			else if (gActorRoom(this).IsGroundsRoom() && !gActorRoom(this).IsSwampRoom() && ActorRoom.Uid != 16 && ActorRoom.Uid != 23 && ActorRoom.Uid != 39 && ActorRoom.Uid != 118 && ActorRoom.Uid != 119 && ActorRoom.Uid != 120 && ActorRoom.Uid != 121 && ObjData.Name.ContainsAny(new string[] { "tombstone", "gravestone" }, StringComparison.OrdinalIgnoreCase))
 			{
 				a.Field1 = 4;
 			}
@@ -390,7 +390,7 @@ namespace TheVileGrimoireOfJaldial.Game.Parsing
 			{
 				a.Field1 = 16;
 			}
-			else if (gActorRoom(this).IsGroundsRoom() && !gActorRoom(this).IsSwampRoom() && ActorRoom.Uid != 16 && ActorRoom.Uid != 23 && ActorRoom.Uid != 39 && ObjData.Name.Contains("epitaph", StringComparison.OrdinalIgnoreCase))
+			else if (gActorRoom(this).IsGroundsRoom() && !gActorRoom(this).IsSwampRoom() && ActorRoom.Uid != 16 && ActorRoom.Uid != 23 && ActorRoom.Uid != 39 && ActorRoom.Uid != 118 && ActorRoom.Uid != 119 && ActorRoom.Uid != 120 && ActorRoom.Uid != 121 && ObjData.Name.Contains("epitaph", StringComparison.OrdinalIgnoreCase))
 			{
 				a.Field1 = 57;
 			}
@@ -433,7 +433,7 @@ namespace TheVileGrimoireOfJaldial.Game.Parsing
 			{
 				a.Field2 = 8;
 			}
-			else if (gActorRoom(this).IsGroundsRoom() && !gActorRoom(this).IsSwampRoom() && ActorRoom.Uid != 16 && ActorRoom.Uid != 23 && ActorRoom.Uid != 39 && ObjData.Name.ContainsAny(new string[] { "tombstone", "gravestone", "epitaph" }, StringComparison.OrdinalIgnoreCase))
+			else if (gActorRoom(this).IsGroundsRoom() && !gActorRoom(this).IsSwampRoom() && ActorRoom.Uid != 16 && ActorRoom.Uid != 23 && ActorRoom.Uid != 39 && ActorRoom.Uid != 118 && ActorRoom.Uid != 119 && ActorRoom.Uid != 120 && ActorRoom.Uid != 121 && ObjData.Name.ContainsAny(new string[] { "tombstone", "gravestone", "epitaph" }, StringComparison.OrdinalIgnoreCase))
 			{
 				a.Field2 = 1;
 			}
