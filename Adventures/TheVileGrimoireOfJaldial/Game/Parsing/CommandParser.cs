@@ -362,7 +362,7 @@ namespace TheVileGrimoireOfJaldial.Game.Parsing
 			{
 				a.Field1 = 59;
 			}
-			else if (ActorRoom.Uid == 110 && ObjData.Name.Contains("message", StringComparison.OrdinalIgnoreCase))
+			else if (ActorRoom.Uid == 110 && ObjData.Name.ContainsAny(new string[] { "message", "wall" }, StringComparison.OrdinalIgnoreCase))
 			{
 				a.Field1 = 60;
 			}
@@ -429,7 +429,7 @@ namespace TheVileGrimoireOfJaldial.Game.Parsing
 			{
 				a.Field2 = 7;
 			}
-			else if (ActorRoom.Uid == 110 && ObjData.Name.Contains("message", StringComparison.OrdinalIgnoreCase))
+			else if (ActorRoom.Uid == 110 && ObjData.Name.ContainsAny(new string[] { "message", "wall" }, StringComparison.OrdinalIgnoreCase))
 			{
 				a.Field2 = 8;
 			}
