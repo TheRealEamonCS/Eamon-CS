@@ -3141,6 +3141,9 @@
         <member name="P:EamonRT.Game.Commands.ExamineCommand.IsUninjuredGroupMonster">
             <summary></summary>
         </member>
+        <member name="P:EamonRT.Game.Commands.ExamineCommand.CheckContainerTypeInDobjArtName">
+            <summary></summary>
+        </member>
         <member name="P:EamonRT.Game.Commands.GetCommand.ArtTypes">
             <summary></summary>
         </member>
