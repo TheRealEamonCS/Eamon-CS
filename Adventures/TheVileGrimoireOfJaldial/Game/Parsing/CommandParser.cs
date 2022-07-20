@@ -140,6 +140,22 @@ namespace TheVileGrimoireOfJaldial.Game.Parsing
 			}
 		}
 
+		public override void SetLastNameStrings(IGameBase obj, string objDataName, IArtifact artifact, IMonster monster)
+		{
+			base.SetLastNameStrings(obj, objDataName, artifact, monster);
+
+			// Decorations can also be referred to as "them" for ease of use
+
+			if (artifact != null && (artifact.Uid == 41 || artifact.Uid == 42))
+			{
+				artifact.IsPlural = true;
+
+				base.SetLastNameStrings(obj, objDataName, artifact, monster);
+
+				artifact.IsPlural = false;
+			}
+		}
+
 		public override void ParseName()
 		{
 			base.ParseName();
@@ -445,22 +461,6 @@ namespace TheVileGrimoireOfJaldial.Game.Parsing
 				// Make note of the Decoration so it can be used later if the normal Artifact resolution process fails
 
 				ObjData.Cast<Framework.Parsing.IParserData>().DecorationArtifact = a;
-			}
-		}
-
-		public override void SetLastNameStrings(IGameBase obj, string objDataName, IArtifact artifact, IMonster monster)
-		{
-			base.SetLastNameStrings(obj, objDataName, artifact, monster);
-
-			// Decorations can also be referred to as "them" for ease of use
-
-			if (artifact != null && (artifact.Uid == 41 || artifact.Uid == 42))
-			{
-				artifact.IsPlural = true;
-
-				base.SetLastNameStrings(obj, objDataName, artifact, monster);
-
-				artifact.IsPlural = false;
 			}
 		}
 
