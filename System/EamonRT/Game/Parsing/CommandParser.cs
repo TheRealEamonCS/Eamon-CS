@@ -1369,6 +1369,22 @@ namespace EamonRT.Game.Parsing
 				try
 				{
 					methodInfo.Invoke(this, null);
+
+					if (Dobj != null)
+					{
+						if (gGameState.IobjPronounAffinity)
+						{
+							SetLastNameStrings(Dobj, DobjData.Name, DobjArtifact, DobjMonster);
+
+							SetLastNameStrings(Iobj, IobjData.Name, IobjArtifact, IobjMonster);
+						}
+						else
+						{
+							SetLastNameStrings(Iobj, IobjData.Name, IobjArtifact, IobjMonster);
+
+							SetLastNameStrings(Dobj, DobjData.Name, DobjArtifact, DobjMonster);
+						}
+					}
 				}
 				catch (TargetInvocationException ex)
 				{
@@ -1804,22 +1820,6 @@ namespace EamonRT.Game.Parsing
 						{
 							NextState = Globals.CreateInstance<IStartState>();
 						}
-					}
-				}
-
-				if (Dobj != null)
-				{
-					if (gGameState.IobjPronounAffinity)
-					{
-						SetLastNameStrings(Dobj, DobjData.Name, DobjArtifact, DobjMonster);
-
-						SetLastNameStrings(Iobj, IobjData.Name, IobjArtifact, IobjMonster);
-					}
-					else
-					{
-						SetLastNameStrings(Iobj, IobjData.Name, IobjArtifact, IobjMonster);
-
-						SetLastNameStrings(Dobj, DobjData.Name, DobjArtifact, DobjMonster);
 					}
 				}
 			}
