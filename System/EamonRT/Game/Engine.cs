@@ -131,7 +131,9 @@ namespace EamonRT.Game
 		{
 			Debug.Assert(artifact != null);
 
-			gOut.Print("{0} {1}", artifact.GetTheName(true), Globals.IsRulesetVersion(5, 15, 25) ? "comes alive!" : "comes to life!");
+			gOut.Print("{0} {1}", artifact.GetTheName(true), Globals.IsRulesetVersion(5, 15, 25) ? 
+				string.Format("come{0} alive!", artifact.EvalPlural("s", "")) :
+				string.Format("come{0} to life!", artifact.EvalPlural("s", "")));
 		}
 
 		public virtual void PrintArtifactVanishes(IArtifact artifact)
