@@ -634,6 +634,30 @@
     <AndroidAsset Include="Assets\Adventures\TheDeepCanyon\SCRIPTS.DAT" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidAsset Include="Assets\Adventures\TowerOfEamon\ROOMS.DAT" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\Adventures\TowerOfEamon\ARTIFACTS.DAT" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\Adventures\TowerOfEamon\EFFECTS.DAT" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\Adventures\TowerOfEamon\HINTS.DAT" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\Adventures\TowerOfEamon\MODULE.DAT" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\Adventures\TowerOfEamon\MONSTERS.DAT" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\Adventures\TowerOfEamon\TRIGGERS.DAT" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\Adventures\TowerOfEamon\SCRIPTS.DAT" />
+  </ItemGroup>
+  <ItemGroup>
     <AndroidAsset Include="Assets\Adventures\TheWayfarersInn\ROOMS.DAT" />
   </ItemGroup>
   <ItemGroup>
@@ -700,6 +724,7 @@ xcopy "$(TargetDir)..\..\Adventures\RiddlesOfTheDuergarKingdom\*.DAT" "$(TargetD
 xcopy "$(TargetDir)..\..\Adventures\BeginnersCaveII\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\BeginnersCaveII" /I /S /Y
 xcopy "$(TargetDir)..\..\Adventures\AlternateBeginnersCave\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\AlternateBeginnersCave" /I /S /Y
 xcopy "$(TargetDir)..\..\Adventures\TheDeepCanyon\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\TheDeepCanyon" /I /S /Y
+xcopy "$(TargetDir)..\..\Adventures\TowerOfEamon\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\TowerOfEamon" /I /S /Y
 xcopy "$(TargetDir)..\..\Adventures\TheWayfarersInn\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\TheWayfarersInn" /I /S /Y
 </PreBuildEvent>
   </PropertyGroup>
