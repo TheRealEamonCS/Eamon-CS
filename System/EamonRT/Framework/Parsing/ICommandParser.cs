@@ -96,6 +96,13 @@ namespace EamonRT.Framework.Parsing
 		void ResolveRecordProcessWhereClauseList();
 
 		/// <summary></summary>
+		/// <param name="obj"></param>
+		/// <param name="objDataName"></param>
+		/// <param name="artifact"></param>
+		/// <param name="monster"></param>
+		void SetLastNameStrings(IGameBase obj, string objDataName, IArtifact artifact, IMonster monster);
+
+		/// <summary></summary>
 		void FinishParsing();
 
 		/// <summary></summary>
@@ -119,13 +126,6 @@ namespace EamonRT.Framework.Parsing
 
 		/// <summary></summary>
 		void ParseName();
-
-		/// <summary></summary>
-		/// <param name="obj"></param>
-		/// <param name="objDataName"></param>
-		/// <param name="artifact"></param>
-		/// <param name="monster"></param>
-		void SetLastNameStrings(IGameBase obj, string objDataName, IArtifact artifact, IMonster monster);
 
 		/// <summary></summary>
 		/// <param name="afterFinishParsing"></param>
