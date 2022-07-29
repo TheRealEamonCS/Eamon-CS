@@ -47,6 +47,9 @@ namespace EamonRT.Game.Commands
 		/// <summary></summary>
 		public virtual bool IsUninjuredGroupMonster { get; set; }
 
+		/// <summary></summary>
+		public virtual bool CheckContainerTypeInDobjArtName { get; set; }
+
 		public override void Execute()
 		{
 			Debug.Assert(DobjArtifact != null || DobjMonster != null);
@@ -118,7 +121,7 @@ namespace EamonRT.Game.Commands
 				DobjArtAc.Field4 = 0;
 			}
 
-			if (!Enum.IsDefined(typeof(ContainerType), ContainerType) || (string.Format(" {0} ", DobjArtifact.Name).IndexOf(string.Format(" {0} ", ContainerType.ToString()), StringComparison.OrdinalIgnoreCase) >= 0 && DobjArtifact.GeneralContainer == null) || DobjArtifact.IsWornByCharacter())
+			if (!Enum.IsDefined(typeof(ContainerType), ContainerType) || (CheckContainerTypeInDobjArtName && string.Format(" {0} ", DobjArtifact.Name).IndexOf(string.Format(" {0} ", ContainerType.ToString()), StringComparison.OrdinalIgnoreCase) >= 0 && DobjArtifact.GeneralContainer == null) || DobjArtifact.IsWornByCharacter())
 			{
 				PrintFullDesc(DobjArtifact, false);
 
@@ -227,6 +230,8 @@ namespace EamonRT.Game.Commands
 			Type = CommandType.Manipulation;
 
 			ArtTypes = new ArtifactType[] { ArtifactType.DisguisedMonster, ArtifactType.DoorGate, ArtifactType.Drinkable, ArtifactType.Edible, ArtifactType.InContainer, ArtifactType.OnContainer, ArtifactType.UnderContainer, ArtifactType.BehindContainer };
+
+			CheckContainerTypeInDobjArtName = true;
 		}
 	}
 }

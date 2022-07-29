@@ -1350,6 +1350,54 @@ namespace EamonRT.Game.Parsing
 			}
 		}
 
+		public virtual void SetLastNameStrings(IGameBase obj, string objDataName, IArtifact artifact, IMonster monster)
+		{
+			if (gGameState.EnhancedParser && obj != null && !string.IsNullOrWhiteSpace(objDataName))
+			{
+				var objDataName01 = string.Format(" {0} ", objDataName);
+
+				if (Array.FindIndex(Constants.CommandSepTokens, token => !Char.IsPunctuation(token[0]) ? objDataName01.IndexOf(" " + token + " ") >= 0 : objDataName01.IndexOf(token) >= 0) < 0 && Array.FindIndex(Constants.PronounTokens, token => objDataName01.IndexOf(" " + token + " ") >= 0) < 0)
+				{
+					if (artifact != null)
+					{
+						if (artifact.IsPlural)
+						{
+							LastThemNameStr = Globals.CloneInstance(objDataName);
+						}
+						else
+						{
+							LastItNameStr = Globals.CloneInstance(objDataName);
+						}
+					}
+					else
+					{
+						Debug.Assert(monster != null);
+
+						if (monster.GroupCount > 1)
+						{
+							LastThemNameStr = Globals.CloneInstance(objDataName);
+						}
+
+						if (monster.CurrGroupCount == 1)
+						{
+							if (monster.Gender == Gender.Male)
+							{
+								LastHimNameStr = Globals.CloneInstance(objDataName);
+							}
+							else if (monster.Gender == Gender.Female)
+							{
+								LastHerNameStr = Globals.CloneInstance(objDataName);
+							}
+							else
+							{
+								LastItNameStr = Globals.CloneInstance(objDataName);
+							}
+						}
+					}
+				}
+			}
+		}
+
 		public virtual void FinishParsing()
 		{
 			Debug.Assert(NextCommand != null);
@@ -1369,6 +1417,22 @@ namespace EamonRT.Game.Parsing
 				try
 				{
 					methodInfo.Invoke(this, null);
+
+					if (Dobj != null)
+					{
+						if (gGameState.IobjPronounAffinity)
+						{
+							SetLastNameStrings(Dobj, DobjData.Name, DobjArtifact, DobjMonster);
+
+							SetLastNameStrings(Iobj, IobjData.Name, IobjArtifact, IobjMonster);
+						}
+						else
+						{
+							SetLastNameStrings(Iobj, IobjData.Name, IobjArtifact, IobjMonster);
+
+							SetLastNameStrings(Dobj, DobjData.Name, DobjArtifact, DobjMonster);
+						}
+					}
 				}
 				catch (TargetInvocationException ex)
 				{
@@ -1613,54 +1677,6 @@ namespace EamonRT.Game.Parsing
 			}
 		}
 
-		public virtual void SetLastNameStrings(IGameBase obj, string objDataName, IArtifact artifact, IMonster monster)
-		{
-			if (gGameState.EnhancedParser && obj != null && !string.IsNullOrWhiteSpace(objDataName))
-			{
-				var objDataName01 = string.Format(" {0} ", objDataName);
-
-				if (Array.FindIndex(Constants.CommandSepTokens, token => !Char.IsPunctuation(token[0]) ? objDataName01.IndexOf(" " + token + " ") >= 0 : objDataName01.IndexOf(token) >= 0) < 0 && Array.FindIndex(Constants.PronounTokens, token => objDataName01.IndexOf(" " + token + " ") >= 0) < 0)
-				{
-					if (artifact != null)
-					{
-						if (artifact.IsPlural)
-						{
-							LastThemNameStr = Globals.CloneInstance(objDataName);
-						}
-						else
-						{
-							LastItNameStr = Globals.CloneInstance(objDataName);
-						}
-					}
-					else
-					{
-						Debug.Assert(monster != null);
-
-						if (monster.GroupCount > 1)
-						{
-							LastThemNameStr = Globals.CloneInstance(objDataName);
-						}
-
-						if (monster.CurrGroupCount == 1)
-						{
-							if (monster.Gender == Gender.Male)
-							{
-								LastHimNameStr = Globals.CloneInstance(objDataName);
-							}
-							else if (monster.Gender == Gender.Female)
-							{
-								LastHerNameStr = Globals.CloneInstance(objDataName);
-							}
-							else
-							{
-								LastItNameStr = Globals.CloneInstance(objDataName);
-							}
-						}
-					}
-				}
-			}
-		}
-
 		public virtual void CheckPlayerCommand(bool afterFinishParsing)
 		{
 			Debug.Assert(NextCommand != null);
@@ -1804,22 +1820,6 @@ namespace EamonRT.Game.Parsing
 						{
 							NextState = Globals.CreateInstance<IStartState>();
 						}
-					}
-				}
-
-				if (Dobj != null)
-				{
-					if (gGameState.IobjPronounAffinity)
-					{
-						SetLastNameStrings(Dobj, DobjData.Name, DobjArtifact, DobjMonster);
-
-						SetLastNameStrings(Iobj, IobjData.Name, IobjArtifact, IobjMonster);
-					}
-					else
-					{
-						SetLastNameStrings(Iobj, IobjData.Name, IobjArtifact, IobjMonster);
-
-						SetLastNameStrings(Dobj, DobjData.Name, DobjArtifact, DobjMonster);
 					}
 				}
 			}

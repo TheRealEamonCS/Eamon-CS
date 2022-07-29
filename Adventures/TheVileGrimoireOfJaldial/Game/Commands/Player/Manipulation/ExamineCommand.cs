@@ -702,5 +702,10 @@ namespace TheVileGrimoireOfJaldial.Game.Commands
 				base.Execute();
 			}
 		}
+
+		public ExamineCommand()
+		{
+			CheckContainerTypeInDobjArtName = false;
+		}
 	}
 }

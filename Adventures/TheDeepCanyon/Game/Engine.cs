@@ -271,7 +271,10 @@ namespace TheDeepCanyon.Game
 
 			if (DobjMonster.Uid == 3 && goldCoinsArtifact.IsInLimbo())
 			{
-				gOut.Print("{0}The gold miner drops his only fortune to the ground.", Environment.NewLine);
+				if (room.IsLit())
+				{ 
+					gOut.Print("{0}The gold miner drops his only fortune to the ground.", Environment.NewLine);
+				}
 
 				goldCoinsArtifact.SetInRoom(room);
 			}
@@ -280,7 +283,10 @@ namespace TheDeepCanyon.Game
 
 			else if (DobjMonster.Uid == 4 && silverCoinsArtifact.IsInLimbo())
 			{
-				gOut.Print("{0}The falconer drops some silver coins as he dies.", Environment.NewLine);
+				if (room.IsLit())
+				{ 
+					gOut.Print("{0}The falconer drops some silver coins as he dies.", Environment.NewLine);
+				}
 
 				silverCoinsArtifact.SetInRoom(room);
 			}
