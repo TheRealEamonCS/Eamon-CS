@@ -2053,6 +2053,13 @@
         <member name="M:EamonRT.Framework.Parsing.ICommandParser.ResolveRecordProcessWhereClauseList">
             <summary></summary>
         </member>
+        <member name="M:EamonRT.Framework.Parsing.ICommandParser.SetLastNameStrings(Eamon.Framework.IGameBase,System.String,Eamon.Framework.IArtifact,Eamon.Framework.IMonster)">
+            <summary></summary>
+            <param name="obj"></param>
+            <param name="objDataName"></param>
+            <param name="artifact"></param>
+            <param name="monster"></param>
+        </member>
         <member name="M:EamonRT.Framework.Parsing.ICommandParser.FinishParsing">
             <summary></summary>
         </member>
@@ -2077,13 +2084,6 @@
         </member>
         <member name="M:EamonRT.Framework.Parsing.ICommandParser.ParseName">
             <summary></summary>
-        </member>
-        <member name="M:EamonRT.Framework.Parsing.ICommandParser.SetLastNameStrings(Eamon.Framework.IGameBase,System.String,Eamon.Framework.IArtifact,Eamon.Framework.IMonster)">
-            <summary></summary>
-            <param name="obj"></param>
-            <param name="objDataName"></param>
-            <param name="artifact"></param>
-            <param name="monster"></param>
         </member>
         <member name="M:EamonRT.Framework.Parsing.ICommandParser.CheckPlayerCommand(System.Boolean)">
             <summary></summary>
@@ -3139,6 +3139,9 @@
             <summary></summary>
         </member>
         <member name="P:EamonRT.Game.Commands.ExamineCommand.IsUninjuredGroupMonster">
+            <summary></summary>
+        </member>
+        <member name="P:EamonRT.Game.Commands.ExamineCommand.CheckContainerTypeInDobjArtName">
             <summary></summary>
         </member>
         <member name="P:EamonRT.Game.Commands.GetCommand.ArtTypes">

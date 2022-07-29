@@ -256,7 +256,7 @@ namespace TheVileGrimoireOfJaldial.Game
 
 		public virtual bool IsBodyChamberRoom()
 		{
-			var roomUids = new long[] { 59, 60, 61, 80, 85, 86 };
+			var roomUids = new long[] { 59, 60, 61, 73, 79, 80, 85, 86 };
 
 			return roomUids.Contains(Uid);
 		}

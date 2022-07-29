@@ -131,7 +131,9 @@ namespace EamonRT.Game
 		{
 			Debug.Assert(artifact != null);
 
-			gOut.Print("{0} {1}", artifact.GetTheName(true), Globals.IsRulesetVersion(5, 15, 25) ? "comes alive!" : "comes to life!");
+			gOut.Print("{0} {1}", artifact.GetTheName(true), Globals.IsRulesetVersion(5, 15, 25) ? 
+				string.Format("come{0} alive!", artifact.EvalPlural("s", "")) :
+				string.Format("come{0} to life!", artifact.EvalPlural("s", "")));
 		}
 
 		public virtual void PrintArtifactVanishes(IArtifact artifact)
@@ -1988,11 +1990,15 @@ ProcessRevealArtifact:
 		{
 			long rl;
 
-			Debug.Assert(room != null);
+#if DEBUG
 
-			Debug.Assert(room.Dirs.Count(x => x != 0 && x != room.Uid) > 0);
+			long numExits = 0;
 
-			Debug.Assert(monster != null);
+			CheckNumberOfExits(room, monster, fleeing, ref numExits);
+
+			Debug.Assert(numExits > 0);
+
+#endif
 
 			direction = 0;
 

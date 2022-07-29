@@ -5,6 +5,7 @@
 
 using System;
 using System.Diagnostics;
+using Eamon.Framework;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using Eamon.Game.Extensions;
@@ -136,6 +137,22 @@ namespace TheVileGrimoireOfJaldial.Game.Parsing
 				ObjData.Cast<Framework.Parsing.IParserData>().DecorationArtifact.SetInRoom(ActorRoom);
 
 				base.ResolveRecordProcessWhereClauseList();
+			}
+		}
+
+		public override void SetLastNameStrings(IGameBase obj, string objDataName, IArtifact artifact, IMonster monster)
+		{
+			base.SetLastNameStrings(obj, objDataName, artifact, monster);
+
+			// Decorations can also be referred to as "them" for ease of use
+
+			if (artifact != null && (artifact.Uid == 41 || artifact.Uid == 42))
+			{
+				artifact.IsPlural = true;
+
+				base.SetLastNameStrings(obj, objDataName, artifact, monster);
+
+				artifact.IsPlural = false;
 			}
 		}
 
@@ -361,7 +378,7 @@ namespace TheVileGrimoireOfJaldial.Game.Parsing
 			{
 				a.Field1 = 59;
 			}
-			else if (ActorRoom.Uid == 110 && ObjData.Name.Contains("message", StringComparison.OrdinalIgnoreCase))
+			else if (ActorRoom.Uid == 110 && ObjData.Name.ContainsAny(new string[] { "message", "wall" }, StringComparison.OrdinalIgnoreCase))
 			{
 				a.Field1 = 60;
 			}
@@ -377,11 +394,11 @@ namespace TheVileGrimoireOfJaldial.Game.Parsing
 			{
 				a.Field1 = 3;
 			}
-			else if (gActorRoom(this).IsGroundsRoom() && !gActorRoom(this).IsSwampRoom() && ActorRoom.Uid != 16 && ActorRoom.Uid != 23 && ActorRoom.Uid != 39 && ObjData.Name.ContainsAny(new string[] { "tombstone", "gravestone" }, StringComparison.OrdinalIgnoreCase))
+			else if (gActorRoom(this).IsGroundsRoom() && !gActorRoom(this).IsSwampRoom() && ActorRoom.Uid != 16 && ActorRoom.Uid != 23 && ActorRoom.Uid != 39 && ActorRoom.Uid != 118 && ActorRoom.Uid != 119 && ActorRoom.Uid != 120 && ActorRoom.Uid != 121 && ObjData.Name.ContainsAny(new string[] { "tombstone", "gravestone" }, StringComparison.OrdinalIgnoreCase))
 			{
 				a.Field1 = 4;
 			}
-			else if (gActorRoom(this).IsCryptRoom() && ObjData.Name.ContainsAny(new string[] { "floor", "dust" }, StringComparison.OrdinalIgnoreCase))
+			else if (gActorRoom(this).IsCryptRoom() && ActorRoom.Uid != 91 && ActorRoom.Uid != 93 && ActorRoom.Uid != 97 && ObjData.Name.ContainsAny(new string[] { "floor", "dust" }, StringComparison.OrdinalIgnoreCase))
 			{
 				a.Field1 = 14;
 			}
@@ -389,7 +406,7 @@ namespace TheVileGrimoireOfJaldial.Game.Parsing
 			{
 				a.Field1 = 16;
 			}
-			else if (gActorRoom(this).IsGroundsRoom() && !gActorRoom(this).IsSwampRoom() && ActorRoom.Uid != 16 && ActorRoom.Uid != 23 && ActorRoom.Uid != 39 && ObjData.Name.Contains("epitaph", StringComparison.OrdinalIgnoreCase))
+			else if (gActorRoom(this).IsGroundsRoom() && !gActorRoom(this).IsSwampRoom() && ActorRoom.Uid != 16 && ActorRoom.Uid != 23 && ActorRoom.Uid != 39 && ActorRoom.Uid != 118 && ActorRoom.Uid != 119 && ActorRoom.Uid != 120 && ActorRoom.Uid != 121 && ObjData.Name.Contains("epitaph", StringComparison.OrdinalIgnoreCase))
 			{
 				a.Field1 = 57;
 			}
@@ -428,11 +445,11 @@ namespace TheVileGrimoireOfJaldial.Game.Parsing
 			{
 				a.Field2 = 7;
 			}
-			else if (ActorRoom.Uid == 110 && ObjData.Name.Contains("message", StringComparison.OrdinalIgnoreCase))
+			else if (ActorRoom.Uid == 110 && ObjData.Name.ContainsAny(new string[] { "message", "wall" }, StringComparison.OrdinalIgnoreCase))
 			{
 				a.Field2 = 8;
 			}
-			else if (gActorRoom(this).IsGroundsRoom() && !gActorRoom(this).IsSwampRoom() && ActorRoom.Uid != 16 && ActorRoom.Uid != 23 && ActorRoom.Uid != 39 && ObjData.Name.ContainsAny(new string[] { "tombstone", "gravestone", "epitaph" }, StringComparison.OrdinalIgnoreCase))
+			else if (gActorRoom(this).IsGroundsRoom() && !gActorRoom(this).IsSwampRoom() && ActorRoom.Uid != 16 && ActorRoom.Uid != 23 && ActorRoom.Uid != 39 && ActorRoom.Uid != 118 && ActorRoom.Uid != 119 && ActorRoom.Uid != 120 && ActorRoom.Uid != 121 && ObjData.Name.ContainsAny(new string[] { "tombstone", "gravestone", "epitaph" }, StringComparison.OrdinalIgnoreCase))
 			{
 				a.Field2 = 1;
 			}
