@@ -1147,7 +1147,14 @@ namespace Eamon.Game
 
 			var buf = new StringBuilder(Constants.BufSize);
 
-			var ac = artifact.Categories.FirstOrDefault(ac01 => ac01 != null && artTypes.Contains(ac01.Type) && ac01.Field5 == (long)ContainerDisplayCode.ArtifactNameSomeStuff && (ac01.Type != ArtifactType.InContainer || ac01.IsOpen() || artifact.ShouldExposeInContentsWhenClosed()));
+			var buf01 = new StringBuilder(Constants.BufSize);
+
+			var ac = artifact.Categories.FirstOrDefault(ac01 => ac01 != null && artTypes.Contains(ac01.Type) && ac01.Field5 == (long)ContainerDisplayCode.ArtifactNameList && (ac01.Type != ArtifactType.InContainer || ac01.IsOpen() || artifact.ShouldExposeInContentsWhenClosed()));
+
+			if (ac == null)
+			{
+				ac = artifact.Categories.FirstOrDefault(ac01 => ac01 != null && artTypes.Contains(ac01.Type) && ac01.Field5 == (long)ContainerDisplayCode.ArtifactNameSomeStuff && (ac01.Type != ArtifactType.InContainer || ac01.IsOpen() || artifact.ShouldExposeInContentsWhenClosed()));
+			}
 
 			if (ac == null)
 			{
@@ -1162,12 +1169,19 @@ namespace Eamon.Game
 
 				var showCharOwned = !artifact.IsCarriedByCharacter() && !artifact.IsWornByCharacter();
 
+				var maxContentsNameListCount = artifact.GetMaxContentsNameListCount(containerType);
+
 				if (contentsList.Count > 0)
 				{
+					if (ac.Field5 == (long)ContainerDisplayCode.ArtifactNameList && contentsList.Count <= maxContentsNameListCount)
+					{ 
+						GetRecordNameList(contentsList.Cast<IGameBase>().ToList(), ArticleType.A, showCharOwned, StateDescDisplayCode.None, false, false, buf01);
+					}
+
 					result = string.Format
 					(
 						" with {0} {1} {2}",
-						contentsList.Count > 1 || contentsList[0].IsPlural ? "some stuff" : ac.Field5 == (long)ContainerDisplayCode.ArtifactNameSomeStuff ? contentsList[0].GetArticleName(false, showCharOwned, false, false, buf) : "something",
+						ac.Field5 == (long)ContainerDisplayCode.ArtifactNameList && contentsList.Count <= maxContentsNameListCount ? buf01.ToString() : contentsList.Count > 1 || contentsList[0].IsPlural ? "some stuff" : ac.Field5 == (long)ContainerDisplayCode.ArtifactNameSomeStuff ? contentsList[0].GetArticleName(false, showCharOwned, false, false, buf) : "something",
 						EvalContainerType(containerType, "inside", "on", "under", "behind"),
 						artifact.EvalPlural("it", "them")
 					);
@@ -2732,7 +2746,8 @@ namespace Eamon.Game
 			{
 				"None",
 				"Something/Some Stuff",
-				"Artifact Name/Some Stuff"
+				"Artifact Name/Some Stuff",
+				"Artifact Name List"
 			};
 
 			LightLevelNames = new string[]

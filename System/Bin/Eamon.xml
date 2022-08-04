@@ -1678,6 +1678,11 @@
             <summary></summary>
             <returns></returns>
         </member>
+        <member name="M:Eamon.Framework.IArtifact.GetMaxContentsNameListCount(Eamon.Framework.Primitive.Enums.ContainerType)">
+            <summary></summary>
+            <param name="containerType"></param>
+            <returns></returns>
+        </member>
         <member name="M:Eamon.Framework.IArtifact.GetDoorGateFleeDesc">
             <summary></summary>
             <returns></returns>
@@ -6431,6 +6436,9 @@
             <summary></summary>
         </member>
         <member name="F:Eamon.Framework.Primitive.Enums.ContainerDisplayCode.ArtifactNameSomeStuff">
+            <summary></summary>
+        </member>
+        <member name="F:Eamon.Framework.Primitive.Enums.ContainerDisplayCode.ArtifactNameList">
             <summary></summary>
         </member>
         <member name="T:Eamon.Framework.Primitive.Enums.ContainerType">

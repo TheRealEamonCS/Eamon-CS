@@ -638,6 +638,11 @@ namespace Eamon.Framework
 		bool ShouldShowContentsWhenOpened();
 
 		/// <summary></summary>
+		/// <param name="containerType"></param>
+		/// <returns></returns>
+		long GetMaxContentsNameListCount(ContainerType containerType = ContainerType.In);
+
+		/// <summary></summary>
 		/// <returns></returns>
 		string GetDoorGateFleeDesc();
 

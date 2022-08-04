@@ -1288,6 +1288,11 @@ namespace Eamon.Game
 			return true;
 		}
 
+		public virtual long GetMaxContentsNameListCount(ContainerType containerType = ContainerType.In)
+		{
+			return long.MaxValue;
+		}
+
 		public virtual string GetDoorGateFleeDesc()
 		{
 			return "";
