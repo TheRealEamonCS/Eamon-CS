@@ -1149,16 +1149,16 @@ namespace Eamon.Game
 
 			var buf01 = new StringBuilder(Constants.BufSize);
 
-			var ac = artifact.Categories.FirstOrDefault(ac01 => ac01 != null && artTypes.Contains(ac01.Type) && ac01.Field5 == (long)ContainerDisplayCode.ArtifactNameList && (ac01.Type != ArtifactType.InContainer || ac01.IsOpen() || artifact.ShouldExposeInContentsWhenClosed()));
+			var ac = artifact.Categories.FirstOrDefault(ac01 => ac01 != null && artTypes.Contains(ac01.Type) && ac01.Field5 == (long)ContainerDisplayCode.ArtifactNameList && (ac01.Type != ArtifactType.InContainer || ac01.IsOpen() || artifact.ShouldExposeInContentsWhenClosed()) && artifact.GetContainedList(containerType: GetContainerType(ac01.Type)).Count > 0);
 
 			if (ac == null)
 			{
-				ac = artifact.Categories.FirstOrDefault(ac01 => ac01 != null && artTypes.Contains(ac01.Type) && ac01.Field5 == (long)ContainerDisplayCode.ArtifactNameSomeStuff && (ac01.Type != ArtifactType.InContainer || ac01.IsOpen() || artifact.ShouldExposeInContentsWhenClosed()));
+				ac = artifact.Categories.FirstOrDefault(ac01 => ac01 != null && artTypes.Contains(ac01.Type) && ac01.Field5 == (long)ContainerDisplayCode.ArtifactNameSomeStuff && (ac01.Type != ArtifactType.InContainer || ac01.IsOpen() || artifact.ShouldExposeInContentsWhenClosed()) && artifact.GetContainedList(containerType: GetContainerType(ac01.Type)).Count > 0);
 			}
 
 			if (ac == null)
 			{
-				ac = artifact.Categories.FirstOrDefault(ac01 => ac01 != null && artTypes.Contains(ac01.Type) && ac01.Field5 == (long)ContainerDisplayCode.SomethingSomeStuff && (ac01.Type != ArtifactType.InContainer || ac01.IsOpen() || artifact.ShouldExposeInContentsWhenClosed()));
+				ac = artifact.Categories.FirstOrDefault(ac01 => ac01 != null && artTypes.Contains(ac01.Type) && ac01.Field5 == (long)ContainerDisplayCode.SomethingSomeStuff && (ac01.Type != ArtifactType.InContainer || ac01.IsOpen() || artifact.ShouldExposeInContentsWhenClosed()) && artifact.GetContainedList(containerType: GetContainerType(ac01.Type)).Count > 0);
 			}
 
 			if (ac != null)
