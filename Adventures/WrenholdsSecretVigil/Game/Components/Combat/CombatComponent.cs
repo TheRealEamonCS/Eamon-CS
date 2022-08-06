@@ -48,7 +48,7 @@ namespace WrenholdsSecretVigil.Game.Components
 
 				Globals.Buf.Clear();
 
-				deadBodyArtifact.BuildPrintedFullDesc(Globals.Buf, false);
+				deadBodyArtifact.BuildPrintedFullDesc(Globals.Buf, false, false);
 
 				gOut.Write("{0}", Globals.Buf);
 

@@ -94,6 +94,12 @@ namespace Eamon.Framework
 		bool Va { get; set; }
 
 		/// <summary>
+		/// Gets or sets a value indicating whether names for <see cref="IMonster">Monster</see>s and
+		/// <see cref="IArtifact">Artifact</see>s should always be printed verbosely.
+		/// </summary>
+		bool Vn { get; set; }
+
+		/// <summary>
 		/// Gets or sets a value indicating whether mature content should be allowed during gameplay.
 		/// </summary>
 		bool MatureContent { get; set; }

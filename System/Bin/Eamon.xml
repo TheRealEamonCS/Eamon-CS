@@ -1678,6 +1678,14 @@
             <summary></summary>
             <returns></returns>
         </member>
+        <member name="M:Eamon.Framework.IArtifact.ShouldShowVerboseNameContentsNameList">
+            <summary></summary>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.IArtifact.ShouldShowVerboseNameStateDesc">
+            <summary></summary>
+            <returns></returns>
+        </member>
         <member name="M:Eamon.Framework.IArtifact.GetMaxContentsNameListCount(Eamon.Framework.Primitive.Enums.ContainerType)">
             <summary></summary>
             <param name="containerType"></param>
@@ -3274,10 +3282,11 @@
             <param name="buf"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IGameBase.BuildPrintedFullDesc(System.Text.StringBuilder,System.Boolean)">
+        <member name="M:Eamon.Framework.IGameBase.BuildPrintedFullDesc(System.Text.StringBuilder,System.Boolean,System.Boolean)">
             <summary></summary>
             <param name="buf"></param>
             <param name="showName"></param>
+            <param name="showVerboseName"></param>
             <returns></returns>
         </member>
         <member name="T:Eamon.Framework.IGameState">
@@ -3360,6 +3369,12 @@
         <member name="P:Eamon.Framework.IGameState.Va">
             <summary>
             Gets or sets a value indicating whether <see cref="T:Eamon.Framework.IArtifact">Artifact</see>s should always be printed verbosely.
+            </summary>
+        </member>
+        <member name="P:Eamon.Framework.IGameState.Vn">
+            <summary>
+            Gets or sets a value indicating whether names for <see cref="T:Eamon.Framework.IMonster">Monster</see>s and
+            <see cref="T:Eamon.Framework.IArtifact">Artifact</see>s should always be printed verbosely.
             </summary>
         </member>
         <member name="P:Eamon.Framework.IGameState.MatureContent">
@@ -3874,6 +3889,10 @@
             <summary></summary>
             <returns></returns>
         </member>
+        <member name="M:Eamon.Framework.IMonster.ShouldShowVerboseNameStateDesc">
+            <summary></summary>
+            <returns></returns>
+        </member>
         <member name="M:Eamon.Framework.IMonster.ShouldProcessInGameLoop">
             <summary></summary>
             <returns></returns>
@@ -4319,7 +4338,7 @@
             <param name="useNames"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IRoom.BuildPrintedFullDesc(System.Text.StringBuilder,System.Func{Eamon.Framework.IMonster,System.Boolean},System.Func{Eamon.Framework.IArtifact,System.Boolean},System.Boolean,System.Boolean,System.Boolean)">
+        <member name="M:Eamon.Framework.IRoom.BuildPrintedFullDesc(System.Text.StringBuilder,System.Func{Eamon.Framework.IMonster,System.Boolean},System.Func{Eamon.Framework.IArtifact,System.Boolean},System.Boolean,System.Boolean,System.Boolean,System.Boolean)">
             <summary></summary>
             <param name="buf"></param>
             <param name="monsterFindFunc"></param>
@@ -4327,6 +4346,7 @@
             <param name="verboseRoomDesc"></param>
             <param name="verboseMonsterDesc"></param>
             <param name="verboseArtifactDesc"></param>
+            <param name="verboseNames"></param>
             <returns></returns>
         </member>
         <member name="M:Eamon.Framework.IRoom.BuildPrintedTooDarkToSeeDesc(System.Text.StringBuilder)">

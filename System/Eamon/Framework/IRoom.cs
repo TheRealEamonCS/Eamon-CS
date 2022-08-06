@@ -251,8 +251,9 @@ namespace Eamon.Framework
 		/// <param name="verboseRoomDesc"></param>
 		/// <param name="verboseMonsterDesc"></param>
 		/// <param name="verboseArtifactDesc"></param>
+		/// <param name="verboseNames"></param>
 		/// <returns></returns>
-		RetCode BuildPrintedFullDesc(StringBuilder buf, Func<IMonster, bool> monsterFindFunc = null, Func<IArtifact, bool> artifactFindFunc = null, bool verboseRoomDesc = false, bool verboseMonsterDesc = false, bool verboseArtifactDesc = false);
+		RetCode BuildPrintedFullDesc(StringBuilder buf, Func<IMonster, bool> monsterFindFunc = null, Func<IArtifact, bool> artifactFindFunc = null, bool verboseRoomDesc = false, bool verboseMonsterDesc = false, bool verboseArtifactDesc = false, bool verboseNames = false);
 
 		/// <summary></summary>
 		/// <param name="buf"></param>

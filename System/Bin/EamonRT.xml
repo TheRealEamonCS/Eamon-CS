@@ -302,10 +302,11 @@
             <summary></summary>
             <param name="artifact"></param>
         </member>
-        <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintFullDesc(Eamon.Framework.IArtifact,System.Boolean)">
+        <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintFullDesc(Eamon.Framework.IArtifact,System.Boolean,System.Boolean)">
             <summary></summary>
             <param name="artifact"></param>
             <param name="showName"></param>
+            <param name="showVerboseName"></param>
         </member>
         <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintObjAmountLeft(Eamon.Framework.IArtifact,System.Int64,System.Boolean)">
             <summary></summary>
@@ -356,10 +357,11 @@
             <summary></summary>
             <param name="monster"></param>
         </member>
-        <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintFullDesc(Eamon.Framework.IMonster,System.Boolean)">
+        <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintFullDesc(Eamon.Framework.IMonster,System.Boolean,System.Boolean)">
             <summary></summary>
             <param name="monster"></param>
             <param name="showName"></param>
+            <param name="showVerboseName"></param>
         </member>
         <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintHealthStatus(Eamon.Framework.IMonster,System.Boolean)">
             <summary></summary>
@@ -919,6 +921,9 @@
         <member name="P:EamonRT.Framework.Commands.ISettingsCommand.VerboseArtifacts">
             <summary></summary>
         </member>
+        <member name="P:EamonRT.Framework.Commands.ISettingsCommand.VerboseNames">
+            <summary></summary>
+        </member>
         <member name="P:EamonRT.Framework.Commands.ISettingsCommand.MatureContent">
             <summary></summary>
         </member>
@@ -1380,10 +1385,11 @@
         <member name="M:EamonRT.Framework.IEngine.PrintNothingHappens">
             <summary></summary>
         </member>
-        <member name="M:EamonRT.Framework.IEngine.PrintFullDesc(Eamon.Framework.IArtifact,System.Boolean)">
+        <member name="M:EamonRT.Framework.IEngine.PrintFullDesc(Eamon.Framework.IArtifact,System.Boolean,System.Boolean)">
             <summary></summary>
             <param name="artifact"></param>
             <param name="showName"></param>
+            <param name="showVerboseName"></param>
         </member>
         <member name="M:EamonRT.Framework.IEngine.PrintMonsterCantFindExit(Eamon.Framework.IMonster,Eamon.Framework.IRoom,System.String,System.Boolean,System.Boolean)">
             <summary></summary>
@@ -1429,10 +1435,11 @@
             <param name="monster"></param>
             <param name="friendSmile"></param>
         </member>
-        <member name="M:EamonRT.Framework.IEngine.PrintFullDesc(Eamon.Framework.IMonster,System.Boolean)">
+        <member name="M:EamonRT.Framework.IEngine.PrintFullDesc(Eamon.Framework.IMonster,System.Boolean,System.Boolean)">
             <summary></summary>
             <param name="monster"></param>
             <param name="showName"></param>
+            <param name="showVerboseName"></param>
         </member>
         <member name="M:EamonRT.Framework.IEngine.PrintHealthImproves(Eamon.Framework.IMonster)">
             <summary></summary>

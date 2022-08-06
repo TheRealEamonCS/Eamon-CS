@@ -628,7 +628,7 @@ namespace Eamon.Game
 			return result;
 		}
 
-		public override RetCode BuildPrintedFullDesc(StringBuilder buf, bool showName)
+		public override RetCode BuildPrintedFullDesc(StringBuilder buf, bool showName, bool showVerboseName)
 		{
 			RetCode rc;
 
@@ -645,9 +645,24 @@ namespace Eamon.Game
 
 			if (showName)
 			{
-				buf.AppendFormat("{0}[{1}]",
+				var verboseNameDesc = "";
+
+				if (showVerboseName)
+				{
+					verboseNameDesc = GeneralContainer != null && ShouldShowVerboseNameContentsNameList() ? gEngine.GetContainerContentsDesc(this) : "";
+
+					verboseNameDesc = verboseNameDesc.Trim();
+
+					if (verboseNameDesc.Length == 0 && !string.IsNullOrWhiteSpace(StateDesc) && ShouldShowVerboseNameStateDesc())
+					{
+						verboseNameDesc = StateDesc.Trim();
+					}
+				}
+
+				buf.AppendFormat("{0}[{1}{2}]",
 					Environment.NewLine,
-					GetArticleName(true, buf: new StringBuilder(Constants.BufSize)));
+					GetArticleName(true, buf: new StringBuilder(Constants.BufSize)),
+					verboseNameDesc.Length > 0 ? string.Format("{0}{1}", verboseNameDesc.StartsWith(",") ? "" : " ", verboseNameDesc) : "");
 			}
 
 			if (!string.IsNullOrWhiteSpace(Desc))
@@ -1284,6 +1299,16 @@ namespace Eamon.Game
 		}
 
 		public virtual bool ShouldShowContentsWhenOpened()
+		{
+			return true;
+		}
+
+		public virtual bool ShouldShowVerboseNameContentsNameList()
+		{
+			return true;
+		}
+
+		public virtual bool ShouldShowVerboseNameStateDesc()
 		{
 			return true;
 		}

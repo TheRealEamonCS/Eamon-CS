@@ -1090,6 +1090,12 @@ namespace EamonRT.Game.Parsing
 
 					CurrToken += 2;
 				}
+				else if (Tokens[CurrToken].Equals("verbosenames", StringComparison.OrdinalIgnoreCase) && bool.TryParse(Tokens[CurrToken + 1], out boolValue))
+				{
+					settingsCommand.VerboseNames = boolValue;
+
+					CurrToken += 2;
+				}
 				else if (Tokens[CurrToken].Equals("maturecontent", StringComparison.OrdinalIgnoreCase) && bool.TryParse(Tokens[CurrToken + 1], out boolValue))
 				{
 					settingsCommand.MatureContent = boolValue;

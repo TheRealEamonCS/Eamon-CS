@@ -63,7 +63,7 @@ namespace Eamon.Game
 
 		#region Interface IGameBase
 
-		public override RetCode BuildPrintedFullDesc(StringBuilder buf, bool showName)
+		public override RetCode BuildPrintedFullDesc(StringBuilder buf, bool showName, bool showVerboseName)
 		{
 			RetCode rc;
 
@@ -457,7 +457,7 @@ namespace Eamon.Game
 			return rc;
 		}
 
-		public virtual RetCode BuildPrintedFullDesc(StringBuilder buf, Func<IMonster, bool> monsterFindFunc = null, Func<IArtifact, bool> artifactFindFunc = null, bool verboseRoomDesc = false, bool verboseMonsterDesc = false, bool verboseArtifactDesc = false)
+		public virtual RetCode BuildPrintedFullDesc(StringBuilder buf, Func<IMonster, bool> monsterFindFunc = null, Func<IArtifact, bool> artifactFindFunc = null, bool verboseRoomDesc = false, bool verboseMonsterDesc = false, bool verboseArtifactDesc = false, bool verboseNames = false)
 		{
 			bool showDesc;
 			RetCode rc;
@@ -563,7 +563,7 @@ namespace Eamon.Game
 
 			foreach (var r in recordList)
 			{
-				rc = r.BuildPrintedFullDesc(buf, true);
+				rc = r.BuildPrintedFullDesc(buf, true, verboseNames);
 
 				if (gEngine.IsFailure(rc))
 				{

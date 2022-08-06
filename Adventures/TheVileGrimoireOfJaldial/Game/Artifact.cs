@@ -77,9 +77,9 @@ namespace TheVileGrimoireOfJaldial.Game
 			}
 		}
 
-		public override RetCode BuildPrintedFullDesc(StringBuilder buf, bool showName)
+		public override RetCode BuildPrintedFullDesc(StringBuilder buf, bool showName, bool showVerboseName)
 		{
-			var result = base.BuildPrintedFullDesc(buf, showName);
+			var result = base.BuildPrintedFullDesc(buf, showName, showVerboseName);
 
 			// Reset solitary tombstone's Desc value after initial viewing
 
