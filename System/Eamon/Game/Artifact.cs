@@ -643,7 +643,7 @@ namespace Eamon.Game
 
 			rc = RetCode.Success;
 
-			if (showName)
+			if (showName || showVerboseName)
 			{
 				var verboseNameDesc = "";
 
@@ -662,7 +662,7 @@ namespace Eamon.Game
 				buf.AppendFormat("{0}[{1}{2}]",
 					Environment.NewLine,
 					GetArticleName(true, buf: new StringBuilder(Constants.BufSize)),
-					verboseNameDesc.Length > 0 ? string.Format("{0}{1}", verboseNameDesc.StartsWith(",") ? "" : " ", verboseNameDesc) : "");
+					verboseNameDesc.Length > 0 ? string.Format("{0}{1}", verboseNameDesc[0] == ',' ? "" : " ", verboseNameDesc) : "");
 			}
 
 			if (!string.IsNullOrWhiteSpace(Desc))
@@ -670,7 +670,7 @@ namespace Eamon.Game
 				buf.AppendFormat("{0}{1}", Environment.NewLine, Desc);
 			}
 
-			if (showName || !string.IsNullOrWhiteSpace(Desc))
+			if (showName || showVerboseName || !string.IsNullOrWhiteSpace(Desc))
 			{
 				buf.Append(Environment.NewLine);
 			}
