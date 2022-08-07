@@ -662,7 +662,7 @@ namespace Eamon.Game
 				buf.AppendFormat("{0}[{1}{2}]",
 					Environment.NewLine,
 					GetArticleName(true, buf: new StringBuilder(Constants.BufSize)),
-					verboseNameDesc.Length > 0 ? string.Format("{0}{1}", verboseNameDesc[0] == ',' ? "" : " ", verboseNameDesc) : "");
+					verboseNameDesc.Length > 0 ? string.Format("{0}{1}", !verboseNameDesc.OmitStateDescSpace() ? " " : "", verboseNameDesc) : "");
 			}
 
 			if (!string.IsNullOrWhiteSpace(Desc))
