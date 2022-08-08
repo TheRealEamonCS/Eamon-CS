@@ -54,6 +54,22 @@ namespace SamplesAdventure.Game.Plugin
 			}
 		}
 
+		public static IRecordDb<Eamon.Framework.IEffect> gEDB
+		{
+			get
+			{
+				return (IRecordDb<Eamon.Framework.IEffect>)EamonRT.Game.Plugin.PluginContext.gEDB;
+			}
+		}
+
+		public static IRecordDb<Eamon.Framework.IMonster> gMDB
+		{
+			get
+			{
+				return (IRecordDb<Eamon.Framework.IMonster>)EamonRT.Game.Plugin.PluginContext.gMDB;
+			}
+		}
+
 		public static Eamon.Framework.IGameState gGameState
 		{
 			get
@@ -67,6 +83,14 @@ namespace SamplesAdventure.Game.Plugin
 			get
 			{
 				return (Eamon.Framework.ICharacter)EamonRT.Game.Plugin.PluginContext.gCharacter;
+			}
+		}
+
+		public static Eamon.Framework.IMonster gCharMonster
+		{
+			get
+			{
+				return (Eamon.Framework.IMonster)EamonRT.Game.Plugin.PluginContext.gCharMonster;
 			}
 		}
 	}
