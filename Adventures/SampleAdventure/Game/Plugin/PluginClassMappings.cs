@@ -6,7 +6,7 @@
 using System.Reflection;
 using Eamon;
 
-namespace SamplesAdventure.Game.Plugin
+namespace SampleAdventure.Game.Plugin
 {
 	public class PluginClassMappings : EamonRT.Game.Plugin.PluginClassMappings, Framework.Plugin.IPluginClassMappings
 	{

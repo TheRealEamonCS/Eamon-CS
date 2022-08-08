@@ -6,7 +6,7 @@
 using Eamon.Framework.DataStorage.Generic;
 using Eamon.Framework.Portability;
 
-namespace SamplesAdventure.Game.Plugin
+namespace SampleAdventure.Game.Plugin
 {
 	public static class PluginContext
 	{

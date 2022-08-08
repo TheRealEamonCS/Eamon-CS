@@ -14,7 +14,7 @@
     <DefineConstants>TRACE;DEBUG;NETSTANDARD2_0;PORTABLE</DefineConstants>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <OutputPath>..\..\System\Bin\</OutputPath>
-    <DocumentationFile>..\..\System\Bin\SamplesAdventure.xml</DocumentationFile>
+    <DocumentationFile>..\..\System\Bin\SampleAdventure.xml</DocumentationFile>
     <NoWarn>0419;1574;1591;1701;1702;1705</NoWarn>
   </PropertyGroup>
 
@@ -22,7 +22,7 @@
     <DefineConstants>TRACE;RELEASE;NETSTANDARD2_0;PORTABLE</DefineConstants>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <OutputPath>..\..\System\Bin\</OutputPath>
-    <DocumentationFile>..\..\System\Bin\SamplesAdventure.xml</DocumentationFile>
+    <DocumentationFile>..\..\System\Bin\SampleAdventure.xml</DocumentationFile>
     <NoWarn>0419;1574;1591;1701;1702;1705</NoWarn>
   </PropertyGroup>
 

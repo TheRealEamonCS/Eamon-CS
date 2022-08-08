@@ -9,13 +9,13 @@
 
 using Eamon.Framework.Portability;
 
-namespace SamplesAdventure
+namespace SampleAdventure
 {
 	public class Program : EamonRT.Program, IProgram
 	{
 		public Program()
 		{
-			ProgramName = "SamplesAdventure";
+			ProgramName = "SampleAdventure";
 
 			ConstantsType = typeof(Game.Plugin.PluginConstants);
 

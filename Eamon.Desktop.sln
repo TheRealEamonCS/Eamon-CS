@@ -47,7 +47,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheDeepCanyon", "Adventures
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RiddlesOfTheDuergarKingdom", "Adventures\RiddlesOfTheDuergarKingdom\RiddlesOfTheDuergarKingdom.csproj", "{2FDFF5FE-1600-408F-9010-39F617A255EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SamplesAdventure", "Adventures\SamplesAdventure\SamplesAdventure.csproj", "{AE0F148F-4CAA-47CC-9C76-EBE926EDDD18}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleAdventure", "Adventures\SampleAdventure\SampleAdventure.csproj", "{AE0F148F-4CAA-47CC-9C76-EBE926EDDD18}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
