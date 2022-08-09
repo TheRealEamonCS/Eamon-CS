@@ -3472,6 +3472,9 @@
         <member name="P:EamonRT.Game.Components.CombatComponent.CombatState">
             <summary></summary>
         </member>
+        <member name="P:EamonRT.Game.Components.CombatComponent.WeaponList">
+            <summary></summary>
+        </member>
         <member name="P:EamonRT.Game.Components.CombatComponent.SpilledArtifactList">
             <summary></summary>
         </member>
@@ -3521,6 +3524,9 @@
             <summary></summary>
         </member>
         <member name="P:EamonRT.Game.Components.CombatComponent.LightOut">
+            <summary></summary>
+        </member>
+        <member name="P:EamonRT.Game.Components.CombatComponent.WeaponCount">
             <summary></summary>
         </member>
         <member name="P:EamonRT.Game.Components.CombatComponent.KeyArtifactUid">
@@ -3610,6 +3616,21 @@
             <summary></summary>
         </member>
         <member name="M:EamonRT.Game.Components.CombatComponent.ExecuteStateMachine">
+            <summary></summary>
+        </member>
+        <member name="P:EamonRT.Game.Components.ComponentImpl.ActorMonsterName">
+            <summary></summary>
+        </member>
+        <member name="P:EamonRT.Game.Components.ComponentImpl.DobjMonsterName">
+            <summary></summary>
+        </member>
+        <member name="P:EamonRT.Game.Components.ComponentImpl.AttackDesc">
+            <summary></summary>
+        </member>
+        <member name="P:EamonRT.Game.Components.ComponentImpl.MissDesc">
+            <summary></summary>
+        </member>
+        <member name="P:EamonRT.Game.Components.ComponentImpl.ArmorDesc">
             <summary></summary>
         </member>
         <member name="P:EamonRT.Game.Components.MagicComponent.DamageHealed">
