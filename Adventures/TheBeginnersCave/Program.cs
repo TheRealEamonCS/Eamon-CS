@@ -30,6 +30,11 @@ namespace TheBeginnersCave
 {
 	public class Program : EamonRT.Program, IProgram
 	{
+		public override void SetPunctSpaceCode()
+		{
+
+		}
+
 		public Program()
 		{
 			ProgramName = "TheBeginnersCave";

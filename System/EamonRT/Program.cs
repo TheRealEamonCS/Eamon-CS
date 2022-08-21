@@ -66,6 +66,11 @@ namespace EamonRT
 		/// <summary></summary>
 		public virtual Type GlobalsType { get; set; } = typeof(Game.Plugin.PluginGlobals);
 
+		public virtual void SetPunctSpaceCode()
+		{
+			gOut.PunctSpaceCode = PunctSpaceCode.Single;
+		}
+
 		/// <summary></summary>
 		/// <param name="args"></param>
 		/// <returns></returns>
@@ -821,6 +826,10 @@ namespace EamonRT
 			{
 				// do nothing
 			}
+
+			// set punctuation space code
+
+			SetPunctSpaceCode();
 
 			// make announcements
 

@@ -23,22 +23,13 @@ Originally based upon Eamon Deluxe's ALTCAVE.BAS:
 
 */
 
-using Eamon;
 using Eamon.Framework.Portability;
-using Eamon.Framework.Primitive.Enums;
 using static AlternateBeginnersCave.Game.Plugin.PluginContext;
 
 namespace AlternateBeginnersCave
 {
 	public class Program : EamonRT.Program, IProgram
 	{
-		public override RetCode RtMain(string[] args)
-		{
-			gOut.PunctSpaceCode = PunctSpaceCode.Single;
-
-			return base.RtMain(args);
-		}
-
 		public Program()
 		{
 			ProgramName = "AlternateBeginnersCave";
