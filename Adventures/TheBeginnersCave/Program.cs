@@ -32,7 +32,7 @@ namespace TheBeginnersCave
 	{
 		public override void SetPunctSpaceCode()
 		{
-
+			// do nothing
 		}
 
 		public Program()

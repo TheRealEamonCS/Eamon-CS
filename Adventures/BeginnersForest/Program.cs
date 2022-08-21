@@ -31,7 +31,7 @@ namespace BeginnersForest
 	{
 		public override void SetPunctSpaceCode()
 		{
-
+			// do nothing
 		}
 
 		public Program()

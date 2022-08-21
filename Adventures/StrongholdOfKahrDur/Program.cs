@@ -30,7 +30,7 @@ namespace StrongholdOfKahrDur
 	{
 		public override void SetPunctSpaceCode()
 		{
-
+			// do nothing
 		}
 
 		public Program()
