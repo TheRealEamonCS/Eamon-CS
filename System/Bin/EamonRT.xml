@@ -3316,6 +3316,9 @@
         <member name="P:EamonRT.Game.Commands.BortCommand.BortMenu">
             <summary></summary>
         </member>
+        <member name="P:EamonRT.Game.Commands.BortCommand.PunctSpaceCode">
+            <summary></summary>
+        </member>
         <member name="P:EamonRT.Game.Commands.BortCommand.SuppressNewLines">
             <summary></summary>
         </member>
