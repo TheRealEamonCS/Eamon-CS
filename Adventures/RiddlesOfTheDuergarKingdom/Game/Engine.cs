@@ -101,7 +101,7 @@ namespace RiddlesOfTheDuergarKingdom.Game
 
 				Debug.Assert(goldNuggetsArtifact != null);
 
-				return gEngine.GetStringFromNumber(goldNuggetsArtifact.Value / 2, false, Globals.Buf02);
+				return GetStringFromNumber(goldNuggetsArtifact.Value / 2, false, Globals.Buf02);
 			});
 
 			var synonyms = new Dictionary<long, string[]>()
@@ -196,7 +196,7 @@ namespace RiddlesOfTheDuergarKingdom.Game
 
 			MacroFuncs.Add(2, () =>
 			{
-				var monsterList = gGameState != null ? gEngine.GetMonsterList(m => m.IsInRoomUid(gGameState.Ro)) : new List<IMonster>();
+				var monsterList = gGameState != null ? GetMonsterList(m => m.IsInRoomUid(gGameState.Ro)) : new List<IMonster>();
 
 				return monsterList.Count > 2 ? "all" : "both";
 			});
@@ -280,43 +280,43 @@ namespace RiddlesOfTheDuergarKingdom.Game
 
 			Debug.Assert(berescroftMonster != null);
 
-			berescroftMonster.Location = ArchaeologyDepartmentStartRoomUids[gEngine.RollDice(1, 26, -1)];
+			berescroftMonster.Location = ArchaeologyDepartmentStartRoomUids[RollDice(1, 26, -1)];
 
 			var vigilantGuardMonster = gMDB[3];
 
 			Debug.Assert(vigilantGuardMonster != null);
 
-			vigilantGuardMonster.Location = ArchaeologyDepartmentStartRoomUids[gEngine.RollDice(1, 13, -1)];
+			vigilantGuardMonster.Location = ArchaeologyDepartmentStartRoomUids[RollDice(1, 13, -1)];
 
 			var watchfulGuardMonster = gMDB[4];
 
 			Debug.Assert(watchfulGuardMonster != null);
 
-			watchfulGuardMonster.Location = ArchaeologyDepartmentStartRoomUids[gEngine.RollDice(1, 26, -1)];
+			watchfulGuardMonster.Location = ArchaeologyDepartmentStartRoomUids[RollDice(1, 26, -1)];
 
 			var fieldForemanMonster = gMDB[5];
 
 			Debug.Assert(fieldForemanMonster != null);
 
-			fieldForemanMonster.Location = ArchaeologyDepartmentStartRoomUids[gEngine.RollDice(1, 26, -1)];
+			fieldForemanMonster.Location = ArchaeologyDepartmentStartRoomUids[RollDice(1, 26, -1)];
 
 			var winslowMonster = gMDB[8];
 
 			Debug.Assert(winslowMonster != null);
 
-			winslowMonster.Location = GradStudentStartRoomUids[gEngine.RollDice(1, 4, -1)];
+			winslowMonster.Location = GradStudentStartRoomUids[RollDice(1, 4, -1)];
 
 			var emilieMonster = gMDB[9];
 
 			Debug.Assert(emilieMonster != null);
 
-			emilieMonster.Location = GradStudentStartRoomUids[gEngine.RollDice(1, 4, -1)];
+			emilieMonster.Location = GradStudentStartRoomUids[RollDice(1, 4, -1)];
 
 			var ranchHandsMonster = gMDB[15];
 
 			Debug.Assert(ranchHandsMonster != null);
 
-			ranchHandsMonster.Location = RanchHandsStartRoomUids[gEngine.RollDice(1, 2, -1)];
+			ranchHandsMonster.Location = RanchHandsStartRoomUids[RollDice(1, 2, -1)];
 
 			// A grad student will accompany the player on the adventure!
 

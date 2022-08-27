@@ -165,9 +165,7 @@ namespace TheTempleOfNgurct.Game
 
 			MacroFuncs.Add(1, () =>
 			{
-				Debug.Assert(gCharMonster != null);
-
-				return gCharMonster.EvalGender(" sir", " madam", "");
+				return gCharMonster != null ? gCharMonster.EvalGender(" sir", " madam", "") : "";
 			});
 
 			MacroFuncs.Add(5, () =>
