@@ -57,7 +57,7 @@ namespace LandOfTheMountainKing.Game.Commands
 					artifact.SetInLimbo();
 					if (ActorMonster.Weapon <= 0 && SilverSword.IsCarriedByCharacter())
 					{
-						PrintFullDesc(SilverSword, false);
+						PrintFullDesc(SilverSword, false, false);
 						SilverSword.Seen = true;
 						WeaponArtifact = SilverSword;
 					}

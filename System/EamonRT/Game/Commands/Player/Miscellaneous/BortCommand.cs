@@ -38,6 +38,9 @@ namespace EamonRT.Game.Commands
 		public virtual IMainMenu BortMenu { get; set; }
 
 		/// <summary></summary>
+		public virtual PunctSpaceCode PunctSpaceCode { get; set; }
+
+		/// <summary></summary>
 		public virtual bool SuppressNewLines { get; set; }
 
 		public override void Execute()
@@ -172,6 +175,10 @@ namespace EamonRT.Game.Commands
 
 					Globals.Config.DdEditingScripts = true;
 
+					PunctSpaceCode = gOut.PunctSpaceCode;
+
+					gOut.PunctSpaceCode = PunctSpaceCode.None;
+
 					SuppressNewLines = gOut.SuppressNewLines;
 
 					gOut.SuppressNewLines = false;
@@ -191,6 +198,8 @@ namespace EamonRT.Game.Commands
 					Globals.DdMenu = null;
 
 					gOut.SuppressNewLines = SuppressNewLines;
+
+					gOut.PunctSpaceCode = PunctSpaceCode;
 
 					Globals.Config = BortConfig;
 

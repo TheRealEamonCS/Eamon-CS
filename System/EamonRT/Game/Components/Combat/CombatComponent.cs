@@ -53,6 +53,9 @@ namespace EamonRT.Game.Components
 		public virtual CombatState CombatState { get; set; }
 
 		/// <summary></summary>
+		public virtual IList<IArtifact> WeaponList { get; set; }
+
+		/// <summary></summary>
 		public virtual IList<IArtifact> SpilledArtifactList { get; set; }
 
 		/// <summary></summary>
@@ -102,6 +105,9 @@ namespace EamonRT.Game.Components
 
 		/// <summary></summary>
 		public virtual bool LightOut { get; set; }
+
+		/// <summary></summary>
+		public virtual long WeaponCount { get; set; }
 
 		/// <summary></summary>
 		public virtual long KeyArtifactUid { get; set; }
@@ -324,13 +330,13 @@ namespace EamonRT.Game.Components
 
 			if (ActorWeaponUid > 0 && ActorMonster.GroupCount == 1 && AttackNumber > 1 && ActorMonster.CanAttackWithMultipleWeapons())
 			{
-				var weaponList = ActorMonster.GetCarriedList().Where(x => x.IsReadyableByMonster(ActorMonster)).ToList();
+				WeaponList = ActorMonster.GetCarriedList().Where(x => x.IsReadyableByMonster(ActorMonster)).ToList();
 
-				var weaponCount = weaponList.Count;
+				WeaponCount = WeaponList.Count;
 
-				if ((AttackNumber - 1) % weaponCount != 0)
+				if ((AttackNumber - 1) % WeaponCount != 0)
 				{
-					ActorWeapon = gEngine.GetNthArtifact(weaponList, (AttackNumber - 1) % weaponCount, x => x.Uid != ActorWeaponUid);
+					ActorWeapon = gEngine.GetNthArtifact(WeaponList, (AttackNumber - 1) % WeaponCount, x => x.Uid != ActorWeaponUid);
 
 					ActorWeaponUid = ActorWeapon.Uid;
 				}

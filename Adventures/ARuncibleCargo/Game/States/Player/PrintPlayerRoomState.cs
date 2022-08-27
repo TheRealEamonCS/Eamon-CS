@@ -102,6 +102,8 @@ namespace ARuncibleCargo.Game.States
 
 					gameState.Va = gameState01.Va;
 
+					gameState.Vn = gameState01.Vn;
+
 					gameState.MatureContent = gameState01.MatureContent;
 
 					gameState.EnhancedParser = gameState01.EnhancedParser;

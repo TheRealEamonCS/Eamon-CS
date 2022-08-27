@@ -56,7 +56,7 @@ namespace EamonRT.Game.Commands
 
 			if (DobjMonster != null)
 			{
-				PrintFullDesc(DobjMonster, false);
+				PrintFullDesc(DobjMonster, false, false);
 
 				DobjMonster.Seen = true;
 
@@ -123,7 +123,7 @@ namespace EamonRT.Game.Commands
 
 			if (!Enum.IsDefined(typeof(ContainerType), ContainerType) || (CheckContainerTypeInDobjArtName && string.Format(" {0} ", DobjArtifact.Name).IndexOf(string.Format(" {0} ", ContainerType.ToString()), StringComparison.OrdinalIgnoreCase) >= 0 && DobjArtifact.GeneralContainer == null) || DobjArtifact.IsWornByCharacter())
 			{
-				PrintFullDesc(DobjArtifact, false);
+				PrintFullDesc(DobjArtifact, false, false);
 
 				DobjArtifact.Seen = true;
 

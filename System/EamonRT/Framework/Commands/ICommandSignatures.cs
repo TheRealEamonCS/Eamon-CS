@@ -297,7 +297,8 @@ namespace EamonRT.Framework.Commands
 		/// <summary></summary>
 		/// <param name="artifact"></param>
 		/// <param name="showName"></param>
-		void PrintFullDesc(IArtifact artifact, bool showName);
+		/// <param name="showVerboseName"></param>
+		void PrintFullDesc(IArtifact artifact, bool showName, bool showVerboseName);
 
 		/// <summary></summary>
 		/// <param name="artifact"></param>
@@ -351,7 +352,8 @@ namespace EamonRT.Framework.Commands
 		/// <summary></summary>
 		/// <param name="monster"></param>
 		/// <param name="showName"></param>
-		void PrintFullDesc(IMonster monster, bool showName);
+		/// <param name="showVerboseName"></param>
+		void PrintFullDesc(IMonster monster, bool showName, bool showVerboseName);
 
 		/// <summary></summary>
 		/// <param name="monster"></param>
