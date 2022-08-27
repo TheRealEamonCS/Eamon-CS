@@ -75,25 +75,40 @@ namespace EamonRT.Game.Components
 
 		public virtual bool OmitFinalNewLine { get; set; }
 
+		/// <summary></summary>
+		public virtual string ActorMonsterName { get; set; }
+
+		/// <summary></summary>
+		public virtual string DobjMonsterName { get; set; }
+
+		/// <summary></summary>
+		public virtual string AttackDesc { get; set; }
+
+		/// <summary></summary>
+		public virtual string MissDesc { get; set; }
+
+		/// <summary></summary>
+		public virtual string ArmorDesc { get; set; }
+
 		public virtual void PrintAttack(IRoom room, IMonster actorMonster, IMonster dobjMonster, IArtifact weapon, long attackNumber, WeaponRevealType weaponRevealType)
 		{
 			Debug.Assert(room != null && actorMonster != null && dobjMonster != null /* && attackNumber > 0 && Enum.IsDefined(typeof(WeaponRevealType), weaponRevealType) */);
 
-			var attackDesc = actorMonster.GetAttackDescString(room, weapon);
+			AttackDesc = actorMonster.GetAttackDescString(room, weapon);
 
-			var actorMonsterName = actorMonster.IsCharacterMonster() ? "You" :
+			ActorMonsterName = actorMonster.IsCharacterMonster() ? "You" :
 					room.EvalLightLevel(attackNumber == 1 ? "An unseen offender" : "The unseen offender",
 						actorMonster.InitGroupCount > 1 && attackNumber == 1 ? actorMonster.GetArticleName(true, true, false, true) : actorMonster.GetTheName(true, true, false, true));
 
-			var dobjMonsterName = dobjMonster.IsCharacterMonster() ? "you" :
+			DobjMonsterName = dobjMonster.IsCharacterMonster() ? "you" :
 					room.EvalLightLevel("an unseen defender",
 					dobjMonster.InitGroupCount > 1 ? dobjMonster.GetArticleName(groupCountOne: true) : dobjMonster.GetTheName(groupCountOne: true));
 
 			gOut.Write("{0}{1} {2} {3}{4}.",
 				Environment.NewLine,
-				actorMonsterName,
-				attackDesc,
-				dobjMonsterName,
+				ActorMonsterName,
+				AttackDesc,
+				DobjMonsterName,
 					weapon != null &&
 					(weaponRevealType == WeaponRevealType.Always ||
 					(weaponRevealType == WeaponRevealType.OnlyIfSeen && weapon.Seen)) ?
@@ -105,9 +120,9 @@ namespace EamonRT.Game.Components
 		{
 			Debug.Assert(monster != null);
 
-			var missDesc = monster.GetMissDescString(weapon);
+			MissDesc = monster.GetMissDescString(weapon);
 
-			gOut.Write("{0} --- {1}!", Environment.NewLine, missDesc);
+			gOut.Write("{0} --- {1}!", Environment.NewLine, MissDesc);
 		}
 
 		public virtual void PrintFumble()
@@ -198,9 +213,9 @@ namespace EamonRT.Game.Components
 
 			if (monster.Armor > 0)
 			{
-				var armorDesc = monster.GetArmorDescString();
+				ArmorDesc = monster.GetArmorDescString();
 
-				gOut.Write("{0}{1}Blow bounces off {2}!", Environment.NewLine, omitBboaPadding ? "" : "  ", armorDesc);
+				gOut.Write("{0}{1}Blow bounces off {2}!", Environment.NewLine, omitBboaPadding ? "" : "  ", ArmorDesc);
 			}
 			else
 			{
@@ -212,13 +227,13 @@ namespace EamonRT.Game.Components
 		{
 			Debug.Assert(room != null && dobjMonster != null);
 
-			var dobjMonsterName = dobjMonster.IsCharacterMonster() ? "You" :
+			DobjMonsterName = dobjMonster.IsCharacterMonster() ? "You" :
 				blastSpell && dobjMonster.InitGroupCount > 1 ? room.EvalLightLevel(dobjMonster == actorMonster ? "An offender" : "A defender", dobjMonster.GetArticleName(true, true, false, true)) :
 				room.EvalLightLevel(dobjMonster == actorMonster ? "The offender" : "The defender", dobjMonster.GetTheName(true, true, false, true, Globals.Buf01));
 
 			Globals.Buf.SetFormat("{0}{1} {2} ",
 				Environment.NewLine,
-				dobjMonsterName,
+				DobjMonsterName,
 				dobjMonster.IsCharacterMonster() ? "are" : "is");
 
 			dobjMonster.AddHealthStatus(Globals.Buf, false);

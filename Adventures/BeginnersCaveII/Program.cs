@@ -22,22 +22,13 @@ Originally based upon Eamon Deluxe's CAVEII.BAS:
 
 */
 
-using Eamon;
 using Eamon.Framework.Portability;
-using Eamon.Framework.Primitive.Enums;
 using static BeginnersCaveII.Game.Plugin.PluginContext;
 
 namespace BeginnersCaveII
 {
 	public class Program : EamonRT.Program, IProgram
 	{
-		public override RetCode RtMain(string[] args)
-		{
-			gOut.PunctSpaceCode = PunctSpaceCode.Single;
-
-			return base.RtMain(args);
-		}
-
 		public Program()
 		{
 			ProgramName = "BeginnersCaveII";

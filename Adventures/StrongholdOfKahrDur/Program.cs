@@ -28,6 +28,11 @@ namespace StrongholdOfKahrDur
 {
 	public class Program : EamonRT.Program, IProgram
 	{
+		public override void SetPunctSpaceCode()
+		{
+			// do nothing
+		}
+
 		public Program()
 		{
 			ProgramName = "StrongholdOfKahrDur";

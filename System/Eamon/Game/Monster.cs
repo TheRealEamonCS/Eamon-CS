@@ -337,7 +337,7 @@ namespace Eamon.Game
 			return result;
 		}
 
-		public override RetCode BuildPrintedFullDesc(StringBuilder buf, bool showName)
+		public override RetCode BuildPrintedFullDesc(StringBuilder buf, bool showName, bool showVerboseName)
 		{
 			RetCode rc;
 
@@ -352,11 +352,14 @@ namespace Eamon.Game
 
 			rc = RetCode.Success;
 
-			if (showName)
+			if (showName || showVerboseName)
 			{
-				buf.AppendFormat("{0}[{1}]",
+				var verboseNameDesc = showVerboseName && !string.IsNullOrWhiteSpace(StateDesc) && ShouldShowVerboseNameStateDesc() ? StateDesc.Trim() : "";
+
+				buf.AppendFormat("{0}[{1}{2}]",
 					Environment.NewLine,
-					GetArticleName(true, buf: new StringBuilder(Constants.BufSize)));
+					GetArticleName(true, buf: new StringBuilder(Constants.BufSize)),
+					verboseNameDesc.Length > 0 ? string.Format("{0}{1}", !verboseNameDesc.OmitStateDescSpace() ? " " : "", verboseNameDesc) : "");
 			}
 
 			if (!string.IsNullOrWhiteSpace(Desc))
@@ -364,7 +367,7 @@ namespace Eamon.Game
 				buf.AppendFormat("{0}{1}", Environment.NewLine, Desc);
 			}
 
-			if (showName || !string.IsNullOrWhiteSpace(Desc))
+			if (showName || showVerboseName || !string.IsNullOrWhiteSpace(Desc))
 			{
 				buf.Append(Environment.NewLine);
 			}
@@ -568,6 +571,11 @@ namespace Eamon.Game
 		}
 
 		public virtual bool ShouldShowHealthStatusWhenInventoried()
+		{
+			return true;
+		}
+
+		public virtual bool ShouldShowVerboseNameStateDesc()
 		{
 			return true;
 		}

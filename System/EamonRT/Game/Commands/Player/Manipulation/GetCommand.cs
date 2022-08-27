@@ -191,7 +191,7 @@ namespace EamonRT.Game.Commands
 			{
 				if (!gEngine.AutoDisplayUnseenArtifactDescs && !GetAll && DobjArtifact.IsCarriedByCharacter() && !DobjArtifact.Seen)
 				{
-					PrintFullDesc(DobjArtifact, false);
+					PrintFullDesc(DobjArtifact, false, false);
 
 					DobjArtifact.Seen = true;
 				}

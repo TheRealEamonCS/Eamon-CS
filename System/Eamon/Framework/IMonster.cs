@@ -289,6 +289,10 @@ namespace Eamon.Framework
 
 		/// <summary></summary>
 		/// <returns></returns>
+		bool ShouldShowVerboseNameStateDesc();
+
+		/// <summary></summary>
+		/// <returns></returns>
 		bool ShouldProcessInGameLoop();
 
 		/// <summary></summary>

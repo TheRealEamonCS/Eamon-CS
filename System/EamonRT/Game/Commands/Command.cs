@@ -566,9 +566,9 @@ namespace EamonRT.Game.Commands
 			CommandImpl.PrintWhamHitObj(artifact);
 		}
 
-		public virtual void PrintFullDesc(IArtifact artifact, bool showName)
+		public virtual void PrintFullDesc(IArtifact artifact, bool showName, bool showVerboseName)
 		{
-			CommandImpl.PrintFullDesc(artifact, showName);
+			CommandImpl.PrintFullDesc(artifact, showName, showVerboseName);
 		}
 
 		public virtual void PrintObjAmountLeft(IArtifact artifact, long objAmount, bool objEdible)
@@ -621,9 +621,9 @@ namespace EamonRT.Game.Commands
 			CommandImpl.PrintHaventSavedGameYet(monster);
 		}
 
-		public virtual void PrintFullDesc(IMonster monster, bool showName)
+		public virtual void PrintFullDesc(IMonster monster, bool showName, bool showVerboseName)
 		{
-			CommandImpl.PrintFullDesc(monster, showName);
+			CommandImpl.PrintFullDesc(monster, showName, showVerboseName);
 		}
 
 		public virtual void PrintHealthStatus(IMonster monster, bool includeUninjuredGroupMonsters)
