@@ -54,7 +54,7 @@ namespace EamonRT.Game
 
 			Globals.Buf.Clear();
 
-			var rc = room.IsLit() ? room.BuildPrintedFullDesc(Globals.Buf, verboseRoomDesc: gGameState.Vr, verboseMonsterDesc: gGameState.Vm, verboseArtifactDesc: gGameState.Va) : room.BuildPrintedTooDarkToSeeDesc(Globals.Buf);
+			var rc = room.IsLit() ? room.BuildPrintedFullDesc(Globals.Buf, verboseRoomDesc: gGameState.Vr, verboseMonsterDesc: gGameState.Vm, verboseArtifactDesc: gGameState.Va, verboseNames: gGameState.Vn) : room.BuildPrintedTooDarkToSeeDesc(Globals.Buf);
 
 			Debug.Assert(IsSuccess(rc));
 
@@ -178,13 +178,13 @@ namespace EamonRT.Game
 			gOut.Print("Nothing happens.");
 		}
 
-		public virtual void PrintFullDesc(IArtifact artifact, bool showName)
+		public virtual void PrintFullDesc(IArtifact artifact, bool showName, bool showVerboseName)
 		{
 			Debug.Assert(artifact != null);
 
 			Globals.Buf.Clear();
 
-			var rc = artifact.BuildPrintedFullDesc(Globals.Buf, showName);
+			var rc = artifact.BuildPrintedFullDesc(Globals.Buf, showName, showVerboseName);
 
 			Debug.Assert(IsSuccess(rc));
 
@@ -254,13 +254,13 @@ namespace EamonRT.Game
 			}
 		}
 
-		public virtual void PrintFullDesc(IMonster monster, bool showName)
+		public virtual void PrintFullDesc(IMonster monster, bool showName, bool showVerboseName)
 		{
 			Debug.Assert(monster != null);
 
 			Globals.Buf.Clear();
 
-			var rc = monster.BuildPrintedFullDesc(Globals.Buf, showName);
+			var rc = monster.BuildPrintedFullDesc(Globals.Buf, showName, showVerboseName);
 
 			Debug.Assert(IsSuccess(rc));
 
@@ -1674,7 +1674,7 @@ namespace EamonRT.Game
 
 			if (shouldShowUnseenArtifacts && !artifact.Seen)
 			{
-				PrintFullDesc(artifact, false);
+				PrintFullDesc(artifact, false, false);
 
 				artifact.Seen = true;
 			}

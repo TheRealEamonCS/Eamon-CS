@@ -22,7 +22,7 @@ namespace ARuncibleCargo.Game.Commands
 
 			if (monster.Uid == 31)
 			{
-				PrintFullDesc(monster, false);
+				PrintFullDesc(monster, false, false);
 
 				monster.Seen = true;
 

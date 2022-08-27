@@ -196,7 +196,7 @@ namespace Eamon.Game
 			return result;
 		}
 
-		public override RetCode BuildPrintedFullDesc(StringBuilder buf, bool showName)
+		public override RetCode BuildPrintedFullDesc(StringBuilder buf, bool showName, bool showVerboseName)
 		{
 			RetCode rc;
 

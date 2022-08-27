@@ -503,9 +503,9 @@ namespace EamonRT.Game.Commands
 			gEngine.PrintWhamHitObj(artifact);
 		}
 
-		public virtual void PrintFullDesc(IArtifact artifact, bool showName)
+		public virtual void PrintFullDesc(IArtifact artifact, bool showName, bool showVerboseName)
 		{
-			gEngine.PrintFullDesc(artifact, showName);
+			gEngine.PrintFullDesc(artifact, showName, showVerboseName);
 		}
 
 		public virtual void PrintObjAmountLeft(IArtifact artifact, long objAmount, bool objEdible)
@@ -613,9 +613,9 @@ namespace EamonRT.Game.Commands
 				monster.EvalGender("him", "her", "it"));
 		}
 
-		public virtual void PrintFullDesc(IMonster monster, bool showName)
+		public virtual void PrintFullDesc(IMonster monster, bool showName, bool showVerboseName)
 		{
-			gEngine.PrintFullDesc(monster, showName);
+			gEngine.PrintFullDesc(monster, showName, showVerboseName);
 		}
 
 		public virtual void PrintHealthStatus(IMonster monster, bool includeUninjuredGroupMonsters)
@@ -914,6 +914,7 @@ namespace EamonRT.Game.Commands
 			gOut.WriteLine("  {0,-22}{1,-22}{2,-22}", "VerboseRooms", "True, False", gGameState.Vr);
 			gOut.WriteLine("  {0,-22}{1,-22}{2,-22}", "VerboseMonsters", "True, False", gGameState.Vm);
 			gOut.WriteLine("  {0,-22}{1,-22}{2,-22}", "VerboseArtifacts", "True, False", gGameState.Va);
+			gOut.WriteLine("  {0,-22}{1,-22}{2,-22}", "VerboseNames", "True, False", gGameState.Vn);
 			gOut.WriteLine("  {0,-22}{1,-22}{2,-22}", "MatureContent", "True, False", gGameState.MatureContent);
 			gOut.WriteLine("  {0,-22}{1,-22}{2,-22}", "EnhancedParser", "True, False", gGameState.EnhancedParser);
 

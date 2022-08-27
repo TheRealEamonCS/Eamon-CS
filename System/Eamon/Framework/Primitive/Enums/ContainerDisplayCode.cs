@@ -15,6 +15,9 @@ namespace Eamon.Framework.Primitive.Enums
 		SomethingSomeStuff,
 		
 		/// <summary></summary>
-		ArtifactNameSomeStuff
+		ArtifactNameSomeStuff,
+
+		/// <summary></summary>
+		ArtifactNameList
 	}
 }

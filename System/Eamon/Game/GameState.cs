@@ -59,6 +59,9 @@ namespace Eamon.Game
 		[FieldName(860)]
 		public virtual bool Va { get; set; }
 
+		[FieldName(870)]
+		public virtual bool Vn { get; set; }
+
 		[FieldName(880)]
 		public virtual bool MatureContent { get; set; }
 

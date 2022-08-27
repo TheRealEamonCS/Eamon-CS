@@ -21,6 +21,8 @@ namespace EamonRT.Game.Commands
 
 		public virtual bool? VerboseArtifacts { get; set; } = null;
 
+		public virtual bool? VerboseNames { get; set; } = null;
+
 		public virtual bool? MatureContent { get; set; } = null;
 
 		public virtual bool? EnhancedParser { get; set; } = null;
@@ -35,7 +37,7 @@ namespace EamonRT.Game.Commands
 
 		public override void Execute()
 		{
-			Debug.Assert(VerboseRooms != null || VerboseMonsters != null || VerboseArtifacts != null || MatureContent != null || EnhancedParser != null || IobjPronounAffinity != null || ShowPronounChanges != null || ShowFulfillMessages != null || PauseCombatMs != null);
+			Debug.Assert(VerboseRooms != null || VerboseMonsters != null || VerboseArtifacts != null || VerboseNames != null || MatureContent != null || EnhancedParser != null || IobjPronounAffinity != null || ShowPronounChanges != null || ShowFulfillMessages != null || PauseCombatMs != null);
 
 			if (VerboseRooms != null)
 			{
@@ -50,6 +52,11 @@ namespace EamonRT.Game.Commands
 			if (VerboseArtifacts != null)
 			{
 				gGameState.Va = (bool)VerboseArtifacts;
+			}
+
+			if (VerboseNames != null)
+			{
+				gGameState.Vn = (bool)VerboseNames;
 			}
 
 			if (MatureContent != null)

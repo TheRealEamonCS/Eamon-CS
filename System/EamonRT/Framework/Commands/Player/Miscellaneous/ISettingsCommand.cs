@@ -18,6 +18,9 @@ namespace EamonRT.Framework.Commands
 		bool? VerboseArtifacts { get; set; }
 
 		/// <summary></summary>
+		bool? VerboseNames { get; set; }
+
+		/// <summary></summary>
 		bool? MatureContent { get; set; }
 
 		/// <summary></summary>

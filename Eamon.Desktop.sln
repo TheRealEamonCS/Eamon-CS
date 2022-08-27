@@ -47,6 +47,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheDeepCanyon", "Adventures
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RiddlesOfTheDuergarKingdom", "Adventures\RiddlesOfTheDuergarKingdom\RiddlesOfTheDuergarKingdom.csproj", "{2FDFF5FE-1600-408F-9010-39F617A255EC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleAdventure", "Adventures\SampleAdventure\SampleAdventure.csproj", "{AE0F148F-4CAA-47CC-9C76-EBE926EDDD18}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -133,6 +135,10 @@ Global
 		{2FDFF5FE-1600-408F-9010-39F617A255EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2FDFF5FE-1600-408F-9010-39F617A255EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2FDFF5FE-1600-408F-9010-39F617A255EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE0F148F-4CAA-47CC-9C76-EBE926EDDD18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE0F148F-4CAA-47CC-9C76-EBE926EDDD18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE0F148F-4CAA-47CC-9C76-EBE926EDDD18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE0F148F-4CAA-47CC-9C76-EBE926EDDD18}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -158,6 +164,7 @@ Global
 		{A2E8B692-4E4D-4AF5-B50E-C16E01E0AFC1} = {C8D76FAB-81AE-49E3-AC15-A9D1985C1092}
 		{B32E0520-49DD-4F71-BB08-70B0ACABA970} = {C8D76FAB-81AE-49E3-AC15-A9D1985C1092}
 		{2FDFF5FE-1600-408F-9010-39F617A255EC} = {C8D76FAB-81AE-49E3-AC15-A9D1985C1092}
+		{AE0F148F-4CAA-47CC-9C76-EBE926EDDD18} = {C8D76FAB-81AE-49E3-AC15-A9D1985C1092}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F89D37E7-07F8-42EE-9CD7-0C3BA305A2CB}
