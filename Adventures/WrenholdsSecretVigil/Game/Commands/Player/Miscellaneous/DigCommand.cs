@@ -59,8 +59,6 @@ namespace WrenholdsSecretVigil.Game.Commands
 
 			IsNew = true;
 
-			Uid = 92;
-
 			Name = "DigCommand";
 
 			Verb = "dig";

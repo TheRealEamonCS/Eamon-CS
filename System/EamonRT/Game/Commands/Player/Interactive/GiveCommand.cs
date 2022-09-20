@@ -371,8 +371,6 @@ namespace EamonRT.Game.Commands
 
 			IsIobjEnabled = true;
 
-			Uid = 37;
-
 			Name = "GiveCommand";
 
 			Verb = "give";

@@ -3260,24 +3260,6 @@ ProcessRevealArtifact:
 						Globals.ConfigsModified = true;
 					}
 				}
-				else if (Globals.Argv[i].Equals("--triggerFileName", StringComparison.OrdinalIgnoreCase) || Globals.Argv[i].Equals("-trgfn", StringComparison.OrdinalIgnoreCase))
-				{
-					if (++i < Globals.Argv.Length && secondPass)
-					{
-						Globals.Config.RtTriggerFileName = Globals.Argv[i].Trim();
-
-						Globals.ConfigsModified = true;
-					}
-				}
-				else if (Globals.Argv[i].Equals("--scriptFileName", StringComparison.OrdinalIgnoreCase) || Globals.Argv[i].Equals("-sfn", StringComparison.OrdinalIgnoreCase))
-				{
-					if (++i < Globals.Argv.Length && secondPass)
-					{
-						Globals.Config.RtScriptFileName = Globals.Argv[i].Trim();
-
-						Globals.ConfigsModified = true;
-					}
-				}
 				else if (Globals.Argv[i].Equals("--gameStateFileName", StringComparison.OrdinalIgnoreCase) || Globals.Argv[i].Equals("-gsfn", StringComparison.OrdinalIgnoreCase))
 				{
 					if (++i < Globals.Argv.Length && secondPass)

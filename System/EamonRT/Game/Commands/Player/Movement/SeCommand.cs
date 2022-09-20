@@ -30,8 +30,6 @@ namespace EamonRT.Game.Commands
 
 			IsDarkEnabled = true;
 
-			Uid = 77;
-
 			Name = "SeCommand";
 
 			Verb = "se";

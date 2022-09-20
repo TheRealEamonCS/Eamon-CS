@@ -96,22 +96,6 @@ namespace RiddlesOfTheDuergarKingdom.Game.Plugin
 			}
 		}
 
-		public static IRecordDb<Eamon.Framework.ITrigger> gTDB
-		{
-			get
-			{
-				return (IRecordDb<Eamon.Framework.ITrigger>)EamonRT.Game.Plugin.PluginContext.gTDB;
-			}
-		}
-
-		public static IRecordDb<Eamon.Framework.IScript> gSDB
-		{
-			get
-			{
-				return (IRecordDb<Eamon.Framework.IScript>)EamonRT.Game.Plugin.PluginContext.gSDB;
-			}
-		}
-
 		public static EamonRT.Framework.Parsing.ISentenceParser gSentenceParser
 		{
 			get

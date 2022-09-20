@@ -165,8 +165,6 @@ namespace EamonRT.Game.Commands
 
 			IsMonsterEnabled = true;
 
-			Uid = 21;
-
 			Name = "MonsterGetCommand";
 
 			Verb = "get";

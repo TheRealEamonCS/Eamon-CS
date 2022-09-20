@@ -173,12 +173,6 @@
         <member name="P:Eamon.Framework.DataStorage.IDatabase.HintTable">
             <summary></summary>
         </member>
-        <member name="P:Eamon.Framework.DataStorage.IDatabase.TriggerTable">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.DataStorage.IDatabase.ScriptTable">
-            <summary></summary>
-        </member>
         <member name="P:Eamon.Framework.DataStorage.IDatabase.GameStateTable">
             <summary></summary>
         </member>
@@ -253,20 +247,6 @@
             <param name="printOutput"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.DataStorage.IDatabase.LoadTriggers(System.String,System.Boolean,System.Boolean)">
-            <summary></summary>
-            <param name="fileName"></param>
-            <param name="validate"></param>
-            <param name="printOutput"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.DataStorage.IDatabase.LoadScripts(System.String,System.Boolean,System.Boolean)">
-            <summary></summary>
-            <param name="fileName"></param>
-            <param name="validate"></param>
-            <param name="printOutput"></param>
-            <returns></returns>
-        </member>
         <member name="M:Eamon.Framework.DataStorage.IDatabase.LoadGameStates(System.String,System.Boolean,System.Boolean)">
             <summary></summary>
             <param name="fileName"></param>
@@ -335,18 +315,6 @@
             <param name="printOutput"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.DataStorage.IDatabase.SaveTriggers(System.String,System.Boolean)">
-            <summary></summary>
-            <param name="fileName"></param>
-            <param name="printOutput"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.DataStorage.IDatabase.SaveScripts(System.String,System.Boolean)">
-            <summary></summary>
-            <param name="fileName"></param>
-            <param name="printOutput"></param>
-            <returns></returns>
-        </member>
         <member name="M:Eamon.Framework.DataStorage.IDatabase.SaveGameStates(System.String,System.Boolean)">
             <summary></summary>
             <param name="fileName"></param>
@@ -404,16 +372,6 @@
             <param name="dispose"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.DataStorage.IDatabase.FreeTriggers(System.Boolean)">
-            <summary></summary>
-            <param name="dispose"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.DataStorage.IDatabase.FreeScripts(System.Boolean)">
-            <summary></summary>
-            <param name="dispose"></param>
-            <returns></returns>
-        </member>
         <member name="M:Eamon.Framework.DataStorage.IDatabase.FreeGameStates(System.Boolean)">
             <summary></summary>
             <param name="dispose"></param>
@@ -457,14 +415,6 @@
             <returns></returns>
         </member>
         <member name="M:Eamon.Framework.DataStorage.IDatabase.GetHintsCount">
-            <summary></summary>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.DataStorage.IDatabase.GetTriggersCount">
-            <summary></summary>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.DataStorage.IDatabase.GetScriptsCount">
             <summary></summary>
             <returns></returns>
         </member>
@@ -519,16 +469,6 @@
             <returns></returns>
         </member>
         <member name="M:Eamon.Framework.DataStorage.IDatabase.FindHint(System.Int64)">
-            <summary></summary>
-            <param name="uid"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.DataStorage.IDatabase.FindTrigger(System.Int64)">
-            <summary></summary>
-            <param name="uid"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.DataStorage.IDatabase.FindScript(System.Int64)">
             <summary></summary>
             <param name="uid"></param>
             <returns></returns>
@@ -606,18 +546,6 @@
             <param name="makeCopy"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.DataStorage.IDatabase.AddTrigger(Eamon.Framework.ITrigger,System.Boolean)">
-            <summary></summary>
-            <param name="trigger"></param>
-            <param name="makeCopy"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.DataStorage.IDatabase.AddScript(Eamon.Framework.IScript,System.Boolean)">
-            <summary></summary>
-            <param name="script"></param>
-            <param name="makeCopy"></param>
-            <returns></returns>
-        </member>
         <member name="M:Eamon.Framework.DataStorage.IDatabase.AddGameState(Eamon.Framework.IGameState,System.Boolean)">
             <summary></summary>
             <param name="gameState"></param>
@@ -671,16 +599,6 @@
             <returns></returns>
         </member>
         <member name="M:Eamon.Framework.DataStorage.IDatabase.RemoveHint(System.Int64)">
-            <summary></summary>
-            <param name="uid"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.DataStorage.IDatabase.RemoveTrigger(System.Int64)">
-            <summary></summary>
-            <param name="uid"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.DataStorage.IDatabase.RemoveScript(System.Int64)">
             <summary></summary>
             <param name="uid"></param>
             <returns></returns>
@@ -748,16 +666,6 @@
             <param name="allocate"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.DataStorage.IDatabase.GetTriggerUid(System.Boolean)">
-            <summary></summary>
-            <param name="allocate"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.DataStorage.IDatabase.GetScriptUid(System.Boolean)">
-            <summary></summary>
-            <param name="allocate"></param>
-            <returns></returns>
-        </member>
         <member name="M:Eamon.Framework.DataStorage.IDatabase.GetGameStateUid(System.Boolean)">
             <summary></summary>
             <param name="allocate"></param>
@@ -801,14 +709,6 @@
             <param name="uid"></param>
         </member>
         <member name="M:Eamon.Framework.DataStorage.IDatabase.FreeHintUid(System.Int64)">
-            <summary></summary>
-            <param name="uid"></param>
-        </member>
-        <member name="M:Eamon.Framework.DataStorage.IDatabase.FreeTriggerUid(System.Int64)">
-            <summary></summary>
-            <param name="uid"></param>
-        </member>
-        <member name="M:Eamon.Framework.DataStorage.IDatabase.FreeScriptUid(System.Int64)">
             <summary></summary>
             <param name="uid"></param>
         </member>
@@ -1049,12 +949,6 @@
             <summary></summary>
         </member>
         <member name="T:Eamon.Framework.Helpers.IRoomHelper">
-            <summary></summary>
-        </member>
-        <member name="T:Eamon.Framework.Helpers.IScriptHelper">
-            <summary></summary>
-        </member>
-        <member name="T:Eamon.Framework.Helpers.ITriggerHelper">
             <summary></summary>
         </member>
         <member name="T:Eamon.Framework.IArtifact">
@@ -2053,12 +1947,6 @@
         <member name="P:Eamon.Framework.IConfig.DdHintFileName">
             <summary></summary>
         </member>
-        <member name="P:Eamon.Framework.IConfig.DdTriggerFileName">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.IConfig.DdScriptFileName">
-            <summary></summary>
-        </member>
         <member name="P:Eamon.Framework.IConfig.MhWorkDir">
             <summary></summary>
         </member>
@@ -2095,12 +1983,6 @@
         <member name="P:Eamon.Framework.IConfig.RtHintFileName">
             <summary></summary>
         </member>
-        <member name="P:Eamon.Framework.IConfig.RtTriggerFileName">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.IConfig.RtScriptFileName">
-            <summary></summary>
-        </member>
         <member name="P:Eamon.Framework.IConfig.RtGameStateFileName">
             <summary></summary>
         </member>
@@ -2126,12 +2008,6 @@
             <summary></summary>
         </member>
         <member name="P:Eamon.Framework.IConfig.DdEditingHints">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.IConfig.DdEditingTriggers">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.IConfig.DdEditingScripts">
             <summary></summary>
         </member>
         <member name="M:Eamon.Framework.IConfig.LoadGameDatabase(System.Boolean,System.Boolean)">
@@ -2374,34 +2250,6 @@
             <param name="artifactType"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IEngine.GetTriggerTypes(System.Int64)">
-            <summary>
-            Gets the data for a given <see cref="T:Eamon.Framework.Primitive.Enums.TriggerType"/>.
-            </summary>
-            <param name="index"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.GetTriggerTypes(Eamon.Framework.Primitive.Enums.TriggerType)">
-            <summary>
-            Gets the data for a given <see cref="T:Eamon.Framework.Primitive.Enums.TriggerType"/>.
-            </summary>
-            <param name="triggerType"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.GetScriptTypes(System.Int64)">
-            <summary>
-            Gets the data for a given <see cref="T:Eamon.Framework.Primitive.Enums.ScriptType"/>.
-            </summary>
-            <param name="index"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.GetScriptTypes(Eamon.Framework.Primitive.Enums.ScriptType)">
-            <summary>
-            Gets the data for a given <see cref="T:Eamon.Framework.Primitive.Enums.ScriptType"/>.
-            </summary>
-            <param name="scriptType"></param>
-            <returns></returns>
-        </member>
         <member name="M:Eamon.Framework.IEngine.IsSuccess(Eamon.RetCode)">
             <summary>
             Indicates whether an operation succeeded.
@@ -2428,20 +2276,6 @@
             Indicates whether an artifact type is valid.
             </summary>
             <param name="artifactType"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.IsValidTriggerType(Eamon.Framework.Primitive.Enums.TriggerType)">
-            <summary>
-            Indicates whether a trigger type is valid.
-            </summary>
-            <param name="triggerType"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.IsValidScriptType(Eamon.Framework.Primitive.Enums.ScriptType)">
-            <summary>
-            Indicates whether a script type is valid.
-            </summary>
-            <param name="scriptType"></param>
             <returns></returns>
         </member>
         <member name="M:Eamon.Framework.IEngine.IsValidArtifactArmor(System.Int64)">
@@ -3162,12 +2996,6 @@
             <summary></summary>
         </member>
         <member name="P:Eamon.Framework.IFileset.HintFileName">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.IFileset.TriggerFileName">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.IFileset.ScriptFileName">
             <summary></summary>
         </member>
         <member name="P:Eamon.Framework.IFileset.GameStateFileName">
@@ -4354,69 +4182,6 @@
             <param name="buf"></param>
             <returns></returns>
         </member>
-        <member name="T:Eamon.Framework.IScript">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.IScript.SortOrder">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.IScript.TriggerUid">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.IScript.Type">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.IScript.Field1">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.IScript.Field2">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.IScript.Field3">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.IScript.Field4">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.IScript.Field5">
-            <summary></summary>
-        </member>
-        <member name="M:Eamon.Framework.IScript.Execute">
-            <summary></summary>
-        </member>
-        <member name="T:Eamon.Framework.ITrigger">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.ITrigger.Occurrences">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.ITrigger.SortOrder">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.ITrigger.Type">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.ITrigger.Field1">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.ITrigger.Field2">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.ITrigger.Field3">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.ITrigger.Field4">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.ITrigger.Field5">
-            <summary></summary>
-        </member>
-        <member name="M:Eamon.Framework.ITrigger.IsActive">
-            <summary></summary>
-        </member>
-        <member name="M:Eamon.Framework.ITrigger.GetScriptList">
-            <summary></summary>
-        </member>
         <member name="T:Eamon.Framework.Menus.IMenu">
             <summary></summary>
         </member>
@@ -5110,12 +4875,6 @@
             <summary></summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IPluginGlobals.HDB">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginGlobals.TDB">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginGlobals.SDB">
             <summary></summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IPluginGlobals.GSDB">
@@ -6038,42 +5797,6 @@
         <member name="P:Eamon.Framework.Primitive.Classes.IPrep.ContainerType">
             <summary></summary>
         </member>
-        <member name="T:Eamon.Framework.Primitive.Classes.IScriptType">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Primitive.Classes.IScriptType.Name">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Primitive.Classes.IScriptType.Field1Name">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Primitive.Classes.IScriptType.Field1EmptyVal">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Primitive.Classes.IScriptType.Field2Name">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Primitive.Classes.IScriptType.Field2EmptyVal">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Primitive.Classes.IScriptType.Field3Name">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Primitive.Classes.IScriptType.Field3EmptyVal">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Primitive.Classes.IScriptType.Field4Name">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Primitive.Classes.IScriptType.Field4EmptyVal">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Primitive.Classes.IScriptType.Field5Name">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Primitive.Classes.IScriptType.Field5EmptyVal">
-            <summary></summary>
-        </member>
         <member name="T:Eamon.Framework.Primitive.Classes.ISpell">
             <summary></summary>
         </member>
@@ -6108,42 +5831,6 @@
             <summary></summary>
         </member>
         <member name="P:Eamon.Framework.Primitive.Classes.IStat.MaxValue">
-            <summary></summary>
-        </member>
-        <member name="T:Eamon.Framework.Primitive.Classes.ITriggerType">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Primitive.Classes.ITriggerType.Name">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Primitive.Classes.ITriggerType.Field1Name">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Primitive.Classes.ITriggerType.Field1EmptyVal">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Primitive.Classes.ITriggerType.Field2Name">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Primitive.Classes.ITriggerType.Field2EmptyVal">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Primitive.Classes.ITriggerType.Field3Name">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Primitive.Classes.ITriggerType.Field3EmptyVal">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Primitive.Classes.ITriggerType.Field4Name">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Primitive.Classes.ITriggerType.Field4EmptyVal">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Primitive.Classes.ITriggerType.Field5Name">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Primitive.Classes.ITriggerType.Field5EmptyVal">
             <summary></summary>
         </member>
         <member name="T:Eamon.Framework.Primitive.Classes.IWeapon">
@@ -6755,19 +6442,6 @@
             The <see cref="T:Eamon.Framework.IRoom">Room</see> is considered outdoors; the adjacent Rooms list is prefixed with "Obvious paths".
             </summary>
         </member>
-        <member name="T:Eamon.Framework.Primitive.Enums.ScriptType">
-            <summary>
-            An enumeration of Script Types.
-            </summary>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="F:Eamon.Framework.Primitive.Enums.ScriptType.None">
-            <summary></summary>
-        </member>
-        <member name="F:Eamon.Framework.Primitive.Enums.ScriptType.PrintRandomEffect">
-            <summary></summary>
-        </member>
         <member name="T:Eamon.Framework.Primitive.Enums.Spell">
             <summary>
             An enumeration of <see cref="T:Eamon.Framework.ICharacter">Character</see> and <see cref="T:Eamon.Framework.IMonster">Monster</see> Spells.
@@ -6873,19 +6547,6 @@
             <summary>
             The <see cref="T:Eamon.Framework.ICharacter">Character</see> is out on an adventure.
             </summary>
-        </member>
-        <member name="T:Eamon.Framework.Primitive.Enums.TriggerType">
-            <summary>
-            An enumeration of Trigger Types.
-            </summary>
-            <remarks>
-            </remarks>
-        </member>
-        <member name="F:Eamon.Framework.Primitive.Enums.TriggerType.None">
-            <summary></summary>
-        </member>
-        <member name="F:Eamon.Framework.Primitive.Enums.TriggerType.Interval">
-            <summary></summary>
         </member>
         <member name="T:Eamon.Framework.Primitive.Enums.Weapon">
             <summary>
@@ -7008,16 +6669,6 @@
         <member name="P:Eamon.Game.Engine.ArtifactTypes">
             <summary>
             Gets or sets an array containing data for each <see cref="T:Eamon.Framework.Primitive.Enums.ArtifactType"/>.
-            </summary>
-        </member>
-        <member name="P:Eamon.Game.Engine.TriggerTypes">
-            <summary>
-            Gets or sets an array containing data for each <see cref="T:Eamon.Framework.Primitive.Enums.TriggerType"/>.
-            </summary>
-        </member>
-        <member name="P:Eamon.Game.Engine.ScriptTypes">
-            <summary>
-            Gets or sets an array containing data for each <see cref="T:Eamon.Framework.Primitive.Enums.ScriptType"/>.
             </summary>
         </member>
         <member name="M:Eamon.Game.Extensions.ArrayExtensions.FindAllIndexOf``1(``0[],System.Predicate{``0})">
@@ -9578,130 +9229,6 @@
         </member>
         <member name="M:Eamon.Game.Helpers.RoomHelper.InputDirsElement">
             <summary></summary>
-        </member>
-        <member name="M:Eamon.Game.Helpers.ScriptHelper.GetPrintedNameSortOrder">
-            <summary></summary>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Game.Helpers.ScriptHelper.GetPrintedNameTriggerUid">
-            <summary></summary>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Game.Helpers.ScriptHelper.GetPrintedNameField1">
-            <summary></summary>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Game.Helpers.ScriptHelper.GetPrintedNameField2">
-            <summary></summary>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Game.Helpers.ScriptHelper.GetPrintedNameField3">
-            <summary></summary>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Game.Helpers.ScriptHelper.GetPrintedNameField4">
-            <summary></summary>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Game.Helpers.ScriptHelper.GetPrintedNameField5">
-            <summary></summary>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Game.Helpers.ScriptHelper.ValidateUid">
-            <summary></summary>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Game.Helpers.ScriptHelper.ValidateSortOrder">
-            <summary></summary>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Game.Helpers.ScriptHelper.ValidateTriggerUid">
-            <summary></summary>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Game.Helpers.ScriptHelper.ValidateType">
-            <summary></summary>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Game.Helpers.ScriptHelper.ValidateField1">
-            <summary></summary>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Game.Helpers.ScriptHelper.ValidateField2">
-            <summary></summary>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Game.Helpers.ScriptHelper.ValidateField3">
-            <summary></summary>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Game.Helpers.ScriptHelper.ValidateField4">
-            <summary></summary>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Game.Helpers.ScriptHelper.ValidateField5">
-            <summary></summary>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Game.Helpers.TriggerHelper.GetPrintedNameSortOrder">
-            <summary></summary>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Game.Helpers.TriggerHelper.GetPrintedNameField1">
-            <summary></summary>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Game.Helpers.TriggerHelper.GetPrintedNameField2">
-            <summary></summary>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Game.Helpers.TriggerHelper.GetPrintedNameField3">
-            <summary></summary>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Game.Helpers.TriggerHelper.GetPrintedNameField4">
-            <summary></summary>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Game.Helpers.TriggerHelper.GetPrintedNameField5">
-            <summary></summary>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Game.Helpers.TriggerHelper.ValidateUid">
-            <summary></summary>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Game.Helpers.TriggerHelper.ValidateOccurrences">
-            <summary></summary>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Game.Helpers.TriggerHelper.ValidateSortOrder">
-            <summary></summary>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Game.Helpers.TriggerHelper.ValidateType">
-            <summary></summary>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Game.Helpers.TriggerHelper.ValidateField1">
-            <summary></summary>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Game.Helpers.TriggerHelper.ValidateField2">
-            <summary></summary>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Game.Helpers.TriggerHelper.ValidateField3">
-            <summary></summary>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Game.Helpers.TriggerHelper.ValidateField4">
-            <summary></summary>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Game.Helpers.TriggerHelper.ValidateField5">
-            <summary></summary>
-            <returns></returns>
         </member>
         <member name="P:Eamon.Game.Plugin.PluginClassMappings.RulesetVersions">
             <summary></summary>

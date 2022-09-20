@@ -809,10 +809,6 @@ namespace YourAdventureName.YourGameNamespaceName
 
 						x.HintFileName = "HINTS.DAT";
 
-						x.TriggerFileName = "TRIGGERS.DAT";
-
-						x.ScriptFileName = "SCRIPTS.DAT";
-
 						x.GameStateFileName = "NONE";
 					});
 

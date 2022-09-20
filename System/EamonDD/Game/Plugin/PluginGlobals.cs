@@ -65,10 +65,6 @@ namespace EamonDD.Game.Plugin
 
 		public virtual bool HintsModified { get; set; }
 
-		public virtual bool TriggersModified { get; set; }
-
-		public virtual bool ScriptsModified { get; set; }
-
 		public override void InitSystem()
 		{
 			base.InitSystem();

@@ -116,8 +116,6 @@ namespace EamonRT.Game.Commands
 
 			IsDarkEnabled = true;
 
-			Uid = 56;
-
 			Name = "HintsCommand";
 
 			Verb = "hints";

@@ -43,8 +43,6 @@ namespace EamonRT.Game.Commands
 
 			IsMonsterEnabled = true;
 
-			Uid = 94;
-
 			Name = "MonsterFleeCommand";
 
 			Verb = "flee";

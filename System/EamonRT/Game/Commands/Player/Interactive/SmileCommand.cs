@@ -49,8 +49,6 @@ namespace EamonRT.Game.Commands
 		{
 			SortOrder = 310;
 
-			Uid = 40;
-
 			Name = "SmileCommand";
 
 			Verb = "smile";

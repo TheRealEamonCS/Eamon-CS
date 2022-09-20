@@ -123,8 +123,6 @@ namespace TheDeepCanyon.Game.Commands
 
 			IsNew = true;
 
-			Uid = 97;
-
 			Name = "DigCommand";
 
 			Verb = "dig";

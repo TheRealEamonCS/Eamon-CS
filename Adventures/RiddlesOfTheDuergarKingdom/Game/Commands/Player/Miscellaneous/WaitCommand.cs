@@ -31,8 +31,6 @@ namespace RiddlesOfTheDuergarKingdom.Game.Commands
 
 			IsDarkEnabled = true;
 
-			Uid = 96;
-
 			Name = "WaitCommand";
 
 			Verb = "wait";

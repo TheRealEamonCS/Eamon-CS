@@ -96,22 +96,6 @@ namespace EamonMH.Game.Plugin
 			}
 		}
 
-		public static IRecordDb<Eamon.Framework.ITrigger> gTDB
-		{
-			get
-			{
-				return Eamon.Game.Plugin.PluginContext.gTDB;
-			}
-		}
-
-		public static IRecordDb<Eamon.Framework.IScript> gSDB
-		{
-			get
-			{
-				return Eamon.Game.Plugin.PluginContext.gSDB;
-			}
-		}
-
 		public static Eamon.Framework.ICharacter gCharacter
 		{
 			get

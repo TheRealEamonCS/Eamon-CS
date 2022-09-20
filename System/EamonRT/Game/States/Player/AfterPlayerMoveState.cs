@@ -98,8 +98,6 @@ namespace EamonRT.Game.States
 
 		public AfterPlayerMoveState()
 		{
-			Uid = 25;
-
 			Name = "AfterPlayerMoveState";
 
 			MoveMonsters = true;

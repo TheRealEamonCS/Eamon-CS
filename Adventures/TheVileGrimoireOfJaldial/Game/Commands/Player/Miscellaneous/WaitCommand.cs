@@ -38,8 +38,6 @@ namespace TheVileGrimoireOfJaldial.Game.Commands
 
 			IsDarkEnabled = true;
 
-			Uid = 91;
-
 			Name = "WaitCommand";
 
 			Verb = "wait";

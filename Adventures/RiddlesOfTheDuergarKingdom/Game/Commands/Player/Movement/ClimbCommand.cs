@@ -49,8 +49,6 @@ namespace RiddlesOfTheDuergarKingdom.Game.Commands
 
 			IsNew = true;
 
-			Uid = 95;
-
 			Name = "ClimbCommand";
 
 			Verb = "climb";

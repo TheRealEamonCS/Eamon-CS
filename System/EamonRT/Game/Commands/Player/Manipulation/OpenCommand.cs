@@ -209,8 +209,6 @@ namespace EamonRT.Game.Commands
 				IsPlayerEnabled = false;
 			}
 
-			Uid = 49;
-
 			Name = "OpenCommand";
 
 			Verb = "open";

@@ -38,8 +38,6 @@ namespace EamonRT.Game.Commands
 
 			IsMonsterEnabled = true;
 
-			Uid = 19;
-
 			Name = "MonsterBlastCommand";
 
 			Verb = "blast";

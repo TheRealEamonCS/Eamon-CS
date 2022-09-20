@@ -89,8 +89,6 @@ namespace EamonRT.Game.Commands
 
 			IsDarkEnabled = true;
 
-			Uid = 61;
-
 			Name = "QuitCommand";
 
 			Verb = "quit";

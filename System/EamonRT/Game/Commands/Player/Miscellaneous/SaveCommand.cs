@@ -268,28 +268,6 @@ namespace EamonRT.Game.Commands
 
 			SaveFileset.HintFileName = Globals.Buf.ToString().Truncate(Constants.FsFileNameLen);
 
-			if (!string.IsNullOrWhiteSpace(Globals.Config.RtTriggerFileName))          // TODO: remove this check at some point
-			{
-				rc = gEngine.SplitPath(Globals.Config.RtTriggerFileName, ref _saveFilePath, ref _saveFileName, ref _saveFileExtension);
-
-				Debug.Assert(gEngine.IsSuccess(rc));
-
-				Globals.Buf.SetFormat("{0}{1}_{2}{3}", SaveFilePath, SaveFileName, SaveSlotString, SaveFileExtension);
-
-				SaveFileset.TriggerFileName = Globals.Buf.ToString().Truncate(Constants.FsFileNameLen);
-			}
-
-			if (!string.IsNullOrWhiteSpace(Globals.Config.RtScriptFileName))          // TODO: remove this check at some point
-			{
-				rc = gEngine.SplitPath(Globals.Config.RtScriptFileName, ref _saveFilePath, ref _saveFileName, ref _saveFileExtension);
-
-				Debug.Assert(gEngine.IsSuccess(rc));
-
-				Globals.Buf.SetFormat("{0}{1}_{2}{3}", SaveFilePath, SaveFileName, SaveSlotString, SaveFileExtension);
-
-				SaveFileset.ScriptFileName = Globals.Buf.ToString().Truncate(Constants.FsFileNameLen);
-			}
-
 			rc = gEngine.SplitPath(Globals.Config.RtGameStateFileName, ref _saveFilePath, ref _saveFileName, ref _saveFileExtension);
 
 			Debug.Assert(gEngine.IsSuccess(rc));
@@ -314,10 +292,6 @@ namespace EamonRT.Game.Commands
 
 			SaveConfig.RtHintFileName = Globals.CloneInstance(SaveFileset.HintFileName);
 
-			SaveConfig.RtTriggerFileName = Globals.CloneInstance(SaveFileset.TriggerFileName);
-
-			SaveConfig.RtScriptFileName = Globals.CloneInstance(SaveFileset.ScriptFileName);
-
 			SaveConfig.RtGameStateFileName = Globals.CloneInstance(SaveFileset.GameStateFileName);
 			
 			Globals.Config.DdFilesetFileName = SaveConfig.RtFilesetFileName;
@@ -336,10 +310,6 @@ namespace EamonRT.Game.Commands
 
 			Globals.Config.DdHintFileName = SaveConfig.RtHintFileName;
 
-			Globals.Config.DdTriggerFileName = SaveConfig.RtTriggerFileName;
-
-			Globals.Config.DdScriptFileName = SaveConfig.RtScriptFileName;
-
 			Globals.Config.DdEditingFilesets = true;
 
 			Globals.Config.DdEditingCharacters = true;
@@ -355,10 +325,6 @@ namespace EamonRT.Game.Commands
 			Globals.Config.DdEditingMonsters = true;
 
 			Globals.Config.DdEditingHints = true;
-
-			Globals.Config.DdEditingTriggers = true;
-
-			Globals.Config.DdEditingScripts = true;
 
 			FullArtifactList = Globals.Database.ArtifactTable.Records.ToList();
 
@@ -437,8 +403,6 @@ namespace EamonRT.Game.Commands
 			IsSentenceParserEnabled = false;
 
 			IsDarkEnabled = true;
-
-			Uid = 63;
 
 			Name = "SaveCommand";
 

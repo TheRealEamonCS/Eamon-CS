@@ -52,12 +52,6 @@ namespace Eamon.Game
 		[FieldName(820)]
 		public virtual long NumHints { get; set; }
 
-		//[FieldName(840)]
-		public virtual long NumTriggers { get; set; }
-
-		//[FieldName(860)]
-		public virtual long NumScripts { get; set; }
-
 		#endregion
 
 		#endregion

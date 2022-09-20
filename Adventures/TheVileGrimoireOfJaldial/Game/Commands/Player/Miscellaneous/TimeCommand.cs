@@ -51,8 +51,6 @@ namespace TheVileGrimoireOfJaldial.Game.Commands
 
 			IsNew = true;
 
-			Uid = 90;
-
 			Name = "TimeCommand";
 
 			Verb = "time";

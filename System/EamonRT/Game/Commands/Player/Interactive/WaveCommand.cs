@@ -49,8 +49,6 @@ namespace EamonRT.Game.Commands
 		{
 			SortOrder = 315;
 
-			Uid = 41;
-
 			Name = "WaveCommand";
 
 			Verb = "wave";

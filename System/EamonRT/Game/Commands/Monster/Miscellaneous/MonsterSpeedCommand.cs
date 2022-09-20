@@ -36,8 +36,6 @@ namespace EamonRT.Game.Commands
 
 			IsMonsterEnabled = true;
 
-			Uid = 93;
-
 			Name = "MonsterSpeedCommand";
 
 			Verb = "speed";

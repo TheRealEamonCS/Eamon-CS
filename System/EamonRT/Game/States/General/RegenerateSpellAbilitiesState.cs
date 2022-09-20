@@ -62,8 +62,6 @@ namespace EamonRT.Game.States
 
 		public RegenerateSpellAbilitiesState()
 		{
-			Uid = 5;
-
 			Name = "RegenerateSpellAbilitiesState";
 		}
 	}

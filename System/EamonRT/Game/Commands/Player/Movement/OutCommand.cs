@@ -28,8 +28,6 @@ namespace EamonRT.Game.Commands
 
 			IsDarkEnabled = true;
 
-			Uid = 76;
-
 			Name = "OutCommand";
 
 			Verb = "out";

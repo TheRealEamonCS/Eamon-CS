@@ -45,8 +45,6 @@ namespace EamonRT.Game.States
 
 		public ProcessPlayerInputState()
 		{
-			Uid = 33;
-
 			Name = "ProcessPlayerInputState";
 		}
 	}

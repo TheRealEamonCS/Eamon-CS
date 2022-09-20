@@ -132,8 +132,6 @@ namespace EamonRT.Game.Commands
 				IsPlayerEnabled = false;
 			}
 
-			Uid = 48;
-
 			Name = "LightCommand";
 
 			Verb = "light";

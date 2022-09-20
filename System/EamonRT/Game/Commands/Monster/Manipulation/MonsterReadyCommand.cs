@@ -80,8 +80,6 @@ namespace EamonRT.Game.Commands
 
 			IsMonsterEnabled = true;
 
-			Uid = 22;
-
 			Name = "MonsterReadyCommand";
 
 			Verb = "ready";

@@ -37,11 +37,5 @@ namespace EamonDD.Framework.Menus
 
 		/// <summary></summary>
 		void PrintHintMenuSubtitle();
-
-		/// <summary></summary>
-		void PrintTriggerMenuSubtitle();
-
-		/// <summary></summary>
-		void PrintScriptMenuSubtitle();
 	};
 }

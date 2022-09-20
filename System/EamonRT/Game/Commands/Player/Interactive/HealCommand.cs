@@ -52,8 +52,6 @@ namespace EamonRT.Game.Commands
 		{
 			SortOrder = 290;
 
-			Uid = 38;
-
 			Name = "HealCommand";
 
 			Verb = "heal";

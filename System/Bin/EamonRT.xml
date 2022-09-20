@@ -2769,9 +2769,6 @@
         <member name="T:EamonRT.Framework.States.IStateSignatures">
             <summary></summary>
         </member>
-        <member name="P:EamonRT.Framework.States.IStateSignatures.Uid">
-            <summary></summary>
-        </member>
         <member name="P:EamonRT.Framework.States.IStateSignatures.GotoCleanup">
             <summary></summary>
         </member>

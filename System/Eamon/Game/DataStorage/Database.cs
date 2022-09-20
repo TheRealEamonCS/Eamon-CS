@@ -37,10 +37,6 @@ namespace Eamon.Game.DataStorage
 
 		public virtual IDbTable<IHint> HintTable { get; set; }
 
-		public virtual IDbTable<ITrigger> TriggerTable { get; set; }
-
-		public virtual IDbTable<IScript> ScriptTable { get; set; }
-
 		public virtual IDbTable<IGameState> GameStateTable { get; set; }
 
 		public virtual RetCode LoadRecords<T, U>(ref IDbTable<T> table, string fileName, bool validate = true, bool printOutput = true) where T : class, IGameBase where U : class, IHelper<T>
@@ -293,42 +289,6 @@ namespace Eamon.Game.DataStorage
 			return rc;
 		}
 
-		public virtual RetCode LoadTriggers(string fileName, bool validate = true, bool printOutput = true)
-		{
-			RetCode rc;
-
-			var table = TriggerTable;
-
-			rc = LoadRecords<ITrigger, ITriggerHelper>(ref table, fileName, validate, printOutput);
-
-			if (gEngine.IsFailure(rc))
-			{
-				Globals.Error.WriteLine("Error: LoadRecords function call failed.");
-			}
-
-			TriggerTable = table;
-
-			return rc;
-		}
-
-		public virtual RetCode LoadScripts(string fileName, bool validate = true, bool printOutput = true)
-		{
-			RetCode rc;
-
-			var table = ScriptTable;
-
-			rc = LoadRecords<IScript, IScriptHelper>(ref table, fileName, validate, printOutput);
-
-			if (gEngine.IsFailure(rc))
-			{
-				Globals.Error.WriteLine("Error: LoadRecords function call failed.");
-			}
-
-			ScriptTable = table;
-
-			return rc;
-		}
-
 		public virtual RetCode LoadGameStates(string fileName, bool validate = true, bool printOutput = true)
 		{
 			RetCode rc;
@@ -505,34 +465,6 @@ namespace Eamon.Game.DataStorage
 			return rc;
 		}
 
-		public virtual RetCode SaveTriggers(string fileName, bool printOutput = true)
-		{
-			RetCode rc;
-
-			rc = SaveRecords(TriggerTable, fileName, printOutput);
-
-			if (gEngine.IsFailure(rc))
-			{
-				Globals.Error.WriteLine("Error: SaveRecords function call failed.");
-			}
-
-			return rc;
-		}
-
-		public virtual RetCode SaveScripts(string fileName, bool printOutput = true)
-		{
-			RetCode rc;
-
-			rc = SaveRecords(ScriptTable, fileName, printOutput);
-
-			if (gEngine.IsFailure(rc))
-			{
-				Globals.Error.WriteLine("Error: SaveRecords function call failed.");
-			}
-
-			return rc;
-		}
-
 		public virtual RetCode SaveGameStates(string fileName, bool printOutput = true)
 		{
 			RetCode rc;
@@ -612,16 +544,6 @@ namespace Eamon.Game.DataStorage
 			return FreeRecords(HintTable, dispose);
 		}
 
-		public virtual RetCode FreeTriggers(bool dispose = true)
-		{
-			return FreeRecords(TriggerTable, dispose);
-		}
-
-		public virtual RetCode FreeScripts(bool dispose = true)
-		{
-			return FreeRecords(ScriptTable, dispose);
-		}
-
 		public virtual RetCode FreeGameStates(bool dispose = true)
 		{
 			return FreeRecords(GameStateTable, dispose);
@@ -692,16 +614,6 @@ namespace Eamon.Game.DataStorage
 			return GetRecordsCount(HintTable);
 		}
 
-		public virtual long GetTriggersCount()
-		{
-			return GetRecordsCount(TriggerTable);
-		}
-
-		public virtual long GetScriptsCount()
-		{
-			return GetRecordsCount(ScriptTable);
-		}
-
 		public virtual long GetGameStatesCount()
 		{
 			return GetRecordsCount(GameStateTable);
@@ -770,16 +682,6 @@ namespace Eamon.Game.DataStorage
 		public virtual IHint FindHint(long uid)
 		{
 			return FindRecord(HintTable, uid);
-		}
-
-		public virtual ITrigger FindTrigger(long uid)
-		{
-			return FindRecord(TriggerTable, uid);
-		}
-
-		public virtual IScript FindScript(long uid)
-		{
-			return FindRecord(ScriptTable, uid);
 		}
 
 		public virtual IGameState FindGameState(long uid)
@@ -872,16 +774,6 @@ namespace Eamon.Game.DataStorage
 			return AddRecord(HintTable, hint, makeCopy);
 		}
 
-		public virtual RetCode AddTrigger(ITrigger trigger, bool makeCopy = false)
-		{
-			return AddRecord(TriggerTable, trigger, makeCopy);
-		}
-
-		public virtual RetCode AddScript(IScript script, bool makeCopy = false)
-		{
-			return AddRecord(ScriptTable, script, makeCopy);
-		}
-
 		public virtual RetCode AddGameState(IGameState gameState, bool makeCopy = false)
 		{
 			return AddRecord(GameStateTable, gameState, makeCopy);
@@ -950,16 +842,6 @@ namespace Eamon.Game.DataStorage
 		public virtual IHint RemoveHint(long uid)
 		{
 			return RemoveRecord(HintTable, uid);
-		}
-
-		public virtual ITrigger RemoveTrigger(long uid)
-		{
-			return RemoveRecord(TriggerTable, uid);
-		}
-
-		public virtual IScript RemoveScript(long uid)
-		{
-			return RemoveRecord(ScriptTable, uid);
 		}
 
 		public virtual IGameState RemoveGameState(long uid)
@@ -1052,16 +934,6 @@ namespace Eamon.Game.DataStorage
 			return GetRecordUid(HintTable, allocate);
 		}
 
-		public virtual long GetTriggerUid(bool allocate = true)
-		{
-			return GetRecordUid(TriggerTable, allocate);
-		}
-
-		public virtual long GetScriptUid(bool allocate = true)
-		{
-			return GetRecordUid(ScriptTable, allocate);
-		}
-
 		public virtual long GetGameStateUid(bool allocate = true)
 		{
 			return GetRecordUid(GameStateTable, allocate);
@@ -1128,16 +1000,6 @@ namespace Eamon.Game.DataStorage
 			FreeRecordUid(HintTable, uid);
 		}
 
-		public virtual void FreeTriggerUid(long uid)
-		{
-			FreeRecordUid(TriggerTable, uid);
-		}
-
-		public virtual void FreeScriptUid(long uid)
-		{
-			FreeRecordUid(ScriptTable, uid);
-		}
-
 		public virtual void FreeGameStateUid(long uid)
 		{
 			FreeRecordUid(GameStateTable, uid);
@@ -1162,10 +1024,6 @@ namespace Eamon.Game.DataStorage
 			MonsterTable = Globals.CreateInstance<IDbTable<IMonster>>();
 
 			HintTable = Globals.CreateInstance<IDbTable<IHint>>();
-
-			TriggerTable = Globals.CreateInstance<IDbTable<ITrigger>>();
-
-			ScriptTable = Globals.CreateInstance<IDbTable<IScript>>();
 
 			GameStateTable = Globals.CreateInstance<IDbTable<IGameState>>();
 		}

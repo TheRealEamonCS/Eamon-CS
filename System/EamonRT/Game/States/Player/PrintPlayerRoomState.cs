@@ -41,8 +41,6 @@ namespace EamonRT.Game.States
 
 		public PrintPlayerRoomState()
 		{
-			Uid = 32;
-
 			Name = "PrintPlayerRoomState";
 		}
 	}
