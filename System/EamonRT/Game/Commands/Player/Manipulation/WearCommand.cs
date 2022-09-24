@@ -167,8 +167,6 @@ namespace EamonRT.Game.Commands
 				IsPlayerEnabled = false;
 			}
 
-			Uid = 55;
-
 			Name = "WearCommand";
 
 			Verb = "wear";

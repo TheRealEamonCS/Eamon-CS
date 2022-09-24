@@ -398,8 +398,6 @@ namespace TheVileGrimoireOfJaldial.Game.Commands
 
 			IsNew = true;
 
-			Uid = 89;
-
 			Name = "SearchCommand";
 
 			Verb = "search";

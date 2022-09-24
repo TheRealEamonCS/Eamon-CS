@@ -236,22 +236,6 @@ namespace YourAdventureName.Game.Plugin
 			}
 		}
 
-		public static IRecordDb<Eamon.Framework.ITrigger> gTDB
-		{
-			get
-			{
-				return (IRecordDb<Eamon.Framework.ITrigger>)EamonRT.Game.Plugin.PluginContext.gTDB;
-			}
-		}
-
-		public static IRecordDb<Eamon.Framework.IScript> gSDB
-		{
-			get
-			{
-				return (IRecordDb<Eamon.Framework.IScript>)EamonRT.Game.Plugin.PluginContext.gSDB;
-			}
-		}
-
 		public static EamonRT.Framework.Parsing.ISentenceParser gSentenceParser
 		{
 			get
@@ -581,7 +565,7 @@ Date            Version            Who            Notes
 
 			Globals.File.WriteAllText(Constants.AdventuresDir + @"\" + AdventureName + @"\Game\Engine.cs", ReplaceMacros(EngineCsText));
 
-			fileNames = new string[] { "Artifact.cs", "Effect.cs", "GameState.cs", "Hint.cs", "Module.cs", "Monster.cs", "Room.cs", "Trigger.cs", "Script.cs" };
+			fileNames = new string[] { "Artifact.cs", "Effect.cs", "GameState.cs", "Hint.cs", "Module.cs", "Monster.cs", "Room.cs" };
 
 			for (var i = 0; i < fileNames.Length; i++)
 			{

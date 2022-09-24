@@ -128,8 +128,6 @@ namespace EamonRT.Game.Commands
 				IsPlayerEnabled = false;
 			}
 
-			Uid = 51;
-
 			Name = "ReadCommand";
 
 			Verb = "read";

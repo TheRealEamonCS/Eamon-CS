@@ -626,14 +626,6 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			Globals.HintsModified = true;
 
-			Globals.Database.FreeTriggers();
-
-			Globals.TriggersModified = true;
-
-			Globals.Database.FreeScripts();
-
-			Globals.ScriptsModified = true;
-
 			gOut.Print("{0}", Globals.LineSep);
 
 			gOut.Print("The adventure was successfully converted.");

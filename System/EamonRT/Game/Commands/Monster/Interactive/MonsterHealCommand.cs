@@ -36,8 +36,6 @@ namespace EamonRT.Game.Commands
 
 			IsMonsterEnabled = true;
 
-			Uid = 20;
-
 			Name = "MonsterHealCommand";
 
 			Verb = "heal";

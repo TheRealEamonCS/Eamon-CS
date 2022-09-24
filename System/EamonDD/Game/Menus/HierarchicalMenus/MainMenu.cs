@@ -116,26 +116,6 @@ namespace EamonDD.Game.Menus.HierarchicalMenus
 				}));
 			}
 
-			if (Globals.Config.DdEditingTriggers)
-			{
-				MenuItemList.Add(Globals.CreateInstance<IMenuItem>(x =>
-				{
-					x.SelectChar = (char)('1' + MenuItemList.Count);
-					x.LineText = string.Format("{0}{1}. Trigger record maintenance.", Environment.NewLine, MenuItemList.Count + 1);
-					x.SubMenu = Globals.CreateInstance<ITriggerRecordMenu>();
-				}));
-			}
-
-			if (Globals.Config.DdEditingScripts)
-			{
-				MenuItemList.Add(Globals.CreateInstance<IMenuItem>(x =>
-				{
-					x.SelectChar = (char)('1' + MenuItemList.Count);
-					x.LineText = string.Format("{0}{1}. Script record maintenance.", Environment.NewLine, MenuItemList.Count + 1);
-					x.SubMenu = Globals.CreateInstance<IScriptRecordMenu>();
-				}));
-			}
-
 			MenuItemList.Add(Globals.CreateInstance<IMenuItem>(x =>
 			{
 				x.SelectChar = MenuItemList.Count + 1 > 9 ? 'U' : (char)('1' + MenuItemList.Count);

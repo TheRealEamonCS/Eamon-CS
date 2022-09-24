@@ -73,8 +73,6 @@ namespace EamonRT.Game.States
 
 		public UnrecognizedCommandState()
 		{
-			Uid = 7;
-
 			Name = "UnrecognizedCommandState";
 		}
 	}

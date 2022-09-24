@@ -28,8 +28,6 @@ namespace EamonRT.Game.Commands
 
 			IsDarkEnabled = true;
 
-			Uid = 72;
-
 			Name = "InCommand";
 
 			Verb = "in";

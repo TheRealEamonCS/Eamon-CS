@@ -30,8 +30,6 @@ namespace EamonRT.Game.Commands
 
 			IsDobjPrepEnabled = true;
 
-			Uid = 59;
-
 			Name = "LookCommand";
 
 			Verb = "look";

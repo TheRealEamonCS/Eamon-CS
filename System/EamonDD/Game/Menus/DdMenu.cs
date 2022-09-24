@@ -54,7 +54,7 @@ namespace EamonDD.Game.Menus
 
 			i = 0;
 
-			if (Globals.Config.DdEditingEffects || Globals.Config.DdEditingMonsters || Globals.Config.DdEditingHints || Globals.Config.DdEditingTriggers || Globals.Config.DdEditingScripts)
+			if (Globals.Config.DdEditingEffects || Globals.Config.DdEditingMonsters || Globals.Config.DdEditingHints)
 			{
 				gOut.WriteLine();
 
@@ -75,20 +75,6 @@ namespace EamonDD.Game.Menus
 				if (Globals.Config.DdEditingHints)
 				{
 					gOut.Write("{0}Hints: {1}", i > 0 ? "  " : "", Globals.Database.GetHintsCount());
-
-					i++;
-				}
-
-				if (Globals.Config.DdEditingTriggers)
-				{
-					gOut.Write("{0}Triggers: {1}", i > 0 ? "  " : "", Globals.Database.GetTriggersCount());
-
-					i++;
-				}
-
-				if (Globals.Config.DdEditingScripts)
-				{
-					gOut.Write("{0}Scripts: {1}", i > 0 ? "  " : "", Globals.Database.GetScriptsCount());
 
 					i++;
 				}
@@ -176,28 +162,6 @@ namespace EamonDD.Game.Menus
 			}
 
 			gOut.Print("Hints: {0}", Globals.Database.GetHintsCount());
-		}
-
-		public virtual void PrintTriggerMenuSubtitle()
-		{
-			if (gEngine.IsAdventureFilesetLoaded())
-			{
-				gOut.Print("Editing: {0}",
-					Globals.Module != null ? Globals.Module.Name : gEngine.UnknownName);
-			}
-
-			gOut.Print("Triggers: {0}", Globals.Database.GetTriggersCount());
-		}
-
-		public virtual void PrintScriptMenuSubtitle()
-		{
-			if (gEngine.IsAdventureFilesetLoaded())
-			{
-				gOut.Print("Editing: {0}",
-					Globals.Module != null ? Globals.Module.Name : gEngine.UnknownName);
-			}
-
-			gOut.Print("Scripts: {0}", Globals.Database.GetScriptsCount());
 		}
 	}
 }

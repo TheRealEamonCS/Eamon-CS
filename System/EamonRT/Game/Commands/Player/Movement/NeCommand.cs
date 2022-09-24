@@ -30,8 +30,6 @@ namespace EamonRT.Game.Commands
 
 			IsDarkEnabled = true;
 
-			Uid = 73;
-
 			Name = "NeCommand";
 
 			Verb = "ne";

@@ -272,8 +272,6 @@ namespace EamonRT.Game.States
 
 		public MonsterMemberActionState()
 		{
-			Uid = 11;
-
 			Name = "MonsterMemberActionState";
 		}
 	}

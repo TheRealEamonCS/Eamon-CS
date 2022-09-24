@@ -29,8 +29,6 @@ namespace TheDeepCanyon.Game.Commands
 
 			IsNew = true;
 
-			Uid = 98;
-
 			Name = "WaitCommand";
 
 			Verb = "wait";

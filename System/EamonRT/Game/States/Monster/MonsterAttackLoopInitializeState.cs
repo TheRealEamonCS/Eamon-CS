@@ -40,8 +40,6 @@ namespace EamonRT.Game.States
 
 		public MonsterAttackLoopInitializeState()
 		{
-			Uid = 10;
-
 			Name = "MonsterAttackLoopInitializeState";
 		}
 	}

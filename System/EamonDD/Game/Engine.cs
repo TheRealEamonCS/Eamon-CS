@@ -17,7 +17,7 @@ namespace EamonDD.Game
 		{
 			if (Globals.Config != null)
 			{
-				return Globals.Config.DdEditingModules && Globals.Config.DdEditingRooms && Globals.Config.DdEditingArtifacts && Globals.Config.DdEditingEffects && Globals.Config.DdEditingMonsters && Globals.Config.DdEditingHints && Globals.Config.DdEditingTriggers && Globals.Config.DdEditingScripts;
+				return Globals.Config.DdEditingModules && Globals.Config.DdEditingRooms && Globals.Config.DdEditingArtifacts && Globals.Config.DdEditingEffects && Globals.Config.DdEditingMonsters && Globals.Config.DdEditingHints;
 			}
 			else
 			{
@@ -199,42 +199,6 @@ namespace EamonDD.Game
 						}
 					}
 				}
-				else if (Globals.Argv[i].Equals("--triggerFileName", StringComparison.OrdinalIgnoreCase) || Globals.Argv[i].Equals("-trgfn", StringComparison.OrdinalIgnoreCase))
-				{
-					if (++i < Globals.Argv.Length)
-					{
-						if (secondPass)
-						{
-							Globals.Config.DdTriggerFileName = Globals.Argv[i].Trim();
-
-							Globals.Config.DdEditingTriggers = true;
-
-							Globals.ConfigsModified = true;
-						}
-						else
-						{
-							ddfnFlag = true;
-						}
-					}
-				}
-				else if (Globals.Argv[i].Equals("--scriptFileName", StringComparison.OrdinalIgnoreCase) || Globals.Argv[i].Equals("-sfn", StringComparison.OrdinalIgnoreCase))
-				{
-					if (++i < Globals.Argv.Length)
-					{
-						if (secondPass)
-						{
-							Globals.Config.DdScriptFileName = Globals.Argv[i].Trim();
-
-							Globals.Config.DdEditingScripts = true;
-
-							Globals.ConfigsModified = true;
-						}
-						else
-						{
-							ddfnFlag = true;
-						}
-					}
-				}
 				else if (Globals.Argv[i].Equals("--loadAdventure", StringComparison.OrdinalIgnoreCase) || Globals.Argv[i].Equals("-la", StringComparison.OrdinalIgnoreCase))
 				{
 					if (secondPass)
@@ -250,10 +214,6 @@ namespace EamonDD.Game
 						Globals.Config.DdEditingMonsters = true;
 
 						Globals.Config.DdEditingHints = true;
-
-						Globals.Config.DdEditingTriggers = true;
-
-						Globals.Config.DdEditingScripts = true;
 
 						Globals.ConfigsModified = true;
 					}

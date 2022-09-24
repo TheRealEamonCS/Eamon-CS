@@ -23,8 +23,6 @@ namespace EamonRT.Game.States
 
 		public ErrorState()
 		{
-			Uid = 4;
-
 			Name = "ErrorState";
 
 			ErrorCode = 1;

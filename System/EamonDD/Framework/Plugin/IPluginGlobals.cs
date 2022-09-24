@@ -68,11 +68,5 @@ namespace EamonDD.Framework.Plugin
 
 		/// <summary></summary>
 		bool HintsModified { get; set; }
-
-		/// <summary></summary>
-		bool TriggersModified { get; set; }
-
-		/// <summary></summary>
-		bool ScriptsModified { get; set; }
 	}
 }

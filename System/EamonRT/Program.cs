@@ -163,10 +163,6 @@ namespace EamonRT
 
 			Globals.Config.DdHintFileName = "HINTS.DAT";
 
-			Globals.Config.DdTriggerFileName = "TRIGGERS.DAT";
-
-			Globals.Config.DdScriptFileName = "SCRIPTS.DAT";
-
 			if (Globals.WorkDir.Length > 0)
 			{
 				// if working directory does not exist
@@ -279,20 +275,6 @@ namespace EamonRT
 						Globals.ConfigsModified = true;
 					}
 
-					if (config.DdTriggerFileName.Length == 0)
-					{
-						config.DdTriggerFileName = Globals.Config.DdTriggerFileName;
-
-						Globals.ConfigsModified = true;
-					}
-
-					if (config.DdScriptFileName.Length == 0)
-					{
-						config.DdScriptFileName = Globals.Config.DdScriptFileName;
-
-						Globals.ConfigsModified = true;
-					}
-
 					if (_ddfnFlag)
 					{
 						config.DdEditingFilesets = false;
@@ -310,10 +292,6 @@ namespace EamonRT
 						config.DdEditingMonsters = false;
 
 						config.DdEditingHints = false;
-
-						config.DdEditingTriggers = false;
-
-						config.DdEditingScripts = false;
 
 						Globals.ConfigsModified = true;
 					}
@@ -356,7 +334,7 @@ namespace EamonRT
 
 			_nlFlag = true;
 
-			if (Globals.Config.DdEditingFilesets || Globals.Config.DdEditingCharacters || Globals.Config.DdEditingModules || Globals.Config.DdEditingRooms || Globals.Config.DdEditingArtifacts || Globals.Config.DdEditingEffects || Globals.Config.DdEditingMonsters || Globals.Config.DdEditingHints || Globals.Config.DdEditingTriggers || Globals.Config.DdEditingScripts)
+			if (Globals.Config.DdEditingFilesets || Globals.Config.DdEditingCharacters || Globals.Config.DdEditingModules || Globals.Config.DdEditingRooms || Globals.Config.DdEditingArtifacts || Globals.Config.DdEditingEffects || Globals.Config.DdEditingMonsters || Globals.Config.DdEditingHints)
 			{
 				gOut.Print("{0}", Globals.LineSep);
 			}
@@ -457,30 +435,6 @@ namespace EamonRT
 				}
 			}
 
-			if (Globals.Config.DdEditingTriggers)
-			{
-				rc = Globals.Database.LoadTriggers(Globals.Config.DdTriggerFileName);
-
-				if (gEngine.IsFailure(rc))
-				{
-					Globals.Error.Write("Error: LoadTriggers function call failed.");
-
-					goto Cleanup;
-				}
-			}
-
-			if (Globals.Config.DdEditingScripts)
-			{
-				rc = Globals.Database.LoadScripts(Globals.Config.DdScriptFileName);
-
-				if (gEngine.IsFailure(rc))
-				{
-					Globals.Error.Write("Error: LoadScripts function call failed.");
-
-					goto Cleanup;
-				}
-			}
-
 			if (Globals.Config.DdEditingModules)
 			{
 				// find the first Module record
@@ -546,24 +500,10 @@ namespace EamonRT
 
 						Globals.ModulesModified = true;
 					}
-
-					if (Globals.Config.DdEditingTriggers && Globals.Module.NumTriggers != Globals.Database.GetTriggersCount())
-					{
-						Globals.Module.NumTriggers = Globals.Database.GetTriggersCount();
-
-						Globals.ModulesModified = true;
-					}
-
-					if (Globals.Config.DdEditingScripts && Globals.Module.NumScripts != Globals.Database.GetScriptsCount())
-					{
-						Globals.Module.NumScripts = Globals.Database.GetScriptsCount();
-
-						Globals.ModulesModified = true;
-					}
 				}
 			}
 
-			if (Globals.ConfigFileName.Length > 0 || Globals.Config.DdEditingFilesets || Globals.Config.DdEditingCharacters || Globals.Config.DdEditingModules || Globals.Config.DdEditingRooms || Globals.Config.DdEditingArtifacts || Globals.Config.DdEditingEffects || Globals.Config.DdEditingMonsters || Globals.Config.DdEditingHints || Globals.Config.DdEditingTriggers || Globals.Config.DdEditingScripts)
+			if (Globals.ConfigFileName.Length > 0 || Globals.Config.DdEditingFilesets || Globals.Config.DdEditingCharacters || Globals.Config.DdEditingModules || Globals.Config.DdEditingRooms || Globals.Config.DdEditingArtifacts || Globals.Config.DdEditingEffects || Globals.Config.DdEditingMonsters || Globals.Config.DdEditingHints)
 			{
 				gOut.WriteLine();
 			}
@@ -578,7 +518,7 @@ namespace EamonRT
 
 			// update module last modified time if necessary
 
-			if (Globals.ModulesModified || Globals.RoomsModified || Globals.ArtifactsModified || Globals.EffectsModified || Globals.MonstersModified || Globals.HintsModified || Globals.TriggersModified || Globals.ScriptsModified)
+			if (Globals.ModulesModified || Globals.RoomsModified || Globals.ArtifactsModified || Globals.EffectsModified || Globals.MonstersModified || Globals.HintsModified)
 			{
 				if (Globals.Module != null)
 				{
@@ -590,7 +530,7 @@ namespace EamonRT
 
 			// prompt user to save datafiles, if any modifications were made
 
-			if ((Globals.ConfigFileName.Length > 0 && Globals.ConfigsModified) || Globals.FilesetsModified || Globals.CharactersModified || Globals.ModulesModified || Globals.RoomsModified || Globals.ArtifactsModified || Globals.EffectsModified || Globals.MonstersModified || Globals.HintsModified || Globals.TriggersModified || Globals.ScriptsModified)
+			if ((Globals.ConfigFileName.Length > 0 && Globals.ConfigsModified) || Globals.FilesetsModified || Globals.CharactersModified || Globals.ModulesModified || Globals.RoomsModified || Globals.ArtifactsModified || Globals.EffectsModified || Globals.MonstersModified || Globals.HintsModified)
 			{
 				gOut.Print("{0}", Globals.LineSep);
 
@@ -616,34 +556,6 @@ namespace EamonRT
 				gOut.Print("{0}", Globals.LineSep);
 
 				// save the datafiles
-
-				if (Globals.ScriptsModified)
-				{
-					rc = Globals.Database.SaveScripts(Globals.Config.DdScriptFileName);
-
-					if (gEngine.IsFailure(rc))
-					{
-						Globals.Error.Write("Error: SaveScripts function call failed.");
-
-						rc = RetCode.Success;
-
-						// goto Cleanup omitted
-					}
-				}
-
-				if (Globals.TriggersModified)
-				{
-					rc = Globals.Database.SaveTriggers(Globals.Config.DdTriggerFileName);
-
-					if (gEngine.IsFailure(rc))
-					{
-						Globals.Error.Write("Error: SaveTriggers function call failed.");
-
-						rc = RetCode.Success;
-
-						// goto Cleanup omitted
-					}
-				}
 
 				if (Globals.HintsModified)
 				{
@@ -882,10 +794,6 @@ namespace EamonRT
 
 			Globals.Config.RtHintFileName = "HINTS.DAT";
 
-			Globals.Config.RtTriggerFileName = "TRIGGERS.DAT";
-
-			Globals.Config.RtScriptFileName = "SCRIPTS.DAT";
-
 			Globals.Config.RtGameStateFileName = "GAMESTATE.DAT";
 
 			if (Globals.WorkDir.Length > 0)
@@ -1016,20 +924,6 @@ namespace EamonRT
 					if (config.RtHintFileName.Length == 0)
 					{
 						config.RtHintFileName = Globals.Config.RtHintFileName;
-
-						Globals.ConfigsModified = true;
-					}
-
-					if (config.RtTriggerFileName.Length == 0)
-					{
-						config.RtTriggerFileName = Globals.Config.RtTriggerFileName;
-
-						Globals.ConfigsModified = true;
-					}
-
-					if (config.RtScriptFileName.Length == 0)
-					{
-						config.RtScriptFileName = Globals.Config.RtScriptFileName;
 
 						Globals.ConfigsModified = true;
 					}

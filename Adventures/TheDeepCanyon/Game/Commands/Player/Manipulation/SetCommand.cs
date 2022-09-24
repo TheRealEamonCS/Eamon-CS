@@ -87,8 +87,6 @@ namespace TheDeepCanyon.Game.Commands
 
 			IsNew = true;
 
-			Uid = 96;
-
 			Name = "SetCommand";
 
 			Verb = "set";

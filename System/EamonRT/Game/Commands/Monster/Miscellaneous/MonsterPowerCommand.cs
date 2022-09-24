@@ -45,8 +45,6 @@ namespace EamonRT.Game.Commands
 
 			IsMonsterEnabled = true;
 
-			Uid = 24;
-
 			Name = "MonsterPowerCommand";
 
 			Verb = "power";

@@ -80,8 +80,6 @@ namespace EamonRT.Game.States
 
 		public MonsterActionState()
 		{
-			Uid = 14;
-
 			Name = "MonsterActionState";
 		}
 	}

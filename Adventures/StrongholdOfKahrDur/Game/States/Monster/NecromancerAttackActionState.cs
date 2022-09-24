@@ -134,8 +134,6 @@ namespace StrongholdOfKahrDur.Game.States
 
 		public NecromancerAttackActionState()
 		{
-			Uid = 82;
-
 			Name = "NecromancerAttackActionState";
 		}
 	}

@@ -100,16 +100,6 @@ namespace Eamon.Game
 		/// </summary>
 		public virtual IArtifactType[] ArtifactTypes { get; set; }
 
-		/// <summary>
-		/// Gets or sets an array containing data for each <see cref="TriggerType"/>.
-		/// </summary>
-		public virtual ITriggerType[] TriggerTypes { get; set; }
-
-		/// <summary>
-		/// Gets or sets an array containing data for each <see cref="ScriptType"/>.
-		/// </summary>
-		public virtual IScriptType[] ScriptTypes { get; set; }
-
 		#endregion
 
 		#region Public Methods
@@ -251,26 +241,6 @@ namespace Eamon.Game
 			return IsValidArtifactType(artifactType) ? GetArtifactTypes((long)artifactType) : null;
 		}
 
-		public virtual ITriggerType GetTriggerTypes(long index)
-		{
-			return TriggerTypes[index];
-		}
-
-		public virtual ITriggerType GetTriggerTypes(TriggerType triggerType)
-		{
-			return IsValidTriggerType(triggerType) ? GetTriggerTypes((long)triggerType) : null;
-		}
-
-		public virtual IScriptType GetScriptTypes(long index)
-		{
-			return ScriptTypes[index];
-		}
-
-		public virtual IScriptType GetScriptTypes(ScriptType scriptType)
-		{
-			return IsValidScriptType(scriptType) ? GetScriptTypes((long)scriptType) : null;
-		}
-
 		public virtual bool IsSuccess(RetCode rc)
 		{
 			return (long)rc >= (long)RetCode.Success;
@@ -289,16 +259,6 @@ namespace Eamon.Game
 		public virtual bool IsValidArtifactType(ArtifactType artifactType)
 		{
 			return Enum.IsDefined(typeof(ArtifactType), artifactType) && artifactType != ArtifactType.None;
-		}
-
-		public virtual bool IsValidTriggerType(TriggerType triggerType)
-		{
-			return Enum.IsDefined(typeof(TriggerType), triggerType) && triggerType != TriggerType.None;
-		}
-
-		public virtual bool IsValidScriptType(ScriptType scriptType)
-		{
-			return Enum.IsDefined(typeof(ScriptType), scriptType) && scriptType != ScriptType.None;
 		}
 
 		public virtual bool IsValidArtifactArmor(long armor)
@@ -3447,42 +3407,6 @@ namespace Eamon.Game
 					x.Field4Name = "Field4";
 					x.Field4EmptyVal = "0";
 					x.Field5Name = "Field5";
-					x.Field5EmptyVal = "0";
-				})
-			};
-
-			TriggerTypes = new ITriggerType[]
-			{
-				Globals.CreateInstance<ITriggerType>(x =>
-				{
-					x.Name = "Interval";
-					x.Field1Name = "Start Round";
-					x.Field1EmptyVal = "1";
-					x.Field2Name = "Interval Rounds";
-					x.Field2EmptyVal = "1";
-					x.Field3Name = "Probability Pct";
-					x.Field3EmptyVal = "100";
-					x.Field4Name = "Field4";
-					x.Field4EmptyVal = "0";
-					x.Field5Name = "Field5";
-					x.Field5EmptyVal = "0";
-				})
-			};
-
-			ScriptTypes = new IScriptType[]
-			{
-				Globals.CreateInstance<IScriptType>(x =>
-				{
-					x.Name = "Print Random Effect";
-					x.Field1Name = "Effect #1";
-					x.Field1EmptyVal = "0";
-					x.Field2Name = "Effect #2";
-					x.Field2EmptyVal = "0";
-					x.Field3Name = "Effect #3";
-					x.Field3EmptyVal = "0";
-					x.Field4Name = "Effect #4";
-					x.Field4EmptyVal = "0";
-					x.Field5Name = "Effect #5";
 					x.Field5EmptyVal = "0";
 				})
 			};
