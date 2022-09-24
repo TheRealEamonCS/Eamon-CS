@@ -40,12 +40,6 @@ namespace Eamon.Framework.DataStorage
 		IDbTable<IHint> HintTable { get; set; }
 
 		/// <summary></summary>
-		IDbTable<ITrigger> TriggerTable { get; set; }
-
-		/// <summary></summary>
-		IDbTable<IScript> ScriptTable { get; set; }
-
-		/// <summary></summary>
 		IDbTable<IGameState> GameStateTable { get; set; }
 
 		/// <summary></summary>
@@ -124,20 +118,6 @@ namespace Eamon.Framework.DataStorage
 		/// <param name="validate"></param>
 		/// <param name="printOutput"></param>
 		/// <returns></returns>
-		RetCode LoadTriggers(string fileName, bool validate = true, bool printOutput = true);
-
-		/// <summary></summary>
-		/// <param name="fileName"></param>
-		/// <param name="validate"></param>
-		/// <param name="printOutput"></param>
-		/// <returns></returns>
-		RetCode LoadScripts(string fileName, bool validate = true, bool printOutput = true);
-
-		/// <summary></summary>
-		/// <param name="fileName"></param>
-		/// <param name="validate"></param>
-		/// <param name="printOutput"></param>
-		/// <returns></returns>
 		RetCode LoadGameStates(string fileName, bool validate = true, bool printOutput = true);
 
 		/// <summary></summary>
@@ -205,18 +185,6 @@ namespace Eamon.Framework.DataStorage
 		/// <param name="fileName"></param>
 		/// <param name="printOutput"></param>
 		/// <returns></returns>
-		RetCode SaveTriggers(string fileName, bool printOutput = true);
-
-		/// <summary></summary>
-		/// <param name="fileName"></param>
-		/// <param name="printOutput"></param>
-		/// <returns></returns>
-		RetCode SaveScripts(string fileName, bool printOutput = true);
-
-		/// <summary></summary>
-		/// <param name="fileName"></param>
-		/// <param name="printOutput"></param>
-		/// <returns></returns>
 		RetCode SaveGameStates(string fileName, bool printOutput = true);
 
 		/// <summary></summary>
@@ -273,16 +241,6 @@ namespace Eamon.Framework.DataStorage
 		/// <summary></summary>
 		/// <param name="dispose"></param>
 		/// <returns></returns>
-		RetCode FreeTriggers(bool dispose = true);
-
-		/// <summary></summary>
-		/// <param name="dispose"></param>
-		/// <returns></returns>
-		RetCode FreeScripts(bool dispose = true);
-
-		/// <summary></summary>
-		/// <param name="dispose"></param>
-		/// <returns></returns>
 		RetCode FreeGameStates(bool dispose = true);
 
 		/// <summary></summary>
@@ -325,14 +283,6 @@ namespace Eamon.Framework.DataStorage
 		/// <summary></summary>
 		/// <returns></returns>
 		long GetHintsCount();
-
-		/// <summary></summary>
-		/// <returns></returns>
-		long GetTriggersCount();
-
-		/// <summary></summary>
-		/// <returns></returns>
-		long GetScriptsCount();
 
 		/// <summary></summary>
 		/// <returns></returns>
@@ -388,16 +338,6 @@ namespace Eamon.Framework.DataStorage
 		/// <param name="uid"></param>
 		/// <returns></returns>
 		IHint FindHint(long uid);
-
-		/// <summary></summary>
-		/// <param name="uid"></param>
-		/// <returns></returns>
-		ITrigger FindTrigger(long uid);
-
-		/// <summary></summary>
-		/// <param name="uid"></param>
-		/// <returns></returns>
-		IScript FindScript(long uid);
 
 		/// <summary></summary>
 		/// <param name="uid"></param>
@@ -473,18 +413,6 @@ namespace Eamon.Framework.DataStorage
 		RetCode AddHint(IHint hint, bool makeCopy = false);
 
 		/// <summary></summary>
-		/// <param name="trigger"></param>
-		/// <param name="makeCopy"></param>
-		/// <returns></returns>
-		RetCode AddTrigger(ITrigger trigger, bool makeCopy = false);
-
-		/// <summary></summary>
-		/// <param name="script"></param>
-		/// <param name="makeCopy"></param>
-		/// <returns></returns>
-		RetCode AddScript(IScript script, bool makeCopy = false);
-
-		/// <summary></summary>
 		/// <param name="gameState"></param>
 		/// <param name="makeCopy"></param>
 		/// <returns></returns>
@@ -540,16 +468,6 @@ namespace Eamon.Framework.DataStorage
 		/// <param name="uid"></param>
 		/// <returns></returns>
 		IHint RemoveHint(long uid);
-
-		/// <summary></summary>
-		/// <param name="uid"></param>
-		/// <returns></returns>
-		ITrigger RemoveTrigger(long uid);
-
-		/// <summary></summary>
-		/// <param name="uid"></param>
-		/// <returns></returns>
-		IScript RemoveScript(long uid);
 
 		/// <summary></summary>
 		/// <param name="uid"></param>
@@ -617,16 +535,6 @@ namespace Eamon.Framework.DataStorage
 		/// <summary></summary>
 		/// <param name="allocate"></param>
 		/// <returns></returns>
-		long GetTriggerUid(bool allocate = true);
-
-		/// <summary></summary>
-		/// <param name="allocate"></param>
-		/// <returns></returns>
-		long GetScriptUid(bool allocate = true);
-
-		/// <summary></summary>
-		/// <param name="allocate"></param>
-		/// <returns></returns>
 		long GetGameStateUid(bool allocate = true);
 
 		/// <summary></summary>
@@ -669,14 +577,6 @@ namespace Eamon.Framework.DataStorage
 		/// <summary></summary>
 		/// <param name="uid"></param>
 		void FreeHintUid(long uid);
-
-		/// <summary></summary>
-		/// <param name="uid"></param>
-		void FreeTriggerUid(long uid);
-
-		/// <summary></summary>
-		/// <param name="uid"></param>
-		void FreeScriptUid(long uid);
 
 		/// <summary></summary>
 		/// <param name="uid"></param>

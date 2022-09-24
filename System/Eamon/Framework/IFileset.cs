@@ -46,12 +46,6 @@ namespace Eamon.Framework
 		string HintFileName { get; set; }
 
 		/// <summary></summary>
-		string TriggerFileName { get; set; }
-
-		/// <summary></summary>
-		string ScriptFileName { get; set; }
-
-		/// <summary></summary>
 		string GameStateFileName { get; set; }
 
 		#endregion

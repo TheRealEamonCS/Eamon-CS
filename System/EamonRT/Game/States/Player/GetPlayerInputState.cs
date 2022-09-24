@@ -108,8 +108,6 @@ namespace EamonRT.Game.States
 
 		public GetPlayerInputState()
 		{
-			Uid = 29;
-
 			Name = "GetPlayerInputState";
 
 			ParsingSuccessful = true;

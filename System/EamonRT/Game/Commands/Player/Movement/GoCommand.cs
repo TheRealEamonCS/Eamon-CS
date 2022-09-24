@@ -60,8 +60,6 @@ namespace EamonRT.Game.Commands
 				IsPlayerEnabled = false;
 			}
 
-			Uid = 71;
-
 			Name = "GoCommand";
 
 			Verb = "go";

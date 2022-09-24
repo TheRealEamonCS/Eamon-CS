@@ -171,10 +171,6 @@ namespace EamonRT.Game.Commands
 
 					Globals.Config.DdEditingHints = true;
 
-					Globals.Config.DdEditingTriggers = true;
-
-					Globals.Config.DdEditingScripts = true;
-
 					PunctSpaceCode = gOut.PunctSpaceCode;
 
 					gOut.PunctSpaceCode = PunctSpaceCode.None;
@@ -237,8 +233,6 @@ namespace EamonRT.Game.Commands
 #if !DEBUG
 			IsPlayerEnabled = false;
 #endif
-
-			Uid = 99;
 
 			Name = "BortCommand";
 

@@ -132,8 +132,6 @@ namespace EamonRT.Game.Commands
 				IsPlayerEnabled = false;
 			}
 
-			Uid = 67;
-
 			Name = "StatusCommand";
 
 			Verb = "status";

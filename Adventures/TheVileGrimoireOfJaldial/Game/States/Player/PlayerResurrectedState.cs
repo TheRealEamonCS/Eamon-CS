@@ -91,8 +91,6 @@ namespace TheVileGrimoireOfJaldial.Game.States
 
 		public PlayerResurrectedState()
 		{
-			Uid = 83;
-
 			Name = "PlayerResurrectedState";
 		}
 	}

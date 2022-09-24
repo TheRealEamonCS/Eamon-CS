@@ -134,8 +134,6 @@ namespace EamonRT.Game.Commands
 				IsPlayerEnabled = false;
 			}
 
-			Uid = 42;
-
 			Name = "CloseCommand";
 
 			Verb = "close";

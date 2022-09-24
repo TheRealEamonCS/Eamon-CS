@@ -103,8 +103,6 @@ namespace EamonRT.Game.Commands
 				IsPlayerEnabled = false;
 			}
 
-			Uid = 39;
-
 			Name = "RequestCommand";
 
 			Verb = "request";

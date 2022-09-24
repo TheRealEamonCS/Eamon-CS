@@ -66,8 +66,6 @@ namespace EamonRT.Game.States
 
 		public BurnDownSpeedSpellState()
 		{
-			Uid = 2;
-
 			Name = "BurnDownSpeedSpellState";
 		}
 	}

@@ -40,8 +40,6 @@ namespace EamonRT.Game.States
 
 		public EndOfRoundState()
 		{
-			Uid = 3;
-
 			Name = "EndOfRoundState";
 		}
 	}

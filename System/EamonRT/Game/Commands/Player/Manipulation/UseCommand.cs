@@ -124,8 +124,6 @@ namespace EamonRT.Game.Commands
 				IsPlayerEnabled = false;
 			}
 
-			Uid = 54;
-
 			Name = "UseCommand";
 
 			Verb = "use";

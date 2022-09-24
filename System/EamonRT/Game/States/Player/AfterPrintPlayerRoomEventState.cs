@@ -115,8 +115,6 @@ namespace EamonRT.Game.States
 
 		public AfterPrintPlayerRoomEventState()
 		{
-			Uid = 26;
-
 			Name = "AfterPrintPlayerRoomEventState";
 		}
 	}

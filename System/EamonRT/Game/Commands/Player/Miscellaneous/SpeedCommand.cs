@@ -47,8 +47,6 @@ namespace EamonRT.Game.Commands
 		{
 			SortOrder = 350;
 
-			Uid = 66;
-
 			Name = "SpeedCommand";
 
 			Verb = "speed";

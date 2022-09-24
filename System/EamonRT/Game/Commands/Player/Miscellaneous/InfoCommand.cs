@@ -37,8 +37,6 @@ namespace EamonRT.Game.Commands
 
 			IsDarkEnabled = true;
 
-			Uid = 57;
-
 			Name = "InfoCommand";
 
 			Verb = "info";

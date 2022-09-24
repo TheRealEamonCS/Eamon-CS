@@ -238,8 +238,6 @@ namespace EamonRT.Game.Commands
 				IsPlayerEnabled = false;
 			}
 
-			Uid = 50;
-
 			Name = "PutCommand";
 
 			Verb = "put";

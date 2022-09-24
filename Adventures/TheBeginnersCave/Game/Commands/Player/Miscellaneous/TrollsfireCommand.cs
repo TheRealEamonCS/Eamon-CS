@@ -109,8 +109,6 @@ namespace TheBeginnersCave.Game.Commands
 
 			IsNew = true;
 
-			Uid = 84;
-
 			Name = "TrollsfireCommand";
 
 			Verb = "trollsfire";

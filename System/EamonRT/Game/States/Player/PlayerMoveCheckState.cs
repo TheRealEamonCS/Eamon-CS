@@ -175,8 +175,6 @@ namespace EamonRT.Game.States
 
 		public PlayerMoveCheckState()
 		{
-			Uid = 31;
-
 			Name = "PlayerMoveCheckState";
 		}
 	}

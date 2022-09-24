@@ -230,34 +230,6 @@ namespace Eamon.Framework
 		IArtifactType GetArtifactTypes(ArtifactType artifactType);
 
 		/// <summary>
-		/// Gets the data for a given <see cref="TriggerType"/>.
-		/// </summary>
-		/// <param name="index"></param>
-		/// <returns></returns>
-		ITriggerType GetTriggerTypes(long index);
-
-		/// <summary>
-		/// Gets the data for a given <see cref="TriggerType"/>.
-		/// </summary>
-		/// <param name="triggerType"></param>
-		/// <returns></returns>
-		ITriggerType GetTriggerTypes(TriggerType triggerType);
-
-		/// <summary>
-		/// Gets the data for a given <see cref="ScriptType"/>.
-		/// </summary>
-		/// <param name="index"></param>
-		/// <returns></returns>
-		IScriptType GetScriptTypes(long index);
-
-		/// <summary>
-		/// Gets the data for a given <see cref="ScriptType"/>.
-		/// </summary>
-		/// <param name="scriptType"></param>
-		/// <returns></returns>
-		IScriptType GetScriptTypes(ScriptType scriptType);
-
-		/// <summary>
 		/// Indicates whether an operation succeeded.
 		/// </summary>
 		/// <param name="rc"></param>
@@ -284,20 +256,6 @@ namespace Eamon.Framework
 		/// <param name="artifactType"></param>
 		/// <returns></returns>
 		bool IsValidArtifactType(ArtifactType artifactType);
-
-		/// <summary>
-		/// Indicates whether a trigger type is valid.
-		/// </summary>
-		/// <param name="triggerType"></param>
-		/// <returns></returns>
-		bool IsValidTriggerType(TriggerType triggerType);
-
-		/// <summary>
-		/// Indicates whether a script type is valid.
-		/// </summary>
-		/// <param name="scriptType"></param>
-		/// <returns></returns>
-		bool IsValidScriptType(ScriptType scriptType);
 
 		/// <summary>
 		/// Indicates whether an armor value is valid for an wearable <see cref="IArtifact">Artifact</see>.

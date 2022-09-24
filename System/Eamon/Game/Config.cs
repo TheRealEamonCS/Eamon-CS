@@ -58,12 +58,6 @@ namespace Eamon.Game
 		[FieldName(860)]
 		public virtual string DdHintFileName { get; set; }
 
-		//[FieldName(880)]
-		public virtual string DdTriggerFileName { get; set; }
-
-		//[FieldName(900)]
-		public virtual string DdScriptFileName { get; set; }
-
 		[FieldName(920)]
 		public virtual string MhWorkDir { get; set; }
 
@@ -100,12 +94,6 @@ namespace Eamon.Game
 		[FieldName(1140)]
 		public virtual string RtHintFileName { get; set; }
 
-		//[FieldName(1160)]
-		public virtual string RtTriggerFileName { get; set; }
-
-		//[FieldName(1180)]
-		public virtual string RtScriptFileName { get; set; }
-
 		[FieldName(1200)]
 		public virtual string RtGameStateFileName { get; set; }
 
@@ -132,12 +120,6 @@ namespace Eamon.Game
 
 		[FieldName(1360)]
 		public virtual bool DdEditingHints { get; set; }
-
-		//[FieldName(1380)]
-		public virtual bool DdEditingTriggers { get; set; }
-
-		//[FieldName(1400)]
-		public virtual bool DdEditingScripts { get; set; }
 
 		#endregion
 
@@ -253,30 +235,6 @@ namespace Eamon.Game
 				goto Cleanup;
 			}
 
-			if (!string.IsNullOrWhiteSpace(RtTriggerFileName))				// TODO: remove this check at some point
-			{
-				rc = Globals.Database.LoadTriggers(RtTriggerFileName, validate, printOutput);
-
-				if (gEngine.IsFailure(rc))
-				{
-					Globals.Error.WriteLine("Error: LoadTriggers function call failed.");
-
-					goto Cleanup;
-				}
-			}
-
-			if (!string.IsNullOrWhiteSpace(RtScriptFileName))          // TODO: remove this check at some point
-			{
-				rc = Globals.Database.LoadScripts(RtScriptFileName, validate, printOutput);
-
-				if (gEngine.IsFailure(rc))
-				{
-					Globals.Error.WriteLine("Error: LoadScripts function call failed.");
-
-					goto Cleanup;
-				}
-			}
-
 			rc = Globals.Database.LoadGameStates(RtGameStateFileName, validate, printOutput);
 
 			if (gEngine.IsFailure(rc))
@@ -302,30 +260,6 @@ namespace Eamon.Game
 				Globals.Error.WriteLine("Error: SaveGameStates function call failed.");
 
 				goto Cleanup;
-			}
-
-			if (!string.IsNullOrWhiteSpace(RtScriptFileName))          // TODO: remove this check at some point
-			{
-				rc = Globals.Database.SaveScripts(RtScriptFileName, printOutput);
-
-				if (gEngine.IsFailure(rc))
-				{
-					Globals.Error.WriteLine("Error: SaveScripts function call failed.");
-
-					goto Cleanup;
-				}
-			}
-
-			if (!string.IsNullOrWhiteSpace(RtTriggerFileName))          // TODO: remove this check at some point
-			{
-				rc = Globals.Database.SaveTriggers(RtTriggerFileName, printOutput);
-
-				if (gEngine.IsFailure(rc))
-				{
-					Globals.Error.WriteLine("Error: SaveTriggers function call failed.");
-
-					goto Cleanup;
-				}
 			}
 
 			rc = Globals.Database.SaveHints(RtHintFileName, printOutput);
@@ -526,10 +460,6 @@ namespace Eamon.Game
 
 			DdHintFileName = Globals.CloneInstance(config.DdHintFileName);
 
-			DdTriggerFileName = Globals.CloneInstance(config.DdTriggerFileName);
-
-			DdScriptFileName = Globals.CloneInstance(config.DdScriptFileName);
-
 			MhWorkDir = Globals.CloneInstance(config.MhWorkDir);
 
 			MhFilesetFileName = Globals.CloneInstance(config.MhFilesetFileName);
@@ -554,10 +484,6 @@ namespace Eamon.Game
 
 			RtHintFileName = Globals.CloneInstance(config.RtHintFileName);
 
-			RtTriggerFileName = Globals.CloneInstance(config.RtTriggerFileName);
-
-			RtScriptFileName = Globals.CloneInstance(config.RtScriptFileName);
-
 			RtGameStateFileName = Globals.CloneInstance(config.RtGameStateFileName);
 
 			DdEditingFilesets = config.DdEditingFilesets;
@@ -575,10 +501,6 @@ namespace Eamon.Game
 			DdEditingMonsters = config.DdEditingMonsters;
 
 			DdEditingHints = config.DdEditingHints;
-
-			DdEditingTriggers = config.DdEditingTriggers;
-
-			DdEditingScripts = config.DdEditingScripts;
 
 		Cleanup:
 
@@ -607,10 +529,6 @@ namespace Eamon.Game
 
 			DdHintFileName = "";
 
-			DdTriggerFileName = "";
-
-			DdScriptFileName = "";
-
 			MhWorkDir = "";
 
 			MhFilesetFileName = "";
@@ -634,10 +552,6 @@ namespace Eamon.Game
 			RtMonsterFileName = "";
 
 			RtHintFileName = "";
-
-			RtTriggerFileName = "";
-
-			RtScriptFileName = "";
 
 			RtGameStateFileName = "";
 		}

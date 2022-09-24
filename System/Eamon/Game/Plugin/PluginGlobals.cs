@@ -282,10 +282,6 @@ namespace Eamon.Game.Plugin
 
 		public virtual IRecordDb<IHint> HDB { get; set; }
 
-		public virtual IRecordDb<ITrigger> TDB { get; set; }
-
-		public virtual IRecordDb<IScript> SDB { get; set; }
-
 		public virtual IRecordDb<IGameState> GSDB { get; set; }
 
 		/// <summary></summary>
@@ -380,10 +376,6 @@ namespace Eamon.Game.Plugin
 				Database.FreeMonsters();
 
 				Database.FreeHints();
-
-				Database.FreeTriggers();
-
-				Database.FreeScripts();
 
 				Database.FreeGameStates();
 			}
@@ -501,10 +493,6 @@ namespace Eamon.Game.Plugin
 
 			RestoreRecords(database?.HintTable?.Records?.Cast<IGameBase>().ToList());
 
-			RestoreRecords(database?.TriggerTable?.Records?.Cast<IGameBase>().ToList());
-
-			RestoreRecords(database?.ScriptTable?.Records?.Cast<IGameBase>().ToList());
-
 			RestoreRecords(database?.GameStateTable?.Records?.Cast<IGameBase>().ToList());
 
 			Databases[++DbStackTop] = database;
@@ -593,10 +581,6 @@ namespace Eamon.Game.Plugin
 			MDB = ClassMappings.CreateInstance<IRecordDb<IMonster>>();
 
 			HDB = ClassMappings.CreateInstance<IRecordDb<IHint>>();
-
-			TDB = ClassMappings.CreateInstance<IRecordDb<ITrigger>>();
-
-			SDB = ClassMappings.CreateInstance<IRecordDb<IScript>>();
 
 			GSDB = ClassMappings.CreateInstance<IRecordDb<IGameState>>();
 		}

@@ -76,8 +76,6 @@ namespace RiddlesOfTheDuergarKingdom.Game.Commands
 
 			IsNew = true;
 
-			Uid = 97;
-
 			Name = "PushCommand";
 
 			Verb = "push";

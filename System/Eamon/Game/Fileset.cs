@@ -54,12 +54,6 @@ namespace Eamon.Game
 		[FieldName(820)]
 		public virtual string HintFileName { get; set; }
 
-		//[FieldName(840)]
-		public virtual string TriggerFileName { get; set; }
-
-		//[FieldName(860)]
-		public virtual string ScriptFileName { get; set; }
-
 		[FieldName(880)]
 		public virtual string GameStateFileName { get; set; }
 
@@ -181,10 +175,6 @@ namespace Eamon.Game
 			MonsterFileName = "";
 
 			HintFileName = "";
-
-			TriggerFileName = "";
-
-			ScriptFileName = "";
 
 			GameStateFileName = "";
 		}

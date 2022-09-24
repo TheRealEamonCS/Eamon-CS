@@ -65,8 +65,6 @@ namespace EamonRT.Game.Commands
 
 			IsMonsterEnabled = true;
 
-			Uid = 18;
-
 			Name = "MonsterAttackCommand";
 
 			Verb = "attack";

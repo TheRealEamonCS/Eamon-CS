@@ -31,7 +31,7 @@ namespace TheBeginnersCave.Game
 
 			MacroFuncs.Add(1, () =>
 			{
-				if (gGameState.Trollsfire == 1)
+				if (gGameState != null && gGameState.Trollsfire == 1)
 				{
 					return string.Format("{0}{0}Trollsfire is alight!", Environment.NewLine);
 				}

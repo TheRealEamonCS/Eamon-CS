@@ -152,8 +152,6 @@ namespace EamonRT.Game.Commands
 				IsPlayerEnabled = false;
 			}
 
-			Uid = 43;
-
 			Name = "DrinkCommand";
 
 			Verb = "drink";

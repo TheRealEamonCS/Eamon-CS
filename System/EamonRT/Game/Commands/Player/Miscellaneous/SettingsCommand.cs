@@ -133,8 +133,6 @@ namespace EamonRT.Game.Commands
 
 			IsDarkEnabled = true;
 
-			Uid = 65;
-
 			Name = "SettingsCommand";
 
 			Verb = "settings";

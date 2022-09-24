@@ -245,8 +245,6 @@ namespace EamonRT.Game.Commands
 
 			IsDarkEnabled = true;
 
-			Uid = 58;
-
 			Name = "InventoryCommand";
 
 			Verb = "inventory";

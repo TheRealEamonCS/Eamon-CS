@@ -67,8 +67,6 @@ namespace EamonRT.Game.States
 
 		public BeforePlayerMoveState()
 		{
-			Uid = 27;
-
 			Name = "BeforePlayerMoveState";
 		}
 	}

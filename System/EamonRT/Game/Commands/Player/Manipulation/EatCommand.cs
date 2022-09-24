@@ -152,8 +152,6 @@ namespace EamonRT.Game.Commands
 				IsPlayerEnabled = false;
 			}
 
-			Uid = 45;
-
 			Name = "EatCommand";
 
 			Verb = "eat";

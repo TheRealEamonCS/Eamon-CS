@@ -134,8 +134,6 @@ namespace EamonRT.Game.Commands
 				IsPlayerEnabled = false;
 			}
 
-			Uid = 53;
-
 			Name = "RemoveCommand";
 
 			Verb = "remove";
