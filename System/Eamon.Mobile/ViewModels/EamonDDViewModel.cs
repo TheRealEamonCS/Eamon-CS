@@ -57,6 +57,12 @@ namespace Eamon.Mobile.ViewModels
 				},
 				new BatchFile()
 				{
+					Name = "EditHorror",
+
+					PluginArgs = new string[] { "-pfn", "EamonRT.dll", "-fsfn", "HORROR.DAT", "-rge" }
+				},
+				new BatchFile()
+				{
 					Name = "EditTest",
 
 					PluginArgs = new string[] { "-pfn", "EamonRT.dll", "-fsfn", "TEST.DAT", "-rge" }

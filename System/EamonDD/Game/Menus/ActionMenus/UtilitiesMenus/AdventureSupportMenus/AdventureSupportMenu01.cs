@@ -450,7 +450,7 @@ namespace YourAdventureName.YourGameNamespaceName
 
 			SelectedAdvDbDataFileList = new List<string>();
 
-			var advDbDataFiles = new string[] { "ADVENTURES.DAT", "FANTASY.DAT", "SCIFI.DAT", "CONTEMPORARY.DAT", "TEST.DAT", "WIP.DAT" };
+			var advDbDataFiles = new string[] { "ADVENTURES.DAT", "CONTEMPORARY.DAT", "FANTASY.DAT", "SCIFI.DAT", "HORROR.DAT", "TEST.DAT", "WIP.DAT" };
 
 			if (SupportMenuType == SupportMenuType.AddAdventure)
 			{

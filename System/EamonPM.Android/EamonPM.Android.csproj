@@ -342,6 +342,9 @@
     <AndroidAsset Include="Assets\System\Bin\SCIFI.DAT" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidAsset Include="Assets\System\Bin\HORROR.DAT" />
+  </ItemGroup>
+  <ItemGroup>
     <AndroidAsset Include="Assets\System\Bin\SNAPPY.DAT" />
   </ItemGroup>
   <ItemGroup>
