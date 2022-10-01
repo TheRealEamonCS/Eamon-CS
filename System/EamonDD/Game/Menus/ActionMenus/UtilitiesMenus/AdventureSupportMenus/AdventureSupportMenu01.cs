@@ -294,7 +294,7 @@ namespace YourAdventureName.YourGameNamespaceName
 		{
 			var invalidAdventureNames = new string[] 
 			{ 
-				"Adventures", "Catalog", "Characters", "Contemporary", "Fantasy", "SciFi", "Test", "Workbench", "WorkInProgress", "AdventureSupportMenu", 
+				"Adventures", "Catalog", "Characters", "Contemporary", "Fantasy", "SciFi", "Horror", "Test", "Workbench", "WorkInProgress", "AdventureSupportMenu", 
 				"LoadAdventureSupportMenu", "YourAdventureName", "YourAuthorName", "YourAuthorInitials", "Con", "Prn", "Aux", "Nul", "Null", "Com0", "Com1",
 				"Com2", "Com3", "Com4", "Com5", "Com6", "Com7", "Com8", "Com9", "Lpt0", "Lpt1", "Lpt2", "Lpt3", "Lpt4", "Lpt5", "Lpt6", "Lpt7", "Lpt8", "Lpt9",
 				"Microsoft", "System", "abstract", "as", "base", "bool", "break", "byte", "case", "catch", "char", "checked", "class", "const", "continue",
