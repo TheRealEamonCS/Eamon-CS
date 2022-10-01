@@ -492,7 +492,7 @@ namespace YourAdventureName.YourGameNamespaceName
 
 				if (customAdvDbDataFile.Length == 0)
 				{
-					gOut.Print("If you would like to {0} one or more custom adventure databases, enter those file names now (e.g., HORROR.DAT).  To skip this step, or if you are done, just press enter.", SupportMenuType == SupportMenuType.AddAdventure ? "add this adventure to" : "delete this adventure from");
+					gOut.Print("If you would like to {0} one or more custom adventure databases, enter those file names now (e.g., STEAMPUNK.DAT).  To skip this step, or if you are done, just press enter.", SupportMenuType == SupportMenuType.AddAdventure ? "add this adventure to" : "delete this adventure from");
 				}
 
 				gOut.Write("{0}Enter name of custom adventure database: ", Environment.NewLine);
