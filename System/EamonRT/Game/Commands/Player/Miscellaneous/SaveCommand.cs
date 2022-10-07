@@ -102,6 +102,8 @@ namespace EamonRT.Game.Commands
 		{
 			RetCode rc;
 
+			Globals.GameSaving = true;
+
 			Globals.RevealContentCounter--;
 
 			SaveFilesetsCount = Globals.Database.GetFilesetsCount();
@@ -389,6 +391,8 @@ namespace EamonRT.Game.Commands
 			}
 
 			Globals.RevealContentCounter++;
+
+			Globals.GameSaving = false;
 		}
 
 		public override bool ShouldPreTurnProcess()

@@ -50,6 +50,8 @@ namespace EamonRT.Game.Commands
 		{
 			RetCode rc;
 
+			Globals.GameRestoring = true;
+
 			Globals.RevealContentCounter--;
 
 			OrigCurrState = Globals.CurrState;
@@ -258,6 +260,8 @@ namespace EamonRT.Game.Commands
 		Cleanup:
 
 			Globals.RevealContentCounter++;
+
+			Globals.GameRestoring = false;
 		}
 
 		public override bool ShouldPreTurnProcess()

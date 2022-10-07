@@ -123,6 +123,12 @@ namespace EamonRT.Framework.Plugin
 		bool PlayerMoved { get; set; }
 
 		/// <summary></summary>
+		bool GameSaving { get; set; }
+
+		/// <summary></summary>
+		bool GameRestoring { get; set; }
+
+		/// <summary></summary>
 		bool GameRunning { get; }
 
 		/// <summary></summary>

@@ -27,7 +27,7 @@ namespace TheVileGrimoireOfJaldial.Game
 
 				if (Globals.EnableGameOverrides && Uid == 55)
 				{
-					result = gGameState != null && !gGameState.GetSecretDoors(1) ? "Passageway, Dead-End" : "Secret Passage, Bend";
+					result = !gGameState.GetSecretDoors(1) ? "Passageway, Dead-End" : "Secret Passage, Bend";
 				}
 
 				return result;

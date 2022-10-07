@@ -20,7 +20,7 @@ namespace RiddlesOfTheDuergarKingdom.Game
 			{
 				var result = base.Desc;
 
-				if (Globals.EnableGameOverrides && gGameState != null)
+				if (Globals.EnableGameOverrides)
 				{
 					if (Uid == 136)		// Wooden cart
 					{
@@ -43,7 +43,7 @@ namespace RiddlesOfTheDuergarKingdom.Game
 		{
 			var result = base.GetDirs(index);
 
-			if (Globals.EnableGameOverrides && gGameState != null)
+			if (Globals.EnableGameOverrides)
 			{
 				// Wooden cart
 

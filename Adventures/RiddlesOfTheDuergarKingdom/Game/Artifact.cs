@@ -22,7 +22,7 @@ namespace RiddlesOfTheDuergarKingdom.Game
 			{
 				var result = base.Location;
 
-				if (Globals.EnableGameOverrides && gEngine != null && gGameState != null)
+				if (Globals.EnableGameOverrides)
 				{
 					switch (Uid)
 					{

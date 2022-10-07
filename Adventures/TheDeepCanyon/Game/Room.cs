@@ -29,7 +29,7 @@ namespace TheDeepCanyon.Game
 				{
 					var fidoMonster = gMDB[11];
 
-					return ((gGameState != null && gGameState.FidoSleepCounter > 0) || (fidoMonster != null && fidoMonster.IsInLimbo())) && index == 2 ? 25 : base.GetDirs(index);
+					return (gGameState.FidoSleepCounter > 0 || (fidoMonster != null && fidoMonster.IsInLimbo())) && index == 2 ? 25 : base.GetDirs(index);
 				}
 				else
 				{
