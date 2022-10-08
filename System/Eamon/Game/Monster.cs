@@ -58,7 +58,7 @@ namespace Eamon.Game
 		{
 			get
 			{
-				return Globals.EnableGameOverrides && Globals.IsRulesetVersion(5, 15, 25) && IsWeaponless(false) && _courage < 200 ? _courage / 2 : _courage;
+				return Globals.EnableMutateProperties && Globals.IsRulesetVersion(5, 15, 25) && IsWeaponless(false) && _courage < 200 ? _courage / 2 : _courage;
 			}
 
 			set

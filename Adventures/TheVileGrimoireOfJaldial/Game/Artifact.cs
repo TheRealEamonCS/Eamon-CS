@@ -22,7 +22,7 @@ namespace TheVileGrimoireOfJaldial.Game
 
 				var room = GetInRoom(true) as Framework.IRoom;
 
-				if (Globals.EnableGameOverrides && room != null && room.Uid == gGameState.Ro && room.IsDimLightRoomWithoutGlowingMonsters() && gGameState.Ls <= 0)
+				if (Globals.EnableMutateProperties && room != null && room.Uid == gGameState.Ro && room.IsDimLightRoomWithoutGlowingMonsters() && gGameState.Ls <= 0)
 				{
 					result = string.Format("You can vaguely make out {0} in the {1}.", GetTheName(buf: Globals.Buf01), gGameState.IsNightTime() ? "darkness" : "white haze");
 				}
@@ -44,7 +44,7 @@ namespace TheVileGrimoireOfJaldial.Game
 
 				var room = GetInRoom(true) as Framework.IRoom;
 
-				if (Globals.EnableGameOverrides && room != null && room.Uid == gGameState.Ro && room.IsDimLightRoomWithoutGlowingMonsters() && gGameState.Ls <= 0 && !IsCharOwned && !IsDecoration())
+				if (Globals.EnableMutateProperties && room != null && room.Uid == gGameState.Ro && room.IsDimLightRoomWithoutGlowingMonsters() && gGameState.Ls <= 0 && !IsCharOwned && !IsDecoration())
 				{
 					result = DimLightSeen;
 				}
@@ -56,7 +56,7 @@ namespace TheVileGrimoireOfJaldial.Game
 			{
 				var room = GetInRoom(true) as Framework.IRoom;
 
-				if (Globals.EnableGameOverrides && room != null && room.Uid == gGameState.Ro && room.IsDimLightRoomWithoutGlowingMonsters() && gGameState.Ls <= 0 && !IsCharOwned && !IsDecoration())
+				if (Globals.EnableMutateProperties && room != null && room.Uid == gGameState.Ro && room.IsDimLightRoomWithoutGlowingMonsters() && gGameState.Ls <= 0 && !IsCharOwned && !IsDecoration())
 				{
 					DimLightSeen = value;
 				}

@@ -87,7 +87,7 @@ namespace Eamon.Game
 
 			set
 			{
-				if (Globals.EnableGameOverrides && Globals.RevealContentCounter > 0 && _location != value && GeneralContainer != null && !Globals.RevealContentArtifactList.Contains(this))
+				if (Globals.EnableMutateProperties && Globals.RevealContentCounter > 0 && _location != value && GeneralContainer != null && !Globals.RevealContentArtifactList.Contains(this))
 				{
 					var room = Globals.RevealContentRoom;
 

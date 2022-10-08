@@ -25,7 +25,7 @@ namespace TheVileGrimoireOfJaldial.Game
 			{
 				var result = base.Name;
 
-				if (Globals.EnableGameOverrides && Uid == 55)
+				if (Globals.EnableMutateProperties && Uid == 55)
 				{
 					result = !gGameState.GetSecretDoors(1) ? "Passageway, Dead-End" : "Secret Passage, Bend";
 				}
@@ -45,7 +45,7 @@ namespace TheVileGrimoireOfJaldial.Game
 			{
 				var result = base.Desc;
 
-				if (Globals.EnableGameOverrides && IsDimLightRoom())
+				if (Globals.EnableMutateProperties && IsDimLightRoom())
 				{
 					result = string.Format("Through the {0}, you can vaguely make out your surroundings.", gGameState.IsNightTime() ? "darkness" : "white haze");
 				}
@@ -65,7 +65,7 @@ namespace TheVileGrimoireOfJaldial.Game
 			{
 				var result = base.Seen;
 
-				if (Globals.EnableGameOverrides && IsDimLightRoom())
+				if (Globals.EnableMutateProperties && IsDimLightRoom())
 				{
 					result = DimLightSeen;
 				}
@@ -75,7 +75,7 @@ namespace TheVileGrimoireOfJaldial.Game
 
 			set
 			{
-				if (Globals.EnableGameOverrides && IsDimLightRoom())
+				if (Globals.EnableMutateProperties && IsDimLightRoom())
 				{
 					DimLightSeen = value;
 				}
@@ -92,7 +92,7 @@ namespace TheVileGrimoireOfJaldial.Game
 			{
 				var result = base.LightLvl;
 
-				if (Globals.EnableGameOverrides && result == LightLevel.Dark)
+				if (Globals.EnableMutateProperties && result == LightLevel.Dark)
 				{
 					var willOTheWispMonster = gMDB[10];
 
@@ -131,7 +131,7 @@ namespace TheVileGrimoireOfJaldial.Game
 
 		public override long GetDirs(long index)
 		{
-			if (Globals.EnableGameOverrides)
+			if (Globals.EnableMutateProperties)
 			{
 				if (Uid == 54)
 				{

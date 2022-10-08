@@ -74,6 +74,9 @@ namespace Eamon.Framework.Plugin
 		IList<Action> RevealContentFuncList { get; set; }
 
 		/// <summary></summary>
+		long MutatePropertyCounter { get; set; }
+
+		/// <summary></summary>
 		long RevealContentCounter { get; set; }
 
 		/// <summary></summary>
@@ -89,7 +92,7 @@ namespace Eamon.Framework.Plugin
 		long RulesetVersion { get; }
 
 		/// <summary></summary>
-		bool EnableGameOverrides { get; }
+		bool EnableMutateProperties { get; }
 
 		/// <summary></summary>
 		bool LineWrapUserInput { get; set; }

@@ -17,7 +17,7 @@ namespace TheDeepCanyon.Game
 		{
 			get
 			{
-				if (Globals.EnableGameOverrides)
+				if (Globals.EnableMutateProperties)
 				{
 					switch (Uid)
 					{

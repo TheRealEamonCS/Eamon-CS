@@ -4304,6 +4304,9 @@
         <member name="P:Eamon.Framework.Plugin.IPluginClassMappings.CloneStream">
             <summary></summary>
         </member>
+        <member name="P:Eamon.Framework.Plugin.IPluginClassMappings.MutatePropertyCounter">
+            <summary></summary>
+        </member>
         <member name="P:Eamon.Framework.Plugin.IPluginClassMappings.WorkDir">
             <summary></summary>
         </member>
@@ -4320,7 +4323,7 @@
             enhancements allow a game to change rulesets dynamically at runtime.
             </remarks>
         </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginClassMappings.EnableGameOverrides">
+        <member name="P:Eamon.Framework.Plugin.IPluginClassMappings.EnableMutateProperties">
             <summary>
             Gets a value indicating whether "mutating properties" (those that are dynamically calculated) should be enabled.
             </summary>
@@ -4817,6 +4820,9 @@
         <member name="P:Eamon.Framework.Plugin.IPluginGlobals.RevealContentFuncList">
             <summary></summary>
         </member>
+        <member name="P:Eamon.Framework.Plugin.IPluginGlobals.MutatePropertyCounter">
+            <summary></summary>
+        </member>
         <member name="P:Eamon.Framework.Plugin.IPluginGlobals.RevealContentCounter">
             <summary></summary>
         </member>
@@ -4832,7 +4838,7 @@
         <member name="P:Eamon.Framework.Plugin.IPluginGlobals.RulesetVersion">
             <summary></summary>
         </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginGlobals.EnableGameOverrides">
+        <member name="P:Eamon.Framework.Plugin.IPluginGlobals.EnableMutateProperties">
             <summary></summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IPluginGlobals.LineWrapUserInput">
@@ -5179,9 +5185,6 @@
             <param name="args"></param>
         </member>
         <member name="T:Eamon.Framework.Portability.ISharpSerializer">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Portability.ISharpSerializer.IsActive">
             <summary></summary>
         </member>
         <member name="M:Eamon.Framework.Portability.ISharpSerializer.Serialize``1(``0,System.String,System.Boolean)">

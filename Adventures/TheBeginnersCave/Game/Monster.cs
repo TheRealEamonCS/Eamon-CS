@@ -25,7 +25,7 @@ namespace TheBeginnersCave.Game
 
 			set
 			{
-				if (Globals.EnableGameOverrides)
+				if (Globals.EnableMutateProperties)
 				{
 					// if this is any monster going from wielding Trollsfire to not wielding Trollsfire
 

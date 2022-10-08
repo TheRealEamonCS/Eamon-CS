@@ -12,8 +12,6 @@ namespace EamonPM.Game.Portability
 {
 	public class SharpSerializer : ISharpSerializer
 	{
-		public virtual bool IsActive { get; protected set; }
-
 		public virtual void Serialize<T>(T data, string fileName, bool binaryMode = false) where T : class
 		{
 			using (var fileStream = new FileStream(NormalizePath(fileName), FileMode.Create))
@@ -31,13 +29,13 @@ namespace EamonPM.Game.Portability
 
 			try
 			{
-				IsActive = true;
+				ClassMappings.MutatePropertyCounter--;
 
 				sharpSerializer.Serialize(data, stream);
 			}
 			finally
 			{
-				IsActive = false;
+				ClassMappings.MutatePropertyCounter++;
 			}
 		}
 
@@ -60,13 +58,13 @@ namespace EamonPM.Game.Portability
 
 			try
 			{
-				IsActive = true;
+				ClassMappings.MutatePropertyCounter--;
 
 				result = sharpSerializer.Deserialize(stream) as T;
 			}
 			finally
 			{
-				IsActive = false;
+				ClassMappings.MutatePropertyCounter++;
 			}
 
 			return result;

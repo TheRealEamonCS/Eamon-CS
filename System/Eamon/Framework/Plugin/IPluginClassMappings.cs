@@ -89,6 +89,9 @@ namespace Eamon.Framework.Plugin
 		MemoryStream CloneStream { get; set; }
 
 		/// <summary></summary>
+		long MutatePropertyCounter { get; set; }
+
+		/// <summary></summary>
 		string WorkDir { get; set; }
 
 		/// <summary></summary>
@@ -115,7 +118,7 @@ namespace Eamon.Framework.Plugin
 		/// during datafile serialization or deserialization because it can lead to corrupted values.  This value should be checked in all mutating
 		/// properties and if it is <c>false</c> they should disable complex calculations and return a simple base value.
 		/// </remarks>
-		bool EnableGameOverrides { get; }
+		bool EnableMutateProperties { get; }
 
 		/// <summary></summary>
 		bool EnableStdio { get; set; }

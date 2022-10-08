@@ -50,7 +50,7 @@ namespace EamonRT.Game.Commands
 		{
 			RetCode rc;
 
-			Globals.GameRestoring = true;
+			Globals.MutatePropertyCounter--;
 
 			Globals.RevealContentCounter--;
 
@@ -261,7 +261,7 @@ namespace EamonRT.Game.Commands
 
 			Globals.RevealContentCounter++;
 
-			Globals.GameRestoring = false;
+			Globals.MutatePropertyCounter++;
 		}
 
 		public override bool ShouldPreTurnProcess()

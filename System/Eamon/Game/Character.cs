@@ -731,7 +731,7 @@ namespace Eamon.Game
 
 		public virtual void NormalizeGoldValues()
 		{
-			if (Globals.EnableGameOverrides)
+			if (Globals.EnableMutateProperties)
 			{
 				// extinguish HeldGold debt with BankGold assets
 

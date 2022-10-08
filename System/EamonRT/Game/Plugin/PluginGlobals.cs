@@ -121,10 +121,6 @@ namespace EamonRT.Game.Plugin
 
 		public virtual bool PlayerMoved { get; set; }
 
-		public virtual bool GameSaving { get; set; }
-
-		public virtual bool GameRestoring { get; set; }
-
 		public virtual bool GameRunning
 		{
 			get
@@ -181,11 +177,11 @@ namespace EamonRT.Game.Plugin
 			}
 		}
 
-		public override bool EnableGameOverrides
+		public override bool EnableMutateProperties
 		{
 			get
 			{
-				return base.EnableGameOverrides && Engine != null && GameState != null && !GameSaving && !GameRestoring;
+				return base.EnableMutateProperties && Engine != null && GameState != null;
 			}
 		}
 

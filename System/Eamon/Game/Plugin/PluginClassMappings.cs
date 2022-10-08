@@ -46,6 +46,8 @@ namespace Eamon.Game.Plugin
 
 		public virtual MemoryStream CloneStream { get; set; } = new MemoryStream();
 
+		public virtual long MutatePropertyCounter { get; set; } = 1;
+
 		public virtual string WorkDir { get; set; } = "";
 
 		public virtual string FilePrefix { get; set; } = "";
@@ -58,11 +60,11 @@ namespace Eamon.Game.Plugin
 			}
 		}
 
-		public virtual bool EnableGameOverrides
+		public virtual bool EnableMutateProperties
 		{
 			get
 			{
-				return SharpSerializer == null || SharpSerializer.IsActive == false;
+				return MutatePropertyCounter > 0;
 			}
 		}
 

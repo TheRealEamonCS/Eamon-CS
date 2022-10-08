@@ -180,6 +180,18 @@ namespace Eamon.Game.Plugin
 
 		public virtual IList<Action> RevealContentFuncList { get; set; }
 
+		public virtual long MutatePropertyCounter
+		{
+			get
+			{
+				return ClassMappings.MutatePropertyCounter;
+			}
+			set
+			{
+				ClassMappings.MutatePropertyCounter = value;
+			}
+		}
+
 		public virtual long RevealContentCounter { get; set; }
 
 		public virtual string WorkDir
@@ -216,11 +228,11 @@ namespace Eamon.Game.Plugin
 			}
 		}
 
-		public virtual bool EnableGameOverrides
+		public virtual bool EnableMutateProperties
 		{
 			get
 			{
-				return ClassMappings.EnableGameOverrides;
+				return ClassMappings.EnableMutateProperties;
 			}
 		}
 

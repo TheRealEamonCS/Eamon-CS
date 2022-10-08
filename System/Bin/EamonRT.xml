@@ -2306,12 +2306,6 @@
         <member name="P:EamonRT.Framework.Plugin.IPluginGlobals.PlayerMoved">
             <summary></summary>
         </member>
-        <member name="P:EamonRT.Framework.Plugin.IPluginGlobals.GameSaving">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Framework.Plugin.IPluginGlobals.GameRestoring">
-            <summary></summary>
-        </member>
         <member name="P:EamonRT.Framework.Plugin.IPluginGlobals.GameRunning">
             <summary></summary>
         </member>

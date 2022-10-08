@@ -102,7 +102,7 @@ namespace EamonRT.Game.Commands
 		{
 			RetCode rc;
 
-			Globals.GameSaving = true;
+			Globals.MutatePropertyCounter--;
 
 			Globals.RevealContentCounter--;
 
@@ -392,7 +392,7 @@ namespace EamonRT.Game.Commands
 
 			Globals.RevealContentCounter++;
 
-			Globals.GameSaving = false;
+			Globals.MutatePropertyCounter++;
 		}
 
 		public override bool ShouldPreTurnProcess()

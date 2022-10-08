@@ -30,7 +30,7 @@ namespace TheBeginnersCave.Game
 
 				// if toggling the Trollsfire effect
 
-				if (Globals.EnableGameOverrides && _trollsfire != value)
+				if (Globals.EnableMutateProperties && _trollsfire != value)
 				{
 					// find Trollsfire in the game database
 

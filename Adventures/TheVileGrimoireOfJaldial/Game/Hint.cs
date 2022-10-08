@@ -18,7 +18,7 @@ namespace TheVileGrimoireOfJaldial.Game
 		{
 			get
 			{
-				if (Globals.EnableGameOverrides)
+				if (Globals.EnableMutateProperties)
 				{
 					Framework.IRoom room = null;
 
