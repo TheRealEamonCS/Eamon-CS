@@ -108,20 +108,20 @@ namespace EamonPM.Game.Portability
 				App.PluginLauncherPage.SetInputTextNoEvents("");
 			});
 
-			if (Globals != null)
+			if (Globals != null && Globals.Engine != null)
 			{
-				if (Globals.Engine != null)
-				{
-					Globals.Engine.LineWrap(buf.ToString(), Buf01, startColumn);
-				}
+				Globals.Engine.LineWrap(buf.ToString(), Buf01, startColumn);
+			}
 
-				if (Globals.Out != null)
+			if (ClassMappings != null)
+			{
+				if (ClassMappings.Out != null)
 				{
-					Globals.Out.WriteLine("{0}", Buf01);
+					ClassMappings.Out.WriteLine("{0}", Buf01);
 				}
-				else if (Globals.Error != null)
+				else if (ClassMappings.Error != null)
 				{
-					Globals.Error.WriteLine("{0}", Buf01);
+					ClassMappings.Error.WriteLine("{0}", Buf01);
 				}
 			}
 
@@ -144,7 +144,7 @@ namespace EamonPM.Game.Portability
 		{
 			if (EnableInput)
 			{
-				var cursorPosition = Globals.Out.GetCursorPosition();
+				var cursorPosition = ClassMappings.Out.GetCursorPosition();
 
 				var bufSize = (Constants.WindowWidth * 2);
 
@@ -152,19 +152,19 @@ namespace EamonPM.Game.Portability
 
 				ReadLineMode = true;
 
-				Globals.Out.WordWrap = false;
+				ClassMappings.Out.WordWrap = false;
 
-				var suppressNewLines = Globals.Out.SuppressNewLines;
+				var suppressNewLines = ClassMappings.Out.SuppressNewLines;
 
-				Globals.Out.SuppressNewLines = false;
+				ClassMappings.Out.SuppressNewLines = false;
 
 				var rc = ReadField(buf, bufSize, null, ' ', '\0', true, null, null, null, null);
 
 				Debug.Assert(Globals.Engine.IsSuccess(rc));
 
-				Globals.Out.WordWrap = true;
+				ClassMappings.Out.WordWrap = true;
 
-				Globals.Out.SuppressNewLines = suppressNewLines;
+				ClassMappings.Out.SuppressNewLines = suppressNewLines;
 
 				ReadLineMode = false;
 
@@ -204,9 +204,9 @@ namespace EamonPM.Game.Portability
 
 			if (EnableInput)
 			{
-				Globals.Out.WriteLine("{0}{1}", initialNewLine ? Environment.NewLine : "", Globals.LineSep);
+				ClassMappings.Out.WriteLine("{0}{1}", initialNewLine ? Environment.NewLine : "", Globals.LineSep);
 
-				Globals.Out.Write("{0}Press any key to continue: ", Environment.NewLine);
+				ClassMappings.Out.Write("{0}Press any key to continue: ", Environment.NewLine);
 
 				buf.Clear();
 
@@ -214,7 +214,7 @@ namespace EamonPM.Game.Portability
 
 				Debug.Assert(Globals.Engine.IsSuccess(rc));
 
-				Globals.Thread.Sleep(150);
+				ClassMappings.Thread.Sleep(150);
 			}
 		}
 

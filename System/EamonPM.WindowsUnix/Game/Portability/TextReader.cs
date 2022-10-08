@@ -52,7 +52,7 @@ namespace EamonPM.Game.Portability
 				fillChar = ' ';
 			}
 
-			var inputCh0Pos = Globals.Out.GetCursorPosition();
+			var inputCh0Pos = ClassMappings.Out.GetCursorPosition();
 
 			rows = (int)(inputCh0Pos.X + bufSize) / Constants.WindowWidth;
 
@@ -63,33 +63,33 @@ namespace EamonPM.Game.Portability
 
 			for (i = 0; i < rows; i++)
 			{
-				var cursorPosition = Globals.Out.GetCursorPosition();
+				var cursorPosition = ClassMappings.Out.GetCursorPosition();
 
-				if (cursorPosition.Y + 1 >= Globals.Out.GetBufferHeight())
+				if (cursorPosition.Y + 1 >= ClassMappings.Out.GetBufferHeight())
 				{
 					inputCh0Pos.Y--;
 				}
 
-				Globals.Out.WriteLine();
+				ClassMappings.Out.WriteLine();
 			}
 
-			Globals.Out.SetCursorPosition(inputCh0Pos);
+			ClassMappings.Out.SetCursorPosition(inputCh0Pos);
 
 			if (boxChars != null)
 			{
-				Globals.Out.Write(boxChars[0]);
+				ClassMappings.Out.Write(boxChars[0]);
 			}
 
-			inputCh0Pos = Globals.Out.GetCursorPosition();
+			inputCh0Pos = ClassMappings.Out.GetCursorPosition();
 
-			Globals.Out.Write(new string(fillChar, (int)bufSize));
+			ClassMappings.Out.Write(new string(fillChar, (int)bufSize));
 
 			if (boxChars != null)
 			{
-				Globals.Out.Write(boxChars[1]);
+				ClassMappings.Out.Write(boxChars[1]);
 			}
 
-			Globals.Out.SetCursorPosition(inputCh0Pos);
+			ClassMappings.Out.SetCursorPosition(inputCh0Pos);
 
 			var charPos = new Coord[bufSize + 1];
 
@@ -102,9 +102,9 @@ namespace EamonPM.Game.Portability
 
 			for (h = 0; h < i; h++)
 			{
-				charPos[h] = Globals.Out.GetCursorPosition();
+				charPos[h] = ClassMappings.Out.GetCursorPosition();
 
-				Globals.Out.Write(maskChar != '\0' ? maskChar : buf[h]);
+				ClassMappings.Out.Write(maskChar != '\0' ? maskChar : buf[h]);
 			}
 
 			if (buf.Length < bufSize)
@@ -116,13 +116,13 @@ namespace EamonPM.Game.Portability
 
 			while (true)
 			{
-				charPos[i] = Globals.Out.GetCursorPosition();
+				charPos[i] = ClassMappings.Out.GetCursorPosition();
 
 				ch = Console.ReadKey(true).KeyChar;
 
 				if (ch == '\r' || ch == '\n' || ch == '\t')
 				{
-					Globals.Out.SetCursorPosition(inputCh0Pos);
+					ClassMappings.Out.SetCursorPosition(inputCh0Pos);
 
 					if (i > 0 || emptyAllowed)
 					{
@@ -131,16 +131,16 @@ namespace EamonPM.Game.Portability
 				}
 				else if (ch == 0x1B)
 				{
-					Globals.Out.SetCursorPosition(inputCh0Pos);
+					ClassMappings.Out.SetCursorPosition(inputCh0Pos);
 
-					Globals.Out.Write(new string(fillChar, (int)bufSize));
+					ClassMappings.Out.Write(new string(fillChar, (int)bufSize));
 
 					if (boxChars != null)
 					{
-						Globals.Out.Write(boxChars[1]);
+						ClassMappings.Out.Write(boxChars[1]);
 					}
 
-					Globals.Out.SetCursorPosition(inputCh0Pos);
+					ClassMappings.Out.SetCursorPosition(inputCh0Pos);
 
 					Array.Clear(charPos, 0, (int)bufSize + 1);
 
@@ -150,11 +150,11 @@ namespace EamonPM.Game.Portability
 				{
 					if (i > 0)
 					{
-						Globals.Out.SetCursorPosition(charPos[i - 1]);
+						ClassMappings.Out.SetCursorPosition(charPos[i - 1]);
 
-						Globals.Out.Write(fillChar);
+						ClassMappings.Out.Write(fillChar);
 
-						Globals.Out.SetCursorPosition(charPos[i - 1]);
+						ClassMappings.Out.SetCursorPosition(charPos[i - 1]);
 
 						charPos[i] = null;
 
@@ -188,7 +188,7 @@ namespace EamonPM.Game.Portability
 						{
 							buf[i++] = ch;
 
-							Globals.Out.Write(maskChar != '\0' ? maskChar : ch);
+							ClassMappings.Out.Write(maskChar != '\0' ? maskChar : ch);
 						}
 
 						termChar = false;
@@ -217,40 +217,40 @@ namespace EamonPM.Game.Portability
 				buf.SetFormat("{0}", emptyVal);
 			}
 
-			Globals.Out.SetCursorPosition(inputCh0Pos);
+			ClassMappings.Out.SetCursorPosition(inputCh0Pos);
 
 			i = buf.Length;
 
 			if (maskChar != '\0')
 			{
-				Globals.Out.Write(new string(maskChar, i));
+				ClassMappings.Out.Write(new string(maskChar, i));
 			}
 			else
 			{
-				Globals.Out.Write("{0}", buf);
+				ClassMappings.Out.Write("{0}", buf);
 			}
 
-			Globals.Out.Write(new string(' ', (int)bufSize - i));
+			ClassMappings.Out.Write(new string(' ', (int)bufSize - i));
 
 			if (boxChars == null)
 			{
-				Globals.Out.SetCursorPosition(inputCh0Pos);
+				ClassMappings.Out.SetCursorPosition(inputCh0Pos);
 
 				if (maskChar != '\0')
 				{
-					Globals.Out.Write(new string(maskChar, i));
+					ClassMappings.Out.Write(new string(maskChar, i));
 				}
 				else
 				{
-					Globals.Out.Write("{0}", buf);
+					ClassMappings.Out.Write("{0}", buf);
 				}
 			}
 			else
 			{
-				Globals.Out.Write(boxChars[1]);
+				ClassMappings.Out.Write(boxChars[1]);
 			}
 
-			Globals.Out.Write(Environment.NewLine);
+			ClassMappings.Out.Write(Environment.NewLine);
 
 		Cleanup:
 
@@ -271,7 +271,7 @@ namespace EamonPM.Game.Portability
 		{
 			if (EnableInput)
 			{
-				var cursorPosition = Globals.Out.GetCursorPosition();
+				var cursorPosition = ClassMappings.Out.GetCursorPosition();
 
 				var bufSize = (Constants.WindowWidth * 2) - (cursorPosition.X + 1);
 
@@ -279,19 +279,19 @@ namespace EamonPM.Game.Portability
 
 				ReadLineMode = true;
 
-				Globals.Out.WordWrap = false;
+				ClassMappings.Out.WordWrap = false;
 
-				var suppressNewLines = Globals.Out.SuppressNewLines;
+				var suppressNewLines = ClassMappings.Out.SuppressNewLines;
 
-				Globals.Out.SuppressNewLines = false;
+				ClassMappings.Out.SuppressNewLines = false;
 
 				var rc = ReadField(buf, bufSize, null, ' ', '\0', true, null, null, null, null);
 
 				Debug.Assert(Globals.Engine.IsSuccess(rc));
 
-				Globals.Out.WordWrap = true;
+				ClassMappings.Out.WordWrap = true;
 
-				Globals.Out.SuppressNewLines = suppressNewLines;
+				ClassMappings.Out.SuppressNewLines = suppressNewLines;
 
 				ReadLineMode = false;
 
@@ -331,9 +331,9 @@ namespace EamonPM.Game.Portability
 
 			if (EnableInput)
 			{
-				Globals.Out.WriteLine("{0}{1}", initialNewLine ? Environment.NewLine : "", Globals.LineSep);
+				ClassMappings.Out.WriteLine("{0}{1}", initialNewLine ? Environment.NewLine : "", Globals.LineSep);
 
-				Globals.Out.Write("{0}Press any key to continue: ", Environment.NewLine);
+				ClassMappings.Out.Write("{0}Press any key to continue: ", Environment.NewLine);
 
 				buf.Clear();
 
@@ -341,7 +341,7 @@ namespace EamonPM.Game.Portability
 
 				Debug.Assert(Globals.Engine.IsSuccess(rc));
 
-				Globals.Thread.Sleep(150);
+				ClassMappings.Thread.Sleep(150);
 			}
 		}
 
