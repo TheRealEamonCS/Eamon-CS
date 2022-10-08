@@ -605,73 +605,92 @@ namespace EamonRT.Game
 
 		public virtual void EnforceCharacterWeightLimits()
 		{
-			Globals.RevealContentCounter--;
-
-			var artifactList = GetArtifactList(a => a.IsCarriedByCharacter() || a.IsWornByCharacter()).OrderByDescending(a => a.RecursiveWeight).ToList();
-
-			foreach (var artifact in artifactList)
+			try
 			{
-				if (artifact.IsWornByCharacter())
+				Globals.RevealContentCounter--;
+
+				var artifactList = GetArtifactList(a => a.IsCarriedByCharacter() || a.IsWornByCharacter()).OrderByDescending(a => a.RecursiveWeight).ToList();
+
+				foreach (var artifact in artifactList)
 				{
-					if (artifact.Wearable == null || artifact.Wearable.Field1 > 0)
+					if (artifact.IsWornByCharacter())
 					{
-						artifact.SetCarriedByCharacter();
+						if (artifact.Wearable == null || artifact.Wearable.Field1 > 0)
+						{
+							artifact.SetCarriedByCharacter();
+						}
+					}
+
+					Debug.Assert(!artifact.IsUnmovable01());
+
+					var charWeight = 0L;
+
+					var rc = gCharacter.GetFullInventoryWeight(ref charWeight, recurse: true);
+
+					Debug.Assert(IsSuccess(rc));
+
+					if (charWeight > gCharacter.GetWeightCarryableGronds())
+					{
+						artifact.SetInRoomUid(StartRoom);
+					}
+					else
+					{
+						break;
 					}
 				}
-				
-				Debug.Assert(!artifact.IsUnmovable01());
-
-				var charWeight = 0L;
-
-				var rc = gCharacter.GetFullInventoryWeight(ref charWeight, recurse: true);
-
-				Debug.Assert(IsSuccess(rc));
-
-				if (charWeight > gCharacter.GetWeightCarryableGronds())
-				{
-					artifact.SetInRoomUid(StartRoom);
-				}
-				else
-				{
-					break;
-				}
 			}
-
-			Globals.RevealContentCounter++;
+			finally
+			{
+				Globals.RevealContentCounter++;
+			}
 		}
 
 		public virtual void EnforceCharacterWeightLimits02(IRoom room = null, bool printOutput = false)
 		{
-			Globals.RevealContentCounter--;
-
 			var enableOutput = gOut.EnableOutput;
 
-			gOut.EnableOutput = printOutput;
-
-			if (room == null)
+			try
 			{
-				room = gCharMonster.GetInRoom();
+				Globals.RevealContentCounter--;
 
-				Debug.Assert(room != null);
-			}
+				gOut.EnableOutput = printOutput;
 
-			var artifactList = GetArtifactList(a => a.IsCarriedByCharacter() || a.IsWornByCharacter()).OrderByDescending(a => a.RecursiveWeight).ToList();
-
-			foreach (var artifact in artifactList)
-			{
-				Debug.Assert(!artifact.IsUnmovable01());
-
-				var charWeight = 0L;
-
-				var rc = gCharMonster.GetFullInventoryWeight(ref charWeight, recurse: true);
-
-				Debug.Assert(IsSuccess(rc));
-
-				if (charWeight > gCharMonster.GetWeightCarryableGronds())
+				if (room == null)
 				{
-					if (artifact.IsWornByCharacter())
+					room = gCharMonster.GetInRoom();
+
+					Debug.Assert(room != null);
+				}
+
+				var artifactList = GetArtifactList(a => a.IsCarriedByCharacter() || a.IsWornByCharacter()).OrderByDescending(a => a.RecursiveWeight).ToList();
+
+				foreach (var artifact in artifactList)
+				{
+					Debug.Assert(!artifact.IsUnmovable01());
+
+					var charWeight = 0L;
+
+					var rc = gCharMonster.GetFullInventoryWeight(ref charWeight, recurse: true);
+
+					Debug.Assert(IsSuccess(rc));
+
+					if (charWeight > gCharMonster.GetWeightCarryableGronds())
 					{
-						var removeCommand = Globals.CreateInstance<IRemoveCommand>(x =>
+						if (artifact.IsWornByCharacter())
+						{
+							var removeCommand = Globals.CreateInstance<IRemoveCommand>(x =>
+							{
+								x.ActorMonster = gCharMonster;
+
+								x.ActorRoom = room;
+
+								x.Dobj = artifact;
+							});
+
+							removeCommand.Execute();
+						}
+
+						var dropCommand = Globals.CreateInstance<IDropCommand>(x =>
 						{
 							x.ActorMonster = gCharMonster;
 
@@ -680,29 +699,20 @@ namespace EamonRT.Game
 							x.Dobj = artifact;
 						});
 
-						removeCommand.Execute();
+						dropCommand.Execute();
 					}
-
-					var dropCommand = Globals.CreateInstance<IDropCommand>(x =>
+					else
 					{
-						x.ActorMonster = gCharMonster;
-
-						x.ActorRoom = room;
-
-						x.Dobj = artifact;
-					});
-
-					dropCommand.Execute();
-				}
-				else
-				{
-					break;
+						break;
+					}
 				}
 			}
+			finally
+			{
+				Globals.RevealContentCounter++;
 
-			gOut.EnableOutput = enableOutput;
-
-			Globals.RevealContentCounter++;
+				gOut.EnableOutput = enableOutput;
+			}
 		}
 
 		public virtual void AddUniqueCharsToArtifactAndMonsterNames()
@@ -1502,81 +1512,86 @@ namespace EamonRT.Game
 
 			Debug.Assert(DobjMonster != null && !DobjMonster.IsCharacterMonster());
 
-			Globals.RevealContentCounter--;
-
-			var room = DobjMonster.GetInRoom();
-
-			Debug.Assert(room != null);
-
-			if (DobjMonster.CurrGroupCount > 1)
+			try
 			{
-				if (DobjMonster.Weapon > 0)
-				{
-					var weapon = GetNthArtifact(DobjMonster.GetCarriedList(), DobjMonster.CurrGroupCount - 1, a => a.IsReadyableByMonster(DobjMonster) && a.Uid != DobjMonster.Weapon);
+				Globals.RevealContentCounter--;
 
-					if (weapon != null)
+				var room = DobjMonster.GetInRoom();
+
+				Debug.Assert(room != null);
+
+				if (DobjMonster.CurrGroupCount > 1)
+				{
+					if (DobjMonster.Weapon > 0)
 					{
-						weapon.SetInRoom(room);
+						var weapon = GetNthArtifact(DobjMonster.GetCarriedList(), DobjMonster.CurrGroupCount - 1, a => a.IsReadyableByMonster(DobjMonster) && a.Uid != DobjMonster.Weapon);
+
+						if (weapon != null)
+						{
+							weapon.SetInRoom(room);
+						}
+					}
+
+					DobjMonster.CurrGroupCount--;
+
+					DobjMonster.DmgTaken = 0;
+
+					if (EnforceMonsterWeightLimits)
+					{
+						rc = DobjMonster.EnforceFullInventoryWeightLimits(recurse: true);
+
+						Debug.Assert(IsSuccess(rc));
 					}
 				}
-
-				DobjMonster.CurrGroupCount--;
-
-				DobjMonster.DmgTaken = 0;
-
-				if (EnforceMonsterWeightLimits)
+				else
 				{
-					rc = DobjMonster.EnforceFullInventoryWeightLimits(recurse: true);
-
-					Debug.Assert(IsSuccess(rc));
-				}
-			}
-			else
-			{
-				if (DobjMonster.Weapon > 0)
-				{
-					var weapon = gADB[DobjMonster.Weapon];
-
-					Debug.Assert(weapon != null);
-
-					rc = weapon.RemoveStateDesc(weapon.GetReadyWeaponDesc());
-
-					Debug.Assert(IsSuccess(rc));
-
-					DobjMonster.Weapon = -1;
-				}
-
-				DobjMonster.SetInLimbo();
-
-				DobjMonster.CurrGroupCount = DobjMonster.GroupCount;
-
-				// DobjMonster.ResolveReaction(gCharacter);
-
-				DobjMonster.DmgTaken = 0;
-
-				var artifactList = GetArtifactList(a => a.IsCarriedByMonster(DobjMonster) || a.IsWornByMonster(DobjMonster));
-
-				foreach (var artifact in artifactList)
-				{
-					artifact.SetInRoom(room);
-				}
-
-				ProcessMonsterDeathEvents(DobjMonster);
-
-				if (DobjMonster.DeadBody > 0)
-				{
-					var deadBody = gADB[DobjMonster.DeadBody];
-
-					Debug.Assert(deadBody != null);
-
-					if (!deadBody.IsCharOwned)
+					if (DobjMonster.Weapon > 0)
 					{
-						deadBody.SetInRoom(room);
+						var weapon = gADB[DobjMonster.Weapon];
+
+						Debug.Assert(weapon != null);
+
+						rc = weapon.RemoveStateDesc(weapon.GetReadyWeaponDesc());
+
+						Debug.Assert(IsSuccess(rc));
+
+						DobjMonster.Weapon = -1;
+					}
+
+					DobjMonster.SetInLimbo();
+
+					DobjMonster.CurrGroupCount = DobjMonster.GroupCount;
+
+					// DobjMonster.ResolveReaction(gCharacter);
+
+					DobjMonster.DmgTaken = 0;
+
+					var artifactList = GetArtifactList(a => a.IsCarriedByMonster(DobjMonster) || a.IsWornByMonster(DobjMonster));
+
+					foreach (var artifact in artifactList)
+					{
+						artifact.SetInRoom(room);
+					}
+
+					ProcessMonsterDeathEvents(DobjMonster);
+
+					if (DobjMonster.DeadBody > 0)
+					{
+						var deadBody = gADB[DobjMonster.DeadBody];
+
+						Debug.Assert(deadBody != null);
+
+						if (!deadBody.IsCharOwned)
+						{
+							deadBody.SetInRoom(room);
+						}
 					}
 				}
 			}
-
-			Globals.RevealContentCounter++;
+			finally
+			{
+				Globals.RevealContentCounter++;
+			}
 		}
 
 		public virtual void ProcessMonsterDeathEvents(IMonster monster)
@@ -1684,46 +1699,51 @@ namespace EamonRT.Game
 		{
 			Debug.Assert(room != null && artifact != null);
 
-			Globals.RevealContentCounter--;
-
-			var containerTypes = new ContainerType[] { ContainerType.In, ContainerType.On, ContainerType.Under, ContainerType.Behind };
-
-			var containerTypeList = new List<ContainerType>();
-
-			var containerContentsList = new List<string>();
-
-			if (artifact.IsInLimbo() && location != Constants.LimboLocation)
+			try
 			{
-				foreach (var containerType in containerTypes)
+				Globals.RevealContentCounter--;
+
+				var containerTypes = new ContainerType[] { ContainerType.In, ContainerType.On, ContainerType.Under, ContainerType.Behind };
+
+				var containerTypeList = new List<ContainerType>();
+
+				var containerContentsList = new List<string>();
+
+				if (artifact.IsInLimbo() && location != Constants.LimboLocation)
 				{
-					if (artifact.ShouldRevealContentsWhenMovedIntoLimbo(containerType))
+					foreach (var containerType in containerTypes)
 					{
-						containerTypeList.Add(containerType);
+						if (artifact.ShouldRevealContentsWhenMovedIntoLimbo(containerType))
+						{
+							containerTypeList.Add(containerType);
+						}
 					}
 				}
-			}
-			else if (!artifact.IsInLimbo() && location != Constants.LimboLocation)
-			{
-				foreach (var containerType in containerTypes)
+				else if (!artifact.IsInLimbo() && location != Constants.LimboLocation)
 				{
-					if (artifact.ShouldRevealContentsWhenMoved(containerType))
+					foreach (var containerType in containerTypes)
 					{
-						containerTypeList.Add(containerType);
+						if (artifact.ShouldRevealContentsWhenMoved(containerType))
+						{
+							containerTypeList.Add(containerType);
+						}
 					}
 				}
-			}
 
-			if (containerTypeList.Count > 0)
+				if (containerTypeList.Count > 0)
+				{
+					RevealContainerContents02(room, monster, artifact, location, containerTypeList.ToArray(), printOutput && room.Uid == gGameState.Ro && room.IsLit() && monster != null ? containerContentsList : null);
+				}
+
+				foreach (var containerContentsDesc in containerContentsList)
+				{
+					gOut.Write("{0}", containerContentsDesc);
+				}
+			}
+			finally
 			{
-				RevealContainerContents02(room, monster, artifact, location, containerTypeList.ToArray(), printOutput && room.Uid == gGameState.Ro && room.IsLit() && monster != null ? containerContentsList : null);
+				Globals.RevealContentCounter++;
 			}
-
-			foreach (var containerContentsDesc in containerContentsList)
-			{
-				gOut.Write("{0}", containerContentsDesc);
-			}
-
-			Globals.RevealContentCounter++;
 		}
 
 		public virtual void RevealContainerContents02(IRoom room, IMonster monster, IArtifact artifact, long location, ContainerType[] containerTypes, IList<string> containerContentsList = null)

@@ -133,11 +133,16 @@ namespace EamonRT.Game.Commands
 
 					PrintBortRecallArtifact(ActorRoom, BortArtifact);
 
-					Globals.RevealContentCounter--;
+					try
+					{
+						Globals.RevealContentCounter--;
 
-					BortArtifact.SetInRoom(ActorRoom);
-
-					Globals.RevealContentCounter++;
+						BortArtifact.SetInRoom(ActorRoom);
+					}
+					finally
+					{
+						Globals.RevealContentCounter++;
+					}
 
 					break;
 
@@ -183,11 +188,16 @@ namespace EamonRT.Game.Commands
 
 					BortMenu = Globals.CreateInstance<IMainMenu>();
 
-					Globals.RevealContentCounter--;
+					try
+					{
+						Globals.RevealContentCounter--;
 
-					BortMenu.Execute();
-
-					Globals.RevealContentCounter++;
+						BortMenu.Execute();
+					}
+					finally
+					{
+						Globals.RevealContentCounter++;
+					}
 
 					BortMenu = null;
 

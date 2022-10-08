@@ -50,26 +50,26 @@ namespace EamonRT.Game.Commands
 		{
 			RetCode rc;
 
-			Globals.MutatePropertyCounter--;
-
-			Globals.RevealContentCounter--;
-
-			OrigCurrState = Globals.CurrState;
-
-			SaveFilesetsCount = Globals.Database.GetFilesetsCount();
-
-			Debug.Assert(SaveFilesetsCount <= gEngine.NumSaveSlots);
-
-			Debug.Assert(SaveSlot >= 1 && SaveSlot <= SaveFilesetsCount);
-
-			SaveFilesetList = Globals.Database.FilesetTable.Records.OrderBy(f => f.Uid).ToList();
-
-			SaveFileset = SaveFilesetList[(int)SaveSlot - 1];
-
-			SaveConfig = Globals.CreateInstance<IConfig>();
-
 			try
 			{
+				Globals.MutatePropertyCounter--;
+
+				Globals.RevealContentCounter--;
+
+				OrigCurrState = Globals.CurrState;
+
+				SaveFilesetsCount = Globals.Database.GetFilesetsCount();
+
+				Debug.Assert(SaveFilesetsCount <= gEngine.NumSaveSlots);
+
+				Debug.Assert(SaveSlot >= 1 && SaveSlot <= SaveFilesetsCount);
+
+				SaveFilesetList = Globals.Database.FilesetTable.Records.OrderBy(f => f.Uid).ToList();
+
+				SaveFileset = SaveFilesetList[(int)SaveSlot - 1];
+
+				SaveConfig = Globals.CreateInstance<IConfig>();
+
 				rc = Globals.Database.LoadConfigs(SaveFileset.ConfigFileName, printOutput: false);
 
 				if (gEngine.IsFailure(rc))
@@ -225,43 +225,48 @@ namespace EamonRT.Game.Commands
 
 					goto Cleanup;
 				}
-			}
-			finally
-			{
-				SaveConfig.Dispose();
-			}
 
-			gEngine.ClearActionLists();
+				gEngine.ClearActionLists();
 
-			gSentenceParser.LastInputStr = "";
+				gSentenceParser.LastInputStr = "";
 
-			gSentenceParser.Clear();
+				gSentenceParser.Clear();
 
-			gCommandParser.LastInputStr = "";
+				gCommandParser.LastInputStr = "";
 
-			gCommandParser.LastHimNameStr = "";
+				gCommandParser.LastHimNameStr = "";
 
-			gCommandParser.LastHerNameStr = "";
+				gCommandParser.LastHerNameStr = "";
 
-			gCommandParser.LastItNameStr = "";
+				gCommandParser.LastItNameStr = "";
 
-			gCommandParser.LastThemNameStr = "";
+				gCommandParser.LastThemNameStr = "";
 
-			gGameState.R2 = gGameState.Ro;
+				gGameState.R2 = gGameState.Ro;
 
-			PrintGameRestored();
+				PrintGameRestored();
 
-			gEngine.CreateInitialState(true);
+				gEngine.CreateInitialState(true);
 
-			NextState = Globals.CurrState;
+				NextState = Globals.CurrState;
 
-			Globals.CurrState = OrigCurrState;
+				Globals.CurrState = OrigCurrState;
 
 		Cleanup:
 
-			Globals.RevealContentCounter++;
+				;
+			}
+			finally
+			{
+				if (SaveConfig != null)
+				{
+					SaveConfig.Dispose();
+				}
 
-			Globals.MutatePropertyCounter++;
+				Globals.RevealContentCounter++;
+
+				Globals.MutatePropertyCounter++;
+			}
 		}
 
 		public override bool ShouldPreTurnProcess()

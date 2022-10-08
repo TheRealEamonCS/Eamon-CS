@@ -929,54 +929,61 @@ namespace Eamon.Game
 
 			long c, w, mwt;
 
-			Globals.RevealContentCounter--;
-
 			rc = RetCode.Success;
 
-			mwt = 0;
-
-			var artifactList = GetContainedList(monsterFindFunc, artifactFindFunc).OrderBy(a => recurse ? a.RecursiveWeight : a.Weight).ToList();
-
-			foreach (var a in artifactList)
+			try
 			{
-				c = 0;
+				Globals.RevealContentCounter--;
 
-				w = a.Weight;
+				mwt = 0;
 
-				Debug.Assert(!gEngine.IsUnmovable01(w));
+				var artifactList = GetContainedList(monsterFindFunc, artifactFindFunc).OrderBy(a => recurse ? a.RecursiveWeight : a.Weight).ToList();
 
-				if (recurse && a.GeneralContainer != null)
+				foreach (var a in artifactList)
 				{
-					rc = a.GetContainerInfo(ref c, ref w, (ContainerType)(-1), recurse);
+					c = 0;
 
-					if (gEngine.IsFailure(rc))
+					w = a.Weight;
+
+					Debug.Assert(!gEngine.IsUnmovable01(w));
+
+					if (recurse && a.GeneralContainer != null)
 					{
-						// PrintError
+						rc = a.GetContainerInfo(ref c, ref w, (ContainerType)(-1), recurse);
 
-						goto Cleanup;
+						if (gEngine.IsFailure(rc))
+						{
+							// PrintError
+
+							goto Cleanup;
+						}
+					}
+
+					if (w <= 10 * Hardiness && mwt + w <= 10 * Hardiness * CurrGroupCount)
+					{
+						mwt += w;
+					}
+					else
+					{
+						a.Location = Location >= 0 ? Location : 0;
+
+						if (Weapon == a.Uid)
+						{
+							a.RemoveStateDesc(a.GetReadyWeaponDesc());
+
+							Weapon = -1;
+						}
 					}
 				}
 
-				if (w <= 10 * Hardiness && mwt + w <= 10 * Hardiness * CurrGroupCount)
-				{
-					mwt += w;
-				}
-				else
-				{
-					a.Location = Location >= 0 ? Location : 0;
+			Cleanup:
 
-					if (Weapon == a.Uid)
-					{
-						a.RemoveStateDesc(a.GetReadyWeaponDesc());
-
-						Weapon = -1;
-					}
-				}
+				;
 			}
-
-		Cleanup:
-
-			Globals.RevealContentCounter++;
+			finally
+			{
+				Globals.RevealContentCounter++;
+			}
 
 			return rc;
 		}

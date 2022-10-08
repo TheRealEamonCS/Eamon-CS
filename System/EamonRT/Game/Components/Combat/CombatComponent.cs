@@ -972,67 +972,72 @@ namespace EamonRT.Game.Components
 
 			Debug.Assert(DobjArtifact != null && DobjArtAc != null);
 
-			Globals.RevealContentCounter--;
-
-			SpillContents = false;
-
-			if (DobjArtAc.Type == ArtifactType.InContainer)
+			try
 			{
-				SpilledArtifactList = DobjArtifact.GetContainedList(containerType: ContainerType.In);
+				Globals.RevealContentCounter--;
 
-				if (DobjArtifact.OnContainer != null && DobjArtifact.IsInContainerOpenedFromTop())
+				SpillContents = false;
+
+				if (DobjArtAc.Type == ArtifactType.InContainer)
 				{
-					SpilledArtifactList.AddRange(DobjArtifact.GetContainedList(containerType: ContainerType.On));
-				}
+					SpilledArtifactList = DobjArtifact.GetContainedList(containerType: ContainerType.In);
 
-				SpilledArtifactList = SpilledArtifactList.OrderByDescending(a => a.RecursiveWeight).ToList();
-
-				foreach (var artifact in SpilledArtifactList)
-				{
-					artifact.Location = DobjArtifact.Location;
-
-ProcessSpilledArtifact:
-
-					SpilledArtifactContainer = artifact.GetCarriedByContainer();
-
-					SpilledArtifactContainerType = artifact.GetCarriedByContainerContainerType();
-
-					SpilledArtifactContainerAc = SpilledArtifactContainer != null && Enum.IsDefined(typeof(ContainerType), SpilledArtifactContainerType) ? gEngine.EvalContainerType(SpilledArtifactContainerType, SpilledArtifactContainer.InContainer, SpilledArtifactContainer.OnContainer, SpilledArtifactContainer.UnderContainer, SpilledArtifactContainer.BehindContainer) : null;
-
-					if (SpilledArtifactContainer != null && SpilledArtifactContainerAc != null)
+					if (DobjArtifact.OnContainer != null && DobjArtifact.IsInContainerOpenedFromTop())
 					{
-						SpilledArtifactContainerSeen = true;
+						SpilledArtifactList.AddRange(DobjArtifact.GetContainedList(containerType: ContainerType.On));
+					}
 
-						var count = 0L;
+					SpilledArtifactList = SpilledArtifactList.OrderByDescending(a => a.RecursiveWeight).ToList();
 
-						var weight = 0L;
+					foreach (var artifact in SpilledArtifactList)
+					{
+						artifact.Location = DobjArtifact.Location;
 
-						rc = SpilledArtifactContainer.GetContainerInfo(ref count, ref weight, SpilledArtifactContainerType, false);
+					ProcessSpilledArtifact:
 
-						Debug.Assert(gEngine.IsSuccess(rc));
+						SpilledArtifactContainer = artifact.GetCarriedByContainer();
 
-						if (count > SpilledArtifactContainerAc.Field4 || weight > SpilledArtifactContainerAc.Field3)
+						SpilledArtifactContainerType = artifact.GetCarriedByContainerContainerType();
+
+						SpilledArtifactContainerAc = SpilledArtifactContainer != null && Enum.IsDefined(typeof(ContainerType), SpilledArtifactContainerType) ? gEngine.EvalContainerType(SpilledArtifactContainerType, SpilledArtifactContainer.InContainer, SpilledArtifactContainer.OnContainer, SpilledArtifactContainer.UnderContainer, SpilledArtifactContainer.BehindContainer) : null;
+
+						if (SpilledArtifactContainer != null && SpilledArtifactContainerAc != null)
 						{
-							artifact.Location = SpilledArtifactContainer.Location;
-							
-							goto ProcessSpilledArtifact;			// TODO: find a replacement for goto that doesn't increase complexity
+							SpilledArtifactContainerSeen = true;
+
+							var count = 0L;
+
+							var weight = 0L;
+
+							rc = SpilledArtifactContainer.GetContainerInfo(ref count, ref weight, SpilledArtifactContainerType, false);
+
+							Debug.Assert(gEngine.IsSuccess(rc));
+
+							if (count > SpilledArtifactContainerAc.Field4 || weight > SpilledArtifactContainerAc.Field3)
+							{
+								artifact.Location = SpilledArtifactContainer.Location;
+
+								goto ProcessSpilledArtifact;        // TODO: find a replacement for goto that doesn't increase complexity
+							}
 						}
 					}
+
+					if (SpilledArtifactList.Count > 0)
+					{
+						SpillContents = true;
+					}
+
+					DobjArtAc.Field3 = 0;
 				}
 
-				if (SpilledArtifactList.Count > 0)
-				{
-					SpillContents = true;
-				}
+				PrintSmashesToPieces(SpilledArtifactContainerSeen ? null : ActorRoom, DobjArtifact, SpillContents);
 
-				DobjArtAc.Field3 = 0;
+				CombatState = CombatState.EndAttack;
 			}
-
-			PrintSmashesToPieces(SpilledArtifactContainerSeen ? null : ActorRoom, DobjArtifact, SpillContents);
-
-			Globals.RevealContentCounter++;
-
-			CombatState = CombatState.EndAttack;
+			finally
+			{
+				Globals.RevealContentCounter++;
+			}
 		}
 
 		/// <summary></summary>
