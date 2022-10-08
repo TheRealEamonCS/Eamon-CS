@@ -112,6 +112,10 @@ namespace EamonPM.Game.Portability
 			{
 				Globals.Engine.LineWrap(buf.ToString(), Buf01, startColumn);
 			}
+			else
+			{
+				Buf01.SetFormat("{0}", buf.ToString());
+			}
 
 			if (ClassMappings != null)
 			{
