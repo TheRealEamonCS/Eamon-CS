@@ -56,7 +56,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.States
 					gOut.Print("The area is shrouded in a{0} white mist.", room.Uid == 57 ? " thick" : room.Uid == 55 || room.Uid == 59 ? " thin" : "");
 				}
 
-				if (ShouldPreTurnProcess())
+				if (Globals.ShouldPreTurnProcess)
 				{
 					var gradStudentCompanionMonster = gMDB[gGameState.GradStudentCompanionUid];
 

@@ -13,10 +13,6 @@
         <member name="P:EamonRT.Framework.Commands.ICommandImpl.Command">
             <summary></summary>
         </member>
-        <member name="M:EamonRT.Framework.Commands.ICommandImpl.ShouldPreTurnProcess">
-            <summary></summary>
-            <returns></returns>
-        </member>
         <member name="M:EamonRT.Framework.Commands.ICommandImpl.Execute">
             <summary></summary>
         </member>
@@ -2297,6 +2293,9 @@
         <member name="P:EamonRT.Framework.Plugin.IPluginGlobals.CommandPromptSeen">
             <summary></summary>
         </member>
+        <member name="P:EamonRT.Framework.Plugin.IPluginGlobals.ShouldPreTurnProcess">
+            <summary></summary>
+        </member>
         <member name="P:EamonRT.Framework.Plugin.IPluginGlobals.PauseCombatAfterSkillGains">
             <summary></summary>
         </member>
@@ -2844,10 +2843,6 @@
             <returns></returns>
         </member>
         <member name="M:EamonRT.Framework.States.IStateSignatures.GetLoopMonsterUidList">
-            <summary></summary>
-            <returns></returns>
-        </member>
-        <member name="M:EamonRT.Framework.States.IStateSignatures.ShouldPreTurnProcess">
             <summary></summary>
             <returns></returns>
         </member>

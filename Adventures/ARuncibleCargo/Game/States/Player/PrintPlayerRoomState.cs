@@ -28,7 +28,7 @@ namespace ARuncibleCargo.Game.States
 
 			Debug.Assert(gameState != null);
 
-			if (eventType == EventType.BeforePrintPlayerRoom && ShouldPreTurnProcess())
+			if (eventType == EventType.BeforePrintPlayerRoom && Globals.ShouldPreTurnProcess)
 			{
 				var charMonster = gMDB[gameState.Cm];
 

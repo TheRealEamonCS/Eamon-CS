@@ -21,6 +21,8 @@ namespace EamonRT.Game.Commands
 		public override void Execute()
 		{
 			RetCode rc;
+			
+			Globals.ShouldPreTurnProcess = false;
 
 			if (GoToMainHall)
 			{
@@ -74,11 +76,6 @@ namespace EamonRT.Game.Commands
 			{
 				NextState = Globals.CreateInstance<IStartState>();
 			}
-		}
-
-		public override bool ShouldPreTurnProcess()
-		{
-			return false;
 		}
 
 		public QuitCommand()

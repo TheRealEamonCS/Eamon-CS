@@ -22,7 +22,7 @@ namespace EamonRT.Game.States
 
 		public override void Execute()
 		{
-			if (gGameState.Speed <= 0 || (Globals.CommandPromptSeen && !ShouldPreTurnProcess()))
+			if (gGameState.Speed <= 0 || (Globals.CommandPromptSeen && !Globals.ShouldPreTurnProcess))
 			{
 				goto Cleanup;
 			}

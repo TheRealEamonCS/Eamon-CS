@@ -100,7 +100,7 @@ namespace TheVileGrimoireOfJaldial.Game.States
 					gOut.Print(room.IsRainyRoom() ? "You are caught in {0}." : "The area is shrouded in {0}.", weatherDesc);
 				}
 
-				if (ShouldPreTurnProcess())
+				if (Globals.ShouldPreTurnProcess)
 				{
 					var shadowMonster = gMDB[9];
 

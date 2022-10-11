@@ -101,6 +101,8 @@ namespace EamonRT.Game.Commands
 		public override void Execute()
 		{
 			RetCode rc;
+			
+			Globals.ShouldPreTurnProcess = false;
 
 			try
 			{
@@ -401,11 +403,6 @@ namespace EamonRT.Game.Commands
 
 				Globals.MutatePropertyCounter++;
 			}
-		}
-
-		public override bool ShouldPreTurnProcess()
-		{
-			return false;
 		}
 
 		public SaveCommand()

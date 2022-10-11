@@ -58,6 +58,8 @@ namespace EamonRT.Game.Commands
 		public override void Execute()
 		{
 			RetCode rc;
+			
+			Globals.ShouldPreTurnProcess = false;
 
 			ArmorArtifactUids = new long[] { gGameState.Ar, gGameState.Sh };
 
@@ -112,11 +114,6 @@ namespace EamonRT.Game.Commands
 			{
 				NextState = Globals.CreateInstance<IStartState>();
 			}
-		}
-
-		public override bool ShouldPreTurnProcess()
-		{
-			return false;
 		}
 
 		public StatusCommand()

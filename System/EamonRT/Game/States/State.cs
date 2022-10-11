@@ -170,11 +170,6 @@ namespace EamonRT.Game.States
 			return StateImpl.GetLoopMonsterUidList();
 		}
 
-		public virtual bool ShouldPreTurnProcess()
-		{
-			return StateImpl.ShouldPreTurnProcess();
-		}
-
 		public virtual void Stage()
 		{
 			StateImpl.Stage();

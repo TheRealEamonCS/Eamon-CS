@@ -1001,11 +1001,6 @@ namespace EamonRT.Game.Commands
 			return CommandImpl.ShouldShowUnseenArtifacts(room, artifact);
 		}
 
-		public override bool ShouldPreTurnProcess()
-		{
-			return CommandImpl.ShouldPreTurnProcess();
-		}
-
 		public override void Stage()
 		{
 			CommandImpl.Stage();

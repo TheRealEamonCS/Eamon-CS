@@ -1259,11 +1259,6 @@ namespace EamonRT.Game.Commands
 			}
 		}
 
-		public virtual bool ShouldPreTurnProcess()
-		{
-			return true;
-		}
-
 		public virtual void Stage()
 		{
 			Debug.Assert(Command.ActorMonster != null);

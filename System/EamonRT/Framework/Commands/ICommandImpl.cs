@@ -12,10 +12,6 @@ namespace EamonRT.Framework.Commands
 		ICommand Command { get; set; }
 
 		/// <summary></summary>
-		/// <returns></returns>
-		bool ShouldPreTurnProcess();
-
-		/// <summary></summary>
 		void Execute();
 	}
 }

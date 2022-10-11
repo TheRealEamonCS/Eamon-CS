@@ -42,6 +42,8 @@ namespace EamonRT.Game.States
 
 		public override void Execute()
 		{
+			Globals.ShouldPreTurnProcess = false;
+
 			NewSeen = false;
 
 			CharMonster = gCharMonster;

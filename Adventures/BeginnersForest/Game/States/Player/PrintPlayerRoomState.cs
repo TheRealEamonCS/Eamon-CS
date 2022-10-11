@@ -18,7 +18,7 @@ namespace BeginnersForest.Game.States
 		{
 			base.ProcessEvents(eventType);
 
-			if (eventType == EventType.BeforePrintPlayerRoom && ShouldPreTurnProcess())
+			if (eventType == EventType.BeforePrintPlayerRoom && Globals.ShouldPreTurnProcess)
 			{
 				var spookMonster = gMDB[9];
 

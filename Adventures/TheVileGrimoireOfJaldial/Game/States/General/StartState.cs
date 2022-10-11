@@ -20,7 +20,7 @@ namespace TheVileGrimoireOfJaldial.Game.States
 
 			if (eventType == EventType.BeforeStartRound)
 			{
-				if (ShouldPreTurnProcess())
+				if (Globals.ShouldPreTurnProcess)
 				{
 
 				}

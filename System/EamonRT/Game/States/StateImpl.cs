@@ -237,15 +237,6 @@ namespace EamonRT.Game.States
 			return Globals.Database.MonsterTable.Records.OrderBy(m => m.Uid).Select(m01 => m01.Uid).ToList();
 		}
 
-		public virtual bool ShouldPreTurnProcess()
-		{
-			var room = gRDB[gGameState.Ro];
-
-			Debug.Assert(room != null);
-
-			return room.IsLit() || Globals.LastCommandList.Count > 0 ? Globals.LastCommandList.FirstOrDefault(x => x.ShouldPreTurnProcess()) != null : true;
-		}
-
 		public virtual void Stage()
 		{
 			State.Execute();

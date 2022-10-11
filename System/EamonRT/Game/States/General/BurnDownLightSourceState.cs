@@ -28,7 +28,7 @@ namespace EamonRT.Game.States
 		{
 			LsArtifactUid = gGameState.Ls;
 
-			if (LsArtifactUid <= 0 || (Globals.CommandPromptSeen && !ShouldPreTurnProcess()))
+			if (LsArtifactUid <= 0 || (Globals.CommandPromptSeen && !Globals.ShouldPreTurnProcess))
 			{
 				goto Cleanup;
 			}

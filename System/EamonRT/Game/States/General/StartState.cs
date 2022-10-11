@@ -18,7 +18,7 @@ namespace EamonRT.Game.States
 		{
 			ProcessEvents(EventType.BeforeStartRound);
 
-			if (Globals.CommandPromptSeen && !ShouldPreTurnProcess())
+			if (Globals.CommandPromptSeen && !Globals.ShouldPreTurnProcess)
 			{
 				goto Cleanup;
 			}

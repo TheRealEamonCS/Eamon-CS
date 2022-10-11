@@ -16,17 +16,14 @@ namespace EamonRT.Game.Commands
 	{
 		public override void Execute()
 		{
+			Globals.ShouldPreTurnProcess = false;
+		
 			Globals.Module.PrintInfo();
 
 			if (NextState == null)
 			{
 				NextState = Globals.CreateInstance<IStartState>();
 			}
-		}
-
-		public override bool ShouldPreTurnProcess()
-		{
-			return false;
 		}
 
 		public InfoCommand()

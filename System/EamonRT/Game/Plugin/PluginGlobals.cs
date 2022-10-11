@@ -115,6 +115,8 @@ namespace EamonRT.Game.Plugin
 
 		public virtual bool CommandPromptSeen { get; set; }
 
+		public virtual bool ShouldPreTurnProcess { get; set; }
+
 		public virtual bool PauseCombatAfterSkillGains { get; set; }
 
 		public virtual bool UseRevealContentMonsterTheName { get; set; }
@@ -210,6 +212,8 @@ namespace EamonRT.Game.Plugin
 			CommandParser = CreateInstance<ICommandParser>();
 
 			CommandPrompt = Constants.CommandPrompt;
+
+			ShouldPreTurnProcess = true;
 		}
 	}
 }

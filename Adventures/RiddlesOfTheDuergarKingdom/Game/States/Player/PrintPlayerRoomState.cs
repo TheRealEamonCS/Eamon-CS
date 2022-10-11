@@ -19,7 +19,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.States
 		{
 			base.ProcessEvents(eventType);
 
-			if (eventType == EventType.BeforePrintPlayerRoom && ShouldPreTurnProcess())
+			if (eventType == EventType.BeforePrintPlayerRoom && Globals.ShouldPreTurnProcess)
 			{
 				Debug.Assert(gCharMonster != null);
 

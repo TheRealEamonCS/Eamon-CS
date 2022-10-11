@@ -18,7 +18,7 @@ namespace TheTrainingGround.Game.States
 		{
 			base.ProcessEvents(eventType);
 
-			if (eventType == EventType.BeforePrintCommandPrompt && ShouldPreTurnProcess())
+			if (eventType == EventType.BeforePrintCommandPrompt && Globals.ShouldPreTurnProcess)
 			{
 				Debug.Assert(gCharMonster != null);
 

@@ -34,6 +34,8 @@ namespace EamonRT.Game.Commands
 		{
 			RetCode rc;
 
+			Globals.ShouldPreTurnProcess = false;
+			
 			if (Globals.Database.GetHintsCount() <= 0)
 			{
 				PrintNoHintsAvailable();
@@ -101,11 +103,6 @@ namespace EamonRT.Game.Commands
 			{
 				NextState = Globals.CreateInstance<IStartState>();
 			}
-		}
-
-		public override bool ShouldPreTurnProcess()
-		{
-			return false;
 		}
 
 		public HintsCommand()

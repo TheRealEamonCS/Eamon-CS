@@ -114,6 +114,9 @@ namespace EamonRT.Framework.Plugin
 		bool CommandPromptSeen { get; set; }
 
 		/// <summary></summary>
+		bool ShouldPreTurnProcess { get; set; }
+
+		/// <summary></summary>
 		bool PauseCombatAfterSkillGains { get; set; }
 
 		/// <summary></summary>

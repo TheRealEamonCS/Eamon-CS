@@ -33,10 +33,5 @@ namespace TheVileGrimoireOfJaldial.Game.Commands
 				NextState = Globals.CreateInstance<IMonsterStartState>();
 			}
 		}
-
-		public override bool ShouldPreTurnProcess()
-		{
-			return true;
-		}
 	}
 }
