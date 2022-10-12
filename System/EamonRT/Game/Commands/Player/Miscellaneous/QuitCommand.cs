@@ -21,7 +21,7 @@ namespace EamonRT.Game.Commands
 		public override void Execute()
 		{
 			RetCode rc;
-			
+
 			if (GoToMainHall)
 			{
 				PrintReturnToMainHall();
