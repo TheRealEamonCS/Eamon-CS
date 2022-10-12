@@ -29,7 +29,7 @@ namespace EamonRT.Game.States
 
 			Globals.LoopAttackNumber++;
 
-			MaxMemberAttackCount = Math.Max(1, LoopMonster.GetMaxMemberAttackCount());
+			MaxMemberAttackCount = Math.Max(0, LoopMonster.GetMaxMemberAttackCount());
 
 			if (LoopMonster.CurrGroupCount < Globals.LoopGroupCount)
 			{

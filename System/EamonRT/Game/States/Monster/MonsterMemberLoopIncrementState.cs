@@ -31,7 +31,7 @@ namespace EamonRT.Game.States
 
 			Globals.LoopMemberNumber++;
 
-			MaxMemberActionCount = Math.Max(1, LoopMonster.GetMaxMemberActionCount());
+			MaxMemberActionCount = Math.Max(0, LoopMonster.GetMaxMemberActionCount());
 
 			if (LoopMonster.IsInLimbo() || Globals.LoopMemberNumber > LoopMonster.CurrGroupCount || Globals.LoopMemberNumber > MaxMemberActionCount)
 			{
