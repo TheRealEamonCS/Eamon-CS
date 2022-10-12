@@ -654,6 +654,8 @@ namespace EamonRT.Game.Parsing
 
 			Debug.Assert(bortCommand != null);
 
+			Globals.ShouldPreTurnProcess = false;
+
 			if (CurrToken + 1 < Tokens.Length)
 			{
 				var action = Tokens[CurrToken];
@@ -853,6 +855,8 @@ namespace EamonRT.Game.Parsing
 
 		public virtual void FinishParsingQuitCommand()
 		{
+			Globals.ShouldPreTurnProcess = false;
+
 			if (CurrToken < Tokens.Length && Tokens[CurrToken].Equals("hall", StringComparison.OrdinalIgnoreCase))
 			{
 				NextCommand.Cast<IQuitCommand>().GoToMainHall = true;
@@ -869,6 +873,8 @@ namespace EamonRT.Game.Parsing
 			var restoreCommand = NextCommand as IRestoreCommand;
 
 			Debug.Assert(restoreCommand != null);
+
+			Globals.ShouldPreTurnProcess = false;
 
 			if (CurrToken < Tokens.Length && long.TryParse(Tokens[CurrToken], out i) && i >= 1 && i <= gEngine.NumSaveSlots)
 			{
@@ -951,6 +957,8 @@ namespace EamonRT.Game.Parsing
 			var saveCommand = NextCommand as ISaveCommand;
 
 			Debug.Assert(saveCommand != null);
+
+			Globals.ShouldPreTurnProcess = false;
 
 			if (CurrToken < Tokens.Length && long.TryParse(Tokens[CurrToken], out i) && i >= 1 && i <= gEngine.NumSaveSlots)
 			{
@@ -1069,6 +1077,8 @@ namespace EamonRT.Game.Parsing
 			var settingsCommand = NextCommand as ISettingsCommand;
 
 			Debug.Assert(settingsCommand != null);
+
+			Globals.ShouldPreTurnProcess = false;
 
 			if (CurrToken + 1 < Tokens.Length)
 			{

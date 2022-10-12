@@ -15,8 +15,6 @@ namespace EamonRT.Game.States
 	{
 		public override void Execute()
 		{
-			Globals.ShouldPreTurnProcess = true;
-
 			gCommandParser.Execute();
 
 			if (gCommandParser.NextState == null || !(gCommandParser.NextState is IGetPlayerInputState gpis) || !gpis.RestartCommand)

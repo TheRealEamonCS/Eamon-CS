@@ -22,8 +22,6 @@ namespace EamonRT.Game.Commands
 		{
 			RetCode rc;
 			
-			Globals.ShouldPreTurnProcess = false;
-
 			if (GoToMainHall)
 			{
 				PrintReturnToMainHall();

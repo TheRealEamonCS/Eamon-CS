@@ -50,8 +50,6 @@ namespace EamonRT.Game.Commands
 		{
 			RetCode rc;
 			
-			Globals.ShouldPreTurnProcess = false;
-
 			try
 			{
 				Globals.MutatePropertyCounter--;

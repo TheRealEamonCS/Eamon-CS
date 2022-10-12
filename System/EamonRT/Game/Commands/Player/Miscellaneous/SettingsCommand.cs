@@ -39,8 +39,6 @@ namespace EamonRT.Game.Commands
 		{
 			Debug.Assert(VerboseRooms != null || VerboseMonsters != null || VerboseArtifacts != null || VerboseNames != null || MatureContent != null || EnhancedParser != null || IobjPronounAffinity != null || ShowPronounChanges != null || ShowFulfillMessages != null || PauseCombatMs != null);
 
-			Globals.ShouldPreTurnProcess = false;
-			
 			if (VerboseRooms != null)
 			{
 				gGameState.Vr = (bool)VerboseRooms;

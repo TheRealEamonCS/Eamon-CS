@@ -31,6 +31,8 @@ namespace EamonRT.Game.States
 					goto Cleanup;
 				}
 
+				Globals.ShouldPreTurnProcess = true;
+
 				// If we've run out of player input get more player input
 
 				if (gSentenceParser.IsInputExhausted)
