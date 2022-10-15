@@ -40,12 +40,12 @@ namespace Eamon.Framework.Args
 		/// <summary></summary>
 		/// <param name="index"></param>
 		/// <returns></returns>
-		long GetSpellAbilities(long index);
+		long GetSpellAbility(long index);
 
 		/// <summary></summary>
 		/// <param name="spell"></param>
 		/// <returns></returns>
-		long GetSpellAbilities(Spell spell);
+		long GetSpellAbility(Spell spell);
 
 		#endregion
 	}

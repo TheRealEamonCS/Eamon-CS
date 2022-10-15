@@ -108,7 +108,7 @@ namespace EamonRT.Game.Commands
 
 				Globals.RevealContentCounter--;
 
-				SaveFilesetsCount = Globals.Database.GetFilesetsCount();
+				SaveFilesetsCount = Globals.Database.GetFilesetCount();
 
 				Debug.Assert(SaveFilesetsCount <= gEngine.NumSaveSlots);
 

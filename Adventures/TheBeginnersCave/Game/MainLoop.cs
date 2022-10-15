@@ -26,7 +26,7 @@ namespace TheBeginnersCave.Game
 
 			if (cynthiaMonster.Location == gGameState.Ro && cynthiaMonster.Reaction > Friendliness.Enemy)
 			{
-				var reward = gCharacter.GetStats(Stat.Charisma) * 7;
+				var reward = gCharacter.GetStat(Stat.Charisma) * 7;
 
 				gCharacter.HeldGold += reward;
 

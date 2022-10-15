@@ -39,10 +39,10 @@ namespace Eamon.Framework
 		/// </summary>
 		/// <remarks>
 		/// The elements of this array can be manipulated during game play, but you should never do so directly.  Instead, use the
-		/// <see cref="GetDirs(Direction)"/> and <see cref="SetDirs(Direction,long)"/> methods.  The 0'th element is unused.
+		/// <see cref="GetDir(Direction)"/> and <see cref="SetDir(Direction,long)"/> methods.  The 0'th element is unused.
 		/// </remarks>
-		/// <seealso cref="GetDirs(long)"/>
-		/// <seealso cref="SetDirs(long,long)"/>
+		/// <seealso cref="GetDir(long)"/>
+		/// <seealso cref="SetDir(long,long)"/>
 		long[] Dirs { get; set; }
 
 		#endregion
@@ -52,22 +52,22 @@ namespace Eamon.Framework
 		/// <summary></summary>
 		/// <param name="index"></param>
 		/// <returns></returns>
-		long GetDirs(long index);
+		long GetDir(long index);
 
 		/// <summary></summary>
 		/// <param name="dir"></param>
 		/// <returns></returns>
-		long GetDirs(Direction dir);
+		long GetDir(Direction dir);
 
 		/// <summary></summary>
 		/// <param name="index"></param>
 		/// <param name="value"></param>
-		void SetDirs(long index, long value);
+		void SetDir(long index, long value);
 
 		/// <summary></summary>
 		/// <param name="dir"></param>
 		/// <param name="value"></param>
-		void SetDirs(Direction dir, long value);
+		void SetDir(Direction dir, long value);
 
 		/// <summary>
 		/// Indicates whether this <see cref="IRoom">Room</see> is lit.

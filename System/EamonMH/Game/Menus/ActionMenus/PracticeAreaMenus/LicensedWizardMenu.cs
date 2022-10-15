@@ -58,7 +58,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 			for (i = 0; i < spellValues.Count; i++)
 			{
-				spell = gEngine.GetSpells(spellValues[(int)i]);
+				spell = gEngine.GetSpell(spellValues[(int)i]);
 
 				Debug.Assert(spell != null);
 
@@ -86,11 +86,11 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 			i = Convert.ToInt64(Buf.Trim().ToString());
 
-			spell = gEngine.GetSpells((Spell)i);
+			spell = gEngine.GetSpell((Spell)i);
 
 			Debug.Assert(spell != null);
 
-			if (gCharacter.GetSpellAbilities(i) == 0)
+			if (gCharacter.GetSpellAbility(i) == 0)
 			{
 				gOut.Print("\"You will have to first buy that spell from the mage in the Main Hall!\"");
 
@@ -109,7 +109,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 				gOut.Print("{0}", Globals.LineSep);
 
-				gOut.Print("Ability: {0}        Gold: {1}", gCharacter.GetSpellAbilities(i), gCharacter.HeldGold);
+				gOut.Print("Ability: {0}        Gold: {1}", gCharacter.GetSpellAbility(i), gCharacter.HeldGold);
 
 				if (gCharacter.HeldGold >= ap)
 				{
@@ -137,22 +137,22 @@ namespace EamonMH.Game.Menus.ActionMenus
 						{
 							gOut.Print("\"Perfect cast!  Incredible!\"");
 
-							gCharacter.ModSpellAbilities(i, 4);
+							gCharacter.ModSpellAbility(i, 4);
 						}
 						else if (rl > 50)
 						{
 							gOut.Print("\"Success!  A good cast!\"");
 
-							gCharacter.ModSpellAbilities(i, 2);
+							gCharacter.ModSpellAbility(i, 2);
 						}
 						else
 						{
 							gOut.Print("\"Nothing?  Concentrate!\"");
 						}
 
-						if (gCharacter.GetSpellAbilities(i) > spell.MaxValue)
+						if (gCharacter.GetSpellAbility(i) > spell.MaxValue)
 						{
-							gCharacter.SetSpellAbilities(i, spell.MaxValue);
+							gCharacter.SetSpellAbility(i, spell.MaxValue);
 						}
 
 						gCharacter.HeldGold -= ap;

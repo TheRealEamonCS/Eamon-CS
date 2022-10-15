@@ -498,16 +498,16 @@ namespace EamonRT.Framework.Commands
 		/// <summary></summary>
 		/// <param name="hintNum"></param>
 		/// <param name="question"></param>
-		void PrintHintsQuestion(long hintNum, string question);
+		void PrintHintQuestion(long hintNum, string question);
 
 		/// <summary></summary>
 		/// <param name="question"></param>
-		void PrintHintsQuestion01(string question);
+		void PrintHintQuestion01(string question);
 
 		/// <summary></summary>
 		/// <param name="answer"></param>
 		/// <param name="buf"></param>
-		void PrintHintsAnswer(string answer, StringBuilder buf);
+		void PrintHintAnswer(string answer, StringBuilder buf);
 
 		/// <summary></summary>
 		void PrintSayText(string printedPhrase);

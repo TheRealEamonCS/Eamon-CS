@@ -192,12 +192,12 @@ namespace Eamon.Game
 			return GetSa((long)spell);
 		}
 
-		public virtual long GetImportedArtUids(long index)
+		public virtual long GetImportedArtUid(long index)
 		{
 			return ImportedArtUids[index];
 		}
 
-		public virtual long GetHeldWpnUids(long index)
+		public virtual long GetHeldWpnUid(long index)
 		{
 			return HeldWpnUids[index];
 		}
@@ -212,12 +212,12 @@ namespace Eamon.Game
 			SetSa((long)spell, value);
 		}
 
-		public virtual void SetImportedArtUids(long index, long value)
+		public virtual void SetImportedArtUid(long index, long value)
 		{
 			ImportedArtUids[index] = value;
 		}
 
-		public virtual void SetHeldWpnUids(long index, long value)
+		public virtual void SetHeldWpnUid(long index, long value)
 		{
 			HeldWpnUids[index] = value;
 		}

@@ -47,7 +47,7 @@ namespace Eamon.Game.Helpers
 			{
 				var i = Index;
 
-				gOut.Print("{0}{1}", gEngine.BuildPrompt(27, '.', 0, GetPrintedName("DirsElement"), null), Record.GetDirs(i));
+				gOut.Print("{0}{1}", gEngine.BuildPrompt(27, '.', 0, GetPrintedName("DirsElement"), null), Record.GetDir(i));
 			}
 		}
 
@@ -66,7 +66,7 @@ namespace Eamon.Game.Helpers
 		{
 			var i = Index;
 
-			var direction = gEngine.GetDirections((Direction)i);
+			var direction = gEngine.GetDirection((Direction)i);
 
 			Debug.Assert(direction != null);
 
@@ -121,7 +121,7 @@ namespace Eamon.Game.Helpers
 		{
 			var i = Index;
 
-			return Record.GetDirs(i);
+			return Record.GetDir(i);
 		}
 
 		#endregion
@@ -248,7 +248,7 @@ namespace Eamon.Game.Helpers
 			{
 				if (Record.IsDirectionRoom(dv))
 				{
-					var roomUid = Record.GetDirs(i);
+					var roomUid = Record.GetDir(i);
 
 					var room = gRDB[roomUid];
 
@@ -364,7 +364,7 @@ namespace Eamon.Game.Helpers
 
 			for (var j = 0; j < lightLevelValues.Count; j++)
 			{
-				briefDesc.AppendFormat("{0}{1}={2}", j != 0 ? "; " : "", (long)lightLevelValues[j], gEngine.GetLightLevelNames(lightLevelValues[j]));
+				briefDesc.AppendFormat("{0}{1}={2}", j != 0 ? "; " : "", (long)lightLevelValues[j], gEngine.GetLightLevelName(lightLevelValues[j]));
 			}
 
 			gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc.ToString());
@@ -564,7 +564,7 @@ namespace Eamon.Game.Helpers
 
 					if (Record.IsDirectionRoom(dv))
 					{
-						var room = gRDB[Record.GetDirs(i)];
+						var room = gRDB[Record.GetDir(i)];
 
 						lookupMsg = room != null ? gEngine.Capitalize(room.Name) : gEngine.UnknownName;
 					}
@@ -582,13 +582,13 @@ namespace Eamon.Game.Helpers
 					gOut.Write("{0}{1}{2}",
 						Environment.NewLine,
 						gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("DirsElement"), null),
-						gEngine.BuildValue(51, ' ', 8, Record.GetDirs(i), null, lookupMsg));
+						gEngine.BuildValue(51, ' ', 8, Record.GetDir(i), null, lookupMsg));
 				}
 				else
 				{
 					gOut.Write("{0}{1}{2}",
 						Environment.NewLine,
-						gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("DirsElement"), null), Record.GetDirs(i));
+						gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("DirsElement"), null), Record.GetDir(i));
 				}
 			}
 		}
@@ -825,7 +825,7 @@ namespace Eamon.Game.Helpers
 			{
 				var fieldDesc = FieldDesc;
 
-				var value = Record.GetDirs(i);
+				var value = Record.GetDir(i);
 
 				while (true)
 				{
@@ -843,7 +843,7 @@ namespace Eamon.Game.Helpers
 
 					try
 					{
-						Record.SetDirs(i, Convert.ToInt64(Buf.Trim().ToString()));
+						Record.SetDir(i, Convert.ToInt64(Buf.Trim().ToString()));
 					}
 					catch (Exception)
 					{
@@ -862,7 +862,7 @@ namespace Eamon.Game.Helpers
 			}
 			else
 			{
-				Record.SetDirs(i, 0);
+				Record.SetDir(i, 0);
 			}
 		}
 

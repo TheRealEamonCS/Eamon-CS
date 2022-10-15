@@ -251,7 +251,7 @@ namespace TheVileGrimoireOfJaldial.Game.Commands
 
 								gOut.Print("You flee in terror{0}!", Globals.Buf);
 
-								gGameState.R2 = ActorRoom.GetDirs(direction);
+								gGameState.R2 = ActorRoom.GetDir(direction);
 
 								NextState = Globals.CreateInstance<IPlayerMoveCheckState>(x =>
 								{

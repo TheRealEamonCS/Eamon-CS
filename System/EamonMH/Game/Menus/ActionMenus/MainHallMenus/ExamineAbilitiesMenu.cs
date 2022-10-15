@@ -34,11 +34,11 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 			gOut.WriteLine("{0}{1}{2,-2}{3,20}{4,15}{5,-2}{0}{6}{7,-3}{8,34}{9,-2}{10,15}{11}{12}%)",
 				Environment.NewLine,
-				"Intellect:  ", gCharacter.GetStats(Stat.Intellect),
+				"Intellect:  ", gCharacter.GetStat(Stat.Intellect),
 				Buf,
-				"Agility :  ", gCharacter.GetStats(Stat.Agility),
-				"Hardiness:  ", gCharacter.GetStats(Stat.Hardiness),
-				"Charisma:  ", gCharacter.GetStats(Stat.Charisma),
+				"Agility :  ", gCharacter.GetStat(Stat.Agility),
+				"Hardiness:  ", gCharacter.GetStat(Stat.Hardiness),
+				"Charisma:  ", gCharacter.GetStat(Stat.Charisma),
 				"(Charm Mon: ",
 				gCharacter.GetCharmMonsterPct() > 0 ? "+" : "",
 				gCharacter.GetCharmMonsterPct());
@@ -62,13 +62,13 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 				if (Enum.IsDefined(typeof(Weapon), i))
 				{
-					var weapon = gEngine.GetWeapons((Weapon)i);
+					var weapon = gEngine.GetWeapon((Weapon)i);
 
 					Debug.Assert(weapon != null);
 
 					gOut.Write(" {0,-5}: {1,3}%",
 						weapon.Name,
-						gCharacter.GetWeaponAbilities(i));
+						gCharacter.GetWeaponAbility(i));
 				}
 				else
 				{
@@ -77,16 +77,16 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 				if (Enum.IsDefined(typeof(Spell), i))
 				{
-					var spell = gEngine.GetSpells((Spell)i);
+					var spell = gEngine.GetSpell((Spell)i);
 
 					Debug.Assert(spell != null);
 
-					if (gCharacter.GetSpellAbilities(i) > 0)
+					if (gCharacter.GetSpellAbility(i) > 0)
 					{
 						gOut.Write("{0,29}{1,-5}: {2,3}%",
 						"",
 						spell.Name,
-						gCharacter.GetSpellAbilities(i));
+						gCharacter.GetSpellAbility(i));
 					}
 					else
 					{
@@ -107,7 +107,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 				"In bank: ",
 				gCharacter.BankGold);
 
-			var armor = gEngine.GetArmors(gCharacter.ArmorClass);
+			var armor = gEngine.GetArmor(gCharacter.ArmorClass);
 
 			Debug.Assert(armor != null);
 
@@ -146,11 +146,11 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 						gOut.Write("{0} {1} {2,3}%{3,9}D{4,-9}{5,-12}{6,3}%",
 							Environment.NewLine,
-							gEngine.Capitalize(gCharacter.GetWeapons(i).Name.PadTRight(29, ' ')),
-							gCharacter.GetWeapons(i).Field1,
-							gCharacter.GetWeapons(i).Field3,
-							gCharacter.GetWeapons(i).Field4,
-							gCharacter.GetWeapons(i).Field5,
+							gEngine.Capitalize(gCharacter.GetWeapon(i).Name.PadTRight(29, ' ')),
+							gCharacter.GetWeapon(i).Field1,
+							gCharacter.GetWeapon(i).Field3,
+							gCharacter.GetWeapon(i).Field4,
+							gCharacter.GetWeapon(i).Field5,
 							odds);
 					}
 					else

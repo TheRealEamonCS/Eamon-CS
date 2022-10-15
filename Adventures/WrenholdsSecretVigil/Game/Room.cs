@@ -33,7 +33,7 @@ namespace WrenholdsSecretVigil.Game
 
 		public virtual bool IsDirectionEffect(long index)
 		{
-			return GetDirs(index) > 5000 && GetDirs(index) < 6001;
+			return GetDir(index) > 5000 && GetDir(index) < 6001;
 		}
 
 		public virtual bool IsDirectionEffect(Direction dir)
@@ -43,7 +43,7 @@ namespace WrenholdsSecretVigil.Game
 
 		public virtual long GetDirectionEffectUid(Direction dir)
 		{
-			return IsDirectionEffect(dir) ? GetDirs(dir) - 5000 : 0;
+			return IsDirectionEffect(dir) ? GetDir(dir) - 5000 : 0;
 		}
 
 		public virtual IEffect GetDirectionEffect(Direction dir)

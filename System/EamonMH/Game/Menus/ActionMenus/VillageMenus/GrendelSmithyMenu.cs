@@ -157,7 +157,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 				var j = (int)GetWeaponType();
 
-				var weapon = gEngine.GetWeapons((Weapon)j);
+				var weapon = gEngine.GetWeapon((Weapon)j);
 
 				Debug.Assert(weapon != null);
 
@@ -336,7 +336,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 			for (i = 0; i < weaponValues.Count; i++)
 			{
-				var weapon = gEngine.GetWeapons(weaponValues[(int)i]);
+				var weapon = gEngine.GetWeapon(weaponValues[(int)i]);
 
 				Debug.Assert(weapon != null);
 
@@ -389,9 +389,9 @@ namespace EamonMH.Game.Menus.ActionMenus
 				x.Field5 = numHands;
 			});
 
-			gCharacter.SetWeapons(i, cw);
+			gCharacter.SetWeapon(i, cw);
 
-			gCharacter.GetWeapons(i).Parent = gCharacter;
+			gCharacter.GetWeapon(i).Parent = gCharacter;
 
 			gCharacter.StripUniqueCharsFromWeaponNames();
 

@@ -49,7 +49,7 @@ namespace TheVileGrimoireOfJaldial.Game
 
 			if (grimoireArtifact.IsCarriedByCharacter())
 			{
-				var reward = (gCharacter.GetStats(Stat.Charisma) * grimoireArtifact.Value) / 10;
+				var reward = (gCharacter.GetStat(Stat.Charisma) * grimoireArtifact.Value) / 10;
 
 				gEngine.PrintEffectDesc(162);
 

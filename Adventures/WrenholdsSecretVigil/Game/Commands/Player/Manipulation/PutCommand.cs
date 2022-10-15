@@ -66,7 +66,7 @@ namespace WrenholdsSecretVigil.Game.Commands
 
 					Debug.Assert(newRoom != null);
 
-					adjacentRoom.SetDirs(Direction.South, 15);
+					adjacentRoom.SetDir(Direction.South, 15);
 
 					IobjArtifact.IsListed = false;
 

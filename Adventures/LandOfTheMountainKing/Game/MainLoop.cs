@@ -29,26 +29,26 @@ namespace LandOfTheMountainKing.Game
 			gCharacter.ArmorExpertise = 79;
 
 			// SET WEAPON ABILITIES:
-			gLMKKP1.Axe = gCharacter.GetWeaponAbilities(Weapon.Axe);
-			gLMKKP1.Bow = gCharacter.GetWeaponAbilities(Weapon.Bow);
-			gLMKKP1.Club = gCharacter.GetWeaponAbilities(Weapon.Club);
-			gLMKKP1.Spear = gCharacter.GetWeaponAbilities(Weapon.Spear);
-			gLMKKP1.Sword = gCharacter.GetWeaponAbilities(Weapon.Sword);
-			gCharacter.SetWeaponAbilities(Weapon.Axe, 10);
-			gCharacter.SetWeaponAbilities(Weapon.Bow, 10);
-			gCharacter.SetWeaponAbilities(Weapon.Club, 10);
-			gCharacter.SetWeaponAbilities(Weapon.Spear, 10);
-			gCharacter.SetWeaponAbilities(Weapon.Sword, 10);
+			gLMKKP1.Axe = gCharacter.GetWeaponAbility(Weapon.Axe);
+			gLMKKP1.Bow = gCharacter.GetWeaponAbility(Weapon.Bow);
+			gLMKKP1.Club = gCharacter.GetWeaponAbility(Weapon.Club);
+			gLMKKP1.Spear = gCharacter.GetWeaponAbility(Weapon.Spear);
+			gLMKKP1.Sword = gCharacter.GetWeaponAbility(Weapon.Sword);
+			gCharacter.SetWeaponAbility(Weapon.Axe, 10);
+			gCharacter.SetWeaponAbility(Weapon.Bow, 10);
+			gCharacter.SetWeaponAbility(Weapon.Club, 10);
+			gCharacter.SetWeaponAbility(Weapon.Spear, 10);
+			gCharacter.SetWeaponAbility(Weapon.Sword, 10);
 
 			// SET SPELL ABILITIES TO ZERO:
-			gLMKKP1.blast = gCharacter.GetSpellAbilities(Spell.Blast);
-			gLMKKP1.heal = gCharacter.GetSpellAbilities(Spell.Heal);
-			gLMKKP1.speed = gCharacter.GetSpellAbilities(Spell.Speed);
-			gLMKKP1.power = gCharacter.GetSpellAbilities(Spell.Power);
-			gCharacter.SetSpellAbilities(Spell.Blast, 0);
-			gCharacter.SetSpellAbilities(Spell.Heal, 0);
-			gCharacter.SetSpellAbilities(Spell.Speed, 0);
-			gCharacter.SetSpellAbilities(Spell.Power, 0);
+			gLMKKP1.blast = gCharacter.GetSpellAbility(Spell.Blast);
+			gLMKKP1.heal = gCharacter.GetSpellAbility(Spell.Heal);
+			gLMKKP1.speed = gCharacter.GetSpellAbility(Spell.Speed);
+			gLMKKP1.power = gCharacter.GetSpellAbility(Spell.Power);
+			gCharacter.SetSpellAbility(Spell.Blast, 0);
+			gCharacter.SetSpellAbility(Spell.Heal, 0);
+			gCharacter.SetSpellAbility(Spell.Speed, 0);
+			gCharacter.SetSpellAbility(Spell.Power, 0);
 			gGameState.Sa[(long)Spell.Blast] = 0;
 			gGameState.Sa[(long)Spell.Heal] = 0;
 			gGameState.Sa[(long)Spell.Speed] = 0;
@@ -69,17 +69,17 @@ namespace LandOfTheMountainKing.Game
 			gCharacter.ArmorExpertise = gLMKKP1.Armor;
 
 			// SET WEAPON ABILITIES TO ORIGINAL VALUES:
-			gCharacter.SetWeaponAbilities(Weapon.Axe, gLMKKP1.Axe);
-			gCharacter.SetWeaponAbilities(Weapon.Bow, gLMKKP1.Bow);
-			gCharacter.SetWeaponAbilities(Weapon.Club, gLMKKP1.Club);
-			gCharacter.SetWeaponAbilities(Weapon.Spear, gLMKKP1.Spear);
-			gCharacter.SetWeaponAbilities(Weapon.Sword, gLMKKP1.Sword);
+			gCharacter.SetWeaponAbility(Weapon.Axe, gLMKKP1.Axe);
+			gCharacter.SetWeaponAbility(Weapon.Bow, gLMKKP1.Bow);
+			gCharacter.SetWeaponAbility(Weapon.Club, gLMKKP1.Club);
+			gCharacter.SetWeaponAbility(Weapon.Spear, gLMKKP1.Spear);
+			gCharacter.SetWeaponAbility(Weapon.Sword, gLMKKP1.Sword);
 
 			// SET SPELL ABILITIES TO Original values:
-			gCharacter.SetSpellAbilities(Spell.Blast, gLMKKP1.blast);
-			gCharacter.SetSpellAbilities(Spell.Heal, gLMKKP1.heal);
-			gCharacter.SetSpellAbilities(Spell.Speed, gLMKKP1.speed);
-			gCharacter.SetSpellAbilities(Spell.Power, gLMKKP1.power);
+			gCharacter.SetSpellAbility(Spell.Blast, gLMKKP1.blast);
+			gCharacter.SetSpellAbility(Spell.Heal, gLMKKP1.heal);
+			gCharacter.SetSpellAbility(Spell.Speed, gLMKKP1.speed);
+			gCharacter.SetSpellAbility(Spell.Power, gLMKKP1.power);
 			gGameState.Sa[(long)Spell.Blast] = gLMKKP1.blast;
 			gGameState.Sa[(long)Spell.Heal] = gLMKKP1.heal;
 			gGameState.Sa[(long)Spell.Speed] = gLMKKP1.speed;

@@ -49,7 +49,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 					x.Name = string.Format("artifact {0}", x.Uid);
 					x.Desc = string.Format("You see artifact {0}.", x.Uid);
 					x.IsListed = true;
-					x.GetCategories(0).Type = ArtifactType.Treasure;
+					x.GetCategory(0).Type = ArtifactType.Treasure;
 					x.SetArtifactCategoryCount(1);
 				});
 

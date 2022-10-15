@@ -81,7 +81,7 @@ namespace EamonRT.Game.Commands
 				}
 			}
 
-			CharArmor = gEngine.GetArmors(CharArmorClass);
+			CharArmor = gEngine.GetArmor(CharArmorClass);
 
 			Debug.Assert(CharArmor != null);
 			
@@ -100,7 +100,7 @@ namespace EamonRT.Game.Commands
 				x.ArmorString = Globals.Buf.ToString();
 				x.SpellAbilities = gGameState.Sa;
 				x.Speed = gGameState.Speed;
-				x.CharmMon = gEngine.GetCharismaFactor(gCharacter.GetStats(Stat.Charisma));
+				x.CharmMon = gEngine.GetCharismaFactor(gCharacter.GetStat(Stat.Charisma));
 				x.Weight = CharInventoryWeight;
 			});
 

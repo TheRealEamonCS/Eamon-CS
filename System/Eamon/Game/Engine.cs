@@ -106,139 +106,139 @@ namespace Eamon.Game
 
 		#region Interface IEngine
 
-		public virtual IPrep GetPreps(long index)
+		public virtual IPrep GetPrep(long index)
 		{
 			return Preps[index];
 		}
 
-		public virtual string GetArticles(long index)
+		public virtual string GetArticle(long index)
 		{
 			return Articles[index];
 		}
 
-		public virtual string GetNumberStrings(long index)
+		public virtual string GetNumberString(long index)
 		{
 			return NumberStrings[index];
 		}
 
-		public virtual string GetFieldDescNames(long index)
+		public virtual string GetFieldDescName(long index)
 		{
 			return FieldDescNames[index];
 		}
 
-		public virtual string GetFieldDescNames(FieldDesc fieldDesc)
+		public virtual string GetFieldDescName(FieldDesc fieldDesc)
 		{
-			return Enum.IsDefined(typeof(FieldDesc), fieldDesc) ? GetFieldDescNames((long)fieldDesc) : UnknownName;
+			return Enum.IsDefined(typeof(FieldDesc), fieldDesc) ? GetFieldDescName((long)fieldDesc) : UnknownName;
 		}
 
-		public virtual string GetStatusNames(long index)
+		public virtual string GetStatusName(long index)
 		{
 			return StatusNames[index];
 		}
 
-		public virtual string GetStatusNames(Status status)
+		public virtual string GetStatusName(Status status)
 		{
-			return Enum.IsDefined(typeof(Status), status) ? GetStatusNames((long)status) : UnknownName;
+			return Enum.IsDefined(typeof(Status), status) ? GetStatusName((long)status) : UnknownName;
 		}
 
-		public virtual string GetClothingNames(long index)
+		public virtual string GetClothingName(long index)
 		{
 			return ClothingNames[index];
 		}
 
-		public virtual string GetClothingNames(Clothing clothing)
+		public virtual string GetClothingName(Clothing clothing)
 		{
-			return Enum.IsDefined(typeof(Clothing), clothing) ? GetClothingNames((long)clothing) : UnknownName;
+			return Enum.IsDefined(typeof(Clothing), clothing) ? GetClothingName((long)clothing) : UnknownName;
 		}
 
-		public virtual string GetCombatCodeDescs(long index)
+		public virtual string GetCombatCodeDesc(long index)
 		{
 			return CombatCodeDescs[index];
 		}
 
-		public virtual string GetCombatCodeDescs(CombatCode combatCode)
+		public virtual string GetCombatCodeDesc(CombatCode combatCode)
 		{
-			return Enum.IsDefined(typeof(CombatCode), combatCode) ? GetCombatCodeDescs((long)combatCode + 2) : UnknownName;
+			return Enum.IsDefined(typeof(CombatCode), combatCode) ? GetCombatCodeDesc((long)combatCode + 2) : UnknownName;
 		}
 
-		public virtual string GetContainerDisplayCodeDescs(long index)
+		public virtual string GetContainerDisplayCodeDesc(long index)
 		{
 			return ContainerDisplayCodeDescs[index];
 		}
 
-		public virtual string GetContainerDisplayCodeDescs(ContainerDisplayCode containerDisplayCode)
+		public virtual string GetContainerDisplayCodeDesc(ContainerDisplayCode containerDisplayCode)
 		{
-			return Enum.IsDefined(typeof(ContainerDisplayCode), containerDisplayCode) ? GetContainerDisplayCodeDescs((long)containerDisplayCode) : UnknownName;
+			return Enum.IsDefined(typeof(ContainerDisplayCode), containerDisplayCode) ? GetContainerDisplayCodeDesc((long)containerDisplayCode) : UnknownName;
 		}
 
-		public virtual string GetLightLevelNames(long index)
+		public virtual string GetLightLevelName(long index)
 		{
 			return LightLevelNames[index];
 		}
 
-		public virtual string GetLightLevelNames(LightLevel lightLevel)
+		public virtual string GetLightLevelName(LightLevel lightLevel)
 		{
-			return Enum.IsDefined(typeof(LightLevel), lightLevel) ? GetLightLevelNames((long)lightLevel) : UnknownName;
+			return Enum.IsDefined(typeof(LightLevel), lightLevel) ? GetLightLevelName((long)lightLevel) : UnknownName;
 		}
 
-		public virtual IStat GetStats(long index)
+		public virtual IStat GetStat(long index)
 		{
 			return Stats[index];
 		}
 
-		public virtual IStat GetStats(Stat stat)
+		public virtual IStat GetStat(Stat stat)
 		{
-			return Enum.IsDefined(typeof(Stat), stat) ? GetStats((long)stat - 1) : null;
+			return Enum.IsDefined(typeof(Stat), stat) ? GetStat((long)stat - 1) : null;
 		}
 
-		public virtual ISpell GetSpells(long index)
+		public virtual ISpell GetSpell(long index)
 		{
 			return Spells[index];
 		}
 
-		public virtual ISpell GetSpells(Spell spell)
+		public virtual ISpell GetSpell(Spell spell)
 		{
-			return Enum.IsDefined(typeof(Spell), spell) ? GetSpells((long)spell - 1) : null;
+			return Enum.IsDefined(typeof(Spell), spell) ? GetSpell((long)spell - 1) : null;
 		}
 
-		public virtual IWeapon GetWeapons(long index)
+		public virtual IWeapon GetWeapon(long index)
 		{
 			return Weapons[index];
 		}
 
-		public virtual IWeapon GetWeapons(Weapon weapon)
+		public virtual IWeapon GetWeapon(Weapon weapon)
 		{
-			return Enum.IsDefined(typeof(Weapon), weapon) ? GetWeapons((long)weapon - 1) : null;
+			return Enum.IsDefined(typeof(Weapon), weapon) ? GetWeapon((long)weapon - 1) : null;
 		}
 
-		public virtual IArmor GetArmors(long index)
+		public virtual IArmor GetArmor(long index)
 		{
 			return Armors[index];
 		}
 
-		public virtual IArmor GetArmors(Armor armor)
+		public virtual IArmor GetArmor(Armor armor)
 		{
-			return Enum.IsDefined(typeof(Armor), armor) ? GetArmors((long)armor) : null;
+			return Enum.IsDefined(typeof(Armor), armor) ? GetArmor((long)armor) : null;
 		}
 
-		public virtual IDirection GetDirections(long index)
+		public virtual IDirection GetDirection(long index)
 		{
 			return Directions[index];
 		}
 
-		public virtual IDirection GetDirections(Direction direction)
+		public virtual IDirection GetDirection(Direction direction)
 		{
-			return Enum.IsDefined(typeof(Direction), direction) ? GetDirections((long)direction - 1) : null;
+			return Enum.IsDefined(typeof(Direction), direction) ? GetDirection((long)direction - 1) : null;
 		}
 
-		public virtual IArtifactType GetArtifactTypes(long index)
+		public virtual IArtifactType GetArtifactType(long index)
 		{
 			return ArtifactTypes[index];
 		}
 
-		public virtual IArtifactType GetArtifactTypes(ArtifactType artifactType)
+		public virtual IArtifactType GetArtifactType(ArtifactType artifactType)
 		{
-			return IsValidArtifactType(artifactType) ? GetArtifactTypes((long)artifactType) : null;
+			return IsValidArtifactType(artifactType) ? GetArtifactType((long)artifactType) : null;
 		}
 
 		public virtual bool IsSuccess(RetCode rc)
@@ -428,7 +428,7 @@ namespace Eamon.Game
 
 			var c2 = charisma + j;
 
-			var stat = GetStats(Stat.Charisma);
+			var stat = GetStat(Stat.Charisma);
 
 			Debug.Assert(stat != null);
 
@@ -446,7 +446,7 @@ namespace Eamon.Game
 
 		public virtual double GetMerchantRtio(long charisma)
 		{
-			var stat = GetStats(Stat.Charisma);
+			var stat = GetStat(Stat.Charisma);
 
 			Debug.Assert(stat != null);
 
@@ -596,7 +596,7 @@ namespace Eamon.Game
 
 			for (var i = 0; i < numDirs; i++)
 			{
-				if (GetDirections(i).PrintedName.Equals(directionName, StringComparison.OrdinalIgnoreCase))
+				if (GetDirection(i).PrintedName.Equals(directionName, StringComparison.OrdinalIgnoreCase))
 				{
 					result = directionValues[i];
 
@@ -608,7 +608,7 @@ namespace Eamon.Game
 			{
 				for (var i = 0; i < numDirs; i++)
 				{
-					if (GetDirections(i).Name.Equals(directionName, StringComparison.OrdinalIgnoreCase))
+					if (GetDirection(i).Name.Equals(directionName, StringComparison.OrdinalIgnoreCase))
 					{
 						result = directionValues[i];
 
@@ -621,7 +621,7 @@ namespace Eamon.Game
 			{
 				for (var i = 0; i < numDirs; i++)
 				{
-					if (GetDirections(i).PrintedName.StartsWith(directionName, StringComparison.OrdinalIgnoreCase) || GetDirections(i).PrintedName.EndsWith(directionName, StringComparison.OrdinalIgnoreCase))
+					if (GetDirection(i).PrintedName.StartsWith(directionName, StringComparison.OrdinalIgnoreCase) || GetDirection(i).PrintedName.EndsWith(directionName, StringComparison.OrdinalIgnoreCase))
 					{
 						result = directionValues[i];
 
@@ -634,7 +634,7 @@ namespace Eamon.Game
 			{
 				for (var i = 0; i < numDirs; i++)
 				{
-					if (GetDirections(i).Name.StartsWith(directionName, StringComparison.OrdinalIgnoreCase) || GetDirections(i).Name.EndsWith(directionName, StringComparison.OrdinalIgnoreCase))
+					if (GetDirection(i).Name.StartsWith(directionName, StringComparison.OrdinalIgnoreCase) || GetDirection(i).Name.EndsWith(directionName, StringComparison.OrdinalIgnoreCase))
 					{
 						result = directionValues[i];
 
@@ -1048,7 +1048,7 @@ namespace Eamon.Game
 			}
 
 			buf.SetFormat("{0}{1}", 
-				num >= 0 && num <= 10 ? GetNumberStrings(num) : num.ToString(), 
+				num >= 0 && num <= 10 ? GetNumberString(num) : num.ToString(), 
 				addSpace ? " " : "");
 
 			result = buf.ToString();
@@ -1591,7 +1591,7 @@ namespace Eamon.Game
 				args.Monster.DmgTaken,
 				args.Monster.Hardiness);
 
-			var ibp = GetIntellectBonusPct(args.Character.GetStats(Stat.Intellect));
+			var ibp = GetIntellectBonusPct(args.Character.GetStat(Stat.Intellect));
 
 			buf01.AppendFormat("{0}{1}{2}%)",
 				"(Learning: ",
@@ -1604,11 +1604,11 @@ namespace Eamon.Game
 
 			gOut.WriteLine("{0}{1}{2,-2}{3,20}{4,15}{5}{0}{6}{7,-3}{8,34}{9,-2}{10,15}{11}{12}%)",
 				Environment.NewLine,
-				"Intellect:  ", args.Character.GetStats(Stat.Intellect),
+				"Intellect:  ", args.Character.GetStat(Stat.Intellect),
 				buf01.ToString(),
 				"Agility :  ", buf02.ToString(),
 				"Hardiness:  ", args.Monster.Hardiness,
-				"Charisma:  ", args.Character.GetStats(Stat.Charisma),
+				"Charisma:  ", args.Character.GetStat(Stat.Charisma),
 				"(Charm Mon: ",
 				args.CharmMon > 0 ? "+" : "",
 				args.CharmMon);
@@ -1634,13 +1634,13 @@ namespace Eamon.Game
 
 					if (Enum.IsDefined(typeof(Weapon), i))
 					{
-						weapon = GetWeapons((Weapon)i);
+						weapon = GetWeapon((Weapon)i);
 
 						Debug.Assert(weapon != null);
 
 						gOut.Write(" {0,-5}: {1,3}%",
 							weapon.Name,
-							args.Character.GetWeaponAbilities(i));
+							args.Character.GetWeaponAbility(i));
 					}
 					else
 					{
@@ -1649,15 +1649,15 @@ namespace Eamon.Game
 
 					if (Enum.IsDefined(typeof(Spell), i))
 					{
-						spell = GetSpells((Spell)i);
+						spell = GetSpell((Spell)i);
 
 						Debug.Assert(spell != null);
 
 						gOut.Write("{0,29}{1,-5}: {2,3}% / {3}%",
 							"",
 							spell.Name,
-							args.GetSpellAbilities(i),
-							args.Character.GetSpellAbilities(i));
+							args.GetSpellAbility(i),
+							args.Character.GetSpellAbility(i));
 					}
 
 					i++;
@@ -1823,7 +1823,7 @@ namespace Eamon.Game
 
 					Debug.Assert(ac != null);
 
-					var weapon = GetWeapons((Weapon)ac.Field2);
+					var weapon = GetWeapon((Weapon)ac.Field2);
 
 					Debug.Assert(weapon != null);
 
@@ -2073,7 +2073,7 @@ namespace Eamon.Game
 				goto Cleanup;
 			}
 
-			var weapon = GetWeapons(type);
+			var weapon = GetWeapon(type);
 
 			Debug.Assert(weapon != null);
 
@@ -2164,7 +2164,7 @@ namespace Eamon.Game
 
 			if (armor01 > 0)
 			{
-				var armor02 = GetArmors((Armor)armor01);
+				var armor02 = GetArmor((Armor)armor01);
 
 				Debug.Assert(armor02 != null);
 
@@ -2185,7 +2185,7 @@ namespace Eamon.Game
 				{
 					if (calcPrice)
 					{
-						armor02 = GetArmors(Armor.PlateMail);
+						armor02 = GetArmor(Armor.PlateMail);
 
 						Debug.Assert(armor02 != null);
 
@@ -2447,7 +2447,7 @@ namespace Eamon.Game
 
 					for (var i = 0; i < artifact.Categories.Length; i++)
 					{
-						artifact.SetCategories(i, acList.Count > i ? acList[i] : null);
+						artifact.SetCategory(i, acList.Count > i ? acList[i] : null);
 					}
 				}
 

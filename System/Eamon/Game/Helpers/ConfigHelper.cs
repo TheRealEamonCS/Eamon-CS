@@ -147,7 +147,7 @@ namespace Eamon.Game.Helpers
 
 			for (var j = 0; j < fieldDescValues.Count; j++)
 			{
-				briefDesc.AppendFormat("{0}{1}={2}", j != 0 ? "; " : "", (long)fieldDescValues[j], gEngine.GetFieldDescNames(fieldDescValues[j]));
+				briefDesc.AppendFormat("{0}{1}={2}", j != 0 ? "; " : "", (long)fieldDescValues[j], gEngine.GetFieldDescName(fieldDescValues[j]));
 			}
 
 			gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc.ToString());
@@ -197,7 +197,7 @@ namespace Eamon.Game.Helpers
 		{
 			var listNum = NumberFields ? ListNum++ : 0;
 
-			gOut.Write("{0}{1}{2}", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("FieldDesc"), null), gEngine.GetFieldDescNames(Record.FieldDesc));
+			gOut.Write("{0}{1}{2}", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("FieldDesc"), null), gEngine.GetFieldDescName(Record.FieldDesc));
 		}
 
 		#endregion

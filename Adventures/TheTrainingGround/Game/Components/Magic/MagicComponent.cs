@@ -82,7 +82,7 @@ namespace TheTrainingGround.Game.Components
 
 			if (rl < 41 && !gGameState.CharismaBoosted)
 			{
-				gCharacter.ModStats(Stat.Charisma, 2);
+				gCharacter.ModStat(Stat.Charisma, 2);
 
 				gOut.Print("You suddenly feel more {0}.", gCharacter.EvalGender("handsome", "beautiful", "androgynous"));
 

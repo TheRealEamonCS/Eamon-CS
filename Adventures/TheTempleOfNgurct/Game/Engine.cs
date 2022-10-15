@@ -206,7 +206,7 @@ namespace TheTempleOfNgurct.Game
 		{
 			Debug.Assert(monster != null && monster.IsCharacterMonster());
 
-			monster.Agility = gCharacter.GetStats(Stat.Agility);
+			monster.Agility = gCharacter.GetStat(Stat.Agility);
 
 			gGameState.Speed = 0;
 		}

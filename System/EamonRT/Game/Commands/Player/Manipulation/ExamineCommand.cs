@@ -97,7 +97,7 @@ namespace EamonRT.Game.Commands
 
 			if (DobjArtAc == null)
 			{
-				DobjArtAc = DobjArtifact.GetCategories(0);
+				DobjArtAc = DobjArtifact.GetCategory(0);
 			}
 
 			Debug.Assert(DobjArtAc != null);

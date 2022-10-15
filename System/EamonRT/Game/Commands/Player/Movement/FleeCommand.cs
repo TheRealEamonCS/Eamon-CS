@@ -112,7 +112,7 @@ namespace EamonRT.Game.Commands
 
 			PrintAttemptingToFlee(DobjArtifact, Direction);
 
-			gGameState.R2 = DobjArtifact != null ? 0 : ActorRoom.GetDirs(Direction);
+			gGameState.R2 = DobjArtifact != null ? 0 : ActorRoom.GetDir(Direction);
 
 		Cleanup:
 

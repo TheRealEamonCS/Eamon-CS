@@ -63,7 +63,7 @@ namespace AlternateBeginnersCave.Game
 				args.Monster.DmgTaken,
 				args.Monster.Hardiness);
 
-			var ibp = GetIntellectBonusPct(args.Character.GetStats(Stat.Intellect));
+			var ibp = GetIntellectBonusPct(args.Character.GetStat(Stat.Intellect));
 
 			buf01.AppendFormat("{0}{1}{2}%)",
 				"(Learning: ",
@@ -80,11 +80,11 @@ namespace AlternateBeginnersCave.Game
 
 			gOut.WriteLine("{0}{1}{2,-2}{3,20}{4,15}{5}{0}{6}{7,-5}{8,32}{9,-2}{10,15}{11}{12}%)",
 				Environment.NewLine,
-				"Intellect:  ", args.Character.GetStats(Stat.Intellect),
+				"Intellect:  ", args.Character.GetStat(Stat.Intellect),
 				buf01.ToString(),
 				"Agility :  ", buf02.ToString(),
 				"Hardiness:  ", buf03.ToString(),
-				"Charisma:  ", args.Character.GetStats(Stat.Charisma),
+				"Charisma:  ", args.Character.GetStat(Stat.Charisma),
 				"(Charm Mon: ",
 				args.CharmMon > 0 ? "+" : "",
 				args.CharmMon);
@@ -110,13 +110,13 @@ namespace AlternateBeginnersCave.Game
 
 					if (Enum.IsDefined(typeof(Weapon), i))
 					{
-						weapon = GetWeapons((Weapon)i);
+						weapon = GetWeapon((Weapon)i);
 
 						Debug.Assert(weapon != null);
 
 						gOut.Write(" {0,-5}: {1,3}%",
 							weapon.Name,
-							args.Character.GetWeaponAbilities(i));
+							args.Character.GetWeaponAbility(i));
 					}
 					else
 					{
@@ -125,15 +125,15 @@ namespace AlternateBeginnersCave.Game
 
 					if (Enum.IsDefined(typeof(Spell), i))
 					{
-						spell = GetSpells((Spell)i);
+						spell = GetSpell((Spell)i);
 
 						Debug.Assert(spell != null);
 
 						gOut.Write("{0,29}{1,-5}: {2,3}% / {3}%",
 							"",
 							spell.Name,
-							args.GetSpellAbilities(i),
-							args.Character.GetSpellAbilities(i));
+							args.GetSpellAbility(i),
+							args.Character.GetSpellAbility(i));
 					}
 
 					i++;
@@ -257,7 +257,7 @@ namespace AlternateBeginnersCave.Game
 			{
 				artifact.SetInLimbo();
 
-				gGameState.SetHeldWpnUids(HeldWpnIdx++, artifact.Uid);
+				gGameState.SetHeldWpnUid(HeldWpnIdx++, artifact.Uid);
 			}
 
 			return artifact;
@@ -283,9 +283,9 @@ namespace AlternateBeginnersCave.Game
 		{
 			for (var i = 0; i < gGameState.HeldWpnUids.Length; i++)
 			{
-				if (gGameState.GetHeldWpnUids(i) > 0)
+				if (gGameState.GetHeldWpnUid(i) > 0)
 				{
-					var artifact = gADB[gGameState.GetHeldWpnUids(i)];
+					var artifact = gADB[gGameState.GetHeldWpnUid(i)];
 
 					Debug.Assert(artifact != null);
 

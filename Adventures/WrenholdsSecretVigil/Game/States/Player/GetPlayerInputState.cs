@@ -49,7 +49,7 @@ namespace WrenholdsSecretVigil.Game.States
 						{
 							dir = "west";
 						}
-						else if (characterRoom.GetDirs(Direction.East) > 0 && characterRoom.GetDirs(Direction.East) <= Globals.Module.NumRooms)
+						else if (characterRoom.GetDir(Direction.East) > 0 && characterRoom.GetDir(Direction.East) <= Globals.Module.NumRooms)
 						{
 							dir = "east";
 						}

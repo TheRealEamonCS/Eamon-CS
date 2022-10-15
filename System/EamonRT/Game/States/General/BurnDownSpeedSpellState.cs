@@ -34,7 +34,7 @@ namespace EamonRT.Game.States
 				goto Cleanup;
 			}
 
-			AgilityStat = gEngine.GetStats(Eamon.Framework.Primitive.Enums.Stat.Agility);
+			AgilityStat = gEngine.GetStat(Eamon.Framework.Primitive.Enums.Stat.Agility);
 
 			Debug.Assert(AgilityStat != null);
 

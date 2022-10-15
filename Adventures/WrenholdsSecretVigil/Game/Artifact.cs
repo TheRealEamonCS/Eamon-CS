@@ -36,7 +36,7 @@ namespace WrenholdsSecretVigil.Game
 
 			if (artifactUids.Contains(Uid))
 			{
-				ac = GetCategories(0);
+				ac = GetCategory(0);
 
 				return true;
 			}

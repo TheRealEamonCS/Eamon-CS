@@ -36,7 +36,7 @@ namespace EamonRT.Game.Commands
 
 			Globals.ShouldPreTurnProcess = false;
 			
-			if (Globals.Database.GetHintsCount() <= 0)
+			if (Globals.Database.GetHintCount() <= 0)
 			{
 				PrintNoHintsAvailable();
 
@@ -56,7 +56,7 @@ namespace EamonRT.Game.Commands
 
 			for (ActiveHintListIndex = 0; ActiveHintListIndex < ActiveHintList.Count; ActiveHintListIndex++)
 			{
-				PrintHintsQuestion(ActiveHintListIndex + 1, ActiveHintList[ActiveHintListIndex].Question);
+				PrintHintQuestion(ActiveHintListIndex + 1, ActiveHintList[ActiveHintListIndex].Question);
 			}
 
 			PrintEnterHintChoice();
@@ -74,11 +74,11 @@ namespace EamonRT.Game.Commands
 				goto Cleanup;
 			}
 
-			PrintHintsQuestion01(ActiveHintList[ActiveHintListIndex].Question);
+			PrintHintQuestion01(ActiveHintList[ActiveHintListIndex].Question);
 
 			for (HintAnswerIndex = 0; HintAnswerIndex < ActiveHintList[ActiveHintListIndex].NumAnswers; HintAnswerIndex++)
 			{
-				PrintHintsAnswer(ActiveHintList[ActiveHintListIndex].GetAnswers(HintAnswerIndex), Globals.Buf);
+				PrintHintAnswer(ActiveHintList[ActiveHintListIndex].GetAnswer(HintAnswerIndex), Globals.Buf);
 
 				if (HintAnswerIndex + 1 < ActiveHintList[ActiveHintListIndex].NumAnswers)
 				{

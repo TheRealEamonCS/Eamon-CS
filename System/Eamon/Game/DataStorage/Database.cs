@@ -549,7 +549,7 @@ namespace Eamon.Game.DataStorage
 			return FreeRecords(GameStateTable, dispose);
 		}
 
-		public virtual long GetRecordsCount<T>(IDbTable<T> table) where T : class, IGameBase
+		public virtual long GetRecordCount<T>(IDbTable<T> table) where T : class, IGameBase
 		{
 			long result;
 
@@ -562,61 +562,61 @@ namespace Eamon.Game.DataStorage
 				goto Cleanup;
 			}
 
-			result = table.GetRecordsCount();
+			result = table.GetRecordCount();
 
 		Cleanup:
 
 			return result;
 		}
 
-		public virtual long GetConfigsCount()
+		public virtual long GetConfigCount()
 		{
-			return GetRecordsCount(ConfigTable);
+			return GetRecordCount(ConfigTable);
 		}
 
-		public virtual long GetFilesetsCount()
+		public virtual long GetFilesetCount()
 		{
-			return GetRecordsCount(FilesetTable);
+			return GetRecordCount(FilesetTable);
 		}
 
-		public virtual long GetCharactersCount()
+		public virtual long GetCharacterCount()
 		{
-			return GetRecordsCount(CharacterTable);
+			return GetRecordCount(CharacterTable);
 		}
 
-		public virtual long GetModulesCount()
+		public virtual long GetModuleCount()
 		{
-			return GetRecordsCount(ModuleTable);
+			return GetRecordCount(ModuleTable);
 		}
 
-		public virtual long GetRoomsCount()
+		public virtual long GetRoomCount()
 		{
-			return GetRecordsCount(RoomTable);
+			return GetRecordCount(RoomTable);
 		}
 
-		public virtual long GetArtifactsCount()
+		public virtual long GetArtifactCount()
 		{
-			return GetRecordsCount(ArtifactTable);
+			return GetRecordCount(ArtifactTable);
 		}
 
-		public virtual long GetEffectsCount()
+		public virtual long GetEffectCount()
 		{
-			return GetRecordsCount(EffectTable);
+			return GetRecordCount(EffectTable);
 		}
 
-		public virtual long GetMonstersCount()
+		public virtual long GetMonsterCount()
 		{
-			return GetRecordsCount(MonsterTable);
+			return GetRecordCount(MonsterTable);
 		}
 
-		public virtual long GetHintsCount()
+		public virtual long GetHintCount()
 		{
-			return GetRecordsCount(HintTable);
+			return GetRecordCount(HintTable);
 		}
 
-		public virtual long GetGameStatesCount()
+		public virtual long GetGameStateCount()
 		{
-			return GetRecordsCount(GameStateTable);
+			return GetRecordCount(GameStateTable);
 		}
 
 		public virtual T FindRecord<T>(IDbTable<T> table, long uid) where T : class, IGameBase

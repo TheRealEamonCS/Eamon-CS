@@ -21,7 +21,7 @@ namespace TheTrainingGround.Game.Commands
 
 			// BLAST backpack
 
-			if (gCharacter.GetSpellAbilities(Spell.Blast) > 0 && DobjArtifact != null && DobjArtifact.Uid == 13)
+			if (gCharacter.GetSpellAbility(Spell.Blast) > 0 && DobjArtifact != null && DobjArtifact.Uid == 13)
 			{
 				PrintDontNeedTo();
 

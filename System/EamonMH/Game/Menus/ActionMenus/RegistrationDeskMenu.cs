@@ -165,11 +165,11 @@ namespace EamonMH.Game.Menus.ActionMenus
 			{
 				var wv = weaponValues[i];
 
-				var weapon = gEngine.GetWeapons(wv);
+				var weapon = gEngine.GetWeapon(wv);
 
 				Debug.Assert(weapon != null);
 
-				character.SetWeaponAbilities(wv, Convert.ToInt64(weapon.EmptyVal));
+				character.SetWeaponAbility(wv, Convert.ToInt64(weapon.EmptyVal));
 			}
 
 			character.HeldGold = 200;
@@ -184,7 +184,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 				{
 					var sv = statValues[i];
 
-					var stat = gEngine.GetStats(sv);
+					var stat = gEngine.GetStat(sv);
 
 					Debug.Assert(stat != null);
 
@@ -193,11 +193,11 @@ namespace EamonMH.Game.Menus.ActionMenus
 					gOut.Write("{0}{1,27}{2}{3}",
 						Environment.NewLine,
 						string.Format("{0}: ", stat.Name),
-						character.GetStats(sv),
+						character.GetStat(sv),
 						i == statValues.Count - 1 ? string.Format("\"{0}", Environment.NewLine) : "");
 				}
 
-				if (character.GetStats(Stat.Intellect) + character.GetStats(Stat.Hardiness) + character.GetStats(Stat.Agility) < 39 || character.Stats.Sum() < 52)
+				if (character.GetStat(Stat.Intellect) + character.GetStat(Stat.Hardiness) + character.GetStat(Stat.Agility) < 39 || character.Stats.Sum() < 52)
 				{
 					gOut.Print("\"You are such a poor excuse for an adventurer that we will allow you to commit suicide.\"");
 
@@ -299,8 +299,8 @@ namespace EamonMH.Game.Menus.ActionMenus
 				gOut.Write("{0}You can carry weight up to ten times your hardiness, or, {1} Gronds.  (A measure of weight, one Grond = 10 Dos.){0}{0}Additionally, your hardiness tells how many points of damage you can survive.  Therefore, you can be hit with {2} 1-point blows before you die.{0}{0}You will not be told how many blows you have taken.  You will be merely told such things as--{0}{0}   \"Wow!  That one hurt!\"{0}or \"You don't feel very well.\"{0}{0}Your charisma ({3}) affects how the citizens of Eamon react to you.  You affect a monster's friendliness rating by your charisma less ten, difference times two ({4}%).{0}{0}You start off with 200 gold pieces, which you will want to spend on supplies for your first adventure.  You will get a lower price for items if your charisma is high.{0}",
 					Environment.NewLine,
 					character.GetWeightCarryableGronds(),
-					character.GetStats(Stat.Hardiness),
-					character.GetStats(Stat.Charisma),
+					character.GetStat(Stat.Hardiness),
+					character.GetStat(Stat.Charisma),
 					character.GetCharmMonsterPct());
 
 				Globals.In.KeyPress(Buf);
@@ -309,7 +309,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 				gOut.Write("{0}After you begin to accumulate wealth, you may want to put some of your money into the bank, where it cannot be stolen.  However it is a good idea to always carry some gold with you for use in bargaining and ransom situations.{0}{0}You should also hire a Wizard to teach you some magic spells.  Your intellect ({1}) affects your ability to learn both skills and spells.  There are four spells you can learn--{0}{0}Blast: Throw a magical blast at your enemies to inflict damage.{0}Heal : Remove damage from your body.{0}Speed: Double your agility for a short time.{0}Power: This unpredictable spell is different in each adventure.{0}{0}Other types of spells may be available in various adventures, and items may have special properties.  However, these will only work in the adventure where they were found.  Thus it is best (and you have no choice but to) sell all items found in adventures except for weapons and armor.{0}",
 					Environment.NewLine,
-					character.GetStats(Stat.Intellect));
+					character.GetStat(Stat.Intellect));
 
 				Globals.In.KeyPress(Buf);
 
@@ -369,7 +369,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 					if (effect == null)
 					{
-						var effectUid = gEngine.RollDice(1, Globals.Database.GetEffectsCount(), 0);
+						var effectUid = gEngine.RollDice(1, Globals.Database.GetEffectCount(), 0);
 
 						effect = gEDB[effectUid];
 					}

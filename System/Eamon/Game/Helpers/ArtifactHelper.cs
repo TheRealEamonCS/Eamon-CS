@@ -103,7 +103,7 @@ namespace Eamon.Game.Helpers
 		{
 			var i = Index;
 
-			var artType = gEngine.GetArtifactTypes(Record.GetCategories(i).Type);
+			var artType = gEngine.GetArtifactType(Record.GetCategory(i).Type);
 
 			return string.Format("Cat #{0} {1}", i + 1, artType != null ? artType.Field1Name : "Field1");
 		}
@@ -114,7 +114,7 @@ namespace Eamon.Game.Helpers
 		{
 			var i = Index;
 
-			var artType = gEngine.GetArtifactTypes(Record.GetCategories(i).Type);
+			var artType = gEngine.GetArtifactType(Record.GetCategory(i).Type);
 
 			return string.Format("Cat #{0} {1}", i + 1, artType != null ? artType.Field2Name : "Field2");
 		}
@@ -125,7 +125,7 @@ namespace Eamon.Game.Helpers
 		{
 			var i = Index;
 
-			var artType = gEngine.GetArtifactTypes(Record.GetCategories(i).Type);
+			var artType = gEngine.GetArtifactType(Record.GetCategory(i).Type);
 
 			return string.Format("Cat #{0} {1}", i + 1, artType != null ? artType.Field3Name : "Field3");
 		}
@@ -136,7 +136,7 @@ namespace Eamon.Game.Helpers
 		{
 			var i = Index;
 
-			var artType = gEngine.GetArtifactTypes(Record.GetCategories(i).Type);
+			var artType = gEngine.GetArtifactType(Record.GetCategory(i).Type);
 
 			return string.Format("Cat #{0} {1}", i + 1, artType != null ? artType.Field4Name : "Field4");
 		}
@@ -147,7 +147,7 @@ namespace Eamon.Game.Helpers
 		{
 			var i = Index;
 
-			var artType = gEngine.GetArtifactTypes(Record.GetCategories(i).Type);
+			var artType = gEngine.GetArtifactType(Record.GetCategory(i).Type);
 
 			return string.Format("Cat #{0} {1}", i + 1, artType != null ? artType.Field5Name : "Field5");
 		}
@@ -286,7 +286,7 @@ namespace Eamon.Game.Helpers
 		{
 			var i = Index;
 
-			return Record.GetCategories(i).Type;
+			return Record.GetCategory(i).Type;
 		}
 
 		/// <summary></summary>
@@ -295,7 +295,7 @@ namespace Eamon.Game.Helpers
 		{
 			var i = Index;
 
-			return Record.GetCategories(i).Field1;
+			return Record.GetCategory(i).Field1;
 		}
 
 		/// <summary></summary>
@@ -304,7 +304,7 @@ namespace Eamon.Game.Helpers
 		{
 			var i = Index;
 
-			return Record.GetCategories(i).Field2;
+			return Record.GetCategory(i).Field2;
 		}
 
 		/// <summary></summary>
@@ -313,7 +313,7 @@ namespace Eamon.Game.Helpers
 		{
 			var i = Index;
 
-			return Record.GetCategories(i).Field3;
+			return Record.GetCategory(i).Field3;
 		}
 
 		/// <summary></summary>
@@ -322,7 +322,7 @@ namespace Eamon.Game.Helpers
 		{
 			var i = Index;
 
-			return Record.GetCategories(i).Field4;
+			return Record.GetCategory(i).Field4;
 		}
 
 		/// <summary></summary>
@@ -331,7 +331,7 @@ namespace Eamon.Game.Helpers
 		{
 			var i = Index;
 
-			return Record.GetCategories(i).Field5;
+			return Record.GetCategory(i).Field5;
 		}
 
 		#endregion
@@ -457,7 +457,7 @@ namespace Eamon.Game.Helpers
 
 			for (var h = 1; h <= i; h++)
 			{
-				if (Record.GetCategories(h).Type == ArtifactType.None)
+				if (Record.GetCategory(h).Type == ArtifactType.None)
 				{
 					activeCategory = false;
 
@@ -467,23 +467,23 @@ namespace Eamon.Game.Helpers
 
 			if (activeCategory)
 			{
-				result = gEngine.IsValidArtifactType(Record.GetCategories(i).Type);
+				result = gEngine.IsValidArtifactType(Record.GetCategory(i).Type);
 
 				if (result)
 				{
 					for (var h = 0; h < Record.Categories.Length; h++)
 					{
-						if (h != i && Record.GetCategories(h).Type != ArtifactType.None)
+						if (h != i && Record.GetCategory(h).Type != ArtifactType.None)
 						{
-							if ((Record.GetCategories(h).Type == Record.GetCategories(i).Type) ||
-									(Record.GetCategories(h).Type == ArtifactType.Gold && Record.GetCategories(i).Type == ArtifactType.Treasure) ||
-									(Record.GetCategories(h).Type == ArtifactType.Treasure && Record.GetCategories(i).Type == ArtifactType.Gold) ||
-									(Record.GetCategories(h).Type == ArtifactType.Weapon && Record.GetCategories(i).Type == ArtifactType.MagicWeapon) ||
-									(Record.GetCategories(h).Type == ArtifactType.MagicWeapon && Record.GetCategories(i).Type == ArtifactType.Weapon) ||
-									((Record.GetCategories(h).Type == ArtifactType.InContainer || Record.GetCategories(h).Type == ArtifactType.OnContainer || Record.GetCategories(h).Type == ArtifactType.UnderContainer || Record.GetCategories(h).Type == ArtifactType.BehindContainer) && Record.GetCategories(i).Type == ArtifactType.DoorGate) ||
-									(Record.GetCategories(h).Type == ArtifactType.DoorGate && (Record.GetCategories(i).Type == ArtifactType.InContainer || Record.GetCategories(i).Type == ArtifactType.OnContainer || Record.GetCategories(i).Type == ArtifactType.UnderContainer || Record.GetCategories(i).Type == ArtifactType.BehindContainer)) ||
-									(Record.GetCategories(h).Type == ArtifactType.BoundMonster && Record.GetCategories(i).Type == ArtifactType.DisguisedMonster) ||
-									(Record.GetCategories(h).Type == ArtifactType.DisguisedMonster && Record.GetCategories(i).Type == ArtifactType.BoundMonster))
+							if ((Record.GetCategory(h).Type == Record.GetCategory(i).Type) ||
+									(Record.GetCategory(h).Type == ArtifactType.Gold && Record.GetCategory(i).Type == ArtifactType.Treasure) ||
+									(Record.GetCategory(h).Type == ArtifactType.Treasure && Record.GetCategory(i).Type == ArtifactType.Gold) ||
+									(Record.GetCategory(h).Type == ArtifactType.Weapon && Record.GetCategory(i).Type == ArtifactType.MagicWeapon) ||
+									(Record.GetCategory(h).Type == ArtifactType.MagicWeapon && Record.GetCategory(i).Type == ArtifactType.Weapon) ||
+									((Record.GetCategory(h).Type == ArtifactType.InContainer || Record.GetCategory(h).Type == ArtifactType.OnContainer || Record.GetCategory(h).Type == ArtifactType.UnderContainer || Record.GetCategory(h).Type == ArtifactType.BehindContainer) && Record.GetCategory(i).Type == ArtifactType.DoorGate) ||
+									(Record.GetCategory(h).Type == ArtifactType.DoorGate && (Record.GetCategory(i).Type == ArtifactType.InContainer || Record.GetCategory(i).Type == ArtifactType.OnContainer || Record.GetCategory(i).Type == ArtifactType.UnderContainer || Record.GetCategory(i).Type == ArtifactType.BehindContainer)) ||
+									(Record.GetCategory(h).Type == ArtifactType.BoundMonster && Record.GetCategory(i).Type == ArtifactType.DisguisedMonster) ||
+									(Record.GetCategory(h).Type == ArtifactType.DisguisedMonster && Record.GetCategory(i).Type == ArtifactType.BoundMonster))
 							{
 								result = false;
 
@@ -495,7 +495,7 @@ namespace Eamon.Game.Helpers
 			}
 			else
 			{
-				result = Record.GetCategories(i).Type == ArtifactType.None;
+				result = Record.GetCategory(i).Type == ArtifactType.None;
 			}
 
 			return result;
@@ -513,7 +513,7 @@ namespace Eamon.Game.Helpers
 
 			for (var h = 1; h <= i; h++)
 			{
-				if (Record.GetCategories(h).Type == ArtifactType.None)
+				if (Record.GetCategory(h).Type == ArtifactType.None)
 				{
 					activeCategory = false;
 
@@ -523,24 +523,24 @@ namespace Eamon.Game.Helpers
 
 			if (activeCategory)
 			{
-				switch (Record.GetCategories(i).Type)
+				switch (Record.GetCategory(i).Type)
 				{
 					case ArtifactType.Weapon:
 					case ArtifactType.MagicWeapon:
 
-						result = Record.GetCategories(i).Field1 >= Constants.MinWeaponComplexity && Record.GetCategories(i).Field1 <= Constants.MaxWeaponComplexity;
+						result = Record.GetCategory(i).Field1 >= Constants.MinWeaponComplexity && Record.GetCategory(i).Field1 <= Constants.MaxWeaponComplexity;
 
 						break;
 
 					case ArtifactType.InContainer:
 
-						result = Record.GetCategories(i).Field1 >= -2;         // -2=Broken
+						result = Record.GetCategory(i).Field1 >= -2;         // -2=Broken
 
 						break;
 
 					case ArtifactType.LightSource:
 
-						result = Record.GetCategories(i).Field1 >= -1;
+						result = Record.GetCategory(i).Field1 >= -1;
 
 						break;
 
@@ -548,19 +548,19 @@ namespace Eamon.Game.Helpers
 					case ArtifactType.BoundMonster:
 					case ArtifactType.DisguisedMonster:
 
-						result = Record.GetCategories(i).Field1 > 0;
+						result = Record.GetCategory(i).Field1 > 0;
 
 						break;
 
 					case ArtifactType.Wearable:
 
-						result = gEngine.IsValidArtifactArmor(Record.GetCategories(i).Field1);
+						result = gEngine.IsValidArtifactArmor(Record.GetCategory(i).Field1);
 
 						break;
 
 					case ArtifactType.DeadBody:
 
-						result = Record.GetCategories(i).Field1 >= 0 && Record.GetCategories(i).Field1 <= 1;
+						result = Record.GetCategory(i).Field1 >= 0 && Record.GetCategory(i).Field1 <= 1;
 
 						break;
 
@@ -573,7 +573,7 @@ namespace Eamon.Game.Helpers
 			}
 			else
 			{
-				result = Record.GetCategories(i).Field1 == 0;
+				result = Record.GetCategory(i).Field1 == 0;
 			}
 
 			return result;
@@ -591,7 +591,7 @@ namespace Eamon.Game.Helpers
 
 			for (var h = 1; h <= i; h++)
 			{
-				if (Record.GetCategories(h).Type == ArtifactType.None)
+				if (Record.GetCategory(h).Type == ArtifactType.None)
 				{
 					activeCategory = false;
 
@@ -601,50 +601,50 @@ namespace Eamon.Game.Helpers
 
 			if (activeCategory)
 			{
-				switch (Record.GetCategories(i).Type)
+				switch (Record.GetCategory(i).Type)
 				{
 					case ArtifactType.Weapon:
 					case ArtifactType.MagicWeapon:
 
-						result = Enum.IsDefined(typeof(Weapon), Record.GetCategories(i).Field2);
+						result = Enum.IsDefined(typeof(Weapon), Record.GetCategory(i).Field2);
 
 						break;
 
 					case ArtifactType.InContainer:
 
-						result = (Record.GetCategories(i).Field2 >= 0 && Record.GetCategories(i).Field2 <= 1) || gEngine.IsArtifactFieldStrength(Record.GetCategories(i).Field2);
+						result = (Record.GetCategory(i).Field2 >= 0 && Record.GetCategory(i).Field2 <= 1) || gEngine.IsArtifactFieldStrength(Record.GetCategory(i).Field2);
 
 						break;
 
 					case ArtifactType.Drinkable:
 					case ArtifactType.Edible:
 
-						result = Record.GetCategories(i).Field2 >= 0;
+						result = Record.GetCategory(i).Field2 >= 0;
 
 						break;
 
 					case ArtifactType.Readable:
 					case ArtifactType.DisguisedMonster:
 
-						result = Record.GetCategories(i).Field2 > 0;
+						result = Record.GetCategory(i).Field2 > 0;
 
 						break;
 
 					case ArtifactType.DoorGate:
 
-						result = Record.GetCategories(i).Field2 >= -2;         // -2=Broken
+						result = Record.GetCategory(i).Field2 >= -2;         // -2=Broken
 
 						break;
 
 					case ArtifactType.BoundMonster:
 
-						result = Record.GetCategories(i).Field2 >= -1;
+						result = Record.GetCategory(i).Field2 >= -1;
 
 						break;
 
 					case ArtifactType.Wearable:
 
-						result = Enum.IsDefined(typeof(Clothing), Record.GetCategories(i).Field2);
+						result = Enum.IsDefined(typeof(Clothing), Record.GetCategory(i).Field2);
 
 						break;
 
@@ -657,7 +657,7 @@ namespace Eamon.Game.Helpers
 			}
 			else
 			{
-				result = Record.GetCategories(i).Field2 == 0;
+				result = Record.GetCategory(i).Field2 == 0;
 			}
 
 			return result;
@@ -675,7 +675,7 @@ namespace Eamon.Game.Helpers
 
 			for (var h = 1; h <= i; h++)
 			{
-				if (Record.GetCategories(h).Type == ArtifactType.None)
+				if (Record.GetCategory(h).Type == ArtifactType.None)
 				{
 					activeCategory = false;
 
@@ -685,12 +685,12 @@ namespace Eamon.Game.Helpers
 
 			if (activeCategory)
 			{
-				switch (Record.GetCategories(i).Type)
+				switch (Record.GetCategory(i).Type)
 				{
 					case ArtifactType.Weapon:
 					case ArtifactType.MagicWeapon:
 
-						result = Record.GetCategories(i).Field3 >= 1 && Record.GetCategories(i).Field3 <= 25;
+						result = Record.GetCategory(i).Field3 >= 1 && Record.GetCategory(i).Field3 <= 25;
 
 						break;
 
@@ -700,7 +700,7 @@ namespace Eamon.Game.Helpers
 					case ArtifactType.BehindContainer:
 					case ArtifactType.BoundMonster:
 
-						result = Record.GetCategories(i).Field3 >= 0;
+						result = Record.GetCategory(i).Field3 >= 0;
 
 						break;
 
@@ -708,19 +708,19 @@ namespace Eamon.Game.Helpers
 					case ArtifactType.Edible:
 					case ArtifactType.Readable:
 
-						result = Record.GetCategories(i).Field3 >= 0 && Record.GetCategories(i).Field3 <= 1;
+						result = Record.GetCategory(i).Field3 >= 0 && Record.GetCategory(i).Field3 <= 1;
 
 						break;
 
 					case ArtifactType.DoorGate:
 
-						result = (Record.GetCategories(i).Field3 >= 0 && Record.GetCategories(i).Field3 <= 1) || gEngine.IsArtifactFieldStrength(Record.GetCategories(i).Field3);
+						result = (Record.GetCategory(i).Field3 >= 0 && Record.GetCategory(i).Field3 <= 1) || gEngine.IsArtifactFieldStrength(Record.GetCategory(i).Field3);
 
 						break;
 
 					case ArtifactType.DisguisedMonster:
 
-						result = Record.GetCategories(i).Field3 > 0;
+						result = Record.GetCategory(i).Field3 > 0;
 
 						break;
 
@@ -733,7 +733,7 @@ namespace Eamon.Game.Helpers
 			}
 			else
 			{
-				result = Record.GetCategories(i).Field3 == 0;
+				result = Record.GetCategory(i).Field3 == 0;
 			}
 
 			return result;
@@ -751,7 +751,7 @@ namespace Eamon.Game.Helpers
 
 			for (var h = 1; h <= i; h++)
 			{
-				if (Record.GetCategories(h).Type == ArtifactType.None)
+				if (Record.GetCategory(h).Type == ArtifactType.None)
 				{
 					activeCategory = false;
 
@@ -761,12 +761,12 @@ namespace Eamon.Game.Helpers
 
 			if (activeCategory)
 			{
-				switch (Record.GetCategories(i).Type)
+				switch (Record.GetCategory(i).Type)
 				{
 					case ArtifactType.Weapon:
 					case ArtifactType.MagicWeapon:
 
-						result = Record.GetCategories(i).Field4 >= 1 && Record.GetCategories(i).Field4 <= 25;
+						result = Record.GetCategory(i).Field4 >= 1 && Record.GetCategory(i).Field4 <= 25;
 
 						break;
 
@@ -775,13 +775,13 @@ namespace Eamon.Game.Helpers
 					case ArtifactType.UnderContainer:
 					case ArtifactType.BehindContainer:
 
-						result = Record.GetCategories(i).Field4 >= 0;
+						result = Record.GetCategory(i).Field4 >= 0;
 
 						break;
 
 					case ArtifactType.DoorGate:
 
-						result = Record.GetCategories(i).Field4 >= 0 && Record.GetCategories(i).Field4 <= 1;
+						result = Record.GetCategory(i).Field4 >= 0 && Record.GetCategory(i).Field4 <= 1;
 
 						break;
 
@@ -794,7 +794,7 @@ namespace Eamon.Game.Helpers
 			}
 			else
 			{
-				result = Record.GetCategories(i).Field4 == 0;
+				result = Record.GetCategory(i).Field4 == 0;
 			}
 
 			return result;
@@ -812,7 +812,7 @@ namespace Eamon.Game.Helpers
 
 			for (var h = 1; h <= i; h++)
 			{
-				if (Record.GetCategories(h).Type == ArtifactType.None)
+				if (Record.GetCategory(h).Type == ArtifactType.None)
 				{
 					activeCategory = false;
 
@@ -822,17 +822,17 @@ namespace Eamon.Game.Helpers
 
 			if (activeCategory)
 			{
-				switch (Record.GetCategories(i).Type)
+				switch (Record.GetCategory(i).Type)
 				{
 					case ArtifactType.Weapon:
 					case ArtifactType.MagicWeapon:
 
-						if (Record.GetCategories(i).Field5 == 0)	// auto-upgrade old weapons
+						if (Record.GetCategory(i).Field5 == 0)	// auto-upgrade old weapons
 						{
-							Record.GetCategories(i).Field5 = Record.GetCategories(i).Field2 == (long)Weapon.Bow ? 2 : 1;
+							Record.GetCategory(i).Field5 = Record.GetCategory(i).Field2 == (long)Weapon.Bow ? 2 : 1;
 						}
 
-						result = Record.GetCategories(i).Field5 >= 1 && Record.GetCategories(i).Field5 <= 2;
+						result = Record.GetCategory(i).Field5 >= 1 && Record.GetCategory(i).Field5 <= 2;
 
 						break;
 
@@ -841,7 +841,7 @@ namespace Eamon.Game.Helpers
 					case ArtifactType.UnderContainer:
 					case ArtifactType.BehindContainer:
 
-						result = Enum.IsDefined(typeof(ContainerDisplayCode), Record.GetCategories(i).Field5);
+						result = Enum.IsDefined(typeof(ContainerDisplayCode), Record.GetCategory(i).Field5);
 
 						break;
 
@@ -854,7 +854,7 @@ namespace Eamon.Game.Helpers
 			}
 			else
 			{
-				result = Record.GetCategories(i).Field5 == 0;
+				result = Record.GetCategory(i).Field5 == 0;
 			}
 
 			return result;
@@ -1129,13 +1129,13 @@ namespace Eamon.Game.Helpers
 
 			Debug.Assert(i >= 0 && i < Record.Categories.Length);
 
-			if (Record.GetCategories(i).Type != ArtifactType.None)
+			if (Record.GetCategory(i).Type != ArtifactType.None)
 			{
-				switch (Record.GetCategories(i).Type)
+				switch (Record.GetCategory(i).Type)
 				{
 					case ArtifactType.InContainer:
 					{
-						var artUid = Record.GetCategories(i).Field1;
+						var artUid = Record.GetCategory(i).Field1;
 
 						if (artUid > 0)
 						{
@@ -1162,7 +1162,7 @@ namespace Eamon.Game.Helpers
 
 					case ArtifactType.Readable:
 					{
-						var effectUid = Record.GetCategories(i).Field1;
+						var effectUid = Record.GetCategory(i).Field1;
 
 						if (effectUid > 0)
 						{
@@ -1189,7 +1189,7 @@ namespace Eamon.Game.Helpers
 
 					case ArtifactType.DoorGate:
 					{
-						var roomUid = Record.GetCategories(i).Field1;
+						var roomUid = Record.GetCategory(i).Field1;
 
 						if (roomUid > 0)
 						{
@@ -1216,7 +1216,7 @@ namespace Eamon.Game.Helpers
 
 					case ArtifactType.BoundMonster:
 					{
-						var monUid = Record.GetCategories(i).Field1;
+						var monUid = Record.GetCategory(i).Field1;
 
 						if (monUid > 0)
 						{
@@ -1243,7 +1243,7 @@ namespace Eamon.Game.Helpers
 
 					case ArtifactType.DisguisedMonster:
 					{
-						var monUid = Record.GetCategories(i).Field1;
+						var monUid = Record.GetCategory(i).Field1;
 
 						if (monUid > 0)
 						{
@@ -1292,19 +1292,19 @@ namespace Eamon.Game.Helpers
 
 			Debug.Assert(i >= 0 && i < Record.Categories.Length);
 
-			if (Record.GetCategories(i).Type != ArtifactType.None)
+			if (Record.GetCategory(i).Type != ArtifactType.None)
 			{
-				switch (Record.GetCategories(i).Type)
+				switch (Record.GetCategory(i).Type)
 				{
 					case ArtifactType.Readable:
 					{
-						var effectUid = Record.GetCategories(i).Field1;
+						var effectUid = Record.GetCategory(i).Field1;
 
 						if (effectUid > 0)
 						{
 							effectUid++;
 
-							for (var j = 1; j < Record.GetCategories(i).Field2; j++, effectUid++)
+							for (var j = 1; j < Record.GetCategory(i).Field2; j++, effectUid++)
 							{
 								var effect = gEDB[effectUid];
 
@@ -1330,7 +1330,7 @@ namespace Eamon.Game.Helpers
 
 					case ArtifactType.DoorGate:
 					{
-						var artUid = Record.GetCategories(i).Field2;
+						var artUid = Record.GetCategory(i).Field2;
 
 						if (artUid > 0)
 						{
@@ -1357,7 +1357,7 @@ namespace Eamon.Game.Helpers
 
 					case ArtifactType.BoundMonster:
 					{
-						var artUid = Record.GetCategories(i).Field2;
+						var artUid = Record.GetCategory(i).Field2;
 
 						if (artUid > 0)
 						{
@@ -1384,7 +1384,7 @@ namespace Eamon.Game.Helpers
 
 					case ArtifactType.DisguisedMonster:
 					{
-						var effectUid = Record.GetCategories(i).Field2;
+						var effectUid = Record.GetCategory(i).Field2;
 
 						if (effectUid > 0)
 						{
@@ -1433,13 +1433,13 @@ namespace Eamon.Game.Helpers
 
 			Debug.Assert(i >= 0 && i < Record.Categories.Length);
 
-			if (Record.GetCategories(i).Type != ArtifactType.None)
+			if (Record.GetCategory(i).Type != ArtifactType.None)
 			{
-				switch (Record.GetCategories(i).Type)
+				switch (Record.GetCategory(i).Type)
 				{
 					case ArtifactType.BoundMonster:
 					{
-						var monUid = Record.GetCategories(i).Field3;
+						var monUid = Record.GetCategory(i).Field3;
 
 						if (monUid > 0)
 						{
@@ -1466,13 +1466,13 @@ namespace Eamon.Game.Helpers
 
 					case ArtifactType.DisguisedMonster:
 					{
-						var effectUid = Record.GetCategories(i).Field2;
+						var effectUid = Record.GetCategory(i).Field2;
 
 						if (effectUid > 0)
 						{
 							effectUid++;
 
-							for (var j = 1; j < Record.GetCategories(i).Field3; j++, effectUid++)
+							for (var j = 1; j < Record.GetCategory(i).Field3; j++, effectUid++)
 							{
 								var effect = gEDB[effectUid];
 
@@ -1643,7 +1643,7 @@ namespace Eamon.Game.Helpers
 
 			for (var j = 0; j < artTypeValues.Count; j++)
 			{
-				var artType = gEngine.GetArtifactTypes(artTypeValues[j]);
+				var artType = gEngine.GetArtifactType(artTypeValues[j]);
 
 				Debug.Assert(artType != null);
 
@@ -1662,7 +1662,7 @@ namespace Eamon.Game.Helpers
 
 			var briefDesc = new StringBuilder(Constants.BufSize);
 
-			switch (Record.GetCategories(i).Type)
+			switch (Record.GetCategory(i).Type)
 			{
 				case ArtifactType.Weapon:
 				case ArtifactType.MagicWeapon:
@@ -1740,7 +1740,7 @@ namespace Eamon.Game.Helpers
 
 					for (var j = 0; j < armorValues.Count; j++)
 					{
-						var armor = gEngine.GetArmors(armorValues[j]);
+						var armor = gEngine.GetArmor(armorValues[j]);
 
 						Debug.Assert(armor != null);
 
@@ -1788,7 +1788,7 @@ namespace Eamon.Game.Helpers
 
 			var briefDesc = new StringBuilder(Constants.BufSize);
 
-			switch (Record.GetCategories(i).Type)
+			switch (Record.GetCategory(i).Type)
 			{
 				case ArtifactType.Weapon:
 				case ArtifactType.MagicWeapon:
@@ -1799,7 +1799,7 @@ namespace Eamon.Game.Helpers
 
 					for (var j = 0; j < weaponValues.Count; j++)
 					{
-						var weapon = gEngine.GetWeapons(weaponValues[j]);
+						var weapon = gEngine.GetWeapon(weaponValues[j]);
 
 						Debug.Assert(weapon != null);
 
@@ -1869,7 +1869,7 @@ namespace Eamon.Game.Helpers
 
 					for (var j = 0; j < clothingValues.Count; j++)
 					{
-						briefDesc.AppendFormat("{0}{1}={2}", j != 0 ? "; " : "", (long)clothingValues[j], gEngine.GetClothingNames(clothingValues[j]));
+						briefDesc.AppendFormat("{0}{1}={2}", j != 0 ? "; " : "", (long)clothingValues[j], gEngine.GetClothingName(clothingValues[j]));
 					}
 
 					gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc);
@@ -1903,7 +1903,7 @@ namespace Eamon.Game.Helpers
 
 			var briefDesc = new StringBuilder(Constants.BufSize);
 
-			switch (Record.GetCategories(i).Type)
+			switch (Record.GetCategory(i).Type)
 			{
 				case ArtifactType.Weapon:
 				case ArtifactType.MagicWeapon:
@@ -1921,7 +1921,7 @@ namespace Eamon.Game.Helpers
 				case ArtifactType.UnderContainer:
 				case ArtifactType.BehindContainer:
 
-					var containerType = gEngine.GetContainerType(Record.GetCategories(i).Type);
+					var containerType = gEngine.GetContainerType(Record.GetCategory(i).Type);
 
 					fullDesc.AppendFormat("Enter the maximum weight allowed in the Artifact's container content list.{0}{0}This is the total combined weight of all Artifacts immediately {1} the container (not including their contents).", Environment.NewLine, gEngine.EvalContainerType(containerType, "inside", "on", "under", "behind"));
 
@@ -1990,7 +1990,7 @@ namespace Eamon.Game.Helpers
 
 			var briefDesc = new StringBuilder(Constants.BufSize);
 
-			switch (Record.GetCategories(i).Type)
+			switch (Record.GetCategory(i).Type)
 			{
 				case ArtifactType.Weapon:
 				case ArtifactType.MagicWeapon:
@@ -2008,7 +2008,7 @@ namespace Eamon.Game.Helpers
 				case ArtifactType.UnderContainer:
 				case ArtifactType.BehindContainer:
 
-					var containerType = gEngine.GetContainerType(Record.GetCategories(i).Type);
+					var containerType = gEngine.GetContainerType(Record.GetCategory(i).Type);
 
 					fullDesc.AppendFormat("Enter the maximum number of items allowed in the Artifact's container content list.{0}{0}Additionally, you can specify that the player can't put anything {1} the container.", Environment.NewLine, gEngine.EvalContainerType(containerType, "inside", "on", "under", "behind"));
 
@@ -2045,7 +2045,7 @@ namespace Eamon.Game.Helpers
 
 			var briefDesc = new StringBuilder(Constants.BufSize);
 
-			switch (Record.GetCategories(i).Type)
+			switch (Record.GetCategory(i).Type)
 			{
 				case ArtifactType.Weapon:
 				case ArtifactType.MagicWeapon:
@@ -2069,7 +2069,7 @@ namespace Eamon.Game.Helpers
 
 					for (var j = 0; j < containerDisplayCodeValues.Count; j++)
 					{
-						briefDesc.AppendFormat("{0}{1}={2}", j != 0 ? "; " : "", (long)containerDisplayCodeValues[j], gEngine.GetContainerDisplayCodeDescs(containerDisplayCodeValues[j]));
+						briefDesc.AppendFormat("{0}{1}={2}", j != 0 ? "; " : "", (long)containerDisplayCodeValues[j], gEngine.GetContainerDisplayCodeDesc(containerDisplayCodeValues[j]));
 					}
 
 					gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc);
@@ -2354,7 +2354,7 @@ namespace Eamon.Game.Helpers
 
 			if (FullDetail)
 			{
-				if (!ExcludeROFields || i == 0 || Record.GetCategories(i - 1).Type != ArtifactType.None)
+				if (!ExcludeROFields || i == 0 || Record.GetCategory(i - 1).Type != ArtifactType.None)
 				{
 					var listNum = NumberFields ? ListNum++ : 0;
 
@@ -2367,7 +2367,7 @@ namespace Eamon.Game.Helpers
 					}
 					else
 					{
-						gOut.Write("{0}{1}{2}", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("CategoriesType"), null), (long)Record.GetCategories(i).Type);
+						gOut.Write("{0}{1}{2}", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("CategoriesType"), null), (long)Record.GetCategory(i).Type);
 					}
 				}
 			}
@@ -2380,7 +2380,7 @@ namespace Eamon.Game.Helpers
 
 			if (FullDetail)
 			{
-				if (!ExcludeROFields || Record.GetCategories(i).Type != ArtifactType.None)
+				if (!ExcludeROFields || Record.GetCategory(i).Type != ArtifactType.None)
 				{
 					var listNum = NumberFields ? ListNum++ : 0;
 
@@ -2393,7 +2393,7 @@ namespace Eamon.Game.Helpers
 					}
 					else
 					{
-						gOut.Write("{0}{1}{2}", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("CategoriesField1"), null), Record.GetCategories(i).Field1);
+						gOut.Write("{0}{1}{2}", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("CategoriesField1"), null), Record.GetCategory(i).Field1);
 					}
 				}
 			}
@@ -2406,7 +2406,7 @@ namespace Eamon.Game.Helpers
 
 			if (FullDetail)
 			{
-				if (!ExcludeROFields || Record.GetCategories(i).Type != ArtifactType.None)
+				if (!ExcludeROFields || Record.GetCategory(i).Type != ArtifactType.None)
 				{
 					var listNum = NumberFields ? ListNum++ : 0;
 
@@ -2419,7 +2419,7 @@ namespace Eamon.Game.Helpers
 					}
 					else
 					{
-						gOut.Write("{0}{1}{2}", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("CategoriesField2"), null), Record.GetCategories(i).Field2);
+						gOut.Write("{0}{1}{2}", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("CategoriesField2"), null), Record.GetCategory(i).Field2);
 					}
 				}
 			}
@@ -2432,7 +2432,7 @@ namespace Eamon.Game.Helpers
 
 			if (FullDetail)
 			{
-				if (!ExcludeROFields || Record.GetCategories(i).Type != ArtifactType.None)
+				if (!ExcludeROFields || Record.GetCategory(i).Type != ArtifactType.None)
 				{
 					var listNum = NumberFields ? ListNum++ : 0;
 
@@ -2445,7 +2445,7 @@ namespace Eamon.Game.Helpers
 					}
 					else
 					{
-						gOut.Write("{0}{1}{2}", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("CategoriesField3"), null), Record.GetCategories(i).Field3);
+						gOut.Write("{0}{1}{2}", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("CategoriesField3"), null), Record.GetCategory(i).Field3);
 					}
 				}
 			}
@@ -2458,7 +2458,7 @@ namespace Eamon.Game.Helpers
 
 			if (FullDetail)
 			{
-				if (!ExcludeROFields || Record.GetCategories(i).Type != ArtifactType.None)
+				if (!ExcludeROFields || Record.GetCategory(i).Type != ArtifactType.None)
 				{
 					var listNum = NumberFields ? ListNum++ : 0;
 
@@ -2471,7 +2471,7 @@ namespace Eamon.Game.Helpers
 					}
 					else
 					{
-						gOut.Write("{0}{1}{2}", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("CategoriesField4"), null), Record.GetCategories(i).Field4);
+						gOut.Write("{0}{1}{2}", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("CategoriesField4"), null), Record.GetCategory(i).Field4);
 					}
 				}
 			}
@@ -2484,7 +2484,7 @@ namespace Eamon.Game.Helpers
 
 			if (FullDetail)
 			{
-				if (!ExcludeROFields || Record.GetCategories(i).Type != ArtifactType.None)
+				if (!ExcludeROFields || Record.GetCategory(i).Type != ArtifactType.None)
 				{
 					var listNum = NumberFields ? ListNum++ : 0;
 
@@ -2497,7 +2497,7 @@ namespace Eamon.Game.Helpers
 					}
 					else
 					{
-						gOut.Write("{0}{1}{2}", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("CategoriesField5"), null), Record.GetCategories(i).Field5);
+						gOut.Write("{0}{1}{2}", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("CategoriesField5"), null), Record.GetCategory(i).Field5);
 					}
 				}
 			}
@@ -2855,7 +2855,7 @@ namespace Eamon.Game.Helpers
 		/// <summary></summary>
 		public virtual void InputWeight()
 		{
-			var artType = EditRec ? gEngine.GetArtifactTypes(Record.GetCategories(0).Type) : null;
+			var artType = EditRec ? gEngine.GetArtifactType(Record.GetCategory(0).Type) : null;
 
 			Debug.Assert(!EditRec || artType != null);
 
@@ -2900,7 +2900,7 @@ namespace Eamon.Game.Helpers
 		/// <summary></summary>
 		public virtual void InputLocation()
 		{
-			var artType = EditRec ? gEngine.GetArtifactTypes(Record.GetCategories(0).Type) : null;
+			var artType = EditRec ? gEngine.GetArtifactType(Record.GetCategory(0).Type) : null;
 
 			Debug.Assert(!EditRec || artType != null);
 
@@ -2961,11 +2961,11 @@ namespace Eamon.Game.Helpers
 		{
 			var i = Index;
 
-			if (i == 0 || Record.GetCategories(i - 1).Type != ArtifactType.None)
+			if (i == 0 || Record.GetCategory(i - 1).Type != ArtifactType.None)
 			{
 				var fieldDesc = FieldDesc;
 
-				var type = Record.GetCategories(i).Type;
+				var type = Record.GetCategory(i).Type;
 
 				while (true)
 				{
@@ -2983,7 +2983,7 @@ namespace Eamon.Game.Helpers
 
 					try
 					{
-						Record.GetCategories(i).Type = (ArtifactType)Convert.ToInt64(Buf.Trim().ToString());
+						Record.GetCategory(i).Type = (ArtifactType)Convert.ToInt64(Buf.Trim().ToString());
 					}
 					catch (Exception)
 					{
@@ -2998,40 +2998,40 @@ namespace Eamon.Game.Helpers
 					fieldDesc = FieldDesc.Brief;
 				}
 
-				if (Record.GetCategories(i).Type != ArtifactType.None)
+				if (Record.GetCategory(i).Type != ArtifactType.None)
 				{
-					if (EditRec && Record.GetCategories(i).Type != type)
+					if (EditRec && Record.GetCategory(i).Type != type)
 					{
-						var artType = gEngine.GetArtifactTypes(Record.GetCategories(i).Type);
+						var artType = gEngine.GetArtifactType(Record.GetCategory(i).Type);
 
 						Debug.Assert(artType != null);
 
-						Record.GetCategories(i).Field1 = Convert.ToInt64(artType.Field1EmptyVal);
+						Record.GetCategory(i).Field1 = Convert.ToInt64(artType.Field1EmptyVal);
 
-						Record.GetCategories(i).Field2 = Convert.ToInt64(artType.Field2EmptyVal);
+						Record.GetCategory(i).Field2 = Convert.ToInt64(artType.Field2EmptyVal);
 
-						Record.GetCategories(i).Field3 = Convert.ToInt64(artType.Field3EmptyVal);
+						Record.GetCategory(i).Field3 = Convert.ToInt64(artType.Field3EmptyVal);
 
-						Record.GetCategories(i).Field4 = Convert.ToInt64(artType.Field4EmptyVal);
+						Record.GetCategory(i).Field4 = Convert.ToInt64(artType.Field4EmptyVal);
 
-						Record.GetCategories(i).Field5 = Convert.ToInt64(artType.Field5EmptyVal);
+						Record.GetCategory(i).Field5 = Convert.ToInt64(artType.Field5EmptyVal);
 					}
 				}
 				else
 				{
 					for (var k = i; k < Record.Categories.Length; k++)
 					{
-						Record.GetCategories(k).Type = ArtifactType.None;
+						Record.GetCategory(k).Type = ArtifactType.None;
 
-						Record.GetCategories(k).Field1 = 0;
+						Record.GetCategory(k).Field1 = 0;
 
-						Record.GetCategories(k).Field2 = 0;
+						Record.GetCategory(k).Field2 = 0;
 
-						Record.GetCategories(k).Field3 = 0;
+						Record.GetCategory(k).Field3 = 0;
 
-						Record.GetCategories(k).Field4 = 0;
+						Record.GetCategory(k).Field4 = 0;
 
-						Record.GetCategories(k).Field5 = 0;
+						Record.GetCategory(k).Field5 = 0;
 					}
 				}
 
@@ -3039,7 +3039,7 @@ namespace Eamon.Game.Helpers
 			}
 			else
 			{
-				Record.GetCategories(i).Type = ArtifactType.None;
+				Record.GetCategory(i).Type = ArtifactType.None;
 			}
 		}
 
@@ -3048,15 +3048,15 @@ namespace Eamon.Game.Helpers
 		{
 			var i = Index;
 
-			if (Record.GetCategories(i).Type != ArtifactType.None)
+			if (Record.GetCategory(i).Type != ArtifactType.None)
 			{
-				var artType = gEngine.GetArtifactTypes(Record.GetCategories(i).Type);
+				var artType = gEngine.GetArtifactType(Record.GetCategory(i).Type);
 
 				Debug.Assert(artType != null);
 
 				var fieldDesc = FieldDesc;
 
-				var field1 = Record.GetCategories(i).Field1;
+				var field1 = Record.GetCategory(i).Field1;
 
 				while (true)
 				{
@@ -3074,7 +3074,7 @@ namespace Eamon.Game.Helpers
 
 					try
 					{
-						Record.GetCategories(i).Field1 = Convert.ToInt64(Buf.Trim().ToString());
+						Record.GetCategory(i).Field1 = Convert.ToInt64(Buf.Trim().ToString());
 					}
 					catch (Exception)
 					{
@@ -3093,7 +3093,7 @@ namespace Eamon.Game.Helpers
 			}
 			else
 			{
-				Record.GetCategories(i).Field1 = 0;
+				Record.GetCategory(i).Field1 = 0;
 			}
 		}
 
@@ -3102,15 +3102,15 @@ namespace Eamon.Game.Helpers
 		{
 			var i = Index;
 
-			if (Record.GetCategories(i).Type != ArtifactType.None)
+			if (Record.GetCategory(i).Type != ArtifactType.None)
 			{
-				var artType = gEngine.GetArtifactTypes(Record.GetCategories(i).Type);
+				var artType = gEngine.GetArtifactType(Record.GetCategory(i).Type);
 
 				Debug.Assert(artType != null);
 
 				var fieldDesc = FieldDesc;
 
-				var field2 = Record.GetCategories(i).Field2;
+				var field2 = Record.GetCategory(i).Field2;
 
 				while (true)
 				{
@@ -3128,7 +3128,7 @@ namespace Eamon.Game.Helpers
 
 					try
 					{
-						Record.GetCategories(i).Field2 = Convert.ToInt64(Buf.Trim().ToString());
+						Record.GetCategory(i).Field2 = Convert.ToInt64(Buf.Trim().ToString());
 					}
 					catch (Exception)
 					{
@@ -3147,7 +3147,7 @@ namespace Eamon.Game.Helpers
 			}
 			else
 			{
-				Record.GetCategories(i).Field2 = 0;
+				Record.GetCategory(i).Field2 = 0;
 			}
 		}
 
@@ -3156,15 +3156,15 @@ namespace Eamon.Game.Helpers
 		{
 			var i = Index;
 
-			if (Record.GetCategories(i).Type != ArtifactType.None)
+			if (Record.GetCategory(i).Type != ArtifactType.None)
 			{
-				var artType = gEngine.GetArtifactTypes(Record.GetCategories(i).Type);
+				var artType = gEngine.GetArtifactType(Record.GetCategory(i).Type);
 
 				Debug.Assert(artType != null);
 
 				var fieldDesc = FieldDesc;
 
-				var field3 = Record.GetCategories(i).Field3;
+				var field3 = Record.GetCategory(i).Field3;
 
 				while (true)
 				{
@@ -3182,7 +3182,7 @@ namespace Eamon.Game.Helpers
 
 					try
 					{
-						Record.GetCategories(i).Field3 = Convert.ToInt64(Buf.Trim().ToString());
+						Record.GetCategory(i).Field3 = Convert.ToInt64(Buf.Trim().ToString());
 					}
 					catch (Exception)
 					{
@@ -3201,7 +3201,7 @@ namespace Eamon.Game.Helpers
 			}
 			else
 			{
-				Record.GetCategories(i).Field3 = 0;
+				Record.GetCategory(i).Field3 = 0;
 			}
 		}
 
@@ -3210,15 +3210,15 @@ namespace Eamon.Game.Helpers
 		{
 			var i = Index;
 
-			if (Record.GetCategories(i).Type != ArtifactType.None)
+			if (Record.GetCategory(i).Type != ArtifactType.None)
 			{
-				var artType = gEngine.GetArtifactTypes(Record.GetCategories(i).Type);
+				var artType = gEngine.GetArtifactType(Record.GetCategory(i).Type);
 
 				Debug.Assert(artType != null);
 
 				var fieldDesc = FieldDesc;
 
-				var field4 = Record.GetCategories(i).Field4;
+				var field4 = Record.GetCategory(i).Field4;
 
 				while (true)
 				{
@@ -3236,7 +3236,7 @@ namespace Eamon.Game.Helpers
 
 					try
 					{
-						Record.GetCategories(i).Field4 = Convert.ToInt64(Buf.Trim().ToString());
+						Record.GetCategory(i).Field4 = Convert.ToInt64(Buf.Trim().ToString());
 					}
 					catch (Exception)
 					{
@@ -3255,7 +3255,7 @@ namespace Eamon.Game.Helpers
 			}
 			else
 			{
-				Record.GetCategories(i).Field4 = 0;
+				Record.GetCategory(i).Field4 = 0;
 			}
 		}
 
@@ -3264,15 +3264,15 @@ namespace Eamon.Game.Helpers
 		{
 			var i = Index;
 
-			if (Record.GetCategories(i).Type != ArtifactType.None)
+			if (Record.GetCategory(i).Type != ArtifactType.None)
 			{
-				var artType = gEngine.GetArtifactTypes(Record.GetCategories(i).Type);
+				var artType = gEngine.GetArtifactType(Record.GetCategory(i).Type);
 
 				Debug.Assert(artType != null);
 
 				var fieldDesc = FieldDesc;
 
-				var field5 = Record.GetCategories(i).Field5;
+				var field5 = Record.GetCategory(i).Field5;
 
 				while (true)
 				{
@@ -3290,7 +3290,7 @@ namespace Eamon.Game.Helpers
 
 					try
 					{
-						Record.GetCategories(i).Field5 = Convert.ToInt64(Buf.Trim().ToString());
+						Record.GetCategory(i).Field5 = Convert.ToInt64(Buf.Trim().ToString());
 					}
 					catch (Exception)
 					{
@@ -3309,7 +3309,7 @@ namespace Eamon.Game.Helpers
 			}
 			else
 			{
-				Record.GetCategories(i).Field5 = 0;
+				Record.GetCategory(i).Field5 = 0;
 			}
 		}
 
@@ -3393,9 +3393,9 @@ namespace Eamon.Game.Helpers
 		{
 			var i = Index;
 
-			var artType = gEngine.GetArtifactTypes(Record.GetCategories(i).Type);
+			var artType = gEngine.GetArtifactType(Record.GetCategory(i).Type);
 
-			Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, (long)Record.GetCategories(i).Type, null, artType != null ? artType.Name : "None"));
+			Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, (long)Record.GetCategory(i).Type, null, artType != null ? artType.Name : "None"));
 
 			return Buf01.ToString();
 		}
@@ -3406,12 +3406,12 @@ namespace Eamon.Game.Helpers
 		{
 			var i = Index;
 
-			switch (Record.GetCategories(i).Type)
+			switch (Record.GetCategory(i).Type)
 			{
 				case ArtifactType.Weapon:
 				case ArtifactType.MagicWeapon:
 
-					var stringVal = string.Format("{0}%", Record.GetCategories(i).Field1);
+					var stringVal = string.Format("{0}%", Record.GetCategory(i).Field1);
 
 					Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, 0, stringVal, null));
 
@@ -3419,15 +3419,15 @@ namespace Eamon.Game.Helpers
 
 				case ArtifactType.InContainer:
 
-					if (Record.GetCategories(i).Field1 > 0)
+					if (Record.GetCategory(i).Field1 > 0)
 					{
-						var artifact = gADB[Record.GetCategories(i).Field1];
+						var artifact = gADB[Record.GetCategory(i).Field1];
 
-						Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, Record.GetCategories(i).Field1, null, artifact != null ? gEngine.Capitalize(artifact.Name) : gEngine.UnknownName));
+						Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, Record.GetCategory(i).Field1, null, artifact != null ? gEngine.Capitalize(artifact.Name) : gEngine.UnknownName));
 					}
 					else
 					{
-						Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, Record.GetCategories(i).Field1, null, null));
+						Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, Record.GetCategory(i).Field1, null, null));
 					}
 
 					break;
@@ -3435,46 +3435,46 @@ namespace Eamon.Game.Helpers
 				case ArtifactType.BoundMonster:
 				case ArtifactType.DisguisedMonster:
 
-					var monster = gMDB[Record.GetCategories(i).Field1];
+					var monster = gMDB[Record.GetCategory(i).Field1];
 
-					Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, Record.GetCategories(i).Field1, null, monster != null ? gEngine.Capitalize(monster.Name) : gEngine.UnknownName));
+					Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, Record.GetCategory(i).Field1, null, monster != null ? gEngine.Capitalize(monster.Name) : gEngine.UnknownName));
 
 					break;
 
 				case ArtifactType.DoorGate:
 
-					if (Record.GetCategories(i).Field1 > 0)
+					if (Record.GetCategory(i).Field1 > 0)
 					{
-						var room = gRDB[Record.GetCategories(i).Field1];
+						var room = gRDB[Record.GetCategory(i).Field1];
 
-						Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, Record.GetCategories(i).Field1, null, room != null ? gEngine.Capitalize(room.Name) : gEngine.UnknownName));
+						Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, Record.GetCategory(i).Field1, null, room != null ? gEngine.Capitalize(room.Name) : gEngine.UnknownName));
 					}
 					else
 					{
-						Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, Record.GetCategories(i).Field1, null, null));
+						Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, Record.GetCategory(i).Field1, null, null));
 					}
 
 					break;
 
 				case ArtifactType.Wearable:
 
-					var armor = gEngine.GetArmors((Armor)Record.GetCategories(i).Field1);
+					var armor = gEngine.GetArmor((Armor)Record.GetCategory(i).Field1);
 
 					Debug.Assert(armor != null);
 
-					Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, Record.GetCategories(i).Field1, null, armor.Name));
+					Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, Record.GetCategory(i).Field1, null, armor.Name));
 
 					break;
 
 				case ArtifactType.DeadBody:
 
-					Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, Record.GetCategories(i).Field1, null, Record.GetCategories(i).Field1 == 1 ? "Takeable" : "Not Takeable"));
+					Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, Record.GetCategory(i).Field1, null, Record.GetCategory(i).Field1 == 1 ? "Takeable" : "Not Takeable"));
 
 					break;
 
 				default:
 
-					Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, Record.GetCategories(i).Field1, null, null));
+					Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, Record.GetCategory(i).Field1, null, null));
 
 					break;
 			}
@@ -3488,16 +3488,16 @@ namespace Eamon.Game.Helpers
 		{
 			var i = Index;
 
-			switch (Record.GetCategories(i).Type)
+			switch (Record.GetCategory(i).Type)
 			{
 				case ArtifactType.Weapon:
 				case ArtifactType.MagicWeapon:
 
-					var weapon = gEngine.GetWeapons((Weapon)Record.GetCategories(i).Field2);
+					var weapon = gEngine.GetWeapon((Weapon)Record.GetCategory(i).Field2);
 
 					Debug.Assert(weapon != null);
 
-					Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, Record.GetCategories(i).Field2, null, weapon.Name));
+					Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, Record.GetCategory(i).Field2, null, weapon.Name));
 
 					break;
 
@@ -3505,40 +3505,40 @@ namespace Eamon.Game.Helpers
 
 					var lookupMsg = string.Empty;
 
-					if (Record.IsFieldStrength(Record.GetCategories(i).Field2))
+					if (Record.IsFieldStrength(Record.GetCategory(i).Field2))
 					{
-						lookupMsg = string.Format("Strength of {0}", Record.GetFieldStrength(Record.GetCategories(i).Field2));
+						lookupMsg = string.Format("Strength of {0}", Record.GetFieldStrength(Record.GetCategory(i).Field2));
 					}
 
-					Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, Record.GetCategories(i).Field2, null, Record.IsFieldStrength(Record.GetCategories(i).Field2) ? lookupMsg : Record.GetCategories(i).Field2 == 1 ? "Open" : "Closed"));
+					Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, Record.GetCategory(i).Field2, null, Record.IsFieldStrength(Record.GetCategory(i).Field2) ? lookupMsg : Record.GetCategory(i).Field2 == 1 ? "Open" : "Closed"));
 
 					break;
 
 				case ArtifactType.BoundMonster:
 				case ArtifactType.DoorGate:
 
-					if (Record.GetCategories(i).Field2 > 0)
+					if (Record.GetCategory(i).Field2 > 0)
 					{
-						var artifact = gADB[Record.GetCategories(i).Field2];
+						var artifact = gADB[Record.GetCategory(i).Field2];
 
-						Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, Record.GetCategories(i).Field2, null, artifact != null ? gEngine.Capitalize(artifact.Name) : gEngine.UnknownName));
+						Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, Record.GetCategory(i).Field2, null, artifact != null ? gEngine.Capitalize(artifact.Name) : gEngine.UnknownName));
 					}
 					else
 					{
-						Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, Record.GetCategories(i).Field2, null, null));
+						Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, Record.GetCategory(i).Field2, null, null));
 					}
 
 					break;
 
 				case ArtifactType.Wearable:
 
-					Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, Record.GetCategories(i).Field2, null, gEngine.GetClothingNames((Clothing)Record.GetCategories(i).Field2)));
+					Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, Record.GetCategory(i).Field2, null, gEngine.GetClothingName((Clothing)Record.GetCategory(i).Field2)));
 
 					break;
 
 				default:
 
-					Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, Record.GetCategories(i).Field2, null, null));
+					Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, Record.GetCategory(i).Field2, null, null));
 
 					break;
 			}
@@ -3552,27 +3552,27 @@ namespace Eamon.Game.Helpers
 		{
 			var i = Index;
 
-			switch (Record.GetCategories(i).Type)
+			switch (Record.GetCategory(i).Type)
 			{
 				case ArtifactType.Drinkable:
 				case ArtifactType.Readable:
 				case ArtifactType.Edible:
 
-					Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, Record.GetCategories(i).Field3, null, Record.GetCategories(i).IsOpen() ? "Open" : "Closed"));
+					Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, Record.GetCategory(i).Field3, null, Record.GetCategory(i).IsOpen() ? "Open" : "Closed"));
 
 					break;
 
 				case ArtifactType.BoundMonster:
 
-					if (Record.GetCategories(i).Field3 > 0)
+					if (Record.GetCategory(i).Field3 > 0)
 					{
-						var monster = gMDB[Record.GetCategories(i).Field3];
+						var monster = gMDB[Record.GetCategory(i).Field3];
 
-						Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, Record.GetCategories(i).Field3, null, monster != null ? gEngine.Capitalize(monster.Name) : gEngine.UnknownName));
+						Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, Record.GetCategory(i).Field3, null, monster != null ? gEngine.Capitalize(monster.Name) : gEngine.UnknownName));
 					}
 					else
 					{
-						Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, Record.GetCategories(i).Field3, null, null));
+						Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, Record.GetCategory(i).Field3, null, null));
 					}
 
 					break;
@@ -3581,18 +3581,18 @@ namespace Eamon.Game.Helpers
 
 					var lookupMsg = string.Empty;
 
-					if (Record.IsFieldStrength(Record.GetCategories(i).Field3))
+					if (Record.IsFieldStrength(Record.GetCategory(i).Field3))
 					{
-						lookupMsg = string.Format("Strength of {0}", Record.GetFieldStrength(Record.GetCategories(i).Field3));
+						lookupMsg = string.Format("Strength of {0}", Record.GetFieldStrength(Record.GetCategory(i).Field3));
 					}
 
-					Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, Record.GetCategories(i).Field3, null, Record.IsFieldStrength(Record.GetCategories(i).Field3) ? lookupMsg : Record.GetCategories(i).IsOpen() ? "Open" : "Closed"));
+					Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, Record.GetCategory(i).Field3, null, Record.IsFieldStrength(Record.GetCategory(i).Field3) ? lookupMsg : Record.GetCategory(i).IsOpen() ? "Open" : "Closed"));
 
 					break;
 
 				default:
 
-					Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, Record.GetCategories(i).Field3, null, null));
+					Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, Record.GetCategory(i).Field3, null, null));
 
 					break;
 			}
@@ -3606,17 +3606,17 @@ namespace Eamon.Game.Helpers
 		{
 			var i = Index;
 
-			switch (Record.GetCategories(i).Type)
+			switch (Record.GetCategory(i).Type)
 			{
 				case ArtifactType.DoorGate:
 
-					Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, Record.GetCategories(i).Field4, null, Record.GetCategories(i).Field4 == 1 ? "Hidden" : "Normal"));
+					Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, Record.GetCategory(i).Field4, null, Record.GetCategory(i).Field4 == 1 ? "Hidden" : "Normal"));
 
 					break;
 
 				default:
 
-					Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, Record.GetCategories(i).Field4, null, null));
+					Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, Record.GetCategory(i).Field4, null, null));
 
 					break;
 			}
@@ -3630,20 +3630,20 @@ namespace Eamon.Game.Helpers
 		{
 			var i = Index;
 
-			switch (Record.GetCategories(i).Type)
+			switch (Record.GetCategory(i).Type)
 			{
 				case ArtifactType.InContainer:
 				case ArtifactType.OnContainer:
 				case ArtifactType.UnderContainer:
 				case ArtifactType.BehindContainer:
 
-					Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, Record.GetCategories(i).Field5, null, gEngine.GetContainerDisplayCodeDescs((ContainerDisplayCode)Record.GetCategories(i).Field5)));
+					Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, Record.GetCategory(i).Field5, null, gEngine.GetContainerDisplayCodeDesc((ContainerDisplayCode)Record.GetCategory(i).Field5)));
 
 					break;
 
 				default:
 
-					Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, Record.GetCategories(i).Field5, null, null));
+					Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, Record.GetCategory(i).Field5, null, null));
 
 					break;
 			}

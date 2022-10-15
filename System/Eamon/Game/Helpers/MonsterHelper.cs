@@ -420,7 +420,7 @@ namespace Eamon.Game.Helpers
 
 			var monsterSpell = Record.Spells[i];
 
-			var spell = monsterSpell != null ? gEngine.GetSpells(monsterSpell.Spell) : null;
+			var spell = monsterSpell != null ? gEngine.GetSpell(monsterSpell.Spell) : null;
 
 			return spell != null;
 		}
@@ -888,7 +888,7 @@ namespace Eamon.Game.Helpers
 
 			for (var j = 0; j < combatCodeValues.Count; j++)
 			{
-				briefDesc.AppendFormat("{0}{1}={2}", j != 0 ? "; " : "", (long)combatCodeValues[j], gEngine.GetCombatCodeDescs(combatCodeValues[j]));
+				briefDesc.AppendFormat("{0}{1}={2}", j != 0 ? "; " : "", (long)combatCodeValues[j], gEngine.GetCombatCodeDesc(combatCodeValues[j]));
 			}
 
 			gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc.ToString());
@@ -907,7 +907,7 @@ namespace Eamon.Game.Helpers
 
 			for (var j = 0; j < armorValues.Count; j++)
 			{
-				var armor = gEngine.GetArmors(armorValues[j]);
+				var armor = gEngine.GetArmor(armorValues[j]);
 
 				Debug.Assert(armor != null);
 
@@ -1266,7 +1266,7 @@ namespace Eamon.Game.Helpers
 					gOut.Write("{0}{1}{2}",
 						Environment.NewLine,
 						gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("CombatCode"), null),
-						gEngine.BuildValue(51, ' ', 8, (long)Record.CombatCode, null, gEngine.GetCombatCodeDescs(Record.CombatCode)));
+						gEngine.BuildValue(51, ' ', 8, (long)Record.CombatCode, null, gEngine.GetCombatCodeDesc(Record.CombatCode)));
 				}
 				else
 				{
@@ -1284,9 +1284,9 @@ namespace Eamon.Game.Helpers
 
 				if (LookupMsg)
 				{
-					var armor = Record.Armor <= 2 ? gEngine.GetArmors((Armor)(Record.Armor * 2)) :
+					var armor = Record.Armor <= 2 ? gEngine.GetArmor((Armor)(Record.Armor * 2)) :
 						Record.Armor <= 4 ? Globals.CreateInstance<IArmor>(x => { x.Name = "Splint Mail"; }) :
-						gEngine.GetArmors((Armor)((Record.Armor - 2) * 2));
+						gEngine.GetArmor((Armor)((Record.Armor - 2) * 2));
 
 					gOut.Write("{0}{1}{2}",
 						Environment.NewLine,

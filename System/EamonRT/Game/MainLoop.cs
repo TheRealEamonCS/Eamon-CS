@@ -56,9 +56,9 @@ namespace EamonRT.Game
 
 			gEngine.InitMonsters();
 
-			Globals.Module.NumArtifacts = Globals.Database.GetArtifactsCount();
+			Globals.Module.NumArtifacts = Globals.Database.GetArtifactCount();
 
-			Globals.Module.NumMonsters = Globals.Database.GetMonstersCount();
+			Globals.Module.NumMonsters = Globals.Database.GetMonsterCount();
 
 			gEngine.CreateInitialState(false);
 		}

@@ -29,7 +29,7 @@ namespace TheVileGrimoireOfJaldial.Game.Commands
 
 				foreach (var wv in weaponValues)
 				{
-					gCharacter.ModWeaponAbilities(wv, -5);
+					gCharacter.ModWeaponAbility(wv, -5);
 				}
 			}
 		}

@@ -58,7 +58,7 @@ namespace EamonRT.Game.Commands
 
 				OrigCurrState = Globals.CurrState;
 
-				SaveFilesetsCount = Globals.Database.GetFilesetsCount();
+				SaveFilesetsCount = Globals.Database.GetFilesetCount();
 
 				Debug.Assert(SaveFilesetsCount <= gEngine.NumSaveSlots);
 

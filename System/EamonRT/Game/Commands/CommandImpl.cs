@@ -863,21 +863,21 @@ namespace EamonRT.Game.Commands
 			gOut.Print("The Room is invalid.");
 		}
 
-		public virtual void PrintHintsQuestion(long hintNum, string question)
+		public virtual void PrintHintQuestion(long hintNum, string question)
 		{
 			Debug.Assert(hintNum > 0 && question != null);
 
 			gOut.Write("{0}{1,3}. {2}", Environment.NewLine, hintNum, question);
 		}
 
-		public virtual void PrintHintsQuestion01(string question)
+		public virtual void PrintHintQuestion01(string question)
 		{
 			Debug.Assert(question != null);
 
 			gOut.Print("{0}", question);
 		}
 
-		public virtual void PrintHintsAnswer(string answer, StringBuilder buf)
+		public virtual void PrintHintAnswer(string answer, StringBuilder buf)
 		{
 			Debug.Assert(answer != null && buf != null);
 

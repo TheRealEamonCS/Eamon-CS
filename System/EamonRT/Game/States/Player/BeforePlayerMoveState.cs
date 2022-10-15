@@ -32,7 +32,7 @@ namespace EamonRT.Game.States
 
 			Debug.Assert(OldRoom != null);
 
-			gGameState.R2 = DoorGateArtifact != null ? 0 : OldRoom.GetDirs(Direction);
+			gGameState.R2 = DoorGateArtifact != null ? 0 : OldRoom.GetDir(Direction);
 
 			ProcessEvents(EventType.AfterSetDestinationRoom);
 

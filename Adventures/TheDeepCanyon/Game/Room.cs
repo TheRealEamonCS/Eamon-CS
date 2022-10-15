@@ -15,7 +15,7 @@ namespace TheDeepCanyon.Game
 	[ClassMappings]
 	public class Room : Eamon.Game.Room, IRoom
 	{
-		public override long GetDirs(long index)
+		public override long GetDir(long index)
 		{
 			if (Globals.EnableMutateProperties)
 			{
@@ -23,22 +23,22 @@ namespace TheDeepCanyon.Game
 				{
 					var elephantsMonster = gMDB[24];
 
-					return elephantsMonster != null && elephantsMonster.IsInLimbo() && index == 4 ? 45 : base.GetDirs(index);
+					return elephantsMonster != null && elephantsMonster.IsInLimbo() && index == 4 ? 45 : base.GetDir(index);
 				}
 				if (Uid == 26)
 				{
 					var fidoMonster = gMDB[11];
 
-					return (gGameState.FidoSleepCounter > 0 || (fidoMonster != null && fidoMonster.IsInLimbo())) && index == 2 ? 25 : base.GetDirs(index);
+					return (gGameState.FidoSleepCounter > 0 || (fidoMonster != null && fidoMonster.IsInLimbo())) && index == 2 ? 25 : base.GetDir(index);
 				}
 				else
 				{
-					return base.GetDirs(index);
+					return base.GetDir(index);
 				}
 			}
 			else
 			{
-				return base.GetDirs(index);
+				return base.GetDir(index);
 			}
 		}
 

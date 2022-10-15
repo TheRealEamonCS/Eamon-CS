@@ -295,27 +295,27 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 					x.Zone = 1;
 
-					x.SetDirs(Direction.North, edxRoom._rd1);
+					x.SetDir(Direction.North, edxRoom._rd1);
 
-					x.SetDirs(Direction.South, edxRoom._rd2);
+					x.SetDir(Direction.South, edxRoom._rd2);
 
-					x.SetDirs(Direction.East, edxRoom._rd3);
+					x.SetDir(Direction.East, edxRoom._rd3);
 
-					x.SetDirs(Direction.West, edxRoom._rd4);
+					x.SetDir(Direction.West, edxRoom._rd4);
 
-					x.SetDirs(Direction.Up, edxRoom._rd5);
+					x.SetDir(Direction.Up, edxRoom._rd5);
 
-					x.SetDirs(Direction.Down, edxRoom._rd6);
+					x.SetDir(Direction.Down, edxRoom._rd6);
 
 					if (edxAdv._nd != 6)
 					{
-						x.SetDirs(Direction.Northeast, edxRoom._rd7);
+						x.SetDir(Direction.Northeast, edxRoom._rd7);
 
-						x.SetDirs(Direction.Northwest, edxRoom._rd8);
+						x.SetDir(Direction.Northwest, edxRoom._rd8);
 
-						x.SetDirs(Direction.Southeast, edxRoom._rd9);
+						x.SetDir(Direction.Southeast, edxRoom._rd9);
 
-						x.SetDirs(Direction.Southwest, edxRoom._rd10);
+						x.SetDir(Direction.Southwest, edxRoom._rd10);
 					}
 				});
 
@@ -617,7 +617,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 						edxAnswer._text = edxAnswer._text.Trim();
 
-						x.SetAnswers(j, edxAnswer._text.Truncate(Constants.HntAnswerLen));
+						x.SetAnswer(j, edxAnswer._text.Truncate(Constants.HntAnswerLen));
 					}
 				});
 

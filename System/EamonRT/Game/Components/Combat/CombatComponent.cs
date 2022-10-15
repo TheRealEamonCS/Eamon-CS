@@ -221,9 +221,9 @@ namespace EamonRT.Game.Components
 
 				rl += gCharacter.GetIntellectBonusPct();
 
-				if (rl > gCharacter.GetWeaponAbilities(s))
+				if (rl > gCharacter.GetWeaponAbility(s))
 				{
-					var weapon = gEngine.GetWeapons(s);
+					var weapon = gEngine.GetWeapon(s);
 
 					Debug.Assert(weapon != null);
 
@@ -234,11 +234,11 @@ namespace EamonRT.Game.Components
 							PrintWeaponAbilityIncreases(s, weapon);
 						}
 
-						gCharacter.ModWeaponAbilities(s, 2);
+						gCharacter.ModWeaponAbility(s, 2);
 
-						if (gCharacter.GetWeaponAbilities(s) > weapon.MaxValue)
+						if (gCharacter.GetWeaponAbility(s) > weapon.MaxValue)
 						{
-							gCharacter.SetWeaponAbilities(s, weapon.MaxValue);
+							gCharacter.SetWeaponAbility(s, weapon.MaxValue);
 						}
 					});
 				}

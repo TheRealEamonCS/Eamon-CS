@@ -70,7 +70,7 @@ namespace Eamon.Game.Helpers
 
 				gOut.Write("{0}{1}", Environment.NewLine, Buf);
 
-				gOut.WriteLine("{0}{1}{0}{0}{2}", Environment.NewLine, gEngine.BuildPrompt(27, '.', 0, GetPrintedName("AnswersElement"), null), Record.GetAnswers(i));
+				gOut.WriteLine("{0}{1}{0}{0}{2}", Environment.NewLine, gEngine.BuildPrompt(27, '.', 0, GetPrintedName("AnswersElement"), null), Record.GetAnswer(i));
 			}
 		}
 
@@ -136,7 +136,7 @@ namespace Eamon.Game.Helpers
 		{
 			var i = Index;
 
-			return Record.GetAnswers(i);
+			return Record.GetAnswer(i);
 		}
 
 		#endregion
@@ -191,7 +191,7 @@ namespace Eamon.Game.Helpers
 
 			Debug.Assert(i >= 0 && i < Record.Answers.Length);
 
-			return i < Record.NumAnswers ? string.IsNullOrWhiteSpace(Record.GetAnswers(i)) == false && Record.GetAnswers(i).Length <= Constants.HntAnswerLen : Record.GetAnswers(i) == "";
+			return i < Record.NumAnswers ? string.IsNullOrWhiteSpace(Record.GetAnswer(i)) == false && Record.GetAnswer(i).Length <= Constants.HntAnswerLen : Record.GetAnswer(i) == "";
 		}
 
 		#endregion
@@ -263,7 +263,7 @@ namespace Eamon.Game.Helpers
 
 			if (i < Record.NumAnswers)
 			{
-				var rc = gEngine.ResolveUidMacros(Record.GetAnswers(i), Buf, false, false, ref invalidUid);
+				var rc = gEngine.ResolveUidMacros(Record.GetAnswer(i), Buf, false, false, ref invalidUid);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -446,13 +446,13 @@ namespace Eamon.Game.Helpers
 
 				if (ResolveEffects)
 				{
-					var rc = gEngine.ResolveUidMacros(Record.GetAnswers(i), Buf, true, true);
+					var rc = gEngine.ResolveUidMacros(Record.GetAnswer(i), Buf, true, true);
 
 					Debug.Assert(gEngine.IsSuccess(rc));
 				}
 				else
 				{
-					Buf.Append(Record.GetAnswers(i));
+					Buf.Append(Record.GetAnswer(i));
 				}
 
 				var listNum = NumberFields ? ListNum++ : 0;
@@ -576,7 +576,7 @@ namespace Eamon.Game.Helpers
 
 			while (i < j)
 			{
-				Record.SetAnswers(i, Record.NumAnswers > numAnswers ? "NONE" : "");
+				Record.SetAnswer(i, Record.NumAnswers > numAnswers ? "NONE" : "");
 
 				i++;
 			}
@@ -602,7 +602,7 @@ namespace Eamon.Game.Helpers
 			{
 				var fieldDesc = FieldDesc;
 
-				var answer = Record.GetAnswers(i);
+				var answer = Record.GetAnswer(i);
 
 				while (true)
 				{
@@ -620,7 +620,7 @@ namespace Eamon.Game.Helpers
 
 					gOut.WordWrap = true;
 
-					Record.SetAnswers(i, Buf.Trim().ToString());
+					Record.SetAnswer(i, Buf.Trim().ToString());
 
 					if (ValidateField("AnswersElement"))
 					{
@@ -634,7 +634,7 @@ namespace Eamon.Game.Helpers
 			}
 			else
 			{
-				Record.SetAnswers(i, "");
+				Record.SetAnswer(i, "");
 			}
 		}
 

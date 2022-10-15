@@ -42,7 +42,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 			var nlFlag = false;
 
-			var j = Globals.Database.GetFilesetsCount();
+			var j = Globals.Database.GetFilesetCount();
 
 			if (index == 0)
 			{

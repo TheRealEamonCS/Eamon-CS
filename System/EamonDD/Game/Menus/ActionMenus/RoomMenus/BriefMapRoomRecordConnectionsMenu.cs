@@ -43,7 +43,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			var directionValues = EnumUtil.GetValues<Direction>();
 
-			var k = Globals.Database.GetRoomsCount();
+			var k = Globals.Database.GetRoomCount();
 
 			var i = 0;
 
@@ -57,7 +57,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 						for (var j = 0; j < numDirs; j++)
 						{
-							var direction = gEngine.GetDirections(directionValues[j]);
+							var direction = gEngine.GetDirection(directionValues[j]);
 
 							Debug.Assert(direction != null);
 
@@ -70,7 +70,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 						for (var j = 0; j < numDirs; j++)
 						{
-							var direction = gEngine.GetDirections(directionValues[j]);
+							var direction = gEngine.GetDirection(directionValues[j]);
 
 							Debug.Assert(direction != null);
 
@@ -108,7 +108,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 				for (var j = 0; j < numDirs; j++)
 				{
-					Buf.AppendFormat("{0,-4} ", room.GetDirs(directionValues[j]));
+					Buf.AppendFormat("{0,-4} ", room.GetDir(directionValues[j]));
 				}
 
 				gOut.Write("{0}", Buf);

@@ -246,47 +246,47 @@ namespace Eamon.Framework.DataStorage
 		/// <summary></summary>
 		/// <param name="table"></param>
 		/// <returns></returns>
-		long GetRecordsCount<T>(IDbTable<T> table) where T : class, IGameBase;
+		long GetRecordCount<T>(IDbTable<T> table) where T : class, IGameBase;
 
 		/// <summary></summary>
 		/// <returns></returns>
-		long GetConfigsCount();
+		long GetConfigCount();
 
 		/// <summary></summary>
 		/// <returns></returns>
-		long GetFilesetsCount();
+		long GetFilesetCount();
 
 		/// <summary></summary>
 		/// <returns></returns>
-		long GetCharactersCount();
+		long GetCharacterCount();
 
 		/// <summary></summary>
 		/// <returns></returns>
-		long GetModulesCount();
+		long GetModuleCount();
 
 		/// <summary></summary>
 		/// <returns></returns>
-		long GetRoomsCount();
+		long GetRoomCount();
 
 		/// <summary></summary>
 		/// <returns></returns>
-		long GetArtifactsCount();
+		long GetArtifactCount();
 
 		/// <summary></summary>
 		/// <returns></returns>
-		long GetEffectsCount();
+		long GetEffectCount();
 
 		/// <summary></summary>
 		/// <returns></returns>
-		long GetMonstersCount();
+		long GetMonsterCount();
 
 		/// <summary></summary>
 		/// <returns></returns>
-		long GetHintsCount();
+		long GetHintCount();
 
 		/// <summary></summary>
 		/// <returns></returns>
-		long GetGameStatesCount();
+		long GetGameStateCount();
 
 		/// <summary></summary>
 		/// <param name="table"></param>

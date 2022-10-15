@@ -138,7 +138,7 @@ namespace WrenholdsSecretVigil.Game.Commands
 			{
 				base.PrintTaken(artifact);
 
-				ActorRoom.SetDirs(Direction.South, 68);
+				ActorRoom.SetDir(Direction.South, 68);
 
 				ac.Type = ArtifactType.Treasure;
 

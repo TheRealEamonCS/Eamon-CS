@@ -28,15 +28,15 @@ namespace TheVileGrimoireOfJaldial.Game.Commands
 
 				foreach (var wv in weaponValues)
 				{
-					var weapon = gEngine.GetWeapons(wv);
+					var weapon = gEngine.GetWeapon(wv);
 
 					Debug.Assert(weapon != null);
 
-					gCharacter.ModWeaponAbilities(wv, 5);
+					gCharacter.ModWeaponAbility(wv, 5);
 
-					if (gCharacter.GetWeaponAbilities(wv) > weapon.MaxValue)
+					if (gCharacter.GetWeaponAbility(wv) > weapon.MaxValue)
 					{
-						gCharacter.SetWeaponAbilities(wv, weapon.MaxValue);
+						gCharacter.SetWeaponAbility(wv, weapon.MaxValue);
 					}
 				}
 			}

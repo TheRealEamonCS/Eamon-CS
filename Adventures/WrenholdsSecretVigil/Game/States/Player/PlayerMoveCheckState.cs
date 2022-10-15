@@ -43,17 +43,17 @@ namespace WrenholdsSecretVigil.Game.States
 
 				// Auto-reveal secret doors if necessary
 
-				if (gGameState.R2 == 5 && gGameState.Ro == 8 && room5.GetDirs(Direction.South) == -8)
+				if (gGameState.R2 == 5 && gGameState.Ro == 8 && room5.GetDir(Direction.South) == -8)
 				{
-					room5.SetDirs(Direction.South, 8);
+					room5.SetDir(Direction.South, 8);
 				}
-				else if (gGameState.R2 == 40 && gGameState.Ro == 41 && room40.GetDirs(Direction.South) == -41)
+				else if (gGameState.R2 == 40 && gGameState.Ro == 41 && room40.GetDir(Direction.South) == -41)
 				{
-					room40.SetDirs(Direction.South, 41);
+					room40.SetDir(Direction.South, 41);
 				}
-				else if (gGameState.R2 == 45 && gGameState.Ro == 43 && room45.GetDirs(Direction.East) == -43)
+				else if (gGameState.R2 == 45 && gGameState.Ro == 43 && room45.GetDir(Direction.East) == -43)
 				{
-					room45.SetDirs(Direction.East, 43);
+					room45.SetDir(Direction.East, 43);
 				}
 
 				// Falling down a drop-off (injury)

@@ -26,7 +26,7 @@ namespace AlternateBeginnersCave.Game
 
 			if (ninaMonster.Location == gGameState.Ro && ninaMonster.Reaction == Friendliness.Friend)
 			{
-				var reward = gCharacter.GetStats(Stat.Charisma) * 15;
+				var reward = gCharacter.GetStat(Stat.Charisma) * 15;
 
 				gCharacter.HeldGold += reward;
 

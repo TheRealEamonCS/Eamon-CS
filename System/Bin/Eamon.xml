@@ -28,12 +28,12 @@
         <member name="P:Eamon.Framework.Args.IStatDisplayArgs.Weight">
             <summary></summary>
         </member>
-        <member name="M:Eamon.Framework.Args.IStatDisplayArgs.GetSpellAbilities(System.Int64)">
+        <member name="M:Eamon.Framework.Args.IStatDisplayArgs.GetSpellAbility(System.Int64)">
             <summary></summary>
             <param name="index"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.Args.IStatDisplayArgs.GetSpellAbilities(Eamon.Framework.Primitive.Enums.Spell)">
+        <member name="M:Eamon.Framework.Args.IStatDisplayArgs.GetSpellAbility(Eamon.Framework.Primitive.Enums.Spell)">
             <summary></summary>
             <param name="spell"></param>
             <returns></returns>
@@ -74,7 +74,7 @@
             <param name="dispose"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.DataStorage.Generic.IDbTable`1.GetRecordsCount">
+        <member name="M:Eamon.Framework.DataStorage.Generic.IDbTable`1.GetRecordCount">
             <summary>
             Gets the number of records of type T stored in the <see cref="P:Eamon.Framework.DataStorage.Generic.IDbTable`1.Records">Records</see> collection.
             </summary>
@@ -377,48 +377,48 @@
             <param name="dispose"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.DataStorage.IDatabase.GetRecordsCount``1(Eamon.Framework.DataStorage.Generic.IDbTable{``0})">
+        <member name="M:Eamon.Framework.DataStorage.IDatabase.GetRecordCount``1(Eamon.Framework.DataStorage.Generic.IDbTable{``0})">
             <summary></summary>
             <param name="table"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.DataStorage.IDatabase.GetConfigsCount">
+        <member name="M:Eamon.Framework.DataStorage.IDatabase.GetConfigCount">
             <summary></summary>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.DataStorage.IDatabase.GetFilesetsCount">
+        <member name="M:Eamon.Framework.DataStorage.IDatabase.GetFilesetCount">
             <summary></summary>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.DataStorage.IDatabase.GetCharactersCount">
+        <member name="M:Eamon.Framework.DataStorage.IDatabase.GetCharacterCount">
             <summary></summary>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.DataStorage.IDatabase.GetModulesCount">
+        <member name="M:Eamon.Framework.DataStorage.IDatabase.GetModuleCount">
             <summary></summary>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.DataStorage.IDatabase.GetRoomsCount">
+        <member name="M:Eamon.Framework.DataStorage.IDatabase.GetRoomCount">
             <summary></summary>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.DataStorage.IDatabase.GetArtifactsCount">
+        <member name="M:Eamon.Framework.DataStorage.IDatabase.GetArtifactCount">
             <summary></summary>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.DataStorage.IDatabase.GetEffectsCount">
+        <member name="M:Eamon.Framework.DataStorage.IDatabase.GetEffectCount">
             <summary></summary>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.DataStorage.IDatabase.GetMonstersCount">
+        <member name="M:Eamon.Framework.DataStorage.IDatabase.GetMonsterCount">
             <summary></summary>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.DataStorage.IDatabase.GetHintsCount">
+        <member name="M:Eamon.Framework.DataStorage.IDatabase.GetHintCount">
             <summary></summary>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.DataStorage.IDatabase.GetGameStatesCount">
+        <member name="M:Eamon.Framework.DataStorage.IDatabase.GetGameStateCount">
             <summary></summary>
             <returns></returns>
         </member>
@@ -1180,22 +1180,22 @@
             this <see cref="T:Eamon.Framework.IArtifact">Artifact</see>'s behavior in the game.
             </summary>
         </member>
-        <member name="M:Eamon.Framework.IArtifact.GetCategories(System.Int64)">
+        <member name="M:Eamon.Framework.IArtifact.GetCategory(System.Int64)">
             <summary></summary>
             <param name="index"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IArtifact.GetSynonyms(System.Int64)">
+        <member name="M:Eamon.Framework.IArtifact.GetSynonym(System.Int64)">
             <summary></summary>
             <param name="index"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IArtifact.SetCategories(System.Int64,Eamon.Framework.Primitive.Classes.IArtifactCategory)">
+        <member name="M:Eamon.Framework.IArtifact.SetCategory(System.Int64,Eamon.Framework.Primitive.Classes.IArtifactCategory)">
             <summary></summary>
             <param name="index"></param>
             <param name="value"></param>
         </member>
-        <member name="M:Eamon.Framework.IArtifact.SetSynonyms(System.Int64,System.String)">
+        <member name="M:Eamon.Framework.IArtifact.SetSynonym(System.Int64,System.String)">
             <summary></summary>
             <param name="index"></param>
             <param name="value"></param>
@@ -1711,112 +1711,112 @@
         <member name="P:Eamon.Framework.ICharacter.Weapons">
             <summary></summary>
         </member>
-        <member name="M:Eamon.Framework.ICharacter.GetStats(System.Int64)">
+        <member name="M:Eamon.Framework.ICharacter.GetStat(System.Int64)">
             <summary></summary>
             <param name="index"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.ICharacter.GetStats(Eamon.Framework.Primitive.Enums.Stat)">
+        <member name="M:Eamon.Framework.ICharacter.GetStat(Eamon.Framework.Primitive.Enums.Stat)">
             <summary></summary>
             <param name="stat"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.ICharacter.GetSpellAbilities(System.Int64)">
+        <member name="M:Eamon.Framework.ICharacter.GetSpellAbility(System.Int64)">
             <summary></summary>
             <param name="index"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.ICharacter.GetSpellAbilities(Eamon.Framework.Primitive.Enums.Spell)">
+        <member name="M:Eamon.Framework.ICharacter.GetSpellAbility(Eamon.Framework.Primitive.Enums.Spell)">
             <summary></summary>
             <param name="spell"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.ICharacter.GetWeaponAbilities(System.Int64)">
+        <member name="M:Eamon.Framework.ICharacter.GetWeaponAbility(System.Int64)">
             <summary></summary>
             <param name="index"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.ICharacter.GetWeaponAbilities(Eamon.Framework.Primitive.Enums.Weapon)">
+        <member name="M:Eamon.Framework.ICharacter.GetWeaponAbility(Eamon.Framework.Primitive.Enums.Weapon)">
             <summary></summary>
             <param name="weapon"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.ICharacter.GetWeapons(System.Int64)">
+        <member name="M:Eamon.Framework.ICharacter.GetWeapon(System.Int64)">
             <summary></summary>
             <param name="index"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.ICharacter.GetSynonyms(System.Int64)">
+        <member name="M:Eamon.Framework.ICharacter.GetSynonym(System.Int64)">
             <summary></summary>
             <param name="index"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.ICharacter.SetStats(System.Int64,System.Int64)">
+        <member name="M:Eamon.Framework.ICharacter.SetStat(System.Int64,System.Int64)">
             <summary></summary>
             <param name="index"></param>
             <param name="value"></param>
         </member>
-        <member name="M:Eamon.Framework.ICharacter.SetStats(Eamon.Framework.Primitive.Enums.Stat,System.Int64)">
+        <member name="M:Eamon.Framework.ICharacter.SetStat(Eamon.Framework.Primitive.Enums.Stat,System.Int64)">
             <summary></summary>
             <param name="stat"></param>
             <param name="value"></param>
         </member>
-        <member name="M:Eamon.Framework.ICharacter.SetSpellAbilities(System.Int64,System.Int64)">
+        <member name="M:Eamon.Framework.ICharacter.SetSpellAbility(System.Int64,System.Int64)">
             <summary></summary>
             <param name="index"></param>
             <param name="value"></param>
         </member>
-        <member name="M:Eamon.Framework.ICharacter.SetSpellAbilities(Eamon.Framework.Primitive.Enums.Spell,System.Int64)">
+        <member name="M:Eamon.Framework.ICharacter.SetSpellAbility(Eamon.Framework.Primitive.Enums.Spell,System.Int64)">
             <summary></summary>
             <param name="spell"></param>
             <param name="value"></param>
         </member>
-        <member name="M:Eamon.Framework.ICharacter.SetWeaponAbilities(System.Int64,System.Int64)">
+        <member name="M:Eamon.Framework.ICharacter.SetWeaponAbility(System.Int64,System.Int64)">
             <summary></summary>
             <param name="index"></param>
             <param name="value"></param>
         </member>
-        <member name="M:Eamon.Framework.ICharacter.SetWeaponAbilities(Eamon.Framework.Primitive.Enums.Weapon,System.Int64)">
+        <member name="M:Eamon.Framework.ICharacter.SetWeaponAbility(Eamon.Framework.Primitive.Enums.Weapon,System.Int64)">
             <summary></summary>
             <param name="weapon"></param>
             <param name="value"></param>
         </member>
-        <member name="M:Eamon.Framework.ICharacter.SetWeapons(System.Int64,Eamon.Framework.Primitive.Classes.ICharacterArtifact)">
+        <member name="M:Eamon.Framework.ICharacter.SetWeapon(System.Int64,Eamon.Framework.Primitive.Classes.ICharacterArtifact)">
             <summary></summary>
             <param name="index"></param>
             <param name="value"></param>
         </member>
-        <member name="M:Eamon.Framework.ICharacter.SetSynonyms(System.Int64,System.String)">
+        <member name="M:Eamon.Framework.ICharacter.SetSynonym(System.Int64,System.String)">
             <summary></summary>
             <param name="index"></param>
             <param name="value"></param>
         </member>
-        <member name="M:Eamon.Framework.ICharacter.ModStats(System.Int64,System.Int64)">
+        <member name="M:Eamon.Framework.ICharacter.ModStat(System.Int64,System.Int64)">
             <summary></summary>
             <param name="index"></param>
             <param name="value"></param>
         </member>
-        <member name="M:Eamon.Framework.ICharacter.ModStats(Eamon.Framework.Primitive.Enums.Stat,System.Int64)">
+        <member name="M:Eamon.Framework.ICharacter.ModStat(Eamon.Framework.Primitive.Enums.Stat,System.Int64)">
             <summary></summary>
             <param name="stat"></param>
             <param name="value"></param>
         </member>
-        <member name="M:Eamon.Framework.ICharacter.ModSpellAbilities(System.Int64,System.Int64)">
+        <member name="M:Eamon.Framework.ICharacter.ModSpellAbility(System.Int64,System.Int64)">
             <summary></summary>
             <param name="index"></param>
             <param name="value"></param>
         </member>
-        <member name="M:Eamon.Framework.ICharacter.ModSpellAbilities(Eamon.Framework.Primitive.Enums.Spell,System.Int64)">
+        <member name="M:Eamon.Framework.ICharacter.ModSpellAbility(Eamon.Framework.Primitive.Enums.Spell,System.Int64)">
             <summary></summary>
             <param name="spell"></param>
             <param name="value"></param>
         </member>
-        <member name="M:Eamon.Framework.ICharacter.ModWeaponAbilities(System.Int64,System.Int64)">
+        <member name="M:Eamon.Framework.ICharacter.ModWeaponAbility(System.Int64,System.Int64)">
             <summary></summary>
             <param name="index"></param>
             <param name="value"></param>
         </member>
-        <member name="M:Eamon.Framework.ICharacter.ModWeaponAbilities(Eamon.Framework.Primitive.Enums.Weapon,System.Int64)">
+        <member name="M:Eamon.Framework.ICharacter.ModWeaponAbility(Eamon.Framework.Primitive.Enums.Weapon,System.Int64)">
             <summary></summary>
             <param name="weapon"></param>
             <param name="value"></param>
@@ -2071,179 +2071,179 @@
             Gets or sets a generic string representing an unknown name (e.g., "???").
             </summary>
         </member>
-        <member name="M:Eamon.Framework.IEngine.GetPreps(System.Int64)">
+        <member name="M:Eamon.Framework.IEngine.GetPrep(System.Int64)">
             <summary>
             Gets the sentence preposition (e.g., "to", "from", "inside", etc).
             </summary>
             <param name="index"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IEngine.GetArticles(System.Int64)">
+        <member name="M:Eamon.Framework.IEngine.GetArticle(System.Int64)">
             <summary>
             Gets the sentence article (e.g., "a", "some", "the", etc).
             </summary>
             <param name="index"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IEngine.GetNumberStrings(System.Int64)">
+        <member name="M:Eamon.Framework.IEngine.GetNumberString(System.Int64)">
             <summary></summary>
             <param name="index"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IEngine.GetFieldDescNames(System.Int64)">
+        <member name="M:Eamon.Framework.IEngine.GetFieldDescName(System.Int64)">
             <summary></summary>
             <param name="index"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IEngine.GetFieldDescNames(Eamon.Framework.Primitive.Enums.FieldDesc)">
+        <member name="M:Eamon.Framework.IEngine.GetFieldDescName(Eamon.Framework.Primitive.Enums.FieldDesc)">
             <summary></summary>
             <param name="fieldDesc"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IEngine.GetStatusNames(System.Int64)">
+        <member name="M:Eamon.Framework.IEngine.GetStatusName(System.Int64)">
             <summary>
             Gets the name for a given <see cref="T:Eamon.Framework.Primitive.Enums.Status"/>.
             </summary>
             <param name="index"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IEngine.GetStatusNames(Eamon.Framework.Primitive.Enums.Status)">
+        <member name="M:Eamon.Framework.IEngine.GetStatusName(Eamon.Framework.Primitive.Enums.Status)">
             <summary>
             Gets the name for a given <see cref="T:Eamon.Framework.Primitive.Enums.Status"/>.
             </summary>
             <param name="status"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IEngine.GetClothingNames(System.Int64)">
+        <member name="M:Eamon.Framework.IEngine.GetClothingName(System.Int64)">
             <summary>
             Gets the name for a given <see cref="T:Eamon.Framework.Primitive.Enums.Clothing"/>.
             </summary>
             <param name="index"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IEngine.GetClothingNames(Eamon.Framework.Primitive.Enums.Clothing)">
+        <member name="M:Eamon.Framework.IEngine.GetClothingName(Eamon.Framework.Primitive.Enums.Clothing)">
             <summary>
             Gets the name for a given <see cref="T:Eamon.Framework.Primitive.Enums.Clothing"/>.
             </summary>
             <param name="clothing"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IEngine.GetCombatCodeDescs(System.Int64)">
+        <member name="M:Eamon.Framework.IEngine.GetCombatCodeDesc(System.Int64)">
             <summary>
             Gets the description for a given <see cref="T:Eamon.Framework.Primitive.Enums.CombatCode"/>.
             </summary>
             <param name="index"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IEngine.GetCombatCodeDescs(Eamon.Framework.Primitive.Enums.CombatCode)">
+        <member name="M:Eamon.Framework.IEngine.GetCombatCodeDesc(Eamon.Framework.Primitive.Enums.CombatCode)">
             <summary>
             Gets the description for a given <see cref="T:Eamon.Framework.Primitive.Enums.CombatCode"/>.
             </summary>
             <param name="combatCode"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IEngine.GetContainerDisplayCodeDescs(System.Int64)">
+        <member name="M:Eamon.Framework.IEngine.GetContainerDisplayCodeDesc(System.Int64)">
             <summary></summary>
             <param name="index"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IEngine.GetContainerDisplayCodeDescs(Eamon.Framework.Primitive.Enums.ContainerDisplayCode)">
+        <member name="M:Eamon.Framework.IEngine.GetContainerDisplayCodeDesc(Eamon.Framework.Primitive.Enums.ContainerDisplayCode)">
             <summary></summary>
             <param name="containerDisplayCode"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IEngine.GetLightLevelNames(System.Int64)">
+        <member name="M:Eamon.Framework.IEngine.GetLightLevelName(System.Int64)">
             <summary>
             Gets the name for a given <see cref="T:Eamon.Framework.Primitive.Enums.LightLevel"/>.
             </summary>
             <param name="index"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IEngine.GetLightLevelNames(Eamon.Framework.Primitive.Enums.LightLevel)">
+        <member name="M:Eamon.Framework.IEngine.GetLightLevelName(Eamon.Framework.Primitive.Enums.LightLevel)">
             <summary>
             Gets the name for a given <see cref="T:Eamon.Framework.Primitive.Enums.LightLevel"/>.
             </summary>
             <param name="lightLevel"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IEngine.GetStats(System.Int64)">
+        <member name="M:Eamon.Framework.IEngine.GetStat(System.Int64)">
             <summary>
             Gets the data for a given <see cref="T:Eamon.Framework.Primitive.Enums.Stat"/>.
             </summary>
             <param name="index"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IEngine.GetStats(Eamon.Framework.Primitive.Enums.Stat)">
+        <member name="M:Eamon.Framework.IEngine.GetStat(Eamon.Framework.Primitive.Enums.Stat)">
             <summary>
             Gets the data for a given <see cref="T:Eamon.Framework.Primitive.Enums.Stat"/>.
             </summary>
             <param name="stat"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IEngine.GetSpells(System.Int64)">
+        <member name="M:Eamon.Framework.IEngine.GetSpell(System.Int64)">
             <summary>
             Gets the data for a given <see cref="T:Eamon.Framework.Primitive.Enums.Spell"/>.
             </summary>
             <param name="index"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IEngine.GetSpells(Eamon.Framework.Primitive.Enums.Spell)">
+        <member name="M:Eamon.Framework.IEngine.GetSpell(Eamon.Framework.Primitive.Enums.Spell)">
             <summary>
             Gets the data for a given <see cref="T:Eamon.Framework.Primitive.Enums.Spell"/>.
             </summary>
             <param name="spell"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IEngine.GetWeapons(System.Int64)">
+        <member name="M:Eamon.Framework.IEngine.GetWeapon(System.Int64)">
             <summary>
             Gets the data for a given <see cref="T:Eamon.Framework.Primitive.Enums.Weapon"/>.
             </summary>
             <param name="index"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IEngine.GetWeapons(Eamon.Framework.Primitive.Enums.Weapon)">
+        <member name="M:Eamon.Framework.IEngine.GetWeapon(Eamon.Framework.Primitive.Enums.Weapon)">
             <summary>
             Gets the data for a given <see cref="T:Eamon.Framework.Primitive.Enums.Weapon"/>.
             </summary>
             <param name="weapon"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IEngine.GetArmors(System.Int64)">
+        <member name="M:Eamon.Framework.IEngine.GetArmor(System.Int64)">
             <summary>
             Gets the data for a given <see cref="T:Eamon.Framework.Primitive.Enums.Armor"/>.
             </summary>
             <param name="index"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IEngine.GetArmors(Eamon.Framework.Primitive.Enums.Armor)">
+        <member name="M:Eamon.Framework.IEngine.GetArmor(Eamon.Framework.Primitive.Enums.Armor)">
             <summary>
             Gets the data for a given <see cref="T:Eamon.Framework.Primitive.Enums.Armor"/>.
             </summary>
             <param name="armor"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IEngine.GetDirections(System.Int64)">
+        <member name="M:Eamon.Framework.IEngine.GetDirection(System.Int64)">
             <summary>
             Gets the data for a given <see cref="T:Eamon.Framework.Primitive.Enums.Direction"/>.
             </summary>
             <param name="index"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IEngine.GetDirections(Eamon.Framework.Primitive.Enums.Direction)">
+        <member name="M:Eamon.Framework.IEngine.GetDirection(Eamon.Framework.Primitive.Enums.Direction)">
             <summary>
             Gets the data for a given <see cref="T:Eamon.Framework.Primitive.Enums.Direction"/>.
             </summary>
             <param name="direction"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IEngine.GetArtifactTypes(System.Int64)">
+        <member name="M:Eamon.Framework.IEngine.GetArtifactType(System.Int64)">
             <summary>
             Gets the data for a given <see cref="T:Eamon.Framework.Primitive.Enums.ArtifactType"/>.
             </summary>
             <param name="index"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IEngine.GetArtifactTypes(Eamon.Framework.Primitive.Enums.ArtifactType)">
+        <member name="M:Eamon.Framework.IEngine.GetArtifactType(Eamon.Framework.Primitive.Enums.ArtifactType)">
             <summary>
             Gets the data for a given <see cref="T:Eamon.Framework.Primitive.Enums.ArtifactType"/>.
             </summary>
@@ -3308,12 +3308,12 @@
             <param name="spell"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IGameState.GetImportedArtUids(System.Int64)">
+        <member name="M:Eamon.Framework.IGameState.GetImportedArtUid(System.Int64)">
             <summary></summary>
             <param name="index"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IGameState.GetHeldWpnUids(System.Int64)">
+        <member name="M:Eamon.Framework.IGameState.GetHeldWpnUid(System.Int64)">
             <summary></summary>
             <param name="index"></param>
             <returns></returns>
@@ -3328,12 +3328,12 @@
             <param name="spell"></param>
             <param name="value"></param>
         </member>
-        <member name="M:Eamon.Framework.IGameState.SetImportedArtUids(System.Int64,System.Int64)">
+        <member name="M:Eamon.Framework.IGameState.SetImportedArtUid(System.Int64,System.Int64)">
             <summary></summary>
             <param name="index"></param>
             <param name="value"></param>
         </member>
-        <member name="M:Eamon.Framework.IGameState.SetHeldWpnUids(System.Int64,System.Int64)">
+        <member name="M:Eamon.Framework.IGameState.SetHeldWpnUid(System.Int64,System.Int64)">
             <summary></summary>
             <param name="index"></param>
             <param name="value"></param>
@@ -3363,12 +3363,12 @@
         <member name="P:Eamon.Framework.IHint.Answers">
             <summary></summary>
         </member>
-        <member name="M:Eamon.Framework.IHint.GetAnswers(System.Int64)">
+        <member name="M:Eamon.Framework.IHint.GetAnswer(System.Int64)">
             <summary></summary>
             <param name="index"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IHint.SetAnswers(System.Int64,System.String)">
+        <member name="M:Eamon.Framework.IHint.SetAnswer(System.Int64,System.String)">
             <summary></summary>
             <param name="index"></param>
             <param name="value"></param>
@@ -3966,27 +3966,27 @@
             </summary>
             <remarks>
             The elements of this array can be manipulated during game play, but you should never do so directly.  Instead, use the
-            <see cref="M:Eamon.Framework.IRoom.GetDirs(Eamon.Framework.Primitive.Enums.Direction)"/> and <see cref="M:Eamon.Framework.IRoom.SetDirs(Eamon.Framework.Primitive.Enums.Direction,System.Int64)"/> methods.  The 0'th element is unused.
+            <see cref="M:Eamon.Framework.IRoom.GetDir(Eamon.Framework.Primitive.Enums.Direction)"/> and <see cref="M:Eamon.Framework.IRoom.SetDir(Eamon.Framework.Primitive.Enums.Direction,System.Int64)"/> methods.  The 0'th element is unused.
             </remarks>
-            <seealso cref="M:Eamon.Framework.IRoom.GetDirs(System.Int64)"/>
-            <seealso cref="M:Eamon.Framework.IRoom.SetDirs(System.Int64,System.Int64)"/>
+            <seealso cref="M:Eamon.Framework.IRoom.GetDir(System.Int64)"/>
+            <seealso cref="M:Eamon.Framework.IRoom.SetDir(System.Int64,System.Int64)"/>
         </member>
-        <member name="M:Eamon.Framework.IRoom.GetDirs(System.Int64)">
+        <member name="M:Eamon.Framework.IRoom.GetDir(System.Int64)">
             <summary></summary>
             <param name="index"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IRoom.GetDirs(Eamon.Framework.Primitive.Enums.Direction)">
+        <member name="M:Eamon.Framework.IRoom.GetDir(Eamon.Framework.Primitive.Enums.Direction)">
             <summary></summary>
             <param name="dir"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IRoom.SetDirs(System.Int64,System.Int64)">
+        <member name="M:Eamon.Framework.IRoom.SetDir(System.Int64,System.Int64)">
             <summary></summary>
             <param name="index"></param>
             <param name="value"></param>
         </member>
-        <member name="M:Eamon.Framework.IRoom.SetDirs(Eamon.Framework.Primitive.Enums.Direction,System.Int64)">
+        <member name="M:Eamon.Framework.IRoom.SetDir(Eamon.Framework.Primitive.Enums.Direction,System.Int64)">
             <summary></summary>
             <param name="dir"></param>
             <param name="value"></param>

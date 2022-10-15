@@ -55,179 +55,179 @@ namespace Eamon.Framework
 		/// </summary>
 		/// <param name="index"></param>
 		/// <returns></returns>
-		IPrep GetPreps(long index);
+		IPrep GetPrep(long index);
 
 		/// <summary>
 		/// Gets the sentence article (e.g., "a", "some", "the", etc).
 		/// </summary>
 		/// <param name="index"></param>
 		/// <returns></returns>
-		string GetArticles(long index);
+		string GetArticle(long index);
 
 		/// <summary></summary>
 		/// <param name="index"></param>
 		/// <returns></returns>
-		string GetNumberStrings(long index);
+		string GetNumberString(long index);
 
 		/// <summary></summary>
 		/// <param name="index"></param>
 		/// <returns></returns>
-		string GetFieldDescNames(long index);
+		string GetFieldDescName(long index);
 
 		/// <summary></summary>
 		/// <param name="fieldDesc"></param>
 		/// <returns></returns>
-		string GetFieldDescNames(FieldDesc fieldDesc);
+		string GetFieldDescName(FieldDesc fieldDesc);
 
 		/// <summary>
 		/// Gets the name for a given <see cref="Status"/>.
 		/// </summary>
 		/// <param name="index"></param>
 		/// <returns></returns>
-		string GetStatusNames(long index);
+		string GetStatusName(long index);
 
 		/// <summary>
 		/// Gets the name for a given <see cref="Status"/>.
 		/// </summary>
 		/// <param name="status"></param>
 		/// <returns></returns>
-		string GetStatusNames(Status status);
+		string GetStatusName(Status status);
 
 		/// <summary>
 		/// Gets the name for a given <see cref="Clothing"/>.
 		/// </summary>
 		/// <param name="index"></param>
 		/// <returns></returns>
-		string GetClothingNames(long index);
+		string GetClothingName(long index);
 
 		/// <summary>
 		/// Gets the name for a given <see cref="Clothing"/>.
 		/// </summary>
 		/// <param name="clothing"></param>
 		/// <returns></returns>
-		string GetClothingNames(Clothing clothing);
+		string GetClothingName(Clothing clothing);
 
 		/// <summary>
 		/// Gets the description for a given <see cref="CombatCode"/>.
 		/// </summary>
 		/// <param name="index"></param>
 		/// <returns></returns>
-		string GetCombatCodeDescs(long index);
+		string GetCombatCodeDesc(long index);
 
 		/// <summary>
 		/// Gets the description for a given <see cref="CombatCode"/>.
 		/// </summary>
 		/// <param name="combatCode"></param>
 		/// <returns></returns>
-		string GetCombatCodeDescs(CombatCode combatCode);
+		string GetCombatCodeDesc(CombatCode combatCode);
 
 		/// <summary></summary>
 		/// <param name="index"></param>
 		/// <returns></returns>
-		string GetContainerDisplayCodeDescs(long index);
+		string GetContainerDisplayCodeDesc(long index);
 
 		/// <summary></summary>
 		/// <param name="containerDisplayCode"></param>
 		/// <returns></returns>
-		string GetContainerDisplayCodeDescs(ContainerDisplayCode containerDisplayCode);
+		string GetContainerDisplayCodeDesc(ContainerDisplayCode containerDisplayCode);
 
 		/// <summary>
 		/// Gets the name for a given <see cref="LightLevel"/>.
 		/// </summary>
 		/// <param name="index"></param>
 		/// <returns></returns>
-		string GetLightLevelNames(long index);
+		string GetLightLevelName(long index);
 
 		/// <summary>
 		/// Gets the name for a given <see cref="LightLevel"/>.
 		/// </summary>
 		/// <param name="lightLevel"></param>
 		/// <returns></returns>
-		string GetLightLevelNames(LightLevel lightLevel);
+		string GetLightLevelName(LightLevel lightLevel);
 
 		/// <summary>
 		/// Gets the data for a given <see cref="Stat"/>.
 		/// </summary>
 		/// <param name="index"></param>
 		/// <returns></returns>
-		IStat GetStats(long index);
+		IStat GetStat(long index);
 
 		/// <summary>
 		/// Gets the data for a given <see cref="Stat"/>.
 		/// </summary>
 		/// <param name="stat"></param>
 		/// <returns></returns>
-		IStat GetStats(Stat stat);
+		IStat GetStat(Stat stat);
 
 		/// <summary>
 		/// Gets the data for a given <see cref="Spell"/>.
 		/// </summary>
 		/// <param name="index"></param>
 		/// <returns></returns>
-		ISpell GetSpells(long index);
+		ISpell GetSpell(long index);
 
 		/// <summary>
 		/// Gets the data for a given <see cref="Spell"/>.
 		/// </summary>
 		/// <param name="spell"></param>
 		/// <returns></returns>
-		ISpell GetSpells(Spell spell);
+		ISpell GetSpell(Spell spell);
 
 		/// <summary>
 		/// Gets the data for a given <see cref="Weapon"/>.
 		/// </summary>
 		/// <param name="index"></param>
 		/// <returns></returns>
-		IWeapon GetWeapons(long index);
+		IWeapon GetWeapon(long index);
 
 		/// <summary>
 		/// Gets the data for a given <see cref="Weapon"/>.
 		/// </summary>
 		/// <param name="weapon"></param>
 		/// <returns></returns>
-		IWeapon GetWeapons(Weapon weapon);
+		IWeapon GetWeapon(Weapon weapon);
 
 		/// <summary>
 		/// Gets the data for a given <see cref="Armor"/>.
 		/// </summary>
 		/// <param name="index"></param>
 		/// <returns></returns>
-		IArmor GetArmors(long index);
+		IArmor GetArmor(long index);
 
 		/// <summary>
 		/// Gets the data for a given <see cref="Armor"/>.
 		/// </summary>
 		/// <param name="armor"></param>
 		/// <returns></returns>
-		IArmor GetArmors(Armor armor);
+		IArmor GetArmor(Armor armor);
 
 		/// <summary>
 		/// Gets the data for a given <see cref="Direction"/>.
 		/// </summary>
 		/// <param name="index"></param>
 		/// <returns></returns>
-		IDirection GetDirections(long index);
+		IDirection GetDirection(long index);
 
 		/// <summary>
 		/// Gets the data for a given <see cref="Direction"/>.
 		/// </summary>
 		/// <param name="direction"></param>
 		/// <returns></returns>
-		IDirection GetDirections(Direction direction);
+		IDirection GetDirection(Direction direction);
 
 		/// <summary>
 		/// Gets the data for a given <see cref="ArtifactType"/>.
 		/// </summary>
 		/// <param name="index"></param>
 		/// <returns></returns>
-		IArtifactType GetArtifactTypes(long index);
+		IArtifactType GetArtifactType(long index);
 
 		/// <summary>
 		/// Gets the data for a given <see cref="ArtifactType"/>.
 		/// </summary>
 		/// <param name="artifactType"></param>
 		/// <returns></returns>
-		IArtifactType GetArtifactTypes(ArtifactType artifactType);
+		IArtifactType GetArtifactType(ArtifactType artifactType);
 
 		/// <summary>
 		/// Indicates whether an operation succeeded.

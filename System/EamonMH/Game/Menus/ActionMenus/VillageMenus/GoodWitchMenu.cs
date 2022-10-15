@@ -56,7 +56,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 			for (i = 0; i < statValues.Count; i++)
 			{
-				stat = gEngine.GetStats(statValues[(int)i]);
+				stat = gEngine.GetStat(statValues[(int)i]);
 
 				Debug.Assert(stat != null);
 
@@ -84,7 +84,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 			i = Convert.ToInt64(Buf.Trim().ToString());
 
-			stat = gEngine.GetStats((Stat)i);
+			stat = gEngine.GetStat((Stat)i);
 
 			Debug.Assert(stat != null);
 
@@ -100,7 +100,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 				gOut.Print("{0}", Globals.LineSep);
 
-				gOut.Print("Attribute: {0}        Gold: {1}        Cost: {2}", gCharacter.GetStats(i), gCharacter.HeldGold, ap);
+				gOut.Print("Attribute: {0}        Gold: {1}        Cost: {2}", gCharacter.GetStat(i), gCharacter.HeldGold, ap);
 
 				if (gCharacter.HeldGold >= ap)
 				{
@@ -126,20 +126,20 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 						var rl = gEngine.RollDice(1, 24, 0);
 
-						if (rl >= gCharacter.GetStats(Stat.Charisma))
+						if (rl >= gCharacter.GetStat(Stat.Charisma))
 						{
 							gOut.Print("\"It is done!\" she exclaims.");
 
-							gCharacter.ModStats(i, 1);
+							gCharacter.ModStat(i, 1);
 						}
 						else
 						{
 							gOut.Print("\"Because of your powerful adventurer's aura, my spells will sometimes fail.  Unfortunately, this was one of those times.\"");
 						}
 
-						if (gCharacter.GetStats(i) > stat.MaxValue)
+						if (gCharacter.GetStat(i) > stat.MaxValue)
 						{
-							gCharacter.SetStats(i, stat.MaxValue);
+							gCharacter.SetStat(i, stat.MaxValue);
 						}
 
 						gCharacter.HeldGold -= ap;

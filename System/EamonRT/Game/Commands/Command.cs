@@ -766,19 +766,19 @@ namespace EamonRT.Game.Commands
 			CommandImpl.PrintBortRoomInvalid();
 		}
 
-		public virtual void PrintHintsQuestion(long hintNum, string question)
+		public virtual void PrintHintQuestion(long hintNum, string question)
 		{
-			CommandImpl.PrintHintsQuestion(hintNum, question);
+			CommandImpl.PrintHintQuestion(hintNum, question);
 		}
 
-		public virtual void PrintHintsQuestion01(string question)
+		public virtual void PrintHintQuestion01(string question)
 		{
-			CommandImpl.PrintHintsQuestion01(question);
+			CommandImpl.PrintHintQuestion01(question);
 		}
 
-		public virtual void PrintHintsAnswer(string answer, StringBuilder buf)
+		public virtual void PrintHintAnswer(string answer, StringBuilder buf)
 		{
-			CommandImpl.PrintHintsAnswer(answer, buf);
+			CommandImpl.PrintHintAnswer(answer, buf);
 		}
 
 		public virtual void PrintSayText(string printedPhrase)

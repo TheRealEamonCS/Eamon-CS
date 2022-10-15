@@ -151,7 +151,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 							for (i = 0; i < weaponValues.Count; i++)
 							{
-								var weapon = gEngine.GetWeapons(weaponValues[(int)i]);
+								var weapon = gEngine.GetWeapon(weaponValues[(int)i]);
 
 								Debug.Assert(weapon != null);
 
@@ -179,7 +179,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 							{
 								i = Convert.ToInt64(Buf.Trim().ToString());
 
-								var weapon = gEngine.GetWeapons((Weapon)i);
+								var weapon = gEngine.GetWeapon((Weapon)i);
 
 								Debug.Assert(weapon != null);
 
@@ -249,9 +249,9 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 									Debug.Assert(gEngine.IsSuccess(rc));
 
-									gCharacter.SetWeapons(i, cw);
+									gCharacter.SetWeapon(i, cw);
 
-									gCharacter.GetWeapons(i).Parent = gCharacter;
+									gCharacter.GetWeapon(i).Parent = gCharacter;
 
 									gCharacter.StripUniqueCharsFromWeaponNames();
 
@@ -354,7 +354,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 								var imw = false;
 
-								var weaponPrice = gEngine.GetWeaponPriceOrValue(gCharacter.GetWeapons(i), true, ref imw);
+								var weaponPrice = gEngine.GetWeaponPriceOrValue(gCharacter.GetWeapon(i), true, ref imw);
 
 								ap = gEngine.GetMerchantAskPrice(weaponPrice, (double)Rtio);
 
@@ -363,8 +363,8 @@ namespace EamonMH.Game.Menus.ActionMenus
 								ti = Math.Min(ap, bp) / 4;
 
 								gOut.Print("Marcos examines your weapon and says, \"{0}Well, {1}I can give you {2} gold piece{3} for it, take it or leave it.\"",
-									gCharacter.GetWeapons(i).Field3 * gCharacter.GetWeapons(i).Field4 > 25 ? "Very nice, this is a magical weapon.  " :
-									gCharacter.GetWeapons(i).Field3 * gCharacter.GetWeapons(i).Field4 > 15 || gCharacter.GetWeapons(i).Field1 > 10 ? "Hey, this is a pretty good weapon!  " : "",
+									gCharacter.GetWeapon(i).Field3 * gCharacter.GetWeapon(i).Field4 > 25 ? "Very nice, this is a magical weapon.  " :
+									gCharacter.GetWeapon(i).Field3 * gCharacter.GetWeapon(i).Field4 > 15 || gCharacter.GetWeapon(i).Field1 > 10 ? "Hey, this is a pretty good weapon!  " : "",
 									imw ? "you've banged it up a bit, but " : "",
 									ti,
 									ti != 1 ? "s" : "");
@@ -391,12 +391,12 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 									while (i + 1 < gCharacter.Weapons.Length)
 									{
-										gCharacter.SetWeapons(i, gCharacter.GetWeapons(i + 1));
+										gCharacter.SetWeapon(i, gCharacter.GetWeapon(i + 1));
 
 										i++;
 									}
 
-									gCharacter.SetWeapons(i, Globals.CreateInstance<ICharacterArtifact>(x =>
+									gCharacter.SetWeapon(i, Globals.CreateInstance<ICharacterArtifact>(x =>
 									{
 										x.Parent = gCharacter;
 									}));
@@ -467,7 +467,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 						ti = Math.Min(ap, bp) / 4;
 
-						var armor = gEngine.GetArmors((Armor)(a2 * 2));
+						var armor = gEngine.GetArmor((Armor)(a2 * 2));
 
 						Debug.Assert(armor != null);
 
@@ -479,7 +479,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 						for (i = 0; i < armorValues.Count; i++)
 						{
-							armor = gEngine.GetArmors(armorValues[(int)i]);
+							armor = gEngine.GetArmor(armorValues[(int)i]);
 
 							Debug.Assert(armor != null);
 
@@ -514,7 +514,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 						for (i = 0; i < armorValues.Count; i++)
 						{
-							armor = gEngine.GetArmors(armorValues[(int)i]);
+							armor = gEngine.GetArmor(armorValues[(int)i]);
 
 							Debug.Assert(armor != null);
 
@@ -563,7 +563,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 								for (i = 0; i < armorValues.Count; i++)
 								{
-									if (gEngine.GetArmors(armorValues[(int)i]) == armor)
+									if (gEngine.GetArmor(armorValues[(int)i]) == armor)
 									{
 										break;
 									}

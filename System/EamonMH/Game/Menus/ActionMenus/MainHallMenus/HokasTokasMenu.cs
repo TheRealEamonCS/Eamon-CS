@@ -53,7 +53,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 			{
 				i = (long)sv;
 
-				spell = gEngine.GetSpells(sv);
+				spell = gEngine.GetSpell(sv);
 
 				Debug.Assert(spell != null);
 
@@ -76,7 +76,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 			{
 				i = (long)sv;
 
-				spell = gEngine.GetSpells(sv);
+				spell = gEngine.GetSpell(sv);
 
 				Debug.Assert(spell != null);
 
@@ -111,7 +111,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 			i = Convert.ToInt64(Buf.Trim().ToString());
 
-			if (gCharacter.GetSpellAbilities(i) > 0)
+			if (gCharacter.GetSpellAbility(i) > 0)
 			{
 				gOut.Write("{0}Hokas says, \"I ought to take your gold anyway, but haven't you forgotten something?  I already taught you that spell!\"{0}{0}Shaking his head sadly, he returns to the bar.{0}", Environment.NewLine);
 
@@ -120,7 +120,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 				goto Cleanup;
 			}
 
-			spell = gEngine.GetSpells((Spell)i);
+			spell = gEngine.GetSpell((Spell)i);
 
 			Debug.Assert(spell != null);
 
@@ -143,7 +143,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 			Debug.Assert(sa >= 1 && sa <= 100);
 
-			gCharacter.SetSpellAbilities(i, sa);
+			gCharacter.SetSpellAbility(i, sa);
 
 			Globals.CharactersModified = true;
 

@@ -31,12 +31,12 @@ namespace Eamon.Framework
 		/// <summary></summary>
 		/// <param name="index"></param>
 		/// <returns></returns>
-		string GetAnswers(long index);
+		string GetAnswer(long index);
 
 		/// <summary></summary>
 		/// <param name="index"></param>
 		/// <param name="value"></param>
-		void SetAnswers(long index, string value);
+		void SetAnswer(long index, string value);
 
 		#endregion
 	}

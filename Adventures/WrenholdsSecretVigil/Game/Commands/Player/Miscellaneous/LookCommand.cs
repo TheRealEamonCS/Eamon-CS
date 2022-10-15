@@ -40,15 +40,15 @@ namespace WrenholdsSecretVigil.Game.Commands
 
 					foreach (var dv in directionValues)
 					{
-						if (ActorRoom.GetDirs(dv) < 0 && ActorRoom.GetDirs(dv) >= -numRooms)
+						if (ActorRoom.GetDir(dv) < 0 && ActorRoom.GetDir(dv) >= -numRooms)
 						{
-							var direction = gEngine.GetDirections(dv);
+							var direction = gEngine.GetDirection(dv);
 
 							Debug.Assert(direction != null);
 
 							gOut.Print("You found a secret passage {0}!", direction.Name.ToLower());
 
-							ActorRoom.SetDirs(dv, -ActorRoom.GetDirs(dv));
+							ActorRoom.SetDir(dv, -ActorRoom.GetDir(dv));
 						}
 					}
 				}

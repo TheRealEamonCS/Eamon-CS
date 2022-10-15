@@ -499,16 +499,16 @@
         <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintBortRoomInvalid">
             <summary></summary>
         </member>
-        <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintHintsQuestion(System.Int64,System.String)">
+        <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintHintQuestion(System.Int64,System.String)">
             <summary></summary>
             <param name="hintNum"></param>
             <param name="question"></param>
         </member>
-        <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintHintsQuestion01(System.String)">
+        <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintHintQuestion01(System.String)">
             <summary></summary>
             <param name="question"></param>
         </member>
-        <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintHintsAnswer(System.String,System.Text.StringBuilder)">
+        <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintHintAnswer(System.String,System.Text.StringBuilder)">
             <summary></summary>
             <param name="answer"></param>
             <param name="buf"></param>

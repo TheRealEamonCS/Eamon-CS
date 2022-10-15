@@ -39,15 +39,15 @@ namespace ARuncibleCargo.Game.Commands
 
 					if (!gGameState.PaperRead)
 					{
-						var spell = gEngine.GetSpells(Spell.Speed);
+						var spell = gEngine.GetSpell(Spell.Speed);
 
 						Debug.Assert(spell != null);
 
-						gCharacter.ModSpellAbilities(Spell.Speed, 25);
+						gCharacter.ModSpellAbility(Spell.Speed, 25);
 
-						if (gCharacter.GetSpellAbilities(Spell.Speed) > spell.MaxValue)
+						if (gCharacter.GetSpellAbility(Spell.Speed) > spell.MaxValue)
 						{
-							gCharacter.SetSpellAbilities(Spell.Speed, spell.MaxValue);
+							gCharacter.SetSpellAbility(Spell.Speed, spell.MaxValue);
 						}
 
 						gEngine.PrintEffectDesc(76);

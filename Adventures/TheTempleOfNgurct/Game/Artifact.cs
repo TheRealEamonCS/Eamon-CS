@@ -25,7 +25,7 @@ namespace TheTempleOfNgurct.Game
 
 			if (Uid == 50)
 			{
-				ac = GetCategories(0);
+				ac = GetCategory(0);
 
 				return true;
 			}

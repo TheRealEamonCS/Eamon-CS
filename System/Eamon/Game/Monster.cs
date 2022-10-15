@@ -734,7 +734,7 @@ namespace Eamon.Game
 		{
 			if (character != null)
 			{
-				ResolveReaction(character.GetStats(Stat.Charisma));
+				ResolveReaction(character.GetStat(Stat.Charisma));
 			}
 		}
 

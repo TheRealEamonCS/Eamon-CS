@@ -64,12 +64,12 @@ namespace Eamon.Game
 
 		#region Interface IHint
 
-		public virtual string GetAnswers(long index)
+		public virtual string GetAnswer(long index)
 		{
 			return Answers[index];
 		}
 
-		public virtual void SetAnswers(long index, string value)
+		public virtual void SetAnswer(long index, string value)
 		{
 			Answers[index] = value;
 		}

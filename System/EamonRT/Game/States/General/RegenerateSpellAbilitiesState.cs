@@ -32,7 +32,7 @@ namespace EamonRT.Game.States
 
 			foreach (var sv in SpellValueList)
 			{
-				if (gGameState.GetSa(sv) < gCharacter.GetSpellAbilities(sv))
+				if (gGameState.GetSa(sv) < gCharacter.GetSpellAbility(sv))
 				{
 					SpellIncrement = (long)((double)gGameState.GetSa(sv) * 1.1) - gGameState.GetSa(sv);
 
@@ -43,9 +43,9 @@ namespace EamonRT.Game.States
 
 					gGameState.ModSa(sv, SpellIncrement);
 
-					if (gGameState.GetSa(sv) > gCharacter.GetSpellAbilities(sv))
+					if (gGameState.GetSa(sv) > gCharacter.GetSpellAbility(sv))
 					{
-						gGameState.SetSa(sv, gCharacter.GetSpellAbilities(sv));
+						gGameState.SetSa(sv, gCharacter.GetSpellAbility(sv));
 					}
 				}
 			}

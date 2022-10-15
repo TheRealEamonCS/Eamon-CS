@@ -334,7 +334,7 @@ namespace TheDeepCanyon.Game
 		{
 			Debug.Assert(monster != null);
 
-			var stat = GetStats(Stat.Hardiness);
+			var stat = GetStat(Stat.Hardiness);
 
 			Debug.Assert(stat != null);
 
@@ -345,7 +345,7 @@ namespace TheDeepCanyon.Game
 				monster.Hardiness = stat.MinValue;
 			}
 
-			stat = GetStats(Stat.Agility);
+			stat = GetStat(Stat.Agility);
 
 			Debug.Assert(stat != null);
 

@@ -61,112 +61,112 @@ namespace Eamon.Framework
 		/// <summary></summary>
 		/// <param name="index"></param>
 		/// <returns></returns>
-		long GetStats(long index);
+		long GetStat(long index);
 
 		/// <summary></summary>
 		/// <param name="stat"></param>
 		/// <returns></returns>
-		long GetStats(Stat stat);
+		long GetStat(Stat stat);
 
 		/// <summary></summary>
 		/// <param name="index"></param>
 		/// <returns></returns>
-		long GetSpellAbilities(long index);
+		long GetSpellAbility(long index);
 
 		/// <summary></summary>
 		/// <param name="spell"></param>
 		/// <returns></returns>
-		long GetSpellAbilities(Spell spell);
+		long GetSpellAbility(Spell spell);
 
 		/// <summary></summary>
 		/// <param name="index"></param>
 		/// <returns></returns>
-		long GetWeaponAbilities(long index);
+		long GetWeaponAbility(long index);
 
 		/// <summary></summary>
 		/// <param name="weapon"></param>
 		/// <returns></returns>
-		long GetWeaponAbilities(Weapon weapon);
+		long GetWeaponAbility(Weapon weapon);
 
 		/// <summary></summary>
 		/// <param name="index"></param>
 		/// <returns></returns>
-		ICharacterArtifact GetWeapons(long index);
+		ICharacterArtifact GetWeapon(long index);
 
 		/// <summary></summary>
 		/// <param name="index"></param>
 		/// <returns></returns>
-		string GetSynonyms(long index);
+		string GetSynonym(long index);
 
 		/// <summary></summary>
 		/// <param name="index"></param>
 		/// <param name="value"></param>
-		void SetStats(long index, long value);
+		void SetStat(long index, long value);
 
 		/// <summary></summary>
 		/// <param name="stat"></param>
 		/// <param name="value"></param>
-		void SetStats(Stat stat, long value);
+		void SetStat(Stat stat, long value);
 
 		/// <summary></summary>
 		/// <param name="index"></param>
 		/// <param name="value"></param>
-		void SetSpellAbilities(long index, long value);
+		void SetSpellAbility(long index, long value);
 
 		/// <summary></summary>
 		/// <param name="spell"></param>
 		/// <param name="value"></param>
-		void SetSpellAbilities(Spell spell, long value);
+		void SetSpellAbility(Spell spell, long value);
 
 		/// <summary></summary>
 		/// <param name="index"></param>
 		/// <param name="value"></param>
-		void SetWeaponAbilities(long index, long value);
+		void SetWeaponAbility(long index, long value);
 
 		/// <summary></summary>
 		/// <param name="weapon"></param>
 		/// <param name="value"></param>
-		void SetWeaponAbilities(Weapon weapon, long value);
+		void SetWeaponAbility(Weapon weapon, long value);
 
 		/// <summary></summary>
 		/// <param name="index"></param>
 		/// <param name="value"></param>
-		void SetWeapons(long index, ICharacterArtifact value);
+		void SetWeapon(long index, ICharacterArtifact value);
 
 		/// <summary></summary>
 		/// <param name="index"></param>
 		/// <param name="value"></param>
-		void SetSynonyms(long index, string value);
+		void SetSynonym(long index, string value);
 
 		/// <summary></summary>
 		/// <param name="index"></param>
 		/// <param name="value"></param>
-		void ModStats(long index, long value);
+		void ModStat(long index, long value);
 
 		/// <summary></summary>
 		/// <param name="stat"></param>
 		/// <param name="value"></param>
-		void ModStats(Stat stat, long value);
+		void ModStat(Stat stat, long value);
 
 		/// <summary></summary>
 		/// <param name="index"></param>
 		/// <param name="value"></param>
-		void ModSpellAbilities(long index, long value);
+		void ModSpellAbility(long index, long value);
 
 		/// <summary></summary>
 		/// <param name="spell"></param>
 		/// <param name="value"></param>
-		void ModSpellAbilities(Spell spell, long value);
+		void ModSpellAbility(Spell spell, long value);
 
 		/// <summary></summary>
 		/// <param name="index"></param>
 		/// <param name="value"></param>
-		void ModWeaponAbilities(long index, long value);
+		void ModWeaponAbility(long index, long value);
 
 		/// <summary></summary>
 		/// <param name="weapon"></param>
 		/// <param name="value"></param>
-		void ModWeaponAbilities(Weapon weapon, long value);
+		void ModWeaponAbility(Weapon weapon, long value);
 
 		/// <summary></summary>
 		/// <returns></returns>

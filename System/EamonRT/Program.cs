@@ -455,9 +455,9 @@ namespace EamonRT
 								{
 									i = (long)dv;
 
-									if (room.GetDirs(i) != 0)
+									if (room.GetDir(i) != 0)
 									{
-										room.SetDirs(i, 0);
+										room.SetDir(i, 0);
 
 										Globals.RoomsModified = true;
 									}
@@ -465,38 +465,38 @@ namespace EamonRT
 							}
 						}
 
-						if (Globals.Module.NumRooms != Globals.Database.GetRoomsCount())
+						if (Globals.Module.NumRooms != Globals.Database.GetRoomCount())
 						{
-							Globals.Module.NumRooms = Globals.Database.GetRoomsCount();
+							Globals.Module.NumRooms = Globals.Database.GetRoomCount();
 
 							Globals.ModulesModified = true;
 						}
 					}
 
-					if (Globals.Config.DdEditingArtifacts && Globals.Module.NumArtifacts != Globals.Database.GetArtifactsCount())
+					if (Globals.Config.DdEditingArtifacts && Globals.Module.NumArtifacts != Globals.Database.GetArtifactCount())
 					{
-						Globals.Module.NumArtifacts = Globals.Database.GetArtifactsCount();
+						Globals.Module.NumArtifacts = Globals.Database.GetArtifactCount();
 
 						Globals.ModulesModified = true;
 					}
 
-					if (Globals.Config.DdEditingEffects && Globals.Module.NumEffects != Globals.Database.GetEffectsCount())
+					if (Globals.Config.DdEditingEffects && Globals.Module.NumEffects != Globals.Database.GetEffectCount())
 					{
-						Globals.Module.NumEffects = Globals.Database.GetEffectsCount();
+						Globals.Module.NumEffects = Globals.Database.GetEffectCount();
 
 						Globals.ModulesModified = true;
 					}
 
-					if (Globals.Config.DdEditingMonsters && Globals.Module.NumMonsters != Globals.Database.GetMonstersCount())
+					if (Globals.Config.DdEditingMonsters && Globals.Module.NumMonsters != Globals.Database.GetMonsterCount())
 					{
-						Globals.Module.NumMonsters = Globals.Database.GetMonstersCount();
+						Globals.Module.NumMonsters = Globals.Database.GetMonsterCount();
 
 						Globals.ModulesModified = true;
 					}
 
-					if (Globals.Config.DdEditingHints && Globals.Module.NumHints != Globals.Database.GetHintsCount())
+					if (Globals.Config.DdEditingHints && Globals.Module.NumHints != Globals.Database.GetHintCount())
 					{
-						Globals.Module.NumHints = Globals.Database.GetHintsCount();
+						Globals.Module.NumHints = Globals.Database.GetHintCount();
 
 						Globals.ModulesModified = true;
 					}

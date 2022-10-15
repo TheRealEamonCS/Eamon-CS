@@ -27,7 +27,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			var helper = Globals.CreateInstance<U>();
 
-			var j = RecordTable.GetRecordsCount();
+			var j = RecordTable.GetRecordCount();
 
 			var i = 0;
 

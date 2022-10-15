@@ -46,7 +46,7 @@ namespace EamonRT.Game.Commands
 
 			Debug.Assert(DobjArtifact != null || DobjMonster != null);
 
-			if (gGameState.GetSa(Spell.Blast) <= 0 && gCharacter.GetSpellAbilities(Spell.Blast) <= 0)
+			if (gGameState.GetSa(Spell.Blast) <= 0 && gCharacter.GetSpellAbility(Spell.Blast) <= 0)
 			{
 				PrintNothingHappens();
 

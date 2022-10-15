@@ -777,7 +777,7 @@ namespace EamonRT.Game
 			{
 				var i = (long)sv;
 
-				gGameState.SetSa(i, gCharacter.GetSpellAbilities(i));
+				gGameState.SetSa(i, gCharacter.GetSpellAbility(i));
 			}
 		}
 
@@ -913,19 +913,19 @@ namespace EamonRT.Game
 
 				x.ArticleType = weapon.ArticleType;
 
-				x.GetCategories(0).Field1 = weapon.Field1;
+				x.GetCategory(0).Field1 = weapon.Field1;
 
-				x.GetCategories(0).Field2 = weapon.Field2;
+				x.GetCategory(0).Field2 = weapon.Field2;
 
-				x.GetCategories(0).Field3 = weapon.Field3;
+				x.GetCategory(0).Field3 = weapon.Field3;
 
-				x.GetCategories(0).Field4 = weapon.Field4;
+				x.GetCategory(0).Field4 = weapon.Field4;
 
-				x.GetCategories(0).Field5 = weapon.Field5;
+				x.GetCategory(0).Field5 = weapon.Field5;
 
 				if (weapon.Type != 0)
 				{
-					x.GetCategories(0).Type = weapon.Type;
+					x.GetCategory(0).Type = weapon.Type;
 
 					x.Value = weapon.Value;
 
@@ -935,7 +935,7 @@ namespace EamonRT.Game
 				{
 					var d = weapon.Field3 * weapon.Field4;
 
-					x.GetCategories(0).Type = (weapon.Field1 >= 15 || d >= 25) ? ArtifactType.MagicWeapon : ArtifactType.Weapon;
+					x.GetCategory(0).Type = (weapon.Field1 >= 15 || d >= 25) ? ArtifactType.MagicWeapon : ArtifactType.Weapon;
 
 					var imw = false;
 
@@ -964,7 +964,7 @@ namespace EamonRT.Game
 
 			Debug.Assert(IsSuccess(rc));
 
-			gGameState.SetImportedArtUids(gGameState.ImportedArtUidsIdx++, artifact.Uid);
+			gGameState.SetImportedArtUid(gGameState.ImportedArtUidsIdx++, artifact.Uid);
 
 			return artifact;
 		}
@@ -1099,9 +1099,9 @@ namespace EamonRT.Game
 
 				x.Desc = string.Format("You are the {0} {1}.", gCharacter.EvalGender("mighty", "fair", "androgynous"), gCharacter.Name);
 
-				x.Hardiness = gCharacter.GetStats(Stat.Hardiness);
+				x.Hardiness = gCharacter.GetStat(Stat.Hardiness);
 
-				x.Agility = gCharacter.GetStats(Stat.Agility);
+				x.Agility = gCharacter.GetStat(Stat.Agility);
 
 				x.GroupCount = 1;
 
@@ -1139,17 +1139,17 @@ namespace EamonRT.Game
 
 			gCharacter.Name = monster.Name.Trim();
 
-			gCharacter.SetStats(Stat.Hardiness, monster.Hardiness);
+			gCharacter.SetStat(Stat.Hardiness, monster.Hardiness);
 
-			gCharacter.SetStats(Stat.Agility, monster.Agility);
+			gCharacter.SetStat(Stat.Agility, monster.Agility);
 
 			gCharacter.Gender = monster.Gender;
 
 			for (var i = 0; i < gCharacter.Weapons.Length; i++)
 			{
-				gCharacter.SetWeapons(i, (i < weaponList.Count ? ConvertArtifactToWeapon(weaponList[i]) : Globals.CreateInstance<ICharacterArtifact>()));
+				gCharacter.SetWeapon(i, (i < weaponList.Count ? ConvertArtifactToWeapon(weaponList[i]) : Globals.CreateInstance<ICharacterArtifact>()));
 
-				gCharacter.GetWeapons(i).Parent = gCharacter;
+				gCharacter.GetWeapon(i).Parent = gCharacter;
 			}
 
 			gCharacter.AddUniqueCharsToWeaponNames();
@@ -1303,7 +1303,7 @@ namespace EamonRT.Game
 				{
 					var ac = artifact.GeneralWeapon;
 
-					if (ac != null && ac == artifact.GetCategories(0) && artifact.IsReadyableByCharacter())
+					if (ac != null && ac == artifact.GetCategory(0) && artifact.IsReadyableByCharacter())
 					{
 						weaponList.Add(artifact);
 
@@ -1991,7 +1991,7 @@ ProcessRevealArtifact:
 				}
 				else
 				{
-					roomUid = room.GetDirs(dv);
+					roomUid = room.GetDir(dv);
 				}
 
 				if (roomUid != 0 && (!monster.CanMoveToRoomUid(roomUid, fleeing) || GetBlockedDirectionArtifact(room.Uid, roomUid, dv) != null))
@@ -2042,7 +2042,7 @@ ProcessRevealArtifact:
 				}
 				else
 				{
-					roomUid = room.GetDirs(rl);
+					roomUid = room.GetDir(rl);
 				}
 
 				if (roomUid != 0 && (!monster.CanMoveToRoomUid(roomUid, fleeing) || GetBlockedDirectionArtifact(room.Uid, roomUid, (Direction)rl) != null))
@@ -2163,7 +2163,7 @@ ProcessRevealArtifact:
 
 				var monsterName01 = monster.EvalInRoomLightLevel(rl > 1 ? "Unseen entities" : "An unseen entity", monster.GetArticleName(true));
 
-				var direction01 = GetDirections(direction);
+				var direction01 = GetDirection(direction);
 
 				Debug.Assert(direction01 != null);
 
@@ -2498,7 +2498,7 @@ ProcessRevealArtifact:
 			{
 				for (var i = 0; i < gGameState.ImportedArtUidsIdx; i++)
 				{
-					var artifact = gADB[gGameState.GetImportedArtUids(i)];
+					var artifact = gADB[gGameState.GetImportedArtUid(i)];
 
 					Debug.Assert(artifact != null);
 
@@ -2870,7 +2870,7 @@ ProcessRevealArtifact:
 
 					// This is the saving throw vs. searching, etc
 
-					value = gCharacter.GetStats(Stat.Intellect) + bonus;
+					value = gCharacter.GetStat(Stat.Intellect) + bonus;
 
 					break;
 
@@ -2878,7 +2878,7 @@ ProcessRevealArtifact:
 
 					// This is the saving throw vs. death or magic
 
-					value = (long)Math.Round((double)(gCharMonster.Agility + gCharacter.GetStats(Stat.Charisma) + gCharMonster.Hardiness) / 3.0) + bonus;
+					value = (long)Math.Round((double)(gCharMonster.Agility + gCharacter.GetStat(Stat.Charisma) + gCharMonster.Hardiness) / 3.0) + bonus;
 
 					break;
 			}
@@ -3118,7 +3118,7 @@ ProcessRevealArtifact:
 			{
 				odds += ((af + gCharacter.ArmorExpertise) * (-af > gCharacter.ArmorExpertise ? 1 : 0));
 
-				d = ac != null ? gCharacter.GetWeaponAbilities(ac.Field2) : 0;
+				d = ac != null ? gCharacter.GetWeaponAbility(ac.Field2) : 0;
 
 				if (d > 122)
 				{
@@ -3401,11 +3401,11 @@ ProcessRevealArtifact:
 
 						y.ArticleType = armor.ArticleType;
 
-						y.GetCategories(0).Field1 = armor.Field1;
+						y.GetCategory(0).Field1 = armor.Field1;
 
-						y.GetCategories(0).Field2 = armor.Field2;
+						y.GetCategory(0).Field2 = armor.Field2;
 
-						y.GetCategories(0).Type = armor.Type;
+						y.GetCategory(0).Type = armor.Type;
 
 						y.Value = armor.Value;
 
@@ -3419,11 +3419,11 @@ ProcessRevealArtifact:
 
 						y.ArticleType = ArticleType.Some;
 
-						y.GetCategories(0).Field1 = a2 * 2;
+						y.GetCategory(0).Field1 = a2 * 2;
 
-						y.GetCategories(0).Field2 = 0;
+						y.GetCategory(0).Field2 = 0;
 
-						y.GetCategories(0).Type = ArtifactType.Wearable;
+						y.GetCategory(0).Type = ArtifactType.Wearable;
 
 						var ima = false;
 
@@ -3452,7 +3452,7 @@ ProcessRevealArtifact:
 
 				Debug.Assert(IsSuccess(rc));
 
-				gGameState.SetImportedArtUids(gGameState.ImportedArtUidsIdx++, artifact.Uid);
+				gGameState.SetImportedArtUid(gGameState.ImportedArtUidsIdx++, artifact.Uid);
 
 				if (artifact.IsWornByCharacter())
 				{
@@ -3494,11 +3494,11 @@ ProcessRevealArtifact:
 
 						y.ArticleType = shield.ArticleType;
 
-						y.GetCategories(0).Field1 = shield.Field1;
+						y.GetCategory(0).Field1 = shield.Field1;
 
-						y.GetCategories(0).Field2 = shield.Field2;
+						y.GetCategory(0).Field2 = shield.Field2;
 
-						y.GetCategories(0).Type = shield.Type;
+						y.GetCategory(0).Type = shield.Type;
 
 						y.Value = shield.Value;
 
@@ -3512,11 +3512,11 @@ ProcessRevealArtifact:
 
 						y.ArticleType = ArticleType.A;
 
-						y.GetCategories(0).Field1 = 1;
+						y.GetCategory(0).Field1 = 1;
 
-						y.GetCategories(0).Field2 = 0;
+						y.GetCategory(0).Field2 = 0;
 
-						y.GetCategories(0).Type = ArtifactType.Wearable;
+						y.GetCategory(0).Type = ArtifactType.Wearable;
 
 						y.Value = Constants.ShieldPrice;
 
@@ -3543,7 +3543,7 @@ ProcessRevealArtifact:
 
 				Debug.Assert(IsSuccess(rc));
 
-				gGameState.SetImportedArtUids(gGameState.ImportedArtUidsIdx++, artifact.Uid);
+				gGameState.SetImportedArtUid(gGameState.ImportedArtUidsIdx++, artifact.Uid);
 
 				if (artifact.IsWornByCharacter())
 				{

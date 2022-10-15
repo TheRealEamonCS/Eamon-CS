@@ -79,7 +79,7 @@ namespace TheBeginnersCave.Game
 			{
 				artifact.SetInLimbo();
 
-				gGameState.SetHeldWpnUids(HeldWpnIdx++, artifact.Uid);
+				gGameState.SetHeldWpnUid(HeldWpnIdx++, artifact.Uid);
 			}
 
 			return artifact;
@@ -89,9 +89,9 @@ namespace TheBeginnersCave.Game
 		{
 			for (var i = 0; i < gGameState.HeldWpnUids.Length; i++)
 			{
-				if (gGameState.GetHeldWpnUids(i) > 0)
+				if (gGameState.GetHeldWpnUid(i) > 0)
 				{
-					var artifact = gADB[gGameState.GetHeldWpnUids(i)];
+					var artifact = gADB[gGameState.GetHeldWpnUid(i)];
 
 					Debug.Assert(artifact != null);
 

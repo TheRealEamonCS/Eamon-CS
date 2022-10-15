@@ -113,7 +113,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			var characterTable = Globals.Database.CharacterTable;
 
-			j = characterTable.GetRecordsCount();
+			j = characterTable.GetRecordCount();
 
 			i = 0;
 

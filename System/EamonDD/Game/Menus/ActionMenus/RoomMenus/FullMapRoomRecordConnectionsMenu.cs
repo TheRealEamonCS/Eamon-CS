@@ -47,11 +47,11 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 				for (var i = 0; i < numDirs; i++)
 				{
-					var direction = gEngine.GetDirections(directionValues[i]);
+					var direction = gEngine.GetDirection(directionValues[i]);
 
 					Debug.Assert(direction != null);
 
-					Buf.AppendFormat("{0}{1,-2}: {2,-6}", (directionValues[i] == Direction.North || directionValues[i] == Direction.Up || directionValues[i] == Direction.Southeast) ? Environment.NewLine : "\t", direction.Abbr, room.GetDirs(directionValues[i]));
+					Buf.AppendFormat("{0}{1,-2}: {2,-6}", (directionValues[i] == Direction.North || directionValues[i] == Direction.Up || directionValues[i] == Direction.Southeast) ? Environment.NewLine : "\t", direction.Abbr, room.GetDir(directionValues[i]));
 				}
 
 				gOut.WriteLine("{0}", Buf);

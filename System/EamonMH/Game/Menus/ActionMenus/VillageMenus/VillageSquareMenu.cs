@@ -64,7 +64,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 					var rl = gEngine.RollDice(1, wc, 0);
 
-					gCharacter.GetWeapons(rl - 1).Field4++;
+					gCharacter.GetWeapon(rl - 1).Field4++;
 
 					// ClearExtraFields call omitted
 

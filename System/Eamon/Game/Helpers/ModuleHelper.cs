@@ -845,7 +845,7 @@ namespace Eamon.Game.Helpers
 		{
 			if (!EditRec)
 			{
-				Record.NumRooms = Globals.Database.GetRoomsCount();
+				Record.NumRooms = Globals.Database.GetRoomCount();
 			}
 
 			gOut.Print("{0}{1}", gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("NumRooms"), null), Record.NumRooms);
@@ -858,7 +858,7 @@ namespace Eamon.Game.Helpers
 		{
 			if (!EditRec)
 			{
-				Record.NumArtifacts = Globals.Database.GetArtifactsCount();
+				Record.NumArtifacts = Globals.Database.GetArtifactCount();
 			}
 
 			gOut.Print("{0}{1}", gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("NumArtifacts"), null), Record.NumArtifacts);
@@ -871,7 +871,7 @@ namespace Eamon.Game.Helpers
 		{
 			if (!EditRec)
 			{
-				Record.NumEffects = Globals.Database.GetEffectsCount();
+				Record.NumEffects = Globals.Database.GetEffectCount();
 			}
 
 			gOut.Print("{0}{1}", gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("NumEffects"), null), Record.NumEffects);
@@ -884,7 +884,7 @@ namespace Eamon.Game.Helpers
 		{
 			if (!EditRec)
 			{
-				Record.NumMonsters = Globals.Database.GetMonstersCount();
+				Record.NumMonsters = Globals.Database.GetMonsterCount();
 			}
 
 			gOut.Print("{0}{1}", gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("NumMonsters"), null), Record.NumMonsters);
@@ -897,7 +897,7 @@ namespace Eamon.Game.Helpers
 		{
 			if (!EditRec)
 			{
-				Record.NumHints = Globals.Database.GetHintsCount();
+				Record.NumHints = Globals.Database.GetHintCount();
 			}
 
 			gOut.Print("{0}{1}", gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("NumHints"), null), Record.NumHints);

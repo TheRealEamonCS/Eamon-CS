@@ -234,7 +234,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 					}
 					else
 					{
-						x.SetDirs(Direction.North, a2eRoom._rd1);
+						x.SetDir(Direction.North, a2eRoom._rd1);
 					}
 
 					if (a2eRoom._rd2 > 500)
@@ -247,7 +247,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 					}
 					else
 					{
-						x.SetDirs(Direction.South, a2eRoom._rd2);
+						x.SetDir(Direction.South, a2eRoom._rd2);
 					}
 
 					if (a2eRoom._rd3 > 500)
@@ -260,7 +260,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 					}
 					else
 					{
-						x.SetDirs(Direction.East, a2eRoom._rd3);
+						x.SetDir(Direction.East, a2eRoom._rd3);
 					}
 
 					if (a2eRoom._rd4 > 500)
@@ -273,7 +273,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 					}
 					else
 					{
-						x.SetDirs(Direction.West, a2eRoom._rd4);
+						x.SetDir(Direction.West, a2eRoom._rd4);
 					}
 
 					if (a2eRoom._rd5 > 500)
@@ -286,7 +286,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 					}
 					else
 					{
-						x.SetDirs(Direction.Up, a2eRoom._rd5);
+						x.SetDir(Direction.Up, a2eRoom._rd5);
 					}
 
 					if (a2eRoom._rd6 > 500)
@@ -299,7 +299,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 					}
 					else
 					{
-						x.SetDirs(Direction.Down, a2eRoom._rd6);
+						x.SetDir(Direction.Down, a2eRoom._rd6);
 					}
 
 					if (a2eAdv._nd != 6)
@@ -314,7 +314,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 						}
 						else
 						{
-							x.SetDirs(Direction.Northeast, a2eRoom._rd7);
+							x.SetDir(Direction.Northeast, a2eRoom._rd7);
 						}
 
 						if (a2eRoom._rd8 > 500)
@@ -327,7 +327,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 						}
 						else
 						{
-							x.SetDirs(Direction.Northwest, a2eRoom._rd8);
+							x.SetDir(Direction.Northwest, a2eRoom._rd8);
 						}
 
 						if (a2eRoom._rd9 > 500)
@@ -340,7 +340,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 						}
 						else
 						{
-							x.SetDirs(Direction.Southeast, a2eRoom._rd9);
+							x.SetDir(Direction.Southeast, a2eRoom._rd9);
 						}
 
 						if (a2eRoom._rd10 > 500)
@@ -353,7 +353,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 						}
 						else
 						{
-							x.SetDirs(Direction.Southwest, a2eRoom._rd10);
+							x.SetDir(Direction.Southwest, a2eRoom._rd10);
 						}
 					}
 				});

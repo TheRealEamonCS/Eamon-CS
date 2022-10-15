@@ -54,7 +54,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 						{
 							var dv = directionValues[(int)i];
 
-							room.SetDirs(dv, 0);
+							room.SetDir(dv, 0);
 						}
 
 						Globals.RoomsModified = true;

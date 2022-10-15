@@ -27,27 +27,27 @@ namespace EamonDD.Game.Menus
 
 			if (!Globals.BortCommand && Globals.Config.DdEditingFilesets)
 			{
-				gOut.Write("{0}Filesets: {1}", "  ", Globals.Database.GetFilesetsCount());
+				gOut.Write("{0}Filesets: {1}", "  ", Globals.Database.GetFilesetCount());
 			}
 
 			if (!Globals.BortCommand && Globals.Config.DdEditingCharacters)
 			{
-				gOut.Write("{0}Characters: {1}", "  ", Globals.Database.GetCharactersCount());
+				gOut.Write("{0}Characters: {1}", "  ", Globals.Database.GetCharacterCount());
 			}
 
 			if (Globals.Config.DdEditingModules)
 			{
-				gOut.Write("{0}Modules: {1}", "  ", Globals.Database.GetModulesCount());
+				gOut.Write("{0}Modules: {1}", "  ", Globals.Database.GetModuleCount());
 			}
 
 			if (Globals.Config.DdEditingRooms)
 			{
-				gOut.Write("{0}Rooms: {1}", "  ", Globals.Database.GetRoomsCount());
+				gOut.Write("{0}Rooms: {1}", "  ", Globals.Database.GetRoomCount());
 			}
 
 			if (Globals.Config.DdEditingArtifacts)
 			{
-				gOut.Write("{0}Artifacts: {1}", "  ", Globals.Database.GetArtifactsCount());
+				gOut.Write("{0}Artifacts: {1}", "  ", Globals.Database.GetArtifactCount());
 			}
 
 			gOut.WriteLine();
@@ -60,21 +60,21 @@ namespace EamonDD.Game.Menus
 
 				if (Globals.Config.DdEditingEffects)
 				{
-					gOut.Write("Effects: {0}", Globals.Database.GetEffectsCount());
+					gOut.Write("Effects: {0}", Globals.Database.GetEffectCount());
 
 					i++;
 				}
 
 				if (Globals.Config.DdEditingMonsters)
 				{
-					gOut.Write("{0}Monsters: {1}", i > 0 ? "  " : "", Globals.Database.GetMonstersCount());
+					gOut.Write("{0}Monsters: {1}", i > 0 ? "  " : "", Globals.Database.GetMonsterCount());
 
 					i++;
 				}
 
 				if (Globals.Config.DdEditingHints)
 				{
-					gOut.Write("{0}Hints: {1}", i > 0 ? "  " : "", Globals.Database.GetHintsCount());
+					gOut.Write("{0}Hints: {1}", i > 0 ? "  " : "", Globals.Database.GetHintCount());
 
 					i++;
 				}
@@ -90,12 +90,12 @@ namespace EamonDD.Game.Menus
 
 		public virtual void PrintFilesetMenuSubtitle()
 		{
-			gOut.Print("Filesets: {0}", Globals.Database.GetFilesetsCount());
+			gOut.Print("Filesets: {0}", Globals.Database.GetFilesetCount());
 		}
 
 		public virtual void PrintCharacterMenuSubtitle()
 		{
-			gOut.Print("Characters: {0}", Globals.Database.GetCharactersCount());
+			gOut.Print("Characters: {0}", Globals.Database.GetCharacterCount());
 		}
 
 		public virtual void PrintModuleMenuSubtitle()
@@ -106,7 +106,7 @@ namespace EamonDD.Game.Menus
 					Globals.Module != null ? Globals.Module.Name : gEngine.UnknownName);
 			}
 
-			gOut.Print("Modules: {0}", Globals.Database.GetModulesCount());
+			gOut.Print("Modules: {0}", Globals.Database.GetModuleCount());
 		}
 
 		public virtual void PrintRoomMenuSubtitle()
@@ -117,7 +117,7 @@ namespace EamonDD.Game.Menus
 					Globals.Module != null ? Globals.Module.Name : gEngine.UnknownName);
 			}
 
-			gOut.Print("Rooms: {0}", Globals.Database.GetRoomsCount());
+			gOut.Print("Rooms: {0}", Globals.Database.GetRoomCount());
 		}
 
 		public virtual void PrintArtifactMenuSubtitle()
@@ -128,7 +128,7 @@ namespace EamonDD.Game.Menus
 					Globals.Module != null ? Globals.Module.Name : gEngine.UnknownName);
 			}
 
-			gOut.Print("Artifacts: {0}", Globals.Database.GetArtifactsCount());
+			gOut.Print("Artifacts: {0}", Globals.Database.GetArtifactCount());
 		}
 
 		public virtual void PrintEffectMenuSubtitle()
@@ -139,7 +139,7 @@ namespace EamonDD.Game.Menus
 					Globals.Module != null ? Globals.Module.Name : gEngine.UnknownName);
 			}
 
-			gOut.Print("Effects: {0}", Globals.Database.GetEffectsCount());
+			gOut.Print("Effects: {0}", Globals.Database.GetEffectCount());
 		}
 
 		public virtual void PrintMonsterMenuSubtitle()
@@ -150,7 +150,7 @@ namespace EamonDD.Game.Menus
 					Globals.Module != null ? Globals.Module.Name : gEngine.UnknownName);
 			}
 
-			gOut.Print("Monsters: {0}", Globals.Database.GetMonstersCount());
+			gOut.Print("Monsters: {0}", Globals.Database.GetMonsterCount());
 		}
 
 		public virtual void PrintHintMenuSubtitle()
@@ -161,7 +161,7 @@ namespace EamonDD.Game.Menus
 					Globals.Module != null ? Globals.Module.Name : gEngine.UnknownName);
 			}
 
-			gOut.Print("Hints: {0}", Globals.Database.GetHintsCount());
+			gOut.Print("Hints: {0}", Globals.Database.GetHintCount());
 		}
 	}
 }

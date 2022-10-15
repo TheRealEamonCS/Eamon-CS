@@ -56,7 +56,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 			for (i = 0; i < weaponValues.Count; i++)
 			{
-				weapon = gEngine.GetWeapons(weaponValues[(int)i]);
+				weapon = gEngine.GetWeapon(weaponValues[(int)i]);
 
 				Debug.Assert(weapon != null);
 
@@ -84,13 +84,13 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 			i = Convert.ToInt64(Buf.Trim().ToString());
 
-			weapon = gEngine.GetWeapons((Weapon)i);
+			weapon = gEngine.GetWeapon((Weapon)i);
 
 			Debug.Assert(weapon != null);
 
 			ap = gEngine.GetMerchantAskPrice(Constants.WeaponTrainingPrice, (double)Rtio);
 
-			gOut.Print("\"My fee is {0} gold piece{1} per try.  Your current ability is {2}%.\"", ap, ap != 1 ? "s" : "", gCharacter.GetWeaponAbilities(i));
+			gOut.Print("\"My fee is {0} gold piece{1} per try.  Your current ability is {2}%.\"", ap, ap != 1 ? "s" : "", gCharacter.GetWeaponAbility(i));
 
 			gOut.Print("Don asks you to enter his shop.  \"{0}, see that {1} over there?  It's all in the wrist...  ATTACK!\"", gCharacter.Name, i == (long)Weapon.Bow || i == (long)Weapon.Spear ? "target" : "dummy");
 
@@ -100,7 +100,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 				gOut.Print("{0}", Globals.LineSep);
 
-				gOut.Print("Ability: {0}        Gold: {1}", gCharacter.GetWeaponAbilities(i), gCharacter.HeldGold);
+				gOut.Print("Ability: {0}        Gold: {1}", gCharacter.GetWeaponAbility(i), gCharacter.HeldGold);
 
 				if (gCharacter.HeldGold >= ap)
 				{
@@ -128,22 +128,22 @@ namespace EamonMH.Game.Menus.ActionMenus
 						{
 							gOut.Print("\"A critical hit!  Very good!  Now, continue.\"");
 
-							gCharacter.ModWeaponAbilities(i, 2);
+							gCharacter.ModWeaponAbility(i, 2);
 						}
 						else if (rl > 50)
 						{
 							gOut.Print("\"A hit!  Good!  Now, continue.\"");
 
-							gCharacter.ModWeaponAbilities(i, 1);
+							gCharacter.ModWeaponAbility(i, 1);
 						}
 						else
 						{
 							gOut.Print("\"A miss!  Try harder!  Now, continue.\"");
 						}
 
-						if (gCharacter.GetWeaponAbilities(i) > weapon.MaxValue)
+						if (gCharacter.GetWeaponAbility(i) > weapon.MaxValue)
 						{
-							gCharacter.SetWeaponAbilities(i, weapon.MaxValue);
+							gCharacter.SetWeaponAbility(i, weapon.MaxValue);
 						}
 
 						gCharacter.HeldGold -= ap;

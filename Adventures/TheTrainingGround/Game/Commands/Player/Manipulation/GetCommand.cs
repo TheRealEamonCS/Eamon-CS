@@ -41,7 +41,7 @@ namespace TheTrainingGround.Game.Commands
 			{
 				gEngine.PrintEffectDesc(12);
 
-				ActorRoom.SetDirs(Direction.East, 25);
+				ActorRoom.SetDir(Direction.East, 25);
 			}
 		}
 	}

@@ -44,7 +44,7 @@ namespace Eamon.Game.DataStorage.Generic
 			return RetCode.Success;
 		}
 
-		public virtual long GetRecordsCount()
+		public virtual long GetRecordCount()
 		{
 			return Records.Count;
 		}

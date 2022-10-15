@@ -140,7 +140,7 @@ namespace TheDeepCanyon.Game.Components
 
 						foreach (var wv in weaponValues)
 						{
-							var weapon = gEngine.GetWeapons(wv);
+							var weapon = gEngine.GetWeapon(wv);
 
 							Debug.Assert(weapon != null);
 
@@ -150,11 +150,11 @@ namespace TheDeepCanyon.Game.Components
 
 								var dec = gEngine.RollDice(1, 5, 4);
 
-								gCharacter.ModWeaponAbilities(wv, -dec);
+								gCharacter.ModWeaponAbility(wv, -dec);
 
-								if (gCharacter.GetWeaponAbilities(wv) < weapon.MinValue)
+								if (gCharacter.GetWeaponAbility(wv) < weapon.MinValue)
 								{
-									gCharacter.SetWeaponAbilities(wv, weapon.MinValue);
+									gCharacter.SetWeaponAbility(wv, weapon.MinValue);
 								}
 
 								processed = true;
@@ -230,17 +230,17 @@ namespace TheDeepCanyon.Game.Components
 
 						foreach (var wv in weaponValues)
 						{
-							var weapon = gEngine.GetWeapons(wv);
+							var weapon = gEngine.GetWeapon(wv);
 
 							Debug.Assert(weapon != null);
 
 							var inc = gEngine.RollDice(1, 5, 0);
 
-							gCharacter.ModWeaponAbilities(wv, inc);
+							gCharacter.ModWeaponAbility(wv, inc);
 
-							if (gCharacter.GetWeaponAbilities(wv) > weapon.MaxValue)
+							if (gCharacter.GetWeaponAbility(wv) > weapon.MaxValue)
 							{
-								gCharacter.SetWeaponAbilities(wv, weapon.MaxValue);
+								gCharacter.SetWeaponAbility(wv, weapon.MaxValue);
 							}
 						}
 					}
@@ -261,7 +261,7 @@ namespace TheDeepCanyon.Game.Components
 
 						foreach (var spell in spellValues)
 						{
-							gCharacter.SetSpellAbilities(spell, 0);
+							gCharacter.SetSpellAbility(spell, 0);
 
 							gGameState.SetSa(spell, 0);
 						}

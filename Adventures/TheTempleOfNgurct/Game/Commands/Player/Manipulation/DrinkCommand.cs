@@ -78,7 +78,7 @@ namespace TheTempleOfNgurct.Game.Commands
 
 			else if (DobjArtifact.Uid == 69 && ac.IsOpen())
 			{
-				var stat = gEngine.GetStats(Stat.Agility);
+				var stat = gEngine.GetStat(Stat.Agility);
 
 				Debug.Assert(stat != null);
 

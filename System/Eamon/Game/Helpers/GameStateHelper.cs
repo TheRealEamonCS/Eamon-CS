@@ -147,7 +147,7 @@ namespace Eamon.Game.Helpers
 		{
 			var i = Index;
 
-			return Record.GetImportedArtUids(i);
+			return Record.GetImportedArtUid(i);
 		}
 
 		/// <summary></summary>
@@ -156,7 +156,7 @@ namespace Eamon.Game.Helpers
 		{
 			var i = Index;
 
-			return Record.GetHeldWpnUids(i);
+			return Record.GetHeldWpnUid(i);
 		}
 
 		#endregion
@@ -262,7 +262,7 @@ namespace Eamon.Game.Helpers
 		{
 			var i = Index;
 
-			var spell = gEngine.GetSpells((Spell)i);
+			var spell = gEngine.GetSpell((Spell)i);
 
 			Debug.Assert(spell != null);
 
@@ -294,7 +294,7 @@ namespace Eamon.Game.Helpers
 		{
 			var i = Index;
 
-			return Record.GetImportedArtUids(i) >= 0;
+			return Record.GetImportedArtUid(i) >= 0;
 		}
 
 		/// <summary></summary>
@@ -322,7 +322,7 @@ namespace Eamon.Game.Helpers
 		{
 			var i = Index;
 
-			return Record.GetHeldWpnUids(i) >= 0;
+			return Record.GetHeldWpnUid(i) >= 0;
 		}
 
 		#endregion

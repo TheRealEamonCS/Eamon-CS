@@ -129,72 +129,72 @@ namespace TheVileGrimoireOfJaldial.Game
 			}
 		}
 
-		public override long GetDirs(long index)
+		public override long GetDir(long index)
 		{
 			if (Globals.EnableMutateProperties)
 			{
 				if (Uid == 54)
 				{
-					return gGameState.GetSecretDoors(1) && index == 1 ? 55 : gGameState.GetSecretDoors(2) && index == 2 ? 56 : base.GetDirs(index);
+					return gGameState.GetSecretDoors(1) && index == 1 ? 55 : gGameState.GetSecretDoors(2) && index == 2 ? 56 : base.GetDir(index);
 				}
 				else if (Uid == 55)
 				{
-					return gGameState.GetSecretDoors(1) && index == 2 ? 54 : base.GetDirs(index);
+					return gGameState.GetSecretDoors(1) && index == 2 ? 54 : base.GetDir(index);
 				}
 				else if (Uid == 56)
 				{
-					return gGameState.GetSecretDoors(2) && index == 1 ? 54 : gGameState.GetSecretDoors(4) && index == 3 ? 68 : base.GetDirs(index);
+					return gGameState.GetSecretDoors(2) && index == 1 ? 54 : gGameState.GetSecretDoors(4) && index == 3 ? 68 : base.GetDir(index);
 				}
 				else if (Uid == 58)
 				{
-					return gGameState.GetSecretDoors(3) && index == 3 ? 63 : base.GetDirs(index);
+					return gGameState.GetSecretDoors(3) && index == 3 ? 63 : base.GetDir(index);
 				}
 				else if (Uid == 63)
 				{
-					return gGameState.GetSecretDoors(3) && index == 4 ? 58 : base.GetDirs(index);
+					return gGameState.GetSecretDoors(3) && index == 4 ? 58 : base.GetDir(index);
 				}
 				else if (Uid == 68)
 				{
-					return gGameState.GetSecretDoors(4) && index == 4 ? 56 : base.GetDirs(index);
+					return gGameState.GetSecretDoors(4) && index == 4 ? 56 : base.GetDir(index);
 				}
 				else if (Uid == 74)
 				{
-					return gGameState.GetSecretDoors(5) && index == 1 ? 75 : gGameState.GetSecretDoors(6) && index == 2 ? 76 : base.GetDirs(index);
+					return gGameState.GetSecretDoors(5) && index == 1 ? 75 : gGameState.GetSecretDoors(6) && index == 2 ? 76 : base.GetDir(index);
 				}
 				else if (Uid == 87)
 				{
-					return gGameState.GetSecretDoors(7) && index == 6 ? 90 : base.GetDirs(index);
+					return gGameState.GetSecretDoors(7) && index == 6 ? 90 : base.GetDir(index);
 				}
 				else if (Uid == 100)
 				{
-					return gGameState.GetSecretDoors(9) && index == 1 ? 99 : base.GetDirs(index);
+					return gGameState.GetSecretDoors(9) && index == 1 ? 99 : base.GetDir(index);
 				}
 				else if (Uid == 101)
 				{
-					return gGameState.GetSecretDoors(8) && index == 4 ? 100 : base.GetDirs(index);
+					return gGameState.GetSecretDoors(8) && index == 4 ? 100 : base.GetDir(index);
 				}
 				else if (Uid == 102)
 				{
-					return gGameState.GetSecretDoors(11) && index == 3 ? 105 : base.GetDirs(index);
+					return gGameState.GetSecretDoors(11) && index == 3 ? 105 : base.GetDir(index);
 				}
 				else if (Uid == 115)
 				{
-					return gGameState.GetSecretDoors(10) && index == 1 ? 116 : base.GetDirs(index);
+					return gGameState.GetSecretDoors(10) && index == 1 ? 116 : base.GetDir(index);
 				}
 				else if (Uid == 116)
 				{
 					var largeFountainArtifact = gADB[24];
 
-					return largeFountainArtifact?.DoorGate != null && index == 6 ? 117 : base.GetDirs(index);
+					return largeFountainArtifact?.DoorGate != null && index == 6 ? 117 : base.GetDir(index);
 				}
 				else
 				{
-					return base.GetDirs(index);
+					return base.GetDir(index);
 				}
 			}
 			else
 			{
-				return base.GetDirs(index);
+				return base.GetDir(index);
 			}
 		}
 

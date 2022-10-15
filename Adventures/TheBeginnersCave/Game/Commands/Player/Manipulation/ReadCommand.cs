@@ -30,7 +30,7 @@ namespace TheBeginnersCave.Game.Commands
 					{
 						var rl = gEngine.RollDice(1, 22, 2);
 
-						if (rl <= gCharacter.GetStats(Stat.Intellect))
+						if (rl <= gCharacter.GetStat(Stat.Intellect))
 						{
 							gEngine.PrintEffectDesc(14);
 

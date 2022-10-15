@@ -89,11 +89,11 @@ namespace EamonRT.Game.Components
 
 			var s = spellValue;
 
-			var spell = gEngine.GetSpells(spellValue);
+			var spell = gEngine.GetSpell(spellValue);
 
 			Debug.Assert(spell != null);
 
-			if (gGameState.GetSa(s) > 0 && gCharacter.GetSpellAbilities(s) > 0)
+			if (gGameState.GetSa(s) > 0 && gCharacter.GetSpellAbility(s) > 0)
 			{
 				rl = gEngine.RollDice(1, 100, 0);
 			}
@@ -117,7 +117,7 @@ namespace EamonRT.Game.Components
 
 					rl += gCharacter.GetIntellectBonusPct();
 
-					if (rl > gCharacter.GetSpellAbilities(s))
+					if (rl > gCharacter.GetSpellAbility(s))
 					{
 						Globals.SkillIncreaseFuncList.Add(() =>
 						{
@@ -126,11 +126,11 @@ namespace EamonRT.Game.Components
 								PrintSpellAbilityIncreases(s, spell);
 							}
 
-							gCharacter.ModSpellAbilities(s, 2);
+							gCharacter.ModSpellAbility(s, 2);
 
-							if (gCharacter.GetSpellAbilities(s) > spell.MaxValue)
+							if (gCharacter.GetSpellAbility(s) > spell.MaxValue)
 							{
-								gCharacter.SetSpellAbilities(s, spell.MaxValue);
+								gCharacter.SetSpellAbility(s, spell.MaxValue);
 							}
 						});
 					}
@@ -163,7 +163,7 @@ namespace EamonRT.Game.Components
 
 			if (Globals.IsRulesetVersion(5, 15, 25))
 			{
-				gCharacter.SetSpellAbilities(s, 0);
+				gCharacter.SetSpellAbility(s, 0);
 			}
 		}
 

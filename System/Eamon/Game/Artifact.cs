@@ -115,14 +115,14 @@ namespace Eamon.Game
 		{
 			get
 			{
-				var ac = GetCategories(0);
+				var ac = GetCategory(0);
 
 				return ac != null ? ac.Type : ArtifactType.None;
 			}
 
 			set
 			{
-				var ac = GetCategories(0);
+				var ac = GetCategory(0);
 
 				if (ac != null)
 				{
@@ -136,14 +136,14 @@ namespace Eamon.Game
 		{
 			get
 			{
-				var ac = GetCategories(0);
+				var ac = GetCategory(0);
 
 				return ac != null ? ac.Field1 : 0;
 			}
 
 			set
 			{
-				var ac = GetCategories(0);
+				var ac = GetCategory(0);
 
 				if (ac != null)
 				{
@@ -157,14 +157,14 @@ namespace Eamon.Game
 		{
 			get
 			{
-				var ac = GetCategories(0);
+				var ac = GetCategory(0);
 
 				return ac != null ? ac.Field2 : 0;
 			}
 
 			set
 			{
-				var ac = GetCategories(0);
+				var ac = GetCategory(0);
 
 				if (ac != null)
 				{
@@ -178,14 +178,14 @@ namespace Eamon.Game
 		{
 			get
 			{
-				var ac = GetCategories(0);
+				var ac = GetCategory(0);
 
 				return ac != null ? ac.Field3 : 0;
 			}
 
 			set
 			{
-				var ac = GetCategories(0);
+				var ac = GetCategory(0);
 
 				if (ac != null)
 				{
@@ -199,14 +199,14 @@ namespace Eamon.Game
 		{
 			get
 			{
-				var ac = GetCategories(0);
+				var ac = GetCategory(0);
 
 				return ac != null ? ac.Field4 : 0;
 			}
 
 			set
 			{
-				var ac = GetCategories(0);
+				var ac = GetCategory(0);
 
 				if (ac != null)
 				{
@@ -220,14 +220,14 @@ namespace Eamon.Game
 		{
 			get
 			{
-				var ac = GetCategories(0);
+				var ac = GetCategory(0);
 
 				return ac != null ? ac.Field5 : 0;
 			}
 
 			set
 			{
-				var ac = GetCategories(0);
+				var ac = GetCategory(0);
 
 				if (ac != null)
 				{
@@ -693,24 +693,24 @@ namespace Eamon.Game
 
 		#region Interface IArtifact
 
-		public virtual IArtifactCategory GetCategories(long index)
+		public virtual IArtifactCategory GetCategory(long index)
 		{
 			_lastArtifactCategory = Categories[index];
 
 			return _lastArtifactCategory;
 		}
 
-		public virtual string GetSynonyms(long index)
+		public virtual string GetSynonym(long index)
 		{
 			return Synonyms[index];
 		}
 
-		public virtual void SetCategories(long index, IArtifactCategory value)
+		public virtual void SetCategory(long index, IArtifactCategory value)
 		{
 			Categories[index] = value;
 		}
 
-		public virtual void SetSynonyms(long index, string value)
+		public virtual void SetSynonym(long index, string value)
 		{
 			Synonyms[index] = value;
 		}
@@ -1366,7 +1366,7 @@ namespace Eamon.Game
 			{
 				result = _lastArtifactCategory;
 			}
-			else if (GetCategories(0) != null && GetCategories(0).Type != ArtifactType.None)
+			else if (GetCategory(0) != null && GetCategory(0).Type != ArtifactType.None)
 			{
 				result = Categories.FirstOrDefault(ac => ac != null && ac.Type == artifactType);
 			}
@@ -1391,7 +1391,7 @@ namespace Eamon.Game
 				goto Cleanup;
 			}
 
-			if (GetCategories(0) != null && GetCategories(0).Type != ArtifactType.None)
+			if (GetCategory(0) != null && GetCategory(0).Type != ArtifactType.None)
 			{
 				if (categoryArrayPrecedence)
 				{
@@ -1433,7 +1433,7 @@ namespace Eamon.Game
 				goto Cleanup;
 			}
 
-			if (GetCategories(0) != null && GetCategories(0).Type != ArtifactType.None)
+			if (GetCategory(0) != null && GetCategory(0).Type != ArtifactType.None)
 			{
 				result = Categories.Where(ac => ac != null && artifactTypes.Contains(ac.Type)).ToList();
 			}
@@ -1470,7 +1470,7 @@ namespace Eamon.Game
 			{
 				while (i < categories01.Length)
 				{
-					categories01[i] = GetCategories(i);
+					categories01[i] = GetCategory(i);
 
 					i++;
 				}
@@ -1479,7 +1479,7 @@ namespace Eamon.Game
 			{
 				while (i < Categories.Length)
 				{
-					categories01[i] = GetCategories(i);
+					categories01[i] = GetCategory(i);
 
 					i++;
 				}

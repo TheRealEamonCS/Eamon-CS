@@ -28,7 +28,7 @@ namespace EamonRT.Game
 			{
 				var result = true;
 
-				if (Globals.Database.GetFilesetsCount() > 0)
+				if (Globals.Database.GetFilesetCount() > 0)
 				{
 					gOut.Print("{0}", Globals.LineSep);
 
@@ -132,7 +132,7 @@ namespace EamonRT.Game
 
 			var i = 0L;       // weird disambiguation hack
 
-			if (!gCharacter.GetWeapons(i).IsActive())
+			if (!gCharacter.GetWeapon(i).IsActive())
 			{
 				PrintOutputBeginnersNoWeapons();
 
@@ -140,7 +140,7 @@ namespace EamonRT.Game
 
 				Globals.ExitType = ExitType.GoToMainHall;
 			}
-			else if (gCharacter.ArmorExpertise != 0 || gCharacter.GetWeaponAbilities(Weapon.Axe) != 5 || gCharacter.GetWeaponAbilities(Weapon.Club) != 20 || gCharacter.GetWeaponAbilities(Weapon.Sword) != 0)
+			else if (gCharacter.ArmorExpertise != 0 || gCharacter.GetWeaponAbility(Weapon.Axe) != 5 || gCharacter.GetWeaponAbility(Weapon.Club) != 20 || gCharacter.GetWeaponAbility(Weapon.Sword) != 0)
 			{
 				PrintOutputBeginnersNotABeginner();
 
@@ -150,7 +150,7 @@ namespace EamonRT.Game
 			}
 			else
 			{
-				if (gCharacter.GetWeapons(1).IsActive())
+				if (gCharacter.GetWeapon(1).IsActive())
 				{
 					PrintOutputBeginnersTooManyWeapons();
 
