@@ -33,55 +33,55 @@ namespace TheVileGrimoireOfJaldial.Game.States
 
 				if (room.IsLit() && gSentenceParser.IsInputExhausted)
 				{
-					if (room.Uid == 54 && (gGameState.GetSecretDoors(1) || gGameState.GetSecretDoors(2)))
+					if (room.Uid == 54 && (gGameState.GetSecretDoor(1) || gGameState.GetSecretDoor(2)))
 					{
-						gOut.Print(gGameState.GetSecretDoors(1) && gGameState.GetSecretDoors(2) ? "You've found secret doors leading north and south." : gGameState.GetSecretDoors(1) ? "You've found a secret door leading north." : "You've found a secret door leading south.");
+						gOut.Print(gGameState.GetSecretDoor(1) && gGameState.GetSecretDoor(2) ? "You've found secret doors leading north and south." : gGameState.GetSecretDoor(1) ? "You've found a secret door leading north." : "You've found a secret door leading south.");
 					}
-					else if (room.Uid == 55 && gGameState.GetSecretDoors(1))
+					else if (room.Uid == 55 && gGameState.GetSecretDoor(1))
 					{
 						gOut.Print("You've found a door leading south.");
 					}
-					else if (room.Uid == 56 && (gGameState.GetSecretDoors(2) || gGameState.GetSecretDoors(4)))
+					else if (room.Uid == 56 && (gGameState.GetSecretDoor(2) || gGameState.GetSecretDoor(4)))
 					{
-						gOut.Print(gGameState.GetSecretDoors(2) && gGameState.GetSecretDoors(4) ? "You've found secret doors leading north and east." : gGameState.GetSecretDoors(2) ? "You've found a secret door leading north." : "You've found a secret door leading east.");
+						gOut.Print(gGameState.GetSecretDoor(2) && gGameState.GetSecretDoor(4) ? "You've found secret doors leading north and east." : gGameState.GetSecretDoor(2) ? "You've found a secret door leading north." : "You've found a secret door leading east.");
 					}
-					else if (room.Uid == 58 && gGameState.GetSecretDoors(3))
+					else if (room.Uid == 58 && gGameState.GetSecretDoor(3))
 					{
 						gOut.Print("You've found a secret door leading east.");
 					}
-					else if (room.Uid == 63 && gGameState.GetSecretDoors(3))
+					else if (room.Uid == 63 && gGameState.GetSecretDoor(3))
 					{
 						gOut.Print("You've found a secret door leading west.");
 					}
-					else if (room.Uid == 68 && gGameState.GetSecretDoors(4))
+					else if (room.Uid == 68 && gGameState.GetSecretDoor(4))
 					{
 						gOut.Print("You've found a secret door leading west.");
 					}
-					else if (room.Uid == 74 && (gGameState.GetSecretDoors(5) || gGameState.GetSecretDoors(6)))
+					else if (room.Uid == 74 && (gGameState.GetSecretDoor(5) || gGameState.GetSecretDoor(6)))
 					{
-						gOut.Print(gGameState.GetSecretDoors(5) && gGameState.GetSecretDoors(6) ? "You've discovered secret doors leading north and south." : gGameState.GetSecretDoors(5) ? "You've discovered a secret door leading north." : "You've discovered a secret door leading south.");
+						gOut.Print(gGameState.GetSecretDoor(5) && gGameState.GetSecretDoor(6) ? "You've discovered secret doors leading north and south." : gGameState.GetSecretDoor(5) ? "You've discovered a secret door leading north." : "You've discovered a secret door leading south.");
 					}
-					else if (room.Uid == 87 && gGameState.GetSecretDoors(7))
+					else if (room.Uid == 87 && gGameState.GetSecretDoor(7))
 					{
 						gOut.Print("You've discovered a trapdoor leading down into darkness.");
 					}
-					else if (room.Uid == 100 && gGameState.GetSecretDoors(9))
+					else if (room.Uid == 100 && gGameState.GetSecretDoor(9))
 					{
 						gOut.Print("You've discovered a secret door leading north.");
 					}
-					else if (room.Uid == 101 && gGameState.GetSecretDoors(8))
+					else if (room.Uid == 101 && gGameState.GetSecretDoor(8))
 					{
 						gOut.Print("You've discovered a secret door leading west.");
 					}
-					else if (room.Uid == 102 && gGameState.GetSecretDoors(11))
+					else if (room.Uid == 102 && gGameState.GetSecretDoor(11))
 					{
 						gOut.Print("You've found a secret door leading east.");
 					}
-					else if (room.Uid == 115 && gGameState.GetSecretDoors(10))
+					else if (room.Uid == 115 && gGameState.GetSecretDoor(10))
 					{
 						gOut.Print("You've found a secret door leading north.");
 					}
-					else if (room.Uid == 116 && gGameState.GetSecretDoors(12))
+					else if (room.Uid == 116 && gGameState.GetSecretDoor(12))
 					{
 						gOut.Print("You've found a secret panel in the fountain bottom - you may go down.");
 					}

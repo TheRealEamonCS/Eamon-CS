@@ -119,12 +119,12 @@ namespace TheVileGrimoireOfJaldial.Game
 			return Hour < 10 || Hour > 20;
 		}
 
-		public virtual bool GetSecretDoors(long index)
+		public virtual bool GetSecretDoor(long index)
 		{
 			return SecretDoors[index];
 		}
 
-		public virtual void SetSecretDoors(long index, bool value)
+		public virtual void SetSecretDoor(long index, bool value)
 		{
 			SecretDoors[index] = value;
 		}

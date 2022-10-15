@@ -450,7 +450,7 @@ namespace TheVileGrimoireOfJaldial.Game
 			{
 				var result = "You are at a bend in the passage.  To the south, you see a small chamber of carved stone, and eastward the corridor continues.";
 
-				if (gGameState != null && !gGameState.GetSecretDoors(1))
+				if (gGameState != null && !gGameState.GetSecretDoor(1))
 				{
 					result = "You are at a dead-end in the passage.  Eastward the corridor continues.";
 				}
@@ -464,11 +464,11 @@ namespace TheVileGrimoireOfJaldial.Game
 
 				if (gGameState != null)
 				{
-					if (gGameState.GetSecretDoors(2) && !gGameState.GetSecretDoors(4))
+					if (gGameState.GetSecretDoor(2) && !gGameState.GetSecretDoor(4))
 					{
 						result = "  You may go north.";
 					}
-					else if (!gGameState.GetSecretDoors(2) && gGameState.GetSecretDoors(4))
+					else if (!gGameState.GetSecretDoor(2) && gGameState.GetSecretDoor(4))
 					{
 						result = "  You may go east.";
 					}
@@ -481,7 +481,7 @@ namespace TheVileGrimoireOfJaldial.Game
 			{
 				var result = " between the two openings (to the east and south)";
 
-				if (gGameState != null && !gGameState.GetSecretDoors(3))
+				if (gGameState != null && !gGameState.GetSecretDoor(3))
 				{
 					result = "";
 				}

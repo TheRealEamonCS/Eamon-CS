@@ -124,10 +124,10 @@
         <member name="M:TheVileGrimoireOfJaldial.Framework.IGameState.IsFoggyHours">
             <summary></summary>
         </member>
-        <member name="M:TheVileGrimoireOfJaldial.Framework.IGameState.GetSecretDoors(System.Int64)">
+        <member name="M:TheVileGrimoireOfJaldial.Framework.IGameState.GetSecretDoor(System.Int64)">
             <summary></summary>
         </member>
-        <member name="M:TheVileGrimoireOfJaldial.Framework.IGameState.SetSecretDoors(System.Int64,System.Boolean)">
+        <member name="M:TheVileGrimoireOfJaldial.Framework.IGameState.SetSecretDoor(System.Int64,System.Boolean)">
             <summary></summary>
         </member>
         <member name="M:TheVileGrimoireOfJaldial.Framework.IGameState.SetFoggyRoomWeatherIntensity(TheVileGrimoireOfJaldial.Framework.IRoom)">

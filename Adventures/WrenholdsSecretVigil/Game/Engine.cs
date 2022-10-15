@@ -264,7 +264,7 @@ namespace WrenholdsSecretVigil.Game
 
 			// Say each curse only once
 
-			if (rl < 41 && monster.Reaction == Friendliness.Enemy && monster.HasCarriedInventory() && !gGameState.GetMonsterCurses(effectUid - 7))
+			if (rl < 41 && monster.Reaction == Friendliness.Enemy && monster.HasCarriedInventory() && !gGameState.GetMonsterCurse(effectUid - 7))
 			{
 				var effect = gEDB[effectUid];
 
@@ -272,7 +272,7 @@ namespace WrenholdsSecretVigil.Game
 
 				gOut.Print("{0} says, {1}", monster.GetTheName(true, true, false, true, Globals.Buf), effect.Desc);
 
-				gGameState.SetMonsterCurses(effectUid - 7, true);
+				gGameState.SetMonsterCurse(effectUid - 7, true);
 			}
 		}
 
