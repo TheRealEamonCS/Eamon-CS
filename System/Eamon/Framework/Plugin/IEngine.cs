@@ -520,10 +520,10 @@ namespace Eamon.Framework.Plugin
 		/// Secret Vigil.  Please inspect the following files in the order listed (they are also executed in this order by Eamon CS -
 		/// a simplified call stack):
 		/// <list type="bullet">
-		/// <item>Adventures\WrenholdsSecretVigil\Game\Plugin\PluginClassMappings.cs</item>
-		/// <item>System\EamonRT\Game\Plugin\PluginClassMappings.cs</item>
-		/// <item>System\EamonDD\Game\Plugin\PluginClassMappings.cs</item>
-		/// <item>System\Eamon\Game\Plugin\PluginClassMappings.cs</item>
+		/// <item>Adventures\WrenholdsSecretVigil\Game\Plugin\Engine.cs</item>
+		/// <item>System\EamonRT\Game\Plugin\Engine.cs</item>
+		/// <item>System\EamonDD\Game\Plugin\Engine.cs</item>
+		/// <item>System\Eamon\Game\Plugin\Engine.cs</item>
 		/// </list>
 		/// All of these files contain LoadPluginClassMappings.  In the top three files, it is an override that calls into the level
 		/// below by invoking base.LoadPluginClassMappings.  So it immediately drills down to the bottom of the stack (to the Eamon
@@ -567,7 +567,7 @@ namespace Eamon.Framework.Plugin
 		/// be the Value part of a Key/Value pair, but we still don't know what interface to associate it with (the Key part).  This
 		/// is decided based on which ClassMappings constructor is called.  If
 		/// <see cref="Game.Attributes.ClassMappingsAttribute.ClassMappingsAttribute(Type)">this constructor</see> is used (e.g.,
-		/// [ClassMappings(typeof(Eamon.Framework.IEngine))]) then the passed in interface is used as the Key.  Otherwise, for
+		/// [ClassMappings(typeof(Eamon.Framework.IGameState))]) then the passed in interface is used as the Key.  Otherwise, for
 		/// <see cref="Game.Attributes.ClassMappingsAttribute.ClassMappingsAttribute">this constructor</see> (e.g., [ClassMappings]),
 		/// the name of the interface used as the Key will be synthesized by prepending "I" to the class name.  So, for example,
 		/// CombatComponent pairs with ICombatComponent.  In this scenario, the class must always implement or inherit the interface;
