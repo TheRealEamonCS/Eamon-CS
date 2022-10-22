@@ -274,5 +274,9 @@ namespace ARuncibleCargo.Game.Plugin
 			}
 		}
 
+		public Engine()
+		{
+			PoundCharPolicy = PoundCharPolicy.PlayerArtifactsOnly;
+		}
 	}
 }
