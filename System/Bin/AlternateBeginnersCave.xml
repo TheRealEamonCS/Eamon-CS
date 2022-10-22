@@ -13,9 +13,6 @@
         <member name="P:AlternateBeginnersCave.Framework.IGameState.DrankVial">
             <summary></summary>
         </member>
-        <member name="P:AlternateBeginnersCave.Game.Engine.HeldWpnIdx">
-            <summary></summary>
-        </member>
         <member name="P:AlternateBeginnersCave.Game.GameState.MagicDaggerCounter">
             <summary></summary>
         </member>
@@ -28,6 +25,9 @@
         <member name="M:AlternateBeginnersCave.Game.Helpers.GameStateHelper.ValidateMagicDaggerCounter">
             <summary></summary>
             <returns></returns>
+        </member>
+        <member name="P:AlternateBeginnersCave.Game.Plugin.Engine.HeldWpnIdx">
+            <summary></summary>
         </member>
     </members>
 </doc>

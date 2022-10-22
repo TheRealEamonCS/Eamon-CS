@@ -10,7 +10,7 @@ using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
-using static ARuncibleCargo.Game.Plugin.PluginContext;
+using static ARuncibleCargo.Game.Plugin.Globals;
 
 namespace ARuncibleCargo.Game.Commands
 {
@@ -42,7 +42,7 @@ namespace ARuncibleCargo.Game.Commands
 				{
 					gEngine.PrintEffectDesc(131);
 
-					NextState = Globals.CreateInstance<IStartState>();
+					NextState = gEngine.CreateInstance<IStartState>();
 
 					GotoCleanup = true;
 				}

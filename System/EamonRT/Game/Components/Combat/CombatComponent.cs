@@ -17,7 +17,7 @@ using EamonRT.Framework.Commands;
 using EamonRT.Framework.Components;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
-using static EamonRT.Game.Plugin.PluginContext;
+using static EamonRT.Game.Plugin.Globals;
 
 namespace EamonRT.Game.Components
 {
@@ -173,7 +173,7 @@ namespace EamonRT.Game.Components
 			{ 
 				if (BlastSpell)
 				{
-					if (Globals.IsRulesetVersion(5, 15, 25))
+					if (gEngine.IsRulesetVersion(5, 15, 25))
 					{
 						ExecuteCalculateDamage(1, 6);
 					}
@@ -189,11 +189,11 @@ namespace EamonRT.Game.Components
 					ExecuteStateMachine();
 				}
 
-				Globals.PauseCombatAfterSkillGains = Globals.SkillIncreaseFuncList.Count > 0;
+				gEngine.PauseCombatAfterSkillGains = gEngine.SkillIncreaseFuncList.Count > 0;
 				
-				if (!Globals.PauseCombatAfterSkillGains)
+				if (!gEngine.PauseCombatAfterSkillGains)
 				{ 
-					Globals.Thread.Sleep(gGameState.PauseCombatMs);
+					gEngine.Thread.Sleep(gGameState.PauseCombatMs);
 				}
 			}
 			else
@@ -227,9 +227,9 @@ namespace EamonRT.Game.Components
 
 					Debug.Assert(weapon != null);
 
-					Globals.SkillIncreaseFuncList.Add(() =>
+					gEngine.SkillIncreaseFuncList.Add(() =>
 					{
-						if (!Globals.IsRulesetVersion(5, 15, 25))
+						if (!gEngine.IsRulesetVersion(5, 15, 25))
 						{
 							PrintWeaponAbilityIncreases(s, weapon);
 						}
@@ -253,9 +253,9 @@ namespace EamonRT.Game.Components
 
 					if (rl > gCharacter.ArmorExpertise)
 					{
-						Globals.SkillIncreaseFuncList.Add(() =>
+						gEngine.SkillIncreaseFuncList.Add(() =>
 						{
-							if (!Globals.IsRulesetVersion(5, 15, 25))
+							if (!gEngine.IsRulesetVersion(5, 15, 25))
 							{
 								PrintArmorExpertiseIncreases();
 							}
@@ -432,7 +432,7 @@ namespace EamonRT.Game.Components
 
 			_rl = gEngine.RollDice(1, 100, 0);
 
-			if ((Globals.IsRulesetVersion(5, 15, 25) && _rl < 36) || (!Globals.IsRulesetVersion(5, 15, 25) && _rl < 41))
+			if ((gEngine.IsRulesetVersion(5, 15, 25) && _rl < 36) || (!gEngine.IsRulesetVersion(5, 15, 25) && _rl < 41))
 			{
 				PrintRecovered();
 
@@ -441,7 +441,7 @@ namespace EamonRT.Game.Components
 				goto Cleanup;
 			}
 
-			if ((Globals.IsRulesetVersion(5, 15, 25) && _rl < 76) || (!Globals.IsRulesetVersion(5, 15, 25) && _rl < 81))
+			if ((gEngine.IsRulesetVersion(5, 15, 25) && _rl < 76) || (!gEngine.IsRulesetVersion(5, 15, 25) && _rl < 81))
 			{
 				if (gGameState.Ls > 0 && gGameState.Ls == ActorWeaponUid)
 				{
@@ -573,20 +573,20 @@ namespace EamonRT.Game.Components
 
 			PrintCriticalHit();
 
-			if (ActorMonster != DobjMonster || !Globals.IsRulesetVersion(5, 15, 25))
+			if (ActorMonster != DobjMonster || !gEngine.IsRulesetVersion(5, 15, 25))
 			{
 				_rl = gEngine.RollDice(1, 100, 0);
 
 				if (_rl == 100)
 				{
-					_d2 = DobjMonster.Hardiness - DobjMonster.DmgTaken - (Globals.IsRulesetVersion(5, 15, 25) ? 0 : 2);
+					_d2 = DobjMonster.Hardiness - DobjMonster.DmgTaken - (gEngine.IsRulesetVersion(5, 15, 25) ? 0 : 2);
 
 					CombatState = CombatState.CheckArmor;
 
 					goto Cleanup;
 				}
 
-				if (_rl < (Globals.IsRulesetVersion(5, 15, 25) ? 51 : 50))
+				if (_rl < (gEngine.IsRulesetVersion(5, 15, 25) ? 51 : 50))
 				{
 					A = 0;
 
@@ -595,7 +595,7 @@ namespace EamonRT.Game.Components
 					goto Cleanup;
 				}
 
-				if (_rl < 86 || !Globals.IsRulesetVersion(5, 15, 25))
+				if (_rl < 86 || !gEngine.IsRulesetVersion(5, 15, 25))
 				{
 					S2 = S;
 
@@ -710,7 +710,7 @@ namespace EamonRT.Game.Components
 				{
 					gGameState.Die = 1;
 
-					SetNextStateFunc(Globals.CreateInstance<IPlayerDeadState>(x =>
+					SetNextStateFunc(gEngine.CreateInstance<IPlayerDeadState>(x =>
 					{
 						x.PrintLineSep = true;
 					}));
@@ -743,14 +743,14 @@ namespace EamonRT.Game.Components
 
 				if (BlastSpell)
 				{
-					RedirectCommand = Globals.CreateInstance<IBlastCommand>(x =>
+					RedirectCommand = gEngine.CreateInstance<IBlastCommand>(x =>
 					{
 						x.CastSpell = false;
 					});
 				}
 				else
 				{
-					RedirectCommand = Globals.CreateInstance<IAttackCommand>();
+					RedirectCommand = gEngine.CreateInstance<IAttackCommand>();
 				}
 
 				CopyCommandDataFunc(RedirectCommand);
@@ -761,7 +761,7 @@ namespace EamonRT.Game.Components
 
 				if (BlastSpell)
 				{
-					Globals.ActionListCounter++;
+					gEngine.ActionListCounter++;
 				}
 
 				CombatState = CombatState.EndAttack;
@@ -863,7 +863,7 @@ namespace EamonRT.Game.Components
 
 			if (BlastSpell)
 			{
-				if (Globals.IsRulesetVersion(5, 15, 25))
+				if (gEngine.IsRulesetVersion(5, 15, 25))
 				{
 					D = 1;
 
@@ -974,7 +974,7 @@ namespace EamonRT.Game.Components
 
 			try
 			{
-				Globals.RevealContentCounter--;
+				gEngine.RevealContentCounter--;
 
 				SpillContents = false;
 
@@ -1036,7 +1036,7 @@ namespace EamonRT.Game.Components
 			}
 			finally
 			{
-				Globals.RevealContentCounter++;
+				gEngine.RevealContentCounter++;
 			}
 		}
 

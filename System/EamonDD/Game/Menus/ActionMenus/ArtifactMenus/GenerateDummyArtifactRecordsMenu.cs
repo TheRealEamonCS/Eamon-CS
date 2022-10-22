@@ -13,7 +13,7 @@ using Eamon.Game.Attributes;
 using Eamon.Game.Extensions;
 using Eamon.Game.Menus;
 using EamonDD.Framework.Menus.ActionMenus;
-using static EamonDD.Game.Plugin.PluginContext;
+using static EamonDD.Game.Plugin.Globals;
 
 namespace EamonDD.Game.Menus.ActionMenus
 {
@@ -35,7 +35,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			Buf.Clear();
 
-			rc = Globals.In.ReadField(Buf, Constants.BufSize01, null, '_', '\0', true, "0", null, gEngine.IsCharDigit, null);
+			rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, "0", null, gEngine.IsCharDigit, null);
 
 			Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -43,9 +43,9 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			for (var i = 0; i < j; i++)
 			{
-				artifact = Globals.CreateInstance<IArtifact>(x =>
+				artifact = gEngine.CreateInstance<IArtifact>(x =>
 				{
-					x.Uid = Globals.Database.GetArtifactUid();
+					x.Uid = gEngine.Database.GetArtifactUid();
 					x.Name = string.Format("artifact {0}", x.Uid);
 					x.Desc = string.Format("You see artifact {0}.", x.Uid);
 					x.IsListed = true;
@@ -63,23 +63,23 @@ namespace EamonDD.Game.Menus.ActionMenus
 					artUids[1] = artifact.Uid;
 				}
 
-				rc = Globals.Database.AddArtifact(artifact);
+				rc = gEngine.Database.AddArtifact(artifact);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
-				Globals.ArtifactsModified = true;
+				gEngine.ArtifactsModified = true;
 
-				if (Globals.Module != null)
+				if (gEngine.Module != null)
 				{
-					Globals.Module.NumArtifacts++;
+					gEngine.Module.NumArtifacts++;
 
-					Globals.ModulesModified = true;
+					gEngine.ModulesModified = true;
 				}
 			}
 
 			if (j > 0)
 			{
-				gOut.Print("{0}", Globals.LineSep);
+				gOut.Print("{0}", gEngine.LineSep);
 
 				Buf.SetFormat(j > 1 ? "Generated dummy Artifacts with Uids between {0} and {1}, inclusive." : "Generated a dummy Artifact with Uid {0}.", artUids[0], artUids[1]);
 
@@ -89,7 +89,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 		public GenerateDummyArtifactRecordsMenu()
 		{
-			Buf = Globals.Buf;
+			Buf = gEngine.Buf;
 		}
 	}
 }

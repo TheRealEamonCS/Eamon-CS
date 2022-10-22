@@ -15,7 +15,7 @@ using Eamon.Framework.Primitive.Classes;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using Eamon.Game.Extensions;
-using static Eamon.Game.Plugin.PluginContext;
+using static Eamon.Game.Plugin.Globals;
 
 namespace Eamon.Game
 {
@@ -87,17 +87,17 @@ namespace Eamon.Game
 
 			set
 			{
-				if (Globals.EnableMutateProperties && Globals.RevealContentCounter > 0 && _location != value && GeneralContainer != null && !Globals.RevealContentArtifactList.Contains(this))
+				if (gEngine.EnableMutateProperties && gEngine.RevealContentCounter > 0 && _location != value && GeneralContainer != null && !gEngine.RevealContentArtifactList.Contains(this))
 				{
-					var room = Globals.RevealContentRoom;
+					var room = gEngine.RevealContentRoom;
 
-					var monster = Globals.RevealContentMonster;
+					var monster = gEngine.RevealContentMonster;
 
 					var origLocation = _location;
 
-					Globals.RevealContentArtifactList.Add(this);
+					gEngine.RevealContentArtifactList.Add(this);
 
-					Globals.RevealContentFuncList.Add(() =>
+					gEngine.RevealContentFuncList.Add(() =>
 					{
 						if (gEngine != null && gEngine.RevealContainerContentsFunc != null && room != null)
 						{ 
@@ -458,7 +458,7 @@ namespace Eamon.Game
 
 			if (IsUidRecycled && Uid > 0)
 			{
-				Globals.Database.FreeArtifactUid(Uid);
+				gEngine.Database.FreeArtifactUid(Uid);
 
 				Uid = 0;
 			}
@@ -510,7 +510,7 @@ namespace Eamon.Game
 
 			if (buf == null)
 			{
-				buf = Globals.Buf;
+				buf = gEngine.Buf;
 			}
 
 			buf.Clear();
@@ -521,7 +521,7 @@ namespace Eamon.Game
 
 			if (effect != null)
 			{
-				buf.Append(effect.Desc.Substring(0, Math.Min(Constants.ArtNameLen, effect.Desc.Length)).Trim());
+				buf.Append(effect.Desc.Substring(0, Math.Min(gEngine.ArtNameLen, effect.Desc.Length)).Trim());
 			}
 			else
 			{
@@ -562,7 +562,7 @@ namespace Eamon.Game
 
 			if (buf == null)
 			{
-				buf = Globals.Buf;
+				buf = gEngine.Buf;
 			}
 
 			buf.Clear();
@@ -574,7 +574,7 @@ namespace Eamon.Game
 					buf.AppendFormat
 					(
 						"{0}{1}{2}",
-						EvalPlural(Name, GetPluralName(fieldName, new StringBuilder(Constants.BufSize))),
+						EvalPlural(Name, GetPluralName(fieldName, new StringBuilder(gEngine.BufSize))),
 						showStateDesc && StateDesc.Length > 0 && !StateDesc.OmitStateDescSpace() ? " " : "",
 						showStateDesc && StateDesc.Length > 0 ? StateDesc : ""
 					);
@@ -590,7 +590,7 @@ namespace Eamon.Game
 						ArticleType == ArticleType.The ? "the " :
 						IsCharOwned && showCharOwned ? "your " :
 						"the ",
-						EvalPlural(Name, GetPluralName(fieldName, new StringBuilder(Constants.BufSize))),
+						EvalPlural(Name, GetPluralName(fieldName, new StringBuilder(gEngine.BufSize))),
 						showStateDesc && StateDesc.Length > 0 && !StateDesc.OmitStateDescSpace() ? " " : "",
 						showStateDesc && StateDesc.Length > 0 ? StateDesc : ""
 					);
@@ -608,7 +608,7 @@ namespace Eamon.Game
 						ArticleType == ArticleType.Some ? "some " :
 						ArticleType == ArticleType.An ? "an " :
 						"a ",
-						EvalPlural(Name, GetPluralName(fieldName, new StringBuilder(Constants.BufSize))),
+						EvalPlural(Name, GetPluralName(fieldName, new StringBuilder(gEngine.BufSize))),
 						showStateDesc && StateDesc.Length > 0 && !StateDesc.OmitStateDescSpace() ? " " : "",
 						showStateDesc && StateDesc.Length > 0 ? StateDesc : ""
 					);
@@ -661,7 +661,7 @@ namespace Eamon.Game
 
 				buf.AppendFormat("{0}[{1}{2}]",
 					Environment.NewLine,
-					GetArticleName(true, buf: new StringBuilder(Constants.BufSize)),
+					GetArticleName(true, buf: new StringBuilder(gEngine.BufSize)),
 					verboseNameDesc.Length > 0 ? string.Format("{0}{1}", !verboseNameDesc.OmitStateDescSpace() ? " " : "", verboseNameDesc) : "");
 			}
 
@@ -755,7 +755,7 @@ namespace Eamon.Game
 
 		public virtual bool IsInRoom(bool recurse = false)
 		{
-			var gameState = recurse ? Globals?.Engine?.GetGameState() : null;
+			var gameState = recurse ? gEngine?.GetGameState() : null;
 
 			var charMonster = recurse && gameState != null ? gMDB[gameState.Cm] : null;
 
@@ -793,7 +793,7 @@ namespace Eamon.Game
 
 		public virtual bool IsInLimbo(bool recurse = false)
 		{
-			var gameState = recurse ? Globals?.Engine?.GetGameState() : null;
+			var gameState = recurse ? gEngine?.GetGameState() : null;
 
 			var charMonster = recurse && gameState != null ? gMDB[gameState.Cm] : null;
 
@@ -801,7 +801,7 @@ namespace Eamon.Game
 						recurse && GetCarriedByMonster(recurse) != null ? GetCarriedByMonster(recurse).IsInLimbo() :
 						recurse && GetWornByMonster(recurse) != null ? GetWornByMonster(recurse).IsInLimbo() :
 						recurse && GetCarriedByContainer(recurse) != null ? GetCarriedByContainer(recurse).IsInLimbo() :
-						Location == Constants.LimboLocation;
+						Location == gEngine.LimboLocation;
 		}
 
 		public virtual bool IsCarriedByMonsterUid(long monsterUid, bool recurse = false)
@@ -855,7 +855,7 @@ namespace Eamon.Game
 
 		public virtual bool IsInRoomUid(long roomUid, bool recurse = false)
 		{
-			var gameState = recurse ? Globals?.Engine?.GetGameState() : null;
+			var gameState = recurse ? gEngine?.GetGameState() : null;
 
 			var charMonster = recurse && gameState != null ? gMDB[gameState.Cm] : null;
 
@@ -1002,7 +1002,7 @@ namespace Eamon.Game
 
 		public virtual long GetInRoomUid(bool recurse = false)
 		{
-			var gameState = recurse ? Globals?.Engine?.GetGameState() : null;
+			var gameState = recurse ? gEngine?.GetGameState() : null;
 
 			var charMonster = recurse && gameState != null ? gMDB[gameState.Cm] : null;
 
@@ -1106,7 +1106,7 @@ namespace Eamon.Game
 
 		public virtual void SetInLimbo()
 		{
-			Location = Constants.LimboLocation;
+			Location = gEngine.LimboLocation;
 		}
 
 		public virtual void SetCarriedByMonster(IMonster monster)
@@ -1181,7 +1181,7 @@ namespace Eamon.Game
 
 			ac = GetArtifactCategory(artTypes, false);
 
-			return !Globals.IsRulesetVersion(5) && ac != null;
+			return !gEngine.IsRulesetVersion(5) && ac != null;
 		}
 
 		public virtual bool IsRequestable()
@@ -1451,7 +1451,7 @@ namespace Eamon.Game
 		{
 			RetCode rc;
 
-			if (count < 1 || count > Constants.NumArtifactCategories)
+			if (count < 1 || count > gEngine.NumArtifactCategories)
 			{
 				rc = RetCode.InvalidArg;
 
@@ -1486,7 +1486,7 @@ namespace Eamon.Game
 
 				while (i < categories01.Length)
 				{
-					categories01[i] = Globals.CreateInstance<IArtifactCategory>(x =>
+					categories01[i] = gEngine.CreateInstance<IArtifactCategory>(x =>
 					{
 						x.Parent = this;
 					});
@@ -1525,7 +1525,7 @@ namespace Eamon.Game
 
 			if (dupAllowed || p == -1)
 			{
-				buf = new StringBuilder(Constants.BufSize);
+				buf = new StringBuilder(gEngine.BufSize);
 
 				buf.AppendFormat
 				(
@@ -1564,7 +1564,7 @@ namespace Eamon.Game
 
 			if (p != -1)
 			{
-				buf = new StringBuilder(Constants.BufSize);
+				buf = new StringBuilder(gEngine.BufSize);
 
 				buf.Append(StateDesc);
 
@@ -1668,19 +1668,19 @@ namespace Eamon.Game
 
 			Categories = new IArtifactCategory[]
 			{
-				Globals.CreateInstance<IArtifactCategory>(x =>
+				gEngine.CreateInstance<IArtifactCategory>(x =>
 				{
 					x.Parent = this;
 				}),
-				Globals.CreateInstance<IArtifactCategory>(x =>
+				gEngine.CreateInstance<IArtifactCategory>(x =>
 				{
 					x.Parent = this;
 				}),
-				Globals.CreateInstance<IArtifactCategory>(x =>
+				gEngine.CreateInstance<IArtifactCategory>(x =>
 				{
 					x.Parent = this;
 				}),
-				Globals.CreateInstance<IArtifactCategory>(x =>
+				gEngine.CreateInstance<IArtifactCategory>(x =>
 				{
 					x.Parent = this;
 				})

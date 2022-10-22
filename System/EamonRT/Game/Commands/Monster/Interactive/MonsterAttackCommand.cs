@@ -9,7 +9,7 @@ using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.Components;
 using EamonRT.Framework.States;
-using static EamonRT.Game.Plugin.PluginContext;
+using static EamonRT.Game.Plugin.Globals;
 
 namespace EamonRT.Game.Commands
 {
@@ -31,7 +31,7 @@ namespace EamonRT.Game.Commands
 		{
 			Debug.Assert(DobjMonster != null);
 
-			CombatComponent = Globals.CreateInstance<ICombatComponent>(x =>
+			CombatComponent = gEngine.CreateInstance<ICombatComponent>(x =>
 			{
 				x.SetNextStateFunc = s => NextState = s;
 
@@ -50,7 +50,7 @@ namespace EamonRT.Game.Commands
 
 			if (NextState == null)
 			{
-				NextState = Globals.CreateInstance<IErrorState>(x =>
+				NextState = gEngine.CreateInstance<IErrorState>(x =>
 				{
 					x.ErrorMessage = string.Format("{0}: NextState == null", Name);
 				});

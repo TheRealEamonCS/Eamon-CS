@@ -14,7 +14,7 @@ using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using Eamon.Game.Extensions;
 using Eamon.Game.Utilities;
-using static Eamon.Game.Plugin.PluginContext;
+using static Eamon.Game.Plugin.Globals;
 
 namespace Eamon.Game
 {
@@ -112,7 +112,7 @@ namespace Eamon.Game
 
 			if (IsUidRecycled && Uid > 0)
 			{
-				Globals.Database.FreeCharacterUid(Uid);
+				gEngine.Database.FreeCharacterUid(Uid);
 
 				Uid = 0;
 			}
@@ -151,7 +151,7 @@ namespace Eamon.Game
 
 			if (buf == null)
 			{
-				buf = Globals.Buf;
+				buf = gEngine.Buf;
 			}
 
 			buf.Clear();
@@ -182,7 +182,7 @@ namespace Eamon.Game
 
 			if (buf == null)
 			{
-				buf = Globals.Buf;
+				buf = gEngine.Buf;
 			}
 
 			buf.Clear();
@@ -211,7 +211,7 @@ namespace Eamon.Game
 
 			rc = RetCode.Success;
 
-			var name = GetArticleName(true, buf: new StringBuilder(Constants.BufSize));
+			var name = GetArticleName(true, buf: new StringBuilder(gEngine.BufSize));
 
 			if (showName)
 			{
@@ -664,9 +664,9 @@ namespace Eamon.Game
 
 			IsUidRecycled = character.IsUidRecycled;
 
-			Name = Globals.CloneInstance(character.Name);
+			Name = gEngine.CloneInstance(character.Name);
 
-			Desc = Globals.CloneInstance(character.Desc);
+			Desc = gEngine.CloneInstance(character.Desc);
 
 			Debug.Assert(Synonyms == null && character.Synonyms == null);
 
@@ -731,7 +731,7 @@ namespace Eamon.Game
 
 		public virtual void NormalizeGoldValues()
 		{
-			if (Globals.EnableMutateProperties)
+			if (gEngine.EnableMutateProperties)
 			{
 				// extinguish HeldGold debt with BankGold assets
 
@@ -775,11 +775,11 @@ namespace Eamon.Game
 				{
 					_heldGold += _bankGold;
 
-					if (_heldGold < Constants.MinGoldValue)
+					if (_heldGold < gEngine.MinGoldValue)
 					{
-						_bankGold = _heldGold - Constants.MinGoldValue;
+						_bankGold = _heldGold - gEngine.MinGoldValue;
 
-						_heldGold = Constants.MinGoldValue;
+						_heldGold = gEngine.MinGoldValue;
 					}
 					else
 					{
@@ -790,22 +790,22 @@ namespace Eamon.Game
 
 			// force values into valid range
 
-			if (_heldGold < Constants.MinGoldValue)
+			if (_heldGold < gEngine.MinGoldValue)
 			{
-				_heldGold = Constants.MinGoldValue;
+				_heldGold = gEngine.MinGoldValue;
 			}
-			else if (_heldGold > Constants.MaxGoldValue)
+			else if (_heldGold > gEngine.MaxGoldValue)
 			{
-				_heldGold = Constants.MaxGoldValue;
+				_heldGold = gEngine.MaxGoldValue;
 			}
 
-			if (_bankGold < Constants.MinGoldValue)
+			if (_bankGold < gEngine.MinGoldValue)
 			{
-				_bankGold = Constants.MinGoldValue;
+				_bankGold = gEngine.MinGoldValue;
 			}
-			else if (_bankGold > Constants.MaxGoldValue)
+			else if (_bankGold > gEngine.MaxGoldValue)
 			{
-				_bankGold = Constants.MaxGoldValue;
+				_bankGold = gEngine.MaxGoldValue;
 			}
 		}
 
@@ -817,31 +817,31 @@ namespace Eamon.Game
 
 			WeaponAbilities = new long[(long)EnumUtil.GetLastValue<Weapon>() + 1];
 
-			Armor = Globals.CreateInstance<ICharacterArtifact>(x =>
+			Armor = gEngine.CreateInstance<ICharacterArtifact>(x =>
 			{
 				x.Parent = this;
 			});
 
-			Shield = Globals.CreateInstance<ICharacterArtifact>(x =>
+			Shield = gEngine.CreateInstance<ICharacterArtifact>(x =>
 			{
 				x.Parent = this;
 			});
 
 			Weapons = new ICharacterArtifact[]
 			{
-				Globals.CreateInstance<ICharacterArtifact>(x =>
+				gEngine.CreateInstance<ICharacterArtifact>(x =>
 				{
 					x.Parent = this;
 				}),
-				Globals.CreateInstance<ICharacterArtifact>(x =>
+				gEngine.CreateInstance<ICharacterArtifact>(x =>
 				{
 					x.Parent = this;
 				}),
-				Globals.CreateInstance<ICharacterArtifact>(x =>
+				gEngine.CreateInstance<ICharacterArtifact>(x =>
 				{
 					x.Parent = this;
 				}),
-				Globals.CreateInstance<ICharacterArtifact>(x =>
+				gEngine.CreateInstance<ICharacterArtifact>(x =>
 				{
 					x.Parent = this;
 				})

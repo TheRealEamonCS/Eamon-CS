@@ -9,7 +9,7 @@ using Eamon.Framework.Primitive.Enums;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
-using static EamonRT.Game.Plugin.PluginContext;
+using static EamonRT.Game.Plugin.Globals;
 
 namespace EamonRT.Game.States
 {
@@ -186,7 +186,7 @@ namespace EamonRT.Game.States
 
 		public State()
 		{
-			StateImpl = Globals.CreateInstance<IStateImpl>(x =>
+			StateImpl = gEngine.CreateInstance<IStateImpl>(x =>
 			{
 				x.State = this;
 			});

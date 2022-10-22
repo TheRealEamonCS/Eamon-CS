@@ -6,7 +6,7 @@
 using System.Linq;
 using Eamon.Framework;
 using Eamon.Game.Attributes;
-using static RiddlesOfTheDuergarKingdom.Game.Plugin.PluginContext;
+using static RiddlesOfTheDuergarKingdom.Game.Plugin.Globals;
 
 namespace RiddlesOfTheDuergarKingdom.Game
 {
@@ -49,9 +49,9 @@ namespace RiddlesOfTheDuergarKingdom.Game
 		{
 			// Suppress black spider's initial attack
 
-			if (Uid == 16 && Globals.BlackSpiderJumps)
+			if (Uid == 16 && gEngine.BlackSpiderJumps)
 			{
-				Globals.BlackSpiderJumps = false;
+				gEngine.BlackSpiderJumps = false;
 
 				return false;
 			}
@@ -75,7 +75,7 @@ namespace RiddlesOfTheDuergarKingdom.Game
 		{
 			var attackDescs = new string[] { "smash{0} at" };
 
-			return Globals.PlayerAttacksBlackSpider ? attackDescs : base.GetHumanAttackDescs();
+			return gEngine.PlayerAttacksBlackSpider ? attackDescs : base.GetHumanAttackDescs();
 		}
 	}
 }

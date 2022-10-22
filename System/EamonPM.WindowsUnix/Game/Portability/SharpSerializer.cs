@@ -6,7 +6,7 @@
 using System.IO;
 using System.IO.Compression;
 using Eamon.Framework.Portability;
-using static Eamon.Game.Plugin.PluginContext;
+using static Eamon.Game.Plugin.Globals;
 
 namespace EamonPM.Game.Portability
 {
@@ -29,13 +29,13 @@ namespace EamonPM.Game.Portability
 
 			try
 			{
-				ClassMappings.MutatePropertyCounter--;
+				gEngine.MutatePropertyCounter--;
 
 				sharpSerializer.Serialize(data, stream);
 			}
 			finally
 			{
-				ClassMappings.MutatePropertyCounter++;
+				gEngine.MutatePropertyCounter++;
 			}
 		}
 
@@ -58,13 +58,13 @@ namespace EamonPM.Game.Portability
 
 			try
 			{
-				ClassMappings.MutatePropertyCounter--;
+				gEngine.MutatePropertyCounter--;
 
 				result = sharpSerializer.Deserialize(stream) as T;
 			}
 			finally
 			{
-				ClassMappings.MutatePropertyCounter++;
+				gEngine.MutatePropertyCounter++;
 			}
 
 			return result;
@@ -75,7 +75,7 @@ namespace EamonPM.Game.Portability
 		/// <returns></returns>
 		public virtual string NormalizePath(string path)
 		{
-			return path != null ? path.Replace(ClassMappings.Path.DirectorySeparatorChar == '\\' ? '/' : '\\', ClassMappings.Path.DirectorySeparatorChar) : null;
+			return path != null ? path.Replace(gEngine.Path.DirectorySeparatorChar == '\\' ? '/' : '\\', gEngine.Path.DirectorySeparatorChar) : null;
 		}
 	}
 }

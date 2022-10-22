@@ -4,7 +4,7 @@
         <name>BeginnersCaveII</name>
     </assembly>
     <members>
-        <member name="P:BeginnersCaveII.Game.Engine.HeldWpnIdx">
+        <member name="P:BeginnersCaveII.Game.Plugin.Engine.HeldWpnIdx">
             <summary></summary>
         </member>
     </members>

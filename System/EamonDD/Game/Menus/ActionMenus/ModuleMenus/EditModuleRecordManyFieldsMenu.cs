@@ -7,7 +7,7 @@ using System.Diagnostics;
 using Eamon.Framework.Helpers;
 using Eamon.Game.Attributes;
 using EamonDD.Framework.Menus.ActionMenus;
-using static EamonDD.Game.Plugin.PluginContext;
+using static EamonDD.Game.Plugin.Globals;
 
 namespace EamonDD.Game.Menus.ActionMenus
 {
@@ -16,7 +16,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 	{
 		public override void Execute()
 		{
-			if (EditRecord != null || Globals.Module != null)
+			if (EditRecord != null || gEngine.Module != null)
 			{
 				gOut.WriteLine();
 
@@ -24,19 +24,19 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 				if (EditRecord == null)
 				{
-					EditRecord = Globals.Module;
+					EditRecord = gEngine.Module;
 				}
 
-				var editModule01 = Globals.CloneInstance(EditRecord);
+				var editModule01 = gEngine.CloneInstance(EditRecord);
 
 				Debug.Assert(editModule01 != null);
 
-				var helper = Globals.CreateInstance<IModuleHelper>(x =>
+				var helper = gEngine.CreateInstance<IModuleHelper>(x =>
 				{
 					x.Record = editModule01;
 				});
 
-				helper.InputRecord(true, Globals.Config.FieldDesc);
+				helper.InputRecord(true, gEngine.Config.FieldDesc);
 
 				CompareAndSave(editModule01);
 			}
@@ -46,7 +46,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 		public EditModuleRecordManyFieldsMenu()
 		{
-			Buf = Globals.Buf;
+			Buf = gEngine.Buf;
 		}
 	}
 }

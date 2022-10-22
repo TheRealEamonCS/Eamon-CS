@@ -20,23 +20,14 @@
         <member name="P:TheBeginnersCave.Framework.IGameState.BookWarning">
             <summary></summary>
         </member>
-        <member name="T:TheBeginnersCave.Framework.Plugin.IPluginClassMappings">
+        <member name="T:TheBeginnersCave.Framework.Plugin.IEngine">
             <summary></summary>
         </member>
-        <member name="T:TheBeginnersCave.Framework.Plugin.IPluginConstants">
-            <summary></summary>
-        </member>
-        <member name="P:TheBeginnersCave.Framework.Plugin.IPluginConstants.AlightDesc">
-            <summary></summary>
-        </member>
-        <member name="T:TheBeginnersCave.Framework.Plugin.IPluginGlobals">
+        <member name="P:TheBeginnersCave.Framework.Plugin.IEngine.AlightDesc">
             <summary></summary>
         </member>
         <member name="T:TheBeginnersCave.Game.Commands.TrollsfireCommand">
             <seealso cref="T:TheBeginnersCave.Framework.Commands.ITrollsfireCommand" />
-        </member>
-        <member name="P:TheBeginnersCave.Game.Engine.HeldWpnIdx">
-            <summary></summary>
         </member>
         <member name="M:TheBeginnersCave.Game.Helpers.GameStateHelper.ValidateTrollsfire">
             <summary></summary>
@@ -45,6 +36,9 @@
         <member name="M:TheBeginnersCave.Game.Helpers.GameStateHelper.ValidateBookWarning">
             <summary></summary>
             <returns></returns>
+        </member>
+        <member name="P:TheBeginnersCave.Game.Plugin.Engine.HeldWpnIdx">
+            <summary></summary>
         </member>
     </members>
 </doc>

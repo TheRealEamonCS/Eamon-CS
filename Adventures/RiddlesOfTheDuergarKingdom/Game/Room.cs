@@ -7,7 +7,7 @@ using System;
 using System.Linq;
 using Eamon.Framework;
 using Eamon.Game.Attributes;
-using static RiddlesOfTheDuergarKingdom.Game.Plugin.PluginContext;
+using static RiddlesOfTheDuergarKingdom.Game.Plugin.Globals;
 
 namespace RiddlesOfTheDuergarKingdom.Game
 {
@@ -20,7 +20,7 @@ namespace RiddlesOfTheDuergarKingdom.Game
 			{
 				var result = base.Desc;
 
-				if (Globals.EnableMutateProperties)
+				if (gEngine.EnableMutateProperties)
 				{
 					if (Uid == 136)		// Wooden cart
 					{
@@ -43,7 +43,7 @@ namespace RiddlesOfTheDuergarKingdom.Game
 		{
 			var result = base.GetDir(index);
 
-			if (Globals.EnableMutateProperties)
+			if (gEngine.EnableMutateProperties)
 			{
 				// Wooden cart
 

@@ -5,7 +5,7 @@
 
 using System.Text;
 using Eamon.Framework.Portability;
-using static Eamon.Game.Plugin.PluginContext;
+using static Eamon.Game.Plugin.Globals;
 
 namespace EamonPM.Game.Portability
 {
@@ -15,9 +15,9 @@ namespace EamonPM.Game.Portability
 		{
 			var normalizedPath = NormalizePath(path);
 
-			if (ClassMappings.Path.GetExtension(normalizedPath.ToUpper()) == ".DAT")
+			if (gEngine.Path.GetExtension(normalizedPath.ToUpper()) == ".DAT")
 			{
-				ClassMappings.ConvertDatafileFromXmlToDat(normalizedPath);
+				gEngine.ConvertDatafileFromXmlToDat(normalizedPath);
 			}
 
 			return System.IO.File.Exists(normalizedPath);
@@ -27,9 +27,9 @@ namespace EamonPM.Game.Portability
 		{
 			var normalizedPath = NormalizePath(path);
 
-			if (ClassMappings.Path.GetExtension(normalizedPath.ToUpper()) == ".DAT")
+			if (gEngine.Path.GetExtension(normalizedPath.ToUpper()) == ".DAT")
 			{
-				ClassMappings.ConvertDatafileFromXmlToDat(normalizedPath);
+				gEngine.ConvertDatafileFromXmlToDat(normalizedPath);
 			}
 
 			System.IO.File.Delete(normalizedPath);
@@ -41,9 +41,9 @@ namespace EamonPM.Game.Portability
 
 			var normalizedDestFileName = NormalizePath(destFileName);
 
-			if (ClassMappings.Path.GetExtension(normalizedSourceFileName.ToUpper()) == ".DAT")
+			if (gEngine.Path.GetExtension(normalizedSourceFileName.ToUpper()) == ".DAT")
 			{
-				ClassMappings.ConvertDatafileFromXmlToDat(normalizedSourceFileName);
+				gEngine.ConvertDatafileFromXmlToDat(normalizedSourceFileName);
 			}
 
 			System.IO.File.Copy(normalizedSourceFileName, normalizedDestFileName, overwrite);
@@ -55,9 +55,9 @@ namespace EamonPM.Game.Portability
 
 			var firstLine = "";
 
-			if (ClassMappings.Path.GetExtension(normalizedPath.ToUpper()) == ".DAT")
+			if (gEngine.Path.GetExtension(normalizedPath.ToUpper()) == ".DAT")
 			{
-				ClassMappings.ConvertDatafileFromXmlToDat(normalizedPath);
+				gEngine.ConvertDatafileFromXmlToDat(normalizedPath);
 
 				using (var fileStream = new System.IO.FileStream(normalizedPath, System.IO.FileMode.Open))
 				{
@@ -87,9 +87,9 @@ namespace EamonPM.Game.Portability
 
 			var contents = "";
 
-			if (ClassMappings.Path.GetExtension(normalizedPath.ToUpper()) == ".DAT")
+			if (gEngine.Path.GetExtension(normalizedPath.ToUpper()) == ".DAT")
 			{
-				ClassMappings.ConvertDatafileFromXmlToDat(normalizedPath);
+				gEngine.ConvertDatafileFromXmlToDat(normalizedPath);
 
 				using (var fileStream = new System.IO.FileStream(normalizedPath, System.IO.FileMode.Open))
 				{
@@ -121,7 +121,7 @@ namespace EamonPM.Game.Portability
 		{
 			var normalizedPath = NormalizePath(path);
 
-			if (ClassMappings.Path.GetExtension(normalizedPath.ToUpper()) == ".DAT")
+			if (gEngine.Path.GetExtension(normalizedPath.ToUpper()) == ".DAT")
 			{
 				using (var fileStream = new System.IO.FileStream(normalizedPath, System.IO.FileMode.Create))
 				{
@@ -144,7 +144,7 @@ namespace EamonPM.Game.Portability
 		{
 			var normalizedPath = NormalizePath(path);
 
-			if (ClassMappings.Path.GetExtension(normalizedPath.ToUpper()) == ".DAT")
+			if (gEngine.Path.GetExtension(normalizedPath.ToUpper()) == ".DAT")
 			{
 				using (var fileStream = new System.IO.FileStream(normalizedPath, System.IO.FileMode.Append))
 				{
@@ -168,7 +168,7 @@ namespace EamonPM.Game.Portability
 		/// <returns></returns>
 		public virtual string NormalizePath(string path)
 		{
-			return path != null ? path.Replace(ClassMappings.Path.DirectorySeparatorChar == '\\' ? '/' : '\\', ClassMappings.Path.DirectorySeparatorChar) : null;
+			return path != null ? path.Replace(gEngine.Path.DirectorySeparatorChar == '\\' ? '/' : '\\', gEngine.Path.DirectorySeparatorChar) : null;
 		}
 	}
 }

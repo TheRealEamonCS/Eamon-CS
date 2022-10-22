@@ -11,7 +11,7 @@ using Eamon.Framework.Primitive.Enums;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.Parsing;
 using EamonRT.Game.States;
-using static EamonRT.Game.Plugin.PluginContext;
+using static EamonRT.Game.Plugin.Globals;
 
 namespace EamonRT.Game.Commands
 {
@@ -1038,7 +1038,7 @@ namespace EamonRT.Game.Commands
 
 		public Command()
 		{
-			CommandImpl = Globals.CreateInstance<ICommandImpl>(x =>
+			CommandImpl = gEngine.CreateInstance<ICommandImpl>(x =>
 			{
 				x.Command = this;
 			});

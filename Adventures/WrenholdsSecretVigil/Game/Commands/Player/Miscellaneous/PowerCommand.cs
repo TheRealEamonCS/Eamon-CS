@@ -6,7 +6,7 @@
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.Primitive.Enums;
-using static WrenholdsSecretVigil.Game.Plugin.PluginContext;
+using static WrenholdsSecretVigil.Game.Plugin.Globals;
 
 namespace WrenholdsSecretVigil.Game.Commands
 {

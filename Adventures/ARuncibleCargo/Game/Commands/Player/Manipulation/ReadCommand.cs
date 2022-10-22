@@ -8,7 +8,7 @@ using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.States;
-using static ARuncibleCargo.Game.Plugin.PluginContext;
+using static ARuncibleCargo.Game.Plugin.Globals;
 
 namespace ARuncibleCargo.Game.Commands
 {
@@ -25,7 +25,7 @@ namespace ARuncibleCargo.Game.Commands
 
 					// Read sign on Sam's door () () ()
 
-					var command = Globals.CreateInstance<IExamineCommand>();
+					var command = gEngine.CreateInstance<IExamineCommand>();
 
 					CopyCommandData(command);
 
@@ -61,7 +61,7 @@ namespace ARuncibleCargo.Game.Commands
 						gOut.Print("Nothing happens.");
 					}
 
-					NextState = Globals.CreateInstance<IMonsterStartState>();
+					NextState = gEngine.CreateInstance<IMonsterStartState>();
 
 					break;
 

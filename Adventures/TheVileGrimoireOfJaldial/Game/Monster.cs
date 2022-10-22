@@ -8,7 +8,7 @@ using System.Linq;
 using Eamon.Framework;
 using Eamon.Game.Attributes;
 using Enums = Eamon.Framework.Primitive.Enums;
-using static TheVileGrimoireOfJaldial.Game.Plugin.PluginContext;
+using static TheVileGrimoireOfJaldial.Game.Plugin.Globals;
 
 namespace TheVileGrimoireOfJaldial.Game
 {
@@ -23,9 +23,9 @@ namespace TheVileGrimoireOfJaldial.Game
 
 				var room = GetInRoom() as Framework.IRoom;
 
-				if (Globals.EnableMutateProperties && room != null && room.Uid == gGameState.Ro && room.IsDimLightRoomWithoutGlowingMonsters() && gGameState.Ls <= 0)
+				if (gEngine.EnableMutateProperties && room != null && room.Uid == gGameState.Ro && room.IsDimLightRoomWithoutGlowingMonsters() && gGameState.Ls <= 0)
 				{
-					result = string.Format("You can vaguely see {0} in the {1}.", GetTheName(buf: Globals.Buf01), gGameState.IsNightTime() ? "darkness" : "white haze");
+					result = string.Format("You can vaguely see {0} in the {1}.", GetTheName(buf: gEngine.Buf01), gGameState.IsNightTime() ? "darkness" : "white haze");
 				}
 
 				return result;
@@ -45,7 +45,7 @@ namespace TheVileGrimoireOfJaldial.Game
 
 				var room = GetInRoom() as Framework.IRoom;
 
-				if (Globals.EnableMutateProperties && room != null && room.Uid == gGameState.Ro && room.IsDimLightRoomWithoutGlowingMonsters() && gGameState.Ls <= 0)
+				if (gEngine.EnableMutateProperties && room != null && room.Uid == gGameState.Ro && room.IsDimLightRoomWithoutGlowingMonsters() && gGameState.Ls <= 0)
 				{
 					result = DimLightSeen;
 				}
@@ -57,7 +57,7 @@ namespace TheVileGrimoireOfJaldial.Game
 			{
 				var room = GetInRoom() as Framework.IRoom;
 
-				if (Globals.EnableMutateProperties && room != null && room.Uid == gGameState.Ro && room.IsDimLightRoomWithoutGlowingMonsters() && gGameState.Ls <= 0)
+				if (gEngine.EnableMutateProperties && room != null && room.Uid == gGameState.Ro && room.IsDimLightRoomWithoutGlowingMonsters() && gGameState.Ls <= 0)
 				{
 					DimLightSeen = value;
 				}
@@ -74,7 +74,7 @@ namespace TheVileGrimoireOfJaldial.Game
 			{
 				var result = base.Agility;
 
-				if (Globals.EnableMutateProperties)
+				if (gEngine.EnableMutateProperties)
 				{
 					// Beholder's clumsiness spell causes decreased Agility
 
@@ -171,7 +171,7 @@ namespace TheVileGrimoireOfJaldial.Game
 		{
 			// When a monster has initiative nobody else can react this round; paralyzed monsters sit out the round
 
-			return (Globals.InitiativeMonsterUid == 0 || Uid == Globals.InitiativeMonsterUid) && !gGameState.ParalyzedTargets.ContainsKey(Uid) && base.ShouldProcessInGameLoop();
+			return (gEngine.InitiativeMonsterUid == 0 || Uid == gEngine.InitiativeMonsterUid) && !gGameState.ParalyzedTargets.ContainsKey(Uid) && base.ShouldProcessInGameLoop();
 		}
 
 		public override bool ShouldRefuseToAcceptGold()
@@ -185,7 +185,7 @@ namespace TheVileGrimoireOfJaldial.Game
 
 			// Pocket dragon and beholder never accept gifts
 
-			return Uid == 24 || Uid == 36 || (!Globals.IsRulesetVersion(5, 25) && (Reaction == Enums.Friendliness.Enemy || (Reaction == Enums.Friendliness.Neutral && artifact.Value < 3000)));
+			return Uid == 24 || Uid == 36 || (!gEngine.IsRulesetVersion(5, 25) && (Reaction == Enums.Friendliness.Enemy || (Reaction == Enums.Friendliness.Neutral && artifact.Value < 3000)));
 		}
 
 		public override string[] GetWeaponAttackDescs(IArtifact artifact)
@@ -412,7 +412,7 @@ namespace TheVileGrimoireOfJaldial.Game
 
 				case 11:
 
-					if (rl > 70 && !Globals.CarrionCrawlerFlails)
+					if (rl > 70 && !gEngine.CarrionCrawlerFlails)
 					{
 						AttackDesc = "bite{0} at";
 
@@ -432,7 +432,7 @@ namespace TheVileGrimoireOfJaldial.Game
 
 						NwSides = 3;
 
-						Globals.CarrionCrawlerFlails = true;
+						gEngine.CarrionCrawlerFlails = true;
 					}
 
 					break;

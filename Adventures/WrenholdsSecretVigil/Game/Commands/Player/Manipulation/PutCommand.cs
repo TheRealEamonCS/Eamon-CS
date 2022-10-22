@@ -10,7 +10,7 @@ using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
-using static WrenholdsSecretVigil.Game.Plugin.PluginContext;
+using static WrenholdsSecretVigil.Game.Plugin.Globals;
 
 namespace WrenholdsSecretVigil.Game.Commands
 {
@@ -43,7 +43,7 @@ namespace WrenholdsSecretVigil.Game.Commands
 
 				if (IobjArtifact.Uid == 24 || IobjArtifact.Uid == 25)
 				{
-					gOut.Print("{0} start{1} dissolving on contact with {2}!", DobjArtifact.GetTheName(true), DobjArtifact.EvalPlural("s", ""), IobjArtifact.GetTheName(buf: Globals.Buf01));
+					gOut.Print("{0} start{1} dissolving on contact with {2}!", DobjArtifact.GetTheName(true), DobjArtifact.EvalPlural("s", ""), IobjArtifact.GetTheName(buf: gEngine.Buf01));
 
 					gOut.Print("{0} {1} destroyed!", DobjArtifact.GetTheName(true), DobjArtifact.EvalPlural("is", "are"));
 
@@ -72,7 +72,7 @@ namespace WrenholdsSecretVigil.Game.Commands
 
 					gEngine.TransportPlayerBetweenRooms(ActorRoom, newRoom, null);
 
-					NextState = Globals.CreateInstance<IAfterPlayerMoveState>();
+					NextState = gEngine.CreateInstance<IAfterPlayerMoveState>();
 				}
 			}
 		}

@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using Eamon.Framework;
 using Eamon.Framework.DataStorage.Generic;
 using Eamon.Game.Attributes;
-using static Eamon.Game.Plugin.PluginContext;
+using static Eamon.Game.Plugin.Globals;
 
 namespace Eamon.Game.DataStorage.QuickAccess
 {
@@ -20,19 +20,19 @@ namespace Eamon.Game.DataStorage.QuickAccess
 		{
 			get
 			{
-				return Globals.Database.FindArtifact(uid);
+				return gEngine.Database.FindArtifact(uid);
 			}
 
 			set
 			{
 				if (value == null || value.Uid == uid)
 				{
-					Globals.Database.RemoveArtifact(uid);
+					gEngine.Database.RemoveArtifact(uid);
 				}
 
 				if (value != null && value.Uid == uid)
 				{
-					Globals.Database.AddArtifact(value, CopyAddedRecord);
+					gEngine.Database.AddArtifact(value, CopyAddedRecord);
 				}
 			}
 		}
@@ -41,7 +41,7 @@ namespace Eamon.Game.DataStorage.QuickAccess
 		{ 
 			get
 			{
-				return Globals?.Database?.ArtifactTable?.Records;
+				return gEngine?.Database?.ArtifactTable?.Records;
 			}
 		}
 

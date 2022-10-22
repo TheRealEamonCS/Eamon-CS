@@ -10,7 +10,7 @@ using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.States;
-using static EamonRT.Game.Plugin.PluginContext;
+using static EamonRT.Game.Plugin.Globals;
 
 namespace EamonRT.Game.Commands
 {
@@ -58,14 +58,14 @@ namespace EamonRT.Game.Commands
 
 					if (ActorMonster.CheckNBTLHostility())
 					{
-						Globals.Thread.Sleep(gGameState.PauseCombatMs);
+						gEngine.Thread.Sleep(gGameState.PauseCombatMs);
 					}
 				}
 			}
 
 			if (NextState == null)
 			{
-				NextState = Globals.CreateInstance<IErrorState>(x =>
+				NextState = gEngine.CreateInstance<IErrorState>(x =>
 				{
 					x.ErrorMessage = string.Format("{0}: NextState == null", Name);
 				});

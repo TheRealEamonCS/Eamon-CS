@@ -16,7 +16,7 @@ using Eamon.Game.Extensions;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.Parsing;
 using EamonRT.Framework.States;
-using static EamonRT.Game.Plugin.PluginContext;
+using static EamonRT.Game.Plugin.Globals;
 
 namespace EamonRT.Game.Commands
 {
@@ -40,9 +40,9 @@ namespace EamonRT.Game.Commands
 
 			set
 			{
-				if (Globals.RevealContentCounter > 0)
+				if (gEngine.RevealContentCounter > 0)
 				{
-					Globals.RevealContentMonster = value;
+					gEngine.RevealContentMonster = value;
 				}
 
 				_actorMonster = value;
@@ -58,9 +58,9 @@ namespace EamonRT.Game.Commands
 
 			set
 			{
-				if (Globals.RevealContentCounter > 0)
+				if (gEngine.RevealContentCounter > 0)
 				{
-					Globals.RevealContentRoom = value;
+					gEngine.RevealContentRoom = value;
 				}
 
 				_actorRoom = value;
@@ -158,7 +158,7 @@ namespace EamonRT.Game.Commands
 		{
 			Debug.Assert(obj1 != null && obj2 != null);
 
-			gOut.Print("Do you mean \"{0}\" or \"{1}\"?", obj1.GetNoneName(showCharOwned: false), obj2.GetNoneName(showCharOwned: false, buf: Globals.Buf01));
+			gOut.Print("Do you mean \"{0}\" or \"{1}\"?", obj1.GetNoneName(showCharOwned: false), obj2.GetNoneName(showCharOwned: false, buf: gEngine.Buf01));
 		}
 
 		public virtual void PrintWhyAttack(IGameBase obj)
@@ -347,7 +347,7 @@ namespace EamonRT.Game.Commands
 		{
 			Debug.Assert(artifact != null);
 
-			if (Globals.IsRulesetVersion(5, 15, 25))
+			if (gEngine.IsRulesetVersion(5, 15, 25))
 			{
 				gOut.Print("You're wearing {0}.", artifact.EvalPlural("it", "them"));
 			}
@@ -361,7 +361,7 @@ namespace EamonRT.Game.Commands
 		{
 			Debug.Assert(artifact != null);
 
-			if (Globals.IsRulesetVersion(5, 15, 25))
+			if (gEngine.IsRulesetVersion(5, 15, 25))
 			{
 				gOut.Print("You're wearing {0}.", artifact.GetTheName());
 			}
@@ -375,7 +375,7 @@ namespace EamonRT.Game.Commands
 		{
 			Debug.Assert(shield != null && weapon != null);
 
-			gOut.Print("You can't wear {0} while using {1}.", shield.GetTheName(), weapon.GetTheName(buf: Globals.Buf01));
+			gOut.Print("You can't wear {0} while using {1}.", shield.GetTheName(), weapon.GetTheName(buf: gEngine.Buf01));
 		}
 
 		public virtual void PrintContainerNotEmpty(IArtifact artifact, ContainerType containerType, bool isPlural)
@@ -514,7 +514,7 @@ namespace EamonRT.Game.Commands
 
 			gOut.Print("There {0}{1}{2}{3} left.",
 				objAmount != 1 ? "are " : "is ",
-				objAmount > 0 ? gEngine.GetStringFromNumber(objAmount, false, Globals.Buf) : "no",
+				objAmount > 0 ? gEngine.GetStringFromNumber(objAmount, false, gEngine.Buf) : "no",
 				objEdible ? " bite" : " swallow",
 				objAmount != 1 ? "s" : "");
 		}
@@ -523,32 +523,32 @@ namespace EamonRT.Game.Commands
 		{
 			Debug.Assert(artifact != null && containerArtifactList != null && containerArtifactList.Count > 0 && Enum.IsDefined(typeof(ContainerType), containerType));
 
-			Globals.Buf.SetFormat("{0}{1} {2}, you see ",
+			gEngine.Buf.SetFormat("{0}{1} {2}, you see ",
 				Environment.NewLine,
 				gEngine.EvalContainerType(containerType, "Inside", "On", "Under", "Behind"),
-				artifact.GetTheName(false, showCharOwned, false, false, Globals.Buf01));
+				artifact.GetTheName(false, showCharOwned, false, false, gEngine.Buf01));
 
-			var rc = gEngine.GetRecordNameList(containerArtifactList.Cast<IGameBase>().ToList(), ArticleType.A, showCharOwned, StateDescDisplayCode.None, false, false, Globals.Buf);
+			var rc = gEngine.GetRecordNameList(containerArtifactList.Cast<IGameBase>().ToList(), ArticleType.A, showCharOwned, StateDescDisplayCode.None, false, false, gEngine.Buf);
 
 			Debug.Assert(gEngine.IsSuccess(rc));
 
-			Globals.Buf.AppendFormat(".{0}", Environment.NewLine);
+			gEngine.Buf.AppendFormat(".{0}", Environment.NewLine);
 
-			gOut.Write("{0}", Globals.Buf);
+			gOut.Write("{0}", gEngine.Buf);
 		}
 
 		public virtual void PrintNothingPrepContainer(IArtifact artifact, ContainerType containerType, bool showCharOwned)
 		{
 			Debug.Assert(artifact != null && Enum.IsDefined(typeof(ContainerType), containerType));
 
-			Globals.Buf.SetFormat("{0}There's nothing {1} {2}",
+			gEngine.Buf.SetFormat("{0}There's nothing {1} {2}",
 				Environment.NewLine,
 				gEngine.EvalContainerType(containerType, "inside", "on", "under", "behind"),
-				artifact.GetTheName(false, showCharOwned, false, false, Globals.Buf01));
+				artifact.GetTheName(false, showCharOwned, false, false, gEngine.Buf01));
 
-			Globals.Buf.AppendFormat(".{0}", Environment.NewLine);
+			gEngine.Buf.AppendFormat(".{0}", Environment.NewLine);
 
-			gOut.Write("{0}", Globals.Buf);
+			gOut.Write("{0}", gEngine.Buf);
 		}
 
 		public virtual void PrintAttemptingToFlee(IArtifact artifact, Direction direction)
@@ -557,25 +557,25 @@ namespace EamonRT.Game.Commands
 
 			if (artifact != null)
 			{
-				Globals.Buf.SetFormat("{0}", artifact.GetDoorGateFleeDesc());
+				gEngine.Buf.SetFormat("{0}", artifact.GetDoorGateFleeDesc());
 			}
 			else if (direction == Direction.Up || direction == Direction.Down || direction == Direction.In || direction == Direction.Out)
 			{
-				Globals.Buf.SetFormat(" {0}ward", direction.ToString().ToLower());
+				gEngine.Buf.SetFormat(" {0}ward", direction.ToString().ToLower());
 			}
 			else
 			{
-				Globals.Buf.SetFormat(" to the {0}", direction.ToString().ToLower());
+				gEngine.Buf.SetFormat(" to the {0}", direction.ToString().ToLower());
 			}
 
-			gOut.Print("Attempting to flee{0}.", Globals.Buf);
+			gOut.Print("Attempting to flee{0}.", gEngine.Buf);
 		}
 
 		public virtual void PrintCantReadyWeaponWithShield(IArtifact weapon, IArtifact shield)
 		{
 			Debug.Assert(weapon != null && shield != null);
 
-			gOut.Print("You can't use {0} while wearing {1}.", weapon.GetTheName(), shield.GetTheName(buf: Globals.Buf01));
+			gOut.Print("You can't use {0} while wearing {1}.", weapon.GetTheName(), shield.GetTheName(buf: gEngine.Buf01));
 		}
 
 		public virtual void PrintPolitelyRefuses(IMonster monster)
@@ -627,7 +627,7 @@ namespace EamonRT.Game.Commands
 		{
 			Debug.Assert(monster != null && goldAmount > 0);
 
-			gOut.Print("Give {0} gold piece{1} to {2}.", gEngine.GetStringFromNumber(goldAmount, false, Globals.Buf), goldAmount != 1 ? "s" : "", monster.GetTheName(buf: Globals.Buf01));
+			gOut.Print("Give {0} gold piece{1} to {2}.", gEngine.GetStringFromNumber(goldAmount, false, gEngine.Buf), goldAmount != 1 ? "s" : "", monster.GetTheName(buf: gEngine.Buf01));
 		}
 
 		public virtual void PrintActorIsWearing(IMonster monster, IList<IArtifact> monsterWornArtifactList)
@@ -636,19 +636,19 @@ namespace EamonRT.Game.Commands
 
 			var isCharMonster = monster.IsCharacterMonster();
 
-			Globals.Buf.SetFormat("{0}{1} {2} {3}",
+			gEngine.Buf.SetFormat("{0}{1} {2} {3}",
 				Environment.NewLine,
-				isCharMonster ? "You" : monster.EvalPlural(monster.GetTheName(true, true, false, true, Globals.Buf01), "They"),
+				isCharMonster ? "You" : monster.EvalPlural(monster.GetTheName(true, true, false, true, gEngine.Buf01), "They"),
 				isCharMonster ? "are" : monster.EvalPlural("is", "are"),
 				isCharMonster ? "wearing " : monster.EvalPlural("wearing ", "wearing among them "));
 
-			var rc = gEngine.GetRecordNameList(monsterWornArtifactList.Cast<IGameBase>().ToList(), ArticleType.A, isCharMonster ? false : true, isCharMonster ? StateDescDisplayCode.AllStateDescs : StateDescDisplayCode.SideNotesOnly, isCharMonster ? true : false, false, Globals.Buf);
+			var rc = gEngine.GetRecordNameList(monsterWornArtifactList.Cast<IGameBase>().ToList(), ArticleType.A, isCharMonster ? false : true, isCharMonster ? StateDescDisplayCode.AllStateDescs : StateDescDisplayCode.SideNotesOnly, isCharMonster ? true : false, false, gEngine.Buf);
 
 			Debug.Assert(gEngine.IsSuccess(rc));
 
-			Globals.Buf.AppendFormat(".{0}", Environment.NewLine);
+			gEngine.Buf.AppendFormat(".{0}", Environment.NewLine);
 
-			gOut.Write("{0}", Globals.Buf);
+			gOut.Write("{0}", gEngine.Buf);
 		}
 
 		public virtual void PrintActorIsCarrying(IMonster monster, IList<IArtifact> monsterCarriedArtifactList)
@@ -657,30 +657,30 @@ namespace EamonRT.Game.Commands
 
 			var isCharMonster = monster.IsCharacterMonster();
 
-			Globals.Buf.SetFormat("{0}{1} {2} {3}",
+			gEngine.Buf.SetFormat("{0}{1} {2} {3}",
 				Environment.NewLine,
-				isCharMonster ? "You" : monster.EvalPlural(monster.GetTheName(true, true, false, true, Globals.Buf01), "They"),
+				isCharMonster ? "You" : monster.EvalPlural(monster.GetTheName(true, true, false, true, gEngine.Buf01), "They"),
 				isCharMonster ? "are" : monster.EvalPlural("is", "are"),
 				monsterCarriedArtifactList.Count == 0 ? "empty handed" :
 				isCharMonster ? "carrying " : monster.EvalPlural("carrying ", "carrying among them "));
 
 			if (monsterCarriedArtifactList.Count > 0)
 			{
-				var rc = gEngine.GetRecordNameList(monsterCarriedArtifactList.Cast<IGameBase>().ToList(), ArticleType.A, isCharMonster ? false : true, isCharMonster ? StateDescDisplayCode.AllStateDescs : StateDescDisplayCode.SideNotesOnly, isCharMonster ? true : false, false, Globals.Buf);
+				var rc = gEngine.GetRecordNameList(monsterCarriedArtifactList.Cast<IGameBase>().ToList(), ArticleType.A, isCharMonster ? false : true, isCharMonster ? StateDescDisplayCode.AllStateDescs : StateDescDisplayCode.SideNotesOnly, isCharMonster ? true : false, false, gEngine.Buf);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 			}
 
-			Globals.Buf.AppendFormat(".{0}", Environment.NewLine);
+			gEngine.Buf.AppendFormat(".{0}", Environment.NewLine);
 
-			gOut.Write("{0}", Globals.Buf);
+			gOut.Write("{0}", gEngine.Buf);
 		}
 
 		public virtual void PrintOpensConsumesAndHandsBack(IArtifact artifact, IMonster monster, bool objOpened, bool objEdible)
 		{
 			Debug.Assert(artifact != null && monster != null);
 
-			var monsterName = monster.EvalPlural(monster.GetTheName(true), monster.GetArticleName(true, true, false, true, Globals.Buf01));
+			var monsterName = monster.EvalPlural(monster.GetTheName(true), monster.GetArticleName(true, true, false, true, gEngine.Buf01));
 
 			gOut.Print("{0}{1} takes a {2} and hands {3} back.",
 				monsterName,
@@ -693,7 +693,7 @@ namespace EamonRT.Game.Commands
 		{
 			Debug.Assert(artifact != null && monster != null);
 
-			var monsterName = monster.EvalPlural(monster.GetTheName(true), monster.GetArticleName(true, true, false, true, Globals.Buf01));
+			var monsterName = monster.EvalPlural(monster.GetTheName(true), monster.GetArticleName(true, true, false, true, gEngine.Buf01));
 
 			gOut.Print("{0}{1} eats {2} all.",
 				monsterName,
@@ -705,7 +705,7 @@ namespace EamonRT.Game.Commands
 		{
 			Debug.Assert(artifact != null && monster != null);
 
-			var monsterName = monster.EvalPlural(monster.GetTheName(true), monster.GetArticleName(true, true, false, true, Globals.Buf01));
+			var monsterName = monster.EvalPlural(monster.GetTheName(true), monster.GetArticleName(true, true, false, true, gEngine.Buf01));
 
 			gOut.Print("{0}{1} drinks {2} all and hands {3} back.",
 				monsterName,
@@ -718,21 +718,21 @@ namespace EamonRT.Game.Commands
 		{
 			Debug.Assert(artifact != null && monster != null);
 
-			gOut.Print("You give {0} to {1}.", artifact.GetTheName(), monster.GetTheName(buf: Globals.Buf01));
+			gOut.Print("You give {0} to {1}.", artifact.GetTheName(), monster.GetTheName(buf: gEngine.Buf01));
 		}
 
 		public virtual void PrintObjBelongsToActor(IArtifact artifact, IMonster monster)
 		{
 			Debug.Assert(artifact != null && monster != null);
 
-			gOut.Print("{0} belongs to {1}.", artifact.GetTheName(true), monster.GetTheName(buf: Globals.Buf01));
+			gOut.Print("{0} belongs to {1}.", artifact.GetTheName(true), monster.GetTheName(buf: gEngine.Buf01));
 		}
 
 		public virtual void PrintFreeActorWithKey(IMonster monster, IArtifact key)
 		{
 			Debug.Assert(monster != null);
 
-			gOut.Print("You free {0}{1}.", monster.GetTheName(), key != null ? string.Format(" with {0}", key.GetTheName(buf: Globals.Buf01)) : "");
+			gOut.Print("You free {0}{1}.", monster.GetTheName(), key != null ? string.Format(" with {0}", key.GetTheName(buf: gEngine.Buf01)) : "");
 		}
 
 		public virtual void PrintOpenObjWithKey(IArtifact artifact, IArtifact key)
@@ -753,16 +753,16 @@ namespace EamonRT.Game.Commands
 		{
 			Debug.Assert(monster != null && artifact != null && container != null && Enum.IsDefined(typeof(ContainerType), containerType));
 
-			var monsterName = monster.EvalPlural(monster.GetTheName(true), monster.GetArticleName(true, true, false, true, Globals.Buf01));
+			var monsterName = monster.EvalPlural(monster.GetTheName(true), monster.GetArticleName(true, true, false, true, gEngine.Buf01));
 
-			gOut.Print("{0} removes {1} from {2} {3}.", monsterName, artifact.GetArticleName(), gEngine.EvalContainerType(containerType, "inside", "on", "under", "behind"), omitWeightCheck ? container.GetArticleName(buf: Globals.Buf01) : container.GetTheName(buf: Globals.Buf01));
+			gOut.Print("{0} removes {1} from {2} {3}.", monsterName, artifact.GetArticleName(), gEngine.EvalContainerType(containerType, "inside", "on", "under", "behind"), omitWeightCheck ? container.GetArticleName(buf: gEngine.Buf01) : container.GetTheName(buf: gEngine.Buf01));
 		}
 
 		public virtual void PrintActorPicksUpObj(IMonster monster, IArtifact artifact)
 		{
 			Debug.Assert(monster != null && artifact != null);
 
-			var monsterName = monster.EvalPlural(monster.GetTheName(true), monster.GetArticleName(true, true, false, true, Globals.Buf01));
+			var monsterName = monster.EvalPlural(monster.GetTheName(true), monster.GetArticleName(true, true, false, true, gEngine.Buf01));
 
 			gOut.Print("{0} picks up {1}.", monsterName, artifact.GetTheName());
 		}
@@ -771,7 +771,7 @@ namespace EamonRT.Game.Commands
 		{
 			Debug.Assert(monster != null && artifact != null);
 
-			var monsterName = monster.EvalPlural(monster.GetTheName(true), monster.GetArticleName(true, true, false, true, Globals.Buf01));
+			var monsterName = monster.EvalPlural(monster.GetTheName(true), monster.GetArticleName(true, true, false, true, gEngine.Buf01));
 
 			gOut.Print("{0} readies {1}.", monsterName, artifact.GetArticleName());
 		}
@@ -930,21 +930,21 @@ namespace EamonRT.Game.Commands
 
 		public virtual void PrintNotEnoughGold()
 		{
-			if (Globals.IsRulesetVersion(5, 15, 25) || gCharacter.HeldGold < 0)
+			if (gEngine.IsRulesetVersion(5, 15, 25) || gCharacter.HeldGold < 0)
 			{
 				gOut.Print("You aren't carrying that much gold of your own!");
 			}
 			else
 			{
 				gOut.Print("You only have {0} gold piece{1}.",
-					gEngine.GetStringFromNumber(gCharacter.HeldGold, false, Globals.Buf),
+					gEngine.GetStringFromNumber(gCharacter.HeldGold, false, gEngine.Buf),
 					gCharacter.HeldGold != 1 ? "s" : "");
 			}
 		}
 
 		public virtual void PrintMustFirstReadyWeapon()
 		{
-			if (Globals.IsRulesetVersion(5, 15, 25))
+			if (gEngine.IsRulesetVersion(5, 15, 25))
 			{
 				gOut.Print("You have no weapon ready!");
 			}
@@ -1011,7 +1011,7 @@ namespace EamonRT.Game.Commands
 
 		public virtual void PrintCalmDown()
 		{
-			if (Globals.IsRulesetVersion(5, 15, 25))
+			if (gEngine.IsRulesetVersion(5, 15, 25))
 			{
 				gOut.Print("There's nothing to flee from!");
 			}
@@ -1277,7 +1277,7 @@ namespace EamonRT.Game.Commands
 				{
 					Command.PrintCantVerbHere();
 
-					Command.NextState = Globals.CreateInstance<IStartState>();
+					Command.NextState = gEngine.CreateInstance<IStartState>();
 				}
 			}
 			else
@@ -1287,7 +1287,7 @@ namespace EamonRT.Game.Commands
 				Command.Execute();
 			}
 
-			Globals.NextState = Command.NextState;
+			gEngine.NextState = Command.NextState;
 		}
 
 		public virtual void Execute()
@@ -1330,7 +1330,7 @@ namespace EamonRT.Game.Commands
 			{
 				destCommand.Iobj = Command.Iobj;
 
-				destCommand.Prep = Globals.CloneInstance(Command.Prep);
+				destCommand.Prep = gEngine.CloneInstance(Command.Prep);
 			}
 		}
 
@@ -1350,14 +1350,14 @@ namespace EamonRT.Game.Commands
 				}
 			}
 
-			Command.NextState = Globals.CreateInstance<IGetCommand>(x =>
+			Command.NextState = gEngine.CreateInstance<IGetCommand>(x =>
 			{
 				x.PreserveNextState = true;
 			});
 
 			Command.CopyCommandData(Command.NextState as ICommand);
 
-			Command.NextState.NextState = Globals.CreateInstance<T>(x =>
+			Command.NextState.NextState = gEngine.CreateInstance<T>(x =>
 			{
 				x.GetCommandCalled = true;
 

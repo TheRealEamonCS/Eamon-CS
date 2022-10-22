@@ -11,7 +11,7 @@ using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
-using static EamonRT.Game.Plugin.PluginContext;
+using static EamonRT.Game.Plugin.Globals;
 
 namespace EamonRT.Game.States
 {
@@ -36,7 +36,7 @@ namespace EamonRT.Game.States
 
 			Debug.Assert(Direction == 0 || Enum.IsDefined(typeof(Direction), Direction));
 
-			Globals.PlayerMoved = true;
+			gEngine.PlayerMoved = true;
 
 			gCommandParser.LastHimNameStr = "";
 
@@ -90,10 +90,10 @@ namespace EamonRT.Game.States
 
 			if (NextState == null)
 			{
-				NextState = Globals.CreateInstance<IStartState>();
+				NextState = gEngine.CreateInstance<IStartState>();
 			}
 
-			Globals.NextState = NextState;
+			gEngine.NextState = NextState;
 		}
 
 		public AfterPlayerMoveState()

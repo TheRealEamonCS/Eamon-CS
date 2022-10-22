@@ -11,7 +11,7 @@ using Eamon.Game.Attributes;
 using Eamon.Game.Extensions;
 using Eamon.Game.Menus;
 using EamonMH.Framework.Menus.ActionMenus;
-using static EamonMH.Game.Plugin.PluginContext;
+using static EamonMH.Game.Plugin.Globals;
 
 namespace EamonMH.Game.Menus.ActionMenus
 {
@@ -23,7 +23,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 			RetCode rc;
 			IMenu menu;
 
-			gOut.WriteLine("{0}{1}{0}", Environment.NewLine, Globals.LineSep);
+			gOut.WriteLine("{0}{1}{0}", Environment.NewLine, gEngine.LineSep);
 
 			gEngine.PrintTitle("WELCOME TO THE", false);
 
@@ -39,25 +39,25 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 			gOut.Write("{0}", Buf);
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 
 			gOut.Write("{0}Press D for desk or M for men: ", Environment.NewLine);
 
 			Buf.Clear();
 
-			rc = Globals.In.ReadField(Buf, Constants.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharDOrM, gEngine.IsCharDOrM);
+			rc = gEngine.In.ReadField(Buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharDOrM, gEngine.IsCharDOrM);
 
 			Debug.Assert(gEngine.IsSuccess(rc));
 
-			Globals.Thread.Sleep(150);
+			gEngine.Thread.Sleep(150);
 
 			if (Buf.Length > 0 && Buf[0] == 'D')
 			{
-				menu = Globals.CreateInstance<IRegistrationDeskMenu>();
+				menu = gEngine.CreateInstance<IRegistrationDeskMenu>();
 			}
 			else
 			{
-				menu = Globals.CreateInstance<IDrinkBeerMenu>();
+				menu = gEngine.CreateInstance<IDrinkBeerMenu>();
 			}
 
 			menu.Execute();
@@ -65,7 +65,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 		public OuterChamberMenu()
 		{
-			Buf = Globals.Buf;
+			Buf = gEngine.Buf;
 		}
 	}
 }

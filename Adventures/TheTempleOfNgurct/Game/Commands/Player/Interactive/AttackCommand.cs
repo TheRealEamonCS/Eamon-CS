@@ -12,7 +12,7 @@ using Eamon.Game.Extensions;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.Components;
 using EamonRT.Framework.States;
-using static TheTempleOfNgurct.Game.Plugin.PluginContext;
+using static TheTempleOfNgurct.Game.Plugin.Globals;
 
 namespace TheTempleOfNgurct.Game.Commands
 {
@@ -46,7 +46,7 @@ namespace TheTempleOfNgurct.Game.Commands
 
 					ngurctMonster.SetInRoom(ActorRoom);
 
-					var command = Globals.CreateInstance<IAttackCommand>(x =>
+					var command = gEngine.CreateInstance<IAttackCommand>(x =>
 					{
 						x.BlastSpell = BlastSpell;
 					});
@@ -66,15 +66,15 @@ namespace TheTempleOfNgurct.Game.Commands
 					{
 						PrintAttackNonEnemy();
 
-						Globals.Buf.Clear();
+						gEngine.Buf.Clear();
 
-						rc = Globals.In.ReadField(Globals.Buf, Constants.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, null);
+						rc = gEngine.In.ReadField(gEngine.Buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, null);
 
 						Debug.Assert(gEngine.IsSuccess(rc));
 
-						if (Globals.Buf.Length == 0 || Globals.Buf[0] == 'N')
+						if (gEngine.Buf.Length == 0 || gEngine.Buf[0] == 'N')
 						{
-							NextState = Globals.CreateInstance<IStartState>();
+							NextState = gEngine.CreateInstance<IStartState>();
 
 							goto Cleanup;
 						}
@@ -82,13 +82,13 @@ namespace TheTempleOfNgurct.Game.Commands
 
 					gOut.Write("{0}What is the trigger word? ", Environment.NewLine);
 
-					Globals.Buf.SetFormat("{0}", Globals.In.ReadLine());
+					gEngine.Buf.SetFormat("{0}", gEngine.In.ReadLine());
 
-					if (!Globals.Buf.ToString().Equals("fire", StringComparison.OrdinalIgnoreCase))
+					if (!gEngine.Buf.ToString().Equals("fire", StringComparison.OrdinalIgnoreCase))
 					{
 						gOut.Print("Wrong!  Nothing happens!");
 
-						NextState = Globals.CreateInstance<IMonsterStartState>();
+						NextState = gEngine.CreateInstance<IMonsterStartState>();
 
 						goto Cleanup;
 					}
@@ -97,7 +97,7 @@ namespace TheTempleOfNgurct.Game.Commands
 					{
 						gOut.Print("The fireball wand is exhausted!");
 
-						NextState = Globals.CreateInstance<IMonsterStartState>();
+						NextState = gEngine.CreateInstance<IMonsterStartState>();
 
 						goto Cleanup;
 					}
@@ -138,7 +138,7 @@ namespace TheTempleOfNgurct.Game.Commands
 						monsterList.Add(DobjMonster);
 					}
 
-					Globals.FireDamage = true;
+					gEngine.FireDamage = true;
 
 					foreach (var m in monsterList)
 					{
@@ -148,7 +148,7 @@ namespace TheTempleOfNgurct.Game.Commands
 
 						gEngine.MonsterGetsAggravated(m);
 
-						var combatComponent = Globals.CreateInstance<ICombatComponent>(x =>
+						var combatComponent = gEngine.CreateInstance<ICombatComponent>(x =>
 						{
 							x.SetNextStateFunc = s => NextState = s;
 
@@ -161,10 +161,10 @@ namespace TheTempleOfNgurct.Game.Commands
 
 						combatComponent.ExecuteCalculateDamage(savedVsFire ? 3 : 6, 6);
 
-						Globals.Thread.Sleep(gGameState.PauseCombatMs);
+						gEngine.Thread.Sleep(gGameState.PauseCombatMs);
 					}
 
-					Globals.FireDamage = false;
+					gEngine.FireDamage = false;
 
 					if (slaveGirlFireballCheck)
 					{
@@ -180,7 +180,7 @@ namespace TheTempleOfNgurct.Game.Commands
 						}
 					}
 
-					NextState = Globals.CreateInstance<IMonsterStartState>();
+					NextState = gEngine.CreateInstance<IMonsterStartState>();
 
 					goto Cleanup;
 				}

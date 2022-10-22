@@ -19,7 +19,7 @@ namespace Eamon.Game.Attributes
 
 		/// <summary>
 		/// An attribute that indicates this concrete class is the Value in a Key/Value pair stored in the
-		/// <see cref="IPluginClassMappings.ClassMappingsDictionary">ClassMappingsDictionary</see>;
+		/// <see cref="IEngine.ClassMappingsDictionary">ClassMappingsDictionary</see>;
 		/// the Key is the interface provided as a parameter.
 		/// </summary>
 		public ClassMappingsAttribute(Type interfaceType)
@@ -29,7 +29,7 @@ namespace Eamon.Game.Attributes
 
 		/// <summary>
 		/// An attribute that indicates this concrete class is the Value in a Key/Value pair stored in the
-		/// <see cref="IPluginClassMappings.ClassMappingsDictionary">ClassMappingsDictionary</see>;
+		/// <see cref="IEngine.ClassMappingsDictionary">ClassMappingsDictionary</see>;
 		/// the Key is a corresponding interface with the same name but prefixed with "I".
 		/// </summary>
 		public ClassMappingsAttribute()

@@ -9,7 +9,7 @@ using Eamon.Framework;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Components;
 using EamonRT.Framework.Primitive.Enums;
-using static StrongholdOfKahrDur.Game.Plugin.PluginContext;
+using static StrongholdOfKahrDur.Game.Plugin.Globals;
 
 namespace StrongholdOfKahrDur.Game.Components
 {
@@ -28,11 +28,11 @@ namespace StrongholdOfKahrDur.Game.Components
 
 				ExecuteCalculateDamage(2, helmArtifact.IsWornByCharacter() ? 12 : 5);
 
-				Globals.PauseCombatAfterSkillGains = Globals.SkillIncreaseFuncList.Count > 0;
+				gEngine.PauseCombatAfterSkillGains = gEngine.SkillIncreaseFuncList.Count > 0;
 
-				if (!Globals.PauseCombatAfterSkillGains)
+				if (!gEngine.PauseCombatAfterSkillGains)
 				{ 
-					Globals.Thread.Sleep(gGameState.PauseCombatMs);
+					gEngine.Thread.Sleep(gGameState.PauseCombatMs);
 				}
 			}
 			else

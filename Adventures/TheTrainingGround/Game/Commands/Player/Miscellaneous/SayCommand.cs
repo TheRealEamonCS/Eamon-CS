@@ -8,7 +8,7 @@ using System.Diagnostics;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.Primitive.Enums;
-using static TheTrainingGround.Game.Plugin.PluginContext;
+using static TheTrainingGround.Game.Plugin.Globals;
 
 namespace TheTrainingGround.Game.Commands
 {
@@ -33,7 +33,7 @@ namespace TheTrainingGround.Game.Commands
 
 				if (magicWordsSpoken && hammerPresent)
 				{
-					var command = Globals.CreateInstance<IUseCommand>();
+					var command = gEngine.CreateInstance<IUseCommand>();
 
 					CopyCommandData(command);
 

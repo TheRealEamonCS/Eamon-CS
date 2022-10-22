@@ -5,4 +5,5 @@ ChangeLog: BeginnersCaveII
 
 Date            Version            Who            Notes
 ----------------------------------------------------------------------------------------------------------------------------------
-20210412        2.1.0              MP             Code complete 2.1.0
+20221031        2.1.0              MP             Plugin Class Unification overhaul
+20210412                           MP             Code complete 2.1.0

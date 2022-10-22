@@ -175,19 +175,19 @@
         <member name="M:TheVileGrimoireOfJaldial.Framework.IRoom.GetWeatherIntensity">
             <summary></summary>
         </member>
-        <member name="P:TheVileGrimoireOfJaldial.Framework.Plugin.IPluginGlobals.EventRoll">
+        <member name="P:TheVileGrimoireOfJaldial.Framework.Plugin.IEngine.EventRoll">
             <summary></summary>
         </member>
-        <member name="P:TheVileGrimoireOfJaldial.Framework.Plugin.IPluginGlobals.FrequencyRoll">
+        <member name="P:TheVileGrimoireOfJaldial.Framework.Plugin.IEngine.FrequencyRoll">
             <summary></summary>
         </member>
-        <member name="P:TheVileGrimoireOfJaldial.Framework.Plugin.IPluginGlobals.InitiativeMonsterUid">
+        <member name="P:TheVileGrimoireOfJaldial.Framework.Plugin.IEngine.InitiativeMonsterUid">
             <summary></summary>
         </member>
-        <member name="P:TheVileGrimoireOfJaldial.Framework.Plugin.IPluginGlobals.EncounterSurprises">
+        <member name="P:TheVileGrimoireOfJaldial.Framework.Plugin.IEngine.EncounterSurprises">
             <summary></summary>
         </member>
-        <member name="P:TheVileGrimoireOfJaldial.Framework.Plugin.IPluginGlobals.CarrionCrawlerFlails">
+        <member name="P:TheVileGrimoireOfJaldial.Framework.Plugin.IEngine.CarrionCrawlerFlails">
             <summary></summary>
         </member>
         <member name="T:TheVileGrimoireOfJaldial.Framework.Primitive.Enums.WeatherType">

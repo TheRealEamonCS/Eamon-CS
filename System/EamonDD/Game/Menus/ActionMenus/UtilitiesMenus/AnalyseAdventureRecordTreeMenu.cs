@@ -14,7 +14,7 @@ using Eamon.Game.Attributes;
 using Eamon.Game.Extensions;
 using Eamon.Game.Menus;
 using EamonDD.Framework.Menus.ActionMenus;
-using static EamonDD.Game.Plugin.PluginContext;
+using static EamonDD.Game.Plugin.Globals;
 
 namespace EamonDD.Game.Menus.ActionMenus
 {
@@ -39,9 +39,9 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			RecordTreeStringList.Add(string.Format("{0}[{1}",
 				Environment.NewLine,
-				Globals.Module != null ? Globals.Module.Name : gEngine.UnknownName));
+				gEngine.Module != null ? gEngine.Module.Name : gEngine.UnknownName));
 
-			var roomList = Globals.Database.RoomTable.Records;
+			var roomList = gEngine.Database.RoomTable.Records;
 
 			foreach (var room in roomList)
 			{
@@ -55,7 +55,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 				AnalyseMonsterRecordTree(monster, "M", 1);
 			}
 
-			var artifactList = gEngine.GetArtifactList(a => !a.IsInRoom() && !a.IsEmbeddedInRoom() && (!Globals.BortCommand || (!a.IsCarriedByCharacter() && !a.IsWornByCharacter())) && !a.IsCarriedByMonster() && !a.IsWornByMonster() && !a.IsCarriedByContainer());
+			var artifactList = gEngine.GetArtifactList(a => !a.IsInRoom() && !a.IsEmbeddedInRoom() && (!gEngine.BortCommand || (!a.IsCarriedByCharacter() && !a.IsWornByCharacter())) && !a.IsCarriedByMonster() && !a.IsWornByMonster() && !a.IsCarriedByContainer());
 
 			foreach (var artifact in artifactList)
 			{
@@ -68,11 +68,11 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			Buf.Clear();
 
-			rc = Globals.In.ReadField(Buf, Constants.BufSize02, null, ' ', '\0', true, "Y", gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, null);
+			rc = gEngine.In.ReadField(Buf, gEngine.BufSize02, null, ' ', '\0', true, "Y", gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, null);
 
 			Debug.Assert(gEngine.IsSuccess(rc));
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 
 			gOut.WriteLine();
 			gEngine.PrintTitle("--- Legend ---", false);
@@ -84,9 +84,9 @@ namespace EamonDD.Game.Menus.ActionMenus
 			gOut.WriteLine("{0}{1}", "IA# = In Container Artifact Uid #".PadTRight(40, ' '), "OA# = On Container Artifact Uid #");
 			gOut.WriteLine("{0}{1}", "UA# = Under Container Artifact Uid #".PadTRight(40, ' '), "BA# = Behind Container Artifact Uid #");
 
-			Globals.In.KeyPress(new StringBuilder(Constants.BufSize));
+			gEngine.In.KeyPress(new StringBuilder(gEngine.BufSize));
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 
 			if (Buf.Length == 0 || Buf[0] != 'N')
 			{
@@ -107,23 +107,23 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 					nlFlag = true;
 
-					if (i == k - 1 || (j >= Constants.NumRows - 10 && (RecordTreeStringList[i + 1].StartsWith(Environment.NewLine + "\t[R") || RecordTreeStringList[i + 1].StartsWith(Environment.NewLine + "\t[M") || RecordTreeStringList[i + 1].StartsWith(Environment.NewLine + "\t[A"))))
+					if (i == k - 1 || (j >= gEngine.NumRows - 10 && (RecordTreeStringList[i + 1].StartsWith(Environment.NewLine + "\t[R") || RecordTreeStringList[i + 1].StartsWith(Environment.NewLine + "\t[M") || RecordTreeStringList[i + 1].StartsWith(Environment.NewLine + "\t[A"))))
 					{
 						nlFlag = false;
 
 						gOut.WriteLine();
 
-						gOut.Print("{0}", Globals.LineSep);
+						gOut.Print("{0}", gEngine.LineSep);
 
 						gOut.Write("{0}Press any key to continue or X to exit: ", Environment.NewLine);
 
 						Buf.Clear();
 
-						rc = Globals.In.ReadField(Buf, Constants.BufSize02, null, ' ', '\0', true, null, gEngine.ModifyCharToNullOrX, null, gEngine.IsCharAny);
+						rc = gEngine.In.ReadField(Buf, gEngine.BufSize02, null, ' ', '\0', true, null, gEngine.ModifyCharToNullOrX, null, gEngine.IsCharAny);
 
 						Debug.Assert(gEngine.IsSuccess(rc));
 
-						gOut.Print("{0}", Globals.LineSep);
+						gOut.Print("{0}", gEngine.LineSep);
 
 						if (Buf.Length > 0 && Buf[0] == 'X')
 						{
@@ -145,9 +145,9 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 				gOut.WriteLine();
 
-				Globals.In.KeyPress(Buf);
+				gEngine.In.KeyPress(Buf);
 
-				gOut.Print("{0}", Globals.LineSep);
+				gOut.Print("{0}", gEngine.LineSep);
 			}
 
 			if (nlFlag)
@@ -245,7 +245,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 		public AnalyseAdventureRecordTreeMenu()
 		{
-			Buf = Globals.Buf;
+			Buf = gEngine.Buf;
 
 			RecordTreeStringList = new List<string>();
 		}

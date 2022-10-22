@@ -7,7 +7,7 @@ using System.Diagnostics;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.States;
-using static RiddlesOfTheDuergarKingdom.Game.Plugin.PluginContext;
+using static RiddlesOfTheDuergarKingdom.Game.Plugin.Globals;
 
 namespace RiddlesOfTheDuergarKingdom.Game.Commands
 {
@@ -35,7 +35,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.Commands
 						{
 							PrintEnemiesNearby();
 
-							NextState = Globals.CreateInstance<IStartState>();
+							NextState = gEngine.CreateInstance<IStartState>();
 						}
 						else
 						{
@@ -48,7 +48,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.Commands
 					{
 						gOut.Print("The ore cart isn't going anywhere while lying on its side.");
 
-						NextState = Globals.CreateInstance<IStartState>();
+						NextState = gEngine.CreateInstance<IStartState>();
 					}
 
 					goto Cleanup;
@@ -57,7 +57,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.Commands
 
 					PrintCantVerbObj(DobjArtifact);
 
-					NextState = Globals.CreateInstance<IStartState>();
+					NextState = gEngine.CreateInstance<IStartState>();
 
 					goto Cleanup;
 			}
@@ -66,7 +66,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.Commands
 
 			if (NextState == null)
 			{
-				NextState = Globals.CreateInstance<IMonsterStartState>();
+				NextState = gEngine.CreateInstance<IMonsterStartState>();
 			}
 		}
 

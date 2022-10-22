@@ -8,7 +8,7 @@ using System.Diagnostics;
 using Eamon.Framework;
 using Eamon.Game.Attributes;
 using TheVileGrimoireOfJaldial.Framework.Primitive.Enums;
-using static TheVileGrimoireOfJaldial.Game.Plugin.PluginContext;
+using static TheVileGrimoireOfJaldial.Game.Plugin.Globals;
 
 namespace TheVileGrimoireOfJaldial.Game
 {
@@ -175,9 +175,9 @@ namespace TheVileGrimoireOfJaldial.Game
 
 		public GameState()
 		{
-			Minute = Constants.StartMinute;
+			Minute = gEngine.StartMinute;
 
-			Hour = Constants.StartHour;
+			Hour = gEngine.StartHour;
 
 			WeatherFreqPct = 100;
 

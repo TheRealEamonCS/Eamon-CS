@@ -16,7 +16,7 @@ using Eamon.Game.Attributes;
 using Eamon.Game.Extensions;
 using Eamon.Game.Helpers.Generic;
 using Eamon.Game.Utilities;
-using static Eamon.Game.Plugin.PluginContext;
+using static Eamon.Game.Plugin.Globals;
 
 namespace Eamon.Game.Helpers
 {
@@ -216,9 +216,9 @@ namespace Eamon.Game.Helpers
 
 			var result = !string.IsNullOrWhiteSpace(Record.Name);
 
-			if (result && Record.Name.Length > Constants.MonNameLen)
+			if (result && Record.Name.Length > gEngine.MonNameLen)
 			{
-				for (var i = Constants.MonNameLen; i < Record.Name.Length; i++)
+				for (var i = gEngine.MonNameLen; i < Record.Name.Length; i++)
 				{
 					if (Record.Name[i] != '%')
 					{
@@ -233,11 +233,11 @@ namespace Eamon.Game.Helpers
 			{
 				var recordName = string.Format(" {0} ", Record.Name.ToLower());
 
-				result = Array.FindIndex(Constants.CommandSepTokens, token => !Char.IsPunctuation(token[0]) ? recordName.IndexOf(" " + token + " ") >= 0 : recordName.IndexOf(token) >= 0) < 0;
+				result = Array.FindIndex(gEngine.CommandSepTokens, token => !Char.IsPunctuation(token[0]) ? recordName.IndexOf(" " + token + " ") >= 0 : recordName.IndexOf(token) >= 0) < 0;
 
 				if (result)
 				{
-					result = Array.FindIndex(Constants.PronounTokens, token => recordName.IndexOf(" " + token + " ") >= 0) < 0;
+					result = Array.FindIndex(gEngine.PronounTokens, token => recordName.IndexOf(" " + token + " ") >= 0) < 0;
 				}
 
 				// TODO: might need to disallow verb name matches as well
@@ -250,14 +250,14 @@ namespace Eamon.Game.Helpers
 		/// <returns></returns>
 		public virtual bool ValidateStateDesc()
 		{
-			return Record.StateDesc != null && Record.StateDesc.Length <= Constants.MonStateDescLen;
+			return Record.StateDesc != null && Record.StateDesc.Length <= gEngine.MonStateDescLen;
 		}
 
 		/// <summary></summary>
 		/// <returns></returns>
 		public virtual bool ValidateDesc()
 		{
-			return string.IsNullOrWhiteSpace(Record.Desc) == false && Record.Desc.Length <= Constants.MonDescLen;
+			return string.IsNullOrWhiteSpace(Record.Desc) == false && Record.Desc.Length <= gEngine.MonDescLen;
 		}
 
 		/// <summary></summary>
@@ -524,7 +524,7 @@ namespace Eamon.Game.Helpers
 			{
 				result = false;
 
-				Buf.SetFormat(Constants.RecIdepErrorFmtStr, GetPrintedName("Desc"), "Effect", invalidUid, "which doesn't exist");
+				Buf.SetFormat(gEngine.RecIdepErrorFmtStr, GetPrintedName("Desc"), "Effect", invalidUid, "which doesn't exist");
 
 				ErrorMessage = Buf.ToString();
 
@@ -556,7 +556,7 @@ namespace Eamon.Game.Helpers
 				{
 					result = false;
 
-					Buf.SetFormat(Constants.RecIdepErrorFmtStr, GetPrintedName("PluralType"), "Effect", effectUid, "which doesn't exist");
+					Buf.SetFormat(gEngine.RecIdepErrorFmtStr, GetPrintedName("PluralType"), "Effect", effectUid, "which doesn't exist");
 
 					ErrorMessage = Buf.ToString();
 
@@ -589,7 +589,7 @@ namespace Eamon.Game.Helpers
 				{
 					result = false;
 
-					Buf.SetFormat(Constants.RecIdepErrorFmtStr, GetPrintedName("Location"), "Room", roomUid, "which doesn't exist");
+					Buf.SetFormat(gEngine.RecIdepErrorFmtStr, GetPrintedName("Location"), "Room", roomUid, "which doesn't exist");
 
 					ErrorMessage = Buf.ToString();
 
@@ -622,7 +622,7 @@ namespace Eamon.Game.Helpers
 				{
 					result = false;
 
-					Buf.SetFormat(Constants.RecIdepErrorFmtStr, GetPrintedName("Weapon"), "Artifact", artUid, "which doesn't exist");
+					Buf.SetFormat(gEngine.RecIdepErrorFmtStr, GetPrintedName("Weapon"), "Artifact", artUid, "which doesn't exist");
 
 					ErrorMessage = Buf.ToString();
 
@@ -636,7 +636,7 @@ namespace Eamon.Game.Helpers
 				{
 					result = false;
 
-					Buf.SetFormat(Constants.RecIdepErrorFmtStr, GetPrintedName("Weapon"), "Artifact", artUid, "which should be a readyable weapon, but isn't");
+					Buf.SetFormat(gEngine.RecIdepErrorFmtStr, GetPrintedName("Weapon"), "Artifact", artUid, "which should be a readyable weapon, but isn't");
 
 					ErrorMessage = Buf.ToString();
 
@@ -650,7 +650,7 @@ namespace Eamon.Game.Helpers
 				{
 					result = false;
 
-					Buf.SetFormat(Constants.RecIdepErrorFmtStr, GetPrintedName("Weapon"), "Artifact", artUid, "which should be carried/worn by this Monster, but isn't");
+					Buf.SetFormat(gEngine.RecIdepErrorFmtStr, GetPrintedName("Weapon"), "Artifact", artUid, "which should be carried/worn by this Monster, but isn't");
 
 					ErrorMessage = Buf.ToString();
 
@@ -683,7 +683,7 @@ namespace Eamon.Game.Helpers
 				{
 					result = false;
 
-					Buf.SetFormat(Constants.RecIdepErrorFmtStr, GetPrintedName("DeadBody"), "Artifact", artUid, "which doesn't exist");
+					Buf.SetFormat(gEngine.RecIdepErrorFmtStr, GetPrintedName("DeadBody"), "Artifact", artUid, "which doesn't exist");
 
 					ErrorMessage = Buf.ToString();
 
@@ -697,7 +697,7 @@ namespace Eamon.Game.Helpers
 				{
 					result = false;
 
-					Buf.SetFormat(Constants.RecIdepErrorFmtStr, GetPrintedName("DeadBody"), "Artifact", artUid, "which should have a location compatible with this Monster's, but doesn't");
+					Buf.SetFormat(gEngine.RecIdepErrorFmtStr, GetPrintedName("DeadBody"), "Artifact", artUid, "which should have a location compatible with this Monster's, but doesn't");
 
 					ErrorMessage = Buf.ToString();
 
@@ -791,7 +791,7 @@ namespace Eamon.Game.Helpers
 
 			if (FieldDesc == FieldDesc.Full)
 			{
-				Buf01.AppendFormat("{0}{1}{0}{0}{2}{0}{0}{3}{0}", Environment.NewLine, Constants.ToughDesc, fullDesc, briefDesc);
+				Buf01.AppendFormat("{0}{1}{0}{0}{2}{0}{0}{3}{0}", Environment.NewLine, gEngine.ToughDesc, fullDesc, briefDesc);
 			}
 			else if (FieldDesc == FieldDesc.Brief)
 			{
@@ -810,7 +810,7 @@ namespace Eamon.Game.Helpers
 			{
 				if (EditRec && EditField)
 				{
-					Buf01.AppendFormat("{0}{1}{0}{0}{2}{0}{0}{3}{0}", Environment.NewLine, Constants.ToughDesc, fullDesc, briefDesc);
+					Buf01.AppendFormat("{0}{1}{0}{0}{2}{0}{0}{3}{0}", Environment.NewLine, gEngine.ToughDesc, fullDesc, briefDesc);
 				}
 				else
 				{
@@ -826,7 +826,7 @@ namespace Eamon.Game.Helpers
 		/// <summary></summary>
 		public virtual void PrintDescGroupCount()
 		{
-			var fullDesc = "Enter the number of members in the Monster's group." + (Globals.IsRulesetVersion(5) ? Environment.NewLine + Environment.NewLine + "For classic Eamon games this value should always be 1." : "");
+			var fullDesc = "Enter the number of members in the Monster's group." + (gEngine.IsRulesetVersion(5) ? Environment.NewLine + Environment.NewLine + "For classic Eamon games this value should always be 1." : "");
 
 			var briefDesc = "1=Single Monster; (GT 1)=Multiple Monsters";
 
@@ -836,7 +836,7 @@ namespace Eamon.Game.Helpers
 		/// <summary></summary>
 		public virtual void PrintDescAttackCount()
 		{
-			var fullDesc = "Enter the number of attacks per round for each member of the Monster's group." + Environment.NewLine + Environment.NewLine + (Globals.IsRulesetVersion(5) ? "For classic Eamon games this value should always be 1." : "When the value is < -1, ABS(value) is attacks per round.");
+			var fullDesc = "Enter the number of attacks per round for each member of the Monster's group." + Environment.NewLine + Environment.NewLine + (gEngine.IsRulesetVersion(5) ? "For classic Eamon games this value should always be 1." : "When the value is < -1, ABS(value) is attacks per round.");
 
 			var briefDesc = "1=Single attack, single target; (GT 1)=Multiple attacks, single target;      (LT -1)=Multiple attacks, multiple targets";
 
@@ -846,7 +846,7 @@ namespace Eamon.Game.Helpers
 		/// <summary></summary>
 		public virtual void PrintDescCourage()
 		{
-			var fullDesc = "Enter the courage of the Monster." + (Globals.IsRulesetVersion(5) ? Environment.NewLine + Environment.NewLine + "For classic Eamon games this value should always be between 1 and 100, inclusive." : "");
+			var fullDesc = "Enter the courage of the Monster." + (gEngine.IsRulesetVersion(5) ? Environment.NewLine + Environment.NewLine + "For classic Eamon games this value should always be between 1 and 100, inclusive." : "");
 
 			var briefDesc = "80-90=Weak Monster; 95-100=Medium Monster; 200=Tough/Exceptional Monster";
 
@@ -854,11 +854,11 @@ namespace Eamon.Game.Helpers
 			{
 				if (EditRec && EditField)
 				{
-					Buf01.AppendFormat("{0}{1}{0}{0}{2}{0}{0}{3}{0}{0}{4}{0}", Environment.NewLine, Constants.ToughDesc, Constants.CourageDesc, fullDesc, briefDesc);
+					Buf01.AppendFormat("{0}{1}{0}{0}{2}{0}{0}{3}{0}{0}{4}{0}", Environment.NewLine, gEngine.ToughDesc, gEngine.CourageDesc, fullDesc, briefDesc);
 				}
 				else
 				{
-					Buf01.AppendFormat("{0}{1}{0}{0}{2}{0}{0}{3}{0}", Environment.NewLine, Constants.CourageDesc, fullDesc, briefDesc);
+					Buf01.AppendFormat("{0}{1}{0}{0}{2}{0}{0}{3}{0}", Environment.NewLine, gEngine.CourageDesc, fullDesc, briefDesc);
 				}
 			}
 			else if (FieldDesc == FieldDesc.Brief)
@@ -882,7 +882,7 @@ namespace Eamon.Game.Helpers
 		{
 			var fullDesc = "Enter the combat code that describes the Monster's combat behavior.";
 
-			var briefDesc = new StringBuilder(Constants.BufSize);
+			var briefDesc = new StringBuilder(gEngine.BufSize);
 
 			var combatCodeValues = EnumUtil.GetValues<CombatCode>();
 
@@ -901,7 +901,7 @@ namespace Eamon.Game.Helpers
 
 			var briefDesc = "0=Weak Monster; 1=Medium Monster; 2-3=Tough Monster; 4-7+=Exceptional Monster";
 
-			var briefDesc01 = new StringBuilder(Constants.BufSize);
+			var briefDesc01 = new StringBuilder(gEngine.BufSize);
 
 			var armorValues = EnumUtil.GetValues<Armor>(a => ((long)a) % 2 == 0);
 
@@ -971,9 +971,9 @@ namespace Eamon.Game.Helpers
 		{
 			int j;
 
-			var fullDesc = "Enter the friendliness of the Monster." + (Globals.IsRulesetVersion(5) ? Environment.NewLine + Environment.NewLine + "For classic Eamon games this value should always be between 100 and 200, inclusive." : "");
+			var fullDesc = "Enter the friendliness of the Monster." + (gEngine.IsRulesetVersion(5) ? Environment.NewLine + Environment.NewLine + "For classic Eamon games this value should always be between 100 and 200, inclusive." : "");
 
-			var briefDesc = new StringBuilder(Constants.BufSize);
+			var briefDesc = new StringBuilder(gEngine.BufSize);
 
 			var friendlinessValues = EnumUtil.GetValues<Friendliness>();
 
@@ -992,7 +992,7 @@ namespace Eamon.Game.Helpers
 		{
 			var fullDesc = "Enter the gender of the Monster.";
 
-			var briefDesc = new StringBuilder(Constants.BufSize);
+			var briefDesc = new StringBuilder(gEngine.BufSize);
 
 			var genderValues = EnumUtil.GetValues<Gender>();
 
@@ -1124,7 +1124,7 @@ namespace Eamon.Game.Helpers
 
 					if (effect != null)
 					{
-						Buf01.Append(effect.Desc.Length > Constants.MonNameLen - 6 ? effect.Desc.Substring(0, Constants.MonNameLen - 9) + "..." : effect.Desc);
+						Buf01.Append(effect.Desc.Length > gEngine.MonNameLen - 6 ? effect.Desc.Substring(0, gEngine.MonNameLen - 9) + "..." : effect.Desc);
 
 						Buf.AppendFormat("Use '{0}'", Buf01.ToString());
 					}
@@ -1285,7 +1285,7 @@ namespace Eamon.Game.Helpers
 				if (LookupMsg)
 				{
 					var armor = Record.Armor <= 2 ? gEngine.GetArmor((Armor)(Record.Armor * 2)) :
-						Record.Armor <= 4 ? Globals.CreateInstance<IArmor>(x => { x.Name = "Splint Mail"; }) :
+						Record.Armor <= 4 ? gEngine.CreateInstance<IArmor>(x => { x.Name = "Splint Mail"; }) :
 						gEngine.GetArmor((Armor)((Record.Armor - 2) * 2));
 
 					gOut.Write("{0}{1}{2}",
@@ -1473,7 +1473,7 @@ namespace Eamon.Game.Helpers
 		{
 			gOut.Print("{0}{1}", gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("Uid"), null), Record.Uid);
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 		}
 
 		/// <summary></summary>
@@ -1491,7 +1491,7 @@ namespace Eamon.Game.Helpers
 
 				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("Name"), null));
 
-				var rc = Globals.In.ReadField(Buf, Constants.MonNameLen, null, '_', '\0', false, null, null, null, null);
+				var rc = gEngine.In.ReadField(Buf, gEngine.MonNameLen, null, '_', '\0', false, null, null, null, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -1505,7 +1505,7 @@ namespace Eamon.Game.Helpers
 				fieldDesc = FieldDesc.Brief;
 			}
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 		}
 
 		/// <summary></summary>
@@ -1525,7 +1525,7 @@ namespace Eamon.Game.Helpers
 
 				gOut.WordWrap = false;
 
-				var rc = Globals.In.ReadField(Buf, Constants.MonStateDescLen, null, '_', '\0', true, null, null, null, null);
+				var rc = gEngine.In.ReadField(Buf, gEngine.MonStateDescLen, null, '_', '\0', true, null, null, null, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -1541,7 +1541,7 @@ namespace Eamon.Game.Helpers
 				fieldDesc = FieldDesc.Brief;
 			}
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 		}
 
 		/// <summary></summary>
@@ -1561,7 +1561,7 @@ namespace Eamon.Game.Helpers
 
 				gOut.WordWrap = false;
 
-				var rc = Globals.In.ReadField(Buf, Constants.MonDescLen, null, '_', '\0', false, null, null, null, null);
+				var rc = gEngine.In.ReadField(Buf, gEngine.MonDescLen, null, '_', '\0', false, null, null, null, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -1577,7 +1577,7 @@ namespace Eamon.Game.Helpers
 				fieldDesc = FieldDesc.Brief;
 			}
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 		}
 
 		/// <summary></summary>
@@ -1595,7 +1595,7 @@ namespace Eamon.Game.Helpers
 
 				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("Seen"), "0"));
 
-				var rc = Globals.In.ReadField(Buf, Constants.BufSize01, null, '_', '\0', true, "0", null, gEngine.IsChar0Or1, null);
+				var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, "0", null, gEngine.IsChar0Or1, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -1609,7 +1609,7 @@ namespace Eamon.Game.Helpers
 				fieldDesc = FieldDesc.Brief;
 			}
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 		}
 
 		/// <summary></summary>
@@ -1627,7 +1627,7 @@ namespace Eamon.Game.Helpers
 
 				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("IsListed"), "1"));
 
-				var rc = Globals.In.ReadField(Buf, Constants.BufSize01, null, '_', '\0', true, "1", null, gEngine.IsChar0Or1, null);
+				var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, "1", null, gEngine.IsChar0Or1, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -1641,7 +1641,7 @@ namespace Eamon.Game.Helpers
 				fieldDesc = FieldDesc.Brief;
 			}
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 		}
 
 		/// <summary></summary>
@@ -1659,7 +1659,7 @@ namespace Eamon.Game.Helpers
 
 				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("PluralType"), "1"));
 
-				var rc = Globals.In.ReadField(Buf, Constants.BufSize01, null, '_', '\0', true, "1", null, gEngine.IsCharDigit, null);
+				var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, "1", null, gEngine.IsCharDigit, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -1673,7 +1673,7 @@ namespace Eamon.Game.Helpers
 				fieldDesc = FieldDesc.Brief;
 			}
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 		}
 
 		/// <summary></summary>
@@ -1691,7 +1691,7 @@ namespace Eamon.Game.Helpers
 
 				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("ArticleType"), "1"));
 
-				var rc = Globals.In.ReadField(Buf, Constants.BufSize01, null, '_', '\0', true, "1", null, gEngine.IsCharDigit, null);
+				var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, "1", null, gEngine.IsCharDigit, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -1705,7 +1705,7 @@ namespace Eamon.Game.Helpers
 				fieldDesc = FieldDesc.Brief;
 			}
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 		}
 
 		/// <summary></summary>
@@ -1723,7 +1723,7 @@ namespace Eamon.Game.Helpers
 
 				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("Hardiness"), "16"));
 
-				var rc = Globals.In.ReadField(Buf, Constants.BufSize01, null, '_', '\0', true, "16", null, gEngine.IsCharDigit, null);
+				var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, "16", null, gEngine.IsCharDigit, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -1739,7 +1739,7 @@ namespace Eamon.Game.Helpers
 
 			Record.DmgTaken = 0;
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 		}
 
 		/// <summary></summary>
@@ -1757,7 +1757,7 @@ namespace Eamon.Game.Helpers
 
 				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("Agility"), "15"));
 
-				var rc = Globals.In.ReadField(Buf, Constants.BufSize01, null, '_', '\0', true, "15", null, gEngine.IsCharDigit, null);
+				var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, "15", null, gEngine.IsCharDigit, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -1771,7 +1771,7 @@ namespace Eamon.Game.Helpers
 				fieldDesc = FieldDesc.Brief;
 			}
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 		}
 
 		/// <summary></summary>
@@ -1789,7 +1789,7 @@ namespace Eamon.Game.Helpers
 
 				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("GroupCount"), "1"));
 
-				var rc = Globals.In.ReadField(Buf, Constants.BufSize01, null, '_', '\0', true, "1", null, gEngine.IsCharDigit, null);
+				var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, "1", null, gEngine.IsCharDigit, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -1805,7 +1805,7 @@ namespace Eamon.Game.Helpers
 
 			Record.CurrGroupCount = Record.GroupCount;
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 		}
 
 		/// <summary></summary>
@@ -1823,7 +1823,7 @@ namespace Eamon.Game.Helpers
 
 				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("AttackCount"), "1"));
 
-				var rc = Globals.In.ReadField(Buf, Constants.BufSize01, null, '_', '\0', true, "1", null, gEngine.IsCharPlusMinusDigit, null);
+				var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, "1", null, gEngine.IsCharPlusMinusDigit, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -1851,7 +1851,7 @@ namespace Eamon.Game.Helpers
 				fieldDesc = FieldDesc.Brief;
 			}
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 		}
 
 		/// <summary></summary>
@@ -1869,7 +1869,7 @@ namespace Eamon.Game.Helpers
 
 				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("Courage"), "100"));
 
-				var rc = Globals.In.ReadField(Buf, Constants.BufSize01, null, '_', '\0', true, "100", null, gEngine.IsCharDigit, null);
+				var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, "100", null, gEngine.IsCharDigit, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -1883,7 +1883,7 @@ namespace Eamon.Game.Helpers
 				fieldDesc = FieldDesc.Brief;
 			}
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 		}
 
 		/// <summary></summary>
@@ -1901,7 +1901,7 @@ namespace Eamon.Game.Helpers
 
 				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("Location"), "0"));
 
-				var rc = Globals.In.ReadField(Buf, Constants.BufSize01, null, '_', '\0', true, "0", null, gEngine.IsCharPlusMinusDigit, null);
+				var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, "0", null, gEngine.IsCharPlusMinusDigit, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -1924,7 +1924,7 @@ namespace Eamon.Game.Helpers
 				fieldDesc = FieldDesc.Brief;
 			}
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 		}
 
 		/// <summary></summary>
@@ -1942,7 +1942,7 @@ namespace Eamon.Game.Helpers
 
 				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("CombatCode"), "0"));
 
-				var rc = Globals.In.ReadField(Buf, Constants.BufSize01, null, '_', '\0', true, "0", null, gEngine.IsCharPlusMinusDigit, null);
+				var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, "0", null, gEngine.IsCharPlusMinusDigit, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -1965,7 +1965,7 @@ namespace Eamon.Game.Helpers
 				fieldDesc = FieldDesc.Brief;
 			}
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 		}
 
 		/// <summary></summary>
@@ -1983,7 +1983,7 @@ namespace Eamon.Game.Helpers
 
 				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("Armor"), "0"));
 
-				var rc = Globals.In.ReadField(Buf, Constants.BufSize01, null, '_', '\0', true, "0", null, gEngine.IsCharDigit, null);
+				var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, "0", null, gEngine.IsCharDigit, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -1997,7 +1997,7 @@ namespace Eamon.Game.Helpers
 				fieldDesc = FieldDesc.Brief;
 			}
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 		}
 
 		/// <summary></summary>
@@ -2015,7 +2015,7 @@ namespace Eamon.Game.Helpers
 
 				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("Weapon"), "0"));
 
-				var rc = Globals.In.ReadField(Buf, Constants.BufSize01, null, '_', '\0', true, "0", null, gEngine.IsCharPlusMinusDigit, null);
+				var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, "0", null, gEngine.IsCharPlusMinusDigit, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -2038,7 +2038,7 @@ namespace Eamon.Game.Helpers
 				fieldDesc = FieldDesc.Brief;
 			}
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 		}
 
 		/// <summary></summary>
@@ -2056,7 +2056,7 @@ namespace Eamon.Game.Helpers
 
 				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("NwDice"), "1"));
 
-				var rc = Globals.In.ReadField(Buf, Constants.BufSize01, null, '_', '\0', true, "1", null, gEngine.IsCharDigit, null);
+				var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, "1", null, gEngine.IsCharDigit, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -2070,7 +2070,7 @@ namespace Eamon.Game.Helpers
 				fieldDesc = FieldDesc.Brief;
 			}
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 		}
 
 		/// <summary></summary>
@@ -2088,7 +2088,7 @@ namespace Eamon.Game.Helpers
 
 				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("NwSides"), "4"));
 
-				var rc = Globals.In.ReadField(Buf, Constants.BufSize01, null, '_', '\0', true, "4", null, gEngine.IsCharDigit, null);
+				var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, "4", null, gEngine.IsCharDigit, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -2102,7 +2102,7 @@ namespace Eamon.Game.Helpers
 				fieldDesc = FieldDesc.Brief;
 			}
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 		}
 
 		/// <summary></summary>
@@ -2120,7 +2120,7 @@ namespace Eamon.Game.Helpers
 
 				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("DeadBody"), "0"));
 
-				var rc = Globals.In.ReadField(Buf, Constants.BufSize01, null, '_', '\0', true, "0", null, gEngine.IsCharDigit, null);
+				var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, "0", null, gEngine.IsCharDigit, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -2134,7 +2134,7 @@ namespace Eamon.Game.Helpers
 				fieldDesc = FieldDesc.Brief;
 			}
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 		}
 
 		/// <summary></summary>
@@ -2152,7 +2152,7 @@ namespace Eamon.Game.Helpers
 
 				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("Friendliness"), "3"));
 
-				var rc = Globals.In.ReadField(Buf, Constants.BufSize01, null, '_', '\0', true, "3", null, gEngine.IsCharDigit, null);
+				var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, "3", null, gEngine.IsCharDigit, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -2168,7 +2168,7 @@ namespace Eamon.Game.Helpers
 
 			Record.ResolveReaction(10);
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 		}
 
 		/// <summary></summary>
@@ -2186,7 +2186,7 @@ namespace Eamon.Game.Helpers
 
 				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("Gender"), "0"));
 
-				var rc = Globals.In.ReadField(Buf, Constants.BufSize01, null, '_', '\0', true, "0", null, gEngine.IsChar0To2, null);
+				var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, "0", null, gEngine.IsChar0To2, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -2200,7 +2200,7 @@ namespace Eamon.Game.Helpers
 				fieldDesc = FieldDesc.Brief;
 			}
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 		}
 
 		/// <summary></summary>
@@ -2218,7 +2218,7 @@ namespace Eamon.Game.Helpers
 
 				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("Field1"), "0"));
 
-				var rc = Globals.In.ReadField(Buf, Constants.BufSize01, null, '_', '\0', true, "0", null, gEngine.IsCharPlusMinusDigit, null);
+				var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, "0", null, gEngine.IsCharPlusMinusDigit, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -2241,7 +2241,7 @@ namespace Eamon.Game.Helpers
 				fieldDesc = FieldDesc.Brief;
 			}
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 		}
 
 		/// <summary></summary>
@@ -2259,7 +2259,7 @@ namespace Eamon.Game.Helpers
 
 				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("Field2"), "0"));
 
-				var rc = Globals.In.ReadField(Buf, Constants.BufSize01, null, '_', '\0', true, "0", null, gEngine.IsCharPlusMinusDigit, null);
+				var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, "0", null, gEngine.IsCharPlusMinusDigit, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -2282,7 +2282,7 @@ namespace Eamon.Game.Helpers
 				fieldDesc = FieldDesc.Brief;
 			}
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 		}
 
 		#endregion
@@ -2301,7 +2301,7 @@ namespace Eamon.Game.Helpers
 		{
 			if (Record.Uid <= 0)
 			{
-				Record.Uid = Globals.Database.GetMonsterUid();
+				Record.Uid = gEngine.Database.GetMonsterUid();
 
 				Record.IsUidRecycled = true;
 			}

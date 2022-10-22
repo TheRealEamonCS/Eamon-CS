@@ -10,7 +10,7 @@ using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using Eamon.Game.Helpers.Generic;
 using Eamon.Game.Utilities;
-using static Eamon.Game.Plugin.PluginContext;
+using static Eamon.Game.Plugin.Globals;
 
 namespace Eamon.Game.Helpers
 {
@@ -365,7 +365,7 @@ namespace Eamon.Game.Helpers
 		{
 			if (Record.Uid <= 0)
 			{
-				Record.Uid = Globals.Database.GetGameStateUid();
+				Record.Uid = gEngine.Database.GetGameStateUid();
 
 				Record.IsUidRecycled = true;
 			}

@@ -7,7 +7,7 @@ using System.Diagnostics;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
-using static ARuncibleCargo.Game.Plugin.PluginContext;
+using static ARuncibleCargo.Game.Plugin.Globals;
 
 namespace ARuncibleCargo.Game.States
 {

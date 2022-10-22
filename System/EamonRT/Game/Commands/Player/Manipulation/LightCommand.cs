@@ -11,7 +11,7 @@ using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.States;
-using static EamonRT.Game.Plugin.PluginContext;
+using static EamonRT.Game.Plugin.Globals;
 
 namespace EamonRT.Game.Commands
 {
@@ -39,7 +39,7 @@ namespace EamonRT.Game.Commands
 					PrintCantVerbObj(DobjArtifact);
 				}
 
-				NextState = Globals.CreateInstance<IStartState>();
+				NextState = gEngine.CreateInstance<IStartState>();
 
 				goto Cleanup;
 			}
@@ -54,7 +54,7 @@ namespace EamonRT.Game.Commands
 					}
 					else if (DobjArtifact.DisguisedMonster == null)
 					{
-						NextState = Globals.CreateInstance<IStartState>();
+						NextState = gEngine.CreateInstance<IStartState>();
 					}
 
 					goto Cleanup;
@@ -65,7 +65,7 @@ namespace EamonRT.Game.Commands
 			{
 				PrintWontLight(DobjArtifact);
 
-				NextState = Globals.CreateInstance<IMonsterStartState>();
+				NextState = gEngine.CreateInstance<IMonsterStartState>();
 
 				goto Cleanup;
 			}
@@ -74,13 +74,13 @@ namespace EamonRT.Game.Commands
 			{
 				PrintExtinguishObj(DobjArtifact);
 
-				Globals.Buf.Clear();
+				gEngine.Buf.Clear();
 
-				rc = Globals.In.ReadField(Globals.Buf, Constants.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, null);
+				rc = gEngine.In.ReadField(gEngine.Buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
-				if (Globals.Buf.Length > 0 && Globals.Buf[0] == 'Y')
+				if (gEngine.Buf.Length > 0 && gEngine.Buf[0] == 'Y')
 				{
 					rc = DobjArtifact.RemoveStateDesc(DobjArtifact.GetProvidingLightDesc());
 
@@ -91,7 +91,7 @@ namespace EamonRT.Game.Commands
 					PrintLightExtinguished(DobjArtifact);
 				}
 
-				NextState = Globals.CreateInstance<IMonsterStartState>();
+				NextState = gEngine.CreateInstance<IMonsterStartState>();
 
 				goto Cleanup;
 			}
@@ -117,7 +117,7 @@ namespace EamonRT.Game.Commands
 
 			if (NextState == null)
 			{
-				NextState = Globals.CreateInstance<IMonsterStartState>();
+				NextState = gEngine.CreateInstance<IMonsterStartState>();
 			}
 		}
 
@@ -127,7 +127,7 @@ namespace EamonRT.Game.Commands
 
 			IsDarkEnabled = true;
 
-			if (Globals.IsRulesetVersion(5))
+			if (gEngine.IsRulesetVersion(5))
 			{
 				IsPlayerEnabled = false;
 			}

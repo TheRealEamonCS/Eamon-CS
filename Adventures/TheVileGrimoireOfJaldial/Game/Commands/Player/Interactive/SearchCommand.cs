@@ -3,15 +3,12 @@
 
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
-using System;
 using System.Diagnostics;
 using System.Linq;
-using Eamon.Framework;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
-using Eamon.Game.Extensions;
 using EamonRT.Framework.States;
-using static TheVileGrimoireOfJaldial.Game.Plugin.PluginContext;
+using static TheVileGrimoireOfJaldial.Game.Plugin.Globals;
 
 namespace TheVileGrimoireOfJaldial.Game.Commands
 {
@@ -347,7 +344,7 @@ namespace TheVileGrimoireOfJaldial.Game.Commands
 			{
 				gOut.Print(foundDesc);
 
-				NextState = Globals.CreateInstance<IStartState>();
+				NextState = gEngine.CreateInstance<IStartState>();
 			}
 			else
 			{
@@ -388,7 +385,7 @@ namespace TheVileGrimoireOfJaldial.Game.Commands
 
 			if (NextState == null)
 			{
-				NextState = Globals.CreateInstance<IMonsterStartState>();
+				NextState = gEngine.CreateInstance<IMonsterStartState>();
 			}
 		}
 

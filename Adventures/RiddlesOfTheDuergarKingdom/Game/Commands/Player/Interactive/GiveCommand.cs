@@ -12,7 +12,7 @@ using Eamon.Game.Attributes;
 using Eamon.Game.Extensions;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.Primitive.Enums;
-using static RiddlesOfTheDuergarKingdom.Game.Plugin.PluginContext;
+using static RiddlesOfTheDuergarKingdom.Game.Plugin.Globals;
 
 namespace RiddlesOfTheDuergarKingdom.Game.Commands
 {
@@ -114,7 +114,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.Commands
 
 				gGameState.BeforePrintPlayerRoomEventHeap.Remove((k, v) => v.EventName == "HighlandIbexAbandonsPlayerEvent");
 
-				gGameState.BeforePrintPlayerRoomEventHeap.Insert(gGameState.CurrTurn + Constants.IbexAbandonTurns, "HighlandIbexAbandonsPlayerEvent");
+				gGameState.BeforePrintPlayerRoomEventHeap.Insert(gGameState.CurrTurn + gEngine.IbexAbandonTurns, "HighlandIbexAbandonsPlayerEvent");
 			}
 
 			var leatherPanniersArtifact = gADB[93];

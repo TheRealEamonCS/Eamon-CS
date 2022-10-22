@@ -7,7 +7,7 @@ using System.Diagnostics;
 using Eamon;
 using Eamon.Framework;
 using Eamon.Game.Attributes;
-using static TheBeginnersCave.Game.Plugin.PluginContext;
+using static TheBeginnersCave.Game.Plugin.Globals;
 
 namespace TheBeginnersCave.Game
 {
@@ -30,7 +30,7 @@ namespace TheBeginnersCave.Game
 
 				// if toggling the Trollsfire effect
 
-				if (Globals.EnableMutateProperties && _trollsfire != value)
+				if (gEngine.EnableMutateProperties && _trollsfire != value)
 				{
 					// find Trollsfire in the game database
 
@@ -50,7 +50,7 @@ namespace TheBeginnersCave.Game
 					{
 						// Trollsfire is now alight so add "(alight)" to the StateDesc property
 
-						rc = trollsfireArtifact.AddStateDesc(Constants.AlightDesc);
+						rc = trollsfireArtifact.AddStateDesc(gEngine.AlightDesc);
 
 						Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -62,7 +62,7 @@ namespace TheBeginnersCave.Game
 					{
 						// Trollsfire is now extinguished so remove "(alight)" from the StateDesc property
 
-						rc = trollsfireArtifact.RemoveStateDesc(Constants.AlightDesc);
+						rc = trollsfireArtifact.RemoveStateDesc(gEngine.AlightDesc);
 
 						Debug.Assert(gEngine.IsSuccess(rc));
 

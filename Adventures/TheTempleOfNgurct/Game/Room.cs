@@ -5,7 +5,7 @@
 
 using Eamon.Framework;
 using Eamon.Game.Attributes;
-using static TheTempleOfNgurct.Game.Plugin.PluginContext;
+using static TheTempleOfNgurct.Game.Plugin.Globals;
 
 namespace TheTempleOfNgurct.Game
 {
@@ -14,7 +14,7 @@ namespace TheTempleOfNgurct.Game
 	{
 		public override long GetDir(long index)
 		{
-			if (Globals.EnableMutateProperties)
+			if (gEngine.EnableMutateProperties)
 			{
 				if (Uid == 33)
 				{

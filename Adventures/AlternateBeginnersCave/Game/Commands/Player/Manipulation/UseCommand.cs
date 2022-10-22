@@ -6,7 +6,7 @@
 using System.Diagnostics;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
-using static AlternateBeginnersCave.Game.Plugin.PluginContext;
+using static AlternateBeginnersCave.Game.Plugin.Globals;
 
 namespace AlternateBeginnersCave.Game.Commands
 {
@@ -21,7 +21,7 @@ namespace AlternateBeginnersCave.Game.Commands
 
 			if (DobjArtifact.Uid == 5 || DobjArtifact.Uid == 22)
 			{
-				var command = Globals.CreateInstance<IOpenCommand>();
+				var command = gEngine.CreateInstance<IOpenCommand>();
 
 				CopyCommandData(command);
 

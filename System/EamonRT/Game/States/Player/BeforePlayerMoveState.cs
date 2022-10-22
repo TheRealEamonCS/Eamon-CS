@@ -10,7 +10,7 @@ using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
-using static EamonRT.Game.Plugin.PluginContext;
+using static EamonRT.Game.Plugin.Globals;
 
 namespace EamonRT.Game.States
 {
@@ -45,7 +45,7 @@ namespace EamonRT.Game.States
 			{
 				PrintEnemiesNearby();
 
-				NextState = Globals.CreateInstance<IStartState>();
+				NextState = gEngine.CreateInstance<IStartState>();
 
 				goto Cleanup;
 			}
@@ -54,7 +54,7 @@ namespace EamonRT.Game.States
 
 			if (NextState == null)
 			{
-				NextState = Globals.CreateInstance<IPlayerMoveCheckState>(x =>
+				NextState = gEngine.CreateInstance<IPlayerMoveCheckState>(x =>
 				{
 					x.Direction = Direction;
 
@@ -62,7 +62,7 @@ namespace EamonRT.Game.States
 				});
 			}
 
-			Globals.NextState = NextState;
+			gEngine.NextState = NextState;
 		}
 
 		public BeforePlayerMoveState()

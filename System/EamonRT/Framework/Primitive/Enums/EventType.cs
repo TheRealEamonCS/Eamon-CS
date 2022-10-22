@@ -62,7 +62,7 @@ namespace EamonRT.Framework.Primitive.Enums
 
 		/// <summary>
 		/// An event that fires after the player's command is processed (but not executed)
-		/// and the <see cref="IPluginGlobals.LastCommandList">LastCommandList</see> cleared.
+		/// and the <see cref="IEngine.LastCommandList">LastCommandList</see> cleared.
 		/// </summary>
 		AfterClearLastCommandList,
 

@@ -8,7 +8,7 @@ using System.Diagnostics;
 using Eamon;
 using Eamon.Game.Attributes;
 using EamonDD.Framework.Menus.ActionMenus;
-using static EamonDD.Game.Plugin.PluginContext;
+using static EamonDD.Game.Plugin.Globals;
 
 namespace EamonDD.Game.Menus.ActionMenus
 {
@@ -36,11 +36,7 @@ namespace YourAdventureName
 		{
 			ProgramName = ""YourAdventureName"";
 
-			ConstantsType = typeof(Game.Plugin.PluginConstants);
-
-			ClassMappingsType = typeof(Game.Plugin.PluginClassMappings);
-
-			GlobalsType = typeof(Game.Plugin.PluginGlobals);
+			EngineType = typeof(Game.Plugin.Engine);
 		}
 	}
 }
@@ -50,39 +46,13 @@ namespace YourAdventureName
 		public virtual string[] IPluginCsText { get; set; } = new string[]
 		{
 @"
-// IPluginClassMappings.cs
+// IEngine.cs
 
 // Copyright (c) 2014+ by YourAuthorName.  All rights reserved.
 
 namespace YourAdventureName.Framework.Plugin
 {
-	public interface IPluginClassMappings : EamonRT.Framework.Plugin.IPluginClassMappings
-	{
-
-	}
-}
-",
-@"
-// IPluginConstants.cs
-
-// Copyright (c) 2014+ by YourAuthorName.  All rights reserved.
-
-namespace YourAdventureName.Framework.Plugin
-{
-	public interface IPluginConstants : EamonRT.Framework.Plugin.IPluginConstants
-	{
-
-	}
-}
-",
-@"
-// IPluginGlobals.cs
-
-// Copyright (c) 2014+ by YourAuthorName.  All rights reserved.
-
-namespace YourAdventureName.Framework.Plugin
-{
-	public interface IPluginGlobals : EamonRT.Framework.Plugin.IPluginGlobals
+	public interface IEngine : EamonRT.Framework.Plugin.IEngine
 	{
 
 	}
@@ -94,16 +64,17 @@ namespace YourAdventureName.Framework.Plugin
 		public virtual string[] PluginCsText { get; set; } = new string[]
 		{
 @"
-// PluginClassMappings.cs
+// Engine.cs
 
 // Copyright (c) 2014+ by YourAuthorName.  All rights reserved.
 
 using System.Reflection;
 using Eamon;
+using static YourAdventureName.Game.Plugin.Globals;
 
 namespace YourAdventureName.Game.Plugin
 {
-	public class PluginClassMappings : EamonRT.Game.Plugin.PluginClassMappings, Framework.Plugin.IPluginClassMappings
+	public class Engine : EamonRT.Game.Plugin.Engine, Framework.Plugin.IEngine
 	{
 		public override RetCode LoadPluginClassMappings()
 		{
@@ -126,20 +97,7 @@ namespace YourAdventureName.Game.Plugin
 }
 ",
 @"
-// PluginConstants.cs
-
-// Copyright (c) 2014+ by YourAuthorName.  All rights reserved.
-
-namespace YourAdventureName.Game.Plugin
-{
-	public class PluginConstants : EamonRT.Game.Plugin.PluginConstants, Framework.Plugin.IPluginConstants
-	{
-
-	}
-}
-",
-@"
-// PluginContext.cs
+// Globals.cs
 
 // Copyright (c) 2014+ by YourAuthorName.  All rights reserved.
 
@@ -150,41 +108,17 @@ using EamonRT.Framework.Parsing;
 
 namespace YourAdventureName.Game.Plugin
 {
-	public static class PluginContext
+	public static class Globals
 	{
-		public static Framework.Plugin.IPluginConstants Constants
+		public static Framework.Plugin.IEngine gEngine
 		{
 			get
 			{
-				return (Framework.Plugin.IPluginConstants)EamonRT.Game.Plugin.PluginContext.Constants;
+				return (Framework.Plugin.IEngine)EamonRT.Game.Plugin.Globals.gEngine;
 			}
 			set
 			{
-				EamonRT.Game.Plugin.PluginContext.Constants = value;
-			}
-		}
-
-		public static Framework.Plugin.IPluginClassMappings ClassMappings
-		{
-			get
-			{
-				return (Framework.Plugin.IPluginClassMappings)EamonRT.Game.Plugin.PluginContext.ClassMappings;
-			}
-			set
-			{
-				EamonRT.Game.Plugin.PluginContext.ClassMappings = value;
-			}
-		}
-
-		public static Framework.Plugin.IPluginGlobals Globals
-		{
-			get
-			{
-				return (Framework.Plugin.IPluginGlobals)EamonRT.Game.Plugin.PluginContext.Globals;
-			}
-			set
-			{
-				EamonRT.Game.Plugin.PluginContext.Globals = value;
+				EamonRT.Game.Plugin.Globals.gEngine = value;
 			}
 		}
 
@@ -192,15 +126,7 @@ namespace YourAdventureName.Game.Plugin
 		{
 			get
 			{
-				return EamonRT.Game.Plugin.PluginContext.gOut;
-			}
-		}
-
-		public static EamonRT.Framework.IEngine gEngine
-		{
-			get
-			{
-				return (EamonRT.Framework.IEngine)EamonRT.Game.Plugin.PluginContext.gEngine;
+				return EamonRT.Game.Plugin.Globals.gOut;
 			}
 		}
 
@@ -208,7 +134,7 @@ namespace YourAdventureName.Game.Plugin
 		{
 			get
 			{
-				return (IRecordDb<Eamon.Framework.IRoom>)EamonRT.Game.Plugin.PluginContext.gRDB;
+				return (IRecordDb<Eamon.Framework.IRoom>)EamonRT.Game.Plugin.Globals.gRDB;
 			}
 		}
 
@@ -216,7 +142,7 @@ namespace YourAdventureName.Game.Plugin
 		{
 			get
 			{
-				return (IRecordDb<Eamon.Framework.IArtifact>)EamonRT.Game.Plugin.PluginContext.gADB;
+				return (IRecordDb<Eamon.Framework.IArtifact>)EamonRT.Game.Plugin.Globals.gADB;
 			}
 		}
 
@@ -224,7 +150,7 @@ namespace YourAdventureName.Game.Plugin
 		{
 			get
 			{
-				return (IRecordDb<Eamon.Framework.IEffect>)EamonRT.Game.Plugin.PluginContext.gEDB;
+				return (IRecordDb<Eamon.Framework.IEffect>)EamonRT.Game.Plugin.Globals.gEDB;
 			}
 		}
 
@@ -232,7 +158,7 @@ namespace YourAdventureName.Game.Plugin
 		{
 			get
 			{
-				return (IRecordDb<Eamon.Framework.IMonster>)EamonRT.Game.Plugin.PluginContext.gMDB;
+				return (IRecordDb<Eamon.Framework.IMonster>)EamonRT.Game.Plugin.Globals.gMDB;
 			}
 		}
 
@@ -240,7 +166,7 @@ namespace YourAdventureName.Game.Plugin
 		{
 			get
 			{
-				return (EamonRT.Framework.Parsing.ISentenceParser)EamonRT.Game.Plugin.PluginContext.gSentenceParser;
+				return (EamonRT.Framework.Parsing.ISentenceParser)EamonRT.Game.Plugin.Globals.gSentenceParser;
 			}
 		}
 
@@ -248,7 +174,7 @@ namespace YourAdventureName.Game.Plugin
 		{
 			get
 			{
-				return (EamonRT.Framework.Parsing.ICommandParser)EamonRT.Game.Plugin.PluginContext.gCommandParser;
+				return (EamonRT.Framework.Parsing.ICommandParser)EamonRT.Game.Plugin.Globals.gCommandParser;
 			}
 		}
 
@@ -256,7 +182,7 @@ namespace YourAdventureName.Game.Plugin
 		{
 			get
 			{
-				return (Framework.IGameState)EamonRT.Game.Plugin.PluginContext.gGameState;
+				return (Framework.IGameState)EamonRT.Game.Plugin.Globals.gGameState;
 			}
 		}
 
@@ -264,7 +190,7 @@ namespace YourAdventureName.Game.Plugin
 		{
 			get
 			{
-				return (Eamon.Framework.ICharacter)EamonRT.Game.Plugin.PluginContext.gCharacter;
+				return (Eamon.Framework.ICharacter)EamonRT.Game.Plugin.Globals.gCharacter;
 			}
 		}
 
@@ -272,7 +198,7 @@ namespace YourAdventureName.Game.Plugin
 		{
 			get
 			{
-				return (Eamon.Framework.IMonster)EamonRT.Game.Plugin.PluginContext.gCharMonster;
+				return (Eamon.Framework.IMonster)EamonRT.Game.Plugin.Globals.gCharMonster;
 			}
 		}
 
@@ -373,42 +299,8 @@ namespace YourAdventureName.Game.Plugin
 		}
 	}
 }
-",
-@"
-// PluginGlobals.cs
-
-// Copyright (c) 2014+ by YourAuthorName.  All rights reserved.
-
-namespace YourAdventureName.Game.Plugin
-{
-	public class PluginGlobals : EamonRT.Game.Plugin.PluginGlobals, Framework.Plugin.IPluginGlobals
-	{
-
-	}
-}
 "
 		};
-
-		/// <summary></summary>
-		public virtual string EngineCsText { get; set; } =
-@"
-// Engine.cs
-
-// Copyright (c) 2014+ by YourAuthorName.  All rights reserved.
-
-using Eamon.Framework;
-using Eamon.Game.Attributes;
-using static YourAdventureName.Game.Plugin.PluginContext;
-
-namespace YourAdventureName.Game
-{
-	[ClassMappings(typeof(IEngine))]
-	public class Engine : EamonRT.Game.Engine, EamonRT.Framework.IEngine
-	{
-
-	}
-}
-";
 
 		/// <summary></summary>
 		public virtual string ChangeLogText { get; set; } =
@@ -471,7 +363,7 @@ Date            Version            Who            Notes
 
 			GotoCleanup = false;
 
-			var workDir = Globals.Directory.GetCurrentDirectory();
+			var workDir = gEngine.Directory.GetCurrentDirectory();
 
 			CheckForPrerequisites();
 
@@ -533,37 +425,35 @@ Date            Version            Who            Notes
 				// TODO: rollback adventure buildout if necessary
 			}
 
-			Globals.Directory.SetCurrentDirectory(workDir);
+			gEngine.Directory.SetCurrentDirectory(workDir);
 		}
 
 		/// <summary></summary>
 		public virtual void CreateCustomFiles()
 		{
-			Globals.Directory.CreateDirectory(Constants.AdventuresDir + @"\" + AdventureName + @"\Framework\Plugin");
+			gEngine.Directory.CreateDirectory(gEngine.AdventuresDir + @"\" + AdventureName + @"\Framework\Plugin");
 
-			Globals.Directory.CreateDirectory(Constants.AdventuresDir + @"\" + AdventureName + @"\Game\Plugin");
+			gEngine.Directory.CreateDirectory(gEngine.AdventuresDir + @"\" + AdventureName + @"\Game\Plugin");
 
-			Globals.File.WriteAllText(Constants.AdventuresDir + @"\" + AdventureName + @"\ChangeLog.txt", ReplaceMacros(ChangeLogText));
+			gEngine.File.WriteAllText(gEngine.AdventuresDir + @"\" + AdventureName + @"\ChangeLog.txt", ReplaceMacros(ChangeLogText));
 
-			Globals.File.WriteAllText(Constants.AdventuresDir + @"\" + AdventureName + @"\Program.cs", ReplaceMacros(ProgramCsText));
+			gEngine.File.WriteAllText(gEngine.AdventuresDir + @"\" + AdventureName + @"\Program.cs", ReplaceMacros(ProgramCsText));
 
-			Globals.File.WriteAllText(Constants.AdventuresDir + @"\" + AdventureName + @"\" + AdventureName + @".csproj", ReplaceMacros(AdventureCsprojText));
+			gEngine.File.WriteAllText(gEngine.AdventuresDir + @"\" + AdventureName + @"\" + AdventureName + @".csproj", ReplaceMacros(AdventureCsprojText));
 
-			var fileNames = new string[] { "IPluginClassMappings.cs", "IPluginConstants.cs", "IPluginGlobals.cs" };
-
-			for (var i = 0; i < fileNames.Length; i++)
-			{
-				Globals.File.WriteAllText(Constants.AdventuresDir + @"\" + AdventureName + @"\Framework\Plugin\" + fileNames[i], ReplaceMacros(IPluginCsText[i]));
-			}
-
-			fileNames = new string[] { "PluginClassMappings.cs", "PluginConstants.cs", "PluginContext.cs", "PluginGlobals.cs" };
+			var fileNames = new string[] { "IEngine.cs" };
 
 			for (var i = 0; i < fileNames.Length; i++)
 			{
-				Globals.File.WriteAllText(Constants.AdventuresDir + @"\" + AdventureName + @"\Game\Plugin\" + fileNames[i], ReplaceMacros(PluginCsText[i]));
+				gEngine.File.WriteAllText(gEngine.AdventuresDir + @"\" + AdventureName + @"\Framework\Plugin\" + fileNames[i], ReplaceMacros(IPluginCsText[i]));
 			}
 
-			Globals.File.WriteAllText(Constants.AdventuresDir + @"\" + AdventureName + @"\Game\Engine.cs", ReplaceMacros(EngineCsText));
+			fileNames = new string[] { "Engine.cs", "Globals.cs" };
+
+			for (var i = 0; i < fileNames.Length; i++)
+			{
+				gEngine.File.WriteAllText(gEngine.AdventuresDir + @"\" + AdventureName + @"\Game\Plugin\" + fileNames[i], ReplaceMacros(PluginCsText[i]));
+			}
 
 			fileNames = new string[] { "Artifact.cs", "Effect.cs", "GameState.cs", "Hint.cs", "Module.cs", "Monster.cs", "Room.cs" };
 
@@ -582,11 +472,11 @@ Date            Version            Who            Notes
 		{
 			var result = RetCode.Failure;
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 
 			gOut.WriteLine();
 
-			var projName = Globals.Path.GetFullPath(Globals.Path.Combine(Constants.AdventuresDir + @"\" + AdventureName, AdventureName + ".csproj"));
+			var projName = gEngine.Path.GetFullPath(gEngine.Path.Combine(gEngine.AdventuresDir + @"\" + AdventureName, AdventureName + ".csproj"));
 
 			Debug.Assert(!string.IsNullOrWhiteSpace(projName));
 
@@ -601,9 +491,9 @@ Date            Version            Who            Notes
 
 					process.StartInfo.FileName = "dotnet";
 					process.StartInfo.Arguments = string.Format("sln Eamon.Desktop.sln add \"{0}\"", projName);
-					process.StartInfo.WorkingDirectory = string.Format("..{0}..", Globals.Path.DirectorySeparatorChar);
+					process.StartInfo.WorkingDirectory = string.Format("..{0}..", gEngine.Path.DirectorySeparatorChar);
 
-					gOut.Write("Adding {0} project ... ", Globals.Path.GetFileNameWithoutExtension(projName));
+					gOut.Write("Adding {0} project ... ", gEngine.Path.GetFileNameWithoutExtension(projName));
 
 					process.Start();
 
@@ -630,7 +520,7 @@ Date            Version            Who            Notes
 
 			if (result == RetCode.Failure)
 			{
-				gOut.Print("{0}", Globals.LineSep);
+				gOut.Print("{0}", gEngine.LineSep);
 
 				gOut.Print("The adventure was not created.");
 

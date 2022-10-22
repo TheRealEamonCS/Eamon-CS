@@ -13,7 +13,7 @@ using Eamon.Game.Attributes;
 using Eamon.Game.Extensions;
 using Eamon.Game.Helpers.Generic;
 using Eamon.Game.Utilities;
-using static Eamon.Game.Plugin.PluginContext;
+using static Eamon.Game.Plugin.Globals;
 
 namespace Eamon.Game.Helpers
 {
@@ -93,7 +93,7 @@ namespace Eamon.Game.Helpers
 		/// <returns></returns>
 		public virtual bool ValidateWordWrapMargin()
 		{
-			return Record.WordWrapMargin == Constants.RightMargin;
+			return Record.WordWrapMargin == gEngine.RightMargin;
 		}
 
 		#endregion
@@ -141,7 +141,7 @@ namespace Eamon.Game.Helpers
 		{
 			var fullDesc = "Enter the verbosity of the field descriptions shown during record input.";
 
-			var briefDesc = new StringBuilder(Constants.BufSize);
+			var briefDesc = new StringBuilder(gEngine.BufSize);
 
 			var fieldDescValues = EnumUtil.GetValues<FieldDesc>();
 
@@ -209,7 +209,7 @@ namespace Eamon.Game.Helpers
 		{
 			gOut.Print("{0}{1}", gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("Uid"), null), Record.Uid);
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 		}
 
 		/// <summary></summary>
@@ -227,7 +227,7 @@ namespace Eamon.Game.Helpers
 
 				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("ShowDesc"), "1"));
 
-				var rc = Globals.In.ReadField(Buf, Constants.BufSize01, null, '_', '\0', true, "1", null, gEngine.IsChar0Or1, null);
+				var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, "1", null, gEngine.IsChar0Or1, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -241,7 +241,7 @@ namespace Eamon.Game.Helpers
 				fieldDesc = FieldDesc.Brief;
 			}
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 		}
 
 		/// <summary></summary>
@@ -259,7 +259,7 @@ namespace Eamon.Game.Helpers
 
 				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("ResolveEffects"), "0"));
 
-				var rc = Globals.In.ReadField(Buf, Constants.BufSize01, null, '_', '\0', true, "0", null, gEngine.IsChar0Or1, null);
+				var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, "0", null, gEngine.IsChar0Or1, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -273,7 +273,7 @@ namespace Eamon.Game.Helpers
 				fieldDesc = FieldDesc.Brief;
 			}
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 		}
 
 		/// <summary></summary>
@@ -291,7 +291,7 @@ namespace Eamon.Game.Helpers
 
 				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("GenerateUids"), "1"));
 
-				var rc = Globals.In.ReadField(Buf, Constants.BufSize01, null, '_', '\0', true, "1", null, gEngine.IsChar0Or1, null);
+				var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, "1", null, gEngine.IsChar0Or1, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -305,7 +305,7 @@ namespace Eamon.Game.Helpers
 				fieldDesc = FieldDesc.Brief;
 			}
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 		}
 
 		/// <summary></summary>
@@ -323,7 +323,7 @@ namespace Eamon.Game.Helpers
 
 				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("FieldDesc"), "2"));
 
-				var rc = Globals.In.ReadField(Buf, Constants.BufSize01, null, '_', '\0', true, "2", null, gEngine.IsChar0To2, null);
+				var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, "2", null, gEngine.IsChar0To2, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -337,7 +337,7 @@ namespace Eamon.Game.Helpers
 				fieldDesc = FieldDesc.Brief;
 			}
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 		}
 
 		#endregion
@@ -356,7 +356,7 @@ namespace Eamon.Game.Helpers
 		{
 			if (Record.Uid <= 0)
 			{
-				Record.Uid = Globals.Database.GetConfigUid();
+				Record.Uid = gEngine.Database.GetConfigUid();
 
 				Record.IsUidRecycled = true;
 			}

@@ -14,7 +14,7 @@ using Eamon.Game.Utilities;
 using EamonRT.Framework.Components;
 using Enums = Eamon.Framework.Primitive.Enums;
 using RTEnums = EamonRT.Framework.Primitive.Enums;
-using static TheVileGrimoireOfJaldial.Game.Plugin.PluginContext;
+using static TheVileGrimoireOfJaldial.Game.Plugin.Globals;
 
 namespace TheVileGrimoireOfJaldial.Game.Components
 {
@@ -35,7 +35,7 @@ namespace TheVileGrimoireOfJaldial.Game.Components
 
 			if (DobjMonster != null && DobjMonster.Uid == 41 && !griffinMonster.IsInLimbo() && !gGameState.GriffinAngered)
 			{
-				Globals.MiscEventFuncList02.Add(() =>
+				gEngine.MiscEventFuncList02.Add(() =>
 				{
 					if (griffinMonster.IsInRoom(ActorRoom) && ActorRoom.IsLit())
 					{

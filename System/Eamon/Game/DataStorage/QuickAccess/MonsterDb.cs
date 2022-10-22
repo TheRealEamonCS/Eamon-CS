@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using Eamon.Framework;
 using Eamon.Framework.DataStorage.Generic;
 using Eamon.Game.Attributes;
-using static Eamon.Game.Plugin.PluginContext;
+using static Eamon.Game.Plugin.Globals;
 
 namespace Eamon.Game.DataStorage.QuickAccess
 {
@@ -20,19 +20,19 @@ namespace Eamon.Game.DataStorage.QuickAccess
 		{
 			get
 			{
-				return Globals.Database.FindMonster(uid);
+				return gEngine.Database.FindMonster(uid);
 			}
 
 			set
 			{
 				if (value == null || value.Uid == uid)
 				{
-					Globals.Database.RemoveMonster(uid);
+					gEngine.Database.RemoveMonster(uid);
 				}
 
 				if (value != null && value.Uid == uid)
 				{
-					Globals.Database.AddMonster(value, CopyAddedRecord);
+					gEngine.Database.AddMonster(value, CopyAddedRecord);
 				}
 			}
 		}
@@ -41,7 +41,7 @@ namespace Eamon.Game.DataStorage.QuickAccess
 		{
 			get
 			{
-				return Globals?.Database?.MonsterTable?.Records;
+				return gEngine?.Database?.MonsterTable?.Records;
 			}
 		}
 

@@ -9,7 +9,7 @@ using Eamon.Framework;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using Eamon.Game.Utilities;
-using static Eamon.Game.Plugin.PluginContext;
+using static Eamon.Game.Plugin.Globals;
 
 namespace Eamon.Game
 {
@@ -121,7 +121,7 @@ namespace Eamon.Game
 
 			if (IsUidRecycled && Uid > 0)
 			{
-				Globals.Database.FreeGameStateUid(Uid);
+				gEngine.Database.FreeGameStateUid(Uid);
 
 				Uid = 0;
 			}
@@ -165,7 +165,7 @@ namespace Eamon.Game
 		{
 			var dttl = 0L;
 
-			var monsterList = Globals.IsRulesetVersion(5, 25) && gEngine != null ? gEngine.GetMonsterList(m => m.Location == Ro && m.Reaction == (Friendliness)index) : new List<IMonster>();
+			var monsterList = gEngine.IsRulesetVersion(5, 25) && gEngine != null ? gEngine.GetMonsterList(m => m.Location == Ro && m.Reaction == (Friendliness)index) : new List<IMonster>();
 
 			foreach (var monster in monsterList)
 			{
@@ -238,11 +238,11 @@ namespace Eamon.Game
 
 		public GameState()
 		{
-			var character = Globals.CreateInstance<ICharacter>();
+			var character = gEngine.CreateInstance<ICharacter>();
 
 			Debug.Assert(character != null);
 
-			EnhancedParser = !Globals.IsRulesetVersion(5);
+			EnhancedParser = !gEngine.IsRulesetVersion(5);
 
 			Sa = new long[character.SpellAbilities.Length];
 

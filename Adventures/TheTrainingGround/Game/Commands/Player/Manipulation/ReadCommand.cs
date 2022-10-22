@@ -8,7 +8,7 @@ using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.Primitive.Enums;
-using static TheTrainingGround.Game.Plugin.PluginContext;
+using static TheTrainingGround.Game.Plugin.Globals;
 
 namespace TheTrainingGround.Game.Commands
 {

@@ -11,7 +11,7 @@ using EamonDD.Framework.Menus;
 using EamonDD.Framework.Menus.HierarchicalMenus;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.States;
-using static EamonRT.Game.Plugin.PluginContext;
+using static EamonRT.Game.Plugin.Globals;
 
 namespace EamonRT.Game.Commands
 {
@@ -47,7 +47,7 @@ namespace EamonRT.Game.Commands
 		{
 			Debug.Assert(!string.IsNullOrWhiteSpace(Action));
 
-			Globals.BortCommand = true;
+			gEngine.BortCommand = true;
 
 			switch(Action)
 			{
@@ -70,7 +70,7 @@ namespace EamonRT.Game.Commands
 
 						gGameState.R2 = BortRoom.Uid;
 
-						NextState = Globals.CreateInstance<IAfterPlayerMoveState>(x =>
+						NextState = gEngine.CreateInstance<IAfterPlayerMoveState>(x =>
 						{
 							x.MoveMonsters = false;
 						});
@@ -96,7 +96,7 @@ namespace EamonRT.Game.Commands
 
 						gGameState.R2 = BortRoom.Uid;
 
-						NextState = Globals.CreateInstance<IAfterPlayerMoveState>(x =>
+						NextState = gEngine.CreateInstance<IAfterPlayerMoveState>(x =>
 						{
 							x.MoveMonsters = false;
 						});
@@ -118,7 +118,7 @@ namespace EamonRT.Game.Commands
 
 					gGameState.R2 = BortRoom.Uid;
 
-					NextState = Globals.CreateInstance<IAfterPlayerMoveState>(x =>
+					NextState = gEngine.CreateInstance<IAfterPlayerMoveState>(x =>
 					{
 						x.MoveMonsters = false;
 					});
@@ -135,13 +135,13 @@ namespace EamonRT.Game.Commands
 
 					try
 					{
-						Globals.RevealContentCounter--;
+						gEngine.RevealContentCounter--;
 
 						BortArtifact.SetInRoom(ActorRoom);
 					}
 					finally
 					{
-						Globals.RevealContentCounter++;
+						gEngine.RevealContentCounter++;
 					}
 
 					break;
@@ -160,21 +160,21 @@ namespace EamonRT.Game.Commands
 
 				case "rungameeditor":
 
-					BortConfig = Globals.CloneInstance(Globals.Config);
+					BortConfig = gEngine.CloneInstance(gEngine.Config);
 
 					Debug.Assert(BortConfig != null);
 
-					Globals.Config.DdEditingModules = true;
+					gEngine.Config.DdEditingModules = true;
 
-					Globals.Config.DdEditingRooms = true;
+					gEngine.Config.DdEditingRooms = true;
 
-					Globals.Config.DdEditingArtifacts = true;
+					gEngine.Config.DdEditingArtifacts = true;
 
-					Globals.Config.DdEditingEffects = true;
+					gEngine.Config.DdEditingEffects = true;
 
-					Globals.Config.DdEditingMonsters = true;
+					gEngine.Config.DdEditingMonsters = true;
 
-					Globals.Config.DdEditingHints = true;
+					gEngine.Config.DdEditingHints = true;
 
 					PunctSpaceCode = gOut.PunctSpaceCode;
 
@@ -184,34 +184,34 @@ namespace EamonRT.Game.Commands
 
 					gOut.SuppressNewLines = false;
 
-					Globals.DdMenu = Globals.CreateInstance<IDdMenu>();
+					gEngine.DdMenu = gEngine.CreateInstance<IDdMenu>();
 
-					BortMenu = Globals.CreateInstance<IMainMenu>();
+					BortMenu = gEngine.CreateInstance<IMainMenu>();
 
 					try
 					{
-						Globals.RevealContentCounter--;
+						gEngine.RevealContentCounter--;
 
 						BortMenu.Execute();
 					}
 					finally
 					{
-						Globals.RevealContentCounter++;
+						gEngine.RevealContentCounter++;
 					}
 
 					BortMenu = null;
 
-					Globals.DdMenu = null;
+					gEngine.DdMenu = null;
 
 					gOut.SuppressNewLines = SuppressNewLines;
 
 					gOut.PunctSpaceCode = PunctSpaceCode;
 
-					Globals.Config = BortConfig;
+					gEngine.Config = BortConfig;
 
-					Globals.Module = gEngine.GetModule();
+					gEngine.Module = gEngine.GetModule();
 
-					Debug.Assert(Globals.Module != null && Globals.Module.Uid > 0);
+					Debug.Assert(gEngine.Module != null && gEngine.Module.Uid > 0);
 
 					Debug.Assert(gRDB[gGameState.Ro] != null);
 
@@ -224,11 +224,11 @@ namespace EamonRT.Game.Commands
 					break;
 			}
 
-			Globals.BortCommand = false;
+			gEngine.BortCommand = false;
 
 			if (NextState == null)
 			{
-				NextState = Globals.CreateInstance<IStartState>();
+				NextState = gEngine.CreateInstance<IStartState>();
 			}
 		}
 

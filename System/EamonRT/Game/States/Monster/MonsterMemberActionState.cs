@@ -14,7 +14,7 @@ using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.States;
 using Enums = Eamon.Framework.Primitive.Enums;
-using static EamonRT.Game.Plugin.PluginContext;
+using static EamonRT.Game.Plugin.Globals;
 
 namespace EamonRT.Game.States
 {
@@ -56,7 +56,7 @@ namespace EamonRT.Game.States
 
 		public override void Execute()
 		{
-			LoopMonster = gMDB[Globals.LoopMonsterUid];
+			LoopMonster = gMDB[gEngine.LoopMonsterUid];
 
 			Debug.Assert(LoopMonster != null);
 
@@ -96,10 +96,10 @@ namespace EamonRT.Game.States
 
 			if (NextState == null)
 			{
-				NextState = Globals.CreateInstance<IMonsterMemberLoopIncrementState>();
+				NextState = gEngine.CreateInstance<IMonsterMemberLoopIncrementState>();
 			}
 
-			Globals.NextState = NextState;
+			gEngine.NextState = NextState;
 		}
 
 		public virtual void MonsterMemberReadiesWeaponCheck()
@@ -124,7 +124,7 @@ namespace EamonRT.Game.States
 							{
 								ContainerPrepName = gEngine.EvalContainerType(WeaponContainerType, "in", "on", "under", "behind");
 
-								ActionCommand = Globals.CreateInstance<IMonsterRemoveCommand>(x =>
+								ActionCommand = gEngine.CreateInstance<IMonsterRemoveCommand>(x =>
 								{
 									x.ActorMonster = LoopMonster;
 
@@ -139,7 +139,7 @@ namespace EamonRT.Game.States
 							}
 							else
 							{
-								ActionCommand = Globals.CreateInstance<IMonsterGetCommand>(x =>
+								ActionCommand = gEngine.CreateInstance<IMonsterGetCommand>(x =>
 								{
 									x.ActorMonster = LoopMonster;
 
@@ -151,16 +151,16 @@ namespace EamonRT.Game.States
 
 							ActionCommand.Execute();
 
-							Globals.UseRevealContentMonsterTheName = true;
+							gEngine.UseRevealContentMonsterTheName = true;
 
 							gEngine.CheckRevealContainerContents();
 
-							Globals.UseRevealContentMonsterTheName = false;
+							gEngine.UseRevealContentMonsterTheName = false;
 						}
 
 						if (WeaponArtifact.IsCarriedByMonster(LoopMonster))
 						{
-							ActionCommand = Globals.CreateInstance<IMonsterReadyCommand>(x =>
+							ActionCommand = gEngine.CreateInstance<IMonsterReadyCommand>(x =>
 							{
 								x.ActorMonster = LoopMonster;
 
@@ -209,7 +209,7 @@ namespace EamonRT.Game.States
 							{
 								Debug.Assert(_spellTarget != null);
 
-								ActionCommand = Globals.CreateInstance<IMonsterBlastCommand>(x =>
+								ActionCommand = gEngine.CreateInstance<IMonsterBlastCommand>(x =>
 								{
 									x.CheckAttack = true;
 								});
@@ -219,7 +219,7 @@ namespace EamonRT.Game.States
 
 						case Spell.Heal:
 
-							ActionCommand = Globals.CreateInstance<IMonsterHealCommand>();
+							ActionCommand = gEngine.CreateInstance<IMonsterHealCommand>();
 
 							break;
 
@@ -227,7 +227,7 @@ namespace EamonRT.Game.States
 
 							Debug.Assert(_spellTarget == null);
 
-							ActionCommand = Globals.CreateInstance<IMonsterSpeedCommand>();
+							ActionCommand = gEngine.CreateInstance<IMonsterSpeedCommand>();
 
 							break;
 
@@ -235,14 +235,14 @@ namespace EamonRT.Game.States
 
 							Debug.Assert(_spellTarget == null);
 
-							ActionCommand = Globals.CreateInstance<IMonsterPowerCommand>();
+							ActionCommand = gEngine.CreateInstance<IMonsterPowerCommand>();
 
 							break;
 					}
 
 					if (ActionCommand != null)
 					{
-						ActionCommand.NextState = Globals.CreateInstance<IMonsterMemberLoopIncrementState>();
+						ActionCommand.NextState = gEngine.CreateInstance<IMonsterMemberLoopIncrementState>();
 
 						ActionCommand.ActorMonster = LoopMonster;
 
@@ -264,7 +264,7 @@ namespace EamonRT.Game.States
 		{
 			if (LoopMonster.CombatCode != CombatCode.NeverFights && LoopMonster.CheckNBTLHostility() && LoopMonster.Weapon >= 0)
 			{
-				NextState = Globals.CreateInstance<IMonsterAttackLoopInitializeState>();
+				NextState = gEngine.CreateInstance<IMonsterAttackLoopInitializeState>();
 
 				GotoCleanup = true;
 			}

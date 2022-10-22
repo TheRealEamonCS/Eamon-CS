@@ -13,7 +13,7 @@ using Xamarin.Forms.Xaml;
 using Eamon.Mobile.Models;
 using Eamon.Mobile.Views;
 using Eamon.Mobile.ViewModels;
-using static Eamon.Game.Plugin.PluginContext;
+using static Eamon.Game.Plugin.Globals;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace Eamon.Mobile
@@ -108,7 +108,7 @@ namespace Eamon.Mobile
 
 			try
 			{
-				settingsViewModel = ClassMappings.SharpSerializer.Deserialize<SettingsViewModel>(fileName);
+				settingsViewModel = gEngine.SharpSerializer.Deserialize<SettingsViewModel>(fileName);
 			}
 			catch (Exception)
 			{
@@ -121,7 +121,7 @@ namespace Eamon.Mobile
 
 				Debug.Assert(settingsViewModel != null);
 
-				ClassMappings.SharpSerializer.Serialize(settingsViewModel, fileName);
+				gEngine.SharpSerializer.Serialize(settingsViewModel, fileName);
 			}
 
 			Current.MainPage = new TabbedPage

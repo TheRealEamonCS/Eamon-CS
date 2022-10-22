@@ -9,7 +9,7 @@ using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
-using static BeginnersForest.Game.Plugin.PluginContext;
+using static BeginnersForest.Game.Plugin.Globals;
 
 namespace BeginnersForest.Game.Commands
 {
@@ -39,7 +39,7 @@ namespace BeginnersForest.Game.Commands
 
 				gOut.Print("Less spooks it is!");
 
-				NextState = Globals.CreateInstance<IStartState>();
+				NextState = gEngine.CreateInstance<IStartState>();
 
 				goto Cleanup;
 			}

@@ -9,7 +9,7 @@ using EamonRT.Framework.Commands;
 using EamonRT.Framework.Components;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
-using static AlternateBeginnersCave.Game.Plugin.PluginContext;
+using static AlternateBeginnersCave.Game.Plugin.Globals;
 
 namespace AlternateBeginnersCave.Game.Commands
 {
@@ -52,7 +52,7 @@ namespace AlternateBeginnersCave.Game.Commands
 
 					waspMonster.DmgTaken = waspMonster.Hardiness;
 
-					var combatComponent = Globals.CreateInstance<ICombatComponent>(x =>
+					var combatComponent = gEngine.CreateInstance<ICombatComponent>(x =>
 					{
 						x.SetNextStateFunc = s => NextState = s;
 
@@ -63,13 +63,13 @@ namespace AlternateBeginnersCave.Game.Commands
 
 					combatComponent.ExecuteCheckMonsterStatus();
 
-					NextState = Globals.CreateInstance<IMonsterStartState>();
+					NextState = gEngine.CreateInstance<IMonsterStartState>();
 				}
 				else
 				{
 					gOut.Print("This isn't a good time to open it.");
 
-					NextState = Globals.CreateInstance<IStartState>();
+					NextState = gEngine.CreateInstance<IStartState>();
 				}
 			}
 
@@ -87,13 +87,13 @@ namespace AlternateBeginnersCave.Game.Commands
 
 					gEngine.PrintEffectDesc(3);
 
-					NextState = Globals.CreateInstance<IMonsterStartState>();
+					NextState = gEngine.CreateInstance<IMonsterStartState>();
 				}
 				else
 				{
 					gOut.Print("It's already open.");
 
-					NextState = Globals.CreateInstance<IStartState>();
+					NextState = gEngine.CreateInstance<IStartState>();
 				}
 			}
 			else

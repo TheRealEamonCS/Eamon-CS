@@ -13,7 +13,7 @@ using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using Eamon.Game.Extensions;
 using Eamon.Game.Helpers.Generic;
-using static Eamon.Game.Plugin.PluginContext;
+using static Eamon.Game.Plugin.Globals;
 
 namespace Eamon.Game.Helpers
 {
@@ -154,7 +154,7 @@ namespace Eamon.Game.Helpers
 				Record.Name = Regex.Replace(Record.Name, @"\s+", " ").Trim();
 			}
 
-			return string.IsNullOrWhiteSpace(Record.Name) == false && Record.Name.Length <= Constants.FsNameLen;
+			return string.IsNullOrWhiteSpace(Record.Name) == false && Record.Name.Length <= gEngine.FsNameLen;
 		}
 
 		/// <summary></summary>
@@ -168,77 +168,77 @@ namespace Eamon.Game.Helpers
 		/// <returns></returns>
 		public virtual bool ValidatePluginFileName()
 		{
-			return string.IsNullOrWhiteSpace(Record.PluginFileName) == false && Record.PluginFileName.IndexOf(Globals.Path.DirectorySeparatorChar) == -1 && Record.PluginFileName.Length <= Constants.FsFileNameLen;
+			return string.IsNullOrWhiteSpace(Record.PluginFileName) == false && Record.PluginFileName.IndexOf(gEngine.Path.DirectorySeparatorChar) == -1 && Record.PluginFileName.Length <= gEngine.FsFileNameLen;
 		}
 
 		/// <summary></summary>
 		/// <returns></returns>
 		public virtual bool ValidateConfigFileName()
 		{
-			return string.IsNullOrWhiteSpace(Record.ConfigFileName) == false && Record.ConfigFileName.IndexOf(Globals.Path.DirectorySeparatorChar) == -1 && Record.ConfigFileName.Length <= Constants.FsFileNameLen;
+			return string.IsNullOrWhiteSpace(Record.ConfigFileName) == false && Record.ConfigFileName.IndexOf(gEngine.Path.DirectorySeparatorChar) == -1 && Record.ConfigFileName.Length <= gEngine.FsFileNameLen;
 		}
 
 		/// <summary></summary>
 		/// <returns></returns>
 		public virtual bool ValidateFilesetFileName()
 		{
-			return string.IsNullOrWhiteSpace(Record.FilesetFileName) == false && Record.FilesetFileName.IndexOf(Globals.Path.DirectorySeparatorChar) == -1 && Record.FilesetFileName.Length <= Constants.FsFileNameLen;
+			return string.IsNullOrWhiteSpace(Record.FilesetFileName) == false && Record.FilesetFileName.IndexOf(gEngine.Path.DirectorySeparatorChar) == -1 && Record.FilesetFileName.Length <= gEngine.FsFileNameLen;
 		}
 
 		/// <summary></summary>
 		/// <returns></returns>
 		public virtual bool ValidateCharacterFileName()
 		{
-			return string.IsNullOrWhiteSpace(Record.CharacterFileName) == false && Record.CharacterFileName.IndexOf(Globals.Path.DirectorySeparatorChar) == -1 && Record.CharacterFileName.Length <= Constants.FsFileNameLen;
+			return string.IsNullOrWhiteSpace(Record.CharacterFileName) == false && Record.CharacterFileName.IndexOf(gEngine.Path.DirectorySeparatorChar) == -1 && Record.CharacterFileName.Length <= gEngine.FsFileNameLen;
 		}
 
 		/// <summary></summary>
 		/// <returns></returns>
 		public virtual bool ValidateModuleFileName()
 		{
-			return string.IsNullOrWhiteSpace(Record.ModuleFileName) == false && Record.ModuleFileName.IndexOf(Globals.Path.DirectorySeparatorChar) == -1 && Record.ModuleFileName.Length <= Constants.FsFileNameLen;
+			return string.IsNullOrWhiteSpace(Record.ModuleFileName) == false && Record.ModuleFileName.IndexOf(gEngine.Path.DirectorySeparatorChar) == -1 && Record.ModuleFileName.Length <= gEngine.FsFileNameLen;
 		}
 
 		/// <summary></summary>
 		/// <returns></returns>
 		public virtual bool ValidateRoomFileName()
 		{
-			return string.IsNullOrWhiteSpace(Record.RoomFileName) == false && Record.RoomFileName.IndexOf(Globals.Path.DirectorySeparatorChar) == -1 && Record.RoomFileName.Length <= Constants.FsFileNameLen;
+			return string.IsNullOrWhiteSpace(Record.RoomFileName) == false && Record.RoomFileName.IndexOf(gEngine.Path.DirectorySeparatorChar) == -1 && Record.RoomFileName.Length <= gEngine.FsFileNameLen;
 		}
 
 		/// <summary></summary>
 		/// <returns></returns>
 		public virtual bool ValidateArtifactFileName()
 		{
-			return string.IsNullOrWhiteSpace(Record.ArtifactFileName) == false && Record.ArtifactFileName.IndexOf(Globals.Path.DirectorySeparatorChar) == -1 && Record.ArtifactFileName.Length <= Constants.FsFileNameLen;
+			return string.IsNullOrWhiteSpace(Record.ArtifactFileName) == false && Record.ArtifactFileName.IndexOf(gEngine.Path.DirectorySeparatorChar) == -1 && Record.ArtifactFileName.Length <= gEngine.FsFileNameLen;
 		}
 
 		/// <summary></summary>
 		/// <returns></returns>
 		public virtual bool ValidateEffectFileName()
 		{
-			return string.IsNullOrWhiteSpace(Record.EffectFileName) == false && Record.EffectFileName.IndexOf(Globals.Path.DirectorySeparatorChar) == -1 && Record.EffectFileName.Length <= Constants.FsFileNameLen;
+			return string.IsNullOrWhiteSpace(Record.EffectFileName) == false && Record.EffectFileName.IndexOf(gEngine.Path.DirectorySeparatorChar) == -1 && Record.EffectFileName.Length <= gEngine.FsFileNameLen;
 		}
 
 		/// <summary></summary>
 		/// <returns></returns>
 		public virtual bool ValidateMonsterFileName()
 		{
-			return string.IsNullOrWhiteSpace(Record.MonsterFileName) == false && Record.MonsterFileName.IndexOf(Globals.Path.DirectorySeparatorChar) == -1 && Record.MonsterFileName.Length <= Constants.FsFileNameLen;
+			return string.IsNullOrWhiteSpace(Record.MonsterFileName) == false && Record.MonsterFileName.IndexOf(gEngine.Path.DirectorySeparatorChar) == -1 && Record.MonsterFileName.Length <= gEngine.FsFileNameLen;
 		}
 
 		/// <summary></summary>
 		/// <returns></returns>
 		public virtual bool ValidateHintFileName()
 		{
-			return string.IsNullOrWhiteSpace(Record.HintFileName) == false && Record.HintFileName.IndexOf(Globals.Path.DirectorySeparatorChar) == -1 && Record.HintFileName.Length <= Constants.FsFileNameLen;
+			return string.IsNullOrWhiteSpace(Record.HintFileName) == false && Record.HintFileName.IndexOf(gEngine.Path.DirectorySeparatorChar) == -1 && Record.HintFileName.Length <= gEngine.FsFileNameLen;
 		}
 
 		/// <summary></summary>
 		/// <returns></returns>
 		public virtual bool ValidateGameStateFileName()
 		{
-			return string.IsNullOrWhiteSpace(Record.GameStateFileName) == false && Record.GameStateFileName.IndexOf(Globals.Path.DirectorySeparatorChar) == -1 && Record.GameStateFileName.Length <= Constants.FsFileNameLen;
+			return string.IsNullOrWhiteSpace(Record.GameStateFileName) == false && Record.GameStateFileName.IndexOf(gEngine.Path.DirectorySeparatorChar) == -1 && Record.GameStateFileName.Length <= gEngine.FsFileNameLen;
 		}
 
 		#endregion
@@ -562,7 +562,7 @@ namespace Eamon.Game.Helpers
 		{
 			gOut.Print("{0}{1}", gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("Uid"), null), Record.Uid);
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 		}
 
 		/// <summary></summary>
@@ -580,7 +580,7 @@ namespace Eamon.Game.Helpers
 
 				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("Name"), null));
 
-				var rc = Globals.In.ReadField(Buf, Constants.FsNameLen, null, '_', '\0', false, null, null, null, null);
+				var rc = gEngine.In.ReadField(Buf, gEngine.FsNameLen, null, '_', '\0', false, null, null, null, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -594,7 +594,7 @@ namespace Eamon.Game.Helpers
 				fieldDesc = FieldDesc.Brief;
 			}
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 		}
 
 		/// <summary></summary>
@@ -614,7 +614,7 @@ namespace Eamon.Game.Helpers
 
 				gOut.WordWrap = false;
 
-				var rc = Globals.In.ReadField(Buf, Constants.MaxPathLen, null, '_', '\0', false, null, null, null, null);
+				var rc = gEngine.In.ReadField(Buf, gEngine.MaxPathLen, null, '_', '\0', false, null, null, null, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -630,7 +630,7 @@ namespace Eamon.Game.Helpers
 				fieldDesc = FieldDesc.Brief;
 			}
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 		}
 
 		/// <summary></summary>
@@ -648,7 +648,7 @@ namespace Eamon.Game.Helpers
 
 				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("PluginFileName"), "NONE"));
 
-				var rc = Globals.In.ReadField(Buf, Constants.FsFileNameLen, null, '_', '\0', true, "NONE", null, null, null);
+				var rc = gEngine.In.ReadField(Buf, gEngine.FsFileNameLen, null, '_', '\0', true, "NONE", null, null, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -662,7 +662,7 @@ namespace Eamon.Game.Helpers
 				fieldDesc = FieldDesc.Brief;
 			}
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 		}
 
 		/// <summary></summary>
@@ -680,7 +680,7 @@ namespace Eamon.Game.Helpers
 
 				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("ConfigFileName"), "NONE"));
 
-				var rc = Globals.In.ReadField(Buf, Constants.FsFileNameLen, null, '_', '\0', true, "NONE", null, null, null);
+				var rc = gEngine.In.ReadField(Buf, gEngine.FsFileNameLen, null, '_', '\0', true, "NONE", null, null, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -694,7 +694,7 @@ namespace Eamon.Game.Helpers
 				fieldDesc = FieldDesc.Brief;
 			}
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 		}
 
 		/// <summary></summary>
@@ -712,7 +712,7 @@ namespace Eamon.Game.Helpers
 
 				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("FilesetFileName"), "NONE"));
 
-				var rc = Globals.In.ReadField(Buf, Constants.FsFileNameLen, null, '_', '\0', true, "NONE", null, null, null);
+				var rc = gEngine.In.ReadField(Buf, gEngine.FsFileNameLen, null, '_', '\0', true, "NONE", null, null, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -726,7 +726,7 @@ namespace Eamon.Game.Helpers
 				fieldDesc = FieldDesc.Brief;
 			}
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 		}
 
 		/// <summary></summary>
@@ -744,7 +744,7 @@ namespace Eamon.Game.Helpers
 
 				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("CharacterFileName"), "NONE"));
 
-				var rc = Globals.In.ReadField(Buf, Constants.FsFileNameLen, null, '_', '\0', true, "NONE", null, null, null);
+				var rc = gEngine.In.ReadField(Buf, gEngine.FsFileNameLen, null, '_', '\0', true, "NONE", null, null, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -758,7 +758,7 @@ namespace Eamon.Game.Helpers
 				fieldDesc = FieldDesc.Brief;
 			}
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 		}
 
 		/// <summary></summary>
@@ -776,7 +776,7 @@ namespace Eamon.Game.Helpers
 
 				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("ModuleFileName"), "NONE"));
 
-				var rc = Globals.In.ReadField(Buf, Constants.FsFileNameLen, null, '_', '\0', true, "NONE", null, null, null);
+				var rc = gEngine.In.ReadField(Buf, gEngine.FsFileNameLen, null, '_', '\0', true, "NONE", null, null, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -790,7 +790,7 @@ namespace Eamon.Game.Helpers
 				fieldDesc = FieldDesc.Brief;
 			}
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 		}
 
 		/// <summary></summary>
@@ -808,7 +808,7 @@ namespace Eamon.Game.Helpers
 
 				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("RoomFileName"), "NONE"));
 
-				var rc = Globals.In.ReadField(Buf, Constants.FsFileNameLen, null, '_', '\0', true, "NONE", null, null, null);
+				var rc = gEngine.In.ReadField(Buf, gEngine.FsFileNameLen, null, '_', '\0', true, "NONE", null, null, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -822,7 +822,7 @@ namespace Eamon.Game.Helpers
 				fieldDesc = FieldDesc.Brief;
 			}
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 		}
 
 		/// <summary></summary>
@@ -840,7 +840,7 @@ namespace Eamon.Game.Helpers
 
 				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("ArtifactFileName"), "NONE"));
 
-				var rc = Globals.In.ReadField(Buf, Constants.FsFileNameLen, null, '_', '\0', true, "NONE", null, null, null);
+				var rc = gEngine.In.ReadField(Buf, gEngine.FsFileNameLen, null, '_', '\0', true, "NONE", null, null, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -854,7 +854,7 @@ namespace Eamon.Game.Helpers
 				fieldDesc = FieldDesc.Brief;
 			}
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 		}
 
 		/// <summary></summary>
@@ -872,7 +872,7 @@ namespace Eamon.Game.Helpers
 
 				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("EffectFileName"), "NONE"));
 
-				var rc = Globals.In.ReadField(Buf, Constants.FsFileNameLen, null, '_', '\0', true, "NONE", null, null, null);
+				var rc = gEngine.In.ReadField(Buf, gEngine.FsFileNameLen, null, '_', '\0', true, "NONE", null, null, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -886,7 +886,7 @@ namespace Eamon.Game.Helpers
 				fieldDesc = FieldDesc.Brief;
 			}
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 		}
 
 		/// <summary></summary>
@@ -904,7 +904,7 @@ namespace Eamon.Game.Helpers
 
 				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("MonsterFileName"), "NONE"));
 
-				var rc = Globals.In.ReadField(Buf, Constants.FsFileNameLen, null, '_', '\0', true, "NONE", null, null, null);
+				var rc = gEngine.In.ReadField(Buf, gEngine.FsFileNameLen, null, '_', '\0', true, "NONE", null, null, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -918,7 +918,7 @@ namespace Eamon.Game.Helpers
 				fieldDesc = FieldDesc.Brief;
 			}
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 		}
 
 		/// <summary></summary>
@@ -936,7 +936,7 @@ namespace Eamon.Game.Helpers
 
 				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("HintFileName"), "NONE"));
 
-				var rc = Globals.In.ReadField(Buf, Constants.FsFileNameLen, null, '_', '\0', true, "NONE", null, null, null);
+				var rc = gEngine.In.ReadField(Buf, gEngine.FsFileNameLen, null, '_', '\0', true, "NONE", null, null, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -950,7 +950,7 @@ namespace Eamon.Game.Helpers
 				fieldDesc = FieldDesc.Brief;
 			}
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 		}
 
 		/// <summary></summary>
@@ -968,7 +968,7 @@ namespace Eamon.Game.Helpers
 
 				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("GameStateFileName"), "NONE"));
 
-				var rc = Globals.In.ReadField(Buf, Constants.FsFileNameLen, null, '_', '\0', true, "NONE", null, null, null);
+				var rc = gEngine.In.ReadField(Buf, gEngine.FsFileNameLen, null, '_', '\0', true, "NONE", null, null, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -982,7 +982,7 @@ namespace Eamon.Game.Helpers
 				fieldDesc = FieldDesc.Brief;
 			}
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 		}
 
 		#endregion
@@ -1001,7 +1001,7 @@ namespace Eamon.Game.Helpers
 		{
 			if (Record.Uid <= 0)
 			{
-				Record.Uid = Globals.Database.GetFilesetUid();
+				Record.Uid = gEngine.Database.GetFilesetUid();
 
 				Record.IsUidRecycled = true;
 			}
@@ -1013,7 +1013,7 @@ namespace Eamon.Game.Helpers
 
 		public FilesetHelper()
 		{
-			WorkDirRegex = new Regex(Constants.ValidWorkDirRegexPattern);
+			WorkDirRegex = new Regex(gEngine.ValidWorkDirRegexPattern);
 		}
 
 		#endregion

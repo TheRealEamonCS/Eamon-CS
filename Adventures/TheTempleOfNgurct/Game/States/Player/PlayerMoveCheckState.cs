@@ -6,7 +6,7 @@
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
-using static TheTempleOfNgurct.Game.Plugin.PluginContext;
+using static TheTempleOfNgurct.Game.Plugin.Globals;
 
 namespace TheTempleOfNgurct.Game.States
 {
@@ -40,7 +40,7 @@ namespace TheTempleOfNgurct.Game.States
 
 					gGameState.Die = 1;
 
-					NextState = Globals.CreateInstance<IPlayerDeadState>(x =>
+					NextState = gEngine.CreateInstance<IPlayerDeadState>(x =>
 					{
 						x.PrintLineSep = true;
 					});

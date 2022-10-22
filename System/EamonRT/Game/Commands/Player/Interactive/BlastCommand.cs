@@ -12,7 +12,7 @@ using EamonRT.Framework.Commands;
 using EamonRT.Framework.Components;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
-using static EamonRT.Game.Plugin.PluginContext;
+using static EamonRT.Game.Plugin.Globals;
 
 namespace EamonRT.Game.Commands
 {
@@ -66,7 +66,7 @@ namespace EamonRT.Game.Commands
 				{
 					PrintWhyAttack(DobjMonster);
 
-					NextState = Globals.CreateInstance<IStartState>();
+					NextState = gEngine.CreateInstance<IStartState>();
 
 					goto Cleanup;
 				}
@@ -75,15 +75,15 @@ namespace EamonRT.Game.Commands
 				{
 					PrintAttackNonEnemy();
 
-					Globals.Buf.Clear();
+					gEngine.Buf.Clear();
 
-					rc = Globals.In.ReadField(Globals.Buf, Constants.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, null);
+					rc = gEngine.In.ReadField(gEngine.Buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, null);
 
 					Debug.Assert(gEngine.IsSuccess(rc));
 
-					if (Globals.Buf.Length == 0 || Globals.Buf[0] == 'N')
+					if (gEngine.Buf.Length == 0 || gEngine.Buf[0] == 'N')
 					{
-						NextState = Globals.CreateInstance<IStartState>();
+						NextState = gEngine.CreateInstance<IStartState>();
 
 						goto Cleanup;
 					}
@@ -96,7 +96,7 @@ namespace EamonRT.Game.Commands
 					goto Cleanup;
 				}
 
-				MagicComponent = Globals.CreateInstance<IMagicComponent>(x =>
+				MagicComponent = gEngine.CreateInstance<IMagicComponent>(x =>
 				{
 					x.SetNextStateFunc = s => NextState = s;
 
@@ -117,7 +117,7 @@ namespace EamonRT.Game.Commands
 
 				if (NextState is IAttackCommand)
 				{
-					Globals.ActionListCounter++;
+					gEngine.ActionListCounter++;
 				}
 
 				goto Cleanup;
@@ -136,14 +136,14 @@ namespace EamonRT.Game.Commands
 			{
 				PrintWhyAttack(DobjArtifact);
 
-				NextState = Globals.CreateInstance<IStartState>();
+				NextState = gEngine.CreateInstance<IStartState>();
 
 				goto Cleanup;
 			}
 
 			Debug.Assert(DobjArtAc != null);
 
-			MagicComponent = Globals.CreateInstance<IMagicComponent>(x =>
+			MagicComponent = gEngine.CreateInstance<IMagicComponent>(x =>
 			{
 				x.SetNextStateFunc = s => NextState = s;
 
@@ -166,14 +166,14 @@ namespace EamonRT.Game.Commands
 
 			if (NextState is IAttackCommand)
 			{
-				Globals.ActionListCounter++;
+				gEngine.ActionListCounter++;
 			}
 
 		Cleanup:
 
 			if (NextState == null)
 			{
-				NextState = Globals.CreateInstance<IMonsterStartState>();
+				NextState = gEngine.CreateInstance<IMonsterStartState>();
 			}
 		}
 

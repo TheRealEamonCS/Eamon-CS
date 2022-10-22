@@ -7,7 +7,7 @@ using Eamon.Game.Attributes;
 using EamonRT.Framework.Components;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
-using static TheDeepCanyon.Game.Plugin.PluginContext;
+using static TheDeepCanyon.Game.Plugin.Globals;
 
 namespace TheDeepCanyon.Game.States
 {
@@ -20,11 +20,11 @@ namespace TheDeepCanyon.Game.States
 
 			if (eventType == EventType.AfterExtinguishLightSourceCheck)
 			{
-				if (!Globals.CommandPromptSeen)
+				if (!gEngine.CommandPromptSeen)
 				{
 					// Damage from fall
 
-					var combatComponent = Globals.CreateInstance<ICombatComponent>(x =>
+					var combatComponent = gEngine.CreateInstance<ICombatComponent>(x =>
 					{
 						x.SetNextStateFunc = s => NextState = s;
 

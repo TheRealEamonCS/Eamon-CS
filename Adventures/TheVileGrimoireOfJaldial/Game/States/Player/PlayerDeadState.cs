@@ -7,7 +7,7 @@ using System;
 using System.Diagnostics;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.States;
-using static TheVileGrimoireOfJaldial.Game.Plugin.PluginContext;
+using static TheVileGrimoireOfJaldial.Game.Plugin.Globals;
 
 namespace TheVileGrimoireOfJaldial.Game.States
 {
@@ -18,25 +18,25 @@ namespace TheVileGrimoireOfJaldial.Game.States
 		{
 			if (gGameState.PlayerResurrections <= 2)
 			{
-				gOut.Print("{0}", Globals.LineSep);
+				gOut.Print("{0}", gEngine.LineSep);
 
 				gOut.Write("{0}Press any key to continue: ", Environment.NewLine);
 
-				Globals.Buf.Clear();
+				gEngine.Buf.Clear();
 
-				var rc = Globals.In.ReadField(Globals.Buf, Constants.BufSize02, null, ' ', '\0', true, null, gEngine.ModifyCharToNull, null, gEngine.IsCharAny);
+				var rc = gEngine.In.ReadField(gEngine.Buf, gEngine.BufSize02, null, ' ', '\0', true, null, gEngine.ModifyCharToNull, null, gEngine.IsCharAny);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
-				Globals.Thread.Sleep(150);
+				gEngine.Thread.Sleep(150);
 
-				gOut.Print("{0}", Globals.LineSep);
+				gOut.Print("{0}", gEngine.LineSep);
 
 				if (++gGameState.PlayerResurrections <= 2)
 				{
-					NextState = Globals.CreateInstance<Framework.States.IPlayerResurrectedState>();
+					NextState = gEngine.CreateInstance<Framework.States.IPlayerResurrectedState>();
 
-					Globals.NextState = NextState;
+					gEngine.NextState = NextState;
 				}
 				else
 				{

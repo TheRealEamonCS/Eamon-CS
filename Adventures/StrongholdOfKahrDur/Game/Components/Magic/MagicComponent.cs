@@ -11,7 +11,7 @@ using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Components;
 using EamonRT.Framework.Primitive.Enums;
-using static StrongholdOfKahrDur.Game.Plugin.PluginContext;
+using static StrongholdOfKahrDur.Game.Plugin.Globals;
 
 namespace StrongholdOfKahrDur.Game.Components
 {
@@ -58,7 +58,7 @@ namespace StrongholdOfKahrDur.Game.Components
 
 				gEngine.PrintEffectDesc(rl);
 
-				Globals.Thread.Sleep(gGameState.PauseCombatMs);
+				gEngine.Thread.Sleep(gGameState.PauseCombatMs);
 
 				MagicState = MagicState.EndMagic;
 

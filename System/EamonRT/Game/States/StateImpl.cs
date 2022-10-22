@@ -14,7 +14,7 @@ using Eamon.Game.Extensions;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
-using static EamonRT.Game.Plugin.PluginContext;
+using static EamonRT.Game.Plugin.Globals;
 
 namespace EamonRT.Game.States
 {
@@ -76,13 +76,13 @@ namespace EamonRT.Game.States
 					break;
 			}
 
-			Globals.Buf.Clear();
+			gEngine.Buf.Clear();
 
-			var rc = gEngine.BuildCommandList(commandList, commandType, Globals.Buf, ref newSeen);
+			var rc = gEngine.BuildCommandList(commandList, commandType, gEngine.Buf, ref newSeen);
 
 			Debug.Assert(gEngine.IsSuccess(rc));
 
-			gOut.Write("{0}", Globals.Buf);
+			gOut.Write("{0}", gEngine.Buf);
 		}
 
 		public virtual void PrintNewCommandSeen()
@@ -92,7 +92,7 @@ namespace EamonRT.Game.States
 
 		public virtual void PrintCommandPrompt()
 		{
-			gOut.Write("{0}{1}", Environment.NewLine, Globals.CommandPrompt);
+			gOut.Write("{0}{1}", Environment.NewLine, gEngine.CommandPrompt);
 		}
 
 		public virtual void PrintFulfillMessage(string inputStr)
@@ -141,7 +141,7 @@ namespace EamonRT.Game.States
 
 		public virtual void PrintSpeedSpellExpired()
 		{
-			gOut.Print("Your speed spell has{0} expired!", Globals.IsRulesetVersion(5, 15, 25) ? " just" : "");
+			gOut.Print("Your speed spell has{0} expired!", gEngine.IsRulesetVersion(5, 15, 25) ? " just" : "");
 		}
 
 		public virtual void ProcessEvents(EventType eventType)
@@ -234,7 +234,7 @@ namespace EamonRT.Game.States
 
 		public virtual IList<long> GetLoopMonsterUidList()
 		{
-			return Globals.Database.MonsterTable.Records.OrderBy(m => m.Uid).Select(m01 => m01.Uid).ToList();
+			return gEngine.Database.MonsterTable.Records.OrderBy(m => m.Uid).Select(m01 => m01.Uid).ToList();
 		}
 
 		public virtual void Stage()

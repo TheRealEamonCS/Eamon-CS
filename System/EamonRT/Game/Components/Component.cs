@@ -11,7 +11,7 @@ using EamonRT.Framework.Commands;
 using EamonRT.Framework.Components;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
-using static EamonRT.Game.Plugin.PluginContext;
+using static EamonRT.Game.Plugin.Globals;
 
 namespace EamonRT.Game.Components
 {
@@ -348,7 +348,7 @@ namespace EamonRT.Game.Components
 
 		public Component()
 		{
-			ComponentImpl = Globals.CreateInstance<IComponentImpl>(x =>
+			ComponentImpl = gEngine.CreateInstance<IComponentImpl>(x =>
 			{
 				x.Component = this;
 			});

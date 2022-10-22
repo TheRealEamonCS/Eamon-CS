@@ -7,7 +7,7 @@ using System.Diagnostics;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
-using static TheVileGrimoireOfJaldial.Game.Plugin.PluginContext;
+using static TheVileGrimoireOfJaldial.Game.Plugin.Globals;
 
 namespace TheVileGrimoireOfJaldial.Game.States
 {
@@ -20,7 +20,7 @@ namespace TheVileGrimoireOfJaldial.Game.States
 
 			if (eventType == EventType.BeforeStartRound)
 			{
-				if (Globals.ShouldPreTurnProcess)
+				if (gEngine.ShouldPreTurnProcess)
 				{
 
 				}

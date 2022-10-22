@@ -8,7 +8,7 @@ using Eamon;
 using Eamon.Framework;
 using Eamon.Game.Attributes;
 using Eamon.Game.Extensions;
-using static TheDeepCanyon.Game.Plugin.PluginContext;
+using static TheDeepCanyon.Game.Plugin.Globals;
 
 namespace TheDeepCanyon.Game
 {
@@ -17,7 +17,7 @@ namespace TheDeepCanyon.Game
 	{
 		public override long GetDir(long index)
 		{
-			if (Globals.EnableMutateProperties)
+			if (gEngine.EnableMutateProperties)
 			{
 				if (Uid == 21)
 				{

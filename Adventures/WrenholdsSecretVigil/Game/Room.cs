@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using Eamon.Framework;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
-using static WrenholdsSecretVigil.Game.Plugin.PluginContext;
+using static WrenholdsSecretVigil.Game.Plugin.Globals;
 
 namespace WrenholdsSecretVigil.Game
 {

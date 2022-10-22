@@ -8,7 +8,7 @@ using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using Eamon.Game.Utilities;
 using EamonRT.Framework.States;
-using static EamonRT.Game.Plugin.PluginContext;
+using static EamonRT.Game.Plugin.Globals;
 
 namespace EamonRT.Game.States
 {
@@ -23,7 +23,7 @@ namespace EamonRT.Game.States
 
 		public override void Execute()
 		{
-			if (Globals.CommandPromptSeen && !Globals.ShouldPreTurnProcess)
+			if (gEngine.CommandPromptSeen && !gEngine.ShouldPreTurnProcess)
 			{
 				goto Cleanup;
 			}
@@ -54,10 +54,10 @@ namespace EamonRT.Game.States
 
 			if (NextState == null)
 			{
-				NextState = Globals.CreateInstance<IBeforePrintPlayerRoomEventState>();
+				NextState = gEngine.CreateInstance<IBeforePrintPlayerRoomEventState>();
 			}
 
-			Globals.NextState = NextState;
+			gEngine.NextState = NextState;
 		}
 
 		public RegenerateSpellAbilitiesState()

@@ -7,7 +7,7 @@ using System.Diagnostics;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.States;
-using static TheTrainingGround.Game.Plugin.PluginContext;
+using static TheTrainingGround.Game.Plugin.Globals;
 
 namespace TheTrainingGround.Game.Commands
 {
@@ -24,7 +24,7 @@ namespace TheTrainingGround.Game.Commands
 			{
 				gOut.Print("Only Thor himself could do that.");
 
-				NextState = Globals.CreateInstance<IStartState>();
+				NextState = gEngine.CreateInstance<IStartState>();
 			}
 			else
 			{

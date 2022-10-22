@@ -9,7 +9,7 @@ using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.Parsing;
 using EamonRT.Framework.States;
-using static RiddlesOfTheDuergarKingdom.Game.Plugin.PluginContext;
+using static RiddlesOfTheDuergarKingdom.Game.Plugin.Globals;
 
 namespace RiddlesOfTheDuergarKingdom.Game.Parsing
 {
@@ -48,19 +48,19 @@ namespace RiddlesOfTheDuergarKingdom.Game.Parsing
 					{
 						gOut.Print("Aren't you getting ahead of yourself?  Surely Professor Berescroft would want to meet with you first!");
 
-						NextState = Globals.CreateInstance<IStartState>();
+						NextState = gEngine.CreateInstance<IStartState>();
 					}
 					else if (gGameState.VolcanoErupting && ActorRoom.Uid == 31)
 					{
 						gOut.Print("There's no time to waste - the volcano could erupt at any moment.  You need to flee for your life!");
 
-						NextState = Globals.CreateInstance<IStartState>();
+						NextState = gEngine.CreateInstance<IStartState>();
 					}
 					else
 					{
 						gEngine.PrintEffectDesc(79);
 
-						NextState = Globals.CreateInstance<IMonsterStartState>();
+						NextState = gEngine.CreateInstance<IMonsterStartState>();
 					}
 				}
 
@@ -70,7 +70,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.Parsing
 				{
 					gOut.Print("That's much too dangerous while it is still running.");
 
-					NextState = Globals.CreateInstance<IMonsterStartState>();
+					NextState = gEngine.CreateInstance<IMonsterStartState>();
 				}
 
 				// Can't remove from debris sifter when it's running
@@ -79,7 +79,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.Parsing
 				{
 					gOut.Print("That's much too dangerous while it is still running.");
 
-					NextState = Globals.CreateInstance<IMonsterStartState>();
+					NextState = gEngine.CreateInstance<IMonsterStartState>();
 				}
 
 				// Can't flee with black spider on face
@@ -88,7 +88,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.Parsing
 				{
 					gOut.Print("Dealing with the mysterious spider on your face is a higher priority.");
 
-					NextState = Globals.CreateInstance<IMonsterStartState>();
+					NextState = gEngine.CreateInstance<IMonsterStartState>();
 				}
 
 				// Can't blast black spider on face
@@ -97,7 +97,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.Parsing
 				{
 					gOut.Print("Blasting a spider on your face?  There must be an easier way.");
 
-					NextState = Globals.CreateInstance<IMonsterStartState>();
+					NextState = gEngine.CreateInstance<IMonsterStartState>();
 				}
 
 				// Can't light oil lantern in placid lake
@@ -106,7 +106,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.Parsing
 				{
 					gOut.Print("That's not something you can do while swimming in the middle of a lake.");
 
-					NextState = Globals.CreateInstance<IMonsterStartState>();
+					NextState = gEngine.CreateInstance<IMonsterStartState>();
 				}
 
 				// Can't close latrine
@@ -115,7 +115,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.Parsing
 				{
 					gOut.Print("You don't need to.");
 
-					NextState = Globals.CreateInstance<IStartState>();
+					NextState = gEngine.CreateInstance<IStartState>();
 				}
 
 				// Can't leave with Professor Berescroft's fountain pen
@@ -124,7 +124,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.Parsing
 				{
 					gOut.Print("You haven't returned Professor Berescroft's fountain pen yet.");
 
-					NextState = Globals.CreateInstance<IStartState>();
+					NextState = gEngine.CreateInstance<IStartState>();
 				}
 				else
 				{

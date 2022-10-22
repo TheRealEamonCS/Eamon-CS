@@ -5,7 +5,7 @@
 
 using System.Threading;
 using Eamon.Framework.Portability;
-using static Eamon.Game.Plugin.PluginContext;
+using static Eamon.Game.Plugin.Globals;
 
 namespace EamonPM.Game.Portability
 {
@@ -16,7 +16,7 @@ namespace EamonPM.Game.Portability
 
 		public virtual void CreateAndWaitOne()
 		{
-			ProcessMutex = new System.Threading.Mutex(false, Constants.ProcessMutexName);
+			ProcessMutex = new System.Threading.Mutex(false, gEngine.ProcessMutexName);
 
 			try
 			{

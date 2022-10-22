@@ -9,7 +9,7 @@ using Eamon.Game.Attributes;
 using EamonRT.Framework.Components;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
-using static TheTrainingGround.Game.Plugin.PluginContext;
+using static TheTrainingGround.Game.Plugin.Globals;
 
 namespace TheTrainingGround.Game.Components
 {
@@ -26,7 +26,7 @@ namespace TheTrainingGround.Game.Components
 
 				DobjMonster.SetInLimbo();
 
-				SetNextStateFunc(Globals.CreateInstance<IStartState>());
+				SetNextStateFunc(gEngine.CreateInstance<IStartState>());
 
 				MagicState = MagicState.EndMagic;
 
@@ -56,7 +56,7 @@ namespace TheTrainingGround.Game.Components
 
 				gGameState.ThorsHammerAppears = true;
 
-				SetNextStateFunc(Globals.CreateInstance<IStartState>());
+				SetNextStateFunc(gEngine.CreateInstance<IStartState>());
 
 				goto Cleanup;
 			}
@@ -97,7 +97,7 @@ namespace TheTrainingGround.Game.Components
 			{
 				gEngine.PrintEffectDesc(33);
 
-				var combatComponent = Globals.CreateInstance<ICombatComponent>(x =>
+				var combatComponent = gEngine.CreateInstance<ICombatComponent>(x =>
 				{
 					x.SetNextStateFunc = SetNextStateFunc;
 

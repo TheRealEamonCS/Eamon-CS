@@ -6,7 +6,7 @@
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
-using static AlternateBeginnersCave.Game.Plugin.PluginContext;
+using static AlternateBeginnersCave.Game.Plugin.Globals;
 
 namespace AlternateBeginnersCave.Game.States
 {

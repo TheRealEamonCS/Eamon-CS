@@ -10,7 +10,7 @@ using Eamon.Game.Extensions;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
 using TheVileGrimoireOfJaldial.Framework.Primitive.Enums;
-using static TheVileGrimoireOfJaldial.Game.Plugin.PluginContext;
+using static TheVileGrimoireOfJaldial.Game.Plugin.Globals;
 
 namespace TheVileGrimoireOfJaldial.Game.States
 {
@@ -100,7 +100,7 @@ namespace TheVileGrimoireOfJaldial.Game.States
 					gOut.Print(room.IsRainyRoom() ? "You are caught in {0}." : "The area is shrouded in {0}.", weatherDesc);
 				}
 
-				if (Globals.ShouldPreTurnProcess)
+				if (gEngine.ShouldPreTurnProcess)
 				{
 					var shadowMonster = gMDB[9];
 
@@ -351,7 +351,7 @@ namespace TheVileGrimoireOfJaldial.Game.States
 
 					// Flavor effects
 
-					if (Globals.EventRoll <= 3 && Globals.FrequencyRoll <= gGameState.FlavorFreqPct)
+					if (gEngine.EventRoll <= 3 && gEngine.FrequencyRoll <= gGameState.FlavorFreqPct)
 					{
 						var idx = gEngine.RollDice(1, 8, -1);
 

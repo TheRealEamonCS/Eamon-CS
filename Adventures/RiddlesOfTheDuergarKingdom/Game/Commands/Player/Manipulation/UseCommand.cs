@@ -10,7 +10,7 @@ using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
-using static RiddlesOfTheDuergarKingdom.Game.Plugin.PluginContext;
+using static RiddlesOfTheDuergarKingdom.Game.Plugin.Globals;
 
 namespace RiddlesOfTheDuergarKingdom.Game.Commands
 {
@@ -94,7 +94,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.Commands
 
 							gGameState.R2 = ActorRoom.Uid;
 
-							NextState = Globals.CreateInstance<IAfterPlayerMoveState>();
+							NextState = gEngine.CreateInstance<IAfterPlayerMoveState>();
 						}
 						else
 						{
@@ -129,7 +129,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.Commands
 						{
 							gOut.Print("You've already signed the necessary paperwork!");
 
-							NextState = Globals.CreateInstance<IStartState>();
+							NextState = gEngine.CreateInstance<IStartState>();
 						}
 
 						GotoCleanup = true;
@@ -216,7 +216,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.Commands
 								var goldNuggetCount = goldNuggetsArtifact.IsInLimbo() ? gEngine.RollDice(1, 2, 1) : gEngine.RollDice(1, 3, 0);
 
 								gOut.Print("You pan for gold where the fine beach sand meets the lake water and, in due time, discover {0} glittering gold nugget{1}!",
-									gEngine.GetStringFromNumber(goldNuggetCount, false, Globals.Buf),
+									gEngine.GetStringFromNumber(goldNuggetCount, false, gEngine.Buf),
 									goldNuggetCount != 1 ? "s" : "");
 
 								goldNuggetsArtifact.Value += (goldNuggetCount * 2);
@@ -237,7 +237,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.Commands
 						{
 							gOut.Print("This isn't a good place to try your luck at prospecting.");
 
-							NextState = Globals.CreateInstance<IStartState>();
+							NextState = gEngine.CreateInstance<IStartState>();
 						}
 
 						GotoCleanup = true;

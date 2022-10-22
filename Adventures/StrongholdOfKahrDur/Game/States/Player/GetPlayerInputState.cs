@@ -7,7 +7,7 @@ using System.Diagnostics;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
-using static StrongholdOfKahrDur.Game.Plugin.PluginContext;
+using static StrongholdOfKahrDur.Game.Plugin.Globals;
 
 namespace StrongholdOfKahrDur.Game.States
 {
@@ -18,7 +18,7 @@ namespace StrongholdOfKahrDur.Game.States
 		{
 			base.ProcessEvents(eventType);
 
-			if (eventType == EventType.BeforePrintCommandPrompt && Globals.ShouldPreTurnProcess)
+			if (eventType == EventType.BeforePrintCommandPrompt && gEngine.ShouldPreTurnProcess)
 			{
 				var room = gRDB[84];
 

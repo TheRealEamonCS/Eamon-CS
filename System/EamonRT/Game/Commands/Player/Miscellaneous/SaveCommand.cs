@@ -15,7 +15,7 @@ using Eamon.Game.Attributes;
 using Eamon.Game.Extensions;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.States;
-using static EamonRT.Game.Plugin.PluginContext;
+using static EamonRT.Game.Plugin.Globals;
 
 namespace EamonRT.Game.Commands
 {
@@ -104,11 +104,11 @@ namespace EamonRT.Game.Commands
 			
 			try
 			{
-				Globals.MutatePropertyCounter--;
+				gEngine.MutatePropertyCounter--;
 
-				Globals.RevealContentCounter--;
+				gEngine.RevealContentCounter--;
 
-				SaveFilesetsCount = Globals.Database.GetFilesetCount();
+				SaveFilesetsCount = gEngine.Database.GetFilesetCount();
 
 				Debug.Assert(SaveFilesetsCount <= gEngine.NumSaveSlots);
 
@@ -118,18 +118,18 @@ namespace EamonRT.Game.Commands
 
 				if (SaveSlot == SaveFilesetsCount + 1)
 				{
-					SaveFileset = Globals.CreateInstance<IFileset>(x =>
+					SaveFileset = gEngine.CreateInstance<IFileset>(x =>
 					{
-						x.Uid = Globals.Database.GetFilesetUid();
+						x.Uid = gEngine.Database.GetFilesetUid();
 						x.Name = "(none)";
 					});
 
-					rc = Globals.Database.AddFileset(SaveFileset);
+					rc = gEngine.Database.AddFileset(SaveFileset);
 
 					Debug.Assert(gEngine.IsSuccess(rc));
 				}
 
-				SaveFilesetList = Globals.Database.FilesetTable.Records.OrderBy(f => f.Uid).ToList();
+				SaveFilesetList = gEngine.Database.FilesetTable.Records.OrderBy(f => f.Uid).ToList();
 
 				SaveFileset = SaveFilesetList[(int)SaveSlot - 1];
 
@@ -139,13 +139,13 @@ namespace EamonRT.Game.Commands
 					{
 						PrintChangeSaveName();
 
-						Globals.Buf.Clear();
+						gEngine.Buf.Clear();
 
-						rc = Globals.In.ReadField(Globals.Buf, Constants.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, null);
+						rc = gEngine.In.ReadField(gEngine.Buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, null);
 
 						Debug.Assert(gEngine.IsSuccess(rc));
 
-						if (Globals.Buf.Length > 0 && Globals.Buf[0] == 'Y')
+						if (gEngine.Buf.Length > 0 && gEngine.Buf[0] == 'Y')
 						{
 							SaveFileset.Name = "(none)";
 						}
@@ -155,15 +155,15 @@ namespace EamonRT.Game.Commands
 					{
 						PrintEnterSaveName();
 
-						Globals.Buf.Clear();
+						gEngine.Buf.Clear();
 
-						rc = Globals.In.ReadField(Globals.Buf, Constants.FsNameLen, null, ' ', '\0', false, null, null, null, null);
+						rc = gEngine.In.ReadField(gEngine.Buf, gEngine.FsNameLen, null, ' ', '\0', false, null, null, null, null);
 
 						Debug.Assert(gEngine.IsSuccess(rc));
 
-						Globals.Buf.SetFormat("{0}", Regex.Replace(Globals.Buf.ToString(), @"\s+", " ").Trim());
+						gEngine.Buf.SetFormat("{0}", Regex.Replace(gEngine.Buf.ToString(), @"\s+", " ").Trim());
 
-						SaveFileset.Name = gEngine.Capitalize(Globals.Buf.ToString());
+						SaveFileset.Name = gEngine.Capitalize(gEngine.Buf.ToString());
 
 						if (SaveFileset.Name.Length == 0)
 						{
@@ -175,17 +175,17 @@ namespace EamonRT.Game.Commands
 				{
 					if (!SaveFileset.Name.Equals("(none)", StringComparison.OrdinalIgnoreCase) && SaveName.Equals("Quick Saved Game", StringComparison.OrdinalIgnoreCase))
 					{
-						SaveName = Globals.CloneInstance(SaveFileset.Name);
+						SaveName = gEngine.CloneInstance(SaveFileset.Name);
 					}
 
 					SaveName = gEngine.Capitalize(SaveName);
 
-					SaveFileset.Name = Globals.CloneInstance(SaveName);
+					SaveFileset.Name = gEngine.CloneInstance(SaveName);
 
 					gEngine.PrintQuickSave(SaveSlot, SaveName);
 				}
 
-				SaveConfig = Globals.CreateInstance<IConfig>();
+				SaveConfig = gEngine.CreateInstance<IConfig>();
 
 				SaveSlotString = SaveSlot.ToString("D3");
 
@@ -199,7 +199,7 @@ namespace EamonRT.Game.Commands
 
 				SaveFileExtension = "";
 
-				rc = gEngine.SplitPath(Globals.ConfigFileName, ref _saveFilePath, ref _saveFileName, ref _saveFileExtension);
+				rc = gEngine.SplitPath(gEngine.ConfigFileName, ref _saveFilePath, ref _saveFileName, ref _saveFileExtension);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -210,127 +210,127 @@ namespace EamonRT.Game.Commands
 					SaveFileName = SaveFileName.Substring(0, (int)SaveFileNameIndex);
 				}
 
-				Globals.Buf.SetFormat("{0}{1}_{2}{3}", SaveFilePath, SaveFileName, SaveSlotString, SaveFileExtension);
+				gEngine.Buf.SetFormat("{0}{1}_{2}{3}", SaveFilePath, SaveFileName, SaveSlotString, SaveFileExtension);
 
-				SaveFileset.ConfigFileName = Globals.Buf.ToString().Truncate(Constants.FsFileNameLen);
+				SaveFileset.ConfigFileName = gEngine.Buf.ToString().Truncate(gEngine.FsFileNameLen);
 
 				SaveFileset.FilesetFileName = "NONE";
 
-				rc = gEngine.SplitPath(Globals.Config.RtCharacterFileName, ref _saveFilePath, ref _saveFileName, ref _saveFileExtension);
+				rc = gEngine.SplitPath(gEngine.Config.RtCharacterFileName, ref _saveFilePath, ref _saveFileName, ref _saveFileExtension);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
-				Globals.Buf.SetFormat("{0}{1}_{2}{3}", SaveFilePath, SaveFileName, SaveSlotString, SaveFileExtension);
+				gEngine.Buf.SetFormat("{0}{1}_{2}{3}", SaveFilePath, SaveFileName, SaveSlotString, SaveFileExtension);
 
-				SaveFileset.CharacterFileName = Globals.Buf.ToString().Truncate(Constants.FsFileNameLen);
+				SaveFileset.CharacterFileName = gEngine.Buf.ToString().Truncate(gEngine.FsFileNameLen);
 
-				rc = gEngine.SplitPath(Globals.Config.RtModuleFileName, ref _saveFilePath, ref _saveFileName, ref _saveFileExtension);
-
-				Debug.Assert(gEngine.IsSuccess(rc));
-
-				Globals.Buf.SetFormat("{0}{1}_{2}{3}", SaveFilePath, SaveFileName, SaveSlotString, SaveFileExtension);
-
-				SaveFileset.ModuleFileName = Globals.Buf.ToString().Truncate(Constants.FsFileNameLen);
-
-				rc = gEngine.SplitPath(Globals.Config.RtRoomFileName, ref _saveFilePath, ref _saveFileName, ref _saveFileExtension);
+				rc = gEngine.SplitPath(gEngine.Config.RtModuleFileName, ref _saveFilePath, ref _saveFileName, ref _saveFileExtension);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
-				Globals.Buf.SetFormat("{0}{1}_{2}{3}", SaveFilePath, SaveFileName, SaveSlotString, SaveFileExtension);
+				gEngine.Buf.SetFormat("{0}{1}_{2}{3}", SaveFilePath, SaveFileName, SaveSlotString, SaveFileExtension);
 
-				SaveFileset.RoomFileName = Globals.Buf.ToString().Truncate(Constants.FsFileNameLen);
+				SaveFileset.ModuleFileName = gEngine.Buf.ToString().Truncate(gEngine.FsFileNameLen);
 
-				rc = gEngine.SplitPath(Globals.Config.RtArtifactFileName, ref _saveFilePath, ref _saveFileName, ref _saveFileExtension);
-
-				Debug.Assert(gEngine.IsSuccess(rc));
-
-				Globals.Buf.SetFormat("{0}{1}_{2}{3}", SaveFilePath, SaveFileName, SaveSlotString, SaveFileExtension);
-
-				SaveFileset.ArtifactFileName = Globals.Buf.ToString().Truncate(Constants.FsFileNameLen);
-
-				rc = gEngine.SplitPath(Globals.Config.RtEffectFileName, ref _saveFilePath, ref _saveFileName, ref _saveFileExtension);
+				rc = gEngine.SplitPath(gEngine.Config.RtRoomFileName, ref _saveFilePath, ref _saveFileName, ref _saveFileExtension);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
-				Globals.Buf.SetFormat("{0}{1}_{2}{3}", SaveFilePath, SaveFileName, SaveSlotString, SaveFileExtension);
+				gEngine.Buf.SetFormat("{0}{1}_{2}{3}", SaveFilePath, SaveFileName, SaveSlotString, SaveFileExtension);
 
-				SaveFileset.EffectFileName = Globals.Buf.ToString().Truncate(Constants.FsFileNameLen);
+				SaveFileset.RoomFileName = gEngine.Buf.ToString().Truncate(gEngine.FsFileNameLen);
 
-				rc = gEngine.SplitPath(Globals.Config.RtMonsterFileName, ref _saveFilePath, ref _saveFileName, ref _saveFileExtension);
-
-				Debug.Assert(gEngine.IsSuccess(rc));
-
-				Globals.Buf.SetFormat("{0}{1}_{2}{3}", SaveFilePath, SaveFileName, SaveSlotString, SaveFileExtension);
-
-				SaveFileset.MonsterFileName = Globals.Buf.ToString().Truncate(Constants.FsFileNameLen);
-
-				rc = gEngine.SplitPath(Globals.Config.RtHintFileName, ref _saveFilePath, ref _saveFileName, ref _saveFileExtension);
+				rc = gEngine.SplitPath(gEngine.Config.RtArtifactFileName, ref _saveFilePath, ref _saveFileName, ref _saveFileExtension);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
-				Globals.Buf.SetFormat("{0}{1}_{2}{3}", SaveFilePath, SaveFileName, SaveSlotString, SaveFileExtension);
+				gEngine.Buf.SetFormat("{0}{1}_{2}{3}", SaveFilePath, SaveFileName, SaveSlotString, SaveFileExtension);
 
-				SaveFileset.HintFileName = Globals.Buf.ToString().Truncate(Constants.FsFileNameLen);
+				SaveFileset.ArtifactFileName = gEngine.Buf.ToString().Truncate(gEngine.FsFileNameLen);
 
-				rc = gEngine.SplitPath(Globals.Config.RtGameStateFileName, ref _saveFilePath, ref _saveFileName, ref _saveFileExtension);
+				rc = gEngine.SplitPath(gEngine.Config.RtEffectFileName, ref _saveFilePath, ref _saveFileName, ref _saveFileExtension);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
-				Globals.Buf.SetFormat("{0}{1}_{2}{3}", SaveFilePath, SaveFileName, SaveSlotString, SaveFileExtension);
+				gEngine.Buf.SetFormat("{0}{1}_{2}{3}", SaveFilePath, SaveFileName, SaveSlotString, SaveFileExtension);
 
-				SaveFileset.GameStateFileName = Globals.Buf.ToString().Truncate(Constants.FsFileNameLen);
+				SaveFileset.EffectFileName = gEngine.Buf.ToString().Truncate(gEngine.FsFileNameLen);
 
-				SaveConfig.RtFilesetFileName = Globals.CloneInstance(Globals.Config.RtFilesetFileName);
+				rc = gEngine.SplitPath(gEngine.Config.RtMonsterFileName, ref _saveFilePath, ref _saveFileName, ref _saveFileExtension);
 
-				SaveConfig.RtCharacterFileName = Globals.CloneInstance(SaveFileset.CharacterFileName);
+				Debug.Assert(gEngine.IsSuccess(rc));
 
-				SaveConfig.RtModuleFileName = Globals.CloneInstance(SaveFileset.ModuleFileName);
+				gEngine.Buf.SetFormat("{0}{1}_{2}{3}", SaveFilePath, SaveFileName, SaveSlotString, SaveFileExtension);
 
-				SaveConfig.RtRoomFileName = Globals.CloneInstance(SaveFileset.RoomFileName);
+				SaveFileset.MonsterFileName = gEngine.Buf.ToString().Truncate(gEngine.FsFileNameLen);
 
-				SaveConfig.RtArtifactFileName = Globals.CloneInstance(SaveFileset.ArtifactFileName);
+				rc = gEngine.SplitPath(gEngine.Config.RtHintFileName, ref _saveFilePath, ref _saveFileName, ref _saveFileExtension);
 
-				SaveConfig.RtEffectFileName = Globals.CloneInstance(SaveFileset.EffectFileName);
+				Debug.Assert(gEngine.IsSuccess(rc));
 
-				SaveConfig.RtMonsterFileName = Globals.CloneInstance(SaveFileset.MonsterFileName);
+				gEngine.Buf.SetFormat("{0}{1}_{2}{3}", SaveFilePath, SaveFileName, SaveSlotString, SaveFileExtension);
 
-				SaveConfig.RtHintFileName = Globals.CloneInstance(SaveFileset.HintFileName);
+				SaveFileset.HintFileName = gEngine.Buf.ToString().Truncate(gEngine.FsFileNameLen);
 
-				SaveConfig.RtGameStateFileName = Globals.CloneInstance(SaveFileset.GameStateFileName);
+				rc = gEngine.SplitPath(gEngine.Config.RtGameStateFileName, ref _saveFilePath, ref _saveFileName, ref _saveFileExtension);
 
-				Globals.Config.DdFilesetFileName = SaveConfig.RtFilesetFileName;
+				Debug.Assert(gEngine.IsSuccess(rc));
 
-				Globals.Config.DdCharacterFileName = SaveConfig.RtCharacterFileName;
+				gEngine.Buf.SetFormat("{0}{1}_{2}{3}", SaveFilePath, SaveFileName, SaveSlotString, SaveFileExtension);
 
-				Globals.Config.DdModuleFileName = SaveConfig.RtModuleFileName;
+				SaveFileset.GameStateFileName = gEngine.Buf.ToString().Truncate(gEngine.FsFileNameLen);
 
-				Globals.Config.DdRoomFileName = SaveConfig.RtRoomFileName;
+				SaveConfig.RtFilesetFileName = gEngine.CloneInstance(gEngine.Config.RtFilesetFileName);
 
-				Globals.Config.DdArtifactFileName = SaveConfig.RtArtifactFileName;
+				SaveConfig.RtCharacterFileName = gEngine.CloneInstance(SaveFileset.CharacterFileName);
 
-				Globals.Config.DdEffectFileName = SaveConfig.RtEffectFileName;
+				SaveConfig.RtModuleFileName = gEngine.CloneInstance(SaveFileset.ModuleFileName);
 
-				Globals.Config.DdMonsterFileName = SaveConfig.RtMonsterFileName;
+				SaveConfig.RtRoomFileName = gEngine.CloneInstance(SaveFileset.RoomFileName);
 
-				Globals.Config.DdHintFileName = SaveConfig.RtHintFileName;
+				SaveConfig.RtArtifactFileName = gEngine.CloneInstance(SaveFileset.ArtifactFileName);
 
-				Globals.Config.DdEditingFilesets = true;
+				SaveConfig.RtEffectFileName = gEngine.CloneInstance(SaveFileset.EffectFileName);
 
-				Globals.Config.DdEditingCharacters = true;
+				SaveConfig.RtMonsterFileName = gEngine.CloneInstance(SaveFileset.MonsterFileName);
 
-				Globals.Config.DdEditingModules = true;
+				SaveConfig.RtHintFileName = gEngine.CloneInstance(SaveFileset.HintFileName);
 
-				Globals.Config.DdEditingRooms = true;
+				SaveConfig.RtGameStateFileName = gEngine.CloneInstance(SaveFileset.GameStateFileName);
 
-				Globals.Config.DdEditingArtifacts = true;
+				gEngine.Config.DdFilesetFileName = SaveConfig.RtFilesetFileName;
 
-				Globals.Config.DdEditingEffects = true;
+				gEngine.Config.DdCharacterFileName = SaveConfig.RtCharacterFileName;
 
-				Globals.Config.DdEditingMonsters = true;
+				gEngine.Config.DdModuleFileName = SaveConfig.RtModuleFileName;
 
-				Globals.Config.DdEditingHints = true;
+				gEngine.Config.DdRoomFileName = SaveConfig.RtRoomFileName;
 
-				FullArtifactList = Globals.Database.ArtifactTable.Records.ToList();
+				gEngine.Config.DdArtifactFileName = SaveConfig.RtArtifactFileName;
+
+				gEngine.Config.DdEffectFileName = SaveConfig.RtEffectFileName;
+
+				gEngine.Config.DdMonsterFileName = SaveConfig.RtMonsterFileName;
+
+				gEngine.Config.DdHintFileName = SaveConfig.RtHintFileName;
+
+				gEngine.Config.DdEditingFilesets = true;
+
+				gEngine.Config.DdEditingCharacters = true;
+
+				gEngine.Config.DdEditingModules = true;
+
+				gEngine.Config.DdEditingRooms = true;
+
+				gEngine.Config.DdEditingArtifacts = true;
+
+				gEngine.Config.DdEditingEffects = true;
+
+				gEngine.Config.DdEditingMonsters = true;
+
+				gEngine.Config.DdEditingHints = true;
+
+				FullArtifactList = gEngine.Database.ArtifactTable.Records.ToList();
 
 				foreach (var artifact in FullArtifactList)
 				{
@@ -350,7 +350,7 @@ namespace EamonRT.Game.Commands
 
 				if (gEngine.IsFailure(rc))
 				{
-					Globals.Error.WriteLine("Error: SaveGameDatabase function call failed.");
+					gEngine.Error.WriteLine("Error: SaveGameDatabase function call failed.");
 
 					GameSaved = false;
 				}
@@ -367,11 +367,11 @@ namespace EamonRT.Game.Commands
 					}
 				}
 
-				rc = Globals.Database.SaveConfigs(SaveFileset.ConfigFileName, false);
+				rc = gEngine.Database.SaveConfigs(SaveFileset.ConfigFileName, false);
 
 				if (gEngine.IsFailure(rc))
 				{
-					Globals.Error.WriteLine("Error: SaveConfigs function call failed.");
+					gEngine.Error.WriteLine("Error: SaveConfigs function call failed.");
 
 					GameSaved = false;
 				}
@@ -387,7 +387,7 @@ namespace EamonRT.Game.Commands
 
 				if (NextState == null)
 				{
-					NextState = Globals.CreateInstance<IStartState>();
+					NextState = gEngine.CreateInstance<IStartState>();
 				}
 			}
 			finally
@@ -397,9 +397,9 @@ namespace EamonRT.Game.Commands
 					SaveConfig.Dispose();
 				}
 
-				Globals.RevealContentCounter++;
+				gEngine.RevealContentCounter++;
 
-				Globals.MutatePropertyCounter++;
+				gEngine.MutatePropertyCounter++;
 			}
 		}
 

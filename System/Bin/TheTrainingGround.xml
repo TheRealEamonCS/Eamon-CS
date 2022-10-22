@@ -37,13 +37,7 @@
         <member name="P:TheTrainingGround.Framework.IGameState.CharismaBoosted">
             <summary></summary>
         </member>
-        <member name="T:TheTrainingGround.Framework.Plugin.IPluginClassMappings">
-            <summary></summary>
-        </member>
-        <member name="T:TheTrainingGround.Framework.Plugin.IPluginConstants">
-            <summary></summary>
-        </member>
-        <member name="T:TheTrainingGround.Framework.Plugin.IPluginGlobals">
+        <member name="T:TheTrainingGround.Framework.Plugin.IEngine">
             <summary></summary>
         </member>
         <member name="M:TheTrainingGround.Game.Helpers.GameStateHelper.ValidateGenderChangeCounter">

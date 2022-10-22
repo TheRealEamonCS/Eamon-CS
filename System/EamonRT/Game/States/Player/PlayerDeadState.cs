@@ -7,7 +7,7 @@ using System.Diagnostics;
 using Eamon.Game.Attributes;
 using Eamon.Game.Extensions;
 using EamonRT.Framework.States;
-using static EamonRT.Game.Plugin.PluginContext;
+using static EamonRT.Game.Plugin.Globals;
 
 namespace EamonRT.Game.States
 {
@@ -49,7 +49,7 @@ namespace EamonRT.Game.States
 			{
 				if (NextState == null)
 				{
-					NextState = Globals.CreateInstance<IPlayerDeadState>(x =>
+					NextState = gEngine.CreateInstance<IPlayerDeadState>(x =>
 					{
 						x.PrintLineSep = true;
 					});
@@ -70,17 +70,17 @@ namespace EamonRT.Game.States
 
 			if (NextState == null)
 			{
-				NextState = Globals.CreateInstance<IProcessPlayerInputState>();
+				NextState = gEngine.CreateInstance<IProcessPlayerInputState>();
 			}
 
 		Cleanup:
 
 			if (NextState == null)
 			{
-				NextState = Globals.CreateInstance<IStartState>();
+				NextState = gEngine.CreateInstance<IStartState>();
 			}
 
-			Globals.NextState = NextState;
+			gEngine.NextState = NextState;
 		}
 
 		public PlayerDeadState()

@@ -10,7 +10,7 @@ using Eamon.Game.Attributes;
 using Eamon.Game.Menus;
 using EamonDD.Framework.Menus.ActionMenus;
 using EamonDD.Framework.Menus.HierarchicalMenus;
-using static EamonDD.Game.Plugin.PluginContext;
+using static EamonDD.Game.Plugin.Globals;
 
 namespace EamonDD.Game.Menus.HierarchicalMenus
 {
@@ -19,53 +19,53 @@ namespace EamonDD.Game.Menus.HierarchicalMenus
 	{
 		public override void PrintSubtitle()
 		{
-			Globals.DdMenu.PrintArtifactMenuSubtitle();
+			gEngine.DdMenu.PrintArtifactMenuSubtitle();
 		}
 
 		public ArtifactRecordMenu()
 		{
 			Title = "ARTIFACT RECORD MENU";
 
-			Buf = Globals.Buf;
+			Buf = gEngine.Buf;
 
 			MenuItemList = new List<IMenuItem>();
 
-			MenuItemList.Add(Globals.CreateInstance<IMenuItem>(x =>
+			MenuItemList.Add(gEngine.CreateInstance<IMenuItem>(x =>
 			{
 				x.SelectChar = (char)('1' + MenuItemList.Count);
 				x.LineText = string.Format("{0}{1}. Add an Artifact record.", Environment.NewLine, MenuItemList.Count + 1);
-				x.SubMenu = Globals.CreateInstance<IAddArtifactRecordMenu>();
+				x.SubMenu = gEngine.CreateInstance<IAddArtifactRecordMenu>();
 			}));
 
-			MenuItemList.Add(Globals.CreateInstance<IMenuItem>(x =>
+			MenuItemList.Add(gEngine.CreateInstance<IMenuItem>(x =>
 			{
 				x.SelectChar = (char)('1' + MenuItemList.Count);
 				x.LineText = string.Format("{0}{1}. Edit an Artifact record.", Environment.NewLine, MenuItemList.Count + 1);
-				x.SubMenu = Globals.CreateInstance<IEditArtifactRecordMenu>();
+				x.SubMenu = gEngine.CreateInstance<IEditArtifactRecordMenu>();
 			}));
 
-			MenuItemList.Add(Globals.CreateInstance<IMenuItem>(x =>
+			MenuItemList.Add(gEngine.CreateInstance<IMenuItem>(x =>
 			{
 				x.SelectChar = (char)('1' + MenuItemList.Count);
 				x.LineText = string.Format("{0}{1}. Delete an Artifact record.", Environment.NewLine, MenuItemList.Count + 1);
-				x.SubMenu = Globals.CreateInstance<IDeleteArtifactRecordMenu>();
+				x.SubMenu = gEngine.CreateInstance<IDeleteArtifactRecordMenu>();
 			}));
 
-			MenuItemList.Add(Globals.CreateInstance<IMenuItem>(x =>
+			MenuItemList.Add(gEngine.CreateInstance<IMenuItem>(x =>
 			{
 				x.SelectChar = (char)('1' + MenuItemList.Count);
 				x.LineText = string.Format("{0}{1}. List Artifact records.", Environment.NewLine, MenuItemList.Count + 1);
-				x.SubMenu = Globals.CreateInstance<IListArtifactRecordMenu>();
+				x.SubMenu = gEngine.CreateInstance<IListArtifactRecordMenu>();
 			}));
 
-			MenuItemList.Add(Globals.CreateInstance<IMenuItem>(x =>
+			MenuItemList.Add(gEngine.CreateInstance<IMenuItem>(x =>
 			{
 				x.SelectChar = (char)('1' + MenuItemList.Count);
 				x.LineText = string.Format("{0}{1}. Artifact record utilities.", Environment.NewLine, MenuItemList.Count + 1);
-				x.SubMenu = Globals.CreateInstance<IArtifactRecordUtilitiesMenu>();
+				x.SubMenu = gEngine.CreateInstance<IArtifactRecordUtilitiesMenu>();
 			}));
 
-			MenuItemList.Add(Globals.CreateInstance<IMenuItem>(x =>
+			MenuItemList.Add(gEngine.CreateInstance<IMenuItem>(x =>
 			{
 				x.SelectChar = 'X';
 				x.LineText = string.Format("{0}X. Exit.{0}", Environment.NewLine);

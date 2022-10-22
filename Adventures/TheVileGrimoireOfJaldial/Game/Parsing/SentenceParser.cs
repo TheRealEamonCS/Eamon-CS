@@ -7,7 +7,7 @@ using System;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Parsing;
 using TheVileGrimoireOfJaldial.Framework.Commands;
-using static TheVileGrimoireOfJaldial.Game.Plugin.PluginContext;
+using static TheVileGrimoireOfJaldial.Game.Plugin.Globals;
 
 namespace TheVileGrimoireOfJaldial.Game.Parsing
 {

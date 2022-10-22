@@ -5,7 +5,7 @@
 
 using Eamon.Framework;
 using Eamon.Game.Attributes;
-using static TheTempleOfNgurct.Game.Plugin.PluginContext;
+using static TheTempleOfNgurct.Game.Plugin.Globals;
 
 namespace TheTempleOfNgurct.Game
 {

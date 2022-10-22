@@ -7,7 +7,7 @@ using System.Diagnostics;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.States;
-using static AlternateBeginnersCave.Game.Plugin.PluginContext;
+using static AlternateBeginnersCave.Game.Plugin.Globals;
 
 namespace AlternateBeginnersCave.Game.Commands
 {
@@ -35,7 +35,7 @@ namespace AlternateBeginnersCave.Game.Commands
 
 				gEngine.PrintEffectDesc(effectUid);
 
-				NextState = Globals.CreateInstance<IMonsterStartState>();
+				NextState = gEngine.CreateInstance<IMonsterStartState>();
 			}
 			else
 			{

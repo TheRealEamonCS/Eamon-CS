@@ -3,12 +3,10 @@
 
 // Copyright (c) 2014+ by Kenneth Pedersen.  All rights reserved.
 
-using System.Diagnostics;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using EamonRT.Framework;
-using EamonRT.Framework.Commands;
-using static LandOfTheMountainKing.Game.Plugin.PluginContext;
+using static LandOfTheMountainKing.Game.Plugin.Globals;
 
 namespace LandOfTheMountainKing.Game
 {

@@ -15,7 +15,7 @@ using Eamon.Game.Attributes;
 using Eamon.Game.Extensions;
 using Eamon.Game.Menus;
 using EamonDD.Framework.Menus.ActionMenus;
-using static EamonDD.Game.Plugin.PluginContext;
+using static EamonDD.Game.Plugin.Globals;
 
 namespace EamonDD.Game.Menus.ActionMenus
 {
@@ -33,7 +33,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 		{
 			gOut.WriteLine();
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 		}
 
 		public override void Execute()
@@ -48,7 +48,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			var advCharList = new List<AdventuringCharacter>();
 
-			var adventureDirs = Globals.Directory.GetDirectories(Constants.AdventuresDir);
+			var adventureDirs = gEngine.Directory.GetDirectories(gEngine.AdventuresDir);
 
 			var j = (long)adventureDirs.Length;
 
@@ -56,15 +56,15 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			while (i < j)
 			{
-				var chrfn = Globals.Path.Combine(adventureDirs[i], "FRESHMEAT.DAT");
+				var chrfn = gEngine.Path.Combine(adventureDirs[i], "FRESHMEAT.DAT");
 
-				if (Globals.File.Exists(chrfn))
+				if (gEngine.File.Exists(chrfn))
 				{
 					try
 					{
-						var fileName = Globals.Path.GetFullPath(@".\" + Globals.Path.GetFileNameWithoutExtension(adventureDirs[i]) + ".dll");
+						var fileName = gEngine.Path.GetFullPath(@".\" + gEngine.Path.GetFileNameWithoutExtension(adventureDirs[i]) + ".dll");
 
-						if (Globals.File.Exists(fileName))
+						if (gEngine.File.Exists(fileName))
 						{
 							Assembly.LoadFrom(fileName);
 						}
@@ -74,36 +74,36 @@ namespace EamonDD.Game.Menus.ActionMenus
 						// do nothing
 					}
 
-					var modfn = Globals.Path.Combine(adventureDirs[i], "MODULE.DAT");
+					var modfn = gEngine.Path.Combine(adventureDirs[i], "MODULE.DAT");
 
-					rc = Globals.PushDatabase();
-
-					Debug.Assert(gEngine.IsSuccess(rc));
-
-					rc = Globals.Database.LoadCharacters(chrfn, printOutput: false);
+					rc = gEngine.PushDatabase();
 
 					Debug.Assert(gEngine.IsSuccess(rc));
 
-					rc = Globals.Database.LoadModules(modfn, printOutput: false);
+					rc = gEngine.Database.LoadCharacters(chrfn, printOutput: false);
 
 					Debug.Assert(gEngine.IsSuccess(rc));
 
-					var character = Globals.Database.CharacterTable.Records.FirstOrDefault();
+					rc = gEngine.Database.LoadModules(modfn, printOutput: false);
+
+					Debug.Assert(gEngine.IsSuccess(rc));
+
+					var character = gEngine.Database.CharacterTable.Records.FirstOrDefault();
 
 					Debug.Assert(character != null);
 
-					var module = Globals.Database.ModuleTable.Records.FirstOrDefault();
+					var module = gEngine.Database.ModuleTable.Records.FirstOrDefault();
 
 					Debug.Assert(module != null);
 
 					advCharList.Add(new AdventuringCharacter()
 					{
-						Character = Globals.CloneInstance(character),
+						Character = gEngine.CloneInstance(character),
 
-						Module = Globals.CloneInstance(module)
+						Module = gEngine.CloneInstance(module)
 					});
 
-					rc = Globals.PopDatabase();
+					rc = gEngine.PopDatabase();
 
 					Debug.Assert(gEngine.IsSuccess(rc));
 				}
@@ -111,7 +111,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 				i++;
 			}
 
-			var characterTable = Globals.Database.CharacterTable;
+			var characterTable = gEngine.Database.CharacterTable;
 
 			j = characterTable.GetRecordCount();
 
@@ -125,9 +125,9 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 					Buf.SetFormat("{0,3}. {1}: {2} ({3})", character.Uid, gEngine.Capitalize(character.Name), character.Status, advChar != null ? gEngine.Capitalize(advChar.Module.Name) : "???");
 
-					if (Buf.Length > Constants.RightMargin)
+					if (Buf.Length > gEngine.RightMargin)
 					{
-						Buf.Length = (int)(Constants.RightMargin - 4);
+						Buf.Length = (int)(gEngine.RightMargin - 4);
 
 						Buf.Append("...)");
 					}
@@ -141,7 +141,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 				nlFlag = true;
 
-				if ((i != 0 && (i % (Constants.NumRows - 8)) == 0) || i == j - 1)
+				if ((i != 0 && (i % (gEngine.NumRows - 8)) == 0) || i == j - 1)
 				{
 					nlFlag = false;
 
@@ -151,11 +151,11 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 					Buf.Clear();
 
-					rc = Globals.In.ReadField(Buf, Constants.BufSize02, null, ' ', '\0', true, null, gEngine.ModifyCharToNullOrX, null, gEngine.IsCharAny);
+					rc = gEngine.In.ReadField(Buf, gEngine.BufSize02, null, ' ', '\0', true, null, gEngine.ModifyCharToNullOrX, null, gEngine.IsCharAny);
 
 					Debug.Assert(gEngine.IsSuccess(rc));
 
-					gOut.Print("{0}", Globals.LineSep);
+					gOut.Print("{0}", gEngine.LineSep);
 
 					if (Buf.Length > 0 && Buf[0] == 'X')
 					{
@@ -176,7 +176,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 		public ShowCharacterStatusSummaryMenu()
 		{
-			Buf = Globals.Buf;
+			Buf = gEngine.Buf;
 		}
 	}
 }

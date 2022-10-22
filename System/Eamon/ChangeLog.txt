@@ -5,7 +5,8 @@ ChangeLog: Eamon
 
 Date            Version            Who            Notes
 ----------------------------------------------------------------------------------------------------------------------------------
-20220131        2.1.0              MP             Helper FieldNameList overhaul
+20221031        2.1.0              MP             Plugin Class Unification overhaul
+20220131                           MP             Helper FieldNameList overhaul
 20210331                           MP             GZip datafile overhaul
 20210231        1.7.0              MP             Monster State/Monster spellcasting overhaul
 20201031                           MP             Direction overhaul

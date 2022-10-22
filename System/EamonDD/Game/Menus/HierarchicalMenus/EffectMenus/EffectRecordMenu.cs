@@ -10,7 +10,7 @@ using Eamon.Game.Attributes;
 using Eamon.Game.Menus;
 using EamonDD.Framework.Menus.ActionMenus;
 using EamonDD.Framework.Menus.HierarchicalMenus;
-using static EamonDD.Game.Plugin.PluginContext;
+using static EamonDD.Game.Plugin.Globals;
 
 namespace EamonDD.Game.Menus.HierarchicalMenus
 {
@@ -19,53 +19,53 @@ namespace EamonDD.Game.Menus.HierarchicalMenus
 	{
 		public override void PrintSubtitle()
 		{
-			Globals.DdMenu.PrintEffectMenuSubtitle();
+			gEngine.DdMenu.PrintEffectMenuSubtitle();
 		}
 
 		public EffectRecordMenu()
 		{
 			Title = "EFFECT RECORD MENU";
 
-			Buf = Globals.Buf;
+			Buf = gEngine.Buf;
 
 			MenuItemList = new List<IMenuItem>();
 
-			MenuItemList.Add(Globals.CreateInstance<IMenuItem>(x =>
+			MenuItemList.Add(gEngine.CreateInstance<IMenuItem>(x =>
 			{
 				x.SelectChar = (char)('1' + MenuItemList.Count);
 				x.LineText = string.Format("{0}{1}. Add an Effect record.", Environment.NewLine, MenuItemList.Count + 1);
-				x.SubMenu = Globals.CreateInstance<IAddEffectRecordMenu>();
+				x.SubMenu = gEngine.CreateInstance<IAddEffectRecordMenu>();
 			}));
 
-			MenuItemList.Add(Globals.CreateInstance<IMenuItem>(x =>
+			MenuItemList.Add(gEngine.CreateInstance<IMenuItem>(x =>
 			{
 				x.SelectChar = (char)('1' + MenuItemList.Count);
 				x.LineText = string.Format("{0}{1}. Edit an Effect record.", Environment.NewLine, MenuItemList.Count + 1);
-				x.SubMenu = Globals.CreateInstance<IEditEffectRecordMenu>();
+				x.SubMenu = gEngine.CreateInstance<IEditEffectRecordMenu>();
 			}));
 
-			MenuItemList.Add(Globals.CreateInstance<IMenuItem>(x =>
+			MenuItemList.Add(gEngine.CreateInstance<IMenuItem>(x =>
 			{
 				x.SelectChar = (char)('1' + MenuItemList.Count);
 				x.LineText = string.Format("{0}{1}. Delete an Effect record.", Environment.NewLine, MenuItemList.Count + 1);
-				x.SubMenu = Globals.CreateInstance<IDeleteEffectRecordMenu>();
+				x.SubMenu = gEngine.CreateInstance<IDeleteEffectRecordMenu>();
 			}));
 
-			MenuItemList.Add(Globals.CreateInstance<IMenuItem>(x =>
+			MenuItemList.Add(gEngine.CreateInstance<IMenuItem>(x =>
 			{
 				x.SelectChar = (char)('1' + MenuItemList.Count);
 				x.LineText = string.Format("{0}{1}. List Effect records.", Environment.NewLine, MenuItemList.Count + 1);
-				x.SubMenu = Globals.CreateInstance<IListEffectRecordMenu>();
+				x.SubMenu = gEngine.CreateInstance<IListEffectRecordMenu>();
 			}));
 
-			MenuItemList.Add(Globals.CreateInstance<IMenuItem>(x =>
+			MenuItemList.Add(gEngine.CreateInstance<IMenuItem>(x =>
 			{
 				x.SelectChar = (char)('1' + MenuItemList.Count);
 				x.LineText = string.Format("{0}{1}. Effect record utilities.", Environment.NewLine, MenuItemList.Count + 1);
-				x.SubMenu = Globals.CreateInstance<IEffectRecordUtilitiesMenu>();
+				x.SubMenu = gEngine.CreateInstance<IEffectRecordUtilitiesMenu>();
 			}));
 
-			MenuItemList.Add(Globals.CreateInstance<IMenuItem>(x =>
+			MenuItemList.Add(gEngine.CreateInstance<IMenuItem>(x =>
 			{
 				x.SelectChar = 'X';
 				x.LineText = string.Format("{0}X. Exit.{0}", Environment.NewLine);

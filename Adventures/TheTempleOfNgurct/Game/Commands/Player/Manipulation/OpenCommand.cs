@@ -10,7 +10,7 @@ using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
-using static TheTempleOfNgurct.Game.Plugin.PluginContext;
+using static TheTempleOfNgurct.Game.Plugin.Globals;
 
 namespace TheTempleOfNgurct.Game.Commands
 {
@@ -116,7 +116,7 @@ namespace TheTempleOfNgurct.Game.Commands
 
 				gGameState.CobraAppeared = true;
 
-				NextState = Globals.CreateInstance<IStartState>();
+				NextState = gEngine.CreateInstance<IStartState>();
 
 				GotoCleanup = true;
 			}

@@ -8,7 +8,7 @@ using Eamon.Game.Extensions;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
 using EamonRT.Game.Exceptions;
-using static EamonRT.Game.Plugin.PluginContext;
+using static EamonRT.Game.Plugin.Globals;
 
 namespace EamonRT.Game.States
 {
@@ -31,7 +31,7 @@ namespace EamonRT.Game.States
 					goto Cleanup;
 				}
 
-				Globals.ShouldPreTurnProcess = true;
+				gEngine.ShouldPreTurnProcess = true;
 
 				// If we've run out of player input get more player input
 
@@ -39,24 +39,24 @@ namespace EamonRT.Game.States
 				{
 					PrintCommandPrompt();
 
-					Globals.CommandPromptSeen = true;
+					gEngine.CommandPromptSeen = true;
 
-					Globals.PlayerMoved = false;
+					gEngine.PlayerMoved = false;
 
-					Globals.CursorPosition = gOut.GetCursorPosition();
+					gEngine.CursorPosition = gOut.GetCursorPosition();
 
-					if (Globals.CursorPosition.Y > -1 && Globals.CursorPosition.Y + 1 >= gOut.GetBufferHeight())
+					if (gEngine.CursorPosition.Y > -1 && gEngine.CursorPosition.Y + 1 >= gOut.GetBufferHeight())
 					{
-						Globals.CursorPosition.Y--;
+						gEngine.CursorPosition.Y--;
 					}
 
 					gOut.WriteLine();
 
-					gOut.SetCursorPosition(Globals.CursorPosition);
+					gOut.SetCursorPosition(gEngine.CursorPosition);
 
 					gSentenceParser.Clear();
 
-					gSentenceParser.InputBuf.SetFormat("{0}", Globals.In.ReadLine());
+					gSentenceParser.InputBuf.SetFormat("{0}", gEngine.In.ReadLine());
 
 					gSentenceParser.Execute();
 				}
@@ -74,7 +74,7 @@ namespace EamonRT.Game.States
 			{
 				ParsingSuccessful = false;
 
-				NextState = Globals.CreateInstance<IStartState>();
+				NextState = gEngine.CreateInstance<IStartState>();
 			}
 
 			if (gSentenceParser.IsInputExhausted)
@@ -102,10 +102,10 @@ namespace EamonRT.Game.States
 
 			if (NextState == null)
 			{
-				NextState = Globals.CreateInstance<IProcessPlayerInputState>();
+				NextState = gEngine.CreateInstance<IProcessPlayerInputState>();
 			}
 
-			Globals.NextState = NextState;
+			gEngine.NextState = NextState;
 		}
 
 		public GetPlayerInputState()

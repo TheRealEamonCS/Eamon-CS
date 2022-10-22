@@ -10,7 +10,7 @@ using System.Reflection;
 using System.Text;
 using Eamon.Framework;
 using Eamon.Game.Attributes;
-using static Eamon.Game.Plugin.PluginContext;
+using static Eamon.Game.Plugin.Globals;
 
 namespace Eamon.Game
 {
@@ -74,7 +74,7 @@ namespace Eamon.Game
 
 			if (IsUidRecycled && Uid > 0)
 			{
-				Globals.Database.FreeFilesetUid(Uid);
+				gEngine.Database.FreeFilesetUid(Uid);
 
 				Uid = 0;
 			}
@@ -101,7 +101,7 @@ namespace Eamon.Game
 
 			rc = RetCode.Success;
 
-			buf = new StringBuilder(Constants.BufSize);
+			buf = new StringBuilder(gEngine.BufSize);
 
 			var propInfos = new List<PropertyInfo>();
 
@@ -124,7 +124,7 @@ namespace Eamon.Game
 				{
 					if (!string.IsNullOrWhiteSpace(WorkDir) && !WorkDir.Equals("NONE", StringComparison.OrdinalIgnoreCase))
 					{
-						buf.Append(Globals.Path.Combine(WorkDir, fileName));
+						buf.Append(gEngine.Path.Combine(WorkDir, fileName));
 					}
 					else
 					{
@@ -133,7 +133,7 @@ namespace Eamon.Game
 
 					try
 					{
-						Globals.File.Delete(buf.ToString());
+						gEngine.File.Delete(buf.ToString());
 					}
 					catch (Exception ex)
 					{

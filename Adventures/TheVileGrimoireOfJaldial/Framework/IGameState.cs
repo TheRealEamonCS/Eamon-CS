@@ -5,7 +5,7 @@
 
 using System.Collections.Generic;
 using TheVileGrimoireOfJaldial.Framework.Primitive.Enums;
-using static TheVileGrimoireOfJaldial.Game.Plugin.PluginContext;
+using static TheVileGrimoireOfJaldial.Game.Plugin.Globals;
 
 namespace TheVileGrimoireOfJaldial.Framework
 {

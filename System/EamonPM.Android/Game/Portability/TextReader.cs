@@ -11,7 +11,7 @@ using Eamon;
 using Eamon.Framework.Portability;
 using Eamon.Game.Extensions;
 using Eamon.Mobile;
-using static Eamon.Game.Plugin.PluginContext;
+using static Eamon.Game.Plugin.Globals;
 
 namespace EamonPM.Game.Portability
 {
@@ -108,24 +108,24 @@ namespace EamonPM.Game.Portability
 				App.PluginLauncherPage.SetInputTextNoEvents("");
 			});
 
-			if (Globals != null && Globals.Engine != null)
+			if (gEngine != null)
 			{
-				Globals.Engine.LineWrap(buf.ToString(), Buf01, startColumn);
+				gEngine.LineWrap(buf.ToString(), Buf01, startColumn);
 			}
 			else
 			{
 				Buf01.SetFormat("{0}", buf.ToString());
 			}
 
-			if (ClassMappings != null)
+			if (gEngine != null)
 			{
-				if (ClassMappings.Out != null)
+				if (gEngine.Out != null)
 				{
-					ClassMappings.Out.WriteLine("{0}", Buf01);
+					gEngine.Out.WriteLine("{0}", Buf01);
 				}
-				else if (ClassMappings.Error != null)
+				else if (gEngine.Error != null)
 				{
-					ClassMappings.Error.WriteLine("{0}", Buf01);
+					gEngine.Error.WriteLine("{0}", Buf01);
 				}
 			}
 
@@ -148,27 +148,27 @@ namespace EamonPM.Game.Portability
 		{
 			if (EnableInput)
 			{
-				var cursorPosition = ClassMappings.Out.GetCursorPosition();
+				var cursorPosition = gEngine.Out.GetCursorPosition();
 
-				var bufSize = (Constants.WindowWidth * 2);
+				var bufSize = (gEngine.WindowWidth * 2);
 
 				var buf = new StringBuilder(bufSize);
 
 				ReadLineMode = true;
 
-				ClassMappings.Out.WordWrap = false;
+				gEngine.Out.WordWrap = false;
 
-				var suppressNewLines = ClassMappings.Out.SuppressNewLines;
+				var suppressNewLines = gEngine.Out.SuppressNewLines;
 
-				ClassMappings.Out.SuppressNewLines = false;
+				gEngine.Out.SuppressNewLines = false;
 
 				var rc = ReadField(buf, bufSize, null, ' ', '\0', true, null, null, null, null);
 
-				Debug.Assert(Globals.Engine.IsSuccess(rc));
+				Debug.Assert(gEngine.IsSuccess(rc));
 
-				ClassMappings.Out.WordWrap = true;
+				gEngine.Out.WordWrap = true;
 
-				ClassMappings.Out.SuppressNewLines = suppressNewLines;
+				gEngine.Out.SuppressNewLines = suppressNewLines;
 
 				ReadLineMode = false;
 
@@ -186,9 +186,9 @@ namespace EamonPM.Game.Portability
 
 			if (EnableInput)
 			{
-				var buf = new StringBuilder(Constants.BufSize);
+				var buf = new StringBuilder(gEngine.BufSize);
 
-				ReadField(buf, Constants.BufSize02, null, ' ', '\0', true, null, null, null, (ch01) => true);
+				ReadField(buf, gEngine.BufSize02, null, ' ', '\0', true, null, null, null, (ch01) => true);
 
 				ch = buf.Length > 0 ? buf[0] : '\0';
 			}
@@ -204,21 +204,21 @@ namespace EamonPM.Game.Portability
 		{
 			Debug.Assert(buf != null);
 
-			Debug.Assert(Globals.Engine != null);
+			Debug.Assert(gEngine != null);
 
 			if (EnableInput)
 			{
-				ClassMappings.Out.WriteLine("{0}{1}", initialNewLine ? Environment.NewLine : "", Globals.LineSep);
+				gEngine.Out.WriteLine("{0}{1}", initialNewLine ? Environment.NewLine : "", gEngine.LineSep);
 
-				ClassMappings.Out.Write("{0}Press any key to continue: ", Environment.NewLine);
+				gEngine.Out.Write("{0}Press any key to continue: ", Environment.NewLine);
 
 				buf.Clear();
 
-				var rc = ReadField(buf, Constants.BufSize02, null, ' ', '\0', true, null, Globals.Engine.ModifyCharToNull, null, Globals.Engine.IsCharAny);
+				var rc = ReadField(buf, gEngine.BufSize02, null, ' ', '\0', true, null, gEngine.ModifyCharToNull, null, gEngine.IsCharAny);
 
-				Debug.Assert(Globals.Engine.IsSuccess(rc));
+				Debug.Assert(gEngine.IsSuccess(rc));
 
-				ClassMappings.Thread.Sleep(150);
+				gEngine.Thread.Sleep(150);
 			}
 		}
 
@@ -226,7 +226,7 @@ namespace EamonPM.Game.Portability
 		{
 			EnableInput = true;
 
-			Buf01 = new StringBuilder(Constants.BufSize);
+			Buf01 = new StringBuilder(gEngine.BufSize);
 		}
 	}
 }

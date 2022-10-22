@@ -7,7 +7,7 @@ using Eamon.Framework;
 using Eamon.Framework.Helpers;
 using Eamon.Game.Attributes;
 using EamonDD.Framework.Menus.ActionMenus;
-using static EamonDD.Game.Plugin.PluginContext;
+using static EamonDD.Game.Plugin.Globals;
 
 namespace EamonDD.Game.Menus.ActionMenus
 {
@@ -18,7 +18,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 		{
 			Title = "LIST HINT RECORD NAMES";
 
-			RecordTable = Globals.Database.HintTable;
+			RecordTable = gEngine.Database.HintTable;
 
 			RecordTypeName = "Hint";
 		}

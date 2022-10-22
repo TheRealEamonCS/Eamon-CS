@@ -9,7 +9,7 @@ using Eamon.Game.Attributes;
 using EamonRT.Framework.Components;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
-using static TheTempleOfNgurct.Game.Plugin.PluginContext;
+using static TheTempleOfNgurct.Game.Plugin.Globals;
 
 namespace TheTempleOfNgurct.Game.Components
 {
@@ -60,7 +60,7 @@ namespace TheTempleOfNgurct.Game.Components
 
 					gGameState.Die = 1;
 
-					SetNextStateFunc(Globals.CreateInstance<IPlayerDeadState>(x =>
+					SetNextStateFunc(gEngine.CreateInstance<IPlayerDeadState>(x =>
 					{
 						x.PrintLineSep = true;
 					}));
@@ -76,7 +76,7 @@ namespace TheTempleOfNgurct.Game.Components
 				{
 					gOut.Print("{0} falls into the crack!", m.GetTheName(true));
 
-					var combatComponent = Globals.CreateInstance<ICombatComponent>(x =>
+					var combatComponent = gEngine.CreateInstance<ICombatComponent>(x =>
 					{
 						x.SetNextStateFunc = SetNextStateFunc;
 
@@ -105,7 +105,7 @@ namespace TheTempleOfNgurct.Game.Components
 
 				gGameState.R2 = room;
 
-				SetNextStateFunc(Globals.CreateInstance<IAfterPlayerMoveState>(x =>
+				SetNextStateFunc(gEngine.CreateInstance<IAfterPlayerMoveState>(x =>
 				{
 					x.MoveMonsters = false;
 				}));
@@ -125,7 +125,7 @@ namespace TheTempleOfNgurct.Game.Components
 
 				heroMonster.SetInRoom(ActorRoom);
 
-				SetNextStateFunc(Globals.CreateInstance<IStartState>());
+				SetNextStateFunc(gEngine.CreateInstance<IStartState>());
 
 				goto Cleanup;
 			}
@@ -149,7 +149,7 @@ namespace TheTempleOfNgurct.Game.Components
 
 				gEngine.GetWanderingMonster();
 
-				SetNextStateFunc(Globals.CreateInstance<IStartState>());
+				SetNextStateFunc(gEngine.CreateInstance<IStartState>());
 
 				goto Cleanup;
 			}
@@ -164,7 +164,7 @@ namespace TheTempleOfNgurct.Game.Components
 
 				gGameState.R2 = gGameState.Ro;
 
-				SetNextStateFunc(Globals.CreateInstance<IAfterPlayerMoveState>(x =>
+				SetNextStateFunc(gEngine.CreateInstance<IAfterPlayerMoveState>(x =>
 				{
 					x.MoveMonsters = false;
 				}));

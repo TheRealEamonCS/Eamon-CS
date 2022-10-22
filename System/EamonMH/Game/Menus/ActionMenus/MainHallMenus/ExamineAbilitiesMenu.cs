@@ -12,7 +12,7 @@ using Eamon.Game.Extensions;
 using Eamon.Game.Menus;
 using Eamon.Game.Utilities;
 using EamonMH.Framework.Menus.ActionMenus;
-using static EamonMH.Game.Plugin.PluginContext;
+using static EamonMH.Game.Plugin.Globals;
 
 namespace EamonMH.Game.Menus.ActionMenus
 {
@@ -23,7 +23,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 		{
 			RetCode rc;
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 
 			gOut.Print("You are the {0} {1}", gCharacter.EvalGender("mighty", "fair", "androgynous"), gCharacter.Name);
 
@@ -168,12 +168,12 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 			gOut.WriteLine();
 
-			Globals.In.KeyPress(Buf);
+			gEngine.In.KeyPress(Buf);
 		}
 
 		public ExamineAbilitiesMenu()
 		{
-			Buf = Globals.Buf;
+			Buf = gEngine.Buf;
 		}
 	}
 }

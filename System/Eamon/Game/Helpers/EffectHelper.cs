@@ -11,7 +11,7 @@ using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using Eamon.Game.Extensions;
 using Eamon.Game.Helpers.Generic;
-using static Eamon.Game.Plugin.PluginContext;
+using static Eamon.Game.Plugin.Globals;
 
 namespace Eamon.Game.Helpers
 {
@@ -71,7 +71,7 @@ namespace Eamon.Game.Helpers
 		/// <returns></returns>
 		public virtual bool ValidateDesc()
 		{
-			return string.IsNullOrWhiteSpace(Record.Desc) == false && Record.Desc.Length <= Constants.EffDescLen;
+			return string.IsNullOrWhiteSpace(Record.Desc) == false && Record.Desc.Length <= gEngine.EffDescLen;
 		}
 
 		#endregion
@@ -94,7 +94,7 @@ namespace Eamon.Game.Helpers
 			{
 				result = false;
 
-				Buf.SetFormat(Constants.RecIdepErrorFmtStr, GetPrintedName("Desc"), "Effect", invalidUid, "which doesn't exist");
+				Buf.SetFormat(gEngine.RecIdepErrorFmtStr, GetPrintedName("Desc"), "Effect", invalidUid, "which doesn't exist");
 
 				ErrorMessage = Buf.ToString();
 
@@ -167,7 +167,7 @@ namespace Eamon.Game.Helpers
 		{
 			gOut.Print("{0}{1}", gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("Uid"), null), Record.Uid);
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 		}
 
 		/// <summary></summary>
@@ -187,7 +187,7 @@ namespace Eamon.Game.Helpers
 
 				gOut.WordWrap = false;
 
-				var rc = Globals.In.ReadField(Buf, Constants.EffDescLen, null, '_', '\0', false, null, null, null, null);
+				var rc = gEngine.In.ReadField(Buf, gEngine.EffDescLen, null, '_', '\0', false, null, null, null, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -203,7 +203,7 @@ namespace Eamon.Game.Helpers
 				fieldDesc = FieldDesc.Brief;
 			}
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 		}
 
 		#endregion
@@ -222,7 +222,7 @@ namespace Eamon.Game.Helpers
 		{
 			if (Record.Uid <= 0)
 			{
-				Record.Uid = Globals.Database.GetEffectUid();
+				Record.Uid = gEngine.Database.GetEffectUid();
 
 				Record.IsUidRecycled = true;
 			}

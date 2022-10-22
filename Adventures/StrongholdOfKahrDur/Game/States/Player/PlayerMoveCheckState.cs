@@ -10,7 +10,7 @@ using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
-using static StrongholdOfKahrDur.Game.Plugin.PluginContext;
+using static StrongholdOfKahrDur.Game.Plugin.Globals;
 
 namespace StrongholdOfKahrDur.Game.States
 {
@@ -64,19 +64,19 @@ namespace StrongholdOfKahrDur.Game.States
 					{
 						gOut.Write("{0}It looks dangerous, try to climb down anyway (Y/N): ", Environment.NewLine);
 
-						Globals.Buf.Clear();
+						gEngine.Buf.Clear();
 
-						rc = Globals.In.ReadField(Globals.Buf, Constants.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, null);
+						rc = gEngine.In.ReadField(gEngine.Buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, null);
 
 						Debug.Assert(gEngine.IsSuccess(rc));
 
-						if (Globals.Buf.Length > 0 && Globals.Buf[0] == 'Y')
+						if (gEngine.Buf.Length > 0 && gEngine.Buf[0] == 'Y')
 						{
 							gEngine.PrintEffectDesc(46);
 
 							gGameState.Die = 1;
 
-							NextState = Globals.CreateInstance<IPlayerDeadState>(x =>
+							NextState = gEngine.CreateInstance<IPlayerDeadState>(x =>
 							{
 								x.PrintLineSep = true;
 							});
@@ -111,7 +111,7 @@ namespace StrongholdOfKahrDur.Game.States
 			}
 			else if (eventType == EventType.AfterBlockingArtifactCheck)
 			{
-				if (gGameState.R2 == Constants.DirectionExit)
+				if (gGameState.R2 == gEngine.DirectionExit)
 				{
 					// Successful adventure means the necromancer (22) is dead and Lady Mirabelle (26) is alive and exiting with player
 
@@ -148,21 +148,21 @@ namespace StrongholdOfKahrDur.Game.States
 
 					gOut.Write("{0}Leave this adventure (Y/N): ", Environment.NewLine);
 
-					Globals.Buf.Clear();
+					gEngine.Buf.Clear();
 
-					rc = Globals.In.ReadField(Globals.Buf, Constants.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, null);
+					rc = gEngine.In.ReadField(gEngine.Buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, null);
 
 					Debug.Assert(gEngine.IsSuccess(rc));
 
-					if (Globals.Buf.Length > 0 && Globals.Buf[0] == 'Y')
+					if (gEngine.Buf.Length > 0 && gEngine.Buf[0] == 'Y')
 					{
 						PrintRideOffIntoSunset();
 
 						gGameState.Die = 0;
 
-						Globals.ExitType = ExitType.FinishAdventure;
+						gEngine.ExitType = ExitType.FinishAdventure;
 
-						Globals.MainLoop.ShouldShutdown = true;
+						gEngine.MainLoop.ShouldShutdown = true;
 					}
 
 					GotoCleanup = true;

@@ -10,7 +10,7 @@ using Eamon.Game.Attributes;
 using Eamon.Game.Menus;
 using EamonMH.Framework.Menus.ActionMenus;
 using EamonMH.Framework.Menus.HierarchicalMenus;
-using static EamonMH.Game.Plugin.PluginContext;
+using static EamonMH.Game.Plugin.Globals;
 
 namespace EamonMH.Game.Menus.HierarchicalMenus
 {
@@ -19,60 +19,60 @@ namespace EamonMH.Game.Menus.HierarchicalMenus
 	{
 		public override void PrintSubtitle()
 		{
-			Globals.MhMenu.PrintVillageMenuSubtitle();
+			gEngine.MhMenu.PrintVillageMenuSubtitle();
 		}
 
 		public VillageMenu()
 		{
 			Title = "VILLAGE";
 
-			Buf = Globals.Buf;
+			Buf = gEngine.Buf;
 
 			MenuItemList = new List<IMenuItem>();
 
-			MenuItemList.Add(Globals.CreateInstance<IMenuItem>(x =>
+			MenuItemList.Add(gEngine.CreateInstance<IMenuItem>(x =>
 			{
 				x.SelectChar = (char)('1' + MenuItemList.Count);
 				x.LineText = string.Format("{0}{1}. Try your luck at the Casino Schmitt.", Environment.NewLine, MenuItemList.Count + 1);
-				x.SubMenu = Globals.CreateInstance<ICasinoSchmittMenu>();
+				x.SubMenu = gEngine.CreateInstance<ICasinoSchmittMenu>();
 			}));
 
-			MenuItemList.Add(Globals.CreateInstance<IMenuItem>(x =>
+			MenuItemList.Add(gEngine.CreateInstance<IMenuItem>(x =>
 			{
 				x.SelectChar = (char)('1' + MenuItemList.Count);
 				x.LineText = string.Format("{0}{1}. Visit the Good Witch's Emporium.", Environment.NewLine, MenuItemList.Count + 1);
-				x.SubMenu = Globals.CreateInstance<IGoodWitchMenu>();
+				x.SubMenu = gEngine.CreateInstance<IGoodWitchMenu>();
 			}));
 
-			MenuItemList.Add(Globals.CreateInstance<IMenuItem>(x =>
+			MenuItemList.Add(gEngine.CreateInstance<IMenuItem>(x =>
 			{
 				x.SelectChar = (char)('1' + MenuItemList.Count);
 				x.LineText = string.Format("{0}{1}. Browse exotic weapons at Grendel's Smithy.", Environment.NewLine, MenuItemList.Count + 1);
-				x.SubMenu = Globals.CreateInstance<IGrendelSmithyMenu>();
+				x.SubMenu = gEngine.CreateInstance<IGrendelSmithyMenu>();
 			}));
 
-			MenuItemList.Add(Globals.CreateInstance<IMenuItem>(x =>
+			MenuItemList.Add(gEngine.CreateInstance<IMenuItem>(x =>
 			{
 				x.SelectChar = (char)('1' + MenuItemList.Count);
 				x.LineText = string.Format("{0}{1}. Check out the statue in the Village Square.", Environment.NewLine, MenuItemList.Count + 1);
-				x.SubMenu = Globals.CreateInstance<IVillageSquareMenu>();
+				x.SubMenu = gEngine.CreateInstance<IVillageSquareMenu>();
 			}));
 
-			MenuItemList.Add(Globals.CreateInstance<IMenuItem>(x =>
+			MenuItemList.Add(gEngine.CreateInstance<IMenuItem>(x =>
 			{
 				x.SelectChar = (char)('1' + MenuItemList.Count);
 				x.LineText = string.Format("{0}{1}. Examine your abilities.", Environment.NewLine, MenuItemList.Count + 1);
-				x.SubMenu = Globals.CreateInstance<IExamineAbilitiesMenu>();
+				x.SubMenu = gEngine.CreateInstance<IExamineAbilitiesMenu>();
 			}));
 
-			MenuItemList.Add(Globals.CreateInstance<IMenuItem>(x =>
+			MenuItemList.Add(gEngine.CreateInstance<IMenuItem>(x =>
 			{
 				x.SelectChar = (char)('1' + MenuItemList.Count);
 				x.LineText = string.Format("{0}{1}. Wander south into the Practice Area.", Environment.NewLine, MenuItemList.Count + 1);
-				x.SubMenu = Globals.CreateInstance<IPracticeAreaMenu>();
+				x.SubMenu = gEngine.CreateInstance<IPracticeAreaMenu>();
 			}));
 
-			MenuItemList.Add(Globals.CreateInstance<IMenuItem>(x =>
+			MenuItemList.Add(gEngine.CreateInstance<IMenuItem>(x =>
 			{
 				x.SelectChar = 'X';
 				x.LineText = string.Format("{0}X. Head north into the Main Hall.{0}", Environment.NewLine);

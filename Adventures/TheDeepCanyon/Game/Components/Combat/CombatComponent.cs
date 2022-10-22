@@ -11,7 +11,7 @@ using EamonRT.Framework.Commands;
 using EamonRT.Framework.Components;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
-using static TheDeepCanyon.Game.Plugin.PluginContext;
+using static TheDeepCanyon.Game.Plugin.Globals;
 
 namespace TheDeepCanyon.Game.Components
 {
@@ -221,19 +221,19 @@ namespace TheDeepCanyon.Game.Components
 
 					if (ringArtifact.IsCarriedByCharacter() || ringArtifact.IsWornByCharacter())
 					{
-						gOut.Print("{0}", Globals.LineSep);
+						gOut.Print("{0}", gEngine.LineSep);
 
 						gOut.Write("{0}Press any key to continue: ", Environment.NewLine);
 
-						Globals.Buf.Clear();
+						gEngine.Buf.Clear();
 
-						var rc = Globals.In.ReadField(Globals.Buf, Constants.BufSize02, null, ' ', '\0', true, null, gEngine.ModifyCharToNull, null, gEngine.IsCharAny);
+						var rc = gEngine.In.ReadField(gEngine.Buf, gEngine.BufSize02, null, ' ', '\0', true, null, gEngine.ModifyCharToNull, null, gEngine.IsCharAny);
 
 						Debug.Assert(gEngine.IsSuccess(rc));
 
-						Globals.Thread.Sleep(150);
+						gEngine.Thread.Sleep(150);
 
-						gOut.Print("{0}", Globals.LineSep);
+						gOut.Print("{0}", gEngine.LineSep);
 
 						gEngine.ClearActionLists();
 
@@ -255,7 +255,7 @@ namespace TheDeepCanyon.Game.Components
 						{
 							gOut.EnableOutput = false;
 
-							var dropCommand = Globals.CreateInstance<IDropCommand>(x =>
+							var dropCommand = gEngine.CreateInstance<IDropCommand>(x =>
 							{
 								x.ActorMonster = DobjMonster;
 
@@ -285,7 +285,7 @@ namespace TheDeepCanyon.Game.Components
 
 						if (SetNextStateFunc != null)
 						{
-							SetNextStateFunc(Globals.CreateInstance<IAfterPlayerMoveState>(x =>
+							SetNextStateFunc(gEngine.CreateInstance<IAfterPlayerMoveState>(x =>
 							{
 								x.MoveMonsters = false;
 							}));
@@ -297,7 +297,7 @@ namespace TheDeepCanyon.Game.Components
 
 						if (SetNextStateFunc != null)
 						{
-							SetNextStateFunc(Globals.CreateInstance<IPlayerDeadState>(x =>
+							SetNextStateFunc(gEngine.CreateInstance<IPlayerDeadState>(x =>
 							{
 								x.PrintLineSep = true;
 							}));
@@ -310,7 +310,7 @@ namespace TheDeepCanyon.Game.Components
 
 					if (ringArtifact.IsCarriedByMonster(DobjMonster) || ringArtifact.IsWornByMonster(DobjMonster))
 					{
-						Globals.ResurrectMonsterUid = DobjMonster.Uid;
+						gEngine.ResurrectMonsterUid = DobjMonster.Uid;
 
 						DobjMonster.SetInLimbo();
 

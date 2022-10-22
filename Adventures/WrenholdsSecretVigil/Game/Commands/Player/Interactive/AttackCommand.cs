@@ -8,7 +8,7 @@ using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.States;
-using static WrenholdsSecretVigil.Game.Plugin.PluginContext;
+using static WrenholdsSecretVigil.Game.Plugin.Globals;
 
 namespace WrenholdsSecretVigil.Game.Commands
 {
@@ -33,7 +33,7 @@ namespace WrenholdsSecretVigil.Game.Commands
 			{
 				base.Execute();
 
-				Globals.MiscEventFuncList02.Add(() =>
+				gEngine.MiscEventFuncList02.Add(() =>
 				{
 					gOut.Print("Inside the tattered shirt is a small cloth-bound book that appears to be a diary.");
 
@@ -50,7 +50,7 @@ namespace WrenholdsSecretVigil.Game.Commands
 
 					DobjArtifact.SetInLimbo();
 
-					NextState = Globals.CreateInstance<IMonsterStartState>();
+					NextState = gEngine.CreateInstance<IMonsterStartState>();
 				}
 
 				// Blast slime
@@ -76,7 +76,7 @@ namespace WrenholdsSecretVigil.Game.Commands
 						slimeArtifact2.SetInLimbo();
 					}
 
-					NextState = Globals.CreateInstance<IMonsterStartState>();
+					NextState = gEngine.CreateInstance<IMonsterStartState>();
 				}
 				else
 				{
@@ -103,7 +103,7 @@ namespace WrenholdsSecretVigil.Game.Commands
 
 				ActorMonster.Weapon = -1;
 
-				NextState = Globals.CreateInstance<IMonsterStartState>();
+				NextState = gEngine.CreateInstance<IMonsterStartState>();
 			}
 			else
 			{

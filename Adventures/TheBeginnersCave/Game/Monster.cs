@@ -9,7 +9,7 @@ using System.Text;
 using Eamon.Framework;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
-using static TheBeginnersCave.Game.Plugin.PluginContext;
+using static TheBeginnersCave.Game.Plugin.Globals;
 
 namespace TheBeginnersCave.Game
 {
@@ -25,7 +25,7 @@ namespace TheBeginnersCave.Game
 
 			set
 			{
-				if (Globals.EnableMutateProperties)
+				if (gEngine.EnableMutateProperties)
 				{
 					// if this is any monster going from wielding Trollsfire to not wielding Trollsfire
 
@@ -59,7 +59,7 @@ namespace TheBeginnersCave.Game
 		{
 			Debug.Assert(artifact != null);
 
-			return !Globals.IsRulesetVersion(5, 25) && (Reaction == Friendliness.Enemy || (Reaction == Friendliness.Neutral && artifact.Value < 3000));
+			return !gEngine.IsRulesetVersion(5, 25) && (Reaction == Friendliness.Enemy || (Reaction == Friendliness.Neutral && artifact.Value < 3000));
 		}
 
 		public override void AddHealthStatus(StringBuilder buf, bool addNewLine = true)

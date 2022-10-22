@@ -10,7 +10,7 @@ using Eamon;
 using Eamon.Framework.Helpers;
 using Eamon.Game.Attributes;
 using EamonDD.Framework.Menus.ActionMenus;
-using static EamonDD.Game.Plugin.PluginContext;
+using static EamonDD.Game.Plugin.Globals;
 
 namespace EamonDD.Game.Menus.ActionMenus
 {
@@ -29,14 +29,14 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			if (EditRecord == null)
 			{
-				EditRecord = Globals.Config;
+				EditRecord = gEngine.Config;
 			}
 
-			var editConfig01 = Globals.CloneInstance(EditRecord);
+			var editConfig01 = gEngine.CloneInstance(EditRecord);
 
 			Debug.Assert(editConfig01 != null);
 			
-			var helper = Globals.CreateInstance<IConfigHelper>(x =>
+			var helper = gEngine.CreateInstance<IConfigHelper>(x =>
 			{
 				x.Record = editConfig01;
 			});
@@ -49,13 +49,13 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 				gOut.WriteLine();
 
-				gOut.Print("{0}", Globals.LineSep);
+				gOut.Print("{0}", gEngine.LineSep);
 
 				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(47, '\0', 0, "Enter the number of the field to edit", "0"));
 
 				Buf.Clear();
 
-				rc = Globals.In.ReadField(Buf, Constants.BufSize01, null, '_', '\0', true, "0", null, gEngine.IsCharDigit, null);
+				rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, "0", null, gEngine.IsCharDigit, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -68,7 +68,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 					goto Cleanup;
 				}
 
-				gOut.Print("{0}", Globals.LineSep);
+				gOut.Print("{0}", gEngine.LineSep);
 			}
 			else
 			{
@@ -77,7 +77,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			helper.EditRec = true;
 			helper.EditField = true;
-			helper.FieldDesc = Globals.Config.FieldDesc;
+			helper.FieldDesc = gEngine.Config.FieldDesc;
 
 			helper.InputField(editFieldName01);
 
@@ -92,7 +92,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 		public EditConfigRecordOneFieldMenu()
 		{
-			Buf = Globals.Buf;
+			Buf = gEngine.Buf;
 		}
 	}
 }

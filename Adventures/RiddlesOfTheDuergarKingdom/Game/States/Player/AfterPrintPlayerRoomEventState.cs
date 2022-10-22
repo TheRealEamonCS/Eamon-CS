@@ -7,7 +7,7 @@ using System.Diagnostics;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Components;
 using EamonRT.Framework.States;
-using static RiddlesOfTheDuergarKingdom.Game.Plugin.PluginContext;
+using static RiddlesOfTheDuergarKingdom.Game.Plugin.Globals;
 
 namespace RiddlesOfTheDuergarKingdom.Game.States
 {
@@ -49,7 +49,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.States
 					gOut.Print("The poison spreading through {0} causes further sickness!", monster.IsCharacterMonster() ? "you" : monster.GetTheName(false, true, false, true));
 				}
 
-				var combatComponent = Globals.CreateInstance<ICombatComponent>(x =>
+				var combatComponent = gEngine.CreateInstance<ICombatComponent>(x =>
 				{
 					x.SetNextStateFunc = s => NextState = s;
 
@@ -82,7 +82,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.States
 
 				if (scheduleEvent)
 				{
-					gGameState.AfterPrintPlayerRoomEventHeap.Insert02(gGameState.CurrTurn + Constants.PoisonInjuryTurns, "PoisonSickensMonsterEvent", monsterUid);
+					gGameState.AfterPrintPlayerRoomEventHeap.Insert02(gGameState.CurrTurn + gEngine.PoisonInjuryTurns, "PoisonSickensMonsterEvent", monsterUid);
 				}
 			}
 		}

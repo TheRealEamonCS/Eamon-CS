@@ -3,7 +3,7 @@
 
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
-using static TheWayfarersInn.Game.Plugin.PluginContext;
+using static TheWayfarersInn.Game.Plugin.Globals;
 
 namespace TheWayfarersInn.Framework
 {

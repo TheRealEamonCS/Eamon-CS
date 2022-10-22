@@ -9,7 +9,7 @@ using Eamon.Framework.Menus;
 using Eamon.Game.Attributes;
 using Eamon.Game.Menus;
 using EamonDD.Framework.Menus.HierarchicalMenus;
-using static EamonDD.Game.Plugin.PluginContext;
+using static EamonDD.Game.Plugin.Globals;
 
 namespace EamonDD.Game.Menus.HierarchicalMenus
 {
@@ -18,18 +18,18 @@ namespace EamonDD.Game.Menus.HierarchicalMenus
 	{
 		public override void PrintSubtitle()
 		{
-			Globals.DdMenu.PrintFilesetMenuSubtitle();
+			gEngine.DdMenu.PrintFilesetMenuSubtitle();
 		}
 
 		public FilesetRecordUtilitiesMenu()
 		{
 			Title = "FILESET RECORD UTILITIES MENU";
 
-			Buf = Globals.Buf;
+			Buf = gEngine.Buf;
 
 			MenuItemList = new List<IMenuItem>();
 
-			MenuItemList.Add(Globals.CreateInstance<IMenuItem>(x =>
+			MenuItemList.Add(gEngine.CreateInstance<IMenuItem>(x =>
 			{
 				x.SelectChar = 'X';
 				x.LineText = string.Format("{0}X. Exit.{0}", Environment.NewLine);

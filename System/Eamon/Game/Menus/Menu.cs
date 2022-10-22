@@ -9,7 +9,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using Eamon.Framework.Menus;
-using static Eamon.Game.Plugin.PluginContext;
+using static Eamon.Game.Plugin.Globals;
 
 namespace Eamon.Game.Menus
 {
@@ -73,11 +73,11 @@ namespace Eamon.Game.Menus
 
 				Buf.Clear();
 
-				rc = Globals.In.ReadField(Buf, Constants.BufSize02, null, ' ', '\0', true, "X", gEngine.ModifyCharToUpper, IsCharMenuItem, IsCharMenuItem);
+				rc = gEngine.In.ReadField(Buf, gEngine.BufSize02, null, ' ', '\0', true, "X", gEngine.ModifyCharToUpper, IsCharMenuItem, IsCharMenuItem);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
-				Globals.Thread.Sleep(150);
+				gEngine.Thread.Sleep(150);
 
 				var menuItem = MenuItemList.FirstOrDefault(mi => mi.SelectChar == Buf[0]);
 

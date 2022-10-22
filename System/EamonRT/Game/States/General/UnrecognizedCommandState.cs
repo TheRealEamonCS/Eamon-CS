@@ -11,7 +11,7 @@ using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.States;
-using static EamonRT.Game.Plugin.PluginContext;
+using static EamonRT.Game.Plugin.Globals;
 
 namespace EamonRT.Game.States
 {
@@ -42,7 +42,7 @@ namespace EamonRT.Game.States
 
 		public override void Execute()
 		{
-			Globals.ShouldPreTurnProcess = false;
+			gEngine.ShouldPreTurnProcess = false;
 
 			NewSeen = false;
 
@@ -50,7 +50,7 @@ namespace EamonRT.Game.States
 
 			Debug.Assert(CharMonster != null);
 
-			EnabledCommandList = Globals.CommandList.Where(x => x.IsEnabled(CharMonster) && x.IsListed).ToList();
+			EnabledCommandList = gEngine.CommandList.Where(x => x.IsEnabled(CharMonster) && x.IsListed).ToList();
 
 			PrintCommands(EnabledCommandList, CommandType.Movement, ref _newSeen);
 
@@ -67,10 +67,10 @@ namespace EamonRT.Game.States
 
 			if (NextState == null)
 			{
-				NextState = Globals.CreateInstance<IStartState>();
+				NextState = gEngine.CreateInstance<IStartState>();
 			}
 
-			Globals.NextState = NextState;
+			gEngine.NextState = NextState;
 		}
 
 		public UnrecognizedCommandState()

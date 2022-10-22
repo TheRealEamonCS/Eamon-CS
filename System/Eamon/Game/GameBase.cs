@@ -9,7 +9,7 @@ using System.Text;
 using Eamon.Framework;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
-using static Eamon.Game.Plugin.PluginContext;
+using static Eamon.Game.Plugin.Globals;
 
 namespace Eamon.Game
 {
@@ -82,7 +82,7 @@ namespace Eamon.Game
 
 			if (buf == null)
 			{
-				buf = Globals.Buf;
+				buf = gEngine.Buf;
 			}
 
 			buf.Clear();
@@ -116,7 +116,7 @@ namespace Eamon.Game
 
 			if (buf == null)
 			{
-				buf = Globals.Buf;
+				buf = gEngine.Buf;
 			}
 
 			buf.Clear();

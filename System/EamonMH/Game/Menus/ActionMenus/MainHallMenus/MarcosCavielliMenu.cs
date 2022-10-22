@@ -14,7 +14,7 @@ using Eamon.Game.Extensions;
 using Eamon.Game.Menus;
 using Eamon.Game.Utilities;
 using EamonMH.Framework.Menus.ActionMenus;
-using static EamonMH.Game.Plugin.PluginContext;
+using static EamonMH.Game.Plugin.Globals;
 
 namespace EamonMH.Game.Menus.ActionMenus
 {
@@ -75,7 +75,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 			var menuState = MenuState.BuyOrSell;
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 
 			gOut.Print("As you enter the weapon shop, Marcos Cavielli (the owner) comes from out of the back room and says, \"Well, as I live and breathe, if it isn't my old pal, {0}!  So, what do you need?\"", gCharacter.Name);
 
@@ -85,24 +85,24 @@ namespace EamonMH.Game.Menus.ActionMenus
 				{
 					case MenuState.BuyOrSell:
 
-						gOut.Print("{0}", Globals.LineSep);
+						gOut.Print("{0}", gEngine.LineSep);
 
 						gOut.Write("{0}B=Buy weapon, S=Sell weapon, A=Buy better armor, X=Exit: ", Environment.NewLine);
 
 						Buf.Clear();
 
-						rc = Globals.In.ReadField(Buf, Constants.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharBOrSOrAOrX, gEngine.IsCharBOrSOrAOrX);
+						rc = gEngine.In.ReadField(Buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharBOrSOrAOrX, gEngine.IsCharBOrSOrAOrX);
 
 						Debug.Assert(gEngine.IsSuccess(rc));
 
-						Globals.Thread.Sleep(150);
+						gEngine.Thread.Sleep(150);
 
 						if (Buf.Length == 0 || Buf[0] == 'X')
 						{
 								goto Cleanup;
 						}
 
-						gOut.Print("{0}", Globals.LineSep);
+						gOut.Print("{0}", gEngine.LineSep);
 
 						/* 
 							Full Credit:  Derived wholly from Donald Brown's Classic Eamon
@@ -143,7 +143,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 						{
 							gOut.Print("Marcos smiles at you and says, \"Good!  I gotta the best.  What kind do you want?\"");
 
-							gOut.Print("{0}", Globals.LineSep);
+							gOut.Print("{0}", gEngine.LineSep);
 
 							Buf.Clear();
 
@@ -167,13 +167,13 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 							Buf.Clear();
 
-							rc = Globals.In.ReadField(Buf, Constants.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharWpnTypeOrX, gEngine.IsCharWpnTypeOrX);
+							rc = gEngine.In.ReadField(Buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharWpnTypeOrX, gEngine.IsCharWpnTypeOrX);
 
 							Debug.Assert(gEngine.IsSuccess(rc));
 
-							Globals.Thread.Sleep(150);
+							gEngine.Thread.Sleep(150);
 
-							gOut.Print("{0}", Globals.LineSep);
+							gOut.Print("{0}", gEngine.LineSep);
 
 							if (Buf.Length > 0 && Buf[0] != 'X')
 							{
@@ -183,9 +183,9 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 								Debug.Assert(weapon != null);
 
-								var cw = Globals.CreateInstance<ICharacterArtifact>(x =>
+								var cw = gEngine.CreateInstance<ICharacterArtifact>(x =>
 								{
-									x.Name = Globals.CloneInstance(weapon.MarcosName ?? weapon.Name).ToLower();
+									x.Name = gEngine.CloneInstance(weapon.MarcosName ?? weapon.Name).ToLower();
 									x.IsPlural = weapon.MarcosIsPlural;
 									x.PluralType = weapon.MarcosPluralType;
 									x.ArticleType = weapon.MarcosArticleType;
@@ -201,19 +201,19 @@ namespace EamonMH.Game.Menus.ActionMenus
 									gEngine.GetMerchantAskPrice(weapon.MarcosPrice * 0.80, (double)Rtio),
 									gEngine.GetMerchantAskPrice(weapon.MarcosPrice * 0.60, (double)Rtio));
 
-								gOut.Print("{0}", Globals.LineSep);
+								gOut.Print("{0}", gEngine.LineSep);
 
 								gOut.Write("{0}G=Good quality, F=Fair quality, P=Poor quality, X=Exit: ", Environment.NewLine);
 
 								Buf.Clear();
 
-								rc = Globals.In.ReadField(Buf, Constants.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharGOrFOrPOrX, gEngine.IsCharGOrFOrPOrX);
+								rc = gEngine.In.ReadField(Buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharGOrFOrPOrX, gEngine.IsCharGOrFOrPOrX);
 
 								Debug.Assert(gEngine.IsSuccess(rc));
 
-								Globals.Thread.Sleep(150);
+								gEngine.Thread.Sleep(150);
 
-								gOut.Print("{0}", Globals.LineSep);
+								gOut.Print("{0}", gEngine.LineSep);
 
 								if (Buf.Length > 0 && Buf[0] != 'X')
 								{
@@ -240,7 +240,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 									{
 										gOut.Print("Marcos shakes a finger at you and says, \"You shouldn't play tricks on an old friend!  Come back when you gotta more gold or you want something you can afford.\"  He then shoos you out the door.");
 
-										Globals.In.KeyPress(Buf);
+										gEngine.In.KeyPress(Buf);
 
 										goto Cleanup;
 									}
@@ -259,7 +259,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 									gCharacter.HeldGold -= ap;
 
-									Globals.CharactersModified = true;
+									gEngine.CharactersModified = true;
 
 									gOut.Print("Marcos hands you your weapon and takes the price from you.");
 
@@ -286,25 +286,25 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 					case MenuState.CheckShield:
 
-						ap = gEngine.GetMerchantAskPrice(Constants.ShieldPrice, (double)Rtio);
+						ap = gEngine.GetMerchantAskPrice(gEngine.ShieldPrice, (double)Rtio);
 
 						if (gCharacter.HeldGold >= ap)
 						{
 							gOut.Print("He now asks you, \"Now how about some armor?\"");
 
-							gOut.Print("{0}", Globals.LineSep);
+							gOut.Print("{0}", gEngine.LineSep);
 
 							gOut.Write("{0}Press Y for yes or N for no: ", Environment.NewLine);
 
 							Buf.Clear();
 
-							rc = Globals.In.ReadField(Buf, Constants.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, gEngine.IsCharYOrN);
+							rc = gEngine.In.ReadField(Buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, gEngine.IsCharYOrN);
 
 							Debug.Assert(gEngine.IsSuccess(rc));
 
-							Globals.Thread.Sleep(150);
+							gEngine.Thread.Sleep(150);
 
-							gOut.Print("{0}", Globals.LineSep);
+							gOut.Print("{0}", gEngine.LineSep);
 
 							if (Buf.Length > 0 && Buf[0] == 'Y')
 							{
@@ -334,19 +334,19 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 							gOut.Write("{0}", Buf);
 
-							gOut.WriteLine("{0}{0}{1}", Environment.NewLine, Globals.LineSep);
+							gOut.WriteLine("{0}{0}{1}", Environment.NewLine, gEngine.LineSep);
 
 							gOut.Write("{0}Press the number of the weapon to sell or X to exit: ", Environment.NewLine);
 
 							Buf.Clear();
 
-							rc = Globals.In.ReadField(Buf, Constants.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharWpnNumOrX, gEngine.IsCharWpnNumOrX);
+							rc = gEngine.In.ReadField(Buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharWpnNumOrX, gEngine.IsCharWpnNumOrX);
 
 							Debug.Assert(gEngine.IsSuccess(rc));
 
-							Globals.Thread.Sleep(150);
+							gEngine.Thread.Sleep(150);
 
-							gOut.Print("{0}", Globals.LineSep);
+							gOut.Print("{0}", gEngine.LineSep);
 
 							if (Buf.Length > 0 && Buf[0] != 'X')
 							{
@@ -369,19 +369,19 @@ namespace EamonMH.Game.Menus.ActionMenus
 									ti,
 									ti != 1 ? "s" : "");
 
-								gOut.Print("{0}", Globals.LineSep);
+								gOut.Print("{0}", gEngine.LineSep);
 
 								gOut.Write("{0}Press T to take or L to leave: ", Environment.NewLine);
 
 								Buf.Clear();
 
-								rc = Globals.In.ReadField(Buf, Constants.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharTOrL, gEngine.IsCharTOrL);
+								rc = gEngine.In.ReadField(Buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharTOrL, gEngine.IsCharTOrL);
 
 								Debug.Assert(gEngine.IsSuccess(rc));
 
-								Globals.Thread.Sleep(150);
+								gEngine.Thread.Sleep(150);
 
-								gOut.Print("{0}", Globals.LineSep);
+								gOut.Print("{0}", gEngine.LineSep);
 
 								if (Buf.Length > 0 && Buf[0] == 'T')
 								{
@@ -396,7 +396,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 										i++;
 									}
 
-									gCharacter.SetWeapon(i, Globals.CreateInstance<ICharacterArtifact>(x =>
+									gCharacter.SetWeapon(i, gEngine.CreateInstance<ICharacterArtifact>(x =>
 									{
 										x.Parent = gCharacter;
 									}));
@@ -405,23 +405,23 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 									gCharacter.AddUniqueCharsToWeaponNames();
 
-									Globals.CharactersModified = true;
+									gEngine.CharactersModified = true;
 
 									gOut.Print("Marcos asks you, \"How about buying a weapon?\"");
 
-									gOut.Print("{0}", Globals.LineSep);
+									gOut.Print("{0}", gEngine.LineSep);
 
 									gOut.Write("{0}Press Y for yes or N for no: ", Environment.NewLine);
 
 									Buf.Clear();
 
-									rc = Globals.In.ReadField(Buf, Constants.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, gEngine.IsCharYOrN);
+									rc = gEngine.In.ReadField(Buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, gEngine.IsCharYOrN);
 
 									Debug.Assert(gEngine.IsSuccess(rc));
 
-									Globals.Thread.Sleep(150);
+									gEngine.Thread.Sleep(150);
 
-									gOut.Print("{0}", Globals.LineSep);
+									gOut.Print("{0}", gEngine.LineSep);
 
 									if (Buf.Length > 0 && Buf[0] == 'Y')
 									{
@@ -506,7 +506,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 						gOut.Write("{0}", Buf);
 
-						gOut.Print("{0}", Globals.LineSep);
+						gOut.Print("{0}", gEngine.LineSep);
 
 						Buf.Clear();
 
@@ -533,13 +533,13 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 						Buf.Clear();
 
-						rc = Globals.In.ReadField(Buf, Constants.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharMarcosNumOrX, gEngine.IsCharMarcosNumOrX);
+						rc = gEngine.In.ReadField(Buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharMarcosNumOrX, gEngine.IsCharMarcosNumOrX);
 
 						Debug.Assert(gEngine.IsSuccess(rc));
 
-						Globals.Thread.Sleep(150);
+						gEngine.Thread.Sleep(150);
 
-						gOut.Print("{0}", Globals.LineSep);
+						gOut.Print("{0}", gEngine.LineSep);
 
 						if (Buf.Length > 0 && Buf[0] != 'X')
 						{
@@ -559,7 +559,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 								gCharacter.HeldGold -= ap;
 
-								Globals.CharactersModified = true;
+								gEngine.CharactersModified = true;
 
 								for (i = 0; i < armorValues.Count; i++)
 								{
@@ -587,23 +587,23 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 						if (sh != 1)
 						{
-							ap = gEngine.GetMerchantAskPrice(Constants.ShieldPrice, (double)Rtio);
+							ap = gEngine.GetMerchantAskPrice(gEngine.ShieldPrice, (double)Rtio);
 
 							gOut.Print("Marcos smiles and says, \"Now how about a shield?  I can let you have one for only {0} gold piece{1}!\"", ap, ap != 1 ? "s" : "");
 
-							gOut.Print("{0}", Globals.LineSep);
+							gOut.Print("{0}", gEngine.LineSep);
 
 							gOut.Write("{0}Press Y for yes or N for no: ", Environment.NewLine);
 
 							Buf.Clear();
 
-							rc = Globals.In.ReadField(Buf, Constants.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, gEngine.IsCharYOrN);
+							rc = gEngine.In.ReadField(Buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, gEngine.IsCharYOrN);
 
 							Debug.Assert(gEngine.IsSuccess(rc));
 
-							Globals.Thread.Sleep(150);
+							gEngine.Thread.Sleep(150);
 
-							gOut.Print("{0}", Globals.LineSep);
+							gOut.Print("{0}", gEngine.LineSep);
 
 							if (Buf.Length > 0 && Buf[0] == 'Y')
 							{
@@ -613,7 +613,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 									gCharacter.HeldGold -= ap;
 
-									Globals.CharactersModified = true;
+									gEngine.CharactersModified = true;
 
 									sh = 1;
 								}
@@ -634,17 +634,17 @@ namespace EamonMH.Game.Menus.ActionMenus
 						{
 							gCharacter.ArmorClass = (Armor)(a2 * 2 + sh);
 
-							gCharacter.Armor = Globals.CreateInstance<ICharacterArtifact>(x =>
+							gCharacter.Armor = gEngine.CreateInstance<ICharacterArtifact>(x =>
 							{
 								x.Parent = gCharacter;
 							});
 
-							gCharacter.Shield = Globals.CreateInstance<ICharacterArtifact>(x =>
+							gCharacter.Shield = gEngine.CreateInstance<ICharacterArtifact>(x =>
 							{
 								x.Parent = gCharacter;
 							});
 
-							Globals.CharactersModified = true;
+							gEngine.CharactersModified = true;
 						}
 
 						menuState = MenuState.LeaveShop;
@@ -655,7 +655,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 						gOut.Print("Marcos smiles and says, \"Come back again soon!\" as he shoos you out of his shop.");
 
-						Globals.In.KeyPress(Buf);
+						gEngine.In.KeyPress(Buf);
 
 						goto Cleanup;
 				}
@@ -668,7 +668,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 		public MarcosCavielliMenu()
 		{
-			Buf = Globals.Buf;
+			Buf = gEngine.Buf;
 		}
 	}
 }

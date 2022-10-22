@@ -13,7 +13,7 @@ using Eamon.Game.Utilities;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.Components;
 using EamonRT.Framework.Primitive.Enums;
-using static TheDeepCanyon.Game.Plugin.PluginContext;
+using static TheDeepCanyon.Game.Plugin.Globals;
 
 namespace TheDeepCanyon.Game.Components
 {
@@ -78,7 +78,7 @@ namespace TheDeepCanyon.Game.Components
 
 							gOut.EnableOutput = false;
 
-							var dropCommand = Globals.CreateInstance<IDropCommand>(x =>
+							var dropCommand = gEngine.CreateInstance<IDropCommand>(x =>
 							{
 								x.ActorMonster = ActorMonster;
 
@@ -119,9 +119,9 @@ namespace TheDeepCanyon.Game.Components
 
 									artifact.GeneralWeapon.Field1 -= dec;
 
-									if (artifact.GeneralWeapon.Field1 < Constants.MinWeaponComplexity)
+									if (artifact.GeneralWeapon.Field1 < gEngine.MinWeaponComplexity)
 									{
-										artifact.GeneralWeapon.Field1 = Constants.MinWeaponComplexity;
+										artifact.GeneralWeapon.Field1 = gEngine.MinWeaponComplexity;
 									}
 
 									processed = true;
@@ -170,7 +170,7 @@ namespace TheDeepCanyon.Game.Components
 					{
 						gOut.Print("A large flame erupts from nowhere, which burns you badly.");
 
-						var combatComponent = Globals.CreateInstance<ICombatComponent>(x =>
+						var combatComponent = gEngine.CreateInstance<ICombatComponent>(x =>
 						{
 							x.SetNextStateFunc = SetNextStateFunc;
 
@@ -198,7 +198,7 @@ namespace TheDeepCanyon.Game.Components
 					{
 						gOut.Print("You are knocked to the ground by a strong gust of wind.");
 
-						var combatComponent = Globals.CreateInstance<ICombatComponent>(x =>
+						var combatComponent = gEngine.CreateInstance<ICombatComponent>(x =>
 						{
 							x.SetNextStateFunc = SetNextStateFunc;
 

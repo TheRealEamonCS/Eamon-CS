@@ -10,7 +10,7 @@ using Eamon.Framework.Primitive.Classes;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
-using static WrenholdsSecretVigil.Game.Plugin.PluginContext;
+using static WrenholdsSecretVigil.Game.Plugin.Globals;
 
 namespace WrenholdsSecretVigil.Game.Commands
 {

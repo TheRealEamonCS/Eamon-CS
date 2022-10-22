@@ -19,8 +19,8 @@ using Eamon;
 using Eamon.Framework.Plugin;
 using Eamon.Framework.Portability;
 using Eamon.Mobile;
-using static Eamon.Game.Plugin.PluginContext;
-using static Eamon.Game.Plugin.PluginContextStack;
+using static Eamon.Game.Plugin.ContextStack;
+using static Eamon.Game.Plugin.Globals;
 
 namespace EamonPM
 {

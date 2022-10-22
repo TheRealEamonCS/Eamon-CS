@@ -13,7 +13,7 @@ using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using Eamon.Game.Extensions;
 using Eamon.Game.Utilities;
-using static Eamon.Game.Plugin.PluginContext;
+using static Eamon.Game.Plugin.Globals;
 
 namespace Eamon.Game
 {
@@ -53,7 +53,7 @@ namespace Eamon.Game
 
 			if (IsUidRecycled && Uid > 0)
 			{
-				Globals.Database.FreeRoomUid(Uid);
+				gEngine.Database.FreeRoomUid(Uid);
 
 				Uid = 0;
 			}
@@ -135,7 +135,7 @@ namespace Eamon.Game
 
 		public virtual bool IsLit()
 		{
-			var gameState = Globals?.Engine?.GetGameState();
+			var gameState = gEngine?.GetGameState();
 
 			return LightLvl > 0 || (gameState != null && Uid == gameState.Ro && gameState.Ls > 0);
 		}
@@ -162,7 +162,7 @@ namespace Eamon.Game
 
 		public virtual bool IsDirectionExit(long index)
 		{
-			return GetDir(index) == Constants.DirectionExit;
+			return GetDir(index) == gEngine.DirectionExit;
 		}
 
 		public virtual bool IsDirectionExit(Direction dir)
@@ -214,7 +214,7 @@ namespace Eamon.Game
 
 		public virtual void SetDirectionExit(long index)
 		{
-			SetDir(index, Constants.DirectionExit);
+			SetDir(index, gEngine.DirectionExit);
 		}
 
 		public virtual void SetDirectionExit(Direction dir)

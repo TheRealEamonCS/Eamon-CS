@@ -10,7 +10,7 @@ using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
-using static EamonRT.Game.Plugin.PluginContext;
+using static EamonRT.Game.Plugin.Globals;
 
 namespace EamonRT.Game.Commands
 {
@@ -59,7 +59,7 @@ namespace EamonRT.Game.Commands
 			{
 				PrintDontFollowYou();
 
-				NextState = Globals.CreateInstance<IStartState>();
+				NextState = gEngine.CreateInstance<IStartState>();
 
 				goto Cleanup;
 			}
@@ -68,7 +68,7 @@ namespace EamonRT.Game.Commands
 			{
 				PrintCalmDown();
 
-				NextState = Globals.CreateInstance<IStartState>();
+				NextState = gEngine.CreateInstance<IStartState>();
 
 				goto Cleanup;
 			}
@@ -83,7 +83,7 @@ namespace EamonRT.Game.Commands
 				{
 					PrintNoPlaceToGo();
 
-					NextState = Globals.CreateInstance<IStartState>();
+					NextState = gEngine.CreateInstance<IStartState>();
 
 					goto Cleanup;
 				}
@@ -118,7 +118,7 @@ namespace EamonRT.Game.Commands
 
 			if (NextState == null)
 			{
-				NextState = Globals.CreateInstance<IPlayerMoveCheckState>(x =>
+				NextState = gEngine.CreateInstance<IPlayerMoveCheckState>(x =>
 				{
 					x.Direction = Direction;
 

@@ -6,7 +6,7 @@
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
-using static BeginnersForest.Game.Plugin.PluginContext;
+using static BeginnersForest.Game.Plugin.Globals;
 
 namespace BeginnersForest.Game.States
 {
@@ -42,7 +42,7 @@ namespace BeginnersForest.Game.States
 
 					gGameState.R2 = gGameState.Ro;
 
-					NextState = Globals.CreateInstance<IAfterPlayerMoveState>(x =>
+					NextState = gEngine.CreateInstance<IAfterPlayerMoveState>(x =>
 					{
 						x.MoveMonsters = false;
 					});
@@ -58,7 +58,7 @@ namespace BeginnersForest.Game.States
 
 					gGameState.R2 = 33;
 
-					NextState = Globals.CreateInstance<IAfterPlayerMoveState>();
+					NextState = gEngine.CreateInstance<IAfterPlayerMoveState>();
 
 					GotoCleanup = true;
 				}

@@ -7,7 +7,7 @@ using System.Diagnostics;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.States;
-using static TheVileGrimoireOfJaldial.Game.Plugin.PluginContext;
+using static TheVileGrimoireOfJaldial.Game.Plugin.Globals;
 
 namespace TheVileGrimoireOfJaldial.Game.States
 {
@@ -48,7 +48,7 @@ namespace TheVileGrimoireOfJaldial.Game.States
 				{
 					if (artifact.IsWornByCharacter())
 					{
-						Globals.CurrState = Globals.CreateInstance<IRemoveCommand>(x =>
+						gEngine.CurrState = gEngine.CreateInstance<IRemoveCommand>(x =>
 						{
 							x.ActorMonster = charMonster;
 
@@ -57,10 +57,10 @@ namespace TheVileGrimoireOfJaldial.Game.States
 							x.Dobj = artifact;
 						});
 
-						Globals.CurrCommand.Execute();
+						gEngine.CurrCommand.Execute();
 					}
 
-					Globals.CurrState = Globals.CreateInstance<IDropCommand>(x =>
+					gEngine.CurrState = gEngine.CreateInstance<IDropCommand>(x =>
 					{
 						x.ActorMonster = charMonster;
 
@@ -69,9 +69,9 @@ namespace TheVileGrimoireOfJaldial.Game.States
 						x.Dobj = artifact;
 					});
 
-					Globals.CurrCommand.Execute();
+					gEngine.CurrCommand.Execute();
 
-					Globals.CurrState = this;
+					gEngine.CurrState = this;
 				}
 			}
 
@@ -81,12 +81,12 @@ namespace TheVileGrimoireOfJaldial.Game.States
 
 			gGameState.R2 = gGameState.Ro;
 
-			NextState = Globals.CreateInstance<IAfterPlayerMoveState>(x =>
+			NextState = gEngine.CreateInstance<IAfterPlayerMoveState>(x =>
 			{
 				x.MoveMonsters = false;
 			});
 
-			Globals.NextState = NextState;
+			gEngine.NextState = NextState;
 		}
 
 		public PlayerResurrectedState()

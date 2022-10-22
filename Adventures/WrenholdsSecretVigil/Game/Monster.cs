@@ -8,7 +8,7 @@ using System.Text;
 using Eamon.Framework;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
-using static WrenholdsSecretVigil.Game.Plugin.PluginContext;
+using static WrenholdsSecretVigil.Game.Plugin.Globals;
 
 namespace WrenholdsSecretVigil.Game
 {
@@ -36,7 +36,7 @@ namespace WrenholdsSecretVigil.Game
 
 		public override bool ShouldFleeRoom()
 		{
-			return Globals.DeviceOpened || base.ShouldFleeRoom();
+			return gEngine.DeviceOpened || base.ShouldFleeRoom();
 		}
 
 		public override bool ShouldRefuseToAcceptGold()
@@ -53,12 +53,12 @@ namespace WrenholdsSecretVigil.Game
 		{
 			Debug.Assert(artifact != null);
 
-			return !Globals.IsRulesetVersion(5, 25) && (Reaction == Friendliness.Enemy || (Reaction == Friendliness.Neutral && artifact.Value < 3000));
+			return !gEngine.IsRulesetVersion(5, 25) && (Reaction == Friendliness.Enemy || (Reaction == Friendliness.Neutral && artifact.Value < 3000));
 		}
 
 		public override long GetFleeingMemberCount()
 		{
-			return Globals.DeviceOpened ? CurrGroupCount : base.GetFleeingMemberCount();
+			return gEngine.DeviceOpened ? CurrGroupCount : base.GetFleeingMemberCount();
 		}
 
 		public override void AddHealthStatus(StringBuilder buf, bool addNewLine = true)
@@ -67,20 +67,20 @@ namespace WrenholdsSecretVigil.Game
 
 			buf.Replace("badly injured", "very badly injured");
 
-			if (Globals.MonsterCurses)
+			if (gEngine.MonsterCurses)
 			{
 				var rl = gEngine.RollDice(1, 3, 6);
 
 				if (buf.IndexOf("in pain") >= 0)
 				{
-					Globals.MiscEventFuncList02.Add(() =>
+					gEngine.MiscEventFuncList02.Add(() =>
 					{
 						gEngine.PrintMonsterCurse(this, rl);
 					});
 				}
 				else if (buf.IndexOf("very badly injured") >= 0)
 				{
-					Globals.MiscEventFuncList02.Add(() =>
+					gEngine.MiscEventFuncList02.Add(() =>
 					{
 						gEngine.PrintMonsterCurse(this, rl + 3);
 					});

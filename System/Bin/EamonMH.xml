@@ -4,108 +4,6 @@
         <name>EamonMH</name>
     </assembly>
     <members>
-        <member name="T:EamonMH.Framework.IEngine">
-            <summary></summary>
-        </member>
-        <member name="M:EamonMH.Framework.IEngine.IsCharDOrM(System.Char)">
-            <summary></summary>
-            <param name="ch"></param>
-            <returns></returns>
-        </member>
-        <member name="M:EamonMH.Framework.IEngine.IsCharROrT(System.Char)">
-            <summary></summary>
-            <param name="ch"></param>
-            <returns></returns>
-        </member>
-        <member name="M:EamonMH.Framework.IEngine.IsCharDOrIOrX(System.Char)">
-            <summary></summary>
-            <param name="ch"></param>
-            <returns></returns>
-        </member>
-        <member name="M:EamonMH.Framework.IEngine.IsCharDOrWOrX(System.Char)">
-            <summary></summary>
-            <param name="ch"></param>
-            <returns></returns>
-        </member>
-        <member name="M:EamonMH.Framework.IEngine.IsCharUOrCOrX(System.Char)">
-            <summary></summary>
-            <param name="ch"></param>
-            <returns></returns>
-        </member>
-        <member name="M:EamonMH.Framework.IEngine.IsChar1OrX(System.Char)">
-            <summary></summary>
-            <param name="ch"></param>
-            <returns></returns>
-        </member>
-        <member name="M:EamonMH.Framework.IEngine.IsChar1Or2OrX(System.Char)">
-            <summary></summary>
-            <param name="ch"></param>
-            <returns></returns>
-        </member>
-        <member name="M:EamonMH.Framework.IEngine.IsCharTOrL(System.Char)">
-            <summary></summary>
-            <param name="ch"></param>
-            <returns></returns>
-        </member>
-        <member name="M:EamonMH.Framework.IEngine.IsCharBOrSOrAOrX(System.Char)">
-            <summary></summary>
-            <param name="ch"></param>
-            <returns></returns>
-        </member>
-        <member name="M:EamonMH.Framework.IEngine.IsCharGOrFOrPOrX(System.Char)">
-            <summary></summary>
-            <param name="ch"></param>
-            <returns></returns>
-        </member>
-        <member name="M:EamonMH.Framework.IEngine.IsCharWpnType(System.Char)">
-            <summary></summary>
-            <param name="ch"></param>
-            <returns></returns>
-        </member>
-        <member name="M:EamonMH.Framework.IEngine.IsCharWpnTypeOrX(System.Char)">
-            <summary></summary>
-            <param name="ch"></param>
-            <returns></returns>
-        </member>
-        <member name="M:EamonMH.Framework.IEngine.IsCharSpellType(System.Char)">
-            <summary></summary>
-            <param name="ch"></param>
-            <returns></returns>
-        </member>
-        <member name="M:EamonMH.Framework.IEngine.IsCharSpellTypeOrX(System.Char)">
-            <summary></summary>
-            <param name="ch"></param>
-            <returns></returns>
-        </member>
-        <member name="M:EamonMH.Framework.IEngine.IsCharMarcosNumOrX(System.Char)">
-            <summary></summary>
-            <param name="ch"></param>
-            <returns></returns>
-        </member>
-        <member name="M:EamonMH.Framework.IEngine.IsCharWpnNumOrX(System.Char)">
-            <summary></summary>
-            <param name="ch"></param>
-            <returns></returns>
-        </member>
-        <member name="M:EamonMH.Framework.IEngine.IsCharStat(System.Char)">
-            <summary></summary>
-            <param name="ch"></param>
-            <returns></returns>
-        </member>
-        <member name="M:EamonMH.Framework.IEngine.GetMaxArmorMarcosNum">
-            <summary></summary>
-            <returns></returns>
-        </member>
-        <member name="M:EamonMH.Framework.IEngine.GetArmorByMarcosNum(System.Int64)">
-            <summary></summary>
-            <param name="marcosNum"></param>
-            <returns></returns>
-        </member>
-        <member name="M:EamonMH.Framework.IEngine.MhProcessArgv(System.Boolean,System.Boolean@)">
-            <summary></summary>
-            <param name="secondPass"></param>
-            <param name="nlFlag"></param>
-        </member>
         <member name="T:EamonMH.Framework.Menus.ActionMenus.IDrinkBeerMenu">
             <summary></summary>
         </member>
@@ -175,62 +73,152 @@
         <member name="M:EamonMH.Framework.Menus.IMhMenu.PrintPracticeAreaMenuSubtitle">
             <summary></summary>
         </member>
-        <member name="T:EamonMH.Framework.Plugin.IPluginClassMappings">
+        <member name="T:EamonMH.Framework.Plugin.IEngine">
             <summary></summary>
         </member>
-        <member name="T:EamonMH.Framework.Plugin.IPluginConstants">
+        <member name="P:EamonMH.Framework.Plugin.IEngine.Argv">
             <summary></summary>
         </member>
-        <member name="T:EamonMH.Framework.Plugin.IPluginGlobals">
+        <member name="P:EamonMH.Framework.Plugin.IEngine.WordWrapCurrColumn">
             <summary></summary>
         </member>
-        <member name="P:EamonMH.Framework.Plugin.IPluginGlobals.Argv">
+        <member name="P:EamonMH.Framework.Plugin.IEngine.WordWrapLastChar">
             <summary></summary>
         </member>
-        <member name="P:EamonMH.Framework.Plugin.IPluginGlobals.WordWrapCurrColumn">
+        <member name="P:EamonMH.Framework.Plugin.IEngine.ConfigFileName">
             <summary></summary>
         </member>
-        <member name="P:EamonMH.Framework.Plugin.IPluginGlobals.WordWrapLastChar">
+        <member name="P:EamonMH.Framework.Plugin.IEngine.CharacterName">
             <summary></summary>
         </member>
-        <member name="P:EamonMH.Framework.Plugin.IPluginGlobals.ConfigFileName">
+        <member name="P:EamonMH.Framework.Plugin.IEngine.MhMenu">
             <summary></summary>
         </member>
-        <member name="P:EamonMH.Framework.Plugin.IPluginGlobals.CharacterName">
+        <member name="P:EamonMH.Framework.Plugin.IEngine.Menu">
             <summary></summary>
         </member>
-        <member name="P:EamonMH.Framework.Plugin.IPluginGlobals.Engine">
+        <member name="P:EamonMH.Framework.Plugin.IEngine.Fileset">
             <summary></summary>
         </member>
-        <member name="P:EamonMH.Framework.Plugin.IPluginGlobals.MhMenu">
+        <member name="P:EamonMH.Framework.Plugin.IEngine.Character">
             <summary></summary>
         </member>
-        <member name="P:EamonMH.Framework.Plugin.IPluginGlobals.Menu">
+        <member name="P:EamonMH.Framework.Plugin.IEngine.Config">
             <summary></summary>
         </member>
-        <member name="P:EamonMH.Framework.Plugin.IPluginGlobals.Fileset">
+        <member name="P:EamonMH.Framework.Plugin.IEngine.GoOnAdventure">
             <summary></summary>
         </member>
-        <member name="P:EamonMH.Framework.Plugin.IPluginGlobals.Character">
+        <member name="P:EamonMH.Framework.Plugin.IEngine.ConfigsModified">
             <summary></summary>
         </member>
-        <member name="P:EamonMH.Framework.Plugin.IPluginGlobals.Config">
+        <member name="P:EamonMH.Framework.Plugin.IEngine.FilesetsModified">
             <summary></summary>
         </member>
-        <member name="P:EamonMH.Framework.Plugin.IPluginGlobals.GoOnAdventure">
+        <member name="P:EamonMH.Framework.Plugin.IEngine.CharactersModified">
             <summary></summary>
         </member>
-        <member name="P:EamonMH.Framework.Plugin.IPluginGlobals.ConfigsModified">
+        <member name="P:EamonMH.Framework.Plugin.IEngine.EffectsModified">
             <summary></summary>
         </member>
-        <member name="P:EamonMH.Framework.Plugin.IPluginGlobals.FilesetsModified">
+        <member name="M:EamonMH.Framework.Plugin.IEngine.IsCharDOrM(System.Char)">
             <summary></summary>
+            <param name="ch"></param>
+            <returns></returns>
         </member>
-        <member name="P:EamonMH.Framework.Plugin.IPluginGlobals.CharactersModified">
+        <member name="M:EamonMH.Framework.Plugin.IEngine.IsCharROrT(System.Char)">
             <summary></summary>
+            <param name="ch"></param>
+            <returns></returns>
         </member>
-        <member name="P:EamonMH.Framework.Plugin.IPluginGlobals.EffectsModified">
+        <member name="M:EamonMH.Framework.Plugin.IEngine.IsCharDOrIOrX(System.Char)">
             <summary></summary>
+            <param name="ch"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EamonMH.Framework.Plugin.IEngine.IsCharDOrWOrX(System.Char)">
+            <summary></summary>
+            <param name="ch"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EamonMH.Framework.Plugin.IEngine.IsCharUOrCOrX(System.Char)">
+            <summary></summary>
+            <param name="ch"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EamonMH.Framework.Plugin.IEngine.IsChar1OrX(System.Char)">
+            <summary></summary>
+            <param name="ch"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EamonMH.Framework.Plugin.IEngine.IsChar1Or2OrX(System.Char)">
+            <summary></summary>
+            <param name="ch"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EamonMH.Framework.Plugin.IEngine.IsCharTOrL(System.Char)">
+            <summary></summary>
+            <param name="ch"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EamonMH.Framework.Plugin.IEngine.IsCharBOrSOrAOrX(System.Char)">
+            <summary></summary>
+            <param name="ch"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EamonMH.Framework.Plugin.IEngine.IsCharGOrFOrPOrX(System.Char)">
+            <summary></summary>
+            <param name="ch"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EamonMH.Framework.Plugin.IEngine.IsCharWpnType(System.Char)">
+            <summary></summary>
+            <param name="ch"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EamonMH.Framework.Plugin.IEngine.IsCharWpnTypeOrX(System.Char)">
+            <summary></summary>
+            <param name="ch"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EamonMH.Framework.Plugin.IEngine.IsCharSpellType(System.Char)">
+            <summary></summary>
+            <param name="ch"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EamonMH.Framework.Plugin.IEngine.IsCharSpellTypeOrX(System.Char)">
+            <summary></summary>
+            <param name="ch"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EamonMH.Framework.Plugin.IEngine.IsCharMarcosNumOrX(System.Char)">
+            <summary></summary>
+            <param name="ch"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EamonMH.Framework.Plugin.IEngine.IsCharWpnNumOrX(System.Char)">
+            <summary></summary>
+            <param name="ch"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EamonMH.Framework.Plugin.IEngine.IsCharStat(System.Char)">
+            <summary></summary>
+            <param name="ch"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EamonMH.Framework.Plugin.IEngine.GetMaxArmorMarcosNum">
+            <summary></summary>
+            <returns></returns>
+        </member>
+        <member name="M:EamonMH.Framework.Plugin.IEngine.GetArmorByMarcosNum(System.Int64)">
+            <summary></summary>
+            <param name="marcosNum"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EamonMH.Framework.Plugin.IEngine.MhProcessArgv(System.Boolean,System.Boolean@)">
+            <summary></summary>
+            <param name="secondPass"></param>
+            <param name="nlFlag"></param>
         </member>
         <member name="M:EamonMH.Game.Menus.ActionMenus.GoOnAdventureMenu.SelectAdventure(System.Int64)">
             <summary></summary>
@@ -339,13 +327,7 @@
         <member name="P:EamonMH.Program.ProgramName">
             <summary></summary>
         </member>
-        <member name="P:EamonMH.Program.ConstantsType">
-            <summary></summary>
-        </member>
-        <member name="P:EamonMH.Program.ClassMappingsType">
-            <summary></summary>
-        </member>
-        <member name="P:EamonMH.Program.GlobalsType">
+        <member name="P:EamonMH.Program.EngineType">
             <summary></summary>
         </member>
     </members>

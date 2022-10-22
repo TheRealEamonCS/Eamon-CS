@@ -7,7 +7,7 @@ using Eamon.Framework;
 using Eamon.Framework.Helpers;
 using Eamon.Game.Attributes;
 using EamonDD.Framework.Menus.ActionMenus;
-using static EamonDD.Game.Plugin.PluginContext;
+using static EamonDD.Game.Plugin.Globals;
 
 namespace EamonDD.Game.Menus.ActionMenus
 {
@@ -16,14 +16,14 @@ namespace EamonDD.Game.Menus.ActionMenus
 	{
 		public override void UpdateGlobals()
 		{
-			Globals.FilesetsModified = true;
+			gEngine.FilesetsModified = true;
 		}
 
 		public DeleteFilesetRecordMenu()
 		{
 			Title = "DELETE FILESET RECORD";
 
-			RecordTable = Globals.Database.FilesetTable;
+			RecordTable = gEngine.Database.FilesetTable;
 
 			RecordTypeName = "Fileset";
 		}

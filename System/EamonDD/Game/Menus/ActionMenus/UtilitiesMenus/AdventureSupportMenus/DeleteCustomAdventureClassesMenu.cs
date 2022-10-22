@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using Eamon.Game.Attributes;
 using EamonDD.Framework.Menus.ActionMenus;
-using static EamonDD.Game.Plugin.PluginContext;
+using static EamonDD.Game.Plugin.Globals;
 
 namespace EamonDD.Game.Menus.ActionMenus
 {
@@ -27,7 +27,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			GotoCleanup = false;
 
-			var workDir = Globals.Directory.GetCurrentDirectory();
+			var workDir = gEngine.Directory.GetCurrentDirectory();
 
 			CheckForPrerequisites();
 
@@ -49,7 +49,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			if (IsAdventureNameValid())
 			{
-				Globals.Directory.SetCurrentDirectory(Constants.AdventuresDir + @"\" + AdventureName);
+				gEngine.Directory.SetCurrentDirectory(gEngine.AdventuresDir + @"\" + AdventureName);
 
 				SelectClassFilesToDelete();
 
@@ -69,7 +69,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 				UpdateDatFileClasses();
 
-				Globals.Directory.SetCurrentDirectory(workDir);
+				gEngine.Directory.SetCurrentDirectory(workDir);
 			}
 
 			DeleteAdvBinaryFiles();
@@ -90,13 +90,13 @@ namespace EamonDD.Game.Menus.ActionMenus
 				// TODO: rollback classes delete if possible
 			}
 
-			Globals.Directory.SetCurrentDirectory(workDir);
+			gEngine.Directory.SetCurrentDirectory(workDir);
 		}
 
 		/// <summary></summary>
 		public virtual void SelectClassFilesToDelete()
 		{
-			var invalidClassFileNames = new string[] { "Program.cs", "Engine.cs", "IPluginClassMappings.cs", "IPluginConstants.cs", "IPluginGlobals.cs", "PluginClassMappings.cs", "PluginConstants.cs", "PluginContext.cs", "PluginGlobals.cs" };
+			var invalidClassFileNames = new string[] { "Program.cs", "IEngine.cs", "Engine.cs", "Globals.cs" };
 
 			SelectedClassFileList = new List<string>();
 
@@ -104,7 +104,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			while (true)
 			{
-				gOut.Print("{0}", Globals.LineSep);
+				gOut.Print("{0}", gEngine.LineSep);
 
 				gOut.Write("{0}Enter file name of interface/class: ", Environment.NewLine);
 
@@ -112,7 +112,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 				gOut.WordWrap = false;
 
-				var rc = Globals.In.ReadField(Buf, 120, null, '_', '\0', true, null, null, null, null);
+				var rc = gEngine.In.ReadField(Buf, 120, null, '_', '\0', true, null, null, null, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -133,12 +133,12 @@ namespace EamonDD.Game.Menus.ActionMenus
 				{
 					classFileName = string.Empty;
 				}
-				else if (!classFileName.EndsWith(".cs") || classFileName.Contains(@"\.") || invalidClassFileNames.FirstOrDefault(fn => fn.Equals(Globals.Path.GetFileName(classFileName), StringComparison.OrdinalIgnoreCase)) != null || SelectedClassFileList.FirstOrDefault(fn => fn.Equals(classFileName, StringComparison.OrdinalIgnoreCase)) != null || !Globals.File.Exists(classFileName))
+				else if (!classFileName.EndsWith(".cs") || classFileName.Contains(@"\.") || invalidClassFileNames.FirstOrDefault(fn => fn.Equals(gEngine.Path.GetFileName(classFileName), StringComparison.OrdinalIgnoreCase)) != null || SelectedClassFileList.FirstOrDefault(fn => fn.Equals(classFileName, StringComparison.OrdinalIgnoreCase)) != null || !gEngine.File.Exists(classFileName))
 				{
 					classFileName = string.Empty;
 				}
 
-				gOut.Print("{0}", Globals.LineSep);
+				gOut.Print("{0}", gEngine.LineSep);
 
 				if (classFileName.Length > 0)
 				{
@@ -156,7 +156,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			if (SelectedClassFileList.Count == 0)
 			{
-				gOut.Print("{0}", Globals.LineSep);
+				gOut.Print("{0}", gEngine.LineSep);
 
 				gOut.Print("The adventure was not processed.");
 
@@ -167,31 +167,31 @@ namespace EamonDD.Game.Menus.ActionMenus
 		/// <summary></summary>
 		public virtual void DeleteSelectedClassFiles()
 		{
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 
 			gOut.WriteLine();
 
 			foreach (var selectedClassFile in SelectedClassFileList)
 			{
-				if (Globals.File.Exists(selectedClassFile))
+				if (gEngine.File.Exists(selectedClassFile))
 				{
-					Globals.File.Delete(selectedClassFile);
+					gEngine.File.Delete(selectedClassFile);
 				}
 
 				if (selectedClassFile.Contains(@"\Game\"))
 				{
-					var selectedInterfaceFile = Globals.Path.GetDirectoryName(selectedClassFile.Replace(@"\Game\", @"\Framework\")) + @"\I" + Globals.Path.GetFileName(selectedClassFile);
+					var selectedInterfaceFile = gEngine.Path.GetDirectoryName(selectedClassFile.Replace(@"\Game\", @"\Framework\")) + @"\I" + gEngine.Path.GetFileName(selectedClassFile);
 
-					if (Globals.File.Exists(selectedInterfaceFile))
+					if (gEngine.File.Exists(selectedInterfaceFile))
 					{
-						Globals.File.Delete(selectedInterfaceFile);
+						gEngine.File.Delete(selectedInterfaceFile);
 					}
 				}
 			}
 
 			if (IsAdventureNameValid())
 			{
-				Globals.Directory.DeleteEmptySubdirectories(@"..\" + AdventureName, true);
+				gEngine.Directory.DeleteEmptySubdirectories(@"..\" + AdventureName, true);
 			}
 		}
 

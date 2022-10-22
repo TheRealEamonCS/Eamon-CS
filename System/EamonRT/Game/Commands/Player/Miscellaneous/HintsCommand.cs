@@ -14,7 +14,7 @@ using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.States;
-using static EamonRT.Game.Plugin.PluginContext;
+using static EamonRT.Game.Plugin.Globals;
 
 namespace EamonRT.Game.Commands
 {
@@ -34,16 +34,16 @@ namespace EamonRT.Game.Commands
 		{
 			RetCode rc;
 
-			Globals.ShouldPreTurnProcess = false;
+			gEngine.ShouldPreTurnProcess = false;
 			
-			if (Globals.Database.GetHintCount() <= 0)
+			if (gEngine.Database.GetHintCount() <= 0)
 			{
 				PrintNoHintsAvailable();
 
 				goto Cleanup;
 			}
 
-			ActiveHintList = Globals.Database.HintTable.Records.Where(h => h.Active).OrderBy(h => h.Uid).ToList();
+			ActiveHintList = gEngine.Database.HintTable.Records.Where(h => h.Active).OrderBy(h => h.Uid).ToList();
 
 			if (ActiveHintList.Count <= 0)
 			{
@@ -61,13 +61,13 @@ namespace EamonRT.Game.Commands
 
 			PrintEnterHintChoice();
 
-			Globals.Buf.Clear();
+			gEngine.Buf.Clear();
 
-			rc = Globals.In.ReadField(Globals.Buf, Constants.BufSize01, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharDigit, null);
+			rc = gEngine.In.ReadField(gEngine.Buf, gEngine.BufSize01, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharDigit, null);
 
 			Debug.Assert(gEngine.IsSuccess(rc));
 
-			ActiveHintListIndex = Convert.ToInt32(Globals.Buf.Trim().ToString()) - 1;
+			ActiveHintListIndex = Convert.ToInt32(gEngine.Buf.Trim().ToString()) - 1;
 
 			if (ActiveHintListIndex < 0 || ActiveHintListIndex >= ActiveHintList.Count)
 			{
@@ -78,19 +78,19 @@ namespace EamonRT.Game.Commands
 
 			for (HintAnswerIndex = 0; HintAnswerIndex < ActiveHintList[ActiveHintListIndex].NumAnswers; HintAnswerIndex++)
 			{
-				PrintHintAnswer(ActiveHintList[ActiveHintListIndex].GetAnswer(HintAnswerIndex), Globals.Buf);
+				PrintHintAnswer(ActiveHintList[ActiveHintListIndex].GetAnswer(HintAnswerIndex), gEngine.Buf);
 
 				if (HintAnswerIndex + 1 < ActiveHintList[ActiveHintListIndex].NumAnswers)
 				{
 					PrintAnotherHint();
 
-					Globals.Buf.Clear();
+					gEngine.Buf.Clear();
 
-					rc = Globals.In.ReadField(Globals.Buf, Constants.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, null);
+					rc = gEngine.In.ReadField(gEngine.Buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, null);
 
 					Debug.Assert(gEngine.IsSuccess(rc));
 
-					if (Globals.Buf.Length == 0 || Globals.Buf[0] == 'N')
+					if (gEngine.Buf.Length == 0 || gEngine.Buf[0] == 'N')
 					{
 						break;
 					}
@@ -101,7 +101,7 @@ namespace EamonRT.Game.Commands
 
 			if (NextState == null)
 			{
-				NextState = Globals.CreateInstance<IStartState>();
+				NextState = gEngine.CreateInstance<IStartState>();
 			}
 		}
 

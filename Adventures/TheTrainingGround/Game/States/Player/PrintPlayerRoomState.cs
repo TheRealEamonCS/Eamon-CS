@@ -7,7 +7,7 @@ using System.Diagnostics;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
-using static TheTrainingGround.Game.Plugin.PluginContext;
+using static TheTrainingGround.Game.Plugin.Globals;
 
 namespace TheTrainingGround.Game.States
 {
@@ -18,7 +18,7 @@ namespace TheTrainingGround.Game.States
 		{
 			base.ProcessEvents(eventType);
 
-			if (eventType == EventType.BeforePrintPlayerRoom && Globals.ShouldPreTurnProcess)
+			if (eventType == EventType.BeforePrintPlayerRoom && gEngine.ShouldPreTurnProcess)
 			{
 				Debug.Assert(gCharMonster != null);
 
@@ -71,7 +71,7 @@ namespace TheTrainingGround.Game.States
 
 							// Exclude character monster
 
-							rl = gEngine.RollDice(1, Globals.Database.MonsterTable.Records.Count - 1, 0);
+							rl = gEngine.RollDice(1, gEngine.Database.MonsterTable.Records.Count - 1, 0);
 
 							var summonedMonster = gMDB[rl];
 

@@ -5,7 +5,7 @@
 
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
-using static TheBeginnersCave.Game.Plugin.PluginContext;
+using static TheBeginnersCave.Game.Plugin.Globals;
 
 namespace TheBeginnersCave.Game.Commands
 {

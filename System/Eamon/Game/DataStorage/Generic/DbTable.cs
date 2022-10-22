@@ -10,7 +10,7 @@ using Polenter.Serialization;
 using Eamon.Framework;
 using Eamon.Framework.DataStorage.Generic;
 using Eamon.ThirdParty;
-using static Eamon.Game.Plugin.PluginContext;
+using static Eamon.Game.Plugin.Globals;
 
 namespace Eamon.Game.DataStorage.Generic
 {
@@ -110,7 +110,7 @@ namespace Eamon.Game.DataStorage.Generic
 				goto Cleanup;
 			}
 
-			result = makeCopy ? Globals.CloneInstance(record) : record;
+			result = makeCopy ? gEngine.CloneInstance(record) : record;
 
 			if (result == null)
 			{
@@ -237,7 +237,7 @@ namespace Eamon.Game.DataStorage.Generic
 
 			FreeUids = new List<long>();
 
-			FindRec = Globals.CreateInstance<T>();
+			FindRec = gEngine.CreateInstance<T>();
 		}
 	}
 }

@@ -8,7 +8,7 @@ using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
-using static WrenholdsSecretVigil.Game.Plugin.PluginContext;
+using static WrenholdsSecretVigil.Game.Plugin.Globals;
 
 namespace WrenholdsSecretVigil.Game.States
 {
@@ -49,7 +49,7 @@ namespace WrenholdsSecretVigil.Game.States
 						{
 							dir = "west";
 						}
-						else if (characterRoom.GetDir(Direction.East) > 0 && characterRoom.GetDir(Direction.East) <= Globals.Module.NumRooms)
+						else if (characterRoom.GetDir(Direction.East) > 0 && characterRoom.GetDir(Direction.East) <= gEngine.Module.NumRooms)
 						{
 							dir = "east";
 						}

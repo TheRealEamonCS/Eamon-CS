@@ -11,7 +11,7 @@ using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
-using static ARuncibleCargo.Game.Plugin.PluginContext;
+using static ARuncibleCargo.Game.Plugin.Globals;
 
 namespace ARuncibleCargo.Game.States
 {
@@ -24,11 +24,11 @@ namespace ARuncibleCargo.Game.States
 
 			base.ProcessEvents(eventType);
 
-			var gameState = Globals.GameState as Framework.IGameState;
+			var gameState = gEngine.GameState as Framework.IGameState;
 
 			Debug.Assert(gameState != null);
 
-			if (eventType == EventType.BeforePrintPlayerRoom && Globals.ShouldPreTurnProcess)
+			if (eventType == EventType.BeforePrintPlayerRoom && gEngine.ShouldPreTurnProcess)
 			{
 				var charMonster = gMDB[gameState.Cm];
 
@@ -45,50 +45,50 @@ namespace ARuncibleCargo.Game.States
 
 				if (room.Uid < 7 && gameState.DreamCounter >= 13)
 				{
-					var lookCommand = Globals.LastCommand as ILookCommand;
+					var lookCommand = gEngine.LastCommand as ILookCommand;
 
 					if (lookCommand != null)
 					{
-						Globals.Engine.PrintPlayerRoom();
+						gEngine.PrintPlayerRoom();
 					}
 
 					gEngine.ClearActionLists();
 
-					// Globals.SentenceParser.PrintDiscardingCommands() not called for this abrupt reality shift
+					// gEngine.SentenceParser.PrintDiscardingCommands() not called for this abrupt reality shift
 
-					Globals.SentenceParser.Clear();
+					gEngine.SentenceParser.Clear();
 
 					// Nothing in the dream affects the real world; revert game state now that player is awake
 
-					var filesetTable = Globals.CloneInstance(Globals.Database.FilesetTable);
+					var filesetTable = gEngine.CloneInstance(gEngine.Database.FilesetTable);
 
 					Debug.Assert(filesetTable != null);
 
-					var gameState01 = Globals.CloneInstance(gameState);
+					var gameState01 = gEngine.CloneInstance(gameState);
 
 					Debug.Assert(gameState01 != null);
 
-					rc = Globals.PopDatabase();
+					rc = gEngine.PopDatabase();
 
-					Debug.Assert(Globals.Engine.IsSuccess(rc));
+					Debug.Assert(gEngine.IsSuccess(rc));
 
-					rc = Globals.RestoreDatabase(Constants.SnapshotFileName);
+					rc = gEngine.RestoreDatabase(gEngine.SnapshotFileName);
 
-					Debug.Assert(Globals.Engine.IsSuccess(rc));
+					Debug.Assert(gEngine.IsSuccess(rc));
 
-					Globals.Database.FilesetTable = filesetTable;
+					gEngine.Database.FilesetTable = filesetTable;
 
-					Globals.Config = Globals.Engine.GetConfig();
+					gEngine.Config = gEngine.GetConfig();
 
-					Globals.Character = Globals.Database.CharacterTable.Records.FirstOrDefault();
+					gEngine.Character = gEngine.Database.CharacterTable.Records.FirstOrDefault();
 
-					Globals.Module = Globals.Engine.GetModule();
+					gEngine.Module = gEngine.GetModule();
 
-					Globals.GameState = Globals.Engine.GetGameState();
+					gEngine.GameState = gEngine.GetGameState();
 
-					gameState = Globals.GameState as Framework.IGameState;
+					gameState = gEngine.GameState as Framework.IGameState;
 
-					gameState.PookaMet = Globals.CloneInstance(gameState01.PookaMet);
+					gameState.PookaMet = gEngine.CloneInstance(gameState01.PookaMet);
 
 					gameState.Ro = 7;
 
@@ -116,13 +116,13 @@ namespace ARuncibleCargo.Game.States
 
 					gameState.PauseCombatMs = gameState01.PauseCombatMs;
 
-					charMonster = Globals.MDB[gameState.Cm];
+					charMonster = gEngine.MDB[gameState.Cm];
 
-					room = Globals.RDB[gameState.Ro];
+					room = gEngine.RDB[gameState.Ro];
 
 					charMonster.SetInRoom(room);			// TODO: determine if AfterPlayerMoveState is needed
 
-					Globals.Engine.PrintEffectDesc(7);
+					gEngine.PrintEffectDesc(7);
 				}
 
 				// Out the burning window

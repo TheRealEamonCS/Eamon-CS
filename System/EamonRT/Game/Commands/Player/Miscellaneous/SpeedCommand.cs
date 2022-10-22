@@ -8,7 +8,7 @@ using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.Components;
 using EamonRT.Framework.States;
-using static EamonRT.Game.Plugin.PluginContext;
+using static EamonRT.Game.Plugin.Globals;
 
 namespace EamonRT.Game.Commands
 {
@@ -22,7 +22,7 @@ namespace EamonRT.Game.Commands
 
 		public override void Execute()
 		{
-			MagicComponent = Globals.CreateInstance<IMagicComponent>(x =>
+			MagicComponent = gEngine.CreateInstance<IMagicComponent>(x =>
 			{
 				x.SetNextStateFunc = s => NextState = s;
 
@@ -39,7 +39,7 @@ namespace EamonRT.Game.Commands
 
 			if (NextState == null)
 			{
-				NextState = Globals.CreateInstance<IMonsterStartState>();
+				NextState = gEngine.CreateInstance<IMonsterStartState>();
 			}
 		}
 

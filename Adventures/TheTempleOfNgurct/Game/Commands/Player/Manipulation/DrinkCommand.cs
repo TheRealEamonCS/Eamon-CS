@@ -10,7 +10,7 @@ using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.States;
-using static TheTempleOfNgurct.Game.Plugin.PluginContext;
+using static TheTempleOfNgurct.Game.Plugin.Globals;
 
 namespace TheTempleOfNgurct.Game.Commands
 {
@@ -57,7 +57,7 @@ namespace TheTempleOfNgurct.Game.Commands
 
 				gGameState.Die = 1;
 
-				NextState = Globals.CreateInstance<IPlayerDeadState>(x =>
+				NextState = gEngine.CreateInstance<IPlayerDeadState>(x =>
 				{
 					x.PrintLineSep = true;
 				});
@@ -71,7 +71,7 @@ namespace TheTempleOfNgurct.Game.Commands
 
 				DrankItAll = true;
 
-				NextState = Globals.CreateInstance<IMonsterStartState>();
+				NextState = gEngine.CreateInstance<IMonsterStartState>();
 			}
 
 			// Wine
@@ -93,7 +93,7 @@ namespace TheTempleOfNgurct.Game.Commands
 					ActorMonster.Agility = stat.MinValue;
 				}
 
-				NextState = Globals.CreateInstance<IMonsterStartState>();
+				NextState = gEngine.CreateInstance<IMonsterStartState>();
 			}
 			else
 			{

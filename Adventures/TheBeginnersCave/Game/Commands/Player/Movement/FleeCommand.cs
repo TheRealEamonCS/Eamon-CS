@@ -8,7 +8,7 @@ using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
-using static TheBeginnersCave.Game.Plugin.PluginContext;
+using static TheBeginnersCave.Game.Plugin.Globals;
 
 namespace TheBeginnersCave.Game.Commands
 {
@@ -41,7 +41,7 @@ namespace TheBeginnersCave.Game.Commands
 				{
 					gOut.Print("You are held fast by the mimic and cannot flee!");
 
-					NextState = Globals.CreateInstance<IMonsterStartState>();
+					NextState = gEngine.CreateInstance<IMonsterStartState>();
 
 					GotoCleanup = true;
 				}

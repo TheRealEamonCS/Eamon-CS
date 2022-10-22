@@ -5,7 +5,7 @@
 
 using Eamon.Framework;
 using Eamon.Game.Attributes;
-using static Eamon.Game.Plugin.PluginContext;
+using static Eamon.Game.Plugin.Globals;
 
 namespace Eamon.Game
 {
@@ -45,7 +45,7 @@ namespace Eamon.Game
 
 			if (IsUidRecycled && Uid > 0)
 			{
-				Globals.Database.FreeHintUid(Uid);
+				gEngine.Database.FreeHintUid(Uid);
 
 				Uid = 0;
 			}

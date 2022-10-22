@@ -14,7 +14,7 @@ using Eamon.Game.Attributes;
 using Eamon.Game.Extensions;
 using Eamon.Game.Helpers.Generic;
 using Eamon.Game.Utilities;
-using static Eamon.Game.Plugin.PluginContext;
+using static Eamon.Game.Plugin.Globals;
 
 namespace Eamon.Game.Helpers
 {
@@ -144,14 +144,14 @@ namespace Eamon.Game.Helpers
 				Record.Name = Regex.Replace(Record.Name, @"\s+", " ").Trim();
 			}
 
-			return string.IsNullOrWhiteSpace(Record.Name) == false && Record.Name.Length <= Constants.RmNameLen;
+			return string.IsNullOrWhiteSpace(Record.Name) == false && Record.Name.Length <= gEngine.RmNameLen;
 		}
 
 		/// <summary></summary>
 		/// <returns></returns>
 		public virtual bool ValidateDesc()
 		{
-			return string.IsNullOrWhiteSpace(Record.Desc) == false && Record.Desc.Length <= Constants.RmDescLen;
+			return string.IsNullOrWhiteSpace(Record.Desc) == false && Record.Desc.Length <= gEngine.RmDescLen;
 		}
 
 		/// <summary></summary>
@@ -195,7 +195,7 @@ namespace Eamon.Game.Helpers
 			{
 				result = false;
 
-				Buf.SetFormat(Constants.RecIdepErrorFmtStr, GetPrintedName("Desc"), "Effect", invalidUid, "which doesn't exist");
+				Buf.SetFormat(gEngine.RecIdepErrorFmtStr, GetPrintedName("Desc"), "Effect", invalidUid, "which doesn't exist");
 
 				ErrorMessage = Buf.ToString();
 
@@ -256,7 +256,7 @@ namespace Eamon.Game.Helpers
 					{
 						result = false;
 
-						Buf.SetFormat(Constants.RecIdepErrorFmtStr, GetPrintedName("DirsElement"), "Room", roomUid, "which doesn't exist");
+						Buf.SetFormat(gEngine.RecIdepErrorFmtStr, GetPrintedName("DirsElement"), "Room", roomUid, "which doesn't exist");
 
 						ErrorMessage = Buf.ToString();
 
@@ -277,7 +277,7 @@ namespace Eamon.Game.Helpers
 					{
 						result = false;
 
-						Buf.SetFormat(Constants.RecIdepErrorFmtStr, GetPrintedName("DirsElement"), "Artifact", artUid, "which doesn't exist");
+						Buf.SetFormat(gEngine.RecIdepErrorFmtStr, GetPrintedName("DirsElement"), "Artifact", artUid, "which doesn't exist");
 
 						ErrorMessage = Buf.ToString();
 
@@ -291,7 +291,7 @@ namespace Eamon.Game.Helpers
 					{
 						result = false;
 
-						Buf.SetFormat(Constants.RecIdepErrorFmtStr, GetPrintedName("DirsElement"), "Artifact", artUid, "which should be a door/gate, but isn't");
+						Buf.SetFormat(gEngine.RecIdepErrorFmtStr, GetPrintedName("DirsElement"), "Artifact", artUid, "which should be a door/gate, but isn't");
 
 						ErrorMessage = Buf.ToString();
 
@@ -305,7 +305,7 @@ namespace Eamon.Game.Helpers
 					{
 						result = false;
 
-						Buf.SetFormat(Constants.RecIdepErrorFmtStr, GetPrintedName("DirsElement"), "Artifact", artUid, "which should be located in this Room, but isn't");
+						Buf.SetFormat(gEngine.RecIdepErrorFmtStr, GetPrintedName("DirsElement"), "Artifact", artUid, "which should be located in this Room, but isn't");
 
 						ErrorMessage = Buf.ToString();
 
@@ -358,7 +358,7 @@ namespace Eamon.Game.Helpers
 		{
 			var fullDesc = "Enter the level of light in the Room.";
 
-			var briefDesc = new StringBuilder(Constants.BufSize);
+			var briefDesc = new StringBuilder(gEngine.BufSize);
 
 			var lightLevelValues = EnumUtil.GetValues<LightLevel>();
 
@@ -375,7 +375,7 @@ namespace Eamon.Game.Helpers
 		{
 			var fullDesc = "Enter the type of the Room.";
 
-			var briefDesc = new StringBuilder(Constants.BufSize);
+			var briefDesc = new StringBuilder(gEngine.BufSize);
 
 			var roomTypeValues = EnumUtil.GetValues<RoomType>();
 
@@ -602,7 +602,7 @@ namespace Eamon.Game.Helpers
 		{
 			gOut.Print("{0}{1}", gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("Uid"), null), Record.Uid);
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 		}
 
 		/// <summary></summary>
@@ -620,7 +620,7 @@ namespace Eamon.Game.Helpers
 
 				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("Name"), null));
 
-				var rc = Globals.In.ReadField(Buf, Constants.RmNameLen, null, '_', '\0', false, null, null, null, null);
+				var rc = gEngine.In.ReadField(Buf, gEngine.RmNameLen, null, '_', '\0', false, null, null, null, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -634,7 +634,7 @@ namespace Eamon.Game.Helpers
 				fieldDesc = FieldDesc.Brief;
 			}
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 		}
 
 		/// <summary></summary>
@@ -654,7 +654,7 @@ namespace Eamon.Game.Helpers
 
 				gOut.WordWrap = false;
 
-				var rc = Globals.In.ReadField(Buf, Constants.RmDescLen, null, '_', '\0', false, null, null, null, null);
+				var rc = gEngine.In.ReadField(Buf, gEngine.RmDescLen, null, '_', '\0', false, null, null, null, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -670,7 +670,7 @@ namespace Eamon.Game.Helpers
 				fieldDesc = FieldDesc.Brief;
 			}
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 		}
 
 		/// <summary></summary>
@@ -688,7 +688,7 @@ namespace Eamon.Game.Helpers
 
 				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("Seen"), "0"));
 
-				var rc = Globals.In.ReadField(Buf, Constants.BufSize01, null, '_', '\0', true, "0", null, gEngine.IsChar0Or1, null);
+				var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, "0", null, gEngine.IsChar0Or1, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -702,7 +702,7 @@ namespace Eamon.Game.Helpers
 				fieldDesc = FieldDesc.Brief;
 			}
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 		}
 
 		/// <summary></summary>
@@ -720,7 +720,7 @@ namespace Eamon.Game.Helpers
 
 				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("LightLvl"), "1"));
 
-				var rc = Globals.In.ReadField(Buf, Constants.BufSize01, null, '_', '\0', true, "1", null, gEngine.IsChar0Or1, null);
+				var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, "1", null, gEngine.IsChar0Or1, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -734,7 +734,7 @@ namespace Eamon.Game.Helpers
 				fieldDesc = FieldDesc.Brief;
 			}
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 		}
 
 		/// <summary></summary>
@@ -752,7 +752,7 @@ namespace Eamon.Game.Helpers
 
 				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("Type"), "0"));
 
-				var rc = Globals.In.ReadField(Buf, Constants.BufSize01, null, '_', '\0', true, "0", null, gEngine.IsChar0Or1, null);
+				var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, "0", null, gEngine.IsChar0Or1, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -766,7 +766,7 @@ namespace Eamon.Game.Helpers
 				fieldDesc = FieldDesc.Brief;
 			}
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 		}
 
 		/// <summary></summary>
@@ -784,7 +784,7 @@ namespace Eamon.Game.Helpers
 
 				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("Zone"), "1"));
 
-				var rc = Globals.In.ReadField(Buf, Constants.BufSize01, null, '_', '\0', true, "1", null, gEngine.IsCharDigit, null);
+				var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, "1", null, gEngine.IsCharDigit, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -798,7 +798,7 @@ namespace Eamon.Game.Helpers
 				fieldDesc = FieldDesc.Brief;
 			}
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 		}
 
 		/// <summary></summary>
@@ -835,7 +835,7 @@ namespace Eamon.Game.Helpers
 
 					gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("DirsElement"), "0"));
 
-					var rc = Globals.In.ReadField(Buf, Constants.BufSize01, null, '_', '\0', true, "0", null, gEngine.IsCharPlusMinusDigit, null);
+					var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, "0", null, gEngine.IsCharPlusMinusDigit, null);
 
 					Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -858,7 +858,7 @@ namespace Eamon.Game.Helpers
 					fieldDesc = FieldDesc.Brief;
 				}
 
-				gOut.Print("{0}", Globals.LineSep);
+				gOut.Print("{0}", gEngine.LineSep);
 			}
 			else
 			{
@@ -882,7 +882,7 @@ namespace Eamon.Game.Helpers
 		{
 			if (Record.Uid <= 0)
 			{
-				Record.Uid = Globals.Database.GetRoomUid();
+				Record.Uid = gEngine.Database.GetRoomUid();
 
 				Record.IsUidRecycled = true;
 			}

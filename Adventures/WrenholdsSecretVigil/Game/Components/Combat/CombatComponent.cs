@@ -8,7 +8,7 @@ using Eamon.Framework;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Components;
-using static WrenholdsSecretVigil.Game.Plugin.PluginContext;
+using static WrenholdsSecretVigil.Game.Plugin.Globals;
 
 namespace WrenholdsSecretVigil.Game.Components
 {
@@ -21,12 +21,12 @@ namespace WrenholdsSecretVigil.Game.Components
 
 			if (DobjMonster != null && DobjMonster.Reaction == Friendliness.Enemy)
 			{
-				Globals.MonsterCurses = true;
+				gEngine.MonsterCurses = true;
 			}
 
 			base.ExecuteAttack();
 
-			Globals.MonsterCurses = false;
+			gEngine.MonsterCurses = false;
 		}
 
 		public override void PrintHealthStatus(IRoom room, IMonster actorMonster, IMonster dobjMonster, bool blastSpell)
@@ -46,11 +46,11 @@ namespace WrenholdsSecretVigil.Game.Components
 					gOut.WriteLine();
 				}
 
-				Globals.Buf.Clear();
+				gEngine.Buf.Clear();
 
-				deadBodyArtifact.BuildPrintedFullDesc(Globals.Buf, false, false);
+				deadBodyArtifact.BuildPrintedFullDesc(gEngine.Buf, false, false);
 
-				gOut.Write("{0}", Globals.Buf);
+				gOut.Write("{0}", gEngine.Buf);
 
 				deadBodyArtifact.Seen = true;
 			}

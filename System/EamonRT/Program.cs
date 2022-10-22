@@ -33,8 +33,8 @@ using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Extensions;
 using Eamon.Game.Utilities;
 using EamonDD.Framework.Menus.HierarchicalMenus;
-using static EamonRT.Game.Plugin.PluginContext;
-using static EamonRT.Game.Plugin.PluginContextStack;
+using static EamonRT.Game.Plugin.ContextStack;
+using static EamonRT.Game.Plugin.Globals;
 
 namespace EamonRT
 {
@@ -58,13 +58,7 @@ namespace EamonRT
 		public virtual string ProgramName { get; set; } = "EamonRT";
 
 		/// <summary></summary>
-		public virtual Type ConstantsType { get; set; } = typeof(Game.Plugin.PluginConstants);
-
-		/// <summary></summary>
-		public virtual Type ClassMappingsType { get; set; } = typeof(Game.Plugin.PluginClassMappings);
-
-		/// <summary></summary>
-		public virtual Type GlobalsType { get; set; } = typeof(Game.Plugin.PluginGlobals);
+		public virtual Type EngineType { get; set; } = typeof(Game.Plugin.Engine);
 
 		public virtual void SetPunctSpaceCode()
 		{
@@ -98,15 +92,15 @@ namespace EamonRT
 
 			// initialize Config record
 
-			Globals.Config.Uid = 1;
+			gEngine.Config.Uid = 1;
 
-			Globals.Config.ShowDesc = true;
+			gEngine.Config.ShowDesc = true;
 
-			Globals.Config.GenerateUids = true;
+			gEngine.Config.GenerateUids = true;
 
-			Globals.Config.FieldDesc = FieldDesc.Full;
+			gEngine.Config.FieldDesc = FieldDesc.Full;
 
-			Globals.Config.WordWrapMargin = Constants.RightMargin;
+			gEngine.Config.WordWrapMargin = gEngine.RightMargin;
 
 			// change window title bar and size
 
@@ -114,10 +108,10 @@ namespace EamonRT
 
 			try
 			{
-				gOut.SetWindowSize(Math.Min(Constants.WindowWidth, gOut.GetLargestWindowWidth()),
-													Math.Min(Math.Max(Constants.WindowHeight, gOut.GetWindowHeight()), (long)(gOut.GetLargestWindowHeight() * 0.95)));
+				gOut.SetWindowSize(Math.Min(gEngine.WindowWidth, gOut.GetLargestWindowWidth()),
+													Math.Min(Math.Max(gEngine.WindowHeight, gOut.GetWindowHeight()), (long)(gOut.GetLargestWindowHeight() * 0.95)));
 
-				gOut.SetBufferSize(Constants.BufferWidth, Constants.BufferHeight);
+				gOut.SetBufferSize(gEngine.BufferWidth, gEngine.BufferHeight);
 			}
 			catch (Exception)
 			{
@@ -126,7 +120,7 @@ namespace EamonRT
 
 			// make announcements
 
-			gOut.Write("{0}Eamon CS Dungeon Designer ({1}) {2}.", Environment.NewLine, ProgramName, Constants.DdProgVersion);
+			gOut.Write("{0}Eamon CS Dungeon Designer ({1}) {2}.", Environment.NewLine, ProgramName, gEngine.DdProgVersion);
 
 			gOut.Write("{0}Copyright (c) 2014+ by Michael Penner.  All rights reserved.", Environment.NewLine);
 
@@ -134,11 +128,11 @@ namespace EamonRT
 
 			// copy and store command line args
 
-			Globals.Argv = new string[args.Length];
+			gEngine.Argv = new string[args.Length];
 
 			for (i = 0; i < args.Length; i++)
 			{
-				Globals.Argv[i] = Globals.CloneInstance(args[i]);
+				gEngine.Argv[i] = gEngine.CloneInstance(args[i]);
 			}
 
 			// process command line args
@@ -147,43 +141,43 @@ namespace EamonRT
 
 			// initialize Config record
 
-			Globals.Config.DdFilesetFileName = "FILESETS.DAT";
+			gEngine.Config.DdFilesetFileName = "FILESETS.DAT";
 
-			Globals.Config.DdCharacterFileName = "CHARACTERS.DAT";
+			gEngine.Config.DdCharacterFileName = "CHARACTERS.DAT";
 
-			Globals.Config.DdModuleFileName = "MODULE.DAT";
+			gEngine.Config.DdModuleFileName = "MODULE.DAT";
 
-			Globals.Config.DdRoomFileName = "ROOMS.DAT";
+			gEngine.Config.DdRoomFileName = "ROOMS.DAT";
 
-			Globals.Config.DdArtifactFileName = "ARTIFACTS.DAT";
+			gEngine.Config.DdArtifactFileName = "ARTIFACTS.DAT";
 
-			Globals.Config.DdEffectFileName = "EFFECTS.DAT";
+			gEngine.Config.DdEffectFileName = "EFFECTS.DAT";
 
-			Globals.Config.DdMonsterFileName = "MONSTERS.DAT";
+			gEngine.Config.DdMonsterFileName = "MONSTERS.DAT";
 
-			Globals.Config.DdHintFileName = "HINTS.DAT";
+			gEngine.Config.DdHintFileName = "HINTS.DAT";
 
-			if (Globals.WorkDir.Length > 0)
+			if (gEngine.WorkDir.Length > 0)
 			{
 				// if working directory does not exist
 
-				if (!Globals.Directory.Exists(Globals.WorkDir))
+				if (!gEngine.Directory.Exists(gEngine.WorkDir))
 				{
-					gOut.Print("{0}", Globals.LineSep);
+					gOut.Print("{0}", gEngine.LineSep);
 
-					gOut.Print("The working directory [{0}] does not exist.", Globals.WorkDir);
+					gOut.Print("The working directory [{0}] does not exist.", gEngine.WorkDir);
 
 					gOut.Write("{0}Would you like to create it (Y/N) [N]: ", Environment.NewLine);
 
-					Globals.Buf.Clear();
+					gEngine.Buf.Clear();
 
-					rc = Globals.In.ReadField(Globals.Buf, Constants.BufSize02, null, ' ', '\0', true, "N", gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, gEngine.IsCharYOrN);
+					rc = gEngine.In.ReadField(gEngine.Buf, gEngine.BufSize02, null, ' ', '\0', true, "N", gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, gEngine.IsCharYOrN);
 
 					Debug.Assert(gEngine.IsSuccess(rc));
 
-					Globals.Thread.Sleep(150);
+					gEngine.Thread.Sleep(150);
 
-					if (Globals.Buf[0] != 'Y')
+					if (gEngine.Buf[0] != 'Y')
 					{
 						_nlFlag = false;
 
@@ -192,25 +186,25 @@ namespace EamonRT
 
 					// create working directory
 
-					Globals.Directory.CreateDirectory(Globals.WorkDir);
+					gEngine.Directory.CreateDirectory(gEngine.WorkDir);
 				}
 
 				// change to working directory
 
-				Globals.Directory.SetCurrentDirectory(Globals.WorkDir);
+				gEngine.Directory.SetCurrentDirectory(gEngine.WorkDir);
 			}
 
 			// load the config datafile
 
-			if (Globals.ConfigFileName.Length > 0)
+			if (gEngine.ConfigFileName.Length > 0)
 			{
-				gOut.Print("{0}", Globals.LineSep);
+				gOut.Print("{0}", gEngine.LineSep);
 
-				rc = Globals.Database.LoadConfigs(Globals.ConfigFileName);
+				rc = gEngine.Database.LoadConfigs(gEngine.ConfigFileName);
 
 				if (gEngine.IsFailure(rc))
 				{
-					Globals.Error.Write("Error: LoadConfigs function call failed.");
+					gEngine.Error.Write("Error: LoadConfigs function call failed.");
 
 					goto Cleanup;
 				}
@@ -221,58 +215,58 @@ namespace EamonRT
 				{
 					if (config.DdFilesetFileName.Length == 0)
 					{
-						config.DdFilesetFileName = Globals.Config.DdFilesetFileName;
+						config.DdFilesetFileName = gEngine.Config.DdFilesetFileName;
 
-						Globals.ConfigsModified = true;
+						gEngine.ConfigsModified = true;
 					}
 
 					if (config.DdCharacterFileName.Length == 0)
 					{
-						config.DdCharacterFileName = Globals.Config.DdCharacterFileName;
+						config.DdCharacterFileName = gEngine.Config.DdCharacterFileName;
 
-						Globals.ConfigsModified = true;
+						gEngine.ConfigsModified = true;
 					}
 
 					if (config.DdModuleFileName.Length == 0)
 					{
-						config.DdModuleFileName = Globals.Config.DdModuleFileName;
+						config.DdModuleFileName = gEngine.Config.DdModuleFileName;
 
-						Globals.ConfigsModified = true;
+						gEngine.ConfigsModified = true;
 					}
 
 					if (config.DdRoomFileName.Length == 0)
 					{
-						config.DdRoomFileName = Globals.Config.DdRoomFileName;
+						config.DdRoomFileName = gEngine.Config.DdRoomFileName;
 
-						Globals.ConfigsModified = true;
+						gEngine.ConfigsModified = true;
 					}
 
 					if (config.DdArtifactFileName.Length == 0)
 					{
-						config.DdArtifactFileName = Globals.Config.DdArtifactFileName;
+						config.DdArtifactFileName = gEngine.Config.DdArtifactFileName;
 
-						Globals.ConfigsModified = true;
+						gEngine.ConfigsModified = true;
 					}
 
 					if (config.DdEffectFileName.Length == 0)
 					{
-						config.DdEffectFileName = Globals.Config.DdEffectFileName;
+						config.DdEffectFileName = gEngine.Config.DdEffectFileName;
 
-						Globals.ConfigsModified = true;
+						gEngine.ConfigsModified = true;
 					}
 
 					if (config.DdMonsterFileName.Length == 0)
 					{
-						config.DdMonsterFileName = Globals.Config.DdMonsterFileName;
+						config.DdMonsterFileName = gEngine.Config.DdMonsterFileName;
 
-						Globals.ConfigsModified = true;
+						gEngine.ConfigsModified = true;
 					}
 
 					if (config.DdHintFileName.Length == 0)
 					{
-						config.DdHintFileName = Globals.Config.DdHintFileName;
+						config.DdHintFileName = gEngine.Config.DdHintFileName;
 
-						Globals.ConfigsModified = true;
+						gEngine.ConfigsModified = true;
 					}
 
 					if (_ddfnFlag)
@@ -293,16 +287,16 @@ namespace EamonRT
 
 						config.DdEditingHints = false;
 
-						Globals.ConfigsModified = true;
+						gEngine.ConfigsModified = true;
 					}
 				}
 				else
 				{
-					Globals.Config.Uid = Globals.Database.GetConfigUid();
+					gEngine.Config.Uid = gEngine.Database.GetConfigUid();
 
-					Globals.Config.IsUidRecycled = true;
+					gEngine.Config.IsUidRecycled = true;
 
-					rc = Globals.Database.AddConfig(Globals.Config);
+					rc = gEngine.Database.AddConfig(gEngine.Config);
 
 					if (gEngine.IsFailure(rc))
 					{
@@ -311,12 +305,12 @@ namespace EamonRT
 						goto Cleanup;
 					}
 
-					Globals.ConfigsModified = true;
+					gEngine.ConfigsModified = true;
 
-					config = Globals.Config;
+					config = gEngine.Config;
 				}
 
-				Globals.Config = config;
+				gEngine.Config = config;
 
 				gOut.WriteLine();
 			}
@@ -334,122 +328,122 @@ namespace EamonRT
 
 			_nlFlag = true;
 
-			if (Globals.Config.DdEditingFilesets || Globals.Config.DdEditingCharacters || Globals.Config.DdEditingModules || Globals.Config.DdEditingRooms || Globals.Config.DdEditingArtifacts || Globals.Config.DdEditingEffects || Globals.Config.DdEditingMonsters || Globals.Config.DdEditingHints)
+			if (gEngine.Config.DdEditingFilesets || gEngine.Config.DdEditingCharacters || gEngine.Config.DdEditingModules || gEngine.Config.DdEditingRooms || gEngine.Config.DdEditingArtifacts || gEngine.Config.DdEditingEffects || gEngine.Config.DdEditingMonsters || gEngine.Config.DdEditingHints)
 			{
-				gOut.Print("{0}", Globals.LineSep);
+				gOut.Print("{0}", gEngine.LineSep);
 			}
 
-			if (Globals.Config.DdEditingFilesets)
+			if (gEngine.Config.DdEditingFilesets)
 			{
-				rc = Globals.Database.LoadFilesets(Globals.Config.DdFilesetFileName);
+				rc = gEngine.Database.LoadFilesets(gEngine.Config.DdFilesetFileName);
 
 				if (gEngine.IsFailure(rc))
 				{
-					Globals.Error.Write("Error: LoadFilesets function call failed.");
+					gEngine.Error.Write("Error: LoadFilesets function call failed.");
 
 					goto Cleanup;
 				}
 			}
 
-			if (Globals.Config.DdEditingCharacters)
+			if (gEngine.Config.DdEditingCharacters)
 			{
-				rc = Globals.Database.LoadCharacters(Globals.Config.DdCharacterFileName);
+				rc = gEngine.Database.LoadCharacters(gEngine.Config.DdCharacterFileName);
 
 				if (gEngine.IsFailure(rc))
 				{
-					Globals.Error.Write("Error: LoadCharacters function call failed.");
+					gEngine.Error.Write("Error: LoadCharacters function call failed.");
 
 					goto Cleanup;
 				}
 			}
 
-			if (Globals.Config.DdEditingModules)
+			if (gEngine.Config.DdEditingModules)
 			{
-				rc = Globals.Database.LoadModules(Globals.Config.DdModuleFileName);
+				rc = gEngine.Database.LoadModules(gEngine.Config.DdModuleFileName);
 
 				if (gEngine.IsFailure(rc))
 				{
-					Globals.Error.Write("Error: LoadModules function call failed.");
+					gEngine.Error.Write("Error: LoadModules function call failed.");
 
 					goto Cleanup;
 				}
 			}
 
-			if (Globals.Config.DdEditingRooms)
+			if (gEngine.Config.DdEditingRooms)
 			{
-				rc = Globals.Database.LoadRooms(Globals.Config.DdRoomFileName);
+				rc = gEngine.Database.LoadRooms(gEngine.Config.DdRoomFileName);
 
 				if (gEngine.IsFailure(rc))
 				{
-					Globals.Error.Write("Error: LoadRooms function call failed.");
+					gEngine.Error.Write("Error: LoadRooms function call failed.");
 
 					goto Cleanup;
 				}
 			}
 
-			if (Globals.Config.DdEditingArtifacts)
+			if (gEngine.Config.DdEditingArtifacts)
 			{
-				rc = Globals.Database.LoadArtifacts(Globals.Config.DdArtifactFileName);
+				rc = gEngine.Database.LoadArtifacts(gEngine.Config.DdArtifactFileName);
 
 				if (gEngine.IsFailure(rc))
 				{
-					Globals.Error.Write("Error: LoadArtifacts function call failed.");
+					gEngine.Error.Write("Error: LoadArtifacts function call failed.");
 
 					goto Cleanup;
 				}
 			}
 
-			if (Globals.Config.DdEditingEffects)
+			if (gEngine.Config.DdEditingEffects)
 			{
-				rc = Globals.Database.LoadEffects(Globals.Config.DdEffectFileName);
+				rc = gEngine.Database.LoadEffects(gEngine.Config.DdEffectFileName);
 
 				if (gEngine.IsFailure(rc))
 				{
-					Globals.Error.Write("Error: LoadEffects function call failed.");
+					gEngine.Error.Write("Error: LoadEffects function call failed.");
 
 					goto Cleanup;
 				}
 			}
 
-			if (Globals.Config.DdEditingMonsters)
+			if (gEngine.Config.DdEditingMonsters)
 			{
-				rc = Globals.Database.LoadMonsters(Globals.Config.DdMonsterFileName);
+				rc = gEngine.Database.LoadMonsters(gEngine.Config.DdMonsterFileName);
 
 				if (gEngine.IsFailure(rc))
 				{
-					Globals.Error.Write("Error: LoadMonsters function call failed.");
+					gEngine.Error.Write("Error: LoadMonsters function call failed.");
 
 					goto Cleanup;
 				}
 			}
 
-			if (Globals.Config.DdEditingHints)
+			if (gEngine.Config.DdEditingHints)
 			{
-				rc = Globals.Database.LoadHints(Globals.Config.DdHintFileName);
+				rc = gEngine.Database.LoadHints(gEngine.Config.DdHintFileName);
 
 				if (gEngine.IsFailure(rc))
 				{
-					Globals.Error.Write("Error: LoadHints function call failed.");
+					gEngine.Error.Write("Error: LoadHints function call failed.");
 
 					goto Cleanup;
 				}
 			}
 
-			if (Globals.Config.DdEditingModules)
+			if (gEngine.Config.DdEditingModules)
 			{
 				// find the first Module record
 
-				Globals.Module = gEngine.GetModule();
+				gEngine.Module = gEngine.GetModule();
 
-				if (Globals.Module != null)
+				if (gEngine.Module != null)
 				{
-					if (Globals.Config.DdEditingRooms)
+					if (gEngine.Config.DdEditingRooms)
 					{
-						if (Globals.Module.NumDirs == 6)
+						if (gEngine.Module.NumDirs == 6)
 						{
 							var lastDv = EnumUtil.GetLastValue<Direction>();
 
-							foreach (var room in Globals.Database.RoomTable.Records)
+							foreach (var room in gEngine.Database.RoomTable.Records)
 							{
 								for (var dv = Direction.Northeast; dv <= lastDv; dv++)
 								{
@@ -459,111 +453,111 @@ namespace EamonRT
 									{
 										room.SetDir(i, 0);
 
-										Globals.RoomsModified = true;
+										gEngine.RoomsModified = true;
 									}
 								}
 							}
 						}
 
-						if (Globals.Module.NumRooms != Globals.Database.GetRoomCount())
+						if (gEngine.Module.NumRooms != gEngine.Database.GetRoomCount())
 						{
-							Globals.Module.NumRooms = Globals.Database.GetRoomCount();
+							gEngine.Module.NumRooms = gEngine.Database.GetRoomCount();
 
-							Globals.ModulesModified = true;
+							gEngine.ModulesModified = true;
 						}
 					}
 
-					if (Globals.Config.DdEditingArtifacts && Globals.Module.NumArtifacts != Globals.Database.GetArtifactCount())
+					if (gEngine.Config.DdEditingArtifacts && gEngine.Module.NumArtifacts != gEngine.Database.GetArtifactCount())
 					{
-						Globals.Module.NumArtifacts = Globals.Database.GetArtifactCount();
+						gEngine.Module.NumArtifacts = gEngine.Database.GetArtifactCount();
 
-						Globals.ModulesModified = true;
+						gEngine.ModulesModified = true;
 					}
 
-					if (Globals.Config.DdEditingEffects && Globals.Module.NumEffects != Globals.Database.GetEffectCount())
+					if (gEngine.Config.DdEditingEffects && gEngine.Module.NumEffects != gEngine.Database.GetEffectCount())
 					{
-						Globals.Module.NumEffects = Globals.Database.GetEffectCount();
+						gEngine.Module.NumEffects = gEngine.Database.GetEffectCount();
 
-						Globals.ModulesModified = true;
+						gEngine.ModulesModified = true;
 					}
 
-					if (Globals.Config.DdEditingMonsters && Globals.Module.NumMonsters != Globals.Database.GetMonsterCount())
+					if (gEngine.Config.DdEditingMonsters && gEngine.Module.NumMonsters != gEngine.Database.GetMonsterCount())
 					{
-						Globals.Module.NumMonsters = Globals.Database.GetMonsterCount();
+						gEngine.Module.NumMonsters = gEngine.Database.GetMonsterCount();
 
-						Globals.ModulesModified = true;
+						gEngine.ModulesModified = true;
 					}
 
-					if (Globals.Config.DdEditingHints && Globals.Module.NumHints != Globals.Database.GetHintCount())
+					if (gEngine.Config.DdEditingHints && gEngine.Module.NumHints != gEngine.Database.GetHintCount())
 					{
-						Globals.Module.NumHints = Globals.Database.GetHintCount();
+						gEngine.Module.NumHints = gEngine.Database.GetHintCount();
 
-						Globals.ModulesModified = true;
+						gEngine.ModulesModified = true;
 					}
 				}
 			}
 
-			if (Globals.ConfigFileName.Length > 0 || Globals.Config.DdEditingFilesets || Globals.Config.DdEditingCharacters || Globals.Config.DdEditingModules || Globals.Config.DdEditingRooms || Globals.Config.DdEditingArtifacts || Globals.Config.DdEditingEffects || Globals.Config.DdEditingMonsters || Globals.Config.DdEditingHints)
+			if (gEngine.ConfigFileName.Length > 0 || gEngine.Config.DdEditingFilesets || gEngine.Config.DdEditingCharacters || gEngine.Config.DdEditingModules || gEngine.Config.DdEditingRooms || gEngine.Config.DdEditingArtifacts || gEngine.Config.DdEditingEffects || gEngine.Config.DdEditingMonsters || gEngine.Config.DdEditingHints)
 			{
 				gOut.WriteLine();
 			}
 
 			// create main menu
 
-			Globals.Menu = Globals.CreateInstance<IMainMenu>();
+			gEngine.Menu = gEngine.CreateInstance<IMainMenu>();
 
 			// call main menu
 
-			Globals.Menu.Execute();
+			gEngine.Menu.Execute();
 
 			// update module last modified time if necessary
 
-			if (Globals.ModulesModified || Globals.RoomsModified || Globals.ArtifactsModified || Globals.EffectsModified || Globals.MonstersModified || Globals.HintsModified)
+			if (gEngine.ModulesModified || gEngine.RoomsModified || gEngine.ArtifactsModified || gEngine.EffectsModified || gEngine.MonstersModified || gEngine.HintsModified)
 			{
-				if (Globals.Module != null)
+				if (gEngine.Module != null)
 				{
-					Globals.Module.LastMod = DateTime.Now;
+					gEngine.Module.LastMod = DateTime.Now;
 
-					Globals.ModulesModified = true;
+					gEngine.ModulesModified = true;
 				}
 			}
 
 			// prompt user to save datafiles, if any modifications were made
 
-			if ((Globals.ConfigFileName.Length > 0 && Globals.ConfigsModified) || Globals.FilesetsModified || Globals.CharactersModified || Globals.ModulesModified || Globals.RoomsModified || Globals.ArtifactsModified || Globals.EffectsModified || Globals.MonstersModified || Globals.HintsModified)
+			if ((gEngine.ConfigFileName.Length > 0 && gEngine.ConfigsModified) || gEngine.FilesetsModified || gEngine.CharactersModified || gEngine.ModulesModified || gEngine.RoomsModified || gEngine.ArtifactsModified || gEngine.EffectsModified || gEngine.MonstersModified || gEngine.HintsModified)
 			{
-				gOut.Print("{0}", Globals.LineSep);
+				gOut.Print("{0}", gEngine.LineSep);
 
 				gOut.Print("You have made changes to the in-memory contents of one or more datafiles.");
 
 				gOut.Write("{0}Would you like to save these modifications (Y/N): ", Environment.NewLine);
 
-				Globals.Buf.Clear();
+				gEngine.Buf.Clear();
 
-				rc = Globals.In.ReadField(Globals.Buf, Constants.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, gEngine.IsCharYOrN);
+				rc = gEngine.In.ReadField(gEngine.Buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, gEngine.IsCharYOrN);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
-				Globals.Thread.Sleep(150);
+				gEngine.Thread.Sleep(150);
 
-				if (Globals.Buf.Length > 0 && Globals.Buf[0] == 'N')
+				if (gEngine.Buf.Length > 0 && gEngine.Buf[0] == 'N')
 				{
 					_nlFlag = false;
 
 					goto Cleanup;
 				}
 
-				gOut.Print("{0}", Globals.LineSep);
+				gOut.Print("{0}", gEngine.LineSep);
 
 				// save the datafiles
 
-				if (Globals.HintsModified)
+				if (gEngine.HintsModified)
 				{
-					rc = Globals.Database.SaveHints(Globals.Config.DdHintFileName);
+					rc = gEngine.Database.SaveHints(gEngine.Config.DdHintFileName);
 
 					if (gEngine.IsFailure(rc))
 					{
-						Globals.Error.Write("Error: SaveHints function call failed.");
+						gEngine.Error.Write("Error: SaveHints function call failed.");
 
 						rc = RetCode.Success;
 
@@ -571,13 +565,13 @@ namespace EamonRT
 					}
 				}
 
-				if (Globals.MonstersModified)
+				if (gEngine.MonstersModified)
 				{
-					rc = Globals.Database.SaveMonsters(Globals.Config.DdMonsterFileName);
+					rc = gEngine.Database.SaveMonsters(gEngine.Config.DdMonsterFileName);
 
 					if (gEngine.IsFailure(rc))
 					{
-						Globals.Error.Write("Error: SaveMonsters function call failed.");
+						gEngine.Error.Write("Error: SaveMonsters function call failed.");
 
 						rc = RetCode.Success;
 
@@ -585,13 +579,13 @@ namespace EamonRT
 					}
 				}
 
-				if (Globals.EffectsModified)
+				if (gEngine.EffectsModified)
 				{
-					rc = Globals.Database.SaveEffects(Globals.Config.DdEffectFileName);
+					rc = gEngine.Database.SaveEffects(gEngine.Config.DdEffectFileName);
 
 					if (gEngine.IsFailure(rc))
 					{
-						Globals.Error.Write("Error: SaveEffects function call failed.");
+						gEngine.Error.Write("Error: SaveEffects function call failed.");
 
 						rc = RetCode.Success;
 
@@ -599,13 +593,13 @@ namespace EamonRT
 					}
 				}
 
-				if (Globals.ArtifactsModified)
+				if (gEngine.ArtifactsModified)
 				{
-					rc = Globals.Database.SaveArtifacts(Globals.Config.DdArtifactFileName);
+					rc = gEngine.Database.SaveArtifacts(gEngine.Config.DdArtifactFileName);
 
 					if (gEngine.IsFailure(rc))
 					{
-						Globals.Error.Write("Error: SaveArtifacts function call failed.");
+						gEngine.Error.Write("Error: SaveArtifacts function call failed.");
 
 						rc = RetCode.Success;
 
@@ -613,13 +607,13 @@ namespace EamonRT
 					}
 				}
 
-				if (Globals.RoomsModified)
+				if (gEngine.RoomsModified)
 				{
-					rc = Globals.Database.SaveRooms(Globals.Config.DdRoomFileName);
+					rc = gEngine.Database.SaveRooms(gEngine.Config.DdRoomFileName);
 
 					if (gEngine.IsFailure(rc))
 					{
-						Globals.Error.Write("Error: SaveRooms function call failed.");
+						gEngine.Error.Write("Error: SaveRooms function call failed.");
 
 						rc = RetCode.Success;
 
@@ -627,13 +621,13 @@ namespace EamonRT
 					}
 				}
 
-				if (Globals.ModulesModified)
+				if (gEngine.ModulesModified)
 				{
-					rc = Globals.Database.SaveModules(Globals.Config.DdModuleFileName);
+					rc = gEngine.Database.SaveModules(gEngine.Config.DdModuleFileName);
 
 					if (gEngine.IsFailure(rc))
 					{
-						Globals.Error.Write("Error: SaveModules function call failed.");
+						gEngine.Error.Write("Error: SaveModules function call failed.");
 
 						rc = RetCode.Success;
 
@@ -641,13 +635,13 @@ namespace EamonRT
 					}
 				}
 
-				if (Globals.CharactersModified)
+				if (gEngine.CharactersModified)
 				{
-					rc = Globals.Database.SaveCharacters(Globals.Config.DdCharacterFileName);
+					rc = gEngine.Database.SaveCharacters(gEngine.Config.DdCharacterFileName);
 
 					if (gEngine.IsFailure(rc))
 					{
-						Globals.Error.Write("Error: SaveCharacters function call failed.");
+						gEngine.Error.Write("Error: SaveCharacters function call failed.");
 
 						rc = RetCode.Success;
 
@@ -655,13 +649,13 @@ namespace EamonRT
 					}
 				}
 
-				if (Globals.FilesetsModified)
+				if (gEngine.FilesetsModified)
 				{
-					rc = Globals.Database.SaveFilesets(Globals.Config.DdFilesetFileName);
+					rc = gEngine.Database.SaveFilesets(gEngine.Config.DdFilesetFileName);
 
 					if (gEngine.IsFailure(rc))
 					{
-						Globals.Error.Write("Error: SaveFilesets function call failed.");
+						gEngine.Error.Write("Error: SaveFilesets function call failed.");
 
 						rc = RetCode.Success;
 
@@ -669,13 +663,13 @@ namespace EamonRT
 					}
 				}
 
-				if (Globals.ConfigFileName.Length > 0 && Globals.ConfigsModified)
+				if (gEngine.ConfigFileName.Length > 0 && gEngine.ConfigsModified)
 				{
-					rc = Globals.Database.SaveConfigs(Globals.ConfigFileName);
+					rc = gEngine.Database.SaveConfigs(gEngine.ConfigFileName);
 
 					if (gEngine.IsFailure(rc))
 					{
-						Globals.Error.Write("Error: SaveConfigs function call failed.");
+						gEngine.Error.Write("Error: SaveConfigs function call failed.");
 
 						rc = RetCode.Success;
 
@@ -683,7 +677,7 @@ namespace EamonRT
 					}
 				}
 
-				Globals.Thread.Sleep(150);
+				gEngine.Thread.Sleep(150);
 			}
 			else
 			{
@@ -713,15 +707,15 @@ namespace EamonRT
 
 			// initialize Config record
 
-			Globals.Config.Uid = 1;
+			gEngine.Config.Uid = 1;
 
-			Globals.Config.ShowDesc = true;
+			gEngine.Config.ShowDesc = true;
 
-			Globals.Config.GenerateUids = true;
+			gEngine.Config.GenerateUids = true;
 
-			Globals.Config.FieldDesc = FieldDesc.Full;
+			gEngine.Config.FieldDesc = FieldDesc.Full;
 
-			Globals.Config.WordWrapMargin = Constants.RightMargin;
+			gEngine.Config.WordWrapMargin = gEngine.RightMargin;
 
 			// change window title bar and size
 
@@ -729,10 +723,10 @@ namespace EamonRT
 
 			try
 			{
-				gOut.SetWindowSize(Math.Min(Constants.WindowWidth, gOut.GetLargestWindowWidth()),
-													Math.Min(Math.Max(Constants.WindowHeight, gOut.GetWindowHeight()), (long)(gOut.GetLargestWindowHeight() * 0.95)));
+				gOut.SetWindowSize(Math.Min(gEngine.WindowWidth, gOut.GetLargestWindowWidth()),
+													Math.Min(Math.Max(gEngine.WindowHeight, gOut.GetWindowHeight()), (long)(gOut.GetLargestWindowHeight() * 0.95)));
 
-				gOut.SetBufferSize(Constants.BufferWidth, Constants.BufferHeight);
+				gOut.SetBufferSize(gEngine.BufferWidth, gEngine.BufferHeight);
 			}
 			catch (Exception)
 			{
@@ -745,7 +739,7 @@ namespace EamonRT
 
 			// make announcements
 
-			gOut.Write("{0}Eamon CS Runtime ({1}) {2}.", Environment.NewLine, ProgramName, Constants.RtProgVersion);
+			gOut.Write("{0}Eamon CS Runtime ({1}) {2}.", Environment.NewLine, ProgramName, gEngine.RtProgVersion);
 
 			gOut.Write("{0}Copyright (c) 2014+ by Michael Penner.  All rights reserved.", Environment.NewLine);
 
@@ -753,11 +747,11 @@ namespace EamonRT
 
 			// copy and store command line args
 
-			Globals.Argv = new string[args.Length];
+			gEngine.Argv = new string[args.Length];
 
 			for (i = 0; i < args.Length; i++)
 			{
-				Globals.Argv[i] = Globals.CloneInstance(args[i]);
+				gEngine.Argv[i] = gEngine.CloneInstance(args[i]);
 			}
 
 			// process command line args
@@ -766,57 +760,57 @@ namespace EamonRT
 
 			// assign default work directory, if necessary
 
-			if (Globals.WorkDir.Length == 0)
+			if (gEngine.WorkDir.Length == 0)
 			{
-				Globals.WorkDir = Constants.DefaultWorkDir;
+				gEngine.WorkDir = gEngine.DefaultWorkDir;
 			}
 
-			if (Globals.ConfigFileName.Length == 0)
+			if (gEngine.ConfigFileName.Length == 0)
 			{
-				Globals.ConfigFileName = "EAMONCFG.DAT";
+				gEngine.ConfigFileName = "EAMONCFG.DAT";
 			}
 
 			// initialize Config record
 
-			Globals.Config.RtFilesetFileName = "SAVEGAME.DAT";
+			gEngine.Config.RtFilesetFileName = "SAVEGAME.DAT";
 
-			Globals.Config.RtCharacterFileName = "FRESHMEAT.DAT";
+			gEngine.Config.RtCharacterFileName = "FRESHMEAT.DAT";
 
-			Globals.Config.RtModuleFileName = "MODULE.DAT";
+			gEngine.Config.RtModuleFileName = "MODULE.DAT";
 
-			Globals.Config.RtRoomFileName = "ROOMS.DAT";
+			gEngine.Config.RtRoomFileName = "ROOMS.DAT";
 
-			Globals.Config.RtArtifactFileName = "ARTIFACTS.DAT";
+			gEngine.Config.RtArtifactFileName = "ARTIFACTS.DAT";
 
-			Globals.Config.RtEffectFileName = "EFFECTS.DAT";
+			gEngine.Config.RtEffectFileName = "EFFECTS.DAT";
 
-			Globals.Config.RtMonsterFileName = "MONSTERS.DAT";
+			gEngine.Config.RtMonsterFileName = "MONSTERS.DAT";
 
-			Globals.Config.RtHintFileName = "HINTS.DAT";
+			gEngine.Config.RtHintFileName = "HINTS.DAT";
 
-			Globals.Config.RtGameStateFileName = "GAMESTATE.DAT";
+			gEngine.Config.RtGameStateFileName = "GAMESTATE.DAT";
 
-			if (Globals.WorkDir.Length > 0)
+			if (gEngine.WorkDir.Length > 0)
 			{
 				// if working directory does not exist
 
-				if (!Globals.Directory.Exists(Globals.WorkDir))
+				if (!gEngine.Directory.Exists(gEngine.WorkDir))
 				{
-					gOut.Print("{0}", Globals.LineSep);
+					gOut.Print("{0}", gEngine.LineSep);
 
-					gOut.Print("The working directory [{0}] does not exist.", Globals.WorkDir);
+					gOut.Print("The working directory [{0}] does not exist.", gEngine.WorkDir);
 
 					gOut.Write("{0}Would you like to create it (Y/N) [N]: ", Environment.NewLine);
 
-					Globals.Buf.Clear();
+					gEngine.Buf.Clear();
 
-					rc = Globals.In.ReadField(Globals.Buf, Constants.BufSize02, null, ' ', '\0', true, "N", gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, gEngine.IsCharYOrN);
+					rc = gEngine.In.ReadField(gEngine.Buf, gEngine.BufSize02, null, ' ', '\0', true, "N", gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, gEngine.IsCharYOrN);
 
 					Debug.Assert(gEngine.IsSuccess(rc));
 
-					Globals.Thread.Sleep(150);
+					gEngine.Thread.Sleep(150);
 
-					if (Globals.Buf[0] != 'Y')
+					if (gEngine.Buf[0] != 'Y')
 					{
 						_nlFlag = false;
 
@@ -825,25 +819,25 @@ namespace EamonRT
 
 					// create working directory
 
-					Globals.Directory.CreateDirectory(Globals.WorkDir);
+					gEngine.Directory.CreateDirectory(gEngine.WorkDir);
 				}
 
 				// change to working directory
 
-				Globals.Directory.SetCurrentDirectory(Globals.WorkDir);
+				gEngine.Directory.SetCurrentDirectory(gEngine.WorkDir);
 			}
 
 			// load the config datafile
 
-			if (Globals.ConfigFileName.Length > 0)
+			if (gEngine.ConfigFileName.Length > 0)
 			{
-				gOut.Print("{0}", Globals.LineSep);
+				gOut.Print("{0}", gEngine.LineSep);
 
-				rc = Globals.Database.LoadConfigs(Globals.ConfigFileName);
+				rc = gEngine.Database.LoadConfigs(gEngine.ConfigFileName);
 
 				if (gEngine.IsFailure(rc))
 				{
-					Globals.Error.Write("Error: LoadConfigs function call failed.");
+					gEngine.Error.Write("Error: LoadConfigs function call failed.");
 
 					goto Cleanup;
 				}
@@ -852,11 +846,11 @@ namespace EamonRT
 
 				if (config != null)
 				{
-					config = Globals.Database.RemoveConfig(config.Uid);
+					config = gEngine.Database.RemoveConfig(config.Uid);
 
 					Debug.Assert(config != null);
 
-					var config01 = Globals.CreateInstance<IConfig>();
+					var config01 = gEngine.CreateInstance<IConfig>();
 
 					Debug.Assert(config01 != null);
 
@@ -868,80 +862,80 @@ namespace EamonRT
 
 					config = config01;
 
-					rc = Globals.Database.AddConfig(config);
+					rc = gEngine.Database.AddConfig(config);
 
 					Debug.Assert(gEngine.IsSuccess(rc));
 
 					if (config.RtFilesetFileName.Length == 0)
 					{
-						config.RtFilesetFileName = Globals.Config.RtFilesetFileName;
+						config.RtFilesetFileName = gEngine.Config.RtFilesetFileName;
 
-						Globals.ConfigsModified = true;
+						gEngine.ConfigsModified = true;
 					}
 
 					if (config.RtCharacterFileName.Length == 0)
 					{
-						config.RtCharacterFileName = Globals.Config.RtCharacterFileName;
+						config.RtCharacterFileName = gEngine.Config.RtCharacterFileName;
 
-						Globals.ConfigsModified = true;
+						gEngine.ConfigsModified = true;
 					}
 
 					if (config.RtModuleFileName.Length == 0)
 					{
-						config.RtModuleFileName = Globals.Config.RtModuleFileName;
+						config.RtModuleFileName = gEngine.Config.RtModuleFileName;
 
-						Globals.ConfigsModified = true;
+						gEngine.ConfigsModified = true;
 					}
 
 					if (config.RtRoomFileName.Length == 0)
 					{
-						config.RtRoomFileName = Globals.Config.RtRoomFileName;
+						config.RtRoomFileName = gEngine.Config.RtRoomFileName;
 
-						Globals.ConfigsModified = true;
+						gEngine.ConfigsModified = true;
 					}
 
 					if (config.RtArtifactFileName.Length == 0)
 					{
-						config.RtArtifactFileName = Globals.Config.RtArtifactFileName;
+						config.RtArtifactFileName = gEngine.Config.RtArtifactFileName;
 
-						Globals.ConfigsModified = true;
+						gEngine.ConfigsModified = true;
 					}
 
 					if (config.RtEffectFileName.Length == 0)
 					{
-						config.RtEffectFileName = Globals.Config.RtEffectFileName;
+						config.RtEffectFileName = gEngine.Config.RtEffectFileName;
 
-						Globals.ConfigsModified = true;
+						gEngine.ConfigsModified = true;
 					}
 
 					if (config.RtMonsterFileName.Length == 0)
 					{
-						config.RtMonsterFileName = Globals.Config.RtMonsterFileName;
+						config.RtMonsterFileName = gEngine.Config.RtMonsterFileName;
 
-						Globals.ConfigsModified = true;
+						gEngine.ConfigsModified = true;
 					}
 
 					if (config.RtHintFileName.Length == 0)
 					{
-						config.RtHintFileName = Globals.Config.RtHintFileName;
+						config.RtHintFileName = gEngine.Config.RtHintFileName;
 
-						Globals.ConfigsModified = true;
+						gEngine.ConfigsModified = true;
 					}
 
 					if (config.RtGameStateFileName.Length == 0)
 					{
-						config.RtGameStateFileName = Globals.Config.RtGameStateFileName;
+						config.RtGameStateFileName = gEngine.Config.RtGameStateFileName;
 
-						Globals.ConfigsModified = true;
+						gEngine.ConfigsModified = true;
 					}
 				}
 				else
 				{
-					Globals.Config.Uid = Globals.Database.GetConfigUid();
+					gEngine.Config.Uid = gEngine.Database.GetConfigUid();
 
-					Globals.Config.IsUidRecycled = true;
+					gEngine.Config.IsUidRecycled = true;
 
-					rc = Globals.Database.AddConfig(Globals.Config);
+					rc = gEngine.Database.AddConfig(gEngine.Config);
 
 					if (gEngine.IsFailure(rc))
 					{
@@ -950,12 +944,12 @@ namespace EamonRT
 						goto Cleanup;
 					}
 
-					Globals.ConfigsModified = true;
+					gEngine.ConfigsModified = true;
 
-					config = Globals.Config;
+					config = gEngine.Config;
 				}
 
-				Globals.Config = config;
+				gEngine.Config = config;
 
 				gOut.WriteLine();
 			}
@@ -973,30 +967,30 @@ namespace EamonRT
 
 			_nlFlag = true;
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 
-			rc = Globals.Config.LoadGameDatabase();
+			rc = gEngine.Config.LoadGameDatabase();
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.Write("Error: LoadGameDatabase function call failed.");
+				gEngine.Error.Write("Error: LoadGameDatabase function call failed.");
 
 				goto Cleanup;
 			}
 
-			if (!Globals.DeleteGameStateFromMainHall)
+			if (!gEngine.DeleteGameStateFromMainHall)
 			{
 				gOut.WriteLine();
 
-				character = Globals.Database.CharacterTable.Records.FirstOrDefault();
+				character = gEngine.Database.CharacterTable.Records.FirstOrDefault();
 
 				if (character != null)
 				{
-					character = Globals.Database.RemoveCharacter(character.Uid);
+					character = gEngine.Database.RemoveCharacter(character.Uid);
 
 					Debug.Assert(character != null);
 
-					var character01 = Globals.CreateInstance<ICharacter>();
+					var character01 = gEngine.CreateInstance<ICharacter>();
 
 					Debug.Assert(character01 != null);
 
@@ -1008,18 +1002,18 @@ namespace EamonRT
 
 					character = character01;
 
-					rc = Globals.Database.AddCharacter(character);
+					rc = gEngine.Database.AddCharacter(character);
 
 					Debug.Assert(gEngine.IsSuccess(rc));
 				}
 
-				Globals.Character = character;
+				gEngine.Character = character;
 
 				if (gCharacter == null || gCharacter.Uid <= 0 || gCharacter.Status != Status.Adventuring || string.IsNullOrWhiteSpace(gCharacter.Name) || gCharacter.Name.Equals("NONE", StringComparison.OrdinalIgnoreCase))
 				{
 					rc = RetCode.InvalidObj;
 
-					Globals.Error.Write(gCharacter == null ? "{0}Error: {1}." : "{0}Error: Assertion failed [{1}].",
+					gEngine.Error.Write(gCharacter == null ? "{0}Error: {1}." : "{0}Error: Assertion failed [{1}].",
 						Environment.NewLine,
 						gCharacter == null ? "Use EamonMH to send a character on this adventure" :
 						gCharacter.Uid <= 0 ? "gCharacter.Uid > 0" :
@@ -1035,18 +1029,18 @@ namespace EamonRT
 					goto Cleanup;
 				}
 
-				Globals.Module = gEngine.GetModule();
+				gEngine.Module = gEngine.GetModule();
 
-				if (Globals.Module == null || Globals.Module.Uid <= 0)
+				if (gEngine.Module == null || gEngine.Module.Uid <= 0)
 				{
 					rc = RetCode.InvalidObj;
 
-					Globals.Error.Write(Globals.Module == null ? "{0}Error: {1}." : "{0}Error: Assertion failed [{1}].",
+					gEngine.Error.Write(gEngine.Module == null ? "{0}Error: {1}." : "{0}Error: Assertion failed [{1}].",
 						Environment.NewLine,
-						Globals.Module == null ? "Use EamonDD to define a Module record for this adventure" :
-						"Globals.Module.Uid > 0");
+						gEngine.Module == null ? "Use EamonDD to define a Module record for this adventure" :
+						"Engine.Module.Uid > 0");
 
-					if (Globals.Module == null)
+					if (gEngine.Module == null)
 					{
 						gEngine.UnlinkOnFailure();
 					}
@@ -1054,18 +1048,18 @@ namespace EamonRT
 					goto Cleanup;
 				}
 
-				Globals.GameState = gEngine.GetGameState();
+				gEngine.GameState = gEngine.GetGameState();
 
 				if (gGameState == null || gGameState.Uid <= 0)
 				{
-					Globals.GameState = Globals.CreateInstance<IGameState>(x =>
+					gEngine.GameState = gEngine.CreateInstance<IGameState>(x =>
 					{
-						x.Uid = Globals.Database.GetGameStateUid();
+						x.Uid = gEngine.Database.GetGameStateUid();
 					});
 
 					Debug.Assert(gGameState != null);
 
-					rc = Globals.Database.AddGameState(gGameState);
+					rc = gEngine.Database.AddGameState(gGameState);
 
 					Debug.Assert(gEngine.IsSuccess(rc));
 				}
@@ -1076,7 +1070,7 @@ namespace EamonRT
 				{
 					rc = RetCode.InvalidObj;
 
-					Globals.Error.Write("{0}Error: {1}.",
+					gEngine.Error.Write("{0}Error: {1}.",
 						Environment.NewLine,
 						"Use EamonDD to define a start Room record for this adventure");
 
@@ -1089,86 +1083,86 @@ namespace EamonRT
 
 				if (gEngine.IsFailure(rc))
 				{
-					Globals.Error.Write("Error: ValidateRecordsAfterDatabaseLoaded function call failed.");
+					gEngine.Error.Write("Error: ValidateRecordsAfterDatabaseLoaded function call failed.");
 
 					gEngine.UnlinkOnFailure();
 
 					goto Cleanup;
 				}
 
-				var printIntroOutput = Globals.IntroStory.ShouldPrintOutput;
+				var printIntroOutput = gEngine.IntroStory.ShouldPrintOutput;
 
-				gOut.WriteLine("{0}{1}{0}", Environment.NewLine, Globals.LineSep);
+				gOut.WriteLine("{0}{1}{0}", Environment.NewLine, gEngine.LineSep);
 
-				gEngine.PrintTitle(Globals.Module.Name, false);
+				gEngine.PrintTitle(gEngine.Module.Name, false);
 
 				gOut.WriteLine();
 
-				Globals.Buf.SetFormat("By {0}", Globals.Module.Author);
+				gEngine.Buf.SetFormat("By {0}", gEngine.Module.Author);
 
-				gEngine.PrintTitle(Globals.Buf.ToString(), false);
+				gEngine.PrintTitle(gEngine.Buf.ToString(), false);
 
 				if (printIntroOutput)
 				{
-					Globals.IntroStory.PrintOutput();
+					gEngine.IntroStory.PrintOutput();
 				}
 
-				Globals.In.KeyPress(Globals.Buf);
+				gEngine.In.KeyPress(gEngine.Buf);
 
-				if (Globals.MainLoop.ShouldStartup)
+				if (gEngine.MainLoop.ShouldStartup)
 				{
-					Globals.MainLoop.Startup();
+					gEngine.MainLoop.Startup();
 				}
 
-				if (Globals.MainLoop.ShouldExecute)
+				if (gEngine.MainLoop.ShouldExecute)
 				{
-					Globals.MainLoop.Execute();
+					gEngine.MainLoop.Execute();
 				}
 
-				if (Globals.MainLoop.ShouldShutdown)
+				if (gEngine.MainLoop.ShouldShutdown)
 				{
-					Globals.MainLoop.Shutdown();
+					gEngine.MainLoop.Shutdown();
 				}
 
-				if (Globals.ErrorExit)
+				if (gEngine.ErrorExit)
 				{
 					rc = RetCode.Failure;
 
 					goto Cleanup;
 				}
 
-				if (Globals.DeleteGameStateAfterLoop)
+				if (gEngine.DeleteGameStateAfterLoop)
 				{
-					rc = Globals.Config.DeleteGameState(Globals.ConfigFileName, Globals.StartOver);
+					rc = gEngine.Config.DeleteGameState(gEngine.ConfigFileName, gEngine.StartOver);
 
 					Debug.Assert(gEngine.IsSuccess(rc));
 				}
 
-				if (Globals.ExportCharacterGoToMainHall || Globals.DeleteCharacter)
+				if (gEngine.ExportCharacterGoToMainHall || gEngine.DeleteCharacter)
 				{
-					Globals.Directory.SetCurrentDirectory(Globals.Config.MhWorkDir);
+					gEngine.Directory.SetCurrentDirectory(gEngine.Config.MhWorkDir);
 
-					rc = Globals.PushDatabase();
-
-					Debug.Assert(gEngine.IsSuccess(rc));
-
-					rc = Globals.Database.LoadCharacters(Globals.Config.MhCharacterFileName, printOutput: false);
+					rc = gEngine.PushDatabase();
 
 					Debug.Assert(gEngine.IsSuccess(rc));
 
-					character = Globals.CHRDB[gCharacter.Uid];
+					rc = gEngine.Database.LoadCharacters(gEngine.Config.MhCharacterFileName, printOutput: false);
+
+					Debug.Assert(gEngine.IsSuccess(rc));
+
+					character = gEngine.CHRDB[gCharacter.Uid];
 
 					if (character != null && gCharacter.Name.Equals(character.Name, StringComparison.OrdinalIgnoreCase))
 					{
-						if (Globals.DeleteCharacter)
+						if (gEngine.DeleteCharacter)
 						{
-							Globals.Database.RemoveCharacter(character.Uid);
+							gEngine.Database.RemoveCharacter(character.Uid);
 
 							character.Dispose();
 						}
 						else
 						{
-							if (Globals.ExportCharacter)
+							if (gEngine.ExportCharacter)
 							{
 								rc = character.CopyProperties(gCharacter);
 
@@ -1178,59 +1172,59 @@ namespace EamonRT
 							character.Status = (gGameState.Die != 1 ? Status.Alive : Status.Dead);
 						}
 
-						rc = Globals.Database.SaveCharacters(Globals.Config.MhCharacterFileName, false);
+						rc = gEngine.Database.SaveCharacters(gEngine.Config.MhCharacterFileName, false);
 
 						Debug.Assert(gEngine.IsSuccess(rc));
 
-						rc = Globals.PopDatabase();
+						rc = gEngine.PopDatabase();
 
 						Debug.Assert(gEngine.IsSuccess(rc));
 
 						character = null;
 
-						if (!Globals.DeleteCharacter)
+						if (!gEngine.DeleteCharacter)
 						{
-							gOut.Print("{0}", Globals.LineSep);
+							gOut.Print("{0}", gEngine.LineSep);
 
 							if (gGameState.Die != 1)
 							{
-								Globals.TransferProtocol.SendCharacterToMainHall(Globals.FilePrefix, Globals.Config.MhFilesetFileName, Globals.Config.MhCharacterFileName, Globals.Config.MhEffectFileName, gCharacter.Name);
+								gEngine.TransferProtocol.SendCharacterToMainHall(gEngine.FilePrefix, gEngine.Config.MhFilesetFileName, gEngine.Config.MhCharacterFileName, gEngine.Config.MhEffectFileName, gCharacter.Name);
 							}
 							else
 							{
 								gEngine.PrintMemorialService();
 
-								Globals.In.KeyPress(Globals.Buf);
+								gEngine.In.KeyPress(gEngine.Buf);
 							}
 						}
 					}
 					else
 					{
-						rc = Globals.PopDatabase();
+						rc = gEngine.PopDatabase();
 
 						Debug.Assert(gEngine.IsSuccess(rc));
 					}
 				}
-				else if (Globals.StartOver)
+				else if (gEngine.StartOver)
 				{
-					gOut.Print("{0}", Globals.LineSep);
+					gOut.Print("{0}", gEngine.LineSep);
 
 					gEngine.PrintSavedGamesDeleted();
 
 					gEngine.PrintRestartGameUsingResume();
 
-					Globals.In.KeyPress(Globals.Buf);
+					gEngine.In.KeyPress(gEngine.Buf);
 				}
 
 				_nlFlag = false;
 			}
 			else
 			{
-				rc = Globals.Config.DeleteGameState(Globals.ConfigFileName, false);
+				rc = gEngine.Config.DeleteGameState(gEngine.ConfigFileName, false);
 
 				if (gEngine.IsFailure(rc))
 				{
-					Globals.Error.Write("Error: DeleteGameState function call failed.");
+					gEngine.Error.Write("Error: DeleteGameState function call failed.");
 
 					goto Cleanup;
 				}
@@ -1253,27 +1247,25 @@ namespace EamonRT
 
 				rc = RetCode.Success;
 
-				PushConstants(ConstantsType);
+				PushEngine(EngineType);
 
-				PushClassMappings(ClassMappingsType);
+				gEngine.EnableStdio = EnableStdio;
 
-				ClassMappings.EnableStdio = EnableStdio;
+				gEngine.ConvertDatafileToMscorlib = ConvertDatafileToMscorlib;
 
-				ClassMappings.ConvertDatafileToMscorlib = ConvertDatafileToMscorlib;
-
-				ClassMappings.LoadPortabilityClassMappings = LoadPortabilityClassMappings;
+				gEngine.LoadPortabilityClassMappings = LoadPortabilityClassMappings;
 
 				// resolve portability class mappings
 
-				ClassMappings.ResolvePortabilityClassMappings();
+				gEngine.ResolvePortabilityClassMappings();
 
 				// process command line args
 
-				ClassMappings.ProcessArgv(args);
+				gEngine.ProcessArgv(args);
 
 				// load plugin class mappings
 
-				rc = ClassMappings.LoadPluginClassMappings();
+				rc = gEngine.LoadPluginClassMappings();
 
 				if (rc != RetCode.Success)
 				{
@@ -1284,17 +1276,15 @@ namespace EamonRT
 
 				try
 				{
-					PushGlobals(GlobalsType);
-
 					// initialize system
 
-					Globals.InitSystem();
+					gEngine.InitSystem();
 
-					Globals.LineWrapUserInput = LineWrapUserInput;
+					gEngine.LineWrapUserInput = LineWrapUserInput;
 
 					// call appropriate program
 
-					rc = Globals.RunGameEditor ? DdMain(args) : RtMain(args);
+					rc = gEngine.RunGameEditor ? DdMain(args) : RtMain(args);
 				}
 				catch (Exception)
 				{
@@ -1304,9 +1294,7 @@ namespace EamonRT
 				{
 					// de-initialize system
 
-					Globals.DeinitSystem();
-
-					PopGlobals();
+					gEngine.DeinitSystem();
 				}
 
 			Cleanup:
@@ -1315,27 +1303,27 @@ namespace EamonRT
 				{
 					if (rc == RetCode.Success)
 					{
-						ClassMappings.Out.WriteLine();
+						gEngine.Out.WriteLine();
 					}
 					else
 					{
-						ClassMappings.Error.WriteLine();
+						gEngine.Error.WriteLine();
 					}
 
 					_nlFlag = false;
 				}
 
-				if (!ClassMappings.DeleteGameStateFromMainHall && rc != RetCode.Success)
+				if (!gEngine.DeleteGameStateFromMainHall && rc != RetCode.Success)
 				{
-					ClassMappings.Error.WriteLine("{0}{1}", Environment.NewLine, new string('-', (int)Constants.RightMargin));
+					gEngine.Error.WriteLine("{0}{1}", Environment.NewLine, new string('-', (int)gEngine.RightMargin));
 
-					ClassMappings.Error.Write("{0}Press any key to continue: ", Environment.NewLine);
+					gEngine.Error.Write("{0}Press any key to continue: ", Environment.NewLine);
 
-					ClassMappings.In.ReadKey(true);
+					gEngine.In.ReadKey(true);
 
-					ClassMappings.Error.WriteLine();
+					gEngine.Error.WriteLine();
 
-					ClassMappings.Thread.Sleep(150);
+					gEngine.Thread.Sleep(150);
 				}
 
 				return;
@@ -1346,9 +1334,7 @@ namespace EamonRT
 			}
 			finally
 			{
-				PopClassMappings();
-
-				PopConstants();
+				PopEngine();
 			}
 		}
 	}

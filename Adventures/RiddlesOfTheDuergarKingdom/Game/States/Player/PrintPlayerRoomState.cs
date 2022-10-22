@@ -8,7 +8,7 @@ using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
-using static RiddlesOfTheDuergarKingdom.Game.Plugin.PluginContext;
+using static RiddlesOfTheDuergarKingdom.Game.Plugin.Globals;
 
 namespace RiddlesOfTheDuergarKingdom.Game.States
 {
@@ -19,7 +19,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.States
 		{
 			base.ProcessEvents(eventType);
 
-			if (eventType == EventType.BeforePrintPlayerRoom && Globals.ShouldPreTurnProcess)
+			if (eventType == EventType.BeforePrintPlayerRoom && gEngine.ShouldPreTurnProcess)
 			{
 				Debug.Assert(gCharMonster != null);
 
