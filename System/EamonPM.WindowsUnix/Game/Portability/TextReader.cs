@@ -29,6 +29,8 @@ namespace EamonPM.Game.Portability
 			int i;
 			char ch;
 
+			Debug.Assert(gEngine != null);
+
 			if (buf == null || bufSize < 1 || (boxChars != null && (boxChars[0] == '\0' || boxChars[1] == '\0')) || (emptyVal != null && emptyVal[0] == '\0'))
 			{
 				rc = RetCode.InvalidArg;
@@ -325,9 +327,9 @@ namespace EamonPM.Game.Portability
 
 		public virtual void KeyPress(StringBuilder buf, bool initialNewLine = true)
 		{
-			Debug.Assert(buf != null);
-
 			Debug.Assert(gEngine != null);
+
+			Debug.Assert(buf != null);
 
 			if (EnableInput)
 			{

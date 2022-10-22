@@ -144,7 +144,7 @@ namespace Eamon.Game
 		{
 			var nbtl = 0L;
 
-			var monsterList = gEngine != null ? gEngine.GetMonsterList(m => m.Location == Ro && m.Reaction == (Friendliness)index) : new List<IMonster>();
+			var monsterList = gEngine.GetMonsterList(m => m.Location == Ro && m.Reaction == (Friendliness)index);
 
 			foreach (var monster in monsterList)
 			{
@@ -165,7 +165,7 @@ namespace Eamon.Game
 		{
 			var dttl = 0L;
 
-			var monsterList = gEngine.IsRulesetVersion(5, 25) && gEngine != null ? gEngine.GetMonsterList(m => m.Location == Ro && m.Reaction == (Friendliness)index) : new List<IMonster>();
+			var monsterList = gEngine.IsRulesetVersion(5, 25) ? gEngine.GetMonsterList(m => m.Location == Ro && m.Reaction == (Friendliness)index) : new List<IMonster>();
 
 			foreach (var monster in monsterList)
 			{

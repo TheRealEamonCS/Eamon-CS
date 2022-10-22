@@ -66,7 +66,7 @@ namespace Eamon.Game
 
 				long w = Weight;
 
-				if (gEngine != null && !gEngine.IsUnmovable01(w) && GeneralContainer != null)
+				if (!gEngine.IsUnmovable01(w) && GeneralContainer != null)
 				{
 					rc = GetContainerInfo(ref c, ref w, (ContainerType)(-1), true);
 
@@ -99,7 +99,7 @@ namespace Eamon.Game
 
 					gEngine.RevealContentFuncList.Add(() =>
 					{
-						if (gEngine != null && gEngine.RevealContainerContentsFunc != null && room != null)
+						if (gEngine.RevealContainerContentsFunc != null && room != null)
 						{ 
 							gEngine.RevealContainerContentsFunc(room, monster, this, origLocation, true);
 						}
@@ -755,7 +755,7 @@ namespace Eamon.Game
 
 		public virtual bool IsInRoom(bool recurse = false)
 		{
-			var gameState = recurse ? gEngine?.GetGameState() : null;
+			var gameState = recurse ? gEngine.GetGameState() : null;
 
 			var charMonster = recurse && gameState != null ? gMDB[gameState.Cm] : null;
 
@@ -793,7 +793,7 @@ namespace Eamon.Game
 
 		public virtual bool IsInLimbo(bool recurse = false)
 		{
-			var gameState = recurse ? gEngine?.GetGameState() : null;
+			var gameState = recurse ? gEngine.GetGameState() : null;
 
 			var charMonster = recurse && gameState != null ? gMDB[gameState.Cm] : null;
 
@@ -855,7 +855,7 @@ namespace Eamon.Game
 
 		public virtual bool IsInRoomUid(long roomUid, bool recurse = false)
 		{
-			var gameState = recurse ? gEngine?.GetGameState() : null;
+			var gameState = recurse ? gEngine.GetGameState() : null;
 
 			var charMonster = recurse && gameState != null ? gMDB[gameState.Cm] : null;
 
@@ -1002,7 +1002,7 @@ namespace Eamon.Game
 
 		public virtual long GetInRoomUid(bool recurse = false)
 		{
-			var gameState = recurse ? gEngine?.GetGameState() : null;
+			var gameState = recurse ? gEngine.GetGameState() : null;
 
 			var charMonster = recurse && gameState != null ? gMDB[gameState.Cm] : null;
 

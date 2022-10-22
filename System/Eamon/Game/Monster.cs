@@ -502,7 +502,7 @@ namespace Eamon.Game
 		{
 			Location = roomUid;
 
-			var gameState = gEngine?.GetGameState();
+			var gameState = gEngine.GetGameState();
 
 			if (IsCharacterMonster() && gameState != null)
 			{
@@ -582,7 +582,7 @@ namespace Eamon.Game
 
 		public virtual bool ShouldProcessInGameLoop()
 		{
-			var gameState = gEngine?.GetGameState();
+			var gameState = gEngine.GetGameState();
 
 			return gameState != null && Location == gameState.Ro && !IsCharacterMonster();
 		}
@@ -606,7 +606,7 @@ namespace Eamon.Game
 
 		public virtual bool CheckNBTLHostility()
 		{
-			var gameState = gEngine?.GetGameState();
+			var gameState = gEngine.GetGameState();
 
 			return gameState != null && Reaction != Friendliness.Neutral && gameState.GetNBTL(Reaction == Friendliness.Friend ? Friendliness.Enemy : Friendliness.Friend) > 0;
 		}
@@ -615,24 +615,21 @@ namespace Eamon.Game
 		{
 			var result = false;
 
-			if (gEngine != null)
+			var gameState = gEngine.GetGameState();
+
+			if (gEngine.IsRulesetVersion(5, 25) && gameState != null)
 			{
-				var gameState = gEngine.GetGameState();
+				var rl = (long)Math.Round((double)gameState.GetDTTL(Reaction) / (double)gameState.GetNBTL(Reaction) * 100 + gEngine.RollDice(1, 41, -21));
 
-				if (gEngine.IsRulesetVersion(5, 25) && gameState != null)
-				{
-					var rl = (long)Math.Round((double)gameState.GetDTTL(Reaction) / (double)gameState.GetNBTL(Reaction) * 100 + gEngine.RollDice(1, 41, -21));
+				result = rl <= Courage;
+			}
+			else
+			{
+				var s = (DmgTaken > 0 || GroupCount > CurrGroupCount ? 1 : 0) + (DmgTaken + 4 >= Hardiness ? 1 : 0);
 
-					result = rl <= Courage;
-				}
-				else
-				{
-					var s = (DmgTaken > 0 || GroupCount > CurrGroupCount ? 1 : 0) + (DmgTaken + 4 >= Hardiness ? 1 : 0);
+				var rl = gEngine.RollDice(1, 100, s * 5);
 
-					var rl = gEngine.RollDice(1, 100, s * 5);
-
-					result = rl <= Courage;           // Courage >= 100 ||
-				}
+				result = rl <= Courage;           // Courage >= 100 ||
 			}
 
 			return result;
@@ -777,7 +774,7 @@ namespace Eamon.Game
 
 		public virtual bool IsCharacterMonster()
 		{
-			var gameState = gEngine?.GetGameState();
+			var gameState = gEngine.GetGameState();
 
 			return gameState != null && gameState.Cm == Uid;
 		}

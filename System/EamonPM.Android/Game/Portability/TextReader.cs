@@ -27,6 +27,8 @@ namespace EamonPM.Game.Portability
 		{
 			RetCode rc;
 
+			Debug.Assert(gEngine != null);
+
 			if (buf == null || bufSize < 1 || (boxChars != null && (boxChars[0] == '\0' || boxChars[1] == '\0')) || (emptyVal != null && emptyVal[0] == '\0'))
 			{
 				rc = RetCode.InvalidArg;
@@ -108,25 +110,15 @@ namespace EamonPM.Game.Portability
 				App.PluginLauncherPage.SetInputTextNoEvents("");
 			});
 
-			if (gEngine != null)
-			{
-				gEngine.LineWrap(buf.ToString(), Buf01, startColumn);
-			}
-			else
-			{
-				Buf01.SetFormat("{0}", buf.ToString());
-			}
+			gEngine.LineWrap(buf.ToString(), Buf01, startColumn);
 
-			if (gEngine != null)
+			if (gEngine.Out != null)
 			{
-				if (gEngine.Out != null)
-				{
-					gEngine.Out.WriteLine("{0}", Buf01);
-				}
-				else if (gEngine.Error != null)
-				{
-					gEngine.Error.WriteLine("{0}", Buf01);
-				}
+				gEngine.Out.WriteLine("{0}", Buf01);
+			}
+			else if (gEngine.Error != null)
+			{
+				gEngine.Error.WriteLine("{0}", Buf01);
 			}
 
 		Cleanup:
@@ -202,9 +194,9 @@ namespace EamonPM.Game.Portability
 
 		public virtual void KeyPress(StringBuilder buf, bool initialNewLine = true)
 		{
-			Debug.Assert(buf != null);
-
 			Debug.Assert(gEngine != null);
+
+			Debug.Assert(buf != null);
 
 			if (EnableInput)
 			{

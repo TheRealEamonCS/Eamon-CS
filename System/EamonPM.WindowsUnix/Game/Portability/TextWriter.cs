@@ -252,11 +252,13 @@ namespace EamonPM.Game.Portability
 
 		public virtual void Write(string format, params object[] arg)
 		{
+			Debug.Assert(gEngine != null);
+
 			Debug.Assert(format != null);
 
 			Buf.SetFormat(format, arg);
 
-			if (ResolveUidMacros && gEngine != null)
+			if (ResolveUidMacros)
 			{
 				Buf01.Clear();
 
@@ -272,7 +274,7 @@ namespace EamonPM.Game.Portability
 				Buf.SetFormat("{0}", PunctSpaceCode == PunctSpaceCode.Single ? SingleSpaceRegex.Replace(Buf.ToString(), @"$1 $3") : DoubleSpaceRegex.Replace(Buf.ToString(), @"$1  $3"));
 			}
 
-			if (WordWrap && gEngine != null)
+			if (WordWrap)
 			{
 				gEngine.WordWrap(Buf.ToString(), Buf);
 			}

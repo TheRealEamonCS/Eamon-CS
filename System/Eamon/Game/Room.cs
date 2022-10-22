@@ -135,7 +135,7 @@ namespace Eamon.Game
 
 		public virtual bool IsLit()
 		{
-			var gameState = gEngine?.GetGameState();
+			var gameState = gEngine.GetGameState();
 
 			return LightLvl > 0 || (gameState != null && Uid == gameState.Ro && gameState.Ls > 0);
 		}

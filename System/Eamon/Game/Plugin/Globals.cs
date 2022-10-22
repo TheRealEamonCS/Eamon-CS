@@ -18,7 +18,7 @@ namespace Eamon.Game.Plugin
 		{
 			get 
 			{
-				return gEngine?.Out;
+				return gEngine.Out;
 			}
 		}
 
@@ -26,7 +26,7 @@ namespace Eamon.Game.Plugin
 		{
 			get 
 			{
-				return gEngine?.RDB;
+				return gEngine.RDB;
 			}
 		}
 
@@ -34,7 +34,7 @@ namespace Eamon.Game.Plugin
 		{
 			get 
 			{
-				return gEngine?.ADB;
+				return gEngine.ADB;
 			}
 		}
 
@@ -42,7 +42,7 @@ namespace Eamon.Game.Plugin
 		{
 			get 
 			{
-				return gEngine?.EDB;
+				return gEngine.EDB;
 			}
 		}
 
@@ -50,7 +50,7 @@ namespace Eamon.Game.Plugin
 		{
 			get
 			{
-				return gEngine?.MDB;
+				return gEngine.MDB;
 			}
 		}
 	}

@@ -69,7 +69,7 @@ namespace EamonRT.Game.Plugin
 		{
 			get
 			{
-				return gEngine?.SentenceParser;
+				return gEngine.SentenceParser;
 			}
 		}
 
@@ -77,7 +77,7 @@ namespace EamonRT.Game.Plugin
 		{
 			get
 			{
-				return gEngine?.CommandParser;
+				return gEngine.CommandParser;
 			}
 		}
 
@@ -85,7 +85,7 @@ namespace EamonRT.Game.Plugin
 		{
 			get 
 			{
-				return gEngine?.GameState;
+				return gEngine.GameState;
 			}
 		}
 
@@ -93,7 +93,7 @@ namespace EamonRT.Game.Plugin
 		{
 			get
 			{
-				return gEngine?.Character;
+				return gEngine.Character;
 			}
 		}
 

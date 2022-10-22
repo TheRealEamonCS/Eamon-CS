@@ -67,7 +67,7 @@ namespace EamonMH.Game.Plugin
 		{
 			get
 			{
-				return gEngine?.Character;
+				return gEngine.Character;
 			}
 		}
 	}

@@ -41,7 +41,7 @@ namespace Eamon.Game.DataStorage.QuickAccess
 		{
 			get
 			{
-				return gEngine?.Database?.GameStateTable?.Records;
+				return gEngine.Database?.GameStateTable?.Records;
 			}
 		}
 
