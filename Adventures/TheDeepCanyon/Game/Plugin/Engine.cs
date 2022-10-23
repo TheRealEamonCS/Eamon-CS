@@ -269,15 +269,15 @@ namespace TheDeepCanyon.Game.Plugin
 			}
 		}
 
-		public override void MonsterDies(IMonster ActorMonster, IMonster DobjMonster)
+		public override void MonsterDies(IMonster actorMonster, IMonster dobjMonster)
 		{
-			Debug.Assert(DobjMonster != null);
+			Debug.Assert(dobjMonster != null);
 
-			var room = DobjMonster.GetInRoom();
+			var room = dobjMonster.GetInRoom();
 
 			Debug.Assert(room != null);
 
-			base.MonsterDies(ActorMonster, DobjMonster);
+			base.MonsterDies(actorMonster, dobjMonster);
 
 			var goldCoinsArtifact = ADB[3];
 
@@ -289,7 +289,7 @@ namespace TheDeepCanyon.Game.Plugin
 
 			// Gold miner
 
-			if (DobjMonster.Uid == 3 && goldCoinsArtifact.IsInLimbo())
+			if (dobjMonster.Uid == 3 && goldCoinsArtifact.IsInLimbo())
 			{
 				if (room.IsLit())
 				{
@@ -301,7 +301,7 @@ namespace TheDeepCanyon.Game.Plugin
 
 			// Falconer
 
-			else if (DobjMonster.Uid == 4 && silverCoinsArtifact.IsInLimbo())
+			else if (dobjMonster.Uid == 4 && silverCoinsArtifact.IsInLimbo())
 			{
 				if (room.IsLit())
 				{
@@ -313,13 +313,13 @@ namespace TheDeepCanyon.Game.Plugin
 
 			// Fido
 
-			else if (DobjMonster.Uid == 11)
+			else if (dobjMonster.Uid == 11)
 			{
 				gGameState.FidoSleepCounter = 0;
 
-				DobjMonster.StateDesc = "";
+				dobjMonster.StateDesc = "";
 
-				DobjMonster.Reaction = Friendliness.Enemy;
+				dobjMonster.Reaction = Friendliness.Enemy;
 			}
 		}
 

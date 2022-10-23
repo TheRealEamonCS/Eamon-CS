@@ -244,24 +244,24 @@ namespace TheTempleOfNgurct.Game.Plugin
 			base.ConvertToCarriedInventory(weaponList);
 		}
 
-		public override void MonsterDies(IMonster ActorMonster, IMonster DobjMonster)
+		public override void MonsterDies(IMonster actorMonster, IMonster dobjMonster)
 		{
-			Debug.Assert(DobjMonster != null);
+			Debug.Assert(dobjMonster != null);
 
-			if (DobjMonster.Uid == 30)
+			if (dobjMonster.Uid == 30)
 			{
-				gGameState.KeyRingRoomUid = DobjMonster.Location;
+				gGameState.KeyRingRoomUid = dobjMonster.Location;
 			}
-			else if (DobjMonster.Uid == 56)
+			else if (dobjMonster.Uid == 56)
 			{
 				gGameState.AlkandaKilled = true;
 			}
 
-			var dmgTaken = DobjMonster.DmgTaken;
+			var dmgTaken = dobjMonster.DmgTaken;
 
-			base.MonsterDies(ActorMonster, DobjMonster);
+			base.MonsterDies(actorMonster, dobjMonster);
 
-			DobjMonster.DmgTaken = dmgTaken;
+			dobjMonster.DmgTaken = dmgTaken;
 		}
 
 		public virtual IList<IMonster> GetTrapMonsterList(long numMonsters, long roomUid)

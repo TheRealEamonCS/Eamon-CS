@@ -349,27 +349,27 @@ namespace TheVileGrimoireOfJaldial.Game.Plugin
 			gGameState.ClumsyTargets.Remove(monster.Uid);
 		}
 
-		public override void MonsterDies(IMonster ActorMonster, IMonster DobjMonster)
+		public override void MonsterDies(IMonster actorMonster, IMonster dobjMonster)
 		{
-			Debug.Assert(DobjMonster != null);
+			Debug.Assert(dobjMonster != null);
 
-			var room = DobjMonster.GetInRoom() as Framework.IRoom;
+			var room = dobjMonster.GetInRoom() as Framework.IRoom;
 
 			Debug.Assert(room != null);
 
 			// Wandering monsters
 
-			if (DobjMonster.Uid >= 1 && DobjMonster.Uid <= 17)
+			if (dobjMonster.Uid >= 1 && dobjMonster.Uid <= 17)
 			{
 				if (room.IsLit())
 				{
-					Out.Print("{0}As {1} dies, its body {2}.", Environment.NewLine, DobjMonster.GetTheName(), room.IsCryptRoom() ? "is enveloped in a cloud of sinister black smoke" : "dissolves and is absorbed into the ground");
+					Out.Print("{0}As {1} dies, its body {2}.", Environment.NewLine, dobjMonster.GetTheName(), room.IsCryptRoom() ? "is enveloped in a cloud of sinister black smoke" : "dissolves and is absorbed into the ground");
 				}
 			}
 
 			// Possessed cutlass
 
-			else if (DobjMonster.Uid == 31)
+			else if (dobjMonster.Uid == 31)
 			{
 				var cutlassArtifact = ADB[34];
 
@@ -380,30 +380,30 @@ namespace TheVileGrimoireOfJaldial.Game.Plugin
 
 			// Giant crayfish
 
-			else if (DobjMonster.Uid == 37)
+			else if (dobjMonster.Uid == 37)
 			{
 				gGameState.GiantCrayfishKilled = true;
 			}
 
 			// Water weird
 
-			else if (DobjMonster.Uid == 38)
+			else if (dobjMonster.Uid == 38)
 			{
 				gGameState.WaterWeirdKilled = true;
 			}
 
 			// Efreeti
 
-			else if (DobjMonster.Uid == 50)
+			else if (dobjMonster.Uid == 50)
 			{
 				gGameState.EfreetiKilled = true;
 			}
 
-			gGameState.ParalyzedTargets.Remove(DobjMonster.Uid);
+			gGameState.ParalyzedTargets.Remove(dobjMonster.Uid);
 
-			gGameState.ClumsyTargets.Remove(DobjMonster.Uid);
+			gGameState.ClumsyTargets.Remove(dobjMonster.Uid);
 
-			base.MonsterDies(ActorMonster, DobjMonster);
+			base.MonsterDies(actorMonster, dobjMonster);
 		}
 
 		public override IList<IMonster> GetHostileMonsterList(IMonster monster)

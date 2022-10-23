@@ -558,9 +558,9 @@ namespace EamonRT.Framework.Plugin
 		void MonsterGetsAggravated(IMonster monster, bool printFinalNewLine = true);
 
 		/// <summary></summary>
-		/// <param name="ActorMonster"></param>
-		/// <param name="DobjMonster"></param>
-		void MonsterDies(IMonster ActorMonster, IMonster DobjMonster);
+		/// <param name="actorMonster"></param>
+		/// <param name="dobjMonster"></param>
+		void MonsterDies(IMonster actorMonster, IMonster dobjMonster);
 
 		/// <summary></summary>
 		/// <param name="monster"></param>

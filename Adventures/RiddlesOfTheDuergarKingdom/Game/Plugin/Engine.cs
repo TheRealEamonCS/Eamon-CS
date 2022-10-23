@@ -363,15 +363,15 @@ namespace RiddlesOfTheDuergarKingdom.Game.Plugin
 			// TODO: unschedule pending events ???
 		}
 
-		public override void MonsterDies(IMonster ActorMonster, IMonster DobjMonster)
+		public override void MonsterDies(IMonster actorMonster, IMonster dobjMonster)
 		{
-			Debug.Assert(DobjMonster != null);
+			Debug.Assert(dobjMonster != null);
 
-			gGameState.PoisonedTargets.Remove(DobjMonster.Uid);
+			gGameState.PoisonedTargets.Remove(dobjMonster.Uid);
 
 			// TODO: unschedule pending events ???
 
-			base.MonsterDies(ActorMonster, DobjMonster);
+			base.MonsterDies(actorMonster, dobjMonster);
 		}
 
 		public override IList<IMonster> GetHostileMonsterList(IMonster monster)

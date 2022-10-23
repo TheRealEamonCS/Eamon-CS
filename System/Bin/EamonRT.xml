@@ -2052,8 +2052,8 @@
         </member>
         <member name="M:EamonRT.Framework.Plugin.IEngine.MonsterDies(Eamon.Framework.IMonster,Eamon.Framework.IMonster)">
             <summary></summary>
-            <param name="ActorMonster"></param>
-            <param name="DobjMonster"></param>
+            <param name="actorMonster"></param>
+            <param name="dobjMonster"></param>
         </member>
         <member name="M:EamonRT.Framework.Plugin.IEngine.ProcessMonsterDeathEvents(Eamon.Framework.IMonster)">
             <summary></summary>

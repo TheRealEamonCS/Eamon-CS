@@ -121,19 +121,19 @@ namespace TheBeginnersCave.Game.Plugin
 			base.ConvertToCarriedInventory(weaponList);
 		}
 
-		public override void MonsterDies(IMonster ActorMonster, IMonster DobjMonster)
+		public override void MonsterDies(IMonster actorMonster, IMonster dobjMonster)
 		{
-			Debug.Assert(DobjMonster != null && !DobjMonster.IsCharacterMonster());
+			Debug.Assert(dobjMonster != null && !dobjMonster.IsCharacterMonster());
 
-			if (DobjMonster.Uid == 8)
+			if (dobjMonster.Uid == 8)
 			{
 				var trollsfireArtifact = ADB[10];
 
 				Debug.Assert(trollsfireArtifact != null);
 
-				var printEffect = trollsfireArtifact.IsCarriedByMonster(DobjMonster) || trollsfireArtifact.IsWornByMonster(DobjMonster);
+				var printEffect = trollsfireArtifact.IsCarriedByMonster(dobjMonster) || trollsfireArtifact.IsWornByMonster(dobjMonster);
 
-				base.MonsterDies(ActorMonster, DobjMonster);
+				base.MonsterDies(actorMonster, dobjMonster);
 
 				if (printEffect)
 				{
@@ -146,7 +146,7 @@ namespace TheBeginnersCave.Game.Plugin
 			}
 			else
 			{
-				base.MonsterDies(ActorMonster, DobjMonster);
+				base.MonsterDies(actorMonster, dobjMonster);
 			}
 		}
 	}

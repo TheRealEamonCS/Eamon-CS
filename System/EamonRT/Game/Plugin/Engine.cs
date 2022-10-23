@@ -1715,27 +1715,27 @@ namespace EamonRT.Game.Plugin
 			}
 		}
 
-		public virtual void MonsterDies(IMonster ActorMonster, IMonster DobjMonster)
+		public virtual void MonsterDies(IMonster actorMonster, IMonster dobjMonster)
 		{
 			RetCode rc;
 
 			// ActorMonster may be null or non-null
 
-			Debug.Assert(DobjMonster != null && !DobjMonster.IsCharacterMonster());
+			Debug.Assert(dobjMonster != null && !dobjMonster.IsCharacterMonster());
 
 			try
 			{
 				RevealContentCounter--;
 
-				var room = DobjMonster.GetInRoom();
+				var room = dobjMonster.GetInRoom();
 
 				Debug.Assert(room != null);
 
-				if (DobjMonster.CurrGroupCount > 1)
+				if (dobjMonster.CurrGroupCount > 1)
 				{
-					if (DobjMonster.Weapon > 0)
+					if (dobjMonster.Weapon > 0)
 					{
-						var weapon = GetNthArtifact(DobjMonster.GetCarriedList(), DobjMonster.CurrGroupCount - 1, a => a.IsReadyableByMonster(DobjMonster) && a.Uid != DobjMonster.Weapon);
+						var weapon = GetNthArtifact(dobjMonster.GetCarriedList(), dobjMonster.CurrGroupCount - 1, a => a.IsReadyableByMonster(dobjMonster) && a.Uid != dobjMonster.Weapon);
 
 						if (weapon != null)
 						{
@@ -1743,22 +1743,22 @@ namespace EamonRT.Game.Plugin
 						}
 					}
 
-					DobjMonster.CurrGroupCount--;
+					dobjMonster.CurrGroupCount--;
 
-					DobjMonster.DmgTaken = 0;
+					dobjMonster.DmgTaken = 0;
 
 					if (EnforceMonsterWeightLimits)
 					{
-						rc = DobjMonster.EnforceFullInventoryWeightLimits(recurse: true);
+						rc = dobjMonster.EnforceFullInventoryWeightLimits(recurse: true);
 
 						Debug.Assert(IsSuccess(rc));
 					}
 				}
 				else
 				{
-					if (DobjMonster.Weapon > 0)
+					if (dobjMonster.Weapon > 0)
 					{
-						var weapon = ADB[DobjMonster.Weapon];
+						var weapon = ADB[dobjMonster.Weapon];
 
 						Debug.Assert(weapon != null);
 
@@ -1766,29 +1766,29 @@ namespace EamonRT.Game.Plugin
 
 						Debug.Assert(IsSuccess(rc));
 
-						DobjMonster.Weapon = -1;
+						dobjMonster.Weapon = -1;
 					}
 
-					DobjMonster.SetInLimbo();
+					dobjMonster.SetInLimbo();
 
-					DobjMonster.CurrGroupCount = DobjMonster.GroupCount;
+					dobjMonster.CurrGroupCount = dobjMonster.GroupCount;
 
 					// DobjMonster.ResolveReaction(Character);
 
-					DobjMonster.DmgTaken = 0;
+					dobjMonster.DmgTaken = 0;
 
-					var artifactList = GetArtifactList(a => a.IsCarriedByMonster(DobjMonster) || a.IsWornByMonster(DobjMonster));
+					var artifactList = GetArtifactList(a => a.IsCarriedByMonster(dobjMonster) || a.IsWornByMonster(dobjMonster));
 
 					foreach (var artifact in artifactList)
 					{
 						artifact.SetInRoom(room);
 					}
 
-					ProcessMonsterDeathEvents(DobjMonster);
+					ProcessMonsterDeathEvents(dobjMonster);
 
-					if (DobjMonster.DeadBody > 0)
+					if (dobjMonster.DeadBody > 0)
 					{
-						var deadBody = ADB[DobjMonster.DeadBody];
+						var deadBody = ADB[dobjMonster.DeadBody];
 
 						Debug.Assert(deadBody != null);
 

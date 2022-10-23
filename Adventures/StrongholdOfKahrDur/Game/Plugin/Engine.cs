@@ -156,17 +156,17 @@ namespace StrongholdOfKahrDur.Game.Plugin
 			}
 		}
 
-		public override void MonsterDies(IMonster ActorMonster, IMonster DobjMonster)
+		public override void MonsterDies(IMonster actorMonster, IMonster dobjMonster)
 		{
-			base.MonsterDies(ActorMonster, DobjMonster);
+			base.MonsterDies(actorMonster, dobjMonster);
 
-			if (ActorMonster != null && ActorMonster.Uid == GameState.Cm)
+			if (actorMonster != null && actorMonster.Uid == GameState.Cm)
 			{
 				// If player kills Mirabelle, Jollifrud gets angry and vice versa
 
-				if (DobjMonster.Uid == 20 || DobjMonster.Uid == 26)
+				if (dobjMonster.Uid == 20 || dobjMonster.Uid == 26)
 				{
-					var monster = MDB[DobjMonster.Uid == 20 ? 26 : 20];
+					var monster = MDB[dobjMonster.Uid == 20 ? 26 : 20];
 
 					Debug.Assert(monster != null);
 

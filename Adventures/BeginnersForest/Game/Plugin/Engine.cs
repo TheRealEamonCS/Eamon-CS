@@ -172,30 +172,30 @@ namespace BeginnersForest.Game.Plugin
 			base.ConvertToCarriedInventory(weaponList);
 		}
 
-		public override void MonsterDies(IMonster ActorMonster, IMonster DobjMonster)
+		public override void MonsterDies(IMonster actorMonster, IMonster dobjMonster)
 		{
-			Debug.Assert(DobjMonster != null && !DobjMonster.IsCharacterMonster());
+			Debug.Assert(dobjMonster != null && !dobjMonster.IsCharacterMonster());
 
 			// Repetitive Spooks' counter reset
 
-			if (DobjMonster.Uid == 9)
+			if (dobjMonster.Uid == 9)
 			{
-				var resetGroupCount = DobjMonster.CurrGroupCount == 1;
+				var resetGroupCount = dobjMonster.CurrGroupCount == 1;
 
-				base.MonsterDies(ActorMonster, DobjMonster);
+				base.MonsterDies(actorMonster, dobjMonster);
 
 				if (resetGroupCount)
 				{
-					DobjMonster.GroupCount = 0;
+					dobjMonster.GroupCount = 0;
 
-					DobjMonster.InitGroupCount = 0;
+					dobjMonster.InitGroupCount = 0;
 
-					DobjMonster.CurrGroupCount = 0;
+					dobjMonster.CurrGroupCount = 0;
 				}
 			}
 			else
 			{
-				base.MonsterDies(ActorMonster, DobjMonster);
+				base.MonsterDies(actorMonster, dobjMonster);
 			}
 		}
 	}
