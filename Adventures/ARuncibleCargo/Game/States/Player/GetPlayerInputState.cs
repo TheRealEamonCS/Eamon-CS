@@ -114,11 +114,7 @@ namespace ARuncibleCargo.Game.States
 
 					gEngine.PrintEffectDesc(11);
 
-					NextState = gEngine.CreateInstance<IStartState>();
-
-					GotoCleanup = true;
-
-					goto Cleanup;
+					gEngine.PrintPlayerRoom();
 				}
 
 				var ovenArtifact = gADB[80];
