@@ -55,7 +55,7 @@ namespace EamonRT.Game.States
 
 		public override void Execute()
 		{
-			if (gEngine.CommandPromptSeen && !gEngine.ShouldPreTurnProcess)
+			if (!gEngine.ShouldPreTurnProcess)
 			{
 				goto Cleanup;
 			}

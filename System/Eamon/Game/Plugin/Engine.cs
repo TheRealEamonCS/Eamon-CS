@@ -1038,25 +1038,25 @@ namespace Eamon.Game.Plugin
 				goto Cleanup;
 			}
 
-			RestoreRecords(database?.ConfigTable?.Records?.Cast<IGameBase>().ToList());
+			RestoreRecords(database.ConfigTable?.Records?.Cast<IGameBase>().ToList());
 
-			RestoreRecords(database?.FilesetTable?.Records?.Cast<IGameBase>().ToList());
+			RestoreRecords(database.FilesetTable?.Records?.Cast<IGameBase>().ToList());
 
-			RestoreRecords(database?.CharacterTable?.Records?.Cast<IGameBase>().ToList());
+			RestoreRecords(database.CharacterTable?.Records?.Cast<IGameBase>().ToList());
 
-			RestoreRecords(database?.ModuleTable?.Records?.Cast<IGameBase>().ToList());
+			RestoreRecords(database.ModuleTable?.Records?.Cast<IGameBase>().ToList());
 
-			RestoreRecords(database?.RoomTable?.Records?.Cast<IGameBase>().ToList());
+			RestoreRecords(database.RoomTable?.Records?.Cast<IGameBase>().ToList());
 
-			RestoreRecords(database?.ArtifactTable?.Records?.Cast<IGameBase>().ToList());
+			RestoreRecords(database.ArtifactTable?.Records?.Cast<IGameBase>().ToList());
 
-			RestoreRecords(database?.EffectTable?.Records?.Cast<IGameBase>().ToList());
+			RestoreRecords(database.EffectTable?.Records?.Cast<IGameBase>().ToList());
 
-			RestoreRecords(database?.MonsterTable?.Records?.Cast<IGameBase>().ToList());
+			RestoreRecords(database.MonsterTable?.Records?.Cast<IGameBase>().ToList());
 
-			RestoreRecords(database?.HintTable?.Records?.Cast<IGameBase>().ToList());
+			RestoreRecords(database.HintTable?.Records?.Cast<IGameBase>().ToList());
 
-			RestoreRecords(database?.GameStateTable?.Records?.Cast<IGameBase>().ToList());
+			RestoreRecords(database.GameStateTable?.Records?.Cast<IGameBase>().ToList());
 
 			Databases[++DbStackTop] = database;
 

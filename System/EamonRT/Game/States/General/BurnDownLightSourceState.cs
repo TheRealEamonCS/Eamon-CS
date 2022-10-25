@@ -28,7 +28,7 @@ namespace EamonRT.Game.States
 		{
 			LsArtifactUid = gGameState.Ls;
 
-			if (LsArtifactUid <= 0 || (gEngine.CommandPromptSeen && !gEngine.ShouldPreTurnProcess))
+			if (LsArtifactUid <= 0 || !gEngine.ShouldPreTurnProcess)
 			{
 				goto Cleanup;
 			}
