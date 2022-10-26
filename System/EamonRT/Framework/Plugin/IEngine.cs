@@ -762,9 +762,6 @@ namespace EamonRT.Framework.Plugin
 		void CheckToExtinguishLightSource();
 
 		/// <summary></summary>
-		void ClearActionLists();
-
-		/// <summary></summary>
 		/// <param name="oldRoom"></param>
 		/// <param name="newRoom"></param>
 		/// <param name="includeEmbedded"></param>

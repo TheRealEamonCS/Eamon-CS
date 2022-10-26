@@ -3973,6 +3973,10 @@
         <member name="M:Eamon.Framework.Plugin.IEngine.DeinitSystem">
             <summary></summary>
         </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.ResetProperties(Eamon.Framework.Primitive.Enums.PropertyResetCode)">
+            <summary></summary>
+            <param name="resetCode"></param>
+        </member>
         <member name="M:Eamon.Framework.Plugin.IEngine.ReplaceDatafileValues(System.String,System.String[],System.String[])">
             <summary></summary>
             <param name="fileName"></param>
@@ -3986,10 +3990,6 @@
         <member name="M:Eamon.Framework.Plugin.IEngine.UpgradeDatafile(System.String)">
             <summary></summary>
             <param name="fileName"></param>
-        </member>
-        <member name="M:Eamon.Framework.Plugin.IEngine.ResetRevealContentProperties(System.Boolean)">
-            <summary></summary>
-            <param name="resetObjects"></param>
         </member>
         <member name="M:Eamon.Framework.Plugin.IEngine.GetPrep(System.Int64)">
             <summary>
@@ -6246,6 +6246,36 @@
             <summary></summary>
         </member>
         <member name="F:Eamon.Framework.Primitive.Enums.PoundCharPolicy.AllArtifacts">
+            <summary></summary>
+        </member>
+        <member name="T:Eamon.Framework.Primitive.Enums.PropertyResetCode">
+            <summary></summary>
+        </member>
+        <member name="F:Eamon.Framework.Primitive.Enums.PropertyResetCode.None">
+            <summary></summary>
+        </member>
+        <member name="F:Eamon.Framework.Primitive.Enums.PropertyResetCode.All">
+            <summary></summary>
+        </member>
+        <member name="F:Eamon.Framework.Primitive.Enums.PropertyResetCode.PlayerDead">
+            <summary></summary>
+        </member>
+        <member name="F:Eamon.Framework.Primitive.Enums.PropertyResetCode.ResurrectPlayer">
+            <summary></summary>
+        </member>
+        <member name="F:Eamon.Framework.Primitive.Enums.PropertyResetCode.LoadDatabase">
+            <summary></summary>
+        </member>
+        <member name="F:Eamon.Framework.Primitive.Enums.PropertyResetCode.RestoreDatabase">
+            <summary></summary>
+        </member>
+        <member name="F:Eamon.Framework.Primitive.Enums.PropertyResetCode.RestoreGame">
+            <summary></summary>
+        </member>
+        <member name="F:Eamon.Framework.Primitive.Enums.PropertyResetCode.SwitchContext">
+            <summary></summary>
+        </member>
+        <member name="F:Eamon.Framework.Primitive.Enums.PropertyResetCode.RevealContainerContents">
             <summary></summary>
         </member>
         <member name="T:Eamon.Framework.Primitive.Enums.PunctSpaceCode">

@@ -52,11 +52,9 @@ namespace ARuncibleCargo.Game.States
 						gEngine.PrintPlayerRoom();
 					}
 
-					gEngine.ClearActionLists();
-
 					// gEngine.SentenceParser.PrintDiscardingCommands() not called for this abrupt reality shift
 
-					gEngine.SentenceParser.Clear();
+					gEngine.ResetProperties(PropertyResetCode.SwitchContext);
 
 					// Nothing in the dream affects the real world; revert game state now that player is awake
 

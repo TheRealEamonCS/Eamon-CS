@@ -257,6 +257,88 @@ namespace EamonRT.Game.Plugin
 			ShouldPreTurnProcess = true;
 		}
 
+		public override void ResetProperties(PropertyResetCode resetCode)
+		{
+			base.ResetProperties(resetCode);
+
+			switch (resetCode)
+			{
+				case PropertyResetCode.PlayerDead:
+				case PropertyResetCode.RestoreGame:
+				case PropertyResetCode.ResurrectPlayer:
+				case PropertyResetCode.SwitchContext:
+
+					MiscEventFuncList.Clear();
+
+					MiscEventFuncList02.Clear();
+
+					MiscEventFuncList03.Clear();
+
+					SkillIncreaseFuncList.Clear();
+
+					SentenceParser.Clear();
+
+					break;
+			}
+
+			switch (resetCode)
+			{
+				case PropertyResetCode.PlayerDead:
+
+					CommandParser.Clear();
+
+					break;
+
+				case PropertyResetCode.RestoreGame:
+
+					SentenceParser.LastInputStr = "";
+
+					CommandParser.LastInputStr = "";
+
+					CommandParser.LastHimNameStr = "";
+
+					CommandParser.LastHerNameStr = "";
+
+					CommandParser.LastItNameStr = "";
+
+					CommandParser.LastThemNameStr = "";
+
+					break;
+			}
+
+			/*
+			LastCommandList.Clear();
+
+			ActionListCounter = 0;
+
+			LoopFailedMoveMemberCount = 0;
+
+			SentenceParser.LastInputStr = "";
+
+			SentenceParser.Clear();
+
+			CommandParser.LastInputStr = "";
+
+			CommandParser.LastHimNameStr = "";
+
+			CommandParser.LastHerNameStr = "";
+
+			CommandParser.LastItNameStr = "";
+
+			CommandParser.LastThemNameStr = "";
+
+			CommandParser.Clear();
+
+			//CommandPromptSeen = false;
+
+			ShouldPreTurnProcess = true;
+
+			PauseCombatAfterSkillGains = false;
+
+			PlayerMoved = false;
+			*/
+		}
+
 		public virtual void PrintPlayerRoom()
 		{
 			var room = RDB[GameState.Ro];
@@ -3136,7 +3218,7 @@ namespace EamonRT.Game.Plugin
 				}
 			}
 
-			ResetRevealContentProperties(false);
+			ResetProperties(PropertyResetCode.RevealContainerContents);
 		}
 
 		public virtual void CheckToProcessActionLists()
@@ -3183,19 +3265,6 @@ namespace EamonRT.Game.Plugin
 					GameState.Ls = 0;
 				}
 			}
-		}
-
-		public virtual void ClearActionLists()
-		{
-			MiscEventFuncList.Clear();
-
-			MiscEventFuncList02.Clear();
-
-			MiscEventFuncList03.Clear();
-
-			SkillIncreaseFuncList.Clear();
-
-			ResetRevealContentProperties();
 		}
 
 		public virtual void TransportRoomContentsBetweenRooms(IRoom oldRoom, IRoom newRoom, bool includeEmbedded = true)

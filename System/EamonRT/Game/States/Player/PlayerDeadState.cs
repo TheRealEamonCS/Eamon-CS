@@ -4,6 +4,7 @@
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
 using System.Diagnostics;
+using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using Eamon.Game.Extensions;
 using EamonRT.Framework.States;
@@ -58,11 +59,7 @@ namespace EamonRT.Game.States
 				goto Cleanup;
 			}
 
-			gEngine.ClearActionLists();
-
-			gSentenceParser.Clear();
-
-			gCommandParser.Clear();
+			gEngine.ResetProperties(PropertyResetCode.PlayerDead);
 
 			gCommandParser.ActorMonster = gCharMonster;
 

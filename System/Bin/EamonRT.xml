@@ -2254,9 +2254,6 @@
         <member name="M:EamonRT.Framework.Plugin.IEngine.CheckToExtinguishLightSource">
             <summary></summary>
         </member>
-        <member name="M:EamonRT.Framework.Plugin.IEngine.ClearActionLists">
-            <summary></summary>
-        </member>
         <member name="M:EamonRT.Framework.Plugin.IEngine.TransportRoomContentsBetweenRooms(Eamon.Framework.IRoom,Eamon.Framework.IRoom,System.Boolean)">
             <summary></summary>
             <param name="oldRoom"></param>

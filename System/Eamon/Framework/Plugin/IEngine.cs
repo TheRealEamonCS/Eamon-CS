@@ -692,6 +692,10 @@ namespace Eamon.Framework.Plugin
 		void DeinitSystem();
 
 		/// <summary></summary>
+		/// <param name="resetCode"></param>
+		void ResetProperties(PropertyResetCode resetCode);
+
+		/// <summary></summary>
 		/// <param name="fileName"></param>
 		/// <param name="patterns"></param>
 		/// <param name="replacements"></param>
@@ -704,10 +708,6 @@ namespace Eamon.Framework.Plugin
 		/// <summary></summary>
 		/// <param name="fileName"></param>
 		void UpgradeDatafile(string fileName);
-
-		/// <summary></summary>
-		/// <param name="resetObjects"></param>
-		void ResetRevealContentProperties(bool resetObjects = true);
 
 		/// <summary>
 		/// Gets the sentence preposition (e.g., "to", "from", "inside", etc).

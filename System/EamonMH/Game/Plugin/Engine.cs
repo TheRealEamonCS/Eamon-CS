@@ -87,6 +87,11 @@ namespace EamonMH.Game.Plugin
 			Config = CreateInstance<IConfig>();
 		}
 
+		public override void ResetProperties(PropertyResetCode resetCode)
+		{
+			base.ResetProperties(resetCode);
+		}
+
 		public virtual bool IsCharDOrM(char ch)
 		{
 			ch = Char.ToUpper(ch);

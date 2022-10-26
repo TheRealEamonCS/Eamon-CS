@@ -6,6 +6,7 @@
 using Eamon;
 using Eamon.Framework;
 using Eamon.Framework.Menus;
+using Eamon.Framework.Primitive.Enums;
 using EamonDD.Framework.Menus;
 using EamonDD.Framework.Plugin;
 using System;
@@ -97,6 +98,11 @@ namespace EamonDD.Game.Plugin
 			}
 
 			Config = CreateInstance<IConfig>();
+		}
+
+		public override void ResetProperties(PropertyResetCode resetCode)
+		{
+			base.ResetProperties(resetCode);
 		}
 
 		public virtual bool IsAdventureFilesetLoaded()

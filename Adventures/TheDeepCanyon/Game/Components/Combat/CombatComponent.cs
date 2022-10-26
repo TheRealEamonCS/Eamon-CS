@@ -6,6 +6,7 @@
 using System;
 using System.Diagnostics;
 using Eamon.Framework;
+using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.Components;
@@ -235,11 +236,9 @@ namespace TheDeepCanyon.Game.Components
 
 						gOut.Print("{0}", gEngine.LineSep);
 
-						gEngine.ClearActionLists();
-
 						// gSentenceParser.PrintDiscardingCommands() not called for this abrupt reality shift
 
-						gSentenceParser.Clear();
+						gEngine.ResetProperties(PropertyResetCode.ResurrectPlayer);
 
 						gEngine.PrintEffectDesc(3);
 

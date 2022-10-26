@@ -1025,7 +1025,7 @@ namespace Eamon.Game.Plugin
 				goto Cleanup;
 			}
 
-			ResetRevealContentProperties();
+			ResetProperties(PropertyResetCode.RestoreDatabase);
 
 			UpgradeDatafile(fileName);
 
@@ -1935,6 +1935,42 @@ namespace Eamon.Game.Plugin
 			ClearDbStack();
 		}
 
+		public virtual void ResetProperties(PropertyResetCode resetCode)
+		{
+			switch (resetCode)
+			{
+				case PropertyResetCode.PlayerDead:
+				case PropertyResetCode.ResurrectPlayer:
+				case PropertyResetCode.LoadDatabase:
+				case PropertyResetCode.RestoreDatabase:
+				case PropertyResetCode.RestoreGame:
+				case PropertyResetCode.SwitchContext:
+				case PropertyResetCode.RevealContainerContents:
+
+					RevealContentArtifactList.Clear();
+
+					RevealContentFuncList.Clear();
+
+					break;
+			}
+
+			switch (resetCode)
+			{
+				case PropertyResetCode.PlayerDead:
+				case PropertyResetCode.ResurrectPlayer:
+				case PropertyResetCode.LoadDatabase:
+				case PropertyResetCode.RestoreDatabase:
+				case PropertyResetCode.RestoreGame:
+				case PropertyResetCode.SwitchContext:
+
+					RevealContentRoom = null;
+
+					RevealContentMonster = null;
+
+					break;
+			}
+		}
+
 		public virtual void ReplaceDatafileValues(string fileName, string[] patterns, string[] replacements)
 		{
 			if (string.IsNullOrWhiteSpace(fileName) || patterns == null || replacements == null || patterns.Length != replacements.Length)
@@ -2392,20 +2428,6 @@ namespace Eamon.Game.Plugin
 		Cleanup:
 
 			;
-		}
-
-		public virtual void ResetRevealContentProperties(bool resetObjects = true)
-		{
-			if (resetObjects)
-			{
-				RevealContentRoom = null;
-
-				RevealContentMonster = null;
-			}
-
-			RevealContentArtifactList.Clear();
-
-			RevealContentFuncList.Clear();
 		}
 
 		/// <summary></summary>

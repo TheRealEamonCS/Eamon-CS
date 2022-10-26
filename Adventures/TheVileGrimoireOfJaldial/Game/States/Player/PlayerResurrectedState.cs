@@ -4,6 +4,7 @@
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
 using System.Diagnostics;
+using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.States;
@@ -24,11 +25,9 @@ namespace TheVileGrimoireOfJaldial.Game.States
 
 			Debug.Assert(room != null);
 
-			gEngine.ClearActionLists();
-
 			// gSentenceParser.PrintDiscardingCommands() not called for this abrupt reality shift
 
-			gSentenceParser.Clear();
+			gEngine.ResetProperties(PropertyResetCode.ResurrectPlayer);
 
 			gEngine.PrintEffectDesc(109);
 

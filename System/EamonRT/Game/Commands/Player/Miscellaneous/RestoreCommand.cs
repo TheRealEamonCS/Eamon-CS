@@ -226,21 +226,7 @@ namespace EamonRT.Game.Commands
 					goto Cleanup;
 				}
 
-				gEngine.ClearActionLists();
-
-				gSentenceParser.LastInputStr = "";
-
-				gSentenceParser.Clear();
-
-				gCommandParser.LastInputStr = "";
-
-				gCommandParser.LastHimNameStr = "";
-
-				gCommandParser.LastHerNameStr = "";
-
-				gCommandParser.LastItNameStr = "";
-
-				gCommandParser.LastThemNameStr = "";
+				gEngine.ResetProperties(PropertyResetCode.RestoreGame);
 
 				gGameState.R2 = gGameState.Ro;
 

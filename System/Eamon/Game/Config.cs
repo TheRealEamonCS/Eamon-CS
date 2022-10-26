@@ -161,7 +161,7 @@ namespace Eamon.Game
 		{
 			RetCode rc;
 
-			gEngine.ResetRevealContentProperties();
+			gEngine.ResetProperties(PropertyResetCode.LoadDatabase);
 
 			rc = gEngine.Database.LoadFilesets(RtFilesetFileName, validate, printOutput);
 
