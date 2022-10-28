@@ -1939,23 +1939,7 @@ namespace Eamon.Game.Plugin
 		{
 			switch (resetCode)
 			{
-				case PropertyResetCode.PlayerDead:
-				case PropertyResetCode.ResurrectPlayer:
-				case PropertyResetCode.LoadDatabase:
-				case PropertyResetCode.RestoreDatabase:
-				case PropertyResetCode.RestoreGame:
-				case PropertyResetCode.SwitchContext:
-				case PropertyResetCode.RevealContainerContents:
-
-					RevealContentArtifactList.Clear();
-
-					RevealContentFuncList.Clear();
-
-					break;
-			}
-
-			switch (resetCode)
-			{
+				case PropertyResetCode.All:
 				case PropertyResetCode.PlayerDead:
 				case PropertyResetCode.ResurrectPlayer:
 				case PropertyResetCode.LoadDatabase:
@@ -1966,6 +1950,18 @@ namespace Eamon.Game.Plugin
 					RevealContentRoom = null;
 
 					RevealContentMonster = null;
+
+					RevealContentArtifactList.Clear();
+
+					RevealContentFuncList.Clear();
+
+					break;
+
+				case PropertyResetCode.RevealContainerContents:
+
+					RevealContentArtifactList.Clear();
+
+					RevealContentFuncList.Clear();
 
 					break;
 			}

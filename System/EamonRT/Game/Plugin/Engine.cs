@@ -263,9 +263,116 @@ namespace EamonRT.Game.Plugin
 
 			switch (resetCode)
 			{
+				case PropertyResetCode.All:
+
+					LastCommandList.Clear();
+
+					MiscEventFuncList.Clear();
+
+					MiscEventFuncList02.Clear();
+
+					MiscEventFuncList03.Clear();
+
+					SkillIncreaseFuncList.Clear();
+
+					ActionListCounter = 0;
+
+					LoopFailedMoveMemberCount = 0;
+
+					SentenceParser.LastInputStr = "";
+
+					SentenceParser.Clear();
+
+					CommandParser.LastInputStr = "";
+
+					CommandParser.LastHimNameStr = "";
+
+					CommandParser.LastHerNameStr = "";
+
+					CommandParser.LastItNameStr = "";
+
+					CommandParser.LastThemNameStr = "";
+
+					CommandParser.Clear();
+
+					//CommandPromptSeen = false;
+
+					ShouldPreTurnProcess = true;
+
+					PauseCombatAfterSkillGains = false;
+
+					PlayerMoved = false;
+
+					break;
+
 				case PropertyResetCode.PlayerDead:
-				case PropertyResetCode.RestoreGame:
+
+					MiscEventFuncList.Clear();
+
+					MiscEventFuncList02.Clear();
+
+					MiscEventFuncList03.Clear();
+
+					SkillIncreaseFuncList.Clear();
+
+					SentenceParser.Clear();
+
+					CommandParser.Clear();
+
+					break;
+
 				case PropertyResetCode.ResurrectPlayer:
+
+					MiscEventFuncList.Clear();
+
+					MiscEventFuncList02.Clear();
+
+					MiscEventFuncList03.Clear();
+
+					SkillIncreaseFuncList.Clear();
+
+					SentenceParser.Clear();
+
+					break;
+
+				case PropertyResetCode.LoadDatabase:
+
+					// do nothing
+
+					break;
+
+				case PropertyResetCode.RestoreDatabase:
+
+					// do nothing
+
+					break;
+
+				case PropertyResetCode.RestoreGame:
+
+					MiscEventFuncList.Clear();
+
+					MiscEventFuncList02.Clear();
+
+					MiscEventFuncList03.Clear();
+
+					SkillIncreaseFuncList.Clear();
+
+					SentenceParser.LastInputStr = "";
+
+					SentenceParser.Clear();
+
+					CommandParser.LastInputStr = "";
+
+					CommandParser.LastHimNameStr = "";
+
+					CommandParser.LastHerNameStr = "";
+
+					CommandParser.LastItNameStr = "";
+
+					CommandParser.LastThemNameStr = "";
+
+					break;
+
 				case PropertyResetCode.SwitchContext:
 
 					MiscEventFuncList.Clear();
@@ -279,64 +386,13 @@ namespace EamonRT.Game.Plugin
 					SentenceParser.Clear();
 
 					break;
-			}
 
-			switch (resetCode)
-			{
-				case PropertyResetCode.PlayerDead:
+				case PropertyResetCode.RevealContainerContents:
 
-					CommandParser.Clear();
-
-					break;
-
-				case PropertyResetCode.RestoreGame:
-
-					SentenceParser.LastInputStr = "";
-
-					CommandParser.LastInputStr = "";
-
-					CommandParser.LastHimNameStr = "";
-
-					CommandParser.LastHerNameStr = "";
-
-					CommandParser.LastItNameStr = "";
-
-					CommandParser.LastThemNameStr = "";
+					// do nothing
 
 					break;
 			}
-
-			/*
-			LastCommandList.Clear();
-
-			ActionListCounter = 0;
-
-			LoopFailedMoveMemberCount = 0;
-
-			SentenceParser.LastInputStr = "";
-
-			SentenceParser.Clear();
-
-			CommandParser.LastInputStr = "";
-
-			CommandParser.LastHimNameStr = "";
-
-			CommandParser.LastHerNameStr = "";
-
-			CommandParser.LastItNameStr = "";
-
-			CommandParser.LastThemNameStr = "";
-
-			CommandParser.Clear();
-
-			//CommandPromptSeen = false;
-
-			ShouldPreTurnProcess = true;
-
-			PauseCombatAfterSkillGains = false;
-
-			PlayerMoved = false;
-			*/
 		}
 
 		public virtual void PrintPlayerRoom()
