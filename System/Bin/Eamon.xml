@@ -6257,18 +6257,6 @@
         <member name="F:Eamon.Framework.Primitive.Enums.PropertyResetCode.All">
             <summary></summary>
         </member>
-        <member name="F:Eamon.Framework.Primitive.Enums.PropertyResetCode.PlayerDead">
-            <summary></summary>
-        </member>
-        <member name="F:Eamon.Framework.Primitive.Enums.PropertyResetCode.ResurrectPlayer">
-            <summary></summary>
-        </member>
-        <member name="F:Eamon.Framework.Primitive.Enums.PropertyResetCode.LoadDatabase">
-            <summary></summary>
-        </member>
-        <member name="F:Eamon.Framework.Primitive.Enums.PropertyResetCode.RestoreDatabase">
-            <summary></summary>
-        </member>
         <member name="F:Eamon.Framework.Primitive.Enums.PropertyResetCode.RestoreGame">
             <summary></summary>
         </member>

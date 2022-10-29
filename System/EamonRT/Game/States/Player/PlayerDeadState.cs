@@ -40,11 +40,13 @@ namespace EamonRT.Game.States
 				goto Cleanup;
 			}
 
-			RestoreGame = false;
-
 			Debug.Assert(gCharMonster != null);
 
-			gEngine.DeadMenu(gCharMonster, PrintLineSep, ref _restoreGame);
+			gEngine.ResetProperties(PropertyResetCode.SwitchContext);
+
+			RestoreGame = false;
+
+			gEngine.DeadMenu(PrintLineSep, ref _restoreGame);
 
 			if (!RestoreGame)
 			{
@@ -58,8 +60,6 @@ namespace EamonRT.Game.States
 
 				goto Cleanup;
 			}
-
-			gEngine.ResetProperties(PropertyResetCode.PlayerDead);
 
 			gCommandParser.ActorMonster = gCharMonster;
 

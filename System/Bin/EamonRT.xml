@@ -2035,9 +2035,8 @@
             <summary></summary>
             <param name="sellInventory"></param>
         </member>
-        <member name="M:EamonRT.Framework.Plugin.IEngine.DeadMenu(Eamon.Framework.IMonster,System.Boolean,System.Boolean@)">
+        <member name="M:EamonRT.Framework.Plugin.IEngine.DeadMenu(System.Boolean,System.Boolean@)">
             <summary></summary>
-            <param name="monster"></param>
             <param name="printLineSep"></param>
             <param name="restoreGame"></param>
         </member>

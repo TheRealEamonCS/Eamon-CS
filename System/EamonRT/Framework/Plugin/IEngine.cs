@@ -543,10 +543,9 @@ namespace EamonRT.Framework.Plugin
 		void SellInventoryToMerchant(bool sellInventory = true);
 
 		/// <summary></summary>
-		/// <param name="monster"></param>
 		/// <param name="printLineSep"></param>
 		/// <param name="restoreGame"></param>
-		void DeadMenu(IMonster monster, bool printLineSep, ref bool restoreGame);
+		void DeadMenu(bool printLineSep, ref bool restoreGame);
 
 		/// <summary></summary>
 		/// <param name="artifact"></param>

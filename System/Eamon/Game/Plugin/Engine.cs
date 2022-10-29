@@ -1025,8 +1025,6 @@ namespace Eamon.Game.Plugin
 				goto Cleanup;
 			}
 
-			ResetProperties(PropertyResetCode.RestoreDatabase);
-
 			UpgradeDatafile(fileName);
 
 			var database = SharpSerializer.Deserialize<IDatabase>(fileName);
@@ -1940,10 +1938,6 @@ namespace Eamon.Game.Plugin
 			switch (resetCode)
 			{
 				case PropertyResetCode.All:
-				case PropertyResetCode.PlayerDead:
-				case PropertyResetCode.ResurrectPlayer:
-				case PropertyResetCode.LoadDatabase:
-				case PropertyResetCode.RestoreDatabase:
 				case PropertyResetCode.RestoreGame:
 				case PropertyResetCode.SwitchContext:
 

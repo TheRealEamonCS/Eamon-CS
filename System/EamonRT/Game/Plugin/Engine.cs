@@ -305,48 +305,6 @@ namespace EamonRT.Game.Plugin
 
 					break;
 
-				case PropertyResetCode.PlayerDead:
-
-					MiscEventFuncList.Clear();
-
-					MiscEventFuncList02.Clear();
-
-					MiscEventFuncList03.Clear();
-
-					SkillIncreaseFuncList.Clear();
-
-					SentenceParser.Clear();
-
-					CommandParser.Clear();
-
-					break;
-
-				case PropertyResetCode.ResurrectPlayer:
-
-					MiscEventFuncList.Clear();
-
-					MiscEventFuncList02.Clear();
-
-					MiscEventFuncList03.Clear();
-
-					SkillIncreaseFuncList.Clear();
-
-					SentenceParser.Clear();
-
-					break;
-
-				case PropertyResetCode.LoadDatabase:
-
-					// do nothing
-
-					break;
-
-				case PropertyResetCode.RestoreDatabase:
-
-					// do nothing
-
-					break;
-
 				case PropertyResetCode.RestoreGame:
 
 					MiscEventFuncList.Clear();
@@ -356,6 +314,8 @@ namespace EamonRT.Game.Plugin
 					MiscEventFuncList03.Clear();
 
 					SkillIncreaseFuncList.Clear();
+
+					ActionListCounter = 0;
 
 					SentenceParser.LastInputStr = "";
 
@@ -371,6 +331,10 @@ namespace EamonRT.Game.Plugin
 
 					CommandParser.LastThemNameStr = "";
 
+					CommandParser.Clear();
+
+					PauseCombatAfterSkillGains = false;
+
 					break;
 
 				case PropertyResetCode.SwitchContext:
@@ -383,7 +347,13 @@ namespace EamonRT.Game.Plugin
 
 					SkillIncreaseFuncList.Clear();
 
+					ActionListCounter = 0;
+
 					SentenceParser.Clear();
+
+					CommandParser.Clear();
+
+					PauseCombatAfterSkillGains = false;
 
 					break;
 
@@ -1751,13 +1721,9 @@ namespace EamonRT.Game.Plugin
 			In.KeyPress(Buf);
 		}
 
-		public virtual void DeadMenu(IMonster monster, bool printLineSep, ref bool restoreGame)
+		public virtual void DeadMenu(bool printLineSep, ref bool restoreGame)
 		{
-			Debug.Assert(monster != null);
-
 			restoreGame = false;
-
-			ResetMonsterStats(monster);
 
 			if (printLineSep)
 			{
@@ -3256,12 +3222,12 @@ namespace EamonRT.Game.Plugin
 		{
 			CheckActionList(SkillIncreaseFuncList);
 
-			if (PauseCombatAfterSkillGains)
+			if (GameState.Die <= 0 && PauseCombatAfterSkillGains)
 			{
 				Thread.Sleep(GameState.PauseCombatMs);
-
-				PauseCombatAfterSkillGains = false;
 			}
+
+			PauseCombatAfterSkillGains = false;
 		}
 
 		public virtual void CheckRevealContainerContents()

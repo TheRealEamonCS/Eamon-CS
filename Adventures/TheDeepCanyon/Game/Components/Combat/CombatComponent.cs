@@ -238,7 +238,7 @@ namespace TheDeepCanyon.Game.Components
 
 						// gSentenceParser.PrintDiscardingCommands() not called for this abrupt reality shift
 
-						gEngine.ResetProperties(PropertyResetCode.ResurrectPlayer);
+						gEngine.ResetProperties(PropertyResetCode.SwitchContext);
 
 						gEngine.PrintEffectDesc(3);
 

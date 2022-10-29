@@ -87,7 +87,7 @@ namespace EamonRT.Game.Commands
 
 				if (gEngine.Config == null || gEngine.Config.Uid <= 0)
 				{
-					gEngine.Error.Write("{0}Error: Assertion failed [{1}].", Environment.NewLine, gEngine.Config == null ? "Engine.Config != null" : "Engine.Config.Uid > 0");
+					gEngine.Error.Write("{0}Error: Assertion failed [{1}].", Environment.NewLine, gEngine.Config == null ? "gEngine.Config != null" : "gEngine.Config.Uid > 0");
 
 					gEngine.ExitType = ExitType.Error;
 
@@ -95,6 +95,10 @@ namespace EamonRT.Game.Commands
 
 					goto Cleanup;
 				}
+
+				gEngine.ResetProperties(PropertyResetCode.RestoreGame);
+
+				gEngine.ResetMonsterStats(ActorMonster);
 
 				SaveConfig.RtFilesetFileName = gEngine.CloneInstance(gEngine.Config.RtFilesetFileName);
 
@@ -152,7 +156,7 @@ namespace EamonRT.Game.Commands
 
 				if (gEngine.Module == null || gEngine.Module.Uid <= 0)
 				{
-					gEngine.Error.Write("{0}Error: Assertion failed [{1}].", Environment.NewLine, gEngine.Module == null ? "Engine.Module != null" : "Engine.Module.Uid > 0");
+					gEngine.Error.Write("{0}Error: Assertion failed [{1}].", Environment.NewLine, gEngine.Module == null ? "gEngine.Module != null" : "gEngine.Module.Uid > 0");
 
 					gEngine.ExitType = ExitType.Error;
 
@@ -178,7 +182,7 @@ namespace EamonRT.Game.Commands
 
 				if (CharacterRoom == null)
 				{
-					gEngine.Error.Write("{0}Error: Assertion failed [{1}].", Environment.NewLine, "room != null");
+					gEngine.Error.Write("{0}Error: Assertion failed [{1}].", Environment.NewLine, "CharacterRoom != null");
 
 					gEngine.ExitType = ExitType.Error;
 
@@ -226,11 +230,9 @@ namespace EamonRT.Game.Commands
 					goto Cleanup;
 				}
 
-				gEngine.ResetProperties(PropertyResetCode.RestoreGame);
+				PrintGameRestored();
 
 				gGameState.R2 = gGameState.Ro;
-
-				PrintGameRestored();
 
 				gEngine.CreateInitialState(true);
 

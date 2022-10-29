@@ -15,18 +15,6 @@ namespace Eamon.Framework.Primitive.Enums
 		All,
 
 		/// <summary></summary>
-		PlayerDead,
-
-		/// <summary></summary>
-		ResurrectPlayer,
-
-		/// <summary></summary>
-		LoadDatabase,
-
-		/// <summary></summary>
-		RestoreDatabase,
-
-		/// <summary></summary>
 		RestoreGame,
 
 		/// <summary></summary>
