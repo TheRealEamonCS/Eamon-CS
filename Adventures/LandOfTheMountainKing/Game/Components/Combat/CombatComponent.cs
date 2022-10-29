@@ -9,7 +9,7 @@ using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Components;
 using EamonRT.Framework.Primitive.Enums;
-using static LandOfTheMountainKing.Game.Plugin.PluginContext;
+using static LandOfTheMountainKing.Game.Plugin.Globals;
 
 namespace LandOfTheMountainKing.Game.Components
 {
@@ -33,22 +33,22 @@ namespace LandOfTheMountainKing.Game.Components
 			{
 				gEngine.PrintEffectDesc(44);
 				gEngine.CheckPlayerSkillGains();
-				Globals.In.KeyPress(Globals.Buf);
-				gOut.Print("{0}", Globals.LineSep);
+				gEngine.In.KeyPress(gEngine.Buf);
+				gOut.Print("{0}", gEngine.LineSep);
 				gEngine.PrintEffectDesc(45);
 				gEngine.PrintEffectDesc(46);
 				gEngine.PrintEffectDesc(47);
 				gEngine.PrintEffectDesc(48);
-				Globals.In.KeyPress(Globals.Buf);
-				gOut.Print("{0}", Globals.LineSep);
+				gEngine.In.KeyPress(gEngine.Buf);
+				gOut.Print("{0}", gEngine.LineSep);
 				gEngine.PrintEffectDesc(49);
 				gEngine.PrintEffectDesc(50);
 				gEngine.PrintEffectDesc(51);
 				gEngine.PrintEffectDesc(58);
-				Globals.In.KeyPress(Globals.Buf);
+				gEngine.In.KeyPress(gEngine.Buf);
 				gADB[30].SetCarriedByCharacter();
-				Globals.ExitType = ExitType.FinishAdventure;
-				Globals.MainLoop.ShouldShutdown = true;
+				gEngine.ExitType = ExitType.FinishAdventure;
+				gEngine.MainLoop.ShouldShutdown = true;
 				OmitFinalNewLine = true;
 			}
 			else if (dobjMonster.Uid == 2 && monsterDies)

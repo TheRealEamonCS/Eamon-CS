@@ -32,12 +32,12 @@ namespace WrenholdsSecretVigil.Framework
 		/// <summary></summary>
 		/// <param name="index"></param>
 		/// <returns></returns>
-		bool GetMonsterCurses(long index);
+		bool GetMonsterCurse(long index);
 
 		/// <summary></summary>
 		/// <param name="index"></param>
 		/// <param name="value"></param>
-		void SetMonsterCurses(long index, bool value);
+		void SetMonsterCurse(long index, bool value);
 
 		#endregion
 	}

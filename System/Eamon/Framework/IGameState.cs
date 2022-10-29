@@ -209,12 +209,12 @@ namespace Eamon.Framework
 		/// <summary></summary>
 		/// <param name="index"></param>
 		/// <returns></returns>
-		long GetImportedArtUids(long index);
+		long GetImportedArtUid(long index);
 
 		/// <summary></summary>
 		/// <param name="index"></param>
 		/// <returns></returns>
-		long GetHeldWpnUids(long index);
+		long GetHeldWpnUid(long index);
 
 		/// <summary></summary>
 		/// <param name="index"></param>
@@ -229,12 +229,12 @@ namespace Eamon.Framework
 		/// <summary></summary>
 		/// <param name="index"></param>
 		/// <param name="value"></param>
-		void SetImportedArtUids(long index, long value);
+		void SetImportedArtUid(long index, long value);
 
 		/// <summary></summary>
 		/// <param name="index"></param>
 		/// <param name="value"></param>
-		void SetHeldWpnUids(long index, long value);
+		void SetHeldWpnUid(long index, long value);
 
 		/// <summary></summary>
 		/// <param name="index"></param>

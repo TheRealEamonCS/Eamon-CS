@@ -11,7 +11,7 @@ using Eamon.Framework;
 using Eamon.Framework.Helpers.Generic;
 using Eamon.Framework.Primitive.Enums;
 using EamonDD.Framework.Menus.ActionMenus;
-using static EamonDD.Game.Plugin.PluginContext;
+using static EamonDD.Game.Plugin.Globals;
 
 namespace EamonDD.Game.Menus.ActionMenus
 {
@@ -29,19 +29,19 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			gEngine.PrintTitle(Title, true);
 
-			if (!Globals.Config.GenerateUids && NewRecordUid == 0)
+			if (!gEngine.Config.GenerateUids && NewRecordUid == 0)
 			{
 				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(55, '\0', 0, string.Format("Enter the Uid of the {0} record to add", RecordTypeName), null));
 
 				Buf.Clear();
 
-				rc = Globals.In.ReadField(Buf, Constants.BufSize01, null, '_', '\0', false, null, null, gEngine.IsCharDigit, null);
+				rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', false, null, null, gEngine.IsCharDigit, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
 				NewRecordUid = Convert.ToInt64(Buf.Trim().ToString());
 
-				gOut.Print("{0}", Globals.LineSep);
+				gOut.Print("{0}", gEngine.LineSep);
 
 				if (NewRecordUid > 0)
 				{
@@ -58,29 +58,29 @@ namespace EamonDD.Game.Menus.ActionMenus
 				}
 			}
 
-			record = Globals.CreateInstance<T>(x =>
+			record = gEngine.CreateInstance<T>(x =>
 			{
 				x.Uid = NewRecordUid;
 			});
 			
-			var helper = Globals.CreateInstance<U>(x =>
+			var helper = gEngine.CreateInstance<U>(x =>
 			{
 				x.Record = record;
 			});
 			
-			helper.InputRecord(false, Globals.Config.FieldDesc);
+			helper.InputRecord(false, gEngine.Config.FieldDesc);
 
-			Globals.Thread.Sleep(150);
+			gEngine.Thread.Sleep(150);
 
 			gOut.Write("{0}Would you like to save this {1} record (Y/N): ", Environment.NewLine, RecordTypeName);
 
 			Buf.Clear();
 
-			rc = Globals.In.ReadField(Buf, Constants.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, gEngine.IsCharYOrN);
+			rc = gEngine.In.ReadField(Buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, gEngine.IsCharYOrN);
 
 			Debug.Assert(gEngine.IsSuccess(rc));
 
-			Globals.Thread.Sleep(150);
+			gEngine.Thread.Sleep(150);
 
 			if (Buf.Length > 0 && Buf[0] == 'N')
 			{
@@ -111,7 +111,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 					Debug.Assert(gEngine.IsSuccess(rc));
 				}
 
-				gEngine.TruncatePluralTypeEffectDesc(artifact.PluralType, Constants.ArtNameLen);
+				gEngine.TruncatePluralTypeEffectDesc(artifact.PluralType, gEngine.ArtNameLen);
 			}
 
 			var effect = record as IEffect;
@@ -125,7 +125,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			if (monster != null)
 			{
-				gEngine.TruncatePluralTypeEffectDesc(monster.PluralType, Constants.MonNameLen);
+				gEngine.TruncatePluralTypeEffectDesc(monster.PluralType, gEngine.MonNameLen);
 			}
 
 			rc = RecordTable.AddRecord(record);

@@ -13,7 +13,7 @@ using EamonRT.Framework.Commands;
 using EamonRT.Framework.Components;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
-using static EamonRT.Game.Plugin.PluginContext;
+using static EamonRT.Game.Plugin.Globals;
 
 namespace EamonRT.Game.Components
 {
@@ -89,11 +89,11 @@ namespace EamonRT.Game.Components
 
 			var s = spellValue;
 
-			var spell = gEngine.GetSpells(spellValue);
+			var spell = gEngine.GetSpell(spellValue);
 
 			Debug.Assert(spell != null);
 
-			if (gGameState.GetSa(s) > 0 && gCharacter.GetSpellAbilities(s) > 0)
+			if (gGameState.GetSa(s) > 0 && gCharacter.GetSpellAbility(s) > 0)
 			{
 				rl = gEngine.RollDice(1, 100, 0);
 			}
@@ -117,20 +117,20 @@ namespace EamonRT.Game.Components
 
 					rl += gCharacter.GetIntellectBonusPct();
 
-					if (rl > gCharacter.GetSpellAbilities(s))
+					if (rl > gCharacter.GetSpellAbility(s))
 					{
-						Globals.SkillIncreaseFuncList.Add(() =>
+						gEngine.SkillIncreaseFuncList.Add(() =>
 						{
-							if (!Globals.IsRulesetVersion(5, 15, 25))
+							if (!gEngine.IsRulesetVersion(5, 15, 25))
 							{
 								PrintSpellAbilityIncreases(s, spell);
 							}
 
-							gCharacter.ModSpellAbilities(s, 2);
+							gCharacter.ModSpellAbility(s, 2);
 
-							if (gCharacter.GetSpellAbilities(s) > spell.MaxValue)
+							if (gCharacter.GetSpellAbility(s) > spell.MaxValue)
 							{
-								gCharacter.SetSpellAbilities(s, spell.MaxValue);
+								gCharacter.SetSpellAbility(s, spell.MaxValue);
 							}
 						});
 					}
@@ -161,9 +161,9 @@ namespace EamonRT.Game.Components
 
 			gGameState.SetSa(s, 0);
 
-			if (Globals.IsRulesetVersion(5, 15, 25))
+			if (gEngine.IsRulesetVersion(5, 15, 25))
 			{
-				gCharacter.SetSpellAbilities(s, 0);
+				gCharacter.SetSpellAbility(s, 0);
 			}
 		}
 
@@ -225,7 +225,7 @@ namespace EamonRT.Game.Components
 				OmitFinalNewLine = true;
 			}
 
-			RedirectCommand = Globals.CreateInstance<IAttackCommand>(x =>
+			RedirectCommand = gEngine.CreateInstance<IAttackCommand>(x =>
 			{
 				x.BlastSpell = true;
 			});
@@ -267,7 +267,7 @@ namespace EamonRT.Game.Components
 			{
 				PrintHealthImproves(DobjMonster);
 
-				DamageHealed = gEngine.RollDice(1, Globals.IsRulesetVersion(5, 15, 25) ? 10 : 12, 0);
+				DamageHealed = gEngine.RollDice(1, gEngine.IsRulesetVersion(5, 15, 25) ? 10 : 12, 0);
 
 				DobjMonster.DmgTaken -= DamageHealed;
 			}
@@ -325,7 +325,7 @@ namespace EamonRT.Game.Components
 		/// <summary></summary>
 		public virtual void CalculateSpeedTurns()
 		{
-			SpeedTurns = Globals.IsRulesetVersion(5, 15, 25) ? gEngine.RollDice(1, 25, 9) : gEngine.RollDice(1, 10, 10);
+			SpeedTurns = gEngine.IsRulesetVersion(5, 15, 25) ? gEngine.RollDice(1, 25, 9) : gEngine.RollDice(1, 10, 10);
 
 			gGameState.Speed += (SpeedTurns + 1);
 
@@ -368,7 +368,7 @@ namespace EamonRT.Game.Components
 		{
 			PowerEventRoll = gEngine.RollDice(1, 100, 0);
 
-			if (!Globals.IsRulesetVersion(5, 15, 25))
+			if (!gEngine.IsRulesetVersion(5, 15, 25))
 			{
 				// 50% chance of boom
 
@@ -426,7 +426,7 @@ namespace EamonRT.Game.Components
 
 				gGameState.Die = 1;
 
-				SetNextStateFunc(Globals.CreateInstance<IPlayerDeadState>(x =>
+				SetNextStateFunc(gEngine.CreateInstance<IPlayerDeadState>(x =>
 				{
 					x.PrintLineSep = true;
 				}));

@@ -7,7 +7,7 @@ using System;
 using Eamon;
 using Eamon.Framework;
 using Eamon.Game.Attributes;
-using static ARuncibleCargo.Game.Plugin.PluginContext;
+using static ARuncibleCargo.Game.Plugin.Globals;
 
 namespace ARuncibleCargo.Game
 {
@@ -20,7 +20,7 @@ namespace ARuncibleCargo.Game
 
 			try
 			{
-				Globals.File.Delete(Constants.SnapshotFileName);
+				gEngine.File.Delete(gEngine.SnapshotFileName);
 			}
 			catch (Exception ex)
 			{

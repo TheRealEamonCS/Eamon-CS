@@ -10,7 +10,7 @@ using Eamon.Game.Attributes;
 using Eamon.Game.Menus;
 using EamonDD.Framework.Menus.ActionMenus;
 using EamonDD.Framework.Menus.HierarchicalMenus;
-using static EamonDD.Game.Plugin.PluginContext;
+using static EamonDD.Game.Plugin.Globals;
 
 namespace EamonDD.Game.Menus.HierarchicalMenus
 {
@@ -19,32 +19,32 @@ namespace EamonDD.Game.Menus.HierarchicalMenus
 	{
 		public override void PrintSubtitle()
 		{
-			Globals.DdMenu.PrintMonsterMenuSubtitle();
+			gEngine.DdMenu.PrintMonsterMenuSubtitle();
 		}
 
 		public EditMonsterRecordMenu()
 		{
 			Title = "EDIT MONSTER RECORD MENU";
 
-			Buf = Globals.Buf;
+			Buf = gEngine.Buf;
 
 			MenuItemList = new List<IMenuItem>();
 
-			MenuItemList.Add(Globals.CreateInstance<IMenuItem>(x =>
+			MenuItemList.Add(gEngine.CreateInstance<IMenuItem>(x =>
 			{
 				x.SelectChar = (char)('1' + MenuItemList.Count);
 				x.LineText = string.Format("{0}{1}. Edit many fields of a Monster record.", Environment.NewLine, MenuItemList.Count + 1);
-				x.SubMenu = Globals.CreateInstance<IEditMonsterRecordManyFieldsMenu>();
+				x.SubMenu = gEngine.CreateInstance<IEditMonsterRecordManyFieldsMenu>();
 			}));
 
-			MenuItemList.Add(Globals.CreateInstance<IMenuItem>(x =>
+			MenuItemList.Add(gEngine.CreateInstance<IMenuItem>(x =>
 			{
 				x.SelectChar = (char)('1' + MenuItemList.Count);
 				x.LineText = string.Format("{0}{1}. Edit one field of a Monster record.", Environment.NewLine, MenuItemList.Count + 1);
-				x.SubMenu = Globals.CreateInstance<IEditMonsterRecordOneFieldMenu>();
+				x.SubMenu = gEngine.CreateInstance<IEditMonsterRecordOneFieldMenu>();
 			}));
 
-			MenuItemList.Add(Globals.CreateInstance<IMenuItem>(x =>
+			MenuItemList.Add(gEngine.CreateInstance<IMenuItem>(x =>
 			{
 				x.SelectChar = 'X';
 				x.LineText = string.Format("{0}X. Exit.{0}", Environment.NewLine);

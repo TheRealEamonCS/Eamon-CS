@@ -7,7 +7,7 @@ using System.Diagnostics;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.States;
-using static TheDeepCanyon.Game.Plugin.PluginContext;
+using static TheDeepCanyon.Game.Plugin.Globals;
 
 namespace TheDeepCanyon.Game.States
 {
@@ -16,7 +16,7 @@ namespace TheDeepCanyon.Game.States
 	{
 		public override void Execute()
 		{
-			LoopMonster = gMDB[Globals.LoopMonsterUid];
+			LoopMonster = gMDB[gEngine.LoopMonsterUid];
 
 			Debug.Assert(LoopMonster != null);
 
@@ -51,9 +51,9 @@ namespace TheDeepCanyon.Game.States
 
 					LoopMonster.Reaction = Friendliness.Neutral;
 
-					NextState = Globals.CreateInstance<IMonsterMemberLoopIncrementState>();
+					NextState = gEngine.CreateInstance<IMonsterMemberLoopIncrementState>();
 
-					Globals.NextState = NextState;
+					gEngine.NextState = NextState;
 				}
 				else
 				{

@@ -7,7 +7,7 @@ using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.States;
-using static LandOfTheMountainKing.Game.Plugin.PluginContext;
+using static LandOfTheMountainKing.Game.Plugin.Globals;
 
 namespace LandOfTheMountainKing.Game.Commands
 {
@@ -21,7 +21,7 @@ namespace LandOfTheMountainKing.Game.Commands
 			if (GoldAmount > 0)
 			{
 				gEngine.PrintEffectDesc(60);
-				NextState = Globals.CreateInstance<IStartState>();
+				NextState = gEngine.CreateInstance<IStartState>();
 			}
 
 			// Give necklace to Lisa
@@ -36,7 +36,7 @@ namespace LandOfTheMountainKing.Game.Commands
 				gEngine.PrintEffectDesc(36);
 				gLMKKP1.NecklaceTaken = 2;
 				DobjArtifact.SetCarriedByMonster(IobjMonster);
-				NextState = Globals.CreateInstance<IStartState>();
+				NextState = gEngine.CreateInstance<IStartState>();
 
 				//Set damage taken to zero:
 				ActorMonster.DmgTaken = 0;

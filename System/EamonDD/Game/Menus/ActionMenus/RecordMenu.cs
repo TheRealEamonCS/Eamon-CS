@@ -7,7 +7,7 @@ using Eamon.Framework;
 using Eamon.Framework.DataStorage.Generic;
 using Eamon.Game.Menus;
 using EamonDD.Framework.Menus.ActionMenus;
-using static EamonDD.Game.Plugin.PluginContext;
+using static EamonDD.Game.Plugin.Globals;
 
 namespace EamonDD.Game.Menus.ActionMenus
 {
@@ -21,7 +21,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 		{
 			gOut.WriteLine();
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 		}
 
 		public virtual void UpdateGlobals()
@@ -31,7 +31,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 		public RecordMenu()
 		{
-			Buf = Globals.Buf;
+			Buf = gEngine.Buf;
 		}
 	}
 }

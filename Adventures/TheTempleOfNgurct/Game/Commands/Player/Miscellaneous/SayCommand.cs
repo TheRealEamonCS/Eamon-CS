@@ -9,7 +9,7 @@ using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
-using static TheTempleOfNgurct.Game.Plugin.PluginContext;
+using static TheTempleOfNgurct.Game.Plugin.Globals;
 
 namespace TheTempleOfNgurct.Game.Commands
 {
@@ -38,14 +38,14 @@ namespace TheTempleOfNgurct.Game.Commands
 					{
 						alkandaMonster.SetInRoom(ActorRoom);
 
-						NextState = Globals.CreateInstance<IStartState>();
+						NextState = gEngine.CreateInstance<IStartState>();
 					}
 				}
 				else
 				{
 					gOut.Print("You don't have the medallion of Ngurct!");
 
-					NextState = Globals.CreateInstance<IStartState>();
+					NextState = gEngine.CreateInstance<IStartState>();
 
 					GotoCleanup = true;
 

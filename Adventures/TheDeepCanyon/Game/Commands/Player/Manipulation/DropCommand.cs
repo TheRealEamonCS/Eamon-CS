@@ -8,7 +8,7 @@ using System.Diagnostics;
 using Eamon.Framework;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
-using static TheDeepCanyon.Game.Plugin.PluginContext;
+using static TheDeepCanyon.Game.Plugin.Globals;
 
 namespace TheDeepCanyon.Game.Commands
 {

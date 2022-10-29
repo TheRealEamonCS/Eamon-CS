@@ -23,7 +23,7 @@ Originally based upon Eamon Deluxe's CAVEII.BAS:
 */
 
 using Eamon.Framework.Portability;
-using static BeginnersCaveII.Game.Plugin.PluginContext;
+using static BeginnersCaveII.Game.Plugin.Globals;
 
 namespace BeginnersCaveII
 {
@@ -33,11 +33,7 @@ namespace BeginnersCaveII
 		{
 			ProgramName = "BeginnersCaveII";
 
-			ConstantsType = typeof(Game.Plugin.PluginConstants);
-
-			ClassMappingsType = typeof(Game.Plugin.PluginClassMappings);
-
-			GlobalsType = typeof(Game.Plugin.PluginGlobals);
+			EngineType = typeof(Game.Plugin.Engine);
 		}
 	}
 }

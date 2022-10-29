@@ -6,7 +6,7 @@
 using System.Diagnostics;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
-using static StrongholdOfKahrDur.Game.Plugin.PluginContext;
+using static StrongholdOfKahrDur.Game.Plugin.Globals;
 
 namespace StrongholdOfKahrDur.Game.Commands
 {

@@ -27,14 +27,14 @@ namespace Eamon.Game.Args
 
 		public virtual long Weight { get; set; }
 
-		public virtual long GetSpellAbilities(long index)
+		public virtual long GetSpellAbility(long index)
 		{
 			return SpellAbilities[index];
 		}
 
-		public virtual long GetSpellAbilities(Spell spell)
+		public virtual long GetSpellAbility(Spell spell)
 		{
-			return GetSpellAbilities((long)spell);
+			return GetSpellAbility((long)spell);
 		}
 	}
 }

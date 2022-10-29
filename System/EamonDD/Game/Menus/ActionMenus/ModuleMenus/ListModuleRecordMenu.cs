@@ -10,7 +10,7 @@ using Eamon.Framework.Helpers;
 using Eamon.Game.Attributes;
 using Eamon.Game.Menus;
 using EamonDD.Framework.Menus.ActionMenus;
-using static EamonDD.Game.Plugin.PluginContext;
+using static EamonDD.Game.Plugin.Globals;
 
 namespace EamonDD.Game.Menus.ActionMenus
 {
@@ -21,28 +21,28 @@ namespace EamonDD.Game.Menus.ActionMenus
 		{
 			RetCode rc;
 
-			if (Globals.Module != null)
+			if (gEngine.Module != null)
 			{
 				gOut.WriteLine();
 
 				gEngine.PrintTitle("LIST MODULE RECORD DETAILS", true);
 				
-				var helper = Globals.CreateInstance<IModuleHelper>(x =>
+				var helper = gEngine.CreateInstance<IModuleHelper>(x =>
 				{
-					x.Record = Globals.Module;
+					x.Record = gEngine.Module;
 				});
 				
-				helper.ListRecord(true, Globals.Config.ShowDesc, Globals.Config.ResolveEffects, true, false, false);
+				helper.ListRecord(true, gEngine.Config.ShowDesc, gEngine.Config.ResolveEffects, true, false, false);
 
 				gOut.WriteLine();
 
-				gOut.Print("{0}", Globals.LineSep);
+				gOut.Print("{0}", gEngine.LineSep);
 
 				gOut.Write("{0}Press any key to continue or X to exit: ", Environment.NewLine);
 
 				Buf.Clear();
 
-				rc = Globals.In.ReadField(Buf, Constants.BufSize02, null, ' ', '\0', true, null, gEngine.ModifyCharToNullOrX, null, gEngine.IsCharAny);
+				rc = gEngine.In.ReadField(Buf, gEngine.BufSize02, null, ' ', '\0', true, null, gEngine.ModifyCharToNullOrX, null, gEngine.IsCharAny);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -51,7 +51,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 					// do nothing
 				}
 
-				gOut.Print("{0}", Globals.LineSep);
+				gOut.Print("{0}", gEngine.LineSep);
 
 				gOut.Print("Done listing Module record details.");
 			}
@@ -59,7 +59,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 		public ListModuleRecordMenu()
 		{
-			Buf = Globals.Buf;
+			Buf = gEngine.Buf;
 		}
 	}
 }

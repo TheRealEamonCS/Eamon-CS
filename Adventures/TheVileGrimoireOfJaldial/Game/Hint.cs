@@ -7,7 +7,7 @@ using System.Diagnostics;
 using Eamon.Framework;
 using Eamon.Game.Attributes;
 using TheVileGrimoireOfJaldial.Framework.Primitive.Enums;
-using static TheVileGrimoireOfJaldial.Game.Plugin.PluginContext;
+using static TheVileGrimoireOfJaldial.Game.Plugin.Globals;
 
 namespace TheVileGrimoireOfJaldial.Game
 {
@@ -18,7 +18,7 @@ namespace TheVileGrimoireOfJaldial.Game
 		{
 			get
 			{
-				if (Globals.EnableGameOverrides)
+				if (gEngine.EnableMutateProperties)
 				{
 					Framework.IRoom room = null;
 

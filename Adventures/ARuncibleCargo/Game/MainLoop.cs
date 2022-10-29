@@ -7,7 +7,7 @@ using System.Diagnostics;
 using Eamon;
 using Eamon.Game.Attributes;
 using EamonRT.Framework;
-using static ARuncibleCargo.Game.Plugin.PluginContext;
+using static ARuncibleCargo.Game.Plugin.Globals;
 
 namespace ARuncibleCargo.Game
 {
@@ -31,7 +31,7 @@ namespace ARuncibleCargo.Game
 
 			// Snapshot game state so it can be reverted when player wakes up
 
-			rc = Globals.SaveDatabase(Constants.SnapshotFileName);
+			rc = gEngine.SaveDatabase(gEngine.SnapshotFileName);
 
 			Debug.Assert(gEngine.IsSuccess(rc));
 		}

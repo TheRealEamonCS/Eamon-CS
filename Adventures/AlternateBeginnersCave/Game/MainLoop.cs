@@ -7,7 +7,7 @@ using System.Diagnostics;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using EamonRT.Framework;
-using static AlternateBeginnersCave.Game.Plugin.PluginContext;
+using static AlternateBeginnersCave.Game.Plugin.Globals;
 
 namespace AlternateBeginnersCave.Game
 {
@@ -26,11 +26,11 @@ namespace AlternateBeginnersCave.Game
 
 			if (ninaMonster.Location == gGameState.Ro && ninaMonster.Reaction == Friendliness.Friend)
 			{
-				var reward = gCharacter.GetStats(Stat.Charisma) * 15;
+				var reward = gCharacter.GetStat(Stat.Charisma) * 15;
 
 				gCharacter.HeldGold += reward;
 
-				gOut.Print("{0}", Globals.LineSep);
+				gOut.Print("{0}", gEngine.LineSep);
 
 				gOut.Print("Nina sells her slippers to Sam and gives you {0} gold piece{1}!", reward, reward != 1 ? "s" : "");
 
@@ -39,7 +39,7 @@ namespace AlternateBeginnersCave.Game
 					gOut.Print("She also gives you a kiss!");
 				}
 
-				Globals.In.KeyPress(Globals.Buf);
+				gEngine.In.KeyPress(gEngine.Buf);
 			}
 		}
 	}

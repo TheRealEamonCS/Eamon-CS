@@ -7,7 +7,7 @@ using Eamon.Framework;
 using Eamon.Framework.Helpers;
 using Eamon.Game.Attributes;
 using EamonDD.Framework.Menus.ActionMenus;
-using static EamonDD.Game.Plugin.PluginContext;
+using static EamonDD.Game.Plugin.Globals;
 
 namespace EamonDD.Game.Menus.ActionMenus
 {
@@ -16,13 +16,13 @@ namespace EamonDD.Game.Menus.ActionMenus
 	{
 		public override void UpdateGlobals()
 		{
-			Globals.RoomsModified = true;
+			gEngine.RoomsModified = true;
 
-			if (Globals.Module != null)
+			if (gEngine.Module != null)
 			{
-				Globals.Module.NumRooms++;
+				gEngine.Module.NumRooms++;
 
-				Globals.ModulesModified = true;
+				gEngine.ModulesModified = true;
 			}
 		}
 
@@ -30,7 +30,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 		{
 			Title = "ADD ROOM RECORD";
 
-			RecordTable = Globals.Database.RoomTable;
+			RecordTable = gEngine.Database.RoomTable;
 
 			RecordTypeName = "Room";
 		}

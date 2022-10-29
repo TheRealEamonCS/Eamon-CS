@@ -8,7 +8,7 @@ using System.Diagnostics;
 using Eamon.Framework;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
-using static Eamon.Game.Plugin.PluginContext;
+using static Eamon.Game.Plugin.Globals;
 
 namespace Eamon.Game
 {
@@ -138,7 +138,7 @@ namespace Eamon.Game
 
 			if (IsUidRecycled && Uid > 0)
 			{
-				Globals.Database.FreeConfigUid(Uid);
+				gEngine.Database.FreeConfigUid(Uid);
 
 				Uid = 0;
 			}
@@ -161,85 +161,83 @@ namespace Eamon.Game
 		{
 			RetCode rc;
 
-			Globals.ResetRevealContentProperties();
-
-			rc = Globals.Database.LoadFilesets(RtFilesetFileName, validate, printOutput);
+			rc = gEngine.Database.LoadFilesets(RtFilesetFileName, validate, printOutput);
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: LoadFilesets function call failed.");
+				gEngine.Error.WriteLine("Error: LoadFilesets function call failed.");
 
 				goto Cleanup;
 			}
 
-			rc = Globals.Database.LoadCharacters(RtCharacterFileName, validate, printOutput);
+			rc = gEngine.Database.LoadCharacters(RtCharacterFileName, validate, printOutput);
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: LoadCharacters function call failed.");
+				gEngine.Error.WriteLine("Error: LoadCharacters function call failed.");
 
 				goto Cleanup;
 			}
 
-			rc = Globals.Database.LoadModules(RtModuleFileName, validate, printOutput);
+			rc = gEngine.Database.LoadModules(RtModuleFileName, validate, printOutput);
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: LoadModules function call failed.");
+				gEngine.Error.WriteLine("Error: LoadModules function call failed.");
 
 				goto Cleanup;
 			}
 
-			rc = Globals.Database.LoadRooms(RtRoomFileName, validate, printOutput);
+			rc = gEngine.Database.LoadRooms(RtRoomFileName, validate, printOutput);
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: LoadRooms function call failed.");
+				gEngine.Error.WriteLine("Error: LoadRooms function call failed.");
 
 				goto Cleanup;
 			}
 
-			rc = Globals.Database.LoadArtifacts(RtArtifactFileName, validate, printOutput);
+			rc = gEngine.Database.LoadArtifacts(RtArtifactFileName, validate, printOutput);
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: LoadArtifacts function call failed.");
+				gEngine.Error.WriteLine("Error: LoadArtifacts function call failed.");
 
 				goto Cleanup;
 			}
 
-			rc = Globals.Database.LoadEffects(RtEffectFileName, validate, printOutput);
+			rc = gEngine.Database.LoadEffects(RtEffectFileName, validate, printOutput);
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: LoadEffects function call failed.");
+				gEngine.Error.WriteLine("Error: LoadEffects function call failed.");
 
 				goto Cleanup;
 			}
 
-			rc = Globals.Database.LoadMonsters(RtMonsterFileName, validate, printOutput);
+			rc = gEngine.Database.LoadMonsters(RtMonsterFileName, validate, printOutput);
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: LoadMonsters function call failed.");
+				gEngine.Error.WriteLine("Error: LoadMonsters function call failed.");
 
 				goto Cleanup;
 			}
 
-			rc = Globals.Database.LoadHints(RtHintFileName, validate, printOutput);
+			rc = gEngine.Database.LoadHints(RtHintFileName, validate, printOutput);
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: LoadHints function call failed.");
+				gEngine.Error.WriteLine("Error: LoadHints function call failed.");
 
 				goto Cleanup;
 			}
 
-			rc = Globals.Database.LoadGameStates(RtGameStateFileName, validate, printOutput);
+			rc = gEngine.Database.LoadGameStates(RtGameStateFileName, validate, printOutput);
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: LoadGameStates function call failed.");
+				gEngine.Error.WriteLine("Error: LoadGameStates function call failed.");
 
 				goto Cleanup;
 			}
@@ -253,83 +251,83 @@ namespace Eamon.Game
 		{
 			RetCode rc;
 
-			rc = Globals.Database.SaveGameStates(RtGameStateFileName, printOutput);
+			rc = gEngine.Database.SaveGameStates(RtGameStateFileName, printOutput);
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: SaveGameStates function call failed.");
+				gEngine.Error.WriteLine("Error: SaveGameStates function call failed.");
 
 				goto Cleanup;
 			}
 
-			rc = Globals.Database.SaveHints(RtHintFileName, printOutput);
+			rc = gEngine.Database.SaveHints(RtHintFileName, printOutput);
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: SaveHints function call failed.");
+				gEngine.Error.WriteLine("Error: SaveHints function call failed.");
 
 				goto Cleanup;
 			}
 
-			rc = Globals.Database.SaveMonsters(RtMonsterFileName, printOutput);
+			rc = gEngine.Database.SaveMonsters(RtMonsterFileName, printOutput);
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: SaveMonsters function call failed.");
+				gEngine.Error.WriteLine("Error: SaveMonsters function call failed.");
 
 				goto Cleanup;
 			}
 
-			rc = Globals.Database.SaveEffects(RtEffectFileName, printOutput);
+			rc = gEngine.Database.SaveEffects(RtEffectFileName, printOutput);
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: SaveEffects function call failed.");
+				gEngine.Error.WriteLine("Error: SaveEffects function call failed.");
 
 				goto Cleanup;
 			}
 
-			rc = Globals.Database.SaveArtifacts(RtArtifactFileName, printOutput);
+			rc = gEngine.Database.SaveArtifacts(RtArtifactFileName, printOutput);
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: SaveArtifacts function call failed.");
+				gEngine.Error.WriteLine("Error: SaveArtifacts function call failed.");
 
 				goto Cleanup;
 			}
 
-			rc = Globals.Database.SaveRooms(RtRoomFileName, printOutput);
+			rc = gEngine.Database.SaveRooms(RtRoomFileName, printOutput);
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: SaveRooms function call failed.");
+				gEngine.Error.WriteLine("Error: SaveRooms function call failed.");
 
 				goto Cleanup;
 			}
 
-			rc = Globals.Database.SaveModules(RtModuleFileName, printOutput);
+			rc = gEngine.Database.SaveModules(RtModuleFileName, printOutput);
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: SaveModules function call failed.");
+				gEngine.Error.WriteLine("Error: SaveModules function call failed.");
 
 				goto Cleanup;
 			}
 
-			rc = Globals.Database.SaveCharacters(RtCharacterFileName, printOutput);
+			rc = gEngine.Database.SaveCharacters(RtCharacterFileName, printOutput);
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: SaveCharacters function call failed.");
+				gEngine.Error.WriteLine("Error: SaveCharacters function call failed.");
 
 				goto Cleanup;
 			}
 
-			rc = Globals.Database.SaveFilesets(RtFilesetFileName, printOutput);
+			rc = gEngine.Database.SaveFilesets(RtFilesetFileName, printOutput);
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: SaveFilesets function call failed.");
+				gEngine.Error.WriteLine("Error: SaveFilesets function call failed.");
 
 				goto Cleanup;
 			}
@@ -354,7 +352,7 @@ namespace Eamon.Game
 
 			rc = RetCode.Success;
 
-			foreach (var fs in Globals.Database.FilesetTable.Records)
+			foreach (var fs in gEngine.Database.FilesetTable.Records)
 			{
 				rc = fs.DeleteFiles(null);
 
@@ -363,11 +361,11 @@ namespace Eamon.Game
 
 			if (startOver)
 			{
-				rc = Globals.Database.FreeFilesets();
+				rc = gEngine.Database.FreeFilesets();
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
-				rc = Globals.Database.SaveFilesets(RtFilesetFileName, false);
+				rc = gEngine.Database.SaveFilesets(RtFilesetFileName, false);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 			}
@@ -375,7 +373,7 @@ namespace Eamon.Game
 			{
 				try
 				{
-					Globals.File.Delete(configFileName);
+					gEngine.File.Delete(configFileName);
 				}
 				catch (Exception ex)
 				{
@@ -387,7 +385,7 @@ namespace Eamon.Game
 
 				try
 				{
-					Globals.File.Delete(RtCharacterFileName);
+					gEngine.File.Delete(RtCharacterFileName);
 				}
 				catch (Exception ex)
 				{
@@ -399,7 +397,7 @@ namespace Eamon.Game
 
 				try
 				{
-					Globals.File.Delete(RtFilesetFileName);
+					gEngine.File.Delete(RtFilesetFileName);
 				}
 				catch (Exception ex)
 				{
@@ -444,47 +442,47 @@ namespace Eamon.Game
 
 			WordWrapMargin = config.WordWrapMargin;
 
-			DdFilesetFileName = Globals.CloneInstance(config.DdFilesetFileName);
+			DdFilesetFileName = gEngine.CloneInstance(config.DdFilesetFileName);
 
-			DdCharacterFileName = Globals.CloneInstance(config.DdCharacterFileName);
+			DdCharacterFileName = gEngine.CloneInstance(config.DdCharacterFileName);
 
-			DdModuleFileName = Globals.CloneInstance(config.DdModuleFileName);
+			DdModuleFileName = gEngine.CloneInstance(config.DdModuleFileName);
 
-			DdRoomFileName = Globals.CloneInstance(config.DdRoomFileName);
+			DdRoomFileName = gEngine.CloneInstance(config.DdRoomFileName);
 
-			DdArtifactFileName = Globals.CloneInstance(config.DdArtifactFileName);
+			DdArtifactFileName = gEngine.CloneInstance(config.DdArtifactFileName);
 
-			DdEffectFileName = Globals.CloneInstance(config.DdEffectFileName);
+			DdEffectFileName = gEngine.CloneInstance(config.DdEffectFileName);
 
-			DdMonsterFileName = Globals.CloneInstance(config.DdMonsterFileName);
+			DdMonsterFileName = gEngine.CloneInstance(config.DdMonsterFileName);
 
-			DdHintFileName = Globals.CloneInstance(config.DdHintFileName);
+			DdHintFileName = gEngine.CloneInstance(config.DdHintFileName);
 
-			MhWorkDir = Globals.CloneInstance(config.MhWorkDir);
+			MhWorkDir = gEngine.CloneInstance(config.MhWorkDir);
 
-			MhFilesetFileName = Globals.CloneInstance(config.MhFilesetFileName);
+			MhFilesetFileName = gEngine.CloneInstance(config.MhFilesetFileName);
 
-			MhCharacterFileName = Globals.CloneInstance(config.MhCharacterFileName);
+			MhCharacterFileName = gEngine.CloneInstance(config.MhCharacterFileName);
 
-			MhEffectFileName = Globals.CloneInstance(config.MhEffectFileName);
+			MhEffectFileName = gEngine.CloneInstance(config.MhEffectFileName);
 
-			RtFilesetFileName = Globals.CloneInstance(config.RtFilesetFileName);
+			RtFilesetFileName = gEngine.CloneInstance(config.RtFilesetFileName);
 
-			RtCharacterFileName = Globals.CloneInstance(config.RtCharacterFileName);
+			RtCharacterFileName = gEngine.CloneInstance(config.RtCharacterFileName);
 
-			RtModuleFileName = Globals.CloneInstance(config.RtModuleFileName);
+			RtModuleFileName = gEngine.CloneInstance(config.RtModuleFileName);
 
-			RtRoomFileName = Globals.CloneInstance(config.RtRoomFileName);
+			RtRoomFileName = gEngine.CloneInstance(config.RtRoomFileName);
 
-			RtArtifactFileName = Globals.CloneInstance(config.RtArtifactFileName);
+			RtArtifactFileName = gEngine.CloneInstance(config.RtArtifactFileName);
 
-			RtEffectFileName = Globals.CloneInstance(config.RtEffectFileName);
+			RtEffectFileName = gEngine.CloneInstance(config.RtEffectFileName);
 
-			RtMonsterFileName = Globals.CloneInstance(config.RtMonsterFileName);
+			RtMonsterFileName = gEngine.CloneInstance(config.RtMonsterFileName);
 
-			RtHintFileName = Globals.CloneInstance(config.RtHintFileName);
+			RtHintFileName = gEngine.CloneInstance(config.RtHintFileName);
 
-			RtGameStateFileName = Globals.CloneInstance(config.RtGameStateFileName);
+			RtGameStateFileName = gEngine.CloneInstance(config.RtGameStateFileName);
 
 			DdEditingFilesets = config.DdEditingFilesets;
 

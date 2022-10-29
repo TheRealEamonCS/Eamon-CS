@@ -5,7 +5,7 @@
 
 using Eamon.Game.Attributes;
 using EamonMH.Framework.Menus;
-using static EamonMH.Game.Plugin.PluginContext;
+using static EamonMH.Game.Plugin.Globals;
 
 namespace EamonMH.Game.Menus
 {

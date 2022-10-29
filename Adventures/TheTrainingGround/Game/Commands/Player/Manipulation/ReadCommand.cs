@@ -8,7 +8,7 @@ using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.Primitive.Enums;
-using static TheTrainingGround.Game.Plugin.PluginContext;
+using static TheTrainingGround.Game.Plugin.Globals;
 
 namespace TheTrainingGround.Game.Commands
 {
@@ -23,17 +23,17 @@ namespace TheTrainingGround.Game.Commands
 
 			if (eventType == EventType.AfterReadArtifact && DobjArtifact.Uid == 29)
 			{
-				var spell = gEngine.GetSpells(Spell.Blast);
+				var spell = gEngine.GetSpell(Spell.Blast);
 
 				Debug.Assert(spell != null);
 
 				DobjArtifact.SetInLimbo();
 
-				gCharacter.ModSpellAbilities(Spell.Blast, 10);
+				gCharacter.ModSpellAbility(Spell.Blast, 10);
 
-				if (gCharacter.GetSpellAbilities(Spell.Blast) > spell.MaxValue)
+				if (gCharacter.GetSpellAbility(Spell.Blast) > spell.MaxValue)
 				{
-					gCharacter.SetSpellAbilities(Spell.Blast, spell.MaxValue);
+					gCharacter.SetSpellAbility(Spell.Blast, spell.MaxValue);
 				}
 
 				gGameState.ModSa(Spell.Blast, 250);

@@ -9,7 +9,7 @@ using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.Components;
 using EamonRT.Framework.States;
-using static TheTempleOfNgurct.Game.Plugin.PluginContext;
+using static TheTempleOfNgurct.Game.Plugin.Globals;
 
 namespace TheTempleOfNgurct.Game.Commands
 {
@@ -22,7 +22,7 @@ namespace TheTempleOfNgurct.Game.Commands
 			{
 				PrintEnemiesNearby();
 
-				NextState = Globals.CreateInstance<IStartState>();
+				NextState = gEngine.CreateInstance<IStartState>();
 			}
 			else
 			{
@@ -38,7 +38,7 @@ namespace TheTempleOfNgurct.Game.Commands
 				{
 					gEngine.PrintEffectDesc(28);
 
-					var combatComponent = Globals.CreateInstance<ICombatComponent>(x =>
+					var combatComponent = gEngine.CreateInstance<ICombatComponent>(x =>
 					{
 						x.SetNextStateFunc = s => NextState = s;
 

@@ -9,7 +9,7 @@ using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
-using static TheBeginnersCave.Game.Plugin.PluginContext;
+using static TheBeginnersCave.Game.Plugin.Globals;
 
 namespace TheBeginnersCave.Game.Commands
 {
@@ -30,7 +30,7 @@ namespace TheBeginnersCave.Game.Commands
 					{
 						var rl = gEngine.RollDice(1, 22, 2);
 
-						if (rl <= gCharacter.GetStats(Stat.Intellect))
+						if (rl <= gCharacter.GetStat(Stat.Intellect))
 						{
 							gEngine.PrintEffectDesc(14);
 
@@ -55,7 +55,7 @@ namespace TheBeginnersCave.Game.Commands
 
 					gGameState.Die = 1;
 
-					NextState = Globals.CreateInstance<IPlayerDeadState>(x =>
+					NextState = gEngine.CreateInstance<IPlayerDeadState>(x =>
 					{
 						x.PrintLineSep = true;
 					});
@@ -77,7 +77,7 @@ namespace TheBeginnersCave.Game.Commands
 
 				gOut.Print("It says, \"HEALING POTION\".");
 
-				NextState = Globals.CreateInstance<IMonsterStartState>();
+				NextState = gEngine.CreateInstance<IMonsterStartState>();
 			}
 			else
 			{

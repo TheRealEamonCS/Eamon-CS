@@ -6,7 +6,7 @@
 using Eamon.Game.Attributes;
 using EamonRT.Framework;
 using EamonRT.Framework.Primitive.Enums;
-using static BeginnersForest.Game.Plugin.PluginContext;
+using static BeginnersForest.Game.Plugin.Globals;
 
 namespace BeginnersForest.Game
 {

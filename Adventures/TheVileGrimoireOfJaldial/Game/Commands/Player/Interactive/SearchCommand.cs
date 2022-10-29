@@ -3,15 +3,12 @@
 
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
-using System;
 using System.Diagnostics;
 using System.Linq;
-using Eamon.Framework;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
-using Eamon.Game.Extensions;
 using EamonRT.Framework.States;
-using static TheVileGrimoireOfJaldial.Game.Plugin.PluginContext;
+using static TheVileGrimoireOfJaldial.Game.Plugin.Globals;
 
 namespace TheVileGrimoireOfJaldial.Game.Commands
 {
@@ -138,11 +135,11 @@ namespace TheVileGrimoireOfJaldial.Game.Commands
 				{
 					if (waterArtifact.IsInLimbo())
 					{
-						if (saved && !gGameState.GetSecretDoors(12))
+						if (saved && !gGameState.GetSecretDoor(12))
 						{
 							foundDesc = "You find a secret door at the bottom of the fountain!";
 
-							gGameState.SetSecretDoors(12, true);
+							gGameState.SetSecretDoor(12, true);
 
 							found = true;
 
@@ -192,90 +189,90 @@ namespace TheVileGrimoireOfJaldial.Game.Commands
 				}
 				else if (ActorRoom.Uid == 54)
 				{
-					if (saved && !gGameState.GetSecretDoors(1))
+					if (saved && !gGameState.GetSecretDoor(1))
 					{
-						gGameState.SetSecretDoors(1, true);
+						gGameState.SetSecretDoor(1, true);
 
 						found = true;
 					}
-					else if (saved02 && !gGameState.GetSecretDoors(2))
+					else if (saved02 && !gGameState.GetSecretDoor(2))
 					{
-						gGameState.SetSecretDoors(2, true);
+						gGameState.SetSecretDoor(2, true);
 
 						found = true;
 					}
 				}
 				else if (ActorRoom.Uid == 55)
 				{
-					if (saved && !gGameState.GetSecretDoors(1))
+					if (saved && !gGameState.GetSecretDoor(1))
 					{
-						gGameState.SetSecretDoors(1, true);
+						gGameState.SetSecretDoor(1, true);
 
 						found = true;
 					}
 				}
 				else if (ActorRoom.Uid == 56)
 				{
-					if (saved && !gGameState.GetSecretDoors(2))
+					if (saved && !gGameState.GetSecretDoor(2))
 					{
-						gGameState.SetSecretDoors(2, true);
+						gGameState.SetSecretDoor(2, true);
 
 						found = true;
 					}
-					else if (saved02 && !gGameState.GetSecretDoors(4))
+					else if (saved02 && !gGameState.GetSecretDoor(4))
 					{
-						gGameState.SetSecretDoors(4, true);
+						gGameState.SetSecretDoor(4, true);
 
 						found = true;
 					}
 				}
 				else if (ActorRoom.Uid == 58)
 				{
-					if (saved && !gGameState.GetSecretDoors(3))
+					if (saved && !gGameState.GetSecretDoor(3))
 					{
-						gGameState.SetSecretDoors(3, true);
+						gGameState.SetSecretDoor(3, true);
 
 						found = true;
 					}
 				}
 				else if (ActorRoom.Uid == 63)
 				{
-					if (saved && !gGameState.GetSecretDoors(3))
+					if (saved && !gGameState.GetSecretDoor(3))
 					{
-						gGameState.SetSecretDoors(3, true);
+						gGameState.SetSecretDoor(3, true);
 
 						found = true;
 					}
 				}
 				else if (ActorRoom.Uid == 68)
 				{
-					if (saved && !gGameState.GetSecretDoors(4))
+					if (saved && !gGameState.GetSecretDoor(4))
 					{
-						gGameState.SetSecretDoors(4, true);
+						gGameState.SetSecretDoor(4, true);
 
 						found = true;
 					}
 				}
 				else if (ActorRoom.Uid == 74)
 				{
-					if (saved && !gGameState.GetSecretDoors(5))
+					if (saved && !gGameState.GetSecretDoor(5))
 					{
-						gGameState.SetSecretDoors(5, true);
+						gGameState.SetSecretDoor(5, true);
 
 						found = true;
 					}
-					else if (saved02 && !gGameState.GetSecretDoors(6))
+					else if (saved02 && !gGameState.GetSecretDoor(6))
 					{
-						gGameState.SetSecretDoors(6, true);
+						gGameState.SetSecretDoor(6, true);
 
 						found = true;
 					}
 				}
 				else if (ActorRoom.Uid == 87)
 				{
-					if (saved && !gGameState.GetSecretDoors(7))
+					if (saved && !gGameState.GetSecretDoor(7))
 					{
-						gGameState.SetSecretDoors(7, true);
+						gGameState.SetSecretDoor(7, true);
 
 						found = true;
 					}
@@ -293,36 +290,36 @@ namespace TheVileGrimoireOfJaldial.Game.Commands
 				}
 				else if (ActorRoom.Uid == 100)
 				{
-					if (saved && !gGameState.GetSecretDoors(9))
+					if (saved && !gGameState.GetSecretDoor(9))
 					{
-						gGameState.SetSecretDoors(9, true);
+						gGameState.SetSecretDoor(9, true);
 
 						found = true;
 					}
 				}
 				else if (ActorRoom.Uid == 101)
 				{
-					if (saved && !gGameState.GetSecretDoors(8))
+					if (saved && !gGameState.GetSecretDoor(8))
 					{
-						gGameState.SetSecretDoors(8, true);
+						gGameState.SetSecretDoor(8, true);
 
 						found = true;
 					}
 				}
 				else if (ActorRoom.Uid == 102)
 				{
-					if (saved && !gGameState.GetSecretDoors(11))
+					if (saved && !gGameState.GetSecretDoor(11))
 					{
-						gGameState.SetSecretDoors(11, true);
+						gGameState.SetSecretDoor(11, true);
 
 						found = true;
 					}
 				}
 				else if (ActorRoom.Uid == 115)
 				{
-					if (saved && !gGameState.GetSecretDoors(10))
+					if (saved && !gGameState.GetSecretDoor(10))
 					{
-						gGameState.SetSecretDoors(10, true);
+						gGameState.SetSecretDoor(10, true);
 
 						found = true;
 					}
@@ -331,9 +328,9 @@ namespace TheVileGrimoireOfJaldial.Game.Commands
 				{
 					if (waterArtifact.IsInLimbo())
 					{
-						if (saved && !gGameState.GetSecretDoors(12))
+						if (saved && !gGameState.GetSecretDoor(12))
 						{
-							gGameState.SetSecretDoors(12, true);
+							gGameState.SetSecretDoor(12, true);
 
 							found = true;
 
@@ -347,7 +344,7 @@ namespace TheVileGrimoireOfJaldial.Game.Commands
 			{
 				gOut.Print(foundDesc);
 
-				NextState = Globals.CreateInstance<IStartState>();
+				NextState = gEngine.CreateInstance<IStartState>();
 			}
 			else
 			{
@@ -388,7 +385,7 @@ namespace TheVileGrimoireOfJaldial.Game.Commands
 
 			if (NextState == null)
 			{
-				NextState = Globals.CreateInstance<IMonsterStartState>();
+				NextState = gEngine.CreateInstance<IMonsterStartState>();
 			}
 		}
 

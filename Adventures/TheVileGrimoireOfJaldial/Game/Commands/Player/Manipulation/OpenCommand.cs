@@ -12,7 +12,7 @@ using Eamon.Game.Extensions;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
-using static TheVileGrimoireOfJaldial.Game.Plugin.PluginContext;
+using static TheVileGrimoireOfJaldial.Game.Plugin.Globals;
 
 namespace TheVileGrimoireOfJaldial.Game.Commands
 {
@@ -101,7 +101,7 @@ namespace TheVileGrimoireOfJaldial.Game.Commands
 
 				gGameState.AmoebaAppeared = true;
 
-				NextState = Globals.CreateInstance<IStartState>();
+				NextState = gEngine.CreateInstance<IStartState>();
 
 				GotoCleanup = true;
 			}
@@ -117,7 +117,7 @@ namespace TheVileGrimoireOfJaldial.Game.Commands
 			{
 				gEngine.PrintEffectDesc(90);
 
-				NextState = Globals.CreateInstance<IMonsterStartState>();
+				NextState = gEngine.CreateInstance<IMonsterStartState>();
 			}
 
 			// DoorGates and InContainers sometimes need to be pryed open

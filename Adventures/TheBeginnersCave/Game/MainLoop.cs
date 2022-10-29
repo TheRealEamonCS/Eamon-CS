@@ -7,7 +7,7 @@ using System.Diagnostics;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using EamonRT.Framework;
-using static TheBeginnersCave.Game.Plugin.PluginContext;
+using static TheBeginnersCave.Game.Plugin.Globals;
 
 namespace TheBeginnersCave.Game
 {
@@ -26,15 +26,15 @@ namespace TheBeginnersCave.Game
 
 			if (cynthiaMonster.Location == gGameState.Ro && cynthiaMonster.Reaction > Friendliness.Enemy)
 			{
-				var reward = gCharacter.GetStats(Stat.Charisma) * 7;
+				var reward = gCharacter.GetStat(Stat.Charisma) * 7;
 
 				gCharacter.HeldGold += reward;
 
-				gOut.Print("{0}", Globals.LineSep);
+				gOut.Print("{0}", gEngine.LineSep);
 
 				gOut.Print("Additionally, you receive {0} gold piece{1} for the safe return of Cynthia.", reward, reward != 1 ? "s" : "");
 
-				Globals.In.KeyPress(Globals.Buf);
+				gEngine.In.KeyPress(gEngine.Buf);
 			}
 		}
 	}

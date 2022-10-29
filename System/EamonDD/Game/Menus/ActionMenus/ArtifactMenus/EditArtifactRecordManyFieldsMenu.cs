@@ -7,7 +7,7 @@ using Eamon.Framework;
 using Eamon.Framework.Helpers;
 using Eamon.Game.Attributes;
 using EamonDD.Framework.Menus.ActionMenus;
-using static EamonDD.Game.Plugin.PluginContext;
+using static EamonDD.Game.Plugin.Globals;
 
 namespace EamonDD.Game.Menus.ActionMenus
 {
@@ -16,14 +16,14 @@ namespace EamonDD.Game.Menus.ActionMenus
 	{
 		public override void UpdateGlobals()
 		{
-			Globals.ArtifactsModified = true;
+			gEngine.ArtifactsModified = true;
 		}
 
 		public EditArtifactRecordManyFieldsMenu()
 		{
 			Title = "EDIT ARTIFACT RECORD FIELDS";
 
-			RecordTable = Globals.Database.ArtifactTable;
+			RecordTable = gEngine.Database.ArtifactTable;
 
 			RecordTypeName = "Artifact";
 		}

@@ -11,7 +11,7 @@ using EamonDD.Framework.Menus;
 using EamonDD.Framework.Menus.HierarchicalMenus;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.States;
-using static EamonRT.Game.Plugin.PluginContext;
+using static EamonRT.Game.Plugin.Globals;
 
 namespace EamonRT.Game.Commands
 {
@@ -47,178 +47,193 @@ namespace EamonRT.Game.Commands
 		{
 			Debug.Assert(!string.IsNullOrWhiteSpace(Action));
 
-			Globals.BortCommand = true;
-
-			switch(Action)
+			try
 			{
-				case "visitartifact":
+				gEngine.BortCommand = true;
 
-					BortArtifact = Record as IArtifact;
+				switch(Action)
+				{
+					case "visitartifact":
 
-					Debug.Assert(BortArtifact != null);
+						BortArtifact = Record as IArtifact;
 
-					BortRoom = BortArtifact.GetInRoom(true);
+						Debug.Assert(BortArtifact != null);
 
-					if (BortRoom == null)
-					{
+						BortRoom = BortArtifact.GetInRoom(true);
+
+						if (BortRoom == null)
+						{
 							BortRoom = BortArtifact.GetEmbeddedInRoom(true);
-					}
+						}
 
-					if (BortRoom != null)
-					{
-						PrintBortVisitArtifact(BortRoom, BortArtifact);
+						if (BortRoom != null)
+						{
+							PrintBortVisitArtifact(BortRoom, BortArtifact);
+
+							gGameState.R2 = BortRoom.Uid;
+
+							NextState = gEngine.CreateInstance<IAfterPlayerMoveState>(x =>
+							{
+								x.MoveMonsters = false;
+							});
+						}
+						else
+						{
+							PrintBortArtifactRoomInvalid(BortArtifact);
+						}
+
+						break;
+
+					case "visitmonster":
+
+						BortMonster = Record as IMonster;
+
+						Debug.Assert(BortMonster != null);
+
+						BortRoom = BortMonster.GetInRoom();
+
+						if (BortRoom != null)
+						{
+							PrintBortVisitMonster(BortRoom, BortMonster);
+
+							gGameState.R2 = BortRoom.Uid;
+
+							NextState = gEngine.CreateInstance<IAfterPlayerMoveState>(x =>
+							{
+								x.MoveMonsters = false;
+							});
+						}
+						else
+						{
+							PrintBortMonsterRoomInvalid(BortMonster);
+						}
+
+						break;
+
+					case "visitroom":
+
+						BortRoom = Record as IRoom;
+
+						Debug.Assert(BortRoom != null);
+
+						PrintBortVisitRoom(BortRoom);
 
 						gGameState.R2 = BortRoom.Uid;
 
-						NextState = Globals.CreateInstance<IAfterPlayerMoveState>(x =>
+						NextState = gEngine.CreateInstance<IAfterPlayerMoveState>(x =>
 						{
 							x.MoveMonsters = false;
 						});
-					}
-					else
-					{
-						PrintBortArtifactRoomInvalid(BortArtifact);
-					}
 
-					break;
+						break;
 
-				case "visitmonster":
+					case "recallartifact":
 
-					BortMonster = Record as IMonster;
+						BortArtifact = Record as IArtifact;
 
-					Debug.Assert(BortMonster != null);
+						Debug.Assert(BortArtifact != null);
 
-					BortRoom = BortMonster.GetInRoom();
+						PrintBortRecallArtifact(ActorRoom, BortArtifact);
 
-					if (BortRoom != null)
-					{
-						PrintBortVisitMonster(BortRoom, BortMonster);
-
-						gGameState.R2 = BortRoom.Uid;
-
-						NextState = Globals.CreateInstance<IAfterPlayerMoveState>(x =>
+						try
 						{
-							x.MoveMonsters = false;
-						});
-					}
-					else
-					{
-						PrintBortMonsterRoomInvalid(BortMonster);
-					}
+							gEngine.RevealContentCounter--;
 
-					break;
+							BortArtifact.SetInRoom(ActorRoom);
+						}
+						finally
+						{
+							gEngine.RevealContentCounter++;
+						}
 
-				case "visitroom":
+						break;
 
-					BortRoom = Record as IRoom;
+					case "recallmonster":
 
-					Debug.Assert(BortRoom != null);
+						BortMonster = Record as IMonster;
 
-					PrintBortVisitRoom(BortRoom);
+						Debug.Assert(BortMonster != null);
 
-					gGameState.R2 = BortRoom.Uid;
+						PrintBortRecallMonster(ActorRoom, BortMonster);
 
-					NextState = Globals.CreateInstance<IAfterPlayerMoveState>(x =>
-					{
-						x.MoveMonsters = false;
-					});
+						BortMonster.SetInRoom(ActorRoom);
 
-					break;
+						break;
 
-				case "recallartifact":
+					case "rungameeditor":
 
-					BortArtifact = Record as IArtifact;
+						BortConfig = gEngine.CloneInstance(gEngine.Config);
 
-					Debug.Assert(BortArtifact != null);
+						Debug.Assert(BortConfig != null);
 
-					PrintBortRecallArtifact(ActorRoom, BortArtifact);
+						gEngine.Config.DdEditingModules = true;
 
-					Globals.RevealContentCounter--;
+						gEngine.Config.DdEditingRooms = true;
 
-					BortArtifact.SetInRoom(ActorRoom);
+						gEngine.Config.DdEditingArtifacts = true;
 
-					Globals.RevealContentCounter++;
+						gEngine.Config.DdEditingEffects = true;
 
-					break;
+						gEngine.Config.DdEditingMonsters = true;
 
-				case "recallmonster":
+						gEngine.Config.DdEditingHints = true;
 
-					BortMonster = Record as IMonster;
+						PunctSpaceCode = gOut.PunctSpaceCode;
 
-					Debug.Assert(BortMonster != null);
+						gOut.PunctSpaceCode = PunctSpaceCode.None;
 
-					PrintBortRecallMonster(ActorRoom, BortMonster);
+						SuppressNewLines = gOut.SuppressNewLines;
 
-					BortMonster.SetInRoom(ActorRoom);
+						gOut.SuppressNewLines = false;
 
-					break;
+						gEngine.DdMenu = gEngine.CreateInstance<IDdMenu>();
 
-				case "rungameeditor":
+						BortMenu = gEngine.CreateInstance<IMainMenu>();
 
-					BortConfig = Globals.CloneInstance(Globals.Config);
+						try
+						{
+							gEngine.RevealContentCounter--;
 
-					Debug.Assert(BortConfig != null);
+							BortMenu.Execute();
+						}
+						finally
+						{
+							gEngine.RevealContentCounter++;
+						}
 
-					Globals.Config.DdEditingModules = true;
+						BortMenu = null;
 
-					Globals.Config.DdEditingRooms = true;
+						gEngine.DdMenu = null;
 
-					Globals.Config.DdEditingArtifacts = true;
+						gOut.SuppressNewLines = SuppressNewLines;
 
-					Globals.Config.DdEditingEffects = true;
+						gOut.PunctSpaceCode = PunctSpaceCode;
 
-					Globals.Config.DdEditingMonsters = true;
+						gEngine.Config = BortConfig;
 
-					Globals.Config.DdEditingHints = true;
+						gEngine.Module = gEngine.GetModule();
 
-					PunctSpaceCode = gOut.PunctSpaceCode;
+						Debug.Assert(gEngine.Module != null && gEngine.Module.Uid > 0);
 
-					gOut.PunctSpaceCode = PunctSpaceCode.None;
+						Debug.Assert(gRDB[gGameState.Ro] != null);
 
-					SuppressNewLines = gOut.SuppressNewLines;
+						break;
 
-					gOut.SuppressNewLines = false;
+					default:
 
-					Globals.DdMenu = Globals.CreateInstance<IDdMenu>();
+						Debug.Assert(1 == 0);
 
-					BortMenu = Globals.CreateInstance<IMainMenu>();
-
-					Globals.RevealContentCounter--;
-
-					BortMenu.Execute();
-
-					Globals.RevealContentCounter++;
-
-					BortMenu = null;
-
-					Globals.DdMenu = null;
-
-					gOut.SuppressNewLines = SuppressNewLines;
-
-					gOut.PunctSpaceCode = PunctSpaceCode;
-
-					Globals.Config = BortConfig;
-
-					Globals.Module = gEngine.GetModule();
-
-					Debug.Assert(Globals.Module != null && Globals.Module.Uid > 0);
-
-					Debug.Assert(gRDB[gGameState.Ro] != null);
-
-					break;
-
-				default:
-
-					Debug.Assert(1 == 0);
-
-					break;
+						break;
+				}
 			}
-
-			Globals.BortCommand = false;
+			finally
+			{
+				gEngine.BortCommand = false;
+			}
 
 			if (NextState == null)
 			{
-				NextState = Globals.CreateInstance<IStartState>();
+				NextState = gEngine.CreateInstance<IStartState>();
 			}
 		}
 

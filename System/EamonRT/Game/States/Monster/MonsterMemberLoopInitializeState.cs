@@ -7,7 +7,7 @@ using System.Diagnostics;
 using Eamon.Framework;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.States;
-using static EamonRT.Game.Plugin.PluginContext;
+using static EamonRT.Game.Plugin.Globals;
 
 namespace EamonRT.Game.States
 {
@@ -19,18 +19,18 @@ namespace EamonRT.Game.States
 
 		public override void Execute()
 		{
-			LoopMonster = gMDB[Globals.LoopMonsterUid];
+			LoopMonster = gMDB[gEngine.LoopMonsterUid];
 
 			Debug.Assert(LoopMonster != null);
 
-			Globals.LoopMemberNumber = 0;
+			gEngine.LoopMemberNumber = 0;
 
 			if (NextState == null)
 			{
-				NextState = Globals.CreateInstance<IMonsterMemberLoopIncrementState>();
+				NextState = gEngine.CreateInstance<IMonsterMemberLoopIncrementState>();
 			}
 
-			Globals.NextState = NextState;
+			gEngine.NextState = NextState;
 		}
 
 		public MonsterMemberLoopInitializeState()

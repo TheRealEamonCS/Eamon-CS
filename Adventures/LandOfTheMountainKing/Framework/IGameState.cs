@@ -3,7 +3,7 @@
 
 // Copyright (c) 2014+ by Kenneth Pedersen.  All rights reserved.
 
-using static LandOfTheMountainKing.Game.Plugin.PluginContext;
+using static LandOfTheMountainKing.Game.Plugin.Globals;
 
 namespace LandOfTheMountainKing.Framework
 {

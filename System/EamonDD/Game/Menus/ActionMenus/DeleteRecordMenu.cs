@@ -11,7 +11,7 @@ using Eamon.Framework;
 using Eamon.Framework.Helpers.Generic;
 using Eamon.Framework.Primitive.Enums;
 using EamonDD.Framework.Menus.ActionMenus;
-using static EamonDD.Game.Plugin.PluginContext;
+using static EamonDD.Game.Plugin.Globals;
 
 namespace EamonDD.Game.Menus.ActionMenus
 {
@@ -29,13 +29,13 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			Buf.Clear();
 
-			rc = Globals.In.ReadField(Buf, Constants.BufSize01, null, '_', '\0', false, null, null, gEngine.IsCharDigit, null);
+			rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', false, null, null, gEngine.IsCharDigit, null);
 
 			Debug.Assert(gEngine.IsSuccess(rc));
 
 			var recordUid = Convert.ToInt64(Buf.Trim().ToString());
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 
 			var record = RecordTable.FindRecord(recordUid);
 
@@ -55,7 +55,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 				goto Cleanup;
 			}
 
-			var helper = Globals.CreateInstance<U>(x =>
+			var helper = gEngine.CreateInstance<U>(x =>
 			{
 				x.Record = record;
 			});
@@ -64,17 +64,17 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			PrintPostListLineSep();
 
-			Globals.Thread.Sleep(150);
+			gEngine.Thread.Sleep(150);
 
 			gOut.Write("{0}Would you like to delete this {1} record (Y/N): ", Environment.NewLine, RecordTypeName);
 
 			Buf.Clear();
 
-			rc = Globals.In.ReadField(Buf, Constants.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, gEngine.IsCharYOrN);
+			rc = gEngine.In.ReadField(Buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, gEngine.IsCharYOrN);
 
 			Debug.Assert(gEngine.IsSuccess(rc));
 
-			Globals.Thread.Sleep(150);
+			gEngine.Thread.Sleep(150);
 
 			if (Buf.Length > 0 && Buf[0] == 'N')
 			{

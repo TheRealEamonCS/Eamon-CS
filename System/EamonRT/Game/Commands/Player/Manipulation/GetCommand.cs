@@ -14,7 +14,7 @@ using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.States;
-using static EamonRT.Game.Plugin.PluginContext;
+using static EamonRT.Game.Plugin.Globals;
 
 namespace EamonRT.Game.Commands
 {
@@ -136,7 +136,7 @@ namespace EamonRT.Game.Commands
 			{
 				PrintNothingToGet();
 
-				NextState = Globals.CreateInstance<IStartState>();
+				NextState = gEngine.CreateInstance<IStartState>();
 
 				goto Cleanup;
 			}
@@ -151,7 +151,7 @@ namespace EamonRT.Game.Commands
 
 				if (DobjArtAc == null)
 				{
-					DobjArtAc = artifact.GetCategories(0);
+					DobjArtAc = artifact.GetCategory(0);
 				}
 
 				Debug.Assert(DobjArtAc != null);
@@ -199,7 +199,7 @@ namespace EamonRT.Game.Commands
 
 			if (ActorMonster.Weapon <= 0 && WeaponArtifact != null && NextState == null)
 			{
-				RedirectCommand = Globals.CreateInstance<IReadyCommand>();
+				RedirectCommand = gEngine.CreateInstance<IReadyCommand>();
 
 				CopyCommandData(RedirectCommand);
 
@@ -212,7 +212,7 @@ namespace EamonRT.Game.Commands
 
 			if (NextState == null)
 			{
-				NextState = Globals.CreateInstance<IMonsterStartState>();
+				NextState = gEngine.CreateInstance<IMonsterStartState>();
 			}
 		}
 

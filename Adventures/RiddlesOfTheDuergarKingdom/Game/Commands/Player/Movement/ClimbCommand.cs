@@ -8,7 +8,7 @@ using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.States;
-using static RiddlesOfTheDuergarKingdom.Game.Plugin.PluginContext;
+using static RiddlesOfTheDuergarKingdom.Game.Plugin.Globals;
 
 namespace RiddlesOfTheDuergarKingdom.Game.Commands
 {
@@ -29,7 +29,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.Commands
 
 			if (DobjArtifact.Uid == 2 || DobjArtifact.Uid == 14 || DobjArtifact.Uid == 53 || isClimbableRope)
 			{
-				var command = Globals.CreateInstance<IGoCommand>();
+				var command = gEngine.CreateInstance<IGoCommand>();
 
 				CopyCommandData(command);
 
@@ -39,7 +39,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.Commands
 			{
 				PrintDontFollowYou();
 
-				NextState = Globals.CreateInstance<IStartState>();
+				NextState = gEngine.CreateInstance<IStartState>();
 			}
 		}
 

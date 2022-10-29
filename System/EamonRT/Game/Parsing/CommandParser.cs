@@ -21,7 +21,7 @@ using EamonRT.Framework.Commands;
 using EamonRT.Framework.Parsing;
 using EamonRT.Framework.States;
 using EamonRT.Game.Exceptions;
-using static EamonRT.Game.Plugin.PluginContext;
+using static EamonRT.Game.Plugin.Globals;
 
 namespace EamonRT.Game.Parsing
 {
@@ -333,7 +333,7 @@ namespace EamonRT.Game.Parsing
 
 		public virtual void FinishParsingHealCommand()
 		{
-			if (!Globals.IsRulesetVersion(5, 25) && CurrToken < Tokens.Length)
+			if (!gEngine.IsRulesetVersion(5, 25) && CurrToken < Tokens.Length)
 			{
 				ResolveRecord(true, false);
 			}
@@ -420,7 +420,7 @@ namespace EamonRT.Game.Parsing
 
 			if (ObjData.Name.Equals("room", StringComparison.OrdinalIgnoreCase) || ObjData.Name.Equals("area", StringComparison.OrdinalIgnoreCase))
 			{
-				var command = Globals.CreateInstance<ILookCommand>();
+				var command = gEngine.CreateInstance<ILookCommand>();
 
 				NextCommand.CopyCommandData(command);
 
@@ -540,7 +540,7 @@ namespace EamonRT.Game.Parsing
 				{
 					NextCommand.PrintDoYouMeanObj1OrObj2(ObjData.FilterRecordList[0], ObjData.FilterRecordList[1]);
 
-					NextState = Globals.CreateInstance<IStartState>();
+					NextState = gEngine.CreateInstance<IStartState>();
 				}
 				else if (ObjData.FilterRecordList.Count == 1)
 				{
@@ -597,14 +597,14 @@ namespace EamonRT.Game.Parsing
 						{
 							NextCommand.PrintMustFirstOpen(IobjArtifact);
 
-							NextState = Globals.CreateInstance<IStartState>();
+							NextState = gEngine.CreateInstance<IStartState>();
 						}
 					}
 					else
 					{
 						NextCommand.PrintDontFollowYou();
 
-						NextState = Globals.CreateInstance<IStartState>();
+						NextState = gEngine.CreateInstance<IStartState>();
 					}
 				}
 			}
@@ -654,6 +654,8 @@ namespace EamonRT.Game.Parsing
 
 			Debug.Assert(bortCommand != null);
 
+			gEngine.ShouldPreTurnProcess = false;
+
 			if (CurrToken + 1 < Tokens.Length)
 			{
 				var action = Tokens[CurrToken];
@@ -698,7 +700,7 @@ namespace EamonRT.Game.Parsing
 					{
 						bortCommand.PrintBortArtifactInvalid();
 
-						NextState = Globals.CreateInstance<IStartState>();
+						NextState = gEngine.CreateInstance<IStartState>();
 					}
 				}
 				else if (action.Equals("visitmonster", StringComparison.OrdinalIgnoreCase) || action.Equals("recallmonster", StringComparison.OrdinalIgnoreCase))
@@ -741,7 +743,7 @@ namespace EamonRT.Game.Parsing
 					{
 						bortCommand.PrintBortMonsterInvalid();
 
-						NextState = Globals.CreateInstance<IStartState>();
+						NextState = gEngine.CreateInstance<IStartState>();
 					}
 				}
 				else if (action.Equals("visitroom", StringComparison.OrdinalIgnoreCase))
@@ -780,14 +782,14 @@ namespace EamonRT.Game.Parsing
 					{
 						bortCommand.PrintBortRoomInvalid();
 
-						NextState = Globals.CreateInstance<IStartState>();
+						NextState = gEngine.CreateInstance<IStartState>();
 					}
 				}
 				else
 				{
 					bortCommand.PrintBortUsage();
 
-					NextState = Globals.CreateInstance<IStartState>();
+					NextState = gEngine.CreateInstance<IStartState>();
 				}
 			}
 			else if (CurrToken < Tokens.Length && Tokens[CurrToken].Equals("rungameeditor", StringComparison.OrdinalIgnoreCase))
@@ -798,7 +800,7 @@ namespace EamonRT.Game.Parsing
 			{
 				bortCommand.PrintBortUsage();
 
-				NextState = Globals.CreateInstance<IStartState>();
+				NextState = gEngine.CreateInstance<IStartState>();
 			}
 		}
 
@@ -808,7 +810,7 @@ namespace EamonRT.Game.Parsing
 			{
 				if (ActorRoom.IsLit())
 				{
-					if (Globals.IsRulesetVersion(5))
+					if (gEngine.IsRulesetVersion(5))
 					{
 						ResolveRecord(false);
 					}
@@ -828,7 +830,7 @@ namespace EamonRT.Game.Parsing
 				}
 				else
 				{
-					NextState = Globals.CreateInstance<IStartState>();
+					NextState = gEngine.CreateInstance<IStartState>();
 				}
 			}
 			else
@@ -841,7 +843,7 @@ namespace EamonRT.Game.Parsing
 		{
 			if (CurrToken < Tokens.Length)
 			{
-				var command = Globals.CreateInstance<IExamineCommand>();
+				var command = gEngine.CreateInstance<IExamineCommand>();
 
 				NextCommand.CopyCommandData(command);
 
@@ -853,6 +855,8 @@ namespace EamonRT.Game.Parsing
 
 		public virtual void FinishParsingQuitCommand()
 		{
+			gEngine.ShouldPreTurnProcess = false;
+
 			if (CurrToken < Tokens.Length && Tokens[CurrToken].Equals("hall", StringComparison.OrdinalIgnoreCase))
 			{
 				NextCommand.Cast<IQuitCommand>().GoToMainHall = true;
@@ -870,6 +874,8 @@ namespace EamonRT.Game.Parsing
 
 			Debug.Assert(restoreCommand != null);
 
+			gEngine.ShouldPreTurnProcess = false;
+
 			if (CurrToken < Tokens.Length && long.TryParse(Tokens[CurrToken], out i) && i >= 1 && i <= gEngine.NumSaveSlots)
 			{
 				restoreCommand.SaveSlot = i;
@@ -877,7 +883,7 @@ namespace EamonRT.Game.Parsing
 				CurrToken++;
 			}
 
-			var filesets = Globals.Database.FilesetTable.Records.ToList();
+			var filesets = gEngine.Database.FilesetTable.Records.ToList();
 
 			var filesetsCount = filesets.Count();
 
@@ -887,7 +893,7 @@ namespace EamonRT.Game.Parsing
 				{
 					if (gGameState.Die == 1)
 					{
-						gOut.Print("{0}", Globals.LineSep);
+						gOut.Print("{0}", gEngine.LineSep);
 					}
 
 					gEngine.PrintSavedGames();
@@ -901,18 +907,18 @@ namespace EamonRT.Game.Parsing
 
 					if (gGameState.Die == 1)
 					{
-						gOut.Print("{0}", Globals.LineSep);
+						gOut.Print("{0}", gEngine.LineSep);
 					}
 
 					gEngine.PrintEnterRestoreSlotChoice(i + 1);
 
-					Globals.Buf.Clear();
+					gEngine.Buf.Clear();
 
-					rc = Globals.In.ReadField(Globals.Buf, 3, null, ' ', '\0', false, null, null, gEngine.IsCharDigit, null);
+					rc = gEngine.In.ReadField(gEngine.Buf, 3, null, ' ', '\0', false, null, null, gEngine.IsCharDigit, null);
 
 					Debug.Assert(gEngine.IsSuccess(rc));
 
-					i = Convert.ToInt64(Globals.Buf.Trim().ToString());
+					i = Convert.ToInt64(gEngine.Buf.Trim().ToString());
 
 					if (i >= 1 && i <= filesetsCount)
 					{
@@ -931,14 +937,14 @@ namespace EamonRT.Game.Parsing
 			{
 				if (gGameState.Die == 1)
 				{
-					NextState = Globals.CreateInstance<IPlayerDeadState>(x =>
+					NextState = gEngine.CreateInstance<IPlayerDeadState>(x =>
 					{
 						x.PrintLineSep = true;
 					});
 				}
 				else
 				{
-					NextState = Globals.CreateInstance<IStartState>();
+					NextState = gEngine.CreateInstance<IStartState>();
 				}
 			}
 		}
@@ -952,6 +958,8 @@ namespace EamonRT.Game.Parsing
 
 			Debug.Assert(saveCommand != null);
 
+			gEngine.ShouldPreTurnProcess = false;
+
 			if (CurrToken < Tokens.Length && long.TryParse(Tokens[CurrToken], out i) && i >= 1 && i <= gEngine.NumSaveSlots)
 			{
 				saveCommand.SaveSlot = i;
@@ -963,9 +971,9 @@ namespace EamonRT.Game.Parsing
 			{
 				saveCommand.SaveName = string.Join(" ", Tokens.Skip((int)CurrToken));
 
-				if (saveCommand.SaveName.Length > Constants.FsNameLen)
+				if (saveCommand.SaveName.Length > gEngine.FsNameLen)
 				{
-					saveCommand.SaveName = saveCommand.SaveName.Substring(0, Constants.FsNameLen);
+					saveCommand.SaveName = saveCommand.SaveName.Substring(0, gEngine.FsNameLen);
 				}
 
 				CurrToken += (Tokens.Length - CurrToken);
@@ -975,7 +983,7 @@ namespace EamonRT.Game.Parsing
 				saveCommand.SaveName = "Quick Saved Game";
 			}
 
-			var filesets = Globals.Database.FilesetTable.Records.ToList();
+			var filesets = gEngine.Database.FilesetTable.Records.ToList();
 
 			var filesetsCount = filesets.Count();
 
@@ -996,13 +1004,13 @@ namespace EamonRT.Game.Parsing
 
 					gEngine.PrintEnterSaveSlotChoice(i + 1);
 
-					Globals.Buf.Clear();
+					gEngine.Buf.Clear();
 
-					rc = Globals.In.ReadField(Globals.Buf, 3, null, ' ', '\0', false, null, null, gEngine.IsCharDigit, null);
+					rc = gEngine.In.ReadField(gEngine.Buf, 3, null, ' ', '\0', false, null, null, gEngine.IsCharDigit, null);
 
 					Debug.Assert(gEngine.IsSuccess(rc));
 
-					i = Convert.ToInt64(Globals.Buf.Trim().ToString());
+					i = Convert.ToInt64(gEngine.Buf.Trim().ToString());
 
 					if (i >= 1 && i <= gEngine.NumSaveSlots)
 					{
@@ -1026,7 +1034,7 @@ namespace EamonRT.Game.Parsing
 
 			if (saveCommand.SaveSlot < 1 || saveCommand.SaveSlot > filesetsCount + 1)
 			{
-				NextState = Globals.CreateInstance<IStartState>();
+				NextState = gEngine.CreateInstance<IStartState>();
 			}
 		}
 
@@ -1049,9 +1057,9 @@ namespace EamonRT.Game.Parsing
 				{
 					gEngine.PrintVerbWhoOrWhat(NextCommand);
 
-					Globals.Buf.SetFormat("{0}", Globals.In.ReadLine());
+					gEngine.Buf.SetFormat("{0}", gEngine.In.ReadLine());
 
-					sayCommand.OriginalPhrase = Regex.Replace(Globals.Buf.ToString(), @"\s+", " ").Trim();
+					sayCommand.OriginalPhrase = Regex.Replace(gEngine.Buf.ToString(), @"\s+", " ").Trim();
 				}
 				else
 				{
@@ -1069,6 +1077,8 @@ namespace EamonRT.Game.Parsing
 			var settingsCommand = NextCommand as ISettingsCommand;
 
 			Debug.Assert(settingsCommand != null);
+
+			gEngine.ShouldPreTurnProcess = false;
 
 			if (CurrToken + 1 < Tokens.Length)
 			{
@@ -1136,14 +1146,14 @@ namespace EamonRT.Game.Parsing
 				{
 					settingsCommand.PrintSettingsUsage();
 
-					NextState = Globals.CreateInstance<IStartState>();
+					NextState = gEngine.CreateInstance<IStartState>();
 				}
 			}
 			else
 			{
 				settingsCommand.PrintSettingsUsage();
 
-				NextState = Globals.CreateInstance<IStartState>();
+				NextState = gEngine.CreateInstance<IStartState>();
 			}
 		}
 
@@ -1174,7 +1184,7 @@ namespace EamonRT.Game.Parsing
 				}
 				else
 				{
-					NextState = Globals.CreateInstance<IStartState>();
+					NextState = gEngine.CreateInstance<IStartState>();
 				}
 			}
 		}
@@ -1203,13 +1213,13 @@ namespace EamonRT.Game.Parsing
 			{
 				NextCommand.PrintDoYouMeanObj1OrObj2(ObjData.FilterRecordList[0], ObjData.FilterRecordList[1]);
 
-				NextState = Globals.CreateInstance<IStartState>();
+				NextState = gEngine.CreateInstance<IStartState>();
 			}
 			else if (ObjData.FilterRecordList.Count < 1)
 			{
 				ObjData.RecordNotFoundFunc();
 
-				NextState = Globals.CreateInstance<IStartState>();
+				NextState = gEngine.CreateInstance<IStartState>();
 			}
 			else 
 			{
@@ -1230,13 +1240,13 @@ namespace EamonRT.Game.Parsing
 			{
 				NextCommand.PrintDoYouMeanObj1OrObj2(ObjData.FilterRecordList[0], ObjData.FilterRecordList[1]);
 
-				NextState = Globals.CreateInstance<IStartState>();
+				NextState = gEngine.CreateInstance<IStartState>();
 			}
 			else if (ObjData.FilterRecordList.Count < 1)
 			{
 				ObjData.RecordNotFoundFunc();
 
-				NextState = Globals.CreateInstance<IMonsterStartState>();
+				NextState = gEngine.CreateInstance<IMonsterStartState>();
 			}
 			else
 			{
@@ -1325,7 +1335,7 @@ namespace EamonRT.Game.Parsing
 				}
 				else
 				{
-					NextState = Globals.CreateInstance<IErrorState>(x =>
+					NextState = gEngine.CreateInstance<IErrorState>(x =>
 					{
 						x.ErrorMessage = string.Format("{0}: string.IsNullOrWhiteSpace({1}.Name)", NextCommand.Name, GetActiveObjData());
 					});
@@ -1362,17 +1372,17 @@ namespace EamonRT.Game.Parsing
 			{
 				var objDataName01 = string.Format(" {0} ", objDataName);
 
-				if (Array.FindIndex(Constants.CommandSepTokens, token => !Char.IsPunctuation(token[0]) ? objDataName01.IndexOf(" " + token + " ") >= 0 : objDataName01.IndexOf(token) >= 0) < 0 && Array.FindIndex(Constants.PronounTokens, token => objDataName01.IndexOf(" " + token + " ") >= 0) < 0)
+				if (Array.FindIndex(gEngine.CommandSepTokens, token => !Char.IsPunctuation(token[0]) ? objDataName01.IndexOf(" " + token + " ") >= 0 : objDataName01.IndexOf(token) >= 0) < 0 && Array.FindIndex(gEngine.PronounTokens, token => objDataName01.IndexOf(" " + token + " ") >= 0) < 0)
 				{
 					if (artifact != null)
 					{
 						if (artifact.IsPlural)
 						{
-							LastThemNameStr = Globals.CloneInstance(objDataName);
+							LastThemNameStr = gEngine.CloneInstance(objDataName);
 						}
 						else
 						{
-							LastItNameStr = Globals.CloneInstance(objDataName);
+							LastItNameStr = gEngine.CloneInstance(objDataName);
 						}
 					}
 					else
@@ -1381,22 +1391,22 @@ namespace EamonRT.Game.Parsing
 
 						if (monster.GroupCount > 1)
 						{
-							LastThemNameStr = Globals.CloneInstance(objDataName);
+							LastThemNameStr = gEngine.CloneInstance(objDataName);
 						}
 
 						if (monster.CurrGroupCount == 1)
 						{
 							if (monster.Gender == Gender.Male)
 							{
-								LastHimNameStr = Globals.CloneInstance(objDataName);
+								LastHimNameStr = gEngine.CloneInstance(objDataName);
 							}
 							else if (monster.Gender == Gender.Female)
 							{
-								LastHerNameStr = Globals.CloneInstance(objDataName);
+								LastHerNameStr = gEngine.CloneInstance(objDataName);
 							}
 							else
 							{
-								LastItNameStr = Globals.CloneInstance(objDataName);
+								LastItNameStr = gEngine.CloneInstance(objDataName);
 							}
 						}
 					}
@@ -1513,9 +1523,9 @@ namespace EamonRT.Game.Parsing
 
 			_actorRoom = null;
 
-			DobjData = Globals.CreateInstance<IParserData>();
+			DobjData = gEngine.CreateInstance<IParserData>();
 
-			IobjData = Globals.CreateInstance<IParserData>();
+			IobjData = gEngine.CreateInstance<IParserData>();
 
 			ObjData = DobjData;
 
@@ -1544,7 +1554,7 @@ namespace EamonRT.Game.Parsing
 
 						if (Prep != null)
 						{
-							NextCommand.Prep = Globals.CloneInstance(Prep);
+							NextCommand.Prep = gEngine.CloneInstance(Prep);
 
 							NextCommand.ContainerType = Prep.ContainerType;
 						}
@@ -1585,11 +1595,11 @@ namespace EamonRT.Game.Parsing
 
 						ObjData.QueryPrintFunc();
 
-						Globals.Buf.SetFormat("{0}", Globals.In.ReadLine());
+						gEngine.Buf.SetFormat("{0}", gEngine.In.ReadLine());
 
-						Globals.Buf.SetFormat("{0}", Regex.Replace(Globals.Buf.ToString(), @"\s+", " ").Trim());
+						gEngine.Buf.SetFormat("{0}", Regex.Replace(gEngine.Buf.ToString(), @"\s+", " ").Trim());
 
-						var newTokenList = Globals.Buf.ToString().Split(new char[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+						var newTokenList = gEngine.Buf.ToString().Split(new char[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries).ToList();
 
 						var origTokenList = OrigInputStr.Split(new char[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries).ToList();
 
@@ -1602,22 +1612,22 @@ namespace EamonRT.Game.Parsing
 							origTokenList.AddRange(newTokenList);
 						}
 
-						Globals.Buf.SetFormat("{0}", string.Join(" ", origTokenList.ToArray()));
+						gEngine.Buf.SetFormat("{0}", string.Join(" ", origTokenList.ToArray()));
 
-						OrigInputStr = Globals.Buf.ToString();
+						OrigInputStr = gEngine.Buf.ToString();
 
-						Globals.Buf.SetFormat("{0}", gEngine.NormalizePlayerInput(Globals.Buf).ToString());
+						gEngine.Buf.SetFormat("{0}", gEngine.NormalizePlayerInput(gEngine.Buf).ToString());
 
-						CurrInputStr = string.Format(" {0} ", Globals.Buf.ToString());
+						CurrInputStr = string.Format(" {0} ", gEngine.Buf.ToString());
 
-						Globals.Buf.SetFormat("{0}", gEngine.ReplacePrepositions(Globals.Buf).ToString());
+						gEngine.Buf.SetFormat("{0}", gEngine.ReplacePrepositions(gEngine.Buf).ToString());
 
 						if (ShouldStripTrailingPunctuation())
 						{
-							Globals.Buf.SetFormat("{0}", Globals.Buf.TrimEndPunctuationMinusUniqueChars().ToString().Trim());
+							gEngine.Buf.SetFormat("{0}", gEngine.Buf.TrimEndPunctuationMinusUniqueChars().ToString().Trim());
 						}
 
-						Tokens = Globals.Buf.ToString().Split(new char[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
+						Tokens = gEngine.Buf.ToString().Split(new char[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
 					}
 					else
 					{
@@ -1637,19 +1647,19 @@ namespace EamonRT.Game.Parsing
 
 						var objNameTokens = ObjData.Name.IndexOf(" , ") >= 0 ? ObjData.Name.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries) : new string[] { ObjData.Name };
 
-						objNameTokens = objNameTokens.Where(objNameToken => !string.IsNullOrWhiteSpace(objNameToken) && Array.FindIndex(Constants.CommandSepTokens, token => !Char.IsPunctuation(token[0]) ? objNameToken.IndexOf(" " + token + " ") >= 0 : token[0] != ',' && objNameToken.IndexOf(token) >= 0) < 0).ToArray();
+						objNameTokens = objNameTokens.Where(objNameToken => !string.IsNullOrWhiteSpace(objNameToken) && Array.FindIndex(gEngine.CommandSepTokens, token => !Char.IsPunctuation(token[0]) ? objNameToken.IndexOf(" " + token + " ") >= 0 : token[0] != ',' && objNameToken.IndexOf(token) >= 0) < 0).ToArray();
 
 						for (var i = 0; i < objNameTokens.Length; i++)
 						{
 							var mySeen = false;
 
-							Globals.Buf.SetFormat("{0}", objNameTokens[i].Trim());
+							gEngine.Buf.SetFormat("{0}", objNameTokens[i].Trim());
 
-							rc = gEngine.StripPrepsAndArticles(Globals.Buf, ref mySeen);
+							rc = gEngine.StripPrepsAndArticles(gEngine.Buf, ref mySeen);
 
 							Debug.Assert(gEngine.IsSuccess(rc));
 
-							objNameTokens[i] = string.Format(" {0} ", Globals.Buf.ToString().Trim());
+							objNameTokens[i] = string.Format(" {0} ", gEngine.Buf.ToString().Trim());
 						}
 
 						ObjData.Name = string.Join(",", objNameTokens).Trim();
@@ -1706,25 +1716,25 @@ namespace EamonRT.Game.Parsing
 
 				if (InputBuf.Length > 0 && ActorMonster.IsCharacterMonster())
 				{
-					if (Environment.NewLine.Length == 1 && Globals.CursorPosition.Y > -1 && Globals.CursorPosition.Y + 1 >= gOut.GetBufferHeight())
+					if (Environment.NewLine.Length == 1 && gEngine.CursorPosition.Y > -1 && gEngine.CursorPosition.Y + 1 >= gOut.GetBufferHeight())
 					{
-						Globals.CursorPosition.Y--;
+						gEngine.CursorPosition.Y--;
 					}
 
-					gOut.SetCursorPosition(Globals.CursorPosition);
+					gOut.SetCursorPosition(gEngine.CursorPosition);
 
-					if (Globals.LineWrapUserInput)
+					if (gEngine.LineWrapUserInput)
 					{
-						gEngine.LineWrap(InputBuf.ToString(), Globals.Buf, Globals.CommandPrompt.Length);
+						gEngine.LineWrap(InputBuf.ToString(), gEngine.Buf, gEngine.CommandPrompt.Length);
 					}
 					else
 					{
-						Globals.Buf.SetFormat("{0}", InputBuf.ToString());
+						gEngine.Buf.SetFormat("{0}", InputBuf.ToString());
 					}
 
 					gOut.WordWrap = false;
 
-					gOut.WriteLine(Globals.Buf);
+					gOut.WriteLine(gEngine.Buf);
 
 					gOut.WordWrap = true;
 				}
@@ -1748,9 +1758,9 @@ namespace EamonRT.Game.Parsing
 				{
 					if (Tokens.Length == 1)
 					{
-						Globals.Buf.SetFormat("{0}", Tokens[CurrToken]);
+						gEngine.Buf.SetFormat("{0}", Tokens[CurrToken]);
 
-						Tokens[CurrToken] = Globals.Buf.TrimEndPunctuationMinusUniqueChars().ToString().Trim();
+						Tokens[CurrToken] = gEngine.Buf.TrimEndPunctuationMinusUniqueChars().ToString().Trim();
 					}
 
 					if (Tokens[CurrToken].Length == 0)
@@ -1791,9 +1801,9 @@ namespace EamonRT.Game.Parsing
 
 						if (ShouldStripTrailingPunctuation() && Tokens.Length > 1)
 						{
-							Globals.Buf.SetFormat("{0}", Tokens[Tokens.Length - 1]);
+							gEngine.Buf.SetFormat("{0}", Tokens[Tokens.Length - 1]);
 
-							Tokens[Tokens.Length - 1] = Globals.Buf.TrimEndPunctuationMinusUniqueChars().ToString().Trim();
+							Tokens[Tokens.Length - 1] = gEngine.Buf.TrimEndPunctuationMinusUniqueChars().ToString().Trim();
 						}
 
 						if (ActorMonster.IsCharacterMonster())
@@ -1824,7 +1834,7 @@ namespace EamonRT.Game.Parsing
 
 						if (NextState == null)
 						{
-							NextState = Globals.CreateInstance<IStartState>();
+							NextState = gEngine.CreateInstance<IStartState>();
 						}
 					}
 				}
@@ -1846,7 +1856,7 @@ namespace EamonRT.Game.Parsing
 					gSentenceParser.ParserInputStrList.Add(NewCommandStr);
 				}
 
-				NextState = Globals.CreateInstance<IGetPlayerInputState>(x =>
+				NextState = gEngine.CreateInstance<IGetPlayerInputState>(x =>
 				{
 					x.RestartCommand = true;
 				});
@@ -1857,13 +1867,13 @@ namespace EamonRT.Game.Parsing
 
 				NextState.PrintDontFollowYou02();
 
-				NextState = Globals.CreateInstance<IStartState>();
+				NextState = gEngine.CreateInstance<IStartState>();
 			}
 		}
 
 		public CommandParser()
 		{
-			InputBuf = new StringBuilder(Constants.BufSize);
+			InputBuf = new StringBuilder(gEngine.BufSize);
 
 			LastInputStr = "";
 

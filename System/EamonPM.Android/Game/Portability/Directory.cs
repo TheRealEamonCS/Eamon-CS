@@ -5,7 +5,7 @@
 
 using System.Linq;
 using Eamon.Framework.Portability;
-using static Eamon.Game.Plugin.PluginContext;
+using static Eamon.Game.Plugin.Globals;
 
 namespace EamonPM.Game.Portability
 {
@@ -37,8 +37,8 @@ namespace EamonPM.Game.Portability
 					if (parentName.Length > 0 &&
 							directoryInfo.Name.Equals(parentName) &&
 							directoryInfo.Parent.FullName.Contains("EamonPM.Android") &&
-							System.IO.Directory.Exists(ClassMappings.Path.Combine(directoryInfo.Parent.FullName, "Adventures")) &&
-							System.IO.Directory.Exists(ClassMappings.Path.Combine(directoryInfo.Parent.FullName, "System")))
+							System.IO.Directory.Exists(gEngine.Path.Combine(directoryInfo.Parent.FullName, "Adventures")) &&
+							System.IO.Directory.Exists(gEngine.Path.Combine(directoryInfo.Parent.FullName, "System")))
 					{
 						result = true;
 
@@ -56,7 +56,7 @@ namespace EamonPM.Game.Portability
 		{
 			if (!string.IsNullOrWhiteSpace(path))
 			{
-				var fullPath = ClassMappings.Path.GetFullPath(NormalizePath(path));
+				var fullPath = gEngine.Path.GetFullPath(NormalizePath(path));
 
 				var parentName = "";
 
@@ -80,7 +80,7 @@ namespace EamonPM.Game.Portability
 
 					if (!System.IO.Directory.EnumerateFileSystemEntries(directory).Any())
 					{
-						var fullPath = ClassMappings.Path.GetFullPath(directory);
+						var fullPath = gEngine.Path.GetFullPath(directory);
 
 						var parentName = "";
 
@@ -123,7 +123,7 @@ namespace EamonPM.Game.Portability
 		/// <returns></returns>
 		public virtual string NormalizePath(string path)
 		{
-			return path != null ? path.Replace(ClassMappings.Path.DirectorySeparatorChar == '\\' ? '/' : '\\', ClassMappings.Path.DirectorySeparatorChar) : null;
+			return path != null ? path.Replace(gEngine.Path.DirectorySeparatorChar == '\\' ? '/' : '\\', gEngine.Path.DirectorySeparatorChar) : null;
 		}
 	}
 }

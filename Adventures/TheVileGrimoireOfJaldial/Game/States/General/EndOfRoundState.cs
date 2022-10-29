@@ -6,7 +6,7 @@
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
-using static TheVileGrimoireOfJaldial.Game.Plugin.PluginContext;
+using static TheVileGrimoireOfJaldial.Game.Plugin.Globals;
 
 namespace TheVileGrimoireOfJaldial.Game.States
 {
@@ -19,13 +19,13 @@ namespace TheVileGrimoireOfJaldial.Game.States
 
 			if (eventType == EventType.AfterEndRound)
 			{
-				Globals.CarrionCrawlerFlails = false;
+				gEngine.CarrionCrawlerFlails = false;
 
-				Globals.InitiativeMonsterUid = 0;
+				gEngine.InitiativeMonsterUid = 0;
 
-				if (Globals.EncounterSurprises)
+				if (gEngine.EncounterSurprises)
 				{
-					NextState = Globals.CreateInstance<IPrintPlayerRoomState>();
+					NextState = gEngine.CreateInstance<IPrintPlayerRoomState>();
 				}
 			}
 		}

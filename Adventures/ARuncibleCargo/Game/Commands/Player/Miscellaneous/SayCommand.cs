@@ -10,7 +10,7 @@ using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
-using static ARuncibleCargo.Game.Plugin.PluginContext;
+using static ARuncibleCargo.Game.Plugin.Globals;
 
 namespace ARuncibleCargo.Game.Commands
 {
@@ -94,7 +94,7 @@ namespace ARuncibleCargo.Game.Commands
 					{
 						gEngine.PrintEffectDesc(107);
 
-						NextState = Globals.CreateInstance<IStartState>();
+						NextState = gEngine.CreateInstance<IStartState>();
 
 						GotoCleanup = true;
 
@@ -201,7 +201,7 @@ namespace ARuncibleCargo.Game.Commands
 					{
 						gEngine.PrintEffectDesc(106);
 
-						NextState = Globals.CreateInstance<IStartState>();
+						NextState = gEngine.CreateInstance<IStartState>();
 
 						GotoCleanup = true;
 
@@ -217,7 +217,7 @@ namespace ARuncibleCargo.Game.Commands
 					{
 						gEngine.PrintEffectDesc(141);
 
-						NextState = Globals.CreateInstance<IStartState>();
+						NextState = gEngine.CreateInstance<IStartState>();
 
 						GotoCleanup = true;
 
@@ -228,19 +228,19 @@ namespace ARuncibleCargo.Game.Commands
 
 					gOut.Print("You begin your journey home...");
 
-					gOut.Print("{0}", Globals.LineSep);
+					gOut.Print("{0}", gEngine.LineSep);
 
 					gEngine.PrintEffectDesc(145);
 
-					Globals.In.KeyPress(Globals.Buf);
+					gEngine.In.KeyPress(gEngine.Buf);
 
 					gGameState.Die = 0;
 
-					Globals.ExitType = ExitType.FinishAdventure;
+					gEngine.ExitType = ExitType.FinishAdventure;
 
-					Globals.MainLoop.ShouldShutdown = true;
+					gEngine.MainLoop.ShouldShutdown = true;
 
-					NextState = Globals.CreateInstance<IStartState>();
+					NextState = gEngine.CreateInstance<IStartState>();
 
 					GotoCleanup = true;
 
@@ -261,7 +261,7 @@ namespace ARuncibleCargo.Game.Commands
 			{
 				PrintEnemiesNearby();
 
-				NextState = Globals.CreateInstance<IStartState>();
+				NextState = gEngine.CreateInstance<IStartState>();
 
 				GotoCleanup = true;
 
@@ -285,7 +285,7 @@ namespace ARuncibleCargo.Game.Commands
 
 			gEngine.TransportPlayerBetweenRooms(ActorRoom, newRoom, effect);
 
-			NextState = Globals.CreateInstance<IAfterPlayerMoveState>();
+			NextState = gEngine.CreateInstance<IAfterPlayerMoveState>();
 
 			GotoCleanup = true;
 		}

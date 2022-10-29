@@ -22,11 +22,7 @@ namespace RiddlesOfTheDuergarKingdom
 		{
 			ProgramName = "RiddlesOfTheDuergarKingdom";
 
-			ConstantsType = typeof(Game.Plugin.PluginConstants);
-
-			ClassMappingsType = typeof(Game.Plugin.PluginClassMappings);
-
-			GlobalsType = typeof(Game.Plugin.PluginGlobals);
+			EngineType = typeof(Game.Plugin.Engine);
 		}
 	}
 }

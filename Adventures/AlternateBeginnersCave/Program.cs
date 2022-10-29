@@ -24,7 +24,7 @@ Originally based upon Eamon Deluxe's ALTCAVE.BAS:
 */
 
 using Eamon.Framework.Portability;
-using static AlternateBeginnersCave.Game.Plugin.PluginContext;
+using static AlternateBeginnersCave.Game.Plugin.Globals;
 
 namespace AlternateBeginnersCave
 {
@@ -34,11 +34,7 @@ namespace AlternateBeginnersCave
 		{
 			ProgramName = "AlternateBeginnersCave";
 
-			ConstantsType = typeof(Game.Plugin.PluginConstants);
-
-			ClassMappingsType = typeof(Game.Plugin.PluginClassMappings);
-
-			GlobalsType = typeof(Game.Plugin.PluginGlobals);
+			EngineType = typeof(Game.Plugin.Engine);
 		}
 	}
 }

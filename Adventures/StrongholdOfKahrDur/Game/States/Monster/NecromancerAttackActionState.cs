@@ -9,7 +9,7 @@ using Eamon.Game.Attributes;
 using Eamon.Game.Utilities;
 using EamonRT.Framework.Components;
 using EamonRT.Framework.States;
-using static StrongholdOfKahrDur.Game.Plugin.PluginContext;
+using static StrongholdOfKahrDur.Game.Plugin.Globals;
 
 namespace StrongholdOfKahrDur.Game.States
 {
@@ -18,7 +18,7 @@ namespace StrongholdOfKahrDur.Game.States
 	{
 		public override void Execute()
 		{
-			var necromancerMonster = gMDB[Globals.LoopMonsterUid];
+			var necromancerMonster = gMDB[gEngine.LoopMonsterUid];
 
 			Debug.Assert(necromancerMonster != null);
 
@@ -33,7 +33,7 @@ namespace StrongholdOfKahrDur.Game.States
 				goto Cleanup;
 			}
 
-			var combatComponent = Globals.CreateInstance<ICombatComponent>(x =>
+			var combatComponent = gEngine.CreateInstance<ICombatComponent>(x =>
 			{
 				x.SetNextStateFunc = s => NextState = s;
 
@@ -120,16 +120,16 @@ namespace StrongholdOfKahrDur.Game.States
 					break;
 			}
 
-			Globals.Thread.Sleep(gGameState.PauseCombatMs);
+			gEngine.Thread.Sleep(gGameState.PauseCombatMs);
 
 		Cleanup:
 
 			if (NextState == null)
 			{
-				NextState = Globals.CreateInstance<IMonsterAttackLoopIncrementState>();
+				NextState = gEngine.CreateInstance<IMonsterAttackLoopIncrementState>();
 			}
 
-			Globals.NextState = NextState;
+			gEngine.NextState = NextState;
 		}
 
 		public NecromancerAttackActionState()

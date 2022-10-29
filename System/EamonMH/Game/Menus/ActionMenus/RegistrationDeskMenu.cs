@@ -18,7 +18,7 @@ using Eamon.Game.Menus;
 using Eamon.Game.Utilities;
 using EamonMH.Framework.Menus.ActionMenus;
 using EamonMH.Framework.Menus.HierarchicalMenus;
-using static EamonMH.Game.Plugin.PluginContext;
+using static EamonMH.Game.Plugin.Globals;
 
 namespace EamonMH.Game.Menus.ActionMenus
 {
@@ -42,7 +42,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 		/// <summary></summary>
 		public virtual void BadCharacterName()
 		{
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 
 			NumChances--;
 
@@ -59,19 +59,19 @@ namespace EamonMH.Game.Menus.ActionMenus
 		{
 			RetCode rc;
 
-			var filesets = Globals.Database.FilesetTable.Records;
+			var filesets = gEngine.Database.FilesetTable.Records;
 
 			foreach (var fileset in filesets)
 			{
-				rc = Globals.PushDatabase();
+				rc = gEngine.PushDatabase();
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
 				if (!string.IsNullOrWhiteSpace(fileset.FilesetFileName) && !fileset.FilesetFileName.Equals("NONE", StringComparison.OrdinalIgnoreCase))
 				{
-					var fsfn = Globals.Path.Combine(fileset.WorkDir, fileset.FilesetFileName);
+					var fsfn = gEngine.Path.Combine(fileset.WorkDir, fileset.FilesetFileName);
 
-					rc = Globals.Database.LoadFilesets(fsfn, printOutput: false);
+					rc = gEngine.Database.LoadFilesets(fsfn, printOutput: false);
 
 					Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -79,15 +79,15 @@ namespace EamonMH.Game.Menus.ActionMenus
 				}
 				else
 				{
-					var chrfn = Globals.Path.Combine(fileset.WorkDir, "FRESHMEAT.DAT");
+					var chrfn = gEngine.Path.Combine(fileset.WorkDir, "FRESHMEAT.DAT");
 
-					if (Globals.File.Exists(chrfn))
+					if (gEngine.File.Exists(chrfn))
 					{
-						rc = Globals.Database.LoadCharacters(chrfn, printOutput: false);
+						rc = gEngine.Database.LoadCharacters(chrfn, printOutput: false);
 
 						Debug.Assert(gEngine.IsSuccess(rc));
 
-						var character = Globals.Database.CharacterTable.Records.FirstOrDefault();
+						var character = gEngine.Database.CharacterTable.Records.FirstOrDefault();
 
 						if (character != null && character.Uid == gCharacter.Uid && character.Name.Equals(gCharacter.Name, StringComparison.OrdinalIgnoreCase))
 						{
@@ -95,14 +95,14 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 							gCharacter.Status = Status.Alive;
 
-							Globals.CharactersModified = true;
+							gEngine.CharactersModified = true;
 
-							Globals.TransferProtocol.RecallCharacterFromAdventure(fileset.WorkDir, Globals.FilePrefix, fileset.PluginFileName);
+							gEngine.TransferProtocol.RecallCharacterFromAdventure(fileset.WorkDir, gEngine.FilePrefix, fileset.PluginFileName);
 						}
 					}
 				}
 
-				rc = Globals.PopDatabase();
+				rc = gEngine.PopDatabase();
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -121,13 +121,13 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 			Debug.Assert(character != null);
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 
 			gOut.Print("He hits his forehead and says, \"Ah, ye must be new here!  Well, wait just a minute and I'll bring someone out to take care of ye.\"");
 
 			gOut.Print("The Irishman says, \"First I must know whether ye be male or female.  Which are ye?\"");
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 
 			gOut.Write("{0}You give him your gender ({1}=Male, {2}=Female): ",
 				Environment.NewLine,
@@ -136,24 +136,24 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 			Buf.Clear();
 
-			rc = Globals.In.ReadField(Buf, Constants.BufSize02, null, ' ', '\0', false, null, null, gEngine.IsChar0Or1, gEngine.IsChar0Or1);
+			rc = gEngine.In.ReadField(Buf, gEngine.BufSize02, null, ' ', '\0', false, null, null, gEngine.IsChar0Or1, gEngine.IsChar0Or1);
 
 			Debug.Assert(gEngine.IsSuccess(rc));
 
 			character.Gender = (Gender)Convert.ToInt64(Buf.Trim().ToString());
 
-			var helper = Globals.CreateInstance<ICharacterHelper>(x =>
+			var helper = gEngine.CreateInstance<ICharacterHelper>(x =>
 			{
 				x.Record = character;
 			});
 
 			Debug.Assert(helper.ValidateField("Gender"));
 
-			Globals.Thread.Sleep(150);
+			gEngine.Thread.Sleep(150);
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 
-			character.Uid = Globals.Database.GetCharacterUid();
+			character.Uid = gEngine.Database.GetCharacterUid();
 
 			character.IsUidRecycled = true;
 
@@ -165,11 +165,11 @@ namespace EamonMH.Game.Menus.ActionMenus
 			{
 				var wv = weaponValues[i];
 
-				var weapon = gEngine.GetWeapons(wv);
+				var weapon = gEngine.GetWeapon(wv);
 
 				Debug.Assert(weapon != null);
 
-				character.SetWeaponAbilities(wv, Convert.ToInt64(weapon.EmptyVal));
+				character.SetWeaponAbility(wv, Convert.ToInt64(weapon.EmptyVal));
 			}
 
 			character.HeldGold = 200;
@@ -184,7 +184,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 				{
 					var sv = statValues[i];
 
-					var stat = gEngine.GetStats(sv);
+					var stat = gEngine.GetStat(sv);
 
 					Debug.Assert(stat != null);
 
@@ -193,29 +193,29 @@ namespace EamonMH.Game.Menus.ActionMenus
 					gOut.Write("{0}{1,27}{2}{3}",
 						Environment.NewLine,
 						string.Format("{0}: ", stat.Name),
-						character.GetStats(sv),
+						character.GetStat(sv),
 						i == statValues.Count - 1 ? string.Format("\"{0}", Environment.NewLine) : "");
 				}
 
-				if (character.GetStats(Stat.Intellect) + character.GetStats(Stat.Hardiness) + character.GetStats(Stat.Agility) < 39 || character.Stats.Sum() < 52)
+				if (character.GetStat(Stat.Intellect) + character.GetStat(Stat.Hardiness) + character.GetStat(Stat.Agility) < 39 || character.Stats.Sum() < 52)
 				{
 					gOut.Print("\"You are such a poor excuse for an adventurer that we will allow you to commit suicide.\"");
 
-					gOut.Print("{0}", Globals.LineSep);
+					gOut.Print("{0}", gEngine.LineSep);
 
 					gOut.Write("{0}Press Y to commit suicide or N to continue: ", Environment.NewLine);
 
 					Buf.Clear();
 
-					rc = Globals.In.ReadField(Buf, Constants.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, gEngine.IsCharYOrN);
+					rc = gEngine.In.ReadField(Buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, gEngine.IsCharYOrN);
 
 					Debug.Assert(gEngine.IsSuccess(rc));
 
-					Globals.Thread.Sleep(150);
+					gEngine.Thread.Sleep(150);
 
 					if (Buf.Length > 0 && Buf[0] == 'Y')
 					{
-						gOut.Print("{0}", Globals.LineSep);
+						gOut.Print("{0}", gEngine.LineSep);
 
 						gOut.Print("\"We resurrect you again and your prime attributes are--");
 					}
@@ -230,25 +230,25 @@ namespace EamonMH.Game.Menus.ActionMenus
 				}
 			}
 
-			rc = Globals.Database.AddCharacter(character);
+			rc = gEngine.Database.AddCharacter(character);
 
 			Debug.Assert(gEngine.IsSuccess(rc));
 
-			Globals.CharactersModified = true;
+			gEngine.CharactersModified = true;
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 
 			gOut.Write("{0}Press R to read instructions or T to give them back: ", Environment.NewLine);
 
 			Buf.Clear();
 
-			rc = Globals.In.ReadField(Buf, Constants.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharROrT, gEngine.IsCharROrT);
+			rc = gEngine.In.ReadField(Buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharROrT, gEngine.IsCharROrT);
 
 			Debug.Assert(gEngine.IsSuccess(rc));
 
-			Globals.Thread.Sleep(150);
+			gEngine.Thread.Sleep(150);
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 
 			if (Buf.Length > 0 && Buf[0] == 'R')
 			{
@@ -270,9 +270,9 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 				gOut.Print("Every time you score a hit in battle, your ability in the weapon class may go up by 2%, if a random number from 1-100 is less than your chance to miss!");
 
-				Globals.In.KeyPress(Buf);
+				gEngine.In.KeyPress(Buf);
 
-				gOut.Print("{0}", Globals.LineSep);
+				gOut.Print("{0}", gEngine.LineSep);
 
 				gOut.Print("There are four armor types and you may also carry a shield if you do not use a two-handed weapon.  These protections will absorb hits placed upon you (almost always!) but they lower your chance to hit.  The protections are--");
 
@@ -292,35 +292,35 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 				gOut.Print("You will develop an Armor Expertise, which will go up when you hit a blow wearing armor and your expertise is less than the armor you are wearing.  No matter how high your Armor Expertise is, however, the net effect of armor will never increase your chance to hit.");
 
-				Globals.In.KeyPress(Buf);
+				gEngine.In.KeyPress(Buf);
 
-				gOut.Print("{0}", Globals.LineSep);
+				gOut.Print("{0}", gEngine.LineSep);
 
 				gOut.Write("{0}You can carry weight up to ten times your hardiness, or, {1} Gronds.  (A measure of weight, one Grond = 10 Dos.){0}{0}Additionally, your hardiness tells how many points of damage you can survive.  Therefore, you can be hit with {2} 1-point blows before you die.{0}{0}You will not be told how many blows you have taken.  You will be merely told such things as--{0}{0}   \"Wow!  That one hurt!\"{0}or \"You don't feel very well.\"{0}{0}Your charisma ({3}) affects how the citizens of Eamon react to you.  You affect a monster's friendliness rating by your charisma less ten, difference times two ({4}%).{0}{0}You start off with 200 gold pieces, which you will want to spend on supplies for your first adventure.  You will get a lower price for items if your charisma is high.{0}",
 					Environment.NewLine,
 					character.GetWeightCarryableGronds(),
-					character.GetStats(Stat.Hardiness),
-					character.GetStats(Stat.Charisma),
+					character.GetStat(Stat.Hardiness),
+					character.GetStat(Stat.Charisma),
 					character.GetCharmMonsterPct());
 
-				Globals.In.KeyPress(Buf);
+				gEngine.In.KeyPress(Buf);
 
-				gOut.Print("{0}", Globals.LineSep);
+				gOut.Print("{0}", gEngine.LineSep);
 
 				gOut.Write("{0}After you begin to accumulate wealth, you may want to put some of your money into the bank, where it cannot be stolen.  However it is a good idea to always carry some gold with you for use in bargaining and ransom situations.{0}{0}You should also hire a Wizard to teach you some magic spells.  Your intellect ({1}) affects your ability to learn both skills and spells.  There are four spells you can learn--{0}{0}Blast: Throw a magical blast at your enemies to inflict damage.{0}Heal : Remove damage from your body.{0}Speed: Double your agility for a short time.{0}Power: This unpredictable spell is different in each adventure.{0}{0}Other types of spells may be available in various adventures, and items may have special properties.  However, these will only work in the adventure where they were found.  Thus it is best (and you have no choice but to) sell all items found in adventures except for weapons and armor.{0}",
 					Environment.NewLine,
-					character.GetStats(Stat.Intellect));
+					character.GetStat(Stat.Intellect));
 
-				Globals.In.KeyPress(Buf);
+				gEngine.In.KeyPress(Buf);
 
-				gOut.Print("{0}", Globals.LineSep);
+				gOut.Print("{0}", gEngine.LineSep);
 			}
 
 			gOut.Write("{0}The man behind the desk takes back the instructions and says, \"It is now time for you to start your life.\"  He makes an odd sign with his hand and says, \"Live long and prosper.\"{0}{0}You now wander into the Main Hall...{0}", Environment.NewLine);
 
-			Globals.In.KeyPress(Buf);
+			gEngine.In.KeyPress(Buf);
 
-			Globals.Character = character;
+			gEngine.Character = character;
 		}
 
 		/// <summary></summary>
@@ -328,13 +328,13 @@ namespace EamonMH.Game.Menus.ActionMenus
 		{
 			RetCode rc;
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 
 			gOut.Print("You are greeted there by a burly Irishman who looks at you with a scowl and asks you, \"What's yer name?\"");
 
-			var character = Globals.CreateInstance<ICharacter>();
+			var character = gEngine.CreateInstance<ICharacter>();
 
-			var menu = Globals.CreateInstance<IMainHallMenu>();
+			var menu = gEngine.CreateInstance<IMainHallMenu>();
 
 			var effect = null as IEffect;
 
@@ -342,13 +342,13 @@ namespace EamonMH.Game.Menus.ActionMenus
 			{
 				Rtio = null;
 
-				gOut.Print("{0}", Globals.LineSep);
+				gOut.Print("{0}", gEngine.LineSep);
 
 				gOut.Write("{0}You give him your name (type it in now): ", Environment.NewLine);
 
 				Buf.Clear();
 
-				rc = Globals.In.ReadField(Buf, Constants.CharNameLen, null, ' ', '\0', false, null, null, gEngine.IsCharAnyButDquoteCommaColon, null);
+				rc = gEngine.In.ReadField(Buf, gEngine.CharNameLen, null, ' ', '\0', false, null, null, gEngine.IsCharAnyButDquoteCommaColon, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -356,49 +356,49 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 				character.Name = Buf.ToString();
 
-				var helper = Globals.CreateInstance<ICharacterHelper>(x =>
+				var helper = gEngine.CreateInstance<ICharacterHelper>(x =>
 				{
 					x.Record = character;
 				});
 
-				Globals.Thread.Sleep(150);
+				gEngine.Thread.Sleep(150);
 
 				if (helper.ValidateField("Name"))
 				{
-					gOut.Print("{0}", Globals.LineSep);
+					gOut.Print("{0}", gEngine.LineSep);
 
 					if (effect == null)
 					{
-						var effectUid = gEngine.RollDice(1, Globals.Database.GetEffectsCount(), 0);
+						var effectUid = gEngine.RollDice(1, gEngine.Database.GetEffectCount(), 0);
 
 						effect = gEDB[effectUid];
 					}
 
 					gOut.Print("He starts looking through his book, while muttering something about {0}", effect != null ? effect.Desc : "not having enough snappy comments.");
 
-					Globals.Character = Globals.Database.CharacterTable.Records.FirstOrDefault(c => c.Name.Equals(character.Name, StringComparison.OrdinalIgnoreCase));
+					gEngine.Character = gEngine.Database.CharacterTable.Records.FirstOrDefault(c => c.Name.Equals(character.Name, StringComparison.OrdinalIgnoreCase));
 
 					if (gCharacter == null)
 					{
 						gOut.Print("He eventually looks at you and says, \"Yer name's na in here.  Have ye given it to me aright?\"");
 
-						gOut.Print("{0}", Globals.LineSep);
+						gOut.Print("{0}", gEngine.LineSep);
 
 						gOut.Write("{0}Press Y for yes or N for no: ", Environment.NewLine);
 
 						Buf.Clear();
 
-						rc = Globals.In.ReadField(Buf, Constants.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, gEngine.IsCharYOrN);
+						rc = gEngine.In.ReadField(Buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, gEngine.IsCharYOrN);
 
 						Debug.Assert(gEngine.IsSuccess(rc));
 
-						Globals.Thread.Sleep(150);
+						gEngine.Thread.Sleep(150);
 
 						if (Buf.Length > 0 && Buf[0] == 'Y')
 						{
 							character.Name = gEngine.Capitalize(character.Name);
 
-							Globals.CharacterName = character.Name;
+							gEngine.CharacterName = character.Name;
 
 							CreateCharacter(character);
 
@@ -427,13 +427,13 @@ namespace EamonMH.Game.Menus.ActionMenus
 							Rtio = gEngine.GetMerchantRtio(c2);
 						}
 
-						Globals.CharacterName = gCharacter.Name;
+						gEngine.CharacterName = gCharacter.Name;
 
 						if (gCharacter.Status == Status.Alive)
 						{
 							gOut.Print("Finally he looks up and says, \"Ah, here ye be.  Well, go and have fun in the hall.\"");
 
-							Globals.In.KeyPress(Buf);
+							gEngine.In.KeyPress(Buf);
 
 							menu.Execute();
 
@@ -445,21 +445,21 @@ namespace EamonMH.Game.Menus.ActionMenus
 								Environment.NewLine,
 								gCharacter.Name);
 
-							gOut.Print("{0}", Globals.LineSep);
+							gOut.Print("{0}", gEngine.LineSep);
 
 							gOut.Write("{0}Press Y for yes or N for no: ", Environment.NewLine);
 
 							Buf.Clear();
 
-							rc = Globals.In.ReadField(Buf, Constants.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, gEngine.IsCharYOrN);
+							rc = gEngine.In.ReadField(Buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, gEngine.IsCharYOrN);
 
 							Debug.Assert(gEngine.IsSuccess(rc));
 
-							Globals.Thread.Sleep(150);
+							gEngine.Thread.Sleep(150);
 
 							if (Buf.Length > 0 && Buf[0] == 'Y')
 							{
-								gOut.Print("{0}", Globals.LineSep);
+								gOut.Print("{0}", gEngine.LineSep);
 
 								AdventureName = "";
 
@@ -467,7 +467,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 								if (gCharacter.Status != Status.Adventuring)
 								{
-									var ap = gEngine.GetMerchantAskPrice(Constants.RecallPrice, (double)Rtio);
+									var ap = gEngine.GetMerchantAskPrice(gEngine.RecallPrice, (double)Rtio);
 
 									gOut.Print("Pointing to an entry in his registry, the Irishman exclaims, \"Says 'ere the wizard found ye in {0} and charged {1} gold coin{2} for his services{3}!\"",
 										AdventureName.Length > 0 ? AdventureName : gEngine.UnknownName,
@@ -479,11 +479,11 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 									gCharacter.HeldGold -= ap;
 
-									Globals.CharactersModified = true;
+									gEngine.CharactersModified = true;
 
 									gOut.Print("Finally he looks up and says, \"Welcome back from yer adventure.  Now go and have fun in the hall.\"");
 
-									Globals.In.KeyPress(Buf);
+									gEngine.In.KeyPress(Buf);
 
 									menu.Execute();
 
@@ -517,7 +517,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 				if (NumChances == 0)
 				{
-					Globals.In.KeyPress(Buf);
+					gEngine.In.KeyPress(Buf);
 
 					goto Cleanup;
 				}
@@ -530,7 +530,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 		public RegistrationDeskMenu()
 		{
-			Buf = Globals.Buf;
+			Buf = gEngine.Buf;
 
 			AdventureName = "";
 

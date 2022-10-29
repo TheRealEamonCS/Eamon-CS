@@ -9,7 +9,7 @@ using Eamon.Framework;
 using Eamon.Framework.Primitive.Classes;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
-using static RiddlesOfTheDuergarKingdom.Game.Plugin.PluginContext;
+using static RiddlesOfTheDuergarKingdom.Game.Plugin.Globals;
 
 namespace RiddlesOfTheDuergarKingdom.Game
 {
@@ -22,7 +22,7 @@ namespace RiddlesOfTheDuergarKingdom.Game
 			{
 				var result = base.Location;
 
-				if (Globals.EnableGameOverrides && gEngine != null && gGameState != null)
+				if (gEngine.EnableMutateProperties)
 				{
 					switch (Uid)
 					{
@@ -263,7 +263,7 @@ namespace RiddlesOfTheDuergarKingdom.Game
 
 			if (artifactUids.Contains(Uid))
 			{
-				ac = GetCategories(0);
+				ac = GetCategory(0);
 
 				return true;
 			}

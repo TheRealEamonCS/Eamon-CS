@@ -14,7 +14,7 @@ using Eamon.Game.Extensions;
 using EamonRT.Framework.Components;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
-using static WrenholdsSecretVigil.Game.Plugin.PluginContext;
+using static WrenholdsSecretVigil.Game.Plugin.Globals;
 
 namespace WrenholdsSecretVigil.Game.States
 {
@@ -43,17 +43,17 @@ namespace WrenholdsSecretVigil.Game.States
 
 				// Auto-reveal secret doors if necessary
 
-				if (gGameState.R2 == 5 && gGameState.Ro == 8 && room5.GetDirs(Direction.South) == -8)
+				if (gGameState.R2 == 5 && gGameState.Ro == 8 && room5.GetDir(Direction.South) == -8)
 				{
-					room5.SetDirs(Direction.South, 8);
+					room5.SetDir(Direction.South, 8);
 				}
-				else if (gGameState.R2 == 40 && gGameState.Ro == 41 && room40.GetDirs(Direction.South) == -41)
+				else if (gGameState.R2 == 40 && gGameState.Ro == 41 && room40.GetDir(Direction.South) == -41)
 				{
-					room40.SetDirs(Direction.South, 41);
+					room40.SetDir(Direction.South, 41);
 				}
-				else if (gGameState.R2 == 45 && gGameState.Ro == 43 && room45.GetDirs(Direction.East) == -43)
+				else if (gGameState.R2 == 45 && gGameState.Ro == 43 && room45.GetDir(Direction.East) == -43)
 				{
-					room45.SetDirs(Direction.East, 43);
+					room45.SetDir(Direction.East, 43);
 				}
 
 				// Falling down a drop-off (injury)
@@ -62,7 +62,7 @@ namespace WrenholdsSecretVigil.Game.States
 				{
 					gEngine.PrintEffectDesc(24);
 
-					var combatComponent = Globals.CreateInstance<ICombatComponent>(x =>
+					var combatComponent = gEngine.CreateInstance<ICombatComponent>(x =>
 					{
 						x.SetNextStateFunc = s => NextState = s;
 
@@ -102,7 +102,7 @@ namespace WrenholdsSecretVigil.Game.States
 
 					gGameState.R2 = 36;
 
-					NextState = Globals.CreateInstance<IAfterPlayerMoveState>();
+					NextState = gEngine.CreateInstance<IAfterPlayerMoveState>();
 
 					GotoCleanup = true;
 				}
@@ -115,7 +115,7 @@ namespace WrenholdsSecretVigil.Game.States
 
 					gGameState.Die = 1;
 
-					NextState = Globals.CreateInstance<IPlayerDeadState>(x =>
+					NextState = gEngine.CreateInstance<IPlayerDeadState>(x =>
 					{
 						x.PrintLineSep = true;
 					});
@@ -149,17 +149,17 @@ namespace WrenholdsSecretVigil.Game.States
 
 					GotoCleanup = true;
 				}
-				else if (gGameState.R2 == Constants.DirectionExit)
+				else if (gGameState.R2 == gEngine.DirectionExit)
 				{
 					gOut.Write("{0}Leave this adventure (Y/N): ", Environment.NewLine);
 
-					Globals.Buf.Clear();
+					gEngine.Buf.Clear();
 
-					rc = Globals.In.ReadField(Globals.Buf, Constants.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, null);
+					rc = gEngine.In.ReadField(gEngine.Buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, null);
 
 					Debug.Assert(gEngine.IsSuccess(rc));
 
-					if (Globals.Buf.Length > 0 && Globals.Buf[0] == 'Y')
+					if (gEngine.Buf.Length > 0 && gEngine.Buf[0] == 'Y')
 					{
 						var lifeOrbArtifact = gADB[4];
 
@@ -171,7 +171,7 @@ namespace WrenholdsSecretVigil.Game.States
 
 						lifeOrbArtifact.SetInLimbo();
 
-						gOut.Print("{0}", Globals.LineSep);
+						gOut.Print("{0}", gEngine.LineSep);
 
 						// If life-orb carried by player character or in metal pedestal
 
@@ -200,17 +200,17 @@ namespace WrenholdsSecretVigil.Game.States
 
 							gOut.Write("{0}What will you name your bow? ", Environment.NewLine);
 
-							Globals.Buf.Clear();
+							gEngine.Buf.Clear();
 
-							rc = Globals.In.ReadField(Globals.Buf, Constants.CharArtNameLen, null, ' ', '\0', false, null, null, null, null);
+							rc = gEngine.In.ReadField(gEngine.Buf, gEngine.CharArtNameLen, null, ' ', '\0', false, null, null, null, null);
 
 							Debug.Assert(gEngine.IsSuccess(rc));
 
-							Globals.Buf.SetFormat("{0}", Regex.Replace(Globals.Buf.ToString(), @"\s+", " ").Trim());
+							gEngine.Buf.SetFormat("{0}", Regex.Replace(gEngine.Buf.ToString(), @"\s+", " ").Trim());
 
-							magicBowArtifact.Name = gEngine.Capitalize(Globals.Buf.ToString());
+							magicBowArtifact.Name = gEngine.Capitalize(gEngine.Buf.ToString());
 
-							var artifactHelper = Globals.CreateInstance<IArtifactHelper>(x =>
+							var artifactHelper = gEngine.CreateInstance<IArtifactHelper>(x =>
 							{
 								x.Record = magicBowArtifact;
 							});
@@ -235,9 +235,9 @@ namespace WrenholdsSecretVigil.Game.States
 
 							gGameState.Die = 0;
 
-							Globals.ExitType = ExitType.FinishAdventure;
+							gEngine.ExitType = ExitType.FinishAdventure;
 
-							Globals.MainLoop.ShouldShutdown = true;
+							gEngine.MainLoop.ShouldShutdown = true;
 						}
 						else     // The rabid animals attack
 						{
@@ -250,7 +250,7 @@ namespace WrenholdsSecretVigil.Game.States
 
 							gGameState.Die = 1;
 
-							NextState = Globals.CreateInstance<IPlayerDeadState>(x =>
+							NextState = gEngine.CreateInstance<IPlayerDeadState>(x =>
 							{
 								x.PrintLineSep = true;
 							});

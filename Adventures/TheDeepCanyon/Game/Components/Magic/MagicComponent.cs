@@ -13,7 +13,7 @@ using Eamon.Game.Utilities;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.Components;
 using EamonRT.Framework.Primitive.Enums;
-using static TheDeepCanyon.Game.Plugin.PluginContext;
+using static TheDeepCanyon.Game.Plugin.Globals;
 
 namespace TheDeepCanyon.Game.Components
 {
@@ -78,7 +78,7 @@ namespace TheDeepCanyon.Game.Components
 
 							gOut.EnableOutput = false;
 
-							var dropCommand = Globals.CreateInstance<IDropCommand>(x =>
+							var dropCommand = gEngine.CreateInstance<IDropCommand>(x =>
 							{
 								x.ActorMonster = ActorMonster;
 
@@ -119,9 +119,9 @@ namespace TheDeepCanyon.Game.Components
 
 									artifact.GeneralWeapon.Field1 -= dec;
 
-									if (artifact.GeneralWeapon.Field1 < Constants.MinWeaponComplexity)
+									if (artifact.GeneralWeapon.Field1 < gEngine.MinWeaponComplexity)
 									{
-										artifact.GeneralWeapon.Field1 = Constants.MinWeaponComplexity;
+										artifact.GeneralWeapon.Field1 = gEngine.MinWeaponComplexity;
 									}
 
 									processed = true;
@@ -140,7 +140,7 @@ namespace TheDeepCanyon.Game.Components
 
 						foreach (var wv in weaponValues)
 						{
-							var weapon = gEngine.GetWeapons(wv);
+							var weapon = gEngine.GetWeapon(wv);
 
 							Debug.Assert(weapon != null);
 
@@ -150,11 +150,11 @@ namespace TheDeepCanyon.Game.Components
 
 								var dec = gEngine.RollDice(1, 5, 4);
 
-								gCharacter.ModWeaponAbilities(wv, -dec);
+								gCharacter.ModWeaponAbility(wv, -dec);
 
-								if (gCharacter.GetWeaponAbilities(wv) < weapon.MinValue)
+								if (gCharacter.GetWeaponAbility(wv) < weapon.MinValue)
 								{
-									gCharacter.SetWeaponAbilities(wv, weapon.MinValue);
+									gCharacter.SetWeaponAbility(wv, weapon.MinValue);
 								}
 
 								processed = true;
@@ -170,7 +170,7 @@ namespace TheDeepCanyon.Game.Components
 					{
 						gOut.Print("A large flame erupts from nowhere, which burns you badly.");
 
-						var combatComponent = Globals.CreateInstance<ICombatComponent>(x =>
+						var combatComponent = gEngine.CreateInstance<ICombatComponent>(x =>
 						{
 							x.SetNextStateFunc = SetNextStateFunc;
 
@@ -198,7 +198,7 @@ namespace TheDeepCanyon.Game.Components
 					{
 						gOut.Print("You are knocked to the ground by a strong gust of wind.");
 
-						var combatComponent = Globals.CreateInstance<ICombatComponent>(x =>
+						var combatComponent = gEngine.CreateInstance<ICombatComponent>(x =>
 						{
 							x.SetNextStateFunc = SetNextStateFunc;
 
@@ -230,17 +230,17 @@ namespace TheDeepCanyon.Game.Components
 
 						foreach (var wv in weaponValues)
 						{
-							var weapon = gEngine.GetWeapons(wv);
+							var weapon = gEngine.GetWeapon(wv);
 
 							Debug.Assert(weapon != null);
 
 							var inc = gEngine.RollDice(1, 5, 0);
 
-							gCharacter.ModWeaponAbilities(wv, inc);
+							gCharacter.ModWeaponAbility(wv, inc);
 
-							if (gCharacter.GetWeaponAbilities(wv) > weapon.MaxValue)
+							if (gCharacter.GetWeaponAbility(wv) > weapon.MaxValue)
 							{
-								gCharacter.SetWeaponAbilities(wv, weapon.MaxValue);
+								gCharacter.SetWeaponAbility(wv, weapon.MaxValue);
 							}
 						}
 					}
@@ -261,7 +261,7 @@ namespace TheDeepCanyon.Game.Components
 
 						foreach (var spell in spellValues)
 						{
-							gCharacter.SetSpellAbilities(spell, 0);
+							gCharacter.SetSpellAbility(spell, 0);
 
 							gGameState.SetSa(spell, 0);
 						}

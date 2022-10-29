@@ -10,7 +10,7 @@ using Eamon.Framework;
 using Eamon.Framework.Primitive.Classes;
 using Eamon.Game.Attributes;
 using Enums = Eamon.Framework.Primitive.Enums;
-using static Eamon.Game.Plugin.PluginContext;
+using static Eamon.Game.Plugin.Globals;
 
 namespace Eamon.Game.Primitive.Classes
 {

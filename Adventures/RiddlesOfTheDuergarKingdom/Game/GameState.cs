@@ -6,7 +6,7 @@
 using System.Collections.Generic;
 using Eamon.Framework;
 using Eamon.Game.Attributes;
-using static RiddlesOfTheDuergarKingdom.Game.Plugin.PluginContext;
+using static RiddlesOfTheDuergarKingdom.Game.Plugin.Globals;
 
 namespace RiddlesOfTheDuergarKingdom.Game
 {

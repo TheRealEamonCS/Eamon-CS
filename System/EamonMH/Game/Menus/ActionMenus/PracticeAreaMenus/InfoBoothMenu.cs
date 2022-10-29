@@ -9,7 +9,7 @@ using Eamon;
 using Eamon.Game.Attributes;
 using Eamon.Game.Menus;
 using EamonMH.Framework.Menus.ActionMenus;
-using static EamonMH.Game.Plugin.PluginContext;
+using static EamonMH.Game.Plugin.Globals;
 
 namespace EamonMH.Game.Menus.ActionMenus
 {
@@ -28,7 +28,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 			long ap = 0;
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 
 			/* 
 				Full Credit:  Derived wholly from Donald Brown's Classic Eamon
@@ -44,23 +44,23 @@ namespace EamonMH.Game.Menus.ActionMenus
 				Rtio = gEngine.GetMerchantRtio(c2);
 			}
 
-			ap = gEngine.GetMerchantAskPrice(Constants.InfoBoothPrice, (double)Rtio);
+			ap = gEngine.GetMerchantAskPrice(gEngine.InfoBoothPrice, (double)Rtio);
 
 			gOut.Write("{0}The man leans over the counter and says, \"I give general directions for free and for a small charge of {1} gold piece{2}, I give interesting and useful information.\"{0}{0}\"So what'll it be?\"{0}", Environment.NewLine, ap, ap != 1 ? "s" : "");
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 
 			gOut.Write("{0}D=Get directions, I=Buy info, X=Exit: ", Environment.NewLine);
 
 			Buf.Clear();
 
-			rc = Globals.In.ReadField(Buf, Constants.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharDOrIOrX, gEngine.IsCharDOrIOrX);
+			rc = gEngine.In.ReadField(Buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharDOrIOrX, gEngine.IsCharDOrIOrX);
 
 			Debug.Assert(gEngine.IsSuccess(rc));
 
-			Globals.Thread.Sleep(150);
+			gEngine.Thread.Sleep(150);
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 
 			if (Buf.Length == 0 || Buf[0] == 'X')
 			{
@@ -107,7 +107,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 					gCharacter.HeldGold -= ap;
 
-					Globals.CharactersModified = true;
+					gEngine.CharactersModified = true;
 
 					goto Cleanup;
 				}
@@ -123,12 +123,12 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 			gOut.Print("The man at the Info Booth smiles at you as he turns to help someone else.");
 
-			Globals.In.KeyPress(Buf);
+			gEngine.In.KeyPress(Buf);
 		}
 
 		public InfoBoothMenu()
 		{
-			Buf = Globals.Buf;
+			Buf = gEngine.Buf;
 		}
 	}
 }

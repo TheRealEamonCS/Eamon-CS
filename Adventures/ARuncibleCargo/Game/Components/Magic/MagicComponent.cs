@@ -6,7 +6,7 @@
 using System.Linq;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Components;
-using static ARuncibleCargo.Game.Plugin.PluginContext;
+using static ARuncibleCargo.Game.Plugin.Globals;
 
 namespace ARuncibleCargo.Game.Components
 {

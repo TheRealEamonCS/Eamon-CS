@@ -8,7 +8,7 @@ using System.Diagnostics;
 using System.Text;
 using Eamon.Framework;
 using Eamon.Game.Attributes;
-using static TheTempleOfNgurct.Game.Plugin.PluginContext;
+using static TheTempleOfNgurct.Game.Plugin.Globals;
 
 namespace TheTempleOfNgurct.Game
 {
@@ -33,7 +33,7 @@ namespace TheTempleOfNgurct.Game
 
 			if (IsDead())
 			{
-				result = Globals.FireDamage ? "burnt to a crisp!" : "dead!";       // Crispy critter
+				result = gEngine.FireDamage ? "burnt to a crisp!" : "dead!";       // Crispy critter
 			}
 			else
 			{
@@ -41,23 +41,23 @@ namespace TheTempleOfNgurct.Game
 
 				x = (((long)((double)(x * 5) / (double)Hardiness)) + 1) * (x > 0 ? 1 : 0);
 
-				result = Globals.FireDamage ? "very badly burned." : "at death's door, knocking loudly.";
+				result = gEngine.FireDamage ? "very badly burned." : "at death's door, knocking loudly.";
 
 				if (x == 4)
 				{
-					result = Globals.FireDamage ? "badly scorched." : "very badly injured.";
+					result = gEngine.FireDamage ? "badly scorched." : "very badly injured.";
 				}
 				else if (x == 3)
 				{
-					result = Globals.FireDamage ? "scorched." : "badly injured.";
+					result = gEngine.FireDamage ? "scorched." : "badly injured.";
 				}
 				else if (x == 2)
 				{
-					result = Globals.FireDamage ? "singed." : "lightly injured.";
+					result = gEngine.FireDamage ? "singed." : "lightly injured.";
 				}
 				else if (x == 1)
 				{
-					result = Globals.FireDamage ? "still in good shape." : "in good shape.";
+					result = gEngine.FireDamage ? "still in good shape." : "in good shape.";
 				}
 				else if (x < 1)
 				{

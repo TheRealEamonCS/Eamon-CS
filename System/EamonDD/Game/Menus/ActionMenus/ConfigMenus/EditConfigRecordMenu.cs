@@ -9,7 +9,7 @@ using Eamon;
 using Eamon.Framework;
 using Eamon.Game.Menus;
 using EamonDD.Framework.Menus.ActionMenus;
-using static EamonDD.Game.Plugin.PluginContext;
+using static EamonDD.Game.Plugin.Globals;
 
 namespace EamonDD.Game.Menus.ActionMenus
 {
@@ -23,40 +23,40 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			Debug.Assert(editConfig01 != null);
 
-			Globals.Thread.Sleep(150);
+			gEngine.Thread.Sleep(150);
 
-			if (!Globals.CompareInstances(EditRecord, editConfig01))
+			if (!gEngine.CompareInstances(EditRecord, editConfig01))
 			{
 				gOut.Write("{0}Would you like to save this updated Config record (Y/N): ", Environment.NewLine);
 
 				Buf.Clear();
 
-				rc = Globals.In.ReadField(Buf, Constants.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, gEngine.IsCharYOrN);
+				rc = gEngine.In.ReadField(Buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, gEngine.IsCharYOrN);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
-				Globals.Thread.Sleep(150);
+				gEngine.Thread.Sleep(150);
 
 				if (Buf.Length > 0 && Buf[0] == 'N')
 				{
 					goto Cleanup;
 				}
 
-				var config = Globals.Database.RemoveConfig(EditRecord.Uid);
+				var config = gEngine.Database.RemoveConfig(EditRecord.Uid);
 
 				if (config != null)
 				{
-					rc = Globals.Database.AddConfig(editConfig01);
+					rc = gEngine.Database.AddConfig(editConfig01);
 
 					Debug.Assert(gEngine.IsSuccess(rc));
 				}
 
-				if (Globals.Config == EditRecord)
+				if (gEngine.Config == EditRecord)
 				{
-					Globals.Config = editConfig01;
+					gEngine.Config = editConfig01;
 				}
 
-				Globals.ConfigsModified = true;
+				gEngine.ConfigsModified = true;
 			}
 			else
 			{

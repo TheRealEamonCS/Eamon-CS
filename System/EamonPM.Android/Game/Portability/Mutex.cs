@@ -5,7 +5,7 @@
 
 using System.Threading;
 using Eamon.Framework.Portability;
-using static Eamon.Game.Plugin.PluginContext;
+using static Eamon.Game.Plugin.Globals;
 
 namespace EamonPM.Game.Portability
 {

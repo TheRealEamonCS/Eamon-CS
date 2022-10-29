@@ -6,7 +6,7 @@
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
-using static WrenholdsSecretVigil.Game.Plugin.PluginContext;
+using static WrenholdsSecretVigil.Game.Plugin.Globals;
 
 namespace WrenholdsSecretVigil.Game.States
 {
@@ -19,11 +19,11 @@ namespace WrenholdsSecretVigil.Game.States
 
 			// Try to open running device, all flee
 
-			if (eventType == EventType.AfterEndRound && Globals.DeviceOpened)
+			if (eventType == EventType.AfterEndRound && gEngine.DeviceOpened)
 			{
 				gOut.Print("Your attempts to open the glowing device are unsuccessful.");
 
-				Globals.DeviceOpened = false;
+				gEngine.DeviceOpened = false;
 			}
 		}
 	}

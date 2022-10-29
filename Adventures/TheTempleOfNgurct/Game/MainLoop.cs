@@ -8,7 +8,7 @@ using System.Diagnostics;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using EamonRT.Framework;
-using static TheTempleOfNgurct.Game.Plugin.PluginContext;
+using static TheTempleOfNgurct.Game.Plugin.Globals;
 
 namespace TheTempleOfNgurct.Game
 {
@@ -29,7 +29,7 @@ namespace TheTempleOfNgurct.Game
 
 			base.Shutdown();
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 
 			// Thera's reward
 
@@ -73,7 +73,7 @@ namespace TheTempleOfNgurct.Game
 
 			gCharacter.HeldGold += reward;
 
-			Globals.In.KeyPress(Globals.Buf);
+			gEngine.In.KeyPress(gEngine.Buf);
 		}
 	}
 }

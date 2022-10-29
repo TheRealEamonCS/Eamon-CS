@@ -15,7 +15,7 @@ using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using Eamon.Game.Extensions;
 using Enums = Eamon.Framework.Primitive.Enums;
-using static Eamon.Game.Plugin.PluginContext;
+using static Eamon.Game.Plugin.Globals;
 
 namespace Eamon.Game
 {
@@ -58,7 +58,7 @@ namespace Eamon.Game
 		{
 			get
 			{
-				return Globals.EnableGameOverrides && Globals.IsRulesetVersion(5, 15, 25) && IsWeaponless(false) && _courage < 200 ? _courage / 2 : _courage;
+				return gEngine.EnableMutateProperties && gEngine.IsRulesetVersion(5, 15, 25) && IsWeaponless(false) && _courage < 200 ? _courage / 2 : _courage;
 			}
 
 			set
@@ -132,7 +132,7 @@ namespace Eamon.Game
 
 			if (IsUidRecycled && Uid > 0)
 			{
-				Globals.Database.FreeMonsterUid(Uid);
+				gEngine.Database.FreeMonsterUid(Uid);
 
 				Uid = 0;
 			}
@@ -175,7 +175,7 @@ namespace Eamon.Game
 
 			if (buf == null)
 			{
-				buf = Globals.Buf;
+				buf = gEngine.Buf;
 			}
 
 			buf.Clear();
@@ -186,7 +186,7 @@ namespace Eamon.Game
 
 			if (effect != null)
 			{
-				buf.Append(effect.Desc.Substring(0, Math.Min(Constants.MonNameLen, effect.Desc.Length)).Trim());
+				buf.Append(effect.Desc.Substring(0, Math.Min(gEngine.MonNameLen, effect.Desc.Length)).Trim());
 			}
 			else
 			{
@@ -229,12 +229,12 @@ namespace Eamon.Game
 
 			if (buf == null)
 			{
-				buf = Globals.Buf;
+				buf = gEngine.Buf;
 			}
 
 			buf.Clear();
 
-			buf01 = new StringBuilder(Constants.BufSize);
+			buf01 = new StringBuilder(gEngine.BufSize);
 
 			gc = groupCountOne ? 1 : CurrGroupCount;
 
@@ -248,14 +248,14 @@ namespace Eamon.Game
 					}
 					else
 					{
-						buf01.Append(gc > 1 ? gEngine.GetStringFromNumber(gc, true, new StringBuilder(Constants.BufSize)) : "");
+						buf01.Append(gc > 1 ? gEngine.GetStringFromNumber(gc, true, new StringBuilder(gEngine.BufSize)) : "");
 					}
 
 					buf.AppendFormat
 					(
 						"{0}{1}{2}{3}",
 						buf01.ToString(),
-						gc > 1 ? GetPluralName(fieldName, new StringBuilder(Constants.BufSize)) :
+						gc > 1 ? GetPluralName(fieldName, new StringBuilder(gEngine.BufSize)) :
 						Name,
 						showStateDesc && StateDesc.Length > 0 && !StateDesc.OmitStateDescSpace() ? " " : "",
 						showStateDesc && StateDesc.Length > 0 ? StateDesc : ""
@@ -277,7 +277,7 @@ namespace Eamon.Game
 							gc > 1 ? "the " :
 							ArticleType == ArticleType.None ? "" :
 							"the ",
-							gc > 1 ? gEngine.GetStringFromNumber(gc, true, new StringBuilder(Constants.BufSize)) : ""
+							gc > 1 ? gEngine.GetStringFromNumber(gc, true, new StringBuilder(gEngine.BufSize)) : ""
 						);
 					}
 
@@ -285,7 +285,7 @@ namespace Eamon.Game
 					(
 						"{0}{1}{2}{3}",
 						buf01.ToString(),
-						gc > 1 ? GetPluralName(fieldName, new StringBuilder(Constants.BufSize)) :
+						gc > 1 ? GetPluralName(fieldName, new StringBuilder(gEngine.BufSize)) :
 						Name,
 						showStateDesc && StateDesc.Length > 0 && !StateDesc.OmitStateDescSpace() ? " " : "",
 						showStateDesc && StateDesc.Length > 0 ? StateDesc : ""
@@ -303,7 +303,7 @@ namespace Eamon.Game
 					{
 						buf01.Append
 						(
-							gc > 1 ? gEngine.GetStringFromNumber(gc, true, new StringBuilder(Constants.BufSize)) :
+							gc > 1 ? gEngine.GetStringFromNumber(gc, true, new StringBuilder(gEngine.BufSize)) :
 							ArticleType == ArticleType.None ? "" :
 							ArticleType == ArticleType.The ? "the " :
 							ArticleType == ArticleType.Some ? "some " :
@@ -316,7 +316,7 @@ namespace Eamon.Game
 					(
 						"{0}{1}{2}{3}",
 						buf01.ToString(),
-						gc > 1 ? GetPluralName(fieldName, new StringBuilder(Constants.BufSize)) :
+						gc > 1 ? GetPluralName(fieldName, new StringBuilder(gEngine.BufSize)) :
 						Name,
 						showStateDesc && StateDesc.Length > 0 && !StateDesc.OmitStateDescSpace() ? " " : "",
 						showStateDesc && StateDesc.Length > 0 ? StateDesc : ""
@@ -358,7 +358,7 @@ namespace Eamon.Game
 
 				buf.AppendFormat("{0}[{1}{2}]",
 					Environment.NewLine,
-					GetArticleName(true, buf: new StringBuilder(Constants.BufSize)),
+					GetArticleName(true, buf: new StringBuilder(gEngine.BufSize)),
 					verboseNameDesc.Length > 0 ? string.Format("{0}{1}", !verboseNameDesc.OmitStateDescSpace() ? " " : "", verboseNameDesc) : "");
 			}
 
@@ -432,7 +432,7 @@ namespace Eamon.Game
 
 		public virtual bool IsInLimbo()
 		{
-			return Location == Constants.LimboLocation;
+			return Location == gEngine.LimboLocation;
 		}
 
 		public virtual bool IsInRoomUid(long roomUid)
@@ -502,7 +502,7 @@ namespace Eamon.Game
 		{
 			Location = roomUid;
 
-			var gameState = Globals?.Engine?.GetGameState();
+			var gameState = gEngine.GetGameState();
 
 			if (IsCharacterMonster() && gameState != null)
 			{
@@ -512,7 +512,7 @@ namespace Eamon.Game
 
 		public virtual void SetInLimbo()
 		{
-			SetInRoomUid(Constants.LimboLocation);
+			SetInRoomUid(gEngine.LimboLocation);
 		}
 
 		public virtual void SetInRoom(IRoom room)
@@ -582,7 +582,7 @@ namespace Eamon.Game
 
 		public virtual bool ShouldProcessInGameLoop()
 		{
-			var gameState = Globals?.Engine?.GetGameState();
+			var gameState = gEngine.GetGameState();
 
 			return gameState != null && Location == gameState.Ro && !IsCharacterMonster();
 		}
@@ -596,7 +596,7 @@ namespace Eamon.Game
 		{
 			Debug.Assert(artifact != null);
 
-			return !HasCarriedInventory() || (!Globals.IsRulesetVersion(5, 25) && (Reaction == Friendliness.Enemy || (Reaction == Friendliness.Neutral && artifact.Value < 3000)));
+			return !HasCarriedInventory() || (!gEngine.IsRulesetVersion(5, 25) && (Reaction == Friendliness.Enemy || (Reaction == Friendliness.Neutral && artifact.Value < 3000)));
 		}
 
 		public virtual bool ShouldRefuseToAcceptDeadBody(IArtifact artifact)
@@ -606,7 +606,7 @@ namespace Eamon.Game
 
 		public virtual bool CheckNBTLHostility()
 		{
-			var gameState = Globals?.Engine?.GetGameState();
+			var gameState = gEngine.GetGameState();
 
 			return gameState != null && Reaction != Friendliness.Neutral && gameState.GetNBTL(Reaction == Friendliness.Friend ? Friendliness.Enemy : Friendliness.Friend) > 0;
 		}
@@ -615,24 +615,21 @@ namespace Eamon.Game
 		{
 			var result = false;
 
-			if (gEngine != null)
+			var gameState = gEngine.GetGameState();
+
+			if (gEngine.IsRulesetVersion(5, 25) && gameState != null)
 			{
-				var gameState = gEngine.GetGameState();
+				var rl = (long)Math.Round((double)gameState.GetDTTL(Reaction) / (double)gameState.GetNBTL(Reaction) * 100 + gEngine.RollDice(1, 41, -21));
 
-				if (Globals.IsRulesetVersion(5, 25) && gameState != null)
-				{
-					var rl = (long)Math.Round((double)gameState.GetDTTL(Reaction) / (double)gameState.GetNBTL(Reaction) * 100 + gEngine.RollDice(1, 41, -21));
+				result = rl <= Courage;
+			}
+			else
+			{
+				var s = (DmgTaken > 0 || GroupCount > CurrGroupCount ? 1 : 0) + (DmgTaken + 4 >= Hardiness ? 1 : 0);
 
-					result = rl <= Courage;
-				}
-				else
-				{
-					var s = (DmgTaken > 0 || GroupCount > CurrGroupCount ? 1 : 0) + (DmgTaken + 4 >= Hardiness ? 1 : 0);
+				var rl = gEngine.RollDice(1, 100, s * 5);
 
-					var rl = gEngine.RollDice(1, 100, s * 5);
-
-					result = rl <= Courage;           // Courage >= 100 ||
-				}
+				result = rl <= Courage;           // Courage >= 100 ||
 			}
 
 			return result;
@@ -662,7 +659,7 @@ namespace Eamon.Game
 		{
 			if (gEngine.IsValidMonsterFriendlinessPct(Friendliness))
 			{
-				if (Globals.IsRulesetVersion(5, 25))
+				if (gEngine.IsRulesetVersion(5, 25))
 				{
 					var f = (long)Friendliness - 100;
 
@@ -734,13 +731,13 @@ namespace Eamon.Game
 		{
 			if (character != null)
 			{
-				ResolveReaction(character.GetStats(Stat.Charisma));
+				ResolveReaction(character.GetStat(Stat.Charisma));
 			}
 		}
 
 		public virtual void CalculateGiftFriendliness(long value, bool isArtifactValue)
 		{
-			Debug.Assert(Globals.IsRulesetVersion(5, 25));
+			Debug.Assert(gEngine.IsRulesetVersion(5, 25));
 
 			if (isArtifactValue)       // Scaled from EDX to original Eamon values
 			{
@@ -777,7 +774,7 @@ namespace Eamon.Game
 
 		public virtual bool IsCharacterMonster()
 		{
-			var gameState = Globals?.Engine?.GetGameState();
+			var gameState = gEngine.GetGameState();
 
 			return gameState != null && gameState.Cm == Uid;
 		}
@@ -929,54 +926,61 @@ namespace Eamon.Game
 
 			long c, w, mwt;
 
-			Globals.RevealContentCounter--;
-
 			rc = RetCode.Success;
 
-			mwt = 0;
-
-			var artifactList = GetContainedList(monsterFindFunc, artifactFindFunc).OrderBy(a => recurse ? a.RecursiveWeight : a.Weight).ToList();
-
-			foreach (var a in artifactList)
+			try
 			{
-				c = 0;
+				gEngine.RevealContentCounter--;
 
-				w = a.Weight;
+				mwt = 0;
 
-				Debug.Assert(!gEngine.IsUnmovable01(w));
+				var artifactList = GetContainedList(monsterFindFunc, artifactFindFunc).OrderBy(a => recurse ? a.RecursiveWeight : a.Weight).ToList();
 
-				if (recurse && a.GeneralContainer != null)
+				foreach (var a in artifactList)
 				{
-					rc = a.GetContainerInfo(ref c, ref w, (ContainerType)(-1), recurse);
+					c = 0;
 
-					if (gEngine.IsFailure(rc))
+					w = a.Weight;
+
+					Debug.Assert(!gEngine.IsUnmovable01(w));
+
+					if (recurse && a.GeneralContainer != null)
 					{
-						// PrintError
+						rc = a.GetContainerInfo(ref c, ref w, (ContainerType)(-1), recurse);
 
-						goto Cleanup;
+						if (gEngine.IsFailure(rc))
+						{
+							// PrintError
+
+							goto Cleanup;
+						}
+					}
+
+					if (w <= 10 * Hardiness && mwt + w <= 10 * Hardiness * CurrGroupCount)
+					{
+						mwt += w;
+					}
+					else
+					{
+						a.Location = Location >= 0 ? Location : 0;
+
+						if (Weapon == a.Uid)
+						{
+							a.RemoveStateDesc(a.GetReadyWeaponDesc());
+
+							Weapon = -1;
+						}
 					}
 				}
 
-				if (w <= 10 * Hardiness && mwt + w <= 10 * Hardiness * CurrGroupCount)
-				{
-					mwt += w;
-				}
-				else
-				{
-					a.Location = Location >= 0 ? Location : 0;
+			Cleanup:
 
-					if (Weapon == a.Uid)
-					{
-						a.RemoveStateDesc(a.GetReadyWeaponDesc());
-
-						Weapon = -1;
-					}
-				}
+				;
 			}
-
-		Cleanup:
-
-			Globals.RevealContentCounter++;
+			finally
+			{
+				gEngine.RevealContentCounter++;
+			}
 
 			return rc;
 		}
@@ -1025,7 +1029,7 @@ namespace Eamon.Game
 
 				if (x == 4)
 				{
-					result = (Globals.IsRulesetVersion(5, 15, 25) ? "very " : "") + "badly injured.";
+					result = (gEngine.IsRulesetVersion(5, 15, 25) ? "very " : "") + "badly injured.";
 				}
 				else if (x == 3)
 				{

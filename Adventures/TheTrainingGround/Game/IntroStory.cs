@@ -6,7 +6,7 @@
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using EamonRT.Framework;
-using static TheTrainingGround.Game.Plugin.PluginContext;
+using static TheTrainingGround.Game.Plugin.Globals;
 
 namespace TheTrainingGround.Game
 {
@@ -17,9 +17,9 @@ namespace TheTrainingGround.Game
 		{
 			base.PrintOutput();
 
-			Globals.In.KeyPress(Buf);
+			gEngine.In.KeyPress(Buf);
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 
 			// Inspect the player
 
@@ -29,9 +29,9 @@ namespace TheTrainingGround.Game
 			{
 				gEngine.PrintEffectDesc(18);
 
-				Globals.MainLoop.ShouldExecute = false;
+				gEngine.MainLoop.ShouldExecute = false;
 
-				Globals.ExitType = ExitType.GoToMainHall;
+				gEngine.ExitType = ExitType.GoToMainHall;
 			}
 			else
 			{

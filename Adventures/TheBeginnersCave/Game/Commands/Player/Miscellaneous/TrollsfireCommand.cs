@@ -8,7 +8,7 @@ using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Components;
 using EamonRT.Framework.States;
-using static TheBeginnersCave.Game.Plugin.PluginContext;
+using static TheBeginnersCave.Game.Plugin.Globals;
 
 namespace TheBeginnersCave.Game.Commands
 {
@@ -67,7 +67,7 @@ namespace TheBeginnersCave.Game.Commands
 
 				// create a combat component object to inflict the injury; these can be created and discarded at will
 
-				var combatComponent = Globals.CreateInstance<ICombatComponent>(x =>
+				var combatComponent = gEngine.CreateInstance<ICombatComponent>(x =>
 				{
 					// the lambda is used if the combat component needs to set this Command's NextState property (e.g., player character dies)
 
@@ -99,7 +99,7 @@ namespace TheBeginnersCave.Game.Commands
 
 			if (NextState == null)
 			{
-				NextState = Globals.CreateInstance<IMonsterStartState>();
+				NextState = gEngine.CreateInstance<IMonsterStartState>();
 			}
 		}
 

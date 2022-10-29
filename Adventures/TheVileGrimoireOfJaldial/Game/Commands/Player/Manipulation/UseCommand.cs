@@ -9,7 +9,7 @@ using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.States;
-using static TheVileGrimoireOfJaldial.Game.Plugin.PluginContext;
+using static TheVileGrimoireOfJaldial.Game.Plugin.Globals;
 
 namespace TheVileGrimoireOfJaldial.Game.Commands
 {
@@ -43,13 +43,13 @@ namespace TheVileGrimoireOfJaldial.Game.Commands
 						gOut.Print(digResult);
 					}
 
-					NextState = Globals.CreateInstance<IMonsterStartState>();
+					NextState = gEngine.CreateInstance<IMonsterStartState>();
 				}
 				else
 				{
 					PrintEnemiesNearby();
 
-					NextState = Globals.CreateInstance<IStartState>();
+					NextState = gEngine.CreateInstance<IStartState>();
 				}
 			}
 
@@ -81,7 +81,7 @@ namespace TheVileGrimoireOfJaldial.Game.Commands
 
 						waterWeirdMonster.SetInRoom(ActorRoom);
 
-						NextState = Globals.CreateInstance<IStartState>();
+						NextState = gEngine.CreateInstance<IStartState>();
 					}
 					else if (gGameState.GetNBTL(Friendliness.Enemy) <= 0)
 					{
@@ -95,7 +95,7 @@ namespace TheVileGrimoireOfJaldial.Game.Commands
 					{
 						PrintEnemiesNearby();
 
-						NextState = Globals.CreateInstance<IStartState>();
+						NextState = gEngine.CreateInstance<IStartState>();
 					}
 				}
 				else
@@ -105,7 +105,7 @@ namespace TheVileGrimoireOfJaldial.Game.Commands
 
 				if (NextState == null)
 				{
-					NextState = Globals.CreateInstance<IMonsterStartState>();
+					NextState = gEngine.CreateInstance<IMonsterStartState>();
 				}
 			}
 
@@ -142,7 +142,7 @@ namespace TheVileGrimoireOfJaldial.Game.Commands
 					gOut.Print("Nothing happens.");
 				}
 
-				NextState = Globals.CreateInstance<IMonsterStartState>();
+				NextState = gEngine.CreateInstance<IMonsterStartState>();
 			}
 			else
 			{

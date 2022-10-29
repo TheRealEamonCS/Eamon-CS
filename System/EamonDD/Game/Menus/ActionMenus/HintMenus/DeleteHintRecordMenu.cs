@@ -7,7 +7,7 @@ using Eamon.Framework;
 using Eamon.Framework.Helpers;
 using Eamon.Game.Attributes;
 using EamonDD.Framework.Menus.ActionMenus;
-using static EamonDD.Game.Plugin.PluginContext;
+using static EamonDD.Game.Plugin.Globals;
 
 namespace EamonDD.Game.Menus.ActionMenus
 {
@@ -16,18 +16,18 @@ namespace EamonDD.Game.Menus.ActionMenus
 	{
 		public override void PrintPostListLineSep()
 		{
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 		}
 
 		public override void UpdateGlobals()
 		{
-			Globals.HintsModified = true;
+			gEngine.HintsModified = true;
 
-			if (Globals.Module != null)
+			if (gEngine.Module != null)
 			{
-				Globals.Module.NumHints--;
+				gEngine.Module.NumHints--;
 
-				Globals.ModulesModified = true;
+				gEngine.ModulesModified = true;
 			}
 		}
 
@@ -35,7 +35,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 		{
 			Title = "DELETE HINT RECORD";
 
-			RecordTable = Globals.Database.HintTable;
+			RecordTable = gEngine.Database.HintTable;
 
 			RecordTypeName = "Hint";
 		}

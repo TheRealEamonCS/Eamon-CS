@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Eamon.Game.Utilities;
-using static EamonDD.Game.Plugin.PluginContext;
+using static EamonDD.Game.Plugin.Globals;
 
 namespace EamonDD.Game.Converters.EamonDeluxe
 {
@@ -37,7 +37,7 @@ namespace EamonDD.Game.Converters.EamonDeluxe
 			{
 				var line = "";
 
-				var nameDatFile = Globals.Path.Combine(AdventureFolderPath, "NAME.DAT");
+				var nameDatFile = gEngine.Path.Combine(AdventureFolderPath, "NAME.DAT");
 
 				using (var file = new System.IO.StreamReader(nameDatFile))
 				{
@@ -298,7 +298,7 @@ namespace EamonDD.Game.Converters.EamonDeluxe
 			{
 				var line = "";
 
-				var hintDatFile = Globals.Path.Combine(AdventureFolderPath, "HINTDIR.DAT");
+				var hintDatFile = gEngine.Path.Combine(AdventureFolderPath, "HINTDIR.DAT");
 
 				using (var file = new System.IO.StreamReader(hintDatFile))
 				{
@@ -366,27 +366,27 @@ namespace EamonDD.Game.Converters.EamonDeluxe
 
 			try
 			{
-				var roomDatFile = Globals.Path.Combine(AdventureFolderPath, "ROOMS.DAT");
+				var roomDatFile = gEngine.Path.Combine(AdventureFolderPath, "ROOMS.DAT");
 
-				var roomDscFile = Globals.Path.Combine(AdventureFolderPath, "ROOMS.DSC");
+				var roomDscFile = gEngine.Path.Combine(AdventureFolderPath, "ROOMS.DSC");
 
-				var artifactDatFile = Globals.Path.Combine(AdventureFolderPath, "ARTIFACT.DAT");
+				var artifactDatFile = gEngine.Path.Combine(AdventureFolderPath, "ARTIFACT.DAT");
 
-				var artifactDscFile = Globals.Path.Combine(AdventureFolderPath, "ARTIFACT.DSC");
+				var artifactDscFile = gEngine.Path.Combine(AdventureFolderPath, "ARTIFACT.DSC");
 
-				var monsterDatFile = Globals.Path.Combine(AdventureFolderPath, "MONSTERS.DAT");
+				var monsterDatFile = gEngine.Path.Combine(AdventureFolderPath, "MONSTERS.DAT");
 
-				var monsterDscFile = Globals.Path.Combine(AdventureFolderPath, "MONSTERS.DSC");
+				var monsterDscFile = gEngine.Path.Combine(AdventureFolderPath, "MONSTERS.DSC");
 
-				var effectDscFile = Globals.Path.Combine(AdventureFolderPath, "EFFECT.DSC");
+				var effectDscFile = gEngine.Path.Combine(AdventureFolderPath, "EFFECT.DSC");
 
 				foreach (var adventure in AdventureList)
 				{
-					using (var roomDatStream = Globals.File.OpenRead(roomDatFile))
+					using (var roomDatStream = gEngine.File.OpenRead(roomDatFile))
 					{
 						var roomDatFlr = new FixedLengthReader(roomDatStream, (adventure._rptr - 1) * 101, true);
 
-						using (var roomDscStream = Globals.File.OpenRead(roomDscFile))
+						using (var roomDscStream = gEngine.File.OpenRead(roomDscFile))
 						{
 							var roomDscFlr = new FixedLengthReader(roomDscStream, (adventure._rptr - 1) * 255, true);
 
@@ -407,11 +407,11 @@ namespace EamonDD.Game.Converters.EamonDeluxe
 						}
 					}
 
-					using (var artifactDatStream = Globals.File.OpenRead(artifactDatFile))
+					using (var artifactDatStream = gEngine.File.OpenRead(artifactDatFile))
 					{
 						var artifactDatFlr = new FixedLengthReader(artifactDatStream, (adventure._aptr - 1) * 51, true);
 
-						using (var artifactDscStream = Globals.File.OpenRead(artifactDscFile))
+						using (var artifactDscStream = gEngine.File.OpenRead(artifactDscFile))
 						{
 							var artifactDscFlr = new FixedLengthReader(artifactDscStream, (adventure._aptr - 1) * 255, true);
 
@@ -432,11 +432,11 @@ namespace EamonDD.Game.Converters.EamonDeluxe
 						}
 					}
 
-					using (var monsterDatStream = Globals.File.OpenRead(monsterDatFile))
+					using (var monsterDatStream = gEngine.File.OpenRead(monsterDatFile))
 					{
 						var monsterDatFlr = new FixedLengthReader(monsterDatStream, (adventure._mptr - 1) * 61, true);
 
-						using (var monsterDscStream = Globals.File.OpenRead(monsterDscFile))
+						using (var monsterDscStream = gEngine.File.OpenRead(monsterDscFile))
 						{
 							var monsterDscFlr = new FixedLengthReader(monsterDscStream, (adventure._mptr - 1) * 255, true);
 
@@ -457,7 +457,7 @@ namespace EamonDD.Game.Converters.EamonDeluxe
 						}
 					}
 
-					using (var effectDscStream = Globals.File.OpenRead(effectDscFile))
+					using (var effectDscStream = gEngine.File.OpenRead(effectDscFile))
 					{
 						var effectDscFlr = new FixedLengthReader(effectDscStream, (adventure._eptr - 1) * 255, true);
 
@@ -488,11 +488,11 @@ namespace EamonDD.Game.Converters.EamonDeluxe
 
 			try
 			{
-				var hintDscFile = Globals.Path.Combine(AdventureFolderPath, "HINTS.DSC");
+				var hintDscFile = gEngine.Path.Combine(AdventureFolderPath, "HINTS.DSC");
 
 				foreach (var hint in HintList)
 				{
-					using (var hintDscStream = Globals.File.OpenRead(hintDscFile))
+					using (var hintDscStream = gEngine.File.OpenRead(hintDscFile))
 					{
 						var hintDscFlr = new FixedLengthReader(hintDscStream, (hint._hptr - 1) * 255, true);
 

@@ -14,7 +14,7 @@ using Eamon.Game.Extensions;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
-using static EamonRT.Game.Plugin.PluginContext;
+using static EamonRT.Game.Plugin.Globals;
 
 namespace EamonRT.Game.Commands
 {
@@ -58,6 +58,8 @@ namespace EamonRT.Game.Commands
 		public override void Execute()
 		{
 			RetCode rc;
+			
+			gEngine.ShouldPreTurnProcess = false;
 
 			ArmorArtifactUids = new long[] { gGameState.Ar, gGameState.Sh };
 
@@ -79,11 +81,11 @@ namespace EamonRT.Game.Commands
 				}
 			}
 
-			CharArmor = gEngine.GetArmors(CharArmorClass);
+			CharArmor = gEngine.GetArmor(CharArmorClass);
 
 			Debug.Assert(CharArmor != null);
 			
-			Globals.Buf.SetFormat("{0}", CharArmor.Name);
+			gEngine.Buf.SetFormat("{0}", CharArmor.Name);
 
 			CharInventoryWeight = 0;
 
@@ -91,14 +93,14 @@ namespace EamonRT.Game.Commands
 
 			Debug.Assert(gEngine.IsSuccess(rc));
 
-			StatDisplayArgs = Globals.CreateInstance<IStatDisplayArgs>(x =>
+			StatDisplayArgs = gEngine.CreateInstance<IStatDisplayArgs>(x =>
 			{
 				x.Character = gCharacter;
 				x.Monster = ActorMonster;
-				x.ArmorString = Globals.Buf.ToString();
+				x.ArmorString = gEngine.Buf.ToString();
 				x.SpellAbilities = gGameState.Sa;
 				x.Speed = gGameState.Speed;
-				x.CharmMon = gEngine.GetCharismaFactor(gCharacter.GetStats(Stat.Charisma));
+				x.CharmMon = gEngine.GetCharismaFactor(gCharacter.GetStat(Stat.Charisma));
 				x.Weight = CharInventoryWeight;
 			});
 
@@ -110,13 +112,8 @@ namespace EamonRT.Game.Commands
 
 			if (NextState == null)
 			{
-				NextState = Globals.CreateInstance<IStartState>();
+				NextState = gEngine.CreateInstance<IStartState>();
 			}
-		}
-
-		public override bool ShouldPreTurnProcess()
-		{
-			return false;
 		}
 
 		public StatusCommand()
@@ -127,7 +124,7 @@ namespace EamonRT.Game.Commands
 
 			IsDarkEnabled = true;
 
-			if (Globals.IsRulesetVersion(5))
+			if (gEngine.IsRulesetVersion(5))
 			{
 				IsPlayerEnabled = false;
 			}

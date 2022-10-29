@@ -25,7 +25,7 @@ CLEMMONS, NC 27012
 */
 
 using Eamon.Framework.Portability;
-using static TheDeepCanyon.Game.Plugin.PluginContext;
+using static TheDeepCanyon.Game.Plugin.Globals;
 
 namespace TheDeepCanyon
 {
@@ -35,11 +35,7 @@ namespace TheDeepCanyon
 		{
 			ProgramName = "TheDeepCanyon";
 
-			ConstantsType = typeof(Game.Plugin.PluginConstants);
-
-			ClassMappingsType = typeof(Game.Plugin.PluginClassMappings);
-
-			GlobalsType = typeof(Game.Plugin.PluginGlobals);
+			EngineType = typeof(Game.Plugin.Engine);
 		}
 	}
 }

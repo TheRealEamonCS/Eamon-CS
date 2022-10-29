@@ -10,7 +10,7 @@ using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
-using static EamonRT.Game.Plugin.PluginContext;
+using static EamonRT.Game.Plugin.Globals;
 
 namespace EamonRT.Game.Commands
 {
@@ -58,14 +58,14 @@ namespace EamonRT.Game.Commands
 
 				gEngine.RevealDisguisedMonster(ActorRoom, DobjArtifact);
 
-				NextState = Globals.CreateInstance<IMonsterStartState>();
+				NextState = gEngine.CreateInstance<IMonsterStartState>();
 
 				goto Cleanup;
 			}
 
 			if (DobjArtAc.IsWeapon01())
 			{
-				NextState = Globals.CreateInstance<IReadyCommand>();
+				NextState = gEngine.CreateInstance<IReadyCommand>();
 
 				CopyCommandData(NextState as ICommand);
 
@@ -74,7 +74,7 @@ namespace EamonRT.Game.Commands
 
 			if (DobjArtAc.Type == ArtifactType.Drinkable)
 			{
-				NextState = Globals.CreateInstance<IDrinkCommand>();
+				NextState = gEngine.CreateInstance<IDrinkCommand>();
 
 				CopyCommandData(NextState as ICommand);
 
@@ -83,7 +83,7 @@ namespace EamonRT.Game.Commands
 
 			if (DobjArtAc.Type == ArtifactType.Edible)
 			{
-				NextState = Globals.CreateInstance<IEatCommand>();
+				NextState = gEngine.CreateInstance<IEatCommand>();
 
 				CopyCommandData(NextState as ICommand);
 
@@ -92,7 +92,7 @@ namespace EamonRT.Game.Commands
 
 			Debug.Assert(DobjArtAc.Type == ArtifactType.Wearable);
 
-			NextState = Globals.CreateInstance<IWearCommand>();
+			NextState = gEngine.CreateInstance<IWearCommand>();
 
 			CopyCommandData(NextState as ICommand);
 
@@ -100,7 +100,7 @@ namespace EamonRT.Game.Commands
 
 			if (NextState == null)
 			{
-				NextState = Globals.CreateInstance<IMonsterStartState>();
+				NextState = gEngine.CreateInstance<IMonsterStartState>();
 			}
 		}
 
@@ -119,7 +119,7 @@ namespace EamonRT.Game.Commands
 		{
 			SortOrder = 230;
 
-			if (Globals.IsRulesetVersion(5))
+			if (gEngine.IsRulesetVersion(5))
 			{
 				IsPlayerEnabled = false;
 			}

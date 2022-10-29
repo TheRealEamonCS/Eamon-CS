@@ -13,7 +13,7 @@ using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.States;
-using static EamonRT.Game.Plugin.PluginContext;
+using static EamonRT.Game.Plugin.Globals;
 
 namespace EamonRT.Game.Commands
 {
@@ -49,89 +49,95 @@ namespace EamonRT.Game.Commands
 		public override void Execute()
 		{
 			RetCode rc;
-
-			Globals.RevealContentCounter--;
-
-			OrigCurrState = Globals.CurrState;
-
-			SaveFilesetsCount = Globals.Database.GetFilesetsCount();
-
-			Debug.Assert(SaveFilesetsCount <= gEngine.NumSaveSlots);
-
-			Debug.Assert(SaveSlot >= 1 && SaveSlot <= SaveFilesetsCount);
-
-			SaveFilesetList = Globals.Database.FilesetTable.Records.OrderBy(f => f.Uid).ToList();
-
-			SaveFileset = SaveFilesetList[(int)SaveSlot - 1];
-
-			SaveConfig = Globals.CreateInstance<IConfig>();
-
+			
 			try
 			{
-				rc = Globals.Database.LoadConfigs(SaveFileset.ConfigFileName, printOutput: false);
+				gEngine.MutatePropertyCounter--;
+
+				gEngine.RevealContentCounter--;
+
+				OrigCurrState = gEngine.CurrState;
+
+				SaveFilesetsCount = gEngine.Database.GetFilesetCount();
+
+				Debug.Assert(SaveFilesetsCount <= gEngine.NumSaveSlots);
+
+				Debug.Assert(SaveSlot >= 1 && SaveSlot <= SaveFilesetsCount);
+
+				SaveFilesetList = gEngine.Database.FilesetTable.Records.OrderBy(f => f.Uid).ToList();
+
+				SaveFileset = SaveFilesetList[(int)SaveSlot - 1];
+
+				SaveConfig = gEngine.CreateInstance<IConfig>();
+
+				rc = gEngine.Database.LoadConfigs(SaveFileset.ConfigFileName, printOutput: false);
 
 				if (gEngine.IsFailure(rc))
 				{
-					Globals.Error.Write("Error: LoadConfigs function call failed.");
+					gEngine.Error.Write("Error: LoadConfigs function call failed.");
 
-					Globals.ExitType = ExitType.Error;
+					gEngine.ExitType = ExitType.Error;
 
-					Globals.MainLoop.ShouldShutdown = false;
+					gEngine.MainLoop.ShouldShutdown = false;
 
 					goto Cleanup;
 				}
 
-				Globals.Config = gEngine.GetConfig();
+				gEngine.Config = gEngine.GetConfig();
 
-				if (Globals.Config == null || Globals.Config.Uid <= 0)
+				if (gEngine.Config == null || gEngine.Config.Uid <= 0)
 				{
-					Globals.Error.Write("{0}Error: Assertion failed [{1}].", Environment.NewLine, Globals.Config == null ? "Globals.Config != null" : "Globals.Config.Uid > 0");
+					gEngine.Error.Write("{0}Error: Assertion failed [{1}].", Environment.NewLine, gEngine.Config == null ? "gEngine.Config != null" : "gEngine.Config.Uid > 0");
 
-					Globals.ExitType = ExitType.Error;
+					gEngine.ExitType = ExitType.Error;
 
-					Globals.MainLoop.ShouldShutdown = false;
+					gEngine.MainLoop.ShouldShutdown = false;
 
 					goto Cleanup;
 				}
 
-				SaveConfig.RtFilesetFileName = Globals.CloneInstance(Globals.Config.RtFilesetFileName);
+				gEngine.ResetProperties(PropertyResetCode.RestoreGame);
 
-				SaveConfig.RtCharacterFileName = Globals.CloneInstance(SaveFileset.CharacterFileName);
+				gEngine.ResetMonsterStats(ActorMonster);
 
-				SaveConfig.RtModuleFileName = Globals.CloneInstance(SaveFileset.ModuleFileName);
+				SaveConfig.RtFilesetFileName = gEngine.CloneInstance(gEngine.Config.RtFilesetFileName);
 
-				SaveConfig.RtRoomFileName = Globals.CloneInstance(SaveFileset.RoomFileName);
+				SaveConfig.RtCharacterFileName = gEngine.CloneInstance(SaveFileset.CharacterFileName);
 
-				SaveConfig.RtArtifactFileName = Globals.CloneInstance(SaveFileset.ArtifactFileName);
+				SaveConfig.RtModuleFileName = gEngine.CloneInstance(SaveFileset.ModuleFileName);
 
-				SaveConfig.RtEffectFileName = Globals.CloneInstance(SaveFileset.EffectFileName);
+				SaveConfig.RtRoomFileName = gEngine.CloneInstance(SaveFileset.RoomFileName);
 
-				SaveConfig.RtMonsterFileName = Globals.CloneInstance(SaveFileset.MonsterFileName);
+				SaveConfig.RtArtifactFileName = gEngine.CloneInstance(SaveFileset.ArtifactFileName);
 
-				SaveConfig.RtHintFileName = Globals.CloneInstance(SaveFileset.HintFileName);
+				SaveConfig.RtEffectFileName = gEngine.CloneInstance(SaveFileset.EffectFileName);
 
-				SaveConfig.RtGameStateFileName = Globals.CloneInstance(SaveFileset.GameStateFileName);
+				SaveConfig.RtMonsterFileName = gEngine.CloneInstance(SaveFileset.MonsterFileName);
+
+				SaveConfig.RtHintFileName = gEngine.CloneInstance(SaveFileset.HintFileName);
+
+				SaveConfig.RtGameStateFileName = gEngine.CloneInstance(SaveFileset.GameStateFileName);
 
 				rc = SaveConfig.LoadGameDatabase(printOutput: false);
 
 				if (gEngine.IsFailure(rc))
 				{
-					Globals.Error.Write("Error: LoadGameDatabase function call failed.");
+					gEngine.Error.Write("Error: LoadGameDatabase function call failed.");
 
-					Globals.ExitType = ExitType.Error;
+					gEngine.ExitType = ExitType.Error;
 
-					Globals.MainLoop.ShouldShutdown = false;
+					gEngine.MainLoop.ShouldShutdown = false;
 
 					goto Cleanup;
 				}
 
 				// fileset is now invalid
 
-				Globals.Character = Globals.Database.CharacterTable.Records.FirstOrDefault();
+				gEngine.Character = gEngine.Database.CharacterTable.Records.FirstOrDefault();
 
 				if (gCharacter == null || gCharacter.Uid <= 0 || gCharacter.Status != Status.Adventuring || string.IsNullOrWhiteSpace(gCharacter.Name) || gCharacter.Name.Equals("NONE", StringComparison.OrdinalIgnoreCase))
 				{
-					Globals.Error.Write("{0}Error: Assertion failed [{1}].",
+					gEngine.Error.Write("{0}Error: Assertion failed [{1}].",
 						Environment.NewLine,
 						gCharacter == null ? "gCharacter != null" :
 						gCharacter.Uid <= 0 ? "gCharacter.Uid > 0" :
@@ -139,35 +145,35 @@ namespace EamonRT.Game.Commands
 						string.IsNullOrWhiteSpace(gCharacter.Name) ? "!string.IsNullOrWhiteSpace(gCharacter.Name)" :
 						"!gCharacter.Name.Equals(\"NONE\", StringComparison.OrdinalIgnoreCase)");
 
-					Globals.ExitType = ExitType.Error;
+					gEngine.ExitType = ExitType.Error;
 
-					Globals.MainLoop.ShouldShutdown = false;
+					gEngine.MainLoop.ShouldShutdown = false;
 
 					goto Cleanup;
 				}
 
-				Globals.Module = gEngine.GetModule();
+				gEngine.Module = gEngine.GetModule();
 
-				if (Globals.Module == null || Globals.Module.Uid <= 0)
+				if (gEngine.Module == null || gEngine.Module.Uid <= 0)
 				{
-					Globals.Error.Write("{0}Error: Assertion failed [{1}].", Environment.NewLine, Globals.Module == null ? "Globals.Module != null" : "Globals.Module.Uid > 0");
+					gEngine.Error.Write("{0}Error: Assertion failed [{1}].", Environment.NewLine, gEngine.Module == null ? "gEngine.Module != null" : "gEngine.Module.Uid > 0");
 
-					Globals.ExitType = ExitType.Error;
+					gEngine.ExitType = ExitType.Error;
 
-					Globals.MainLoop.ShouldShutdown = false;
+					gEngine.MainLoop.ShouldShutdown = false;
 
 					goto Cleanup;
 				}
 
-				Globals.GameState = gEngine.GetGameState();
+				gEngine.GameState = gEngine.GetGameState();
 
 				if (gGameState == null || gGameState.Uid <= 0)
 				{
-					Globals.Error.Write("{0}Error: Assertion failed [{1}].", Environment.NewLine, gGameState == null ? "gGameState != null" : "gGameState.Uid > 0");
+					gEngine.Error.Write("{0}Error: Assertion failed [{1}].", Environment.NewLine, gGameState == null ? "gGameState != null" : "gGameState.Uid > 0");
 
-					Globals.ExitType = ExitType.Error;
+					gEngine.ExitType = ExitType.Error;
 
-					Globals.MainLoop.ShouldShutdown = false;
+					gEngine.MainLoop.ShouldShutdown = false;
 
 					goto Cleanup;
 				}
@@ -176,16 +182,16 @@ namespace EamonRT.Game.Commands
 
 				if (CharacterRoom == null)
 				{
-					Globals.Error.Write("{0}Error: Assertion failed [{1}].", Environment.NewLine, "room != null");
+					gEngine.Error.Write("{0}Error: Assertion failed [{1}].", Environment.NewLine, "CharacterRoom != null");
 
-					Globals.ExitType = ExitType.Error;
+					gEngine.ExitType = ExitType.Error;
 
-					Globals.MainLoop.ShouldShutdown = false;
+					gEngine.MainLoop.ShouldShutdown = false;
 
 					goto Cleanup;
 				}
 
-				FullArtifactList = Globals.Database.ArtifactTable.Records.ToList();
+				FullArtifactList = gEngine.Database.ArtifactTable.Records.ToList();
 
 				foreach (var artifact in FullArtifactList)
 				{
@@ -199,7 +205,7 @@ namespace EamonRT.Game.Commands
 					}
 				}
 
-				FullMonsterList = Globals.Database.MonsterTable.Records.ToList();
+				FullMonsterList = gEngine.Database.MonsterTable.Records.ToList();
 
 				foreach (var monster in FullMonsterList)
 				{
@@ -215,54 +221,40 @@ namespace EamonRT.Game.Commands
 
 				if (gEngine.IsFailure(rc))
 				{
-					Globals.Error.Write("Error: ValidateRecordsAfterDatabaseLoaded function call failed.");
+					gEngine.Error.Write("Error: ValidateRecordsAfterDatabaseLoaded function call failed.");
 
-					Globals.ExitType = ExitType.Error;
+					gEngine.ExitType = ExitType.Error;
 
-					Globals.MainLoop.ShouldShutdown = false;
+					gEngine.MainLoop.ShouldShutdown = false;
 
 					goto Cleanup;
 				}
-			}
-			finally
-			{
-				SaveConfig.Dispose();
-			}
 
-			gEngine.ClearActionLists();
+				PrintGameRestored();
 
-			gSentenceParser.LastInputStr = "";
+				gGameState.R2 = gGameState.Ro;
 
-			gSentenceParser.Clear();
+				gEngine.CreateInitialState(true);
 
-			gCommandParser.LastInputStr = "";
+				NextState = gEngine.CurrState;
 
-			gCommandParser.LastHimNameStr = "";
-
-			gCommandParser.LastHerNameStr = "";
-
-			gCommandParser.LastItNameStr = "";
-
-			gCommandParser.LastThemNameStr = "";
-
-			gGameState.R2 = gGameState.Ro;
-
-			PrintGameRestored();
-
-			gEngine.CreateInitialState(true);
-
-			NextState = Globals.CurrState;
-
-			Globals.CurrState = OrigCurrState;
+				gEngine.CurrState = OrigCurrState;
 
 		Cleanup:
 
-			Globals.RevealContentCounter++;
-		}
+				;
+			}
+			finally
+			{
+				if (SaveConfig != null)
+				{
+					SaveConfig.Dispose();
+				}
 
-		public override bool ShouldPreTurnProcess()
-		{
-			return false;
+				gEngine.RevealContentCounter++;
+
+				gEngine.MutatePropertyCounter++;
+			}
 		}
 
 		public RestoreCommand()

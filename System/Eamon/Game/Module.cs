@@ -8,7 +8,7 @@ using System.Text;
 using Eamon.Framework;
 using Eamon.Game.Attributes;
 using Eamon.Game.Extensions;
-using static Eamon.Game.Plugin.PluginContext;
+using static Eamon.Game.Plugin.Globals;
 
 namespace Eamon.Game
 {
@@ -69,7 +69,7 @@ namespace Eamon.Game
 
 			if (IsUidRecycled && Uid > 0)
 			{
-				Globals.Database.FreeModuleUid(Uid);
+				gEngine.Database.FreeModuleUid(Uid);
 
 				Uid = 0;
 			}
@@ -90,7 +90,7 @@ namespace Eamon.Game
 
 		public virtual void PrintInfo()
 		{
-			var buf = new StringBuilder(Constants.BufSize);
+			var buf = new StringBuilder(gEngine.BufSize);
 
 			buf.AppendPrint("This is {0}, by {1}.",
 				Name,

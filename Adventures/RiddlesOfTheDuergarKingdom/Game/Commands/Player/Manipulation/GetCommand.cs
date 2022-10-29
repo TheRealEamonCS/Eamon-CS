@@ -8,7 +8,7 @@ using Eamon.Framework;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
-using static RiddlesOfTheDuergarKingdom.Game.Plugin.PluginContext;
+using static RiddlesOfTheDuergarKingdom.Game.Plugin.Globals;
 
 namespace RiddlesOfTheDuergarKingdom.Game.Commands
 {
@@ -39,13 +39,13 @@ namespace RiddlesOfTheDuergarKingdom.Game.Commands
 
 				artifact.Field5 = 0;
 
-				ActorRoom.SetDirs(Direction.Down, 0);
+				ActorRoom.SetDir(Direction.Down, 0);
 
 				var room = gRDB[37];
 
 				Debug.Assert(room != null);
 
-				room.SetDirs(Direction.Up, 0);
+				room.SetDir(Direction.Up, 0);
 			}
 		}
 

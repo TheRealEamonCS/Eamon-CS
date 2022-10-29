@@ -9,7 +9,7 @@ using Eamon.Framework;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.States;
-using static EamonRT.Game.Plugin.PluginContext;
+using static EamonRT.Game.Plugin.Globals;
 
 namespace EamonRT.Game.States
 {
@@ -33,7 +33,7 @@ namespace EamonRT.Game.States
 
 		public override void Execute()
 		{
-			LoopMonster = gMDB[Globals.LoopMonsterUid];
+			LoopMonster = gMDB[gEngine.LoopMonsterUid];
 
 			Debug.Assert(LoopMonster != null);
 
@@ -73,10 +73,10 @@ namespace EamonRT.Game.States
 
 			if (NextState == null)
 			{
-				NextState = Globals.CreateInstance<IMonsterAttackLoopIncrementState>();
+				NextState = gEngine.CreateInstance<IMonsterAttackLoopIncrementState>();
 			}
 
-			Globals.NextState = NextState;
+			gEngine.NextState = NextState;
 		}
 
 		public virtual void MonsterAttackGetHostileMonsterList()
@@ -87,7 +87,7 @@ namespace EamonRT.Game.States
 
 			if (HostileMonsterList.Count < 1)
 			{
-				NextState = Globals.CreateInstance<IMonsterMemberLoopIncrementState>();
+				NextState = gEngine.CreateInstance<IMonsterMemberLoopIncrementState>();
 
 				GotoCleanup = true;
 			}
@@ -95,9 +95,9 @@ namespace EamonRT.Game.States
 
 		public virtual void MonsterAttackDefenderMissingCheck()
 		{
-			if (LoopMonster.AttackCount > 1 && Globals.LoopLastDobjMonster != null && !HostileMonsterList.Contains(Globals.LoopLastDobjMonster))
+			if (LoopMonster.AttackCount > 1 && gEngine.LoopLastDobjMonster != null && !HostileMonsterList.Contains(gEngine.LoopLastDobjMonster))
 			{
-				NextState = Globals.CreateInstance<IMonsterMemberLoopIncrementState>();
+				NextState = gEngine.CreateInstance<IMonsterMemberLoopIncrementState>();
 
 				GotoCleanup = true;
 			}
@@ -107,22 +107,22 @@ namespace EamonRT.Game.States
 		{
 			HostileMonsterListIndex = gEngine.RollDice(1, HostileMonsterList.Count, -1);
 
-			ActionCommand = Globals.CreateInstance<IMonsterAttackCommand>(x =>
+			ActionCommand = gEngine.CreateInstance<IMonsterAttackCommand>(x =>
 			{
-				x.NextState = Globals.CreateInstance<IMonsterAttackLoopIncrementState>();
+				x.NextState = gEngine.CreateInstance<IMonsterAttackLoopIncrementState>();
 
 				x.ActorMonster = LoopMonster;
 
 				x.ActorRoom = LoopMonsterRoom;
 
-				x.MemberNumber = Globals.LoopMemberNumber;
+				x.MemberNumber = gEngine.LoopMemberNumber;
 
-				x.AttackNumber = Globals.LoopAttackNumber;
+				x.AttackNumber = gEngine.LoopAttackNumber;
 
-				x.Dobj = LoopMonster.AttackCount > 1 && Globals.LoopLastDobjMonster != null ? Globals.LoopLastDobjMonster : HostileMonsterList[(int)HostileMonsterListIndex];
+				x.Dobj = LoopMonster.AttackCount > 1 && gEngine.LoopLastDobjMonster != null ? gEngine.LoopLastDobjMonster : HostileMonsterList[(int)HostileMonsterListIndex];
 			});
 
-			Globals.LoopLastDobjMonster = ActionCommand.Dobj as IMonster;
+			gEngine.LoopLastDobjMonster = ActionCommand.Dobj as IMonster;
 		}
 
 		public virtual void MonsterAttackExecuted()

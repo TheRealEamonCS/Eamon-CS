@@ -13,7 +13,7 @@ using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
-using static EamonRT.Game.Plugin.PluginContext;
+using static EamonRT.Game.Plugin.Globals;
 
 namespace EamonRT.Game.Commands
 {
@@ -93,7 +93,7 @@ namespace EamonRT.Game.Commands
 				{
 					PrintCantVerbObj(DobjArtifact);
 
-					NextState = Globals.CreateInstance<IStartState>();
+					NextState = gEngine.CreateInstance<IStartState>();
 
 					goto Cleanup;
 				}
@@ -109,7 +109,7 @@ namespace EamonRT.Game.Commands
 				{
 					PrintMustFirstOpen(DobjArtifact);
 
-					NextState = Globals.CreateInstance<IStartState>();
+					NextState = gEngine.CreateInstance<IStartState>();
 
 					goto Cleanup;
 				}
@@ -191,7 +191,7 @@ namespace EamonRT.Game.Commands
 			{
 				PrintCantVerbObj(DobjMonster);
 
-				NextState = Globals.CreateInstance<IStartState>();
+				NextState = gEngine.CreateInstance<IStartState>();
 
 				goto Cleanup;
 			}
@@ -200,7 +200,7 @@ namespace EamonRT.Game.Commands
 
 			if (NextState == null)
 			{
-				NextState = Globals.CreateInstance<IMonsterStartState>();
+				NextState = gEngine.CreateInstance<IMonsterStartState>();
 			}
 		}
 
@@ -214,11 +214,11 @@ namespace EamonRT.Game.Commands
 
 				if (TotalGold != 0)
 				{
-					GoldArtifact = Globals.CreateInstance<IArtifact>(x =>
+					GoldArtifact = gEngine.CreateInstance<IArtifact>(x =>
 					{
 						x.Name = string.Format("{0}{1} gold piece{2}",
 										TotalGold < 0 ? "a debt of " : "",
-										gEngine.GetStringFromNumber(Math.Abs(TotalGold), false, Globals.Buf),
+										gEngine.GetStringFromNumber(Math.Abs(TotalGold), false, gEngine.Buf),
 										Math.Abs(TotalGold) != 1 ? "s" : "");
 					});
 

@@ -7,7 +7,7 @@ using System.Diagnostics;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.States;
-using static TheDeepCanyon.Game.Plugin.PluginContext;
+using static TheDeepCanyon.Game.Plugin.Globals;
 
 namespace TheDeepCanyon.Game.Commands
 {
@@ -34,13 +34,13 @@ namespace TheDeepCanyon.Game.Commands
 				{
 					gOut.Print("The trap is already set.");
 
-					NextState = Globals.CreateInstance<IStartState>();
+					NextState = gEngine.CreateInstance<IStartState>();
 				}
 				else if (!cheeseArtifact.IsCarriedByCharacter() && !cheeseArtifact.IsInRoom(ActorRoom))
 				{
 					gOut.Print("You have no bait.");
 
-					NextState = Globals.CreateInstance<IStartState>();
+					NextState = gEngine.CreateInstance<IStartState>();
 				}
 				else
 				{
@@ -72,12 +72,12 @@ namespace TheDeepCanyon.Game.Commands
 			{
 				PrintCantVerbObj(DobjArtifact);
 
-				NextState = Globals.CreateInstance<IStartState>();
+				NextState = gEngine.CreateInstance<IStartState>();
 			}
 
 			if (NextState == null)
 			{
-				NextState = Globals.CreateInstance<IMonsterStartState>();
+				NextState = gEngine.CreateInstance<IMonsterStartState>();
 			}
 		}
 

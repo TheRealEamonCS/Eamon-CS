@@ -5,5 +5,6 @@ ChangeLog: TheDeepCanyon
 
 Date            Version            Who            Notes
 ----------------------------------------------------------------------------------------------------------------------------------
-20211211        2.1.0              MP             ProcessEvents normalization overhaul
+20221031        2.1.0              MP             Plugin Class Unification overhaul
+20211211                           MP             ProcessEvents normalization overhaul
 20210630                           MP             Code complete 2.1.0

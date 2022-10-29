@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 using Eamon;
 using Eamon.Game.Attributes;
 using EamonDD.Framework.Menus.ActionMenus;
-using static EamonDD.Game.Plugin.PluginContext;
+using static EamonDD.Game.Plugin.Globals;
 
 namespace EamonDD.Game.Menus.ActionMenus
 {
@@ -26,7 +26,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			GotoCleanup = false;
 
-			var workDir = Globals.Directory.GetCurrentDirectory();
+			var workDir = gEngine.Directory.GetCurrentDirectory();
 
 			GetAdventureName();
 
@@ -46,7 +46,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			if (IsAdventureNameValid())
 			{
-				if (Globals.File.Exists(Constants.AdventuresDir + @"\" + AdventureName + @"\" + AdventureName + @".csproj"))
+				if (gEngine.File.Exists(gEngine.AdventuresDir + @"\" + AdventureName + @"\" + AdventureName + @".csproj"))
 				{
 					if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows) || RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
 					{
@@ -82,7 +82,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 				// TODO: rollback adventure delete if possible
 			}
 
-			Globals.Directory.SetCurrentDirectory(workDir);
+			gEngine.Directory.SetCurrentDirectory(workDir);
 		}
 
 		/// <summary></summary>
@@ -90,7 +90,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 		{
 			RetCode rc;
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 
 			gOut.Print("WARNING:  you are about to delete this adventure and all associated datafiles from storage.  If you have any doubts, you should select 'N' and backup your Eamon CS repository before proceeding.  This action is PERMANENT!");
 
@@ -98,13 +98,13 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			Buf.Clear();
 
-			rc = Globals.In.ReadField(Buf, Constants.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, null);
+			rc = gEngine.In.ReadField(Buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, null);
 
 			Debug.Assert(gEngine.IsSuccess(rc));
 
 			if (Buf.Length == 0 || Buf[0] != 'Y')
 			{
-				gOut.Print("{0}", Globals.LineSep);
+				gOut.Print("{0}", gEngine.LineSep);
 
 				gOut.Print("The adventure was not deleted.");
 
@@ -117,13 +117,13 @@ namespace EamonDD.Game.Menus.ActionMenus
 		{
 			var result = RetCode.Failure;
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 
 			gOut.WriteLine();
 
 			if (IsAdventureNameValid())
 			{
-				var projName = Globals.Path.GetFullPath(Globals.Path.Combine(Constants.AdventuresDir + @"\" + AdventureName, AdventureName + ".csproj"));
+				var projName = gEngine.Path.GetFullPath(gEngine.Path.Combine(gEngine.AdventuresDir + @"\" + AdventureName, AdventureName + ".csproj"));
 
 				Debug.Assert(!string.IsNullOrWhiteSpace(projName));
 
@@ -138,9 +138,9 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 						process.StartInfo.FileName = "dotnet";
 						process.StartInfo.Arguments = string.Format("sln Eamon.Desktop.sln remove \"{0}\"", projName);
-						process.StartInfo.WorkingDirectory = string.Format("..{0}..", Globals.Path.DirectorySeparatorChar);
+						process.StartInfo.WorkingDirectory = string.Format("..{0}..", gEngine.Path.DirectorySeparatorChar);
 
-						gOut.Write("Removing {0} project ... ", Globals.Path.GetFileNameWithoutExtension(projName));
+						gOut.Write("Removing {0} project ... ", gEngine.Path.GetFileNameWithoutExtension(projName));
 
 						process.Start();
 
@@ -168,7 +168,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			if (result == RetCode.Failure)
 			{
-				gOut.Print("{0}", Globals.LineSep);
+				gOut.Print("{0}", gEngine.LineSep);
 
 				gOut.Print("The adventure project was not removed.");
 
@@ -181,14 +181,14 @@ namespace EamonDD.Game.Menus.ActionMenus
 		{
 			if (IsAdventureNameValid())
 			{
-				if (Globals.Directory.Exists(Constants.AdventuresDir + @"\" + AdventureName))
+				if (gEngine.Directory.Exists(gEngine.AdventuresDir + @"\" + AdventureName))
 				{
-					Globals.Directory.Delete(Constants.AdventuresDir + @"\" + AdventureName, true);
+					gEngine.Directory.Delete(gEngine.AdventuresDir + @"\" + AdventureName, true);
 				}
 
-				if (Globals.Directory.Exists(Constants.AndroidAdventuresDir + @"\" + AdventureName))
+				if (gEngine.Directory.Exists(gEngine.AndroidAdventuresDir + @"\" + AdventureName))
 				{
-					Globals.Directory.Delete(Constants.AndroidAdventuresDir + @"\" + AdventureName, true);
+					gEngine.Directory.Delete(gEngine.AndroidAdventuresDir + @"\" + AdventureName, true);
 				}
 			}
 		}
@@ -200,32 +200,32 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			if (IsAdventureNameValid())
 			{
-				var srcFileName = Constants.QuickLaunchDir + @"\Unix\EamonDD\Edit" + AdventureName + ".sh";
+				var srcFileName = gEngine.QuickLaunchDir + @"\Unix\EamonDD\Edit" + AdventureName + ".sh";
 
-				if (Globals.File.Exists(srcFileName))
+				if (gEngine.File.Exists(srcFileName))
 				{
-					Globals.File.Delete(srcFileName);
+					gEngine.File.Delete(srcFileName);
 				}
 
-				srcFileName = Constants.QuickLaunchDir + @"\Unix\EamonRT\Resume" + AdventureName + ".sh";
+				srcFileName = gEngine.QuickLaunchDir + @"\Unix\EamonRT\Resume" + AdventureName + ".sh";
 
-				if (Globals.File.Exists(srcFileName))
+				if (gEngine.File.Exists(srcFileName))
 				{
-					Globals.File.Delete(srcFileName);
+					gEngine.File.Delete(srcFileName);
 				}
 
-				srcFileName = Constants.QuickLaunchDir + @"\Windows\EamonDD\Edit" + AdventureName + ".bat";
+				srcFileName = gEngine.QuickLaunchDir + @"\Windows\EamonDD\Edit" + AdventureName + ".bat";
 
-				if (Globals.File.Exists(srcFileName))
+				if (gEngine.File.Exists(srcFileName))
 				{
-					Globals.File.Delete(srcFileName);
+					gEngine.File.Delete(srcFileName);
 				}
 
-				srcFileName = Constants.QuickLaunchDir + @"\Windows\EamonRT\Resume" + AdventureName + ".bat";
+				srcFileName = gEngine.QuickLaunchDir + @"\Windows\EamonRT\Resume" + AdventureName + ".bat";
 
-				if (Globals.File.Exists(srcFileName))
+				if (gEngine.File.Exists(srcFileName))
 				{
-					Globals.File.Delete(srcFileName);
+					gEngine.File.Delete(srcFileName);
 				}
 			}
 		}
@@ -233,7 +233,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 		/// <summary></summary>
 		public virtual void PrintAdventureDeleted()
 		{
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 
 			gOut.Print("The adventure was successfully deleted.");
 		}

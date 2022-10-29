@@ -7,7 +7,7 @@ using System;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.Primitive.Enums;
-using static TheBeginnersCave.Game.Plugin.PluginContext;
+using static TheBeginnersCave.Game.Plugin.Globals;
 
 namespace TheBeginnersCave.Game.Commands
 {
@@ -20,7 +20,7 @@ namespace TheBeginnersCave.Game.Commands
 
 			if (eventType == EventType.AfterPrintSayText && ProcessedPhrase.IndexOf("trollsfire", StringComparison.OrdinalIgnoreCase) >= 0)
 			{
-				var command = Globals.CreateInstance<Framework.Commands.ITrollsfireCommand>();
+				var command = gEngine.CreateInstance<Framework.Commands.ITrollsfireCommand>();
 
 				CopyCommandData(command);
 

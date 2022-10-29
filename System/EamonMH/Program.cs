@@ -13,8 +13,8 @@ using Eamon.Framework.Portability;
 using Eamon.Framework.Primitive.Enums;
 using EamonMH.Framework.Menus.ActionMenus;
 using EamonMH.Framework.Menus.HierarchicalMenus;
-using static EamonMH.Game.Plugin.PluginContext;
-using static EamonMH.Game.Plugin.PluginContextStack;
+using static EamonMH.Game.Plugin.ContextStack;
+using static EamonMH.Game.Plugin.Globals;
 
 namespace EamonMH
 {
@@ -32,13 +32,7 @@ namespace EamonMH
 		public virtual string ProgramName { get; set; } = "EamonMH";
 
 		/// <summary></summary>
-		public virtual Type ConstantsType { get; set; } = typeof(Game.Plugin.PluginConstants);
-
-		/// <summary></summary>
-		public virtual Type ClassMappingsType { get; set; } = typeof(Game.Plugin.PluginClassMappings);
-
-		/// <summary></summary>
-		public virtual Type GlobalsType { get; set; } = typeof(Game.Plugin.PluginGlobals);
+		public virtual Type EngineType { get; set; } = typeof(Game.Plugin.Engine);
 
 		public virtual void Main(string[] args)
 		{
@@ -53,27 +47,25 @@ namespace EamonMH
 
 				rc = RetCode.Success;
 
-				PushConstants(ConstantsType);
+				PushEngine(EngineType);
 
-				PushClassMappings(ClassMappingsType);
+				gEngine.EnableStdio = EnableStdio;
 
-				ClassMappings.EnableStdio = EnableStdio;
+				gEngine.ConvertDatafileToMscorlib = ConvertDatafileToMscorlib;
 
-				ClassMappings.ConvertDatafileToMscorlib = ConvertDatafileToMscorlib;
-
-				ClassMappings.LoadPortabilityClassMappings = LoadPortabilityClassMappings;
+				gEngine.LoadPortabilityClassMappings = LoadPortabilityClassMappings;
 
 				// resolve portability class mappings
 
-				ClassMappings.ResolvePortabilityClassMappings();
+				gEngine.ResolvePortabilityClassMappings();
 
 				// process command line args
 
-				ClassMappings.ProcessArgv(args);
+				gEngine.ProcessArgv(args);
 
 				// load plugin class mappings
 
-				rc = ClassMappings.LoadPluginClassMappings();
+				rc = gEngine.LoadPluginClassMappings();
 
 				if (rc != RetCode.Success)
 				{
@@ -84,13 +76,11 @@ namespace EamonMH
 
 				try
 				{
-					PushGlobals(GlobalsType);
-
 					// initialize system
 
-					Globals.InitSystem();
+					gEngine.InitSystem();
 
-					Globals.LineWrapUserInput = LineWrapUserInput;
+					gEngine.LineWrapUserInput = LineWrapUserInput;
 
 					// disable resolution of uid macros
 
@@ -106,15 +96,15 @@ namespace EamonMH
 
 					// initialize Config record
 
-					Globals.Config.Uid = 1;
+					gEngine.Config.Uid = 1;
 
-					Globals.Config.ShowDesc = true;
+					gEngine.Config.ShowDesc = true;
 
-					Globals.Config.GenerateUids = true;
+					gEngine.Config.GenerateUids = true;
 
-					Globals.Config.FieldDesc = FieldDesc.Full;
+					gEngine.Config.FieldDesc = FieldDesc.Full;
 
-					Globals.Config.WordWrapMargin = Constants.RightMargin;
+					gEngine.Config.WordWrapMargin = gEngine.RightMargin;
 
 					// change window title bar and size
 
@@ -122,10 +112,10 @@ namespace EamonMH
 
 					try
 					{
-						gOut.SetWindowSize(Math.Min(Constants.WindowWidth, gOut.GetLargestWindowWidth()),
-															Math.Min(Math.Max(Constants.WindowHeight, gOut.GetWindowHeight()), (long)(gOut.GetLargestWindowHeight() * 0.95)));
+						gOut.SetWindowSize(Math.Min(gEngine.WindowWidth, gOut.GetLargestWindowWidth()),
+															Math.Min(Math.Max(gEngine.WindowHeight, gOut.GetWindowHeight()), (long)(gOut.GetLargestWindowHeight() * 0.95)));
 
-						gOut.SetBufferSize(Constants.BufferWidth, Constants.BufferHeight);
+						gOut.SetBufferSize(gEngine.BufferWidth, gEngine.BufferHeight);
 					}
 					catch (Exception)
 					{
@@ -134,7 +124,7 @@ namespace EamonMH
 
 					// make announcements
 
-					gOut.Write("{0}Eamon CS Main Hall ({1}) {2}.", Environment.NewLine, ProgramName, Constants.ProgVersion);
+					gOut.Write("{0}Eamon CS Main Hall ({1}) {2}.", Environment.NewLine, ProgramName, gEngine.ProgVersion);
 
 					gOut.Write("{0}Copyright (c) 2014+ by Michael Penner.  All rights reserved.", Environment.NewLine);
 
@@ -142,11 +132,11 @@ namespace EamonMH
 
 					// copy and store command line args
 
-					Globals.Argv = new string[args.Length];
+					gEngine.Argv = new string[args.Length];
 
 					for (i = 0; i < args.Length; i++)
 					{
-						Globals.Argv[i] = Globals.CloneInstance(args[i]);
+						gEngine.Argv[i] = gEngine.CloneInstance(args[i]);
 					}
 
 					// process command line args
@@ -155,40 +145,40 @@ namespace EamonMH
 
 					// assign default work directory, if necessary
 
-					if (Globals.WorkDir.Length == 0)
+					if (gEngine.WorkDir.Length == 0)
 					{
-						Globals.WorkDir = Constants.DefaultWorkDir;
+						gEngine.WorkDir = gEngine.DefaultWorkDir;
 					}
 
 					// initialize Config record
 
-					Globals.Config.MhFilesetFileName = "ADVENTURES.DAT";
+					gEngine.Config.MhFilesetFileName = "ADVENTURES.DAT";
 
-					Globals.Config.MhCharacterFileName = "CHARACTERS.DAT";
+					gEngine.Config.MhCharacterFileName = "CHARACTERS.DAT";
 
-					Globals.Config.MhEffectFileName = "SNAPPY.DAT";
+					gEngine.Config.MhEffectFileName = "SNAPPY.DAT";
 
-					if (Globals.WorkDir.Length > 0)
+					if (gEngine.WorkDir.Length > 0)
 					{
 						// if working directory does not exist
 
-						if (!Globals.Directory.Exists(Globals.WorkDir))
+						if (!gEngine.Directory.Exists(gEngine.WorkDir))
 						{
-							gOut.Print("{0}", Globals.LineSep);
+							gOut.Print("{0}", gEngine.LineSep);
 
-							gOut.Print("The working directory [{0}] does not exist.", Globals.WorkDir);
+							gOut.Print("The working directory [{0}] does not exist.", gEngine.WorkDir);
 
 							gOut.Write("{0}Would you like to create it (Y/N) [N]: ", Environment.NewLine);
 
-							Globals.Buf.Clear();
+							gEngine.Buf.Clear();
 
-							rc = Globals.In.ReadField(Globals.Buf, Constants.BufSize02, null, ' ', '\0', true, "N", gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, gEngine.IsCharYOrN);
+							rc = gEngine.In.ReadField(gEngine.Buf, gEngine.BufSize02, null, ' ', '\0', true, "N", gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, gEngine.IsCharYOrN);
 
 							Debug.Assert(gEngine.IsSuccess(rc));
 
-							Globals.Thread.Sleep(150);
+							gEngine.Thread.Sleep(150);
 
-							if (Globals.Buf[0] != 'Y')
+							if (gEngine.Buf[0] != 'Y')
 							{
 								nlFlag = false;
 
@@ -197,25 +187,25 @@ namespace EamonMH
 
 							// create working directory
 
-							Globals.Directory.CreateDirectory(Globals.WorkDir);
+							gEngine.Directory.CreateDirectory(gEngine.WorkDir);
 						}
 
 						// change to working directory
 
-						Globals.Directory.SetCurrentDirectory(Globals.WorkDir);
+						gEngine.Directory.SetCurrentDirectory(gEngine.WorkDir);
 					}
 
 					// load the config datafile
 
-					if (Globals.ConfigFileName.Length > 0)
+					if (gEngine.ConfigFileName.Length > 0)
 					{
-						gOut.Print("{0}", Globals.LineSep);
+						gOut.Print("{0}", gEngine.LineSep);
 
-						rc = Globals.Database.LoadConfigs(Globals.ConfigFileName);
+						rc = gEngine.Database.LoadConfigs(gEngine.ConfigFileName);
 
 						if (gEngine.IsFailure(rc))
 						{
-							Globals.Error.Write("Error: LoadConfigs function call failed.");
+							gEngine.Error.Write("Error: LoadConfigs function call failed.");
 
 							goto Cleanup;
 						}
@@ -226,32 +216,32 @@ namespace EamonMH
 						{
 							if (config.MhFilesetFileName.Length == 0)
 							{
-								config.MhFilesetFileName = Globals.Config.MhFilesetFileName;
+								config.MhFilesetFileName = gEngine.Config.MhFilesetFileName;
 
-								Globals.ConfigsModified = true;
+								gEngine.ConfigsModified = true;
 							}
 
 							if (config.MhCharacterFileName.Length == 0)
 							{
-								config.MhCharacterFileName = Globals.Config.MhCharacterFileName;
+								config.MhCharacterFileName = gEngine.Config.MhCharacterFileName;
 
-								Globals.ConfigsModified = true;
+								gEngine.ConfigsModified = true;
 							}
 
 							if (config.MhEffectFileName.Length == 0)
 							{
-								config.MhEffectFileName = Globals.Config.MhEffectFileName;
+								config.MhEffectFileName = gEngine.Config.MhEffectFileName;
 
-								Globals.ConfigsModified = true;
+								gEngine.ConfigsModified = true;
 							}
 						}
 						else
 						{
-							Globals.Config.Uid = Globals.Database.GetConfigUid();
+							gEngine.Config.Uid = gEngine.Database.GetConfigUid();
 
-							Globals.Config.IsUidRecycled = true;
+							gEngine.Config.IsUidRecycled = true;
 
-							rc = Globals.Database.AddConfig(Globals.Config);
+							rc = gEngine.Database.AddConfig(gEngine.Config);
 
 							if (gEngine.IsFailure(rc))
 							{
@@ -260,12 +250,12 @@ namespace EamonMH
 								goto Cleanup;
 							}
 
-							Globals.ConfigsModified = true;
+							gEngine.ConfigsModified = true;
 
-							config = Globals.Config;
+							config = gEngine.Config;
 						}
 
-						Globals.Config = config;
+						gEngine.Config = config;
 
 						gOut.WriteLine();
 					}
@@ -283,31 +273,31 @@ namespace EamonMH
 
 					nlFlag = true;
 
-					gOut.Print("{0}", Globals.LineSep);
+					gOut.Print("{0}", gEngine.LineSep);
 
-					rc = Globals.Database.LoadFilesets(Globals.Config.MhFilesetFileName);
+					rc = gEngine.Database.LoadFilesets(gEngine.Config.MhFilesetFileName);
 
 					if (gEngine.IsFailure(rc))
 					{
-						Globals.Error.Write("Error: LoadFilesets function call failed.");
+						gEngine.Error.Write("Error: LoadFilesets function call failed.");
 
 						goto Cleanup;
 					}
 
-					rc = Globals.Database.LoadCharacters(Globals.Config.MhCharacterFileName);
+					rc = gEngine.Database.LoadCharacters(gEngine.Config.MhCharacterFileName);
 
 					if (gEngine.IsFailure(rc))
 					{
-						Globals.Error.Write("Error: LoadCharacters function call failed.");
+						gEngine.Error.Write("Error: LoadCharacters function call failed.");
 
 						goto Cleanup;
 					}
 
-					rc = Globals.Database.LoadEffects(Globals.Config.MhEffectFileName);
+					rc = gEngine.Database.LoadEffects(gEngine.Config.MhEffectFileName);
 
 					if (gEngine.IsFailure(rc))
 					{
-						Globals.Error.Write("Error: LoadEffects function call failed.");
+						gEngine.Error.Write("Error: LoadEffects function call failed.");
 
 						goto Cleanup;
 					}
@@ -316,15 +306,15 @@ namespace EamonMH
 
 					// auto load character if necessary
 
-					if (Globals.CharacterName.Length > 0 && !Globals.CharacterName.Equals("NONE", StringComparison.OrdinalIgnoreCase))
+					if (gEngine.CharacterName.Length > 0 && !gEngine.CharacterName.Equals("NONE", StringComparison.OrdinalIgnoreCase))
 					{
-						Globals.Character = Globals.Database.CharacterTable.Records.FirstOrDefault(c => c.Name.Equals(Globals.CharacterName, StringComparison.OrdinalIgnoreCase));
+						gEngine.Character = gEngine.Database.CharacterTable.Records.FirstOrDefault(c => c.Name.Equals(gEngine.CharacterName, StringComparison.OrdinalIgnoreCase));
 
 						if (gCharacter == null || gCharacter.Uid <= 0 || gCharacter.Status != Status.Alive)
 						{
-							Globals.CharacterName = "";
+							gEngine.CharacterName = "";
 
-							Globals.Character = null;
+							gEngine.Character = null;
 						}
 					}
 
@@ -332,34 +322,34 @@ namespace EamonMH
 
 					if (gCharacter != null)
 					{
-						Globals.Menu = Globals.CreateInstance<IMainHallMenu>();
+						gEngine.Menu = gEngine.CreateInstance<IMainHallMenu>();
 					}
 					else
 					{
-						Globals.Menu = Globals.CreateInstance<IOuterChamberMenu>();
+						gEngine.Menu = gEngine.CreateInstance<IOuterChamberMenu>();
 					}
 
 					// call appropriate menu
 
-					Globals.Menu.Execute();
+					gEngine.Menu.Execute();
 
-					var saveDataFiles = (Globals.ConfigFileName.Length > 0 && Globals.ConfigsModified) || Globals.FilesetsModified || Globals.CharactersModified || Globals.EffectsModified;
+					var saveDataFiles = (gEngine.ConfigFileName.Length > 0 && gEngine.ConfigsModified) || gEngine.FilesetsModified || gEngine.CharactersModified || gEngine.EffectsModified;
 
 					// save datafiles, if any modifications were made
 
 					if (saveDataFiles)
 					{
-						gOut.Print("{0}", Globals.LineSep);
+						gOut.Print("{0}", gEngine.LineSep);
 
 						// save the datafiles
 
-						if (Globals.EffectsModified)
+						if (gEngine.EffectsModified)
 						{
-							rc = Globals.Database.SaveEffects(Globals.Config.MhEffectFileName);
+							rc = gEngine.Database.SaveEffects(gEngine.Config.MhEffectFileName);
 
 							if (gEngine.IsFailure(rc))
 							{
-								Globals.Error.Write("Error: SaveEffects function call failed.");
+								gEngine.Error.Write("Error: SaveEffects function call failed.");
 
 								rc = RetCode.Success;
 
@@ -367,13 +357,13 @@ namespace EamonMH
 							}
 						}
 
-						if (Globals.CharactersModified)
+						if (gEngine.CharactersModified)
 						{
-							rc = Globals.Database.SaveCharacters(Globals.Config.MhCharacterFileName);
+							rc = gEngine.Database.SaveCharacters(gEngine.Config.MhCharacterFileName);
 
 							if (gEngine.IsFailure(rc))
 							{
-								Globals.Error.Write("Error: SaveCharacters function call failed.");
+								gEngine.Error.Write("Error: SaveCharacters function call failed.");
 
 								rc = RetCode.Success;
 
@@ -381,13 +371,13 @@ namespace EamonMH
 							}
 						}
 
-						if (Globals.FilesetsModified)
+						if (gEngine.FilesetsModified)
 						{
-							rc = Globals.Database.SaveFilesets(Globals.Config.MhFilesetFileName);
+							rc = gEngine.Database.SaveFilesets(gEngine.Config.MhFilesetFileName);
 
 							if (gEngine.IsFailure(rc))
 							{
-								Globals.Error.Write("Error: SaveFilesets function call failed.");
+								gEngine.Error.Write("Error: SaveFilesets function call failed.");
 
 								rc = RetCode.Success;
 
@@ -395,13 +385,13 @@ namespace EamonMH
 							}
 						}
 
-						if (Globals.ConfigFileName.Length > 0 && Globals.ConfigsModified)
+						if (gEngine.ConfigFileName.Length > 0 && gEngine.ConfigsModified)
 						{
-							rc = Globals.Database.SaveConfigs(Globals.ConfigFileName);
+							rc = gEngine.Database.SaveConfigs(gEngine.ConfigFileName);
 
 							if (gEngine.IsFailure(rc))
 							{
-								Globals.Error.Write("Error: SaveConfigs function call failed.");
+								gEngine.Error.Write("Error: SaveConfigs function call failed.");
 
 								rc = RetCode.Success;
 
@@ -414,19 +404,19 @@ namespace EamonMH
 
 					// send character on adventure if necessary
 
-					if (Globals.GoOnAdventure)
+					if (gEngine.GoOnAdventure)
 					{
 						Debug.Assert(gCharacter != null);
 
-						Debug.Assert(Globals.Fileset != null);
+						Debug.Assert(gEngine.Fileset != null);
 
-						gOut.Print("{0}", Globals.LineSep);
+						gOut.Print("{0}", gEngine.LineSep);
 
-						Globals.TransferProtocol.SendCharacterOnAdventure(Globals.Fileset.WorkDir, Globals.FilePrefix, Globals.Fileset.PluginFileName);
+						gEngine.TransferProtocol.SendCharacterOnAdventure(gEngine.Fileset.WorkDir, gEngine.FilePrefix, gEngine.Fileset.PluginFileName);
 					}
 					else if (saveDataFiles)
 					{
-						Globals.Thread.Sleep(150);
+						gEngine.Thread.Sleep(150);
 					}
 
 					nlFlag = false;
@@ -439,9 +429,7 @@ namespace EamonMH
 				{
 					// de-initialize system
 
-					Globals.DeinitSystem();
-
-					PopGlobals();
+					gEngine.DeinitSystem();
 				}
 
 			Cleanup:
@@ -450,11 +438,11 @@ namespace EamonMH
 				{
 					if (rc == RetCode.Success)
 					{
-						ClassMappings.Out.WriteLine();
+						gEngine.Out.WriteLine();
 					}
 					else
 					{
-						ClassMappings.Error.WriteLine();
+						gEngine.Error.WriteLine();
 					}
 
 					nlFlag = false;
@@ -462,15 +450,15 @@ namespace EamonMH
 
 				if (rc != RetCode.Success)
 				{
-					ClassMappings.Error.WriteLine("{0}{1}", Environment.NewLine, new string('-', (int)Constants.RightMargin));
+					gEngine.Error.WriteLine("{0}{1}", Environment.NewLine, new string('-', (int)gEngine.RightMargin));
 
-					ClassMappings.Error.Write("{0}Press any key to continue: ", Environment.NewLine);
+					gEngine.Error.Write("{0}Press any key to continue: ", Environment.NewLine);
 
-					ClassMappings.In.ReadKey(true);
+					gEngine.In.ReadKey(true);
 
-					ClassMappings.Error.WriteLine();
+					gEngine.Error.WriteLine();
 
-					ClassMappings.Thread.Sleep(150);
+					gEngine.Thread.Sleep(150);
 				}
 
 				return;
@@ -481,9 +469,7 @@ namespace EamonMH
 			}
 			finally
 			{
-				PopClassMappings();
-
-				PopConstants();
+				PopEngine();
 			}
 		}
 	}

@@ -17,8 +17,8 @@ using Eamon;
 using Eamon.Framework.Plugin;
 using Eamon.Framework.Portability;
 using Eamon.Mobile;
-using static Eamon.Game.Plugin.PluginContext;
-using static Eamon.Game.Plugin.PluginContextStack;
+using static Eamon.Game.Plugin.ContextStack;
+using static Eamon.Game.Plugin.Globals;
 
 namespace EamonPM
 {
@@ -39,13 +39,11 @@ namespace EamonPM
 
 			ForcePluginLinkage();
 
-			PushConstants();
+			PushEngine();
 
-			PushClassMappings();
+			gEngine.LoadPortabilityClassMappings = LoadPortabilityClassMappings;
 
-			ClassMappings.LoadPortabilityClassMappings = LoadPortabilityClassMappings;
-
-			ClassMappings.ResolvePortabilityClassMappings();
+			gEngine.ResolvePortabilityClassMappings();
 
 			var path = Path.Combine(App.BasePath, Path.Combine("System", "Bin"));
 
@@ -102,9 +100,7 @@ namespace EamonPM
 				}
 			}
 
-			PopClassMappings();
-
-			PopConstants();
+			PopEngine();
 
 			base.OnDestroy();
 		}
@@ -208,7 +204,7 @@ namespace EamonPM
 
 				var fileName = Path.Combine(path, "MOBILE_SETTINGS.DAT");
 
-				ClassMappings.SharpSerializer.Serialize(App.SettingsViewModel, fileName);
+				gEngine.SharpSerializer.Serialize(App.SettingsViewModel, fileName);
 			}
 		}
 
@@ -231,7 +227,7 @@ namespace EamonPM
 
 				// if current working directory invalid, bail out
 
-				if (!currWorkDir.EndsWith(systemBinDir) || currWorkDir.Length <= systemBinDir.Length || !Directory.Exists(Constants.AdventuresDir.Replace('\\', Path.DirectorySeparatorChar)))
+				if (!currWorkDir.EndsWith(systemBinDir) || currWorkDir.Length <= systemBinDir.Length || !Directory.Exists(gEngine.AdventuresDir.Replace('\\', Path.DirectorySeparatorChar)))
 				{
 					goto Cleanup;
 				}
@@ -292,41 +288,41 @@ namespace EamonPM
 		/// <summary></summary>
 		public virtual void ForcePluginLinkage()
 		{
-			IPluginGlobals pg = EamonMH.Game.Plugin.PluginContext.Globals;
+			IEngine e = EamonMH.Game.Plugin.Globals.gEngine;
 
-			pg = EamonDD.Game.Plugin.PluginContext.Globals;
+			e = EamonDD.Game.Plugin.Globals.gEngine;
 
-			pg = EamonRT.Game.Plugin.PluginContext.Globals;
+			e = EamonRT.Game.Plugin.Globals.gEngine;
 
-			pg = ARuncibleCargo.Game.Plugin.PluginContext.Globals;
+			e = ARuncibleCargo.Game.Plugin.Globals.gEngine;
 
-			pg = BeginnersForest.Game.Plugin.PluginContext.Globals;
+			e = BeginnersForest.Game.Plugin.Globals.gEngine;
 
-			pg = StrongholdOfKahrDur.Game.Plugin.PluginContext.Globals;
+			e = StrongholdOfKahrDur.Game.Plugin.Globals.gEngine;
 
-			pg = TheBeginnersCave.Game.Plugin.PluginContext.Globals;
+			e = TheBeginnersCave.Game.Plugin.Globals.gEngine;
 
-			pg = TheTempleOfNgurct.Game.Plugin.PluginContext.Globals;
+			e = TheTempleOfNgurct.Game.Plugin.Globals.gEngine;
 
-			pg = TheTrainingGround.Game.Plugin.PluginContext.Globals;
+			e = TheTrainingGround.Game.Plugin.Globals.gEngine;
 
-			pg = WrenholdsSecretVigil.Game.Plugin.PluginContext.Globals;
+			e = WrenholdsSecretVigil.Game.Plugin.Globals.gEngine;
 
-			pg = LandOfTheMountainKing.Game.Plugin.PluginContext.Globals;
+			e = LandOfTheMountainKing.Game.Plugin.Globals.gEngine;
 			
-			pg = TheVileGrimoireOfJaldial.Game.Plugin.PluginContext.Globals;
+			e = TheVileGrimoireOfJaldial.Game.Plugin.Globals.gEngine;
 
-			pg = RiddlesOfTheDuergarKingdom.Game.Plugin.PluginContext.Globals;
+			e = RiddlesOfTheDuergarKingdom.Game.Plugin.Globals.gEngine;
 
-			pg = BeginnersCaveII.Game.Plugin.PluginContext.Globals;
+			e = BeginnersCaveII.Game.Plugin.Globals.gEngine;
 
-			pg = AlternateBeginnersCave.Game.Plugin.PluginContext.Globals;
+			e = AlternateBeginnersCave.Game.Plugin.Globals.gEngine;
 
-			pg = TheDeepCanyon.Game.Plugin.PluginContext.Globals;
+			e = TheDeepCanyon.Game.Plugin.Globals.gEngine;
 
-			pg = SampleAdventure.Game.Plugin.PluginContext.Globals;
+			e = SampleAdventure.Game.Plugin.Globals.gEngine;
 			
-			pg = TheWayfarersInn.Game.Plugin.PluginContext.Globals;
+			e = TheWayfarersInn.Game.Plugin.Globals.gEngine;
 
 			// Note: The Eamon CS datafile upgrade logic now auto-converts System.Private.CoreLib references
 			// into mscorlib references; Xamarin.Forms appears to only work with the latter.

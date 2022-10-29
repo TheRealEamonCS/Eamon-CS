@@ -7,7 +7,7 @@ using System.Diagnostics;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.Primitive.Enums;
-using static StrongholdOfKahrDur.Game.Plugin.PluginContext;
+using static StrongholdOfKahrDur.Game.Plugin.Globals;
 
 namespace StrongholdOfKahrDur.Game.Commands
 {
@@ -42,7 +42,7 @@ namespace StrongholdOfKahrDur.Game.Commands
 
 					ac.SetOpen(false);
 
-					var command = Globals.CreateInstance<IOpenCommand>();
+					var command = gEngine.CreateInstance<IOpenCommand>();
 
 					CopyCommandData(command);
 

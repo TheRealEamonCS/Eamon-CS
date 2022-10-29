@@ -6,7 +6,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Eamon.Mobile.Models;
-using static Eamon.Game.Plugin.PluginContext;
+using static Eamon.Game.Plugin.Globals;
 
 namespace Eamon.Mobile.ViewModels
 {

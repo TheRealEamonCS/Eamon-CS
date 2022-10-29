@@ -248,22 +248,22 @@ namespace Eamon.Framework
 		/// <summary></summary>
 		/// <param name="index"></param>
 		/// <returns></returns>
-		IArtifactCategory GetCategories(long index);
+		IArtifactCategory GetCategory(long index);
 
 		/// <summary></summary>
 		/// <param name="index"></param>
 		/// <returns></returns>
-		string GetSynonyms(long index);
+		string GetSynonym(long index);
 
 		/// <summary></summary>
 		/// <param name="index"></param>
 		/// <param name="value"></param>
-		void SetCategories(long index, IArtifactCategory value);
+		void SetCategory(long index, IArtifactCategory value);
 
 		/// <summary></summary>
 		/// <param name="index"></param>
 		/// <param name="value"></param>
-		void SetSynonyms(long index, string value);
+		void SetSynonym(long index, string value);
 
 		/// <summary></summary>
 		/// <param name="recurse"></param>

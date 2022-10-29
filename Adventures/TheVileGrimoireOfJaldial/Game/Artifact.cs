@@ -7,7 +7,7 @@ using System.Text;
 using Eamon;
 using Eamon.Framework;
 using Eamon.Game.Attributes;
-using static TheVileGrimoireOfJaldial.Game.Plugin.PluginContext;
+using static TheVileGrimoireOfJaldial.Game.Plugin.Globals;
 
 namespace TheVileGrimoireOfJaldial.Game
 {
@@ -22,9 +22,9 @@ namespace TheVileGrimoireOfJaldial.Game
 
 				var room = GetInRoom(true) as Framework.IRoom;
 
-				if (Globals.EnableGameOverrides && gGameState != null && room != null && room.Uid == gGameState.Ro && room.IsDimLightRoomWithoutGlowingMonsters() && gGameState.Ls <= 0)
+				if (gEngine.EnableMutateProperties && room != null && room.Uid == gGameState.Ro && room.IsDimLightRoomWithoutGlowingMonsters() && gGameState.Ls <= 0)
 				{
-					result = string.Format("You can vaguely make out {0} in the {1}.", GetTheName(buf: Globals.Buf01), gGameState.IsNightTime() ? "darkness" : "white haze");
+					result = string.Format("You can vaguely make out {0} in the {1}.", GetTheName(buf: gEngine.Buf01), gGameState.IsNightTime() ? "darkness" : "white haze");
 				}
 
 				return result;
@@ -44,7 +44,7 @@ namespace TheVileGrimoireOfJaldial.Game
 
 				var room = GetInRoom(true) as Framework.IRoom;
 
-				if (Globals.EnableGameOverrides && gGameState != null && room != null && room.Uid == gGameState.Ro && room.IsDimLightRoomWithoutGlowingMonsters() && gGameState.Ls <= 0 && !IsCharOwned && !IsDecoration())
+				if (gEngine.EnableMutateProperties && room != null && room.Uid == gGameState.Ro && room.IsDimLightRoomWithoutGlowingMonsters() && gGameState.Ls <= 0 && !IsCharOwned && !IsDecoration())
 				{
 					result = DimLightSeen;
 				}
@@ -56,7 +56,7 @@ namespace TheVileGrimoireOfJaldial.Game
 			{
 				var room = GetInRoom(true) as Framework.IRoom;
 
-				if (Globals.EnableGameOverrides && gGameState != null && room != null && room.Uid == gGameState.Ro && room.IsDimLightRoomWithoutGlowingMonsters() && gGameState.Ls <= 0 && !IsCharOwned && !IsDecoration())
+				if (gEngine.EnableMutateProperties && room != null && room.Uid == gGameState.Ro && room.IsDimLightRoomWithoutGlowingMonsters() && gGameState.Ls <= 0 && !IsCharOwned && !IsDecoration())
 				{
 					DimLightSeen = value;
 				}

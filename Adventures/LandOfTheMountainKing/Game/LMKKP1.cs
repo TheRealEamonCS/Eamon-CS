@@ -3,9 +3,8 @@
 
 // Copyright (c) 2014+ by Kenneth Pedersen.  All rights reserved.
 
-using Eamon.Framework;
 using Eamon.Game.Attributes;
-using static LandOfTheMountainKing.Game.Plugin.PluginContext;
+using static LandOfTheMountainKing.Game.Plugin.Globals;
 
 namespace LandOfTheMountainKing.Game
 {
@@ -25,9 +24,9 @@ namespace LandOfTheMountainKing.Game
 		public virtual long Spear { get; set; }			//	SET IN MAINLOOP.CS
 		public virtual long Sword { get; set; }			//	SET IN MAINLOOP.CS
 		public virtual long Armor { get; set; }			// = 0;	SET IN MAINLOOP.CS
-		public virtual long blast { get; set; }			// = gCharacter.GetSpellAbilities(1);	SET IN MAINLOOP.CS
-		public virtual long heal { get; set; }			// = gCharacter.GetSpellAbilities(2);	SET IN MAINLOOP.CS
-		public virtual long speed { get; set; }			// = gCharacter.GetSpellAbilities(3);	SET IN MAINLOOP.CS
-		public virtual long power { get; set; }			// = gCharacter.GetSpellAbilities(4);	SET IN MAINLOOP.CS
+		public virtual long blast { get; set; }			// = gCharacter.GetSpellAbility(1);	SET IN MAINLOOP.CS
+		public virtual long heal { get; set; }			// = gCharacter.GetSpellAbility(2);	SET IN MAINLOOP.CS
+		public virtual long speed { get; set; }			// = gCharacter.GetSpellAbility(3);	SET IN MAINLOOP.CS
+		public virtual long power { get; set; }			// = gCharacter.GetSpellAbility(4);	SET IN MAINLOOP.CS
 	}
 }

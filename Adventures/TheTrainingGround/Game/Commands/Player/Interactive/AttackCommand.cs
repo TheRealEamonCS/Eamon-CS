@@ -8,7 +8,7 @@ using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
-using static TheTrainingGround.Game.Plugin.PluginContext;
+using static TheTrainingGround.Game.Plugin.Globals;
 
 namespace TheTrainingGround.Game.Commands
 {
@@ -27,7 +27,7 @@ namespace TheTrainingGround.Game.Commands
 
 				DobjMonster.SetInLimbo();
 
-				NextState = Globals.CreateInstance<IStartState>();
+				NextState = gEngine.CreateInstance<IStartState>();
 
 				GotoCleanup = true;
 			}
@@ -43,7 +43,7 @@ namespace TheTrainingGround.Game.Commands
 			{
 				PrintDontNeedTo();
 
-				NextState = Globals.CreateInstance<IStartState>();
+				NextState = gEngine.CreateInstance<IStartState>();
 			}
 			else
 			{

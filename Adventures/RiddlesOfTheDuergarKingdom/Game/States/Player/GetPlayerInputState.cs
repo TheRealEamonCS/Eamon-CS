@@ -10,7 +10,7 @@ using Eamon.Game.Attributes;
 using EamonRT.Framework.Components;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
-using static RiddlesOfTheDuergarKingdom.Game.Plugin.PluginContext;
+using static RiddlesOfTheDuergarKingdom.Game.Plugin.Globals;
 
 namespace RiddlesOfTheDuergarKingdom.Game.States
 {
@@ -56,7 +56,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.States
 					gOut.Print("The area is shrouded in a{0} white mist.", room.Uid == 57 ? " thick" : room.Uid == 55 || room.Uid == 59 ? " thin" : "");
 				}
 
-				if (ShouldPreTurnProcess())
+				if (gEngine.ShouldPreTurnProcess)
 				{
 					var gradStudentCompanionMonster = gMDB[gGameState.GradStudentCompanionUid];
 
@@ -100,7 +100,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.States
 					{
 						gEngine.PrintEffectDesc(41);
 
-						var combatComponent = Globals.CreateInstance<ICombatComponent>(x =>
+						var combatComponent = gEngine.CreateInstance<ICombatComponent>(x =>
 						{
 							x.SetNextStateFunc = s => NextState = s;
 
@@ -131,7 +131,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.States
 
 						gGameState.Die = 1;
 
-						NextState = Globals.CreateInstance<IPlayerDeadState>(x =>
+						NextState = gEngine.CreateInstance<IPlayerDeadState>(x =>
 						{
 							x.PrintLineSep = true;
 						});
@@ -151,7 +151,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.States
 
 						gGameState.Die = 1;
 
-						NextState = Globals.CreateInstance<IPlayerDeadState>(x =>
+						NextState = gEngine.CreateInstance<IPlayerDeadState>(x =>
 						{
 							x.PrintLineSep = true;
 						});

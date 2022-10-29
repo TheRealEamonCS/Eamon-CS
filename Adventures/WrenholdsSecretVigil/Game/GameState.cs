@@ -5,7 +5,7 @@
 
 using Eamon.Framework;
 using Eamon.Game.Attributes;
-using static WrenholdsSecretVigil.Game.Plugin.PluginContext;
+using static WrenholdsSecretVigil.Game.Plugin.Globals;
 
 namespace WrenholdsSecretVigil.Game
 {
@@ -24,12 +24,12 @@ namespace WrenholdsSecretVigil.Game
 
 		public virtual bool[] MonsterCurses { get; set; }
 
-		public virtual bool GetMonsterCurses(long index)
+		public virtual bool GetMonsterCurse(long index)
 		{
 			return MonsterCurses[index];
 		}
 
-		public virtual void SetMonsterCurses(long index, bool value)
+		public virtual void SetMonsterCurse(long index, bool value)
 		{
 			MonsterCurses[index] = value;
 		}

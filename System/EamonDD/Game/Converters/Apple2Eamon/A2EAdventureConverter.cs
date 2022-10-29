@@ -6,7 +6,7 @@
 using System;
 using System.IO;
 using System.Linq;
-using static EamonDD.Game.Plugin.PluginContext;
+using static EamonDD.Game.Plugin.Globals;
 
 namespace EamonDD.Game.Converters.Apple2Eamon
 {
@@ -63,7 +63,7 @@ namespace EamonDD.Game.Converters.Apple2Eamon
 
 				var tokens = new string[1];
 
-				var nameDatFile = Globals.Path.Combine(AdventureFolderPath, "EAMON.NAME#040000");
+				var nameDatFile = gEngine.Path.Combine(AdventureFolderPath, "EAMON.NAME#040000");
 
 				var adventure = new A2EAdventure();
 
@@ -85,7 +85,7 @@ namespace EamonDD.Game.Converters.Apple2Eamon
 
 				adventure._mlen = 128;
 
-				using (var nameDatStream = Globals.File.OpenRead(nameDatFile))
+				using (var nameDatStream = gEngine.File.OpenRead(nameDatFile))
 				{
 					using (var nameDatMemoryStream = new MemoryStream())
 					{
@@ -167,9 +167,9 @@ namespace EamonDD.Game.Converters.Apple2Eamon
 					}
 				}
 
-				var descDatFile = Globals.Path.Combine(AdventureFolderPath, "EAMON.DESC#040000");
+				var descDatFile = gEngine.Path.Combine(AdventureFolderPath, "EAMON.DESC#040000");
 
-				using (var descDatStream = Globals.File.OpenRead(descDatFile))
+				using (var descDatStream = gEngine.File.OpenRead(descDatFile))
 				{
 					buffer = new byte[adventure._dlen];
 
@@ -249,19 +249,19 @@ namespace EamonDD.Game.Converters.Apple2Eamon
 
 				var tokens = new string[1];
 
-				var roomNameDatFile = Globals.Path.Combine(AdventureFolderPath, "EAMON.ROOM NAMES#040000");
+				var roomNameDatFile = gEngine.Path.Combine(AdventureFolderPath, "EAMON.ROOM NAMES#040000");
 
-				var roomDatFile = Globals.Path.Combine(AdventureFolderPath, "EAMON.ROOMS#040000");
+				var roomDatFile = gEngine.Path.Combine(AdventureFolderPath, "EAMON.ROOMS#040000");
 
-				var artifactDatFile = Globals.Path.Combine(AdventureFolderPath, "EAMON.ARTIFACTS#040000");
+				var artifactDatFile = gEngine.Path.Combine(AdventureFolderPath, "EAMON.ARTIFACTS#040000");
 
-				var monsterDatFile = Globals.Path.Combine(AdventureFolderPath, "EAMON.MONSTERS#040000");
+				var monsterDatFile = gEngine.Path.Combine(AdventureFolderPath, "EAMON.MONSTERS#040000");
 
-				var descDatFile = Globals.Path.Combine(AdventureFolderPath, "EAMON.DESC#040000");
+				var descDatFile = gEngine.Path.Combine(AdventureFolderPath, "EAMON.DESC#040000");
 
-				using (var descDatStream = Globals.File.OpenRead(descDatFile))
+				using (var descDatStream = gEngine.File.OpenRead(descDatFile))
 				{
-					using (var roomDatStream = Globals.File.OpenRead(roomDatFile))
+					using (var roomDatStream = gEngine.File.OpenRead(roomDatFile))
 					{
 						for (var i = 0; i < Adventure._nr; i++)
 						{
@@ -269,7 +269,7 @@ namespace EamonDD.Game.Converters.Apple2Eamon
 
 							if (string.IsNullOrWhiteSpace(Adventure._ver) || !Adventure._ver.StartsWith("7"))
 							{
-								using (var roomNameDatStream = Globals.File.OpenRead(roomNameDatFile))
+								using (var roomNameDatStream = gEngine.File.OpenRead(roomNameDatFile))
 								{
 									buffer = new byte[Adventure._rnlen];
 
@@ -404,7 +404,7 @@ namespace EamonDD.Game.Converters.Apple2Eamon
 						}
 					}
 
-					using (var artifactDatStream = Globals.File.OpenRead(artifactDatFile))
+					using (var artifactDatStream = gEngine.File.OpenRead(artifactDatFile))
 					{
 						for (var i = 0; i < Adventure._na; i++)
 						{
@@ -528,7 +528,7 @@ namespace EamonDD.Game.Converters.Apple2Eamon
 						Adventure.EffectList.Add(effect);
 					}
 
-					using (var monsterDatStream = Globals.File.OpenRead(monsterDatFile))
+					using (var monsterDatStream = gEngine.File.OpenRead(monsterDatFile))
 					{
 						for (var i = 0; i < Adventure._nm; i++)
 						{

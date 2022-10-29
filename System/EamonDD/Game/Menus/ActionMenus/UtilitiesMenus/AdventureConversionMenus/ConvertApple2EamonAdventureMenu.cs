@@ -17,7 +17,7 @@ using Eamon.Game.Extensions;
 using Eamon.Game.Menus;
 using EamonDD.Framework.Menus.ActionMenus;
 using EamonDD.Game.Converters.Apple2Eamon;
-using static EamonDD.Game.Plugin.PluginContext;
+using static EamonDD.Game.Plugin.Globals;
 
 namespace EamonDD.Game.Menus.ActionMenus
 {
@@ -52,7 +52,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			gOut.WordWrap = false;
 
-			rc = Globals.In.ReadField(Buf, 256, null, '_', '\0', false, null, null, null, null);
+			rc = gEngine.In.ReadField(Buf, 256, null, '_', '\0', false, null, null, null, null);
 
 			Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -60,7 +60,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			a2eac.AdventureFolderPath = Buf.Trim().ToString().Replace('/', '\\');
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 
 			gOut.WriteLine();
 
@@ -72,7 +72,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 				gOut.Print(a2eac.ErrorMessage);
 
-				gOut.Print("{0}", Globals.LineSep);
+				gOut.Print("{0}", gEngine.LineSep);
 
 				gOut.Print("The adventure was not converted.");
 
@@ -83,38 +83,38 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			var a2eAdv = a2eac.Adventure;
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 
 			gOut.Print("Apple II Eamon adventure:");
 
 			gOut.Print(a2eAdv.Name);
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 
 			gOut.Write("{0}Would you like to convert this adventure for use in Eamon CS (Y/N): ", Environment.NewLine);
 
 			Buf.Clear();
 
-			rc = Globals.In.ReadField(Buf, Constants.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, null);
+			rc = gEngine.In.ReadField(Buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, null);
 
 			Debug.Assert(gEngine.IsSuccess(rc));
 
 			if (Buf.Length == 0 || Buf[0] != 'Y')
 			{
-				gOut.Print("{0}", Globals.LineSep);
+				gOut.Print("{0}", gEngine.LineSep);
 
 				gOut.Print("The adventure was not converted.");
 
 				goto Cleanup;
 			}
 
-			Globals.Module = null;
+			gEngine.Module = null;
 
-			Globals.Database.FreeModules();
+			gEngine.Database.FreeModules();
 
-			var module = Globals.CreateInstance<IModule>(x =>
+			var module = gEngine.CreateInstance<IModule>(x =>
 			{
-				x.Uid = Globals.Database.GetModuleUid();
+				x.Uid = gEngine.Database.GetModuleUid();
 
 				if (!a2eAdv.Name.Equals("TODO", StringComparison.OrdinalIgnoreCase))
 				{
@@ -125,7 +125,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 						x.Name = x.Name.ToLower();
 					}
 
-					x.Name = x.Name.Trim(new char[] { ' ', '\"' }).ToTitleCase().Truncate(Constants.ModNameLen);
+					x.Name = x.Name.Trim(new char[] { ' ', '\"' }).ToTitleCase().Truncate(gEngine.ModNameLen);
 				}
 				else
 				{
@@ -153,13 +153,13 @@ namespace EamonDD.Game.Menus.ActionMenus
 				x.NumMonsters = a2eAdv._nm;
 			});
 
-			Globals.Database.AddModule(module);
+			gEngine.Database.AddModule(module);
 
-			Globals.ModulesModified = true;
+			gEngine.ModulesModified = true;
 
-			Globals.Module = module;
+			gEngine.Module = module;
 
-			Globals.Database.FreeRooms();
+			gEngine.Database.FreeRooms();
 
 			for (var i = 0; i < a2eAdv._nr; i++)
 			{
@@ -212,13 +212,13 @@ namespace EamonDD.Game.Menus.ActionMenus
 					a2eRoom._rdesc = "UNUSED";
 				}
 
-				var room = Globals.CreateInstance<IRoom>(x =>
+				var room = gEngine.CreateInstance<IRoom>(x =>
 				{
-					x.Uid = Globals.Database.GetRoomUid();
+					x.Uid = gEngine.Database.GetRoomUid();
 
-					x.Name = a2eRoom._rname.Truncate(Constants.RmNameLen);
+					x.Name = a2eRoom._rname.Truncate(gEngine.RmNameLen);
 
-					x.Desc = a2eRoom._rdesc.Truncate(Constants.RmDescLen);
+					x.Desc = a2eRoom._rdesc.Truncate(gEngine.RmDescLen);
 
 					x.LightLvl = a2eRoom._rlight != 0 ? LightLevel.Light : LightLevel.Dark;
 
@@ -234,7 +234,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 					}
 					else
 					{
-						x.SetDirs(Direction.North, a2eRoom._rd1);
+						x.SetDir(Direction.North, a2eRoom._rd1);
 					}
 
 					if (a2eRoom._rd2 > 500)
@@ -247,7 +247,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 					}
 					else
 					{
-						x.SetDirs(Direction.South, a2eRoom._rd2);
+						x.SetDir(Direction.South, a2eRoom._rd2);
 					}
 
 					if (a2eRoom._rd3 > 500)
@@ -260,7 +260,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 					}
 					else
 					{
-						x.SetDirs(Direction.East, a2eRoom._rd3);
+						x.SetDir(Direction.East, a2eRoom._rd3);
 					}
 
 					if (a2eRoom._rd4 > 500)
@@ -273,7 +273,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 					}
 					else
 					{
-						x.SetDirs(Direction.West, a2eRoom._rd4);
+						x.SetDir(Direction.West, a2eRoom._rd4);
 					}
 
 					if (a2eRoom._rd5 > 500)
@@ -286,7 +286,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 					}
 					else
 					{
-						x.SetDirs(Direction.Up, a2eRoom._rd5);
+						x.SetDir(Direction.Up, a2eRoom._rd5);
 					}
 
 					if (a2eRoom._rd6 > 500)
@@ -299,7 +299,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 					}
 					else
 					{
-						x.SetDirs(Direction.Down, a2eRoom._rd6);
+						x.SetDir(Direction.Down, a2eRoom._rd6);
 					}
 
 					if (a2eAdv._nd != 6)
@@ -314,7 +314,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 						}
 						else
 						{
-							x.SetDirs(Direction.Northeast, a2eRoom._rd7);
+							x.SetDir(Direction.Northeast, a2eRoom._rd7);
 						}
 
 						if (a2eRoom._rd8 > 500)
@@ -327,7 +327,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 						}
 						else
 						{
-							x.SetDirs(Direction.Northwest, a2eRoom._rd8);
+							x.SetDir(Direction.Northwest, a2eRoom._rd8);
 						}
 
 						if (a2eRoom._rd9 > 500)
@@ -340,7 +340,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 						}
 						else
 						{
-							x.SetDirs(Direction.Southeast, a2eRoom._rd9);
+							x.SetDir(Direction.Southeast, a2eRoom._rd9);
 						}
 
 						if (a2eRoom._rd10 > 500)
@@ -353,19 +353,19 @@ namespace EamonDD.Game.Menus.ActionMenus
 						}
 						else
 						{
-							x.SetDirs(Direction.Southwest, a2eRoom._rd10);
+							x.SetDir(Direction.Southwest, a2eRoom._rd10);
 						}
 					}
 				});
 
-				Globals.Database.AddRoom(room);
+				gEngine.Database.AddRoom(room);
 			}
 
-			Globals.RoomsModified = true;
+			gEngine.RoomsModified = true;
 
-			Globals.Database.FreeArtifacts();
+			gEngine.Database.FreeArtifacts();
 
-			var artifactHelper = Globals.CreateInstance<IArtifactHelper>();
+			var artifactHelper = gEngine.CreateInstance<IArtifactHelper>();
 
 			Debug.Assert(artifactHelper != null);
 
@@ -420,13 +420,13 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 				var embedArtifactInRoom = false;
 
-				var artifact = Globals.CreateInstance<IArtifact>(x =>
+				var artifact = gEngine.CreateInstance<IArtifact>(x =>
 				{
-					x.Uid = Globals.Database.GetArtifactUid();
+					x.Uid = gEngine.Database.GetArtifactUid();
 
-					x.Name = a2eArtifact._artname.Truncate(Constants.ArtNameLen);
+					x.Name = a2eArtifact._artname.Truncate(gEngine.ArtNameLen);
 
-					x.Desc = a2eArtifact._artdesc.Truncate(Constants.ArtDescLen);
+					x.Desc = a2eArtifact._artdesc.Truncate(gEngine.ArtDescLen);
 
 					x.IsListed = true;
 
@@ -568,7 +568,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 					}
 				}
 
-				Globals.Database.AddArtifact(artifact);
+				gEngine.Database.AddArtifact(artifact);
 			}
 
 			var containerList = gADB.Records.Where(a => a.Type == ArtifactType.InContainer).ToList();
@@ -592,9 +592,9 @@ namespace EamonDD.Game.Menus.ActionMenus
 				container.Field4 = containedList.Count;
 			}
 
-			Globals.ArtifactsModified = true;
+			gEngine.ArtifactsModified = true;
 
-			Globals.Database.FreeEffects();
+			gEngine.Database.FreeEffects();
 
 			for (var i = 0; i < a2eAdv._ne; i++)
 			{
@@ -630,21 +630,21 @@ namespace EamonDD.Game.Menus.ActionMenus
 					a2eEffect._text = "UNUSED";
 				}
 
-				var effect = Globals.CreateInstance<IEffect>(x =>
+				var effect = gEngine.CreateInstance<IEffect>(x =>
 				{
-					x.Uid = Globals.Database.GetEffectUid();
+					x.Uid = gEngine.Database.GetEffectUid();
 
-					x.Desc = a2eEffect._text.Truncate(Constants.EffDescLen);
+					x.Desc = a2eEffect._text.Truncate(gEngine.EffDescLen);
 				});
 
-				Globals.Database.AddEffect(effect);
+				gEngine.Database.AddEffect(effect);
 			}
 
-			Globals.EffectsModified = true;
+			gEngine.EffectsModified = true;
 
-			Globals.Database.FreeMonsters();
+			gEngine.Database.FreeMonsters();
 
-			var monsterHelper = Globals.CreateInstance<IMonsterHelper>();
+			var monsterHelper = gEngine.CreateInstance<IMonsterHelper>();
 
 			Debug.Assert(monsterHelper != null);
 
@@ -697,13 +697,13 @@ namespace EamonDD.Game.Menus.ActionMenus
 					a2eMonster._mdesc = "UNUSED";
 				}
 
-				var monster = Globals.CreateInstance<IMonster>(x =>
+				var monster = gEngine.CreateInstance<IMonster>(x =>
 				{
-					x.Uid = Globals.Database.GetMonsterUid();
+					x.Uid = gEngine.Database.GetMonsterUid();
 
-					x.Name = a2eMonster._mname.Truncate(Constants.MonNameLen);
+					x.Name = a2eMonster._mname.Truncate(gEngine.MonNameLen);
 
-					x.Desc = a2eMonster._mdesc.Truncate(Constants.MonDescLen);
+					x.Desc = a2eMonster._mdesc.Truncate(gEngine.MonDescLen);
 
 					x.IsListed = true;
 
@@ -776,7 +776,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 					monster.Name = "TODO";
 				}
 
-				Globals.Database.AddMonster(monster);
+				gEngine.Database.AddMonster(monster);
 			}
 
 			var monsterList = gMDB.Records.Where(m => m.Weapon > 0).ToList();
@@ -791,9 +791,9 @@ namespace EamonDD.Game.Menus.ActionMenus
 				}
 			}
 
-			Globals.MonstersModified = true;
+			gEngine.MonstersModified = true;
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 
 			gOut.Print("The adventure was successfully converted.");
 
@@ -804,7 +804,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 		public ConvertApple2EamonAdventureMenu()
 		{
-			Buf = Globals.Buf;
+			Buf = gEngine.Buf;
 
 			ArtifactTypeMappings = new ArtifactType[]
 			{

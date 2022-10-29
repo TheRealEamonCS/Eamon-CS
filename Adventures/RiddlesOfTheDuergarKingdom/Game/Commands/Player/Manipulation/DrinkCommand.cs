@@ -6,7 +6,7 @@
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.Primitive.Enums;
-using static RiddlesOfTheDuergarKingdom.Game.Plugin.PluginContext;
+using static RiddlesOfTheDuergarKingdom.Game.Plugin.Globals;
 
 namespace RiddlesOfTheDuergarKingdom.Game.Commands
 {
@@ -25,7 +25,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.Commands
 
 				gGameState.CoffeePotUsed = true;
 
-				var command = Globals.CreateInstance<ISpeedCommand>(x =>
+				var command = gEngine.CreateInstance<ISpeedCommand>(x =>
 				{
 					x.CastSpell = false;
 				});

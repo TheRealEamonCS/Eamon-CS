@@ -13,7 +13,7 @@ using EamonRT.Framework.Commands;
 using EamonRT.Framework.Parsing;
 using EamonRT.Framework.States;
 using TheVileGrimoireOfJaldial.Framework.Commands;
-using static TheVileGrimoireOfJaldial.Game.Plugin.PluginContext;
+using static TheVileGrimoireOfJaldial.Game.Plugin.Globals;
 
 namespace TheVileGrimoireOfJaldial.Game.Parsing
 {
@@ -456,7 +456,7 @@ namespace TheVileGrimoireOfJaldial.Game.Parsing
 
 			if (a.Field1 > 0 || a.Field2 > 0)
 			{
-				a.Name = Globals.CloneInstance(ObjData.Name);
+				a.Name = gEngine.CloneInstance(ObjData.Name);
 
 				// Make note of the Decoration so it can be used later if the normal Artifact resolution process fails
 
@@ -476,7 +476,7 @@ namespace TheVileGrimoireOfJaldial.Game.Parsing
 				{
 					gOut.Print("You can't do that while paralyzed!");
 
-					NextState = Globals.CreateInstance<IStartState>();
+					NextState = gEngine.CreateInstance<IStartState>();
 				}
 
 				// Restrict GiveCommand and RequestCommand when targeting paralyzed Monster
@@ -485,7 +485,7 @@ namespace TheVileGrimoireOfJaldial.Game.Parsing
 				{
 					gOut.Print("You can't do that while {0} {1} paralyzed!", IobjMonster.GetTheName(), IobjMonster.EvalPlural("is", "are"));
 
-					NextState = Globals.CreateInstance<IStartState>();
+					NextState = gEngine.CreateInstance<IStartState>();
 				}
 
 				// Restrict SearchCommand while enemies are present
@@ -494,7 +494,7 @@ namespace TheVileGrimoireOfJaldial.Game.Parsing
 				{
 					NextCommand.PrintEnemiesNearby();
 
-					NextState = Globals.CreateInstance<IStartState>();
+					NextState = gEngine.CreateInstance<IStartState>();
 				}
 
 				// Restrict Commands in the graveyard at night or in heavy fog
@@ -503,7 +503,7 @@ namespace TheVileGrimoireOfJaldial.Game.Parsing
 				{
 					gOut.Print("You'll need a bit more light for that!");
 
-					NextState = Globals.CreateInstance<IMonsterStartState>();
+					NextState = gEngine.CreateInstance<IMonsterStartState>();
 				}
 				else
 				{
@@ -519,7 +519,7 @@ namespace TheVileGrimoireOfJaldial.Game.Parsing
 						{
 							gOut.Print("{0} won't let you get close enough to do that!", waterWeirdMonster.GetTheName(true));
 
-							NextState = Globals.CreateInstance<IMonsterStartState>();
+							NextState = gEngine.CreateInstance<IMonsterStartState>();
 						}
 						else if (!gGameState.WaterWeirdKilled)
 						{
@@ -527,7 +527,7 @@ namespace TheVileGrimoireOfJaldial.Game.Parsing
 
 							waterWeirdMonster.SetInRoom(ActorRoom);
 
-							NextState = Globals.CreateInstance<IStartState>();
+							NextState = gEngine.CreateInstance<IStartState>();
 						}
 						else
 						{

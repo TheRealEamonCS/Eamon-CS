@@ -6,7 +6,7 @@
 using Eamon.Game.Attributes;
 using EamonRT.Framework;
 using EamonRT.Framework.Primitive.Enums;
-using static LandOfTheMountainKing.Game.Plugin.PluginContext;
+using static LandOfTheMountainKing.Game.Plugin.Globals;
 
 namespace LandOfTheMountainKing.Game
 {
@@ -15,7 +15,7 @@ namespace LandOfTheMountainKing.Game
 	{
 		public override void PrintOutputDefault() //test
 		{
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 
 			gEngine.PrintEffectDesc(1);
 			gEngine.PrintEffectDesc(2);

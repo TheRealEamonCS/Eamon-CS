@@ -10,7 +10,7 @@ using Eamon.Game.Attributes;
 using EamonRT.Framework.Components;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
-using static ARuncibleCargo.Game.Plugin.PluginContext;
+using static ARuncibleCargo.Game.Plugin.Globals;
 
 namespace ARuncibleCargo.Game.States
 {
@@ -21,7 +21,7 @@ namespace ARuncibleCargo.Game.States
 		{
 			base.ProcessEvents(eventType);
 
-			if (eventType == EventType.BeforePrintCommandPrompt && ShouldPreTurnProcess())
+			if (eventType == EventType.BeforePrintCommandPrompt && gEngine.ShouldPreTurnProcess)
 			{
 				Debug.Assert(gCharMonster != null);
 
@@ -81,7 +81,7 @@ namespace ARuncibleCargo.Game.States
 				{
 					gEngine.PrintEffectDesc(13);
 
-					var combatComponent = Globals.CreateInstance<ICombatComponent>(x =>
+					var combatComponent = gEngine.CreateInstance<ICombatComponent>(x =>
 					{
 						x.SetNextStateFunc = s => NextState = s;
 
@@ -114,11 +114,7 @@ namespace ARuncibleCargo.Game.States
 
 					gEngine.PrintEffectDesc(11);
 
-					NextState = Globals.CreateInstance<IStartState>();
-
-					GotoCleanup = true;
-
-					goto Cleanup;
+					gEngine.PrintPlayerRoom();
 				}
 
 				var ovenArtifact = gADB[80];
@@ -268,19 +264,19 @@ namespace ARuncibleCargo.Game.States
 				{
 					var effectUid = commanderAndSoldiersDead ? 60L : 142L;
 
-					gOut.Print("{0}", Globals.LineSep);
+					gOut.Print("{0}", gEngine.LineSep);
 
 					gEngine.PrintEffectDesc(effectUid);
 
-					Globals.In.KeyPress(Globals.Buf);
+					gEngine.In.KeyPress(gEngine.Buf);
 
 					gGameState.Die = 0;
 
-					Globals.ExitType = ExitType.FinishAdventure;
+					gEngine.ExitType = ExitType.FinishAdventure;
 
-					Globals.MainLoop.ShouldShutdown = true;
+					gEngine.MainLoop.ShouldShutdown = true;
 
-					NextState = Globals.CreateInstance<IStartState>();
+					NextState = gEngine.CreateInstance<IStartState>();
 
 					GotoCleanup = true;
 
@@ -346,7 +342,7 @@ namespace ARuncibleCargo.Game.States
 
 				// Maintenance grate, sewer grate, and (Barney) Rubble
 
-				var doubleDoorList = Globals.DoubleDoorList.Where(dd => dd.RoomUid == room.Uid).ToList();
+				var doubleDoorList = gEngine.DoubleDoorList.Where(dd => dd.RoomUid == room.Uid).ToList();
 
 				foreach (var dd in doubleDoorList)
 				{
@@ -368,7 +364,7 @@ namespace ARuncibleCargo.Game.States
 
 					doorArtifact01.Seen = doorArtifact.Seen;
 
-					doorArtifact01.StateDesc = Globals.CloneInstance(doorArtifact.StateDesc);
+					doorArtifact01.StateDesc = gEngine.CloneInstance(doorArtifact.StateDesc);
 
 					ac01.Field2 = ac.Field2;
 

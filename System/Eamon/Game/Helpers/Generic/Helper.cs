@@ -13,7 +13,7 @@ using Eamon.Framework;
 using Eamon.Framework.Helpers.Generic;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
-using static Eamon.Game.Plugin.PluginContext;
+using static Eamon.Game.Plugin.Globals;
 
 namespace Eamon.Game.Helpers.Generic
 {
@@ -640,9 +640,9 @@ namespace Eamon.Game.Helpers.Generic
 
 		public Helper()
 		{
-			Buf = new StringBuilder(Constants.BufSize);
+			Buf = new StringBuilder(gEngine.BufSize);
 
-			Buf01 = new StringBuilder(Constants.BufSize);
+			Buf01 = new StringBuilder(gEngine.BufSize);
 
 			FieldNameList = new List<string>();
 

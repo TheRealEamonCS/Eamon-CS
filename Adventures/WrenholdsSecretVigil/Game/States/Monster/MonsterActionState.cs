@@ -7,7 +7,7 @@ using System.Diagnostics;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.States;
-using static WrenholdsSecretVigil.Game.Plugin.PluginContext;
+using static WrenholdsSecretVigil.Game.Plugin.Globals;
 
 namespace WrenholdsSecretVigil.Game.States
 {
@@ -16,7 +16,7 @@ namespace WrenholdsSecretVigil.Game.States
 	{
 		public override void Execute()
 		{
-			LoopMonster = gMDB[Globals.LoopMonsterUid];
+			LoopMonster = gMDB[gEngine.LoopMonsterUid];
 
 			Debug.Assert(LoopMonster != null);
 
@@ -26,9 +26,9 @@ namespace WrenholdsSecretVigil.Game.States
 
 			// Try to open running device, all flee
 
-			if (LoopMonster.CanMoveToRoom(true) && Globals.DeviceOpened)
+			if (LoopMonster.CanMoveToRoom(true) && gEngine.DeviceOpened)
 			{
-				ActionCommand = Globals.CreateInstance<IMonsterFleeCommand>(x =>
+				ActionCommand = gEngine.CreateInstance<IMonsterFleeCommand>(x =>
 				{
 					x.ActorMonster = LoopMonster;
 
@@ -37,9 +37,9 @@ namespace WrenholdsSecretVigil.Game.States
 
 				ActionCommand.Execute();
 
-				NextState = Globals.CreateInstance<IMonsterLoopIncrementState>();
+				NextState = gEngine.CreateInstance<IMonsterLoopIncrementState>();
 
-				Globals.NextState = NextState;
+				gEngine.NextState = NextState;
 			}
 			else
 			{

@@ -10,7 +10,7 @@ using Eamon.Game.Attributes;
 using Eamon.Game.Extensions;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.States;
-using static TheVileGrimoireOfJaldial.Game.Plugin.PluginContext;
+using static TheVileGrimoireOfJaldial.Game.Plugin.Globals;
 
 namespace TheVileGrimoireOfJaldial.Game.Commands
 {
@@ -32,7 +32,7 @@ namespace TheVileGrimoireOfJaldial.Game.Commands
 				gEngine.PrintTitle("Just how he died none do now know,".PadTRight(44, ' '), false);
 				gEngine.PrintTitle("It's thought he was killed by an unseen foe.".PadTRight(44, ' '), false);
 
-				NextState = Globals.CreateInstance<IMonsterStartState>();
+				NextState = gEngine.CreateInstance<IMonsterStartState>();
 			}
 
 			// Decoration
@@ -106,7 +106,7 @@ namespace TheVileGrimoireOfJaldial.Game.Commands
 					case 4:
 					case 5:
 
-						var command = Globals.CreateInstance<IExamineCommand>();
+						var command = gEngine.CreateInstance<IExamineCommand>();
 
 						CopyCommandData(command);
 
@@ -137,7 +137,7 @@ namespace TheVileGrimoireOfJaldial.Game.Commands
 
 				if (NextState == null)
 				{
-					NextState = Globals.CreateInstance<IMonsterStartState>();
+					NextState = gEngine.CreateInstance<IMonsterStartState>();
 				}
 			}
 			else

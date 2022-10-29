@@ -9,7 +9,7 @@ using System.Text;
 using Eamon;
 using Eamon.Framework.Portability;
 using Eamon.Game.Extensions;
-using static Eamon.Game.Plugin.PluginContext;
+using static Eamon.Game.Plugin.Globals;
 
 namespace EamonPM.Game.Portability
 {
@@ -28,6 +28,8 @@ namespace EamonPM.Game.Portability
 			int h;
 			int i;
 			char ch;
+
+			Debug.Assert(gEngine != null);
 
 			if (buf == null || bufSize < 1 || (boxChars != null && (boxChars[0] == '\0' || boxChars[1] == '\0')) || (emptyVal != null && emptyVal[0] == '\0'))
 			{
@@ -52,9 +54,9 @@ namespace EamonPM.Game.Portability
 				fillChar = ' ';
 			}
 
-			var inputCh0Pos = Globals.Out.GetCursorPosition();
+			var inputCh0Pos = gEngine.Out.GetCursorPosition();
 
-			rows = (int)(inputCh0Pos.X + bufSize) / Constants.WindowWidth;
+			rows = (int)(inputCh0Pos.X + bufSize) / gEngine.WindowWidth;
 
 			if (!ReadLineMode)
 			{
@@ -63,33 +65,33 @@ namespace EamonPM.Game.Portability
 
 			for (i = 0; i < rows; i++)
 			{
-				var cursorPosition = Globals.Out.GetCursorPosition();
+				var cursorPosition = gEngine.Out.GetCursorPosition();
 
-				if (cursorPosition.Y + 1 >= Globals.Out.GetBufferHeight())
+				if (cursorPosition.Y + 1 >= gEngine.Out.GetBufferHeight())
 				{
 					inputCh0Pos.Y--;
 				}
 
-				Globals.Out.WriteLine();
+				gEngine.Out.WriteLine();
 			}
 
-			Globals.Out.SetCursorPosition(inputCh0Pos);
+			gEngine.Out.SetCursorPosition(inputCh0Pos);
 
 			if (boxChars != null)
 			{
-				Globals.Out.Write(boxChars[0]);
+				gEngine.Out.Write(boxChars[0]);
 			}
 
-			inputCh0Pos = Globals.Out.GetCursorPosition();
+			inputCh0Pos = gEngine.Out.GetCursorPosition();
 
-			Globals.Out.Write(new string(fillChar, (int)bufSize));
+			gEngine.Out.Write(new string(fillChar, (int)bufSize));
 
 			if (boxChars != null)
 			{
-				Globals.Out.Write(boxChars[1]);
+				gEngine.Out.Write(boxChars[1]);
 			}
 
-			Globals.Out.SetCursorPosition(inputCh0Pos);
+			gEngine.Out.SetCursorPosition(inputCh0Pos);
 
 			var charPos = new Coord[bufSize + 1];
 
@@ -102,9 +104,9 @@ namespace EamonPM.Game.Portability
 
 			for (h = 0; h < i; h++)
 			{
-				charPos[h] = Globals.Out.GetCursorPosition();
+				charPos[h] = gEngine.Out.GetCursorPosition();
 
-				Globals.Out.Write(maskChar != '\0' ? maskChar : buf[h]);
+				gEngine.Out.Write(maskChar != '\0' ? maskChar : buf[h]);
 			}
 
 			if (buf.Length < bufSize)
@@ -116,13 +118,13 @@ namespace EamonPM.Game.Portability
 
 			while (true)
 			{
-				charPos[i] = Globals.Out.GetCursorPosition();
+				charPos[i] = gEngine.Out.GetCursorPosition();
 
 				ch = Console.ReadKey(true).KeyChar;
 
 				if (ch == '\r' || ch == '\n' || ch == '\t')
 				{
-					Globals.Out.SetCursorPosition(inputCh0Pos);
+					gEngine.Out.SetCursorPosition(inputCh0Pos);
 
 					if (i > 0 || emptyAllowed)
 					{
@@ -131,16 +133,16 @@ namespace EamonPM.Game.Portability
 				}
 				else if (ch == 0x1B)
 				{
-					Globals.Out.SetCursorPosition(inputCh0Pos);
+					gEngine.Out.SetCursorPosition(inputCh0Pos);
 
-					Globals.Out.Write(new string(fillChar, (int)bufSize));
+					gEngine.Out.Write(new string(fillChar, (int)bufSize));
 
 					if (boxChars != null)
 					{
-						Globals.Out.Write(boxChars[1]);
+						gEngine.Out.Write(boxChars[1]);
 					}
 
-					Globals.Out.SetCursorPosition(inputCh0Pos);
+					gEngine.Out.SetCursorPosition(inputCh0Pos);
 
 					Array.Clear(charPos, 0, (int)bufSize + 1);
 
@@ -150,11 +152,11 @@ namespace EamonPM.Game.Portability
 				{
 					if (i > 0)
 					{
-						Globals.Out.SetCursorPosition(charPos[i - 1]);
+						gEngine.Out.SetCursorPosition(charPos[i - 1]);
 
-						Globals.Out.Write(fillChar);
+						gEngine.Out.Write(fillChar);
 
-						Globals.Out.SetCursorPosition(charPos[i - 1]);
+						gEngine.Out.SetCursorPosition(charPos[i - 1]);
 
 						charPos[i] = null;
 
@@ -188,7 +190,7 @@ namespace EamonPM.Game.Portability
 						{
 							buf[i++] = ch;
 
-							Globals.Out.Write(maskChar != '\0' ? maskChar : ch);
+							gEngine.Out.Write(maskChar != '\0' ? maskChar : ch);
 						}
 
 						termChar = false;
@@ -217,40 +219,40 @@ namespace EamonPM.Game.Portability
 				buf.SetFormat("{0}", emptyVal);
 			}
 
-			Globals.Out.SetCursorPosition(inputCh0Pos);
+			gEngine.Out.SetCursorPosition(inputCh0Pos);
 
 			i = buf.Length;
 
 			if (maskChar != '\0')
 			{
-				Globals.Out.Write(new string(maskChar, i));
+				gEngine.Out.Write(new string(maskChar, i));
 			}
 			else
 			{
-				Globals.Out.Write("{0}", buf);
+				gEngine.Out.Write("{0}", buf);
 			}
 
-			Globals.Out.Write(new string(' ', (int)bufSize - i));
+			gEngine.Out.Write(new string(' ', (int)bufSize - i));
 
 			if (boxChars == null)
 			{
-				Globals.Out.SetCursorPosition(inputCh0Pos);
+				gEngine.Out.SetCursorPosition(inputCh0Pos);
 
 				if (maskChar != '\0')
 				{
-					Globals.Out.Write(new string(maskChar, i));
+					gEngine.Out.Write(new string(maskChar, i));
 				}
 				else
 				{
-					Globals.Out.Write("{0}", buf);
+					gEngine.Out.Write("{0}", buf);
 				}
 			}
 			else
 			{
-				Globals.Out.Write(boxChars[1]);
+				gEngine.Out.Write(boxChars[1]);
 			}
 
-			Globals.Out.Write(Environment.NewLine);
+			gEngine.Out.Write(Environment.NewLine);
 
 		Cleanup:
 
@@ -271,27 +273,27 @@ namespace EamonPM.Game.Portability
 		{
 			if (EnableInput)
 			{
-				var cursorPosition = Globals.Out.GetCursorPosition();
+				var cursorPosition = gEngine.Out.GetCursorPosition();
 
-				var bufSize = (Constants.WindowWidth * 2) - (cursorPosition.X + 1);
+				var bufSize = (gEngine.WindowWidth * 2) - (cursorPosition.X + 1);
 
 				var buf = new StringBuilder(bufSize);
 
 				ReadLineMode = true;
 
-				Globals.Out.WordWrap = false;
+				gEngine.Out.WordWrap = false;
 
-				var suppressNewLines = Globals.Out.SuppressNewLines;
+				var suppressNewLines = gEngine.Out.SuppressNewLines;
 
-				Globals.Out.SuppressNewLines = false;
+				gEngine.Out.SuppressNewLines = false;
 
 				var rc = ReadField(buf, bufSize, null, ' ', '\0', true, null, null, null, null);
 
-				Debug.Assert(Globals.Engine.IsSuccess(rc));
+				Debug.Assert(gEngine.IsSuccess(rc));
 
-				Globals.Out.WordWrap = true;
+				gEngine.Out.WordWrap = true;
 
-				Globals.Out.SuppressNewLines = suppressNewLines;
+				gEngine.Out.SuppressNewLines = suppressNewLines;
 
 				ReadLineMode = false;
 
@@ -325,23 +327,23 @@ namespace EamonPM.Game.Portability
 
 		public virtual void KeyPress(StringBuilder buf, bool initialNewLine = true)
 		{
-			Debug.Assert(buf != null);
+			Debug.Assert(gEngine != null);
 
-			Debug.Assert(Globals.Engine != null);
+			Debug.Assert(buf != null);
 
 			if (EnableInput)
 			{
-				Globals.Out.WriteLine("{0}{1}", initialNewLine ? Environment.NewLine : "", Globals.LineSep);
+				gEngine.Out.WriteLine("{0}{1}", initialNewLine ? Environment.NewLine : "", gEngine.LineSep);
 
-				Globals.Out.Write("{0}Press any key to continue: ", Environment.NewLine);
+				gEngine.Out.Write("{0}Press any key to continue: ", Environment.NewLine);
 
 				buf.Clear();
 
-				var rc = ReadField(buf, Constants.BufSize02, null, ' ', '\0', true, null, Globals.Engine.ModifyCharToNull, null, Globals.Engine.IsCharAny);
+				var rc = ReadField(buf, gEngine.BufSize02, null, ' ', '\0', true, null, gEngine.ModifyCharToNull, null, gEngine.IsCharAny);
 
-				Debug.Assert(Globals.Engine.IsSuccess(rc));
+				Debug.Assert(gEngine.IsSuccess(rc));
 
-				Globals.Thread.Sleep(150);
+				gEngine.Thread.Sleep(150);
 			}
 		}
 

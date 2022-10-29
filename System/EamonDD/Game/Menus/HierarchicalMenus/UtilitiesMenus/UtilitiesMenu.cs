@@ -11,7 +11,7 @@ using Eamon.Game.Attributes;
 using Eamon.Game.Menus;
 using EamonDD.Framework.Menus.ActionMenus;
 using EamonDD.Framework.Menus.HierarchicalMenus;
-using static EamonDD.Game.Plugin.PluginContext;
+using static EamonDD.Game.Plugin.Globals;
 
 namespace EamonDD.Game.Menus.HierarchicalMenus
 {
@@ -23,7 +23,7 @@ namespace EamonDD.Game.Menus.HierarchicalMenus
 			if (gEngine.IsAdventureFilesetLoaded())
 			{
 				gOut.Print("Editing: {0}",
-					Globals.Module != null ? Globals.Module.Name : gEngine.UnknownName);
+					gEngine.Module != null ? gEngine.Module.Name : gEngine.UnknownName);
 			}
 		}
 
@@ -31,47 +31,47 @@ namespace EamonDD.Game.Menus.HierarchicalMenus
 		{
 			Title = "UTILITIES MENU";
 
-			Buf = Globals.Buf;
+			Buf = gEngine.Buf;
 
 			MenuItemList = new List<IMenuItem>();
 
 			if (gEngine.IsAdventureFilesetLoaded())
 			{
-				if (!Globals.BortCommand && (RuntimeInformation.IsOSPlatform(OSPlatform.Windows) || RuntimeInformation.IsOSPlatform(OSPlatform.Linux)))
+				if (!gEngine.BortCommand && (RuntimeInformation.IsOSPlatform(OSPlatform.Windows) || RuntimeInformation.IsOSPlatform(OSPlatform.Linux)))
 				{
-					MenuItemList.Add(Globals.CreateInstance<IMenuItem>(x =>
+					MenuItemList.Add(gEngine.CreateInstance<IMenuItem>(x =>
 					{
 						x.SelectChar = (char)('1' + MenuItemList.Count);
 						x.LineText = string.Format("{0}{1}. Adventure conversion.", Environment.NewLine, MenuItemList.Count + 1);
-						x.SubMenu = Globals.CreateInstance<IAdventureConversionMenu>();
+						x.SubMenu = gEngine.CreateInstance<IAdventureConversionMenu>();
 					}));
 				}
 
-				MenuItemList.Add(Globals.CreateInstance<IMenuItem>(x =>
+				MenuItemList.Add(gEngine.CreateInstance<IMenuItem>(x =>
 				{
 					x.SelectChar = (char)('1' + MenuItemList.Count);
 					x.LineText = string.Format("{0}{1}. Analyse all record interdependencies.", Environment.NewLine, MenuItemList.Count + 1);
-					x.SubMenu = Globals.CreateInstance<IAnalyseAllRecordInterdependenciesMenu>();
+					x.SubMenu = gEngine.CreateInstance<IAnalyseAllRecordInterdependenciesMenu>();
 				}));
 
-				MenuItemList.Add(Globals.CreateInstance<IMenuItem>(x =>
+				MenuItemList.Add(gEngine.CreateInstance<IMenuItem>(x =>
 				{
 					x.SelectChar = (char)('1' + MenuItemList.Count);
 					x.LineText = string.Format("{0}{1}. Analyse adventure record tree.", Environment.NewLine, MenuItemList.Count + 1);
-					x.SubMenu = Globals.CreateInstance<IAnalyseAdventureRecordTreeMenu>();
+					x.SubMenu = gEngine.CreateInstance<IAnalyseAdventureRecordTreeMenu>();
 				}));
 			}
 			else
 			{
-				MenuItemList.Add(Globals.CreateInstance<IMenuItem>(x =>
+				MenuItemList.Add(gEngine.CreateInstance<IMenuItem>(x =>
 				{
 					x.SelectChar = (char)('1' + MenuItemList.Count);
 					x.LineText = string.Format("{0}{1}. Adventure support.", Environment.NewLine, MenuItemList.Count + 1);
-					x.SubMenu = Globals.CreateInstance<IAdventureSupportMenu>();
+					x.SubMenu = gEngine.CreateInstance<IAdventureSupportMenu>();
 				}));
 			}
 
-			MenuItemList.Add(Globals.CreateInstance<IMenuItem>(x =>
+			MenuItemList.Add(gEngine.CreateInstance<IMenuItem>(x =>
 			{
 				x.SelectChar = 'X';
 				x.LineText = string.Format("{0}X. Exit.{0}", Environment.NewLine);

@@ -6,7 +6,7 @@
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.Primitive.Enums;
-using static BeginnersForest.Game.Plugin.PluginContext;
+using static BeginnersForest.Game.Plugin.Globals;
 
 namespace BeginnersForest.Game.Commands
 {
@@ -21,7 +21,7 @@ namespace BeginnersForest.Game.Commands
 
 			if (eventType == EventType.AfterWearArtifact && DobjArtifact.Uid == 2 && gGameState.Speed <= 0)
 			{
-				var command = Globals.CreateInstance<ISpeedCommand>(x =>
+				var command = gEngine.CreateInstance<ISpeedCommand>(x =>
 				{
 					x.CastSpell = false;
 				});

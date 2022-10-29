@@ -13,7 +13,7 @@ using EamonRT.Framework.Commands;
 using EamonRT.Framework.Components;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
-using static TheVileGrimoireOfJaldial.Game.Plugin.PluginContext;
+using static TheVileGrimoireOfJaldial.Game.Plugin.Globals;
 
 namespace TheVileGrimoireOfJaldial.Game.Commands
 {
@@ -55,7 +55,7 @@ namespace TheVileGrimoireOfJaldial.Game.Commands
 
 				waterWeirdMonster.SetInRoom(ActorRoom);
 
-				NextState = Globals.CreateInstance<IStartState>();
+				NextState = gEngine.CreateInstance<IStartState>();
 			}
 
 			// Decoration
@@ -121,9 +121,9 @@ namespace TheVileGrimoireOfJaldial.Game.Commands
 					case 10:
 
 						gOut.Print("The grave, to your great surprise, has been dug out very recently, probably no more than {0} ago.  Hmm... it looks to be about your size.",
-							gGameState.Day > 0 ? string.Format("{0} day{1}", gEngine.GetStringFromNumber(gGameState.Day, false, Globals.Buf), gGameState.Day != 1 ? "s" : "") :
-							gGameState.Hour > 0 ? string.Format("{0} hour{1}", gEngine.GetStringFromNumber(gGameState.Hour, false, Globals.Buf), gGameState.Hour != 1 ? "s" : "") :
-							string.Format("{0} minute{1}", gEngine.GetStringFromNumber(gGameState.Minute, false, Globals.Buf), gGameState.Minute != 1 ? "s" : ""));
+							gGameState.Day > 0 ? string.Format("{0} day{1}", gEngine.GetStringFromNumber(gGameState.Day, false, gEngine.Buf), gGameState.Day != 1 ? "s" : "") :
+							gGameState.Hour > 0 ? string.Format("{0} hour{1}", gEngine.GetStringFromNumber(gGameState.Hour, false, gEngine.Buf), gGameState.Hour != 1 ? "s" : "") :
+							string.Format("{0} minute{1}", gEngine.GetStringFromNumber(gGameState.Minute, false, gEngine.Buf), gGameState.Minute != 1 ? "s" : ""));
 
 						break;
 
@@ -195,7 +195,7 @@ namespace TheVileGrimoireOfJaldial.Game.Commands
 
 									gGameState.Die = 1;
 
-									NextState = Globals.CreateInstance<IPlayerDeadState>(x =>
+									NextState = gEngine.CreateInstance<IPlayerDeadState>(x =>
 									{
 										x.PrintLineSep = true;
 									});
@@ -225,7 +225,7 @@ namespace TheVileGrimoireOfJaldial.Game.Commands
 
 								gGameState.R2 = newRoom.Uid;
 
-								NextState = Globals.CreateInstance<IAfterPlayerMoveState>(x =>
+								NextState = gEngine.CreateInstance<IAfterPlayerMoveState>(x =>
 								{
 									x.MoveMonsters = false;
 								});
@@ -242,18 +242,18 @@ namespace TheVileGrimoireOfJaldial.Game.Commands
 
 								if (direction == Direction.Up || direction == Direction.Down || direction == Direction.In || direction == Direction.Out)
 								{
-									Globals.Buf.SetFormat(" {0}ward", direction.ToString().ToLower());
+									gEngine.Buf.SetFormat(" {0}ward", direction.ToString().ToLower());
 								}
 								else
 								{
-									Globals.Buf.SetFormat(" to the {0}", direction.ToString().ToLower());
+									gEngine.Buf.SetFormat(" to the {0}", direction.ToString().ToLower());
 								}
 
-								gOut.Print("You flee in terror{0}!", Globals.Buf);
+								gOut.Print("You flee in terror{0}!", gEngine.Buf);
 
-								gGameState.R2 = ActorRoom.GetDirs(direction);
+								gGameState.R2 = ActorRoom.GetDir(direction);
 
-								NextState = Globals.CreateInstance<IPlayerMoveCheckState>(x =>
+								NextState = gEngine.CreateInstance<IPlayerMoveCheckState>(x =>
 								{
 									x.Direction = direction;
 
@@ -468,7 +468,7 @@ namespace TheVileGrimoireOfJaldial.Game.Commands
 					case 43:
 
 						gOut.Print("The dead goblins have been slain recently; you'd say no more than {0} days ago.  They appear to have been slashed severely, with well-placed strokes - blood lies splattered all over the walls and the floor.  All useful items have been taken from the bodies.",
-							gEngine.GetStringFromNumber(gGameState.Day + 2, false, Globals.Buf));
+							gEngine.GetStringFromNumber(gGameState.Day + 2, false, gEngine.Buf));
 
 						break;
 
@@ -533,7 +533,7 @@ namespace TheVileGrimoireOfJaldial.Game.Commands
 							{
 								gGameState.Die = 1;
 
-								NextState = Globals.CreateInstance<IPlayerDeadState>(x =>
+								NextState = gEngine.CreateInstance<IPlayerDeadState>(x =>
 								{
 									x.PrintLineSep = true;
 								});
@@ -586,7 +586,7 @@ namespace TheVileGrimoireOfJaldial.Game.Commands
 
 						if (!saved && rl > 50)
 						{
-							var combatComponent = Globals.CreateInstance<ICombatComponent>(x =>
+							var combatComponent = gEngine.CreateInstance<ICombatComponent>(x =>
 							{
 								x.Cast<Framework.Components.ICombatComponent>().CrossbowTrap = true;
 
@@ -633,11 +633,11 @@ namespace TheVileGrimoireOfJaldial.Game.Commands
 							{
 								gOut.Print("You've been taken entirely by surprise.");
 
-								Globals.InitiativeMonsterUid = giantCrayfishMonster.Uid;
+								gEngine.InitiativeMonsterUid = giantCrayfishMonster.Uid;
 							}
 							else
 							{
-								NextState = Globals.CreateInstance<IStartState>();
+								NextState = gEngine.CreateInstance<IStartState>();
 
 								goto Cleanup;
 							}
@@ -651,7 +651,7 @@ namespace TheVileGrimoireOfJaldial.Game.Commands
 					case 59:
 					case 60:
 
-						var command = Globals.CreateInstance<IReadCommand>();
+						var command = gEngine.CreateInstance<IReadCommand>();
 
 						CopyCommandData(command);
 
@@ -694,7 +694,7 @@ namespace TheVileGrimoireOfJaldial.Game.Commands
 
 				if (NextState == null)
 				{
-					NextState = Globals.CreateInstance<IMonsterStartState>();
+					NextState = gEngine.CreateInstance<IMonsterStartState>();
 				}
 			}
 			else
