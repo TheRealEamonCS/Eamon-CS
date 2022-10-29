@@ -4,19 +4,6 @@
         <name>EamonDD</name>
     </assembly>
     <members>
-        <member name="T:EamonDD.Framework.IEngine">
-            <summary></summary>
-        </member>
-        <member name="M:EamonDD.Framework.IEngine.IsAdventureFilesetLoaded">
-            <summary></summary>
-            <returns></returns>
-        </member>
-        <member name="M:EamonDD.Framework.IEngine.DdProcessArgv(System.Boolean,System.Boolean@,System.Boolean@)">
-            <summary></summary>
-            <param name="secondPass"></param>
-            <param name="ddfnFlag"></param>
-            <param name="nlFlag"></param>
-        </member>
         <member name="T:EamonDD.Framework.Menus.ActionMenus.IAddArtifactRecordCopyMenu">
             <summary></summary>
         </member>
@@ -533,74 +520,75 @@
         <member name="M:EamonDD.Framework.Menus.IDdMenu.PrintHintMenuSubtitle">
             <summary></summary>
         </member>
-        <member name="T:EamonDD.Framework.Plugin.IPluginClassMappings">
+        <member name="T:EamonDD.Framework.Plugin.IEngine">
             <summary></summary>
         </member>
-        <member name="T:EamonDD.Framework.Plugin.IPluginConstants">
+        <member name="P:EamonDD.Framework.Plugin.IEngine.DdProgVersion">
             <summary></summary>
         </member>
-        <member name="P:EamonDD.Framework.Plugin.IPluginConstants.DdProgVersion">
+        <member name="P:EamonDD.Framework.Plugin.IEngine.Argv">
             <summary></summary>
         </member>
-        <member name="T:EamonDD.Framework.Plugin.IPluginGlobals">
+        <member name="P:EamonDD.Framework.Plugin.IEngine.WordWrapCurrColumn">
             <summary></summary>
         </member>
-        <member name="P:EamonDD.Framework.Plugin.IPluginGlobals.Argv">
+        <member name="P:EamonDD.Framework.Plugin.IEngine.WordWrapLastChar">
             <summary></summary>
         </member>
-        <member name="P:EamonDD.Framework.Plugin.IPluginGlobals.WordWrapCurrColumn">
+        <member name="P:EamonDD.Framework.Plugin.IEngine.ConfigFileName">
             <summary></summary>
         </member>
-        <member name="P:EamonDD.Framework.Plugin.IPluginGlobals.WordWrapLastChar">
+        <member name="P:EamonDD.Framework.Plugin.IEngine.DdMenu">
             <summary></summary>
         </member>
-        <member name="P:EamonDD.Framework.Plugin.IPluginGlobals.ConfigFileName">
+        <member name="P:EamonDD.Framework.Plugin.IEngine.Menu">
             <summary></summary>
         </member>
-        <member name="P:EamonDD.Framework.Plugin.IPluginGlobals.Engine">
+        <member name="P:EamonDD.Framework.Plugin.IEngine.Module">
             <summary></summary>
         </member>
-        <member name="P:EamonDD.Framework.Plugin.IPluginGlobals.DdMenu">
+        <member name="P:EamonDD.Framework.Plugin.IEngine.Config">
             <summary></summary>
         </member>
-        <member name="P:EamonDD.Framework.Plugin.IPluginGlobals.Menu">
+        <member name="P:EamonDD.Framework.Plugin.IEngine.BortCommand">
             <summary></summary>
         </member>
-        <member name="P:EamonDD.Framework.Plugin.IPluginGlobals.Module">
+        <member name="P:EamonDD.Framework.Plugin.IEngine.ConfigsModified">
             <summary></summary>
         </member>
-        <member name="P:EamonDD.Framework.Plugin.IPluginGlobals.Config">
+        <member name="P:EamonDD.Framework.Plugin.IEngine.FilesetsModified">
             <summary></summary>
         </member>
-        <member name="P:EamonDD.Framework.Plugin.IPluginGlobals.BortCommand">
+        <member name="P:EamonDD.Framework.Plugin.IEngine.CharactersModified">
             <summary></summary>
         </member>
-        <member name="P:EamonDD.Framework.Plugin.IPluginGlobals.ConfigsModified">
+        <member name="P:EamonDD.Framework.Plugin.IEngine.ModulesModified">
             <summary></summary>
         </member>
-        <member name="P:EamonDD.Framework.Plugin.IPluginGlobals.FilesetsModified">
+        <member name="P:EamonDD.Framework.Plugin.IEngine.RoomsModified">
             <summary></summary>
         </member>
-        <member name="P:EamonDD.Framework.Plugin.IPluginGlobals.CharactersModified">
+        <member name="P:EamonDD.Framework.Plugin.IEngine.ArtifactsModified">
             <summary></summary>
         </member>
-        <member name="P:EamonDD.Framework.Plugin.IPluginGlobals.ModulesModified">
+        <member name="P:EamonDD.Framework.Plugin.IEngine.EffectsModified">
             <summary></summary>
         </member>
-        <member name="P:EamonDD.Framework.Plugin.IPluginGlobals.RoomsModified">
+        <member name="P:EamonDD.Framework.Plugin.IEngine.MonstersModified">
             <summary></summary>
         </member>
-        <member name="P:EamonDD.Framework.Plugin.IPluginGlobals.ArtifactsModified">
+        <member name="P:EamonDD.Framework.Plugin.IEngine.HintsModified">
             <summary></summary>
         </member>
-        <member name="P:EamonDD.Framework.Plugin.IPluginGlobals.EffectsModified">
+        <member name="M:EamonDD.Framework.Plugin.IEngine.IsAdventureFilesetLoaded">
             <summary></summary>
+            <returns></returns>
         </member>
-        <member name="P:EamonDD.Framework.Plugin.IPluginGlobals.MonstersModified">
+        <member name="M:EamonDD.Framework.Plugin.IEngine.DdProcessArgv(System.Boolean,System.Boolean@,System.Boolean@)">
             <summary></summary>
-        </member>
-        <member name="P:EamonDD.Framework.Plugin.IPluginGlobals.HintsModified">
-            <summary></summary>
+            <param name="secondPass"></param>
+            <param name="ddfnFlag"></param>
+            <param name="nlFlag"></param>
         </member>
         <member name="T:EamonDD.Framework.Primitive.Enums.SupportMenuType">
             <summary></summary>
@@ -712,9 +700,6 @@
             <summary></summary>
         </member>
         <member name="P:EamonDD.Game.Menus.ActionMenus.AddCustomAdventureMenu.PluginCsText">
-            <summary></summary>
-        </member>
-        <member name="P:EamonDD.Game.Menus.ActionMenus.AddCustomAdventureMenu.EngineCsText">
             <summary></summary>
         </member>
         <member name="P:EamonDD.Game.Menus.ActionMenus.AddCustomAdventureMenu.ChangeLogText">

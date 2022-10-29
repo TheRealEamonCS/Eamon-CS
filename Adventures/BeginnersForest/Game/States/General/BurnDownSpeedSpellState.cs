@@ -6,7 +6,7 @@
 using System.Diagnostics;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.States;
-using static BeginnersForest.Game.Plugin.PluginContext;
+using static BeginnersForest.Game.Plugin.Globals;
 
 namespace BeginnersForest.Game.States
 {

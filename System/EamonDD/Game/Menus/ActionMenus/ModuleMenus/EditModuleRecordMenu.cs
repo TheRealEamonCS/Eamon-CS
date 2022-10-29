@@ -11,7 +11,7 @@ using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Menus;
 using Eamon.Game.Utilities;
 using EamonDD.Framework.Menus.ActionMenus;
-using static EamonDD.Game.Plugin.PluginContext;
+using static EamonDD.Game.Plugin.Globals;
 
 namespace EamonDD.Game.Menus.ActionMenus
 {
@@ -25,19 +25,19 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			Debug.Assert(editModule01 != null);
 
-			Globals.Thread.Sleep(150);
+			gEngine.Thread.Sleep(150);
 
-			if (!Globals.CompareInstances(EditRecord, editModule01))
+			if (!gEngine.CompareInstances(EditRecord, editModule01))
 			{
 				gOut.Write("{0}Would you like to save this updated Module record (Y/N): ", Environment.NewLine);
 
 				Buf.Clear();
 
-				rc = Globals.In.ReadField(Buf, Constants.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, gEngine.IsCharYOrN);
+				rc = gEngine.In.ReadField(Buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, gEngine.IsCharYOrN);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
-				Globals.Thread.Sleep(150);
+				gEngine.Thread.Sleep(150);
 
 				if (Buf.Length > 0 && Buf[0] == 'N')
 				{
@@ -48,33 +48,33 @@ namespace EamonDD.Game.Menus.ActionMenus
 				{
 					var directionValues = EnumUtil.GetValues<Direction>();
 
-					foreach (var room in Globals.Database.RoomTable.Records)
+					foreach (var room in gEngine.Database.RoomTable.Records)
 					{
 						for (var i = editModule01.NumDirs; i < EditRecord.NumDirs; i++)
 						{
 							var dv = directionValues[(int)i];
 
-							room.SetDirs(dv, 0);
+							room.SetDir(dv, 0);
 						}
 
-						Globals.RoomsModified = true;
+						gEngine.RoomsModified = true;
 					}
 				}
 
-				var module = Globals.Database.RemoveModule(EditRecord.Uid);
+				var module = gEngine.Database.RemoveModule(EditRecord.Uid);
 
 				Debug.Assert(module != null);
 
-				rc = Globals.Database.AddModule(editModule01);
+				rc = gEngine.Database.AddModule(editModule01);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
-				if (Globals.Module == EditRecord)
+				if (gEngine.Module == EditRecord)
 				{
-					Globals.Module = editModule01;
+					gEngine.Module = editModule01;
 				}
 
-				Globals.ModulesModified = true;
+				gEngine.ModulesModified = true;
 			}
 			else
 			{

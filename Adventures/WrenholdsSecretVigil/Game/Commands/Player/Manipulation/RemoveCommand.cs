@@ -7,7 +7,7 @@ using System.Diagnostics;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.States;
-using static WrenholdsSecretVigil.Game.Plugin.PluginContext;
+using static WrenholdsSecretVigil.Game.Plugin.Globals;
 
 namespace WrenholdsSecretVigil.Game.Commands
 {
@@ -22,9 +22,9 @@ namespace WrenholdsSecretVigil.Game.Commands
 
 			if (DobjArtifact.Uid == 4 && IobjArtifact != null && IobjArtifact.Uid == 43)
 			{
-				gOut.Print("{0} {1} stuck to {2} and won't budge.", DobjArtifact.GetTheName(true), DobjArtifact.EvalPlural("is", "are"), IobjArtifact.GetTheName(buf: Globals.Buf01));
+				gOut.Print("{0} {1} stuck to {2} and won't budge.", DobjArtifact.GetTheName(true), DobjArtifact.EvalPlural("is", "are"), IobjArtifact.GetTheName(buf: gEngine.Buf01));
 
-				NextState = Globals.CreateInstance<IMonsterStartState>();
+				NextState = gEngine.CreateInstance<IMonsterStartState>();
 			}
 			else
 			{

@@ -14,7 +14,7 @@ using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using Eamon.Game.Extensions;
 using Eamon.Game.Utilities;
-using static Eamon.Game.Plugin.PluginContext;
+using static Eamon.Game.Plugin.Globals;
 
 namespace Eamon.Game
 {
@@ -112,7 +112,7 @@ namespace Eamon.Game
 
 			if (IsUidRecycled && Uid > 0)
 			{
-				Globals.Database.FreeCharacterUid(Uid);
+				gEngine.Database.FreeCharacterUid(Uid);
 
 				Uid = 0;
 			}
@@ -151,7 +151,7 @@ namespace Eamon.Game
 
 			if (buf == null)
 			{
-				buf = Globals.Buf;
+				buf = gEngine.Buf;
 			}
 
 			buf.Clear();
@@ -182,7 +182,7 @@ namespace Eamon.Game
 
 			if (buf == null)
 			{
-				buf = Globals.Buf;
+				buf = gEngine.Buf;
 			}
 
 			buf.Clear();
@@ -211,7 +211,7 @@ namespace Eamon.Game
 
 			rc = RetCode.Success;
 
-			var name = GetArticleName(true, buf: new StringBuilder(Constants.BufSize));
+			var name = GetArticleName(true, buf: new StringBuilder(gEngine.BufSize));
 
 			if (showName)
 			{
@@ -242,139 +242,139 @@ namespace Eamon.Game
 
 		#region Interface ICharacter
 
-		public virtual long GetStats(long index)
+		public virtual long GetStat(long index)
 		{
 			return Stats[index];
 		}
 
-		public virtual long GetStats(Stat stat)
+		public virtual long GetStat(Stat stat)
 		{
-			return GetStats((long)stat);
+			return GetStat((long)stat);
 		}
 
-		public virtual long GetSpellAbilities(long index)
+		public virtual long GetSpellAbility(long index)
 		{
 			return SpellAbilities[index];
 		}
 
-		public virtual long GetSpellAbilities(Spell spell)
+		public virtual long GetSpellAbility(Spell spell)
 		{
-			return GetSpellAbilities((long)spell);
+			return GetSpellAbility((long)spell);
 		}
 
-		public virtual long GetWeaponAbilities(long index)
+		public virtual long GetWeaponAbility(long index)
 		{
 			return WeaponAbilities[index];
 		}
 
-		public virtual long GetWeaponAbilities(Weapon weapon)
+		public virtual long GetWeaponAbility(Weapon weapon)
 		{
-			return GetWeaponAbilities((long)weapon);
+			return GetWeaponAbility((long)weapon);
 		}
 
-		public virtual ICharacterArtifact GetWeapons(long index)
+		public virtual ICharacterArtifact GetWeapon(long index)
 		{
 			return Weapons[index];
 		}
 
-		public virtual string GetSynonyms(long index)
+		public virtual string GetSynonym(long index)
 		{
 			return Synonyms[index];
 		}
 
-		public virtual void SetStats(long index, long value)
+		public virtual void SetStat(long index, long value)
 		{
 			Stats[index] = value;
 		}
 
-		public virtual void SetStats(Stat stat, long value)
+		public virtual void SetStat(Stat stat, long value)
 		{
-			SetStats((long)stat, value);
+			SetStat((long)stat, value);
 		}
 
-		public virtual void SetSpellAbilities(long index, long value)
+		public virtual void SetSpellAbility(long index, long value)
 		{
 			SpellAbilities[index] = value;
 		}
 
-		public virtual void SetSpellAbilities(Spell spell, long value)
+		public virtual void SetSpellAbility(Spell spell, long value)
 		{
-			SetSpellAbilities((long)spell, value);
+			SetSpellAbility((long)spell, value);
 		}
 
-		public virtual void SetWeaponAbilities(long index, long value)
+		public virtual void SetWeaponAbility(long index, long value)
 		{
 			WeaponAbilities[index] = value;
 		}
 
-		public virtual void SetWeaponAbilities(Weapon weapon, long value)
+		public virtual void SetWeaponAbility(Weapon weapon, long value)
 		{
-			SetWeaponAbilities((long)weapon, value);
+			SetWeaponAbility((long)weapon, value);
 		}
 
-		public virtual void SetWeapons(long index, ICharacterArtifact value)
+		public virtual void SetWeapon(long index, ICharacterArtifact value)
 		{
 			Weapons[index] = value;
 		}
 
-		public virtual void SetSynonyms(long index, string value)
+		public virtual void SetSynonym(long index, string value)
 		{
 			Synonyms[index] = value;
 		}
 
-		public virtual void ModStats(long index, long value)
+		public virtual void ModStat(long index, long value)
 		{
 			Stats[index] += value;
 		}
 
-		public virtual void ModStats(Stat stat, long value)
+		public virtual void ModStat(Stat stat, long value)
 		{
-			ModStats((long)stat, value);
+			ModStat((long)stat, value);
 		}
 
-		public virtual void ModSpellAbilities(long index, long value)
+		public virtual void ModSpellAbility(long index, long value)
 		{
 			SpellAbilities[index] += value;
 		}
 
-		public virtual void ModSpellAbilities(Spell spell, long value)
+		public virtual void ModSpellAbility(Spell spell, long value)
 		{
-			ModSpellAbilities((long)spell, value);
+			ModSpellAbility((long)spell, value);
 		}
 
-		public virtual void ModWeaponAbilities(long index, long value)
+		public virtual void ModWeaponAbility(long index, long value)
 		{
 			WeaponAbilities[index] += value;
 		}
 
-		public virtual void ModWeaponAbilities(Weapon weapon, long value)
+		public virtual void ModWeaponAbility(Weapon weapon, long value)
 		{
-			ModWeaponAbilities((long)weapon, value);
+			ModWeaponAbility((long)weapon, value);
 		}
 
 		public virtual long GetWeightCarryableGronds()
 		{
-			return gEngine.GetWeightCarryableGronds(GetStats(Stat.Hardiness));
+			return gEngine.GetWeightCarryableGronds(GetStat(Stat.Hardiness));
 		}
 
 		public virtual long GetWeightCarryableDos()
 		{
-			return gEngine.GetWeightCarryableDos(GetStats(Stat.Hardiness));
+			return gEngine.GetWeightCarryableDos(GetStat(Stat.Hardiness));
 		}
 
 		public virtual long GetIntellectBonusPct()
 		{
-			return gEngine.GetIntellectBonusPct(GetStats(Stat.Intellect));
+			return gEngine.GetIntellectBonusPct(GetStat(Stat.Intellect));
 		}
 
 		public virtual long GetCharmMonsterPct()
 		{
-			return gEngine.GetCharmMonsterPct(GetStats(Stat.Charisma));
+			return gEngine.GetCharmMonsterPct(GetStat(Stat.Charisma));
 		}
 
 		public virtual long GetMerchantAdjustedCharisma()
 		{
-			return gEngine.GetMerchantAdjustedCharisma(GetStats(Stat.Charisma));
+			return gEngine.GetMerchantAdjustedCharisma(GetStat(Stat.Charisma));
 		}
 
 		public virtual bool IsArmorActive()
@@ -391,7 +391,7 @@ namespace Eamon.Game
 		{
 			Debug.Assert(index >= 0 && index < Weapons.Length);
 
-			return GetWeapons(index).IsActive();
+			return GetWeapon(index).IsActive();
 		}
 
 		public virtual T EvalGender<T>(T maleValue, T femaleValue, T neutralValue)
@@ -490,9 +490,9 @@ namespace Eamon.Game
 
 			/* COMPUTE BASE ODDS TO HIT */
 
-			x = GetStats(Stat.Agility);
+			x = GetStat(Stat.Agility);
 
-			a = GetWeaponAbilities((Weapon)weapon.Field2);
+			a = GetWeaponAbility((Weapon)weapon.Field2);
 
 			d = weapon.Field1;
 
@@ -537,7 +537,7 @@ namespace Eamon.Game
 		{
 			Debug.Assert(index >= 0 && index < Weapons.Length);
 
-			return GetBaseOddsToHit(GetWeapons(index), ref baseOddsToHit);
+			return GetBaseOddsToHit(GetWeapon(index), ref baseOddsToHit);
 		}
 
 		public virtual RetCode GetWeaponCount(ref long count)
@@ -582,19 +582,19 @@ namespace Eamon.Game
 			{
 				if (IsWeaponActive(i))
 				{
-					weapon = gEngine.GetWeapons((Weapon)GetWeapons(i).Field2);
+					weapon = gEngine.GetWeapon((Weapon)GetWeapon(i).Field2);
 
 					Debug.Assert(weapon != null);
 
 					buf.AppendFormat("{0}{1,2}. {2} ({3,-8}/{4,3}%/{5,2}D{6,-2}/{7}H)",
 						Environment.NewLine,
 						i + 1,
-						capitalize ? gEngine.Capitalize(GetWeapons(i).Name.PadTRight(31, ' ')) : GetWeapons(i).Name.PadTRight(31, ' '),
+						capitalize ? gEngine.Capitalize(GetWeapon(i).Name.PadTRight(31, ' ')) : GetWeapon(i).Name.PadTRight(31, ' '),
 						weapon.Name,
-						GetWeapons(i).Field1,
-						GetWeapons(i).Field3,
-						GetWeapons(i).Field4,
-						GetWeapons(i).Field5);
+						GetWeapon(i).Field1,
+						GetWeapon(i).Field3,
+						GetWeapon(i).Field4,
+						GetWeapon(i).Field5);
 				}
 				else
 				{
@@ -613,7 +613,7 @@ namespace Eamon.Game
 			{
 				if (IsWeaponActive(i))
 				{
-					GetWeapons(i).Name = GetWeapons(i).Name.TrimEnd('#');
+					GetWeapon(i).Name = GetWeapon(i).Name.TrimEnd('#');
 				}
 			}
 		}
@@ -632,9 +632,9 @@ namespace Eamon.Game
 					{
 						for (var j = i + 1; j < Weapons.Length; j++)
 						{
-							if (IsWeaponActive(j) && GetWeapons(j).Name.Equals(GetWeapons(i).Name, StringComparison.OrdinalIgnoreCase))
+							if (IsWeaponActive(j) && GetWeapon(j).Name.Equals(GetWeapon(i).Name, StringComparison.OrdinalIgnoreCase))
 							{
-								GetWeapons(j).Name += "#";
+								GetWeapon(j).Name += "#";
 
 								c = 1;
 							}
@@ -664,9 +664,9 @@ namespace Eamon.Game
 
 			IsUidRecycled = character.IsUidRecycled;
 
-			Name = Globals.CloneInstance(character.Name);
+			Name = gEngine.CloneInstance(character.Name);
 
-			Desc = Globals.CloneInstance(character.Desc);
+			Desc = gEngine.CloneInstance(character.Desc);
 
 			Debug.Assert(Synonyms == null && character.Synonyms == null);
 
@@ -682,21 +682,21 @@ namespace Eamon.Game
 
 			for (var i = 0; i < Stats.Length; i++)
 			{
-				SetStats(i, character.GetStats(i));
+				SetStat(i, character.GetStat(i));
 			}
 
 			Debug.Assert(SpellAbilities.Length == character.SpellAbilities.Length);
 
 			for (var i = 0; i < SpellAbilities.Length; i++)
 			{
-				SetSpellAbilities(i, character.GetSpellAbilities(i));
+				SetSpellAbility(i, character.GetSpellAbility(i));
 			}
 
 			Debug.Assert(WeaponAbilities.Length == character.WeaponAbilities.Length);
 
 			for (var i = 0; i < WeaponAbilities.Length; i++)
 			{
-				SetWeaponAbilities(i, character.GetWeaponAbilities(i));
+				SetWeaponAbility(i, character.GetWeaponAbility(i));
 			}
 
 			ArmorExpertise = character.ArmorExpertise;
@@ -717,7 +717,7 @@ namespace Eamon.Game
 
 			for (var i = 0; i < Weapons.Length; i++)
 			{
-				gEngine.CopyCharacterArtifactFields(GetWeapons(i), character.GetWeapons(i));
+				gEngine.CopyCharacterArtifactFields(GetWeapon(i), character.GetWeapon(i));
 			}
 
 		Cleanup:
@@ -731,7 +731,7 @@ namespace Eamon.Game
 
 		public virtual void NormalizeGoldValues()
 		{
-			if (Globals.EnableGameOverrides)
+			if (gEngine.EnableMutateProperties)
 			{
 				// extinguish HeldGold debt with BankGold assets
 
@@ -775,11 +775,11 @@ namespace Eamon.Game
 				{
 					_heldGold += _bankGold;
 
-					if (_heldGold < Constants.MinGoldValue)
+					if (_heldGold < gEngine.MinGoldValue)
 					{
-						_bankGold = _heldGold - Constants.MinGoldValue;
+						_bankGold = _heldGold - gEngine.MinGoldValue;
 
-						_heldGold = Constants.MinGoldValue;
+						_heldGold = gEngine.MinGoldValue;
 					}
 					else
 					{
@@ -790,22 +790,22 @@ namespace Eamon.Game
 
 			// force values into valid range
 
-			if (_heldGold < Constants.MinGoldValue)
+			if (_heldGold < gEngine.MinGoldValue)
 			{
-				_heldGold = Constants.MinGoldValue;
+				_heldGold = gEngine.MinGoldValue;
 			}
-			else if (_heldGold > Constants.MaxGoldValue)
+			else if (_heldGold > gEngine.MaxGoldValue)
 			{
-				_heldGold = Constants.MaxGoldValue;
+				_heldGold = gEngine.MaxGoldValue;
 			}
 
-			if (_bankGold < Constants.MinGoldValue)
+			if (_bankGold < gEngine.MinGoldValue)
 			{
-				_bankGold = Constants.MinGoldValue;
+				_bankGold = gEngine.MinGoldValue;
 			}
-			else if (_bankGold > Constants.MaxGoldValue)
+			else if (_bankGold > gEngine.MaxGoldValue)
 			{
-				_bankGold = Constants.MaxGoldValue;
+				_bankGold = gEngine.MaxGoldValue;
 			}
 		}
 
@@ -817,31 +817,31 @@ namespace Eamon.Game
 
 			WeaponAbilities = new long[(long)EnumUtil.GetLastValue<Weapon>() + 1];
 
-			Armor = Globals.CreateInstance<ICharacterArtifact>(x =>
+			Armor = gEngine.CreateInstance<ICharacterArtifact>(x =>
 			{
 				x.Parent = this;
 			});
 
-			Shield = Globals.CreateInstance<ICharacterArtifact>(x =>
+			Shield = gEngine.CreateInstance<ICharacterArtifact>(x =>
 			{
 				x.Parent = this;
 			});
 
 			Weapons = new ICharacterArtifact[]
 			{
-				Globals.CreateInstance<ICharacterArtifact>(x =>
+				gEngine.CreateInstance<ICharacterArtifact>(x =>
 				{
 					x.Parent = this;
 				}),
-				Globals.CreateInstance<ICharacterArtifact>(x =>
+				gEngine.CreateInstance<ICharacterArtifact>(x =>
 				{
 					x.Parent = this;
 				}),
-				Globals.CreateInstance<ICharacterArtifact>(x =>
+				gEngine.CreateInstance<ICharacterArtifact>(x =>
 				{
 					x.Parent = this;
 				}),
-				Globals.CreateInstance<ICharacterArtifact>(x =>
+				gEngine.CreateInstance<ICharacterArtifact>(x =>
 				{
 					x.Parent = this;
 				})

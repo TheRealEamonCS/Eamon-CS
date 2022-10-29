@@ -5,7 +5,7 @@
 
 using System.Diagnostics;
 using Eamon.Framework.Portability;
-using static Eamon.Game.Plugin.PluginContext;
+using static Eamon.Game.Plugin.Globals;
 
 namespace EamonPM.Game.Portability
 {
@@ -53,7 +53,7 @@ namespace EamonPM.Game.Portability
 
 			Debug.Assert(!string.IsNullOrWhiteSpace(pluginFileName));
 
-			var dir = ClassMappings.Directory.GetCurrentDirectory();
+			var dir = gEngine.Directory.GetCurrentDirectory();
 
 			string[] args = null;
 
@@ -68,7 +68,7 @@ namespace EamonPM.Game.Portability
 
 			Program.ExecutePlugin(args, false);
 
-			ClassMappings.Directory.SetCurrentDirectory(dir);
+			gEngine.Directory.SetCurrentDirectory(dir);
 		}
 
 		/// <summary></summary>
@@ -76,7 +76,7 @@ namespace EamonPM.Game.Portability
 		/// <returns></returns>
 		public virtual string NormalizePath(string path)
 		{
-			return path != null ? path.Replace(ClassMappings.Path.DirectorySeparatorChar == '\\' ? '/' : '\\', ClassMappings.Path.DirectorySeparatorChar) : null;
+			return path != null ? path.Replace(gEngine.Path.DirectorySeparatorChar == '\\' ? '/' : '\\', gEngine.Path.DirectorySeparatorChar) : null;
 		}
 	}
 }

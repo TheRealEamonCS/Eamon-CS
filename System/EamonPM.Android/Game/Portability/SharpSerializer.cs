@@ -6,14 +6,12 @@
 using System.IO;
 using System.IO.Compression;
 using Eamon.Framework.Portability;
-using static Eamon.Game.Plugin.PluginContext;
+using static Eamon.Game.Plugin.Globals;
 
 namespace EamonPM.Game.Portability
 {
 	public class SharpSerializer : ISharpSerializer
 	{
-		public virtual bool IsActive { get; protected set; }
-
 		public virtual void Serialize<T>(T data, string fileName, bool binaryMode = false) where T : class
 		{
 			using (var fileStream = new FileStream(NormalizePath(fileName), FileMode.Create))
@@ -31,13 +29,13 @@ namespace EamonPM.Game.Portability
 
 			try
 			{
-				IsActive = true;
+				gEngine.MutatePropertyCounter--;
 
 				sharpSerializer.Serialize(data, stream);
 			}
 			finally
 			{
-				IsActive = false;
+				gEngine.MutatePropertyCounter++;
 			}
 		}
 
@@ -60,13 +58,13 @@ namespace EamonPM.Game.Portability
 
 			try
 			{
-				IsActive = true;
+				gEngine.MutatePropertyCounter--;
 
 				result = sharpSerializer.Deserialize(stream) as T;
 			}
 			finally
 			{
-				IsActive = false;
+				gEngine.MutatePropertyCounter++;
 			}
 
 			return result;
@@ -77,7 +75,7 @@ namespace EamonPM.Game.Portability
 		/// <returns></returns>
 		public virtual string NormalizePath(string path)
 		{
-			return path != null ? path.Replace(ClassMappings.Path.DirectorySeparatorChar == '\\' ? '/' : '\\', ClassMappings.Path.DirectorySeparatorChar) : null;
+			return path != null ? path.Replace(gEngine.Path.DirectorySeparatorChar == '\\' ? '/' : '\\', gEngine.Path.DirectorySeparatorChar) : null;
 		}
 	}
 }

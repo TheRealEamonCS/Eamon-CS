@@ -13,7 +13,7 @@ using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
-using static EamonRT.Game.Plugin.PluginContext;
+using static EamonRT.Game.Plugin.Globals;
 
 namespace EamonRT.Game.Commands
 {
@@ -72,7 +72,7 @@ namespace EamonRT.Game.Commands
 				}
 				else if (DobjArtifact.DisguisedMonster == null)
 				{
-					NextState = Globals.CreateInstance<IStartState>();
+					NextState = gEngine.CreateInstance<IStartState>();
 				}
 
 				goto Cleanup;
@@ -88,7 +88,7 @@ namespace EamonRT.Game.Commands
 			{
 				PrintDontFollowYou();
 
-				NextState = Globals.CreateInstance<IStartState>();
+				NextState = gEngine.CreateInstance<IStartState>();
 
 				goto Cleanup;
 			}
@@ -104,7 +104,7 @@ namespace EamonRT.Game.Commands
 					PrintNotWhileWearingObj(IobjArtifact);
 				}
 
-				NextState = Globals.CreateInstance<IStartState>();
+				NextState = gEngine.CreateInstance<IStartState>();
 
 				goto Cleanup;
 			}
@@ -113,7 +113,7 @@ namespace EamonRT.Game.Commands
 			{
 				PrintMustFirstOpen(IobjArtifact);
 
-				NextState = Globals.CreateInstance<IStartState>();
+				NextState = gEngine.CreateInstance<IStartState>();
 
 				goto Cleanup;
 			}
@@ -129,7 +129,7 @@ namespace EamonRT.Game.Commands
 			{
 				PrintMustFirstClose(IobjArtifact);
 
-				NextState = Globals.CreateInstance<IStartState>();
+				NextState = gEngine.CreateInstance<IStartState>();
 
 				goto Cleanup;
 			}
@@ -146,7 +146,7 @@ namespace EamonRT.Game.Commands
 			{
 				PrintDontNeedTo();
 
-				NextState = Globals.CreateInstance<IStartState>();
+				NextState = gEngine.CreateInstance<IStartState>();
 
 				goto Cleanup;
 			}
@@ -212,7 +212,7 @@ namespace EamonRT.Game.Commands
 
 			if (NextState == null)
 			{
-				NextState = Globals.CreateInstance<IMonsterStartState>();
+				NextState = gEngine.CreateInstance<IMonsterStartState>();
 			}
 		}
 
@@ -233,7 +233,7 @@ namespace EamonRT.Game.Commands
 
 			IsIobjEnabled = true;
 
-			if (Globals.IsRulesetVersion(5))
+			if (gEngine.IsRulesetVersion(5))
 			{
 				IsPlayerEnabled = false;
 			}

@@ -6,7 +6,7 @@
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.Primitive.Enums;
-using static TheDeepCanyon.Game.Plugin.PluginContext;
+using static TheDeepCanyon.Game.Plugin.Globals;
 
 namespace TheDeepCanyon.Game.Commands
 {
@@ -31,7 +31,7 @@ namespace TheDeepCanyon.Game.Commands
 
 						gOut.EnableOutput = false;
 
-						var dropCommand = Globals.CreateInstance<IDropCommand>(x =>
+						var dropCommand = gEngine.CreateInstance<IDropCommand>(x =>
 						{
 							x.ActorMonster = ActorMonster;
 
@@ -81,7 +81,7 @@ namespace TheDeepCanyon.Game.Commands
 
 						gOut.EnableOutput = false;
 
-						var dropCommand = Globals.CreateInstance<IDropCommand>(x =>
+						var dropCommand = gEngine.CreateInstance<IDropCommand>(x =>
 						{
 							x.ActorMonster = ActorMonster;
 

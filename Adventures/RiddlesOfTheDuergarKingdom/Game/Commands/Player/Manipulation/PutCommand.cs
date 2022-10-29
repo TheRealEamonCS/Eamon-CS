@@ -9,7 +9,7 @@ using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
-using static RiddlesOfTheDuergarKingdom.Game.Plugin.PluginContext;
+using static RiddlesOfTheDuergarKingdom.Game.Plugin.Globals;
 
 namespace RiddlesOfTheDuergarKingdom.Game.Commands
 {
@@ -38,7 +38,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.Commands
 
 				else if (IobjArtifact.Uid == 54 || IobjArtifact.Uid == 55)
 				{
-					gOut.Print("{0} {1} into {2}!", DobjArtifact.GetTheName(true), DobjArtifact.EvalPlural("incinerates as it sinks", "incinerate as they sink"), IobjArtifact.GetTheName(buf: Globals.Buf01));
+					gOut.Print("{0} {1} into {2}!", DobjArtifact.GetTheName(true), DobjArtifact.EvalPlural("incinerates as it sinks", "incinerate as they sink"), IobjArtifact.GetTheName(buf: gEngine.Buf01));
 
 					gOut.Print("{0} {1} destroyed!", DobjArtifact.GetTheName(true), DobjArtifact.EvalPlural("is", "are"));
 
@@ -104,7 +104,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.Commands
 
 				gGameState.OreCartTracksRoomUid = ActorRoom.Uid;
 
-				NextState = Globals.CreateInstance<IMonsterStartState>();
+				NextState = gEngine.CreateInstance<IMonsterStartState>();
 			}
 
 			// Put rope on mesquite tree
@@ -135,7 +135,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.Commands
 
 				room.SetDirectionDoor(Direction.Up, DobjArtifact);
 
-				NextState = Globals.CreateInstance<IMonsterStartState>();
+				NextState = gEngine.CreateInstance<IMonsterStartState>();
 			}
 			else
 			{

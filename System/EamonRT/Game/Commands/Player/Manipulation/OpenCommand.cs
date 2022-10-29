@@ -12,7 +12,7 @@ using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
-using static EamonRT.Game.Plugin.PluginContext;
+using static EamonRT.Game.Plugin.Globals;
 
 namespace EamonRT.Game.Commands
 {
@@ -76,7 +76,7 @@ namespace EamonRT.Game.Commands
 			{
 				PrintCantVerbObj(DobjArtifact);
 
-				NextState = Globals.CreateInstance<IStartState>();
+				NextState = gEngine.CreateInstance<IStartState>();
 
 				goto Cleanup;
 			}
@@ -180,7 +180,7 @@ namespace EamonRT.Game.Commands
 
 			if (DobjArtAc.Type == ArtifactType.InContainer && DobjArtifact.ShouldShowContentsWhenOpened())
 			{
-				NextState = Globals.CreateInstance<IInventoryCommand>();
+				NextState = gEngine.CreateInstance<IInventoryCommand>();
 
 				CopyCommandData(NextState as ICommand);
 			}
@@ -196,7 +196,7 @@ namespace EamonRT.Game.Commands
 
 			if (NextState == null)
 			{
-				NextState = Globals.CreateInstance<IMonsterStartState>();
+				NextState = gEngine.CreateInstance<IMonsterStartState>();
 			}
 		}
 
@@ -204,7 +204,7 @@ namespace EamonRT.Game.Commands
 		{
 			SortOrder = 180;
 
-			if (Globals.IsRulesetVersion(5))
+			if (gEngine.IsRulesetVersion(5))
 			{
 				IsPlayerEnabled = false;
 			}

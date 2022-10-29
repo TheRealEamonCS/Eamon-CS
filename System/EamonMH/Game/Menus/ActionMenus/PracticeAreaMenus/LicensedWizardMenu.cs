@@ -13,7 +13,7 @@ using Eamon.Game.Attributes;
 using Eamon.Game.Menus;
 using Eamon.Game.Utilities;
 using EamonMH.Framework.Menus.ActionMenus;
-using static EamonMH.Game.Plugin.PluginContext;
+using static EamonMH.Game.Plugin.Globals;
 
 namespace EamonMH.Game.Menus.ActionMenus
 {
@@ -30,7 +30,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 			long ap = 0;
 			long i;
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 
 			/* 
 				Full Credit:  Derived wholly from Donald Brown's Classic Eamon
@@ -50,7 +50,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 			gOut.Print("\"And what mystical prowess do you wish this humble one to impart to one of your magnificence?\"");
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 
 			Buf.Clear();
 
@@ -58,7 +58,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 			for (i = 0; i < spellValues.Count; i++)
 			{
-				spell = gEngine.GetSpells(spellValues[(int)i]);
+				spell = gEngine.GetSpell(spellValues[(int)i]);
 
 				Debug.Assert(spell != null);
 
@@ -74,30 +74,30 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 			Buf.Clear();
 
-			rc = Globals.In.ReadField(Buf, Constants.BufSize02, null, ' ', '\0', false, null, null, gEngine.IsCharSpellType, gEngine.IsCharSpellType);
+			rc = gEngine.In.ReadField(Buf, gEngine.BufSize02, null, ' ', '\0', false, null, null, gEngine.IsCharSpellType, gEngine.IsCharSpellType);
 
 			Debug.Assert(gEngine.IsSuccess(rc));
 
-			Globals.Thread.Sleep(150);
+			gEngine.Thread.Sleep(150);
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 
 			Debug.Assert(Buf.Length > 0);
 
 			i = Convert.ToInt64(Buf.Trim().ToString());
 
-			spell = gEngine.GetSpells((Spell)i);
+			spell = gEngine.GetSpell((Spell)i);
 
 			Debug.Assert(spell != null);
 
-			if (gCharacter.GetSpellAbilities(i) == 0)
+			if (gCharacter.GetSpellAbility(i) == 0)
 			{
 				gOut.Print("\"You will have to first buy that spell from the mage in the Main Hall!\"");
 
 				goto Cleanup;
 			}
 
-			ap = gEngine.GetMerchantAskPrice(Constants.SpellTrainingPrice, (double)Rtio);
+			ap = gEngine.GetMerchantAskPrice(gEngine.SpellTrainingPrice, (double)Rtio);
 
 			gOut.Print("\"So you wish to learn how to use your spell more effectively!  My fee is {0} gold piece{1} for every try.\"", ap, ap != 1 ? "s" : "");
 
@@ -105,11 +105,11 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 			while (true)
 			{
-				Globals.In.KeyPress(Buf);
+				gEngine.In.KeyPress(Buf);
 
-				gOut.Print("{0}", Globals.LineSep);
+				gOut.Print("{0}", gEngine.LineSep);
 
-				gOut.Print("Ability: {0}        Gold: {1}", gCharacter.GetSpellAbilities(i), gCharacter.HeldGold);
+				gOut.Print("Ability: {0}        Gold: {1}", gCharacter.GetSpellAbility(i), gCharacter.HeldGold);
 
 				if (gCharacter.HeldGold >= ap)
 				{
@@ -117,13 +117,13 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 					Buf.Clear();
 
-					rc = Globals.In.ReadField(Buf, Constants.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsChar1Or2OrX, gEngine.IsChar1Or2OrX);
+					rc = gEngine.In.ReadField(Buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsChar1Or2OrX, gEngine.IsChar1Or2OrX);
 
 					Debug.Assert(gEngine.IsSuccess(rc));
 
-					Globals.Thread.Sleep(150);
+					gEngine.Thread.Sleep(150);
 
-					gOut.Print("{0}", Globals.LineSep);
+					gOut.Print("{0}", gEngine.LineSep);
 
 					if (Buf.Length == 0 || Buf[0] == 'X')
 					{
@@ -137,27 +137,27 @@ namespace EamonMH.Game.Menus.ActionMenus
 						{
 							gOut.Print("\"Perfect cast!  Incredible!\"");
 
-							gCharacter.ModSpellAbilities(i, 4);
+							gCharacter.ModSpellAbility(i, 4);
 						}
 						else if (rl > 50)
 						{
 							gOut.Print("\"Success!  A good cast!\"");
 
-							gCharacter.ModSpellAbilities(i, 2);
+							gCharacter.ModSpellAbility(i, 2);
 						}
 						else
 						{
 							gOut.Print("\"Nothing?  Concentrate!\"");
 						}
 
-						if (gCharacter.GetSpellAbilities(i) > spell.MaxValue)
+						if (gCharacter.GetSpellAbility(i) > spell.MaxValue)
 						{
-							gCharacter.SetSpellAbilities(i, spell.MaxValue);
+							gCharacter.SetSpellAbility(i, spell.MaxValue);
 						}
 
 						gCharacter.HeldGold -= ap;
 
-						Globals.CharactersModified = true;
+						gEngine.CharactersModified = true;
 					}
 					else
 					{
@@ -176,12 +176,12 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 			gOut.Print("\"My ancient ancestors thank you for your excellent patronage!  May your magicks be always successful!\"");
 
-			Globals.In.KeyPress(Buf);
+			gEngine.In.KeyPress(Buf);
 		}
 
 		public LicensedWizardMenu()
 		{
-			Buf = Globals.Buf;
+			Buf = gEngine.Buf;
 		}
 	}
 }

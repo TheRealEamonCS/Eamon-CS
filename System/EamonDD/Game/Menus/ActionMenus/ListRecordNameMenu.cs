@@ -9,7 +9,7 @@ using Eamon;
 using Eamon.Framework;
 using Eamon.Framework.Helpers.Generic;
 using EamonDD.Framework.Menus.ActionMenus;
-using static EamonDD.Game.Plugin.PluginContext;
+using static EamonDD.Game.Plugin.Globals;
 
 namespace EamonDD.Game.Menus.ActionMenus
 {
@@ -25,9 +25,9 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			gEngine.PrintTitle(Title, true);
 
-			var helper = Globals.CreateInstance<U>();
+			var helper = gEngine.CreateInstance<U>();
 
-			var j = RecordTable.GetRecordsCount();
+			var j = RecordTable.GetRecordCount();
 
 			var i = 0;
 
@@ -39,7 +39,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 				nlFlag = true;
 
-				if ((i != 0 && (i % (Constants.NumRows - 8)) == 0) || i == j - 1)
+				if ((i != 0 && (i % (gEngine.NumRows - 8)) == 0) || i == j - 1)
 				{
 					nlFlag = false;
 
@@ -49,11 +49,11 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 					Buf.Clear();
 
-					rc = Globals.In.ReadField(Buf, Constants.BufSize02, null, ' ', '\0', true, null, gEngine.ModifyCharToNullOrX, null, gEngine.IsCharAny);
+					rc = gEngine.In.ReadField(Buf, gEngine.BufSize02, null, ' ', '\0', true, null, gEngine.ModifyCharToNullOrX, null, gEngine.IsCharAny);
 
 					Debug.Assert(gEngine.IsSuccess(rc));
 
-					gOut.Print("{0}", Globals.LineSep);
+					gOut.Print("{0}", gEngine.LineSep);
 
 					if (Buf.Length > 0 && Buf[0] == 'X')
 					{

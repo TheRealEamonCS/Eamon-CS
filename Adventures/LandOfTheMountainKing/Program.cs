@@ -8,7 +8,7 @@
 */
 
 using Eamon.Framework.Portability;
-using static LandOfTheMountainKing.Game.Plugin.PluginContext;
+using static LandOfTheMountainKing.Game.Plugin.Globals;
 
 namespace LandOfTheMountainKing
 {
@@ -18,11 +18,7 @@ namespace LandOfTheMountainKing
 		{
 			ProgramName = "LandOfTheMountainKing";
 
-			ConstantsType = typeof(Game.Plugin.PluginConstants);
-
-			ClassMappingsType = typeof(Game.Plugin.PluginClassMappings);
-
-			GlobalsType = typeof(Game.Plugin.PluginGlobals);
+			EngineType = typeof(Game.Plugin.Engine);
 		}
 	}
 }

@@ -12,7 +12,7 @@ using Eamon.Framework.DataStorage.Generic;
 using Eamon.Framework.Helpers;
 using Eamon.Framework.Helpers.Generic;
 using Eamon.Game.Attributes;
-using static Eamon.Game.Plugin.PluginContext;
+using static Eamon.Game.Plugin.Globals;
 
 namespace Eamon.Game.DataStorage
 {
@@ -62,9 +62,9 @@ namespace Eamon.Game.DataStorage
 
 			try
 			{
-				Globals.UpgradeDatafile(fileName);
+				gEngine.UpgradeDatafile(fileName);
 
-				table01 = Globals.SharpSerializer.Deserialize<IDbTable<T>>(fileName);
+				table01 = gEngine.SharpSerializer.Deserialize<IDbTable<T>>(fileName);
 			}
 			catch (FileNotFoundException)
 			{
@@ -73,14 +73,14 @@ namespace Eamon.Game.DataStorage
 
 			if (table01 == null || table01.Records == null)
 			{
-				table01 = Globals.CreateInstance<IDbTable<T>>();
+				table01 = gEngine.CreateInstance<IDbTable<T>>();
 
 				Debug.Assert(table01 != null && table01.Records != null);
 			}
 
-			if (!ClassMappings.DisableValidation && validate)
+			if (!gEngine.DisableValidation && validate)
 			{
-				var helper = Globals.CreateInstance<U>();
+				var helper = gEngine.CreateInstance<U>();
 
 				long i = 1;
 
@@ -92,9 +92,9 @@ namespace Eamon.Game.DataStorage
 					{
 						rc = RetCode.Failure;
 
-						Globals.Error.WriteLine("{0}Error: Expected valid [{1} value], found [{2}].", Environment.NewLine, helper.GetName(helper.ErrorFieldName), helper.GetValue(helper.ErrorFieldName) ?? "null");
+						gEngine.Error.WriteLine("{0}Error: Expected valid [{1} value], found [{2}].", Environment.NewLine, helper.GetName(helper.ErrorFieldName), helper.GetValue(helper.ErrorFieldName) ?? "null");
 
-						Globals.Error.WriteLine("Error: Validate function call failed for record number {0}.", i);
+						gEngine.Error.WriteLine("Error: Validate function call failed for record number {0}.", i);
 
 						goto Cleanup;
 					}
@@ -137,7 +137,7 @@ namespace Eamon.Game.DataStorage
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: LoadRecords function call failed.");
+				gEngine.Error.WriteLine("Error: LoadRecords function call failed.");
 			}
 
 			ConfigTable = table;
@@ -155,7 +155,7 @@ namespace Eamon.Game.DataStorage
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: LoadRecords function call failed.");
+				gEngine.Error.WriteLine("Error: LoadRecords function call failed.");
 			}
 
 			FilesetTable = table;
@@ -173,7 +173,7 @@ namespace Eamon.Game.DataStorage
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: LoadRecords function call failed.");
+				gEngine.Error.WriteLine("Error: LoadRecords function call failed.");
 			}
 
 			CharacterTable = table;
@@ -191,7 +191,7 @@ namespace Eamon.Game.DataStorage
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: LoadRecords function call failed.");
+				gEngine.Error.WriteLine("Error: LoadRecords function call failed.");
 			}
 
 			ModuleTable = table;
@@ -209,7 +209,7 @@ namespace Eamon.Game.DataStorage
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: LoadRecords function call failed.");
+				gEngine.Error.WriteLine("Error: LoadRecords function call failed.");
 			}
 
 			RoomTable = table;
@@ -227,7 +227,7 @@ namespace Eamon.Game.DataStorage
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: LoadRecords function call failed.");
+				gEngine.Error.WriteLine("Error: LoadRecords function call failed.");
 			}
 
 			ArtifactTable = table;
@@ -245,7 +245,7 @@ namespace Eamon.Game.DataStorage
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: LoadRecords function call failed.");
+				gEngine.Error.WriteLine("Error: LoadRecords function call failed.");
 			}
 
 			EffectTable = table;
@@ -263,7 +263,7 @@ namespace Eamon.Game.DataStorage
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: LoadRecords function call failed.");
+				gEngine.Error.WriteLine("Error: LoadRecords function call failed.");
 			}
 
 			MonsterTable = table;
@@ -281,7 +281,7 @@ namespace Eamon.Game.DataStorage
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: LoadRecords function call failed.");
+				gEngine.Error.WriteLine("Error: LoadRecords function call failed.");
 			}
 
 			HintTable = table;
@@ -299,7 +299,7 @@ namespace Eamon.Game.DataStorage
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: LoadRecords function call failed.");
+				gEngine.Error.WriteLine("Error: LoadRecords function call failed.");
 			}
 
 			GameStateTable = table;
@@ -327,7 +327,7 @@ namespace Eamon.Game.DataStorage
 				gOut.Write("{0}Saving datafile [{1}] ... ", Environment.NewLine, fileName);
 			}
 
-			Globals.SharpSerializer.Serialize(table, fileName);
+			gEngine.SharpSerializer.Serialize(table, fileName);
 
 			if (printOutput)
 			{
@@ -347,7 +347,7 @@ namespace Eamon.Game.DataStorage
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: SaveRecords function call failed.");
+				gEngine.Error.WriteLine("Error: SaveRecords function call failed.");
 			}
 
 			return rc;
@@ -361,7 +361,7 @@ namespace Eamon.Game.DataStorage
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: SaveRecords function call failed.");
+				gEngine.Error.WriteLine("Error: SaveRecords function call failed.");
 			}
 
 			return rc;
@@ -375,7 +375,7 @@ namespace Eamon.Game.DataStorage
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: SaveRecords function call failed.");
+				gEngine.Error.WriteLine("Error: SaveRecords function call failed.");
 			}
 
 			return rc;
@@ -389,7 +389,7 @@ namespace Eamon.Game.DataStorage
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: SaveRecords function call failed.");
+				gEngine.Error.WriteLine("Error: SaveRecords function call failed.");
 			}
 
 			return rc;
@@ -403,7 +403,7 @@ namespace Eamon.Game.DataStorage
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: SaveRecords function call failed.");
+				gEngine.Error.WriteLine("Error: SaveRecords function call failed.");
 			}
 
 			return rc;
@@ -417,7 +417,7 @@ namespace Eamon.Game.DataStorage
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: SaveRecords function call failed.");
+				gEngine.Error.WriteLine("Error: SaveRecords function call failed.");
 			}
 
 			return rc;
@@ -431,7 +431,7 @@ namespace Eamon.Game.DataStorage
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: SaveRecords function call failed.");
+				gEngine.Error.WriteLine("Error: SaveRecords function call failed.");
 			}
 
 			return rc;
@@ -445,7 +445,7 @@ namespace Eamon.Game.DataStorage
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: SaveRecords function call failed.");
+				gEngine.Error.WriteLine("Error: SaveRecords function call failed.");
 			}
 
 			return rc;
@@ -459,7 +459,7 @@ namespace Eamon.Game.DataStorage
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: SaveRecords function call failed.");
+				gEngine.Error.WriteLine("Error: SaveRecords function call failed.");
 			}
 
 			return rc;
@@ -473,7 +473,7 @@ namespace Eamon.Game.DataStorage
 
 			if (gEngine.IsFailure(rc))
 			{
-				Globals.Error.WriteLine("Error: SaveRecords function call failed.");
+				gEngine.Error.WriteLine("Error: SaveRecords function call failed.");
 			}
 
 			return rc;
@@ -549,7 +549,7 @@ namespace Eamon.Game.DataStorage
 			return FreeRecords(GameStateTable, dispose);
 		}
 
-		public virtual long GetRecordsCount<T>(IDbTable<T> table) where T : class, IGameBase
+		public virtual long GetRecordCount<T>(IDbTable<T> table) where T : class, IGameBase
 		{
 			long result;
 
@@ -562,61 +562,61 @@ namespace Eamon.Game.DataStorage
 				goto Cleanup;
 			}
 
-			result = table.GetRecordsCount();
+			result = table.GetRecordCount();
 
 		Cleanup:
 
 			return result;
 		}
 
-		public virtual long GetConfigsCount()
+		public virtual long GetConfigCount()
 		{
-			return GetRecordsCount(ConfigTable);
+			return GetRecordCount(ConfigTable);
 		}
 
-		public virtual long GetFilesetsCount()
+		public virtual long GetFilesetCount()
 		{
-			return GetRecordsCount(FilesetTable);
+			return GetRecordCount(FilesetTable);
 		}
 
-		public virtual long GetCharactersCount()
+		public virtual long GetCharacterCount()
 		{
-			return GetRecordsCount(CharacterTable);
+			return GetRecordCount(CharacterTable);
 		}
 
-		public virtual long GetModulesCount()
+		public virtual long GetModuleCount()
 		{
-			return GetRecordsCount(ModuleTable);
+			return GetRecordCount(ModuleTable);
 		}
 
-		public virtual long GetRoomsCount()
+		public virtual long GetRoomCount()
 		{
-			return GetRecordsCount(RoomTable);
+			return GetRecordCount(RoomTable);
 		}
 
-		public virtual long GetArtifactsCount()
+		public virtual long GetArtifactCount()
 		{
-			return GetRecordsCount(ArtifactTable);
+			return GetRecordCount(ArtifactTable);
 		}
 
-		public virtual long GetEffectsCount()
+		public virtual long GetEffectCount()
 		{
-			return GetRecordsCount(EffectTable);
+			return GetRecordCount(EffectTable);
 		}
 
-		public virtual long GetMonstersCount()
+		public virtual long GetMonsterCount()
 		{
-			return GetRecordsCount(MonsterTable);
+			return GetRecordCount(MonsterTable);
 		}
 
-		public virtual long GetHintsCount()
+		public virtual long GetHintCount()
 		{
-			return GetRecordsCount(HintTable);
+			return GetRecordCount(HintTable);
 		}
 
-		public virtual long GetGameStatesCount()
+		public virtual long GetGameStateCount()
 		{
-			return GetRecordsCount(GameStateTable);
+			return GetRecordCount(GameStateTable);
 		}
 
 		public virtual T FindRecord<T>(IDbTable<T> table, long uid) where T : class, IGameBase
@@ -1007,25 +1007,25 @@ namespace Eamon.Game.DataStorage
 
 		public Database()
 		{
-			ConfigTable = Globals.CreateInstance<IDbTable<IConfig>>();
+			ConfigTable = gEngine.CreateInstance<IDbTable<IConfig>>();
 
-			FilesetTable = Globals.CreateInstance<IDbTable<IFileset>>();
+			FilesetTable = gEngine.CreateInstance<IDbTable<IFileset>>();
 
-			CharacterTable = Globals.CreateInstance<IDbTable<ICharacter>>();
+			CharacterTable = gEngine.CreateInstance<IDbTable<ICharacter>>();
 
-			ModuleTable = Globals.CreateInstance<IDbTable<IModule>>();
+			ModuleTable = gEngine.CreateInstance<IDbTable<IModule>>();
 
-			RoomTable = Globals.CreateInstance<IDbTable<IRoom>>();
+			RoomTable = gEngine.CreateInstance<IDbTable<IRoom>>();
 
-			ArtifactTable = Globals.CreateInstance<IDbTable<IArtifact>>();
+			ArtifactTable = gEngine.CreateInstance<IDbTable<IArtifact>>();
 
-			EffectTable = Globals.CreateInstance<IDbTable<IEffect>>();
+			EffectTable = gEngine.CreateInstance<IDbTable<IEffect>>();
 
-			MonsterTable = Globals.CreateInstance<IDbTable<IMonster>>();
+			MonsterTable = gEngine.CreateInstance<IDbTable<IMonster>>();
 
-			HintTable = Globals.CreateInstance<IDbTable<IHint>>();
+			HintTable = gEngine.CreateInstance<IDbTable<IHint>>();
 
-			GameStateTable = Globals.CreateInstance<IDbTable<IGameState>>();
+			GameStateTable = gEngine.CreateInstance<IDbTable<IGameState>>();
 		}
 	}
 }

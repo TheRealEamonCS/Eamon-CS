@@ -7,7 +7,7 @@ using System.Diagnostics;
 using Eamon.Framework;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.States;
-using static EamonRT.Game.Plugin.PluginContext;
+using static EamonRT.Game.Plugin.Globals;
 
 namespace EamonRT.Game.States
 {
@@ -22,30 +22,30 @@ namespace EamonRT.Game.States
 
 		public override void Execute()
 		{
-			if (Globals.LoopMonsterUid > 0)
+			if (gEngine.LoopMonsterUid > 0)
 			{
-				FailedMoveMonster = gMDB[Globals.LoopMonsterUid];
+				FailedMoveMonster = gMDB[gEngine.LoopMonsterUid];
 
 				Debug.Assert(FailedMoveMonster != null);
 
-				Debug.Assert(Globals.LoopFailedMoveMemberCount >= 0);
+				Debug.Assert(gEngine.LoopFailedMoveMemberCount >= 0);
 
-				FailedMoveMonster.CurrGroupCount += Globals.LoopFailedMoveMemberCount;
+				FailedMoveMonster.CurrGroupCount += gEngine.LoopFailedMoveMemberCount;
 
-				Globals.LoopFailedMoveMemberCount = 0;
+				gEngine.LoopFailedMoveMemberCount = 0;
 			}
 
 			while (true)
 			{
-				Globals.LoopMonsterUid = Globals.LoopMonsterUidListIndex < Globals.LoopMonsterUidList.Count ? Globals.LoopMonsterUidList[(int)(Globals.LoopMonsterUidListIndex++)] : Globals.Database.GetMonsterUid(false) + 1;
+				gEngine.LoopMonsterUid = gEngine.LoopMonsterUidListIndex < gEngine.LoopMonsterUidList.Count ? gEngine.LoopMonsterUidList[(int)(gEngine.LoopMonsterUidListIndex++)] : gEngine.Database.GetMonsterUid(false) + 1;
 
-				LoopMonster = gMDB[Globals.LoopMonsterUid];
+				LoopMonster = gMDB[gEngine.LoopMonsterUid];
 
 				if (LoopMonster != null)
 				{
 					if (LoopMonster.ShouldProcessInGameLoop())
 					{
-						NextState = Globals.CreateInstance<IMonsterActionState>();
+						NextState = gEngine.CreateInstance<IMonsterActionState>();
 
 						goto Cleanup;
 					}
@@ -60,10 +60,10 @@ namespace EamonRT.Game.States
 
 			if (NextState == null)
 			{
-				NextState = Globals.CreateInstance<IEndOfRoundState>();
+				NextState = gEngine.CreateInstance<IEndOfRoundState>();
 			}
 
-			Globals.NextState = NextState;
+			gEngine.NextState = NextState;
 		}
 
 		public MonsterLoopIncrementState()

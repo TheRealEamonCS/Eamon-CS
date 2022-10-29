@@ -5,7 +5,7 @@
 
 using Eamon.Framework;
 using Eamon.Game.Attributes;
-using static Eamon.Game.Plugin.PluginContext;
+using static Eamon.Game.Plugin.Globals;
 
 namespace Eamon.Game
 {
@@ -45,7 +45,7 @@ namespace Eamon.Game
 
 			if (IsUidRecycled && Uid > 0)
 			{
-				Globals.Database.FreeHintUid(Uid);
+				gEngine.Database.FreeHintUid(Uid);
 
 				Uid = 0;
 			}
@@ -64,12 +64,12 @@ namespace Eamon.Game
 
 		#region Interface IHint
 
-		public virtual string GetAnswers(long index)
+		public virtual string GetAnswer(long index)
 		{
 			return Answers[index];
 		}
 
-		public virtual void SetAnswers(long index, string value)
+		public virtual void SetAnswer(long index, string value)
 		{
 			Answers[index] = value;
 		}

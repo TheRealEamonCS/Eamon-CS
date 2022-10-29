@@ -5,7 +5,7 @@
 
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
-using static LandOfTheMountainKing.Game.Plugin.PluginContext;
+using static LandOfTheMountainKing.Game.Plugin.Globals;
 
 namespace LandOfTheMountainKing.Game.Commands
 {

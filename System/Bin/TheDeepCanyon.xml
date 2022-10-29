@@ -4,7 +4,7 @@
         <name>TheDeepCanyon</name>
     </assembly>
     <members>
-        <member name="M:TheDeepCanyon.Framework.IEngine.MagicRingLowersMonsterStats(Eamon.Framework.IMonster)">
+        <member name="M:TheDeepCanyon.Framework.Plugin.IEngine.MagicRingLowersMonsterStats(Eamon.Framework.IMonster)">
             <summary></summary>
             <param name="monster"></param>
             <returns></returns>

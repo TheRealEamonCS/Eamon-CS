@@ -10,7 +10,7 @@ using Eamon;
 using Eamon.Framework;
 using Eamon.Framework.Helpers.Generic;
 using EamonDD.Framework.Menus.ActionMenus;
-using static EamonDD.Game.Plugin.PluginContext;
+using static EamonDD.Game.Plugin.Globals;
 
 namespace EamonDD.Game.Menus.ActionMenus
 {
@@ -28,13 +28,13 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			Buf.Clear();
 
-			rc = Globals.In.ReadField(Buf, Constants.BufSize01, null, '_', '\0', true, "1", null, gEngine.IsCharDigit, null);
+			rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, "1", null, gEngine.IsCharDigit, null);
 
 			Debug.Assert(gEngine.IsSuccess(rc));
 
 			var recordUid = Convert.ToInt64(Buf.Trim().ToString());
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 
 			var record = RecordTable.FindRecord(recordUid);
 
@@ -45,23 +45,23 @@ namespace EamonDD.Game.Menus.ActionMenus
 				goto Cleanup;
 			}
 
-			var record01 = Globals.CloneInstance(record);
+			var record01 = gEngine.CloneInstance(record);
 
 			Debug.Assert(record01 != null);
 
-			if (!Globals.Config.GenerateUids)
+			if (!gEngine.Config.GenerateUids)
 			{
 				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(55, '\0', 0, string.Format("Enter the Uid of the {0} record copy", RecordTypeName), null));
 
 				Buf.Clear();
 
-				rc = Globals.In.ReadField(Buf, Constants.BufSize01, null, '_', '\0', false, null, null, gEngine.IsCharDigit, null);
+				rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', false, null, null, gEngine.IsCharDigit, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
 				recordUid = Convert.ToInt64(Buf.Trim().ToString());
 
-				gOut.Print("{0}", Globals.LineSep);
+				gOut.Print("{0}", gEngine.LineSep);
 
 				if (recordUid > 0)
 				{
@@ -94,7 +94,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 				record01.IsUidRecycled = true;
 			}
 			
-			var helper = Globals.CreateInstance<U>(x =>
+			var helper = gEngine.CreateInstance<U>(x =>
 			{
 				x.Record = record01;
 			});
@@ -107,11 +107,11 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			Buf.Clear();
 
-			rc = Globals.In.ReadField(Buf, Constants.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, gEngine.IsCharYOrN);
+			rc = gEngine.In.ReadField(Buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, gEngine.IsCharYOrN);
 
 			Debug.Assert(gEngine.IsSuccess(rc));
 
-			Globals.Thread.Sleep(150);
+			gEngine.Thread.Sleep(150);
 
 			if (Buf.Length > 0 && Buf[0] == 'N')
 			{

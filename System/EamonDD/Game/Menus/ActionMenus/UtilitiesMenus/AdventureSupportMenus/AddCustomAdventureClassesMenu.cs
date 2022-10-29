@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using Eamon.Game.Attributes;
 using EamonDD.Framework.Menus.ActionMenus;
-using static EamonDD.Game.Plugin.PluginContext;
+using static EamonDD.Game.Plugin.Globals;
 
 namespace EamonDD.Game.Menus.ActionMenus
 {
@@ -30,7 +30,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			GotoCleanup = false;
 
-			var workDir = Globals.Directory.GetCurrentDirectory();
+			var workDir = gEngine.Directory.GetCurrentDirectory();
 
 			CheckForPrerequisites();
 
@@ -50,7 +50,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			GetAuthorInitials();
 
-			Globals.Directory.SetCurrentDirectory("..");
+			gEngine.Directory.SetCurrentDirectory("..");
 
 			SelectClassFilesToAdd();
 
@@ -59,7 +59,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 				goto Cleanup;
 			}
 
-			Globals.Directory.SetCurrentDirectory(workDir);
+			gEngine.Directory.SetCurrentDirectory(workDir);
 
 			QueryToProcessAdventure();
 
@@ -70,11 +70,11 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			AddSelectedClassFiles();
 
-			Globals.Directory.SetCurrentDirectory(Constants.AdventuresDir + @"\" + AdventureName);
+			gEngine.Directory.SetCurrentDirectory(gEngine.AdventuresDir + @"\" + AdventureName);
 
 			UpdateDatFileClasses();
 
-			Globals.Directory.SetCurrentDirectory(workDir);
+			gEngine.Directory.SetCurrentDirectory(workDir);
 
 			DeleteAdvBinaryFiles();
 
@@ -94,13 +94,13 @@ namespace EamonDD.Game.Menus.ActionMenus
 				// TODO: rollback classes delete if possible
 			}
 
-			Globals.Directory.SetCurrentDirectory(workDir);
+			gEngine.Directory.SetCurrentDirectory(workDir);
 		}
 
 		/// <summary></summary>
 		public virtual void SelectClassFilesToAdd()
 		{
-			var invalidClassFileNames = new string[] { "Program.cs", "Engine.cs", "IPluginClassMappings.cs", "IPluginConstants.cs", "IPluginGlobals.cs", "PluginClassMappings.cs", "PluginConstants.cs", "PluginContext.cs", "PluginGlobals.cs" };
+			var invalidClassFileNames = new string[] { "Program.cs", "IEngine.cs", "Engine.cs", "Globals.cs" };
 
 			SelectedClassFileList = new List<string>();
 
@@ -112,7 +112,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			while (true)
 			{
-				gOut.Print("{0}", Globals.LineSep);
+				gOut.Print("{0}", gEngine.LineSep);
 
 				gOut.Write("{0}Enter file name of interface/class: ", Environment.NewLine);
 
@@ -120,7 +120,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 				gOut.WordWrap = false;
 
-				var rc = Globals.In.ReadField(Buf, 120, null, '_', '\0', true, null, null, null, null);
+				var rc = gEngine.In.ReadField(Buf, 120, null, '_', '\0', true, null, null, null, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -145,18 +145,18 @@ namespace EamonDD.Game.Menus.ActionMenus
 				}
 				else
 				{
-					var destClassFileName = classFileName.Replace(classFileName.StartsWith(@".\Eamon\") ? @".\Eamon\" : classFileName.StartsWith(@".\EamonDD\") ? @".\EamonDD\" : @".\EamonRT\", Constants.AdventuresDir + @"\" + AdventureName + @"\").Replace(@"..\..\", @"..\");
+					var destClassFileName = classFileName.Replace(classFileName.StartsWith(@".\Eamon\") ? @".\Eamon\" : classFileName.StartsWith(@".\EamonDD\") ? @".\EamonDD\" : @".\EamonRT\", gEngine.AdventuresDir + @"\" + AdventureName + @"\").Replace(@"..\..\", @"..\");
 
-					if (!classFileName.EndsWith(".cs") || classFileName.Contains(@"\.") || invalidClassFileNames.FirstOrDefault(fn => fn.Equals(Globals.Path.GetFileName(classFileName), StringComparison.OrdinalIgnoreCase)) != null || SelectedClassFileList.FirstOrDefault(fn => fn.Equals(classFileName, StringComparison.OrdinalIgnoreCase)) != null || Globals.File.Exists(destClassFileName))
+					if (!classFileName.EndsWith(".cs") || classFileName.Contains(@"\.") || invalidClassFileNames.FirstOrDefault(fn => fn.Equals(gEngine.Path.GetFileName(classFileName), StringComparison.OrdinalIgnoreCase)) != null || SelectedClassFileList.FirstOrDefault(fn => fn.Equals(classFileName, StringComparison.OrdinalIgnoreCase)) != null || gEngine.File.Exists(destClassFileName))
 					{
 						classFileName = string.Empty;
 					}
 
-					if (!Globals.File.Exists(classFileName))
+					if (!gEngine.File.Exists(classFileName))
 					{
 						if (classFileName.StartsWith(@".\EamonRT\Game\States\") || classFileName.StartsWith(@".\EamonRT\Game\Commands\") || classFileName.StartsWith(@".\EamonRT\Framework\States\") || classFileName.StartsWith(@".\EamonRT\Framework\Commands\"))
 						{
-							gOut.Print("{0}", Globals.LineSep);
+							gOut.Print("{0}", gEngine.LineSep);
 
 							gOut.Write("{0}Would you like to derive directly from {1} (Y/N) [N]: ", Environment.NewLine,
 								classFileName.Contains(@"\Game\States\") ? "State" :
@@ -166,7 +166,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 							Buf.Clear();
 
-							rc = Globals.In.ReadField(Buf, Constants.BufSize02, null, ' ', '\0', true, "N", gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, null);
+							rc = gEngine.In.ReadField(Buf, gEngine.BufSize02, null, ' ', '\0', true, "N", gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, null);
 
 							Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -189,7 +189,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 					}
 				}
 
-				gOut.Print("{0}", Globals.LineSep);
+				gOut.Print("{0}", gEngine.LineSep);
 
 				if (classFileName.Length > 0)
 				{
@@ -201,7 +201,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 						Buf.Clear();
 
-						rc = Globals.In.ReadField(Buf, Constants.BufSize02, null, ' ', '\0', true, "N", gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, null);
+						rc = gEngine.In.ReadField(Buf, gEngine.BufSize02, null, ' ', '\0', true, "N", gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, null);
 
 						Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -210,7 +210,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 							includeInterface = true;
 						}
 
-						gOut.Print("{0}", Globals.LineSep);
+						gOut.Print("{0}", gEngine.LineSep);
 					}
 
 					IncludeInterfaceList.Add(includeInterface);
@@ -227,7 +227,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			if (SelectedClassFileList.Count == 0)
 			{
-				gOut.Print("{0}", Globals.LineSep);
+				gOut.Print("{0}", gEngine.LineSep);
 
 				gOut.Print("The adventure was not processed.");
 
@@ -238,7 +238,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 		/// <summary></summary>
 		public virtual void AddSelectedClassFiles()
 		{
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 
 			gOut.WriteLine();
 

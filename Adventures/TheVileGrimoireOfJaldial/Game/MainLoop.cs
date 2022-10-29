@@ -10,7 +10,7 @@ using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using Eamon.Game.Extensions;
 using EamonRT.Framework;
-using static TheVileGrimoireOfJaldial.Game.Plugin.PluginContext;
+using static TheVileGrimoireOfJaldial.Game.Plugin.Globals;
 
 namespace TheVileGrimoireOfJaldial.Game
 {
@@ -39,25 +39,25 @@ namespace TheVileGrimoireOfJaldial.Game
 
 			parchmentArtifact.SetInLimbo();
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 
-			var hour = gGameState.Day == 0 ? gGameState.Hour - Constants.StartHour : gGameState.Hour;
+			var hour = gGameState.Day == 0 ? gGameState.Hour - gEngine.StartHour : gGameState.Hour;
 
-			var minute = gGameState.Day == 0 && gGameState.Hour == Constants.StartHour ? gGameState.Minute - Constants.StartMinute : gGameState.Minute;
+			var minute = gGameState.Day == 0 && gGameState.Hour == gEngine.StartHour ? gGameState.Minute - gEngine.StartMinute : gGameState.Minute;
 
 			gOut.Print("After exploring the graveyard for {0} day{1}, {2} hour{3}, and {4} minute{5} you finally head homeward.", gGameState.Day, gGameState.Day != 1 ? "s" : "", hour, hour != 1 ? "s" : "", minute, minute != 1 ? "s" : "");
 
 			if (grimoireArtifact.IsCarriedByCharacter())
 			{
-				var reward = (gCharacter.GetStats(Stat.Charisma) * grimoireArtifact.Value) / 10;
+				var reward = (gCharacter.GetStat(Stat.Charisma) * grimoireArtifact.Value) / 10;
 
 				gEngine.PrintEffectDesc(162);
 
 				gOut.Print("You hand over the book for inspection.  Kreqor accepts it, almost with a mixed look of wonder and disgust, and begins to leaf through the pages.  He scans the manuscript to determine its condition, but you note he avoids reading its contents.  Finally, he looks up at you and says, \"The Wizard's Council will undoubtedly authorize the release of the reward, which amounts to {0} gold pieces.  But you must have had many adventures in the graveyard, come inside and lodge for the night.  I am curious about what you have seen.\"", reward);
 
-				Globals.In.KeyPress(Globals.Buf);
+				gEngine.In.KeyPress(gEngine.Buf);
 
-				gOut.Print("{0}", Globals.LineSep);
+				gOut.Print("{0}", gEngine.LineSep);
 
 				gEngine.PrintEffectDesc(163);
 
@@ -75,9 +75,9 @@ namespace TheVileGrimoireOfJaldial.Game
 
 				gEngine.PrintEffectDesc(165);
 
-				Globals.In.KeyPress(Globals.Buf);
+				gEngine.In.KeyPress(gEngine.Buf);
 
-				gOut.Print("{0}", Globals.LineSep);
+				gOut.Print("{0}", gEngine.LineSep);
 
 				gEngine.PrintEffectDesc(166);
 
@@ -96,7 +96,7 @@ namespace TheVileGrimoireOfJaldial.Game
 
 			gOut.Print("Your adventure is over.");
 
-			Globals.In.KeyPress(Globals.Buf);
+			gEngine.In.KeyPress(gEngine.Buf);
 
 			var torchArtifact = gADB[1];
 
@@ -116,7 +116,7 @@ namespace TheVileGrimoireOfJaldial.Game
 
 			if (armorArtifact != null && armorArtifact.Uid != 19 && cloakArtifact.IsWornByCharacter())
 			{
-				if (armorArtifact.Desc.Length + cloakArtifact.Desc.Length + 2 <= Constants.ArtDescLen)
+				if (armorArtifact.Desc.Length + cloakArtifact.Desc.Length + 2 <= gEngine.ArtDescLen)
 				{
 					armorArtifact.Desc = string.Format("{0}  {1}", armorArtifact.Desc, cloakArtifact.Desc);
 				}
@@ -132,7 +132,7 @@ namespace TheVileGrimoireOfJaldial.Game
 
 			if (gauntletsArtifact.IsWornByCharacter())
 			{
-				if (armorArtifact != null && armorArtifact.Desc.Length + gauntletsArtifact.Desc.Length + 2 <= Constants.ArtDescLen)
+				if (armorArtifact != null && armorArtifact.Desc.Length + gauntletsArtifact.Desc.Length + 2 <= gEngine.ArtDescLen)
 				{
 					armorArtifact.Desc = string.Format("{0}  {1}", armorArtifact.Desc, gauntletsArtifact.Desc);
 				}

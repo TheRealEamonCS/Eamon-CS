@@ -9,7 +9,7 @@ using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.States;
-using static EamonRT.Game.Plugin.PluginContext;
+using static EamonRT.Game.Plugin.Globals;
 
 namespace EamonRT.Game.States
 {
@@ -27,7 +27,7 @@ namespace EamonRT.Game.States
 
 		public override void Execute()
 		{
-			LoopMonster = gMDB[Globals.LoopMonsterUid];
+			LoopMonster = gMDB[gEngine.LoopMonsterUid];
 
 			Debug.Assert(LoopMonster != null);
 
@@ -35,7 +35,7 @@ namespace EamonRT.Game.States
 
 			Debug.Assert(LoopMonsterRoom != null);
 
-			Globals.LoopGroupCount = LoopMonster.CurrGroupCount;
+			gEngine.LoopGroupCount = LoopMonster.CurrGroupCount;
 
 			MonsterFleesCheck();
 
@@ -44,16 +44,16 @@ namespace EamonRT.Game.States
 				goto Cleanup;
 			}
 
-			NextState = Globals.CreateInstance<IMonsterMemberLoopInitializeState>();
+			NextState = gEngine.CreateInstance<IMonsterMemberLoopInitializeState>();
 
 		Cleanup:
 
 			if (NextState == null)
 			{
-				NextState = Globals.CreateInstance<IMonsterLoopIncrementState>();
+				NextState = gEngine.CreateInstance<IMonsterLoopIncrementState>();
 			}
 
-			Globals.NextState = NextState;
+			gEngine.NextState = NextState;
 		}
 
 		public virtual void MonsterFleesCheck()
@@ -62,7 +62,7 @@ namespace EamonRT.Game.States
 			{
 				Debug.Assert(LoopMonster.Reaction != Friendliness.Neutral);
 
-				ActionCommand = Globals.CreateInstance<IMonsterFleeCommand>(x =>
+				ActionCommand = gEngine.CreateInstance<IMonsterFleeCommand>(x =>
 				{
 					x.ActorMonster = LoopMonster;
 
@@ -71,7 +71,7 @@ namespace EamonRT.Game.States
 
 				ActionCommand.Execute();
 
-				if (LoopMonster.CurrGroupCount >= Globals.LoopGroupCount)
+				if (LoopMonster.CurrGroupCount >= gEngine.LoopGroupCount)
 				{
 					GotoCleanup = true;
 				}

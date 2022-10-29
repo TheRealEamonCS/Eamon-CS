@@ -9,7 +9,7 @@ using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
-using static ARuncibleCargo.Game.Plugin.PluginContext;
+using static ARuncibleCargo.Game.Plugin.Globals;
 
 namespace ARuncibleCargo.Game.Commands
 {
@@ -76,19 +76,19 @@ namespace ARuncibleCargo.Game.Commands
 
 								gOut.Print("You activate the detonator...");
 
-								gOut.Print("{0}", Globals.LineSep);
+								gOut.Print("{0}", gEngine.LineSep);
 
 								gEngine.PrintEffectDesc(138);
 
-								Globals.In.KeyPress(Globals.Buf);
+								gEngine.In.KeyPress(gEngine.Buf);
 
 								gGameState.Die = 0;
 
-								Globals.ExitType = ExitType.FinishAdventure;
+								gEngine.ExitType = ExitType.FinishAdventure;
 
-								Globals.MainLoop.ShouldShutdown = true;
+								gEngine.MainLoop.ShouldShutdown = true;
 
-								NextState = Globals.CreateInstance<IStartState>();
+								NextState = gEngine.CreateInstance<IStartState>();
 
 								GotoCleanup = true;
 							}
@@ -96,7 +96,7 @@ namespace ARuncibleCargo.Game.Commands
 							{
 								gEngine.PrintEffectDesc(137);
 
-								NextState = Globals.CreateInstance<IStartState>();
+								NextState = gEngine.CreateInstance<IStartState>();
 
 								GotoCleanup = true;
 							}
@@ -105,7 +105,7 @@ namespace ARuncibleCargo.Game.Commands
 						{
 							gEngine.PrintEffectDesc(136);
 
-							NextState = Globals.CreateInstance<IStartState>();
+							NextState = gEngine.CreateInstance<IStartState>();
 
 							GotoCleanup = true;
 						}

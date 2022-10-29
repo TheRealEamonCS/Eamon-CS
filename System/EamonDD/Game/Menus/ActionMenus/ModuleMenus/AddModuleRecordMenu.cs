@@ -11,7 +11,7 @@ using Eamon.Framework;
 using Eamon.Framework.Helpers;
 using Eamon.Game.Attributes;
 using EamonDD.Framework.Menus.ActionMenus;
-using static EamonDD.Game.Plugin.PluginContext;
+using static EamonDD.Game.Plugin.Globals;
 
 namespace EamonDD.Game.Menus.ActionMenus
 {
@@ -23,29 +23,29 @@ namespace EamonDD.Game.Menus.ActionMenus
 			IModule module;
 			RetCode rc;
 
-			if (Globals.Module == null)
+			if (gEngine.Module == null)
 			{
 				gOut.WriteLine();
 
 				gEngine.PrintTitle("ADD MODULE RECORD", true);
 
-				if (!Globals.Config.GenerateUids && NewRecordUid == 0)
+				if (!gEngine.Config.GenerateUids && NewRecordUid == 0)
 				{
 					gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(55, '\0', 0, "Enter the Uid of the Module record to add", null));
 
 					Buf.Clear();
 
-					rc = Globals.In.ReadField(Buf, Constants.BufSize01, null, '_', '\0', false, null, null, gEngine.IsCharDigit, null);
+					rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', false, null, null, gEngine.IsCharDigit, null);
 
 					Debug.Assert(gEngine.IsSuccess(rc));
 
 					NewRecordUid = Convert.ToInt64(Buf.Trim().ToString());
 
-					gOut.Print("{0}", Globals.LineSep);
+					gOut.Print("{0}", gEngine.LineSep);
 
 					if (NewRecordUid > 0)
 					{
-						module = Globals.MODDB[NewRecordUid];
+						module = gEngine.MODDB[NewRecordUid];
 
 						if (module != null)
 						{
@@ -54,33 +54,33 @@ namespace EamonDD.Game.Menus.ActionMenus
 							goto Cleanup;
 						}
 
-						Globals.Database.ModuleTable.FreeUids.Remove(NewRecordUid);
+						gEngine.Database.ModuleTable.FreeUids.Remove(NewRecordUid);
 					}
 				}
 
-				module = Globals.CreateInstance<IModule>(x =>
+				module = gEngine.CreateInstance<IModule>(x =>
 				{
 					x.Uid = NewRecordUid;
 				});
 				
-				var helper = Globals.CreateInstance<IModuleHelper>(x =>
+				var helper = gEngine.CreateInstance<IModuleHelper>(x =>
 				{
 					x.Record = module;
 				});
 				
-				helper.InputRecord(false, Globals.Config.FieldDesc);
+				helper.InputRecord(false, gEngine.Config.FieldDesc);
 
-				Globals.Thread.Sleep(150);
+				gEngine.Thread.Sleep(150);
 
 				gOut.Write("{0}Would you like to save this Module record (Y/N): ", Environment.NewLine);
 
 				Buf.Clear();
 
-				rc = Globals.In.ReadField(Buf, Constants.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, gEngine.IsCharYOrN);
+				rc = gEngine.In.ReadField(Buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, gEngine.IsCharYOrN);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
-				Globals.Thread.Sleep(150);
+				gEngine.Thread.Sleep(150);
 
 				if (Buf.Length > 0 && Buf[0] == 'N')
 				{
@@ -89,13 +89,13 @@ namespace EamonDD.Game.Menus.ActionMenus
 					goto Cleanup;
 				}
 
-				rc = Globals.Database.AddModule(module);
+				rc = gEngine.Database.AddModule(module);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
-				Globals.ModulesModified = true;
+				gEngine.ModulesModified = true;
 
-				Globals.Module = module;
+				gEngine.Module = module;
 			}
 
 		Cleanup:

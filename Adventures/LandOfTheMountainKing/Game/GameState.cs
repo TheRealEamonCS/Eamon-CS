@@ -5,7 +5,7 @@
 
 using Eamon.Framework;
 using Eamon.Game.Attributes;
-using static LandOfTheMountainKing.Game.Plugin.PluginContext;
+using static LandOfTheMountainKing.Game.Plugin.Globals;
 
 namespace LandOfTheMountainKing.Game
 {
@@ -16,7 +16,7 @@ namespace LandOfTheMountainKing.Game
 
 		public GameState()
 		{
-			LMKKP1 = Globals.CreateInstance<Framework.ILMKKP1>();
+			LMKKP1 = gEngine.CreateInstance<Framework.ILMKKP1>();
 		}
 	}
 }

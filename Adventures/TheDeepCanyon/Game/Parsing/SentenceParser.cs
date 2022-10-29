@@ -7,7 +7,7 @@ using System;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Parsing;
 using TheDeepCanyon.Framework.Commands;
-using static TheDeepCanyon.Game.Plugin.PluginContext;
+using static TheDeepCanyon.Game.Plugin.Globals;
 
 namespace TheDeepCanyon.Game.Parsing
 {

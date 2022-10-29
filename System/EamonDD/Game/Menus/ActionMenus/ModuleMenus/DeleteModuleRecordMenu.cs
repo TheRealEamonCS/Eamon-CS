@@ -10,7 +10,7 @@ using Eamon.Framework.Helpers;
 using Eamon.Game.Attributes;
 using Eamon.Game.Menus;
 using EamonDD.Framework.Menus.ActionMenus;
-using static EamonDD.Game.Plugin.PluginContext;
+using static EamonDD.Game.Plugin.Globals;
 
 namespace EamonDD.Game.Menus.ActionMenus
 {
@@ -21,47 +21,47 @@ namespace EamonDD.Game.Menus.ActionMenus
 		{
 			RetCode rc;
 
-			if (Globals.Module != null)
+			if (gEngine.Module != null)
 			{
 				gOut.WriteLine();
 
 				gEngine.PrintTitle("DELETE MODULE RECORD", true);
 				
-				var helper = Globals.CreateInstance<IModuleHelper>(x =>
+				var helper = gEngine.CreateInstance<IModuleHelper>(x =>
 				{
-					x.Record = Globals.Module;
+					x.Record = gEngine.Module;
 				});
 				
 				helper.ListRecord(true, true, false, true, false, false);
 
 				gOut.WriteLine();
 
-				gOut.Print("{0}", Globals.LineSep);
+				gOut.Print("{0}", gEngine.LineSep);
 
 				gOut.Write("{0}Would you like to delete this Module record (Y/N): ", Environment.NewLine);
 
 				Buf.Clear();
 
-				rc = Globals.In.ReadField(Buf, Constants.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, gEngine.IsCharYOrN);
+				rc = gEngine.In.ReadField(Buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, gEngine.IsCharYOrN);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
-				Globals.Thread.Sleep(150);
+				gEngine.Thread.Sleep(150);
 
 				if (Buf.Length > 0 && Buf[0] == 'N')
 				{
 					goto Cleanup;
 				}
 
-				var module = Globals.Database.RemoveModule(Globals.Module.Uid);
+				var module = gEngine.Database.RemoveModule(gEngine.Module.Uid);
 
 				Debug.Assert(module != null);
 
 				module.Dispose();
 
-				Globals.ModulesModified = true;
+				gEngine.ModulesModified = true;
 
-				Globals.Module = null;
+				gEngine.Module = null;
 			}
 
 		Cleanup:
@@ -71,7 +71,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 		public DeleteModuleRecordMenu()
 		{
-			Buf = Globals.Buf;
+			Buf = gEngine.Buf;
 		}
 	}
 }

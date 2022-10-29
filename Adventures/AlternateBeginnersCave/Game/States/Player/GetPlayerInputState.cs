@@ -8,7 +8,7 @@ using Eamon.Game.Attributes;
 using EamonRT.Framework.Components;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
-using static AlternateBeginnersCave.Game.Plugin.PluginContext;
+using static AlternateBeginnersCave.Game.Plugin.Globals;
 
 namespace AlternateBeginnersCave.Game.States
 {
@@ -19,7 +19,7 @@ namespace AlternateBeginnersCave.Game.States
 		{
 			base.ProcessEvents(eventType);
 
-			if (eventType == EventType.BeforePrintCommandPrompt && ShouldPreTurnProcess())
+			if (eventType == EventType.BeforePrintCommandPrompt && gEngine.ShouldPreTurnProcess)
 			{
 				Debug.Assert(gCharMonster != null);
 
@@ -33,7 +33,7 @@ namespace AlternateBeginnersCave.Game.States
 
 					gOut.Print("The spell of the dagger just wore off!");
 
-					var combatComponent = Globals.CreateInstance<ICombatComponent>(x =>
+					var combatComponent = gEngine.CreateInstance<ICombatComponent>(x =>
 					{
 						x.SetNextStateFunc = s => NextState = s;
 

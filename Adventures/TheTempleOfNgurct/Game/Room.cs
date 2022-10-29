@@ -5,16 +5,16 @@
 
 using Eamon.Framework;
 using Eamon.Game.Attributes;
-using static TheTempleOfNgurct.Game.Plugin.PluginContext;
+using static TheTempleOfNgurct.Game.Plugin.Globals;
 
 namespace TheTempleOfNgurct.Game
 {
 	[ClassMappings]
 	public class Room : Eamon.Game.Room, IRoom
 	{
-		public override long GetDirs(long index)
+		public override long GetDir(long index)
 		{
-			if (Globals.EnableGameOverrides)
+			if (gEngine.EnableMutateProperties)
 			{
 				if (Uid == 33)
 				{
@@ -22,7 +22,7 @@ namespace TheTempleOfNgurct.Game
 
 					var ac = oakDoorArtifact != null ? oakDoorArtifact.DoorGate : null;
 
-					return ac != null && (ac.GetKeyUid() <= 0 || !oakDoorArtifact.Seen) && index == 1 ? 18 : base.GetDirs(index);
+					return ac != null && (ac.GetKeyUid() <= 0 || !oakDoorArtifact.Seen) && index == 1 ? 18 : base.GetDir(index);
 				}
 				else if (Uid == 45)
 				{
@@ -30,7 +30,7 @@ namespace TheTempleOfNgurct.Game
 
 					var ac = cellDoorArtifact != null ? cellDoorArtifact.DoorGate : null;
 
-					return ac != null && ac.GetKeyUid() <= 0 && index == 4 ? 26 : base.GetDirs(index);
+					return ac != null && ac.GetKeyUid() <= 0 && index == 4 ? 26 : base.GetDir(index);
 				}
 				else if (Uid == 46)
 				{
@@ -38,7 +38,7 @@ namespace TheTempleOfNgurct.Game
 
 					var ac = cellDoorArtifact != null ? cellDoorArtifact.DoorGate : null;
 
-					return ac != null && ac.GetKeyUid() <= 0 && index == 3 ? 27 : base.GetDirs(index);
+					return ac != null && ac.GetKeyUid() <= 0 && index == 3 ? 27 : base.GetDir(index);
 				}
 				else if (Uid == 55)
 				{
@@ -46,16 +46,16 @@ namespace TheTempleOfNgurct.Game
 
 					var ac = cellDoorArtifact != null ? cellDoorArtifact.DoorGate : null;
 
-					return ac != null && ac.GetKeyUid() <= 0 && index == 1 ? 56 : base.GetDirs(index);
+					return ac != null && ac.GetKeyUid() <= 0 && index == 1 ? 56 : base.GetDir(index);
 				}
 				else
 				{
-					return base.GetDirs(index);
+					return base.GetDir(index);
 				}
 			}
 			else
 			{
-				return base.GetDirs(index);
+				return base.GetDir(index);
 			}
 		}
 	}

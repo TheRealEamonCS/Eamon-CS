@@ -18,7 +18,7 @@ using Eamon.Game.Extensions;
 using Eamon.Game.Menus;
 using EamonDD.Framework.Menus.ActionMenus;
 using EamonDD.Game.Converters.EamonDeluxe;
-using static EamonDD.Game.Plugin.PluginContext;
+using static EamonDD.Game.Plugin.Globals;
 
 namespace EamonDD.Game.Menus.ActionMenus
 {
@@ -51,7 +51,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			gOut.WordWrap = false;
 
-			rc = Globals.In.ReadField(Buf, 256, null, '_', '\0', false, null, null, null, null);
+			rc = gEngine.In.ReadField(Buf, 256, null, '_', '\0', false, null, null, null, null);
 
 			Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -59,7 +59,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			edxac.AdventureFolderPath = Buf.Trim().ToString().Replace('/', '\\');
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 
 			gOut.WriteLine();
 
@@ -71,7 +71,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 				gOut.Print(edxac.ErrorMessage);
 
-				gOut.Print("{0}", Globals.LineSep);
+				gOut.Print("{0}", gEngine.LineSep);
 
 				gOut.Print("The adventure was not converted.");
 
@@ -88,7 +88,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 				gOut.Print(edxac.ErrorMessage);
 
-				gOut.Print("{0}", Globals.LineSep);
+				gOut.Print("{0}", gEngine.LineSep);
 
 				gOut.Print("The adventure was not converted.");
 
@@ -99,7 +99,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			Debug.Assert(edxac.AdventureList.Count > 0);
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 
 			gOut.WriteLine();
 
@@ -112,7 +112,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			Buf.Clear();
 
-			rc = Globals.In.ReadField(Buf, Constants.BufSize01, null, '_', '\0', false, null, null, gEngine.IsCharDigit, null);
+			rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', false, null, null, gEngine.IsCharDigit, null);
 
 			Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -120,7 +120,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			if (edxAdvNum < 1 || edxAdvNum > edxac.AdventureList.Count)
 			{
-				gOut.Print("{0}", Globals.LineSep);
+				gOut.Print("{0}", gEngine.LineSep);
 
 				gOut.Print("The adventure was not converted.");
 
@@ -133,7 +133,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			if (edxac.HintList.Count > 0)
 			{
-				gOut.Print("{0}", Globals.LineSep);
+				gOut.Print("{0}", gEngine.LineSep);
 
 				gOut.WriteLine();
 
@@ -150,7 +150,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 				gOut.WordWrap = false;
 
-				rc = Globals.In.ReadField(Buf, 256, null, '_', '\0', true, null, null, null, null);
+				rc = gEngine.In.ReadField(Buf, 256, null, '_', '\0', true, null, null, null, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -169,7 +169,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 				}
 			}
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 
 			gOut.Print("Eamon Deluxe adventure:");
 
@@ -187,34 +187,34 @@ namespace EamonDD.Game.Menus.ActionMenus
 				}
 			}
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 
 			gOut.Write("{0}Would you like to convert this adventure for use in Eamon CS (Y/N): ", Environment.NewLine);
 
 			Buf.Clear();
 
-			rc = Globals.In.ReadField(Buf, Constants.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, null);
+			rc = gEngine.In.ReadField(Buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, null);
 
 			Debug.Assert(gEngine.IsSuccess(rc));
 
 			if (Buf.Length == 0 || Buf[0] != 'Y')
 			{
-				gOut.Print("{0}", Globals.LineSep);
+				gOut.Print("{0}", gEngine.LineSep);
 
 				gOut.Print("The adventure was not converted.");
 
 				goto Cleanup;
 			}
 
-			Globals.Module = null;
+			gEngine.Module = null;
 
-			Globals.Database.FreeModules();
+			gEngine.Database.FreeModules();
 
-			var module = Globals.CreateInstance<IModule>(x =>
+			var module = gEngine.CreateInstance<IModule>(x =>
 			{
-				x.Uid = Globals.Database.GetModuleUid();
+				x.Uid = gEngine.Database.GetModuleUid();
 
-				x.Name = edxAdv.Name.Trim().Truncate(Constants.ModNameLen);
+				x.Name = edxAdv.Name.Trim().Truncate(gEngine.ModNameLen);
 
 				x.Desc = "TODO";
 
@@ -239,13 +239,13 @@ namespace EamonDD.Game.Menus.ActionMenus
 				x.NumHints = edxHintList.Count;
 			});
 
-			Globals.Database.AddModule(module);
+			gEngine.Database.AddModule(module);
 
-			Globals.ModulesModified = true;
+			gEngine.ModulesModified = true;
 
-			Globals.Module = module;
+			gEngine.Module = module;
 
-			Globals.Database.FreeRooms();
+			gEngine.Database.FreeRooms();
 
 			for (var i = 0; i < edxAdv._nr; i++)
 			{
@@ -283,50 +283,50 @@ namespace EamonDD.Game.Menus.ActionMenus
 					edxRoom._rdesc = "UNUSED";
 				}
 
-				var room = Globals.CreateInstance<IRoom>(x =>
+				var room = gEngine.CreateInstance<IRoom>(x =>
 				{
-					x.Uid = Globals.Database.GetRoomUid();
+					x.Uid = gEngine.Database.GetRoomUid();
 
-					x.Name = edxRoom._rname.Truncate(Constants.RmNameLen);
+					x.Name = edxRoom._rname.Truncate(gEngine.RmNameLen);
 
-					x.Desc = edxRoom._rdesc.Truncate(Constants.RmDescLen);
+					x.Desc = edxRoom._rdesc.Truncate(gEngine.RmDescLen);
 
 					x.LightLvl = edxRoom._rlight != 0 ? LightLevel.Light : LightLevel.Dark;
 
 					x.Zone = 1;
 
-					x.SetDirs(Direction.North, edxRoom._rd1);
+					x.SetDir(Direction.North, edxRoom._rd1);
 
-					x.SetDirs(Direction.South, edxRoom._rd2);
+					x.SetDir(Direction.South, edxRoom._rd2);
 
-					x.SetDirs(Direction.East, edxRoom._rd3);
+					x.SetDir(Direction.East, edxRoom._rd3);
 
-					x.SetDirs(Direction.West, edxRoom._rd4);
+					x.SetDir(Direction.West, edxRoom._rd4);
 
-					x.SetDirs(Direction.Up, edxRoom._rd5);
+					x.SetDir(Direction.Up, edxRoom._rd5);
 
-					x.SetDirs(Direction.Down, edxRoom._rd6);
+					x.SetDir(Direction.Down, edxRoom._rd6);
 
 					if (edxAdv._nd != 6)
 					{
-						x.SetDirs(Direction.Northeast, edxRoom._rd7);
+						x.SetDir(Direction.Northeast, edxRoom._rd7);
 
-						x.SetDirs(Direction.Northwest, edxRoom._rd8);
+						x.SetDir(Direction.Northwest, edxRoom._rd8);
 
-						x.SetDirs(Direction.Southeast, edxRoom._rd9);
+						x.SetDir(Direction.Southeast, edxRoom._rd9);
 
-						x.SetDirs(Direction.Southwest, edxRoom._rd10);
+						x.SetDir(Direction.Southwest, edxRoom._rd10);
 					}
 				});
 
-				Globals.Database.AddRoom(room);
+				gEngine.Database.AddRoom(room);
 			}
 
-			Globals.RoomsModified = true;
+			gEngine.RoomsModified = true;
 
-			Globals.Database.FreeArtifacts();
+			gEngine.Database.FreeArtifacts();
 
-			var artifactHelper = Globals.CreateInstance<IArtifactHelper>();
+			var artifactHelper = gEngine.CreateInstance<IArtifactHelper>();
 
 			Debug.Assert(artifactHelper != null);
 
@@ -355,13 +355,13 @@ namespace EamonDD.Game.Menus.ActionMenus
 					edxArtifact._artdesc = "UNUSED";
 				}
 
-				var artifact = Globals.CreateInstance<IArtifact>(x =>
+				var artifact = gEngine.CreateInstance<IArtifact>(x =>
 				{
-					x.Uid = Globals.Database.GetArtifactUid();
+					x.Uid = gEngine.Database.GetArtifactUid();
 
-					x.Name = edxArtifact._artname.Truncate(Constants.ArtNameLen);
+					x.Name = edxArtifact._artname.Truncate(gEngine.ArtNameLen);
 
-					x.Desc = edxArtifact._artdesc.Truncate(Constants.ArtDescLen);
+					x.Desc = edxArtifact._artdesc.Truncate(gEngine.ArtDescLen);
 
 					x.IsListed = true;
 
@@ -434,7 +434,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 					artifact.Name = "TODO";
 				}
 
-				Globals.Database.AddArtifact(artifact);
+				gEngine.Database.AddArtifact(artifact);
 			}
 
 			var containerList = gADB.Records.Where(a => a.Type == ArtifactType.InContainer).ToList();
@@ -456,9 +456,9 @@ namespace EamonDD.Game.Menus.ActionMenus
 				container.Field3 = containedWeight;
 			}
 
-			Globals.ArtifactsModified = true;
+			gEngine.ArtifactsModified = true;
 
-			Globals.Database.FreeEffects();
+			gEngine.Database.FreeEffects();
 
 			for (var i = 0; i < edxAdv._ne; i++)
 			{
@@ -478,21 +478,21 @@ namespace EamonDD.Game.Menus.ActionMenus
 					edxEffect._text = "UNUSED";
 				}
 
-				var effect = Globals.CreateInstance<IEffect>(x =>
+				var effect = gEngine.CreateInstance<IEffect>(x =>
 				{
-					x.Uid = Globals.Database.GetEffectUid();
+					x.Uid = gEngine.Database.GetEffectUid();
 
-					x.Desc = edxEffect._text.Truncate(Constants.EffDescLen);
+					x.Desc = edxEffect._text.Truncate(gEngine.EffDescLen);
 				});
 
-				Globals.Database.AddEffect(effect);
+				gEngine.Database.AddEffect(effect);
 			}
 
-			Globals.EffectsModified = true;
+			gEngine.EffectsModified = true;
 
-			Globals.Database.FreeMonsters();
+			gEngine.Database.FreeMonsters();
 
-			var monsterHelper = Globals.CreateInstance<IMonsterHelper>();
+			var monsterHelper = gEngine.CreateInstance<IMonsterHelper>();
 
 			Debug.Assert(monsterHelper != null);
 
@@ -521,13 +521,13 @@ namespace EamonDD.Game.Menus.ActionMenus
 					edxMonster._mdesc = "UNUSED";
 				}
 
-				var monster = Globals.CreateInstance<IMonster>(x =>
+				var monster = gEngine.CreateInstance<IMonster>(x =>
 				{
-					x.Uid = Globals.Database.GetMonsterUid();
+					x.Uid = gEngine.Database.GetMonsterUid();
 
-					x.Name = edxMonster._mname.Truncate(Constants.MonNameLen);
+					x.Name = edxMonster._mname.Truncate(gEngine.MonNameLen);
 
-					x.Desc = edxMonster._mdesc.Truncate(Constants.MonDescLen);
+					x.Desc = edxMonster._mdesc.Truncate(gEngine.MonDescLen);
 
 					x.IsListed = true;
 
@@ -569,12 +569,12 @@ namespace EamonDD.Game.Menus.ActionMenus
 					monster.Name = "TODO";
 				}
 
-				Globals.Database.AddMonster(monster);
+				gEngine.Database.AddMonster(monster);
 			}
 
-			Globals.MonstersModified = true;
+			gEngine.MonstersModified = true;
 
-			Globals.Database.FreeHints();
+			gEngine.Database.FreeHints();
 
 			for (var i = 0; i < edxHintList.Count; i++)
 			{
@@ -589,13 +589,13 @@ namespace EamonDD.Game.Menus.ActionMenus
 					edxHint.Question = "UNUSED";
 				}
 
-				var hint = Globals.CreateInstance<IHint>(x =>
+				var hint = gEngine.CreateInstance<IHint>(x =>
 				{
-					x.Uid = Globals.Database.GetHintUid();
+					x.Uid = gEngine.Database.GetHintUid();
 
 					x.Active = true;
 
-					x.Question = edxHint.Question.Truncate(Constants.HntQuestionLen);
+					x.Question = edxHint.Question.Truncate(gEngine.HntQuestionLen);
 
 					if (edxHint._nh > x.Answers.Length)
 					{
@@ -617,16 +617,16 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 						edxAnswer._text = edxAnswer._text.Trim();
 
-						x.SetAnswers(j, edxAnswer._text.Truncate(Constants.HntAnswerLen));
+						x.SetAnswer(j, edxAnswer._text.Truncate(gEngine.HntAnswerLen));
 					}
 				});
 
-				Globals.Database.AddHint(hint);
+				gEngine.Database.AddHint(hint);
 			}
 
-			Globals.HintsModified = true;
+			gEngine.HintsModified = true;
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 
 			gOut.Print("The adventure was successfully converted.");
 
@@ -637,7 +637,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 		public ConvertEamonDeluxeAdventureMenu()
 		{
-			Buf = Globals.Buf;
+			Buf = gEngine.Buf;
 
 			ArtifactTypeMappings = new ArtifactType[]
 			{

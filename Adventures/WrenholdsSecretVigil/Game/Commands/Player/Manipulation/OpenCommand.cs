@@ -9,7 +9,7 @@ using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
-using static WrenholdsSecretVigil.Game.Plugin.PluginContext;
+using static WrenholdsSecretVigil.Game.Plugin.Globals;
 
 namespace WrenholdsSecretVigil.Game.Commands
 {
@@ -42,7 +42,7 @@ namespace WrenholdsSecretVigil.Game.Commands
 			{
 				gOut.Print("The hide is too hard to cut!");
 
-				NextState = Globals.CreateInstance<IStartState>();
+				NextState = gEngine.CreateInstance<IStartState>();
 			}
 			else
 			{
@@ -74,7 +74,7 @@ namespace WrenholdsSecretVigil.Game.Commands
 
 			if (eventType == EventType.AfterOpenArtifact && DobjArtifact.Uid == 44)
 			{
-				Globals.DeviceOpened = true;
+				gEngine.DeviceOpened = true;
 
 				var ac = DobjArtifact.InContainer;
 
@@ -100,7 +100,7 @@ namespace WrenholdsSecretVigil.Game.Commands
 			{
 				PrintCantVerbObj(DobjArtifact);
 
-				NextState = Globals.CreateInstance<IStartState>();
+				NextState = gEngine.CreateInstance<IStartState>();
 			}
 			else
 			{

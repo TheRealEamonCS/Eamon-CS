@@ -39,7 +39,7 @@ namespace Eamon.Framework.DataStorage.Generic
 		/// Gets the number of records of type T stored in the <see cref="Records">Records</see> collection.
 		/// </summary>
 		/// <returns></returns>
-		long GetRecordsCount();
+		long GetRecordCount();
 
 		/// <summary>
 		/// Gets a record from the <see cref="Records">Records</see> collection.

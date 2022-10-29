@@ -7,7 +7,7 @@ using System;
 using System.Linq;
 using Eamon.Framework;
 using Eamon.Game.Attributes;
-using static RiddlesOfTheDuergarKingdom.Game.Plugin.PluginContext;
+using static RiddlesOfTheDuergarKingdom.Game.Plugin.Globals;
 
 namespace RiddlesOfTheDuergarKingdom.Game
 {
@@ -20,7 +20,7 @@ namespace RiddlesOfTheDuergarKingdom.Game
 			{
 				var result = base.Desc;
 
-				if (Globals.EnableGameOverrides && gGameState != null)
+				if (gEngine.EnableMutateProperties)
 				{
 					if (Uid == 136)		// Wooden cart
 					{
@@ -39,17 +39,17 @@ namespace RiddlesOfTheDuergarKingdom.Game
 
 		public virtual bool GradStudentCompanionSeen { get; set; }
 
-		public override long GetDirs(long index)
+		public override long GetDir(long index)
 		{
-			var result = base.GetDirs(index);
+			var result = base.GetDir(index);
 
-			if (Globals.EnableGameOverrides && gGameState != null)
+			if (gEngine.EnableMutateProperties)
 			{
 				// Wooden cart
 
 				if (Uid == 136 && index == 12)
 				{
-					return gGameState.WinchCounter == 0 ? 84 : gGameState.WinchCounter == 1 ? 0 : base.GetDirs(index);
+					return gGameState.WinchCounter == 0 ? 84 : gGameState.WinchCounter == 1 ? 0 : base.GetDir(index);
 				}
 			}
 

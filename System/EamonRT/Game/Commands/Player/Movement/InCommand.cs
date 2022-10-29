@@ -7,7 +7,7 @@ using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.States;
-using static EamonRT.Game.Plugin.PluginContext;
+using static EamonRT.Game.Plugin.Globals;
 
 namespace EamonRT.Game.Commands
 {
@@ -16,7 +16,7 @@ namespace EamonRT.Game.Commands
 	{
 		public override void Execute()
 		{
-			NextState = Globals.CreateInstance<IBeforePlayerMoveState>(x =>
+			NextState = gEngine.CreateInstance<IBeforePlayerMoveState>(x =>
 			{
 				x.Direction = Direction.In;
 			});

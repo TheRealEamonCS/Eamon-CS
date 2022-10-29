@@ -12,7 +12,7 @@ using Eamon.Game.Extensions;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.Parsing;
 using EamonRT.Framework.States;
-using static TheTempleOfNgurct.Game.Plugin.PluginContext;
+using static TheTempleOfNgurct.Game.Plugin.Globals;
 
 namespace TheTempleOfNgurct.Game.Parsing
 {
@@ -29,7 +29,7 @@ namespace TheTempleOfNgurct.Game.Parsing
 				{
 					NextCommand.PrintEnemiesNearby();
 
-					NextState = Globals.CreateInstance<IStartState>();
+					NextState = gEngine.CreateInstance<IStartState>();
 				}
 				else
 				{
@@ -42,13 +42,13 @@ namespace TheTempleOfNgurct.Game.Parsing
 				{
 					NextCommand.PrintEnemiesNearby();
 
-					NextState = Globals.CreateInstance<IStartState>();
+					NextState = gEngine.CreateInstance<IStartState>();
 				}
 				else
 				{
 					gOut.Print("They are bolted firmly to the walls.");
 
-					NextState = Globals.CreateInstance<IMonsterStartState>();
+					NextState = gEngine.CreateInstance<IMonsterStartState>();
 				}
 			}
 			else

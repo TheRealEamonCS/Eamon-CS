@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using Eamon.Framework;
 using Eamon.Framework.DataStorage.Generic;
 using Eamon.Game.Attributes;
-using static Eamon.Game.Plugin.PluginContext;
+using static Eamon.Game.Plugin.Globals;
 
 namespace Eamon.Game.DataStorage.QuickAccess
 {
@@ -20,19 +20,19 @@ namespace Eamon.Game.DataStorage.QuickAccess
 		{
 			get
 			{
-				return Globals.Database.FindEffect(uid);
+				return gEngine.Database.FindEffect(uid);
 			}
 
 			set
 			{
 				if (value == null || value.Uid == uid)
 				{
-					Globals.Database.RemoveEffect(uid);
+					gEngine.Database.RemoveEffect(uid);
 				}
 
 				if (value != null && value.Uid == uid)
 				{
-					Globals.Database.AddEffect(value, CopyAddedRecord);
+					gEngine.Database.AddEffect(value, CopyAddedRecord);
 				}
 			}
 		}
@@ -41,7 +41,7 @@ namespace Eamon.Game.DataStorage.QuickAccess
 		{
 			get
 			{
-				return Globals?.Database?.EffectTable?.Records;
+				return gEngine.Database?.EffectTable?.Records;
 			}
 		}
 

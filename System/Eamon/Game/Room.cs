@@ -13,7 +13,7 @@ using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using Eamon.Game.Extensions;
 using Eamon.Game.Utilities;
-using static Eamon.Game.Plugin.PluginContext;
+using static Eamon.Game.Plugin.Globals;
 
 namespace Eamon.Game
 {
@@ -53,7 +53,7 @@ namespace Eamon.Game
 
 			if (IsUidRecycled && Uid > 0)
 			{
-				Globals.Database.FreeRoomUid(Uid);
+				gEngine.Database.FreeRoomUid(Uid);
 
 				Uid = 0;
 			}
@@ -113,36 +113,36 @@ namespace Eamon.Game
 
 		#region Interface IRoom
 
-		public virtual long GetDirs(long index)
+		public virtual long GetDir(long index)
 		{
 			return Dirs[index];
 		}
 
-		public virtual long GetDirs(Direction dir)
+		public virtual long GetDir(Direction dir)
 		{
-			return GetDirs((long)dir);
+			return GetDir((long)dir);
 		}
 
-		public virtual void SetDirs(long index, long value)
+		public virtual void SetDir(long index, long value)
 		{
 			Dirs[index] = value;
 		}
 
-		public virtual void SetDirs(Direction dir, long value)
+		public virtual void SetDir(Direction dir, long value)
 		{
-			SetDirs((long)dir, value);
+			SetDir((long)dir, value);
 		}
 
 		public virtual bool IsLit()
 		{
-			var gameState = Globals?.Engine?.GetGameState();
+			var gameState = gEngine.GetGameState();
 
 			return LightLvl > 0 || (gameState != null && Uid == gameState.Ro && gameState.Ls > 0);
 		}
 
 		public virtual bool IsDirectionInvalid(long index)
 		{
-			return GetDirs(index) == 0;
+			return GetDir(index) == 0;
 		}
 
 		public virtual bool IsDirectionInvalid(Direction dir)
@@ -152,7 +152,7 @@ namespace Eamon.Game
 
 		public virtual bool IsDirectionRoom(long index)
 		{
-			return GetDirs(index) > 0 && GetDirs(index) < 1001;
+			return GetDir(index) > 0 && GetDir(index) < 1001;
 		}
 
 		public virtual bool IsDirectionRoom(Direction dir)
@@ -162,7 +162,7 @@ namespace Eamon.Game
 
 		public virtual bool IsDirectionExit(long index)
 		{
-			return GetDirs(index) == Constants.DirectionExit;
+			return GetDir(index) == gEngine.DirectionExit;
 		}
 
 		public virtual bool IsDirectionExit(Direction dir)
@@ -172,7 +172,7 @@ namespace Eamon.Game
 
 		public virtual bool IsDirectionDoor(long index)
 		{
-			return GetDirs(index) > 1000 && GetDirs(index) < 2001;
+			return GetDir(index) > 1000 && GetDir(index) < 2001;
 		}
 
 		public virtual bool IsDirectionDoor(Direction dir)
@@ -182,7 +182,7 @@ namespace Eamon.Game
 
 		public virtual bool IsDirectionSpecial(long index, bool includeExit = true)
 		{
-			return GetDirs(index) < 0 && (includeExit || !IsDirectionExit(index));
+			return GetDir(index) < 0 && (includeExit || !IsDirectionExit(index));
 		}
 
 		public virtual bool IsDirectionSpecial(Direction dir, bool includeExit = true)
@@ -202,7 +202,7 @@ namespace Eamon.Game
 
 		public virtual long GetDirectionDoorUid(Direction dir)
 		{
-			return IsDirectionDoor(dir) ? GetDirs(dir) - 1000 : 0;
+			return IsDirectionDoor(dir) ? GetDir(dir) - 1000 : 0;
 		}
 
 		public virtual IArtifact GetDirectionDoor(Direction dir)
@@ -214,7 +214,7 @@ namespace Eamon.Game
 
 		public virtual void SetDirectionExit(long index)
 		{
-			SetDirs(index, Constants.DirectionExit);
+			SetDir(index, gEngine.DirectionExit);
 		}
 
 		public virtual void SetDirectionExit(Direction dir)
@@ -224,7 +224,7 @@ namespace Eamon.Game
 	
 		public virtual void SetDirectionDoorUid(long index, long artifactUid)
 		{
-			SetDirs(index, artifactUid + 1000);
+			SetDir(index, artifactUid + 1000);
 		}
 
 		public virtual void SetDirectionDoorUid(Direction dir, long artifactUid)
@@ -431,7 +431,7 @@ namespace Eamon.Game
 				{
 					if (IsDirectionInObviousExitsList(dv))
 					{
-						var direction = gEngine.GetDirections(dv);
+						var direction = gEngine.GetDirection(dv);
 
 						Debug.Assert(direction != null);
 

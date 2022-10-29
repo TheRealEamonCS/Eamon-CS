@@ -8,7 +8,7 @@ using System.Diagnostics;
 using Eamon.Framework;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.States;
-using static EamonRT.Game.Plugin.PluginContext;
+using static EamonRT.Game.Plugin.Globals;
 
 namespace EamonRT.Game.States
 {
@@ -23,22 +23,22 @@ namespace EamonRT.Game.States
 
 		public override void Execute()
 		{
-			LoopMonster = gMDB[Globals.LoopMonsterUid];
+			LoopMonster = gMDB[gEngine.LoopMonsterUid];
 
 			Debug.Assert(LoopMonster != null);
 
-			Globals.LoopAttackNumber++;
+			gEngine.LoopAttackNumber++;
 
-			MaxMemberAttackCount = Math.Max(1, LoopMonster.GetMaxMemberAttackCount());
+			MaxMemberAttackCount = Math.Max(0, LoopMonster.GetMaxMemberAttackCount());
 
-			if (LoopMonster.CurrGroupCount < Globals.LoopGroupCount)
+			if (LoopMonster.CurrGroupCount < gEngine.LoopGroupCount)
 			{
-				Globals.LoopMemberNumber--;
+				gEngine.LoopMemberNumber--;
 			}
 
-			if (LoopMonster.IsInLimbo() || LoopMonster.CurrGroupCount < Globals.LoopGroupCount || LoopMonster.Weapon < 0 || Globals.LoopAttackNumber > Math.Abs(LoopMonster.AttackCount) || Globals.LoopAttackNumber > MaxMemberAttackCount)
+			if (LoopMonster.IsInLimbo() || LoopMonster.CurrGroupCount < gEngine.LoopGroupCount || LoopMonster.Weapon < 0 || gEngine.LoopAttackNumber > Math.Abs(LoopMonster.AttackCount) || gEngine.LoopAttackNumber > MaxMemberAttackCount)
 			{
-				NextState = Globals.CreateInstance<IMonsterMemberLoopIncrementState>();
+				NextState = gEngine.CreateInstance<IMonsterMemberLoopIncrementState>();
 
 				goto Cleanup;
 			}
@@ -47,10 +47,10 @@ namespace EamonRT.Game.States
 
 			if (NextState == null)
 			{
-				NextState = Globals.CreateInstance<IMonsterAttackActionState>();
+				NextState = gEngine.CreateInstance<IMonsterAttackActionState>();
 			}
 
-			Globals.NextState = NextState;
+			gEngine.NextState = NextState;
 		}
 
 		public MonsterAttackLoopIncrementState()

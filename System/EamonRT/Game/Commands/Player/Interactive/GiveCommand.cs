@@ -11,7 +11,7 @@ using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
-using static EamonRT.Game.Plugin.PluginContext;
+using static EamonRT.Game.Plugin.Globals;
 
 namespace EamonRT.Game.Commands
 {
@@ -91,15 +91,15 @@ namespace EamonRT.Game.Commands
 
 				PrintAreYouSure();
 
-				Globals.Buf.Clear();
+				gEngine.Buf.Clear();
 
-				rc = Globals.In.ReadField(Globals.Buf, Constants.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, null);
+				rc = gEngine.In.ReadField(gEngine.Buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
-				if (Globals.Buf.Length == 0 || Globals.Buf[0] == 'N')
+				if (gEngine.Buf.Length == 0 || gEngine.Buf[0] == 'N')
 				{
-					NextState = Globals.CreateInstance<IStartState>();
+					NextState = gEngine.CreateInstance<IStartState>();
 
 					goto Cleanup;
 				}
@@ -108,7 +108,7 @@ namespace EamonRT.Game.Commands
 				{
 					PrintNotEnoughGold();
 
-					NextState = Globals.CreateInstance<IStartState>();
+					NextState = gEngine.CreateInstance<IStartState>();
 
 					goto Cleanup;
 				}
@@ -133,7 +133,7 @@ namespace EamonRT.Game.Commands
 
 				gCharacter.HeldGold -= GoldAmount;
 
-				if (Globals.IsRulesetVersion(5, 25))
+				if (gEngine.IsRulesetVersion(5, 25))
 				{
 					IobjMonster.CalculateGiftFriendliness(GoldAmount, false);
 
@@ -160,7 +160,7 @@ namespace EamonRT.Game.Commands
 			{
 				PrintWearingRemoveFirst(DobjArtifact);
 
-				NextState = Globals.CreateInstance<IStartState>();
+				NextState = gEngine.CreateInstance<IStartState>();
 
 				goto Cleanup;
 			}
@@ -173,7 +173,7 @@ namespace EamonRT.Game.Commands
 				}
 				else if (DobjArtifact.DisguisedMonster == null)
 				{
-					NextState = Globals.CreateInstance<IStartState>();
+					NextState = gEngine.CreateInstance<IStartState>();
 				}
 
 				goto Cleanup;
@@ -262,11 +262,11 @@ namespace EamonRT.Game.Commands
 
 			DobjArtAc = DobjArtifact.GetArtifactCategory(new ArtifactType[] { ArtifactType.Drinkable, ArtifactType.Edible });
 
-			if (Globals.IsRulesetVersion(5, 25) || DobjArtAc == null || DobjArtAc.Field2 <= 0)
+			if (gEngine.IsRulesetVersion(5, 25) || DobjArtAc == null || DobjArtAc.Field2 <= 0)
 			{
 				DobjArtifact.SetCarriedByMonster(IobjMonster);
 
-				if (Globals.IsRulesetVersion(5, 25))
+				if (gEngine.IsRulesetVersion(5, 25))
 				{
 					IobjMonster.CalculateGiftFriendliness(DobjArtifact.Value, true);
 
@@ -298,7 +298,7 @@ namespace EamonRT.Game.Commands
 				DobjArtAc.SetOpen(true);
 			}
 
-			if (DobjArtAc.Field2 != Constants.InfiniteDrinkableEdible)
+			if (DobjArtAc.Field2 != gEngine.InfiniteDrinkableEdible)
 			{
 				DobjArtAc.Field2--;
 			}
@@ -350,7 +350,7 @@ namespace EamonRT.Game.Commands
 
 			if (NextState == null)
 			{
-				NextState = Globals.CreateInstance<IMonsterStartState>();
+				NextState = gEngine.CreateInstance<IMonsterStartState>();
 			}
 		}
 

@@ -7,7 +7,7 @@ using System.Diagnostics;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.States;
-using static RiddlesOfTheDuergarKingdom.Game.Plugin.PluginContext;
+using static RiddlesOfTheDuergarKingdom.Game.Plugin.Globals;
 
 namespace RiddlesOfTheDuergarKingdom.Game.Commands
 {
@@ -26,7 +26,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.Commands
 
 				gGameState.Die = 1;
 
-				NextState = Globals.CreateInstance<IPlayerDeadState>(x =>
+				NextState = gEngine.CreateInstance<IPlayerDeadState>(x =>
 				{
 					x.PrintLineSep = true;
 				});

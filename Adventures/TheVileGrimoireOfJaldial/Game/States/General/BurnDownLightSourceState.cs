@@ -7,7 +7,7 @@ using System;
 using System.Diagnostics;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.States;
-using static TheVileGrimoireOfJaldial.Game.Plugin.PluginContext;
+using static TheVileGrimoireOfJaldial.Game.Plugin.Globals;
 
 namespace TheVileGrimoireOfJaldial.Game.States
 {
@@ -22,7 +22,7 @@ namespace TheVileGrimoireOfJaldial.Game.States
 			{
 				if (LsArtAc.Field1 <= 10 && gEngine.RollDice(1, 100, 0) > 50)
 				{
-					gOut.Print("{0} flickers momentarily.", LsArtifact.GetTheName(true, buf: Globals.Buf01));
+					gOut.Print("{0} flickers momentarily.", LsArtifact.GetTheName(true, buf: gEngine.Buf01));
 				}
 			}
 			else

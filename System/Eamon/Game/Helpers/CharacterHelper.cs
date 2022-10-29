@@ -15,7 +15,7 @@ using Eamon.Game.Attributes;
 using Eamon.Game.Extensions;
 using Eamon.Game.Helpers.Generic;
 using Eamon.Game.Utilities;
-using static Eamon.Game.Plugin.PluginContext;
+using static Eamon.Game.Plugin.Globals;
 
 namespace Eamon.Game.Helpers
 {
@@ -39,7 +39,7 @@ namespace Eamon.Game.Helpers
 		{
 			var i = Index;
 
-			var stat = gEngine.GetStats((Stat)i);
+			var stat = gEngine.GetStat((Stat)i);
 
 			Debug.Assert(stat != null);
 
@@ -52,7 +52,7 @@ namespace Eamon.Game.Helpers
 		{
 			var i = Index;
 
-			var spell = gEngine.GetSpells((Spell)i);
+			var spell = gEngine.GetSpell((Spell)i);
 
 			Debug.Assert(spell != null);
 
@@ -65,7 +65,7 @@ namespace Eamon.Game.Helpers
 		{
 			var i = Index;
 
-			var weapon = gEngine.GetWeapons((Weapon)i);
+			var weapon = gEngine.GetWeapon((Weapon)i);
 
 			Debug.Assert(weapon != null);
 
@@ -881,7 +881,7 @@ namespace Eamon.Game.Helpers
 		{
 			var i = Index;
 
-			return Record.GetStats(i);
+			return Record.GetStat(i);
 		}
 
 		/// <summary></summary>
@@ -890,7 +890,7 @@ namespace Eamon.Game.Helpers
 		{
 			var i = Index;
 
-			return Record.GetSpellAbilities(i);
+			return Record.GetSpellAbility(i);
 		}
 
 		/// <summary></summary>
@@ -899,7 +899,7 @@ namespace Eamon.Game.Helpers
 		{
 			var i = Index;
 
-			return Record.GetWeaponAbilities(i);
+			return Record.GetWeaponAbility(i);
 		}
 
 		/// <summary></summary>
@@ -1048,7 +1048,7 @@ namespace Eamon.Game.Helpers
 		{
 			var i = Index;
 
-			return Record.GetWeapons(i).Name;
+			return Record.GetWeapon(i).Name;
 		}
 
 		/// <summary></summary>
@@ -1057,7 +1057,7 @@ namespace Eamon.Game.Helpers
 		{
 			var i = Index;
 
-			return Record.GetWeapons(i).Desc;
+			return Record.GetWeapon(i).Desc;
 		}
 
 		/// <summary></summary>
@@ -1066,7 +1066,7 @@ namespace Eamon.Game.Helpers
 		{
 			var i = Index;
 
-			return Record.GetWeapons(i).IsPlural;
+			return Record.GetWeapon(i).IsPlural;
 		}
 
 		/// <summary></summary>
@@ -1075,7 +1075,7 @@ namespace Eamon.Game.Helpers
 		{
 			var i = Index;
 
-			return Record.GetWeapons(i).PluralType;
+			return Record.GetWeapon(i).PluralType;
 		}
 
 		/// <summary></summary>
@@ -1084,7 +1084,7 @@ namespace Eamon.Game.Helpers
 		{
 			var i = Index;
 
-			return Record.GetWeapons(i).ArticleType;
+			return Record.GetWeapon(i).ArticleType;
 		}
 
 		/// <summary></summary>
@@ -1093,7 +1093,7 @@ namespace Eamon.Game.Helpers
 		{
 			var i = Index;
 
-			return Record.GetWeapons(i).Value;
+			return Record.GetWeapon(i).Value;
 		}
 
 		/// <summary></summary>
@@ -1102,7 +1102,7 @@ namespace Eamon.Game.Helpers
 		{
 			var i = Index;
 
-			return Record.GetWeapons(i).Weight;
+			return Record.GetWeapon(i).Weight;
 		}
 
 		/// <summary></summary>
@@ -1111,7 +1111,7 @@ namespace Eamon.Game.Helpers
 		{
 			var i = Index;
 
-			return Record.GetWeapons(i).Type;
+			return Record.GetWeapon(i).Type;
 		}
 
 		/// <summary></summary>
@@ -1120,7 +1120,7 @@ namespace Eamon.Game.Helpers
 		{
 			var i = Index;
 
-			return Record.GetWeapons(i).Field1;
+			return Record.GetWeapon(i).Field1;
 		}
 
 		/// <summary></summary>
@@ -1129,7 +1129,7 @@ namespace Eamon.Game.Helpers
 		{
 			var i = Index;
 
-			return Record.GetWeapons(i).Field2;
+			return Record.GetWeapon(i).Field2;
 		}
 
 		/// <summary></summary>
@@ -1138,7 +1138,7 @@ namespace Eamon.Game.Helpers
 		{
 			var i = Index;
 
-			return Record.GetWeapons(i).Field3;
+			return Record.GetWeapon(i).Field3;
 		}
 
 		/// <summary></summary>
@@ -1147,7 +1147,7 @@ namespace Eamon.Game.Helpers
 		{
 			var i = Index;
 
-			return Record.GetWeapons(i).Field4;
+			return Record.GetWeapon(i).Field4;
 		}
 
 		/// <summary></summary>
@@ -1156,7 +1156,7 @@ namespace Eamon.Game.Helpers
 		{
 			var i = Index;
 
-			return Record.GetWeapons(i).Field5;
+			return Record.GetWeapon(i).Field5;
 		}
 
 		#endregion
@@ -1179,7 +1179,7 @@ namespace Eamon.Game.Helpers
 				Record.Name = Regex.Replace(Record.Name, @"\s+", " ").Trim();
 			}
 
-			return string.IsNullOrWhiteSpace(Record.Name) == false && Record.Name.Length <= Constants.CharNameLen;
+			return string.IsNullOrWhiteSpace(Record.Name) == false && Record.Name.Length <= gEngine.CharNameLen;
 		}
 
 		/// <summary></summary>
@@ -1232,11 +1232,11 @@ namespace Eamon.Game.Helpers
 		{
 			var i = Index;
 
-			var stat = gEngine.GetStats((Stat)i);
+			var stat = gEngine.GetStat((Stat)i);
 
 			Debug.Assert(stat != null);
 
-			return Record.GetStats(i) >= stat.MinValue && Record.GetStats(i) <= stat.MaxValue;
+			return Record.GetStat(i) >= stat.MinValue && Record.GetStat(i) <= stat.MaxValue;
 		}
 
 		/// <summary></summary>
@@ -1268,11 +1268,11 @@ namespace Eamon.Game.Helpers
 		{
 			var i = Index;
 
-			var spell = gEngine.GetSpells((Spell)i);
+			var spell = gEngine.GetSpell((Spell)i);
 
 			Debug.Assert(spell != null);
 
-			return Record.GetSpellAbilities(i) >= spell.MinValue && Record.GetSpellAbilities(i) <= spell.MaxValue;
+			return Record.GetSpellAbility(i) >= spell.MinValue && Record.GetSpellAbility(i) <= spell.MaxValue;
 		}
 
 		/// <summary></summary>
@@ -1304,11 +1304,11 @@ namespace Eamon.Game.Helpers
 		{
 			var i = Index;
 
-			var weapon = gEngine.GetWeapons((Weapon)i);			// TODO: should this be just GetWeapons(i) ???  Verify this and all other Validate methods like it
+			var weapon = gEngine.GetWeapon((Weapon)i);			// TODO: should this be just GetWeapon(i) ???  Verify this and all other Validate methods like it
 
 			Debug.Assert(weapon != null);
 
-			return Record.GetWeaponAbilities(i) >= weapon.MinValue && Record.GetWeaponAbilities(i) <= weapon.MaxValue;
+			return Record.GetWeaponAbility(i) >= weapon.MinValue && Record.GetWeaponAbility(i) <= weapon.MaxValue;
 		}
 
 		/// <summary></summary>
@@ -1322,14 +1322,14 @@ namespace Eamon.Game.Helpers
 		/// <returns></returns>
 		public virtual bool ValidateHeldGold()
 		{
-			return Record.HeldGold >= Constants.MinGoldValue && Record.HeldGold <= Constants.MaxGoldValue;
+			return Record.HeldGold >= gEngine.MinGoldValue && Record.HeldGold <= gEngine.MaxGoldValue;
 		}
 
 		/// <summary></summary>
 		/// <returns></returns>
 		public virtual bool ValidateBankGold()
 		{
-			return Record.BankGold >= Constants.MinGoldValue && Record.BankGold <= Constants.MaxGoldValue;
+			return Record.BankGold >= gEngine.MinGoldValue && Record.BankGold <= gEngine.MaxGoldValue;
 		}
 
 		/// <summary></summary>
@@ -1372,17 +1372,17 @@ namespace Eamon.Game.Helpers
 
 			if (Record.IsArmorActive())
 			{
-				result = !string.IsNullOrWhiteSpace(Record.Armor.Name) && Record.Armor.Name.Length <= Constants.CharArtNameLen;
+				result = !string.IsNullOrWhiteSpace(Record.Armor.Name) && Record.Armor.Name.Length <= gEngine.CharArtNameLen;
 
 				if (result)
 				{
 					var recordArmorName = string.Format(" {0} ", Record.Armor.Name.ToLower());
 
-					result = Array.FindIndex(Constants.CommandSepTokens, token => !Char.IsPunctuation(token[0]) ? recordArmorName.IndexOf(" " + token + " ") >= 0 : recordArmorName.IndexOf(token) >= 0) < 0;
+					result = Array.FindIndex(gEngine.CommandSepTokens, token => !Char.IsPunctuation(token[0]) ? recordArmorName.IndexOf(" " + token + " ") >= 0 : recordArmorName.IndexOf(token) >= 0) < 0;
 
 					if (result)
 					{
-						result = Array.FindIndex(Constants.PronounTokens, token => recordArmorName.IndexOf(" " + token + " ") >= 0) < 0;
+						result = Array.FindIndex(gEngine.PronounTokens, token => recordArmorName.IndexOf(" " + token + " ") >= 0) < 0;
 					}
 
 					// TODO: might need to disallow verb name matches as well
@@ -1404,7 +1404,7 @@ namespace Eamon.Game.Helpers
 
 			if (Record.IsArmorActive())
 			{
-				result = !string.IsNullOrWhiteSpace(Record.Armor.Desc) && Record.Armor.Desc.Length <= Constants.CharArtDescLen;
+				result = !string.IsNullOrWhiteSpace(Record.Armor.Desc) && Record.Armor.Desc.Length <= gEngine.CharArtDescLen;
 			}
 			else
 			{
@@ -1472,7 +1472,7 @@ namespace Eamon.Game.Helpers
 
 			if (Record.IsArmorActive())
 			{
-				result = Record.Armor.Value >= Constants.MinGoldValue && Record.Armor.Value <= Constants.MaxGoldValue;
+				result = Record.Armor.Value >= gEngine.MinGoldValue && Record.Armor.Value <= gEngine.MaxGoldValue;
 			}
 			else
 			{
@@ -1583,17 +1583,17 @@ namespace Eamon.Game.Helpers
 
 			if (Record.IsShieldActive())
 			{
-				result = !string.IsNullOrWhiteSpace(Record.Shield.Name) && Record.Shield.Name.Length <= Constants.CharArtNameLen;
+				result = !string.IsNullOrWhiteSpace(Record.Shield.Name) && Record.Shield.Name.Length <= gEngine.CharArtNameLen;
 
 				if (result)
 				{
 					var recordShieldName = string.Format(" {0} ", Record.Shield.Name.ToLower());
 
-					result = Array.FindIndex(Constants.CommandSepTokens, token => !Char.IsPunctuation(token[0]) ? recordShieldName.IndexOf(" " + token + " ") >= 0 : recordShieldName.IndexOf(token) >= 0) < 0;
+					result = Array.FindIndex(gEngine.CommandSepTokens, token => !Char.IsPunctuation(token[0]) ? recordShieldName.IndexOf(" " + token + " ") >= 0 : recordShieldName.IndexOf(token) >= 0) < 0;
 
 					if (result)
 					{
-						result = Array.FindIndex(Constants.PronounTokens, token => recordShieldName.IndexOf(" " + token + " ") >= 0) < 0;
+						result = Array.FindIndex(gEngine.PronounTokens, token => recordShieldName.IndexOf(" " + token + " ") >= 0) < 0;
 					}
 
 					// TODO: might need to disallow verb name matches as well
@@ -1615,7 +1615,7 @@ namespace Eamon.Game.Helpers
 
 			if (Record.IsShieldActive())
 			{
-				result = !string.IsNullOrWhiteSpace(Record.Shield.Desc) && Record.Shield.Desc.Length <= Constants.CharArtDescLen;
+				result = !string.IsNullOrWhiteSpace(Record.Shield.Desc) && Record.Shield.Desc.Length <= gEngine.CharArtDescLen;
 			}
 			else
 			{
@@ -1683,7 +1683,7 @@ namespace Eamon.Game.Helpers
 
 			if (Record.IsShieldActive())
 			{
-				result = Record.Shield.Value >= Constants.MinGoldValue && Record.Shield.Value <= Constants.MaxGoldValue;
+				result = Record.Shield.Value >= gEngine.MinGoldValue && Record.Shield.Value <= gEngine.MaxGoldValue;
 			}
 			else
 			{
@@ -1802,9 +1802,9 @@ namespace Eamon.Game.Helpers
 
 			var i = Index;
 
-			if (Record.GetWeapons(i).Name != null)
+			if (Record.GetWeapon(i).Name != null)
 			{
-				Record.GetWeapons(i).Name = Regex.Replace(Record.GetWeapons(i).Name, @"\s+", " ").Trim();
+				Record.GetWeapon(i).Name = Regex.Replace(Record.GetWeapon(i).Name, @"\s+", " ").Trim();
 			}
 
 			for (var h = 0; h <= i; h++)
@@ -1819,11 +1819,11 @@ namespace Eamon.Game.Helpers
 
 			if (activeWeapon)
 			{
-				if (Record.GetWeapons(i).Name.Length > Constants.CharArtNameLen)
+				if (Record.GetWeapon(i).Name.Length > gEngine.CharArtNameLen)
 				{
-					for (var j = Constants.CharArtNameLen; j < Record.GetWeapons(i).Name.Length; j++)
+					for (var j = gEngine.CharArtNameLen; j < Record.GetWeapon(i).Name.Length; j++)
 					{
-						if (Record.GetWeapons(i).Name[j] != '#')
+						if (Record.GetWeapon(i).Name[j] != '#')
 						{
 							result = false;
 
@@ -1834,13 +1834,13 @@ namespace Eamon.Game.Helpers
 
 				if (result)
 				{
-					var recordWeaponName = string.Format(" {0} ", Record.GetWeapons(i).Name.ToLower());
+					var recordWeaponName = string.Format(" {0} ", Record.GetWeapon(i).Name.ToLower());
 
-					result = Array.FindIndex(Constants.CommandSepTokens, token => !Char.IsPunctuation(token[0]) ? recordWeaponName.IndexOf(" " + token + " ") >= 0 : recordWeaponName.IndexOf(token) >= 0) < 0;
+					result = Array.FindIndex(gEngine.CommandSepTokens, token => !Char.IsPunctuation(token[0]) ? recordWeaponName.IndexOf(" " + token + " ") >= 0 : recordWeaponName.IndexOf(token) >= 0) < 0;
 
 					if (result)
 					{
-						result = Array.FindIndex(Constants.PronounTokens, token => recordWeaponName.IndexOf(" " + token + " ") >= 0) < 0;
+						result = Array.FindIndex(gEngine.PronounTokens, token => recordWeaponName.IndexOf(" " + token + " ") >= 0) < 0;
 					}
 
 					// TODO: might need to disallow verb name matches as well
@@ -1848,7 +1848,7 @@ namespace Eamon.Game.Helpers
 			}
 			else
 			{
-				result = Record.GetWeapons(i).Name != null && (Record.GetWeapons(i).Name == "" || Record.GetWeapons(i).Name.Equals("NONE", StringComparison.OrdinalIgnoreCase));
+				result = Record.GetWeapon(i).Name != null && (Record.GetWeapon(i).Name == "" || Record.GetWeapon(i).Name.Equals("NONE", StringComparison.OrdinalIgnoreCase));
 			}
 
 			return result;
@@ -1876,11 +1876,11 @@ namespace Eamon.Game.Helpers
 
 			if (activeWeapon)
 			{
-				result = Record.GetWeapons(i).Desc == "" || (!string.IsNullOrWhiteSpace(Record.GetWeapons(i).Desc) && Record.GetWeapons(i).Desc.Length <= Constants.CharArtDescLen);
+				result = Record.GetWeapon(i).Desc == "" || (!string.IsNullOrWhiteSpace(Record.GetWeapon(i).Desc) && Record.GetWeapon(i).Desc.Length <= gEngine.CharArtDescLen);
 			}
 			else
 			{
-				result = Record.GetWeapons(i).Desc == "";
+				result = Record.GetWeapon(i).Desc == "";
 			}
 
 			return result;
@@ -1908,7 +1908,7 @@ namespace Eamon.Game.Helpers
 
 			if (!activeWeapon)
 			{
-				result = Record.GetWeapons(i).IsPlural == false;
+				result = Record.GetWeapon(i).IsPlural == false;
 			}
 
 			return result;
@@ -1936,11 +1936,11 @@ namespace Eamon.Game.Helpers
 
 			if (activeWeapon)
 			{
-				result = Enum.IsDefined(typeof(PluralType), Record.GetWeapons(i).PluralType);
+				result = Enum.IsDefined(typeof(PluralType), Record.GetWeapon(i).PluralType);
 			}
 			else
 			{
-				result = Record.GetWeapons(i).PluralType == PluralType.None;
+				result = Record.GetWeapon(i).PluralType == PluralType.None;
 			}
 
 			return result;
@@ -1968,11 +1968,11 @@ namespace Eamon.Game.Helpers
 
 			if (activeWeapon)
 			{
-				result = Enum.IsDefined(typeof(ArticleType), Record.GetWeapons(i).ArticleType);
+				result = Enum.IsDefined(typeof(ArticleType), Record.GetWeapon(i).ArticleType);
 			}
 			else
 			{
-				result = Record.GetWeapons(i).ArticleType == ArticleType.None;
+				result = Record.GetWeapon(i).ArticleType == ArticleType.None;
 			}
 
 			return result;
@@ -2000,11 +2000,11 @@ namespace Eamon.Game.Helpers
 
 			if (activeWeapon)
 			{
-				result = Record.GetWeapons(i).Value >= Constants.MinGoldValue && Record.GetWeapons(i).Value <= Constants.MaxGoldValue;
+				result = Record.GetWeapon(i).Value >= gEngine.MinGoldValue && Record.GetWeapon(i).Value <= gEngine.MaxGoldValue;
 			}
 			else
 			{
-				result = Record.GetWeapons(i).Value == 0;
+				result = Record.GetWeapon(i).Value == 0;
 			}
 
 			return result;
@@ -2032,7 +2032,7 @@ namespace Eamon.Game.Helpers
 
 			if (!activeWeapon)
 			{
-				result = Record.GetWeapons(i).Weight == 0;
+				result = Record.GetWeapon(i).Weight == 0;
 			}
 
 			return result;
@@ -2060,11 +2060,11 @@ namespace Eamon.Game.Helpers
 
 			if (activeWeapon)
 			{
-				result = Record.GetWeapons(i).Type == 0 || Record.GetWeapons(i).Type == ArtifactType.Weapon || Record.GetWeapons(i).Type == ArtifactType.MagicWeapon;
+				result = Record.GetWeapon(i).Type == 0 || Record.GetWeapon(i).Type == ArtifactType.Weapon || Record.GetWeapon(i).Type == ArtifactType.MagicWeapon;
 			}
 			else
 			{
-				result = Record.GetWeapons(i).Type == 0;
+				result = Record.GetWeapon(i).Type == 0;
 			}
 
 			return result;
@@ -2092,11 +2092,11 @@ namespace Eamon.Game.Helpers
 
 			if (activeWeapon)
 			{
-				result = Record.GetWeapons(i).Field1 >= -50 && Record.GetWeapons(i).Field1 <= 50;
+				result = Record.GetWeapon(i).Field1 >= -50 && Record.GetWeapon(i).Field1 <= 50;
 			}
 			else
 			{
-				result = Record.GetWeapons(i).Field1 == 0;
+				result = Record.GetWeapon(i).Field1 == 0;
 			}
 
 			return result;
@@ -2124,11 +2124,11 @@ namespace Eamon.Game.Helpers
 
 			if (activeWeapon)
 			{
-				result = Enum.IsDefined(typeof(Weapon), Record.GetWeapons(i).Field2);
+				result = Enum.IsDefined(typeof(Weapon), Record.GetWeapon(i).Field2);
 			}
 			else
 			{
-				result = Record.GetWeapons(i).Field2 == 0;
+				result = Record.GetWeapon(i).Field2 == 0;
 			}
 
 			return result;
@@ -2156,11 +2156,11 @@ namespace Eamon.Game.Helpers
 
 			if (activeWeapon)
 			{
-				result = Record.GetWeapons(i).Field3 >= 1 && Record.GetWeapons(i).Field3 <= 25;
+				result = Record.GetWeapon(i).Field3 >= 1 && Record.GetWeapon(i).Field3 <= 25;
 			}
 			else
 			{
-				result = Record.GetWeapons(i).Field3 == 0;
+				result = Record.GetWeapon(i).Field3 == 0;
 			}
 
 			return result;
@@ -2188,11 +2188,11 @@ namespace Eamon.Game.Helpers
 
 			if (activeWeapon)
 			{
-				result = Record.GetWeapons(i).Field4 >= 1 && Record.GetWeapons(i).Field4 <= 25;
+				result = Record.GetWeapon(i).Field4 >= 1 && Record.GetWeapon(i).Field4 <= 25;
 			}
 			else
 			{
-				result = Record.GetWeapons(i).Field4 == 0;
+				result = Record.GetWeapon(i).Field4 == 0;
 			}
 
 			return result;
@@ -2220,16 +2220,16 @@ namespace Eamon.Game.Helpers
 
 			if (activeWeapon)
 			{
-				if (Record.GetWeapons(i).Field5 == 0)  // auto-upgrade old weapons
+				if (Record.GetWeapon(i).Field5 == 0)  // auto-upgrade old weapons
 				{
-					Record.GetWeapons(i).Field5 = Record.GetWeapons(i).Field2 == (long)Weapon.Bow ? 2 : 1;
+					Record.GetWeapon(i).Field5 = Record.GetWeapon(i).Field2 == (long)Weapon.Bow ? 2 : 1;
 				}
 
-				result = Record.GetWeapons(i).Field5 >= 1 && Record.GetWeapons(i).Field5 <= 2;
+				result = Record.GetWeapon(i).Field5 >= 1 && Record.GetWeapon(i).Field5 <= 2;
 			}
 			else
 			{
-				result = Record.GetWeapons(i).Field5 == 0;
+				result = Record.GetWeapon(i).Field5 == 0;
 			}
 
 			return result;
@@ -2258,7 +2258,7 @@ namespace Eamon.Game.Helpers
 		{
 			var fullDesc = "Enter the gender of the Character.";
 
-			var briefDesc = new StringBuilder(Constants.BufSize);
+			var briefDesc = new StringBuilder(gEngine.BufSize);
 
 			var genderValues = EnumUtil.GetValues<Gender>();
 
@@ -2275,13 +2275,13 @@ namespace Eamon.Game.Helpers
 		{
 			var fullDesc = "Enter the status of the Character.";
 
-			var briefDesc = new StringBuilder(Constants.BufSize);
+			var briefDesc = new StringBuilder(gEngine.BufSize);
 
 			var statusValues = EnumUtil.GetValues<Status>();
 
 			for (var j = 0; j < statusValues.Count; j++)
 			{
-				briefDesc.AppendFormat("{0}{1}={2}", j != 0 ? "; " : "", (long)statusValues[j], gEngine.GetStatusNames(statusValues[j]));
+				briefDesc.AppendFormat("{0}{1}={2}", j != 0 ? "; " : "", (long)statusValues[j], gEngine.GetStatusName(statusValues[j]));
 			}
 
 			gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc.ToString());
@@ -2292,7 +2292,7 @@ namespace Eamon.Game.Helpers
 		{
 			var i = Index;
 
-			var stat = gEngine.GetStats((Stat)i);
+			var stat = gEngine.GetStat((Stat)i);
 
 			Debug.Assert(stat != null);
 
@@ -2308,7 +2308,7 @@ namespace Eamon.Game.Helpers
 		{
 			var i = Index;
 
-			var spell = gEngine.GetSpells((Spell)i);
+			var spell = gEngine.GetSpell((Spell)i);
 
 			Debug.Assert(spell != null);
 
@@ -2324,7 +2324,7 @@ namespace Eamon.Game.Helpers
 		{
 			var i = Index;
 
-			var weapon = gEngine.GetWeapons((Weapon)i);
+			var weapon = gEngine.GetWeapon((Weapon)i);
 
 			Debug.Assert(weapon != null);
 
@@ -2350,7 +2350,7 @@ namespace Eamon.Game.Helpers
 		{
 			var fullDesc = "Enter the Character's gold in hand.";
 
-			var briefDesc = string.Format("{0}-{1}=Valid value", Constants.MinGoldValue, Constants.MaxGoldValue);
+			var briefDesc = string.Format("{0}-{1}=Valid value", gEngine.MinGoldValue, gEngine.MaxGoldValue);
 
 			gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc);
 		}
@@ -2360,7 +2360,7 @@ namespace Eamon.Game.Helpers
 		{
 			var fullDesc = "Enter the Character's gold in the bank.";
 
-			var briefDesc = string.Format("{0}-{1}=Valid value", Constants.MinGoldValue, Constants.MaxGoldValue);
+			var briefDesc = string.Format("{0}-{1}=Valid value", gEngine.MinGoldValue, gEngine.MaxGoldValue);
 
 			gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc);
 		}
@@ -2370,13 +2370,13 @@ namespace Eamon.Game.Helpers
 		{
 			var fullDesc = "Enter the armor class of the Character.";
 
-			var briefDesc = new StringBuilder(Constants.BufSize);
+			var briefDesc = new StringBuilder(gEngine.BufSize);
 
 			var armorValues = EnumUtil.GetValues<Armor>();
 
 			for (var j = 0; j < armorValues.Count; j++)
 			{
-				var armor = gEngine.GetArmors(armorValues[j]);
+				var armor = gEngine.GetArmor(armorValues[j]);
 
 				Debug.Assert(armor != null);
 
@@ -2451,13 +2451,13 @@ namespace Eamon.Game.Helpers
 
 			var fullDesc = string.Format("Enter the Character's weapon #{0} type.", i + 1);
 
-			var briefDesc = new StringBuilder(Constants.BufSize);
+			var briefDesc = new StringBuilder(gEngine.BufSize);
 
 			var weaponValues = EnumUtil.GetValues<Weapon>();
 
 			for (var j = 0; j < weaponValues.Count; j++)
 			{
-				var weapon = gEngine.GetWeapons(weaponValues[j]);
+				var weapon = gEngine.GetWeapon(weaponValues[j]);
 
 				Debug.Assert(weapon != null);
 
@@ -2554,7 +2554,7 @@ namespace Eamon.Game.Helpers
 			{
 				var listNum = NumberFields ? ListNum++ : 0;
 
-				gOut.Write("{0}{1}{2}", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("Status"), null), gEngine.GetStatusNames(Record.Status));
+				gOut.Write("{0}{1}{2}", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("Status"), null), gEngine.GetStatusName(Record.Status));
 			}
 		}
 
@@ -2611,14 +2611,14 @@ namespace Eamon.Game.Helpers
 					gOut.Write("{0}{1}{2}",
 						Environment.NewLine,
 						gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("StatsElement"), null),
-						gEngine.BuildValue(51, ' ', 8, Record.GetStats(i), null, Buf.ToString()));
+						gEngine.BuildValue(51, ' ', 8, Record.GetStat(i), null, Buf.ToString()));
 				}
 				else
 				{
 					gOut.Write("{0}{1}{2}",
 						Environment.NewLine,
 						gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("StatsElement"), null),
-						Record.GetStats(i));
+						Record.GetStat(i));
 				}
 			}
 		}
@@ -2650,7 +2650,7 @@ namespace Eamon.Game.Helpers
 				gOut.Write("{0}{1}{2}%",
 					Environment.NewLine,
 					gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("SpellAbilitiesElement"), null),
-					Record.GetSpellAbilities(i));
+					Record.GetSpellAbility(i));
 			}
 		}
 
@@ -2681,7 +2681,7 @@ namespace Eamon.Game.Helpers
 				gOut.Write("{0}{1}{2}%",
 					Environment.NewLine,
 					gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("WeaponAbilitiesElement"), null),
-					Record.GetWeaponAbilities(i));
+					Record.GetWeaponAbility(i));
 			}
 		}
 
@@ -2723,7 +2723,7 @@ namespace Eamon.Game.Helpers
 		{
 			if (FullDetail)
 			{
-				var armor = gEngine.GetArmors(Record.ArmorClass);
+				var armor = gEngine.GetArmor(Record.ArmorClass);
 
 				Debug.Assert(armor != null);
 
@@ -2763,7 +2763,7 @@ namespace Eamon.Game.Helpers
 				{
 					var listNum = NumberFields ? ListNum++ : 0;
 
-					gOut.Write("{0}{1}{2}", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("WeaponsName"), null), Record.GetWeapons(i).Name);
+					gOut.Write("{0}{1}{2}", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("WeaponsName"), null), Record.GetWeapon(i).Name);
 				}
 			}
 		}
@@ -2779,7 +2779,7 @@ namespace Eamon.Game.Helpers
 				{
 					var listNum = NumberFields ? ListNum++ : 0;
 
-					gOut.Write("{0}{1}{2}", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("WeaponsIsPlural"), null), Convert.ToInt64(Record.GetWeapons(i).IsPlural));
+					gOut.Write("{0}{1}{2}", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("WeaponsIsPlural"), null), Convert.ToInt64(Record.GetWeapon(i).IsPlural));
 				}
 			}
 		}
@@ -2800,16 +2800,16 @@ namespace Eamon.Game.Helpers
 						gOut.Write("{0}{1}{2}",
 							Environment.NewLine,
 							gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("WeaponsPluralType"), null),
-							gEngine.BuildValue(51, ' ', 8, (long)Record.GetWeapons(i).PluralType, null,
-							Record.GetWeapons(i).PluralType == PluralType.None ? "No change" :
-							Record.GetWeapons(i).PluralType == PluralType.S ? "Use 's'" :
-							Record.GetWeapons(i).PluralType == PluralType.Es ? "Use 'es'" :
-							Record.GetWeapons(i).PluralType == PluralType.YIes ? "Use 'y' to 'ies'" :
+							gEngine.BuildValue(51, ' ', 8, (long)Record.GetWeapon(i).PluralType, null,
+							Record.GetWeapon(i).PluralType == PluralType.None ? "No change" :
+							Record.GetWeapon(i).PluralType == PluralType.S ? "Use 's'" :
+							Record.GetWeapon(i).PluralType == PluralType.Es ? "Use 'es'" :
+							Record.GetWeapon(i).PluralType == PluralType.YIes ? "Use 'y' to 'ies'" :
 							"Invalid value"));
 					}
 					else
 					{
-						gOut.Write("{0}{1}{2}", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("WeaponsPluralType"), null), (long)Record.GetWeapons(i).PluralType);
+						gOut.Write("{0}{1}{2}", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("WeaponsPluralType"), null), (long)Record.GetWeapon(i).PluralType);
 					}
 				}
 			}
@@ -2831,17 +2831,17 @@ namespace Eamon.Game.Helpers
 						gOut.Write("{0}{1}{2}",
 							Environment.NewLine,
 							gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("WeaponsArticleType"), null),
-							gEngine.BuildValue(51, ' ', 8, (long)Record.GetWeapons(i).ArticleType, null,
-							Record.GetWeapons(i).ArticleType == ArticleType.None ? "No article" :
-							Record.GetWeapons(i).ArticleType == ArticleType.A ? "Use 'a'" :
-							Record.GetWeapons(i).ArticleType == ArticleType.An ? "Use 'an'" :
-							Record.GetWeapons(i).ArticleType == ArticleType.Some ? "Use 'some'" :
-							Record.GetWeapons(i).ArticleType == ArticleType.The ? "Use 'the'" :
+							gEngine.BuildValue(51, ' ', 8, (long)Record.GetWeapon(i).ArticleType, null,
+							Record.GetWeapon(i).ArticleType == ArticleType.None ? "No article" :
+							Record.GetWeapon(i).ArticleType == ArticleType.A ? "Use 'a'" :
+							Record.GetWeapon(i).ArticleType == ArticleType.An ? "Use 'an'" :
+							Record.GetWeapon(i).ArticleType == ArticleType.Some ? "Use 'some'" :
+							Record.GetWeapon(i).ArticleType == ArticleType.The ? "Use 'the'" :
 							"Invalid value"));
 					}
 					else
 					{
-						gOut.Write("{0}{1}{2}", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("WeaponsArticleType"), null), (long)Record.GetWeapons(i).ArticleType);
+						gOut.Write("{0}{1}{2}", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("WeaponsArticleType"), null), (long)Record.GetWeapon(i).ArticleType);
 					}
 				}
 			}
@@ -2858,7 +2858,7 @@ namespace Eamon.Game.Helpers
 				{
 					var listNum = NumberFields ? ListNum++ : 0;
 
-					gOut.Write("{0}{1}{2}%", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("WeaponsField1"), null), Record.GetWeapons(i).Field1);
+					gOut.Write("{0}{1}{2}%", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("WeaponsField1"), null), Record.GetWeapon(i).Field1);
 				}
 			}
 		}
@@ -2872,7 +2872,7 @@ namespace Eamon.Game.Helpers
 			{
 				if (!ExcludeROFields || Record.IsWeaponActive(i))
 				{
-					var weapon = gEngine.GetWeapons((Weapon)Record.GetWeapons(i).Field2);
+					var weapon = gEngine.GetWeapon((Weapon)Record.GetWeapon(i).Field2);
 
 					var listNum = NumberFields ? ListNum++ : 0;
 
@@ -2893,7 +2893,7 @@ namespace Eamon.Game.Helpers
 				{
 					var listNum = NumberFields ? ListNum++ : 0;
 
-					gOut.Write("{0}{1}{2}", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("WeaponsField3"), null), Record.GetWeapons(i).Field3);
+					gOut.Write("{0}{1}{2}", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("WeaponsField3"), null), Record.GetWeapon(i).Field3);
 				}
 			}
 		}
@@ -2909,7 +2909,7 @@ namespace Eamon.Game.Helpers
 				{
 					var listNum = NumberFields ? ListNum++ : 0;
 
-					gOut.Write("{0}{1}{2}", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("WeaponsField4"), null), Record.GetWeapons(i).Field4);
+					gOut.Write("{0}{1}{2}", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("WeaponsField4"), null), Record.GetWeapon(i).Field4);
 				}
 			}
 		}
@@ -2925,7 +2925,7 @@ namespace Eamon.Game.Helpers
 				{
 					var listNum = NumberFields ? ListNum++ : 0;
 
-					gOut.Write("{0}{1}{2}", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("WeaponsField5"), null), Record.GetWeapons(i).Field5);
+					gOut.Write("{0}{1}{2}", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("WeaponsField5"), null), Record.GetWeapon(i).Field5);
 				}
 			}
 		}
@@ -2939,7 +2939,7 @@ namespace Eamon.Game.Helpers
 		{
 			gOut.Print("{0}{1}", gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("Uid"), null), Record.Uid);
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 		}
 
 		/// <summary></summary>
@@ -2957,7 +2957,7 @@ namespace Eamon.Game.Helpers
 
 				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("Name"), null));
 
-				var rc = Globals.In.ReadField(Buf, Constants.CharNameLen, null, '_', '\0', false, null, null, gEngine.IsCharAnyButDquoteCommaColon, null);
+				var rc = gEngine.In.ReadField(Buf, gEngine.CharNameLen, null, '_', '\0', false, null, null, gEngine.IsCharAnyButDquoteCommaColon, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -2971,7 +2971,7 @@ namespace Eamon.Game.Helpers
 				fieldDesc = FieldDesc.Brief;
 			}
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 		}
 
 		/// <summary></summary>
@@ -2989,7 +2989,7 @@ namespace Eamon.Game.Helpers
 
 				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("Gender"), "0"));
 
-				var rc = Globals.In.ReadField(Buf, Constants.BufSize01, null, '_', '\0', true, "0", null, gEngine.IsChar0To2, null);
+				var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, "0", null, gEngine.IsChar0To2, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -3003,7 +3003,7 @@ namespace Eamon.Game.Helpers
 				fieldDesc = FieldDesc.Brief;
 			}
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 		}
 
 		/// <summary></summary>
@@ -3021,7 +3021,7 @@ namespace Eamon.Game.Helpers
 
 				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("Status"), "1"));
 
-				var rc = Globals.In.ReadField(Buf, Constants.BufSize01, null, '_', '\0', true, "1", null, gEngine.IsChar0To3, null);
+				var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, "1", null, gEngine.IsChar0To3, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -3035,7 +3035,7 @@ namespace Eamon.Game.Helpers
 				fieldDesc = FieldDesc.Brief;
 			}
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 		}
 
 		/// <summary></summary>
@@ -3056,13 +3056,13 @@ namespace Eamon.Game.Helpers
 		{
 			var i = Index;
 
-			var stat = gEngine.GetStats((Stat)i);
+			var stat = gEngine.GetStat((Stat)i);
 
 			Debug.Assert(stat != null);
 
 			var fieldDesc = FieldDesc;
 
-			var value = Record.GetStats(i);
+			var value = Record.GetStat(i);
 
 			while (true)
 			{
@@ -3072,11 +3072,11 @@ namespace Eamon.Game.Helpers
 
 				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("StatsElement"), stat.EmptyVal));
 
-				var rc = Globals.In.ReadField(Buf, Constants.BufSize01, null, '_', '\0', true, stat.EmptyVal, null, gEngine.IsCharDigit, null);
+				var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, stat.EmptyVal, null, gEngine.IsCharDigit, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
-				Record.SetStats(i, Convert.ToInt64(Buf.Trim().ToString()));
+				Record.SetStat(i, Convert.ToInt64(Buf.Trim().ToString()));
 
 				if (ValidateField("StatsElement"))
 				{
@@ -3086,7 +3086,7 @@ namespace Eamon.Game.Helpers
 				fieldDesc = FieldDesc.Brief;
 			}
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 		}
 
 		/// <summary></summary>
@@ -3109,7 +3109,7 @@ namespace Eamon.Game.Helpers
 
 			var fieldDesc = FieldDesc;
 
-			var value = Record.GetSpellAbilities(i);
+			var value = Record.GetSpellAbility(i);
 
 			while (true)
 			{
@@ -3119,11 +3119,11 @@ namespace Eamon.Game.Helpers
 
 				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("SpellAbilitiesElement"), "0"));
 
-				var rc = Globals.In.ReadField(Buf, Constants.BufSize01, null, '_', '\0', true, "0", null, gEngine.IsCharDigit, null);
+				var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, "0", null, gEngine.IsCharDigit, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
-				Record.SetSpellAbilities(i, Convert.ToInt64(Buf.Trim().ToString()));
+				Record.SetSpellAbility(i, Convert.ToInt64(Buf.Trim().ToString()));
 
 				if (ValidateField("SpellAbilitiesElement"))
 				{
@@ -3133,7 +3133,7 @@ namespace Eamon.Game.Helpers
 				fieldDesc = FieldDesc.Brief;
 			}
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 		}
 
 		/// <summary></summary>
@@ -3154,13 +3154,13 @@ namespace Eamon.Game.Helpers
 		{
 			var i = Index;
 
-			var weapon = gEngine.GetWeapons((Weapon)i);
+			var weapon = gEngine.GetWeapon((Weapon)i);
 
 			Debug.Assert(weapon != null);
 
 			var fieldDesc = FieldDesc;
 
-			var value = Record.GetWeaponAbilities(i);
+			var value = Record.GetWeaponAbility(i);
 
 			while (true)
 			{
@@ -3170,7 +3170,7 @@ namespace Eamon.Game.Helpers
 
 				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("WeaponAbilitiesElement"), weapon.EmptyVal));
 
-				var rc = Globals.In.ReadField(Buf, Constants.BufSize01, null, '_', '\0', true, weapon.EmptyVal, null, gEngine.IsCharPlusMinusDigit, null);
+				var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, weapon.EmptyVal, null, gEngine.IsCharPlusMinusDigit, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -3178,7 +3178,7 @@ namespace Eamon.Game.Helpers
 
 				try
 				{
-					Record.SetWeaponAbilities(i, Convert.ToInt64(Buf.Trim().ToString()));
+					Record.SetWeaponAbility(i, Convert.ToInt64(Buf.Trim().ToString()));
 				}
 				catch (Exception)
 				{
@@ -3193,7 +3193,7 @@ namespace Eamon.Game.Helpers
 				fieldDesc = FieldDesc.Brief;
 			}
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 		}
 
 		/// <summary></summary>
@@ -3211,7 +3211,7 @@ namespace Eamon.Game.Helpers
 
 				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("ArmorExpertise"), "0"));
 
-				var rc = Globals.In.ReadField(Buf, Constants.BufSize01, null, '_', '\0', true, "0", null, gEngine.IsCharDigit, null);
+				var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, "0", null, gEngine.IsCharDigit, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -3225,7 +3225,7 @@ namespace Eamon.Game.Helpers
 				fieldDesc = FieldDesc.Brief;
 			}
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 		}
 
 		/// <summary></summary>
@@ -3243,7 +3243,7 @@ namespace Eamon.Game.Helpers
 
 				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("HeldGold"), "200"));
 
-				var rc = Globals.In.ReadField(Buf, Constants.BufSize01, null, '_', '\0', true, "200", null, gEngine.IsCharPlusMinusDigit, null);
+				var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, "200", null, gEngine.IsCharPlusMinusDigit, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -3266,7 +3266,7 @@ namespace Eamon.Game.Helpers
 				fieldDesc = FieldDesc.Brief;
 			}
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 		}
 
 		/// <summary></summary>
@@ -3284,7 +3284,7 @@ namespace Eamon.Game.Helpers
 
 				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("BankGold"), "0"));
 
-				var rc = Globals.In.ReadField(Buf, Constants.BufSize01, null, '_', '\0', true, "0", null, gEngine.IsCharPlusMinusDigit, null);
+				var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, "0", null, gEngine.IsCharPlusMinusDigit, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -3307,7 +3307,7 @@ namespace Eamon.Game.Helpers
 				fieldDesc = FieldDesc.Brief;
 			}
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 		}
 
 		/// <summary></summary>
@@ -3325,7 +3325,7 @@ namespace Eamon.Game.Helpers
 
 				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("ArmorClass"), "0"));
 
-				var rc = Globals.In.ReadField(Buf, Constants.BufSize01, null, '_', '\0', true, "0", null, gEngine.IsCharDigit, null);
+				var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, "0", null, gEngine.IsCharDigit, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -3341,18 +3341,18 @@ namespace Eamon.Game.Helpers
 
 			if (Record.ArmorClass != armorClass)
 			{
-				Record.Armor = Globals.CreateInstance<ICharacterArtifact>(x =>
+				Record.Armor = gEngine.CreateInstance<ICharacterArtifact>(x =>
 				{
 					x.Parent = Record;
 				});
 
-				Record.Shield = Globals.CreateInstance<ICharacterArtifact>(x =>
+				Record.Shield = gEngine.CreateInstance<ICharacterArtifact>(x =>
 				{
 					x.Parent = Record;
 				});
 			}
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 		}
 
 		/// <summary></summary>
@@ -3381,7 +3381,7 @@ namespace Eamon.Game.Helpers
 			{
 				var fieldDesc = FieldDesc;
 
-				var name = Record.GetWeapons(i).Name;
+				var name = Record.GetWeapon(i).Name;
 
 				while (true)
 				{
@@ -3391,11 +3391,11 @@ namespace Eamon.Game.Helpers
 
 					gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("WeaponsName"), null));
 
-					var rc = Globals.In.ReadField(Buf, Constants.CharArtNameLen, null, '_', '\0', true, null, null, null, null);
+					var rc = gEngine.In.ReadField(Buf, gEngine.CharArtNameLen, null, '_', '\0', true, null, null, null, null);
 
 					Debug.Assert(gEngine.IsSuccess(rc));
 
-					Record.GetWeapons(i).Name = Buf.ToString();
+					Record.GetWeapon(i).Name = Buf.ToString();
 
 					if (ValidateField("WeaponsName"))
 					{
@@ -3407,67 +3407,67 @@ namespace Eamon.Game.Helpers
 
 				if (Record.IsWeaponActive(i))
 				{
-					var clearExtraFields = !Record.GetWeapons(i).Name.Equals(name, StringComparison.OrdinalIgnoreCase);
+					var clearExtraFields = !Record.GetWeapon(i).Name.Equals(name, StringComparison.OrdinalIgnoreCase);
 
-					if (EditRec && (Record.GetWeapons(i).Field3 == 0 || Record.GetWeapons(i).Field4 == 0))
+					if (EditRec && (Record.GetWeapon(i).Field3 == 0 || Record.GetWeapon(i).Field4 == 0))
 					{
-						Record.GetWeapons(i).IsPlural = false;
+						Record.GetWeapon(i).IsPlural = false;
 
-						Record.GetWeapons(i).PluralType = PluralType.S;
+						Record.GetWeapon(i).PluralType = PluralType.S;
 
-						Record.GetWeapons(i).ArticleType = ArticleType.A;
+						Record.GetWeapon(i).ArticleType = ArticleType.A;
 
-						Record.GetWeapons(i).Field1 = 5;
+						Record.GetWeapon(i).Field1 = 5;
 
-						Record.GetWeapons(i).Field2 = (long)Weapon.Sword;
+						Record.GetWeapon(i).Field2 = (long)Weapon.Sword;
 
-						Record.GetWeapons(i).Field3 = 1;
+						Record.GetWeapon(i).Field3 = 1;
 
-						Record.GetWeapons(i).Field4 = 6;
+						Record.GetWeapon(i).Field4 = 6;
 
-						Record.GetWeapons(i).Field5 = 1;
+						Record.GetWeapon(i).Field5 = 1;
 
 						clearExtraFields = true;
 					}
 
 					if (clearExtraFields)
 					{
-						Record.GetWeapons(i).ClearExtraFields();
+						Record.GetWeapon(i).ClearExtraFields();
 					}
 				}
 				else
 				{
 					for (var k = i; k < Record.Weapons.Length; k++)
 					{
-						Record.GetWeapons(k).Name = "NONE";
+						Record.GetWeapon(k).Name = "NONE";
 
-						Record.GetWeapons(k).IsPlural = false;
+						Record.GetWeapon(k).IsPlural = false;
 
-						Record.GetWeapons(k).PluralType = 0;
+						Record.GetWeapon(k).PluralType = 0;
 
-						Record.GetWeapons(k).ArticleType = 0;
+						Record.GetWeapon(k).ArticleType = 0;
 
-						Record.GetWeapons(k).Field1 = 0;
+						Record.GetWeapon(k).Field1 = 0;
 
-						Record.GetWeapons(k).Field2 = 0;
+						Record.GetWeapon(k).Field2 = 0;
 
-						Record.GetWeapons(k).Field3 = 0;
+						Record.GetWeapon(k).Field3 = 0;
 
-						Record.GetWeapons(k).Field4 = 0;
+						Record.GetWeapon(k).Field4 = 0;
 
-						Record.GetWeapons(k).Field5 = 0;
+						Record.GetWeapon(k).Field5 = 0;
 
-						Record.GetWeapons(k).ClearExtraFields();
+						Record.GetWeapon(k).ClearExtraFields();
 					}
 				}
 
-				gOut.Print("{0}", Globals.LineSep);
+				gOut.Print("{0}", gEngine.LineSep);
 			}
 			else
 			{
-				Record.GetWeapons(i).Name = "NONE";
+				Record.GetWeapon(i).Name = "NONE";
 
-				Record.GetWeapons(i).ClearExtraFields();
+				Record.GetWeapon(i).ClearExtraFields();
 			}
 		}
 
@@ -3480,7 +3480,7 @@ namespace Eamon.Game.Helpers
 			{
 				var fieldDesc = FieldDesc;
 
-				var isPlural = Record.GetWeapons(i).IsPlural;
+				var isPlural = Record.GetWeapon(i).IsPlural;
 
 				while (true)
 				{
@@ -3490,11 +3490,11 @@ namespace Eamon.Game.Helpers
 
 					gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("WeaponsIsPlural"), "0"));
 
-					var rc = Globals.In.ReadField(Buf, Constants.BufSize01, null, '_', '\0', true, "0", null, gEngine.IsChar0Or1, null);
+					var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, "0", null, gEngine.IsChar0Or1, null);
 
 					Debug.Assert(gEngine.IsSuccess(rc));
 
-					Record.GetWeapons(i).IsPlural = Convert.ToInt64(Buf.Trim().ToString()) != 0 ? true : false;
+					Record.GetWeapon(i).IsPlural = Convert.ToInt64(Buf.Trim().ToString()) != 0 ? true : false;
 
 					if (ValidateField("WeaponsIsPlural"))
 					{
@@ -3504,16 +3504,16 @@ namespace Eamon.Game.Helpers
 					fieldDesc = FieldDesc.Brief;
 				}
 
-				if (Record.GetWeapons(i).IsPlural != isPlural)
+				if (Record.GetWeapon(i).IsPlural != isPlural)
 				{
-					Record.GetWeapons(i).ClearExtraFields();
+					Record.GetWeapon(i).ClearExtraFields();
 				}
 
-				gOut.Print("{0}", Globals.LineSep);
+				gOut.Print("{0}", gEngine.LineSep);
 			}
 			else
 			{
-				Record.GetWeapons(i).IsPlural = false;
+				Record.GetWeapon(i).IsPlural = false;
 			}
 		}
 
@@ -3526,7 +3526,7 @@ namespace Eamon.Game.Helpers
 			{
 				var fieldDesc = FieldDesc;
 
-				var pluralType = Record.GetWeapons(i).PluralType;
+				var pluralType = Record.GetWeapon(i).PluralType;
 
 				while (true)
 				{
@@ -3536,7 +3536,7 @@ namespace Eamon.Game.Helpers
 
 					gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("WeaponsPluralType"), "1"));
 
-					var rc = Globals.In.ReadField(Buf, Constants.BufSize01, null, '_', '\0', true, "1", null, gEngine.IsCharPlusMinusDigit, null);
+					var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, "1", null, gEngine.IsCharPlusMinusDigit, null);
 
 					Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -3544,7 +3544,7 @@ namespace Eamon.Game.Helpers
 
 					try
 					{
-						Record.GetWeapons(i).PluralType = (PluralType)Convert.ToInt64(Buf.Trim().ToString());
+						Record.GetWeapon(i).PluralType = (PluralType)Convert.ToInt64(Buf.Trim().ToString());
 					}
 					catch (Exception)
 					{
@@ -3559,16 +3559,16 @@ namespace Eamon.Game.Helpers
 					fieldDesc = FieldDesc.Brief;
 				}
 
-				if (Record.GetWeapons(i).PluralType != pluralType)
+				if (Record.GetWeapon(i).PluralType != pluralType)
 				{
-					Record.GetWeapons(i).ClearExtraFields();
+					Record.GetWeapon(i).ClearExtraFields();
 				}
 
-				gOut.Print("{0}", Globals.LineSep);
+				gOut.Print("{0}", gEngine.LineSep);
 			}
 			else
 			{
-				Record.GetWeapons(i).PluralType = 0;
+				Record.GetWeapon(i).PluralType = 0;
 			}
 		}
 
@@ -3581,7 +3581,7 @@ namespace Eamon.Game.Helpers
 			{
 				var fieldDesc = FieldDesc;
 
-				var articleType = Record.GetWeapons(i).ArticleType;
+				var articleType = Record.GetWeapon(i).ArticleType;
 
 				while (true)
 				{
@@ -3591,7 +3591,7 @@ namespace Eamon.Game.Helpers
 
 					gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("WeaponsArticleType"), "1"));
 
-					var rc = Globals.In.ReadField(Buf, Constants.BufSize01, null, '_', '\0', true, "1", null, gEngine.IsCharPlusMinusDigit, null);
+					var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, "1", null, gEngine.IsCharPlusMinusDigit, null);
 
 					Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -3599,7 +3599,7 @@ namespace Eamon.Game.Helpers
 
 					try
 					{
-						Record.GetWeapons(i).ArticleType = (ArticleType)Convert.ToInt64(Buf.Trim().ToString());
+						Record.GetWeapon(i).ArticleType = (ArticleType)Convert.ToInt64(Buf.Trim().ToString());
 					}
 					catch (Exception)
 					{
@@ -3614,16 +3614,16 @@ namespace Eamon.Game.Helpers
 					fieldDesc = FieldDesc.Brief;
 				}
 
-				if (Record.GetWeapons(i).ArticleType != articleType)
+				if (Record.GetWeapon(i).ArticleType != articleType)
 				{
-					Record.GetWeapons(i).ClearExtraFields();
+					Record.GetWeapon(i).ClearExtraFields();
 				}
 
-				gOut.Print("{0}", Globals.LineSep);
+				gOut.Print("{0}", gEngine.LineSep);
 			}
 			else
 			{
-				Record.GetWeapons(i).ArticleType = 0;
+				Record.GetWeapon(i).ArticleType = 0;
 			}
 		}
 
@@ -3636,7 +3636,7 @@ namespace Eamon.Game.Helpers
 			{
 				var fieldDesc = FieldDesc;
 
-				var field1 = Record.GetWeapons(i).Field1;
+				var field1 = Record.GetWeapon(i).Field1;
 
 				while (true)
 				{
@@ -3646,7 +3646,7 @@ namespace Eamon.Game.Helpers
 
 					gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("WeaponsField1"), "5"));
 
-					var rc = Globals.In.ReadField(Buf, Constants.BufSize01, null, '_', '\0', true, "5", null, gEngine.IsCharPlusMinusDigit, null);
+					var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, "5", null, gEngine.IsCharPlusMinusDigit, null);
 
 					Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -3654,7 +3654,7 @@ namespace Eamon.Game.Helpers
 
 					try
 					{
-						Record.GetWeapons(i).Field1 = Convert.ToInt64(Buf.Trim().ToString());
+						Record.GetWeapon(i).Field1 = Convert.ToInt64(Buf.Trim().ToString());
 					}
 					catch (Exception)
 					{
@@ -3669,16 +3669,16 @@ namespace Eamon.Game.Helpers
 					fieldDesc = FieldDesc.Brief;
 				}
 
-				if (Record.GetWeapons(i).Field1 != field1)
+				if (Record.GetWeapon(i).Field1 != field1)
 				{
-					Record.GetWeapons(i).ClearExtraFields();
+					Record.GetWeapon(i).ClearExtraFields();
 				}
 
-				gOut.Print("{0}", Globals.LineSep);
+				gOut.Print("{0}", gEngine.LineSep);
 			}
 			else
 			{
-				Record.GetWeapons(i).Field1 = 0;
+				Record.GetWeapon(i).Field1 = 0;
 			}
 		}
 
@@ -3691,7 +3691,7 @@ namespace Eamon.Game.Helpers
 			{
 				var fieldDesc = FieldDesc;
 
-				var field2 = Record.GetWeapons(i).Field2;
+				var field2 = Record.GetWeapon(i).Field2;
 
 				while (true)
 				{
@@ -3701,11 +3701,11 @@ namespace Eamon.Game.Helpers
 
 					gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("WeaponsField2"), "5"));
 
-					var rc = Globals.In.ReadField(Buf, Constants.BufSize01, null, '_', '\0', true, "5", null, gEngine.IsCharDigit, null);
+					var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, "5", null, gEngine.IsCharDigit, null);
 
 					Debug.Assert(gEngine.IsSuccess(rc));
 
-					Record.GetWeapons(i).Field2 = Convert.ToInt64(Buf.Trim().ToString());
+					Record.GetWeapon(i).Field2 = Convert.ToInt64(Buf.Trim().ToString());
 
 					if (ValidateField("WeaponsField2"))
 					{
@@ -3715,16 +3715,16 @@ namespace Eamon.Game.Helpers
 					fieldDesc = FieldDesc.Brief;
 				}
 
-				if (Record.GetWeapons(i).Field2 != field2)
+				if (Record.GetWeapon(i).Field2 != field2)
 				{
-					Record.GetWeapons(i).ClearExtraFields();
+					Record.GetWeapon(i).ClearExtraFields();
 				}
 
-				gOut.Print("{0}", Globals.LineSep);
+				gOut.Print("{0}", gEngine.LineSep);
 			}
 			else
 			{
-				Record.GetWeapons(i).Field2 = 0;
+				Record.GetWeapon(i).Field2 = 0;
 			}
 		}
 
@@ -3737,7 +3737,7 @@ namespace Eamon.Game.Helpers
 			{
 				var fieldDesc = FieldDesc;
 
-				var field3 = Record.GetWeapons(i).Field3;
+				var field3 = Record.GetWeapon(i).Field3;
 
 				while (true)
 				{
@@ -3747,11 +3747,11 @@ namespace Eamon.Game.Helpers
 
 					gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("WeaponsField3"), "1"));
 
-					var rc = Globals.In.ReadField(Buf, Constants.BufSize01, null, '_', '\0', true, "1", null, gEngine.IsCharDigit, null);
+					var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, "1", null, gEngine.IsCharDigit, null);
 
 					Debug.Assert(gEngine.IsSuccess(rc));
 
-					Record.GetWeapons(i).Field3 = Convert.ToInt64(Buf.Trim().ToString());
+					Record.GetWeapon(i).Field3 = Convert.ToInt64(Buf.Trim().ToString());
 
 					if (ValidateField("WeaponsField3"))
 					{
@@ -3761,16 +3761,16 @@ namespace Eamon.Game.Helpers
 					fieldDesc = FieldDesc.Brief;
 				}
 
-				if (Record.GetWeapons(i).Field3 != field3)
+				if (Record.GetWeapon(i).Field3 != field3)
 				{
-					Record.GetWeapons(i).ClearExtraFields();
+					Record.GetWeapon(i).ClearExtraFields();
 				}
 
-				gOut.Print("{0}", Globals.LineSep);
+				gOut.Print("{0}", gEngine.LineSep);
 			}
 			else
 			{
-				Record.GetWeapons(i).Field3 = 0;
+				Record.GetWeapon(i).Field3 = 0;
 			}
 		}
 
@@ -3783,7 +3783,7 @@ namespace Eamon.Game.Helpers
 			{
 				var fieldDesc = FieldDesc;
 
-				var field4 = Record.GetWeapons(i).Field4;
+				var field4 = Record.GetWeapon(i).Field4;
 
 				while (true)
 				{
@@ -3793,11 +3793,11 @@ namespace Eamon.Game.Helpers
 
 					gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("WeaponsField4"), "6"));
 
-					var rc = Globals.In.ReadField(Buf, Constants.BufSize01, null, '_', '\0', true, "6", null, gEngine.IsCharDigit, null);
+					var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, "6", null, gEngine.IsCharDigit, null);
 
 					Debug.Assert(gEngine.IsSuccess(rc));
 
-					Record.GetWeapons(i).Field4 = Convert.ToInt64(Buf.Trim().ToString());
+					Record.GetWeapon(i).Field4 = Convert.ToInt64(Buf.Trim().ToString());
 
 					if (ValidateField("WeaponsField4"))
 					{
@@ -3807,16 +3807,16 @@ namespace Eamon.Game.Helpers
 					fieldDesc = FieldDesc.Brief;
 				}
 
-				if (Record.GetWeapons(i).Field4 != field4)
+				if (Record.GetWeapon(i).Field4 != field4)
 				{
-					Record.GetWeapons(i).ClearExtraFields();
+					Record.GetWeapon(i).ClearExtraFields();
 				}
 
-				gOut.Print("{0}", Globals.LineSep);
+				gOut.Print("{0}", gEngine.LineSep);
 			}
 			else
 			{
-				Record.GetWeapons(i).Field4 = 0;
+				Record.GetWeapon(i).Field4 = 0;
 			}
 		}
 
@@ -3829,7 +3829,7 @@ namespace Eamon.Game.Helpers
 			{
 				var fieldDesc = FieldDesc;
 
-				var field5 = Record.GetWeapons(i).Field5;
+				var field5 = Record.GetWeapon(i).Field5;
 
 				while (true)
 				{
@@ -3839,11 +3839,11 @@ namespace Eamon.Game.Helpers
 
 					gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("WeaponsField5"), "1"));
 
-					var rc = Globals.In.ReadField(Buf, Constants.BufSize01, null, '_', '\0', true, "1", null, gEngine.IsCharDigit, null);
+					var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, "1", null, gEngine.IsCharDigit, null);
 
 					Debug.Assert(gEngine.IsSuccess(rc));
 
-					Record.GetWeapons(i).Field5 = Convert.ToInt64(Buf.Trim().ToString());
+					Record.GetWeapon(i).Field5 = Convert.ToInt64(Buf.Trim().ToString());
 
 					if (ValidateField("WeaponsField5"))
 					{
@@ -3853,16 +3853,16 @@ namespace Eamon.Game.Helpers
 					fieldDesc = FieldDesc.Brief;
 				}
 
-				if (Record.GetWeapons(i).Field5 != field5)
+				if (Record.GetWeapon(i).Field5 != field5)
 				{
-					Record.GetWeapons(i).ClearExtraFields();
+					Record.GetWeapon(i).ClearExtraFields();
 				}
 
-				gOut.Print("{0}", Globals.LineSep);
+				gOut.Print("{0}", gEngine.LineSep);
 			}
 			else
 			{
-				Record.GetWeapons(i).Field5 = 0;
+				Record.GetWeapon(i).Field5 = 0;
 			}
 		}
 
@@ -3882,7 +3882,7 @@ namespace Eamon.Game.Helpers
 		{
 			if (Record.Uid <= 0)
 			{
-				Record.Uid = Globals.Database.GetCharacterUid();
+				Record.Uid = gEngine.Database.GetCharacterUid();
 
 				Record.IsUidRecycled = true;
 			}

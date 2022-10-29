@@ -11,7 +11,7 @@ using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
-using static EamonRT.Game.Plugin.PluginContext;
+using static EamonRT.Game.Plugin.Globals;
 
 namespace EamonRT.Game.States
 {
@@ -67,7 +67,7 @@ namespace EamonRT.Game.States
 			{
 				if (gCharMonster.CanMoveToRoomUid(gGameState.R2, Fleeing))
 				{
-					NextState = Globals.CreateInstance<IAfterPlayerMoveState>(x =>
+					NextState = gEngine.CreateInstance<IAfterPlayerMoveState>(x =>
 					{
 						x.Direction = Direction;
 
@@ -110,7 +110,7 @@ namespace EamonRT.Game.States
 
 					if (gGameState.R2 > 0 && gRDB[gGameState.R2] != null)
 					{
-						NextState = Globals.CreateInstance<IPlayerMoveCheckState>(x =>
+						NextState = gEngine.CreateInstance<IPlayerMoveCheckState>(x =>
 						{
 							x.Direction = Direction;
 
@@ -137,7 +137,7 @@ namespace EamonRT.Game.States
 				goto Cleanup;
 			}
 
-			if (gGameState.R2 != Constants.DirectionExit)
+			if (gGameState.R2 != gEngine.DirectionExit)
 			{
 				PrintCantGoThatWay();
 
@@ -148,29 +148,29 @@ namespace EamonRT.Game.States
 
 			PrintLeaveAdventure();
 
-			Globals.Buf.Clear();
+			gEngine.Buf.Clear();
 
-			rc = Globals.In.ReadField(Globals.Buf, Constants.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, null);
+			rc = gEngine.In.ReadField(gEngine.Buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, null);
 
 			Debug.Assert(gEngine.IsSuccess(rc));
 
-			if (Globals.Buf.Length > 0 && Globals.Buf[0] == 'Y')
+			if (gEngine.Buf.Length > 0 && gEngine.Buf[0] == 'Y')
 			{
 				gGameState.Die = 0;
 
-				Globals.ExitType = ExitType.FinishAdventure;
+				gEngine.ExitType = ExitType.FinishAdventure;
 
-				Globals.MainLoop.ShouldShutdown = true;
+				gEngine.MainLoop.ShouldShutdown = true;
 			}
 
 		Cleanup:
 
 			if (NextState == null)
 			{
-				NextState = Globals.CreateInstance<IStartState>();
+				NextState = gEngine.CreateInstance<IStartState>();
 			}
 
-			Globals.NextState = NextState;
+			gEngine.NextState = NextState;
 		}
 
 		public PlayerMoveCheckState()

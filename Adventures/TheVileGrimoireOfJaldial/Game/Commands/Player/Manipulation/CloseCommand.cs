@@ -9,7 +9,7 @@ using Eamon.Framework;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.States;
-using static TheVileGrimoireOfJaldial.Game.Plugin.PluginContext;
+using static TheVileGrimoireOfJaldial.Game.Plugin.Globals;
 
 namespace TheVileGrimoireOfJaldial.Game.Commands
 {
@@ -62,7 +62,7 @@ namespace TheVileGrimoireOfJaldial.Game.Commands
 				{
 					gOut.Print("You don't have the right tools for that.");
 
-					NextState = Globals.CreateInstance<IMonsterStartState>();
+					NextState = gEngine.CreateInstance<IMonsterStartState>();
 				}
 				else
 				{

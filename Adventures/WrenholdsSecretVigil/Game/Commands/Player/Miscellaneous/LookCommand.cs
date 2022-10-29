@@ -9,7 +9,7 @@ using Eamon.Game.Attributes;
 using Eamon.Game.Utilities;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.States;
-using static WrenholdsSecretVigil.Game.Plugin.PluginContext;
+using static WrenholdsSecretVigil.Game.Plugin.Globals;
 
 namespace WrenholdsSecretVigil.Game.Commands
 {
@@ -34,21 +34,21 @@ namespace WrenholdsSecretVigil.Game.Commands
 
 				if (ActorRoom.Uid != 67 || ac.Type == ArtifactType.Treasure || ac.GetKeyUid() == 0)
 				{
-					var numRooms = Globals.Module.NumRooms;
+					var numRooms = gEngine.Module.NumRooms;
 
 					var directionValues = EnumUtil.GetValues<Direction>();
 
 					foreach (var dv in directionValues)
 					{
-						if (ActorRoom.GetDirs(dv) < 0 && ActorRoom.GetDirs(dv) >= -numRooms)
+						if (ActorRoom.GetDir(dv) < 0 && ActorRoom.GetDir(dv) >= -numRooms)
 						{
-							var direction = gEngine.GetDirections(dv);
+							var direction = gEngine.GetDirection(dv);
 
 							Debug.Assert(direction != null);
 
 							gOut.Print("You found a secret passage {0}!", direction.Name.ToLower());
 
-							ActorRoom.SetDirs(dv, -ActorRoom.GetDirs(dv));
+							ActorRoom.SetDir(dv, -ActorRoom.GetDir(dv));
 						}
 					}
 				}
@@ -56,7 +56,7 @@ namespace WrenholdsSecretVigil.Game.Commands
 
 			if (NextState == null)
 			{
-				NextState = Globals.CreateInstance<IMonsterStartState>();
+				NextState = gEngine.CreateInstance<IMonsterStartState>();
 			}
 		}
 	}

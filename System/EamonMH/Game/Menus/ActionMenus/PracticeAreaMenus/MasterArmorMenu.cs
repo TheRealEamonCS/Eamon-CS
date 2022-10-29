@@ -9,7 +9,7 @@ using Eamon;
 using Eamon.Game.Attributes;
 using Eamon.Game.Menus;
 using EamonMH.Framework.Menus.ActionMenus;
-using static EamonMH.Game.Plugin.PluginContext;
+using static EamonMH.Game.Plugin.Globals;
 
 namespace EamonMH.Game.Menus.ActionMenus
 {
@@ -25,7 +25,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 			long ap = 0;
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 
 			/* 
 				Full Credit:  Derived wholly from Donald Brown's Classic Eamon
@@ -41,7 +41,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 				Rtio = gEngine.GetMerchantRtio(c2);
 			}
 
-			ap = gEngine.GetMerchantAskPrice(Constants.ArmorTrainingPrice, (double)Rtio);
+			ap = gEngine.GetMerchantAskPrice(gEngine.ArmorTrainingPrice, (double)Rtio);
 
 			gOut.Print("A giant steps forward and says, \"Me good teacher.  You need help with armor skills?  Good, I teach for {0} gold piece{1} per strike.  Come with me!\"", ap, ap != 1 ? "s" : "");
 
@@ -49,9 +49,9 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 			while (true)
 			{
-				Globals.In.KeyPress(Buf);
+				gEngine.In.KeyPress(Buf);
 
-				gOut.Print("{0}", Globals.LineSep);
+				gOut.Print("{0}", gEngine.LineSep);
 
 				gOut.Print("Ability: {0}        Gold: {1}", gCharacter.ArmorExpertise, gCharacter.HeldGold);
 
@@ -61,13 +61,13 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 					Buf.Clear();
 
-					rc = Globals.In.ReadField(Buf, Constants.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsChar1Or2OrX, gEngine.IsChar1Or2OrX);
+					rc = gEngine.In.ReadField(Buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsChar1Or2OrX, gEngine.IsChar1Or2OrX);
 
 					Debug.Assert(gEngine.IsSuccess(rc));
 
-					Globals.Thread.Sleep(150);
+					gEngine.Thread.Sleep(150);
 
-					gOut.Print("{0}", Globals.LineSep);
+					gOut.Print("{0}", gEngine.LineSep);
 
 					if (Buf.Length == 0 || Buf[0] == 'X')
 					{
@@ -101,7 +101,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 						gCharacter.HeldGold -= ap;
 
-						Globals.CharactersModified = true;
+						gEngine.CharactersModified = true;
 					}
 					else
 					{
@@ -118,12 +118,12 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 			gOut.Print("\"Me sorry see you go.  Bye now!\"");
 
-			Globals.In.KeyPress(Buf);
+			gEngine.In.KeyPress(Buf);
 		}
 
 		public MasterArmorMenu()
 		{
-			Buf = Globals.Buf;
+			Buf = gEngine.Buf;
 		}
 	}
 }

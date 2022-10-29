@@ -6,7 +6,7 @@
 using System.Linq;
 using Eamon.Framework;
 using Eamon.Game.Attributes;
-using static BeginnersCaveII.Game.Plugin.PluginContext;
+using static BeginnersCaveII.Game.Plugin.Globals;
 
 namespace BeginnersCaveII.Game
 {

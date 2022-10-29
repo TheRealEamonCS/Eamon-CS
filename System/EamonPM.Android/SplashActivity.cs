@@ -19,8 +19,8 @@ using Eamon;
 using Eamon.Framework.Plugin;
 using Eamon.Framework.Portability;
 using Eamon.Mobile;
-using static Eamon.Game.Plugin.PluginContext;
-using static Eamon.Game.Plugin.PluginContextStack;
+using static Eamon.Game.Plugin.ContextStack;
+using static Eamon.Game.Plugin.Globals;
 
 namespace EamonPM
 {
@@ -33,7 +33,7 @@ namespace EamonPM
 				- change the BuildGuid to upgrade the binary .apk file and the .DAT datafiles in the filesystem (but not CHARACTERS.DAT)
 			*/
 
-			static readonly string BuildGuid = "71B0A69D-9A89-40D8-827A-72A16AEDB56E";
+			static readonly string BuildGuid = "654DB64C-9788-4B03-BAF0-2607C99D4073";
 
 			static readonly string TAG = "X:" + typeof (SplashActivity).Name;
 

@@ -10,7 +10,7 @@ using Eamon;
 using Eamon.Game.Attributes;
 using Eamon.Game.Menus;
 using EamonMH.Framework.Menus.ActionMenus;
-using static EamonMH.Game.Plugin.PluginContext;
+using static EamonMH.Game.Plugin.Globals;
 
 namespace EamonMH.Game.Menus.ActionMenus
 {
@@ -21,7 +21,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 		{
 			RetCode rc;
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 
 			gOut.Print("Schmitty, the owner, says, \"Welcome, {0}!  Perhaps a cocktail before you start?\"", gCharacter.Name);
 
@@ -31,9 +31,9 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 			while (true)
 			{
-				Globals.In.KeyPress(Buf);
+				gEngine.In.KeyPress(Buf);
 
-				gOut.Print("{0}", Globals.LineSep);
+				gOut.Print("{0}", gEngine.LineSep);
 
 				gOut.Print("You have {0} gold piece{1}.  The house limit is 10,000.", gCharacter.HeldGold, gCharacter.HeldGold != 1 ? "s" : "");
 
@@ -41,17 +41,17 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 				Buf.Clear();
 
-				rc = Globals.In.ReadField(Buf, Constants.BufSize01, null, ' ', '\0', false, null, null, gEngine.IsCharDigit, null);
+				rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, ' ', '\0', false, null, null, gEngine.IsCharDigit, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
-				Globals.Thread.Sleep(150);
+				gEngine.Thread.Sleep(150);
 
 				var bet = Convert.ToInt64(Buf.Trim().ToString());
 
 				if (bet > 0 && bet <= gCharacter.HeldGold && bet <= 10000)
 				{
-					gOut.Print("{0}", Globals.LineSep);
+					gOut.Print("{0}", gEngine.LineSep);
 
 					gOut.Write("{0}The wheel is spinning ... ", Environment.NewLine);
 
@@ -61,25 +61,25 @@ namespace EamonMH.Game.Menus.ActionMenus
 					{
 						gOut.Write("-");
 
-						Globals.Thread.Sleep(30);
+						gEngine.Thread.Sleep(30);
 
 						gOut.SetCursorPosition(cursorPosition);
 
 						gOut.Write("\\");
 
-						Globals.Thread.Sleep(30);
+						gEngine.Thread.Sleep(30);
 
 						gOut.SetCursorPosition(cursorPosition);
 
 						gOut.Write("|");
 
-						Globals.Thread.Sleep(30);
+						gEngine.Thread.Sleep(30);
 
 						gOut.SetCursorPosition(cursorPosition);
 
 						gOut.Write("/");
 
-						Globals.Thread.Sleep(30);
+						gEngine.Thread.Sleep(30);
 
 						gOut.SetCursorPosition(cursorPosition);
 					}
@@ -107,11 +107,11 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 					gCharacter.HeldGold += bet;
 
-					Globals.CharactersModified = true;
+					gEngine.CharactersModified = true;
 				}
 				else if (bet > 0)
 				{
-					gOut.Print("{0}", Globals.LineSep);
+					gOut.Print("{0}", gEngine.LineSep);
 
 					gOut.Print("The dealer doesn't seem amused by your sense of humor.");
 				}
@@ -124,7 +124,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 		public CasinoSchmittMenu()
 		{
-			Buf = Globals.Buf;
+			Buf = gEngine.Buf;
 		}
 	}
 }

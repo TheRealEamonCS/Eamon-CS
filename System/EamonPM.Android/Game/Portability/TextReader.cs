@@ -11,7 +11,7 @@ using Eamon;
 using Eamon.Framework.Portability;
 using Eamon.Game.Extensions;
 using Eamon.Mobile;
-using static Eamon.Game.Plugin.PluginContext;
+using static Eamon.Game.Plugin.Globals;
 
 namespace EamonPM.Game.Portability
 {
@@ -26,6 +26,8 @@ namespace EamonPM.Game.Portability
 		public virtual RetCode ReadField(StringBuilder buf, long bufSize, char[] boxChars, char fillChar, char maskChar, bool emptyAllowed, string emptyVal, Func<char, char> modifyCharFunc, Func<char, bool> validCharFunc, Func<char, bool> termCharFunc)
 		{
 			RetCode rc;
+
+			Debug.Assert(gEngine != null);
 
 			if (buf == null || bufSize < 1 || (boxChars != null && (boxChars[0] == '\0' || boxChars[1] == '\0')) || (emptyVal != null && emptyVal[0] == '\0'))
 			{
@@ -108,21 +110,15 @@ namespace EamonPM.Game.Portability
 				App.PluginLauncherPage.SetInputTextNoEvents("");
 			});
 
-			if (Globals != null)
-			{
-				if (Globals.Engine != null)
-				{
-					Globals.Engine.LineWrap(buf.ToString(), Buf01, startColumn);
-				}
+			gEngine.LineWrap(buf.ToString(), Buf01, startColumn);
 
-				if (Globals.Out != null)
-				{
-					Globals.Out.WriteLine("{0}", Buf01);
-				}
-				else if (Globals.Error != null)
-				{
-					Globals.Error.WriteLine("{0}", Buf01);
-				}
+			if (gEngine.Out != null)
+			{
+				gEngine.Out.WriteLine("{0}", Buf01);
+			}
+			else if (gEngine.Error != null)
+			{
+				gEngine.Error.WriteLine("{0}", Buf01);
 			}
 
 		Cleanup:
@@ -144,27 +140,27 @@ namespace EamonPM.Game.Portability
 		{
 			if (EnableInput)
 			{
-				var cursorPosition = Globals.Out.GetCursorPosition();
+				var cursorPosition = gEngine.Out.GetCursorPosition();
 
-				var bufSize = (Constants.WindowWidth * 2);
+				var bufSize = (gEngine.WindowWidth * 2);
 
 				var buf = new StringBuilder(bufSize);
 
 				ReadLineMode = true;
 
-				Globals.Out.WordWrap = false;
+				gEngine.Out.WordWrap = false;
 
-				var suppressNewLines = Globals.Out.SuppressNewLines;
+				var suppressNewLines = gEngine.Out.SuppressNewLines;
 
-				Globals.Out.SuppressNewLines = false;
+				gEngine.Out.SuppressNewLines = false;
 
 				var rc = ReadField(buf, bufSize, null, ' ', '\0', true, null, null, null, null);
 
-				Debug.Assert(Globals.Engine.IsSuccess(rc));
+				Debug.Assert(gEngine.IsSuccess(rc));
 
-				Globals.Out.WordWrap = true;
+				gEngine.Out.WordWrap = true;
 
-				Globals.Out.SuppressNewLines = suppressNewLines;
+				gEngine.Out.SuppressNewLines = suppressNewLines;
 
 				ReadLineMode = false;
 
@@ -182,9 +178,9 @@ namespace EamonPM.Game.Portability
 
 			if (EnableInput)
 			{
-				var buf = new StringBuilder(Constants.BufSize);
+				var buf = new StringBuilder(gEngine.BufSize);
 
-				ReadField(buf, Constants.BufSize02, null, ' ', '\0', true, null, null, null, (ch01) => true);
+				ReadField(buf, gEngine.BufSize02, null, ' ', '\0', true, null, null, null, (ch01) => true);
 
 				ch = buf.Length > 0 ? buf[0] : '\0';
 			}
@@ -198,23 +194,23 @@ namespace EamonPM.Game.Portability
 
 		public virtual void KeyPress(StringBuilder buf, bool initialNewLine = true)
 		{
-			Debug.Assert(buf != null);
+			Debug.Assert(gEngine != null);
 
-			Debug.Assert(Globals.Engine != null);
+			Debug.Assert(buf != null);
 
 			if (EnableInput)
 			{
-				Globals.Out.WriteLine("{0}{1}", initialNewLine ? Environment.NewLine : "", Globals.LineSep);
+				gEngine.Out.WriteLine("{0}{1}", initialNewLine ? Environment.NewLine : "", gEngine.LineSep);
 
-				Globals.Out.Write("{0}Press any key to continue: ", Environment.NewLine);
+				gEngine.Out.Write("{0}Press any key to continue: ", Environment.NewLine);
 
 				buf.Clear();
 
-				var rc = ReadField(buf, Constants.BufSize02, null, ' ', '\0', true, null, Globals.Engine.ModifyCharToNull, null, Globals.Engine.IsCharAny);
+				var rc = ReadField(buf, gEngine.BufSize02, null, ' ', '\0', true, null, gEngine.ModifyCharToNull, null, gEngine.IsCharAny);
 
-				Debug.Assert(Globals.Engine.IsSuccess(rc));
+				Debug.Assert(gEngine.IsSuccess(rc));
 
-				Globals.Thread.Sleep(150);
+				gEngine.Thread.Sleep(150);
 			}
 		}
 
@@ -222,7 +218,7 @@ namespace EamonPM.Game.Portability
 		{
 			EnableInput = true;
 
-			Buf01 = new StringBuilder(Constants.BufSize);
+			Buf01 = new StringBuilder(gEngine.BufSize);
 		}
 	}
 }

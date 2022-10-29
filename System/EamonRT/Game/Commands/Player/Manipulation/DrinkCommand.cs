@@ -10,7 +10,7 @@ using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
-using static EamonRT.Game.Plugin.PluginContext;
+using static EamonRT.Game.Plugin.Globals;
 
 namespace EamonRT.Game.Commands
 {
@@ -40,14 +40,14 @@ namespace EamonRT.Game.Commands
 			{
 				PrintCantVerbObj(DobjArtifact);
 
-				NextState = Globals.CreateInstance<IStartState>();
+				NextState = gEngine.CreateInstance<IStartState>();
 
 				goto Cleanup;
 			}
 
 			if (DobjArtAc.Type == ArtifactType.Edible)
 			{
-				NextState = Globals.CreateInstance<IEatCommand>();
+				NextState = gEngine.CreateInstance<IEatCommand>();
 
 				CopyCommandData(NextState as ICommand);
 
@@ -58,7 +58,7 @@ namespace EamonRT.Game.Commands
 			{
 				PrintMustFirstOpen(DobjArtifact);
 
-				NextState = Globals.CreateInstance<IStartState>();
+				NextState = gEngine.CreateInstance<IStartState>();
 
 				goto Cleanup;
 			}
@@ -70,7 +70,7 @@ namespace EamonRT.Game.Commands
 				goto Cleanup;
 			}
 
-			if (DobjArtAc.Field2 != Constants.InfiniteDrinkableEdible)
+			if (DobjArtAc.Field2 != gEngine.InfiniteDrinkableEdible)
 			{
 				DobjArtAc.Field2--;
 			}
@@ -119,7 +119,7 @@ namespace EamonRT.Game.Commands
 				{
 					gGameState.Die = 1;
 
-					NextState = Globals.CreateInstance<IPlayerDeadState>(x =>
+					NextState = gEngine.CreateInstance<IPlayerDeadState>(x =>
 					{
 						x.PrintLineSep = true;
 					});
@@ -139,7 +139,7 @@ namespace EamonRT.Game.Commands
 
 			if (NextState == null)
 			{
-				NextState = Globals.CreateInstance<IMonsterStartState>();
+				NextState = gEngine.CreateInstance<IMonsterStartState>();
 			}
 		}
 
@@ -147,7 +147,7 @@ namespace EamonRT.Game.Commands
 		{
 			SortOrder = 120;
 
-			if (Globals.IsRulesetVersion(5))
+			if (gEngine.IsRulesetVersion(5))
 			{
 				IsPlayerEnabled = false;
 			}

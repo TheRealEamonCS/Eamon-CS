@@ -28,12 +28,12 @@
         <member name="P:Eamon.Framework.Args.IStatDisplayArgs.Weight">
             <summary></summary>
         </member>
-        <member name="M:Eamon.Framework.Args.IStatDisplayArgs.GetSpellAbilities(System.Int64)">
+        <member name="M:Eamon.Framework.Args.IStatDisplayArgs.GetSpellAbility(System.Int64)">
             <summary></summary>
             <param name="index"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.Args.IStatDisplayArgs.GetSpellAbilities(Eamon.Framework.Primitive.Enums.Spell)">
+        <member name="M:Eamon.Framework.Args.IStatDisplayArgs.GetSpellAbility(Eamon.Framework.Primitive.Enums.Spell)">
             <summary></summary>
             <param name="spell"></param>
             <returns></returns>
@@ -74,7 +74,7 @@
             <param name="dispose"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.DataStorage.Generic.IDbTable`1.GetRecordsCount">
+        <member name="M:Eamon.Framework.DataStorage.Generic.IDbTable`1.GetRecordCount">
             <summary>
             Gets the number of records of type T stored in the <see cref="P:Eamon.Framework.DataStorage.Generic.IDbTable`1.Records">Records</see> collection.
             </summary>
@@ -377,48 +377,48 @@
             <param name="dispose"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.DataStorage.IDatabase.GetRecordsCount``1(Eamon.Framework.DataStorage.Generic.IDbTable{``0})">
+        <member name="M:Eamon.Framework.DataStorage.IDatabase.GetRecordCount``1(Eamon.Framework.DataStorage.Generic.IDbTable{``0})">
             <summary></summary>
             <param name="table"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.DataStorage.IDatabase.GetConfigsCount">
+        <member name="M:Eamon.Framework.DataStorage.IDatabase.GetConfigCount">
             <summary></summary>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.DataStorage.IDatabase.GetFilesetsCount">
+        <member name="M:Eamon.Framework.DataStorage.IDatabase.GetFilesetCount">
             <summary></summary>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.DataStorage.IDatabase.GetCharactersCount">
+        <member name="M:Eamon.Framework.DataStorage.IDatabase.GetCharacterCount">
             <summary></summary>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.DataStorage.IDatabase.GetModulesCount">
+        <member name="M:Eamon.Framework.DataStorage.IDatabase.GetModuleCount">
             <summary></summary>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.DataStorage.IDatabase.GetRoomsCount">
+        <member name="M:Eamon.Framework.DataStorage.IDatabase.GetRoomCount">
             <summary></summary>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.DataStorage.IDatabase.GetArtifactsCount">
+        <member name="M:Eamon.Framework.DataStorage.IDatabase.GetArtifactCount">
             <summary></summary>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.DataStorage.IDatabase.GetEffectsCount">
+        <member name="M:Eamon.Framework.DataStorage.IDatabase.GetEffectCount">
             <summary></summary>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.DataStorage.IDatabase.GetMonstersCount">
+        <member name="M:Eamon.Framework.DataStorage.IDatabase.GetMonsterCount">
             <summary></summary>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.DataStorage.IDatabase.GetHintsCount">
+        <member name="M:Eamon.Framework.DataStorage.IDatabase.GetHintCount">
             <summary></summary>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.DataStorage.IDatabase.GetGameStatesCount">
+        <member name="M:Eamon.Framework.DataStorage.IDatabase.GetGameStateCount">
             <summary></summary>
             <returns></returns>
         </member>
@@ -1180,22 +1180,22 @@
             this <see cref="T:Eamon.Framework.IArtifact">Artifact</see>'s behavior in the game.
             </summary>
         </member>
-        <member name="M:Eamon.Framework.IArtifact.GetCategories(System.Int64)">
+        <member name="M:Eamon.Framework.IArtifact.GetCategory(System.Int64)">
             <summary></summary>
             <param name="index"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IArtifact.GetSynonyms(System.Int64)">
+        <member name="M:Eamon.Framework.IArtifact.GetSynonym(System.Int64)">
             <summary></summary>
             <param name="index"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IArtifact.SetCategories(System.Int64,Eamon.Framework.Primitive.Classes.IArtifactCategory)">
+        <member name="M:Eamon.Framework.IArtifact.SetCategory(System.Int64,Eamon.Framework.Primitive.Classes.IArtifactCategory)">
             <summary></summary>
             <param name="index"></param>
             <param name="value"></param>
         </member>
-        <member name="M:Eamon.Framework.IArtifact.SetSynonyms(System.Int64,System.String)">
+        <member name="M:Eamon.Framework.IArtifact.SetSynonym(System.Int64,System.String)">
             <summary></summary>
             <param name="index"></param>
             <param name="value"></param>
@@ -1711,112 +1711,112 @@
         <member name="P:Eamon.Framework.ICharacter.Weapons">
             <summary></summary>
         </member>
-        <member name="M:Eamon.Framework.ICharacter.GetStats(System.Int64)">
+        <member name="M:Eamon.Framework.ICharacter.GetStat(System.Int64)">
             <summary></summary>
             <param name="index"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.ICharacter.GetStats(Eamon.Framework.Primitive.Enums.Stat)">
+        <member name="M:Eamon.Framework.ICharacter.GetStat(Eamon.Framework.Primitive.Enums.Stat)">
             <summary></summary>
             <param name="stat"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.ICharacter.GetSpellAbilities(System.Int64)">
+        <member name="M:Eamon.Framework.ICharacter.GetSpellAbility(System.Int64)">
             <summary></summary>
             <param name="index"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.ICharacter.GetSpellAbilities(Eamon.Framework.Primitive.Enums.Spell)">
+        <member name="M:Eamon.Framework.ICharacter.GetSpellAbility(Eamon.Framework.Primitive.Enums.Spell)">
             <summary></summary>
             <param name="spell"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.ICharacter.GetWeaponAbilities(System.Int64)">
+        <member name="M:Eamon.Framework.ICharacter.GetWeaponAbility(System.Int64)">
             <summary></summary>
             <param name="index"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.ICharacter.GetWeaponAbilities(Eamon.Framework.Primitive.Enums.Weapon)">
+        <member name="M:Eamon.Framework.ICharacter.GetWeaponAbility(Eamon.Framework.Primitive.Enums.Weapon)">
             <summary></summary>
             <param name="weapon"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.ICharacter.GetWeapons(System.Int64)">
+        <member name="M:Eamon.Framework.ICharacter.GetWeapon(System.Int64)">
             <summary></summary>
             <param name="index"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.ICharacter.GetSynonyms(System.Int64)">
+        <member name="M:Eamon.Framework.ICharacter.GetSynonym(System.Int64)">
             <summary></summary>
             <param name="index"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.ICharacter.SetStats(System.Int64,System.Int64)">
+        <member name="M:Eamon.Framework.ICharacter.SetStat(System.Int64,System.Int64)">
             <summary></summary>
             <param name="index"></param>
             <param name="value"></param>
         </member>
-        <member name="M:Eamon.Framework.ICharacter.SetStats(Eamon.Framework.Primitive.Enums.Stat,System.Int64)">
+        <member name="M:Eamon.Framework.ICharacter.SetStat(Eamon.Framework.Primitive.Enums.Stat,System.Int64)">
             <summary></summary>
             <param name="stat"></param>
             <param name="value"></param>
         </member>
-        <member name="M:Eamon.Framework.ICharacter.SetSpellAbilities(System.Int64,System.Int64)">
+        <member name="M:Eamon.Framework.ICharacter.SetSpellAbility(System.Int64,System.Int64)">
             <summary></summary>
             <param name="index"></param>
             <param name="value"></param>
         </member>
-        <member name="M:Eamon.Framework.ICharacter.SetSpellAbilities(Eamon.Framework.Primitive.Enums.Spell,System.Int64)">
+        <member name="M:Eamon.Framework.ICharacter.SetSpellAbility(Eamon.Framework.Primitive.Enums.Spell,System.Int64)">
             <summary></summary>
             <param name="spell"></param>
             <param name="value"></param>
         </member>
-        <member name="M:Eamon.Framework.ICharacter.SetWeaponAbilities(System.Int64,System.Int64)">
+        <member name="M:Eamon.Framework.ICharacter.SetWeaponAbility(System.Int64,System.Int64)">
             <summary></summary>
             <param name="index"></param>
             <param name="value"></param>
         </member>
-        <member name="M:Eamon.Framework.ICharacter.SetWeaponAbilities(Eamon.Framework.Primitive.Enums.Weapon,System.Int64)">
+        <member name="M:Eamon.Framework.ICharacter.SetWeaponAbility(Eamon.Framework.Primitive.Enums.Weapon,System.Int64)">
             <summary></summary>
             <param name="weapon"></param>
             <param name="value"></param>
         </member>
-        <member name="M:Eamon.Framework.ICharacter.SetWeapons(System.Int64,Eamon.Framework.Primitive.Classes.ICharacterArtifact)">
+        <member name="M:Eamon.Framework.ICharacter.SetWeapon(System.Int64,Eamon.Framework.Primitive.Classes.ICharacterArtifact)">
             <summary></summary>
             <param name="index"></param>
             <param name="value"></param>
         </member>
-        <member name="M:Eamon.Framework.ICharacter.SetSynonyms(System.Int64,System.String)">
+        <member name="M:Eamon.Framework.ICharacter.SetSynonym(System.Int64,System.String)">
             <summary></summary>
             <param name="index"></param>
             <param name="value"></param>
         </member>
-        <member name="M:Eamon.Framework.ICharacter.ModStats(System.Int64,System.Int64)">
+        <member name="M:Eamon.Framework.ICharacter.ModStat(System.Int64,System.Int64)">
             <summary></summary>
             <param name="index"></param>
             <param name="value"></param>
         </member>
-        <member name="M:Eamon.Framework.ICharacter.ModStats(Eamon.Framework.Primitive.Enums.Stat,System.Int64)">
+        <member name="M:Eamon.Framework.ICharacter.ModStat(Eamon.Framework.Primitive.Enums.Stat,System.Int64)">
             <summary></summary>
             <param name="stat"></param>
             <param name="value"></param>
         </member>
-        <member name="M:Eamon.Framework.ICharacter.ModSpellAbilities(System.Int64,System.Int64)">
+        <member name="M:Eamon.Framework.ICharacter.ModSpellAbility(System.Int64,System.Int64)">
             <summary></summary>
             <param name="index"></param>
             <param name="value"></param>
         </member>
-        <member name="M:Eamon.Framework.ICharacter.ModSpellAbilities(Eamon.Framework.Primitive.Enums.Spell,System.Int64)">
+        <member name="M:Eamon.Framework.ICharacter.ModSpellAbility(Eamon.Framework.Primitive.Enums.Spell,System.Int64)">
             <summary></summary>
             <param name="spell"></param>
             <param name="value"></param>
         </member>
-        <member name="M:Eamon.Framework.ICharacter.ModWeaponAbilities(System.Int64,System.Int64)">
+        <member name="M:Eamon.Framework.ICharacter.ModWeaponAbility(System.Int64,System.Int64)">
             <summary></summary>
             <param name="index"></param>
             <param name="value"></param>
         </member>
-        <member name="M:Eamon.Framework.ICharacter.ModWeaponAbilities(Eamon.Framework.Primitive.Enums.Weapon,System.Int64)">
+        <member name="M:Eamon.Framework.ICharacter.ModWeaponAbility(Eamon.Framework.Primitive.Enums.Weapon,System.Int64)">
             <summary></summary>
             <param name="weapon"></param>
             <param name="value"></param>
@@ -2039,928 +2039,6 @@
             <summary></summary>
             <param name="buf"></param>
             <returns></returns>
-        </member>
-        <member name="T:Eamon.Framework.IEngine">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.IEngine.MacroFuncs">
-            <summary>
-            Gets or sets a collection of functions used to resolve macros embedded in <see cref="P:Eamon.Framework.IGameBase.Desc">Desc</see>, 
-            <see cref="T:Eamon.Framework.IArtifact">Artifact</see><see cref="P:Eamon.Framework.IArtifact.StateDesc"> StateDesc</see> and <see cref="T:Eamon.Framework.IMonster">Monster</see>
-            <see cref="P:Eamon.Framework.IMonster.StateDesc"> StateDesc</see> properties.
-            </summary>
-        </member>
-        <member name="P:Eamon.Framework.IEngine.ArtifactContainedList">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.IEngine.RevealContainerContentsFunc">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.IEngine.Preps">
-            <summary>
-            Gets or sets an array of sentence prepositions (e.g., "to", "from", "inside", etc).
-            </summary>
-        </member>
-        <member name="P:Eamon.Framework.IEngine.Articles">
-            <summary>
-            Gets or sets an array of sentence articles (e.g., "a", "some", "the", etc).
-            </summary>
-        </member>
-        <member name="P:Eamon.Framework.IEngine.UnknownName">
-            <summary>
-            Gets or sets a generic string representing an unknown name (e.g., "???").
-            </summary>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.GetPreps(System.Int64)">
-            <summary>
-            Gets the sentence preposition (e.g., "to", "from", "inside", etc).
-            </summary>
-            <param name="index"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.GetArticles(System.Int64)">
-            <summary>
-            Gets the sentence article (e.g., "a", "some", "the", etc).
-            </summary>
-            <param name="index"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.GetNumberStrings(System.Int64)">
-            <summary></summary>
-            <param name="index"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.GetFieldDescNames(System.Int64)">
-            <summary></summary>
-            <param name="index"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.GetFieldDescNames(Eamon.Framework.Primitive.Enums.FieldDesc)">
-            <summary></summary>
-            <param name="fieldDesc"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.GetStatusNames(System.Int64)">
-            <summary>
-            Gets the name for a given <see cref="T:Eamon.Framework.Primitive.Enums.Status"/>.
-            </summary>
-            <param name="index"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.GetStatusNames(Eamon.Framework.Primitive.Enums.Status)">
-            <summary>
-            Gets the name for a given <see cref="T:Eamon.Framework.Primitive.Enums.Status"/>.
-            </summary>
-            <param name="status"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.GetClothingNames(System.Int64)">
-            <summary>
-            Gets the name for a given <see cref="T:Eamon.Framework.Primitive.Enums.Clothing"/>.
-            </summary>
-            <param name="index"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.GetClothingNames(Eamon.Framework.Primitive.Enums.Clothing)">
-            <summary>
-            Gets the name for a given <see cref="T:Eamon.Framework.Primitive.Enums.Clothing"/>.
-            </summary>
-            <param name="clothing"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.GetCombatCodeDescs(System.Int64)">
-            <summary>
-            Gets the description for a given <see cref="T:Eamon.Framework.Primitive.Enums.CombatCode"/>.
-            </summary>
-            <param name="index"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.GetCombatCodeDescs(Eamon.Framework.Primitive.Enums.CombatCode)">
-            <summary>
-            Gets the description for a given <see cref="T:Eamon.Framework.Primitive.Enums.CombatCode"/>.
-            </summary>
-            <param name="combatCode"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.GetContainerDisplayCodeDescs(System.Int64)">
-            <summary></summary>
-            <param name="index"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.GetContainerDisplayCodeDescs(Eamon.Framework.Primitive.Enums.ContainerDisplayCode)">
-            <summary></summary>
-            <param name="containerDisplayCode"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.GetLightLevelNames(System.Int64)">
-            <summary>
-            Gets the name for a given <see cref="T:Eamon.Framework.Primitive.Enums.LightLevel"/>.
-            </summary>
-            <param name="index"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.GetLightLevelNames(Eamon.Framework.Primitive.Enums.LightLevel)">
-            <summary>
-            Gets the name for a given <see cref="T:Eamon.Framework.Primitive.Enums.LightLevel"/>.
-            </summary>
-            <param name="lightLevel"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.GetStats(System.Int64)">
-            <summary>
-            Gets the data for a given <see cref="T:Eamon.Framework.Primitive.Enums.Stat"/>.
-            </summary>
-            <param name="index"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.GetStats(Eamon.Framework.Primitive.Enums.Stat)">
-            <summary>
-            Gets the data for a given <see cref="T:Eamon.Framework.Primitive.Enums.Stat"/>.
-            </summary>
-            <param name="stat"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.GetSpells(System.Int64)">
-            <summary>
-            Gets the data for a given <see cref="T:Eamon.Framework.Primitive.Enums.Spell"/>.
-            </summary>
-            <param name="index"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.GetSpells(Eamon.Framework.Primitive.Enums.Spell)">
-            <summary>
-            Gets the data for a given <see cref="T:Eamon.Framework.Primitive.Enums.Spell"/>.
-            </summary>
-            <param name="spell"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.GetWeapons(System.Int64)">
-            <summary>
-            Gets the data for a given <see cref="T:Eamon.Framework.Primitive.Enums.Weapon"/>.
-            </summary>
-            <param name="index"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.GetWeapons(Eamon.Framework.Primitive.Enums.Weapon)">
-            <summary>
-            Gets the data for a given <see cref="T:Eamon.Framework.Primitive.Enums.Weapon"/>.
-            </summary>
-            <param name="weapon"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.GetArmors(System.Int64)">
-            <summary>
-            Gets the data for a given <see cref="T:Eamon.Framework.Primitive.Enums.Armor"/>.
-            </summary>
-            <param name="index"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.GetArmors(Eamon.Framework.Primitive.Enums.Armor)">
-            <summary>
-            Gets the data for a given <see cref="T:Eamon.Framework.Primitive.Enums.Armor"/>.
-            </summary>
-            <param name="armor"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.GetDirections(System.Int64)">
-            <summary>
-            Gets the data for a given <see cref="T:Eamon.Framework.Primitive.Enums.Direction"/>.
-            </summary>
-            <param name="index"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.GetDirections(Eamon.Framework.Primitive.Enums.Direction)">
-            <summary>
-            Gets the data for a given <see cref="T:Eamon.Framework.Primitive.Enums.Direction"/>.
-            </summary>
-            <param name="direction"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.GetArtifactTypes(System.Int64)">
-            <summary>
-            Gets the data for a given <see cref="T:Eamon.Framework.Primitive.Enums.ArtifactType"/>.
-            </summary>
-            <param name="index"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.GetArtifactTypes(Eamon.Framework.Primitive.Enums.ArtifactType)">
-            <summary>
-            Gets the data for a given <see cref="T:Eamon.Framework.Primitive.Enums.ArtifactType"/>.
-            </summary>
-            <param name="artifactType"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.IsSuccess(Eamon.RetCode)">
-            <summary>
-            Indicates whether an operation succeeded.
-            </summary>
-            <param name="rc"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.IsFailure(Eamon.RetCode)">
-            <summary>
-            Indicates whether an operation failed.
-            </summary>
-            <param name="rc"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.IsValidPluralType(Eamon.Framework.Primitive.Enums.PluralType)">
-            <summary>
-            Indicates whether a plural type is valid.
-            </summary>
-            <param name="pluralType"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.IsValidArtifactType(Eamon.Framework.Primitive.Enums.ArtifactType)">
-            <summary>
-            Indicates whether an artifact type is valid.
-            </summary>
-            <param name="artifactType"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.IsValidArtifactArmor(System.Int64)">
-            <summary>
-            Indicates whether an armor value is valid for an wearable <see cref="T:Eamon.Framework.IArtifact">Artifact</see>.
-            </summary>
-            <param name="armor"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.IsValidMonsterArmor(System.Int64)">
-            <summary>
-            Indicates whether an armor value is valid for a <see cref="T:Eamon.Framework.IMonster">Monster</see>.
-            </summary>
-            <param name="armor"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.IsValidMonsterCourage(System.Int64)">
-            <summary>
-            Indicates whether a courage value is valid for a <see cref="T:Eamon.Framework.IMonster">Monster</see>.
-            </summary>
-            <param name="courage"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.IsValidMonsterFriendliness(Eamon.Framework.Primitive.Enums.Friendliness)">
-            <summary></summary>
-            <param name="friendliness"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.IsValidMonsterFriendlinessPct(Eamon.Framework.Primitive.Enums.Friendliness)">
-            <summary></summary>
-            <param name="friendliness"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.IsValidDirection(Eamon.Framework.Primitive.Enums.Direction)">
-            <summary></summary>
-            <param name="dir"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.IsValidRoomUid01(System.Int64)">
-            <summary></summary>
-            <param name="roomUid"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.IsValidRoomDirectionDoorUid01(System.Int64)">
-            <summary></summary>
-            <param name="roomUid"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.IsArtifactFieldStrength(System.Int64)">
-            <summary></summary>
-            <param name="value"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.IsUnmovable(System.Int64)">
-            <summary></summary>
-            <param name="weight"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.IsUnmovable01(System.Int64)">
-            <summary></summary>
-            <param name="weight"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.GetWeightCarryableGronds(System.Int64)">
-            <summary></summary>
-            <param name="hardiness"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.GetWeightCarryableDos(System.Int64)">
-            <summary></summary>
-            <param name="hardiness"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.GetIntellectBonusPct(System.Int64)">
-            <summary></summary>
-            <param name="intellect"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.GetCharmMonsterPct(System.Int64)">
-            <summary></summary>
-            <param name="charisma"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.GetPluralTypeEffectUid(Eamon.Framework.Primitive.Enums.PluralType)">
-            <summary></summary>
-            <param name="pluralType"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.GetArmorFactor(System.Int64,System.Int64)">
-            <summary></summary>
-            <param name="armorUid"></param>
-            <param name="shieldUid"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.GetCharismaFactor(System.Int64)">
-            <summary></summary>
-            <param name="charisma"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.GetMonsterFriendlinessPct(Eamon.Framework.Primitive.Enums.Friendliness)">
-            <summary></summary>
-            <param name="friendliness"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.GetArtifactFieldStrength(System.Int64)">
-            <summary></summary>
-            <param name="value"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.GetMerchantAskPrice(System.Double,System.Double)">
-            <summary></summary>
-            <param name="price"></param>
-            <param name="rtio"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.GetMerchantBidPrice(System.Double,System.Double)">
-            <summary></summary>
-            <param name="price"></param>
-            <param name="rtio"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.GetMerchantAdjustedCharisma(System.Int64)">
-            <summary></summary>
-            <param name="charisma"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.GetMerchantRtio(System.Int64)">
-            <summary></summary>
-            <param name="charisma"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.IsCharYOrN(System.Char)">
-            <summary>
-            Indicates whether a character is one of ['Y', 'N'].
-            </summary>
-            <param name="ch"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.IsCharSOrTOrROrX(System.Char)">
-            <summary>
-            Indicates whether a character is one of ['S', 'T', 'R', 'X'].
-            </summary>
-            <param name="ch"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.IsChar0Or1(System.Char)">
-            <summary>
-            Indicates whether a character is one of ['0', '1'].
-            </summary>
-            <param name="ch"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.IsChar0To2(System.Char)">
-            <summary>
-            Indicates whether a character is one of ['0', '1', '2'].
-            </summary>
-            <param name="ch"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.IsChar0To3(System.Char)">
-            <summary>
-            Indicates whether a character is one of ['0', '1', '2', '3'].
-            </summary>
-            <param name="ch"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.IsChar1To3(System.Char)">
-            <summary>
-            Indicates whether a character is one of ['1', '2', '3'].
-            </summary>
-            <param name="ch"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.IsCharDigit(System.Char)">
-            <summary>
-            Indicates whether a character is a numeric digit.
-            </summary>
-            <param name="ch"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.IsCharDigitOrX(System.Char)">
-            <summary>
-            Indicates whether a character is a numeric digit or 'X'.
-            </summary>
-            <param name="ch"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.IsCharPlusMinusDigit(System.Char)">
-            <summary>
-            Indicates whether a character is a numeric digit or one of ['+', '-'].
-            </summary>
-            <param name="ch"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.IsCharAlpha(System.Char)">
-            <summary>
-            Indicates whether a character is alphabetic.
-            </summary>
-            <param name="ch"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.IsCharAlphaSpace(System.Char)">
-            <summary>
-            Indicates whether a character is alphabetic or space.
-            </summary>
-            <param name="ch"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.IsCharAlnum(System.Char)">
-            <summary>
-            Indicates whether a character is alphabetic or numeric digit.
-            </summary>
-            <param name="ch"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.IsCharAlnumSpace(System.Char)">
-            <summary>
-            Indicates whether a character is alphabetic, numeric digit or space.
-            </summary>
-            <param name="ch"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.IsCharAlnumPeriodUnderscore(System.Char)">
-            <summary>
-            Indicates whether a character is alphabetic, numeric digit, period or underscore.
-            </summary>
-            <param name="ch"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.IsCharPrint(System.Char)">
-            <summary>
-            Indicates whether a character is printable.
-            </summary>
-            <param name="ch"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.IsCharPound(System.Char)">
-            <summary>
-            Indicates whether a character is '#'.
-            </summary>
-            <param name="ch"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.IsCharQuote(System.Char)">
-            <summary>
-            Indicates whether a character is a quote.
-            </summary>
-            <param name="ch"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.IsCharAny(System.Char)">
-            <summary>
-            Indicates whether a character is any character at all.
-            </summary>
-            <param name="ch"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.IsCharAnyButDquoteCommaColon(System.Char)">
-            <summary>
-            Indicates whether a character is any character but one of ['"', ',', ':'].
-            </summary>
-            <param name="ch"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.IsCharAnyButBackForwardSlash(System.Char)">
-            <summary>
-            Indicates whether a character is any character but one of ['\', '/'].
-            </summary>
-            <param name="ch"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.ModifyCharToUpper(System.Char)">
-            <summary>
-            Given a character, produce its upper case equivalent, if any.
-            </summary>
-            <param name="ch"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.ModifyCharToNullOrX(System.Char)">
-            <summary>
-            Given a character, produce either 'X' or '\0'.
-            </summary>
-            <param name="ch"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.ModifyCharToNull(System.Char)">
-            <summary>
-            Given a character, produce '\0'.
-            </summary>
-            <param name="ch"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.GetDirection(System.String)">
-            <summary></summary>
-            <param name="directionName"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.GetContainerType(Eamon.Framework.Primitive.Enums.ArtifactType)">
-            <summary></summary>
-            <param name="artifactType"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.GetConfig">
-            <summary></summary>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.GetGameState">
-            <summary>
-            Gets the <see cref="T:Eamon.Framework.IGameState">GameState</see> record.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.GetModule">
-            <summary>
-            Gets the <see cref="T:Eamon.Framework.IModule">Module</see> record.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.GetRandomElement``1(``0[],System.Func{System.Int64})">
-            <summary></summary>
-            <param name="array"></param>
-            <param name="indexFunc"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.EvalFriendliness``1(Eamon.Framework.Primitive.Enums.Friendliness,``0,``0,``0)">
-            <summary>
-            Evaluates the <see cref="T:Eamon.Framework.Primitive.Enums.Friendliness"/>, returning a value of type T.
-            </summary>
-            <param name="friendliness"></param>
-            <param name="enemyValue"></param>
-            <param name="neutralValue"></param>
-            <param name="friendValue"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.EvalGender``1(Eamon.Framework.Primitive.Enums.Gender,``0,``0,``0)">
-            <summary>
-            Evaluates the <see cref="T:Eamon.Framework.Primitive.Enums.Gender"/>, returning a value of type T.
-            </summary>
-            <param name="gender"></param>
-            <param name="maleValue"></param>
-            <param name="femaleValue"></param>
-            <param name="neutralValue"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.EvalContainerType``1(Eamon.Framework.Primitive.Enums.ContainerType,``0,``0,``0,``0)">
-            <summary>
-            Evaluates the <see cref="T:Eamon.Framework.Primitive.Enums.ContainerType"/>, returning a value of type T.
-            </summary>
-            <param name="containerType"></param>
-            <param name="inValue"></param>
-            <param name="onValue"></param>
-            <param name="underValue"></param>
-            <param name="behindValue"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.EvalRoomType``1(Eamon.Framework.Primitive.Enums.RoomType,``0,``0)">
-            <summary>
-            Evaluates the <see cref="T:Eamon.Framework.Primitive.Enums.RoomType"/>, returning a value of type T.
-            </summary>
-            <param name="roomType"></param>
-            <param name="indoorsValue"></param>
-            <param name="outdoorsValue"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.EvalLightLevel``1(Eamon.Framework.Primitive.Enums.LightLevel,``0,``0)">
-            <summary>
-            Evaluates the <see cref="T:Eamon.Framework.Primitive.Enums.LightLevel"/>, returning a value of type T.
-            </summary>
-            <param name="lightLevel"></param>
-            <param name="darkValue"></param>
-            <param name="lightValue"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.EvalPlural``1(System.Boolean,``0,``0)">
-            <summary>
-            Evaluates the plural value, returning a value of type T.
-            </summary>
-            <param name="isPlural"></param>
-            <param name="singularValue"></param>
-            <param name="pluralValue"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.BuildPrompt(System.Int64,System.Char,System.Int64,System.String,System.String)">
-            <summary></summary>
-            <param name="bufSize"></param>
-            <param name="fillChar"></param>
-            <param name="number"></param>
-            <param name="msg"></param>
-            <param name="emptyVal"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.BuildValue(System.Int64,System.Char,System.Int64,System.Int64,System.String,System.String)">
-            <summary></summary>
-            <param name="bufSize"></param>
-            <param name="fillChar"></param>
-            <param name="offset"></param>
-            <param name="longVal"></param>
-            <param name="stringVal"></param>
-            <param name="lookupMsg"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.WordWrap(System.String,System.Text.StringBuilder,System.Int64,Eamon.Framework.Args.IWordWrapArgs,System.Boolean)">
-            <summary></summary>
-            <param name="str"></param>
-            <param name="buf"></param>
-            <param name="margin"></param>
-            <param name="args"></param>
-            <param name="clearBuf"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.WordWrap(System.String,System.Text.StringBuilder,System.Boolean)">
-            <summary></summary>
-            <param name="str"></param>
-            <param name="buf"></param>
-            <param name="clearBuf"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.LineWrap(System.String,System.Text.StringBuilder,System.Int64,System.Boolean)">
-            <summary></summary>
-            <param name="str"></param>
-            <param name="buf"></param>
-            <param name="startColumn"></param>
-            <param name="clearBuf"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.GetStringFromNumber(System.Int64,System.Boolean,System.Text.StringBuilder)">
-            <summary></summary>
-            <param name="num"></param>
-            <param name="addSpace"></param>
-            <param name="buf"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.GetNumberFromString(System.String)">
-            <summary></summary>
-            <param name="str"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.GetContainerContentsDesc(Eamon.Framework.IArtifact)">
-            <summary></summary>
-            <param name="artifact"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.RollDice(System.Int64,System.Int64,System.Int64[]@)">
-            <summary>
-            Rolls a number of dice, storing the resulting values in an array.
-            </summary>
-            <param name="numDice"></param>
-            <param name="numSides"></param>
-            <param name="dieRolls"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.RollDice(System.Int64,System.Int64,System.Int64)">
-            <summary>
-            Rolls a number of dice, returning a sum of the results.
-            </summary>
-            <param name="numDice"></param>
-            <param name="numSides"></param>
-            <param name="modifier"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.SumHighestRolls(System.Int64[],System.Int64,System.Int64@)">
-            <summary>
-            Given an array of die rolls, sum the highest of them and return the result.
-            </summary>
-            <param name="dieRolls"></param>
-            <param name="numRollsToSum"></param>
-            <param name="result"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.Capitalize(System.String)">
-            <summary></summary>
-            <param name="str"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.UnlinkOnFailure">
-            <summary>
-            Deletes a set of game-related files from the filesystem.
-            </summary>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.TruncatePluralTypeEffectDesc(Eamon.Framework.Primitive.Enums.PluralType,System.Int64)">
-            <summary></summary>
-            <param name="pluralType"></param>
-            <param name="maxSize"></param>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.TruncatePluralTypeEffectDesc(Eamon.Framework.IEffect)">
-            <summary></summary>
-            <param name="effect"></param>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.SplitPath(System.String,System.String@,System.String@,System.String@,System.Boolean)">
-            <summary></summary>
-            <param name="fullPath"></param>
-            <param name="directory"></param>
-            <param name="fileName"></param>
-            <param name="extension"></param>
-            <param name="appendDirectorySeparatorChar"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.StripPrepsAndArticles(System.Text.StringBuilder,System.Boolean@)">
-            <summary></summary>
-            <param name="buf"></param>
-            <param name="mySeen"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.PrintTitle(System.String,System.Boolean)">
-            <summary></summary>
-            <param name="title"></param>
-            <param name="inBox"></param>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.PrintEffectDesc(Eamon.Framework.IEffect,System.Boolean)">
-            <summary></summary>
-            <param name="effect"></param>
-            <param name="printFinalNewLine"></param>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.PrintEffectDesc(System.Int64,System.Boolean)">
-            <summary></summary>
-            <param name="effectUid"></param>
-            <param name="printFinalNewLine"></param>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.PrintZapDirectHit">
-            <summary>
-            Prints the <see cref="F:Eamon.Framework.Primitive.Enums.Spell.Blast">Blast</see> spell description.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.ValidateRecordsAfterDatabaseLoaded">
-            <summary></summary>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.StatDisplay(Eamon.Framework.Args.IStatDisplayArgs)">
-            <summary></summary>
-            <param name="args"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.GetRecordNameList(System.Collections.Generic.IList{Eamon.Framework.IGameBase},Eamon.Framework.Primitive.Enums.ArticleType,System.Boolean,Eamon.Framework.Primitive.Enums.StateDescDisplayCode,System.Boolean,System.Boolean,System.Text.StringBuilder)">
-            <summary></summary>
-            <param name="recordList"></param>
-            <param name="articleType"></param>
-            <param name="showCharOwned"></param>
-            <param name="stateDescCode"></param>
-            <param name="showContents"></param>
-            <param name="groupCountOne"></param>
-            <param name="buf"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.GetRecordNameCount(System.Collections.Generic.IList{Eamon.Framework.IGameBase},System.String,System.Boolean,System.Int64@)">
-            <summary></summary>
-            <param name="recordList"></param>
-            <param name="name"></param>
-            <param name="exactMatch"></param>
-            <param name="count"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.ListRecords(System.Collections.Generic.IList{Eamon.Framework.IGameBase},System.Boolean,System.Boolean,System.Text.StringBuilder)">
-            <summary></summary>
-            <param name="recordList"></param>
-            <param name="capitalize"></param>
-            <param name="showExtraInfo"></param>
-            <param name="buf"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.ResolveUidMacros(System.String,System.Text.StringBuilder,System.Boolean,System.Boolean,System.Int64@)">
-            <summary></summary>
-            <param name="str"></param>
-            <param name="buf"></param>
-            <param name="resolveFuncs"></param>
-            <param name="recurse"></param>
-            <param name="invalidUid"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.ResolveUidMacros(System.String,System.Text.StringBuilder,System.Boolean,System.Boolean)">
-            <summary></summary>
-            <param name="str"></param>
-            <param name="buf"></param>
-            <param name="resolveFuncs"></param>
-            <param name="recurse"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.GetWeaponPriceOrValue(System.String,System.Int64,Eamon.Framework.Primitive.Enums.Weapon,System.Int64,System.Int64,System.Int64,System.Boolean,System.Boolean@)">
-            <summary></summary>
-            <param name="name"></param>
-            <param name="complexity"></param>
-            <param name="type"></param>
-            <param name="dice"></param>
-            <param name="sides"></param>
-            <param name="numHands"></param>
-            <param name="calcPrice"></param>
-            <param name="isMarcosWeapon"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.GetWeaponPriceOrValue(Eamon.Framework.Primitive.Classes.ICharacterArtifact,System.Boolean,System.Boolean@)">
-            <summary></summary>
-            <param name="weapon"></param>
-            <param name="calcPrice"></param>
-            <param name="isMarcosWeapon"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.GetArmorPriceOrValue(Eamon.Framework.Primitive.Enums.Armor,System.Boolean,System.Boolean@)">
-            <summary></summary>
-            <param name="armor"></param>
-            <param name="calcPrice"></param>
-            <param name="isMarcosArmor"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.AppendFieldDesc(Eamon.Framework.Primitive.Enums.FieldDesc,System.Text.StringBuilder,System.Text.StringBuilder,System.Text.StringBuilder)">
-            <summary></summary>
-            <param name="fieldDesc"></param>
-            <param name="buf"></param>
-            <param name="fullDesc"></param>
-            <param name="briefDesc"></param>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.AppendFieldDesc(Eamon.Framework.Primitive.Enums.FieldDesc,System.Text.StringBuilder,System.String,System.String)">
-            <summary></summary>
-            <param name="fieldDesc"></param>
-            <param name="buf"></param>
-            <param name="fullDesc"></param>
-            <param name="briefDesc"></param>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.CopyCharacterArtifactFields(Eamon.Framework.Primitive.Classes.ICharacterArtifact,Eamon.Framework.Primitive.Classes.ICharacterArtifact)">
-            <summary></summary>
-            <param name="destCa"></param>
-            <param name="sourceCa"></param>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.CopyArtifactCategoryFields(Eamon.Framework.Primitive.Classes.IArtifactCategory,Eamon.Framework.Primitive.Classes.IArtifactCategory)">
-            <summary></summary>
-            <param name="destAc"></param>
-            <param name="sourceAc"></param>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.GetArtifactList(System.Func{Eamon.Framework.IArtifact,System.Boolean}[])">
-            <summary></summary>
-            <param name="whereClauseFuncs"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.GetMonsterList(System.Func{Eamon.Framework.IMonster,System.Boolean}[])">
-            <summary></summary>
-            <param name="whereClauseFuncs"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.GetRecordList(System.Func{Eamon.Framework.IGameBase,System.Boolean}[])">
-            <summary></summary>
-            <param name="whereClauseFuncs"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.GetNthArtifact(System.Collections.Generic.IList{Eamon.Framework.IArtifact},System.Int64,System.Func{Eamon.Framework.IArtifact,System.Boolean})">
-            <summary></summary>
-            <param name="artifactList"></param>
-            <param name="which"></param>
-            <param name="whereClauseFunc"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.GetNthMonster(System.Collections.Generic.IList{Eamon.Framework.IMonster},System.Int64,System.Func{Eamon.Framework.IMonster,System.Boolean})">
-            <summary></summary>
-            <param name="monsterList"></param>
-            <param name="which"></param>
-            <param name="whereClauseFunc"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.GetNthRecord(System.Collections.Generic.IList{Eamon.Framework.IGameBase},System.Int64,System.Func{Eamon.Framework.IGameBase,System.Boolean})">
-            <summary></summary>
-            <param name="recordList"></param>
-            <param name="which"></param>
-            <param name="whereClauseFunc"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.StripUniqueCharsFromRecordNames(System.Collections.Generic.IList{Eamon.Framework.IGameBase})">
-            <summary></summary>
-            <param name="recordList"></param>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.AddUniqueCharsToRecordNames(System.Collections.Generic.IList{Eamon.Framework.IGameBase})">
-            <summary></summary>
-            <param name="recordList"></param>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.ConvertWeaponToGoldOrTreasure(Eamon.Framework.IArtifact,System.Boolean)">
-            <summary></summary>
-            <param name="artifact"></param>
-            <param name="convertToGold"></param>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.ConvertTreasureToContainer(Eamon.Framework.IArtifact,Eamon.Framework.Primitive.Enums.ContainerType)">
-            <summary></summary>
-            <param name="artifact"></param>
-            <param name="containerType"></param>
-        </member>
-        <member name="M:Eamon.Framework.IEngine.ConvertContainerToTreasure(Eamon.Framework.IArtifact,Eamon.Framework.Primitive.Enums.ContainerType)">
-            <summary></summary>
-            <param name="artifact"></param>
-            <param name="containerType"></param>
         </member>
         <member name="T:Eamon.Framework.IFileset">
             <summary></summary>
@@ -3308,12 +2386,12 @@
             <param name="spell"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IGameState.GetImportedArtUids(System.Int64)">
+        <member name="M:Eamon.Framework.IGameState.GetImportedArtUid(System.Int64)">
             <summary></summary>
             <param name="index"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IGameState.GetHeldWpnUids(System.Int64)">
+        <member name="M:Eamon.Framework.IGameState.GetHeldWpnUid(System.Int64)">
             <summary></summary>
             <param name="index"></param>
             <returns></returns>
@@ -3328,12 +2406,12 @@
             <param name="spell"></param>
             <param name="value"></param>
         </member>
-        <member name="M:Eamon.Framework.IGameState.SetImportedArtUids(System.Int64,System.Int64)">
+        <member name="M:Eamon.Framework.IGameState.SetImportedArtUid(System.Int64,System.Int64)">
             <summary></summary>
             <param name="index"></param>
             <param name="value"></param>
         </member>
-        <member name="M:Eamon.Framework.IGameState.SetHeldWpnUids(System.Int64,System.Int64)">
+        <member name="M:Eamon.Framework.IGameState.SetHeldWpnUid(System.Int64,System.Int64)">
             <summary></summary>
             <param name="index"></param>
             <param name="value"></param>
@@ -3363,12 +2441,12 @@
         <member name="P:Eamon.Framework.IHint.Answers">
             <summary></summary>
         </member>
-        <member name="M:Eamon.Framework.IHint.GetAnswers(System.Int64)">
+        <member name="M:Eamon.Framework.IHint.GetAnswer(System.Int64)">
             <summary></summary>
             <param name="index"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IHint.SetAnswers(System.Int64,System.String)">
+        <member name="M:Eamon.Framework.IHint.SetAnswer(System.Int64,System.String)">
             <summary></summary>
             <param name="index"></param>
             <param name="value"></param>
@@ -3966,27 +3044,27 @@
             </summary>
             <remarks>
             The elements of this array can be manipulated during game play, but you should never do so directly.  Instead, use the
-            <see cref="M:Eamon.Framework.IRoom.GetDirs(Eamon.Framework.Primitive.Enums.Direction)"/> and <see cref="M:Eamon.Framework.IRoom.SetDirs(Eamon.Framework.Primitive.Enums.Direction,System.Int64)"/> methods.  The 0'th element is unused.
+            <see cref="M:Eamon.Framework.IRoom.GetDir(Eamon.Framework.Primitive.Enums.Direction)"/> and <see cref="M:Eamon.Framework.IRoom.SetDir(Eamon.Framework.Primitive.Enums.Direction,System.Int64)"/> methods.  The 0'th element is unused.
             </remarks>
-            <seealso cref="M:Eamon.Framework.IRoom.GetDirs(System.Int64)"/>
-            <seealso cref="M:Eamon.Framework.IRoom.SetDirs(System.Int64,System.Int64)"/>
+            <seealso cref="M:Eamon.Framework.IRoom.GetDir(System.Int64)"/>
+            <seealso cref="M:Eamon.Framework.IRoom.SetDir(System.Int64,System.Int64)"/>
         </member>
-        <member name="M:Eamon.Framework.IRoom.GetDirs(System.Int64)">
+        <member name="M:Eamon.Framework.IRoom.GetDir(System.Int64)">
             <summary></summary>
             <param name="index"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IRoom.GetDirs(Eamon.Framework.Primitive.Enums.Direction)">
+        <member name="M:Eamon.Framework.IRoom.GetDir(Eamon.Framework.Primitive.Enums.Direction)">
             <summary></summary>
             <param name="dir"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IRoom.SetDirs(System.Int64,System.Int64)">
+        <member name="M:Eamon.Framework.IRoom.SetDir(System.Int64,System.Int64)">
             <summary></summary>
             <param name="index"></param>
             <param name="value"></param>
         </member>
-        <member name="M:Eamon.Framework.IRoom.SetDirs(Eamon.Framework.Primitive.Enums.Direction,System.Int64)">
+        <member name="M:Eamon.Framework.IRoom.SetDir(Eamon.Framework.Primitive.Enums.Direction,System.Int64)">
             <summary></summary>
             <param name="dir"></param>
             <param name="value"></param>
@@ -4227,22 +3305,271 @@
         <member name="P:Eamon.Framework.Menus.IMenuItem.SubMenu">
             <summary></summary>
         </member>
-        <member name="T:Eamon.Framework.Plugin.IPluginClassMappings">
+        <member name="T:Eamon.Framework.Plugin.IEngine">
             <summary></summary>
         </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginClassMappings.ClassMappingsDictionary">
+        <member name="P:Eamon.Framework.Plugin.IEngine.CommandSepTokens">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.PronounTokens">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.ToughDesc">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.CourageDesc">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.ArtNameLen">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.ArtStateDescLen">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.ArtDescLen">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.CharNameLen">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.CharArtNameLen">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.CharArtDescLen">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.EffDescLen">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.FsNameLen">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.FsFileNameLen">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.HntQuestionLen">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.HntAnswerLen">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.ModNameLen">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.ModDescLen">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.ModAuthorLen">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.ModVolLabelLen">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.ModSerialNumLen">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.MonNameLen">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.MonStateDescLen">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.MonDescLen">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.RmNameLen">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.RmDescLen">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.AxePrice">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.BowPrice">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.MacePrice">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.SpearPrice">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.SwordPrice">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.ShieldPrice">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.LeatherArmorPrice">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.ChainMailPrice">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.PlateMailPrice">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.BlastPrice">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.HealPrice">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.SpeedPrice">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.PowerPrice">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.RecallPrice">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.StatGainPrice">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.WeaponTrainingPrice">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.ArmorTrainingPrice">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.SpellTrainingPrice">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.InfoBoothPrice">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.FountainPrice">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.NumDatabases">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.NumRulesetVersions">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.NumArtifactCategories">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.BufSize">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.BufSize01">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.BufSize02">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.BufSize03">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.ResolveEffectRegexPattern">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.ResolveUidMacroRegexPattern">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.ValidWorkDirRegexPattern">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.CoreLibRegexPattern">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.MscorlibRegexPattern">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.CoreLibName">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.MscorlibName">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.RecIdepErrorFmtStr">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.AndroidAdventuresDir">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.AdventuresDir">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.QuickLaunchDir">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.DefaultWorkDir">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.ProcessMutexName">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.EamonDesktopSlnFile">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.StackTraceFile">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.ProgVersion">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.InfiniteDrinkableEdible">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.DirectionExit">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.LimboLocation">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.MinWeaponComplexity">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.MaxWeaponComplexity">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.MinGoldValue">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.MaxGoldValue">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.MaxPathLen">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.MaxRecursionLevel">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.WindowWidth">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.WindowHeight">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.BufferWidth">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.BufferHeight">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.RightMargin">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.NumRows">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.ClassMappingsDictionary">
             <summary>
             Gets or sets the Dictionary that stores interface to class mappings as Key/Value pairs, used for dependency injection.
             </summary>
             <remarks>
             This is the heart of the customized dependency injection architecture used by Eamon CS.  If you've ever wondered
             how the system seems to "know" which class needs to be instantiated to make any game work, it is all based on the
-            contents of this Dictionary.  When the system calls <see cref="M:Eamon.Framework.Plugin.IPluginClassMappings.CreateInstance``1(System.Action{``0})">CreateInstance</see>,
+            contents of this Dictionary.  When the system calls <see cref="M:Eamon.Framework.Plugin.IEngine.CreateInstance``1(System.Action{``0})">CreateInstance</see>,
             this Dictionary is consulted and the concrete class corresponding to the provided interface is created.  If you use the
             debugger to step through a game while its running, looking in this Dictionary at the Key/Value pairs is very enlightening.
             Another piece to this puzzle is how the Dictionary itself is loaded during program bootstrap, and this information will be
-            provided in the comments for <see cref="M:Eamon.Framework.Plugin.IPluginClassMappings.LoadPluginClassMappings">LoadPluginClassMappings</see> and 
-            <see cref="M:Eamon.Framework.Plugin.IPluginClassMappings.LoadPluginClassMappings01(System.Reflection.Assembly)">LoadPluginClassMappings01</see>.
+            provided in the comments for <see cref="M:Eamon.Framework.Plugin.IEngine.LoadPluginClassMappings">LoadPluginClassMappings</see> and 
+            <see cref="M:Eamon.Framework.Plugin.IEngine.LoadPluginClassMappings01(System.Reflection.Assembly)">LoadPluginClassMappings01</see>.
             <para>
             Side note:  Research was done on dependency injection toolkits (like Ninject, etc.), but that avenue was avoided because it
             would have introduced unnecessary dependencies for the project.  There don't seem to be any frameworks that fit what was
@@ -4250,22 +3577,22 @@
             </para>
             </remarks>
         </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginClassMappings.In">
+        <member name="P:Eamon.Framework.Plugin.IEngine.In">
             <summary>
             Gets or sets the text reader that accepts user input from the console window.
             </summary>
         </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginClassMappings.Out">
+        <member name="P:Eamon.Framework.Plugin.IEngine.Out">
             <summary>
             Gets or sets the text writer that prints text to the console window.
             </summary>
         </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginClassMappings.Error">
+        <member name="P:Eamon.Framework.Plugin.IEngine.Error">
             <summary>
             Gets or sets the text writer that prints error messages to the console window.
             </summary>
         </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginClassMappings.Mutex">
+        <member name="P:Eamon.Framework.Plugin.IEngine.Mutex">
             <summary>
             Gets or sets a mutex (mutual exclusion lock) that ensures only one Eamon CS process runs in a given operating system at a time.
             </summary>
@@ -4275,42 +3602,45 @@
             the same computer.
             </remarks>
         </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginClassMappings.TransferProtocol">
+        <member name="P:Eamon.Framework.Plugin.IEngine.TransferProtocol">
             <summary></summary>
         </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginClassMappings.Directory">
+        <member name="P:Eamon.Framework.Plugin.IEngine.Directory">
             <summary>
             Gets or sets the platform-independent Directory manager that Eamon CS relies on for all directory-related operations.
             </summary>
         </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginClassMappings.File">
+        <member name="P:Eamon.Framework.Plugin.IEngine.File">
             <summary>
             Gets or sets the platform-independent File manager that Eamon CS relies on for all file-related operations.
             </summary>
         </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginClassMappings.Path">
+        <member name="P:Eamon.Framework.Plugin.IEngine.Path">
             <summary>
             Gets or sets the platform-independent file system Path manager that Eamon CS relies on for all file system path-related operations.
             </summary>
         </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginClassMappings.SharpSerializer">
+        <member name="P:Eamon.Framework.Plugin.IEngine.SharpSerializer">
             <summary></summary>
         </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginClassMappings.Thread">
+        <member name="P:Eamon.Framework.Plugin.IEngine.Thread">
             <summary>
             Gets or sets the platform-independent Thread manager that Eamon CS relies on for all thread-related operations.
             </summary>
         </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginClassMappings.CloneStream">
+        <member name="P:Eamon.Framework.Plugin.IEngine.CloneStream">
             <summary></summary>
         </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginClassMappings.WorkDir">
+        <member name="P:Eamon.Framework.Plugin.IEngine.MutatePropertyCounter">
             <summary></summary>
         </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginClassMappings.FilePrefix">
+        <member name="P:Eamon.Framework.Plugin.IEngine.WorkDir">
             <summary></summary>
         </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginClassMappings.RulesetVersion">
+        <member name="P:Eamon.Framework.Plugin.IEngine.FilePrefix">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.RulesetVersion">
             <summary>
             Gets a value indicating which Eamon ruleset applies to the current game.
             </summary>
@@ -4320,7 +3650,7 @@
             enhancements allow a game to change rulesets dynamically at runtime.
             </remarks>
         </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginClassMappings.EnableGameOverrides">
+        <member name="P:Eamon.Framework.Plugin.IEngine.EnableMutateProperties">
             <summary>
             Gets a value indicating whether "mutating properties" (those that are dynamically calculated) should be enabled.
             </summary>
@@ -4328,17 +3658,17 @@
             Examples of mutating properties include <see cref="T:Eamon.Framework.IMonster">Monster</see> <see cref="P:Eamon.Framework.IMonster.Courage"> Courage</see> and
             <see cref="T:Eamon.Framework.IArtifact">Artifact</see> <see cref="P:Eamon.Framework.IArtifact.Location"> Location</see>, but there are more scattered through the various games as
             well.  You will note that both the getter and setter of a property can mutate if necessary.  In general, you want this behavior enabled during
-            gameplay so properties can respond to changes in game state, but never when the <see cref="P:Eamon.Framework.Plugin.IPluginClassMappings.SharpSerializer">SharpSerializer</see> is running
+            gameplay so properties can respond to changes in game state, but never when the <see cref="P:Eamon.Framework.Plugin.IEngine.SharpSerializer">SharpSerializer</see> is running
             during datafile serialization or deserialization because it can lead to corrupted values.  This value should be checked in all mutating
             properties and if it is <c>false</c> they should disable complex calculations and return a simple base value.
             </remarks>
         </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginClassMappings.EnableStdio">
+        <member name="P:Eamon.Framework.Plugin.IEngine.EnableStdio">
             <summary></summary>
         </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginClassMappings.IgnoreMutex">
+        <member name="P:Eamon.Framework.Plugin.IEngine.IgnoreMutex">
             <summary>
-            Gets or sets a value indicating whether the <see cref="P:Eamon.Framework.Plugin.IPluginClassMappings.Mutex">Mutex</see> should be ignored, allowing unlimited Eamon CS processes
+            Gets or sets a value indicating whether the <see cref="P:Eamon.Framework.Plugin.IEngine.Mutex">Mutex</see> should be ignored, allowing unlimited Eamon CS processes
             to run simultaneously.
             </summary>
             <remarks>
@@ -4346,37 +3676,125 @@
             that always access different datafiles.
             </remarks>
         </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginClassMappings.DisableValidation">
+        <member name="P:Eamon.Framework.Plugin.IEngine.DisableValidation">
             <summary></summary>
         </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginClassMappings.RunGameEditor">
+        <member name="P:Eamon.Framework.Plugin.IEngine.RunGameEditor">
             <summary></summary>
         </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginClassMappings.DeleteGameStateFromMainHall">
+        <member name="P:Eamon.Framework.Plugin.IEngine.DeleteGameStateFromMainHall">
             <summary></summary>
         </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginClassMappings.ConvertDatafileToMscorlib">
+        <member name="P:Eamon.Framework.Plugin.IEngine.ConvertDatafileToMscorlib">
             <summary></summary>
         </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginClassMappings.LoadPortabilityClassMappings">
+        <member name="P:Eamon.Framework.Plugin.IEngine.LoadPortabilityClassMappings">
             <summary></summary>
         </member>
-        <member name="M:Eamon.Framework.Plugin.IPluginClassMappings.HandleException(System.Exception,System.String,System.String)">
+        <member name="P:Eamon.Framework.Plugin.IEngine.Buf">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.Database">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.RevealContentRoom">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.RevealContentMonster">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.RevealContentArtifactList">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.RevealContentFuncList">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.RevealContentCounter">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.LineSep">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.LineWrapUserInput">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.CursorPosition">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.CFGDB">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.FSDB">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.CHRDB">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.MODDB">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.RDB">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.ADB">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.EDB">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.MDB">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.HDB">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.GSDB">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.MacroFuncs">
+            <summary>
+            Gets or sets a collection of functions used to resolve macros embedded in <see cref="P:Eamon.Framework.IGameBase.Desc">Desc</see>, 
+            <see cref="T:Eamon.Framework.IArtifact">Artifact</see><see cref="P:Eamon.Framework.IArtifact.StateDesc"> StateDesc</see> and <see cref="T:Eamon.Framework.IMonster">Monster</see>
+            <see cref="P:Eamon.Framework.IMonster.StateDesc"> StateDesc</see> properties.
+            </summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.ArtifactContainedList">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.RevealContainerContentsFunc">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.Preps">
+            <summary>
+            Gets or sets an array of sentence prepositions (e.g., "to", "from", "inside", etc).
+            </summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.Articles">
+            <summary>
+            Gets or sets an array of sentence articles (e.g., "a", "some", "the", etc).
+            </summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.UnknownName">
+            <summary>
+            Gets or sets a generic string representing an unknown name (e.g., "???").
+            </summary>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.HandleException(System.Exception,System.String,System.String)">
             <summary></summary>
             <param name="ex"></param>
             <param name="stackTraceFile"></param>
             <param name="errorMessage"></param>
         </member>
-        <member name="M:Eamon.Framework.Plugin.IPluginClassMappings.ResolvePortabilityClassMappings">
+        <member name="M:Eamon.Framework.Plugin.IEngine.ResolvePortabilityClassMappings">
             <summary></summary>
         </member>
-        <member name="M:Eamon.Framework.Plugin.IPluginClassMappings.ProcessArgv(System.String[])">
+        <member name="M:Eamon.Framework.Plugin.IEngine.ProcessArgv(System.String[])">
             <summary></summary>
             <param name="args"></param>
         </member>
-        <member name="M:Eamon.Framework.Plugin.IPluginClassMappings.LoadPluginClassMappings">
+        <member name="M:Eamon.Framework.Plugin.IEngine.LoadPluginClassMappings">
             <summary>
-            Loads the <see cref="P:Eamon.Framework.Plugin.IPluginClassMappings.ClassMappingsDictionary">ClassMappingsDictionary</see> with all interface to class mapping Key/Value
+            Loads the <see cref="P:Eamon.Framework.Plugin.IEngine.ClassMappingsDictionary">ClassMappingsDictionary</see> with all interface to class mapping Key/Value
             pairs necessary to allow the currently loaded Eamon CS plugin to run.
             </summary>
             <remarks>
@@ -4385,21 +3803,21 @@
             Secret Vigil.  Please inspect the following files in the order listed (they are also executed in this order by Eamon CS -
             a simplified call stack):
             <list type="bullet">
-            <item>Adventures\WrenholdsSecretVigil\Game\Plugin\PluginClassMappings.cs</item>
-            <item>System\EamonRT\Game\Plugin\PluginClassMappings.cs</item>
-            <item>System\EamonDD\Game\Plugin\PluginClassMappings.cs</item>
-            <item>System\Eamon\Game\Plugin\PluginClassMappings.cs</item>
+            <item>Adventures\WrenholdsSecretVigil\Game\Plugin\Engine.cs</item>
+            <item>System\EamonRT\Game\Plugin\Engine.cs</item>
+            <item>System\EamonDD\Game\Plugin\Engine.cs</item>
+            <item>System\Eamon\Game\Plugin\Engine.cs</item>
             </list>
             All of these files contain LoadPluginClassMappings.  In the top three files, it is an override that calls into the level
             below by invoking base.LoadPluginClassMappings.  So it immediately drills down to the bottom of the stack (to the Eamon
             library).
             <para>
             Then things get interesting.  The lowest level calls
-            <see cref="M:Eamon.Framework.Plugin.IPluginClassMappings.LoadPluginClassMappings01(System.Reflection.Assembly)">LoadPluginClassMappings01</see> which probes the current Assembly (the
+            <see cref="M:Eamon.Framework.Plugin.IEngine.LoadPluginClassMappings01(System.Reflection.Assembly)">LoadPluginClassMappings01</see> which probes the current Assembly (the
             Eamon library) using Reflection, looking for classes adorned with the
             <see cref="T:Eamon.Game.Attributes.ClassMappingsAttribute">ClassMappings</see> attribute.  It then adds Key/Value pairs for all
             found classes (along with their matching interfaces) to the 
-            <see cref="P:Eamon.Framework.Plugin.IPluginClassMappings.ClassMappingsDictionary">ClassMappingsDictionary</see>.  At this point, the call stack unwinds to the next
+            <see cref="P:Eamon.Framework.Plugin.IEngine.ClassMappingsDictionary">ClassMappingsDictionary</see>.  At this point, the call stack unwinds to the next
             higher level (EamonDD), and the overridden LoadPluginClassMappings method makes the same call to
             LoadPluginClassMappings01 which performs the same function, only this time it probes EamonDD for classes.  This process
             repeats until the stack is fully unwound and the original call to LoadPluginClassMappings (in Program.cs) returns.
@@ -4410,21 +3828,21 @@
             that interface's Key/Value pair.  In other words, classes in higher layers override classes in lower layers when they map
             to the same interface.  This is how, for example, in Wrenhold's Secret Vigil, you wind up with
             EamonRT.Framework.Components.ICombatComponent mapping to WrenholdsSecretVigil.Game.Components.CombatComponent.  And why a
-            call made to <see cref="M:Eamon.Framework.Plugin.IPluginClassMappings.CreateInstance``1(System.Action{``0})">CreateInstance</see> returns the game-specific CombatComponent object.
+            call made to <see cref="M:Eamon.Framework.Plugin.IEngine.CreateInstance``1(System.Action{``0})">CreateInstance</see> returns the game-specific CombatComponent object.
             </para>
             </remarks>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.Plugin.IPluginClassMappings.LoadPluginClassMappings01(System.Reflection.Assembly)">
+        <member name="M:Eamon.Framework.Plugin.IEngine.LoadPluginClassMappings01(System.Reflection.Assembly)">
             <summary>
             Probes the currently executing library/plugin (Assembly) for all classes adorned with the
             <see cref="T:Eamon.Game.Attributes.ClassMappingsAttribute">ClassMappings</see> attribute, pairs each class with its corresponding
-            interface, and updates the <see cref="P:Eamon.Framework.Plugin.IPluginClassMappings.ClassMappingsDictionary">ClassMappingsDictionary</see> accordingly.
+            interface, and updates the <see cref="P:Eamon.Framework.Plugin.IEngine.ClassMappingsDictionary">ClassMappingsDictionary</see> accordingly.
             </summary>
             <remarks>
             This is the third and final piece of the Eamon CS dependency injection puzzle.  If you haven't done so, please review the
-            remarks on <see cref="P:Eamon.Framework.Plugin.IPluginClassMappings.ClassMappingsDictionary">ClassMappingsDictionary</see> and
-            <see cref="M:Eamon.Framework.Plugin.IPluginClassMappings.LoadPluginClassMappings">LoadPluginClassMappings</see> for necessary background information before reading these
+            remarks on <see cref="P:Eamon.Framework.Plugin.IEngine.ClassMappingsDictionary">ClassMappingsDictionary</see> and
+            <see cref="M:Eamon.Framework.Plugin.IEngine.LoadPluginClassMappings">LoadPluginClassMappings</see> for necessary background information before reading these
             comments.  This method is responsible for probing the passed in library/plugin (in C# terms, an Assembly) for classes
             adorned with the <see cref="T:Eamon.Game.Attributes.ClassMappingsAttribute">ClassMappings</see> attribute.  Then it iterates over
             each found class and obtains all ClassMappings attribute information for that class.  (While in theory, each class can
@@ -4432,7 +3850,7 @@
             be the Value part of a Key/Value pair, but we still don't know what interface to associate it with (the Key part).  This
             is decided based on which ClassMappings constructor is called.  If
             <see cref="M:Eamon.Game.Attributes.ClassMappingsAttribute.#ctor(System.Type)">this constructor</see> is used (e.g.,
-            [ClassMappings(typeof(Eamon.Framework.IEngine))]) then the passed in interface is used as the Key.  Otherwise, for
+            [ClassMappings(typeof(Eamon.Framework.IGameState))]) then the passed in interface is used as the Key.  Otherwise, for
             <see cref="M:Eamon.Game.Attributes.ClassMappingsAttribute.#ctor(System.Type)">this constructor</see> (e.g., [ClassMappings]),
             the name of the interface used as the Key will be synthesized by prepending "I" to the class name.  So, for example,
             CombatComponent pairs with ICombatComponent.  In this scenario, the class must always implement or inherit the interface;
@@ -4446,568 +3864,1023 @@
             <param name="plugin"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.Plugin.IPluginClassMappings.PushRulesetVersion(System.Int64)">
+        <member name="M:Eamon.Framework.Plugin.IEngine.PushRulesetVersion(System.Int64)">
             <summary></summary>
             <param name="rulesetVersion"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.Plugin.IPluginClassMappings.PopRulesetVersion">
+        <member name="M:Eamon.Framework.Plugin.IEngine.PopRulesetVersion">
             <summary></summary>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.Plugin.IPluginClassMappings.ClearRvStack">
+        <member name="M:Eamon.Framework.Plugin.IEngine.ClearRvStack">
             <summary></summary>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.Plugin.IPluginClassMappings.GetRvStackTop(System.Int64@)">
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetRvStackTop(System.Int64@)">
             <summary></summary>
             <param name="rvStackTop"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.Plugin.IPluginClassMappings.GetRvStackSize(System.Int64@)">
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetRvStackSize(System.Int64@)">
             <summary></summary>
             <param name="rvStackSize"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.Plugin.IPluginClassMappings.CreateInstance``1(System.Type,System.Action{``0})">
+        <member name="M:Eamon.Framework.Plugin.IEngine.CreateInstance``1(System.Type,System.Action{``0})">
             <summary></summary>
             <param name="ifaceType"></param>
             <param name="initialize"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.Plugin.IPluginClassMappings.CreateInstance``1(System.Action{``0})">
+        <member name="M:Eamon.Framework.Plugin.IEngine.CreateInstance``1(System.Action{``0})">
             <summary></summary>
             <param name="initialize"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.Plugin.IPluginClassMappings.CloneInstance``1(``0)">
+        <member name="M:Eamon.Framework.Plugin.IEngine.CloneInstance``1(``0)">
             <summary></summary>
             <param name="source"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.Plugin.IPluginClassMappings.CompareInstances``1(``0,``0)">
+        <member name="M:Eamon.Framework.Plugin.IEngine.CompareInstances``1(``0,``0)">
             <summary></summary>
             <param name="object1"></param>
             <param name="object2"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.Plugin.IPluginClassMappings.IsRulesetVersion(System.Int64[])">
+        <member name="M:Eamon.Framework.Plugin.IEngine.IsRulesetVersion(System.Int64[])">
             <summary></summary>
             <param name="versions"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.Plugin.IPluginClassMappings.GetPrefixedFileName(System.String)">
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetPrefixedFileName(System.String)">
             <summary></summary>
             <param name="fileName"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.Plugin.IPluginClassMappings.ConvertDatafileFromXmlToDat(System.String)">
+        <member name="M:Eamon.Framework.Plugin.IEngine.ConvertDatafileFromXmlToDat(System.String)">
             <summary></summary>
             <param name="fileName"></param>
         </member>
-        <member name="T:Eamon.Framework.Plugin.IPluginConstants">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.CommandSepTokens">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.PronounTokens">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.ToughDesc">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.CourageDesc">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.ArtNameLen">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.ArtStateDescLen">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.ArtDescLen">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.CharNameLen">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.CharArtNameLen">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.CharArtDescLen">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.EffDescLen">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.FsNameLen">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.FsFileNameLen">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.HntQuestionLen">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.HntAnswerLen">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.ModNameLen">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.ModDescLen">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.ModAuthorLen">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.ModVolLabelLen">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.ModSerialNumLen">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.MonNameLen">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.MonStateDescLen">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.MonDescLen">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.RmNameLen">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.RmDescLen">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.AxePrice">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.BowPrice">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.MacePrice">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.SpearPrice">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.SwordPrice">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.ShieldPrice">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.LeatherArmorPrice">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.ChainMailPrice">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.PlateMailPrice">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.BlastPrice">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.HealPrice">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.SpeedPrice">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.PowerPrice">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.RecallPrice">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.StatGainPrice">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.WeaponTrainingPrice">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.ArmorTrainingPrice">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.SpellTrainingPrice">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.InfoBoothPrice">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.FountainPrice">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.NumDatabases">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.NumRulesetVersions">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.NumArtifactCategories">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.BufSize">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.BufSize01">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.BufSize02">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.BufSize03">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.ResolveEffectRegexPattern">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.ResolveUidMacroRegexPattern">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.ValidWorkDirRegexPattern">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.CoreLibRegexPattern">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.MscorlibRegexPattern">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.CoreLibName">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.MscorlibName">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.RecIdepErrorFmtStr">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.AndroidAdventuresDir">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.AdventuresDir">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.QuickLaunchDir">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.DefaultWorkDir">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.ProcessMutexName">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.EamonDesktopSlnFile">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.StackTraceFile">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.ProgVersion">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.InfiniteDrinkableEdible">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.DirectionExit">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.LimboLocation">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.MinWeaponComplexity">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.MaxWeaponComplexity">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.MinGoldValue">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.MaxGoldValue">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.MaxPathLen">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.MaxRecursionLevel">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.WindowWidth">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.WindowHeight">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.BufferWidth">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.BufferHeight">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.RightMargin">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginConstants.NumRows">
-            <summary></summary>
-        </member>
-        <member name="T:Eamon.Framework.Plugin.IPluginGlobals">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginGlobals.Buf">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginGlobals.Database">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginGlobals.ClassMappingsDictionary">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginGlobals.In">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginGlobals.Out">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginGlobals.Error">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginGlobals.Mutex">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginGlobals.TransferProtocol">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginGlobals.Directory">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginGlobals.File">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginGlobals.Path">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginGlobals.SharpSerializer">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginGlobals.Thread">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginGlobals.CloneStream">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginGlobals.Engine">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginGlobals.RevealContentRoom">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginGlobals.RevealContentMonster">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginGlobals.RevealContentArtifactList">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginGlobals.RevealContentFuncList">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginGlobals.RevealContentCounter">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginGlobals.WorkDir">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginGlobals.FilePrefix">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginGlobals.LineSep">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginGlobals.RulesetVersion">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginGlobals.EnableGameOverrides">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginGlobals.LineWrapUserInput">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginGlobals.RunGameEditor">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginGlobals.DeleteGameStateFromMainHall">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginGlobals.ConvertDatafileToMscorlib">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginGlobals.CursorPosition">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginGlobals.CFGDB">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginGlobals.FSDB">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginGlobals.CHRDB">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginGlobals.MODDB">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginGlobals.RDB">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginGlobals.ADB">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginGlobals.EDB">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginGlobals.MDB">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginGlobals.HDB">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IPluginGlobals.GSDB">
-            <summary></summary>
-        </member>
-        <member name="M:Eamon.Framework.Plugin.IPluginGlobals.HandleException(System.Exception,System.String,System.String)">
-            <summary></summary>
-            <param name="ex"></param>
-            <param name="stackTraceFile"></param>
-            <param name="errorMessage"></param>
-        </member>
-        <member name="M:Eamon.Framework.Plugin.IPluginGlobals.PushDatabase">
+        <member name="M:Eamon.Framework.Plugin.IEngine.PushDatabase">
             <summary></summary>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.Plugin.IPluginGlobals.PushDatabase(Eamon.Framework.DataStorage.IDatabase)">
+        <member name="M:Eamon.Framework.Plugin.IEngine.PushDatabase(Eamon.Framework.DataStorage.IDatabase)">
             <summary></summary>
             <param name="database"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.Plugin.IPluginGlobals.PopDatabase(System.Boolean)">
+        <member name="M:Eamon.Framework.Plugin.IEngine.PopDatabase(System.Boolean)">
             <summary></summary>
             <param name="freeDatabase"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.Plugin.IPluginGlobals.GetDatabase(System.Int64,Eamon.Framework.DataStorage.IDatabase@)">
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetDatabase(System.Int64,Eamon.Framework.DataStorage.IDatabase@)">
             <summary></summary>
             <param name="index"></param>
             <param name="database"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.Plugin.IPluginGlobals.SaveDatabase(System.String)">
+        <member name="M:Eamon.Framework.Plugin.IEngine.SaveDatabase(System.String)">
             <summary></summary>
             <param name="fileName"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.Plugin.IPluginGlobals.RestoreDatabase(System.String)">
+        <member name="M:Eamon.Framework.Plugin.IEngine.RestoreDatabase(System.String)">
             <summary></summary>
             <param name="fileName"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.Plugin.IPluginGlobals.ClearDbStack">
+        <member name="M:Eamon.Framework.Plugin.IEngine.ClearDbStack">
             <summary></summary>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.Plugin.IPluginGlobals.GetDbStackTop(System.Int64@)">
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetDbStackTop(System.Int64@)">
             <summary></summary>
             <param name="dbStackTop"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.Plugin.IPluginGlobals.GetDbStackSize(System.Int64@)">
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetDbStackSize(System.Int64@)">
             <summary></summary>
             <param name="dbStackSize"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.Plugin.IPluginGlobals.InitSystem">
+        <member name="M:Eamon.Framework.Plugin.IEngine.InitSystem">
             <summary></summary>
         </member>
-        <member name="M:Eamon.Framework.Plugin.IPluginGlobals.DeinitSystem">
+        <member name="M:Eamon.Framework.Plugin.IEngine.DeinitSystem">
             <summary></summary>
         </member>
-        <member name="M:Eamon.Framework.Plugin.IPluginGlobals.PushRulesetVersion(System.Int64)">
+        <member name="M:Eamon.Framework.Plugin.IEngine.ResetProperties(Eamon.Framework.Primitive.Enums.PropertyResetCode)">
             <summary></summary>
-            <param name="rulesetVersion"></param>
-            <returns></returns>
+            <param name="resetCode"></param>
         </member>
-        <member name="M:Eamon.Framework.Plugin.IPluginGlobals.PopRulesetVersion">
-            <summary></summary>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.Plugin.IPluginGlobals.ClearRvStack">
-            <summary></summary>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.Plugin.IPluginGlobals.GetRvStackTop(System.Int64@)">
-            <summary></summary>
-            <param name="rvStackTop"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.Plugin.IPluginGlobals.GetRvStackSize(System.Int64@)">
-            <summary></summary>
-            <param name="rvStackSize"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.Plugin.IPluginGlobals.CreateInstance``1(System.Type,System.Action{``0})">
-            <summary></summary>
-            <param name="ifaceType"></param>
-            <param name="initialize"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.Plugin.IPluginGlobals.CreateInstance``1(System.Action{``0})">
-            <summary></summary>
-            <param name="initialize"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.Plugin.IPluginGlobals.CloneInstance``1(``0)">
-            <summary></summary>
-            <param name="source"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.Plugin.IPluginGlobals.CompareInstances``1(``0,``0)">
-            <summary></summary>
-            <param name="object1"></param>
-            <param name="object2"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.Plugin.IPluginGlobals.IsRulesetVersion(System.Int64[])">
-            <summary></summary>
-            <param name="versions"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.Plugin.IPluginGlobals.GetPrefixedFileName(System.String)">
-            <summary></summary>
-            <param name="fileName"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.Plugin.IPluginGlobals.ReplaceDatafileValues(System.String,System.String[],System.String[])">
+        <member name="M:Eamon.Framework.Plugin.IEngine.ReplaceDatafileValues(System.String,System.String[],System.String[])">
             <summary></summary>
             <param name="fileName"></param>
             <param name="patterns"></param>
             <param name="replacements"></param>
         </member>
-        <member name="M:Eamon.Framework.Plugin.IPluginGlobals.ReplaceDatafileValues01(System.String)">
+        <member name="M:Eamon.Framework.Plugin.IEngine.ReplaceDatafileValues01(System.String)">
             <summary></summary>
             <param name="fileName"></param>
         </member>
-        <member name="M:Eamon.Framework.Plugin.IPluginGlobals.UpgradeDatafile(System.String)">
+        <member name="M:Eamon.Framework.Plugin.IEngine.UpgradeDatafile(System.String)">
             <summary></summary>
             <param name="fileName"></param>
         </member>
-        <member name="M:Eamon.Framework.Plugin.IPluginGlobals.ResetRevealContentProperties(System.Boolean)">
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetPrep(System.Int64)">
+            <summary>
+            Gets the sentence preposition (e.g., "to", "from", "inside", etc).
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetArticle(System.Int64)">
+            <summary>
+            Gets the sentence article (e.g., "a", "some", "the", etc).
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetNumberString(System.Int64)">
             <summary></summary>
-            <param name="resetObjects"></param>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetFieldDescName(System.Int64)">
+            <summary></summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetFieldDescName(Eamon.Framework.Primitive.Enums.FieldDesc)">
+            <summary></summary>
+            <param name="fieldDesc"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetStatusName(System.Int64)">
+            <summary>
+            Gets the name for a given <see cref="T:Eamon.Framework.Primitive.Enums.Status"/>.
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetStatusName(Eamon.Framework.Primitive.Enums.Status)">
+            <summary>
+            Gets the name for a given <see cref="T:Eamon.Framework.Primitive.Enums.Status"/>.
+            </summary>
+            <param name="status"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetClothingName(System.Int64)">
+            <summary>
+            Gets the name for a given <see cref="T:Eamon.Framework.Primitive.Enums.Clothing"/>.
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetClothingName(Eamon.Framework.Primitive.Enums.Clothing)">
+            <summary>
+            Gets the name for a given <see cref="T:Eamon.Framework.Primitive.Enums.Clothing"/>.
+            </summary>
+            <param name="clothing"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetCombatCodeDesc(System.Int64)">
+            <summary>
+            Gets the description for a given <see cref="T:Eamon.Framework.Primitive.Enums.CombatCode"/>.
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetCombatCodeDesc(Eamon.Framework.Primitive.Enums.CombatCode)">
+            <summary>
+            Gets the description for a given <see cref="T:Eamon.Framework.Primitive.Enums.CombatCode"/>.
+            </summary>
+            <param name="combatCode"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetContainerDisplayCodeDesc(System.Int64)">
+            <summary></summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetContainerDisplayCodeDesc(Eamon.Framework.Primitive.Enums.ContainerDisplayCode)">
+            <summary></summary>
+            <param name="containerDisplayCode"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetLightLevelName(System.Int64)">
+            <summary>
+            Gets the name for a given <see cref="T:Eamon.Framework.Primitive.Enums.LightLevel"/>.
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetLightLevelName(Eamon.Framework.Primitive.Enums.LightLevel)">
+            <summary>
+            Gets the name for a given <see cref="T:Eamon.Framework.Primitive.Enums.LightLevel"/>.
+            </summary>
+            <param name="lightLevel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetStat(System.Int64)">
+            <summary>
+            Gets the data for a given <see cref="T:Eamon.Framework.Primitive.Enums.Stat"/>.
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetStat(Eamon.Framework.Primitive.Enums.Stat)">
+            <summary>
+            Gets the data for a given <see cref="T:Eamon.Framework.Primitive.Enums.Stat"/>.
+            </summary>
+            <param name="stat"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetSpell(System.Int64)">
+            <summary>
+            Gets the data for a given <see cref="T:Eamon.Framework.Primitive.Enums.Spell"/>.
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetSpell(Eamon.Framework.Primitive.Enums.Spell)">
+            <summary>
+            Gets the data for a given <see cref="T:Eamon.Framework.Primitive.Enums.Spell"/>.
+            </summary>
+            <param name="spell"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetWeapon(System.Int64)">
+            <summary>
+            Gets the data for a given <see cref="T:Eamon.Framework.Primitive.Enums.Weapon"/>.
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetWeapon(Eamon.Framework.Primitive.Enums.Weapon)">
+            <summary>
+            Gets the data for a given <see cref="T:Eamon.Framework.Primitive.Enums.Weapon"/>.
+            </summary>
+            <param name="weapon"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetArmor(System.Int64)">
+            <summary>
+            Gets the data for a given <see cref="T:Eamon.Framework.Primitive.Enums.Armor"/>.
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetArmor(Eamon.Framework.Primitive.Enums.Armor)">
+            <summary>
+            Gets the data for a given <see cref="T:Eamon.Framework.Primitive.Enums.Armor"/>.
+            </summary>
+            <param name="armor"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetDirection(System.Int64)">
+            <summary>
+            Gets the data for a given <see cref="T:Eamon.Framework.Primitive.Enums.Direction"/>.
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetDirection(Eamon.Framework.Primitive.Enums.Direction)">
+            <summary>
+            Gets the data for a given <see cref="T:Eamon.Framework.Primitive.Enums.Direction"/>.
+            </summary>
+            <param name="direction"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetArtifactType(System.Int64)">
+            <summary>
+            Gets the data for a given <see cref="T:Eamon.Framework.Primitive.Enums.ArtifactType"/>.
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetArtifactType(Eamon.Framework.Primitive.Enums.ArtifactType)">
+            <summary>
+            Gets the data for a given <see cref="T:Eamon.Framework.Primitive.Enums.ArtifactType"/>.
+            </summary>
+            <param name="artifactType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.IsSuccess(Eamon.RetCode)">
+            <summary>
+            Indicates whether an operation succeeded.
+            </summary>
+            <param name="rc"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.IsFailure(Eamon.RetCode)">
+            <summary>
+            Indicates whether an operation failed.
+            </summary>
+            <param name="rc"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.IsValidPluralType(Eamon.Framework.Primitive.Enums.PluralType)">
+            <summary>
+            Indicates whether a plural type is valid.
+            </summary>
+            <param name="pluralType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.IsValidArtifactType(Eamon.Framework.Primitive.Enums.ArtifactType)">
+            <summary>
+            Indicates whether an artifact type is valid.
+            </summary>
+            <param name="artifactType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.IsValidArtifactArmor(System.Int64)">
+            <summary>
+            Indicates whether an armor value is valid for an wearable <see cref="T:Eamon.Framework.IArtifact">Artifact</see>.
+            </summary>
+            <param name="armor"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.IsValidMonsterArmor(System.Int64)">
+            <summary>
+            Indicates whether an armor value is valid for a <see cref="T:Eamon.Framework.IMonster">Monster</see>.
+            </summary>
+            <param name="armor"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.IsValidMonsterCourage(System.Int64)">
+            <summary>
+            Indicates whether a courage value is valid for a <see cref="T:Eamon.Framework.IMonster">Monster</see>.
+            </summary>
+            <param name="courage"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.IsValidMonsterFriendliness(Eamon.Framework.Primitive.Enums.Friendliness)">
+            <summary></summary>
+            <param name="friendliness"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.IsValidMonsterFriendlinessPct(Eamon.Framework.Primitive.Enums.Friendliness)">
+            <summary></summary>
+            <param name="friendliness"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.IsValidDirection(Eamon.Framework.Primitive.Enums.Direction)">
+            <summary></summary>
+            <param name="dir"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.IsValidRoomUid01(System.Int64)">
+            <summary></summary>
+            <param name="roomUid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.IsValidRoomDirectionDoorUid01(System.Int64)">
+            <summary></summary>
+            <param name="roomUid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.IsArtifactFieldStrength(System.Int64)">
+            <summary></summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.IsUnmovable(System.Int64)">
+            <summary></summary>
+            <param name="weight"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.IsUnmovable01(System.Int64)">
+            <summary></summary>
+            <param name="weight"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetWeightCarryableGronds(System.Int64)">
+            <summary></summary>
+            <param name="hardiness"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetWeightCarryableDos(System.Int64)">
+            <summary></summary>
+            <param name="hardiness"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetIntellectBonusPct(System.Int64)">
+            <summary></summary>
+            <param name="intellect"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetCharmMonsterPct(System.Int64)">
+            <summary></summary>
+            <param name="charisma"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetPluralTypeEffectUid(Eamon.Framework.Primitive.Enums.PluralType)">
+            <summary></summary>
+            <param name="pluralType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetArmorFactor(System.Int64,System.Int64)">
+            <summary></summary>
+            <param name="armorUid"></param>
+            <param name="shieldUid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetCharismaFactor(System.Int64)">
+            <summary></summary>
+            <param name="charisma"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetMonsterFriendlinessPct(Eamon.Framework.Primitive.Enums.Friendliness)">
+            <summary></summary>
+            <param name="friendliness"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetArtifactFieldStrength(System.Int64)">
+            <summary></summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetMerchantAskPrice(System.Double,System.Double)">
+            <summary></summary>
+            <param name="price"></param>
+            <param name="rtio"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetMerchantBidPrice(System.Double,System.Double)">
+            <summary></summary>
+            <param name="price"></param>
+            <param name="rtio"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetMerchantAdjustedCharisma(System.Int64)">
+            <summary></summary>
+            <param name="charisma"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetMerchantRtio(System.Int64)">
+            <summary></summary>
+            <param name="charisma"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.IsCharYOrN(System.Char)">
+            <summary>
+            Indicates whether a character is one of ['Y', 'N'].
+            </summary>
+            <param name="ch"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.IsCharSOrTOrROrX(System.Char)">
+            <summary>
+            Indicates whether a character is one of ['S', 'T', 'R', 'X'].
+            </summary>
+            <param name="ch"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.IsChar0Or1(System.Char)">
+            <summary>
+            Indicates whether a character is one of ['0', '1'].
+            </summary>
+            <param name="ch"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.IsChar0To2(System.Char)">
+            <summary>
+            Indicates whether a character is one of ['0', '1', '2'].
+            </summary>
+            <param name="ch"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.IsChar0To3(System.Char)">
+            <summary>
+            Indicates whether a character is one of ['0', '1', '2', '3'].
+            </summary>
+            <param name="ch"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.IsChar1To3(System.Char)">
+            <summary>
+            Indicates whether a character is one of ['1', '2', '3'].
+            </summary>
+            <param name="ch"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.IsCharDigit(System.Char)">
+            <summary>
+            Indicates whether a character is a numeric digit.
+            </summary>
+            <param name="ch"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.IsCharDigitOrX(System.Char)">
+            <summary>
+            Indicates whether a character is a numeric digit or 'X'.
+            </summary>
+            <param name="ch"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.IsCharPlusMinusDigit(System.Char)">
+            <summary>
+            Indicates whether a character is a numeric digit or one of ['+', '-'].
+            </summary>
+            <param name="ch"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.IsCharAlpha(System.Char)">
+            <summary>
+            Indicates whether a character is alphabetic.
+            </summary>
+            <param name="ch"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.IsCharAlphaSpace(System.Char)">
+            <summary>
+            Indicates whether a character is alphabetic or space.
+            </summary>
+            <param name="ch"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.IsCharAlnum(System.Char)">
+            <summary>
+            Indicates whether a character is alphabetic or numeric digit.
+            </summary>
+            <param name="ch"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.IsCharAlnumSpace(System.Char)">
+            <summary>
+            Indicates whether a character is alphabetic, numeric digit or space.
+            </summary>
+            <param name="ch"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.IsCharAlnumPeriodUnderscore(System.Char)">
+            <summary>
+            Indicates whether a character is alphabetic, numeric digit, period or underscore.
+            </summary>
+            <param name="ch"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.IsCharPrint(System.Char)">
+            <summary>
+            Indicates whether a character is printable.
+            </summary>
+            <param name="ch"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.IsCharPound(System.Char)">
+            <summary>
+            Indicates whether a character is '#'.
+            </summary>
+            <param name="ch"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.IsCharQuote(System.Char)">
+            <summary>
+            Indicates whether a character is a quote.
+            </summary>
+            <param name="ch"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.IsCharAny(System.Char)">
+            <summary>
+            Indicates whether a character is any character at all.
+            </summary>
+            <param name="ch"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.IsCharAnyButDquoteCommaColon(System.Char)">
+            <summary>
+            Indicates whether a character is any character but one of ['"', ',', ':'].
+            </summary>
+            <param name="ch"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.IsCharAnyButBackForwardSlash(System.Char)">
+            <summary>
+            Indicates whether a character is any character but one of ['\', '/'].
+            </summary>
+            <param name="ch"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.ModifyCharToUpper(System.Char)">
+            <summary>
+            Given a character, produce its upper case equivalent, if any.
+            </summary>
+            <param name="ch"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.ModifyCharToNullOrX(System.Char)">
+            <summary>
+            Given a character, produce either 'X' or '\0'.
+            </summary>
+            <param name="ch"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.ModifyCharToNull(System.Char)">
+            <summary>
+            Given a character, produce '\0'.
+            </summary>
+            <param name="ch"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetDirection(System.String)">
+            <summary></summary>
+            <param name="directionName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetContainerType(Eamon.Framework.Primitive.Enums.ArtifactType)">
+            <summary></summary>
+            <param name="artifactType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetConfig">
+            <summary></summary>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetGameState">
+            <summary>
+            Gets the <see cref="T:Eamon.Framework.IGameState">GameState</see> record.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetModule">
+            <summary>
+            Gets the <see cref="T:Eamon.Framework.IModule">Module</see> record.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetRandomElement``1(``0[],System.Func{System.Int64})">
+            <summary></summary>
+            <param name="array"></param>
+            <param name="indexFunc"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.EvalFriendliness``1(Eamon.Framework.Primitive.Enums.Friendliness,``0,``0,``0)">
+            <summary>
+            Evaluates the <see cref="T:Eamon.Framework.Primitive.Enums.Friendliness"/>, returning a value of type T.
+            </summary>
+            <param name="friendliness"></param>
+            <param name="enemyValue"></param>
+            <param name="neutralValue"></param>
+            <param name="friendValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.EvalGender``1(Eamon.Framework.Primitive.Enums.Gender,``0,``0,``0)">
+            <summary>
+            Evaluates the <see cref="T:Eamon.Framework.Primitive.Enums.Gender"/>, returning a value of type T.
+            </summary>
+            <param name="gender"></param>
+            <param name="maleValue"></param>
+            <param name="femaleValue"></param>
+            <param name="neutralValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.EvalContainerType``1(Eamon.Framework.Primitive.Enums.ContainerType,``0,``0,``0,``0)">
+            <summary>
+            Evaluates the <see cref="T:Eamon.Framework.Primitive.Enums.ContainerType"/>, returning a value of type T.
+            </summary>
+            <param name="containerType"></param>
+            <param name="inValue"></param>
+            <param name="onValue"></param>
+            <param name="underValue"></param>
+            <param name="behindValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.EvalRoomType``1(Eamon.Framework.Primitive.Enums.RoomType,``0,``0)">
+            <summary>
+            Evaluates the <see cref="T:Eamon.Framework.Primitive.Enums.RoomType"/>, returning a value of type T.
+            </summary>
+            <param name="roomType"></param>
+            <param name="indoorsValue"></param>
+            <param name="outdoorsValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.EvalLightLevel``1(Eamon.Framework.Primitive.Enums.LightLevel,``0,``0)">
+            <summary>
+            Evaluates the <see cref="T:Eamon.Framework.Primitive.Enums.LightLevel"/>, returning a value of type T.
+            </summary>
+            <param name="lightLevel"></param>
+            <param name="darkValue"></param>
+            <param name="lightValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.EvalPlural``1(System.Boolean,``0,``0)">
+            <summary>
+            Evaluates the plural value, returning a value of type T.
+            </summary>
+            <param name="isPlural"></param>
+            <param name="singularValue"></param>
+            <param name="pluralValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.BuildPrompt(System.Int64,System.Char,System.Int64,System.String,System.String)">
+            <summary></summary>
+            <param name="bufSize"></param>
+            <param name="fillChar"></param>
+            <param name="number"></param>
+            <param name="msg"></param>
+            <param name="emptyVal"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.BuildValue(System.Int64,System.Char,System.Int64,System.Int64,System.String,System.String)">
+            <summary></summary>
+            <param name="bufSize"></param>
+            <param name="fillChar"></param>
+            <param name="offset"></param>
+            <param name="longVal"></param>
+            <param name="stringVal"></param>
+            <param name="lookupMsg"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.WordWrap(System.String,System.Text.StringBuilder,System.Int64,Eamon.Framework.Args.IWordWrapArgs,System.Boolean)">
+            <summary></summary>
+            <param name="str"></param>
+            <param name="buf"></param>
+            <param name="margin"></param>
+            <param name="args"></param>
+            <param name="clearBuf"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.WordWrap(System.String,System.Text.StringBuilder,System.Boolean)">
+            <summary></summary>
+            <param name="str"></param>
+            <param name="buf"></param>
+            <param name="clearBuf"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.LineWrap(System.String,System.Text.StringBuilder,System.Int64,System.Boolean)">
+            <summary></summary>
+            <param name="str"></param>
+            <param name="buf"></param>
+            <param name="startColumn"></param>
+            <param name="clearBuf"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetStringFromNumber(System.Int64,System.Boolean,System.Text.StringBuilder)">
+            <summary></summary>
+            <param name="num"></param>
+            <param name="addSpace"></param>
+            <param name="buf"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetNumberFromString(System.String)">
+            <summary></summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetContainerContentsDesc(Eamon.Framework.IArtifact)">
+            <summary></summary>
+            <param name="artifact"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.RollDice(System.Int64,System.Int64,System.Int64[]@)">
+            <summary>
+            Rolls a number of dice, storing the resulting values in an array.
+            </summary>
+            <param name="numDice"></param>
+            <param name="numSides"></param>
+            <param name="dieRolls"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.RollDice(System.Int64,System.Int64,System.Int64)">
+            <summary>
+            Rolls a number of dice, returning a sum of the results.
+            </summary>
+            <param name="numDice"></param>
+            <param name="numSides"></param>
+            <param name="modifier"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.SumHighestRolls(System.Int64[],System.Int64,System.Int64@)">
+            <summary>
+            Given an array of die rolls, sum the highest of them and return the result.
+            </summary>
+            <param name="dieRolls"></param>
+            <param name="numRollsToSum"></param>
+            <param name="result"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.Capitalize(System.String)">
+            <summary></summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.UnlinkOnFailure">
+            <summary>
+            Deletes a set of game-related files from the filesystem.
+            </summary>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.TruncatePluralTypeEffectDesc(Eamon.Framework.Primitive.Enums.PluralType,System.Int64)">
+            <summary></summary>
+            <param name="pluralType"></param>
+            <param name="maxSize"></param>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.TruncatePluralTypeEffectDesc(Eamon.Framework.IEffect)">
+            <summary></summary>
+            <param name="effect"></param>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.SplitPath(System.String,System.String@,System.String@,System.String@,System.Boolean)">
+            <summary></summary>
+            <param name="fullPath"></param>
+            <param name="directory"></param>
+            <param name="fileName"></param>
+            <param name="extension"></param>
+            <param name="appendDirectorySeparatorChar"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.StripPrepsAndArticles(System.Text.StringBuilder,System.Boolean@)">
+            <summary></summary>
+            <param name="buf"></param>
+            <param name="mySeen"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.PrintTitle(System.String,System.Boolean)">
+            <summary></summary>
+            <param name="title"></param>
+            <param name="inBox"></param>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.PrintEffectDesc(Eamon.Framework.IEffect,System.Boolean)">
+            <summary></summary>
+            <param name="effect"></param>
+            <param name="printFinalNewLine"></param>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.PrintEffectDesc(System.Int64,System.Boolean)">
+            <summary></summary>
+            <param name="effectUid"></param>
+            <param name="printFinalNewLine"></param>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.PrintZapDirectHit">
+            <summary>
+            Prints the <see cref="F:Eamon.Framework.Primitive.Enums.Spell.Blast">Blast</see> spell description.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.ValidateRecordsAfterDatabaseLoaded">
+            <summary></summary>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.StatDisplay(Eamon.Framework.Args.IStatDisplayArgs)">
+            <summary></summary>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetRecordNameList(System.Collections.Generic.IList{Eamon.Framework.IGameBase},Eamon.Framework.Primitive.Enums.ArticleType,System.Boolean,Eamon.Framework.Primitive.Enums.StateDescDisplayCode,System.Boolean,System.Boolean,System.Text.StringBuilder)">
+            <summary></summary>
+            <param name="recordList"></param>
+            <param name="articleType"></param>
+            <param name="showCharOwned"></param>
+            <param name="stateDescCode"></param>
+            <param name="showContents"></param>
+            <param name="groupCountOne"></param>
+            <param name="buf"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetRecordNameCount(System.Collections.Generic.IList{Eamon.Framework.IGameBase},System.String,System.Boolean,System.Int64@)">
+            <summary></summary>
+            <param name="recordList"></param>
+            <param name="name"></param>
+            <param name="exactMatch"></param>
+            <param name="count"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.ListRecords(System.Collections.Generic.IList{Eamon.Framework.IGameBase},System.Boolean,System.Boolean,System.Text.StringBuilder)">
+            <summary></summary>
+            <param name="recordList"></param>
+            <param name="capitalize"></param>
+            <param name="showExtraInfo"></param>
+            <param name="buf"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.ResolveUidMacros(System.String,System.Text.StringBuilder,System.Boolean,System.Boolean,System.Int64@)">
+            <summary></summary>
+            <param name="str"></param>
+            <param name="buf"></param>
+            <param name="resolveFuncs"></param>
+            <param name="recurse"></param>
+            <param name="invalidUid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.ResolveUidMacros(System.String,System.Text.StringBuilder,System.Boolean,System.Boolean)">
+            <summary></summary>
+            <param name="str"></param>
+            <param name="buf"></param>
+            <param name="resolveFuncs"></param>
+            <param name="recurse"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetWeaponPriceOrValue(System.String,System.Int64,Eamon.Framework.Primitive.Enums.Weapon,System.Int64,System.Int64,System.Int64,System.Boolean,System.Boolean@)">
+            <summary></summary>
+            <param name="name"></param>
+            <param name="complexity"></param>
+            <param name="type"></param>
+            <param name="dice"></param>
+            <param name="sides"></param>
+            <param name="numHands"></param>
+            <param name="calcPrice"></param>
+            <param name="isMarcosWeapon"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetWeaponPriceOrValue(Eamon.Framework.Primitive.Classes.ICharacterArtifact,System.Boolean,System.Boolean@)">
+            <summary></summary>
+            <param name="weapon"></param>
+            <param name="calcPrice"></param>
+            <param name="isMarcosWeapon"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetArmorPriceOrValue(Eamon.Framework.Primitive.Enums.Armor,System.Boolean,System.Boolean@)">
+            <summary></summary>
+            <param name="armor"></param>
+            <param name="calcPrice"></param>
+            <param name="isMarcosArmor"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.AppendFieldDesc(Eamon.Framework.Primitive.Enums.FieldDesc,System.Text.StringBuilder,System.Text.StringBuilder,System.Text.StringBuilder)">
+            <summary></summary>
+            <param name="fieldDesc"></param>
+            <param name="buf"></param>
+            <param name="fullDesc"></param>
+            <param name="briefDesc"></param>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.AppendFieldDesc(Eamon.Framework.Primitive.Enums.FieldDesc,System.Text.StringBuilder,System.String,System.String)">
+            <summary></summary>
+            <param name="fieldDesc"></param>
+            <param name="buf"></param>
+            <param name="fullDesc"></param>
+            <param name="briefDesc"></param>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.CopyCharacterArtifactFields(Eamon.Framework.Primitive.Classes.ICharacterArtifact,Eamon.Framework.Primitive.Classes.ICharacterArtifact)">
+            <summary></summary>
+            <param name="destCa"></param>
+            <param name="sourceCa"></param>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.CopyArtifactCategoryFields(Eamon.Framework.Primitive.Classes.IArtifactCategory,Eamon.Framework.Primitive.Classes.IArtifactCategory)">
+            <summary></summary>
+            <param name="destAc"></param>
+            <param name="sourceAc"></param>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetArtifactList(System.Func{Eamon.Framework.IArtifact,System.Boolean}[])">
+            <summary></summary>
+            <param name="whereClauseFuncs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetMonsterList(System.Func{Eamon.Framework.IMonster,System.Boolean}[])">
+            <summary></summary>
+            <param name="whereClauseFuncs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetRecordList(System.Func{Eamon.Framework.IGameBase,System.Boolean}[])">
+            <summary></summary>
+            <param name="whereClauseFuncs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetNthArtifact(System.Collections.Generic.IList{Eamon.Framework.IArtifact},System.Int64,System.Func{Eamon.Framework.IArtifact,System.Boolean})">
+            <summary></summary>
+            <param name="artifactList"></param>
+            <param name="which"></param>
+            <param name="whereClauseFunc"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetNthMonster(System.Collections.Generic.IList{Eamon.Framework.IMonster},System.Int64,System.Func{Eamon.Framework.IMonster,System.Boolean})">
+            <summary></summary>
+            <param name="monsterList"></param>
+            <param name="which"></param>
+            <param name="whereClauseFunc"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetNthRecord(System.Collections.Generic.IList{Eamon.Framework.IGameBase},System.Int64,System.Func{Eamon.Framework.IGameBase,System.Boolean})">
+            <summary></summary>
+            <param name="recordList"></param>
+            <param name="which"></param>
+            <param name="whereClauseFunc"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.StripUniqueCharsFromRecordNames(System.Collections.Generic.IList{Eamon.Framework.IGameBase})">
+            <summary></summary>
+            <param name="recordList"></param>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.AddUniqueCharsToRecordNames(System.Collections.Generic.IList{Eamon.Framework.IGameBase})">
+            <summary></summary>
+            <param name="recordList"></param>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.ConvertWeaponToGoldOrTreasure(Eamon.Framework.IArtifact,System.Boolean)">
+            <summary></summary>
+            <param name="artifact"></param>
+            <param name="convertToGold"></param>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.ConvertTreasureToContainer(Eamon.Framework.IArtifact,Eamon.Framework.Primitive.Enums.ContainerType)">
+            <summary></summary>
+            <param name="artifact"></param>
+            <param name="containerType"></param>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.ConvertContainerToTreasure(Eamon.Framework.IArtifact,Eamon.Framework.Primitive.Enums.ContainerType)">
+            <summary></summary>
+            <param name="artifact"></param>
+            <param name="containerType"></param>
         </member>
         <member name="T:Eamon.Framework.Portability.IDirectory">
             <summary></summary>
@@ -5179,9 +5052,6 @@
             <param name="args"></param>
         </member>
         <member name="T:Eamon.Framework.Portability.ISharpSerializer">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Portability.ISharpSerializer.IsActive">
             <summary></summary>
         </member>
         <member name="M:Eamon.Framework.Portability.ISharpSerializer.Serialize``1(``0,System.String,System.Boolean)">
@@ -6378,6 +6248,24 @@
         <member name="F:Eamon.Framework.Primitive.Enums.PoundCharPolicy.AllArtifacts">
             <summary></summary>
         </member>
+        <member name="T:Eamon.Framework.Primitive.Enums.PropertyResetCode">
+            <summary></summary>
+        </member>
+        <member name="F:Eamon.Framework.Primitive.Enums.PropertyResetCode.None">
+            <summary></summary>
+        </member>
+        <member name="F:Eamon.Framework.Primitive.Enums.PropertyResetCode.All">
+            <summary></summary>
+        </member>
+        <member name="F:Eamon.Framework.Primitive.Enums.PropertyResetCode.RestoreGame">
+            <summary></summary>
+        </member>
+        <member name="F:Eamon.Framework.Primitive.Enums.PropertyResetCode.SwitchContext">
+            <summary></summary>
+        </member>
+        <member name="F:Eamon.Framework.Primitive.Enums.PropertyResetCode.RevealContainerContents">
+            <summary></summary>
+        </member>
         <member name="T:Eamon.Framework.Primitive.Enums.PunctSpaceCode">
             <summary></summary>
         </member>
@@ -6581,14 +6469,14 @@
         <member name="M:Eamon.Game.Attributes.ClassMappingsAttribute.#ctor(System.Type)">
             <summary>
             An attribute that indicates this concrete class is the Value in a Key/Value pair stored in the
-            <see cref="P:Eamon.Framework.Plugin.IPluginClassMappings.ClassMappingsDictionary">ClassMappingsDictionary</see>;
+            <see cref="P:Eamon.Framework.Plugin.IEngine.ClassMappingsDictionary">ClassMappingsDictionary</see>;
             the Key is the interface provided as a parameter.
             </summary>
         </member>
         <member name="M:Eamon.Game.Attributes.ClassMappingsAttribute.#ctor">
             <summary>
             An attribute that indicates this concrete class is the Value in a Key/Value pair stored in the
-            <see cref="P:Eamon.Framework.Plugin.IPluginClassMappings.ClassMappingsDictionary">ClassMappingsDictionary</see>;
+            <see cref="P:Eamon.Framework.Plugin.IEngine.ClassMappingsDictionary">ClassMappingsDictionary</see>;
             the Key is a corresponding interface with the same name but prefixed with "I".
             </summary>
         </member>
@@ -6608,68 +6496,6 @@
             <remarks>
             Full credit:  https://stackoverflow.com/questions/26060441/reading-data-from-fixed-length-file-into-class-objects
             </remarks>
-        </member>
-        <member name="P:Eamon.Game.Engine.Rand">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Game.Engine.NumberStrings">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Game.Engine.FieldDescNames">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Game.Engine.StatusNames">
-            <summary>
-            Gets or sets an array containing the name for each <see cref="T:Eamon.Framework.Primitive.Enums.Status"/>.
-            </summary>
-        </member>
-        <member name="P:Eamon.Game.Engine.ClothingNames">
-            <summary>
-            Gets or sets an array containing the name for each <see cref="T:Eamon.Framework.Primitive.Enums.Clothing"/>.
-            </summary>
-        </member>
-        <member name="P:Eamon.Game.Engine.CombatCodeDescs">
-            <summary>
-            Gets or sets an array containing the description for each <see cref="T:Eamon.Framework.Primitive.Enums.CombatCode"/>.
-            </summary>
-        </member>
-        <member name="P:Eamon.Game.Engine.ContainerDisplayCodeDescs">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Game.Engine.LightLevelNames">
-            <summary>
-            Gets or sets an array containing the name for each <see cref="T:Eamon.Framework.Primitive.Enums.LightLevel"/>.
-            </summary>
-        </member>
-        <member name="P:Eamon.Game.Engine.Stats">
-            <summary>
-            Gets or sets an array containing data for each <see cref="T:Eamon.Framework.Primitive.Enums.Stat"/>.
-            </summary>
-        </member>
-        <member name="P:Eamon.Game.Engine.Spells">
-            <summary>
-            Gets or sets an array containing data for each <see cref="T:Eamon.Framework.Primitive.Enums.Spell"/>.
-            </summary>
-        </member>
-        <member name="P:Eamon.Game.Engine.Weapons">
-            <summary>
-            Gets or sets an array containing data for each <see cref="T:Eamon.Framework.Primitive.Enums.Weapon"/>.
-            </summary>
-        </member>
-        <member name="P:Eamon.Game.Engine.Armors">
-            <summary>
-            Gets or sets an array containing data for each <see cref="T:Eamon.Framework.Primitive.Enums.Armor"/>.
-            </summary>
-        </member>
-        <member name="P:Eamon.Game.Engine.Directions">
-            <summary>
-            Gets or sets an array containing data for each <see cref="T:Eamon.Framework.Primitive.Enums.Direction"/>.
-            </summary>
-        </member>
-        <member name="P:Eamon.Game.Engine.ArtifactTypes">
-            <summary>
-            Gets or sets an array containing data for each <see cref="T:Eamon.Framework.Primitive.Enums.ArtifactType"/>.
-            </summary>
         </member>
         <member name="M:Eamon.Game.Extensions.ArrayExtensions.FindAllIndexOf``1(``0[],System.Predicate{``0})">
             <summary>
@@ -9230,19 +9056,81 @@
         <member name="M:Eamon.Game.Helpers.RoomHelper.InputDirsElement">
             <summary></summary>
         </member>
-        <member name="P:Eamon.Game.Plugin.PluginClassMappings.RulesetVersions">
+        <member name="P:Eamon.Game.Plugin.Engine.RulesetVersions">
             <summary></summary>
         </member>
-        <member name="P:Eamon.Game.Plugin.PluginClassMappings.RvStackTop">
+        <member name="P:Eamon.Game.Plugin.Engine.RvStackTop">
             <summary></summary>
         </member>
-        <member name="P:Eamon.Game.Plugin.PluginGlobals.Databases">
+        <member name="P:Eamon.Game.Plugin.Engine.Databases">
             <summary></summary>
         </member>
-        <member name="P:Eamon.Game.Plugin.PluginGlobals.DbStackTop">
+        <member name="P:Eamon.Game.Plugin.Engine.DbStackTop">
             <summary></summary>
         </member>
-        <member name="M:Eamon.Game.Plugin.PluginGlobals.RestoreRecords(System.Collections.Generic.IList{Eamon.Framework.IGameBase})">
+        <member name="P:Eamon.Game.Plugin.Engine.Rand">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Game.Plugin.Engine.NumberStrings">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Game.Plugin.Engine.FieldDescNames">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Game.Plugin.Engine.StatusNames">
+            <summary>
+            Gets or sets an array containing the name for each <see cref="T:Eamon.Framework.Primitive.Enums.Status"/>.
+            </summary>
+        </member>
+        <member name="P:Eamon.Game.Plugin.Engine.ClothingNames">
+            <summary>
+            Gets or sets an array containing the name for each <see cref="T:Eamon.Framework.Primitive.Enums.Clothing"/>.
+            </summary>
+        </member>
+        <member name="P:Eamon.Game.Plugin.Engine.CombatCodeDescs">
+            <summary>
+            Gets or sets an array containing the description for each <see cref="T:Eamon.Framework.Primitive.Enums.CombatCode"/>.
+            </summary>
+        </member>
+        <member name="P:Eamon.Game.Plugin.Engine.ContainerDisplayCodeDescs">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Game.Plugin.Engine.LightLevelNames">
+            <summary>
+            Gets or sets an array containing the name for each <see cref="T:Eamon.Framework.Primitive.Enums.LightLevel"/>.
+            </summary>
+        </member>
+        <member name="P:Eamon.Game.Plugin.Engine.Stats">
+            <summary>
+            Gets or sets an array containing data for each <see cref="T:Eamon.Framework.Primitive.Enums.Stat"/>.
+            </summary>
+        </member>
+        <member name="P:Eamon.Game.Plugin.Engine.Spells">
+            <summary>
+            Gets or sets an array containing data for each <see cref="T:Eamon.Framework.Primitive.Enums.Spell"/>.
+            </summary>
+        </member>
+        <member name="P:Eamon.Game.Plugin.Engine.Weapons">
+            <summary>
+            Gets or sets an array containing data for each <see cref="T:Eamon.Framework.Primitive.Enums.Weapon"/>.
+            </summary>
+        </member>
+        <member name="P:Eamon.Game.Plugin.Engine.Armors">
+            <summary>
+            Gets or sets an array containing data for each <see cref="T:Eamon.Framework.Primitive.Enums.Armor"/>.
+            </summary>
+        </member>
+        <member name="P:Eamon.Game.Plugin.Engine.Directions">
+            <summary>
+            Gets or sets an array containing data for each <see cref="T:Eamon.Framework.Primitive.Enums.Direction"/>.
+            </summary>
+        </member>
+        <member name="P:Eamon.Game.Plugin.Engine.ArtifactTypes">
+            <summary>
+            Gets or sets an array containing data for each <see cref="T:Eamon.Framework.Primitive.Enums.ArtifactType"/>.
+            </summary>
+        </member>
+        <member name="M:Eamon.Game.Plugin.Engine.RestoreRecords(System.Collections.Generic.IList{Eamon.Framework.IGameBase})">
             <summary></summary>
             <param name="recordList"></param>
         </member>

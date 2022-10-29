@@ -4,24 +4,6 @@
         <name>RiddlesOfTheDuergarKingdom</name>
     </assembly>
     <members>
-        <member name="T:RiddlesOfTheDuergarKingdom.Framework.IEngine">
-            <summary></summary>
-        </member>
-        <member name="M:RiddlesOfTheDuergarKingdom.Framework.IEngine.ArchaeologyDepartmentAbandonsExcavationSite">
-            <summary></summary>
-        </member>
-        <member name="M:RiddlesOfTheDuergarKingdom.Framework.IEngine.SteamTurbineStopsRunning">
-            <summary></summary>
-        </member>
-        <member name="M:RiddlesOfTheDuergarKingdom.Framework.IEngine.RockCrusherDestroysContents(Eamon.Framework.IRoom)">
-            <summary></summary>
-        </member>
-        <member name="M:RiddlesOfTheDuergarKingdom.Framework.IEngine.RockGrinderDestroysContents(Eamon.Framework.IRoom)">
-            <summary></summary>
-        </member>
-        <member name="M:RiddlesOfTheDuergarKingdom.Framework.IEngine.DebrisSifterVibratesContents(Eamon.Framework.IRoom,Eamon.Framework.IArtifact)">
-            <summary></summary>
-        </member>
         <member name="P:RiddlesOfTheDuergarKingdom.Framework.IGameState.GradStudentCompanionUid">
             <summary></summary>
         </member>
@@ -85,19 +67,34 @@
         <member name="P:RiddlesOfTheDuergarKingdom.Framework.IRoom.GradStudentCompanionSeen">
             <summary></summary>
         </member>
-        <member name="P:RiddlesOfTheDuergarKingdom.Framework.Plugin.IPluginConstants.PoisonInjuryTurns">
+        <member name="P:RiddlesOfTheDuergarKingdom.Framework.Plugin.IEngine.PoisonInjuryTurns">
             <summary></summary>
         </member>
-        <member name="P:RiddlesOfTheDuergarKingdom.Framework.Plugin.IPluginConstants.IbexAbandonTurns">
+        <member name="P:RiddlesOfTheDuergarKingdom.Framework.Plugin.IEngine.IbexAbandonTurns">
             <summary></summary>
         </member>
-        <member name="P:RiddlesOfTheDuergarKingdom.Framework.Plugin.IPluginGlobals.BlackSpiderJumps">
+        <member name="P:RiddlesOfTheDuergarKingdom.Framework.Plugin.IEngine.BlackSpiderJumps">
             <summary></summary>
         </member>
-        <member name="P:RiddlesOfTheDuergarKingdom.Framework.Plugin.IPluginGlobals.PlayerAttacksBlackSpider">
+        <member name="P:RiddlesOfTheDuergarKingdom.Framework.Plugin.IEngine.PlayerAttacksBlackSpider">
             <summary></summary>
         </member>
-        <member name="P:RiddlesOfTheDuergarKingdom.Framework.Plugin.IPluginGlobals.EnemyInExitedDarkRoom">
+        <member name="P:RiddlesOfTheDuergarKingdom.Framework.Plugin.IEngine.EnemyInExitedDarkRoom">
+            <summary></summary>
+        </member>
+        <member name="M:RiddlesOfTheDuergarKingdom.Framework.Plugin.IEngine.ArchaeologyDepartmentAbandonsExcavationSite">
+            <summary></summary>
+        </member>
+        <member name="M:RiddlesOfTheDuergarKingdom.Framework.Plugin.IEngine.SteamTurbineStopsRunning">
+            <summary></summary>
+        </member>
+        <member name="M:RiddlesOfTheDuergarKingdom.Framework.Plugin.IEngine.RockCrusherDestroysContents(Eamon.Framework.IRoom)">
+            <summary></summary>
+        </member>
+        <member name="M:RiddlesOfTheDuergarKingdom.Framework.Plugin.IEngine.RockGrinderDestroysContents(Eamon.Framework.IRoom)">
+            <summary></summary>
+        </member>
+        <member name="M:RiddlesOfTheDuergarKingdom.Framework.Plugin.IEngine.DebrisSifterVibratesContents(Eamon.Framework.IRoom,Eamon.Framework.IArtifact)">
             <summary></summary>
         </member>
         <member name="M:RiddlesOfTheDuergarKingdom.Game.Parsing.SentenceParser.IsValidTokenCommandMatch">

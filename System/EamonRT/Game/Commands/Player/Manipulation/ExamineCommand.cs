@@ -13,7 +13,7 @@ using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
-using static EamonRT.Game.Plugin.PluginContext;
+using static EamonRT.Game.Plugin.Globals;
 
 namespace EamonRT.Game.Commands
 {
@@ -62,7 +62,7 @@ namespace EamonRT.Game.Commands
 
 				if (DobjMonster.Reaction == Friendliness.Friend && DobjMonster.ShouldShowContentsWhenExamined())
 				{
-					RedirectCommand01 = Globals.CreateInstance<IInventoryCommand>();
+					RedirectCommand01 = gEngine.CreateInstance<IInventoryCommand>();
 
 					CopyCommandData(RedirectCommand01);
 
@@ -97,7 +97,7 @@ namespace EamonRT.Game.Commands
 
 			if (DobjArtAc == null)
 			{
-				DobjArtAc = DobjArtifact.GetCategories(0);
+				DobjArtAc = DobjArtifact.GetCategory(0);
 			}
 
 			Debug.Assert(DobjArtAc != null);
@@ -111,7 +111,7 @@ namespace EamonRT.Game.Commands
 			{
 				gEngine.RevealDisguisedMonster(ActorRoom, DobjArtifact);
 
-				NextState = Globals.CreateInstance<IStartState>();
+				NextState = gEngine.CreateInstance<IStartState>();
 
 				goto Cleanup;
 			}
@@ -134,14 +134,14 @@ namespace EamonRT.Game.Commands
 					goto Cleanup;
 				}
 
-				if ((DobjArtAc.Type == ArtifactType.Drinkable || DobjArtAc.Type == ArtifactType.Edible) && DobjArtAc.Field2 != Constants.InfiniteDrinkableEdible)
+				if ((DobjArtAc.Type == ArtifactType.Drinkable || DobjArtAc.Type == ArtifactType.Edible) && DobjArtAc.Field2 != gEngine.InfiniteDrinkableEdible)
 				{
 					PrintObjAmountLeft(DobjArtifact, DobjArtAc.Field2, DobjArtAc.Type == ArtifactType.Edible);
 				}
 
 				if (((DobjArtAc.Type == ArtifactType.InContainer && (DobjArtAc.IsOpen() || DobjArtifact.ShouldExposeInContentsWhenClosed())) || DobjArtAc.Type == ArtifactType.OnContainer || DobjArtAc.Type == ArtifactType.UnderContainer || DobjArtAc.Type == ArtifactType.BehindContainer) && DobjArtifact.ShouldShowContentsWhenExamined())
 				{
-					RedirectCommand = Globals.CreateInstance<IInventoryCommand>(x =>
+					RedirectCommand = gEngine.CreateInstance<IInventoryCommand>(x =>
 					{
 						x.AllowExtendedContainers = true;
 					});
@@ -171,7 +171,7 @@ namespace EamonRT.Game.Commands
 			{
 				PrintMustFirstOpen(DobjArtifact);
 
-				NextState = Globals.CreateInstance<IStartState>();
+				NextState = gEngine.CreateInstance<IStartState>();
 
 				goto Cleanup;
 			}
@@ -200,7 +200,7 @@ namespace EamonRT.Game.Commands
 
 			if (NextState == null)
 			{
-				NextState = Globals.CreateInstance<IMonsterStartState>();
+				NextState = gEngine.CreateInstance<IMonsterStartState>();
 			}
 		}
 

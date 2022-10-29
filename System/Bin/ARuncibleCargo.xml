@@ -69,19 +69,13 @@
             <summary>Indicates whether this <see cref="T:ARuncibleCargo.Framework.IRoom">Room</see> consists of open water (Malphigian Sea).</summary>
             <returns>If so then <c>true</c>, otherwise <c>false</c>.</returns>
         </member>
-        <member name="T:ARuncibleCargo.Framework.Plugin.IPluginClassMappings">
+        <member name="T:ARuncibleCargo.Framework.Plugin.IEngine">
             <summary></summary>
         </member>
-        <member name="T:ARuncibleCargo.Framework.Plugin.IPluginConstants">
+        <member name="P:ARuncibleCargo.Framework.Plugin.IEngine.SnapshotFileName">
             <summary></summary>
         </member>
-        <member name="P:ARuncibleCargo.Framework.Plugin.IPluginConstants.SnapshotFileName">
-            <summary></summary>
-        </member>
-        <member name="T:ARuncibleCargo.Framework.Plugin.IPluginGlobals">
-            <summary></summary>
-        </member>
-        <member name="P:ARuncibleCargo.Framework.Plugin.IPluginGlobals.DoubleDoorList">
+        <member name="P:ARuncibleCargo.Framework.Plugin.IEngine.DoubleDoorList">
             <summary></summary>
         </member>
         <member name="M:ARuncibleCargo.Game.Helpers.GameStateHelper.ValidateDreamCounter">

@@ -9,7 +9,7 @@ using Eamon.Game.Attributes;
 using Eamon.Game.Extensions;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
-using static TheVileGrimoireOfJaldial.Game.Plugin.PluginContext;
+using static TheVileGrimoireOfJaldial.Game.Plugin.Globals;
 
 namespace TheVileGrimoireOfJaldial.Game.States
 {
@@ -46,7 +46,7 @@ namespace TheVileGrimoireOfJaldial.Game.States
 
 						gGameState.Die = 1;
 
-						NextState = Globals.CreateInstance<IPlayerDeadState>(x =>
+						NextState = gEngine.CreateInstance<IPlayerDeadState>(x =>
 						{
 							x.PrintLineSep = true;
 						});

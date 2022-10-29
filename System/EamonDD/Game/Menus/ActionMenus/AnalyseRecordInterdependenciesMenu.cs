@@ -10,7 +10,7 @@ using Eamon.Framework;
 using Eamon.Framework.Helpers.Generic;
 using Eamon.Framework.Menus;
 using EamonDD.Framework.Menus.ActionMenus;
-using static EamonDD.Game.Plugin.PluginContext;
+using static EamonDD.Game.Plugin.Globals;
 
 namespace EamonDD.Game.Menus.ActionMenus
 {
@@ -32,7 +32,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 		{
 			Debug.Assert(ErrorRecord != null);
 
-			var errorHelper = Globals.CreateInstance<U>(x =>
+			var errorHelper = gEngine.CreateInstance<U>(x =>
 			{
 				x.Record = ErrorRecord;
 
@@ -47,7 +47,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			gOut.Print("{0}", ValidateHelper.ErrorMessage);
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 
 			gOut.Write("{0}S=Skip field, T=Edit this record, R={1} referred to record, X=Exit: ",
 				Environment.NewLine,
@@ -55,7 +55,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			ValidateHelper.Buf.Clear();
 
-			var rc = Globals.In.ReadField(ValidateHelper.Buf, Constants.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharSOrTOrROrX, gEngine.IsCharSOrTOrROrX);
+			var rc = gEngine.In.ReadField(ValidateHelper.Buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharSOrTOrROrX, gEngine.IsCharSOrTOrROrX);
 
 			Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -77,35 +77,35 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 				if (ErrorRecord is IArtifact)
 				{
-					menu = Globals.CreateInstance<IEditArtifactRecordManyFieldsMenu>(x =>
+					menu = gEngine.CreateInstance<IEditArtifactRecordManyFieldsMenu>(x =>
 					{
 						x.EditRecord = (IArtifact)ErrorRecord;
 					});
 				}
 				else if (ErrorRecord is IEffect)
 				{
-					menu = Globals.CreateInstance<IEditEffectRecordMenu>(x =>
+					menu = gEngine.CreateInstance<IEditEffectRecordMenu>(x =>
 					{
 						x.EditRecord = (IEffect)ErrorRecord;
 					});
 				}
 				else if (ErrorRecord is IHint)
 				{
-					menu = Globals.CreateInstance<IEditHintRecordManyFieldsMenu>(x =>
+					menu = gEngine.CreateInstance<IEditHintRecordManyFieldsMenu>(x =>
 					{
 						x.EditRecord = (IHint)ErrorRecord;
 					});
 				}
 				else if (ErrorRecord is IModule)
 				{
-					menu = Globals.CreateInstance<IEditModuleRecordManyFieldsMenu>(x =>
+					menu = gEngine.CreateInstance<IEditModuleRecordManyFieldsMenu>(x =>
 					{
 						x.EditRecord = (IModule)ErrorRecord;
 					});
 				}
 				else if (ErrorRecord is IMonster)
 				{
-					menu = Globals.CreateInstance<IEditMonsterRecordManyFieldsMenu>(x =>
+					menu = gEngine.CreateInstance<IEditMonsterRecordManyFieldsMenu>(x =>
 					{
 						x.EditRecord = (IMonster)ErrorRecord;
 					});
@@ -114,7 +114,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 				{
 					Debug.Assert(ErrorRecord is IRoom);
 
-					menu = Globals.CreateInstance<IEditRoomRecordManyFieldsMenu>(x =>
+					menu = gEngine.CreateInstance<IEditRoomRecordManyFieldsMenu>(x =>
 					{
 						x.EditRecord = (IRoom)ErrorRecord;
 					});
@@ -132,35 +132,35 @@ namespace EamonDD.Game.Menus.ActionMenus
 				{
 					if (ValidateHelper.RecordType == typeof(IArtifact))
 					{
-						menu = Globals.CreateInstance<IAddArtifactRecordManualMenu>(x =>
+						menu = gEngine.CreateInstance<IAddArtifactRecordManualMenu>(x =>
 						{
 							x.NewRecordUid = ValidateHelper.NewRecordUid;
 						});
 					}
 					else if (ValidateHelper.RecordType == typeof(IEffect))
 					{
-						menu = Globals.CreateInstance<IAddEffectRecordMenu>(x =>
+						menu = gEngine.CreateInstance<IAddEffectRecordMenu>(x =>
 						{
 							x.NewRecordUid = ValidateHelper.NewRecordUid;
 						});
 					}
 					else if (ValidateHelper.RecordType == typeof(IHint))
 					{
-						menu = Globals.CreateInstance<IAddHintRecordMenu>(x =>
+						menu = gEngine.CreateInstance<IAddHintRecordMenu>(x =>
 						{
 							x.NewRecordUid = ValidateHelper.NewRecordUid;
 						});
 					}
 					else if (ValidateHelper.RecordType == typeof(IModule))
 					{
-						menu = Globals.CreateInstance<IAddModuleRecordMenu>(x =>
+						menu = gEngine.CreateInstance<IAddModuleRecordMenu>(x =>
 						{
 							x.NewRecordUid = ValidateHelper.NewRecordUid;
 						});
 					}
 					else if (ValidateHelper.RecordType == typeof(IMonster))
 					{
-						menu = Globals.CreateInstance<IAddMonsterRecordManualMenu>(x =>
+						menu = gEngine.CreateInstance<IAddMonsterRecordManualMenu>(x =>
 						{
 							x.NewRecordUid = ValidateHelper.NewRecordUid;
 						});
@@ -169,7 +169,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 					{
 						Debug.Assert(ValidateHelper.RecordType == typeof(IRoom));
 
-						menu = Globals.CreateInstance<IAddRoomRecordManualMenu>(x =>
+						menu = gEngine.CreateInstance<IAddRoomRecordManualMenu>(x =>
 						{
 							x.NewRecordUid = ValidateHelper.NewRecordUid;
 						});
@@ -179,35 +179,35 @@ namespace EamonDD.Game.Menus.ActionMenus
 				{
 					if (ValidateHelper.RecordType == typeof(IArtifact))
 					{
-						menu = Globals.CreateInstance<IEditArtifactRecordManyFieldsMenu>(x =>
+						menu = gEngine.CreateInstance<IEditArtifactRecordManyFieldsMenu>(x =>
 						{
 							x.EditRecord = (IArtifact)ValidateHelper.EditRecord;
 						});
 					}
 					else if (ValidateHelper.RecordType == typeof(IEffect))
 					{
-						menu = Globals.CreateInstance<IEditEffectRecordMenu>(x =>
+						menu = gEngine.CreateInstance<IEditEffectRecordMenu>(x =>
 						{
 							x.EditRecord = (IEffect)ValidateHelper.EditRecord;
 						});
 					}
 					else if (ValidateHelper.RecordType == typeof(IHint))
 					{
-						menu = Globals.CreateInstance<IEditHintRecordManyFieldsMenu>(x =>
+						menu = gEngine.CreateInstance<IEditHintRecordManyFieldsMenu>(x =>
 						{
 							x.EditRecord = (IHint)ValidateHelper.EditRecord;
 						});
 					}
 					else if (ValidateHelper.RecordType == typeof(IModule))
 					{
-						menu = Globals.CreateInstance<IEditModuleRecordManyFieldsMenu>(x =>
+						menu = gEngine.CreateInstance<IEditModuleRecordManyFieldsMenu>(x =>
 						{
 							x.EditRecord = (IModule)ValidateHelper.EditRecord;
 						});
 					}
 					else if (ValidateHelper.RecordType == typeof(IMonster))
 					{
-						menu = Globals.CreateInstance<IEditMonsterRecordManyFieldsMenu>(x =>
+						menu = gEngine.CreateInstance<IEditMonsterRecordManyFieldsMenu>(x =>
 						{
 							x.EditRecord = (IMonster)ValidateHelper.EditRecord;
 						});
@@ -216,7 +216,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 					{
 						Debug.Assert(ValidateHelper.RecordType == typeof(IRoom));
 
-						menu = Globals.CreateInstance<IEditRoomRecordManyFieldsMenu>(x =>
+						menu = gEngine.CreateInstance<IEditRoomRecordManyFieldsMenu>(x =>
 						{
 							x.EditRecord = (IRoom)ValidateHelper.EditRecord;
 						});
@@ -226,7 +226,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 				menu.Execute();
 			}
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 		}
 
 		public override void Execute()
@@ -278,7 +278,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 				if (ErrorRecord != null)
 				{
-					ValidateHelper.ShowDesc = Globals.Config.ShowDesc;
+					ValidateHelper.ShowDesc = gEngine.Config.ShowDesc;
 
 					ProcessInterdependency();
 
@@ -300,7 +300,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 		{
 			SkipNameList = new List<string>();
 
-			ValidateHelper = Globals.CreateInstance<U>();
+			ValidateHelper = gEngine.CreateInstance<U>();
 
 			ClearSkipNameList = true;
 		}

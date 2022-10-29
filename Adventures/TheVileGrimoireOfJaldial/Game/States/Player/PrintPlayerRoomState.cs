@@ -12,7 +12,7 @@ using Eamon.Game.Attributes;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
 using TheVileGrimoireOfJaldial.Framework.Primitive.Enums;
-using static TheVileGrimoireOfJaldial.Game.Plugin.PluginContext;
+using static TheVileGrimoireOfJaldial.Game.Plugin.Globals;
 
 namespace TheVileGrimoireOfJaldial.Game.States
 {
@@ -21,11 +21,11 @@ namespace TheVileGrimoireOfJaldial.Game.States
 	{
 		public override void ProcessEvents(EventType eventType)
 		{
-			if (!Globals.EncounterSurprises)
+			if (!gEngine.EncounterSurprises)
 			{
 				base.ProcessEvents(eventType);
 
-				if (eventType == EventType.BeforePrintPlayerRoom && ShouldPreTurnProcess())
+				if (eventType == EventType.BeforePrintPlayerRoom && gEngine.ShouldPreTurnProcess)
 				{
 					Debug.Assert(gCharMonster != null);
 
@@ -201,13 +201,13 @@ namespace TheVileGrimoireOfJaldial.Game.States
 
 					// Random events
 
-					Globals.EventRoll = gEngine.RollDice(1, 100, 0);
+					gEngine.EventRoll = gEngine.RollDice(1, 100, 0);
 
-					Globals.FrequencyRoll = gEngine.RollDice(1, 100, 0);
+					gEngine.FrequencyRoll = gEngine.RollDice(1, 100, 0);
 
 					// Weather pattern starters
 
-					if (!expiredWeather && Globals.EventRoll >= 4 && Globals.EventRoll <= 9 && Globals.FrequencyRoll <= gGameState.WeatherFreqPct)
+					if (!expiredWeather && gEngine.EventRoll >= 4 && gEngine.EventRoll <= 9 && gEngine.FrequencyRoll <= gGameState.WeatherFreqPct)
 					{
 						if (gGameState.WeatherType == WeatherType.None)
 						{
@@ -246,7 +246,7 @@ namespace TheVileGrimoireOfJaldial.Game.States
 
 					// Encounters
 
-					else if (((room.IsGroundsRoom() && gGameState.IsDayTime() && Globals.EventRoll >= 10 && Globals.EventRoll <= 12) || (((room.IsGroundsRoom() && gGameState.IsNightTime()) || room.IsCryptRoom()) && Globals.EventRoll >= 10 && Globals.EventRoll <= 14)) && Globals.FrequencyRoll <= gGameState.EncounterFreqPct)
+					else if (((room.IsGroundsRoom() && gGameState.IsDayTime() && gEngine.EventRoll >= 10 && gEngine.EventRoll <= 12) || (((room.IsGroundsRoom() && gGameState.IsNightTime()) || room.IsCryptRoom()) && gEngine.EventRoll >= 10 && gEngine.EventRoll <= 14)) && gEngine.FrequencyRoll <= gGameState.EncounterFreqPct)
 					{
 						var enemyEncounter = gEngine.GetMonsterList(m => m.Uid <= 17 && m.IsInRoom(room) && m.Reaction == Friendliness.Enemy).FirstOrDefault();
 
@@ -273,7 +273,7 @@ namespace TheVileGrimoireOfJaldial.Game.States
 
 								// Wandering Monster appears to be fixed encounter when last Command type is Movement
 
-								if (!Globals.PlayerMoved)
+								if (!gEngine.PlayerMoved)
 								{
 									if (gGameState.GetNBTL(Friendliness.Enemy) > 0)
 									{
@@ -309,7 +309,7 @@ namespace TheVileGrimoireOfJaldial.Game.States
 
 								monster.SetInRoom(room);
 
-								if (!Globals.PlayerMoved)
+								if (!gEngine.PlayerMoved)
 								{
 									var saved = gEngine.SaveThrow(Stat.Agility);
 
@@ -317,11 +317,11 @@ namespace TheVileGrimoireOfJaldial.Game.States
 									{
 										gOut.Print("You have been taken by surprise!");
 
-										Globals.InitiativeMonsterUid = monster.Uid;
+										gEngine.InitiativeMonsterUid = monster.Uid;
 
-										Globals.EncounterSurprises = true;
+										gEngine.EncounterSurprises = true;
 
-										NextState = Globals.CreateInstance<IMonsterStartState>();
+										NextState = gEngine.CreateInstance<IMonsterStartState>();
 
 										GotoCleanup = true;
 									}
@@ -347,7 +347,7 @@ namespace TheVileGrimoireOfJaldial.Game.States
 			}
 			else
 			{
-				Globals.EncounterSurprises = false;
+				gEngine.EncounterSurprises = false;
 			}
 		}
 	}

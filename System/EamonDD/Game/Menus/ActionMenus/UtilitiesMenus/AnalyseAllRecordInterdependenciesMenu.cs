@@ -11,7 +11,7 @@ using Eamon.Framework;
 using Eamon.Game.Attributes;
 using Eamon.Game.Menus;
 using EamonDD.Framework.Menus.ActionMenus;
-using static EamonDD.Game.Plugin.PluginContext;
+using static EamonDD.Game.Plugin.Globals;
 
 namespace EamonDD.Game.Menus.ActionMenus
 {
@@ -54,13 +54,13 @@ namespace EamonDD.Game.Menus.ActionMenus
 							ModifyFlag = true;
 						}
 
-						gOut.Print("{0}", Globals.LineSep);
+						gOut.Print("{0}", gEngine.LineSep);
 
 						gOut.Write("{0}Press any key to continue or X to exit: ", Environment.NewLine);
 
 						Buf.Clear();
 
-						rc = Globals.In.ReadField(Buf, Constants.BufSize02, null, ' ', '\0', true, null, gEngine.ModifyCharToNullOrX, null, gEngine.IsCharAny);
+						rc = gEngine.In.ReadField(Buf, gEngine.BufSize02, null, ' ', '\0', true, null, gEngine.ModifyCharToNullOrX, null, gEngine.IsCharAny);
 
 						Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -84,45 +84,45 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 		ExitLoop:
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 
 			gOut.Print("Done analysing all record interdependencies.");
 		}
 
 		public AnalyseAllRecordInterdependenciesMenu()
 		{
-			Buf = Globals.Buf;
+			Buf = gEngine.Buf;
 
 			SkipFieldNameList = new List<string>();
 
 			AnalyseMenus = new IAnalyseRecordInterdependenciesMenu01<IGameBase>[]
 			{
-				Globals.CreateInstance<IAnalyseArtifactRecordInterdependenciesMenu01>(x =>
+				gEngine.CreateInstance<IAnalyseArtifactRecordInterdependenciesMenu01>(x =>
 				{
 					x.SkipFieldNameList = SkipFieldNameList;
 					x.ClearSkipFieldNameList = false;
 				}),
-				Globals.CreateInstance<IAnalyseEffectRecordInterdependenciesMenu01>(x =>
+				gEngine.CreateInstance<IAnalyseEffectRecordInterdependenciesMenu01>(x =>
 				{
 					x.SkipFieldNameList = SkipFieldNameList;
 					x.ClearSkipFieldNameList = false;
 				}),
-				Globals.CreateInstance<IAnalyseHintRecordInterdependenciesMenu01>(x =>
+				gEngine.CreateInstance<IAnalyseHintRecordInterdependenciesMenu01>(x =>
 				{
 					x.SkipFieldNameList = SkipFieldNameList;
 					x.ClearSkipFieldNameList = false;
 				}),
-				Globals.CreateInstance<IAnalyseModuleRecordInterdependenciesMenu01>(x =>
+				gEngine.CreateInstance<IAnalyseModuleRecordInterdependenciesMenu01>(x =>
 				{
 					x.SkipFieldNameList = SkipFieldNameList;
 					x.ClearSkipFieldNameList = false;
 				}),
-				Globals.CreateInstance<IAnalyseMonsterRecordInterdependenciesMenu01>(x =>
+				gEngine.CreateInstance<IAnalyseMonsterRecordInterdependenciesMenu01>(x =>
 				{
 					x.SkipFieldNameList = SkipFieldNameList;
 					x.ClearSkipFieldNameList = false;
 				}),
-				Globals.CreateInstance<IAnalyseRoomRecordInterdependenciesMenu01>(x =>
+				gEngine.CreateInstance<IAnalyseRoomRecordInterdependenciesMenu01>(x =>
 				{
 					x.SkipFieldNameList = SkipFieldNameList;
 					x.ClearSkipFieldNameList = false;

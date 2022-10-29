@@ -7,14 +7,14 @@ using System;
 using System.Diagnostics;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
-using static BeginnersForest.Game.Plugin.PluginContext;
+using static BeginnersForest.Game.Plugin.Globals;
 
 namespace BeginnersForest.Game.Commands
 {
 	[ClassMappings]
 	public class HintsCommand : EamonRT.Game.Commands.HintsCommand, IHintsCommand
 	{
-		public override void PrintHintsQuestion(long hintNum, string question)
+		public override void PrintHintQuestion(long hintNum, string question)
 		{
 			Debug.Assert(hintNum > 0 && question != null);
 

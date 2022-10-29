@@ -11,7 +11,7 @@ using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using EamonRT.Framework;
 using EamonRT.Framework.Primitive.Enums;
-using static EamonRT.Game.Plugin.PluginContext;
+using static EamonRT.Game.Plugin.Globals;
 
 namespace EamonRT.Game
 {
@@ -28,9 +28,9 @@ namespace EamonRT.Game
 			{
 				var result = true;
 
-				if (Globals.Database.GetFilesetsCount() > 0)
+				if (gEngine.Database.GetFilesetCount() > 0)
 				{
-					gOut.Print("{0}", Globals.LineSep);
+					gOut.Print("{0}", gEngine.LineSep);
 
 					gEngine.PrintWelcomeBack();
 
@@ -38,11 +38,11 @@ namespace EamonRT.Game
 
 					Buf.Clear();
 
-					var rc = Globals.In.ReadField(Buf, Constants.BufSize02, null, ' ', '\0', true, "N", gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, null);
+					var rc = gEngine.In.ReadField(Buf, gEngine.BufSize02, null, ' ', '\0', true, "N", gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, null);
 
 					Debug.Assert(gEngine.IsSuccess(rc));
 
-					Globals.Thread.Sleep(150);
+					gEngine.Thread.Sleep(150);
 
 					if (Buf.Length > 0 && Buf[0] != 'Y')
 					{
@@ -126,31 +126,31 @@ namespace EamonRT.Game
 		{
 			RetCode rc;
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 
 			PrintOutputBeginnersPrelude();
 
 			var i = 0L;       // weird disambiguation hack
 
-			if (!gCharacter.GetWeapons(i).IsActive())
+			if (!gCharacter.GetWeapon(i).IsActive())
 			{
 				PrintOutputBeginnersNoWeapons();
 
-				Globals.MainLoop.ShouldExecute = false;
+				gEngine.MainLoop.ShouldExecute = false;
 
-				Globals.ExitType = ExitType.GoToMainHall;
+				gEngine.ExitType = ExitType.GoToMainHall;
 			}
-			else if (gCharacter.ArmorExpertise != 0 || gCharacter.GetWeaponAbilities(Weapon.Axe) != 5 || gCharacter.GetWeaponAbilities(Weapon.Club) != 20 || gCharacter.GetWeaponAbilities(Weapon.Sword) != 0)
+			else if (gCharacter.ArmorExpertise != 0 || gCharacter.GetWeaponAbility(Weapon.Axe) != 5 || gCharacter.GetWeaponAbility(Weapon.Club) != 20 || gCharacter.GetWeaponAbility(Weapon.Sword) != 0)
 			{
 				PrintOutputBeginnersNotABeginner();
 
-				Globals.MainLoop.ShouldExecute = false;
+				gEngine.MainLoop.ShouldExecute = false;
 
-				Globals.ExitType = ExitType.GoToMainHall;
+				gEngine.ExitType = ExitType.GoToMainHall;
 			}
 			else
 			{
-				if (gCharacter.GetWeapons(1).IsActive())
+				if (gCharacter.GetWeapon(1).IsActive())
 				{
 					PrintOutputBeginnersTooManyWeapons();
 
@@ -160,19 +160,19 @@ namespace EamonRT.Game
 
 					gOut.WriteLine("{0}", Buf);
 
-					gOut.Print("{0}", Globals.LineSep);
+					gOut.Print("{0}", gEngine.LineSep);
 
 					gEngine.PrintEnterWeaponNumberChoice();
 
 					Buf.Clear();
 
-					rc = Globals.In.ReadField(Buf, Constants.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, IsCharWpnNum, null);
+					rc = gEngine.In.ReadField(Buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, IsCharWpnNum, null);
 
 					Debug.Assert(gEngine.IsSuccess(rc));
 
-					Globals.Thread.Sleep(150);
+					gEngine.Thread.Sleep(150);
 
-					gOut.Print("{0}", Globals.LineSep);
+					gOut.Print("{0}", gEngine.LineSep);
 
 					Debug.Assert(gGameState != null);
 
@@ -188,9 +188,9 @@ namespace EamonRT.Game
 		/// <summary></summary>
 		public virtual void PrintOutputDefault()
 		{
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 
-			var effect = gEDB[Globals.Module.IntroStory];
+			var effect = gEDB[gEngine.Module.IntroStory];
 
 			if (effect != null)
 			{
@@ -204,7 +204,7 @@ namespace EamonRT.Game
 
 		public IntroStory()
 		{
-			Buf = Globals.Buf;
+			Buf = gEngine.Buf;
 
 			StoryType = IntroStoryType.Default;
 		}

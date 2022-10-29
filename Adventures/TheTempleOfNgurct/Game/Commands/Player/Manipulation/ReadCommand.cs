@@ -9,7 +9,7 @@ using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
-using static TheTempleOfNgurct.Game.Plugin.PluginContext;
+using static TheTempleOfNgurct.Game.Plugin.Globals;
 
 namespace TheTempleOfNgurct.Game.Commands
 {
@@ -35,7 +35,7 @@ namespace TheTempleOfNgurct.Game.Commands
 
 				gGameState.R2 = gGameState.Ro;
 
-				NextState = Globals.CreateInstance<IAfterPlayerMoveState>(x =>
+				NextState = gEngine.CreateInstance<IAfterPlayerMoveState>(x =>
 				{
 					x.MoveMonsters = false;
 				});
@@ -89,7 +89,7 @@ namespace TheTempleOfNgurct.Game.Commands
 
 			if (NextState == null)
 			{
-				NextState = Globals.CreateInstance<IMonsterStartState>();
+				NextState = gEngine.CreateInstance<IMonsterStartState>();
 			}
 		}
 

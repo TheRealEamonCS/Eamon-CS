@@ -14,7 +14,7 @@ using EamonRT.Framework.Commands;
 using EamonRT.Framework.Components;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
-using static EamonRT.Game.Plugin.PluginContext;
+using static EamonRT.Game.Plugin.Globals;
 
 namespace EamonRT.Game.Components
 {
@@ -148,8 +148,8 @@ namespace EamonRT.Game.Components
 					(
 						(weaponRevealType == WeaponRevealType.Never ||
 						(weaponRevealType == WeaponRevealType.OnlyIfSeen && !weapon.Seen)) ?
-							weapon.GetArticleName(buf: Globals.Buf01) :
-							weapon.GetTheName(buf: Globals.Buf01)
+							weapon.GetArticleName(buf: gEngine.Buf01) :
+							weapon.GetTheName(buf: gEngine.Buf01)
 					) :
 					"a weapon");
 		}
@@ -229,16 +229,16 @@ namespace EamonRT.Game.Components
 
 			DobjMonsterName = dobjMonster.IsCharacterMonster() ? "You" :
 				blastSpell && dobjMonster.InitGroupCount > 1 ? room.EvalLightLevel(dobjMonster == actorMonster ? "An offender" : "A defender", dobjMonster.GetArticleName(true, true, false, true)) :
-				room.EvalLightLevel(dobjMonster == actorMonster ? "The offender" : "The defender", dobjMonster.GetTheName(true, true, false, true, Globals.Buf01));
+				room.EvalLightLevel(dobjMonster == actorMonster ? "The offender" : "The defender", dobjMonster.GetTheName(true, true, false, true, gEngine.Buf01));
 
-			Globals.Buf.SetFormat("{0}{1} {2} ",
+			gEngine.Buf.SetFormat("{0}{1} {2} ",
 				Environment.NewLine,
 				DobjMonsterName,
 				dobjMonster.IsCharacterMonster() ? "are" : "is");
 
-			dobjMonster.AddHealthStatus(Globals.Buf, false);
+			dobjMonster.AddHealthStatus(gEngine.Buf, false);
 
-			gOut.Write("{0}", Globals.Buf);
+			gOut.Write("{0}", gEngine.Buf);
 		}
 
 		public virtual void PrintZapDirectHit()
@@ -301,7 +301,7 @@ namespace EamonRT.Game.Components
 		{
 			Debug.Assert(Enum.IsDefined(typeof(Spell), s) && spell != null);
 
-			gOut.Print("The strain of attempting to cast {0} overloads your brain and you forget it completely{1}.", spell.Name, Globals.IsRulesetVersion(5, 15, 25) ? "" : " for the rest of this adventure");
+			gOut.Print("The strain of attempting to cast {0} overloads your brain and you forget it completely{1}.", spell.Name, gEngine.IsRulesetVersion(5, 15, 25) ? "" : " for the rest of this adventure");
 		}
 
 		public virtual void PrintSpellAbilityIncreases(Spell s, ISpell spell)
@@ -337,7 +337,7 @@ namespace EamonRT.Game.Components
 		{
 			Debug.Assert(room != null);
 
-			if (Globals.IsRulesetVersion(5, 15, 25))
+			if (gEngine.IsRulesetVersion(5, 15, 25))
 			{
 				gOut.Print("You hear a very loud sonic boom that echoes through the {0}.", room.EvalRoomType("tunnels", "area"));
 			}

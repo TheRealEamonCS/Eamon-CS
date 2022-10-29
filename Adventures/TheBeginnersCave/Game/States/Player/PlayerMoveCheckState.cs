@@ -6,7 +6,7 @@
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
-using static TheBeginnersCave.Game.Plugin.PluginContext;
+using static TheBeginnersCave.Game.Plugin.Globals;
 
 namespace TheBeginnersCave.Game.States
 {
@@ -21,7 +21,7 @@ namespace TheBeginnersCave.Game.States
 			{
 				gOut.Print("Sorry, but I'm afraid to go into the water without my life preserver.");
 
-				NextState = Globals.CreateInstance<IMonsterStartState>();
+				NextState = gEngine.CreateInstance<IMonsterStartState>();
 
 				GotoCleanup = true;
 			}

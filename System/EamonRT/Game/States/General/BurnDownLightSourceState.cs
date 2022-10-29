@@ -8,7 +8,7 @@ using Eamon.Framework;
 using Eamon.Framework.Primitive.Classes;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.States;
-using static EamonRT.Game.Plugin.PluginContext;
+using static EamonRT.Game.Plugin.Globals;
 
 namespace EamonRT.Game.States
 {
@@ -28,7 +28,7 @@ namespace EamonRT.Game.States
 		{
 			LsArtifactUid = gGameState.Ls;
 
-			if (LsArtifactUid <= 0 || (Globals.CommandPromptSeen && !ShouldPreTurnProcess()))
+			if (LsArtifactUid <= 0 || !gEngine.ShouldPreTurnProcess)
 			{
 				goto Cleanup;
 			}
@@ -64,10 +64,10 @@ namespace EamonRT.Game.States
 
 			if (NextState == null)
 			{
-				NextState = Globals.CreateInstance<IBurnDownSpeedSpellState>();
+				NextState = gEngine.CreateInstance<IBurnDownSpeedSpellState>();
 			}
 
-			Globals.NextState = NextState;
+			gEngine.NextState = NextState;
 		}
 
 		public virtual void LightAlmostOutCheck()

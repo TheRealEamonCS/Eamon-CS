@@ -7,7 +7,7 @@ using System.Text;
 using Eamon.Framework;
 using Eamon.Game.Attributes;
 using Eamon.Game.Extensions;
-using static Eamon.Game.Plugin.PluginContext;
+using static Eamon.Game.Plugin.Globals;
 
 namespace Eamon.Game
 {
@@ -27,7 +27,7 @@ namespace Eamon.Game
 
 			if (IsUidRecycled && Uid > 0)
 			{
-				Globals.Database.FreeEffectUid(Uid);
+				gEngine.Database.FreeEffectUid(Uid);
 
 				Uid = 0;
 			}

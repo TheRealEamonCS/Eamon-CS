@@ -7,7 +7,7 @@ using System.Diagnostics;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
-using static EamonRT.Game.Plugin.PluginContext;
+using static EamonRT.Game.Plugin.Globals;
 
 namespace EamonRT.Game.States
 {
@@ -18,7 +18,7 @@ namespace EamonRT.Game.States
 		{
 			ProcessEvents(EventType.BeforeStartRound);
 
-			if (Globals.CommandPromptSeen && !ShouldPreTurnProcess())
+			if (!gEngine.ShouldPreTurnProcess)
 			{
 				goto Cleanup;
 			}
@@ -31,10 +31,10 @@ namespace EamonRT.Game.States
 
 			if (NextState == null)
 			{
-				NextState = Globals.CreateInstance<IBurnDownLightSourceState>();
+				NextState = gEngine.CreateInstance<IBurnDownLightSourceState>();
 			}
 
-			Globals.NextState = NextState;
+			gEngine.NextState = NextState;
 		}
 
 		public StartState()

@@ -5,7 +5,7 @@
 
 using System.Collections.Generic;
 using TheVileGrimoireOfJaldial.Framework.Primitive.Enums;
-using static TheVileGrimoireOfJaldial.Game.Plugin.PluginContext;
+using static TheVileGrimoireOfJaldial.Game.Plugin.Globals;
 
 namespace TheVileGrimoireOfJaldial.Framework
 {
@@ -120,10 +120,10 @@ namespace TheVileGrimoireOfJaldial.Framework
 		bool IsFoggyHours();
 
 		/// <summary></summary>
-		bool GetSecretDoors(long index);
+		bool GetSecretDoor(long index);
 
 		/// <summary></summary>
-		void SetSecretDoors(long index, bool value);
+		void SetSecretDoor(long index, bool value);
 
 		/// <summary></summary>
 		void SetFoggyRoomWeatherIntensity(IRoom room);

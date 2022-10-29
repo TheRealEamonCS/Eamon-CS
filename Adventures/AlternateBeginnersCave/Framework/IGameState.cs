@@ -3,7 +3,7 @@
 
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
-using static AlternateBeginnersCave.Game.Plugin.PluginContext;
+using static AlternateBeginnersCave.Game.Plugin.Globals;
 
 namespace AlternateBeginnersCave.Framework
 {

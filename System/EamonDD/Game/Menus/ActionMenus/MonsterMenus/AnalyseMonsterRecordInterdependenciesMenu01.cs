@@ -6,7 +6,7 @@
 using Eamon.Framework;
 using Eamon.Game.Attributes;
 using EamonDD.Framework.Menus.ActionMenus;
-using static EamonDD.Game.Plugin.PluginContext;
+using static EamonDD.Game.Plugin.Globals;
 
 namespace EamonDD.Game.Menus.ActionMenus
 {
@@ -15,7 +15,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 	{
 		public AnalyseMonsterRecordInterdependenciesMenu01()
 		{
-			AnalyseMenu = Globals.CreateInstance<IAnalyseMonsterRecordInterdependenciesMenu>();
+			AnalyseMenu = gEngine.CreateInstance<IAnalyseMonsterRecordInterdependenciesMenu>();
 		}
 	}
 }

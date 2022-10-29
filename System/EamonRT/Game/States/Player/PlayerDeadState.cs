@@ -4,10 +4,11 @@
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
 using System.Diagnostics;
+using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using Eamon.Game.Extensions;
 using EamonRT.Framework.States;
-using static EamonRT.Game.Plugin.PluginContext;
+using static EamonRT.Game.Plugin.Globals;
 
 namespace EamonRT.Game.States
 {
@@ -39,17 +40,19 @@ namespace EamonRT.Game.States
 				goto Cleanup;
 			}
 
-			RestoreGame = false;
-
 			Debug.Assert(gCharMonster != null);
 
-			gEngine.DeadMenu(gCharMonster, PrintLineSep, ref _restoreGame);
+			gEngine.ResetProperties(PropertyResetCode.SwitchContext);
+
+			RestoreGame = false;
+
+			gEngine.DeadMenu(PrintLineSep, ref _restoreGame);
 
 			if (!RestoreGame)
 			{
 				if (NextState == null)
 				{
-					NextState = Globals.CreateInstance<IPlayerDeadState>(x =>
+					NextState = gEngine.CreateInstance<IPlayerDeadState>(x =>
 					{
 						x.PrintLineSep = true;
 					});
@@ -58,29 +61,23 @@ namespace EamonRT.Game.States
 				goto Cleanup;
 			}
 
-			gEngine.ClearActionLists();
-
-			gSentenceParser.Clear();
-
-			gCommandParser.Clear();
-
 			gCommandParser.ActorMonster = gCharMonster;
 
 			gCommandParser.InputBuf.SetFormat("restore");
 
 			if (NextState == null)
 			{
-				NextState = Globals.CreateInstance<IProcessPlayerInputState>();
+				NextState = gEngine.CreateInstance<IProcessPlayerInputState>();
 			}
 
 		Cleanup:
 
 			if (NextState == null)
 			{
-				NextState = Globals.CreateInstance<IStartState>();
+				NextState = gEngine.CreateInstance<IStartState>();
 			}
 
-			Globals.NextState = NextState;
+			gEngine.NextState = NextState;
 		}
 
 		public PlayerDeadState()

@@ -7,7 +7,7 @@ using System.Diagnostics;
 using Eamon.Framework.Primitive.Classes;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.States;
-using static EamonRT.Game.Plugin.PluginContext;
+using static EamonRT.Game.Plugin.Globals;
 
 namespace EamonRT.Game.States
 {
@@ -22,7 +22,7 @@ namespace EamonRT.Game.States
 
 		public override void Execute()
 		{
-			if (gGameState.Speed <= 0 || (Globals.CommandPromptSeen && !ShouldPreTurnProcess()))
+			if (gGameState.Speed <= 0 || !gEngine.ShouldPreTurnProcess)
 			{
 				goto Cleanup;
 			}
@@ -34,7 +34,7 @@ namespace EamonRT.Game.States
 				goto Cleanup;
 			}
 
-			AgilityStat = gEngine.GetStats(Eamon.Framework.Primitive.Enums.Stat.Agility);
+			AgilityStat = gEngine.GetStat(Eamon.Framework.Primitive.Enums.Stat.Agility);
 
 			Debug.Assert(AgilityStat != null);
 
@@ -49,7 +49,7 @@ namespace EamonRT.Game.States
 
 			PrintSpellExpiredRoll = gEngine.RollDice(1, 100, 0);
 
-			if (PrintSpellExpiredRoll > 80 || !Globals.IsRulesetVersion(5, 15, 25))
+			if (PrintSpellExpiredRoll > 80 || !gEngine.IsRulesetVersion(5, 15, 25))
 			{
 				PrintSpeedSpellExpired();
 			}
@@ -58,10 +58,10 @@ namespace EamonRT.Game.States
 
 			if (NextState == null)
 			{
-				NextState = Globals.CreateInstance<IRegenerateSpellAbilitiesState>();
+				NextState = gEngine.CreateInstance<IRegenerateSpellAbilitiesState>();
 			}
 
-			Globals.NextState = NextState;
+			gEngine.NextState = NextState;
 		}
 
 		public BurnDownSpeedSpellState()

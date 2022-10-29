@@ -13,7 +13,7 @@ using Eamon.Game.Attributes;
 using Eamon.Game.Menus;
 using Eamon.Game.Utilities;
 using EamonMH.Framework.Menus.ActionMenus;
-using static EamonMH.Game.Plugin.PluginContext;
+using static EamonMH.Game.Plugin.Globals;
 
 namespace EamonMH.Game.Menus.ActionMenus
 {
@@ -30,7 +30,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 			long ap = 0;
 			long i;
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 
 			/* 
 				Full Credit:  Derived wholly from Donald Brown's Classic Eamon
@@ -48,7 +48,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 			gOut.Print("The man behind the counter says, \"I'm Don Leif Thor Robin Hercules Diego, at your service!  I teach weapons.  Select your weapon of interest.\"");
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 
 			Buf.Clear();
 
@@ -56,7 +56,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 			for (i = 0; i < weaponValues.Count; i++)
 			{
-				weapon = gEngine.GetWeapons(weaponValues[(int)i]);
+				weapon = gEngine.GetWeapon(weaponValues[(int)i]);
 
 				Debug.Assert(weapon != null);
 
@@ -72,35 +72,35 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 			Buf.Clear();
 
-			rc = Globals.In.ReadField(Buf, Constants.BufSize02, null, ' ', '\0', false, null, null, gEngine.IsCharWpnType, gEngine.IsCharWpnType);
+			rc = gEngine.In.ReadField(Buf, gEngine.BufSize02, null, ' ', '\0', false, null, null, gEngine.IsCharWpnType, gEngine.IsCharWpnType);
 
 			Debug.Assert(gEngine.IsSuccess(rc));
 
-			Globals.Thread.Sleep(150);
+			gEngine.Thread.Sleep(150);
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 
 			Debug.Assert(Buf.Length > 0);
 
 			i = Convert.ToInt64(Buf.Trim().ToString());
 
-			weapon = gEngine.GetWeapons((Weapon)i);
+			weapon = gEngine.GetWeapon((Weapon)i);
 
 			Debug.Assert(weapon != null);
 
-			ap = gEngine.GetMerchantAskPrice(Constants.WeaponTrainingPrice, (double)Rtio);
+			ap = gEngine.GetMerchantAskPrice(gEngine.WeaponTrainingPrice, (double)Rtio);
 
-			gOut.Print("\"My fee is {0} gold piece{1} per try.  Your current ability is {2}%.\"", ap, ap != 1 ? "s" : "", gCharacter.GetWeaponAbilities(i));
+			gOut.Print("\"My fee is {0} gold piece{1} per try.  Your current ability is {2}%.\"", ap, ap != 1 ? "s" : "", gCharacter.GetWeaponAbility(i));
 
 			gOut.Print("Don asks you to enter his shop.  \"{0}, see that {1} over there?  It's all in the wrist...  ATTACK!\"", gCharacter.Name, i == (long)Weapon.Bow || i == (long)Weapon.Spear ? "target" : "dummy");
 
 			while (true)
 			{
-				Globals.In.KeyPress(Buf);
+				gEngine.In.KeyPress(Buf);
 
-				gOut.Print("{0}", Globals.LineSep);
+				gOut.Print("{0}", gEngine.LineSep);
 
-				gOut.Print("Ability: {0}        Gold: {1}", gCharacter.GetWeaponAbilities(i), gCharacter.HeldGold);
+				gOut.Print("Ability: {0}        Gold: {1}", gCharacter.GetWeaponAbility(i), gCharacter.HeldGold);
 
 				if (gCharacter.HeldGold >= ap)
 				{
@@ -108,13 +108,13 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 					Buf.Clear();
 
-					rc = Globals.In.ReadField(Buf, Constants.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsChar1Or2OrX, gEngine.IsChar1Or2OrX);
+					rc = gEngine.In.ReadField(Buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsChar1Or2OrX, gEngine.IsChar1Or2OrX);
 
 					Debug.Assert(gEngine.IsSuccess(rc));
 
-					Globals.Thread.Sleep(150);
+					gEngine.Thread.Sleep(150);
 
-					gOut.Print("{0}", Globals.LineSep);
+					gOut.Print("{0}", gEngine.LineSep);
 
 					if (Buf.Length == 0 || Buf[0] == 'X')
 					{
@@ -128,27 +128,27 @@ namespace EamonMH.Game.Menus.ActionMenus
 						{
 							gOut.Print("\"A critical hit!  Very good!  Now, continue.\"");
 
-							gCharacter.ModWeaponAbilities(i, 2);
+							gCharacter.ModWeaponAbility(i, 2);
 						}
 						else if (rl > 50)
 						{
 							gOut.Print("\"A hit!  Good!  Now, continue.\"");
 
-							gCharacter.ModWeaponAbilities(i, 1);
+							gCharacter.ModWeaponAbility(i, 1);
 						}
 						else
 						{
 							gOut.Print("\"A miss!  Try harder!  Now, continue.\"");
 						}
 
-						if (gCharacter.GetWeaponAbilities(i) > weapon.MaxValue)
+						if (gCharacter.GetWeaponAbility(i) > weapon.MaxValue)
 						{
-							gCharacter.SetWeaponAbilities(i, weapon.MaxValue);
+							gCharacter.SetWeaponAbility(i, weapon.MaxValue);
 						}
 
 						gCharacter.HeldGold -= ap;
 
-						Globals.CharactersModified = true;
+						gEngine.CharactersModified = true;
 					}
 					else
 					{
@@ -165,12 +165,12 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 			gOut.Print("\"Goodbye and good luck!\"");
 
-			Globals.In.KeyPress(Buf);
+			gEngine.In.KeyPress(Buf);
 		}
 
 		public DonDiegoMenu()
 		{
-			Buf = Globals.Buf;
+			Buf = gEngine.Buf;
 		}
 	}
 }

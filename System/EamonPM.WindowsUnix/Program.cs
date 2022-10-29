@@ -12,8 +12,8 @@ using System.Reflection;
 using System.Runtime.Loader;
 using Eamon;
 using Eamon.Framework.Portability;
-using static Eamon.Game.Plugin.PluginContext;
-using static Eamon.Game.Plugin.PluginContextStack;
+using static Eamon.Game.Plugin.ContextStack;
+using static Eamon.Game.Plugin.Globals;
 
 namespace EamonPM
 {
@@ -108,19 +108,17 @@ namespace EamonPM
 
 				WorkDir = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 
-				PushConstants();
+				PushEngine();
 
-				PushClassMappings();
+				gEngine.LoadPortabilityClassMappings = LoadPortabilityClassMappings;
 
-				ClassMappings.LoadPortabilityClassMappings = LoadPortabilityClassMappings;
-
-				ClassMappings.ResolvePortabilityClassMappings();
+				gEngine.ResolvePortabilityClassMappings();
 
 				if (args == null || args.Length < 2 || !args[0].Equals("-pfn", StringComparison.OrdinalIgnoreCase))
 				{
 					rc = RetCode.InvalidArg;
 
-					ClassMappings.Error.WriteLine("{0}Usage: dotnet EamonPM.WindowsUnix.dll -pfn PluginFileName [PluginArgs]", Environment.NewLine);
+					gEngine.Error.WriteLine("{0}Usage: dotnet EamonPM.WindowsUnix.dll -pfn PluginFileName [PluginArgs]", Environment.NewLine);
 
 					goto Cleanup;
 				}
@@ -140,11 +138,11 @@ namespace EamonPM
 
 						// if current working directory invalid, bail out
 
-						if (!currWorkDir.EndsWith(systemBinDir) || currWorkDir.Length <= systemBinDir.Length || !Directory.Exists(Constants.AdventuresDir.Replace('\\', Path.DirectorySeparatorChar)))
+						if (!currWorkDir.EndsWith(systemBinDir) || currWorkDir.Length <= systemBinDir.Length || !Directory.Exists(gEngine.AdventuresDir.Replace('\\', Path.DirectorySeparatorChar)))
 						{
 							rc = RetCode.Failure;
 
-							ClassMappings.Error.WriteLine("{0}Usage: to run Eamon CS change your working directory to System{1}Bin", Environment.NewLine, Path.DirectorySeparatorChar);
+							gEngine.Error.WriteLine("{0}Usage: to run Eamon CS change your working directory to System{1}Bin", Environment.NewLine, Path.DirectorySeparatorChar);
 
 							goto Cleanup;
 						}
@@ -160,10 +158,10 @@ namespace EamonPM
 				{
 					rc = RetCode.Failure;
 
-					ClassMappings.HandleException
+					gEngine.HandleException
 					(
 						ex,
-						Constants.StackTraceFile,
+						gEngine.StackTraceFile,
 						string.Format("{0}Error: Caught fatal exception; terminating program.", Environment.NewLine)
 					);
 
@@ -174,18 +172,18 @@ namespace EamonPM
 
 				if (rc != RetCode.Success)
 				{
-					ClassMappings.Error.WriteLine("{0}{1}", Environment.NewLine, new string('-', (int)Constants.RightMargin));
+					gEngine.Error.WriteLine("{0}{1}", Environment.NewLine, new string('-', (int)gEngine.RightMargin));
 
-					ClassMappings.Error.Write("{0}Press any key to continue: ", Environment.NewLine);
+					gEngine.Error.Write("{0}Press any key to continue: ", Environment.NewLine);
 
-					ClassMappings.In.ReadKey(true);
+					gEngine.In.ReadKey(true);
 
-					ClassMappings.Error.WriteLine();
+					gEngine.Error.WriteLine();
 
-					ClassMappings.Thread.Sleep(150);
+					gEngine.Thread.Sleep(150);
 				}
 
-				ClassMappings.Out.CursorVisible = true;
+				gEngine.Out.CursorVisible = true;
 			}
 			catch (Exception)
 			{
@@ -195,9 +193,7 @@ namespace EamonPM
 			}
 			finally
 			{
-				PopClassMappings();
-
-				PopConstants();
+				PopEngine();
 			}
 
 			Environment.Exit(rc == RetCode.Success ? 0 : -1);

@@ -7,7 +7,7 @@ using System;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Parsing;
 using RiddlesOfTheDuergarKingdom.Framework.Commands;
-using static RiddlesOfTheDuergarKingdom.Game.Plugin.PluginContext;
+using static RiddlesOfTheDuergarKingdom.Game.Plugin.Globals;
 
 namespace RiddlesOfTheDuergarKingdom.Game.Parsing
 {

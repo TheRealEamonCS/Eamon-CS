@@ -10,7 +10,7 @@ using Eamon;
 using Eamon.Framework.Helpers;
 using Eamon.Game.Attributes;
 using EamonDD.Framework.Menus.ActionMenus;
-using static EamonDD.Game.Plugin.PluginContext;
+using static EamonDD.Game.Plugin.Globals;
 
 namespace EamonDD.Game.Menus.ActionMenus
 {
@@ -23,7 +23,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 		{
 			RetCode rc;
 
-			if (EditRecord != null || Globals.Module != null)
+			if (EditRecord != null || gEngine.Module != null)
 			{
 				gOut.WriteLine();
 
@@ -31,14 +31,14 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 				if (EditRecord == null)
 				{
-					EditRecord = Globals.Module;
+					EditRecord = gEngine.Module;
 				}
 
-				var editModule01 = Globals.CloneInstance(EditRecord);
+				var editModule01 = gEngine.CloneInstance(EditRecord);
 
 				Debug.Assert(editModule01 != null);
 				
-				var helper = Globals.CreateInstance<IModuleHelper>(x =>
+				var helper = gEngine.CreateInstance<IModuleHelper>(x =>
 				{
 					x.Record = editModule01;
 				});
@@ -51,13 +51,13 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 					gOut.WriteLine();
 
-					gOut.Print("{0}", Globals.LineSep);
+					gOut.Print("{0}", gEngine.LineSep);
 
 					gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(47, '\0', 0, "Enter the number of the field to edit", "0"));
 
 					Buf.Clear();
 
-					rc = Globals.In.ReadField(Buf, Constants.BufSize01, null, '_', '\0', true, "0", null, gEngine.IsCharDigit, null);
+					rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, "0", null, gEngine.IsCharDigit, null);
 
 					Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -70,7 +70,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 						goto Cleanup;
 					}
 
-					gOut.Print("{0}", Globals.LineSep);
+					gOut.Print("{0}", gEngine.LineSep);
 				}
 				else
 				{
@@ -79,7 +79,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 				helper.EditRec = true;
 				helper.EditField = true;
-				helper.FieldDesc = Globals.Config.FieldDesc;
+				helper.FieldDesc = gEngine.Config.FieldDesc;
 
 				helper.InputField(editFieldName01);
 
@@ -95,7 +95,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 		public EditModuleRecordOneFieldMenu()
 		{
-			Buf = Globals.Buf;
+			Buf = gEngine.Buf;
 		}
 	}
 }

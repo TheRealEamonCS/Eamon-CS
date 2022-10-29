@@ -6,7 +6,7 @@
 using System.Diagnostics;
 using Eamon.Framework;
 using Eamon.Game.Attributes;
-using static TheDeepCanyon.Game.Plugin.PluginContext;
+using static TheDeepCanyon.Game.Plugin.Globals;
 
 namespace TheDeepCanyon.Game
 {
@@ -17,7 +17,7 @@ namespace TheDeepCanyon.Game
 		{
 			get
 			{
-				if (Globals.EnableGameOverrides)
+				if (gEngine.EnableMutateProperties)
 				{
 					switch (Uid)
 					{

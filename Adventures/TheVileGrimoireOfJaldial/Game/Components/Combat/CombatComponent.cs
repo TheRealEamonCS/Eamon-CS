@@ -14,7 +14,7 @@ using Eamon.Game.Utilities;
 using EamonRT.Framework.Components;
 using Enums = Eamon.Framework.Primitive.Enums;
 using RTEnums = EamonRT.Framework.Primitive.Enums;
-using static TheVileGrimoireOfJaldial.Game.Plugin.PluginContext;
+using static TheVileGrimoireOfJaldial.Game.Plugin.Globals;
 
 namespace TheVileGrimoireOfJaldial.Game.Components
 {
@@ -35,7 +35,7 @@ namespace TheVileGrimoireOfJaldial.Game.Components
 
 			if (DobjMonster != null && DobjMonster.Uid == 41 && !griffinMonster.IsInLimbo() && !gGameState.GriffinAngered)
 			{
-				Globals.MiscEventFuncList02.Add(() =>
+				gEngine.MiscEventFuncList02.Add(() =>
 				{
 					if (griffinMonster.IsInRoom(ActorRoom) && ActorRoom.IsLit())
 					{
@@ -282,7 +282,7 @@ namespace TheVileGrimoireOfJaldial.Game.Components
 						gOut.Write("{0}{1}{2}", Environment.NewLine, OmitBboaPadding ? "" : "  ", DobjMonster.IsCharacterMonster() ? "You suddenly feel weaker!" : DobjMonster.GetTheName(true) + " suddenly looks weaker!");
 					}
 
-					var stat = gEngine.GetStats(Stat.Hardiness);
+					var stat = gEngine.GetStat(Stat.Hardiness);
 
 					Debug.Assert(stat != null);
 
@@ -363,15 +363,15 @@ namespace TheVileGrimoireOfJaldial.Game.Components
 
 						foreach (var wv in weaponValues)
 						{
-							var weapon = gEngine.GetWeapons(wv);
+							var weapon = gEngine.GetWeapon(wv);
 
 							Debug.Assert(weapon != null);
 
-							gCharacter.ModWeaponAbilities(wv, -gEngine.RollDice(1, ActorMonster?.Uid == 14 ? 4 : 2, 0));
+							gCharacter.ModWeaponAbility(wv, -gEngine.RollDice(1, ActorMonster?.Uid == 14 ? 4 : 2, 0));
 
-							if (gCharacter.GetWeaponAbilities(wv) < weapon.MinValue)
+							if (gCharacter.GetWeaponAbility(wv) < weapon.MinValue)
 							{
-								gCharacter.SetWeaponAbilities(wv, weapon.MinValue);
+								gCharacter.SetWeaponAbility(wv, weapon.MinValue);
 							}
 						}
 					}

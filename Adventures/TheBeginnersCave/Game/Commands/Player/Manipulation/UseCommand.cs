@@ -6,7 +6,7 @@
 using System.Diagnostics;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
-using static TheBeginnersCave.Game.Plugin.PluginContext;
+using static TheBeginnersCave.Game.Plugin.Globals;
 
 namespace TheBeginnersCave.Game.Commands
 {
@@ -21,7 +21,7 @@ namespace TheBeginnersCave.Game.Commands
 
 			if (DobjArtifact.Uid == 10)
 			{
-				var command = Globals.CreateInstance<Framework.Commands.ITrollsfireCommand>();
+				var command = gEngine.CreateInstance<Framework.Commands.ITrollsfireCommand>();
 
 				CopyCommandData(command);
 

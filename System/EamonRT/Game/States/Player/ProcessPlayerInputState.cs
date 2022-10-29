@@ -6,7 +6,7 @@
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
-using static EamonRT.Game.Plugin.PluginContext;
+using static EamonRT.Game.Plugin.Globals;
 
 namespace EamonRT.Game.States
 {
@@ -19,7 +19,7 @@ namespace EamonRT.Game.States
 
 			if (gCommandParser.NextState == null || !(gCommandParser.NextState is IGetPlayerInputState gpis) || !gpis.RestartCommand)
 			{
-				Globals.LastCommandList.Clear();
+				gEngine.LastCommandList.Clear();
 
 				ProcessEvents(EventType.AfterClearLastCommandList);
 
@@ -37,10 +37,10 @@ namespace EamonRT.Game.States
 
 			if (NextState == null)
 			{
-				NextState = Globals.CreateInstance<IUnrecognizedCommandState>();
+				NextState = gEngine.CreateInstance<IUnrecognizedCommandState>();
 			}
 
-			Globals.NextState = NextState;
+			gEngine.NextState = NextState;
 		}
 
 		public ProcessPlayerInputState()

@@ -9,7 +9,7 @@ using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.States;
-using static EamonRT.Game.Plugin.PluginContext;
+using static EamonRT.Game.Plugin.Globals;
 
 namespace EamonRT.Game.Commands
 {
@@ -26,19 +26,19 @@ namespace EamonRT.Game.Commands
 			{
 				PrintReturnToMainHall();
 
-				Globals.Buf.Clear();
+				gEngine.Buf.Clear();
 
-				rc = Globals.In.ReadField(Globals.Buf, Constants.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, null);
+				rc = gEngine.In.ReadField(gEngine.Buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
-				if (Globals.Buf.Length > 0 && Globals.Buf[0] == 'Y')
+				if (gEngine.Buf.Length > 0 && gEngine.Buf[0] == 'Y')
 				{
 					gGameState.Die = -1;
 
-					Globals.ExitType = ExitType.GoToMainHall;
+					gEngine.ExitType = ExitType.GoToMainHall;
 
-					Globals.MainLoop.ShouldShutdown = false;
+					gEngine.MainLoop.ShouldShutdown = false;
 
 					goto Cleanup;
 				}
@@ -46,24 +46,24 @@ namespace EamonRT.Game.Commands
 				goto Cleanup;
 			}
 
-			if (Globals.Database.GetFilesetsCount() == 0)
+			if (gEngine.Database.GetFilesetCount() == 0)
 			{
 				PrintHaventSavedGameYet(ActorMonster);
 			}
 
 			PrintReallyWantToQuit();
 
-			Globals.Buf.Clear();
+			gEngine.Buf.Clear();
 
-			rc = Globals.In.ReadField(Globals.Buf, Constants.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, null);
+			rc = gEngine.In.ReadField(gEngine.Buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, null);
 
 			Debug.Assert(gEngine.IsSuccess(rc));
 
-			if (Globals.Buf.Length > 0 && Globals.Buf[0] == 'Y')
+			if (gEngine.Buf.Length > 0 && gEngine.Buf[0] == 'Y')
 			{
-				Globals.ExitType = ExitType.Quit;
+				gEngine.ExitType = ExitType.Quit;
 
-				Globals.MainLoop.ShouldShutdown = false;
+				gEngine.MainLoop.ShouldShutdown = false;
 
 				goto Cleanup;
 			}
@@ -72,13 +72,8 @@ namespace EamonRT.Game.Commands
 
 			if (NextState == null)
 			{
-				NextState = Globals.CreateInstance<IStartState>();
+				NextState = gEngine.CreateInstance<IStartState>();
 			}
-		}
-
-		public override bool ShouldPreTurnProcess()
-		{
-			return false;
 		}
 
 		public QuitCommand()

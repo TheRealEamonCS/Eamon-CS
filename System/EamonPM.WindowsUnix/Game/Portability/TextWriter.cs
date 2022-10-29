@@ -10,7 +10,7 @@ using System.Text.RegularExpressions;
 using Eamon.Framework.Portability;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Extensions;
-using static Eamon.Game.Plugin.PluginContext;
+using static Eamon.Game.Plugin.Globals;
 
 namespace EamonPM.Game.Portability
 {
@@ -252,17 +252,19 @@ namespace EamonPM.Game.Portability
 
 		public virtual void Write(string format, params object[] arg)
 		{
+			Debug.Assert(gEngine != null);
+
 			Debug.Assert(format != null);
 
 			Buf.SetFormat(format, arg);
 
-			if (ResolveUidMacros && Globals?.Engine != null)
+			if (ResolveUidMacros)
 			{
 				Buf01.Clear();
 
-				var rc = Globals.Engine.ResolveUidMacros(Buf.ToString(), Buf01, true, true);
+				var rc = gEngine.ResolveUidMacros(Buf.ToString(), Buf01, true, true);
 
-				Debug.Assert(Globals.Engine.IsSuccess(rc));
+				Debug.Assert(gEngine.IsSuccess(rc));
 
 				Buf.SetFormat("{0}", Buf01);
 			}
@@ -272,9 +274,9 @@ namespace EamonPM.Game.Portability
 				Buf.SetFormat("{0}", PunctSpaceCode == PunctSpaceCode.Single ? SingleSpaceRegex.Replace(Buf.ToString(), @"$1 $3") : DoubleSpaceRegex.Replace(Buf.ToString(), @"$1  $3"));
 			}
 
-			if (WordWrap && Globals?.Engine != null)
+			if (WordWrap)
 			{
-				Globals.Engine.WordWrap(Buf.ToString(), Buf);
+				gEngine.WordWrap(Buf.ToString(), Buf);
 			}
 
 			if (SuppressNewLines)
@@ -439,9 +441,9 @@ namespace EamonPM.Game.Portability
 
 			Stdout = true;
 
-			Buf = new StringBuilder(Constants.BufSize);
+			Buf = new StringBuilder(gEngine.BufSize);
 
-			Buf01 = new StringBuilder(Constants.BufSize);
+			Buf01 = new StringBuilder(gEngine.BufSize);
 
 			SingleSpaceRegex = new Regex(@"([.?!:])(  )([^ ]|$)");
 

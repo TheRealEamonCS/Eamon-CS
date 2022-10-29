@@ -7,7 +7,7 @@ using System.Diagnostics;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.States;
-using static RiddlesOfTheDuergarKingdom.Game.Plugin.PluginContext;
+using static RiddlesOfTheDuergarKingdom.Game.Plugin.Globals;
 
 namespace RiddlesOfTheDuergarKingdom.Game.States
 {
@@ -50,7 +50,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.States
 
 				gGameState.R2 = gGameState.Ro == 9 ? 10 : 9;
 
-				NextState = Globals.CreateInstance<IAfterPlayerMoveState>(x =>
+				NextState = gEngine.CreateInstance<IAfterPlayerMoveState>(x =>
 				{
 					x.MoveMonsters = false;
 				});
@@ -92,7 +92,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.States
 			}
 			else
 			{
-				gGameState.BeforePrintPlayerRoomEventHeap.Insert(gGameState.CurrTurn + Constants.IbexAbandonTurns, "HighlandIbexAbandonsPlayerEvent");
+				gGameState.BeforePrintPlayerRoomEventHeap.Insert(gGameState.CurrTurn + gEngine.IbexAbandonTurns, "HighlandIbexAbandonsPlayerEvent");
 			}
 		}
 	}

@@ -9,7 +9,7 @@ using Eamon.Game.Attributes;
 using Eamon.Game.Menus;
 using Eamon.Framework.Menus;
 using EamonDD.Framework.Menus.HierarchicalMenus;
-using static EamonDD.Game.Plugin.PluginContext;
+using static EamonDD.Game.Plugin.Globals;
 
 namespace EamonDD.Game.Menus.HierarchicalMenus
 {
@@ -18,112 +18,112 @@ namespace EamonDD.Game.Menus.HierarchicalMenus
 	{
 		public override void PrintSubtitle()
 		{
-			Globals.DdMenu.PrintMainMenuSubtitle();
+			gEngine.DdMenu.PrintMainMenuSubtitle();
 		}
 
 		public MainMenu()
 		{
 			Title = "MAIN MENU";
 
-			Buf = Globals.Buf;
+			Buf = gEngine.Buf;
 
 			MenuItemList = new List<IMenuItem>();
 
-			MenuItemList.Add(Globals.CreateInstance<IMenuItem>(x =>
+			MenuItemList.Add(gEngine.CreateInstance<IMenuItem>(x =>
 			{
 				x.SelectChar = (char)('1' + MenuItemList.Count);
 				x.LineText = string.Format("{0}{1}. Config record maintenance.", Environment.NewLine, MenuItemList.Count + 1);
-				x.SubMenu = Globals.CreateInstance<IConfigRecordMenu>();
+				x.SubMenu = gEngine.CreateInstance<IConfigRecordMenu>();
 			}));
 
-			if (!Globals.BortCommand && Globals.Config.DdEditingFilesets)
+			if (!gEngine.BortCommand && gEngine.Config.DdEditingFilesets)
 			{
-				MenuItemList.Add(Globals.CreateInstance<IMenuItem>(x =>
+				MenuItemList.Add(gEngine.CreateInstance<IMenuItem>(x =>
 				{
 					x.SelectChar = (char)('1' + MenuItemList.Count);
 					x.LineText = string.Format("{0}{1}. Fileset record maintenance.", Environment.NewLine, MenuItemList.Count + 1);
-					x.SubMenu = Globals.CreateInstance<IFilesetRecordMenu>();
+					x.SubMenu = gEngine.CreateInstance<IFilesetRecordMenu>();
 				}));
 			}
 
-			if (!Globals.BortCommand && Globals.Config.DdEditingCharacters)
+			if (!gEngine.BortCommand && gEngine.Config.DdEditingCharacters)
 			{
-				MenuItemList.Add(Globals.CreateInstance<IMenuItem>(x =>
+				MenuItemList.Add(gEngine.CreateInstance<IMenuItem>(x =>
 				{
 					x.SelectChar = (char)('1' + MenuItemList.Count);
 					x.LineText = string.Format("{0}{1}. Character record maintenance.", Environment.NewLine, MenuItemList.Count + 1);
-					x.SubMenu = Globals.CreateInstance<ICharacterRecordMenu>();
+					x.SubMenu = gEngine.CreateInstance<ICharacterRecordMenu>();
 				}));
 			}
 
-			if (Globals.Config.DdEditingModules)
+			if (gEngine.Config.DdEditingModules)
 			{
-				MenuItemList.Add(Globals.CreateInstance<IMenuItem>(x =>
+				MenuItemList.Add(gEngine.CreateInstance<IMenuItem>(x =>
 				{
 					x.SelectChar = (char)('1' + MenuItemList.Count);
 					x.LineText = string.Format("{0}{1}. Module record maintenance.", Environment.NewLine, MenuItemList.Count + 1);
-					x.SubMenu = Globals.CreateInstance<IModuleRecordMenu>();
+					x.SubMenu = gEngine.CreateInstance<IModuleRecordMenu>();
 				}));
 			}
 
-			if (Globals.Config.DdEditingRooms)
+			if (gEngine.Config.DdEditingRooms)
 			{
-				MenuItemList.Add(Globals.CreateInstance<IMenuItem>(x =>
+				MenuItemList.Add(gEngine.CreateInstance<IMenuItem>(x =>
 				{
 					x.SelectChar = (char)('1' + MenuItemList.Count);
 					x.LineText = string.Format("{0}{1}. Room record maintenance.", Environment.NewLine, MenuItemList.Count + 1);
-					x.SubMenu = Globals.CreateInstance<IRoomRecordMenu>();
+					x.SubMenu = gEngine.CreateInstance<IRoomRecordMenu>();
 				}));
 			}
 
-			if (Globals.Config.DdEditingArtifacts)
+			if (gEngine.Config.DdEditingArtifacts)
 			{
-				MenuItemList.Add(Globals.CreateInstance<IMenuItem>(x =>
+				MenuItemList.Add(gEngine.CreateInstance<IMenuItem>(x =>
 				{
 					x.SelectChar = (char)('1' + MenuItemList.Count);
 					x.LineText = string.Format("{0}{1}. Artifact record maintenance.", Environment.NewLine, MenuItemList.Count + 1);
-					x.SubMenu = Globals.CreateInstance<IArtifactRecordMenu>();
+					x.SubMenu = gEngine.CreateInstance<IArtifactRecordMenu>();
 				}));
 			}
 
-			if (Globals.Config.DdEditingEffects)
+			if (gEngine.Config.DdEditingEffects)
 			{
-				MenuItemList.Add(Globals.CreateInstance<IMenuItem>(x =>
+				MenuItemList.Add(gEngine.CreateInstance<IMenuItem>(x =>
 				{
 					x.SelectChar = (char)('1' + MenuItemList.Count);
 					x.LineText = string.Format("{0}{1}. Effect record maintenance.", Environment.NewLine, MenuItemList.Count + 1);
-					x.SubMenu = Globals.CreateInstance<IEffectRecordMenu>();
+					x.SubMenu = gEngine.CreateInstance<IEffectRecordMenu>();
 				}));
 			}
 
-			if (Globals.Config.DdEditingMonsters)
+			if (gEngine.Config.DdEditingMonsters)
 			{
-				MenuItemList.Add(Globals.CreateInstance<IMenuItem>(x =>
+				MenuItemList.Add(gEngine.CreateInstance<IMenuItem>(x =>
 				{
 					x.SelectChar = (char)('1' + MenuItemList.Count);
 					x.LineText = string.Format("{0}{1}. Monster record maintenance.", Environment.NewLine, MenuItemList.Count + 1);
-					x.SubMenu = Globals.CreateInstance<IMonsterRecordMenu>();
+					x.SubMenu = gEngine.CreateInstance<IMonsterRecordMenu>();
 				}));
 			}
 
-			if (Globals.Config.DdEditingHints)
+			if (gEngine.Config.DdEditingHints)
 			{
-				MenuItemList.Add(Globals.CreateInstance<IMenuItem>(x =>
+				MenuItemList.Add(gEngine.CreateInstance<IMenuItem>(x =>
 				{
 					x.SelectChar = (char)('1' + MenuItemList.Count);
 					x.LineText = string.Format("{0}{1}. Hint record maintenance.", Environment.NewLine, MenuItemList.Count + 1);
-					x.SubMenu = Globals.CreateInstance<IHintRecordMenu>();
+					x.SubMenu = gEngine.CreateInstance<IHintRecordMenu>();
 				}));
 			}
 
-			MenuItemList.Add(Globals.CreateInstance<IMenuItem>(x =>
+			MenuItemList.Add(gEngine.CreateInstance<IMenuItem>(x =>
 			{
 				x.SelectChar = MenuItemList.Count + 1 > 9 ? 'U' : (char)('1' + MenuItemList.Count);
 				x.LineText = string.Format("{0}{1}. Utilities.", Environment.NewLine, MenuItemList.Count + 1 > 9 ? "U" : (MenuItemList.Count + 1).ToString());
-				x.SubMenu = Globals.CreateInstance<IUtilitiesMenu>();
+				x.SubMenu = gEngine.CreateInstance<IUtilitiesMenu>();
 			}));
 
-			MenuItemList.Add(Globals.CreateInstance<IMenuItem>(x =>
+			MenuItemList.Add(gEngine.CreateInstance<IMenuItem>(x =>
 			{
 				x.SelectChar = 'X';
 				x.LineText = string.Format("{0}X. Exit.{0}", Environment.NewLine);

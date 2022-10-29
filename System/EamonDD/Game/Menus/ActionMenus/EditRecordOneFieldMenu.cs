@@ -10,7 +10,7 @@ using Eamon;
 using Eamon.Framework;
 using Eamon.Framework.Helpers.Generic;
 using EamonDD.Framework.Menus.ActionMenus;
-using static EamonDD.Game.Plugin.PluginContext;
+using static EamonDD.Game.Plugin.Globals;
 
 namespace EamonDD.Game.Menus.ActionMenus
 {
@@ -34,13 +34,13 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 				Buf.Clear();
 
-				rc = Globals.In.ReadField(Buf, Constants.BufSize01, null, '_', '\0', true, "1", null, gEngine.IsCharDigit, null);
+				rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, "1", null, gEngine.IsCharDigit, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
 				var recordUid = Convert.ToInt64(Buf.Trim().ToString());
 
-				gOut.Print("{0}", Globals.LineSep);
+				gOut.Print("{0}", gEngine.LineSep);
 
 				EditRecord = RecordTable.FindRecord(recordUid);
 
@@ -52,11 +52,11 @@ namespace EamonDD.Game.Menus.ActionMenus
 				}
 			}
 
-			var editRecord01 = Globals.CloneInstance(EditRecord);
+			var editRecord01 = gEngine.CloneInstance(EditRecord);
 
 			Debug.Assert(editRecord01 != null);
 			
-			var helper = Globals.CreateInstance<U>(x =>
+			var helper = gEngine.CreateInstance<U>(x =>
 			{
 				x.Record = editRecord01;
 			});
@@ -73,7 +73,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 				Buf.Clear();
 
-				rc = Globals.In.ReadField(Buf, Constants.BufSize01, null, '_', '\0', true, "0", null, gEngine.IsCharDigit, null);
+				rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, "0", null, gEngine.IsCharDigit, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -86,7 +86,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 					goto Cleanup;
 				}
 
-				gOut.Print("{0}", Globals.LineSep);
+				gOut.Print("{0}", gEngine.LineSep);
 			}
 			else
 			{
@@ -95,23 +95,23 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			helper.EditRec = true;
 			helper.EditField = true;
-			helper.FieldDesc = Globals.Config.FieldDesc;
+			helper.FieldDesc = gEngine.Config.FieldDesc;
 
 			helper.InputField(editFieldName01);
 
-			Globals.Thread.Sleep(150);
+			gEngine.Thread.Sleep(150);
 
-			if (!Globals.CompareInstances(EditRecord, editRecord01))
+			if (!gEngine.CompareInstances(EditRecord, editRecord01))
 			{
 				gOut.Write("{0}Would you like to save this updated {1} record (Y/N): ", Environment.NewLine, RecordTypeName);
 
 				Buf.Clear();
 
-				rc = Globals.In.ReadField(Buf, Constants.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, gEngine.IsCharYOrN);
+				rc = gEngine.In.ReadField(Buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, gEngine.IsCharYOrN);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
-				Globals.Thread.Sleep(150);
+				gEngine.Thread.Sleep(150);
 
 				if (Buf.Length > 0 && Buf[0] == 'N')
 				{
@@ -131,7 +131,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 				if (artifact != null)
 				{
-					gEngine.TruncatePluralTypeEffectDesc(artifact.PluralType, Constants.ArtNameLen);
+					gEngine.TruncatePluralTypeEffectDesc(artifact.PluralType, gEngine.ArtNameLen);
 				}
 
 				var effect = editRecord01 as IEffect;
@@ -145,7 +145,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 				if (monster != null)
 				{
-					gEngine.TruncatePluralTypeEffectDesc(monster.PluralType, Constants.MonNameLen);
+					gEngine.TruncatePluralTypeEffectDesc(monster.PluralType, gEngine.MonNameLen);
 				}
 
 				var record = RecordTable.RemoveRecord(EditRecord.Uid);

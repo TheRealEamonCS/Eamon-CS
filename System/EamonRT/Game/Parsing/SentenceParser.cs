@@ -16,7 +16,7 @@ using Eamon.Game.Extensions;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.Parsing;
 using EamonRT.Game.Exceptions;
-using static EamonRT.Game.Plugin.PluginContext;
+using static EamonRT.Game.Plugin.Globals;
 
 namespace EamonRT.Game.Parsing
 {
@@ -193,19 +193,19 @@ namespace EamonRT.Game.Parsing
 
 					PrepTokenIndex = -1;
 
-					Globals.Buf.SetFormat("{0}", CurrInputStr.Trim());
+					gEngine.Buf.SetFormat("{0}", CurrInputStr.Trim());
 
-					Globals.Buf.SetFormat("{0}", gEngine.ReplacePrepositions(Globals.Buf).ToString());
+					gEngine.Buf.SetFormat("{0}", gEngine.ReplacePrepositions(gEngine.Buf).ToString());
 
-					Tokens = Globals.Buf.ToString().Split(new char[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
+					Tokens = gEngine.Buf.ToString().Split(new char[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
 
 					if (CurrToken < Tokens.Length)
 					{
 						if (Tokens.Length == 1)
 						{
-							Globals.Buf.SetFormat("{0}", Tokens[CurrToken]);
+							gEngine.Buf.SetFormat("{0}", Tokens[CurrToken]);
 
-							Tokens[CurrToken] = Globals.Buf.TrimEndPunctuationMinusUniqueChars().ToString().Trim();
+							Tokens[CurrToken] = gEngine.Buf.TrimEndPunctuationMinusUniqueChars().ToString().Trim();
 						}
 
 						if (Tokens[CurrToken].Length == 0)
@@ -276,19 +276,19 @@ namespace EamonRT.Game.Parsing
 
 								DobjNameTokens = DobjNameStr.IndexOf(" , ") >= 0 ? DobjNameStr.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries) : new string[] { DobjNameStr };
 
-								DobjNameTokens = DobjNameTokens.Where(dobjNameToken => !string.IsNullOrWhiteSpace(dobjNameToken) && Array.FindIndex(Constants.CommandSepTokens, token => !Char.IsPunctuation(token[0]) ? dobjNameToken.IndexOf(" " + token + " ") >= 0 : token[0] != ',' && dobjNameToken.IndexOf(token) >= 0) < 0).ToArray();
+								DobjNameTokens = DobjNameTokens.Where(dobjNameToken => !string.IsNullOrWhiteSpace(dobjNameToken) && Array.FindIndex(gEngine.CommandSepTokens, token => !Char.IsPunctuation(token[0]) ? dobjNameToken.IndexOf(" " + token + " ") >= 0 : token[0] != ',' && dobjNameToken.IndexOf(token) >= 0) < 0).ToArray();
 
 								for (var j = 0; j < DobjNameTokens.Length; j++)
 								{
 									_mySeen = false;
 
-									Globals.Buf.SetFormat("{0}", DobjNameTokens[j].Trim());
+									gEngine.Buf.SetFormat("{0}", DobjNameTokens[j].Trim());
 
-									rc = gEngine.StripPrepsAndArticles(Globals.Buf, ref _mySeen);
+									rc = gEngine.StripPrepsAndArticles(gEngine.Buf, ref _mySeen);
 
 									Debug.Assert(gEngine.IsSuccess(rc));
 
-									DobjNameTokens[j] = string.Format(" {0} ", Globals.Buf.ToString().Trim());
+									DobjNameTokens[j] = string.Format(" {0} ", gEngine.Buf.ToString().Trim());
 								}
 
 								DobjNameStr = string.Join(",", DobjNameTokens);
@@ -313,19 +313,19 @@ namespace EamonRT.Game.Parsing
 
 								IobjNameTokens = IobjNameStr.IndexOf(" , ") >= 0 ? IobjNameStr.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries) : new string[] { IobjNameStr };
 
-								IobjNameTokens = IobjNameTokens.Where(iobjNameToken => !string.IsNullOrWhiteSpace(iobjNameToken) && Array.FindIndex(Constants.CommandSepTokens, token => !Char.IsPunctuation(token[0]) ? iobjNameToken.IndexOf(" " + token + " ") >= 0 : token[0] != ',' && iobjNameToken.IndexOf(token) >= 0) < 0).ToArray();
+								IobjNameTokens = IobjNameTokens.Where(iobjNameToken => !string.IsNullOrWhiteSpace(iobjNameToken) && Array.FindIndex(gEngine.CommandSepTokens, token => !Char.IsPunctuation(token[0]) ? iobjNameToken.IndexOf(" " + token + " ") >= 0 : token[0] != ',' && iobjNameToken.IndexOf(token) >= 0) < 0).ToArray();
 
 								for (var j = 0; j < IobjNameTokens.Length; j++)
 								{
 									_mySeen = false;
 
-									Globals.Buf.SetFormat("{0}", IobjNameTokens[j].Trim());
+									gEngine.Buf.SetFormat("{0}", IobjNameTokens[j].Trim());
 
-									rc = gEngine.StripPrepsAndArticles(Globals.Buf, ref _mySeen);
+									rc = gEngine.StripPrepsAndArticles(gEngine.Buf, ref _mySeen);
 
 									Debug.Assert(gEngine.IsSuccess(rc));
 
-									IobjNameTokens[j] = string.Format(" {0} ", Globals.Buf.ToString().Trim());
+									IobjNameTokens[j] = string.Format(" {0} ", gEngine.Buf.ToString().Trim());
 								}
 
 								IobjNameStr = string.Join(",", IobjNameTokens);
@@ -448,9 +448,9 @@ namespace EamonRT.Game.Parsing
 									throw new GeneralParsingErrorException();
 								}
 
-								if (Array.FindIndex(Constants.CommandSepTokens, token => !Char.IsPunctuation(token[0]) ? DobjNameStr.IndexOf(" " + token + " ") >= 0 : token[0] != ',' && DobjNameStr.IndexOf(token) >= 0) < 0 && Array.FindIndex(Constants.PronounTokens, token => DobjNameStr.IndexOf(" " + token + " ") >= 0) < 0)
+								if (Array.FindIndex(gEngine.CommandSepTokens, token => !Char.IsPunctuation(token[0]) ? DobjNameStr.IndexOf(" " + token + " ") >= 0 : token[0] != ',' && DobjNameStr.IndexOf(token) >= 0) < 0 && Array.FindIndex(gEngine.PronounTokens, token => DobjNameStr.IndexOf(" " + token + " ") >= 0) < 0)
 								{
-									gCommandParser.LastThemNameStr = Globals.CloneInstance(DobjNameStr.Trim());
+									gCommandParser.LastThemNameStr = gEngine.CloneInstance(DobjNameStr.Trim());
 								}
 
 								CommandFormatStr = CurrInputStr.Substring(0, (int)NameIndex) + "{0}" + CurrInputStr.Substring((int)NameIndex + DobjNameStr.Length);
@@ -508,25 +508,25 @@ namespace EamonRT.Game.Parsing
 
 				if (InputBuf.Length > 0)
 				{
-					if (Environment.NewLine.Length == 1 && Globals.CursorPosition.Y > -1 && Globals.CursorPosition.Y + 1 >= gOut.GetBufferHeight())
+					if (Environment.NewLine.Length == 1 && gEngine.CursorPosition.Y > -1 && gEngine.CursorPosition.Y + 1 >= gOut.GetBufferHeight())
 					{
-						Globals.CursorPosition.Y--;
+						gEngine.CursorPosition.Y--;
 					}
 
-					gOut.SetCursorPosition(Globals.CursorPosition);
+					gOut.SetCursorPosition(gEngine.CursorPosition);
 
-					if (Globals.LineWrapUserInput)
+					if (gEngine.LineWrapUserInput)
 					{
-						gEngine.LineWrap(InputBuf.ToString(), Globals.Buf, Globals.CommandPrompt.Length);
+						gEngine.LineWrap(InputBuf.ToString(), gEngine.Buf, gEngine.CommandPrompt.Length);
 					}
 					else
 					{
-						Globals.Buf.SetFormat("{0}", InputBuf.ToString());
+						gEngine.Buf.SetFormat("{0}", InputBuf.ToString());
 					}
 
 					gOut.WordWrap = false;
 
-					gOut.WriteLine(Globals.Buf);
+					gOut.WriteLine(gEngine.Buf);
 
 					gOut.WordWrap = true;
 				}
@@ -634,7 +634,7 @@ namespace EamonRT.Game.Parsing
 
 		public SentenceParser()
 		{
-			InputBuf = new StringBuilder(Constants.BufSize);
+			InputBuf = new StringBuilder(gEngine.BufSize);
 
 			LastInputStr = "";
 

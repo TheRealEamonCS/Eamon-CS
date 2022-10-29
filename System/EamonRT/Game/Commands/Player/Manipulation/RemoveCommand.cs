@@ -11,7 +11,7 @@ using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
-using static EamonRT.Game.Plugin.PluginContext;
+using static EamonRT.Game.Plugin.Globals;
 
 namespace EamonRT.Game.Commands
 {
@@ -53,7 +53,7 @@ namespace EamonRT.Game.Commands
 				{
 					if (DobjArtifact.DisguisedMonster == null)
 					{
-						NextState = Globals.CreateInstance<IStartState>();
+						NextState = gEngine.CreateInstance<IStartState>();
 					}
 
 					goto Cleanup;
@@ -61,7 +61,7 @@ namespace EamonRT.Game.Commands
 
 				if (ActorMonster.Weapon <= 0 && DobjArtifact.IsReadyableByCharacter() && NextState == null)
 				{
-					NextState = Globals.CreateInstance<IReadyCommand>();
+					NextState = gEngine.CreateInstance<IReadyCommand>();
 
 					CopyCommandData(NextState as ICommand, false);
 
@@ -108,7 +108,7 @@ namespace EamonRT.Game.Commands
 
 			if (NextState == null)
 			{
-				NextState = Globals.CreateInstance<IMonsterStartState>();
+				NextState = gEngine.CreateInstance<IMonsterStartState>();
 			}
 		}
 
@@ -129,7 +129,7 @@ namespace EamonRT.Game.Commands
 
 			IsIobjEnabled = true;
 
-			if (Globals.IsRulesetVersion(5))
+			if (gEngine.IsRulesetVersion(5))
 			{
 				IsPlayerEnabled = false;
 			}

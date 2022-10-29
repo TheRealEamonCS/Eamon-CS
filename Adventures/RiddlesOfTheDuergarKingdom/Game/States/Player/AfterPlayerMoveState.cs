@@ -11,7 +11,7 @@ using EamonRT.Framework.Commands;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
 using RiddlesOfTheDuergarKingdom.Framework.Commands;
-using static RiddlesOfTheDuergarKingdom.Game.Plugin.PluginContext;
+using static RiddlesOfTheDuergarKingdom.Game.Plugin.Globals;
 
 namespace RiddlesOfTheDuergarKingdom.Game.States
 {
@@ -206,11 +206,11 @@ namespace RiddlesOfTheDuergarKingdom.Game.States
 
 				// Push ore cart on tracks
 
-				if (Globals.LastCommand != null && Globals.LastCommand.Type == CommandType.Movement)
+				if (gEngine.LastCommand != null && gEngine.LastCommand.Type == CommandType.Movement)
 				{
-					var lastCommandGoFleeClimb = Globals.LastCommand is IGoCommand || Globals.LastCommand is IFleeCommand || Globals.LastCommand is IClimbCommand;
+					var lastCommandGoFleeClimb = gEngine.LastCommand is IGoCommand || gEngine.LastCommand is IFleeCommand || gEngine.LastCommand is IClimbCommand;
 
-					if (!lastCommandGoFleeClimb && !Globals.EnemyInExitedDarkRoom && tracksArtifact.IsInRoom(room) && oreCartArtifact.IsCarriedByContainer() && gGameState.PushingOreCart)
+					if (!lastCommandGoFleeClimb && !gEngine.EnemyInExitedDarkRoom && tracksArtifact.IsInRoom(room) && oreCartArtifact.IsCarriedByContainer() && gGameState.PushingOreCart)
 					{
 						gEngine.PrintEffectDesc(65);
 
@@ -230,7 +230,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.States
 		{
 			var room = gRDB[gGameState.Ro];
 
-			Globals.EnemyInExitedDarkRoom = room != null && !room.IsLit() && gGameState.GetNBTL(Friendliness.Enemy) > 0;
+			gEngine.EnemyInExitedDarkRoom = room != null && !room.IsLit() && gGameState.GetNBTL(Friendliness.Enemy) > 0;
 
 			base.Execute();
 

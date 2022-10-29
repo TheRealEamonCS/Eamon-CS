@@ -13,7 +13,7 @@ using Eamon.Game.Extensions;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
-using static EamonRT.Game.Plugin.PluginContext;
+using static EamonRT.Game.Plugin.Globals;
 
 namespace EamonRT.Game.Commands
 {
@@ -52,7 +52,7 @@ namespace EamonRT.Game.Commands
 			{
 				PrintCantVerbObj(DobjArtifact);
 
-				NextState = Globals.CreateInstance<IStartState>();
+				NextState = gEngine.CreateInstance<IStartState>();
 
 				goto Cleanup;
 			}
@@ -61,7 +61,7 @@ namespace EamonRT.Game.Commands
 			{
 				gEngine.RevealDisguisedMonster(ActorRoom, DobjArtifact);
 
-				NextState = Globals.CreateInstance<IStartState>();
+				NextState = gEngine.CreateInstance<IStartState>();
 
 				goto Cleanup;
 			}
@@ -70,7 +70,7 @@ namespace EamonRT.Game.Commands
 			{
 				PrintMustFirstOpen(DobjArtifact);
 
-				NextState = Globals.CreateInstance<IStartState>();
+				NextState = gEngine.CreateInstance<IStartState>();
 
 				goto Cleanup;
 			}
@@ -88,20 +88,20 @@ namespace EamonRT.Game.Commands
 
 				if (ReadEffect != null)
 				{
-					Globals.Buf.Clear();
+					gEngine.Buf.Clear();
 
-					rc = ReadEffect.BuildPrintedFullDesc(Globals.Buf);
+					rc = ReadEffect.BuildPrintedFullDesc(gEngine.Buf);
 				}
 				else
 				{
-					Globals.Buf.SetPrint("{0}", "???");
+					gEngine.Buf.SetPrint("{0}", "???");
 
 					rc = RetCode.Success;
 				}
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
-				gOut.Write("{0}", Globals.Buf);
+				gOut.Write("{0}", gEngine.Buf);
 			}
 
 			ProcessEvents(EventType.AfterReadArtifact);
@@ -115,7 +115,7 @@ namespace EamonRT.Game.Commands
 
 			if (NextState == null)
 			{
-				NextState = Globals.CreateInstance<IMonsterStartState>();
+				NextState = gEngine.CreateInstance<IMonsterStartState>();
 			}
 		}
 
@@ -123,7 +123,7 @@ namespace EamonRT.Game.Commands
 		{
 			SortOrder = 200;
 
-			if (Globals.IsRulesetVersion(5))
+			if (gEngine.IsRulesetVersion(5))
 			{
 				IsPlayerEnabled = false;
 			}

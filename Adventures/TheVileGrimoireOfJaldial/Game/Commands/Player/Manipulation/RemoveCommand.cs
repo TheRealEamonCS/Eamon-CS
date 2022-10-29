@@ -10,7 +10,7 @@ using Eamon.Game.Utilities;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
-using static TheVileGrimoireOfJaldial.Game.Plugin.PluginContext;
+using static TheVileGrimoireOfJaldial.Game.Plugin.Globals;
 
 namespace TheVileGrimoireOfJaldial.Game.Commands
 {
@@ -29,7 +29,7 @@ namespace TheVileGrimoireOfJaldial.Game.Commands
 
 				foreach (var wv in weaponValues)
 				{
-					gCharacter.ModWeaponAbilities(wv, -5);
+					gCharacter.ModWeaponAbility(wv, -5);
 				}
 			}
 		}
@@ -85,7 +85,7 @@ namespace TheVileGrimoireOfJaldial.Game.Commands
 					{
 						gOut.Print("[Using {0}.]", bucketArtifact.GetTheName());
 
-						var command = Globals.CreateInstance<IUseCommand>();
+						var command = gEngine.CreateInstance<IUseCommand>();
 
 						CopyCommandData(command, false);
 
@@ -97,7 +97,7 @@ namespace TheVileGrimoireOfJaldial.Game.Commands
 					{
 						gOut.Print("There's no obvious way to do that.");
 
-						NextState = Globals.CreateInstance<IStartState>();
+						NextState = gEngine.CreateInstance<IStartState>();
 					}
 				}
 				else

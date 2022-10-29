@@ -15,7 +15,7 @@ using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using Eamon.Game.Menus;
 using EamonMH.Framework.Menus.ActionMenus;
-using static EamonMH.Game.Plugin.PluginContext;
+using static EamonMH.Game.Plugin.Globals;
 
 namespace EamonMH.Game.Menus.ActionMenus
 {
@@ -42,11 +42,11 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 			var nlFlag = false;
 
-			var j = Globals.Database.GetFilesetsCount();
+			var j = gEngine.Database.GetFilesetCount();
 
 			if (index == 0)
 			{
-				gOut.Print("{0}", Globals.LineSep);
+				gOut.Print("{0}", gEngine.LineSep);
 
 				gOut.Print("When you inquire with the burly Irishman about the adventures available to you he says, \"Ye cannat wait to put yerself to the test, eh?  {0}\"",
 					j > 0 ? "Well, maybe one of these will suit yer fancy." : "Well, I just don't know where ye can venture right now.");
@@ -56,7 +56,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 			{
 				if (index == 0)
 				{
-					Globals.In.KeyPress(Buf);
+					gEngine.In.KeyPress(Buf);
 				}
 
 				goto Cleanup;
@@ -64,13 +64,13 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 			while (true)
 			{
-				gOut.Print("{0}", Globals.LineSep);
+				gOut.Print("{0}", gEngine.LineSep);
 
 				var i = 0;
 
-				var helper = Globals.CreateInstance<IFilesetHelper>();
+				var helper = gEngine.CreateInstance<IFilesetHelper>();
 
-				var filesets = Globals.Database.FilesetTable.Records;
+				var filesets = gEngine.Database.FilesetTable.Records;
 
 				foreach (var fileset01 in filesets)
 				{
@@ -80,21 +80,21 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 					nlFlag = true;
 
-					if (i != 0 && (i % (Constants.NumRows - 8)) == 0)
+					if (i != 0 && (i % (gEngine.NumRows - 8)) == 0)
 					{
 						nlFlag = false;
 
-						gOut.WriteLine("{0}{0}{1}", Environment.NewLine, Globals.LineSep);
+						gOut.WriteLine("{0}{0}{1}", Environment.NewLine, gEngine.LineSep);
 
 						gOut.Write("{0}Press any key to continue or X to exit: ", Environment.NewLine);
 
 						Buf.Clear();
 
-						rc = Globals.In.ReadField(Buf, Constants.BufSize02, null, ' ', '\0', true, null, gEngine.ModifyCharToNullOrX, null, gEngine.IsCharAny);
+						rc = gEngine.In.ReadField(Buf, gEngine.BufSize02, null, ' ', '\0', true, null, gEngine.ModifyCharToNullOrX, null, gEngine.IsCharAny);
 
 						Debug.Assert(gEngine.IsSuccess(rc));
 
-						Globals.Thread.Sleep(150);
+						gEngine.Thread.Sleep(150);
 
 						if (Buf.Length > 0 && Buf[0] == 'X')
 						{
@@ -103,7 +103,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 						if (i + 1 < filesets.Count)
 						{
-							gOut.Print("{0}", Globals.LineSep);
+							gOut.Print("{0}", gEngine.LineSep);
 						}
 					}
 
@@ -115,17 +115,17 @@ namespace EamonMH.Game.Menus.ActionMenus
 					gOut.WriteLine();
 				}
 
-				gOut.Print("{0}", Globals.LineSep);
+				gOut.Print("{0}", gEngine.LineSep);
 
 				gOut.Write("{0}Enter the selection or X to exit: ", Environment.NewLine);
 
 				Buf.Clear();
 
-				rc = Globals.In.ReadField(Buf, Constants.BufSize01, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharDigitOrX, null);
+				rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharDigitOrX, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
-				Globals.Thread.Sleep(150);
+				gEngine.Thread.Sleep(150);
 
 				if (Buf.Length > 0 && Buf[0] == 'X')
 				{
@@ -138,7 +138,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 				{
 					var filesetUid = Convert.ToInt64(Buf.Trim().ToString());
 
-					fileset = Globals.FSDB[filesetUid];
+					fileset = gEngine.FSDB[filesetUid];
 				}
 				catch (Exception)
 				{
@@ -147,22 +147,22 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 				if (fileset != null)
 				{
-					if (!Globals.Directory.Exists(fileset.WorkDir))
+					if (!gEngine.Directory.Exists(fileset.WorkDir))
 					{
 						var errorMessage = string.Format("Attempted to access a path [{0}] that is not on the disk.", fileset.WorkDir);
 
 						throw new Exception(errorMessage);
 					}
 
-					rc = Globals.PushDatabase();
+					rc = gEngine.PushDatabase();
 
 					Debug.Assert(gEngine.IsSuccess(rc));
 
 					if (!string.IsNullOrWhiteSpace(fileset.FilesetFileName) && !fileset.FilesetFileName.Equals("NONE", StringComparison.OrdinalIgnoreCase))
 					{
-						var fsfn = Globals.Path.Combine(fileset.WorkDir, fileset.FilesetFileName);
+						var fsfn = gEngine.Path.Combine(fileset.WorkDir, fileset.FilesetFileName);
 
-						rc = Globals.Database.LoadFilesets(fsfn, printOutput: false);
+						rc = gEngine.Database.LoadFilesets(fsfn, printOutput: false);
 
 						Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -170,15 +170,15 @@ namespace EamonMH.Game.Menus.ActionMenus
 					}
 					else
 					{
-						gOut.Print("{0}", Globals.LineSep);
+						gOut.Print("{0}", gEngine.LineSep);
 
-						var chrfn = Globals.Path.Combine(fileset.WorkDir, "FRESHMEAT.DAT");
+						var chrfn = gEngine.Path.Combine(fileset.WorkDir, "FRESHMEAT.DAT");
 
-						rc = Globals.Database.LoadCharacters(chrfn, printOutput: false);
+						rc = gEngine.Database.LoadCharacters(chrfn, printOutput: false);
 
 						Debug.Assert(gEngine.IsSuccess(rc));
 
-						var character = Globals.Database.CharacterTable.Records.FirstOrDefault();
+						var character = gEngine.Database.CharacterTable.Records.FirstOrDefault();
 
 						if (character != null && character.Uid > 0 && !string.IsNullOrWhiteSpace(character.Name) && !character.Name.Equals("NONE", StringComparison.OrdinalIgnoreCase))
 						{
@@ -187,88 +187,88 @@ namespace EamonMH.Game.Menus.ActionMenus
 							goto Cleanup01;
 						}
 
-						Globals.Database.FreeCharacters();
+						gEngine.Database.FreeCharacters();
 
 						gCharacter.Status = Status.Adventuring;
 
-						Globals.CharactersModified = true;
+						gEngine.CharactersModified = true;
 
-						character = Globals.CloneInstance(gCharacter);
+						character = gEngine.CloneInstance(gCharacter);
 
-						rc = Globals.Database.AddCharacter(character);
-
-						Debug.Assert(gEngine.IsSuccess(rc));
-
-						rc = Globals.Database.SaveCharacters(chrfn, false);
+						rc = gEngine.Database.AddCharacter(character);
 
 						Debug.Assert(gEngine.IsSuccess(rc));
 
-						var fsfn = Globals.Path.Combine(fileset.WorkDir, "SAVEGAME.DAT");
-
-						rc = Globals.Database.LoadFilesets(fsfn, printOutput: false);
+						rc = gEngine.Database.SaveCharacters(chrfn, false);
 
 						Debug.Assert(gEngine.IsSuccess(rc));
 
-						filesets = Globals.Database.FilesetTable.Records;
+						var fsfn = gEngine.Path.Combine(fileset.WorkDir, "SAVEGAME.DAT");
+
+						rc = gEngine.Database.LoadFilesets(fsfn, printOutput: false);
+
+						Debug.Assert(gEngine.IsSuccess(rc));
+
+						filesets = gEngine.Database.FilesetTable.Records;
 
 						foreach (var fileset01 in filesets)
 						{
 							fileset01.DeleteFiles(null);
 						}
 
-						Globals.Database.FreeFilesets();
+						gEngine.Database.FreeFilesets();
 
-						rc = Globals.Database.SaveFilesets(fsfn, false);
-
-						Debug.Assert(gEngine.IsSuccess(rc));
-
-						var cfgfn = Globals.Path.Combine(fileset.WorkDir, "EAMONCFG.DAT");
-
-						rc = Globals.Database.LoadConfigs(cfgfn, printOutput: false);
+						rc = gEngine.Database.SaveFilesets(fsfn, false);
 
 						Debug.Assert(gEngine.IsSuccess(rc));
 
-						Globals.Database.FreeConfigs();
+						var cfgfn = gEngine.Path.Combine(fileset.WorkDir, "EAMONCFG.DAT");
 
-						var config = Globals.CloneInstance(Globals.Config);
+						rc = gEngine.Database.LoadConfigs(cfgfn, printOutput: false);
 
-						config.Uid = Globals.Database.GetConfigUid();
+						Debug.Assert(gEngine.IsSuccess(rc));
+
+						gEngine.Database.FreeConfigs();
+
+						var config = gEngine.CloneInstance(gEngine.Config);
+
+						config.Uid = gEngine.Database.GetConfigUid();
 
 						config.IsUidRecycled = true;
 
-						config.MhWorkDir = @"..\..\System\Bin";         // config.MhWorkDir = Globals.CloneInstance(Globals.WorkDir);
+						config.MhWorkDir = @"..\..\System\Bin";         // config.MhWorkDir = Engine.CloneInstance(Engine.WorkDir);
 
 						config.RtFilesetFileName = "SAVEGAME.DAT";
 
-						config.DdFilesetFileName = Globals.CloneInstance(config.RtFilesetFileName);
+						config.DdFilesetFileName = gEngine.CloneInstance(config.RtFilesetFileName);
 
 						config.RtCharacterFileName = "FRESHMEAT.DAT";
 
-						config.DdCharacterFileName = Globals.CloneInstance(config.RtCharacterFileName);
+						config.DdCharacterFileName = gEngine.CloneInstance(config.RtCharacterFileName);
 
-						config.RtModuleFileName = Globals.CloneInstance(fileset.ModuleFileName);
+						config.RtModuleFileName = gEngine.CloneInstance(fileset.ModuleFileName);
 
-						config.DdModuleFileName = Globals.CloneInstance(config.RtModuleFileName);
+						config.DdModuleFileName = gEngine.CloneInstance(config.RtModuleFileName);
 
-						config.RtRoomFileName = Globals.CloneInstance(fileset.RoomFileName);
+						config.RtRoomFileName = gEngine.CloneInstance(fileset.RoomFileName);
 
-						config.DdRoomFileName = Globals.CloneInstance(config.RtRoomFileName);
+						config.DdRoomFileName = gEngine.CloneInstance(config.RtRoomFileName);
 
-						config.RtArtifactFileName = Globals.CloneInstance(fileset.ArtifactFileName);
+						config.RtArtifactFileName = gEngine.CloneInstance(fileset.ArtifactFileName);
 
-						config.DdArtifactFileName = Globals.CloneInstance(config.RtArtifactFileName);
+						config.DdArtifactFileName = gEngine.CloneInstance(config.RtArtifactFileName);
 
-						config.RtEffectFileName = Globals.CloneInstance(fileset.EffectFileName);
+						config.RtEffectFileName = gEngine.CloneInstance(fileset.EffectFileName);
 
-						config.DdEffectFileName = Globals.CloneInstance(config.RtEffectFileName);
+						config.DdEffectFileName = gEngine.CloneInstance(config.RtEffectFileName);
 
-						config.RtMonsterFileName = Globals.CloneInstance(fileset.MonsterFileName);
+						config.RtMonsterFileName = gEngine.CloneInstance(fileset.MonsterFileName);
 
-						config.DdMonsterFileName = Globals.CloneInstance(config.RtMonsterFileName);
+						config.DdMonsterFileName = gEngine.CloneInstance(config.RtMonsterFileName);
 
-						config.RtHintFileName = Globals.CloneInstance(fileset.HintFileName);
+						config.RtHintFileName = gEngine.CloneInstance(fileset.HintFileName);
 
-						config.DdHintFileName = Globals.CloneInstance(config.RtHintFileName);
+						config.DdHintFileName = gEngine.CloneInstance(config.RtHintFileName);
 
 						config.RtGameStateFileName = "GAMESTATE.DAT";
 
@@ -276,11 +276,11 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 						config.DdEditingCharacters = true;
 
-						rc = Globals.Database.AddConfig(config);
+						rc = gEngine.Database.AddConfig(config);
 
 						Debug.Assert(gEngine.IsSuccess(rc));
 
-						rc = Globals.Database.SaveConfigs(cfgfn, false);
+						rc = gEngine.Database.SaveConfigs(cfgfn, false);
 
 						Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -288,40 +288,40 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 						IDatabase database = null;
 
-						rc = Globals.GetDatabase(0, ref database);
+						rc = gEngine.GetDatabase(0, ref database);
 
 						Debug.Assert(gEngine.IsSuccess(rc));
 
-						rc = Globals.PushDatabase(database);
+						rc = gEngine.PushDatabase(database);
 
 						Debug.Assert(gEngine.IsSuccess(rc));
 
 						// silently sync characters file with newly created files above
 
-						rc = Globals.Database.SaveCharacters(Globals.Config.MhCharacterFileName, false);
+						rc = gEngine.Database.SaveCharacters(gEngine.Config.MhCharacterFileName, false);
 
 						Debug.Assert(gEngine.IsSuccess(rc));
 
-						rc = Globals.PopDatabase(false);
+						rc = gEngine.PopDatabase(false);
 
 						Debug.Assert(gEngine.IsSuccess(rc));
 
-						Globals.Fileset = Globals.CloneInstance(fileset);
+						gEngine.Fileset = gEngine.CloneInstance(fileset);
 
-						Globals.GoOnAdventure = true;
+						gEngine.GoOnAdventure = true;
 
-						Globals.In.KeyPress(Buf);
+						gEngine.In.KeyPress(Buf);
 
 					Cleanup01:
 
 						;
 					}
 
-					rc = Globals.PopDatabase();
+					rc = gEngine.PopDatabase();
 
 					Debug.Assert(gEngine.IsSuccess(rc));
 
-					if (Globals.Fileset != null)
+					if (gEngine.Fileset != null)
 					{
 						goto Cleanup;
 					}
@@ -339,7 +339,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 		public GoOnAdventureMenu()
 		{
-			Buf = Globals.Buf;
+			Buf = gEngine.Buf;
 		}
 	}
 }

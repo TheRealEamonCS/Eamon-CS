@@ -13,7 +13,7 @@ using Eamon.Game.Attributes;
 using Eamon.Game.Menus;
 using Eamon.Game.Utilities;
 using EamonMH.Framework.Menus.ActionMenus;
-using static EamonMH.Game.Plugin.PluginContext;
+using static EamonMH.Game.Plugin.Globals;
 
 namespace EamonMH.Game.Menus.ActionMenus
 {
@@ -30,7 +30,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 			long ap = 0;
 			long i;
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 
 			/* 
 				Full Credit:  Derived wholly from Donald Brown's Classic Eamon
@@ -48,7 +48,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 			gOut.Print("A lovely young woman says, \"Good day, {0}.  Ah, you're surprised that I know your name?  I also know the extent of your intellect, hardiness, agility, and charisma.  If you wish, I can magically raise your attributes.  Which one would you like me to focus on?\"", gCharacter.Name);
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 
 			Buf.Clear();
 
@@ -56,7 +56,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 			for (i = 0; i < statValues.Count; i++)
 			{
-				stat = gEngine.GetStats(statValues[(int)i]);
+				stat = gEngine.GetStat(statValues[(int)i]);
 
 				Debug.Assert(stat != null);
 
@@ -72,35 +72,35 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 			Buf.Clear();
 
-			rc = Globals.In.ReadField(Buf, Constants.BufSize02, null, ' ', '\0', false, null, null, gEngine.IsCharStat, gEngine.IsCharStat);
+			rc = gEngine.In.ReadField(Buf, gEngine.BufSize02, null, ' ', '\0', false, null, null, gEngine.IsCharStat, gEngine.IsCharStat);
 
 			Debug.Assert(gEngine.IsSuccess(rc));
 
-			Globals.Thread.Sleep(150);
+			gEngine.Thread.Sleep(150);
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 
 			Debug.Assert(Buf.Length > 0);
 
 			i = Convert.ToInt64(Buf.Trim().ToString());
 
-			stat = gEngine.GetStats((Stat)i);
+			stat = gEngine.GetStat((Stat)i);
 
 			Debug.Assert(stat != null);
 
-			ap = gEngine.GetMerchantAskPrice(Constants.StatGainPrice, (double)Rtio);
+			ap = gEngine.GetMerchantAskPrice(gEngine.StatGainPrice, (double)Rtio);
 
 			gOut.Print("\"My standard price is {0} gold piece{1} per attribute point.\"", ap, ap != 1 ? "s" : "");
 
 			while (true)
 			{
-				ap = gEngine.GetMerchantAskPrice(Constants.StatGainPrice, (double)Rtio);
+				ap = gEngine.GetMerchantAskPrice(gEngine.StatGainPrice, (double)Rtio);
 
-				Globals.In.KeyPress(Buf);
+				gEngine.In.KeyPress(Buf);
 
-				gOut.Print("{0}", Globals.LineSep);
+				gOut.Print("{0}", gEngine.LineSep);
 
-				gOut.Print("Attribute: {0}        Gold: {1}        Cost: {2}", gCharacter.GetStats(i), gCharacter.HeldGold, ap);
+				gOut.Print("Attribute: {0}        Gold: {1}        Cost: {2}", gCharacter.GetStat(i), gCharacter.HeldGold, ap);
 
 				if (gCharacter.HeldGold >= ap)
 				{
@@ -108,13 +108,13 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 					Buf.Clear();
 
-					rc = Globals.In.ReadField(Buf, Constants.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsChar1OrX, gEngine.IsChar1OrX);
+					rc = gEngine.In.ReadField(Buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsChar1OrX, gEngine.IsChar1OrX);
 
 					Debug.Assert(gEngine.IsSuccess(rc));
 
-					Globals.Thread.Sleep(150);
+					gEngine.Thread.Sleep(150);
 
-					gOut.Print("{0}", Globals.LineSep);
+					gOut.Print("{0}", gEngine.LineSep);
 
 					if (Buf.Length == 0 || Buf[0] == 'X')
 					{
@@ -126,25 +126,25 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 						var rl = gEngine.RollDice(1, 24, 0);
 
-						if (rl >= gCharacter.GetStats(Stat.Charisma))
+						if (rl >= gCharacter.GetStat(Stat.Charisma))
 						{
 							gOut.Print("\"It is done!\" she exclaims.");
 
-							gCharacter.ModStats(i, 1);
+							gCharacter.ModStat(i, 1);
 						}
 						else
 						{
 							gOut.Print("\"Because of your powerful adventurer's aura, my spells will sometimes fail.  Unfortunately, this was one of those times.\"");
 						}
 
-						if (gCharacter.GetStats(i) > stat.MaxValue)
+						if (gCharacter.GetStat(i) > stat.MaxValue)
 						{
-							gCharacter.SetStats(i, stat.MaxValue);
+							gCharacter.SetStat(i, stat.MaxValue);
 						}
 
 						gCharacter.HeldGold -= ap;
 
-						Globals.CharactersModified = true;
+						gEngine.CharactersModified = true;
 					}
 				}
 				else
@@ -157,12 +157,12 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 			gOut.Print("\"Good faring, {0}!\"", gCharacter.Name);
 
-			Globals.In.KeyPress(Buf);
+			gEngine.In.KeyPress(Buf);
 		}
 
 		public GoodWitchMenu()
 		{
-			Buf = Globals.Buf;
+			Buf = gEngine.Buf;
 		}
 	}
 }

@@ -7,7 +7,7 @@ using System.Diagnostics;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.States;
-using static AlternateBeginnersCave.Game.Plugin.PluginContext;
+using static AlternateBeginnersCave.Game.Plugin.Globals;
 
 namespace AlternateBeginnersCave.Game.Commands
 {
@@ -24,14 +24,14 @@ namespace AlternateBeginnersCave.Game.Commands
 			{
 				gEngine.PrintEffectDesc(13);
 
-				NextState = Globals.CreateInstance<IMonsterStartState>();
+				NextState = gEngine.CreateInstance<IMonsterStartState>();
 			}
 
 			// Sign in first room
 
 			else if (DobjArtifact.Uid == 23)
 			{
-				var command = Globals.CreateInstance<IExamineCommand>();
+				var command = gEngine.CreateInstance<IExamineCommand>();
 
 				CopyCommandData(command);
 

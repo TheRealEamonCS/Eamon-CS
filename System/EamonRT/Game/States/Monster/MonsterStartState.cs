@@ -5,7 +5,7 @@
 
 using Eamon.Game.Attributes;
 using EamonRT.Framework.States;
-using static EamonRT.Game.Plugin.PluginContext;
+using static EamonRT.Game.Plugin.Globals;
 
 namespace EamonRT.Game.States
 {
@@ -16,10 +16,10 @@ namespace EamonRT.Game.States
 		{
 			if (NextState == null)
 			{
-				NextState = Globals.CreateInstance<IMonsterLoopInitializeState>();
+				NextState = gEngine.CreateInstance<IMonsterLoopInitializeState>();
 			}
 
-			Globals.NextState = NextState;
+			gEngine.NextState = NextState;
 		}
 
 		public MonsterStartState()

@@ -10,7 +10,7 @@ using Eamon.Game.Attributes;
 using Eamon.Game.Menus;
 using EamonDD.Framework.Menus.ActionMenus;
 using EamonDD.Framework.Menus.HierarchicalMenus;
-using static EamonDD.Game.Plugin.PluginContext;
+using static EamonDD.Game.Plugin.Globals;
 
 namespace EamonDD.Game.Menus.HierarchicalMenus
 {
@@ -19,42 +19,42 @@ namespace EamonDD.Game.Menus.HierarchicalMenus
 	{
 		public override void PrintSubtitle()
 		{
-			Globals.DdMenu.PrintRoomMenuSubtitle();
+			gEngine.DdMenu.PrintRoomMenuSubtitle();
 		}
 
 		public RoomRecordUtilitiesMenu()
 		{
 			Title = "ROOM RECORD UTILITIES MENU";
 
-			Buf = Globals.Buf;
+			Buf = gEngine.Buf;
 
 			MenuItemList = new List<IMenuItem>();
 
-			MenuItemList.Add(Globals.CreateInstance<IMenuItem>(x =>
+			MenuItemList.Add(gEngine.CreateInstance<IMenuItem>(x =>
 			{
 				x.SelectChar = (char)('1' + MenuItemList.Count);
 				x.LineText = string.Format("{0}{1}. Brief map of Room record connections.", Environment.NewLine, MenuItemList.Count + 1);
-				x.SubMenu = Globals.CreateInstance<IBriefMapRoomRecordConnectionsMenu>();
+				x.SubMenu = gEngine.CreateInstance<IBriefMapRoomRecordConnectionsMenu>();
 			}));
 
-			MenuItemList.Add(Globals.CreateInstance<IMenuItem>(x =>
+			MenuItemList.Add(gEngine.CreateInstance<IMenuItem>(x =>
 			{
 				x.SelectChar = (char)('1' + MenuItemList.Count);
 				x.LineText = string.Format("{0}{1}. Full map of Room record connections.", Environment.NewLine, MenuItemList.Count + 1);
-				x.SubMenu = Globals.CreateInstance<IFullMapRoomRecordConnectionsMenu>();
+				x.SubMenu = gEngine.CreateInstance<IFullMapRoomRecordConnectionsMenu>();
 			}));
 
 			if (gEngine.IsAdventureFilesetLoaded())
 			{
-				MenuItemList.Add(Globals.CreateInstance<IMenuItem>(x =>
+				MenuItemList.Add(gEngine.CreateInstance<IMenuItem>(x =>
 				{
 					x.SelectChar = (char)('1' + MenuItemList.Count);
 					x.LineText = string.Format("{0}{1}. Analyse Room record interdependencies.", Environment.NewLine, MenuItemList.Count + 1);
-					x.SubMenu = Globals.CreateInstance<IAnalyseRoomRecordInterdependenciesMenu>();
+					x.SubMenu = gEngine.CreateInstance<IAnalyseRoomRecordInterdependenciesMenu>();
 				}));
 			}
 
-			MenuItemList.Add(Globals.CreateInstance<IMenuItem>(x =>
+			MenuItemList.Add(gEngine.CreateInstance<IMenuItem>(x =>
 			{
 				x.SelectChar = 'X';
 				x.LineText = string.Format("{0}X. Exit.{0}", Environment.NewLine);

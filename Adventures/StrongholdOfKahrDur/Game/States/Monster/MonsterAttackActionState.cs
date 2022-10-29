@@ -6,7 +6,7 @@
 using System.Diagnostics;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.States;
-using static StrongholdOfKahrDur.Game.Plugin.PluginContext;
+using static StrongholdOfKahrDur.Game.Plugin.Globals;
 
 namespace StrongholdOfKahrDur.Game.States
 {
@@ -15,7 +15,7 @@ namespace StrongholdOfKahrDur.Game.States
 	{
 		public override void Execute()
 		{
-			var monster = gMDB[Globals.LoopMonsterUid];
+			var monster = gMDB[gEngine.LoopMonsterUid];
 
 			Debug.Assert(monster != null);
 
@@ -23,9 +23,9 @@ namespace StrongholdOfKahrDur.Game.States
 
 			if (monster.Uid == 22)
 			{
-				NextState = Globals.CreateInstance<Framework.States.INecromancerAttackActionState>();
+				NextState = gEngine.CreateInstance<Framework.States.INecromancerAttackActionState>();
 
-				Globals.NextState = NextState;
+				gEngine.NextState = NextState;
 			}
 			else
 			{

@@ -9,7 +9,7 @@ using Eamon.Framework;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Components;
 using EamonRT.Framework.Primitive.Enums;
-using static RiddlesOfTheDuergarKingdom.Game.Plugin.PluginContext;
+using static RiddlesOfTheDuergarKingdom.Game.Plugin.Globals;
 
 namespace RiddlesOfTheDuergarKingdom.Game.Components
 {
@@ -103,7 +103,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.Components
 
 					furtherString = "";
 
-					gGameState.AfterPrintPlayerRoomEventHeap.Insert02(gGameState.CurrTurn + Constants.PoisonInjuryTurns, "PoisonSickensMonsterEvent", DobjMonster.Uid);
+					gGameState.AfterPrintPlayerRoomEventHeap.Insert02(gGameState.CurrTurn + gEngine.PoisonInjuryTurns, "PoisonSickensMonsterEvent", DobjMonster.Uid);
 				}
 
 				if (DobjMonster.IsCharacterMonster() || room.IsLit())

@@ -5,7 +5,7 @@
 
 using Eamon.Framework;
 using Eamon.Game.Attributes;
-using static TheWayfarersInn.Game.Plugin.PluginContext;
+using static TheWayfarersInn.Game.Plugin.Globals;
 
 namespace TheWayfarersInn.Game
 {

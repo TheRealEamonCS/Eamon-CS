@@ -8,7 +8,7 @@ using System.Diagnostics;
 using Eamon.Framework;
 using Eamon.Game.Attributes;
 using TheVileGrimoireOfJaldial.Framework.Primitive.Enums;
-using static TheVileGrimoireOfJaldial.Game.Plugin.PluginContext;
+using static TheVileGrimoireOfJaldial.Game.Plugin.Globals;
 
 namespace TheVileGrimoireOfJaldial.Game
 {
@@ -119,12 +119,12 @@ namespace TheVileGrimoireOfJaldial.Game
 			return Hour < 10 || Hour > 20;
 		}
 
-		public virtual bool GetSecretDoors(long index)
+		public virtual bool GetSecretDoor(long index)
 		{
 			return SecretDoors[index];
 		}
 
-		public virtual void SetSecretDoors(long index, bool value)
+		public virtual void SetSecretDoor(long index, bool value)
 		{
 			SecretDoors[index] = value;
 		}
@@ -175,9 +175,9 @@ namespace TheVileGrimoireOfJaldial.Game
 
 		public GameState()
 		{
-			Minute = Constants.StartMinute;
+			Minute = gEngine.StartMinute;
 
-			Hour = Constants.StartHour;
+			Hour = gEngine.StartHour;
 
 			WeatherFreqPct = 100;
 

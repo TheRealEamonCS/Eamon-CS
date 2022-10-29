@@ -9,7 +9,7 @@ using Eamon.Framework;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
-using static EamonRT.Game.Plugin.PluginContext;
+using static EamonRT.Game.Plugin.Globals;
 
 namespace EamonRT.Game.States
 {
@@ -21,7 +21,7 @@ namespace EamonRT.Game.States
 
 		public override void Execute()
 		{
-			ResetMonsterList = Globals.Database.MonsterTable.Records.ToList();
+			ResetMonsterList = gEngine.Database.MonsterTable.Records.ToList();
 
 			foreach (var monster in ResetMonsterList)
 			{
@@ -32,10 +32,10 @@ namespace EamonRT.Game.States
 
 			if (NextState == null)
 			{
-				NextState = Globals.CreateInstance<IStartState>(); 
+				NextState = gEngine.CreateInstance<IStartState>(); 
 			}
 
-			Globals.NextState = NextState;
+			gEngine.NextState = NextState;
 		}
 
 		public EndOfRoundState()

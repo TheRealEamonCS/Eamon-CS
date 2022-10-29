@@ -9,7 +9,7 @@ using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
-using static TheDeepCanyon.Game.Plugin.PluginContext;
+using static TheDeepCanyon.Game.Plugin.Globals;
 
 namespace TheDeepCanyon.Game.States
 {
@@ -20,7 +20,7 @@ namespace TheDeepCanyon.Game.States
 		{
 			base.ProcessEvents(eventType);
 
-			if (eventType == EventType.BeforePrintPlayerRoom && ShouldPreTurnProcess())
+			if (eventType == EventType.BeforePrintPlayerRoom && gEngine.ShouldPreTurnProcess)
 			{
 				Debug.Assert(gCharMonster != null);
 
@@ -32,9 +32,9 @@ namespace TheDeepCanyon.Game.States
 
 				// Resurrect monster
 
-				if (Globals.ResurrectMonsterUid > 0)
+				if (gEngine.ResurrectMonsterUid > 0)
 				{
-					var resurrectMonster = gMDB[Globals.ResurrectMonsterUid];
+					var resurrectMonster = gMDB[gEngine.ResurrectMonsterUid];
 
 					Debug.Assert(resurrectMonster != null);
 
@@ -57,7 +57,7 @@ namespace TheDeepCanyon.Game.States
 
 					resurrectMonster.SetInRoom(room);
 
-					Globals.ResurrectMonsterUid = 0;
+					gEngine.ResurrectMonsterUid = 0;
 				}
 
 				var trapArtifact = gADB[17];
@@ -136,7 +136,7 @@ namespace TheDeepCanyon.Game.States
 
 				// Squirrel gives ring
 
-				if (room.Uid == 2 && Globals.LastCommand != null && Globals.LastCommand.Type != CommandType.Movement && !gGameState.SquirrelRing)
+				if (room.Uid == 2 && gEngine.LastCommand != null && gEngine.LastCommand.Type != CommandType.Movement && !gGameState.SquirrelRing)
 				{
 					gEngine.PrintEffectDesc(2);
 

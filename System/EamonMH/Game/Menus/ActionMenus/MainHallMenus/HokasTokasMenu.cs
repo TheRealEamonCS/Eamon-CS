@@ -13,7 +13,7 @@ using Eamon.Game.Attributes;
 using Eamon.Game.Menus;
 using Eamon.Game.Utilities;
 using EamonMH.Framework.Menus.ActionMenus;
-using static EamonMH.Game.Plugin.PluginContext;
+using static EamonMH.Game.Plugin.Globals;
 
 namespace EamonMH.Game.Menus.ActionMenus
 {
@@ -29,7 +29,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 			RetCode rc;
 			long i;
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 
 			/* 
 				Full Credit:  Derived wholly from Donald Brown's Classic Eamon
@@ -53,7 +53,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 			{
 				i = (long)sv;
 
-				spell = gEngine.GetSpells(sv);
+				spell = gEngine.GetSpell(sv);
 
 				Debug.Assert(spell != null);
 
@@ -68,7 +68,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 			gOut.Write("{0}After a few minutes of diligent searching, you find Hokas Tokas, the old mage.  He looks at you and says, \"So you want old Tokey to teach you some magic, heh heh?  Well, it'll cost you.{0}{0}Today my fees are {1}.{0}{0}Well, which will it be?\"{0}", Environment.NewLine, spellStr);
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 
 			Buf.Clear();
 
@@ -76,7 +76,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 			{
 				i = (long)sv;
 
-				spell = gEngine.GetSpells(sv);
+				spell = gEngine.GetSpell(sv);
 
 				Debug.Assert(spell != null);
 
@@ -92,35 +92,35 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 			Buf.Clear();
 
-			rc = Globals.In.ReadField(Buf, Constants.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharSpellTypeOrX, gEngine.IsCharSpellTypeOrX);
+			rc = gEngine.In.ReadField(Buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharSpellTypeOrX, gEngine.IsCharSpellTypeOrX);
 
 			Debug.Assert(gEngine.IsSuccess(rc));
 
-			Globals.Thread.Sleep(150);
+			gEngine.Thread.Sleep(150);
 
-			gOut.Print("{0}", Globals.LineSep);
+			gOut.Print("{0}", gEngine.LineSep);
 
 			if (Buf.Length == 0 || Buf[0] == 'X')
 			{
 				gOut.Print("As you leave, you hear Hokas muttering about cheapskate adventurers always wanting something for nothing.");
 
-				Globals.In.KeyPress(Buf);
+				gEngine.In.KeyPress(Buf);
 
 				goto Cleanup;
 			}
 
 			i = Convert.ToInt64(Buf.Trim().ToString());
 
-			if (gCharacter.GetSpellAbilities(i) > 0)
+			if (gCharacter.GetSpellAbility(i) > 0)
 			{
 				gOut.Write("{0}Hokas says, \"I ought to take your gold anyway, but haven't you forgotten something?  I already taught you that spell!\"{0}{0}Shaking his head sadly, he returns to the bar.{0}", Environment.NewLine);
 
-				Globals.In.KeyPress(Buf);
+				gEngine.In.KeyPress(Buf);
 
 				goto Cleanup;
 			}
 
-			spell = gEngine.GetSpells((Spell)i);
+			spell = gEngine.GetSpell((Spell)i);
 
 			Debug.Assert(spell != null);
 
@@ -130,7 +130,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 			{
 				gOut.Print("When Hokas sees that you don't have enough to pay him, he stalks to the bar, muttering about youngsters who should be turned into frogs.");
 
-				Globals.In.KeyPress(Buf);
+				gEngine.In.KeyPress(Buf);
 
 				goto Cleanup;
 			}
@@ -143,13 +143,13 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 			Debug.Assert(sa >= 1 && sa <= 100);
 
-			gCharacter.SetSpellAbilities(i, sa);
+			gCharacter.SetSpellAbility(i, sa);
 
-			Globals.CharactersModified = true;
+			gEngine.CharactersModified = true;
 
 			gOut.Print("Hokas teaches you your spell, takes his fee, and returns to his stool at the bar.  As you walk away you hear him order a double dragon blomb.");
 
-			Globals.In.KeyPress(Buf);
+			gEngine.In.KeyPress(Buf);
 
 		Cleanup:
 
@@ -158,7 +158,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 		public HokasTokasMenu()
 		{
-			Buf = Globals.Buf;
+			Buf = gEngine.Buf;
 		}
 	}
 }

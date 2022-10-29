@@ -6,7 +6,7 @@
 using System.Diagnostics;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
-using static TheBeginnersCave.Game.Plugin.PluginContext;
+using static TheBeginnersCave.Game.Plugin.Globals;
 
 namespace TheBeginnersCave.Game.Commands
 {
@@ -27,7 +27,7 @@ namespace TheBeginnersCave.Game.Commands
 
 				var field2 = ac.Field2;
 
-				ac.Field2 = Constants.InfiniteDrinkableEdible;
+				ac.Field2 = gEngine.InfiniteDrinkableEdible;
 
 				base.Execute();
 

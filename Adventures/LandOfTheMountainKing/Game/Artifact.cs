@@ -3,7 +3,6 @@
 
 // Copyright (c) 2014+ by Kenneth Pedersen.  All rights reserved.
 
-using System.Diagnostics;
 using System.Text;
 using Eamon;
 using Eamon.Framework;
@@ -11,7 +10,7 @@ using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using Eamon.Game.Extensions;
 using EamonRT.Framework.Commands;
-using static LandOfTheMountainKing.Game.Plugin.PluginContext;
+using static LandOfTheMountainKing.Game.Plugin.Globals;
 
 namespace LandOfTheMountainKing.Game
 {
@@ -24,7 +23,7 @@ namespace LandOfTheMountainKing.Game
 
 			// Examine Damian's body
 
-			if (Globals.CurrState is IExamineCommand && Uid == 26)
+			if (gEngine.CurrState is IExamineCommand && Uid == 26)
 			{
 				var Necklace = gADB[27];
 

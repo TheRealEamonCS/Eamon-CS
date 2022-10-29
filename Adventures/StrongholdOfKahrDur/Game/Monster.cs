@@ -11,7 +11,7 @@ using Eamon.Framework;
 using Eamon.Game.Attributes;
 using Eamon.Game.Extensions;
 using Enums = Eamon.Framework.Primitive.Enums;
-using static StrongholdOfKahrDur.Game.Plugin.PluginContext;
+using static StrongholdOfKahrDur.Game.Plugin.Globals;
 
 namespace StrongholdOfKahrDur.Game
 {

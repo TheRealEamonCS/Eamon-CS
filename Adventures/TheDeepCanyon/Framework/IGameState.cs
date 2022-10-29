@@ -3,7 +3,7 @@
 
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
-using static TheDeepCanyon.Game.Plugin.PluginContext;
+using static TheDeepCanyon.Game.Plugin.Globals;
 
 namespace TheDeepCanyon.Framework
 {

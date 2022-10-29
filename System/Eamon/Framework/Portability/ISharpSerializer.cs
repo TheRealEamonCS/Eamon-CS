@@ -11,9 +11,6 @@ namespace Eamon.Framework.Portability
 	public interface ISharpSerializer
 	{
 		/// <summary></summary>
-		bool IsActive { get; }
-
-		/// <summary></summary>
 		/// <param name="data"></param>
 		/// <param name="fileName"></param>
 		/// <param name="binaryMode"></param>

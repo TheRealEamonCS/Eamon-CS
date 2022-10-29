@@ -6,7 +6,7 @@
 using System.Diagnostics;
 using Xamarin.Forms;
 using Eamon.Mobile.Models;
-using static Eamon.Game.Plugin.PluginContext;
+using static Eamon.Game.Plugin.Globals;
 
 namespace Eamon.Mobile.ViewModels
 {
@@ -34,7 +34,7 @@ namespace Eamon.Mobile.ViewModels
 
 			OutputHtmlWebViewSource = new HtmlWebViewSource()
 			{
-				Html = ClassMappings.File.ReadAllText(batchFile.FileName)
+				Html = gEngine.File.ReadAllText(batchFile.FileName)
 			};
 		}
 	}
