@@ -58,7 +58,7 @@ namespace EamonRT.Game.Commands
 
 					if (ActorMonster.CheckNBTLHostility())
 					{
-						gEngine.Thread.Sleep(gGameState.PauseCombatMs);
+						gEngine.PauseCombat();
 					}
 				}
 			}

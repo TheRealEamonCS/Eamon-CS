@@ -83,6 +83,9 @@ namespace Eamon.Game
 		[FieldName(980)]
 		public virtual long PauseCombatMs { get; set; }
 
+		[FieldName(990)]
+		public virtual long PauseCombatActions { get; set; }
+
 		[FieldName(1000)]
 		public virtual long ImportedArtUidsIdx { get; set; }
 

@@ -120,7 +120,7 @@ namespace StrongholdOfKahrDur.Game.States
 					break;
 			}
 
-			gEngine.Thread.Sleep(gGameState.PauseCombatMs);
+			gEngine.PauseCombat();
 
 		Cleanup:
 

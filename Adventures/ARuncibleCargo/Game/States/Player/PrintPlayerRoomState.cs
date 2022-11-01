@@ -114,6 +114,8 @@ namespace ARuncibleCargo.Game.States
 
 					gameState.PauseCombatMs = gameState01.PauseCombatMs;
 
+					gameState.PauseCombatActions = gameState01.PauseCombatActions;
+
 					charMonster = gEngine.MDB[gameState.Cm];
 
 					room = gEngine.RDB[gameState.Ro];

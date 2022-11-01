@@ -938,6 +938,9 @@
         <member name="P:EamonRT.Framework.Commands.ISettingsCommand.PauseCombatMs">
             <summary></summary>
         </member>
+        <member name="P:EamonRT.Framework.Commands.ISettingsCommand.PauseCombatActions">
+            <summary></summary>
+        </member>
         <member name="T:EamonRT.Framework.Commands.ISpeedCommand">
             <summary></summary>
         </member>
@@ -1554,6 +1557,9 @@
         <member name="P:EamonRT.Framework.Plugin.IEngine.ActionListCounter">
             <summary></summary>
         </member>
+        <member name="P:EamonRT.Framework.Plugin.IEngine.PauseCombatActionsCounter">
+            <summary></summary>
+        </member>
         <member name="P:EamonRT.Framework.Plugin.IEngine.LoopMonsterUidListIndex">
             <summary></summary>
         </member>
@@ -2135,7 +2141,7 @@
             <param name="room"></param>
             <param name="monster"></param>
             <param name="fleeing"></param>
-            <param name="callSleep"></param>
+            <param name="pauseCombat"></param>
             <param name="printOutput"></param>
         </member>
         <member name="M:EamonRT.Framework.Plugin.IEngine.GetRandomMonsterList(System.Int64,System.Func{Eamon.Framework.IMonster,System.Boolean}[])">
@@ -2251,6 +2257,9 @@
             <summary></summary>
         </member>
         <member name="M:EamonRT.Framework.Plugin.IEngine.CheckToExtinguishLightSource">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Framework.Plugin.IEngine.PauseCombat">
             <summary></summary>
         </member>
         <member name="M:EamonRT.Framework.Plugin.IEngine.TransportRoomContentsBetweenRooms(Eamon.Framework.IRoom,Eamon.Framework.IRoom,System.Boolean)">

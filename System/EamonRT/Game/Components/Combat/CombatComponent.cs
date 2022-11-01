@@ -192,8 +192,8 @@ namespace EamonRT.Game.Components
 				gEngine.PauseCombatAfterSkillGains = gEngine.SkillIncreaseFuncList.Count > 0;
 				
 				if (!gEngine.PauseCombatAfterSkillGains)
-				{ 
-					gEngine.Thread.Sleep(gGameState.PauseCombatMs);
+				{
+					gEngine.PauseCombat();
 				}
 			}
 			else

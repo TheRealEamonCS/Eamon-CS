@@ -122,9 +122,14 @@ namespace Eamon.Framework
 		long CurrTurn { get; set; }
 
 		/// <summary>
-		/// Gets or sets the number of milliseconds to pause between attacks during a combat round.
+		/// Gets or sets the number of milliseconds to pause between actions during a combat round.
 		/// </summary>
 		long PauseCombatMs { get; set; }
+
+		/// <summary>
+		/// Gets or sets the number of actions to pause between during a combat round.
+		/// </summary>
+		long PauseCombatActions { get; set; }
 
 		/// <summary>
 		/// Gets or sets a value that indexes <see cref="ImportedArtUids">ImportedArtUids</see> and indicates the next

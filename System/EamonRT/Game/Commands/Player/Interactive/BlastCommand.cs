@@ -50,6 +50,11 @@ namespace EamonRT.Game.Commands
 			{
 				PrintNothingHappens();
 
+				if (DobjMonster != null)
+				{
+					gEngine.PauseCombat();
+				}
+
 				goto Cleanup;
 			}
 

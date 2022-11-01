@@ -54,6 +54,8 @@ namespace EamonRT.Game.Plugin
 
 		public virtual long ActionListCounter { get; set; }
 
+		public virtual long PauseCombatActionsCounter { get; set; }
+
 		public virtual long LoopMonsterUidListIndex { get; set; }
 
 		public virtual long LoopMonsterUid { get; set; }
@@ -277,6 +279,8 @@ namespace EamonRT.Game.Plugin
 
 					ActionListCounter = 0;
 
+					PauseCombatActionsCounter = 0;
+
 					LoopFailedMoveMemberCount = 0;
 
 					SentenceParser.LastInputStr = "";
@@ -317,6 +321,8 @@ namespace EamonRT.Game.Plugin
 
 					ActionListCounter = 0;
 
+					PauseCombatActionsCounter = 0;
+
 					SentenceParser.LastInputStr = "";
 
 					SentenceParser.Clear();
@@ -348,6 +354,8 @@ namespace EamonRT.Game.Plugin
 					SkillIncreaseFuncList.Clear();
 
 					ActionListCounter = 0;
+
+					PauseCombatActionsCounter = 0;
 
 					SentenceParser.Clear();
 
@@ -2379,7 +2387,7 @@ namespace EamonRT.Game.Plugin
 			GetRandomMoveDirection(room, monster, fleeing, ref direction, ref found, ref roomUid);
 		}
 
-		public virtual void MoveMonsterToRandomAdjacentRoom(IRoom room, IMonster monster, bool fleeing, bool callSleep, bool printOutput = true)
+		public virtual void MoveMonsterToRandomAdjacentRoom(IRoom room, IMonster monster, bool fleeing, bool pauseCombat, bool printOutput = true)
 		{
 			RetCode rc;
 
@@ -2409,9 +2417,9 @@ namespace EamonRT.Game.Plugin
 				{
 					PrintMonsterCantFindExit(monster, room, monsterName, rl > 1, fleeing);
 
-					if (callSleep)
+					if (pauseCombat)
 					{
-						Thread.Sleep(GameState.PauseCombatMs);
+						PauseCombat();
 					}
 				}
 
@@ -2433,9 +2441,9 @@ namespace EamonRT.Game.Plugin
 				{
 					PrintMonsterMembersExitRoom(monster, room, monsterName, rl > 1, fleeing);
 
-					if (callSleep)
+					if (pauseCombat)
 					{
-						Thread.Sleep(GameState.PauseCombatMs);
+						PauseCombat();
 					}
 				}
 
@@ -2464,9 +2472,9 @@ namespace EamonRT.Game.Plugin
 				{
 					PrintMonsterExitsRoom(monster, room, monsterName, rl > 1, fleeing, direction);
 
-					if (callSleep)
+					if (pauseCombat)
 					{
-						Thread.Sleep(GameState.PauseCombatMs);
+						PauseCombat();
 					}
 				}
 
@@ -2486,9 +2494,9 @@ namespace EamonRT.Game.Plugin
 				{
 					PrintMonsterEntersRoom(monster, room01, monsterName01, rl > 1, fleeing, direction01.EnterDir);
 
-					if (callSleep)
+					if (pauseCombat)
 					{
-						Thread.Sleep(GameState.PauseCombatMs);
+						PauseCombat();
 					}
 				}
 			}
@@ -3222,9 +3230,9 @@ namespace EamonRT.Game.Plugin
 		{
 			CheckActionList(SkillIncreaseFuncList);
 
-			if (GameState.Die <= 0 && PauseCombatAfterSkillGains)
+			if (PauseCombatAfterSkillGains)
 			{
-				Thread.Sleep(GameState.PauseCombatMs);
+				PauseCombat();
 			}
 
 			PauseCombatAfterSkillGains = false;
@@ -3286,6 +3294,20 @@ namespace EamonRT.Game.Plugin
 
 					GameState.Ls = 0;
 				}
+			}
+		}
+
+		public virtual void PauseCombat()
+		{
+			Thread.Sleep(GameState.PauseCombatMs);
+
+			PauseCombatActionsCounter++;
+
+			if (GameState.Die <= 0 && GameState.PauseCombatActions > 0 && PauseCombatActionsCounter % GameState.PauseCombatActions == 0)
+			{
+				In.KeyPress(Buf);
+
+				Out.Print("{0}", LineSep);
 			}
 		}
 

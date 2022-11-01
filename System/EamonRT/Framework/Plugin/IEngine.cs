@@ -58,6 +58,9 @@ namespace EamonRT.Framework.Plugin
 		long ActionListCounter { get; set; }
 
 		/// <summary></summary>
+		long PauseCombatActionsCounter { get; set; }
+
+		/// <summary></summary>
 		long LoopMonsterUidListIndex { get; set; }
 
 		/// <summary></summary>
@@ -641,9 +644,9 @@ namespace EamonRT.Framework.Plugin
 		/// <param name="room"></param>
 		/// <param name="monster"></param>
 		/// <param name="fleeing"></param>
-		/// <param name="callSleep"></param>
+		/// <param name="pauseCombat"></param>
 		/// <param name="printOutput"></param>
-		void MoveMonsterToRandomAdjacentRoom(IRoom room, IMonster monster, bool fleeing, bool callSleep, bool printOutput = true);
+		void MoveMonsterToRandomAdjacentRoom(IRoom room, IMonster monster, bool fleeing, bool pauseCombat, bool printOutput = true);
 
 		/// <summary></summary>
 		/// <param name="numMonsters"></param>
@@ -759,6 +762,9 @@ namespace EamonRT.Framework.Plugin
 
 		/// <summary></summary>
 		void CheckToExtinguishLightSource();
+
+		/// <summary></summary>
+		void PauseCombat();
 
 		/// <summary></summary>
 		/// <param name="oldRoom"></param>

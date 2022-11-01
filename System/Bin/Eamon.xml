@@ -2307,7 +2307,12 @@
         </member>
         <member name="P:Eamon.Framework.IGameState.PauseCombatMs">
             <summary>
-            Gets or sets the number of milliseconds to pause between attacks during a combat round.
+            Gets or sets the number of milliseconds to pause between actions during a combat round.
+            </summary>
+        </member>
+        <member name="P:Eamon.Framework.IGameState.PauseCombatActions">
+            <summary>
+            Gets or sets the number of actions to pause between during a combat round.
             </summary>
         </member>
         <member name="P:Eamon.Framework.IGameState.ImportedArtUidsIdx">
@@ -8152,6 +8157,10 @@
             <returns></returns>
         </member>
         <member name="M:Eamon.Game.Helpers.GameStateHelper.ValidatePauseCombatMs">
+            <summary></summary>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Game.Helpers.GameStateHelper.ValidatePauseCombatActions">
             <summary></summary>
             <returns></returns>
         </member>

@@ -926,6 +926,7 @@ namespace EamonRT.Game.Commands
 			}
 
 			gOut.WriteLine("  {0,-22}{1,-22}{2,-22}", "PauseCombatMs", "0 .. 10000", gGameState.PauseCombatMs);
+			gOut.WriteLine("  {0,-22}{1,-22}{2,-22}", "PauseCombatActions", "0 .. 25", gGameState.PauseCombatActions);
 		}
 
 		public virtual void PrintNotEnoughGold()
