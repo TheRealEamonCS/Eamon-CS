@@ -1575,7 +1575,7 @@ namespace Eamon.Game
 
 				buf.Remove(p, q - p);
 
-				StateDesc = buf.ToString().Trim();
+				StateDesc = buf.TrimEnd().ToString();
 			}
 
 		Cleanup:

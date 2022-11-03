@@ -1531,7 +1531,7 @@ namespace Eamon.Game.Helpers
 
 				gOut.WordWrap = true;
 
-				Record.StateDesc = Buf.Trim().ToString();
+				Record.StateDesc = Buf.TrimEnd().ToString();
 
 				if (ValidateField("StateDesc"))
 				{
