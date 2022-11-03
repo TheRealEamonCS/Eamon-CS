@@ -3475,7 +3475,7 @@ namespace Eamon.Game.Plugin
 					result = string.Format
 					(
 						" with {0} {1} {2}",
-						ac.Field5 == (long)ContainerDisplayCode.ArtifactNameList && contentsList.Count <= maxContentsNameListCount ? buf01.ToString() : contentsList.Count > 1 || contentsList[0].IsPlural ? "some stuff" : ac.Field5 == (long)ContainerDisplayCode.ArtifactNameSomeStuff ? contentsList[0].GetArticleName(false, showCharOwned, false, false, buf) : "something",
+						ac.Field5 == (long)ContainerDisplayCode.ArtifactNameList && contentsList.Count <= maxContentsNameListCount ? buf01.ToString() : contentsList.Count > 1 || contentsList[0].IsPlural ? "some stuff" : ac.Field5 == (long)ContainerDisplayCode.ArtifactNameSomeStuff ? contentsList[0].GetArticleName(false, showCharOwned, false, false, false, buf) : "something",
 						EvalContainerType(containerType, "inside", "on", "under", "behind"),
 						artifact.EvalPlural("it", "them")
 					);
@@ -4049,13 +4049,6 @@ namespace Eamon.Game.Plugin
 
 				var m = r as IMonster;
 
-				var contentsDesc = "";
-
-				if (showContents && a != null)
-				{
-					contentsDesc = GetContainerContentsDesc(a);
-				}
-
 				var showStateDesc = stateDescCode == StateDescDisplayCode.AllStateDescs;
 
 				if (!showStateDesc && a != null)
@@ -4068,7 +4061,7 @@ namespace Eamon.Game.Plugin
 					showStateDesc = stateDescCode == StateDescDisplayCode.SideNotesOnly && m.IsStateDescSideNotes();
 				}
 
-				buf.AppendFormat("{0}{1}{2}",
+				buf.AppendFormat("{0}{1}",
 					i == 0 ? "" : i == recordList.Count - 1 && recordList.Count > 2 ? ", and " : i == recordList.Count - 1 ? " and " : ", ",
 					r.GetDecoratedName
 					(
@@ -4076,11 +4069,11 @@ namespace Eamon.Game.Plugin
 						articleType == ArticleType.None || articleType == ArticleType.The ? articleType : r.ArticleType,
 						false,
 						showCharOwned,
-						showStateDesc && contentsDesc.Length == 0,
+						showStateDesc,
+						showContents,
 						groupCountOne,
 						buf01
-					),
-					contentsDesc
+					)
 				);
 			}
 

@@ -87,37 +87,41 @@ namespace Eamon.Framework
 		/// <param name="upshift"></param>
 		/// <param name="showCharOwned"></param>
 		/// <param name="showStateDesc"></param>
+		/// <param name="showContents"></param>
 		/// <param name="groupCountOne"></param>
 		/// <param name="buf"></param>
 		/// <returns></returns>
-		string GetDecoratedName(string fieldName, ArticleType articleType, bool upshift = false, bool showCharOwned = true, bool showStateDesc = false, bool groupCountOne = false, StringBuilder buf = null);
+		string GetDecoratedName(string fieldName, ArticleType articleType, bool upshift = false, bool showCharOwned = true, bool showStateDesc = false, bool showContents = false, bool groupCountOne = false, StringBuilder buf = null);
 
 		/// <summary></summary>
 		/// <param name="upshift"></param>
 		/// <param name="showCharOwned"></param>
 		/// <param name="showStateDesc"></param>
+		/// <param name="showContents"></param>
 		/// <param name="groupCountOne"></param>
 		/// <param name="buf"></param>
 		/// <returns></returns>
-		string GetNoneName(bool upshift = false, bool showCharOwned = true, bool showStateDesc = false, bool groupCountOne = false, StringBuilder buf = null);
+		string GetNoneName(bool upshift = false, bool showCharOwned = true, bool showStateDesc = false, bool showContents = false, bool groupCountOne = false, StringBuilder buf = null);
 
 		/// <summary></summary>
 		/// <param name="upshift"></param>
 		/// <param name="showCharOwned"></param>
 		/// <param name="showStateDesc"></param>
+		/// <param name="showContents"></param>
 		/// <param name="groupCountOne"></param>
 		/// <param name="buf"></param>
 		/// <returns></returns>
-		string GetArticleName(bool upshift = false, bool showCharOwned = true, bool showStateDesc = false, bool groupCountOne = false, StringBuilder buf = null);
+		string GetArticleName(bool upshift = false, bool showCharOwned = true, bool showStateDesc = false, bool showContents = false, bool groupCountOne = false, StringBuilder buf = null);
 
 		/// <summary></summary>
 		/// <param name="upshift"></param>
 		/// <param name="showCharOwned"></param>
 		/// <param name="showStateDesc"></param>
+		/// <param name="showContents"></param>
 		/// <param name="groupCountOne"></param>
 		/// <param name="buf"></param>
 		/// <returns></returns>
-		string GetTheName(bool upshift = false, bool showCharOwned = true, bool showStateDesc = false, bool groupCountOne = false, StringBuilder buf = null);
+		string GetTheName(bool upshift = false, bool showCharOwned = true, bool showStateDesc = false, bool showContents = false, bool groupCountOne = false, StringBuilder buf = null);
 
 		/// <summary></summary>
 		/// <param name="buf"></param>

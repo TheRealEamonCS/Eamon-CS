@@ -59,7 +59,7 @@ namespace WrenholdsSecretVigil.Game
 		{
 			// Swallower shark
 
-			return Uid == 31 ? "(mangled)" : base.GetBrokenDesc();
+			return Uid == 31 ? " (mangled)" : base.GetBrokenDesc();
 		}
 
 		public virtual bool IsBuriedInRoomUid(long roomUid)

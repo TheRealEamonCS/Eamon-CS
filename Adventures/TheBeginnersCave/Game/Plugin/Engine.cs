@@ -16,7 +16,7 @@ namespace TheBeginnersCave.Game.Plugin
 {
 	public class Engine : EamonRT.Game.Plugin.Engine, Framework.Plugin.IEngine
 	{
-		public virtual string AlightDesc { get; protected set; } = "(alight)";
+		public virtual string AlightDesc { get; protected set; } = " (alight)";
 
 		/// <summary></summary>
 		public virtual long HeldWpnIdx { get; set; }

@@ -429,7 +429,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.Plugin
 
 			Debug.Assert(corralArtifact != null);
 
-			corralArtifact.StateDesc = "which has been abandoned";
+			corralArtifact.StateDesc = " which has been abandoned";
 
 			corralArtifact.InContainer.Field1 = 0;
 

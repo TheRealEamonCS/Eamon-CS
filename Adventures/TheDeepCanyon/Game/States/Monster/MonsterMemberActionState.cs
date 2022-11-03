@@ -47,7 +47,7 @@ namespace TheDeepCanyon.Game.States
 
 					mealArtifact.SetInLimbo();
 
-					LoopMonster.StateDesc = "(sound asleep)";
+					LoopMonster.StateDesc = " (sound asleep)";
 
 					LoopMonster.Reaction = Friendliness.Neutral;
 

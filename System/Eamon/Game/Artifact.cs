@@ -545,7 +545,7 @@ namespace Eamon.Game
 			return result;
 		}
 
-		public override string GetDecoratedName(string fieldName, ArticleType articleType, bool upshift = false, bool showCharOwned = true, bool showStateDesc = false, bool groupCountOne = false, StringBuilder buf = null)
+		public override string GetDecoratedName(string fieldName, ArticleType articleType, bool upshift = false, bool showCharOwned = true, bool showStateDesc = false, bool showContents = false, bool groupCountOne = false, StringBuilder buf = null)
 		{
 			string result;
 
@@ -559,6 +559,8 @@ namespace Eamon.Game
 			}
 
 			Debug.Assert(fieldName == "Name");
+
+			var contentsDesc = showContents ? gEngine.GetContainerContentsDesc(this) : "";
 
 			if (buf == null)
 			{
@@ -575,8 +577,8 @@ namespace Eamon.Game
 					(
 						"{0}{1}{2}",
 						EvalPlural(Name, GetPluralName(fieldName, new StringBuilder(gEngine.BufSize))),
-						showStateDesc && StateDesc.Length > 0 && !StateDesc.OmitStateDescSpace() ? " " : "",
-						showStateDesc && StateDesc.Length > 0 ? StateDesc : ""
+						contentsDesc,
+						showStateDesc ? StateDesc : ""
 					);
 
 					break;
@@ -591,8 +593,8 @@ namespace Eamon.Game
 						IsCharOwned && showCharOwned ? "your " :
 						"the ",
 						EvalPlural(Name, GetPluralName(fieldName, new StringBuilder(gEngine.BufSize))),
-						showStateDesc && StateDesc.Length > 0 && !StateDesc.OmitStateDescSpace() ? " " : "",
-						showStateDesc && StateDesc.Length > 0 ? StateDesc : ""
+						contentsDesc,
+						showStateDesc ? StateDesc : ""
 					);
 
 					break;
@@ -609,8 +611,8 @@ namespace Eamon.Game
 						ArticleType == ArticleType.An ? "an " :
 						"a ",
 						EvalPlural(Name, GetPluralName(fieldName, new StringBuilder(gEngine.BufSize))),
-						showStateDesc && StateDesc.Length > 0 && !StateDesc.OmitStateDescSpace() ? " " : "",
-						showStateDesc && StateDesc.Length > 0 ? StateDesc : ""
+						contentsDesc,
+						showStateDesc ? StateDesc : ""
 					);
 
 					break;
@@ -645,24 +647,18 @@ namespace Eamon.Game
 
 			if (showName || showVerboseName)
 			{
-				var verboseNameDesc = "";
-
-				if (showVerboseName)
-				{
-					verboseNameDesc = GeneralContainer != null && ShouldShowVerboseNameContentsNameList() ? gEngine.GetContainerContentsDesc(this) : "";
-
-					verboseNameDesc = verboseNameDesc.Trim();
-
-					if (verboseNameDesc.Length == 0 && !string.IsNullOrWhiteSpace(StateDesc) && ShouldShowVerboseNameStateDesc())
-					{
-						verboseNameDesc = StateDesc.Trim();
-					}
-				}
-
-				buf.AppendFormat("{0}[{1}{2}]",
+				buf.AppendFormat("{0}[{1}]",
 					Environment.NewLine,
-					GetArticleName(true, buf: new StringBuilder(gEngine.BufSize)),
-					verboseNameDesc.Length > 0 ? string.Format("{0}{1}", !verboseNameDesc.OmitStateDescSpace() ? " " : "", verboseNameDesc) : "");
+					GetArticleName
+					(
+						true, 
+						true, 
+						showVerboseName && !string.IsNullOrWhiteSpace(StateDesc) && ShouldShowVerboseNameStateDesc(), 
+						showVerboseName && GeneralContainer != null && ShouldShowVerboseNameContentsNameList(),
+						false,
+						new StringBuilder(gEngine.BufSize)
+					)
+				);
 			}
 
 			if (!string.IsNullOrWhiteSpace(Desc))
@@ -1325,22 +1321,22 @@ namespace Eamon.Game
 
 		public virtual string GetProvidingLightDesc()
 		{
-			return "(providing light)";
+			return " (providing light)";
 		}
 
 		public virtual string GetReadyWeaponDesc()
 		{
-			return "(ready weapon)";
+			return " (ready weapon)";
 		}
 
 		public virtual string GetBrokenDesc()
 		{
-			return "(broken)";
+			return " (broken)";
 		}
 
 		public virtual string GetEmptyDesc()
 		{
-			return "(empty)";
+			return " (empty)";
 		}
 
 		public virtual T EvalPlural<T>(T singularValue, T pluralValue)
@@ -1529,9 +1525,8 @@ namespace Eamon.Game
 
 				buf.AppendFormat
 				(
-					"{0}{1}{2}",
+					"{0}{1}",
 					StateDesc,
-					StateDesc.Length > 0 && !stateDesc.OmitStateDescSpace() ? " " : "",
 					stateDesc
 				);
 

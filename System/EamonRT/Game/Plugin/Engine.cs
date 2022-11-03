@@ -604,13 +604,13 @@ namespace EamonRT.Game.Plugin
 			{
 				Out.Print("Some of {0} wounds seem to clear up.",
 					isCharMonster ? "your" :
-					monster.EvalPlural(monster.GetTheName(), monster.GetArticleName(false, true, false, true, Buf01)).AddPossessiveSuffix());
+					monster.EvalPlural(monster.GetTheName(), monster.GetArticleName(false, true, false, false, true, Buf01)).AddPossessiveSuffix());
 			}
 			else
 			{
 				Out.Print("{0} health improves!",
 					isCharMonster ? "Your" :
-					monster.EvalPlural(monster.GetTheName(true), monster.GetArticleName(true, true, false, true, Buf01)).AddPossessiveSuffix());
+					monster.EvalPlural(monster.GetTheName(true), monster.GetArticleName(true, true, false, false, true, Buf01)).AddPossessiveSuffix());
 			}
 		}
 
@@ -626,7 +626,7 @@ namespace EamonRT.Game.Plugin
 				Environment.NewLine,
 				isCharMonster ? "You" :
 				isUninjuredGroupMonster ? "They" :
-				monster.GetTheName(true, true, false, true, Buf01),
+				monster.GetTheName(true, true, false, false, true, Buf01),
 				isCharMonster || isUninjuredGroupMonster ? "are" : "is");
 
 			monster.AddHealthStatus(Buf);
@@ -866,7 +866,7 @@ namespace EamonRT.Game.Plugin
 			Buf.SetFormat("{0}{1} {2}, {3} ",
 				Environment.NewLine,
 				EvalContainerType(containerType, "Inside", "On", "Under", "Behind"),
-				artifact.GetTheName(false, showCharOwned, false, false, Buf01),
+				artifact.GetTheName(false, showCharOwned, false, false, false, Buf01),
 				Buf02.ToString());
 
 			var rc = GetRecordNameList(revealContentsList.Cast<IGameBase>().ToList(), ArticleType.A, revealShowCharOwned, StateDescDisplayCode.None, false, false, Buf);

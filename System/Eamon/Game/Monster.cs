@@ -210,7 +210,7 @@ namespace Eamon.Game
 			return result;
 		}
 
-		public override string GetDecoratedName(string fieldName, ArticleType articleType, bool upshift = false, bool showCharOwned = true, bool showStateDesc = false, bool groupCountOne = false, StringBuilder buf = null)
+		public override string GetDecoratedName(string fieldName, ArticleType articleType, bool upshift = false, bool showCharOwned = true, bool showStateDesc = false, bool showContents = false, bool groupCountOne = false, StringBuilder buf = null)
 		{
 			StringBuilder buf01;
 			string result;
@@ -253,12 +253,11 @@ namespace Eamon.Game
 
 					buf.AppendFormat
 					(
-						"{0}{1}{2}{3}",
+						"{0}{1}{2}",
 						buf01.ToString(),
 						gc > 1 ? GetPluralName(fieldName, new StringBuilder(gEngine.BufSize)) :
 						Name,
-						showStateDesc && StateDesc.Length > 0 && !StateDesc.OmitStateDescSpace() ? " " : "",
-						showStateDesc && StateDesc.Length > 0 ? StateDesc : ""
+						showStateDesc ? StateDesc : ""
 					);
 
 					break;
@@ -283,12 +282,11 @@ namespace Eamon.Game
 
 					buf.AppendFormat
 					(
-						"{0}{1}{2}{3}",
+						"{0}{1}{2}",
 						buf01.ToString(),
 						gc > 1 ? GetPluralName(fieldName, new StringBuilder(gEngine.BufSize)) :
 						Name,
-						showStateDesc && StateDesc.Length > 0 && !StateDesc.OmitStateDescSpace() ? " " : "",
-						showStateDesc && StateDesc.Length > 0 ? StateDesc : ""
+						showStateDesc ? StateDesc : ""
 					);
 
 					break;
@@ -314,12 +312,11 @@ namespace Eamon.Game
 
 					buf.AppendFormat
 					(
-						"{0}{1}{2}{3}",
+						"{0}{1}{2}",
 						buf01.ToString(),
 						gc > 1 ? GetPluralName(fieldName, new StringBuilder(gEngine.BufSize)) :
 						Name,
-						showStateDesc && StateDesc.Length > 0 && !StateDesc.OmitStateDescSpace() ? " " : "",
-						showStateDesc && StateDesc.Length > 0 ? StateDesc : ""
+						showStateDesc ? StateDesc : ""
 					);
 
 					break;
@@ -354,12 +351,18 @@ namespace Eamon.Game
 
 			if (showName || showVerboseName)
 			{
-				var verboseNameDesc = showVerboseName && !string.IsNullOrWhiteSpace(StateDesc) && ShouldShowVerboseNameStateDesc() ? StateDesc.Trim() : "";
-
-				buf.AppendFormat("{0}[{1}{2}]",
+				buf.AppendFormat("{0}[{1}]",
 					Environment.NewLine,
-					GetArticleName(true, buf: new StringBuilder(gEngine.BufSize)),
-					verboseNameDesc.Length > 0 ? string.Format("{0}{1}", !verboseNameDesc.OmitStateDescSpace() ? " " : "", verboseNameDesc) : "");
+					GetArticleName
+					(
+						true, 
+						true,
+						showVerboseName && !string.IsNullOrWhiteSpace(StateDesc) && ShouldShowVerboseNameStateDesc(),
+						false,
+						false,
+						new StringBuilder(gEngine.BufSize)
+					)
+				);
 			}
 
 			if (!string.IsNullOrWhiteSpace(Desc))

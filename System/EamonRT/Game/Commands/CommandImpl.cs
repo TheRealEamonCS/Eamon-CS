@@ -526,7 +526,7 @@ namespace EamonRT.Game.Commands
 			gEngine.Buf.SetFormat("{0}{1} {2}, you see ",
 				Environment.NewLine,
 				gEngine.EvalContainerType(containerType, "Inside", "On", "Under", "Behind"),
-				artifact.GetTheName(false, showCharOwned, false, false, gEngine.Buf01));
+				artifact.GetTheName(false, showCharOwned, false, false, false, gEngine.Buf01));
 
 			var rc = gEngine.GetRecordNameList(containerArtifactList.Cast<IGameBase>().ToList(), ArticleType.A, showCharOwned, StateDescDisplayCode.None, false, false, gEngine.Buf);
 
@@ -544,7 +544,7 @@ namespace EamonRT.Game.Commands
 			gEngine.Buf.SetFormat("{0}There's nothing {1} {2}",
 				Environment.NewLine,
 				gEngine.EvalContainerType(containerType, "inside", "on", "under", "behind"),
-				artifact.GetTheName(false, showCharOwned, false, false, gEngine.Buf01));
+				artifact.GetTheName(false, showCharOwned, false, false, false, gEngine.Buf01));
 
 			gEngine.Buf.AppendFormat(".{0}", Environment.NewLine);
 
@@ -638,7 +638,7 @@ namespace EamonRT.Game.Commands
 
 			gEngine.Buf.SetFormat("{0}{1} {2} {3}",
 				Environment.NewLine,
-				isCharMonster ? "You" : monster.EvalPlural(monster.GetTheName(true, true, false, true, gEngine.Buf01), "They"),
+				isCharMonster ? "You" : monster.EvalPlural(monster.GetTheName(true, true, false, false, true, gEngine.Buf01), "They"),
 				isCharMonster ? "are" : monster.EvalPlural("is", "are"),
 				isCharMonster ? "wearing " : monster.EvalPlural("wearing ", "wearing among them "));
 
@@ -659,7 +659,7 @@ namespace EamonRT.Game.Commands
 
 			gEngine.Buf.SetFormat("{0}{1} {2} {3}",
 				Environment.NewLine,
-				isCharMonster ? "You" : monster.EvalPlural(monster.GetTheName(true, true, false, true, gEngine.Buf01), "They"),
+				isCharMonster ? "You" : monster.EvalPlural(monster.GetTheName(true, true, false, false, true, gEngine.Buf01), "They"),
 				isCharMonster ? "are" : monster.EvalPlural("is", "are"),
 				monsterCarriedArtifactList.Count == 0 ? "empty handed" :
 				isCharMonster ? "carrying " : monster.EvalPlural("carrying ", "carrying among them "));
@@ -680,7 +680,7 @@ namespace EamonRT.Game.Commands
 		{
 			Debug.Assert(artifact != null && monster != null);
 
-			var monsterName = monster.EvalPlural(monster.GetTheName(true), monster.GetArticleName(true, true, false, true, gEngine.Buf01));
+			var monsterName = monster.EvalPlural(monster.GetTheName(true), monster.GetArticleName(true, true, false, false, true, gEngine.Buf01));
 
 			gOut.Print("{0}{1} takes a {2} and hands {3} back.",
 				monsterName,
@@ -693,7 +693,7 @@ namespace EamonRT.Game.Commands
 		{
 			Debug.Assert(artifact != null && monster != null);
 
-			var monsterName = monster.EvalPlural(monster.GetTheName(true), monster.GetArticleName(true, true, false, true, gEngine.Buf01));
+			var monsterName = monster.EvalPlural(monster.GetTheName(true), monster.GetArticleName(true, true, false, false, true, gEngine.Buf01));
 
 			gOut.Print("{0}{1} eats {2} all.",
 				monsterName,
@@ -705,7 +705,7 @@ namespace EamonRT.Game.Commands
 		{
 			Debug.Assert(artifact != null && monster != null);
 
-			var monsterName = monster.EvalPlural(monster.GetTheName(true), monster.GetArticleName(true, true, false, true, gEngine.Buf01));
+			var monsterName = monster.EvalPlural(monster.GetTheName(true), monster.GetArticleName(true, true, false, false, true, gEngine.Buf01));
 
 			gOut.Print("{0}{1} drinks {2} all and hands {3} back.",
 				monsterName,
@@ -753,7 +753,7 @@ namespace EamonRT.Game.Commands
 		{
 			Debug.Assert(monster != null && artifact != null && container != null && Enum.IsDefined(typeof(ContainerType), containerType));
 
-			var monsterName = monster.EvalPlural(monster.GetTheName(true), monster.GetArticleName(true, true, false, true, gEngine.Buf01));
+			var monsterName = monster.EvalPlural(monster.GetTheName(true), monster.GetArticleName(true, true, false, false, true, gEngine.Buf01));
 
 			gOut.Print("{0} removes {1} from {2} {3}.", monsterName, artifact.GetArticleName(), gEngine.EvalContainerType(containerType, "inside", "on", "under", "behind"), omitWeightCheck ? container.GetArticleName(buf: gEngine.Buf01) : container.GetTheName(buf: gEngine.Buf01));
 		}
@@ -762,7 +762,7 @@ namespace EamonRT.Game.Commands
 		{
 			Debug.Assert(monster != null && artifact != null);
 
-			var monsterName = monster.EvalPlural(monster.GetTheName(true), monster.GetArticleName(true, true, false, true, gEngine.Buf01));
+			var monsterName = monster.EvalPlural(monster.GetTheName(true), monster.GetArticleName(true, true, false, false, true, gEngine.Buf01));
 
 			gOut.Print("{0} picks up {1}.", monsterName, artifact.GetTheName());
 		}
@@ -771,7 +771,7 @@ namespace EamonRT.Game.Commands
 		{
 			Debug.Assert(monster != null && artifact != null);
 
-			var monsterName = monster.EvalPlural(monster.GetTheName(true), monster.GetArticleName(true, true, false, true, gEngine.Buf01));
+			var monsterName = monster.EvalPlural(monster.GetTheName(true), monster.GetArticleName(true, true, false, false, true, gEngine.Buf01));
 
 			gOut.Print("{0} readies {1}.", monsterName, artifact.GetArticleName());
 		}
