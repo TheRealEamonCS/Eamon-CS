@@ -98,7 +98,7 @@ namespace EamonRT.Game.Components
 
 			ActorMonsterName = actorMonster.IsCharacterMonster() ? "You" :
 					room.EvalLightLevel(attackNumber == 1 ? "An unseen offender" : "The unseen offender",
-						actorMonster.InitGroupCount > 1 && attackNumber == 1 ? actorMonster.GetArticleName(true, true, false, true) : actorMonster.GetTheName(true, true, false, true));
+						actorMonster.InitGroupCount > 1 && attackNumber == 1 ? actorMonster.GetArticleName(true, true, false, false, true) : actorMonster.GetTheName(true, true, false, false, true));
 
 			DobjMonsterName = dobjMonster.IsCharacterMonster() ? "you" :
 					room.EvalLightLevel("an unseen defender",
@@ -142,7 +142,7 @@ namespace EamonRT.Game.Components
 			gOut.Write("{0}  {1} {2} {3}!",
 				Environment.NewLine,
 				monster.IsCharacterMonster() ? "You" :
-				room.EvalLightLevel("The offender", monster.GetTheName(true, true, false, true)),
+				room.EvalLightLevel("The offender", monster.GetTheName(true, true, false, false, true)),
 				monster.IsCharacterMonster() ? "drop" : "drops",
 				monster.IsCharacterMonster() || room.IsLit() ?
 					(
@@ -228,7 +228,7 @@ namespace EamonRT.Game.Components
 			Debug.Assert(room != null && dobjMonster != null);
 
 			DobjMonsterName = dobjMonster.IsCharacterMonster() ? "You" :
-				blastSpell && dobjMonster.InitGroupCount > 1 ? room.EvalLightLevel(dobjMonster == actorMonster ? "An offender" : "A defender", dobjMonster.GetArticleName(true, true, false, true)) :
+				blastSpell && dobjMonster.InitGroupCount > 1 ? room.EvalLightLevel(dobjMonster == actorMonster ? "An offender" : "A defender", dobjMonster.GetArticleName(true, true, false, false, true)) :
 				room.EvalLightLevel(dobjMonster == actorMonster ? "The offender" : "The defender", dobjMonster.GetTheName(true, true, false, false, true, gEngine.Buf01));
 
 			gEngine.Buf.SetFormat("{0}{1} {2} ",

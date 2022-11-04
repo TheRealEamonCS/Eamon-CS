@@ -46,7 +46,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.States
 
 				if (printMessage)
 				{
-					gOut.Print("The poison spreading through {0} causes further sickness!", monster.IsCharacterMonster() ? "you" : monster.GetTheName(false, true, false, true));
+					gOut.Print("The poison spreading through {0} causes further sickness!", monster.IsCharacterMonster() ? "you" : monster.GetTheName(false, true, false, false, true));
 				}
 
 				var combatComponent = gEngine.CreateInstance<ICombatComponent>(x =>
