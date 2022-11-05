@@ -9,7 +9,7 @@ This is Eamon CS (ECS), a C# port of the classic Eamon roleplaying game that deb
 
 #### Prerequisites
 
-Eamon CS includes precompiled binaries for Windows and Unix that require the .NET 6 Runtime or SDK (for developers) installed on your system.  Unfortunately, having the .NET installer in the Eamon CS distribution is not practical, but the QuickLaunch files auto-detect missing packages and tell you where to find them.  There are also instructions for obtaining and installing these prerequisites in [Technical Paper](https://TheRealEamonCS.github.io/pages/TechnicalPaper/TechnicalPaper.html) under DOCUMENT LINKS on the [Eamon CS website](https://TheRealEamonCS.github.io).
+Eamon CS includes precompiled binaries for Windows and Unix that require the .NET 6 Runtime or SDK (for developers) installed on your system.  Unfortunately, having the .NET installer in the Eamon CS distribution is not practical, but the QuickLaunch files auto-detect missing packages and tell you where to find them.  Please see [PREREQUISITES](https://TheRealEamonCS.github.io/pages/TechnicalPaper/TechnicalPaper.html#ECSTP2) in the Technical Paper on the [Eamon CS website](https://TheRealEamonCS.github.io) for more details.
 
 Eamon CS Mobile currently runs on devices using Android 4.0 through 10.0.
 
@@ -25,9 +25,11 @@ ECS programs are launched using a collection of batch files (or shell scripts in
 
 ECS Mobile mirrors the hierarchical directory structure of ECS Desktop, making the experience very similar.
 
+Players on newer versions of Windows may benefit by lightly reconfiguring their Command console before running Eamon CS.  Please see [SUGGESTED GAMEPLAY SETTINGS](https://TheRealEamonCS.github.io/pages/TechnicalPaper/TechnicalPaper.html#ECSTP6) in the Technical Paper for more details.
+
 #### Contributing
 
-Like all Eamons, ECS allows you to create adventures with no programming involved, via the EamonDD data file editor.  But for the intrepid game designer, the engine is infinitely extensible, using typical C# subclassing mechanisms.  The documentation has improved, and many adventures can be recompiled in Debug mode and stepped through to gain a better understanding of the system.  See Technical Paper under DOCUMENT LINKS on the Eamon CS website for more details.
+Like all Eamons, ECS allows you to create adventures with no programming involved, via the EamonDD data file editor.  But for the intrepid game designer, the engine is infinitely extensible, using typical C# subclassing mechanisms.  The documentation has improved, and many adventures can be recompiled in Debug mode and stepped through to gain a better understanding of the system.  Please see [BUILDING NEW ADVENTURES](https://TheRealEamonCS.github.io/pages/TechnicalPaper/TechnicalPaper.html#ECSTP10) and associated sections in the Technical Paper for more details.
 
 If you are interested in contributing to the Eamon CS project or wish to port your own game or build a new one, please contact me.  I can provide insight if there are areas of the code that need clarification.  Eamon has always been an ideal programmer's learning tool.  If you build a game, you aren't just contributing to the system; you're honing your skills as a C# developer while having fun doing it!
 
@@ -41,5 +43,5 @@ Many 3rd party technologies can seamlessly integrate with ECS, some of which may
 
 #### License
 
-Eamon CS is free software released under the MIT License.  See [LICENSE](https://TheRealEamonCS.github.io/pages/LICENSE.html) under DOCUMENT LINKS on the Eamon CS website for more details.
+Eamon CS is free software released under the MIT License.  See [LICENSE](https://TheRealEamonCS.github.io/pages/LICENSE.html) on the Eamon CS website for more details.
 
