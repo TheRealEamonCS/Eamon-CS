@@ -57,6 +57,11 @@ namespace EamonRT.Game.States
 
 			ProcessEvents(EventType.AfterMoveMonsters);
 
+			if (GotoCleanup)
+			{
+				goto Cleanup;
+			}
+
 			Debug.Assert(gCharMonster != null);
 
 			gCharMonster.Location = gGameState.Ro;
@@ -87,6 +92,13 @@ namespace EamonRT.Game.States
 			}
 
 			ProcessEvents(EventType.AfterExtinguishLightSourceCheck);
+
+			if (GotoCleanup)
+			{
+				goto Cleanup;
+			}
+
+		Cleanup:
 
 			if (NextState == null)
 			{
