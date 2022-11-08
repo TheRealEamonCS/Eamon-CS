@@ -728,12 +728,23 @@ namespace Eamon.Framework
 		IList<IArtifact> GetContainedList(Func<IArtifact, bool> artifactFindFunc = null, ContainerType containerType = ContainerType.In, bool recurse = false);
 
 		/// <summary></summary>
+		/// <param name="artifactList"></param>
+		/// <param name="artifactFindFunc"></param>
+		/// <param name="containerType"></param>
+		/// <param name="recurse"></param>
+		void GetContainedList01(IList<IArtifact> artifactList, Func<IArtifact, bool> artifactFindFunc = null, ContainerType containerType = ContainerType.In, bool recurse = false);
+
+		/// <summary></summary>
 		/// <param name="count"></param>
 		/// <param name="weight"></param>
 		/// <param name="containerType"></param>
 		/// <param name="recurse"></param>
 		/// <returns></returns>
 		RetCode GetContainerInfo(ref long count, ref long weight, ContainerType containerType = ContainerType.In, bool recurse = false);
+
+		/// <summary></summary>
+		/// <returns></returns>
+		string GetContainerContentsDesc();
 
 		#endregion
 	}

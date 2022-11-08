@@ -560,8 +560,6 @@ namespace Eamon.Game
 
 			Debug.Assert(fieldName == "Name");
 
-			var contentsDesc = showContents ? gEngine.GetContainerContentsDesc(this) : "";
-
 			if (buf == null)
 			{
 				buf = gEngine.Buf;
@@ -577,7 +575,7 @@ namespace Eamon.Game
 					(
 						"{0}{1}{2}",
 						EvalPlural(Name, GetPluralName(fieldName, new StringBuilder(gEngine.BufSize))),
-						contentsDesc,
+						showContents ? GetContainerContentsDesc() : "",
 						showStateDesc ? StateDesc : ""
 					);
 
@@ -593,7 +591,7 @@ namespace Eamon.Game
 						IsCharOwned && showCharOwned ? "your " :
 						"the ",
 						EvalPlural(Name, GetPluralName(fieldName, new StringBuilder(gEngine.BufSize))),
-						contentsDesc,
+						showContents ? GetContainerContentsDesc() : "",
 						showStateDesc ? StateDesc : ""
 					);
 
@@ -611,7 +609,7 @@ namespace Eamon.Game
 						ArticleType == ArticleType.An ? "an " :
 						"a ",
 						EvalPlural(Name, GetPluralName(fieldName, new StringBuilder(gEngine.BufSize))),
-						contentsDesc,
+						showContents ? GetContainerContentsDesc() : "",
 						showStateDesc ? StateDesc : ""
 					);
 
@@ -1218,7 +1216,7 @@ namespace Eamon.Game
 		{
 			if (!string.IsNullOrWhiteSpace(StateDesc))
 			{
-				var regex = new Regex(@"^ *\(.+\)");
+				var regex = new Regex(@"\(.+\)");
 
 				return regex.IsMatch(StateDesc);
 			}
@@ -1587,13 +1585,38 @@ namespace Eamon.Game
 		{
 			var artifactList = new List<IArtifact>();
 
-			gEngine.ArtifactContainedList.Clear();
-
-			GetContainedList01(artifactFindFunc, containerType, recurse);
-
-			artifactList.AddRange(gEngine.ArtifactContainedList);
+			GetContainedList01(artifactList, artifactFindFunc, containerType, recurse);
 
 			return artifactList;
+		}
+
+		public virtual void GetContainedList01(IList<IArtifact> artifactList, Func<IArtifact, bool> artifactFindFunc = null, ContainerType containerType = ContainerType.In, bool recurse = false)
+		{
+			Debug.Assert(artifactList != null);
+
+			var origArtifactFindFunc = artifactFindFunc;
+
+			var allContainerTypes = !Enum.IsDefined(typeof(ContainerType), containerType);
+
+			if (artifactFindFunc == null)
+			{
+				artifactFindFunc = a => a.IsCarriedByContainer(this) && (allContainerTypes || a.GetCarriedByContainerContainerType() == containerType);
+			}
+
+			var artifactList01 = gEngine.GetArtifactList(a => artifactFindFunc(a) && !artifactList.Contains(a));
+
+			artifactList.AddRange(artifactList01);
+
+			if (recurse && artifactList01.Count > 0)
+			{
+				foreach (var a in artifactList01)
+				{
+					if (a.GeneralContainer != null)
+					{
+						a.GetContainedList01(artifactList, origArtifactFindFunc, (ContainerType)(-1), recurse);
+					}
+				}
+			}
 		}
 
 		public virtual RetCode GetContainerInfo(ref long count, ref long weight, ContainerType containerType = ContainerType.In, bool recurse = false)
@@ -1624,38 +1647,61 @@ namespace Eamon.Game
 			return rc;
 		}
 
+		public virtual string GetContainerContentsDesc()
+		{
+			var artTypes = new ArtifactType[] { ArtifactType.InContainer, ArtifactType.OnContainer, ArtifactType.UnderContainer, ArtifactType.BehindContainer };
+
+			var result = "";
+
+			var buf = new StringBuilder(gEngine.BufSize);
+
+			var buf01 = new StringBuilder(gEngine.BufSize);
+
+			var ac = Categories.FirstOrDefault(ac01 => ac01 != null && artTypes.Contains(ac01.Type) && ac01.Field5 == (long)ContainerDisplayCode.ArtifactNameList && (ac01.Type != ArtifactType.InContainer || ac01.IsOpen() || ShouldExposeInContentsWhenClosed()) && GetContainedList(containerType: gEngine.GetContainerType(ac01.Type)).Count > 0);
+
+			if (ac == null)
+			{
+				ac = Categories.FirstOrDefault(ac01 => ac01 != null && artTypes.Contains(ac01.Type) && ac01.Field5 == (long)ContainerDisplayCode.ArtifactNameSomeStuff && (ac01.Type != ArtifactType.InContainer || ac01.IsOpen() || ShouldExposeInContentsWhenClosed()) && GetContainedList(containerType: gEngine.GetContainerType(ac01.Type)).Count > 0);
+			}
+
+			if (ac == null)
+			{
+				ac = Categories.FirstOrDefault(ac01 => ac01 != null && artTypes.Contains(ac01.Type) && ac01.Field5 == (long)ContainerDisplayCode.SomethingSomeStuff && (ac01.Type != ArtifactType.InContainer || ac01.IsOpen() || ShouldExposeInContentsWhenClosed()) && GetContainedList(containerType: gEngine.GetContainerType(ac01.Type)).Count > 0);
+			}
+
+			if (ac != null)
+			{
+				var containerType = gEngine.GetContainerType(ac.Type);
+
+				var contentsList = GetContainedList(containerType: containerType);
+
+				var showCharOwned = !IsCarriedByCharacter() && !IsWornByCharacter();
+
+				var maxContentsNameListCount = GetMaxContentsNameListCount(containerType);
+
+				if (contentsList.Count > 0)
+				{
+					if (ac.Field5 == (long)ContainerDisplayCode.ArtifactNameList && contentsList.Count <= maxContentsNameListCount)
+					{
+						gEngine.GetRecordNameList(contentsList.Cast<IGameBase>().ToList(), ArticleType.A, showCharOwned, StateDescDisplayCode.None, false, false, buf01);
+					}
+
+					result = string.Format
+					(
+						" with {0} {1} {2}",
+						ac.Field5 == (long)ContainerDisplayCode.ArtifactNameList && contentsList.Count <= maxContentsNameListCount ? buf01.ToString() : contentsList.Count > 1 || contentsList[0].IsPlural ? "some stuff" : ac.Field5 == (long)ContainerDisplayCode.ArtifactNameSomeStuff ? contentsList[0].GetArticleName(false, showCharOwned, false, false, false, buf) : "something",
+						gEngine.EvalContainerType(containerType, "inside", "on", "under", "behind"),
+						EvalPlural("it", "them")
+					);
+				}
+			}
+
+			return result;
+		}
+
 		#endregion
 
 		#region Class Artifact
-
-		public virtual void GetContainedList01(Func<IArtifact, bool> artifactFindFunc = null, ContainerType containerType = ContainerType.In, bool recurse = false)
-		{
-			var origArtifactFindFunc = artifactFindFunc;
-
-			var allContainerTypes = !Enum.IsDefined(typeof(ContainerType), containerType);
-
-			if (artifactFindFunc == null)
-			{
-				artifactFindFunc = a => a.IsCarriedByContainer(this) && (allContainerTypes || a.GetCarriedByContainerContainerType() == containerType);
-			}
-
-			var artifactList = gEngine.GetArtifactList(a => artifactFindFunc(a) && !gEngine.ArtifactContainedList.Contains(a));
-
-			gEngine.ArtifactContainedList.AddRange(artifactList);
-
-			if (recurse && artifactList.Count > 0)
-			{
-				foreach (var a in artifactList)
-				{
-					var a01 = a as Artifact;
-
-					if (a.GeneralContainer != null && a01 != null)
-					{
-						a01.GetContainedList01(origArtifactFindFunc, (ContainerType)(-1), recurse);
-					}
-				}
-			}
-		}
 
 		public Artifact()
 		{

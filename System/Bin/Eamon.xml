@@ -1662,12 +1662,23 @@
             <param name="recurse"></param>
             <returns></returns>
         </member>
+        <member name="M:Eamon.Framework.IArtifact.GetContainedList01(System.Collections.Generic.IList{Eamon.Framework.IArtifact},System.Func{Eamon.Framework.IArtifact,System.Boolean},Eamon.Framework.Primitive.Enums.ContainerType,System.Boolean)">
+            <summary></summary>
+            <param name="artifactList"></param>
+            <param name="artifactFindFunc"></param>
+            <param name="containerType"></param>
+            <param name="recurse"></param>
+        </member>
         <member name="M:Eamon.Framework.IArtifact.GetContainerInfo(System.Int64@,System.Int64@,Eamon.Framework.Primitive.Enums.ContainerType,System.Boolean)">
             <summary></summary>
             <param name="count"></param>
             <param name="weight"></param>
             <param name="containerType"></param>
             <param name="recurse"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.IArtifact.GetContainerContentsDesc">
+            <summary></summary>
             <returns></returns>
         </member>
         <member name="T:Eamon.Framework.ICharacter">
@@ -3767,9 +3778,6 @@
             <see cref="P:Eamon.Framework.IMonster.StateDesc"> StateDesc</see> properties.
             </summary>
         </member>
-        <member name="P:Eamon.Framework.Plugin.IEngine.ArtifactContainedList">
-            <summary></summary>
-        </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.RevealContainerContentsFunc">
             <summary></summary>
         </member>
@@ -4640,11 +4648,6 @@
         <member name="M:Eamon.Framework.Plugin.IEngine.GetNumberFromString(System.String)">
             <summary></summary>
             <param name="str"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.Plugin.IEngine.GetContainerContentsDesc(Eamon.Framework.IArtifact)">
-            <summary></summary>
-            <param name="artifact"></param>
             <returns></returns>
         </member>
         <member name="M:Eamon.Framework.Plugin.IEngine.RollDice(System.Int64,System.Int64,System.Int64[]@)">

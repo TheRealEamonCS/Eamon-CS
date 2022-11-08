@@ -1053,7 +1053,7 @@ namespace Eamon.Game.Helpers
 								{
 									result = false;
 
-									Buf.SetFormat(gEngine.RecIdepErrorFmtStr, GetPrintedName("Location"), "Artifact", artUid, string.Format("which should be {0}, but isn't", gEngine.EvalContainerType(containerType, "an In container", "an On container", "an Under container", "a Behind container")));
+									Buf.SetFormat(gEngine.RecIdepErrorFmtStr, GetPrintedName("Location"), "Artifact", artUid, string.Format("which should be {0}, but isn't", gEngine.EvalContainerType(containerType, "an In Container", "an On Container", "an Under Container", "a Behind Container")));
 
 									ErrorMessage = Buf.ToString();
 

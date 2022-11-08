@@ -786,7 +786,7 @@ namespace Eamon.Game
 		{
 			if (!string.IsNullOrWhiteSpace(StateDesc))
 			{
-				var regex = new Regex(@"^ *\(.+\)");
+				var regex = new Regex(@"\(.+\)");
 
 				return regex.IsMatch(StateDesc);
 			}

@@ -473,9 +473,6 @@ namespace Eamon.Framework.Plugin
 		IDictionary<long, Func<string>> MacroFuncs { get; set; }
 
 		/// <summary></summary>
-		IList<IArtifact> ArtifactContainedList { get; set; }
-
-		/// <summary></summary>
 		Action<IRoom, IMonster, IArtifact, long, bool> RevealContainerContentsFunc { get; set; }
 
 		/// <summary>
@@ -1350,11 +1347,6 @@ namespace Eamon.Framework.Plugin
 		/// <param name="str"></param>
 		/// <returns></returns>
 		long GetNumberFromString(string str);
-
-		/// <summary></summary>
-		/// <param name="artifact"></param>
-		/// <returns></returns>
-		string GetContainerContentsDesc(IArtifact artifact);
 
 		/// <summary>
 		/// Rolls a number of dice, storing the resulting values in an array.
