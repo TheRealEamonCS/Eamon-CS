@@ -743,8 +743,13 @@ namespace Eamon.Framework
 		RetCode GetContainerInfo(ref long count, ref long weight, ContainerType containerType = ContainerType.In, bool recurse = false);
 
 		/// <summary></summary>
+		/// <param name="articleType"></param>
+		/// <param name="showCharOwned"></param>
+		/// <param name="stateDescCode"></param>
+		/// <param name="showContents"></param>
+		/// <param name="groupCountOne"></param>
 		/// <returns></returns>
-		string GetContainerContentsDesc();
+		string GetContainerContentsDesc(ArticleType articleType, bool showCharOwned, StateDescDisplayCode stateDescCode, bool showContents, bool groupCountOne);
 
 		#endregion
 	}

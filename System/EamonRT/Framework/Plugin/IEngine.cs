@@ -31,9 +31,6 @@ namespace EamonRT.Framework.Plugin
 		StringBuilder Buf01 { get; set; }
 
 		/// <summary></summary>
-		StringBuilder Buf02 { get; set; }
-
-		/// <summary></summary>
 		IList<ICommand> CommandList { get; set; }
 
 		/// <summary></summary>

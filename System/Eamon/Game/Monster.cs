@@ -156,7 +156,7 @@ namespace Eamon.Game
 			}
 		}
 
-		public override string GetPluralName(string fieldName, StringBuilder buf = null)
+		public override string GetPluralName(string fieldName)
 		{
 			IEffect effect;
 			long effectUid;
@@ -173,12 +173,7 @@ namespace Eamon.Game
 
 			Debug.Assert(fieldName == "Name");
 
-			if (buf == null)
-			{
-				buf = gEngine.Buf;
-			}
-
-			buf.Clear();
+			var buf = new StringBuilder(gEngine.BufSize);
 
 			effectUid = gEngine.GetPluralTypeEffectUid(PluralType);
 
@@ -210,9 +205,8 @@ namespace Eamon.Game
 			return result;
 		}
 
-		public override string GetDecoratedName(string fieldName, ArticleType articleType, bool upshift = false, bool showCharOwned = true, bool showStateDesc = false, bool showContents = false, bool groupCountOne = false, StringBuilder buf = null)
+		public override string GetDecoratedName(string fieldName, ArticleType articleType, bool upshift = false, bool showCharOwned = true, bool showStateDesc = false, bool showContents = false, bool groupCountOne = false)
 		{
-			StringBuilder buf01;
 			string result;
 			long gc;
 
@@ -227,14 +221,9 @@ namespace Eamon.Game
 
 			Debug.Assert(fieldName == "Name");
 
-			if (buf == null)
-			{
-				buf = gEngine.Buf;
-			}
+			var buf = new StringBuilder(gEngine.BufSize);
 
-			buf.Clear();
-
-			buf01 = new StringBuilder(gEngine.BufSize);
+			var buf01 = new StringBuilder(gEngine.BufSize);
 
 			gc = groupCountOne ? 1 : CurrGroupCount;
 
@@ -255,7 +244,7 @@ namespace Eamon.Game
 					(
 						"{0}{1}{2}",
 						buf01.ToString(),
-						gc > 1 ? GetPluralName(fieldName, new StringBuilder(gEngine.BufSize)) :
+						gc > 1 ? GetPluralName(fieldName) :
 						Name,
 						showStateDesc ? StateDesc : ""
 					);
@@ -284,7 +273,7 @@ namespace Eamon.Game
 					(
 						"{0}{1}{2}",
 						buf01.ToString(),
-						gc > 1 ? GetPluralName(fieldName, new StringBuilder(gEngine.BufSize)) :
+						gc > 1 ? GetPluralName(fieldName) :
 						Name,
 						showStateDesc ? StateDesc : ""
 					);
@@ -314,7 +303,7 @@ namespace Eamon.Game
 					(
 						"{0}{1}{2}",
 						buf01.ToString(),
-						gc > 1 ? GetPluralName(fieldName, new StringBuilder(gEngine.BufSize)) :
+						gc > 1 ? GetPluralName(fieldName) :
 						Name,
 						showStateDesc ? StateDesc : ""
 					);
@@ -359,8 +348,7 @@ namespace Eamon.Game
 						true,
 						showVerboseName && !string.IsNullOrWhiteSpace(StateDesc) && ShouldShowVerboseNameStateDesc(),
 						false,
-						false,
-						new StringBuilder(gEngine.BufSize)
+						false
 					)
 				);
 			}

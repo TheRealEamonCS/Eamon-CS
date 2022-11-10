@@ -491,7 +491,7 @@ namespace Eamon.Game
 			}
 		}
 
-		public override string GetPluralName(string fieldName, StringBuilder buf = null)
+		public override string GetPluralName(string fieldName)
 		{
 			IEffect effect;
 			long effectUid;
@@ -508,12 +508,7 @@ namespace Eamon.Game
 
 			Debug.Assert(fieldName == "Name");
 
-			if (buf == null)
-			{
-				buf = gEngine.Buf;
-			}
-
-			buf.Clear();
+			var buf = new StringBuilder(gEngine.BufSize);
 
 			effectUid = gEngine.GetPluralTypeEffectUid(PluralType);
 
@@ -545,7 +540,7 @@ namespace Eamon.Game
 			return result;
 		}
 
-		public override string GetDecoratedName(string fieldName, ArticleType articleType, bool upshift = false, bool showCharOwned = true, bool showStateDesc = false, bool showContents = false, bool groupCountOne = false, StringBuilder buf = null)
+		public override string GetDecoratedName(string fieldName, ArticleType articleType, bool upshift = false, bool showCharOwned = true, bool showStateDesc = false, bool showContents = false, bool groupCountOne = false)
 		{
 			string result;
 
@@ -560,12 +555,7 @@ namespace Eamon.Game
 
 			Debug.Assert(fieldName == "Name");
 
-			if (buf == null)
-			{
-				buf = gEngine.Buf;
-			}
-
-			buf.Clear();
+			var buf = new StringBuilder(gEngine.BufSize);
 
 			switch (articleType)
 			{
@@ -574,8 +564,8 @@ namespace Eamon.Game
 					buf.AppendFormat
 					(
 						"{0}{1}{2}",
-						EvalPlural(Name, GetPluralName(fieldName, new StringBuilder(gEngine.BufSize))),
-						showContents ? GetContainerContentsDesc() : "",
+						EvalPlural(Name, GetPluralName(fieldName)),
+						showContents && GeneralContainer != null ? GetContainerContentsDesc(ArticleType.A, !IsCarriedByCharacter() && !IsWornByCharacter(), StateDescDisplayCode.None, false, false) : "",
 						showStateDesc ? StateDesc : ""
 					);
 
@@ -590,8 +580,8 @@ namespace Eamon.Game
 						ArticleType == ArticleType.The ? "the " :
 						IsCharOwned && showCharOwned ? "your " :
 						"the ",
-						EvalPlural(Name, GetPluralName(fieldName, new StringBuilder(gEngine.BufSize))),
-						showContents ? GetContainerContentsDesc() : "",
+						EvalPlural(Name, GetPluralName(fieldName)),
+						showContents && GeneralContainer != null ? GetContainerContentsDesc(ArticleType.A, !IsCarriedByCharacter() && !IsWornByCharacter(), StateDescDisplayCode.None, false, false) : "",
 						showStateDesc ? StateDesc : ""
 					);
 
@@ -608,8 +598,8 @@ namespace Eamon.Game
 						ArticleType == ArticleType.Some ? "some " :
 						ArticleType == ArticleType.An ? "an " :
 						"a ",
-						EvalPlural(Name, GetPluralName(fieldName, new StringBuilder(gEngine.BufSize))),
-						showContents ? GetContainerContentsDesc() : "",
+						EvalPlural(Name, GetPluralName(fieldName)),
+						showContents && GeneralContainer != null ? GetContainerContentsDesc(ArticleType.A, !IsCarriedByCharacter() && !IsWornByCharacter(), StateDescDisplayCode.None, false, false) : "",
 						showStateDesc ? StateDesc : ""
 					);
 
@@ -653,8 +643,7 @@ namespace Eamon.Game
 						true, 
 						showVerboseName && !string.IsNullOrWhiteSpace(StateDesc) && ShouldShowVerboseNameStateDesc(), 
 						showVerboseName && GeneralContainer != null && ShouldShowVerboseNameContentsNameList(),
-						false,
-						new StringBuilder(gEngine.BufSize)
+						false
 					)
 				);
 			}
@@ -1585,7 +1574,10 @@ namespace Eamon.Game
 		{
 			var artifactList = new List<IArtifact>();
 
-			GetContainedList01(artifactList, artifactFindFunc, containerType, recurse);
+			if (GeneralContainer != null)
+			{ 
+				GetContainedList01(artifactList, artifactFindFunc, containerType, recurse);
+			}
 
 			return artifactList;
 		}
@@ -1625,74 +1617,73 @@ namespace Eamon.Game
 
 			rc = RetCode.Success;
 
-			var queue = new Queue<IArtifact>();
-
 			if (GeneralContainer != null)
 			{
+				var queue = new Queue<IArtifact>();
+
 				queue.AddRange(GetContainedList(null, containerType, recurse));
-			}
 
-			while (queue.Any())
-			{
-				count++;
-
-				var a = queue.Dequeue();
-
-				if (!a.IsUnmovable01())
+				while (queue.Any())
 				{
-					weight += a.Weight;
+					count++;
+
+					var a = queue.Dequeue();
+
+					if (!a.IsUnmovable01())
+					{
+						weight += a.Weight;
+					}
 				}
 			}
 
 			return rc;
 		}
 
-		public virtual string GetContainerContentsDesc()
+		public virtual string GetContainerContentsDesc(ArticleType articleType, bool showCharOwned, StateDescDisplayCode stateDescCode, bool showContents, bool groupCountOne)
 		{
-			var artTypes = new ArtifactType[] { ArtifactType.InContainer, ArtifactType.OnContainer, ArtifactType.UnderContainer, ArtifactType.BehindContainer };
-
 			var result = "";
 
-			var buf = new StringBuilder(gEngine.BufSize);
+			if (GeneralContainer != null)
+			{ 
+				var artTypes = new ArtifactType[] { ArtifactType.InContainer, ArtifactType.OnContainer, ArtifactType.UnderContainer, ArtifactType.BehindContainer };
 
-			var buf01 = new StringBuilder(gEngine.BufSize);
+				var buf = new StringBuilder(gEngine.BufSize);
 
-			var ac = Categories.FirstOrDefault(ac01 => ac01 != null && artTypes.Contains(ac01.Type) && ac01.Field5 == (long)ContainerDisplayCode.ArtifactNameList && (ac01.Type != ArtifactType.InContainer || ac01.IsOpen() || ShouldExposeInContentsWhenClosed()) && GetContainedList(containerType: gEngine.GetContainerType(ac01.Type)).Count > 0);
+				var ac = Categories.FirstOrDefault(ac01 => ac01 != null && artTypes.Contains(ac01.Type) && ac01.Field5 == (long)ContainerDisplayCode.ArtifactNameList && (ac01.Type != ArtifactType.InContainer || ac01.IsOpen() || ShouldExposeInContentsWhenClosed()) && GetContainedList(containerType: gEngine.GetContainerType(ac01.Type)).Count > 0);
 
-			if (ac == null)
-			{
-				ac = Categories.FirstOrDefault(ac01 => ac01 != null && artTypes.Contains(ac01.Type) && ac01.Field5 == (long)ContainerDisplayCode.ArtifactNameSomeStuff && (ac01.Type != ArtifactType.InContainer || ac01.IsOpen() || ShouldExposeInContentsWhenClosed()) && GetContainedList(containerType: gEngine.GetContainerType(ac01.Type)).Count > 0);
-			}
-
-			if (ac == null)
-			{
-				ac = Categories.FirstOrDefault(ac01 => ac01 != null && artTypes.Contains(ac01.Type) && ac01.Field5 == (long)ContainerDisplayCode.SomethingSomeStuff && (ac01.Type != ArtifactType.InContainer || ac01.IsOpen() || ShouldExposeInContentsWhenClosed()) && GetContainedList(containerType: gEngine.GetContainerType(ac01.Type)).Count > 0);
-			}
-
-			if (ac != null)
-			{
-				var containerType = gEngine.GetContainerType(ac.Type);
-
-				var contentsList = GetContainedList(containerType: containerType);
-
-				var showCharOwned = !IsCarriedByCharacter() && !IsWornByCharacter();
-
-				var maxContentsNameListCount = GetMaxContentsNameListCount(containerType);
-
-				if (contentsList.Count > 0)
+				if (ac == null)
 				{
-					if (ac.Field5 == (long)ContainerDisplayCode.ArtifactNameList && contentsList.Count <= maxContentsNameListCount)
-					{
-						gEngine.GetRecordNameList(contentsList.Cast<IGameBase>().ToList(), ArticleType.A, showCharOwned, StateDescDisplayCode.None, false, false, buf01);
-					}
+					ac = Categories.FirstOrDefault(ac01 => ac01 != null && artTypes.Contains(ac01.Type) && ac01.Field5 == (long)ContainerDisplayCode.ArtifactNameSomeStuff && (ac01.Type != ArtifactType.InContainer || ac01.IsOpen() || ShouldExposeInContentsWhenClosed()) && GetContainedList(containerType: gEngine.GetContainerType(ac01.Type)).Count > 0);
+				}
 
-					result = string.Format
-					(
-						" with {0} {1} {2}",
-						ac.Field5 == (long)ContainerDisplayCode.ArtifactNameList && contentsList.Count <= maxContentsNameListCount ? buf01.ToString() : contentsList.Count > 1 || contentsList[0].IsPlural ? "some stuff" : ac.Field5 == (long)ContainerDisplayCode.ArtifactNameSomeStuff ? contentsList[0].GetArticleName(false, showCharOwned, false, false, false, buf) : "something",
-						gEngine.EvalContainerType(containerType, "inside", "on", "under", "behind"),
-						EvalPlural("it", "them")
-					);
+				if (ac == null)
+				{
+					ac = Categories.FirstOrDefault(ac01 => ac01 != null && artTypes.Contains(ac01.Type) && ac01.Field5 == (long)ContainerDisplayCode.SomethingSomeStuff && (ac01.Type != ArtifactType.InContainer || ac01.IsOpen() || ShouldExposeInContentsWhenClosed()) && GetContainedList(containerType: gEngine.GetContainerType(ac01.Type)).Count > 0);
+				}
+
+				if (ac != null)
+				{
+					var containerType = gEngine.GetContainerType(ac.Type);
+
+					var contentsList = GetContainedList(containerType: containerType);
+
+					var maxContentsNameListCount = GetMaxContentsNameListCount(containerType);
+
+					if (contentsList.Count > 0)
+					{
+						if (ac.Field5 == (long)ContainerDisplayCode.ArtifactNameList && contentsList.Count <= maxContentsNameListCount)
+						{
+							gEngine.GetRecordNameList(contentsList.Cast<IGameBase>().ToList(), articleType, showCharOwned, stateDescCode, showContents, groupCountOne, buf);
+						}
+
+						result = string.Format
+						(
+							" with {0} {1} {2}",
+							ac.Field5 == (long)ContainerDisplayCode.ArtifactNameList && contentsList.Count <= maxContentsNameListCount ? buf.ToString() : contentsList.Count > 1 || contentsList[0].IsPlural ? "some stuff" : ac.Field5 == (long)ContainerDisplayCode.ArtifactNameSomeStuff ? contentsList[0].GetDecoratedName("Name", articleType, false, showCharOwned, stateDescCode == StateDescDisplayCode.AllStateDescs || (stateDescCode == StateDescDisplayCode.SideNotesOnly && contentsList[0].IsStateDescSideNotes()), showContents, groupCountOne) : "something",
+							gEngine.EvalContainerType(containerType, "inside", "on", "under", "behind"),
+							EvalPlural("it", "them")
+						);
+					}
 				}
 			}
 

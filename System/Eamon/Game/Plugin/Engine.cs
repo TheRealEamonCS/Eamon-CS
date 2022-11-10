@@ -3961,7 +3961,6 @@ namespace Eamon.Game.Plugin
 
 		public virtual RetCode GetRecordNameList(IList<IGameBase> recordList, ArticleType articleType, bool showCharOwned, StateDescDisplayCode stateDescCode, bool showContents, bool groupCountOne, StringBuilder buf)
 		{
-			StringBuilder buf01;
 			RetCode rc;
 			long i;
 
@@ -3975,8 +3974,6 @@ namespace Eamon.Game.Plugin
 			}
 
 			rc = RetCode.Success;
-
-			buf01 = new StringBuilder(BufSize);
 
 			for (i = 0; i < recordList.Count; i++)
 			{
@@ -4008,8 +4005,7 @@ namespace Eamon.Game.Plugin
 						showCharOwned,
 						showStateDesc,
 						showContents,
-						groupCountOne,
-						buf01
+						groupCountOne
 					)
 				);
 			}

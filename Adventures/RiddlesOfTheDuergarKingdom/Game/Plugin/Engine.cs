@@ -128,7 +128,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.Plugin
 
 				Debug.Assert(goldNuggetsArtifact != null);
 
-				return GetStringFromNumber(goldNuggetsArtifact.Value / 2, false, Buf02);
+				return GetStringFromNumber(goldNuggetsArtifact.Value / 2, false, Buf01);
 			});
 
 			var synonyms = new Dictionary<long, string[]>()
@@ -490,7 +490,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.Plugin
 			{
 				if (room.IsLit())
 				{
-					Out.Print("{0} mangles {1} and tears {2} apart!", rockCrusherArtifact.GetTheName(true), artifact.GetTheName(buf: Buf01), artifact.EvalPlural("it", "them"));
+					Out.Print("{0} mangles {1} and tears {2} apart!", rockCrusherArtifact.GetTheName(true), artifact.GetTheName(), artifact.EvalPlural("it", "them"));
 
 					Out.Print("{0} {1} destroyed!", artifact.GetTheName(true), artifact.EvalPlural("is", "are"));
 				}
@@ -520,7 +520,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.Plugin
 			{
 				if (room.IsLit())
 				{
-					Out.Print("{0} mutilates {1} beyond recognition!", rockGrinderArtifact.GetTheName(true), artifact.GetTheName(buf: Buf01));
+					Out.Print("{0} mutilates {1} beyond recognition!", rockGrinderArtifact.GetTheName(true), artifact.GetTheName());
 
 					Out.Print("{0} {1} destroyed!", artifact.GetTheName(true), artifact.EvalPlural("is", "are"));
 				}
@@ -556,7 +556,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.Plugin
 					}
 					else if (room.IsLit())
 					{
-						Out.Print("{0} vibrates {1} violently but to little harm!", debrisSifterArtifact.GetTheName(true), artifact02.GetTheName(buf: Buf01));
+						Out.Print("{0} vibrates {1} violently but to little harm!", debrisSifterArtifact.GetTheName(true), artifact02.GetTheName());
 					}
 				}
 			}

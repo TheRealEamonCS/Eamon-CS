@@ -292,7 +292,7 @@ namespace WrenholdsSecretVigil.Game.Plugin
 
 				Debug.Assert(effect != null);
 
-				Out.Print("{0} says, {1}", monster.GetTheName(true, true, false, false, true, Buf), effect.Desc);
+				Out.Print("{0} says, {1}", monster.GetTheName(true, true, false, false, true), effect.Desc);
 
 				gGameState.SetMonsterCurse(effectUid - 7, true);
 			}

@@ -134,7 +134,7 @@ namespace Eamon.Game
 			}
 		}
 
-		public override string GetPluralName(string fieldName, StringBuilder buf = null)
+		public override string GetPluralName(string fieldName)
 		{
 			string result;
 
@@ -149,12 +149,7 @@ namespace Eamon.Game
 
 			Debug.Assert(fieldName == "Name");
 
-			if (buf == null)
-			{
-				buf = gEngine.Buf;
-			}
-
-			buf.Clear();
+			var buf = new StringBuilder(gEngine.BufSize);
 
 			buf.Append(Name);
 
@@ -165,7 +160,7 @@ namespace Eamon.Game
 			return result;
 		}
 
-		public override string GetDecoratedName(string fieldName, ArticleType articleType, bool upshift = false, bool showCharOwned = true, bool showStateDesc = false, bool showContents = false, bool groupCountOne = false, StringBuilder buf = null)
+		public override string GetDecoratedName(string fieldName, ArticleType articleType, bool upshift = false, bool showCharOwned = true, bool showStateDesc = false, bool showContents = false, bool groupCountOne = false)
 		{
 			string result;
 
@@ -180,12 +175,7 @@ namespace Eamon.Game
 
 			Debug.Assert(fieldName == "Name");
 
-			if (buf == null)
-			{
-				buf = gEngine.Buf;
-			}
-
-			buf.Clear();
+			var buf = new StringBuilder(gEngine.BufSize);
 
 			buf.Append(Name);
 
@@ -211,7 +201,7 @@ namespace Eamon.Game
 
 			rc = RetCode.Success;
 
-			var name = GetArticleName(true, buf: new StringBuilder(gEngine.BufSize));
+			var name = GetArticleName(true);
 
 			if (showName)
 			{

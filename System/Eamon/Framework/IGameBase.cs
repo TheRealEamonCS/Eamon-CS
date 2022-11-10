@@ -72,14 +72,12 @@ namespace Eamon.Framework
 
 		/// <summary></summary>
 		/// <param name="fieldName"></param>
-		/// <param name="buf"></param>
 		/// <returns></returns>
-		string GetPluralName(string fieldName, StringBuilder buf = null);
+		string GetPluralName(string fieldName);
 
 		/// <summary></summary>
-		/// <param name="buf"></param>
 		/// <returns></returns>
-		string GetPluralName01(StringBuilder buf = null);
+		string GetPluralName01();
 
 		/// <summary></summary>
 		/// <param name="fieldName"></param>
@@ -89,9 +87,8 @@ namespace Eamon.Framework
 		/// <param name="showStateDesc"></param>
 		/// <param name="showContents"></param>
 		/// <param name="groupCountOne"></param>
-		/// <param name="buf"></param>
 		/// <returns></returns>
-		string GetDecoratedName(string fieldName, ArticleType articleType, bool upshift = false, bool showCharOwned = true, bool showStateDesc = false, bool showContents = false, bool groupCountOne = false, StringBuilder buf = null);
+		string GetDecoratedName(string fieldName, ArticleType articleType, bool upshift = false, bool showCharOwned = true, bool showStateDesc = false, bool showContents = false, bool groupCountOne = false);
 
 		/// <summary></summary>
 		/// <param name="upshift"></param>
@@ -99,9 +96,8 @@ namespace Eamon.Framework
 		/// <param name="showStateDesc"></param>
 		/// <param name="showContents"></param>
 		/// <param name="groupCountOne"></param>
-		/// <param name="buf"></param>
 		/// <returns></returns>
-		string GetNoneName(bool upshift = false, bool showCharOwned = true, bool showStateDesc = false, bool showContents = false, bool groupCountOne = false, StringBuilder buf = null);
+		string GetNoneName(bool upshift = false, bool showCharOwned = true, bool showStateDesc = false, bool showContents = false, bool groupCountOne = false);
 
 		/// <summary></summary>
 		/// <param name="upshift"></param>
@@ -109,9 +105,8 @@ namespace Eamon.Framework
 		/// <param name="showStateDesc"></param>
 		/// <param name="showContents"></param>
 		/// <param name="groupCountOne"></param>
-		/// <param name="buf"></param>
 		/// <returns></returns>
-		string GetArticleName(bool upshift = false, bool showCharOwned = true, bool showStateDesc = false, bool showContents = false, bool groupCountOne = false, StringBuilder buf = null);
+		string GetArticleName(bool upshift = false, bool showCharOwned = true, bool showStateDesc = false, bool showContents = false, bool groupCountOne = false);
 
 		/// <summary></summary>
 		/// <param name="upshift"></param>
@@ -119,9 +114,8 @@ namespace Eamon.Framework
 		/// <param name="showStateDesc"></param>
 		/// <param name="showContents"></param>
 		/// <param name="groupCountOne"></param>
-		/// <param name="buf"></param>
 		/// <returns></returns>
-		string GetTheName(bool upshift = false, bool showCharOwned = true, bool showStateDesc = false, bool showContents = false, bool groupCountOne = false, StringBuilder buf = null);
+		string GetTheName(bool upshift = false, bool showCharOwned = true, bool showStateDesc = false, bool showContents = false, bool groupCountOne = false);
 
 		/// <summary></summary>
 		/// <param name="buf"></param>

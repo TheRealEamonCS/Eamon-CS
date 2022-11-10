@@ -148,8 +148,8 @@ namespace EamonRT.Game.Components
 					(
 						(weaponRevealType == WeaponRevealType.Never ||
 						(weaponRevealType == WeaponRevealType.OnlyIfSeen && !weapon.Seen)) ?
-							weapon.GetArticleName(buf: gEngine.Buf01) :
-							weapon.GetTheName(buf: gEngine.Buf01)
+							weapon.GetArticleName() :
+							weapon.GetTheName()
 					) :
 					"a weapon");
 		}
@@ -229,7 +229,7 @@ namespace EamonRT.Game.Components
 
 			DobjMonsterName = dobjMonster.IsCharacterMonster() ? "You" :
 				blastSpell && dobjMonster.InitGroupCount > 1 ? room.EvalLightLevel(dobjMonster == actorMonster ? "An offender" : "A defender", dobjMonster.GetArticleName(true, true, false, false, true)) :
-				room.EvalLightLevel(dobjMonster == actorMonster ? "The offender" : "The defender", dobjMonster.GetTheName(true, true, false, false, true, gEngine.Buf01));
+				room.EvalLightLevel(dobjMonster == actorMonster ? "The offender" : "The defender", dobjMonster.GetTheName(true, true, false, false, true));
 
 			gEngine.Buf.SetFormat("{0}{1} {2} ",
 				Environment.NewLine,

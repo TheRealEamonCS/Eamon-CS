@@ -36,8 +36,6 @@ namespace EamonRT.Game.Plugin
 
 		public virtual StringBuilder Buf01 { get; set; }
 
-		public virtual StringBuilder Buf02 { get; set; }
-
 		public virtual IList<ICommand> CommandList { get; set; }
 
 		public virtual IList<ICommand> LastCommandList { get; set; }
@@ -604,13 +602,13 @@ namespace EamonRT.Game.Plugin
 			{
 				Out.Print("Some of {0} wounds seem to clear up.",
 					isCharMonster ? "your" :
-					monster.EvalPlural(monster.GetTheName(), monster.GetArticleName(false, true, false, false, true, Buf01)).AddPossessiveSuffix());
+					monster.EvalPlural(monster.GetTheName(), monster.GetArticleName(false, true, false, false, true)).AddPossessiveSuffix());
 			}
 			else
 			{
 				Out.Print("{0} health improves!",
 					isCharMonster ? "Your" :
-					monster.EvalPlural(monster.GetTheName(true), monster.GetArticleName(true, true, false, false, true, Buf01)).AddPossessiveSuffix());
+					monster.EvalPlural(monster.GetTheName(true), monster.GetArticleName(true, true, false, false, true)).AddPossessiveSuffix());
 			}
 		}
 
@@ -626,7 +624,7 @@ namespace EamonRT.Game.Plugin
 				Environment.NewLine,
 				isCharMonster ? "You" :
 				isUninjuredGroupMonster ? "They" :
-				monster.GetTheName(true, true, false, false, true, Buf01),
+				monster.GetTheName(true, true, false, false, true),
 				isCharMonster || isUninjuredGroupMonster ? "are" : "is");
 
 			monster.AddHealthStatus(Buf);
@@ -859,15 +857,15 @@ namespace EamonRT.Game.Plugin
 		{
 			Debug.Assert(artifact != null && revealContentsList != null && revealContentsList.Count > 0 && Enum.IsDefined(typeof(ContainerType), containerType));
 
-			Buf02.SetFormat("{0} {1}",
+			Buf01.SetFormat("{0} {1}",
 				monster != null && !monster.IsCharacterMonster() ? (UseRevealContentMonsterTheName ? monster.GetTheName(groupCountOne: true) : monster.GetArticleName(groupCountOne: true)) : "you",
 				monster != null && !monster.IsCharacterMonster() ? "finds" : "find");
 
 			Buf.SetFormat("{0}{1} {2}, {3} ",
 				Environment.NewLine,
 				EvalContainerType(containerType, "Inside", "On", "Under", "Behind"),
-				artifact.GetTheName(false, showCharOwned, false, false, false, Buf01),
-				Buf02.ToString());
+				artifact.GetTheName(showCharOwned: showCharOwned),
+				Buf01.ToString());
 
 			var rc = GetRecordNameList(revealContentsList.Cast<IGameBase>().ToList(), ArticleType.A, revealShowCharOwned, StateDescDisplayCode.None, false, false, Buf);
 
@@ -2573,11 +2571,11 @@ namespace EamonRT.Game.Plugin
 
 					if (r is IArtifact a)
 					{
-						result = a.IsPlural && a.GetPluralName01(Buf).Equals(name, StringComparison.OrdinalIgnoreCase);
+						result = a.IsPlural && a.GetPluralName01().Equals(name, StringComparison.OrdinalIgnoreCase);
 					}
 					else if (r is IMonster m)
 					{
-						result = m.GroupCount > 1 && m.GetPluralName01(Buf).Equals(name01, StringComparison.OrdinalIgnoreCase);
+						result = m.GroupCount > 1 && m.GetPluralName01().Equals(name01, StringComparison.OrdinalIgnoreCase);
 					}
 
 					return result;
@@ -2611,11 +2609,11 @@ namespace EamonRT.Game.Plugin
 
 					if (r is IArtifact a)
 					{
-						result = a.IsPlural && (a.GetPluralName01(Buf).StartsWith(name, StringComparison.OrdinalIgnoreCase) || a.GetPluralName01(Buf01).EndsWith(name, StringComparison.OrdinalIgnoreCase));
+						result = a.IsPlural && (a.GetPluralName01().StartsWith(name, StringComparison.OrdinalIgnoreCase) || a.GetPluralName01().EndsWith(name, StringComparison.OrdinalIgnoreCase));
 					}
 					else if (r is IMonster m)
 					{
-						result = m.GroupCount > 1 && (m.GetPluralName01(Buf).StartsWith(name01, StringComparison.OrdinalIgnoreCase) || m.GetPluralName01(Buf01).EndsWith(name01, StringComparison.OrdinalIgnoreCase));
+						result = m.GroupCount > 1 && (m.GetPluralName01().StartsWith(name01, StringComparison.OrdinalIgnoreCase) || m.GetPluralName01().EndsWith(name01, StringComparison.OrdinalIgnoreCase));
 					}
 
 					return result;
@@ -2638,11 +2636,11 @@ namespace EamonRT.Game.Plugin
 
 				if (r is IArtifact a && a.IsPlural)
 				{
-					result = a.GetPluralName01(Buf).ToLower();
+					result = a.GetPluralName01().ToLower();
 				}
 				else if (r is IMonster m && m.GroupCount > 1)
 				{
-					result = m.GetPluralName01(Buf).ToLower();
+					result = m.GetPluralName01().ToLower();
 				}
 
 				return result;
@@ -3902,8 +3900,6 @@ namespace EamonRT.Game.Plugin
 			RtProgVersion = ProgVersion;
 
 			Buf01 = new StringBuilder(BufSize);
-
-			Buf02 = new StringBuilder(BufSize);
 
 			RevealContainerContentsFunc = RevealContainerContents;
 

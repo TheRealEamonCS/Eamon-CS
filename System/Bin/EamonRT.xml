@@ -1530,9 +1530,6 @@
         <member name="P:EamonRT.Framework.Plugin.IEngine.Buf01">
             <summary></summary>
         </member>
-        <member name="P:EamonRT.Framework.Plugin.IEngine.Buf02">
-            <summary></summary>
-        </member>
         <member name="P:EamonRT.Framework.Plugin.IEngine.CommandList">
             <summary></summary>
         </member>

@@ -1677,8 +1677,13 @@
             <param name="recurse"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IArtifact.GetContainerContentsDesc">
+        <member name="M:Eamon.Framework.IArtifact.GetContainerContentsDesc(Eamon.Framework.Primitive.Enums.ArticleType,System.Boolean,Eamon.Framework.Primitive.Enums.StateDescDisplayCode,System.Boolean,System.Boolean)">
             <summary></summary>
+            <param name="articleType"></param>
+            <param name="showCharOwned"></param>
+            <param name="stateDescCode"></param>
+            <param name="showContents"></param>
+            <param name="groupCountOne"></param>
             <returns></returns>
         </member>
         <member name="T:Eamon.Framework.ICharacter">
@@ -2150,18 +2155,16 @@
         <member name="M:Eamon.Framework.IGameBase.SetParentReferences">
             <summary></summary>
         </member>
-        <member name="M:Eamon.Framework.IGameBase.GetPluralName(System.String,System.Text.StringBuilder)">
+        <member name="M:Eamon.Framework.IGameBase.GetPluralName(System.String)">
             <summary></summary>
             <param name="fieldName"></param>
-            <param name="buf"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IGameBase.GetPluralName01(System.Text.StringBuilder)">
+        <member name="M:Eamon.Framework.IGameBase.GetPluralName01">
             <summary></summary>
-            <param name="buf"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IGameBase.GetDecoratedName(System.String,Eamon.Framework.Primitive.Enums.ArticleType,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Text.StringBuilder)">
+        <member name="M:Eamon.Framework.IGameBase.GetDecoratedName(System.String,Eamon.Framework.Primitive.Enums.ArticleType,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean)">
             <summary></summary>
             <param name="fieldName"></param>
             <param name="articleType"></param>
@@ -2170,37 +2173,33 @@
             <param name="showStateDesc"></param>
             <param name="showContents"></param>
             <param name="groupCountOne"></param>
-            <param name="buf"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IGameBase.GetNoneName(System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Text.StringBuilder)">
+        <member name="M:Eamon.Framework.IGameBase.GetNoneName(System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean)">
             <summary></summary>
             <param name="upshift"></param>
             <param name="showCharOwned"></param>
             <param name="showStateDesc"></param>
             <param name="showContents"></param>
             <param name="groupCountOne"></param>
-            <param name="buf"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IGameBase.GetArticleName(System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Text.StringBuilder)">
+        <member name="M:Eamon.Framework.IGameBase.GetArticleName(System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean)">
             <summary></summary>
             <param name="upshift"></param>
             <param name="showCharOwned"></param>
             <param name="showStateDesc"></param>
             <param name="showContents"></param>
             <param name="groupCountOne"></param>
-            <param name="buf"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IGameBase.GetTheName(System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Text.StringBuilder)">
+        <member name="M:Eamon.Framework.IGameBase.GetTheName(System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean)">
             <summary></summary>
             <param name="upshift"></param>
             <param name="showCharOwned"></param>
             <param name="showStateDesc"></param>
             <param name="showContents"></param>
             <param name="groupCountOne"></param>
-            <param name="buf"></param>
             <returns></returns>
         </member>
         <member name="M:Eamon.Framework.IGameBase.BuildPrintedFullDesc(System.Text.StringBuilder,System.Boolean,System.Boolean)">
