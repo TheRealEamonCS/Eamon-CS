@@ -3959,12 +3959,12 @@ namespace Eamon.Game.Plugin
 			return rc;
 		}
 
-		public virtual RetCode GetRecordNameList(IList<IGameBase> recordList, ArticleType articleType, bool showCharOwned, StateDescDisplayCode stateDescCode, bool showContents, bool groupCountOne, StringBuilder buf)
+		public virtual RetCode GetRecordNameList(IList<IGameBase> recordList, IRecordNameListArgs args, StringBuilder buf)
 		{
 			RetCode rc;
 			long i;
 
-			if (recordList == null || buf == null)
+			if (recordList == null || args == null || buf == null)
 			{
 				rc = RetCode.InvalidArg;
 
@@ -3983,16 +3983,16 @@ namespace Eamon.Game.Plugin
 
 				var m = r as IMonster;
 
-				var showStateDesc = stateDescCode == StateDescDisplayCode.AllStateDescs;
+				var showStateDesc = args.StateDescCode == StateDescDisplayCode.AllStateDescs;
 
 				if (!showStateDesc && a != null)
 				{
-					showStateDesc = stateDescCode == StateDescDisplayCode.SideNotesOnly && a.IsStateDescSideNotes();
+					showStateDesc = args.StateDescCode == StateDescDisplayCode.SideNotesOnly && a.IsStateDescSideNotes();
 				}
 
 				if (!showStateDesc && m != null)
 				{
-					showStateDesc = stateDescCode == StateDescDisplayCode.SideNotesOnly && m.IsStateDescSideNotes();
+					showStateDesc = args.StateDescCode == StateDescDisplayCode.SideNotesOnly && m.IsStateDescSideNotes();
 				}
 
 				buf.AppendFormat("{0}{1}",
@@ -4000,12 +4000,12 @@ namespace Eamon.Game.Plugin
 					r.GetDecoratedName
 					(
 						"Name",
-						articleType == ArticleType.None || articleType == ArticleType.The ? articleType : r.ArticleType,
+						args.ArticleType == ArticleType.None || args.ArticleType == ArticleType.The ? args.ArticleType : r.ArticleType,
 						false,
-						showCharOwned,
+						args.ShowCharOwned,
 						showStateDesc,
-						showContents,
-						groupCountOne
+						args.ShowContents,
+						args.GroupCountOne
 					)
 				);
 			}

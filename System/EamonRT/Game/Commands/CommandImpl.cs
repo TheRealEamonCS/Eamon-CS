@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using Eamon.Framework;
+using Eamon.Framework.Args;
 using Eamon.Framework.Primitive.Classes;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
@@ -519,7 +520,7 @@ namespace EamonRT.Game.Commands
 				objAmount != 1 ? "s" : "");
 		}
 
-		public virtual void PrintPrepContainerYouSee(IArtifact artifact, IList<IArtifact> containerArtifactList, ContainerType containerType, bool showCharOwned)
+		public virtual void PrintPrepContainerYouSee(IArtifact artifact, IList<IArtifact> containerArtifactList, ContainerType containerType, bool showCharOwned, IRecordNameListArgs recordNameListArgs = null)
 		{
 			Debug.Assert(artifact != null && containerArtifactList != null && containerArtifactList.Count > 0 && Enum.IsDefined(typeof(ContainerType), containerType));
 
@@ -528,7 +529,23 @@ namespace EamonRT.Game.Commands
 				gEngine.EvalContainerType(containerType, "Inside", "On", "Under", "Behind"),
 				artifact.GetTheName(showCharOwned: showCharOwned));
 
-			var rc = gEngine.GetRecordNameList(containerArtifactList.Cast<IGameBase>().ToList(), ArticleType.A, showCharOwned, StateDescDisplayCode.None, false, false, gEngine.Buf);
+			if (recordNameListArgs == null)
+			{
+				recordNameListArgs = gEngine.CreateInstance<IRecordNameListArgs>(x =>
+				{
+					x.ArticleType = ArticleType.A;
+
+					x.ShowCharOwned = showCharOwned;
+
+					x.StateDescCode = StateDescDisplayCode.None;
+
+					x.ShowContents = false;
+
+					x.GroupCountOne = false;
+				});
+			}
+
+			var rc = gEngine.GetRecordNameList(containerArtifactList.Cast<IGameBase>().ToList(), recordNameListArgs, gEngine.Buf);
 
 			Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -630,7 +647,7 @@ namespace EamonRT.Game.Commands
 			gOut.Print("Give {0} gold piece{1} to {2}.", gEngine.GetStringFromNumber(goldAmount, false, gEngine.Buf), goldAmount != 1 ? "s" : "", monster.GetTheName());
 		}
 
-		public virtual void PrintActorIsWearing(IMonster monster, IList<IArtifact> monsterWornArtifactList)
+		public virtual void PrintActorIsWearing(IMonster monster, IList<IArtifact> monsterWornArtifactList, IRecordNameListArgs recordNameListArgs = null)
 		{
 			Debug.Assert(monster != null && monsterWornArtifactList != null && monsterWornArtifactList.Count > 0);
 
@@ -642,7 +659,23 @@ namespace EamonRT.Game.Commands
 				isCharMonster ? "are" : monster.EvalPlural("is", "are"),
 				isCharMonster ? "wearing " : monster.EvalPlural("wearing ", "wearing among them "));
 
-			var rc = gEngine.GetRecordNameList(monsterWornArtifactList.Cast<IGameBase>().ToList(), ArticleType.A, isCharMonster ? false : true, isCharMonster ? StateDescDisplayCode.AllStateDescs : StateDescDisplayCode.SideNotesOnly, isCharMonster ? true : false, false, gEngine.Buf);
+			if (recordNameListArgs == null)
+			{
+				recordNameListArgs = gEngine.CreateInstance<IRecordNameListArgs>(x =>
+				{
+					x.ArticleType = ArticleType.A;
+
+					x.ShowCharOwned = isCharMonster ? false : true;
+
+					x.StateDescCode = isCharMonster ? StateDescDisplayCode.AllStateDescs : StateDescDisplayCode.SideNotesOnly;
+
+					x.ShowContents = isCharMonster ? true : false;
+
+					x.GroupCountOne = false;
+				});
+			}
+
+			var rc = gEngine.GetRecordNameList(monsterWornArtifactList.Cast<IGameBase>().ToList(), recordNameListArgs, gEngine.Buf);
 
 			Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -651,7 +684,7 @@ namespace EamonRT.Game.Commands
 			gOut.Write("{0}", gEngine.Buf);
 		}
 
-		public virtual void PrintActorIsCarrying(IMonster monster, IList<IArtifact> monsterCarriedArtifactList)
+		public virtual void PrintActorIsCarrying(IMonster monster, IList<IArtifact> monsterCarriedArtifactList, IRecordNameListArgs recordNameListArgs = null)
 		{
 			Debug.Assert(monster != null && monsterCarriedArtifactList != null);
 
@@ -666,7 +699,23 @@ namespace EamonRT.Game.Commands
 
 			if (monsterCarriedArtifactList.Count > 0)
 			{
-				var rc = gEngine.GetRecordNameList(monsterCarriedArtifactList.Cast<IGameBase>().ToList(), ArticleType.A, isCharMonster ? false : true, isCharMonster ? StateDescDisplayCode.AllStateDescs : StateDescDisplayCode.SideNotesOnly, isCharMonster ? true : false, false, gEngine.Buf);
+				if (recordNameListArgs == null)
+				{
+					recordNameListArgs = gEngine.CreateInstance<IRecordNameListArgs>(x =>
+					{
+						x.ArticleType = ArticleType.A;
+
+						x.ShowCharOwned = isCharMonster ? false : true;
+
+						x.StateDescCode = isCharMonster ? StateDescDisplayCode.AllStateDescs : StateDescDisplayCode.SideNotesOnly;
+
+						x.ShowContents = isCharMonster ? true : false;
+
+						x.GroupCountOne = false;
+					});
+				}
+
+				var rc = gEngine.GetRecordNameList(monsterCarriedArtifactList.Cast<IGameBase>().ToList(), recordNameListArgs, gEngine.Buf);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 			}

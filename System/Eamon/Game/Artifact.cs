@@ -11,6 +11,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using Polenter.Serialization;
 using Eamon.Framework;
+using Eamon.Framework.Args;
 using Eamon.Framework.Primitive.Classes;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
@@ -565,7 +566,7 @@ namespace Eamon.Game
 					(
 						"{0}{1}{2}",
 						EvalPlural(Name, GetPluralName(fieldName)),
-						showContents && GeneralContainer != null ? GetContainerContentsDesc(ArticleType.A, !IsCarriedByCharacter() && !IsWornByCharacter(), StateDescDisplayCode.None, false, false) : "",
+						showContents && GeneralContainer != null ? GetContainerContentsDesc() : "",
 						showStateDesc ? StateDesc : ""
 					);
 
@@ -581,7 +582,7 @@ namespace Eamon.Game
 						IsCharOwned && showCharOwned ? "your " :
 						"the ",
 						EvalPlural(Name, GetPluralName(fieldName)),
-						showContents && GeneralContainer != null ? GetContainerContentsDesc(ArticleType.A, !IsCarriedByCharacter() && !IsWornByCharacter(), StateDescDisplayCode.None, false, false) : "",
+						showContents && GeneralContainer != null ? GetContainerContentsDesc() : "",
 						showStateDesc ? StateDesc : ""
 					);
 
@@ -599,7 +600,7 @@ namespace Eamon.Game
 						ArticleType == ArticleType.An ? "an " :
 						"a ",
 						EvalPlural(Name, GetPluralName(fieldName)),
-						showContents && GeneralContainer != null ? GetContainerContentsDesc(ArticleType.A, !IsCarriedByCharacter() && !IsWornByCharacter(), StateDescDisplayCode.None, false, false) : "",
+						showContents && GeneralContainer != null ? GetContainerContentsDesc() : "",
 						showStateDesc ? StateDesc : ""
 					);
 
@@ -1639,7 +1640,7 @@ namespace Eamon.Game
 			return rc;
 		}
 
-		public virtual string GetContainerContentsDesc(ArticleType articleType, bool showCharOwned, StateDescDisplayCode stateDescCode, bool showContents, bool groupCountOne)
+		public virtual string GetContainerContentsDesc(IRecordNameListArgs recordNameListArgs = null)
 		{
 			var result = "";
 
@@ -1671,15 +1672,31 @@ namespace Eamon.Game
 
 					if (contentsList.Count > 0)
 					{
+						if (recordNameListArgs == null)
+						{
+							recordNameListArgs = gEngine.CreateInstance<IRecordNameListArgs>(x =>
+							{
+								x.ArticleType = ArticleType.A;
+
+								x.ShowCharOwned = !IsCarriedByCharacter() && !IsWornByCharacter();
+
+								x.StateDescCode = StateDescDisplayCode.None;
+
+								x.ShowContents = false;
+
+								x.GroupCountOne = false;
+							});
+						}
+
 						if (ac.Field5 == (long)ContainerDisplayCode.ArtifactNameList && contentsList.Count <= maxContentsNameListCount)
 						{
-							gEngine.GetRecordNameList(contentsList.Cast<IGameBase>().ToList(), articleType, showCharOwned, stateDescCode, showContents, groupCountOne, buf);
+							gEngine.GetRecordNameList(contentsList.Cast<IGameBase>().ToList(), recordNameListArgs, buf);
 						}
 
 						result = string.Format
 						(
 							" with {0} {1} {2}",
-							ac.Field5 == (long)ContainerDisplayCode.ArtifactNameList && contentsList.Count <= maxContentsNameListCount ? buf.ToString() : contentsList.Count > 1 || contentsList[0].IsPlural ? "some stuff" : ac.Field5 == (long)ContainerDisplayCode.ArtifactNameSomeStuff ? contentsList[0].GetDecoratedName("Name", articleType, false, showCharOwned, stateDescCode == StateDescDisplayCode.AllStateDescs || (stateDescCode == StateDescDisplayCode.SideNotesOnly && contentsList[0].IsStateDescSideNotes()), showContents, groupCountOne) : "something",
+							ac.Field5 == (long)ContainerDisplayCode.ArtifactNameList && contentsList.Count <= maxContentsNameListCount ? buf.ToString() : contentsList.Count > 1 || contentsList[0].IsPlural ? "some stuff" : ac.Field5 == (long)ContainerDisplayCode.ArtifactNameSomeStuff ? contentsList[0].GetDecoratedName("Name", recordNameListArgs.ArticleType, false, recordNameListArgs.ShowCharOwned, recordNameListArgs.StateDescCode == StateDescDisplayCode.AllStateDescs || (recordNameListArgs.StateDescCode == StateDescDisplayCode.SideNotesOnly && contentsList[0].IsStateDescSideNotes()), recordNameListArgs.ShowContents, recordNameListArgs.GroupCountOne) : "something",
 							gEngine.EvalContainerType(containerType, "inside", "on", "under", "behind"),
 							EvalPlural("it", "them")
 						);

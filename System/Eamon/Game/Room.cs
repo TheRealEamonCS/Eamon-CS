@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using Eamon.Framework;
+using Eamon.Framework.Args;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using Eamon.Game.Extensions;
@@ -457,7 +458,7 @@ namespace Eamon.Game
 			return rc;
 		}
 
-		public virtual RetCode BuildPrintedFullDesc(StringBuilder buf, Func<IMonster, bool> monsterFindFunc = null, Func<IArtifact, bool> artifactFindFunc = null, bool verboseRoomDesc = false, bool verboseMonsterDesc = false, bool verboseArtifactDesc = false, bool verboseNames = false)
+		public virtual RetCode BuildPrintedFullDesc(StringBuilder buf, Func<IMonster, bool> monsterFindFunc = null, Func<IArtifact, bool> artifactFindFunc = null, bool verboseRoomDesc = false, bool verboseMonsterDesc = false, bool verboseArtifactDesc = false, bool verboseNames = false, IRecordNameListArgs recordNameListArgs = null)
 		{
 			bool showDesc;
 			RetCode rc;
@@ -526,7 +527,23 @@ namespace Eamon.Game
 			{
 				buf.AppendFormat(GetYouAlsoSee(showDesc, monsterList, artifactList, recordList));
 
-				rc = gEngine.GetRecordNameList(recordList, ArticleType.A, true, StateDescDisplayCode.AllStateDescs, true, false, buf);
+				if (recordNameListArgs == null)
+				{
+					recordNameListArgs = gEngine.CreateInstance<IRecordNameListArgs>(x =>
+					{
+						x.ArticleType = ArticleType.A;
+
+						x.ShowCharOwned = true;
+
+						x.StateDescCode = StateDescDisplayCode.AllStateDescs;
+
+						x.ShowContents = true;
+
+						x.GroupCountOne = false;
+					});
+				}
+
+				rc = gEngine.GetRecordNameList(recordList, recordNameListArgs, buf);
 
 				if (gEngine.IsFailure(rc))
 				{

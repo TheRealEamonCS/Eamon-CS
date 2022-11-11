@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Text;
 using Eamon;
 using Eamon.Framework;
+using Eamon.Framework.Args;
 using Eamon.Framework.Primitive.Classes;
 using Eamon.Framework.Primitive.Enums;
 using EamonRT.Framework.Commands;
@@ -444,9 +445,9 @@ namespace EamonRT.Framework.Plugin
 		/// <param name="artifact"></param>
 		/// <param name="revealContentsList"></param>
 		/// <param name="containerType"></param>
-		/// <param name="revealShowCharOwned"></param>
 		/// <param name="showCharOwned"></param>
-		void BuildRevealContentsListDescString(IMonster monster, IArtifact artifact, IList<IArtifact> revealContentsList, ContainerType containerType, bool revealShowCharOwned, bool showCharOwned);
+		/// <param name="recordNameListArgs"></param>
+		void BuildRevealContentsListDescString(IMonster monster, IArtifact artifact, IList<IArtifact> revealContentsList, ContainerType containerType, bool showCharOwned, IRecordNameListArgs recordNameListArgs = null);
 
 		/// <summary></summary>
 		/// <param name="artifact1"></param>

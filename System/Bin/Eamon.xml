@@ -4,6 +4,24 @@
         <name>Eamon</name>
     </assembly>
     <members>
+        <member name="T:Eamon.Framework.Args.IRecordNameListArgs">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Args.IRecordNameListArgs.ArticleType">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Args.IRecordNameListArgs.ShowCharOwned">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Args.IRecordNameListArgs.StateDescCode">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Args.IRecordNameListArgs.ShowContents">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Args.IRecordNameListArgs.GroupCountOne">
+            <summary></summary>
+        </member>
         <member name="T:Eamon.Framework.Args.IStatDisplayArgs">
             <summary></summary>
         </member>
@@ -1677,13 +1695,9 @@
             <param name="recurse"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IArtifact.GetContainerContentsDesc(Eamon.Framework.Primitive.Enums.ArticleType,System.Boolean,Eamon.Framework.Primitive.Enums.StateDescDisplayCode,System.Boolean,System.Boolean)">
+        <member name="M:Eamon.Framework.IArtifact.GetContainerContentsDesc(Eamon.Framework.Args.IRecordNameListArgs)">
             <summary></summary>
-            <param name="articleType"></param>
-            <param name="showCharOwned"></param>
-            <param name="stateDescCode"></param>
-            <param name="showContents"></param>
-            <param name="groupCountOne"></param>
+            <param name="recordNameListArgs"></param>
             <returns></returns>
         </member>
         <member name="T:Eamon.Framework.ICharacter">
@@ -3263,7 +3277,7 @@
             <param name="useNames"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IRoom.BuildPrintedFullDesc(System.Text.StringBuilder,System.Func{Eamon.Framework.IMonster,System.Boolean},System.Func{Eamon.Framework.IArtifact,System.Boolean},System.Boolean,System.Boolean,System.Boolean,System.Boolean)">
+        <member name="M:Eamon.Framework.IRoom.BuildPrintedFullDesc(System.Text.StringBuilder,System.Func{Eamon.Framework.IMonster,System.Boolean},System.Func{Eamon.Framework.IArtifact,System.Boolean},System.Boolean,System.Boolean,System.Boolean,System.Boolean,Eamon.Framework.Args.IRecordNameListArgs)">
             <summary></summary>
             <param name="buf"></param>
             <param name="monsterFindFunc"></param>
@@ -3272,6 +3286,7 @@
             <param name="verboseMonsterDesc"></param>
             <param name="verboseArtifactDesc"></param>
             <param name="verboseNames"></param>
+            <param name="recordNameListArgs"></param>
             <returns></returns>
         </member>
         <member name="M:Eamon.Framework.IRoom.BuildPrintedTooDarkToSeeDesc(System.Text.StringBuilder)">
@@ -4740,14 +4755,10 @@
             <param name="args"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.Plugin.IEngine.GetRecordNameList(System.Collections.Generic.IList{Eamon.Framework.IGameBase},Eamon.Framework.Primitive.Enums.ArticleType,System.Boolean,Eamon.Framework.Primitive.Enums.StateDescDisplayCode,System.Boolean,System.Boolean,System.Text.StringBuilder)">
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetRecordNameList(System.Collections.Generic.IList{Eamon.Framework.IGameBase},Eamon.Framework.Args.IRecordNameListArgs,System.Text.StringBuilder)">
             <summary></summary>
             <param name="recordList"></param>
-            <param name="articleType"></param>
-            <param name="showCharOwned"></param>
-            <param name="stateDescCode"></param>
-            <param name="showContents"></param>
-            <param name="groupCountOne"></param>
+            <param name="args"></param>
             <param name="buf"></param>
             <returns></returns>
         </member>

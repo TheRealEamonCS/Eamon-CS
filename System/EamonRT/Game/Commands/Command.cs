@@ -6,6 +6,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Eamon.Framework;
+using Eamon.Framework.Args;
 using Eamon.Framework.Primitive.Classes;
 using Eamon.Framework.Primitive.Enums;
 using EamonRT.Framework.Commands;
@@ -576,9 +577,9 @@ namespace EamonRT.Game.Commands
 			CommandImpl.PrintObjAmountLeft(artifact, objAmount, objEdible);
 		}
 
-		public virtual void PrintPrepContainerYouSee(IArtifact artifact, IList<IArtifact> containerArtifactList, ContainerType containerType, bool showCharOwned)
+		public virtual void PrintPrepContainerYouSee(IArtifact artifact, IList<IArtifact> containerArtifactList, ContainerType containerType, bool showCharOwned, IRecordNameListArgs recordNameListArgs = null)
 		{
-			CommandImpl.PrintPrepContainerYouSee(artifact, containerArtifactList, containerType, showCharOwned);
+			CommandImpl.PrintPrepContainerYouSee(artifact, containerArtifactList, containerType, showCharOwned, recordNameListArgs);
 		}
 
 		public virtual void PrintNothingPrepContainer(IArtifact artifact, ContainerType containerType, bool showCharOwned)
@@ -636,14 +637,14 @@ namespace EamonRT.Game.Commands
 			CommandImpl.PrintGiveGoldPiecesTo(monster, goldAmount);
 		}
 
-		public virtual void PrintActorIsWearing(IMonster monster, IList<IArtifact> monsterWornArtifactList)
+		public virtual void PrintActorIsWearing(IMonster monster, IList<IArtifact> monsterWornArtifactList, IRecordNameListArgs recordNameListArgs = null)
 		{
-			CommandImpl.PrintActorIsWearing(monster, monsterWornArtifactList);
+			CommandImpl.PrintActorIsWearing(monster, monsterWornArtifactList, recordNameListArgs);
 		}
 
-		public virtual void PrintActorIsCarrying(IMonster monster, IList<IArtifact> monsterCarriedArtifactList)
+		public virtual void PrintActorIsCarrying(IMonster monster, IList<IArtifact> monsterCarriedArtifactList, IRecordNameListArgs recordNameListArgs = null)
 		{
-			CommandImpl.PrintActorIsCarrying(monster, monsterCarriedArtifactList);
+			CommandImpl.PrintActorIsCarrying(monster, monsterCarriedArtifactList, recordNameListArgs);
 		}
 
 		public virtual void PrintOpensConsumesAndHandsBack(IArtifact artifact, IMonster monster, bool objOpened, bool objEdible)

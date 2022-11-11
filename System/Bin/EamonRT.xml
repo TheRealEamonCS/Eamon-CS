@@ -310,12 +310,13 @@
             <param name="objAmount"></param>
             <param name="objEdible"></param>
         </member>
-        <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintPrepContainerYouSee(Eamon.Framework.IArtifact,System.Collections.Generic.IList{Eamon.Framework.IArtifact},Eamon.Framework.Primitive.Enums.ContainerType,System.Boolean)">
+        <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintPrepContainerYouSee(Eamon.Framework.IArtifact,System.Collections.Generic.IList{Eamon.Framework.IArtifact},Eamon.Framework.Primitive.Enums.ContainerType,System.Boolean,Eamon.Framework.Args.IRecordNameListArgs)">
             <summary></summary>
             <param name="artifact"></param>
             <param name="containerArtifactList"></param>
             <param name="containerType"></param>
             <param name="showCharOwned"></param>
+            <param name="recordNameListArgs"></param>
         </member>
         <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintNothingPrepContainer(Eamon.Framework.IArtifact,Eamon.Framework.Primitive.Enums.ContainerType,System.Boolean)">
             <summary></summary>
@@ -369,15 +370,17 @@
             <param name="monster"></param>
             <param name="goldAmount"></param>
         </member>
-        <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintActorIsWearing(Eamon.Framework.IMonster,System.Collections.Generic.IList{Eamon.Framework.IArtifact})">
+        <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintActorIsWearing(Eamon.Framework.IMonster,System.Collections.Generic.IList{Eamon.Framework.IArtifact},Eamon.Framework.Args.IRecordNameListArgs)">
             <summary></summary>
             <param name="monster"></param>
             <param name="monsterWornArtifactList"></param>
+            <param name="recordNameListArgs"></param>
         </member>
-        <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintActorIsCarrying(Eamon.Framework.IMonster,System.Collections.Generic.IList{Eamon.Framework.IArtifact})">
+        <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintActorIsCarrying(Eamon.Framework.IMonster,System.Collections.Generic.IList{Eamon.Framework.IArtifact},Eamon.Framework.Args.IRecordNameListArgs)">
             <summary></summary>
             <param name="monster"></param>
             <param name="monsterCarriedArtifactList"></param>
+            <param name="recordNameListArgs"></param>
         </member>
         <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintOpensConsumesAndHandsBack(Eamon.Framework.IArtifact,Eamon.Framework.IMonster,System.Boolean,System.Boolean)">
             <summary></summary>
@@ -1935,14 +1938,14 @@
             <param name="str"></param>
             <param name="buf"></param>
         </member>
-        <member name="M:EamonRT.Framework.Plugin.IEngine.BuildRevealContentsListDescString(Eamon.Framework.IMonster,Eamon.Framework.IArtifact,System.Collections.Generic.IList{Eamon.Framework.IArtifact},Eamon.Framework.Primitive.Enums.ContainerType,System.Boolean,System.Boolean)">
+        <member name="M:EamonRT.Framework.Plugin.IEngine.BuildRevealContentsListDescString(Eamon.Framework.IMonster,Eamon.Framework.IArtifact,System.Collections.Generic.IList{Eamon.Framework.IArtifact},Eamon.Framework.Primitive.Enums.ContainerType,System.Boolean,Eamon.Framework.Args.IRecordNameListArgs)">
             <summary></summary>
             <param name="monster"></param>
             <param name="artifact"></param>
             <param name="revealContentsList"></param>
             <param name="containerType"></param>
-            <param name="revealShowCharOwned"></param>
             <param name="showCharOwned"></param>
+            <param name="recordNameListArgs"></param>
         </member>
         <member name="M:EamonRT.Framework.Plugin.IEngine.WeaponPowerCompare(Eamon.Framework.IArtifact,Eamon.Framework.IArtifact)">
             <summary></summary>

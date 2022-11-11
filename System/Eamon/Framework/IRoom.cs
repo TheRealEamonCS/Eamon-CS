@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Eamon.Framework.Args;
 using Eamon.Framework.Primitive.Enums;
 
 namespace Eamon.Framework
@@ -252,8 +253,9 @@ namespace Eamon.Framework
 		/// <param name="verboseMonsterDesc"></param>
 		/// <param name="verboseArtifactDesc"></param>
 		/// <param name="verboseNames"></param>
+		/// <param name="recordNameListArgs"></param>
 		/// <returns></returns>
-		RetCode BuildPrintedFullDesc(StringBuilder buf, Func<IMonster, bool> monsterFindFunc = null, Func<IArtifact, bool> artifactFindFunc = null, bool verboseRoomDesc = false, bool verboseMonsterDesc = false, bool verboseArtifactDesc = false, bool verboseNames = false);
+		RetCode BuildPrintedFullDesc(StringBuilder buf, Func<IMonster, bool> monsterFindFunc = null, Func<IArtifact, bool> artifactFindFunc = null, bool verboseRoomDesc = false, bool verboseMonsterDesc = false, bool verboseArtifactDesc = false, bool verboseNames = false, IRecordNameListArgs recordNameListArgs = null);
 
 		/// <summary></summary>
 		/// <param name="buf"></param>

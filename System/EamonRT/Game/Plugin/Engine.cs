@@ -12,6 +12,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using Eamon;
 using Eamon.Framework;
+using Eamon.Framework.Args;
 using Eamon.Framework.Primitive.Classes;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Extensions;
@@ -853,7 +854,7 @@ namespace EamonRT.Game.Plugin
 			Out.WriteLine();
 		}
 
-		public virtual void BuildRevealContentsListDescString(IMonster monster, IArtifact artifact, IList<IArtifact> revealContentsList, ContainerType containerType, bool revealShowCharOwned, bool showCharOwned)
+		public virtual void BuildRevealContentsListDescString(IMonster monster, IArtifact artifact, IList<IArtifact> revealContentsList, ContainerType containerType, bool showCharOwned, IRecordNameListArgs recordNameListArgs = null)
 		{
 			Debug.Assert(artifact != null && revealContentsList != null && revealContentsList.Count > 0 && Enum.IsDefined(typeof(ContainerType), containerType));
 
@@ -867,7 +868,23 @@ namespace EamonRT.Game.Plugin
 				artifact.GetTheName(showCharOwned: showCharOwned),
 				Buf01.ToString());
 
-			var rc = GetRecordNameList(revealContentsList.Cast<IGameBase>().ToList(), ArticleType.A, revealShowCharOwned, StateDescDisplayCode.None, false, false, Buf);
+			if (recordNameListArgs == null)
+			{
+				recordNameListArgs = CreateInstance<IRecordNameListArgs>(x =>
+				{
+					x.ArticleType = ArticleType.A;
+
+					x.ShowCharOwned = showCharOwned;			// TODO: verify
+
+					x.StateDescCode = StateDescDisplayCode.None;
+
+					x.ShowContents = false;
+
+					x.GroupCountOne = false;
+				});
+			}
+
+			var rc = GetRecordNameList(revealContentsList.Cast<IGameBase>().ToList(), recordNameListArgs, Buf);
 
 			Debug.Assert(IsSuccess(rc));
 
@@ -2086,7 +2103,18 @@ namespace EamonRT.Game.Plugin
 
 			var showCharOwned = !artifact.IsCarriedByCharacter() && !artifact.IsWornByCharacter();
 
-			bool revealShowCharOwned = false;
+			var recordNameListArgs = CreateInstance<IRecordNameListArgs>(x =>
+			{
+				x.ArticleType = ArticleType.A;
+
+				x.ShowCharOwned = false;
+
+				x.StateDescCode = StateDescDisplayCode.None;
+
+				x.ShowContents = false;
+
+				x.GroupCountOne = false;
+			});
 
 			foreach (var containerType in containerTypes)
 			{
@@ -2106,7 +2134,7 @@ namespace EamonRT.Game.Plugin
 
 					ProcessRevealArtifact:
 
-						revealShowCharOwned = !revealArtifact.IsCarriedByCharacter() && !revealArtifact.IsWornByCharacter();
+						recordNameListArgs.ShowCharOwned = !revealArtifact.IsCarriedByCharacter() && !revealArtifact.IsWornByCharacter();
 
 						revealMonster = revealArtifact.GetCarriedByMonster();
 
@@ -2201,7 +2229,7 @@ namespace EamonRT.Game.Plugin
 
 					if (revealContents && containerContentsList != null)
 					{
-						BuildRevealContentsListDescString(revealMonster != null ? revealMonster : monster, artifact, revealContentsList, containerType, revealShowCharOwned, showCharOwned);
+						BuildRevealContentsListDescString(revealMonster != null ? revealMonster : monster, artifact, revealContentsList, containerType, showCharOwned, recordNameListArgs);
 
 						containerContentsList.Add(Buf.ToString());
 					}

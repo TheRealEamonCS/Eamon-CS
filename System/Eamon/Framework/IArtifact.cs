@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.Generic;
+using Eamon.Framework.Args;
 using Eamon.Framework.Primitive.Classes;
 using Eamon.Framework.Primitive.Enums;
 
@@ -743,13 +744,9 @@ namespace Eamon.Framework
 		RetCode GetContainerInfo(ref long count, ref long weight, ContainerType containerType = ContainerType.In, bool recurse = false);
 
 		/// <summary></summary>
-		/// <param name="articleType"></param>
-		/// <param name="showCharOwned"></param>
-		/// <param name="stateDescCode"></param>
-		/// <param name="showContents"></param>
-		/// <param name="groupCountOne"></param>
+		/// <param name="recordNameListArgs"></param>
 		/// <returns></returns>
-		string GetContainerContentsDesc(ArticleType articleType, bool showCharOwned, StateDescDisplayCode stateDescCode, bool showContents, bool groupCountOne);
+		string GetContainerContentsDesc(IRecordNameListArgs recordNameListArgs = null);
 
 		#endregion
 	}

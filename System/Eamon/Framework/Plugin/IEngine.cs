@@ -1441,14 +1441,10 @@ namespace Eamon.Framework.Plugin
 
 		/// <summary></summary>
 		/// <param name="recordList"></param>
-		/// <param name="articleType"></param>
-		/// <param name="showCharOwned"></param>
-		/// <param name="stateDescCode"></param>
-		/// <param name="showContents"></param>
-		/// <param name="groupCountOne"></param>
+		/// <param name="args"></param>
 		/// <param name="buf"></param>
 		/// <returns></returns>
-		RetCode GetRecordNameList(IList<IGameBase> recordList, ArticleType articleType, bool showCharOwned, StateDescDisplayCode stateDescCode, bool showContents, bool groupCountOne, StringBuilder buf);
+		RetCode GetRecordNameList(IList<IGameBase> recordList, IRecordNameListArgs args, StringBuilder buf);
 
 		/// <summary></summary>
 		/// <param name="recordList"></param>

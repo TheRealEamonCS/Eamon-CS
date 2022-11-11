@@ -6,6 +6,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Eamon.Framework;
+using Eamon.Framework.Args;
 using Eamon.Framework.Primitive.Classes;
 using Eamon.Framework.Primitive.Enums;
 using EamonRT.Framework.Parsing;
@@ -311,7 +312,8 @@ namespace EamonRT.Framework.Commands
 		/// <param name="containerArtifactList"></param>
 		/// <param name="containerType"></param>
 		/// <param name="showCharOwned"></param>
-		void PrintPrepContainerYouSee(IArtifact artifact, IList<IArtifact> containerArtifactList, ContainerType containerType, bool showCharOwned);
+		/// <param name="recordNameListArgs"></param>
+		void PrintPrepContainerYouSee(IArtifact artifact, IList<IArtifact> containerArtifactList, ContainerType containerType, bool showCharOwned, IRecordNameListArgs recordNameListArgs = null);
 
 		/// <summary></summary>
 		/// <param name="artifact"></param>
@@ -368,12 +370,14 @@ namespace EamonRT.Framework.Commands
 		/// <summary></summary>
 		/// <param name="monster"></param>
 		/// <param name="monsterWornArtifactList"></param>
-		void PrintActorIsWearing(IMonster monster, IList<IArtifact> monsterWornArtifactList);
+		/// <param name="recordNameListArgs"></param>
+		void PrintActorIsWearing(IMonster monster, IList<IArtifact> monsterWornArtifactList, IRecordNameListArgs recordNameListArgs = null);
 
 		/// <summary></summary>
 		/// <param name="monster"></param>
 		/// <param name="monsterCarriedArtifactList"></param>
-		void PrintActorIsCarrying(IMonster monster, IList<IArtifact> monsterCarriedArtifactList);
+		/// <param name="recordNameListArgs"></param>
+		void PrintActorIsCarrying(IMonster monster, IList<IArtifact> monsterCarriedArtifactList, IRecordNameListArgs recordNameListArgs = null);
 
 		/// <summary></summary>
 		/// <param name="artifact"></param>
