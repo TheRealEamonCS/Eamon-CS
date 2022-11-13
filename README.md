@@ -43,5 +43,5 @@ Many 3rd party technologies can seamlessly integrate with ECS, some of which may
 
 #### License
 
-Eamon CS is free software released under the MIT License.  See [LICENSE](https://TheRealEamonCS.github.io/pages/LICENSE.html) on the Eamon CS website for more details.
+Eamon CS is free software released under the MIT License.  Please see [LICENSE](https://TheRealEamonCS.github.io/pages/LICENSE.html) on the Eamon CS website for more details.
 
