@@ -1221,6 +1221,11 @@ namespace Eamon.Game
 			return true;
 		}
 
+		public virtual bool IsDoorGateInObviousExitsList()
+		{
+			return IsInRoom();
+		}
+
 		public virtual bool ShouldAllowBlastSkillGains()
 		{
 			var artTypes = new ArtifactType[] { ArtifactType.DisguisedMonster, ArtifactType.DeadBody, ArtifactType.InContainer, ArtifactType.DoorGate };

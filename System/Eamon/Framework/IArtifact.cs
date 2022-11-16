@@ -585,6 +585,10 @@ namespace Eamon.Framework
 
 		/// <summary></summary>
 		/// <returns></returns>
+		bool IsDoorGateInObviousExitsList();
+
+		/// <summary></summary>
+		/// <returns></returns>
 		bool ShouldAllowBlastSkillGains();
 
 		/// <summary></summary>

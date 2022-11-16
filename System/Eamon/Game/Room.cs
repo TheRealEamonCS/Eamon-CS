@@ -193,7 +193,16 @@ namespace Eamon.Game
 
 		public virtual bool IsDirectionInObviousExitsList(long index)
 		{
-			return IsDirectionRoom(index) || IsDirectionExit(index);
+			var result = IsDirectionRoom(index) || IsDirectionExit(index);
+
+			if (!result && IsDirectionDoor(index))
+			{
+				var artifact = GetDirectionDoor(index);
+
+				result = artifact != null && artifact.IsDoorGateInObviousExitsList();
+			}
+
+			return result;
 		}
 
 		public virtual bool IsDirectionInObviousExitsList(Direction dir)
@@ -201,16 +210,26 @@ namespace Eamon.Game
 			return IsDirectionInObviousExitsList((long)dir);
 		}
 
+		public virtual long GetDirectionDoorUid(long index)
+		{
+			return IsDirectionDoor(index) ? GetDir(index) - 1000 : 0;
+		}
+
 		public virtual long GetDirectionDoorUid(Direction dir)
 		{
-			return IsDirectionDoor(dir) ? GetDir(dir) - 1000 : 0;
+			return GetDirectionDoorUid((long)dir);
+		}
+
+		public virtual IArtifact GetDirectionDoor(long index)
+		{
+			var uid = GetDirectionDoorUid(index);
+
+			return gADB[uid];
 		}
 
 		public virtual IArtifact GetDirectionDoor(Direction dir)
 		{
-			var uid = GetDirectionDoorUid(dir);
-
-			return gADB[uid];
+			return GetDirectionDoor((long)dir);
 		}
 
 		public virtual void SetDirectionExit(long index)

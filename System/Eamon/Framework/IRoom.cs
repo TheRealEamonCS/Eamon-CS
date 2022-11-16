@@ -139,9 +139,19 @@ namespace Eamon.Framework
 		bool IsDirectionInObviousExitsList(Direction dir);
 
 		/// <summary></summary>
+		/// <param name="index"></param>
+		/// <returns></returns>
+		long GetDirectionDoorUid(long index);
+
+		/// <summary></summary>
 		/// <param name="dir"></param>
 		/// <returns></returns>
 		long GetDirectionDoorUid(Direction dir);
+
+		/// <summary></summary>
+		/// <param name="index"></param>
+		/// <returns></returns>
+		IArtifact GetDirectionDoor(long index);
 
 		/// <summary></summary>
 		/// <param name="dir"></param>

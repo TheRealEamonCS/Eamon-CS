@@ -1535,6 +1535,10 @@
             <summary></summary>
             <returns></returns>
         </member>
+        <member name="M:Eamon.Framework.IArtifact.IsDoorGateInObviousExitsList">
+            <summary></summary>
+            <returns></returns>
+        </member>
         <member name="M:Eamon.Framework.IArtifact.ShouldAllowBlastSkillGains">
             <summary></summary>
             <returns></returns>
@@ -3170,9 +3174,19 @@
             <param name="dir"></param>
             <returns></returns>
         </member>
+        <member name="M:Eamon.Framework.IRoom.GetDirectionDoorUid(System.Int64)">
+            <summary></summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
         <member name="M:Eamon.Framework.IRoom.GetDirectionDoorUid(Eamon.Framework.Primitive.Enums.Direction)">
             <summary></summary>
             <param name="dir"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.IRoom.GetDirectionDoor(System.Int64)">
+            <summary></summary>
+            <param name="index"></param>
             <returns></returns>
         </member>
         <member name="M:Eamon.Framework.IRoom.GetDirectionDoor(Eamon.Framework.Primitive.Enums.Direction)">
