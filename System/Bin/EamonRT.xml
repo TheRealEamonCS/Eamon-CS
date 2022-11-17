@@ -2565,6 +2565,11 @@
             An event that fires after checking if exits are available for fleeing, and it resolves that there are.
             </summary>
         </member>
+        <member name="F:EamonRT.Framework.Primitive.Enums.EventType.BeforeReadyArtifact">
+            <summary>
+            An event that fires before an <see cref="T:Eamon.Framework.IArtifact">Artifact</see> is readied.
+            </summary>
+        </member>
         <member name="F:EamonRT.Framework.Primitive.Enums.EventType.AfterReadyArtifact">
             <summary>
             An event that fires after an <see cref="T:Eamon.Framework.IArtifact">Artifact</see> is readied.

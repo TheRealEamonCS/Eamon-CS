@@ -189,6 +189,11 @@ namespace EamonRT.Framework.Primitive.Enums
 		AfterNumberOfExitsCheck,
 
 		/// <summary>
+		/// An event that fires before an <see cref="IArtifact">Artifact</see> is readied.
+		/// </summary>
+		BeforeReadyArtifact,
+
+		/// <summary>
 		/// An event that fires after an <see cref="IArtifact">Artifact</see> is readied.
 		/// </summary>
 		AfterReadyArtifact,
