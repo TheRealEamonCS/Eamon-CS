@@ -179,6 +179,13 @@ namespace EamonRT.Game.Commands
 				goto Cleanup;
 			}
 
+			ProcessEvents(EventType.BeforePutArtifact);
+
+			if (GotoCleanup)
+			{
+				goto Cleanup;
+			}
+
 			DobjArtifact.SetCarriedByContainer(IobjArtifact, ContainerType);
 
 			if (gGameState.Ls == DobjArtifact.Uid)
