@@ -74,9 +74,6 @@ namespace EamonRT.Game.Components
 		public virtual IArtifact SpilledArtifactContainer { get; set; }
 
 		/// <summary></summary>
-		public virtual IArtifact WpnArtifact { get; set; }
-
-		/// <summary></summary>
 		public virtual IArtifact ActorWeapon { get; set; }
 
 		/// <summary></summary>
@@ -450,11 +447,7 @@ namespace EamonRT.Game.Components
 
 				ActorWeapon.SetInRoom(ActorRoom);
 
-				WpnArtifact = gADB[ActorMonster.Weapon];
-
-				Debug.Assert(WpnArtifact != null);
-
-				rc = WpnArtifact.RemoveStateDesc(WpnArtifact.GetReadyWeaponDesc());
+				rc = ActorWeapon.RemoveStateDesc(ActorWeapon.GetReadyWeaponDesc());
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -510,11 +503,7 @@ namespace EamonRT.Game.Components
 
 			ActorWeapon.SetInLimbo();
 
-			WpnArtifact = gADB[ActorMonster.Weapon];
-
-			Debug.Assert(WpnArtifact != null);
-
-			rc = WpnArtifact.RemoveStateDesc(WpnArtifact.GetReadyWeaponDesc());
+			rc = ActorWeapon.RemoveStateDesc(ActorWeapon.GetReadyWeaponDesc());
 
 			Debug.Assert(gEngine.IsSuccess(rc));
 
