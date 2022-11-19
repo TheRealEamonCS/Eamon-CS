@@ -64,6 +64,13 @@ namespace EamonRT.Game.States
 
 			Debug.Assert(LoopMonsterRoom != null);
 
+			MonsterMemberMiscActionCheck();
+
+			if (GotoCleanup)
+			{
+				goto Cleanup;
+			}
+
 			MonsterMemberReadiesWeaponCheck();
 
 			if (GotoCleanup)
@@ -92,6 +99,13 @@ namespace EamonRT.Game.States
 				goto Cleanup;
 			}
 
+			MonsterMemberMiscActionCheck02();
+
+			if (GotoCleanup)
+			{
+				goto Cleanup;
+			}
+
 		Cleanup:
 
 			if (NextState == null)
@@ -100,6 +114,11 @@ namespace EamonRT.Game.States
 			}
 
 			gEngine.NextState = NextState;
+		}
+
+		public virtual void MonsterMemberMiscActionCheck()
+		{
+			// do nothing
 		}
 
 		public virtual void MonsterMemberReadiesWeaponCheck()
@@ -273,6 +292,11 @@ namespace EamonRT.Game.States
 
 				GotoCleanup = true;
 			}
+		}
+
+		public virtual void MonsterMemberMiscActionCheck02()
+		{
+			// do nothing
 		}
 
 		public MonsterMemberActionState()
