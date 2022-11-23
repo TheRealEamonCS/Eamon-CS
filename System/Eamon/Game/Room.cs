@@ -472,6 +472,8 @@ namespace Eamon.Game
 				buf.Append("none");
 			}
 
+			buf.Append(".");
+
 		Cleanup:
 
 			return rc;
@@ -589,7 +591,7 @@ namespace Eamon.Game
 				goto Cleanup;
 			}
 
-			buf.AppendFormat(".{0}", Environment.NewLine);
+			buf.AppendFormat("{0}", Environment.NewLine);
 
 			recordList.Clear();
 
