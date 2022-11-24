@@ -245,6 +245,8 @@ namespace Eamon.Game.Plugin
 
 		public virtual bool EnableStdio { get; set; } = true;
 
+		public virtual bool EnableNegativeRoomUidLinks { get; set; }
+
 		public virtual bool IgnoreMutex { get; set; }
 
 		public virtual bool DisableValidation { get; set; }

@@ -568,6 +568,15 @@ namespace Eamon.Game.Helpers
 
 						lookupMsg = room != null ? gEngine.Capitalize(room.Name) : gEngine.UnknownName;
 					}
+					else if (Record.IsDirectionRoom01(dv))
+					{
+						var room = gRDB[Math.Abs(Record.GetDir(i))];
+
+						if (room != null)
+						{
+							lookupMsg = gEngine.Capitalize(room.Name);
+						}
+					}
 					else if (Record.IsDirectionExit(dv))
 					{
 						lookupMsg = "Exit";

@@ -99,6 +99,16 @@ namespace Eamon.Framework
 		/// <summary></summary>
 		/// <param name="index"></param>
 		/// <returns></returns>
+		bool IsDirectionRoom01(long index);
+
+		/// <summary></summary>
+		/// <param name="dir"></param>
+		/// <returns></returns>
+		bool IsDirectionRoom01(Direction dir);
+
+		/// <summary></summary>
+		/// <param name="index"></param>
+		/// <returns></returns>
 		bool IsDirectionExit(long index);
 
 		/// <summary></summary>

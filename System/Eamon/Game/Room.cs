@@ -161,6 +161,16 @@ namespace Eamon.Game
 			return IsDirectionRoom((long)dir);
 		}
 
+		public virtual bool IsDirectionRoom01(long index)
+		{
+			return gEngine.EnableNegativeRoomUidLinks && GetDir(index) < 0 && GetDir(index) > -999;
+		}
+
+		public virtual bool IsDirectionRoom01(Direction dir)
+		{
+			return IsDirectionRoom01((long)dir);
+		}
+
 		public virtual bool IsDirectionExit(long index)
 		{
 			return GetDir(index) == gEngine.DirectionExit;
