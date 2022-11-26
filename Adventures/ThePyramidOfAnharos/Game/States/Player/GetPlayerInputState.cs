@@ -5,6 +5,7 @@
 
 using System;
 using System.Diagnostics;
+using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Components;
 using EamonRT.Framework.Primitive.Enums;
@@ -27,6 +28,16 @@ namespace ThePyramidOfAnharos.Game.States
 				var room = gCharMonster.GetInRoom();
 
 				Debug.Assert(room != null);
+
+				// friendlies burn one water unit each
+
+				var monsterList = gEngine.GetMonsterList(m => !m.IsCharacterMonster() && m.Reaction == Friendliness.Friend && m.IsInRoom(room));
+
+				gGameState.KW -= monsterList.Count;
+
+				// player burns water units based on armor
+
+				gGameState.KW -= (gCharMonster.Armor < 3 ? 1 : gCharMonster.Armor < 8 ? gCharMonster.Armor - 1 : 6);
 
 				gOut.Print("You have {0} units of water left.", Math.Max(gGameState.KW, 0));
 
