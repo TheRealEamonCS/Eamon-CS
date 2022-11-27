@@ -37,6 +37,20 @@ namespace ThePyramidOfAnharos.Game.Plugin
 		{
 			base.InitArtifacts();
 
+			MacroFuncs.Add(1, () =>
+			{
+				// western pyramid door
+
+				return GameState != null && GameState.Ro == 14 ? "an exit west into the desert" : "a passage east into the core of the pyramid";
+			});
+
+			MacroFuncs.Add(2, () =>
+			{
+				// southern pyramid secret door
+
+				return GameState != null && GameState.Ro == 16 ? "an exit into the desert to the south" : "a room inside the pyramid to the north";
+			});
+
 			var synonyms = new Dictionary<long, string[]>()
 			{
 				{ 3, new string[] { "sword" } },
@@ -167,6 +181,13 @@ namespace ThePyramidOfAnharos.Game.Plugin
 					Out.Print("{0} suggests going {1}.", guideMonster.GetTheName(true), direction);
 				}
 			}
+		}
+
+		public virtual void PrintTheGlyphsRead(long effectUid)
+		{
+			Out.Print("The glyphs read:");
+
+			PrintEffectDesc(effectUid);
 		}
 
 		public Engine()

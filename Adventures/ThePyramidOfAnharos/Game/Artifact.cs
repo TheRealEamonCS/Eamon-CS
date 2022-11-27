@@ -16,7 +16,32 @@ namespace ThePyramidOfAnharos.Game
 		{ 
 			get
 			{
-				return base.Location;
+				var result = base.Location;
+
+				if (gEngine.EnableMutateProperties)
+				{
+					// door
+
+					if (Uid == 76)
+					{
+						if (gGameState.Ro == 6)
+						{
+							result = gGameState.Ro;
+						}
+					}
+
+					// glyphs
+
+					else if (Uid == 77)
+					{
+						if (gGameState.Ro == 6 || gGameState.Ro == 29 || gGameState.Ro == 31)
+						{
+							result = gGameState.Ro;
+						}
+					}
+				}
+
+				return result;
 			}
 
 			set

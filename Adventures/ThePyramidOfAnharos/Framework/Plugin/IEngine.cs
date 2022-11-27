@@ -8,5 +8,7 @@ namespace ThePyramidOfAnharos.Framework.Plugin
 	public interface IEngine : EamonRT.Framework.Plugin.IEngine
 	{
 		void PrintGuideMonsterDirection();
+
+		void PrintTheGlyphsRead(long effectUid);
 	}
 }

@@ -15,6 +15,37 @@ namespace ThePyramidOfAnharos.Game
 	[ClassMappings]
 	public class Room : Eamon.Game.Room, IRoom
 	{
+		public override long GetDir(long index)
+		{
+			if (gEngine.EnableMutateProperties)
+			{
+				if (Uid == 6)
+				{
+					return gGameState.KE != 0 && index == 3 ? 14 : base.GetDir(index);
+				}
+				else if (Uid == 14)
+				{
+					return gGameState.KE != 0 && index == 4 ? 6 : base.GetDir(index);
+				}
+				else if (Uid == 12)
+				{
+					return gGameState.KF != 0 && index == 1 ? 16 : base.GetDir(index);
+				}
+				else if (Uid == 16)
+				{
+					return gGameState.KF != 0 && index == 2 ? 12 : base.GetDir(index);
+				}
+				else
+				{
+					return base.GetDir(index);
+				}
+			}
+			else
+			{
+				return base.GetDir(index);
+			}
+		}
+
 		public override bool IsDirectionInObviousExitsList(long index)
 		{
 			// Suppress up/down on stone ramp
