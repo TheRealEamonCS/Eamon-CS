@@ -22,7 +22,7 @@ namespace ThePyramidOfAnharos.Game.Commands
 
 			if (DobjArtifact.Uid == 76 || DobjArtifact.Uid == 77)
 			{
-				switch(gGameState.Ro)
+				switch(ActorRoom.Uid)
 				{
 					case 6:
 
