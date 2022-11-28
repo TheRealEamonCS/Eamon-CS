@@ -35,6 +35,14 @@ namespace ThePyramidOfAnharos.Game
 				{
 					return gGameState.KF != 0 && index == 2 ? 12 : base.GetDir(index);
 				}
+				else if (Uid == 22)
+				{
+					return gGameState.KG != 0 && index == 5 ? 25 : base.GetDir(index);
+				}
+				else if (Uid == 25)
+				{
+					return gGameState.KG != 0 && index == 6 ? 22 : base.GetDir(index);
+				}
 				else
 				{
 					return base.GetDir(index);

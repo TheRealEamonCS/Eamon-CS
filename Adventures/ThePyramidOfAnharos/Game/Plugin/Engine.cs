@@ -39,14 +39,14 @@ namespace ThePyramidOfAnharos.Game.Plugin
 
 			MacroFuncs.Add(1, () =>
 			{
-				// western pyramid door
+				// Western pyramid door
 
 				return GameState != null && GameState.Ro == 14 ? "an exit west into the desert" : "a passage east into the core of the pyramid";
 			});
 
 			MacroFuncs.Add(2, () =>
 			{
-				// southern pyramid secret door
+				// Southern pyramid secret door
 
 				return GameState != null && GameState.Ro == 16 ? "an exit into the desert to the south" : "a room inside the pyramid to the north";
 			});

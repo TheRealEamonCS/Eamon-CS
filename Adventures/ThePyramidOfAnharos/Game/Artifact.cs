@@ -20,7 +20,7 @@ namespace ThePyramidOfAnharos.Game
 
 				if (gEngine.EnableMutateProperties)
 				{
-					// door
+					// Door
 
 					if (Uid == 76)
 					{
@@ -30,7 +30,7 @@ namespace ThePyramidOfAnharos.Game
 						}
 					}
 
-					// glyphs
+					// Glyphs
 
 					else if (Uid == 77)
 					{
@@ -48,7 +48,7 @@ namespace ThePyramidOfAnharos.Game
 			{
 				if (gEngine.EnableMutateProperties)
 				{
-					// water bag
+					// Water bag
 
 					if (Uid == 12)
 					{

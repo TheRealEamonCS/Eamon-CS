@@ -29,13 +29,13 @@ namespace ThePyramidOfAnharos.Game.States
 
 				Debug.Assert(room != null);
 
-				// friendlies burn one water unit each
+				// Friendlies burn one water unit each
 
 				var monsterList = gEngine.GetMonsterList(m => !m.IsCharacterMonster() && m.Reaction == Friendliness.Friend && m.IsInRoom(room));
 
 				gGameState.KW -= monsterList.Count;
 
-				// player burns water units based on armor
+				// Player burns water units based on armor
 
 				gGameState.KW -= (gCharMonster.Armor < 3 ? 1 : gCharMonster.Armor < 8 ? gCharMonster.Armor - 1 : 6);
 

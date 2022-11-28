@@ -18,7 +18,7 @@ namespace ThePyramidOfAnharos.Game.Commands
 		{
 			Debug.Assert(DobjArtifact != null);
 
-			// door / glyphs
+			// Door / Glyphs
 
 			if (DobjArtifact.Uid == 76 || DobjArtifact.Uid == 77)
 			{

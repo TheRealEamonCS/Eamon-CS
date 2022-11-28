@@ -4,6 +4,8 @@
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
 using System.Diagnostics;
+using Eamon.Framework;
+using Eamon.Framework.Primitive.Classes;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.States;
@@ -18,7 +20,7 @@ namespace ThePyramidOfAnharos.Game.Commands
 		{
 			Debug.Assert(DobjArtifact != null);
 
-			// water
+			// Water
 
 			if (DobjArtifact.Uid == 78)
 			{
@@ -102,6 +104,20 @@ namespace ThePyramidOfAnharos.Game.Commands
 			else
 			{
 				base.Execute();
+			}
+		}
+
+		public override void ProcessArtifact(IArtifact artifact, IArtifactCategory ac, ref bool nlFlag)
+		{
+			Debug.Assert(artifact != null);
+
+			base.ProcessArtifact(artifact, ac, ref nlFlag);
+
+			// Rope
+
+			if (artifact.Uid == 13 && artifact.IsCarriedByCharacter())
+			{
+				gGameState.KG = 0;
 			}
 		}
 	}
