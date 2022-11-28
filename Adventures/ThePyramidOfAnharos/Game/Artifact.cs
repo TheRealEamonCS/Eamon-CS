@@ -39,13 +39,6 @@ namespace ThePyramidOfAnharos.Game
 							result = gGameState.Ro;
 						}
 					}
-
-					// water
-
-					else if (Uid == 78)
-					{
-						result = gGameState.Ro;
-					}
 				}
 
 				return result;
