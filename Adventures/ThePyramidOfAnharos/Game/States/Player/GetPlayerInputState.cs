@@ -17,6 +17,8 @@ namespace ThePyramidOfAnharos.Game.States
 	[ClassMappings]
 	public class GetPlayerInputState : EamonRT.Game.States.GetPlayerInputState, IGetPlayerInputState
 	{
+		public virtual ICombatComponent CombatComponent { get; set; }
+
 		public override void ProcessEvents(EventType eventType)
 		{
 			base.ProcessEvents(eventType);
@@ -28,6 +30,61 @@ namespace ThePyramidOfAnharos.Game.States
 				var room = gCharMonster.GetInRoom();
 
 				Debug.Assert(room != null);
+
+				var guardsMonster = gMDB[20];
+
+				Debug.Assert(guardsMonster != null);
+
+				var deadGuardsArtifact = gADB[75];
+
+				Debug.Assert(deadGuardsArtifact != null);
+
+				// Guards attack
+
+				if (room.Uid == 17 && gGameState.KH != 1)
+				{
+					gGameState.KH = 1;
+
+					deadGuardsArtifact.SetInLimbo();
+
+					guardsMonster.SetInRoom(room);
+
+					if (room.IsLit())
+					{
+						gEngine.PrintEffectDesc(54);
+					}
+					else
+					{
+						gOut.Print("As you gaze into the darkness, you are startled to hear something rise from the floor. You hear a rasping voice say, 'Death to the despoilers of the sleep of mighty Anharos', as it attacks.");
+					}
+
+					for (var i = 1; i <= guardsMonster.CurrGroupCount; i++)
+					{
+						CombatComponent = gEngine.CreateInstance<ICombatComponent>(x =>
+						{
+							x.SetNextStateFunc = s => NextState = s;
+
+							x.ActorMonster = guardsMonster;
+
+							x.ActorRoom = room;
+
+							x.Dobj = gCharMonster;
+
+							x.MemberNumber = i;
+
+							x.AttackNumber = 1;
+						});
+
+						CombatComponent.ExecuteAttack();
+
+						if (gGameState.Die > 0)
+						{
+							GotoCleanup = true;
+
+							goto Cleanup;
+						}
+					}
+				}
 
 				// Friendlies burn one water unit each
 
