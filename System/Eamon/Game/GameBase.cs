@@ -65,7 +65,7 @@ namespace Eamon.Game
 			// do nothing
 		}
 
-		public virtual string GetPluralName(string fieldName, StringBuilder buf = null)
+		public virtual string GetPluralName(string fieldName)
 		{
 			string result;
 
@@ -80,12 +80,7 @@ namespace Eamon.Game
 
 			Debug.Assert(fieldName == "Name");
 
-			if (buf == null)
-			{
-				buf = gEngine.Buf;
-			}
-
-			buf.Clear();
+			var buf = new StringBuilder(gEngine.BufSize);
 
 			result = buf.ToString();
 
@@ -94,12 +89,12 @@ namespace Eamon.Game
 			return result;
 		}
 
-		public virtual string GetPluralName01(StringBuilder buf = null)
+		public virtual string GetPluralName01()
 		{
-			return GetPluralName("Name", buf);
+			return GetPluralName("Name");
 		}
 
-		public virtual string GetDecoratedName(string fieldName, ArticleType articleType, bool upshift = false, bool showCharOwned = true, bool showStateDesc = false, bool groupCountOne = false, StringBuilder buf = null)
+		public virtual string GetDecoratedName(string fieldName, ArticleType articleType, bool upshift = false, bool showCharOwned = true, bool showStateDesc = false, bool showContents = false, bool groupCountOne = false)
 		{
 			string result;
 
@@ -114,12 +109,7 @@ namespace Eamon.Game
 
 			Debug.Assert(fieldName == "Name");
 
-			if (buf == null)
-			{
-				buf = gEngine.Buf;
-			}
-
-			buf.Clear();
+			var buf = new StringBuilder(gEngine.BufSize);
 
 			result = buf.ToString();
 
@@ -128,19 +118,19 @@ namespace Eamon.Game
 			return result;
 		}
 
-		public virtual string GetNoneName(bool upshift = false, bool showCharOwned = true, bool showStateDesc = false, bool groupCountOne = false, StringBuilder buf = null)
+		public virtual string GetNoneName(bool upshift = false, bool showCharOwned = true, bool showStateDesc = false, bool showContents = false, bool groupCountOne = false)
 		{
-			return GetDecoratedName("Name", ArticleType.None, upshift, showCharOwned, showStateDesc, groupCountOne, buf);
+			return GetDecoratedName("Name", ArticleType.None, upshift, showCharOwned, showStateDesc, showContents, groupCountOne);
 		}
 
-		public virtual string GetArticleName(bool upshift = false, bool showCharOwned = true, bool showStateDesc = false, bool groupCountOne = false, StringBuilder buf = null)
+		public virtual string GetArticleName(bool upshift = false, bool showCharOwned = true, bool showStateDesc = false, bool showContents = false, bool groupCountOne = false)
 		{
-			return GetDecoratedName("Name", ArticleType, upshift, showCharOwned, showStateDesc, groupCountOne, buf);
+			return GetDecoratedName("Name", ArticleType, upshift, showCharOwned, showStateDesc, showContents, groupCountOne);
 		}
 
-		public virtual string GetTheName(bool upshift = false, bool showCharOwned = true, bool showStateDesc = false, bool groupCountOne = false, StringBuilder buf = null)
+		public virtual string GetTheName(bool upshift = false, bool showCharOwned = true, bool showStateDesc = false, bool showContents = false, bool groupCountOne = false)
 		{
-			return GetDecoratedName("Name", ArticleType.The, upshift, showCharOwned, showStateDesc, groupCountOne, buf);
+			return GetDecoratedName("Name", ArticleType.The, upshift, showCharOwned, showStateDesc, showContents, groupCountOne);
 		}
 
 		public virtual RetCode BuildPrintedFullDesc(StringBuilder buf, bool showName, bool showVerboseName)

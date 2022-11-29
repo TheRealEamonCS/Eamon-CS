@@ -245,6 +245,8 @@ namespace Eamon.Game.Plugin
 
 		public virtual bool EnableStdio { get; set; } = true;
 
+		public virtual bool EnableNegativeRoomUidLinks { get; set; }
+
 		public virtual bool IgnoreMutex { get; set; }
 
 		public virtual bool DisableValidation { get; set; }
@@ -316,8 +318,6 @@ namespace Eamon.Game.Plugin
 		public virtual long DbStackTop { get; set; }
 
 		public virtual IDictionary<long, Func<string>> MacroFuncs { get; set; }
-
-		public virtual IList<IArtifact> ArtifactContainedList { get; set; }
 
 		public virtual Action<IRoom, IMonster, IArtifact, long, bool> RevealContainerContentsFunc { get; set; }
 
@@ -3426,67 +3426,6 @@ namespace Eamon.Game.Plugin
 			return result;
 		}
 
-		public virtual string GetContainerContentsDesc(IArtifact artifact)
-		{
-			var artTypes = new ArtifactType[] { ArtifactType.InContainer, ArtifactType.OnContainer, ArtifactType.UnderContainer, ArtifactType.BehindContainer };
-
-			var result = "";
-
-			if (artifact == null)
-			{
-				// PrintError
-
-				goto Cleanup;
-			}
-
-			var buf = new StringBuilder(BufSize);
-
-			var buf01 = new StringBuilder(BufSize);
-
-			var ac = artifact.Categories.FirstOrDefault(ac01 => ac01 != null && artTypes.Contains(ac01.Type) && ac01.Field5 == (long)ContainerDisplayCode.ArtifactNameList && (ac01.Type != ArtifactType.InContainer || ac01.IsOpen() || artifact.ShouldExposeInContentsWhenClosed()) && artifact.GetContainedList(containerType: GetContainerType(ac01.Type)).Count > 0);
-
-			if (ac == null)
-			{
-				ac = artifact.Categories.FirstOrDefault(ac01 => ac01 != null && artTypes.Contains(ac01.Type) && ac01.Field5 == (long)ContainerDisplayCode.ArtifactNameSomeStuff && (ac01.Type != ArtifactType.InContainer || ac01.IsOpen() || artifact.ShouldExposeInContentsWhenClosed()) && artifact.GetContainedList(containerType: GetContainerType(ac01.Type)).Count > 0);
-			}
-
-			if (ac == null)
-			{
-				ac = artifact.Categories.FirstOrDefault(ac01 => ac01 != null && artTypes.Contains(ac01.Type) && ac01.Field5 == (long)ContainerDisplayCode.SomethingSomeStuff && (ac01.Type != ArtifactType.InContainer || ac01.IsOpen() || artifact.ShouldExposeInContentsWhenClosed()) && artifact.GetContainedList(containerType: GetContainerType(ac01.Type)).Count > 0);
-			}
-
-			if (ac != null)
-			{
-				var containerType = GetContainerType(ac.Type);
-
-				var contentsList = artifact.GetContainedList(containerType: containerType);
-
-				var showCharOwned = !artifact.IsCarriedByCharacter() && !artifact.IsWornByCharacter();
-
-				var maxContentsNameListCount = artifact.GetMaxContentsNameListCount(containerType);
-
-				if (contentsList.Count > 0)
-				{
-					if (ac.Field5 == (long)ContainerDisplayCode.ArtifactNameList && contentsList.Count <= maxContentsNameListCount)
-					{
-						GetRecordNameList(contentsList.Cast<IGameBase>().ToList(), ArticleType.A, showCharOwned, StateDescDisplayCode.None, false, false, buf01);
-					}
-
-					result = string.Format
-					(
-						" with {0} {1} {2}",
-						ac.Field5 == (long)ContainerDisplayCode.ArtifactNameList && contentsList.Count <= maxContentsNameListCount ? buf01.ToString() : contentsList.Count > 1 || contentsList[0].IsPlural ? "some stuff" : ac.Field5 == (long)ContainerDisplayCode.ArtifactNameSomeStuff ? contentsList[0].GetArticleName(false, showCharOwned, false, false, buf) : "something",
-						EvalContainerType(containerType, "inside", "on", "under", "behind"),
-						artifact.EvalPlural("it", "them")
-					);
-				}
-			}
-
-		Cleanup:
-
-			return result;
-		}
-
 		public virtual RetCode RollDice(long numDice, long numSides, ref long[] dieRolls)
 		{
 			RetCode rc;
@@ -4022,13 +3961,12 @@ namespace Eamon.Game.Plugin
 			return rc;
 		}
 
-		public virtual RetCode GetRecordNameList(IList<IGameBase> recordList, ArticleType articleType, bool showCharOwned, StateDescDisplayCode stateDescCode, bool showContents, bool groupCountOne, StringBuilder buf)
+		public virtual RetCode GetRecordNameList(IList<IGameBase> recordList, IRecordNameListArgs args, StringBuilder buf)
 		{
-			StringBuilder buf01;
 			RetCode rc;
 			long i;
 
-			if (recordList == null || buf == null)
+			if (recordList == null || args == null || buf == null)
 			{
 				rc = RetCode.InvalidArg;
 
@@ -4039,8 +3977,6 @@ namespace Eamon.Game.Plugin
 
 			rc = RetCode.Success;
 
-			buf01 = new StringBuilder(BufSize);
-
 			for (i = 0; i < recordList.Count; i++)
 			{
 				var r = recordList[(int)i];
@@ -4049,38 +3985,30 @@ namespace Eamon.Game.Plugin
 
 				var m = r as IMonster;
 
-				var contentsDesc = "";
-
-				if (showContents && a != null)
-				{
-					contentsDesc = GetContainerContentsDesc(a);
-				}
-
-				var showStateDesc = stateDescCode == StateDescDisplayCode.AllStateDescs;
+				var showStateDesc = args.StateDescCode == StateDescDisplayCode.AllStateDescs;
 
 				if (!showStateDesc && a != null)
 				{
-					showStateDesc = stateDescCode == StateDescDisplayCode.SideNotesOnly && a.IsStateDescSideNotes();
+					showStateDesc = args.StateDescCode == StateDescDisplayCode.SideNotesOnly && a.IsStateDescSideNotes();
 				}
 
 				if (!showStateDesc && m != null)
 				{
-					showStateDesc = stateDescCode == StateDescDisplayCode.SideNotesOnly && m.IsStateDescSideNotes();
+					showStateDesc = args.StateDescCode == StateDescDisplayCode.SideNotesOnly && m.IsStateDescSideNotes();
 				}
 
-				buf.AppendFormat("{0}{1}{2}",
+				buf.AppendFormat("{0}{1}",
 					i == 0 ? "" : i == recordList.Count - 1 && recordList.Count > 2 ? ", and " : i == recordList.Count - 1 ? " and " : ", ",
 					r.GetDecoratedName
 					(
 						"Name",
-						articleType == ArticleType.None || articleType == ArticleType.The ? articleType : r.ArticleType,
+						args.ArticleType == ArticleType.None || args.ArticleType == ArticleType.The ? args.ArticleType : r.ArticleType,
 						false,
-						showCharOwned,
-						showStateDesc && contentsDesc.Length == 0,
-						groupCountOne,
-						buf01
-					),
-					contentsDesc
+						args.ShowCharOwned,
+						showStateDesc,
+						args.ShowContents,
+						args.GroupCountOne
+					)
 				);
 			}
 
@@ -4886,8 +4814,6 @@ namespace Eamon.Game.Plugin
 			LineSep = new string('-', (int)RightMargin);
 
 			MacroFuncs = new Dictionary<long, Func<string>>();
-
-			ArtifactContainedList = new List<IArtifact>();
 
 			Articles = new string[]			// TODO: fix ???
 			{

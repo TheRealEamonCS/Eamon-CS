@@ -4,6 +4,7 @@
 // Copyright (c) 2014+ by Kenneth Pedersen.  All rights reserved.
 
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Reflection;
 using Eamon;
 using Eamon.Framework.Primitive.Enums;
@@ -34,6 +35,28 @@ namespace LandOfTheMountainKing.Game.Plugin
 		public override void InitArtifacts()
 		{
 			base.InitArtifacts();
+
+			MacroFuncs.Add(1, () =>
+			{
+				var lampDirDescs = new string[]
+				{
+					"",
+					"to the south over the ocean",
+					"to the southwest over the ocean",
+					"to the west onto the cliffs",
+					"to the northwest into the forest",
+					"to the north onto the bridge crossing the ravine",
+					"to the northeast where a huge tree is standing",
+					"to the east over the ocean beyond the beach",
+					"to the southeast over the ocean"
+				};
+
+				var index = gLMKKP1 != null ? gLMKKP1.Lampdir : 7;
+
+				Debug.Assert(index >= 1 && index <= 8);
+
+				return lampDirDescs[index];
+			});
 
 			var synonyms = new Dictionary<long, string[]>()
 			{

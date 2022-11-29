@@ -58,7 +58,7 @@ namespace StrongholdOfKahrDur.Game.Components
 
 				gEngine.PrintEffectDesc(rl);
 
-				gEngine.Thread.Sleep(gGameState.PauseCombatMs);
+				gEngine.PauseCombat();
 
 				MagicState = MagicState.EndMagic;
 

@@ -168,7 +168,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			var indentString = new string('\t', (int)indentLevel);
 
-			RecordTreeStringList.Add(string.Format("{0}{1}[{2}{3}: {4}", Environment.NewLine, indentString, tag, artifact.Uid, artifact.GetArticleName(true, buf: Buf)));
+			RecordTreeStringList.Add(string.Format("{0}{1}[{2}{3}: {4}", Environment.NewLine, indentString, tag, artifact.Uid, artifact.GetArticleName(true)));
 
 			var containedList = artifact.GetContainedList(containerType: (ContainerType)(-1));
 
@@ -195,7 +195,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			var indentString = new string('\t', (int)indentLevel);
 
-			RecordTreeStringList.Add(string.Format("{0}{1}[{2}{3}: {4}", Environment.NewLine, indentString, tag, monster.Uid, monster.GetArticleName(true, buf: Buf)));
+			RecordTreeStringList.Add(string.Format("{0}{1}[{2}{3}: {4}", Environment.NewLine, indentString, tag, monster.Uid, monster.GetArticleName(true)));
 
 			var wornList = monster.GetWornList();
 

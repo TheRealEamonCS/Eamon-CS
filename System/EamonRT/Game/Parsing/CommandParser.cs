@@ -1142,6 +1142,12 @@ namespace EamonRT.Game.Parsing
 
 					CurrToken += 2;
 				}
+				else if (Tokens[CurrToken].Equals("pausecombatactions", StringComparison.OrdinalIgnoreCase) && long.TryParse(Tokens[CurrToken + 1], out longValue) && longValue >= 0 && longValue <= 25)
+				{
+					settingsCommand.PauseCombatActions = longValue;
+
+					CurrToken += 2;
+				}
 				else
 				{
 					settingsCommand.PrintSettingsUsage();

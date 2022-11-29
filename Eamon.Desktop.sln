@@ -49,6 +49,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RiddlesOfTheDuergarKingdom"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleAdventure", "Adventures\SampleAdventure\SampleAdventure.csproj", "{AE0F148F-4CAA-47CC-9C76-EBE926EDDD18}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThePyramidOfAnharos", "Adventures\ThePyramidOfAnharos\ThePyramidOfAnharos.csproj", "{9C32F96E-D68E-48AD-8475-4E3B222A3C37}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -139,6 +141,10 @@ Global
 		{AE0F148F-4CAA-47CC-9C76-EBE926EDDD18}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AE0F148F-4CAA-47CC-9C76-EBE926EDDD18}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AE0F148F-4CAA-47CC-9C76-EBE926EDDD18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C32F96E-D68E-48AD-8475-4E3B222A3C37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C32F96E-D68E-48AD-8475-4E3B222A3C37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C32F96E-D68E-48AD-8475-4E3B222A3C37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C32F96E-D68E-48AD-8475-4E3B222A3C37}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -165,6 +171,7 @@ Global
 		{B32E0520-49DD-4F71-BB08-70B0ACABA970} = {C8D76FAB-81AE-49E3-AC15-A9D1985C1092}
 		{2FDFF5FE-1600-408F-9010-39F617A255EC} = {C8D76FAB-81AE-49E3-AC15-A9D1985C1092}
 		{AE0F148F-4CAA-47CC-9C76-EBE926EDDD18} = {C8D76FAB-81AE-49E3-AC15-A9D1985C1092}
+		{9C32F96E-D68E-48AD-8475-4E3B222A3C37} = {C8D76FAB-81AE-49E3-AC15-A9D1985C1092}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F89D37E7-07F8-42EE-9CD7-0C3BA305A2CB}

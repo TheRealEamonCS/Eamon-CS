@@ -178,6 +178,11 @@ namespace EamonRT.Game.Components
 		{
 			if (CastSpell && !CheckPlayerSpellCast(Spell.Blast))
 			{
+				if (DobjMonster != null)
+				{
+					gEngine.PauseCombat();
+				}
+
 				MagicState = MagicState.EndMagic;
 
 				goto Cleanup;

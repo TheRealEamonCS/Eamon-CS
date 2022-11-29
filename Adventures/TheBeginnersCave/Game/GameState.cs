@@ -48,7 +48,7 @@ namespace TheBeginnersCave.Game
 
 					if (value != 0)
 					{
-						// Trollsfire is now alight so add "(alight)" to the StateDesc property
+						// Trollsfire is now alight so add " (alight)" to the StateDesc property
 
 						rc = trollsfireArtifact.AddStateDesc(gEngine.AlightDesc);
 
@@ -60,7 +60,7 @@ namespace TheBeginnersCave.Game
 					}
 					else
 					{
-						// Trollsfire is now extinguished so remove "(alight)" from the StateDesc property
+						// Trollsfire is now extinguished so remove " (alight)" from the StateDesc property
 
 						rc = trollsfireArtifact.RemoveStateDesc(gEngine.AlightDesc);
 

@@ -156,7 +156,7 @@ namespace Eamon.Game
 			}
 		}
 
-		public override string GetPluralName(string fieldName, StringBuilder buf = null)
+		public override string GetPluralName(string fieldName)
 		{
 			IEffect effect;
 			long effectUid;
@@ -173,12 +173,7 @@ namespace Eamon.Game
 
 			Debug.Assert(fieldName == "Name");
 
-			if (buf == null)
-			{
-				buf = gEngine.Buf;
-			}
-
-			buf.Clear();
+			var buf = new StringBuilder(gEngine.BufSize);
 
 			effectUid = gEngine.GetPluralTypeEffectUid(PluralType);
 
@@ -210,9 +205,8 @@ namespace Eamon.Game
 			return result;
 		}
 
-		public override string GetDecoratedName(string fieldName, ArticleType articleType, bool upshift = false, bool showCharOwned = true, bool showStateDesc = false, bool groupCountOne = false, StringBuilder buf = null)
+		public override string GetDecoratedName(string fieldName, ArticleType articleType, bool upshift = false, bool showCharOwned = true, bool showStateDesc = false, bool showContents = false, bool groupCountOne = false)
 		{
-			StringBuilder buf01;
 			string result;
 			long gc;
 
@@ -227,14 +221,9 @@ namespace Eamon.Game
 
 			Debug.Assert(fieldName == "Name");
 
-			if (buf == null)
-			{
-				buf = gEngine.Buf;
-			}
+			var buf = new StringBuilder(gEngine.BufSize);
 
-			buf.Clear();
-
-			buf01 = new StringBuilder(gEngine.BufSize);
+			var buf01 = new StringBuilder(gEngine.BufSize);
 
 			gc = groupCountOne ? 1 : CurrGroupCount;
 
@@ -253,12 +242,11 @@ namespace Eamon.Game
 
 					buf.AppendFormat
 					(
-						"{0}{1}{2}{3}",
+						"{0}{1}{2}",
 						buf01.ToString(),
-						gc > 1 ? GetPluralName(fieldName, new StringBuilder(gEngine.BufSize)) :
+						gc > 1 ? GetPluralName(fieldName) :
 						Name,
-						showStateDesc && StateDesc.Length > 0 && !StateDesc.OmitStateDescSpace() ? " " : "",
-						showStateDesc && StateDesc.Length > 0 ? StateDesc : ""
+						showStateDesc ? StateDesc : ""
 					);
 
 					break;
@@ -283,12 +271,11 @@ namespace Eamon.Game
 
 					buf.AppendFormat
 					(
-						"{0}{1}{2}{3}",
+						"{0}{1}{2}",
 						buf01.ToString(),
-						gc > 1 ? GetPluralName(fieldName, new StringBuilder(gEngine.BufSize)) :
+						gc > 1 ? GetPluralName(fieldName) :
 						Name,
-						showStateDesc && StateDesc.Length > 0 && !StateDesc.OmitStateDescSpace() ? " " : "",
-						showStateDesc && StateDesc.Length > 0 ? StateDesc : ""
+						showStateDesc ? StateDesc : ""
 					);
 
 					break;
@@ -314,12 +301,11 @@ namespace Eamon.Game
 
 					buf.AppendFormat
 					(
-						"{0}{1}{2}{3}",
+						"{0}{1}{2}",
 						buf01.ToString(),
-						gc > 1 ? GetPluralName(fieldName, new StringBuilder(gEngine.BufSize)) :
+						gc > 1 ? GetPluralName(fieldName) :
 						Name,
-						showStateDesc && StateDesc.Length > 0 && !StateDesc.OmitStateDescSpace() ? " " : "",
-						showStateDesc && StateDesc.Length > 0 ? StateDesc : ""
+						showStateDesc ? StateDesc : ""
 					);
 
 					break;
@@ -354,12 +340,17 @@ namespace Eamon.Game
 
 			if (showName || showVerboseName)
 			{
-				var verboseNameDesc = showVerboseName && !string.IsNullOrWhiteSpace(StateDesc) && ShouldShowVerboseNameStateDesc() ? StateDesc.Trim() : "";
-
-				buf.AppendFormat("{0}[{1}{2}]",
+				buf.AppendFormat("{0}[{1}]",
 					Environment.NewLine,
-					GetArticleName(true, buf: new StringBuilder(gEngine.BufSize)),
-					verboseNameDesc.Length > 0 ? string.Format("{0}{1}", !verboseNameDesc.OmitStateDescSpace() ? " " : "", verboseNameDesc) : "");
+					GetArticleName
+					(
+						true, 
+						true,
+						showVerboseName && !string.IsNullOrWhiteSpace(StateDesc) && ShouldShowVerboseNameStateDesc(),
+						false,
+						false
+					)
+				);
 			}
 
 			if (!string.IsNullOrWhiteSpace(Desc))
@@ -783,7 +774,7 @@ namespace Eamon.Game
 		{
 			if (!string.IsNullOrWhiteSpace(StateDesc))
 			{
-				var regex = new Regex(@".*\(.+\)");
+				var regex = new Regex(@"\(.+\)");
 
 				return regex.IsMatch(StateDesc);
 			}

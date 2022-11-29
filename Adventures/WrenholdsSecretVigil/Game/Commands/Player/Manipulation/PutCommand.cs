@@ -43,7 +43,7 @@ namespace WrenholdsSecretVigil.Game.Commands
 
 				if (IobjArtifact.Uid == 24 || IobjArtifact.Uid == 25)
 				{
-					gOut.Print("{0} start{1} dissolving on contact with {2}!", DobjArtifact.GetTheName(true), DobjArtifact.EvalPlural("s", ""), IobjArtifact.GetTheName(buf: gEngine.Buf01));
+					gOut.Print("{0} start{1} dissolving on contact with {2}!", DobjArtifact.GetTheName(true), DobjArtifact.EvalPlural("s", ""), IobjArtifact.GetTheName());
 
 					gOut.Print("{0} {1} destroyed!", DobjArtifact.GetTheName(true), DobjArtifact.EvalPlural("is", "are"));
 

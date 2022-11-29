@@ -30,6 +30,13 @@ namespace EamonRT.Game.States
 
 			ProcessEvents(EventType.AfterEndRound);
 
+			if (GotoCleanup)
+			{
+				goto Cleanup;
+			}
+
+		Cleanup:
+
 			if (NextState == null)
 			{
 				NextState = gEngine.CreateInstance<IStartState>(); 

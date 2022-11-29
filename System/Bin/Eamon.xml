@@ -4,6 +4,24 @@
         <name>Eamon</name>
     </assembly>
     <members>
+        <member name="T:Eamon.Framework.Args.IRecordNameListArgs">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Args.IRecordNameListArgs.ArticleType">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Args.IRecordNameListArgs.ShowCharOwned">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Args.IRecordNameListArgs.StateDescCode">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Args.IRecordNameListArgs.ShowContents">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Args.IRecordNameListArgs.GroupCountOne">
+            <summary></summary>
+        </member>
         <member name="T:Eamon.Framework.Args.IStatDisplayArgs">
             <summary></summary>
         </member>
@@ -1517,6 +1535,10 @@
             <summary></summary>
             <returns></returns>
         </member>
+        <member name="M:Eamon.Framework.IArtifact.IsDoorGateInObviousExitsList">
+            <summary></summary>
+            <returns></returns>
+        </member>
         <member name="M:Eamon.Framework.IArtifact.ShouldAllowBlastSkillGains">
             <summary></summary>
             <returns></returns>
@@ -1662,12 +1684,24 @@
             <param name="recurse"></param>
             <returns></returns>
         </member>
+        <member name="M:Eamon.Framework.IArtifact.GetContainedList01(System.Collections.Generic.IList{Eamon.Framework.IArtifact},System.Func{Eamon.Framework.IArtifact,System.Boolean},Eamon.Framework.Primitive.Enums.ContainerType,System.Boolean)">
+            <summary></summary>
+            <param name="artifactList"></param>
+            <param name="artifactFindFunc"></param>
+            <param name="containerType"></param>
+            <param name="recurse"></param>
+        </member>
         <member name="M:Eamon.Framework.IArtifact.GetContainerInfo(System.Int64@,System.Int64@,Eamon.Framework.Primitive.Enums.ContainerType,System.Boolean)">
             <summary></summary>
             <param name="count"></param>
             <param name="weight"></param>
             <param name="containerType"></param>
             <param name="recurse"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.IArtifact.GetContainerContentsDesc(Eamon.Framework.Args.IRecordNameListArgs)">
+            <summary></summary>
+            <param name="recordNameListArgs"></param>
             <returns></returns>
         </member>
         <member name="T:Eamon.Framework.ICharacter">
@@ -2139,53 +2173,51 @@
         <member name="M:Eamon.Framework.IGameBase.SetParentReferences">
             <summary></summary>
         </member>
-        <member name="M:Eamon.Framework.IGameBase.GetPluralName(System.String,System.Text.StringBuilder)">
+        <member name="M:Eamon.Framework.IGameBase.GetPluralName(System.String)">
             <summary></summary>
             <param name="fieldName"></param>
-            <param name="buf"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IGameBase.GetPluralName01(System.Text.StringBuilder)">
+        <member name="M:Eamon.Framework.IGameBase.GetPluralName01">
             <summary></summary>
-            <param name="buf"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IGameBase.GetDecoratedName(System.String,Eamon.Framework.Primitive.Enums.ArticleType,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Text.StringBuilder)">
+        <member name="M:Eamon.Framework.IGameBase.GetDecoratedName(System.String,Eamon.Framework.Primitive.Enums.ArticleType,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean)">
             <summary></summary>
             <param name="fieldName"></param>
             <param name="articleType"></param>
             <param name="upshift"></param>
             <param name="showCharOwned"></param>
             <param name="showStateDesc"></param>
+            <param name="showContents"></param>
             <param name="groupCountOne"></param>
-            <param name="buf"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IGameBase.GetNoneName(System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Text.StringBuilder)">
+        <member name="M:Eamon.Framework.IGameBase.GetNoneName(System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean)">
             <summary></summary>
             <param name="upshift"></param>
             <param name="showCharOwned"></param>
             <param name="showStateDesc"></param>
+            <param name="showContents"></param>
             <param name="groupCountOne"></param>
-            <param name="buf"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IGameBase.GetArticleName(System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Text.StringBuilder)">
+        <member name="M:Eamon.Framework.IGameBase.GetArticleName(System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean)">
             <summary></summary>
             <param name="upshift"></param>
             <param name="showCharOwned"></param>
             <param name="showStateDesc"></param>
+            <param name="showContents"></param>
             <param name="groupCountOne"></param>
-            <param name="buf"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IGameBase.GetTheName(System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Text.StringBuilder)">
+        <member name="M:Eamon.Framework.IGameBase.GetTheName(System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean)">
             <summary></summary>
             <param name="upshift"></param>
             <param name="showCharOwned"></param>
             <param name="showStateDesc"></param>
+            <param name="showContents"></param>
             <param name="groupCountOne"></param>
-            <param name="buf"></param>
             <returns></returns>
         </member>
         <member name="M:Eamon.Framework.IGameBase.BuildPrintedFullDesc(System.Text.StringBuilder,System.Boolean,System.Boolean)">
@@ -2307,7 +2339,12 @@
         </member>
         <member name="P:Eamon.Framework.IGameState.PauseCombatMs">
             <summary>
-            Gets or sets the number of milliseconds to pause between attacks during a combat round.
+            Gets or sets the number of milliseconds to pause between actions during a combat round.
+            </summary>
+        </member>
+        <member name="P:Eamon.Framework.IGameState.PauseCombatActions">
+            <summary>
+            Gets or sets the number of actions to pause between during a combat round.
             </summary>
         </member>
         <member name="P:Eamon.Framework.IGameState.ImportedArtUidsIdx">
@@ -3095,6 +3132,16 @@
             <param name="dir"></param>
             <returns></returns>
         </member>
+        <member name="M:Eamon.Framework.IRoom.IsDirectionRoom01(System.Int64)">
+            <summary></summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.IRoom.IsDirectionRoom01(Eamon.Framework.Primitive.Enums.Direction)">
+            <summary></summary>
+            <param name="dir"></param>
+            <returns></returns>
+        </member>
         <member name="M:Eamon.Framework.IRoom.IsDirectionExit(System.Int64)">
             <summary></summary>
             <param name="index"></param>
@@ -3137,9 +3184,19 @@
             <param name="dir"></param>
             <returns></returns>
         </member>
+        <member name="M:Eamon.Framework.IRoom.GetDirectionDoorUid(System.Int64)">
+            <summary></summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
         <member name="M:Eamon.Framework.IRoom.GetDirectionDoorUid(Eamon.Framework.Primitive.Enums.Direction)">
             <summary></summary>
             <param name="dir"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.IRoom.GetDirectionDoor(System.Int64)">
+            <summary></summary>
+            <param name="index"></param>
             <returns></returns>
         </member>
         <member name="M:Eamon.Framework.IRoom.GetDirectionDoor(Eamon.Framework.Primitive.Enums.Direction)">
@@ -3244,7 +3301,7 @@
             <param name="useNames"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IRoom.BuildPrintedFullDesc(System.Text.StringBuilder,System.Func{Eamon.Framework.IMonster,System.Boolean},System.Func{Eamon.Framework.IArtifact,System.Boolean},System.Boolean,System.Boolean,System.Boolean,System.Boolean)">
+        <member name="M:Eamon.Framework.IRoom.BuildPrintedFullDesc(System.Text.StringBuilder,System.Func{Eamon.Framework.IMonster,System.Boolean},System.Func{Eamon.Framework.IArtifact,System.Boolean},System.Boolean,System.Boolean,System.Boolean,System.Boolean,Eamon.Framework.Args.IRecordNameListArgs)">
             <summary></summary>
             <param name="buf"></param>
             <param name="monsterFindFunc"></param>
@@ -3253,6 +3310,7 @@
             <param name="verboseMonsterDesc"></param>
             <param name="verboseArtifactDesc"></param>
             <param name="verboseNames"></param>
+            <param name="recordNameListArgs"></param>
             <returns></returns>
         </member>
         <member name="M:Eamon.Framework.IRoom.BuildPrintedTooDarkToSeeDesc(System.Text.StringBuilder)">
@@ -3666,6 +3724,9 @@
         <member name="P:Eamon.Framework.Plugin.IEngine.EnableStdio">
             <summary></summary>
         </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.EnableNegativeRoomUidLinks">
+            <summary></summary>
+        </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.IgnoreMutex">
             <summary>
             Gets or sets a value indicating whether the <see cref="P:Eamon.Framework.Plugin.IEngine.Mutex">Mutex</see> should be ignored, allowing unlimited Eamon CS processes
@@ -3757,9 +3818,6 @@
             <see cref="T:Eamon.Framework.IArtifact">Artifact</see><see cref="P:Eamon.Framework.IArtifact.StateDesc"> StateDesc</see> and <see cref="T:Eamon.Framework.IMonster">Monster</see>
             <see cref="P:Eamon.Framework.IMonster.StateDesc"> StateDesc</see> properties.
             </summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IEngine.ArtifactContainedList">
-            <summary></summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.RevealContainerContentsFunc">
             <summary></summary>
@@ -4633,11 +4691,6 @@
             <param name="str"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.Plugin.IEngine.GetContainerContentsDesc(Eamon.Framework.IArtifact)">
-            <summary></summary>
-            <param name="artifact"></param>
-            <returns></returns>
-        </member>
         <member name="M:Eamon.Framework.Plugin.IEngine.RollDice(System.Int64,System.Int64,System.Int64[]@)">
             <summary>
             Rolls a number of dice, storing the resulting values in an array.
@@ -4729,14 +4782,10 @@
             <param name="args"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.Plugin.IEngine.GetRecordNameList(System.Collections.Generic.IList{Eamon.Framework.IGameBase},Eamon.Framework.Primitive.Enums.ArticleType,System.Boolean,Eamon.Framework.Primitive.Enums.StateDescDisplayCode,System.Boolean,System.Boolean,System.Text.StringBuilder)">
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetRecordNameList(System.Collections.Generic.IList{Eamon.Framework.IGameBase},Eamon.Framework.Args.IRecordNameListArgs,System.Text.StringBuilder)">
             <summary></summary>
             <param name="recordList"></param>
-            <param name="articleType"></param>
-            <param name="showCharOwned"></param>
-            <param name="stateDescCode"></param>
-            <param name="showContents"></param>
-            <param name="groupCountOne"></param>
+            <param name="args"></param>
             <param name="buf"></param>
             <returns></returns>
         </member>
@@ -8152,6 +8201,10 @@
             <returns></returns>
         </member>
         <member name="M:Eamon.Game.Helpers.GameStateHelper.ValidatePauseCombatMs">
+            <summary></summary>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Game.Helpers.GameStateHelper.ValidatePauseCombatActions">
             <summary></summary>
             <returns></returns>
         </member>
