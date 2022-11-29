@@ -108,7 +108,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.Components
 
 				if (DobjMonster.IsCharacterMonster() || room.IsLit())
 				{
-					gOut.Write("{0}{1}{2}", Environment.NewLine, OmitBboaPadding ? "" : "  ", DobjMonster.IsCharacterMonster() ? "You are " + furtherString + "poisoned!" : DobjMonster.GetTheName(true, true, false, true) + " is " + furtherString + "poisoned!");
+					gOut.Write("{0}{1}{2}", Environment.NewLine, OmitBboaPadding ? "" : "  ", DobjMonster.IsCharacterMonster() ? "You are " + furtherString + "poisoned!" : DobjMonster.GetTheName(true, true, false, false, true) + " is " + furtherString + "poisoned!");
 				}
 			}
 

@@ -22,7 +22,7 @@ namespace WrenholdsSecretVigil.Game.Commands
 
 			if (DobjArtifact.Uid == 4 && IobjArtifact != null && IobjArtifact.Uid == 43)
 			{
-				gOut.Print("{0} {1} stuck to {2} and won't budge.", DobjArtifact.GetTheName(true), DobjArtifact.EvalPlural("is", "are"), IobjArtifact.GetTheName(buf: gEngine.Buf01));
+				gOut.Print("{0} {1} stuck to {2} and won't budge.", DobjArtifact.GetTheName(true), DobjArtifact.EvalPlural("is", "are"), IobjArtifact.GetTheName());
 
 				NextState = gEngine.CreateInstance<IMonsterStartState>();
 			}

@@ -161,7 +161,7 @@ namespace TheTempleOfNgurct.Game.Commands
 
 						combatComponent.ExecuteCalculateDamage(savedVsFire ? 3 : 6, 6);
 
-						gEngine.Thread.Sleep(gGameState.PauseCombatMs);
+						gEngine.PauseCombat();
 					}
 
 					gEngine.FireDamage = false;

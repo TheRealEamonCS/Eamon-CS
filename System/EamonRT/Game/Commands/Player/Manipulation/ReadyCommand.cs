@@ -96,6 +96,13 @@ namespace EamonRT.Game.Commands
 				goto Cleanup;
 			}
 
+			ProcessEvents(EventType.BeforeReadyArtifact);
+
+			if (GotoCleanup)
+			{
+				goto Cleanup;
+			}
+
 			if (!OmitReadySameWeapon || ActorMonster.Weapon != DobjArtifact.Uid)
 			{
 				ActorWeapon = gADB[ActorMonster.Weapon];

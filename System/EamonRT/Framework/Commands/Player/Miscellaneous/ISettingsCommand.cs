@@ -37,5 +37,8 @@ namespace EamonRT.Framework.Commands
 
 		/// <summary></summary>
 		long? PauseCombatMs { get; set; }
+
+		/// <summary></summary>
+		long? PauseCombatActions { get; set; }
 	}
 }

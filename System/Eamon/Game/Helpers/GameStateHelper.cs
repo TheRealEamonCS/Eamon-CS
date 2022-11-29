@@ -221,6 +221,13 @@ namespace Eamon.Game.Helpers
 
 		/// <summary></summary>
 		/// <returns></returns>
+		public virtual bool ValidatePauseCombatActions()
+		{
+			return Record.PauseCombatActions >= 0 && Record.PauseCombatActions <= 25;
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
 		public virtual bool ValidateImportedArtUidsIdx()
 		{
 			return Record.ImportedArtUidsIdx >= 0 && Record.ImportedArtUidsIdx <= Record.ImportedArtUids.Length;

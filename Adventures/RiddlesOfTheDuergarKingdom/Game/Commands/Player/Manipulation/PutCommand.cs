@@ -38,7 +38,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.Commands
 
 				else if (IobjArtifact.Uid == 54 || IobjArtifact.Uid == 55)
 				{
-					gOut.Print("{0} {1} into {2}!", DobjArtifact.GetTheName(true), DobjArtifact.EvalPlural("incinerates as it sinks", "incinerate as they sink"), IobjArtifact.GetTheName(buf: gEngine.Buf01));
+					gOut.Print("{0} {1} into {2}!", DobjArtifact.GetTheName(true), DobjArtifact.EvalPlural("incinerates as it sinks", "incinerate as they sink"), IobjArtifact.GetTheName());
 
 					gOut.Print("{0} {1} destroyed!", DobjArtifact.GetTheName(true), DobjArtifact.EvalPlural("is", "are"));
 

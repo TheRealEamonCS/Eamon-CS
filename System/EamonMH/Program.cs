@@ -112,8 +112,11 @@ namespace EamonMH
 
 					try
 					{
-						gOut.SetWindowSize(Math.Min(gEngine.WindowWidth, gOut.GetLargestWindowWidth()),
-															Math.Min(Math.Max(gEngine.WindowHeight, gOut.GetWindowHeight()), (long)(gOut.GetLargestWindowHeight() * 0.95)));
+						gOut.SetWindowSize
+						(
+							Math.Min(gEngine.WindowWidth, gOut.GetLargestWindowWidth()),
+							Math.Min(Math.Max(gEngine.WindowHeight, gOut.GetWindowHeight()), (long)(gOut.GetLargestWindowHeight() * 0.95))
+						);
 
 						gOut.SetBufferSize(gEngine.BufferWidth, gEngine.BufferHeight);
 					}

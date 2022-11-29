@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using Eamon.Framework;
+using Eamon.Framework.Args;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using Eamon.Game.Extensions;
@@ -160,6 +161,16 @@ namespace Eamon.Game
 			return IsDirectionRoom((long)dir);
 		}
 
+		public virtual bool IsDirectionRoom01(long index)
+		{
+			return gEngine.EnableNegativeRoomUidLinks && GetDir(index) < 0 && GetDir(index) > -999;
+		}
+
+		public virtual bool IsDirectionRoom01(Direction dir)
+		{
+			return IsDirectionRoom01((long)dir);
+		}
+
 		public virtual bool IsDirectionExit(long index)
 		{
 			return GetDir(index) == gEngine.DirectionExit;
@@ -192,7 +203,16 @@ namespace Eamon.Game
 
 		public virtual bool IsDirectionInObviousExitsList(long index)
 		{
-			return IsDirectionRoom(index) || IsDirectionExit(index);
+			var result = IsDirectionRoom(index) || IsDirectionExit(index);
+
+			if (!result && IsDirectionDoor(index))
+			{
+				var artifact = GetDirectionDoor(index);
+
+				result = artifact != null && artifact.IsDoorGateInObviousExitsList();
+			}
+
+			return result;
 		}
 
 		public virtual bool IsDirectionInObviousExitsList(Direction dir)
@@ -200,16 +220,26 @@ namespace Eamon.Game
 			return IsDirectionInObviousExitsList((long)dir);
 		}
 
+		public virtual long GetDirectionDoorUid(long index)
+		{
+			return IsDirectionDoor(index) ? GetDir(index) - 1000 : 0;
+		}
+
 		public virtual long GetDirectionDoorUid(Direction dir)
 		{
-			return IsDirectionDoor(dir) ? GetDir(dir) - 1000 : 0;
+			return GetDirectionDoorUid((long)dir);
+		}
+
+		public virtual IArtifact GetDirectionDoor(long index)
+		{
+			var uid = GetDirectionDoorUid(index);
+
+			return gADB[uid];
 		}
 
 		public virtual IArtifact GetDirectionDoor(Direction dir)
 		{
-			var uid = GetDirectionDoorUid(dir);
-
-			return gADB[uid];
+			return GetDirectionDoor((long)dir);
 		}
 
 		public virtual void SetDirectionExit(long index)
@@ -452,12 +482,14 @@ namespace Eamon.Game
 				buf.Append("none");
 			}
 
+			buf.Append(".");
+
 		Cleanup:
 
 			return rc;
 		}
 
-		public virtual RetCode BuildPrintedFullDesc(StringBuilder buf, Func<IMonster, bool> monsterFindFunc = null, Func<IArtifact, bool> artifactFindFunc = null, bool verboseRoomDesc = false, bool verboseMonsterDesc = false, bool verboseArtifactDesc = false, bool verboseNames = false)
+		public virtual RetCode BuildPrintedFullDesc(StringBuilder buf, Func<IMonster, bool> monsterFindFunc = null, Func<IArtifact, bool> artifactFindFunc = null, bool verboseRoomDesc = false, bool verboseMonsterDesc = false, bool verboseArtifactDesc = false, bool verboseNames = false, IRecordNameListArgs recordNameListArgs = null)
 		{
 			bool showDesc;
 			RetCode rc;
@@ -526,7 +558,23 @@ namespace Eamon.Game
 			{
 				buf.AppendFormat(GetYouAlsoSee(showDesc, monsterList, artifactList, recordList));
 
-				rc = gEngine.GetRecordNameList(recordList, ArticleType.A, true, StateDescDisplayCode.AllStateDescs, true, false, buf);
+				if (recordNameListArgs == null)
+				{
+					recordNameListArgs = gEngine.CreateInstance<IRecordNameListArgs>(x =>
+					{
+						x.ArticleType = ArticleType.A;
+
+						x.ShowCharOwned = true;
+
+						x.StateDescCode = StateDescDisplayCode.AllStateDescs;
+
+						x.ShowContents = true;
+
+						x.GroupCountOne = false;
+					});
+				}
+
+				rc = gEngine.GetRecordNameList(recordList, recordNameListArgs, buf);
 
 				if (gEngine.IsFailure(rc))
 				{
@@ -553,7 +601,7 @@ namespace Eamon.Game
 				goto Cleanup;
 			}
 
-			buf.AppendFormat(".{0}", Environment.NewLine);
+			buf.AppendFormat("{0}", Environment.NewLine);
 
 			recordList.Clear();
 

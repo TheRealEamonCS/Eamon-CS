@@ -301,7 +301,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.Commands
 							{
 								gEngine.PrintEffectDesc(71);
 
-								containerArtifact.StateDesc = "emitting a loud whirring sound";
+								containerArtifact.StateDesc = " emitting a loud whirring sound";
 
 								gGameState.SteamTurbineRunning = true;
 							}
@@ -333,7 +333,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.Commands
 
 								gEngine.RockCrusherDestroysContents(ActorRoom);
 
-								containerArtifact.StateDesc = "emitting a loud clanking sound";
+								containerArtifact.StateDesc = " emitting a loud clanking sound";
 
 								gGameState.RockCrusherRunning = true;
 							}
@@ -357,7 +357,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.Commands
 
 								gEngine.RockGrinderDestroysContents(ActorRoom);
 
-								containerArtifact.StateDesc = "emitting a loud scraping sound";
+								containerArtifact.StateDesc = " emitting a loud scraping sound";
 
 								gGameState.RockGrinderRunning = true;
 							}
@@ -381,7 +381,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.Commands
 
 								gEngine.DebrisSifterVibratesContents(ActorRoom);
 
-								containerArtifact.StateDesc = "emitting a loud clattering sound";
+								containerArtifact.StateDesc = " emitting a loud clattering sound";
 
 								gGameState.DebrisSifterRunning = true;
 							}

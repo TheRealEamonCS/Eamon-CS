@@ -6,12 +6,11 @@
 using System;
 using System.Diagnostics;
 using Eamon.Framework;
-using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
-using EamonRT.Framework.Commands;
 using EamonRT.Framework.Components;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
+using TheDeepCanyon.Framework.States;
 using static TheDeepCanyon.Game.Plugin.Globals;
 
 namespace TheDeepCanyon.Game.Components
@@ -208,93 +207,23 @@ namespace TheDeepCanyon.Game.Components
 
 			if (DobjMonster.IsDead())
 			{
-				var room = DobjMonster.GetInRoom();
-
-				Debug.Assert(room != null);
-
 				var ringArtifact = gADB[22];
 
 				Debug.Assert(ringArtifact != null);
 
 				if (DobjMonster.IsCharacterMonster())
 				{
-					// Resurrect
+					gGameState.Die = 1;
 
-					if (ringArtifact.IsCarriedByCharacter() || ringArtifact.IsWornByCharacter())
+					if (SetNextStateFunc != null)
 					{
-						gOut.Print("{0}", gEngine.LineSep);
+						// Resurrect
 
-						gOut.Write("{0}Press any key to continue: ", Environment.NewLine);
-
-						gEngine.Buf.Clear();
-
-						var rc = gEngine.In.ReadField(gEngine.Buf, gEngine.BufSize02, null, ' ', '\0', true, null, gEngine.ModifyCharToNull, null, gEngine.IsCharAny);
-
-						Debug.Assert(gEngine.IsSuccess(rc));
-
-						gEngine.Thread.Sleep(150);
-
-						gOut.Print("{0}", gEngine.LineSep);
-
-						// gSentenceParser.PrintDiscardingCommands() not called for this abrupt reality shift
-
-						gEngine.ResetProperties(PropertyResetCode.SwitchContext);
-
-						gEngine.PrintEffectDesc(3);
-
-						DobjMonster.DmgTaken = 0;
-
-						gEngine.ResetMonsterStats(DobjMonster);
-
-						gEngine.MagicRingLowersMonsterStats(DobjMonster);
-
-						DobjWeapon = DobjMonster.Weapon > 0 ? gADB[DobjMonster.Weapon] : null;
-
-						if (DobjWeapon != null)
+						if (ringArtifact.IsCarriedByCharacter() || ringArtifact.IsWornByCharacter())
 						{
-							gOut.EnableOutput = false;
-
-							var dropCommand = gEngine.CreateInstance<IDropCommand>(x =>
-							{
-								x.ActorMonster = DobjMonster;
-
-								x.ActorRoom = room;
-
-								x.Dobj = DobjWeapon;
-							});
-
-							dropCommand.Execute();
-
-							gOut.EnableOutput = true;
+							SetNextStateFunc(gEngine.CreateInstance<IPlayerResurrectedState>());
 						}
-
-						ringArtifact.SetInLimbo();
-
-						room = gRDB[1];
-
-						Debug.Assert(room != null);
-
-						room.Seen = false;
-
-						gEngine.EnforceCharacterWeightLimits02(room);
-
-						gGameState.Ro = 1;
-
-						gGameState.R2 = gGameState.Ro;
-
-						if (SetNextStateFunc != null)
-						{
-							SetNextStateFunc(gEngine.CreateInstance<IAfterPlayerMoveState>(x =>
-							{
-								x.MoveMonsters = false;
-							}));
-						}
-					}
-					else
-					{
-						gGameState.Die = 1;
-
-						if (SetNextStateFunc != null)
+						else
 						{
 							SetNextStateFunc(gEngine.CreateInstance<IPlayerDeadState>(x =>
 							{

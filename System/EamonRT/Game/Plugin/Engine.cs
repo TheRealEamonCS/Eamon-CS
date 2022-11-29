@@ -12,6 +12,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using Eamon;
 using Eamon.Framework;
+using Eamon.Framework.Args;
 using Eamon.Framework.Primitive.Classes;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Extensions;
@@ -36,8 +37,6 @@ namespace EamonRT.Game.Plugin
 
 		public virtual StringBuilder Buf01 { get; set; }
 
-		public virtual StringBuilder Buf02 { get; set; }
-
 		public virtual IList<ICommand> CommandList { get; set; }
 
 		public virtual IList<ICommand> LastCommandList { get; set; }
@@ -53,6 +52,8 @@ namespace EamonRT.Game.Plugin
 		public virtual IList<long> LoopMonsterUidList { get; set; }
 
 		public virtual long ActionListCounter { get; set; }
+
+		public virtual long PauseCombatActionsCounter { get; set; }
 
 		public virtual long LoopMonsterUidListIndex { get; set; }
 
@@ -277,6 +278,8 @@ namespace EamonRT.Game.Plugin
 
 					ActionListCounter = 0;
 
+					PauseCombatActionsCounter = 0;
+
 					LoopFailedMoveMemberCount = 0;
 
 					SentenceParser.LastInputStr = "";
@@ -317,6 +320,8 @@ namespace EamonRT.Game.Plugin
 
 					ActionListCounter = 0;
 
+					PauseCombatActionsCounter = 0;
+
 					SentenceParser.LastInputStr = "";
 
 					SentenceParser.Clear();
@@ -348,6 +353,8 @@ namespace EamonRT.Game.Plugin
 					SkillIncreaseFuncList.Clear();
 
 					ActionListCounter = 0;
+
+					PauseCombatActionsCounter = 0;
 
 					SentenceParser.Clear();
 
@@ -596,13 +603,13 @@ namespace EamonRT.Game.Plugin
 			{
 				Out.Print("Some of {0} wounds seem to clear up.",
 					isCharMonster ? "your" :
-					monster.EvalPlural(monster.GetTheName(), monster.GetArticleName(false, true, false, true, Buf01)).AddPossessiveSuffix());
+					monster.EvalPlural(monster.GetTheName(), monster.GetArticleName(false, true, false, false, true)).AddPossessiveSuffix());
 			}
 			else
 			{
 				Out.Print("{0} health improves!",
 					isCharMonster ? "Your" :
-					monster.EvalPlural(monster.GetTheName(true), monster.GetArticleName(true, true, false, true, Buf01)).AddPossessiveSuffix());
+					monster.EvalPlural(monster.GetTheName(true), monster.GetArticleName(true, true, false, false, true)).AddPossessiveSuffix());
 			}
 		}
 
@@ -618,7 +625,7 @@ namespace EamonRT.Game.Plugin
 				Environment.NewLine,
 				isCharMonster ? "You" :
 				isUninjuredGroupMonster ? "They" :
-				monster.GetTheName(true, true, false, true, Buf01),
+				monster.GetTheName(true, true, false, false, true),
 				isCharMonster || isUninjuredGroupMonster ? "are" : "is");
 
 			monster.AddHealthStatus(Buf);
@@ -847,21 +854,37 @@ namespace EamonRT.Game.Plugin
 			Out.WriteLine();
 		}
 
-		public virtual void BuildRevealContentsListDescString(IMonster monster, IArtifact artifact, IList<IArtifact> revealContentsList, ContainerType containerType, bool revealShowCharOwned, bool showCharOwned)
+		public virtual void BuildRevealContentsListDescString(IMonster monster, IArtifact artifact, IList<IArtifact> revealContentsList, ContainerType containerType, bool showCharOwned, IRecordNameListArgs recordNameListArgs = null)
 		{
 			Debug.Assert(artifact != null && revealContentsList != null && revealContentsList.Count > 0 && Enum.IsDefined(typeof(ContainerType), containerType));
 
-			Buf02.SetFormat("{0} {1}",
+			Buf01.SetFormat("{0} {1}",
 				monster != null && !monster.IsCharacterMonster() ? (UseRevealContentMonsterTheName ? monster.GetTheName(groupCountOne: true) : monster.GetArticleName(groupCountOne: true)) : "you",
 				monster != null && !monster.IsCharacterMonster() ? "finds" : "find");
 
 			Buf.SetFormat("{0}{1} {2}, {3} ",
 				Environment.NewLine,
 				EvalContainerType(containerType, "Inside", "On", "Under", "Behind"),
-				artifact.GetTheName(false, showCharOwned, false, false, Buf01),
-				Buf02.ToString());
+				artifact.GetTheName(showCharOwned: showCharOwned),
+				Buf01.ToString());
 
-			var rc = GetRecordNameList(revealContentsList.Cast<IGameBase>().ToList(), ArticleType.A, revealShowCharOwned, StateDescDisplayCode.None, false, false, Buf);
+			if (recordNameListArgs == null)
+			{
+				recordNameListArgs = CreateInstance<IRecordNameListArgs>(x =>
+				{
+					x.ArticleType = ArticleType.A;
+
+					x.ShowCharOwned = showCharOwned;			// TODO: verify
+
+					x.StateDescCode = StateDescDisplayCode.None;
+
+					x.ShowContents = false;
+
+					x.GroupCountOne = false;
+				});
+			}
+
+			var rc = GetRecordNameList(revealContentsList.Cast<IGameBase>().ToList(), recordNameListArgs, Buf);
 
 			Debug.Assert(IsSuccess(rc));
 
@@ -2080,7 +2103,18 @@ namespace EamonRT.Game.Plugin
 
 			var showCharOwned = !artifact.IsCarriedByCharacter() && !artifact.IsWornByCharacter();
 
-			bool revealShowCharOwned = false;
+			var recordNameListArgs = CreateInstance<IRecordNameListArgs>(x =>
+			{
+				x.ArticleType = ArticleType.A;
+
+				x.ShowCharOwned = false;
+
+				x.StateDescCode = StateDescDisplayCode.None;
+
+				x.ShowContents = false;
+
+				x.GroupCountOne = false;
+			});
 
 			foreach (var containerType in containerTypes)
 			{
@@ -2100,7 +2134,7 @@ namespace EamonRT.Game.Plugin
 
 					ProcessRevealArtifact:
 
-						revealShowCharOwned = !revealArtifact.IsCarriedByCharacter() && !revealArtifact.IsWornByCharacter();
+						recordNameListArgs.ShowCharOwned = !revealArtifact.IsCarriedByCharacter() && !revealArtifact.IsWornByCharacter();
 
 						revealMonster = revealArtifact.GetCarriedByMonster();
 
@@ -2195,7 +2229,7 @@ namespace EamonRT.Game.Plugin
 
 					if (revealContents && containerContentsList != null)
 					{
-						BuildRevealContentsListDescString(revealMonster != null ? revealMonster : monster, artifact, revealContentsList, containerType, revealShowCharOwned, showCharOwned);
+						BuildRevealContentsListDescString(revealMonster != null ? revealMonster : monster, artifact, revealContentsList, containerType, showCharOwned, recordNameListArgs);
 
 						containerContentsList.Add(Buf.ToString());
 					}
@@ -2379,7 +2413,7 @@ namespace EamonRT.Game.Plugin
 			GetRandomMoveDirection(room, monster, fleeing, ref direction, ref found, ref roomUid);
 		}
 
-		public virtual void MoveMonsterToRandomAdjacentRoom(IRoom room, IMonster monster, bool fleeing, bool callSleep, bool printOutput = true)
+		public virtual void MoveMonsterToRandomAdjacentRoom(IRoom room, IMonster monster, bool fleeing, bool pauseCombat, bool printOutput = true)
 		{
 			RetCode rc;
 
@@ -2409,9 +2443,9 @@ namespace EamonRT.Game.Plugin
 				{
 					PrintMonsterCantFindExit(monster, room, monsterName, rl > 1, fleeing);
 
-					if (callSleep)
+					if (pauseCombat)
 					{
-						Thread.Sleep(GameState.PauseCombatMs);
+						PauseCombat();
 					}
 				}
 
@@ -2433,9 +2467,9 @@ namespace EamonRT.Game.Plugin
 				{
 					PrintMonsterMembersExitRoom(monster, room, monsterName, rl > 1, fleeing);
 
-					if (callSleep)
+					if (pauseCombat)
 					{
-						Thread.Sleep(GameState.PauseCombatMs);
+						PauseCombat();
 					}
 				}
 
@@ -2464,9 +2498,9 @@ namespace EamonRT.Game.Plugin
 				{
 					PrintMonsterExitsRoom(monster, room, monsterName, rl > 1, fleeing, direction);
 
-					if (callSleep)
+					if (pauseCombat)
 					{
-						Thread.Sleep(GameState.PauseCombatMs);
+						PauseCombat();
 					}
 				}
 
@@ -2486,9 +2520,9 @@ namespace EamonRT.Game.Plugin
 				{
 					PrintMonsterEntersRoom(monster, room01, monsterName01, rl > 1, fleeing, direction01.EnterDir);
 
-					if (callSleep)
+					if (pauseCombat)
 					{
-						Thread.Sleep(GameState.PauseCombatMs);
+						PauseCombat();
 					}
 				}
 			}
@@ -2565,11 +2599,11 @@ namespace EamonRT.Game.Plugin
 
 					if (r is IArtifact a)
 					{
-						result = a.IsPlural && a.GetPluralName01(Buf).Equals(name, StringComparison.OrdinalIgnoreCase);
+						result = a.IsPlural && a.GetPluralName01().Equals(name, StringComparison.OrdinalIgnoreCase);
 					}
 					else if (r is IMonster m)
 					{
-						result = m.GroupCount > 1 && m.GetPluralName01(Buf).Equals(name01, StringComparison.OrdinalIgnoreCase);
+						result = m.GroupCount > 1 && m.GetPluralName01().Equals(name01, StringComparison.OrdinalIgnoreCase);
 					}
 
 					return result;
@@ -2603,11 +2637,11 @@ namespace EamonRT.Game.Plugin
 
 					if (r is IArtifact a)
 					{
-						result = a.IsPlural && (a.GetPluralName01(Buf).StartsWith(name, StringComparison.OrdinalIgnoreCase) || a.GetPluralName01(Buf01).EndsWith(name, StringComparison.OrdinalIgnoreCase));
+						result = a.IsPlural && (a.GetPluralName01().StartsWith(name, StringComparison.OrdinalIgnoreCase) || a.GetPluralName01().EndsWith(name, StringComparison.OrdinalIgnoreCase));
 					}
 					else if (r is IMonster m)
 					{
-						result = m.GroupCount > 1 && (m.GetPluralName01(Buf).StartsWith(name01, StringComparison.OrdinalIgnoreCase) || m.GetPluralName01(Buf01).EndsWith(name01, StringComparison.OrdinalIgnoreCase));
+						result = m.GroupCount > 1 && (m.GetPluralName01().StartsWith(name01, StringComparison.OrdinalIgnoreCase) || m.GetPluralName01().EndsWith(name01, StringComparison.OrdinalIgnoreCase));
 					}
 
 					return result;
@@ -2630,11 +2664,11 @@ namespace EamonRT.Game.Plugin
 
 				if (r is IArtifact a && a.IsPlural)
 				{
-					result = a.GetPluralName01(Buf).ToLower();
+					result = a.GetPluralName01().ToLower();
 				}
 				else if (r is IMonster m && m.GroupCount > 1)
 				{
-					result = m.GetPluralName01(Buf).ToLower();
+					result = m.GetPluralName01().ToLower();
 				}
 
 				return result;
@@ -3222,9 +3256,9 @@ namespace EamonRT.Game.Plugin
 		{
 			CheckActionList(SkillIncreaseFuncList);
 
-			if (GameState.Die <= 0 && PauseCombatAfterSkillGains)
+			if (PauseCombatAfterSkillGains)
 			{
-				Thread.Sleep(GameState.PauseCombatMs);
+				PauseCombat();
 			}
 
 			PauseCombatAfterSkillGains = false;
@@ -3286,6 +3320,20 @@ namespace EamonRT.Game.Plugin
 
 					GameState.Ls = 0;
 				}
+			}
+		}
+
+		public virtual void PauseCombat()
+		{
+			Thread.Sleep(GameState.PauseCombatMs);
+
+			PauseCombatActionsCounter++;
+
+			if (GameState.Die <= 0 && GameState.PauseCombatActions > 0 && PauseCombatActionsCounter % GameState.PauseCombatActions == 0)
+			{
+				In.KeyPress(Buf);
+
+				Out.Print("{0}", LineSep);
 			}
 		}
 
@@ -3880,8 +3928,6 @@ namespace EamonRT.Game.Plugin
 			RtProgVersion = ProgVersion;
 
 			Buf01 = new StringBuilder(BufSize);
-
-			Buf02 = new StringBuilder(BufSize);
 
 			RevealContainerContentsFunc = RevealContainerContents;
 

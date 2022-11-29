@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Text;
 using Eamon;
 using Eamon.Framework;
+using Eamon.Framework.Args;
 using Eamon.Framework.Primitive.Classes;
 using Eamon.Framework.Primitive.Enums;
 using EamonRT.Framework.Commands;
@@ -29,9 +30,6 @@ namespace EamonRT.Framework.Plugin
 
 		/// <summary></summary>
 		StringBuilder Buf01 { get; set; }
-
-		/// <summary></summary>
-		StringBuilder Buf02 { get; set; }
 
 		/// <summary></summary>
 		IList<ICommand> CommandList { get; set; }
@@ -56,6 +54,9 @@ namespace EamonRT.Framework.Plugin
 
 		/// <summary></summary>
 		long ActionListCounter { get; set; }
+
+		/// <summary></summary>
+		long PauseCombatActionsCounter { get; set; }
 
 		/// <summary></summary>
 		long LoopMonsterUidListIndex { get; set; }
@@ -444,9 +445,9 @@ namespace EamonRT.Framework.Plugin
 		/// <param name="artifact"></param>
 		/// <param name="revealContentsList"></param>
 		/// <param name="containerType"></param>
-		/// <param name="revealShowCharOwned"></param>
 		/// <param name="showCharOwned"></param>
-		void BuildRevealContentsListDescString(IMonster monster, IArtifact artifact, IList<IArtifact> revealContentsList, ContainerType containerType, bool revealShowCharOwned, bool showCharOwned);
+		/// <param name="recordNameListArgs"></param>
+		void BuildRevealContentsListDescString(IMonster monster, IArtifact artifact, IList<IArtifact> revealContentsList, ContainerType containerType, bool showCharOwned, IRecordNameListArgs recordNameListArgs = null);
 
 		/// <summary></summary>
 		/// <param name="artifact1"></param>
@@ -641,9 +642,9 @@ namespace EamonRT.Framework.Plugin
 		/// <param name="room"></param>
 		/// <param name="monster"></param>
 		/// <param name="fleeing"></param>
-		/// <param name="callSleep"></param>
+		/// <param name="pauseCombat"></param>
 		/// <param name="printOutput"></param>
-		void MoveMonsterToRandomAdjacentRoom(IRoom room, IMonster monster, bool fleeing, bool callSleep, bool printOutput = true);
+		void MoveMonsterToRandomAdjacentRoom(IRoom room, IMonster monster, bool fleeing, bool pauseCombat, bool printOutput = true);
 
 		/// <summary></summary>
 		/// <param name="numMonsters"></param>
@@ -759,6 +760,9 @@ namespace EamonRT.Framework.Plugin
 
 		/// <summary></summary>
 		void CheckToExtinguishLightSource();
+
+		/// <summary></summary>
+		void PauseCombat();
 
 		/// <summary></summary>
 		/// <param name="oldRoom"></param>

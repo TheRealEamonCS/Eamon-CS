@@ -380,6 +380,9 @@ namespace Eamon.Framework.Plugin
 		/// <summary></summary>
 		bool EnableStdio { get; set; }
 
+		/// <summary></summary>
+		bool EnableNegativeRoomUidLinks { get; set; }
+
 		/// <summary>
 		/// Gets or sets a value indicating whether the <see cref="Mutex">Mutex</see> should be ignored, allowing unlimited Eamon CS processes
 		/// to run simultaneously.
@@ -471,9 +474,6 @@ namespace Eamon.Framework.Plugin
 		/// <see cref="IMonster.StateDesc"> StateDesc</see> properties.
 		/// </summary>
 		IDictionary<long, Func<string>> MacroFuncs { get; set; }
-
-		/// <summary></summary>
-		IList<IArtifact> ArtifactContainedList { get; set; }
 
 		/// <summary></summary>
 		Action<IRoom, IMonster, IArtifact, long, bool> RevealContainerContentsFunc { get; set; }
@@ -1351,11 +1351,6 @@ namespace Eamon.Framework.Plugin
 		/// <returns></returns>
 		long GetNumberFromString(string str);
 
-		/// <summary></summary>
-		/// <param name="artifact"></param>
-		/// <returns></returns>
-		string GetContainerContentsDesc(IArtifact artifact);
-
 		/// <summary>
 		/// Rolls a number of dice, storing the resulting values in an array.
 		/// </summary>
@@ -1449,14 +1444,10 @@ namespace Eamon.Framework.Plugin
 
 		/// <summary></summary>
 		/// <param name="recordList"></param>
-		/// <param name="articleType"></param>
-		/// <param name="showCharOwned"></param>
-		/// <param name="stateDescCode"></param>
-		/// <param name="showContents"></param>
-		/// <param name="groupCountOne"></param>
+		/// <param name="args"></param>
 		/// <param name="buf"></param>
 		/// <returns></returns>
-		RetCode GetRecordNameList(IList<IGameBase> recordList, ArticleType articleType, bool showCharOwned, StateDescDisplayCode stateDescCode, bool showContents, bool groupCountOne, StringBuilder buf);
+		RetCode GetRecordNameList(IList<IGameBase> recordList, IRecordNameListArgs args, StringBuilder buf);
 
 		/// <summary></summary>
 		/// <param name="recordList"></param>

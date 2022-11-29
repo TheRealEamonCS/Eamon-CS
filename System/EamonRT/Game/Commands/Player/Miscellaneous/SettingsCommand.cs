@@ -35,9 +35,11 @@ namespace EamonRT.Game.Commands
 
 		public virtual long? PauseCombatMs { get; set; } = null;
 
+		public virtual long? PauseCombatActions { get; set; } = null;
+
 		public override void Execute()
 		{
-			Debug.Assert(VerboseRooms != null || VerboseMonsters != null || VerboseArtifacts != null || VerboseNames != null || MatureContent != null || EnhancedParser != null || IobjPronounAffinity != null || ShowPronounChanges != null || ShowFulfillMessages != null || PauseCombatMs != null);
+			Debug.Assert(VerboseRooms != null || VerboseMonsters != null || VerboseArtifacts != null || VerboseNames != null || MatureContent != null || EnhancedParser != null || IobjPronounAffinity != null || ShowPronounChanges != null || ShowFulfillMessages != null || PauseCombatMs != null || PauseCombatActions != null);
 
 			if (VerboseRooms != null)
 			{
@@ -110,6 +112,13 @@ namespace EamonRT.Game.Commands
 				Debug.Assert(PauseCombatMs >= 0 && PauseCombatMs <= 10000);
 
 				gGameState.PauseCombatMs = (long)PauseCombatMs;
+			}
+
+			if (PauseCombatActions != null)
+			{
+				Debug.Assert(PauseCombatActions >= 0 && PauseCombatActions <= 25);
+
+				gGameState.PauseCombatActions = (long)PauseCombatActions;
 			}
 
 			PrintSettingsChanged();

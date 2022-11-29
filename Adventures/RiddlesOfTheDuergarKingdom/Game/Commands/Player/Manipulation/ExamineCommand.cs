@@ -21,7 +21,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.Commands
 			{
 				if (gGameState.PoisonedTargets.ContainsKey(DobjMonster.Uid))
 				{
-					gOut.Print("{0} is poisoned at this time!", DobjMonster.GetTheName(true, true, false, true));
+					gOut.Print("{0} is poisoned at this time!", DobjMonster.GetTheName(true, true, false, false, true));
 				}
 			}
 		}

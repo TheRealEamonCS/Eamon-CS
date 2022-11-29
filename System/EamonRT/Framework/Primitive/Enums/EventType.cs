@@ -139,6 +139,11 @@ namespace EamonRT.Framework.Primitive.Enums
 		AfterOpenArtifact,
 
 		/// <summary>
+		/// An event that fires before an <see cref="IArtifact">Artifact</see> is put into a container.
+		/// </summary>
+		BeforePutArtifact,
+
+		/// <summary>
 		/// An event that fires after an <see cref="IArtifact">Artifact</see> is put into a container.
 		/// </summary>
 		AfterPutArtifact,
@@ -187,6 +192,11 @@ namespace EamonRT.Framework.Primitive.Enums
 		/// An event that fires after checking if exits are available for fleeing, and it resolves that there are.
 		/// </summary>
 		AfterNumberOfExitsCheck,
+
+		/// <summary>
+		/// An event that fires before an <see cref="IArtifact">Artifact</see> is readied.
+		/// </summary>
+		BeforeReadyArtifact,
 
 		/// <summary>
 		/// An event that fires after an <see cref="IArtifact">Artifact</see> is readied.

@@ -79,7 +79,7 @@ namespace TheTrainingGround.Game.States
 
 							if (!summonedMonster.IsInRoom(characterRoom) && summonedMonster.Seen)
 							{
-								gOut.Print("<<POOF!!>>  {0} appears!", summonedMonster.GetTheName(true, true, false, true));
+								gOut.Print("<<POOF!!>>  {0} appears!", summonedMonster.GetTheName(true, true, false, false, true));
 
 								// Only reset for dead monsters
 

@@ -47,18 +47,6 @@ namespace Eamon.Game.Extensions
 			}
 		}
 
-		public static bool OmitStateDescSpace(this string str)
-		{
-			if (!string.IsNullOrEmpty(str))
-			{
-				return str[0] == ',' || str[0] == ';' || str[0] == ':';
-			}
-			else
-			{
-				return false;
-			}
-		}
-
 		/// <summary>
 		/// Indicates whether this <see cref="string">string</see> contains the supplied string (using <see cref="String.IndexOf(string, StringComparison)">IndexOf</see>).
 		/// </summary>

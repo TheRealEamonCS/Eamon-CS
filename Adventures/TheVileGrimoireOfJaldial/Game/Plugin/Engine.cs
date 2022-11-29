@@ -452,7 +452,7 @@ namespace TheVileGrimoireOfJaldial.Game.Plugin
 
 			var weaponArtifact = monster.Weapon > 0 ? ADB[monster.Weapon] : null;
 
-			return weaponArtifact != null ? weaponArtifact.GetArticleName(buf: Buf02) : "no weapon";
+			return weaponArtifact != null ? weaponArtifact.GetArticleName() : "no weapon";
 		}
 
 		public Engine()

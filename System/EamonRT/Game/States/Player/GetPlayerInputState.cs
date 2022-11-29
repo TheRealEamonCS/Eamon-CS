@@ -31,6 +31,8 @@ namespace EamonRT.Game.States
 					goto Cleanup;
 				}
 
+				gEngine.PauseCombatActionsCounter = 0;
+
 				gEngine.ShouldPreTurnProcess = true;
 
 				// If we've run out of player input get more player input

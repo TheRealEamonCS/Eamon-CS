@@ -320,6 +320,8 @@ namespace EamonPM
 
 			e = TheDeepCanyon.Game.Plugin.Globals.gEngine;
 
+			e = ThePyramidOfAnharos.Game.Plugin.Globals.gEngine;
+			
 			e = SampleAdventure.Game.Plugin.Globals.gEngine;
 			
 			e = TheWayfarersInn.Game.Plugin.Globals.gEngine;

@@ -24,7 +24,7 @@ namespace TheVileGrimoireOfJaldial.Game
 
 				if (gEngine.EnableMutateProperties && room != null && room.Uid == gGameState.Ro && room.IsDimLightRoomWithoutGlowingMonsters() && gGameState.Ls <= 0)
 				{
-					result = string.Format("You can vaguely make out {0} in the {1}.", GetTheName(buf: gEngine.Buf01), gGameState.IsNightTime() ? "darkness" : "white haze");
+					result = string.Format("You can vaguely make out {0} in the {1}.", GetTheName(), gGameState.IsNightTime() ? "darkness" : "white haze");
 				}
 
 				return result;

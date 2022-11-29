@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.Generic;
+using Eamon.Framework.Args;
 using Eamon.Framework.Primitive.Classes;
 using Eamon.Framework.Primitive.Enums;
 
@@ -584,6 +585,10 @@ namespace Eamon.Framework
 
 		/// <summary></summary>
 		/// <returns></returns>
+		bool IsDoorGateInObviousExitsList();
+
+		/// <summary></summary>
+		/// <returns></returns>
 		bool ShouldAllowBlastSkillGains();
 
 		/// <summary></summary>
@@ -728,12 +733,24 @@ namespace Eamon.Framework
 		IList<IArtifact> GetContainedList(Func<IArtifact, bool> artifactFindFunc = null, ContainerType containerType = ContainerType.In, bool recurse = false);
 
 		/// <summary></summary>
+		/// <param name="artifactList"></param>
+		/// <param name="artifactFindFunc"></param>
+		/// <param name="containerType"></param>
+		/// <param name="recurse"></param>
+		void GetContainedList01(IList<IArtifact> artifactList, Func<IArtifact, bool> artifactFindFunc = null, ContainerType containerType = ContainerType.In, bool recurse = false);
+
+		/// <summary></summary>
 		/// <param name="count"></param>
 		/// <param name="weight"></param>
 		/// <param name="containerType"></param>
 		/// <param name="recurse"></param>
 		/// <returns></returns>
 		RetCode GetContainerInfo(ref long count, ref long weight, ContainerType containerType = ContainerType.In, bool recurse = false);
+
+		/// <summary></summary>
+		/// <param name="recordNameListArgs"></param>
+		/// <returns></returns>
+		string GetContainerContentsDesc(IRecordNameListArgs recordNameListArgs = null);
 
 		#endregion
 	}
