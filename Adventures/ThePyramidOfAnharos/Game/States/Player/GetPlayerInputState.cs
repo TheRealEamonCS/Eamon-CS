@@ -126,7 +126,10 @@ namespace ThePyramidOfAnharos.Game.States
 					}
 				}
 
-				gEngine.PrintGuideMonsterDirection();
+				if (gSentenceParser.IsInputExhausted)
+				{
+					gEngine.PrintGuideMonsterDirection();
+				}
 			}
 
 		Cleanup:
