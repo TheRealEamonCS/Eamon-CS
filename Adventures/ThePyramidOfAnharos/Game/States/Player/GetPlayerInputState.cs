@@ -17,8 +17,6 @@ namespace ThePyramidOfAnharos.Game.States
 	[ClassMappings]
 	public class GetPlayerInputState : EamonRT.Game.States.GetPlayerInputState, IGetPlayerInputState
 	{
-		public virtual ICombatComponent CombatComponent { get; set; }
-
 		public override void ProcessEvents(EventType eventType)
 		{
 			base.ProcessEvents(eventType);
@@ -60,7 +58,7 @@ namespace ThePyramidOfAnharos.Game.States
 
 					for (var i = 1; i <= guardsMonster.CurrGroupCount; i++)
 					{
-						CombatComponent = gEngine.CreateInstance<ICombatComponent>(x =>
+						var combatComponent = gEngine.CreateInstance<ICombatComponent>(x =>
 						{
 							x.SetNextStateFunc = s => NextState = s;
 
@@ -75,7 +73,7 @@ namespace ThePyramidOfAnharos.Game.States
 							x.AttackNumber = 1;
 						});
 
-						CombatComponent.ExecuteAttack();
+						combatComponent.ExecuteAttack();
 
 						if (gGameState.Die > 0)
 						{

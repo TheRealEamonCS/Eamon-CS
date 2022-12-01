@@ -18,7 +18,24 @@ namespace ThePyramidOfAnharos.Game.States
 		{
 			base.ProcessEvents(eventType);
 
-			if (eventType == EventType.AfterExtinguishLightSourceCheck)
+			if (eventType == EventType.AfterMoveMonsters)
+			{
+				// Snuff torch in Black room
+
+				if (gGameState.Ro == 39 && gGameState.Ls > 0)
+				{
+					var lsArtifact = gADB[gGameState.Ls];
+
+					Debug.Assert(lsArtifact != null);
+
+					gEngine.PrintEffectDesc(9);
+
+					lsArtifact.RemoveStateDesc(lsArtifact.GetProvidingLightDesc());
+
+					gGameState.Ls = 0;
+				}
+			}
+			else if (eventType == EventType.AfterExtinguishLightSourceCheck)
 			{
 				var ropeArtifact = gADB[13];
 

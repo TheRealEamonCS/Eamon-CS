@@ -3,11 +3,13 @@
 
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
+using System;
+using System.Diagnostics;
+using System.Text;
 using Eamon;
 using Eamon.Framework;
 using Eamon.Game.Attributes;
-using System;
-using System.Text;
+using Eamon.Game.Extensions;
 using static ThePyramidOfAnharos.Game.Plugin.Globals;
 
 namespace ThePyramidOfAnharos.Game
@@ -73,6 +75,30 @@ namespace ThePyramidOfAnharos.Game
 			// No obvious exits in desert
 
 			return Zone != 1 ? base.GetExitList(buf, modFunc, useNames) : RetCode.Success;
+		}
+
+		public override RetCode BuildPrintedTooDarkToSeeDesc(StringBuilder buf)
+		{
+			RetCode result;
+
+			Debug.Assert(buf != null);
+
+			// Print room desc in Black room
+
+			if (Uid == 39 && (!Seen || gGameState.Vr))
+			{
+				buf.SetPrint("[{0}]{1}{2}{1}{3}", Name, Environment.NewLine, Desc, "Obvious exits: north.");
+
+				Seen = true;
+
+				result = RetCode.Success;
+			}
+			else
+			{
+				result = base.BuildPrintedTooDarkToSeeDesc(buf);
+			}
+
+			return result;
 		}
 	}
 }
