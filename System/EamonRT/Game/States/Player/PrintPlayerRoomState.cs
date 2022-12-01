@@ -31,7 +31,7 @@ namespace EamonRT.Game.States
 
 			// If room is dark or we've run out of player input print player Room
 
-			if (!room.IsLit() || gSentenceParser.IsInputExhausted)
+			if ((!room.IsLit() && (gEngine.LastCommand == null || !gEngine.LastCommand.IsDarkEnabled)) || gSentenceParser.IsInputExhausted)
 			{
 				gEngine.PrintPlayerRoom();
 			}
