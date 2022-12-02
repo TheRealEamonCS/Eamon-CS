@@ -4,6 +4,7 @@
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
 using System.Diagnostics;
+using Eamon.Framework;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
@@ -14,6 +15,8 @@ namespace EamonRT.Game.States
 	[ClassMappings]
 	public class PrintPlayerRoomState : State, IPrintPlayerRoomState
 	{
+		public virtual IRoom CurrRoom { get; set; }
+
 		public override void Execute()
 		{
 			Debug.Assert(gCharMonster != null);
@@ -25,15 +28,15 @@ namespace EamonRT.Game.States
 				goto Cleanup;
 			}
 
-			var room = gCharMonster.GetInRoom();
+			CurrRoom = gCharMonster.GetInRoom();
 
-			Debug.Assert(room != null);
+			Debug.Assert(CurrRoom != null);
 
 			// If room is dark or we've run out of player input print player Room
 
-			if ((!room.IsLit() && (gEngine.LastCommand == null || !gEngine.LastCommand.IsDarkEnabled)) || gSentenceParser.IsInputExhausted)
+			if ((!CurrRoom.IsLit() && (gEngine.LastCommand == null || !gEngine.LastCommand.IsDarkEnabled)) || gSentenceParser.IsInputExhausted)
 			{
-				gEngine.PrintPlayerRoom();
+				gEngine.PrintPlayerRoom(CurrRoom);
 			}
 
 		Cleanup:

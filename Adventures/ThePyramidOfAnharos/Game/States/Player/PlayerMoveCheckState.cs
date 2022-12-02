@@ -3,7 +3,9 @@
 
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
+using System;
 using System.Diagnostics;
+using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
@@ -18,14 +20,88 @@ namespace ThePyramidOfAnharos.Game.States
 		{
 			base.ProcessEvents(eventType);
 
-			if (eventType == EventType.AfterBlockingArtifactCheck)
+			Debug.Assert(gCharMonster != null);
+
+			var room = gCharMonster.GetInRoom();
+
+			Debug.Assert(room != null);
+
+			if (eventType == EventType.BeforeCanMoveToRoomCheck)
 			{
-				Debug.Assert(gCharMonster != null);
+				var omarMonster = gMDB[1];
 
-				var room = gCharMonster.GetInRoom();
+				Debug.Assert(omarMonster != null);
 
-				Debug.Assert(room != null);
+				var aliMonster = gMDB[2];
 
+				Debug.Assert(aliMonster != null);
+
+				// Wander into desert
+
+				if (gGameState.R2 < -89 && gGameState.R2 > -95)
+				{
+					gGameState.KL = Math.Abs(gGameState.R2) - 89;
+
+					gGameState.R2 = 67;
+				}
+
+				// Lost in desert
+
+				else if (gGameState.R2 == -95)
+				{
+					var km = 25 + (omarMonster.IsInRoom(room) && omarMonster.Reaction == Friendliness.Friend ? 50 : aliMonster.IsInRoom(room) && aliMonster.Reaction == Friendliness.Friend ? 25 : 0);
+
+					var rl = gEngine.RollDice(1, 100, 0);        // TODO: should modifier be -1 ???
+
+					if (km - rl >= 0)
+					{
+						switch (gGameState.KL)
+						{
+							case 1:
+
+								gGameState.R2 = gEngine.RollDice(1, 4, 0);
+
+								break;
+
+							case 2:
+
+								gGameState.R2 = gEngine.RollDice(1, 8, 5);
+
+								break;
+
+							case 3:
+
+								gGameState.R2 = gEngine.RollDice(1, 3, 43);
+
+								break;
+
+							case 4:
+
+								gGameState.R2 = gEngine.RollDice(1, 3, 49);
+
+								break;
+
+							case 5:
+
+								gGameState.R2 = gEngine.RollDice(1, 3, 63);
+
+								break;
+
+							default:
+
+								Debug.Assert(1 == 0);
+
+								break;
+						}
+					}
+					else
+					{
+						gGameState.R2 = 67;
+					}
+				}
+			}
+			else if (eventType == EventType.AfterBlockingArtifactCheck)
+			{
 				// Falling stone death trap
 
 				if (gGameState.R2 == -98)

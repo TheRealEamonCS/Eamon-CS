@@ -114,7 +114,7 @@ namespace ARuncibleCargo.Game.States
 
 					gEngine.PrintEffectDesc(11);
 
-					gEngine.PrintPlayerRoom();
+					gEngine.PrintPlayerRoom(room);
 				}
 
 				var ovenArtifact = gADB[80];

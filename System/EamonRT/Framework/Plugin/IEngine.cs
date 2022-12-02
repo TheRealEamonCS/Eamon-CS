@@ -194,7 +194,8 @@ namespace EamonRT.Framework.Plugin
 		#region Public Methods
 
 		/// <summary></summary>
-		void PrintPlayerRoom();
+		/// <param name="room"></param>
+		void PrintPlayerRoom(IRoom room);
 
 		/// <summary></summary>
 		void PrintToWhom();

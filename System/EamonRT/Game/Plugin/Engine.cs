@@ -372,10 +372,8 @@ namespace EamonRT.Game.Plugin
 			}
 		}
 
-		public virtual void PrintPlayerRoom()
+		public virtual void PrintPlayerRoom(IRoom room)
 		{
-			var room = RDB[GameState.Ro];
-
 			Debug.Assert(room != null);
 
 			Buf.Clear();

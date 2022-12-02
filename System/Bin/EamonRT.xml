@@ -1691,8 +1691,9 @@
         <member name="P:EamonRT.Framework.Plugin.IEngine.PercentCharPolicy">
             <summary></summary>
         </member>
-        <member name="M:EamonRT.Framework.Plugin.IEngine.PrintPlayerRoom">
+        <member name="M:EamonRT.Framework.Plugin.IEngine.PrintPlayerRoom(Eamon.Framework.IRoom)">
             <summary></summary>
+            <param name="room"></param>
         </member>
         <member name="M:EamonRT.Framework.Plugin.IEngine.PrintToWhom">
             <summary></summary>
