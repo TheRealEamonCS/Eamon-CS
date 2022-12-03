@@ -2831,6 +2831,11 @@ namespace Eamon.Game.Plugin
 			return ch >= '1' && ch <= '3';
 		}
 
+		public virtual bool IsChar1To4(char ch)
+		{
+			return ch >= '1' && ch <= '4';
+		}
+
 		public virtual bool IsCharDigit(char ch)
 		{
 			return Char.IsDigit(ch);

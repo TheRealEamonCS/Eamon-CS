@@ -1088,6 +1088,13 @@ namespace Eamon.Framework.Plugin
 		bool IsChar1To3(char ch);
 
 		/// <summary>
+		/// Indicates whether a character is one of ['1', '2', '3', '4'].
+		/// </summary>
+		/// <param name="ch"></param>
+		/// <returns></returns>
+		bool IsChar1To4(char ch);
+
+		/// <summary>
 		/// Indicates whether a character is a numeric digit.
 		/// </summary>
 		/// <param name="ch"></param>
