@@ -4,6 +4,7 @@
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
 using Eamon.Framework;
+using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using static ThePyramidOfAnharos.Game.Plugin.Globals;
 
@@ -20,22 +21,32 @@ namespace ThePyramidOfAnharos.Game
 
 				if (gEngine.EnableMutateProperties)
 				{
-					// Door
+					// Door / Arch
 
 					if (Uid == 76)
 					{
 						if (gGameState.Ro == 6)
 						{
+							IsPlural = false;
+
+							PluralType = PluralType.S;
+
+							Name = "door";
+
+							ArticleType = ArticleType.A;
+
 							result = gGameState.Ro;
 						}
-					}
-
-					// Glyphs
-
-					else if (Uid == 77)
-					{
-						if (gGameState.Ro == 6 || gGameState.Ro == 29 || gGameState.Ro == 31)
+						else if (gGameState.Ro == 29)
 						{
+							IsPlural = false;
+
+							PluralType = PluralType.Es;
+
+							Name = "arch";
+
+							ArticleType = ArticleType.An;
+
 							result = gGameState.Ro;
 						}
 					}

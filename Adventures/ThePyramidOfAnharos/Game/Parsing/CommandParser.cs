@@ -17,7 +17,7 @@ namespace ThePyramidOfAnharos.Game.Parsing
 	{
 		public override void FinishParsingGetCommand()
 		{
-			var waterArtifact = gADB[78];
+			var waterArtifact = gADB[77];
 
 			Debug.Assert(waterArtifact != null);
 

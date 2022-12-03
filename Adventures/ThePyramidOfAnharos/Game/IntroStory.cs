@@ -49,11 +49,11 @@ namespace ThePyramidOfAnharos.Game
 				{
 					gOut.WriteLine("{0}{1}{0}", Environment.NewLine, gEngine.LineSep);
 
-					gOut.Write("{0}Do you want a Good (G), an Average (A), or No (N) guide? ", Environment.NewLine);
+					gOut.Write("{0}Do you want a Good, an Average, or No guide (G/A/N): ", Environment.NewLine);
 
 					buf.Clear();
 
-					rc = gEngine.In.ReadField(buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, IsCharGOrAOrN, IsCharGOrAOrN);
+					rc = gEngine.In.ReadField(buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, IsCharGOrAOrN, null);
 
 					Debug.Assert(gEngine.IsSuccess(rc));
 

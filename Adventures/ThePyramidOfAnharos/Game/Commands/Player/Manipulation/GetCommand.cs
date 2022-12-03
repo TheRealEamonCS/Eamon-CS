@@ -22,7 +22,7 @@ namespace ThePyramidOfAnharos.Game.Commands
 
 			// Water
 
-			if (DobjArtifact.Uid == 78)
+			if (DobjArtifact.Uid == 77)
 			{
 				var waterBagArtifact = gADB[12];
 

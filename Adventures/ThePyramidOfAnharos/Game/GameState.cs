@@ -24,6 +24,16 @@ namespace ThePyramidOfAnharos.Game
 
 		public virtual long KL { get; set; }
 
+		public virtual long KN { get; set; }
+
+		public virtual long KO { get; set; }
+
+		public virtual long KP { get; set; }
+
+		public virtual long KQ { get; set; }
+
+		public virtual long KR { get; set; }
+
 		public virtual long KV { get; set; }
 
 		public virtual long KW { get; set; }

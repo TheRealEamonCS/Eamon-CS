@@ -21,6 +21,16 @@ namespace ThePyramidOfAnharos.Framework
 
 		long KL { get; set; }
 
+		long KN { get; set; }
+
+		long KO { get; set; }
+
+		long KP { get; set; }
+
+		long KQ { get; set; }
+
+		long KR { get; set; }
+
 		long KV { get; set; }
 
 		long KW { get; set; }

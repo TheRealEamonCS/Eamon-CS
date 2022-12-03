@@ -59,6 +59,7 @@ namespace ThePyramidOfAnharos.Game.Plugin
 				{ 7, new string[] { "rifle", "gun" } },
 				{ 10, new string[] { "scimitar" } },
 				{ 12, new string[] { "bag" } },
+				{ 14, new string[] { "glyphs", "glyph" } },
 				{ 21, new string[] { "wall", "flame" } },
 				{ 22, new string[] { "wall", "flame" } },
 				{ 23, new string[] { "cloud" } },
@@ -68,11 +69,14 @@ namespace ThePyramidOfAnharos.Game.Plugin
 				{ 27, new string[] { "body" } },
 				{ 28, new string[] { "door" } },
 				{ 29, new string[] { "body" } },
+				{ 30, new string[] { "glyphs", "glyph" } },
 				{ 31, new string[] { "moon pool", "pool" } },
+				{ 32, new string[] { "glyphs", "glyph" } },
 				{ 34, new string[] { "mummy", "Anharos" } },
 				{ 35, new string[] { "door" } },
 				{ 38, new string[] { "Diamond", "Purity" } },
 				{ 39, new string[] { "case" } },
+				{ 40, new string[] { "glyphs", "glyph" } },
 				{ 42, new string[] { "leather", "armor" } },
 				{ 43, new string[] { "chain", "armor" } },
 				{ 44, new string[] { "plate", "armor" } },
@@ -98,6 +102,7 @@ namespace ThePyramidOfAnharos.Game.Plugin
 				{ 73, new string[] { "dead Basra", "dead body", "body", "Basra" } },
 				{ 74, new string[] { "dead children", "Riff children", "children", "dead Riff child", "dead child", "Riff child", "child" } },
 				{ 75, new string[] { "guards", "dead guard", "guard" } },
+				{ 76, new string[] { "glyphs", "glyph" } },
 			};
 
 			foreach (var synonym in synonyms)
@@ -138,6 +143,13 @@ namespace ThePyramidOfAnharos.Game.Plugin
 
 				gCharacter.HeldGold -= (long)Math.Floor((200.0 / gGameState.GU) / gGameState.GU);
 			}
+		}
+
+		public virtual bool IsCharNOrSOrEOrW(char ch)
+		{
+			ch = Char.ToUpper(ch);
+
+			return ch == 'N' || ch == 'S' || ch == 'E' || ch == 'W';
 		}
 
 		public virtual void PrintGuideMonsterDirection()
