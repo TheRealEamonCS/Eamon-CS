@@ -49,7 +49,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			gOut.Print("{0}", gEngine.LineSep);
 
-			gOut.Write("{0}S=Skip field, T=Edit this record, R={1} referred to record, X=Exit: ",
+			gOut.Write("{0}S=Skip field; T=Edit this record; R={1} referred to record; X=Exit: ",
 				Environment.NewLine,
 				ValidateHelper.NewRecordUid > 0 ? "Add" : "Edit");
 
