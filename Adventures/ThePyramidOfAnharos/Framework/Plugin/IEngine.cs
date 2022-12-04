@@ -7,8 +7,6 @@ namespace ThePyramidOfAnharos.Framework.Plugin
 {
 	public interface IEngine : EamonRT.Framework.Plugin.IEngine
 	{
-		bool IsCharNOrSOrEOrW(char ch);
-
 		void PrintGuideMonsterDirection();
 
 		void PrintTheGlyphsRead(long effectUid);

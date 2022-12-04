@@ -53,7 +53,7 @@ namespace ThePyramidOfAnharos.Game
 
 					buf.Clear();
 
-					rc = gEngine.In.ReadField(buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, IsCharGOrAOrN, null);
+					rc = gEngine.In.ReadField(buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharGOrAOrN, null);
 
 					Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -93,13 +93,6 @@ namespace ThePyramidOfAnharos.Game
 					gEngine.In.KeyPress(buf);
 				}
 			}
-		}
-
-		public virtual bool IsCharGOrAOrN(char ch)
-		{
-			ch = Char.ToUpper(ch);
-
-			return ch == 'G' || ch == 'A' || ch == 'N';
 		}
 	}
 }

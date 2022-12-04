@@ -2804,11 +2804,25 @@ namespace Eamon.Game.Plugin
 			return ch == 'Y' || ch == 'N';
 		}
 
+		public virtual bool IsCharGOrAOrN(char ch)
+		{
+			ch = Char.ToUpper(ch);
+
+			return ch == 'G' || ch == 'A' || ch == 'N';
+		}
+
 		public virtual bool IsCharSOrTOrROrX(char ch)
 		{
 			ch = Char.ToUpper(ch);
 
 			return ch == 'S' || ch == 'T' || ch == 'R' || ch == 'X';
+		}
+
+		public virtual bool IsCharNOrSOrEOrW(char ch)
+		{
+			ch = Char.ToUpper(ch);
+
+			return ch == 'N' || ch == 'S' || ch == 'E' || ch == 'W';
 		}
 
 		public virtual bool IsChar0Or1(char ch)

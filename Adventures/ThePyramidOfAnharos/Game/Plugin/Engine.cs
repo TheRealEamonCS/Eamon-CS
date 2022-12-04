@@ -212,13 +212,6 @@ namespace ThePyramidOfAnharos.Game.Plugin
 			}
 		}
 
-		public virtual bool IsCharNOrSOrEOrW(char ch)
-		{
-			ch = Char.ToUpper(ch);
-
-			return ch == 'N' || ch == 'S' || ch == 'E' || ch == 'W';
-		}
-
 		public virtual void PrintGuideMonsterDirection()
 		{
 			Debug.Assert(gCharMonster != null);

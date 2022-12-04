@@ -4392,9 +4392,23 @@
             <param name="ch"></param>
             <returns></returns>
         </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.IsCharGOrAOrN(System.Char)">
+            <summary>
+            Indicates whether a character is one of ['G', 'A', 'N'].
+            </summary>
+            <param name="ch"></param>
+            <returns></returns>
+        </member>
         <member name="M:Eamon.Framework.Plugin.IEngine.IsCharSOrTOrROrX(System.Char)">
             <summary>
             Indicates whether a character is one of ['S', 'T', 'R', 'X'].
+            </summary>
+            <param name="ch"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.IsCharNOrSOrEOrW(System.Char)">
+            <summary>
+            Indicates whether a character is one of ['N', 'S', 'E', 'W'].
             </summary>
             <param name="ch"></param>
             <returns></returns>
