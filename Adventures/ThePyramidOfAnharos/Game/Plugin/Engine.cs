@@ -7,8 +7,11 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
+using System.Text;
 using Eamon;
+using Eamon.Framework;
 using Eamon.Framework.Primitive.Enums;
+using EamonRT.Framework.States;
 using static ThePyramidOfAnharos.Game.Plugin.Globals;
 
 namespace ThePyramidOfAnharos.Game.Plugin
@@ -31,6 +34,63 @@ namespace ThePyramidOfAnharos.Game.Plugin
 		Cleanup:
 
 			return rc;
+		}
+
+		public override void PrintPlayerRoom(IRoom room)
+		{
+			RetCode rc;
+
+			Debug.Assert(room != null);
+
+			base.PrintPlayerRoom(room);
+
+			var dyingMerchantArtifact = gADB[49];
+
+			Debug.Assert(dyingMerchantArtifact != null);
+
+			var faroukBodyArtifact = gADB[61];
+
+			Debug.Assert(faroukBodyArtifact != null);
+
+			var faroukMonster = gMDB[6];
+
+			Debug.Assert(faroukMonster != null);
+
+			// Dying merchant
+
+			if (room.Uid == 52 && dyingMerchantArtifact.IsInRoom(room) && gGameState.KW >= 20)
+			{
+				gOut.Write("{0}Do you wish to give Farouk any water (Y/N): ", Environment.NewLine);
+
+				var buf = new StringBuilder(gEngine.BufSize);
+
+				rc = gEngine.In.ReadField(buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, null);
+
+				Debug.Assert(gEngine.IsSuccess(rc));
+
+				if (buf.Length > 0 && buf[0] == 'Y')
+				{
+					gOut.Print("You have revived Farouk.");
+
+					gGameState.KW -= 20;
+
+					dyingMerchantArtifact.SetInLimbo();
+
+					faroukMonster.SetInRoom(room);
+
+					faroukMonster.Seen = true;
+
+					faroukMonster.Reaction = Friendliness.Friend;
+				}
+				else if (buf.Length > 0 && buf[0] == 'N')
+				{
+					gOut.Print("Farouk is dead.");
+
+					dyingMerchantArtifact.SetInLimbo();
+
+					faroukBodyArtifact.SetInRoom(room);
+				}
+			}
 		}
 
 		public override void InitArtifacts()
@@ -114,6 +174,13 @@ namespace ThePyramidOfAnharos.Game.Plugin
 		public override void InitMonsters()
 		{
 			base.InitMonsters();
+
+			MacroFuncs.Add(3, () =>
+			{
+				// Not enough water for Farouk
+
+				return GameState != null && gGameState.KW < 20 ? ", but you have none to spare" : "";
+			});
 
 			var synonyms = new Dictionary<long, string[]>()
 			{
