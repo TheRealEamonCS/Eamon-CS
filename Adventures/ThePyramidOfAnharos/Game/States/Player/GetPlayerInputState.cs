@@ -5,6 +5,8 @@
 
 using System;
 using System.Diagnostics;
+using System.Text;
+using Eamon;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Components;
@@ -19,6 +21,8 @@ namespace ThePyramidOfAnharos.Game.States
 	{
 		public override void ProcessEvents(EventType eventType)
 		{
+			RetCode rc;
+
 			base.ProcessEvents(eventType);
 
 			if (eventType == EventType.BeforePrintCommandPrompt && gEngine.ShouldPreTurnProcess)
@@ -33,9 +37,25 @@ namespace ThePyramidOfAnharos.Game.States
 
 				Debug.Assert(guardsMonster != null);
 
+				var faroukMonster = gMDB[6];
+
+				Debug.Assert(faroukMonster != null);
+
 				var deadGuardsArtifact = gADB[75];
 
 				Debug.Assert(deadGuardsArtifact != null);
+
+				var columnOfWaterArtifact = gADB[48];
+
+				Debug.Assert(columnOfWaterArtifact != null);
+
+				var dyingMerchantArtifact = gADB[49];
+
+				Debug.Assert(dyingMerchantArtifact != null);
+
+				var faroukBodyArtifact = gADB[61];
+
+				Debug.Assert(faroukBodyArtifact != null);
 
 				// Guards attack
 
@@ -81,6 +101,131 @@ namespace ThePyramidOfAnharos.Game.States
 
 							goto Cleanup;
 						}
+					}
+				}
+
+				// Pedestal room spectrum color puzzle
+
+				if (room.Uid > 31 && room.Uid < 40 && room.IsLit())
+				{
+					switch (room.Uid)
+					{
+						case 32:
+
+							if (gGameState.KS == 0)
+							{
+								gGameState.KS = 1;
+							}
+
+							break;
+
+						case 33:
+
+							if (gGameState.KS == 1)
+							{
+								gGameState.KS = 2;
+							}
+
+							break;
+
+						case 34:
+
+							if (gGameState.KS == 2)
+							{
+								gGameState.KS = 3;
+							}
+
+							break;
+
+						case 35:
+
+							if (gGameState.KS == 3)
+							{
+								gGameState.KS = 4;
+							}
+
+							break;
+
+						case 36:
+
+							if (gGameState.KS == 4)
+							{
+								gGameState.KS = 5;
+							}
+
+							break;
+
+						case 37:
+
+							if (gGameState.KS == 5)
+							{
+								gGameState.KS = 6;
+							}
+
+							break;
+
+						case 38:
+
+							if (gGameState.KS == 6)
+							{
+								gGameState.KS = 7;
+							}
+
+							break;
+					}
+
+					if (gGameState.KS == 7)
+					{
+						gGameState.KT = 1;
+					}
+				}
+
+				// Moonpool waterspout
+
+				if (room.Uid == 38 && columnOfWaterArtifact.IsInLimbo() && gGameState.KS == 7)
+				{
+					gEngine.PrintEffectDesc(15);
+
+					columnOfWaterArtifact.SetInRoom(room);
+
+					gGameState.KS = 0;
+
+					gGameState.KT = 1;
+				}
+
+				// Dying merchant
+
+				if (room.Uid == 52 && dyingMerchantArtifact.IsInRoom(room) && gGameState.GetNBTL(Friendliness.Enemy) <= 0 && gGameState.KW >= 20)
+				{
+					gOut.Write("{0}Do you wish to give Farouk any water (Y/N): ", Environment.NewLine);
+
+					var buf = new StringBuilder(gEngine.BufSize);
+
+					rc = gEngine.In.ReadField(buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, null);
+
+					Debug.Assert(gEngine.IsSuccess(rc));
+
+					if (buf.Length > 0 && buf[0] == 'Y')
+					{
+						gOut.Print("You have revived Farouk.");
+
+						gGameState.KW -= 20;
+
+						dyingMerchantArtifact.SetInLimbo();
+
+						faroukMonster.SetInRoom(room);
+
+						faroukMonster.Seen = true;
+
+						faroukMonster.Reaction = Friendliness.Friend;
+					}
+					else if (buf.Length > 0 && buf[0] == 'N')
+					{
+						gOut.Print("Farouk is dead.");
+
+						dyingMerchantArtifact.SetInLimbo();
+
+						faroukBodyArtifact.SetInRoom(room);
 					}
 				}
 
