@@ -18,11 +18,9 @@ namespace ThePyramidOfAnharos.Game.Commands
 	{
 		public override void Execute()
 		{
-			Debug.Assert(DobjArtifact != null);
-
 			// Water
 
-			if (DobjArtifact.Uid == 77)
+			if (DobjArtifact != null && DobjArtifact.Uid == 77)
 			{
 				var waterBagArtifact = gADB[12];
 

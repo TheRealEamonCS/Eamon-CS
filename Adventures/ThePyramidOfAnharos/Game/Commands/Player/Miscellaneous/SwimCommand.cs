@@ -25,7 +25,9 @@ namespace ThePyramidOfAnharos.Game.Commands
 			if (ActorRoom.Uid == 26 || ActorRoom.Uid == 27)
 			{
 				gEngine.PrintEffectDesc(23);
-								
+
+				// TODO: implement equipment damage
+
 				gGameState.R2 = ActorRoom.Uid == 26 ? 27 : 26;
 
 				NextState = gEngine.CreateInstance<IAfterPlayerMoveState>();
