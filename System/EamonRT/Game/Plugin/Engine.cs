@@ -3242,29 +3242,17 @@ namespace EamonRT.Game.Plugin
 			return rl <= value;
 		}
 
-		public virtual void DamageWeaponsAndArmor(bool includeFriends = true, bool recurse = false)
+		public virtual void DamageWeaponsAndArmor(IRoom room, IMonster monster, bool recurse = false)
 		{
-			Debug.Assert(gCharMonster != null);
-
-			var room = gCharMonster.GetInRoom();
-
 			Debug.Assert(room != null);
 
-			IList<IMonster> monsterList = null;
+			Debug.Assert(monster != null);
 
 			// Damage weapons
 
-			var artifactList = GetArtifactList(a => (a.IsCarriedByCharacter(recurse) || a.IsWornByCharacter(recurse)) && !a.IsWornByCharacter() && a.GeneralWeapon != null);
-
-			if (includeFriends)
-			{
-				monsterList = GetMonsterList(m => !m.IsCharacterMonster() && m.Reaction == Friendliness.Friend && m.IsInRoom(room));
-
-				foreach (var monster in monsterList)
-				{
-					artifactList.AddRange(GetArtifactList(a => (a.IsCarriedByMonster(monster, recurse) || a.IsWornByMonster(monster, recurse)) && !a.IsWornByMonster(monster) && a.GeneralWeapon != null));
-				}
-			}
+			var artifactList = monster.IsCharacterMonster() ? 
+				GetArtifactList(a => (a.IsCarriedByCharacter(recurse) || a.IsWornByCharacter(recurse)) && !a.IsWornByCharacter() && a.GeneralWeapon != null) : 
+				GetArtifactList(a => (a.IsCarriedByMonster(monster, recurse) || a.IsWornByMonster(monster, recurse)) && !a.IsWornByMonster(monster) && a.GeneralWeapon != null);
 
 			foreach (var artifact in artifactList)
 			{
@@ -3275,9 +3263,7 @@ namespace EamonRT.Game.Plugin
 						PrintArtifactBreaks(artifact);
 					}
 
-					var monster = GetMonsterList(m => m.Weapon == artifact.Uid).FirstOrDefault();
-
-					if (monster != null)
+					if (monster.Weapon == artifact.Uid)
 					{
 						artifact.RemoveStateDesc(artifact.GetReadyWeaponDesc());
 
@@ -3290,15 +3276,9 @@ namespace EamonRT.Game.Plugin
 
 			// Damage armor
 
-			artifactList = GetArtifactList(a => (a.IsCarriedByCharacter(recurse) || a.IsWornByCharacter(recurse)) && a.Wearable != null && a.Wearable.Field1 > 0 && a.Wearable.Field2 == 0);
-
-			if (includeFriends)
-			{
-				foreach (var monster in monsterList)
-				{
-					artifactList.AddRange(GetArtifactList(a => (a.IsCarriedByMonster(monster, recurse) || a.IsWornByMonster(monster, recurse)) && a.Wearable != null && a.Wearable.Field1 > 0 && a.Wearable.Field2 == 0));
-				}
-			}
+			artifactList = monster.IsCharacterMonster() ?
+				GetArtifactList(a => (a.IsCarriedByCharacter(recurse) || a.IsWornByCharacter(recurse)) && a.Wearable != null && a.Wearable.Field1 > 0 && a.Wearable.Field2 == (long)Clothing.ArmorShields) :
+				GetArtifactList(a => (a.IsCarriedByMonster(monster, recurse) || a.IsWornByMonster(monster, recurse)) && a.Wearable != null && a.Wearable.Field1 > 0 && a.Wearable.Field2 == (long)Clothing.ArmorShields);
 
 			Out.EnableOutput = false;
 
@@ -3306,13 +3286,13 @@ namespace EamonRT.Game.Plugin
 			{
 				var wornByChar = artifact.IsWornByCharacter();
 
-				var wornByMonster = artifact.GetWornByMonster();
+				var wornByMonster = artifact.IsWornByMonster();
 
 				if (wornByChar)
 				{
 					var command = CreateInstance<IRemoveCommand>(x =>
 					{
-						x.ActorMonster = gCharMonster;
+						x.ActorMonster = monster;
 
 						x.ActorRoom = room;
 
@@ -3321,12 +3301,12 @@ namespace EamonRT.Game.Plugin
 
 					command.Execute();
 				}
-				else if (wornByMonster != null)
+				else if (wornByMonster)
 				{
 					/*
 					var command = CreateInstance<IMonsterRemoveCommand>(x =>
 					{
-						x.ActorMonster = wornByMonster;
+						x.ActorMonster = monster;
 
 						x.ActorRoom = room;
 
@@ -3355,7 +3335,7 @@ namespace EamonRT.Game.Plugin
 				{
 					var command = CreateInstance<IWearCommand>(x =>
 					{
-						x.ActorMonster = gCharMonster;
+						x.ActorMonster = monster;
 
 						x.ActorRoom = room;
 
@@ -3364,12 +3344,12 @@ namespace EamonRT.Game.Plugin
 
 					command.Execute();
 				}
-				else if (wornByMonster != null && artifact.IsCarriedByMonster())
+				else if (wornByMonster && artifact.IsCarriedByMonster())
 				{
 					/*
 					var command = CreateInstance<IMonsterWearCommand>(x =>
 					{
-						x.ActorMonster = wornByMonster;
+						x.ActorMonster = monster;
 
 						x.ActorRoom = room;
 

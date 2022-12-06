@@ -26,7 +26,14 @@ namespace ThePyramidOfAnharos.Game.Commands
 			{
 				gEngine.PrintEffectDesc(23);
 
-				gEngine.DamageWeaponsAndArmor();
+				gEngine.DamageWeaponsAndArmor(ActorRoom, ActorMonster);
+
+				var monsterList = gEngine.GetMonsterList(m => !m.IsCharacterMonster() && m.Reaction == Friendliness.Friend && m.IsInRoom(ActorRoom));
+
+				foreach (var monster in monsterList)
+				{
+					gEngine.DamageWeaponsAndArmor(ActorRoom, monster);
+				}
 
 				// TODO: injure monsters
 

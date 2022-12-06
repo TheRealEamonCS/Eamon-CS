@@ -751,10 +751,11 @@ namespace EamonRT.Framework.Plugin
 		bool SaveThrow(Stat stat, long bonus = 0);
 
 		/// <summary></summary>
-		/// <param name="includeFriends"></param>
+		/// <param name="room"></param>
+		/// <param name="monster"></param>
 		/// <param name="recurse"></param>
 		/// <returns></returns>
-		void DamageWeaponsAndArmor(bool includeFriends = true, bool recurse = false);
+		void DamageWeaponsAndArmor(IRoom room, IMonster monster, bool recurse = false);
 
 		/// <summary></summary>
 		/// <param name="actionList"></param>

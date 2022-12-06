@@ -2248,9 +2248,10 @@
             <param name="bonus"></param>
             <returns></returns>
         </member>
-        <member name="M:EamonRT.Framework.Plugin.IEngine.DamageWeaponsAndArmor(System.Boolean,System.Boolean)">
+        <member name="M:EamonRT.Framework.Plugin.IEngine.DamageWeaponsAndArmor(Eamon.Framework.IRoom,Eamon.Framework.IMonster,System.Boolean)">
             <summary></summary>
-            <param name="includeFriends"></param>
+            <param name="room"></param>
+            <param name="monster"></param>
             <param name="recurse"></param>
             <returns></returns>
         </member>
