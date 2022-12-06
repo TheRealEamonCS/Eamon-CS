@@ -1742,6 +1742,10 @@
             <summary></summary>
             <param name="artifact"></param>
         </member>
+        <member name="M:EamonRT.Framework.Plugin.IEngine.PrintArtifactBreaks(Eamon.Framework.IArtifact)">
+            <summary></summary>
+            <param name="artifact"></param>
+        </member>
         <member name="M:EamonRT.Framework.Plugin.IEngine.PrintEnterExtinguishLightChoice(Eamon.Framework.IArtifact)">
             <summary></summary>
             <param name="artifact"></param>
@@ -2242,6 +2246,12 @@
             <summary></summary>
             <param name="stat"></param>
             <param name="bonus"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EamonRT.Framework.Plugin.IEngine.DamageWeaponsAndArmor(System.Boolean,System.Boolean)">
+            <summary></summary>
+            <param name="includeFriends"></param>
+            <param name="recurse"></param>
             <returns></returns>
         </member>
         <member name="M:EamonRT.Framework.Plugin.IEngine.CheckActionList(System.Collections.Generic.IList{System.Action})">

@@ -467,6 +467,13 @@ namespace EamonRT.Game.Plugin
 			Out.Print("{0} vanish{1}!", artifact.GetTheName(true), artifact.EvalPlural("es", ""));
 		}
 
+		public virtual void PrintArtifactBreaks(IArtifact artifact)
+		{
+			Debug.Assert(artifact != null);
+
+			Out.Print("{0} break{1}!", artifact.GetTheName(true), artifact.EvalPlural("s", ""));
+		}
+
 		public virtual void PrintEnterExtinguishLightChoice(IArtifact artifact)
 		{
 			Debug.Assert(artifact != null);
@@ -3233,6 +3240,148 @@ namespace EamonRT.Game.Plugin
 			var rl = RollDice(1, 22, 2);
 
 			return rl <= value;
+		}
+
+		public virtual void DamageWeaponsAndArmor(bool includeFriends = true, bool recurse = false)
+		{
+			Debug.Assert(gCharMonster != null);
+
+			var room = gCharMonster.GetInRoom();
+
+			Debug.Assert(room != null);
+
+			IList<IMonster> monsterList = null;
+
+			// Damage weapons
+
+			var artifactList = GetArtifactList(a => (a.IsCarriedByCharacter(recurse) || a.IsWornByCharacter(recurse)) && !a.IsWornByCharacter() && a.GeneralWeapon != null);
+
+			if (includeFriends)
+			{
+				monsterList = GetMonsterList(m => !m.IsCharacterMonster() && m.Reaction == Friendliness.Friend && m.IsInRoom(room));
+
+				foreach (var monster in monsterList)
+				{
+					artifactList.AddRange(GetArtifactList(a => (a.IsCarriedByMonster(monster, recurse) || a.IsWornByMonster(monster, recurse)) && !a.IsWornByMonster(monster) && a.GeneralWeapon != null));
+				}
+			}
+
+			foreach (var artifact in artifactList)
+			{
+				if (--artifact.GeneralWeapon.Field4 <= 0)
+				{
+					if (artifact.IsCarriedByCharacter() || artifact.IsCarriedByMonster())
+					{
+						PrintArtifactBreaks(artifact);
+					}
+
+					var monster = GetMonsterList(m => m.Weapon == artifact.Uid).FirstOrDefault();
+
+					if (monster != null)
+					{
+						artifact.RemoveStateDesc(artifact.GetReadyWeaponDesc());
+
+						monster.Weapon = -1;
+					}
+
+					artifact.SetInLimbo();
+				}
+			}
+
+			// Damage armor
+
+			artifactList = GetArtifactList(a => (a.IsCarriedByCharacter(recurse) || a.IsWornByCharacter(recurse)) && a.Wearable != null && a.Wearable.Field1 > 0 && a.Wearable.Field2 == 0);
+
+			if (includeFriends)
+			{
+				foreach (var monster in monsterList)
+				{
+					artifactList.AddRange(GetArtifactList(a => (a.IsCarriedByMonster(monster, recurse) || a.IsWornByMonster(monster, recurse)) && a.Wearable != null && a.Wearable.Field1 > 0 && a.Wearable.Field2 == 0));
+				}
+			}
+
+			Out.EnableOutput = false;
+
+			foreach (var artifact in artifactList)
+			{
+				var wornByChar = artifact.IsWornByCharacter();
+
+				var wornByMonster = artifact.GetWornByMonster();
+
+				if (wornByChar)
+				{
+					var command = CreateInstance<IRemoveCommand>(x =>
+					{
+						x.ActorMonster = gCharMonster;
+
+						x.ActorRoom = room;
+
+						x.Dobj = artifact;
+					});
+
+					command.Execute();
+				}
+				else if (wornByMonster != null)
+				{
+					/*
+					var command = CreateInstance<IMonsterRemoveCommand>(x =>
+					{
+						x.ActorMonster = wornByMonster;
+
+						x.ActorRoom = room;
+
+						x.Dobj = artifact;
+					});
+
+					command.Execute();
+					*/
+				}
+
+				if (--artifact.Wearable.Field1 <= 0)
+				{
+					if (artifact.IsCarriedByCharacter() || artifact.IsCarriedByMonster())
+					{
+						Out.EnableOutput = true;
+
+						PrintArtifactBreaks(artifact);
+
+						Out.EnableOutput = false;
+					}
+
+					artifact.SetInLimbo();
+				}
+
+				if (wornByChar && artifact.IsCarriedByCharacter())
+				{
+					var command = CreateInstance<IWearCommand>(x =>
+					{
+						x.ActorMonster = gCharMonster;
+
+						x.ActorRoom = room;
+
+						x.Dobj = artifact;
+					});
+
+					command.Execute();
+				}
+				else if (wornByMonster != null && artifact.IsCarriedByMonster())
+				{
+					/*
+					var command = CreateInstance<IMonsterWearCommand>(x =>
+					{
+						x.ActorMonster = wornByMonster;
+
+						x.ActorRoom = room;
+
+						x.Dobj = artifact;
+					});
+
+					command.Execute();
+					*/
+				}
+			}
+
+			Out.EnableOutput = true;
 		}
 
 		public virtual void CheckActionList(IList<Action> actionList)

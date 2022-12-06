@@ -246,6 +246,10 @@ namespace EamonRT.Framework.Plugin
 
 		/// <summary></summary>
 		/// <param name="artifact"></param>
+		void PrintArtifactBreaks(IArtifact artifact);
+
+		/// <summary></summary>
+		/// <param name="artifact"></param>
 		void PrintEnterExtinguishLightChoice(IArtifact artifact);
 
 		/// <summary></summary>
@@ -745,6 +749,12 @@ namespace EamonRT.Framework.Plugin
 		/// <param name="bonus"></param>
 		/// <returns></returns>
 		bool SaveThrow(Stat stat, long bonus = 0);
+
+		/// <summary></summary>
+		/// <param name="includeFriends"></param>
+		/// <param name="recurse"></param>
+		/// <returns></returns>
+		void DamageWeaponsAndArmor(bool includeFriends = true, bool recurse = false);
 
 		/// <summary></summary>
 		/// <param name="actionList"></param>

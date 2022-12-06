@@ -26,7 +26,9 @@ namespace ThePyramidOfAnharos.Game.Commands
 			{
 				gEngine.PrintEffectDesc(23);
 
-				// TODO: implement equipment damage
+				gEngine.DamageWeaponsAndArmor();
+
+				// TODO: injure monsters
 
 				gGameState.R2 = ActorRoom.Uid == 26 ? 27 : 26;
 
