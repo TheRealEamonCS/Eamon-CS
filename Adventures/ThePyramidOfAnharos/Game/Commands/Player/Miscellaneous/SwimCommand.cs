@@ -26,16 +26,16 @@ namespace ThePyramidOfAnharos.Game.Commands
 			{
 				gEngine.PrintEffectDesc(23);
 
-				gEngine.DamageWeaponsAndArmor(ActorRoom, ActorMonster);
-
 				var monsterList = gEngine.GetMonsterList(m => !m.IsCharacterMonster() && m.Reaction == Friendliness.Friend && m.IsInRoom(ActorRoom));
+
+				// TODO: injure monsters
+
+				gEngine.DamageWeaponsAndArmor(ActorRoom, ActorMonster, 2);
 
 				foreach (var monster in monsterList)
 				{
-					gEngine.DamageWeaponsAndArmor(ActorRoom, monster);
+					gEngine.DamageWeaponsAndArmor(ActorRoom, monster, 2);
 				}
-
-				// TODO: injure monsters
 
 				gGameState.R2 = ActorRoom.Uid == 26 ? 27 : 26;
 

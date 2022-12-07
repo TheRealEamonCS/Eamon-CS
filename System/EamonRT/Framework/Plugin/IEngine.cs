@@ -753,9 +753,10 @@ namespace EamonRT.Framework.Plugin
 		/// <summary></summary>
 		/// <param name="room"></param>
 		/// <param name="monster"></param>
+		/// <param name="damage"></param>
 		/// <param name="recurse"></param>
 		/// <returns></returns>
-		void DamageWeaponsAndArmor(IRoom room, IMonster monster, bool recurse = false);
+		void DamageWeaponsAndArmor(IRoom room, IMonster monster, long damage = 1, bool recurse = false);
 
 		/// <summary></summary>
 		/// <param name="actionList"></param>

@@ -3242,11 +3242,13 @@ namespace EamonRT.Game.Plugin
 			return rl <= value;
 		}
 
-		public virtual void DamageWeaponsAndArmor(IRoom room, IMonster monster, bool recurse = false)
+		public virtual void DamageWeaponsAndArmor(IRoom room, IMonster monster, long damage = 1, bool recurse = false)
 		{
 			Debug.Assert(room != null);
 
 			Debug.Assert(monster != null);
+
+			Debug.Assert(damage > 0);
 
 			// Damage weapons
 
@@ -3256,7 +3258,9 @@ namespace EamonRT.Game.Plugin
 
 			foreach (var artifact in artifactList)
 			{
-				if (--artifact.GeneralWeapon.Field4 <= 0)
+				artifact.GeneralWeapon.Field4 = Math.Max(0, artifact.GeneralWeapon.Field4 - damage);
+
+				if (artifact.GeneralWeapon.Field4 <= 0)
 				{
 					if (artifact.IsCarriedByCharacter() || artifact.IsCarriedByMonster())
 					{
@@ -3317,7 +3321,9 @@ namespace EamonRT.Game.Plugin
 					*/
 				}
 
-				if (--artifact.Wearable.Field1 <= 0)
+				artifact.Wearable.Field1 = Math.Max(0, artifact.Wearable.Field1 - damage);
+
+				if (artifact.Wearable.Field1 <= 0)
 				{
 					if (artifact.IsCarriedByCharacter() || artifact.IsCarriedByMonster())
 					{

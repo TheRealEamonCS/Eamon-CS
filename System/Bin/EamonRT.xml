@@ -2248,10 +2248,11 @@
             <param name="bonus"></param>
             <returns></returns>
         </member>
-        <member name="M:EamonRT.Framework.Plugin.IEngine.DamageWeaponsAndArmor(Eamon.Framework.IRoom,Eamon.Framework.IMonster,System.Boolean)">
+        <member name="M:EamonRT.Framework.Plugin.IEngine.DamageWeaponsAndArmor(Eamon.Framework.IRoom,Eamon.Framework.IMonster,System.Int64,System.Boolean)">
             <summary></summary>
             <param name="room"></param>
             <param name="monster"></param>
+            <param name="damage"></param>
             <param name="recurse"></param>
             <returns></returns>
         </member>
