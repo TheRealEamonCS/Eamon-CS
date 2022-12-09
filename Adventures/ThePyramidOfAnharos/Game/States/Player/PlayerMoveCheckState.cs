@@ -7,6 +7,7 @@ using System;
 using System.Diagnostics;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
+using EamonRT.Framework.Components;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
 using static ThePyramidOfAnharos.Game.Plugin.Globals;
@@ -36,9 +37,115 @@ namespace ThePyramidOfAnharos.Game.States
 
 				Debug.Assert(aliMonster != null);
 
+				// Wall of flames
+
+				if ((gGameState.Ro == 27 && gGameState.R2 == -28) || (gGameState.Ro == 28 && gGameState.R2 == -27))
+				{
+					if (gGameState.KB != 1)
+					{
+						gEngine.PrintEffectDesc(19);
+
+						var monsterList = gEngine.GetMonsterList(m => m.IsCharacterMonster(), m => !m.IsCharacterMonster() && m.Reaction == Friendliness.Friend && m.IsInRoom(room));
+
+						foreach (var monster in monsterList)
+						{
+							var dice = (long)Math.Floor(0.1 * (monster.Hardiness - monster.DmgTaken) + 1);
+
+							var combatComponent = gEngine.CreateInstance<ICombatComponent>(x =>
+							{
+								x.SetNextStateFunc = s => NextState = s;
+
+								x.ActorRoom = room;
+
+								x.Dobj = monster;
+
+								x.OmitArmor = true;
+							});
+
+							combatComponent.ExecuteCalculateDamage(dice, 1);
+
+							var deadBodyArtifact = monster.DeadBody > 0 ? gADB[monster.DeadBody] : null;
+
+							if (deadBodyArtifact != null && !deadBodyArtifact.IsInLimbo())
+							{
+								deadBodyArtifact.SetInRoomUid(Math.Abs(gGameState.R2));
+							}
+
+							if (gGameState.Die > 0)
+							{
+								goto Cleanup;
+							}
+						}
+
+						foreach (var monster in monsterList)
+						{
+							gEngine.DamageWeaponsAndArmor(room, monster);
+						}
+					}
+					else
+					{
+						gEngine.PrintEffectDesc(17);
+					}
+
+					gGameState.R2 = Math.Abs(gGameState.R2);
+				}
+
+				// Dark cloud
+
+				else if (gGameState.R2 == -29 || (gGameState.Ro == 29 && gGameState.R2 == -28))
+				{
+					if (gGameState.KA != 1)
+					{
+						gEngine.PrintEffectDesc(49);
+
+						var monsterList = gEngine.GetMonsterList(m => m.IsCharacterMonster(), m => !m.IsCharacterMonster() && m.Reaction == Friendliness.Friend && m.IsInRoom(room));
+
+						foreach (var monster in monsterList)
+						{
+							var dice = (long)Math.Floor(0.1 * (monster.Hardiness - monster.DmgTaken) + 1);
+
+							var combatComponent = gEngine.CreateInstance<ICombatComponent>(x =>
+							{
+								x.SetNextStateFunc = s => NextState = s;
+
+								x.ActorRoom = room;
+
+								x.Dobj = monster;
+
+								x.OmitArmor = true;
+							});
+
+							combatComponent.ExecuteCalculateDamage(dice, 1);
+
+							var deadBodyArtifact = monster.DeadBody > 0 ? gADB[monster.DeadBody] : null;
+
+							if (deadBodyArtifact != null && !deadBodyArtifact.IsInLimbo())
+							{
+								deadBodyArtifact.SetInRoomUid(Math.Abs(gGameState.R2));
+							}
+
+							if (gGameState.Die > 0)
+							{
+								goto Cleanup;
+							}
+						}
+
+						foreach (var monster in monsterList)
+						{
+							gEngine.DamageWeaponsAndArmor(room, monster);
+						}
+					}
+					else
+					{
+						gEngine.PrintEffectDesc(50);
+					}
+
+					gGameState.R2 = Math.Abs(gGameState.R2);
+				}
+
 				// Wander into desert
 
-				if (gGameState.R2 < -89 && gGameState.R2 > -95)
+				else if (gGameState.R2 < -89 && gGameState.R2 > -95)
 				{
 					gGameState.KL = Math.Abs(gGameState.R2) - 89;
 

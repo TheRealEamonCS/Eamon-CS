@@ -11,6 +11,10 @@ namespace ThePyramidOfAnharos.Framework
 	{
 		long GU { get; set; }
 
+		long KA { get; set; }
+
+		long KB { get; set; }
+
 		long KE { get; set; }
 
 		long KF { get; set; }
@@ -34,6 +38,8 @@ namespace ThePyramidOfAnharos.Framework
 		long KS { get; set; }
 
 		long KT { get; set; }
+
+		long KU { get; set; }
 
 		long KV { get; set; }
 

@@ -9,6 +9,7 @@ using System.Text;
 using Eamon;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
+using Eamon.Game.Extensions;
 using EamonRT.Framework.Components;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
@@ -41,6 +42,10 @@ namespace ThePyramidOfAnharos.Game.States
 
 				Debug.Assert(faroukMonster != null);
 
+				var avatarOfAlaxarMonster = gMDB[8];
+
+				Debug.Assert(avatarOfAlaxarMonster != null);
+
 				var deadGuardsArtifact = gADB[75];
 
 				Debug.Assert(deadGuardsArtifact != null);
@@ -53,9 +58,17 @@ namespace ThePyramidOfAnharos.Game.States
 
 				Debug.Assert(dyingMerchantArtifact != null);
 
+				var staircaseArtifact = gADB[50];
+
+				Debug.Assert(staircaseArtifact != null);
+
 				var faroukBodyArtifact = gADB[61];
 
 				Debug.Assert(faroukBodyArtifact != null);
+
+				var statueArtifact = gADB[63];
+
+				Debug.Assert(statueArtifact != null);
 
 				// Guards attack
 
@@ -101,6 +114,63 @@ namespace ThePyramidOfAnharos.Game.States
 
 							goto Cleanup;
 						}
+					}
+				}
+
+				// Riddle
+
+				if (room.Uid < 30 && gGameState.KU != 0)
+				{
+					staircaseArtifact.SetInLimbo();
+
+					gGameState.KU = 0;
+				}
+
+				if (room.Uid == 30 && statueArtifact.IsInRoom(room) && gGameState.KU == 0)
+				{
+					gOut.PunctSpaceCode = PunctSpaceCode.None;
+
+					gOut.Write("{0}As you enter the room, a voice emanates from the statue,", Environment.NewLine);
+
+					gOut.Write("{0}  Hearken my word,", Environment.NewLine);
+
+					gOut.Write("{0}  On her is heard,", Environment.NewLine);
+
+					gOut.Write("{0}  No other may", Environment.NewLine);
+
+					gOut.Write("{0}  Open the way,", Environment.NewLine);
+
+					gOut.Write("{0}  Respond the trait", Environment.NewLine);
+
+					gOut.Write("{0}    To see his fate.{0}", Environment.NewLine);
+
+					gOut.Print("What is your answer?");
+
+					gOut.PunctSpaceCode = PunctSpaceCode.Single;
+
+					gOut.Write("{0}Answer: ", Environment.NewLine);
+
+					var buf = new StringBuilder(gEngine.BufSize);
+
+					buf.SetFormat("{0}", gEngine.In.ReadLine());
+
+					if (buf.ToString().Equals("honor", StringComparison.OrdinalIgnoreCase))
+					{
+						gEngine.PrintEffectDesc(52);
+
+						staircaseArtifact.SetInRoom(room);
+
+						gGameState.KU = 2;
+					}
+					else
+					{
+						gEngine.PrintEffectDesc(53);
+
+						statueArtifact.SetInLimbo();
+
+						avatarOfAlaxarMonster.SetInRoom(room);
+
+						gGameState.KU = 1;
 					}
 				}
 

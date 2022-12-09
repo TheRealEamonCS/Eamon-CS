@@ -35,6 +35,27 @@ namespace ThePyramidOfAnharos.Game.Plugin
 			return rc;
 		}
 
+		public override void AddUniqueCharsToArtifactAndMonsterNames()
+		{
+			base.AddUniqueCharsToArtifactAndMonsterNames();
+
+			// Torch
+
+			var torchArtifact = ADB[17];
+
+			Debug.Assert(torchArtifact != null);
+
+			torchArtifact.Name = torchArtifact.Name.TrimEnd('#');
+
+			// Statue
+
+			var statueArtifact = ADB[63];
+
+			Debug.Assert(statueArtifact != null);
+
+			statueArtifact.Name = statueArtifact.Name.TrimEnd('#');
+		}
+
 		public override void InitArtifacts()
 		{
 			base.InitArtifacts();
@@ -142,7 +163,7 @@ namespace ThePyramidOfAnharos.Game.Plugin
 
 			if (gGameState.GU > 0)
 			{
-				var guideMonster = gMDB[gGameState.GU];
+				var guideMonster = MDB[gGameState.GU];
 
 				Debug.Assert(guideMonster != null);
 
