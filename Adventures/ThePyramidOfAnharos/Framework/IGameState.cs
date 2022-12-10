@@ -9,6 +9,8 @@ namespace ThePyramidOfAnharos.Framework
 {
 	public interface IGameState : Eamon.Framework.IGameState
 	{
+		long GD { get; set; }
+
 		long GU { get; set; }
 
 		long KA { get; set; }

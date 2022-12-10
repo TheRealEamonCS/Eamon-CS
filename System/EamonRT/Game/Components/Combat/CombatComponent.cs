@@ -104,6 +104,9 @@ namespace EamonRT.Game.Components
 		public virtual bool LightOut { get; set; }
 
 		/// <summary></summary>
+		public virtual bool NonCombat { get; set; }
+
+		/// <summary></summary>
 		public virtual long WeaponCount { get; set; }
 
 		/// <summary></summary>
@@ -136,7 +139,7 @@ namespace EamonRT.Game.Components
 		/// <summary></summary>
 		public virtual double S2 { get; set; }
 
-		public virtual void ExecuteCalculateDamage(long numDice, long numSides, long mod = 0)
+		public virtual void ExecuteCalculateDamage(long numDice, long numSides, long mod = 0, bool nonCombat = true)
 		{
 			CombatState = CombatState.CalculateDamage;
 
@@ -146,6 +149,8 @@ namespace EamonRT.Game.Components
 
 			M = mod;
 
+			NonCombat = nonCombat;
+			
 			A = BlastSpell || OmitArmor ? 0 : 1;
 
 			OmitBboaPadding = true;
@@ -172,11 +177,11 @@ namespace EamonRT.Game.Components
 				{
 					if (gEngine.IsRulesetVersion(5, 15, 25))
 					{
-						ExecuteCalculateDamage(1, 6);
+						ExecuteCalculateDamage(1, 6, 0, false);
 					}
 					else
 					{
-						ExecuteCalculateDamage(2, 5);
+						ExecuteCalculateDamage(2, 5, 0, false);
 					}
 				}
 				else
@@ -690,7 +695,7 @@ namespace EamonRT.Game.Components
 
 			if (!OmitMonsterStatus || ActorMonster == DobjMonster)
 			{
-				PrintHealthStatus(ActorRoom, ActorMonster, DobjMonster, BlastSpell);
+				PrintHealthStatus(ActorRoom, ActorMonster, DobjMonster, BlastSpell, NonCombat);
 			}
 
 			if (DobjMonster.IsDead())

@@ -245,8 +245,10 @@ namespace EamonRT.Framework.Plugin
 		void PrintArtifactVanishes(IArtifact artifact);
 
 		/// <summary></summary>
+		/// <param name="room"></param>
+		/// <param name="monster"></param>
 		/// <param name="artifact"></param>
-		void PrintArtifactBreaks(IArtifact artifact);
+		void PrintArtifactBreaks(IRoom room, IMonster monster, IArtifact artifact);
 
 		/// <summary></summary>
 		/// <param name="artifact"></param>

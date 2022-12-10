@@ -7,6 +7,7 @@ using System;
 using System.Diagnostics;
 using System.Text;
 using Eamon;
+using Eamon.Framework;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using Eamon.Game.Extensions;
@@ -46,9 +47,13 @@ namespace ThePyramidOfAnharos.Game.States
 
 				Debug.Assert(avatarOfAlaxarMonster != null);
 
-				var deadGuardsArtifact = gADB[75];
+				var diamondOfPurityArtifact = gADB[38];
 
-				Debug.Assert(deadGuardsArtifact != null);
+				Debug.Assert(diamondOfPurityArtifact != null);
+
+				var onyxCaseArtifact = gADB[39];
+
+				Debug.Assert(onyxCaseArtifact != null);
 
 				var columnOfWaterArtifact = gADB[48];
 
@@ -69,6 +74,10 @@ namespace ThePyramidOfAnharos.Game.States
 				var statueArtifact = gADB[63];
 
 				Debug.Assert(statueArtifact != null);
+
+				var deadGuardsArtifact = gADB[75];
+
+				Debug.Assert(deadGuardsArtifact != null);
 
 				// Guards attack
 
@@ -117,14 +126,14 @@ namespace ThePyramidOfAnharos.Game.States
 					}
 				}
 
-				// Riddle
-
 				if (room.Uid < 30 && gGameState.KU != 0)
 				{
 					staircaseArtifact.SetInLimbo();
 
 					gGameState.KU = 0;
 				}
+
+				// Riddle
 
 				if (room.Uid == 30 && statueArtifact.IsInRoom(room) && gGameState.KU == 0)
 				{
@@ -301,42 +310,44 @@ namespace ThePyramidOfAnharos.Game.States
 
 				// Friendlies burn one water unit each
 
-				var monsterList = gEngine.GetMonsterList(m => !m.IsCharacterMonster() && m.Reaction == Friendliness.Friend && m.IsInRoom(room));
-
-				gGameState.KW -= monsterList.Count;
-
-				// Player burns water units based on armor
-
-				gGameState.KW -= (gCharMonster.Armor < 3 ? 1 : gCharMonster.Armor < 8 ? gCharMonster.Armor - 1 : 6);
-
-				gOut.Print("You have {0} units of water left.", Math.Max(gGameState.KW, 0));
-
-				if (gGameState.KW < 0)
 				{
-					var dice = (long)Math.Floor((double)Math.Abs(gGameState.KW) / 12.0);
+					var monsterList = gEngine.GetMonsterList(m => !m.IsCharacterMonster() && m.Reaction == Friendliness.Friend && m.IsInRoom(room));
 
-					if (dice > 0)
+					gGameState.KW -= monsterList.Count;
+
+					// Player burns water units based on armor
+
+					gGameState.KW -= (gCharMonster.Armor < 3 ? 1 : gCharMonster.Armor < 8 ? gCharMonster.Armor - 1 : 6);
+
+					gOut.Print("You have {0} units of water left.", Math.Max(gGameState.KW, 0));
+
+					if (gGameState.KW < 0)
 					{
-						gOut.Print("You are suffering from thirst.");
+						var dice = (long)Math.Floor((double)Math.Abs(gGameState.KW) / 12.0);
 
-						var combatComponent = gEngine.CreateInstance<ICombatComponent>(x =>
+						if (dice > 0)
 						{
-							x.SetNextStateFunc = s => NextState = s;
+							gOut.Print("You are suffering from thirst.");
 
-							x.ActorRoom = room;
+							var combatComponent = gEngine.CreateInstance<ICombatComponent>(x =>
+							{
+								x.SetNextStateFunc = s => NextState = s;
 
-							x.Dobj = gCharMonster;
+								x.ActorRoom = room;
 
-							x.OmitArmor = true;
-						});
+								x.Dobj = gCharMonster;
 
-						combatComponent.ExecuteCalculateDamage(dice, 1);
+								x.OmitArmor = true;
+							});
 
-						if (gGameState.Die > 0)
-						{
-							GotoCleanup = true;
+							combatComponent.ExecuteCalculateDamage(dice, 1);
 
-							goto Cleanup;
+							if (gGameState.Die > 0)
+							{
+								GotoCleanup = true;
+
+								goto Cleanup;
+							}
 						}
 					}
 				}

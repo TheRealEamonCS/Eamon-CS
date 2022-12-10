@@ -14,7 +14,7 @@ namespace ARuncibleCargo.Game.Components
 	[ClassMappings]
 	public class CombatComponent : EamonRT.Game.Components.CombatComponent, ICombatComponent
 	{
-		public override void PrintHealthStatus(IRoom room, IMonster actorMonster, IMonster dobjMonster, bool blastSpell)
+		public override void PrintHealthStatus(IRoom room, IMonster actorMonster, IMonster dobjMonster, bool blastSpell, bool nonCombat)
 		{
 			Debug.Assert(room != null && dobjMonster != null);
 
@@ -51,7 +51,7 @@ namespace ARuncibleCargo.Game.Components
 			}
 			else
 			{
-				base.PrintHealthStatus(room, actorMonster, dobjMonster, blastSpell);
+				base.PrintHealthStatus(room, actorMonster, dobjMonster, blastSpell, nonCombat);
 			}
 		}
 	}

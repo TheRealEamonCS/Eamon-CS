@@ -467,11 +467,18 @@ namespace EamonRT.Game.Plugin
 			Out.Print("{0} vanish{1}!", artifact.GetTheName(true), artifact.EvalPlural("es", ""));
 		}
 
-		public virtual void PrintArtifactBreaks(IArtifact artifact)
+		public virtual void PrintArtifactBreaks(IRoom room, IMonster monster, IArtifact artifact)
 		{
-			Debug.Assert(artifact != null);
+			Debug.Assert(room != null && monster != null && artifact != null);
 
-			Out.Print("{0} break{1}!", artifact.GetTheName(true), artifact.EvalPlural("s", ""));
+			if (room.IsLit() || monster.IsCharacterMonster())
+			{
+				Out.Print("{0} break{1}!", artifact.GetTheName(true), artifact.EvalPlural("s", ""));
+			}
+			else
+			{
+				Out.Print("Something breaks!");
+			}
 		}
 
 		public virtual void PrintEnterExtinguishLightChoice(IArtifact artifact)
@@ -3264,7 +3271,7 @@ namespace EamonRT.Game.Plugin
 				{
 					if (artifact.IsCarriedByCharacter() || artifact.IsCarriedByMonster())
 					{
-						PrintArtifactBreaks(artifact);
+						PrintArtifactBreaks(room, monster, artifact);
 					}
 
 					if (monster.Weapon == artifact.Uid)
@@ -3329,7 +3336,7 @@ namespace EamonRT.Game.Plugin
 					{
 						Out.EnableOutput = true;
 
-						PrintArtifactBreaks(artifact);
+						PrintArtifactBreaks(room, monster, artifact);
 
 						Out.EnableOutput = false;
 					}

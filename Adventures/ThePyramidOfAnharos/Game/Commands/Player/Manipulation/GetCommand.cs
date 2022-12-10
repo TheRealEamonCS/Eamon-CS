@@ -103,6 +103,15 @@ namespace ThePyramidOfAnharos.Game.Commands
 			{
 				base.Execute();
 			}
+
+			// Diamond of Purity
+
+			if (DobjArtifact != null && DobjArtifact.Uid == 38 && DobjArtifact.IsCarriedByCharacter() && gGameState.KR < 4 && gGameState.GD == 0)
+			{
+				gEngine.PrintEffectDesc(56);
+
+				gGameState.GD = 1;
+			}
 		}
 
 		public override void ProcessArtifact(IArtifact artifact, IArtifactCategory ac, ref bool nlFlag)

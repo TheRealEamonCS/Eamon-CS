@@ -12,6 +12,8 @@ namespace ThePyramidOfAnharos.Game
 	[ClassMappings(typeof(IGameState))]
 	public class GameState : Eamon.Game.GameState, Framework.IGameState
 	{
+		public virtual long GD { get; set; }
+
 		public virtual long GU { get; set; }
 
 		public virtual long KA { get; set; }
