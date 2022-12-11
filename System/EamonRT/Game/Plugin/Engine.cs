@@ -471,7 +471,7 @@ namespace EamonRT.Game.Plugin
 		{
 			Debug.Assert(room != null && monster != null && artifact != null);
 
-			if (room.IsLit() || monster.IsCharacterMonster())
+			if (monster.IsCharacterMonster() || room.IsLit())
 			{
 				Out.Print("{0} break{1}!", artifact.GetTheName(true), artifact.EvalPlural("s", ""));
 			}
@@ -3282,6 +3282,8 @@ namespace EamonRT.Game.Plugin
 					}
 
 					artifact.SetInLimbo();
+
+					artifact.GeneralWeapon.Field4 = 1;
 				}
 			}
 

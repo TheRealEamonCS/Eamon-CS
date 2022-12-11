@@ -518,6 +518,11 @@ namespace EamonRT.Game.Components
 
 			if (_rl > 50 || ActorAc.Field4 <= 0)
 			{
+				if (ActorAc.Field4 <= 0)
+				{
+					ActorAc.Field4 = 1;
+				}
+
 				CombatState = CombatState.EndAttack;
 
 				goto Cleanup;

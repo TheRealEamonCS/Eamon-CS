@@ -308,9 +308,67 @@ namespace ThePyramidOfAnharos.Game.States
 					}
 				}
 
-				// Friendlies burn one water unit each
+				// Diamond of Purity drains life force
 
 				{
+					IMonster monster = null;
+
+					long dice = 0;
+
+					if (diamondOfPurityArtifact.IsCarriedByCharacter() && gGameState.KR < 4)
+					{
+						monster = gCharMonster;
+
+						dice = 4 - gGameState.KR;
+					}
+					else if (diamondOfPurityArtifact.IsCarriedByContainer(onyxCaseArtifact) && onyxCaseArtifact.IsCarriedByCharacter() && gGameState.GD == 1 && gGameState.KR < 4)
+					{
+						monster = gCharMonster;
+
+						dice = 1;
+					}
+					else if (diamondOfPurityArtifact.IsCarriedByMonster() && gGameState.KR < 4)
+					{
+						monster = diamondOfPurityArtifact.GetCarriedByMonster();
+
+						dice = 4 - gGameState.KR;
+					}
+					else if (diamondOfPurityArtifact.IsCarriedByContainer(onyxCaseArtifact) && onyxCaseArtifact.IsCarriedByMonster() && gGameState.GD == 1 && gGameState.KR < 4)
+					{
+						monster = onyxCaseArtifact.GetCarriedByMonster();
+
+						dice = 1;
+					}
+
+					if (monster != null)
+					{
+						gOut.Print("{0} drains {1} life force.", diamondOfPurityArtifact.GetTheName(true), monster.IsCharacterMonster() ? "your" : monster.GetTheName(false).AddPossessiveSuffix());
+
+						var combatComponent = gEngine.CreateInstance<ICombatComponent>(x =>
+						{
+							x.SetNextStateFunc = s => NextState = s;
+
+							x.ActorRoom = room;
+
+							x.Dobj = monster;
+
+							x.OmitArmor = true;
+						});
+
+						combatComponent.ExecuteCalculateDamage(dice, 1);
+
+						if (gGameState.Die > 0)
+						{
+							GotoCleanup = true;
+
+							goto Cleanup;
+						}
+					}
+				}
+
+				{
+					// Friendlies burn one water unit each
+
 					var monsterList = gEngine.GetMonsterList(m => !m.IsCharacterMonster() && m.Reaction == Friendliness.Friend && m.IsInRoom(room));
 
 					gGameState.KW -= monsterList.Count;
