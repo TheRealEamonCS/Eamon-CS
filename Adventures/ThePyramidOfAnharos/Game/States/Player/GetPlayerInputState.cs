@@ -340,9 +340,9 @@ namespace ThePyramidOfAnharos.Game.States
 						dice = 1;
 					}
 
-					if (monster != null)
+					if (monster != null && monster.IsInRoom(room))
 					{
-						gOut.Print("{0} drains {1} life force.", diamondOfPurityArtifact.GetTheName(true), monster.IsCharacterMonster() ? "your" : monster.GetTheName(false).AddPossessiveSuffix());
+						gOut.Print("{0} drains {1} life force.", monster.IsCharacterMonster() || room.IsLit() ? diamondOfPurityArtifact.GetTheName(true) : "Something", monster.IsCharacterMonster() ? "your" : room.EvalLightLevel("an entity's", monster.GetTheName(false).AddPossessiveSuffix()));
 
 						var combatComponent = gEngine.CreateInstance<ICombatComponent>(x =>
 						{
@@ -377,7 +377,9 @@ namespace ThePyramidOfAnharos.Game.States
 
 					gGameState.KW -= (gCharMonster.Armor < 3 ? 1 : gCharMonster.Armor < 8 ? gCharMonster.Armor - 1 : 6);
 
-					gOut.Print("You have {0} units of water left.", Math.Max(gGameState.KW, 0));
+					var waterUnits = Math.Max(gGameState.KW, 0);
+
+					gOut.Print("You have {0} unit{1} of water left.", waterUnits, waterUnits != 1 ? "s" : "");
 
 					if (gGameState.KW < 0)
 					{

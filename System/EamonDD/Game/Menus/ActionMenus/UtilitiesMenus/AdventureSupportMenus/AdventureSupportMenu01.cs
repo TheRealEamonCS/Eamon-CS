@@ -341,11 +341,16 @@ namespace YourAdventureName.YourGameNamespaceName
 
 				AdventureName01 = Buf.ToString();
 
+				if (AdventureName01.IndexOf(':') > -1 && AdventureName01.IndexOf(':') < 2)
+				{
+					AdventureName01 = string.Empty;
+				}
+
 				var tempStr = Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(AdventureName01);
 
 				AdventureName = new string((from char ch in tempStr where gEngine.IsCharAlnum(ch) select ch).ToArray());
 
-				if (AdventureName.Length > 0 && (gEngine.IsCharDigit(AdventureName[0]) || invalidAdventureNames.FirstOrDefault(n => AdventureName.Equals(n, StringComparison.OrdinalIgnoreCase)) != null))
+				if (AdventureName.Length < 3 || gEngine.IsCharDigit(AdventureName[0]) || invalidAdventureNames.FirstOrDefault(n => AdventureName.Equals(n, StringComparison.OrdinalIgnoreCase)) != null)
 				{
 					AdventureName = string.Empty;
 				}

@@ -229,7 +229,7 @@ namespace EamonRT.Game.Components
 
 			DobjMonsterName = dobjMonster.IsCharacterMonster() ? "You" :
 				blastSpell && dobjMonster.InitGroupCount > 1 ? room.EvalLightLevel(dobjMonster == actorMonster ? "An offender" : "A defender", dobjMonster.GetArticleName(true, true, false, false, true)) :
-				room.EvalLightLevel(nonCombat ? "The being" : dobjMonster == actorMonster ? "The offender" : "The defender", dobjMonster.GetTheName(true, true, false, false, true));
+				room.EvalLightLevel(nonCombat ? "The entity" : dobjMonster == actorMonster ? "The offender" : "The defender", dobjMonster.GetTheName(true, true, false, false, true));
 
 			gEngine.Buf.SetFormat("{0}{1} {2} ",
 				Environment.NewLine,
