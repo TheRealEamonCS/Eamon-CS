@@ -139,7 +139,7 @@ namespace ThePyramidOfAnharos.Game.States
 				{
 					gOut.PunctSpaceCode = PunctSpaceCode.None;
 
-					gOut.Write("{0}As you enter the room, a voice emanates from the statue,", Environment.NewLine);
+					gOut.Write("{0}As you enter the room, a voice emanates from {1},", Environment.NewLine, room.IsLit() ? "the statue" : "nearby");
 
 					gOut.Write("{0}  Hearken my word,", Environment.NewLine);
 
@@ -173,7 +173,14 @@ namespace ThePyramidOfAnharos.Game.States
 					}
 					else
 					{
-						gEngine.PrintEffectDesc(53);
+						if (room.IsLit())
+						{
+							gEngine.PrintEffectDesc(53);
+						}
+						else
+						{
+							gOut.Print("You hear a commotion, and something screeches at you. It advances toward you in the darkness.");
+						}
 
 						statueArtifact.SetInLimbo();
 
