@@ -35,27 +35,6 @@ namespace ThePyramidOfAnharos.Game.Plugin
 			return rc;
 		}
 
-		public override void AddUniqueCharsToArtifactAndMonsterNames()
-		{
-			base.AddUniqueCharsToArtifactAndMonsterNames();
-
-			// Torch
-
-			var torchArtifact = ADB[17];
-
-			Debug.Assert(torchArtifact != null);
-
-			torchArtifact.Name = torchArtifact.Name.TrimEnd('#');
-
-			// Statue
-
-			var statueArtifact = ADB[63];
-
-			Debug.Assert(statueArtifact != null);
-
-			statueArtifact.Name = statueArtifact.Name.TrimEnd('#');
-		}
-
 		public override void InitArtifacts()
 		{
 			base.InitArtifacts();
@@ -72,6 +51,26 @@ namespace ThePyramidOfAnharos.Game.Plugin
 				// Southern pyramid secret door
 
 				return GameState != null && GameState.Ro == 16 ? "an exit into the desert to the south" : "a room inside the pyramid to the north";
+			});
+
+			MacroFuncs.Add(4, () =>
+			{
+				// Pyramid / Floor
+
+				if (GameState != null)
+				{
+					var effectUid = GameState.Ro == 12 ? 41 : GameState.Ro > 13 && GameState.Ro < 25 ? 39 : 40;
+
+					var effect = EDB[effectUid];
+
+					Debug.Assert(effect != null);
+
+					return effect.Desc;
+				}
+				else
+				{
+					return "You see nothing special.";
+				}
 			});
 
 			var synonyms = new Dictionary<long, string[]>()
@@ -233,6 +232,8 @@ namespace ThePyramidOfAnharos.Game.Plugin
 		public Engine()
 		{
 			EnableNegativeRoomUidLinks = true;
+
+			PoundCharPolicy = PoundCharPolicy.None;
 
 			MapData = @"ICAgICAvXCAgICAgICAgICAgICAgICAgICAgICAgIF8NCiAgICAvICBcICAgICAgICAgICAgICAgICAgICAgICEgIQ0KICAgLyAgICBcICAgLS0+ICAgLS0+ICAgLS0+ICAgISAhDQogIC8gICAgICBcICAgICAgICAgICAgICAgICAgICAhICENCiAvX19fX19fX19cICAgICAgICAgICAgICAgICAgIFtfXQ0KDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIQ0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICENCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBWDQoNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAhDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIQ0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFYNCg0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIC9cDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAvICBcDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcICAvDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXC8=";
 		}

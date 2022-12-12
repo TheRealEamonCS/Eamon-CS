@@ -50,6 +50,32 @@ namespace ThePyramidOfAnharos.Game
 							result = gGameState.Ro;
 						}
 					}
+
+					// Pyramid / Floor
+
+					else if (Uid == 77)
+					{
+						if (gGameState.Ro == 12)
+						{
+							Name = "pyramid";
+
+							ArticleType = ArticleType.A;
+
+							Synonyms = null;
+
+							result = gGameState.Ro;
+						}
+						else if (gGameState.Ro > 13 && gGameState.Ro < 43)
+						{
+							Name = "floor";
+
+							ArticleType = ArticleType.The;
+
+							Synonyms = new string[] { "dust" };
+
+							result = gGameState.Ro;
+						}
+					}
 				}
 
 				return result;
