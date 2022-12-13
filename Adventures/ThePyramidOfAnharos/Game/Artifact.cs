@@ -3,6 +3,7 @@
 
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
+using System.Diagnostics;
 using Eamon.Framework;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
@@ -21,9 +22,29 @@ namespace ThePyramidOfAnharos.Game
 
 				if (gEngine.EnableMutateProperties)
 				{
+					// Map
+
+					if (Uid == 51)
+					{
+						var reliquariesArtifact = gADB[32];
+
+						Debug.Assert(reliquariesArtifact != null);
+
+						var sarcophagusArtifact = gADB[33];
+
+						Debug.Assert(sarcophagusArtifact != null);
+
+						// Map vanishes when sarcophagus is closed
+
+						if (reliquariesArtifact.IsInLimbo() && !sarcophagusArtifact.InContainer.IsOpen())
+						{
+							result = gEngine.LimboLocation;
+						}
+					}
+
 					// Door / Arch
 
-					if (Uid == 76)
+					else if (Uid == 76)
 					{
 						if (gGameState.Ro == 6)
 						{

@@ -3,10 +3,10 @@
 
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
+using System.Diagnostics;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
-using System.Diagnostics;
 using static ThePyramidOfAnharos.Game.Plugin.Globals;
 
 namespace ThePyramidOfAnharos.Game.States
@@ -20,6 +20,10 @@ namespace ThePyramidOfAnharos.Game.States
 
 			if (eventType == EventType.AfterMoveMonsters)
 			{
+				var statueArtifact = gADB[63];
+
+				Debug.Assert(statueArtifact != null);
+
 				// Snuff torch in Black room
 
 				if (gGameState.Ro == 39 && gGameState.Ls > 0)
@@ -33,6 +37,13 @@ namespace ThePyramidOfAnharos.Game.States
 					lsArtifact.RemoveStateDesc(lsArtifact.GetProvidingLightDesc());
 
 					gGameState.Ls = 0;
+				}
+
+				// Move statue back into Chamber of Alaxar
+
+				if (!statueArtifact.IsInLimbo() && statueArtifact.GetInRoomUid() != 30)
+				{
+					statueArtifact.SetInRoomUid(30);
 				}
 			}
 			else if (eventType == EventType.AfterExtinguishLightSourceCheck)

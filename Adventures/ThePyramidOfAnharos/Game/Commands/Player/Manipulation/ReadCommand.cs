@@ -112,6 +112,15 @@ namespace ThePyramidOfAnharos.Game.Commands
 				NextState = gEngine.CreateInstance<IMonsterStartState>();
 			}
 
+			// Map
+
+			else if (DobjArtifact.Uid == 51)
+			{
+				gOut.Print("{0}", Encoding.UTF8.GetString(Convert.FromBase64String(gEngine.MapData)));
+
+				NextState = gEngine.CreateInstance<IMonsterStartState>();
+			}
+
 			// Door / Arch
 
 			else if (DobjArtifact.Uid == 76)

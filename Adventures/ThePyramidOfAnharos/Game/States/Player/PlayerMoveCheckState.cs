@@ -37,11 +37,19 @@ namespace ThePyramidOfAnharos.Game.States
 
 				Debug.Assert(aliMonster != null);
 
+				var amuletArtifact = gADB[15];
+
+				Debug.Assert(amuletArtifact != null);
+
+				var tunicArtifact = gADB[45];
+
+				Debug.Assert(tunicArtifact != null);
+
 				// Wall of flames
 
 				if ((gGameState.Ro == 27 && gGameState.R2 == -28) || (gGameState.Ro == 28 && gGameState.R2 == -27))
 				{
-					if (gGameState.KB != 1)
+					if (!tunicArtifact.IsWornByCharacter())
 					{
 						gEngine.PrintEffectDesc(19);
 
@@ -94,7 +102,7 @@ namespace ThePyramidOfAnharos.Game.States
 
 				else if (gGameState.R2 == -29 || (gGameState.Ro == 29 && gGameState.R2 == -28))
 				{
-					if (gGameState.KA != 1)
+					if (!amuletArtifact.IsWornByCharacter())
 					{
 						gEngine.PrintEffectDesc(49);
 

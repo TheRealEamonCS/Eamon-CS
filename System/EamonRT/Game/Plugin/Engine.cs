@@ -3332,6 +3332,11 @@ namespace EamonRT.Game.Plugin
 
 				artifact.Wearable.Field1 = Math.Max(0, artifact.Wearable.Field1 - damage);
 
+				while (artifact.Wearable.Field1 > 0 && !gEngine.IsValidArtifactArmor(artifact.Wearable.Field1))
+				{
+					artifact.Wearable.Field1--;
+				}
+
 				if (artifact.Wearable.Field1 <= 0)
 				{
 					if (artifact.IsCarriedByCharacter() || artifact.IsCarriedByMonster())
@@ -3344,6 +3349,8 @@ namespace EamonRT.Game.Plugin
 					}
 
 					artifact.SetInLimbo();
+
+					artifact.Wearable.Field1 = 0;
 				}
 
 				if (wornByChar && artifact.IsCarriedByCharacter())
