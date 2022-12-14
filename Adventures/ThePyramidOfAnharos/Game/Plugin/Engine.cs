@@ -231,6 +231,8 @@ namespace ThePyramidOfAnharos.Game.Plugin
 
 		public Engine()
 		{
+			PushRulesetVersion(62);
+
 			EnableNegativeRoomUidLinks = true;
 
 			PoundCharPolicy = PoundCharPolicy.None;

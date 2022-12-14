@@ -301,7 +301,7 @@ namespace EamonRT.Game.Components
 		{
 			Debug.Assert(Enum.IsDefined(typeof(Spell), s) && spell != null);
 
-			gOut.Print("The strain of attempting to cast {0} overloads your brain and you forget it completely{1}.", spell.Name, gEngine.IsRulesetVersion(5, 15, 25) ? "" : " for the rest of this adventure");
+			gOut.Print("The strain of attempting to cast {0} overloads your brain and you forget it completely{1}.", spell.Name, gEngine.IsRulesetVersion(5) ? "" : " for the rest of this adventure");
 		}
 
 		public virtual void PrintSpellAbilityIncreases(Spell s, ISpell spell)
@@ -337,7 +337,7 @@ namespace EamonRT.Game.Components
 		{
 			Debug.Assert(room != null);
 
-			if (gEngine.IsRulesetVersion(5, 15, 25))
+			if (gEngine.IsRulesetVersion(5))
 			{
 				gOut.Print("You hear a very loud sonic boom that echoes through the {0}.", room.EvalRoomType("tunnels", "area"));
 			}

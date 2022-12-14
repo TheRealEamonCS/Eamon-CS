@@ -34,5 +34,14 @@ namespace TheVileGrimoireOfJaldial.Game.Commands
 				}
 			}
 		}
+
+		public override void Execute()
+		{
+			gEngine.PushRulesetVersion(0);
+
+			base.Execute();
+
+			gEngine.PopRulesetVersion();
+		}
 	}
 }

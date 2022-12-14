@@ -181,11 +181,50 @@ namespace TheVileGrimoireOfJaldial.Game
 
 		public override bool ShouldRefuseToAcceptGift(IArtifact artifact)
 		{
+			bool result;
+
 			Debug.Assert(artifact != null);
 
 			// Pocket dragon and beholder never accept gifts
 
-			return Uid == 24 || Uid == 36 || (!gEngine.IsRulesetVersion(5, 25) && (Reaction == Enums.Friendliness.Enemy || (Reaction == Enums.Friendliness.Neutral && artifact.Value < 3000)));
+			gEngine.PushRulesetVersion(0);
+
+			result = Uid == 24 || Uid == 36 || (!gEngine.IsRulesetVersion(5) && (Reaction == Enums.Friendliness.Enemy || (Reaction == Enums.Friendliness.Neutral && artifact.Value < 3000)));
+
+			gEngine.PopRulesetVersion();
+
+			return result;
+		}
+
+		public override bool CheckCourage()
+		{
+			bool result;
+
+			gEngine.PushRulesetVersion(0);
+
+			result = base.CheckCourage();
+
+			gEngine.PopRulesetVersion();
+
+			return result;
+		}
+
+		public override void ResolveReaction(long charisma)
+		{
+			gEngine.PushRulesetVersion(0);
+
+			base.ResolveReaction(charisma);
+
+			gEngine.PopRulesetVersion();
+		}
+
+		public override void CalculateGiftFriendliness(long value, bool isArtifactValue)
+		{
+			gEngine.PushRulesetVersion(0);
+
+			base.CalculateGiftFriendliness(value, isArtifactValue);
+
+			gEngine.PopRulesetVersion();
 		}
 
 		public override string[] GetWeaponAttackDescs(IArtifact artifact)

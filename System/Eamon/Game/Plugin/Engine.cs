@@ -165,7 +165,7 @@ namespace Eamon.Game.Plugin
 
 		public virtual string StackTraceFile { get; protected set; } = "STACKTRACE.TXT";
 
-		public virtual string ProgVersion { get; protected set; } = "2.1.0";
+		public virtual string ProgVersion { get; protected set; } = "2.2.0";
 
 		public virtual long InfiniteDrinkableEdible { get; protected set; } = 9999;
 
@@ -2407,6 +2407,45 @@ namespace Eamon.Game.Plugin
 						);
 					}
 				}
+				else if (firstLine.Contains("Version=2.1.0.0"))
+				{
+					if (firstLine.Contains("Game.DataStorage.ArtifactDbTable") || firstLine.Contains("Game.DataStorage.Database"))
+					{
+						if (workDir.EndsWith(@"\Adventures\TheDeepCanyon"))
+						{
+							ReplaceDatafileValues
+							(
+								fileName,
+								new string[]
+								{
+									@"Eamon\.Game\.Artifact, Eamon",
+								},
+								new string[]
+								{
+									"TheDeepCanyon.Game.Artifact, TheDeepCanyon",
+								}
+							);
+						}
+					}
+
+					if (!upgraded)
+					{
+						ReplaceDatafileValues
+						(
+							fileName,
+							new string[]
+							{
+								@"Version=2\.1\.0\.0",
+								@"EAMON CS 2\.1",
+							},
+							new string[]
+							{
+								"Version=2.2.0.0",
+								"EAMON CS 2.2",
+							}
+						);
+					}
+				}
 				else
 				{
 					needsUpgrade = false;
@@ -3875,7 +3914,7 @@ namespace Eamon.Game.Plugin
 
 			buf02 = new StringBuilder(BufSize);
 
-			var omitSkillStats = IsRulesetVersion(15, 25) && GetGameState() != null;
+			var omitSkillStats = IsRulesetVersion(5) && GetGameState() != null;
 
 			Out.Print("{0,-36}Gender: {1,-9}Damage Taken: {2}/{3}",
 				args.Monster.Name.ToUpper(),

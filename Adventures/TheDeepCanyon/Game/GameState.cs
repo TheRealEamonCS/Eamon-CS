@@ -25,5 +25,10 @@ namespace TheDeepCanyon.Game
 		public virtual bool BlueDragon { get; set; }
 
 		public virtual bool TrapSet { get; set; }
+
+		public GameState()
+		{
+			EnhancedParser = true;
+		}
 	}
 }

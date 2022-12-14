@@ -6,6 +6,7 @@
 using System.Text;
 using Eamon;
 using Eamon.Framework;
+using Eamon.Framework.Primitive.Classes;
 using Eamon.Game.Attributes;
 using static TheVileGrimoireOfJaldial.Game.Plugin.Globals;
 
@@ -87,6 +88,19 @@ namespace TheVileGrimoireOfJaldial.Game
 			{
 				Desc = "This tombstone is very old, possibly several hundred years.  Why is it all by itself, you pause to wonder?";
 			}
+
+			return result;
+		}
+
+		public override bool IsAttackable(ref IArtifactCategory ac)
+		{
+			bool result;
+
+			gEngine.PushRulesetVersion(0);
+
+			result = base.IsAttackable(ref ac);
+
+			gEngine.PopRulesetVersion();
 
 			return result;
 		}

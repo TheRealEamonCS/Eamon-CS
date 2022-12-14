@@ -94,6 +94,19 @@ namespace TheVileGrimoireOfJaldial.Game
 
 		public virtual IDictionary<long, IList<long>> ClumsyTargets { get; set; }
 
+		public override long GetDTTL(long index)
+		{
+			long result;
+
+			gEngine.PushRulesetVersion(0);
+
+			result = base.GetDTTL(index);
+
+			gEngine.PopRulesetVersion();
+
+			return result;
+		}
+
 		public virtual bool IsNightTime()
 		{
 			return !IsDayTime();
@@ -175,6 +188,8 @@ namespace TheVileGrimoireOfJaldial.Game
 
 		public GameState()
 		{
+			EnhancedParser = true;
+
 			Minute = gEngine.StartMinute;
 
 			Hour = gEngine.StartHour;

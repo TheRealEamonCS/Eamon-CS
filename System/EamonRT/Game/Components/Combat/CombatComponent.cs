@@ -175,7 +175,7 @@ namespace EamonRT.Game.Components
 			{ 
 				if (BlastSpell)
 				{
-					if (gEngine.IsRulesetVersion(5, 15, 25))
+					if (gEngine.IsRulesetVersion(5))
 					{
 						ExecuteCalculateDamage(1, 6, 0, false);
 					}
@@ -231,7 +231,7 @@ namespace EamonRT.Game.Components
 
 					gEngine.SkillIncreaseFuncList.Add(() =>
 					{
-						if (!gEngine.IsRulesetVersion(5, 15, 25))
+						if (!gEngine.IsRulesetVersion(5))
 						{
 							PrintWeaponAbilityIncreases(s, weapon);
 						}
@@ -257,7 +257,7 @@ namespace EamonRT.Game.Components
 					{
 						gEngine.SkillIncreaseFuncList.Add(() =>
 						{
-							if (!gEngine.IsRulesetVersion(5, 15, 25))
+							if (!gEngine.IsRulesetVersion(5))
 							{
 								PrintArmorExpertiseIncreases();
 							}
@@ -434,7 +434,7 @@ namespace EamonRT.Game.Components
 
 			_rl = gEngine.RollDice(1, 100, 0);
 
-			if ((gEngine.IsRulesetVersion(5, 15, 25) && _rl < 36) || (!gEngine.IsRulesetVersion(5, 15, 25) && _rl < 41))
+			if ((gEngine.IsRulesetVersion(5) && _rl < 36) || (!gEngine.IsRulesetVersion(5) && _rl < 41))
 			{
 				PrintRecovered();
 
@@ -443,7 +443,7 @@ namespace EamonRT.Game.Components
 				goto Cleanup;
 			}
 
-			if ((gEngine.IsRulesetVersion(5, 15, 25) && _rl < 76) || (!gEngine.IsRulesetVersion(5, 15, 25) && _rl < 81))
+			if ((gEngine.IsRulesetVersion(5) && _rl < 76) || (!gEngine.IsRulesetVersion(5) && _rl < 81))
 			{
 				if (gGameState.Ls > 0 && gGameState.Ls == ActorWeaponUid)
 				{
@@ -572,20 +572,20 @@ namespace EamonRT.Game.Components
 
 			PrintCriticalHit();
 
-			if (ActorMonster != DobjMonster || !gEngine.IsRulesetVersion(5, 15, 25))
+			if (ActorMonster != DobjMonster || !gEngine.IsRulesetVersion(5))
 			{
 				_rl = gEngine.RollDice(1, 100, 0);
 
 				if (_rl == 100)
 				{
-					_d2 = DobjMonster.Hardiness - DobjMonster.DmgTaken - (gEngine.IsRulesetVersion(5, 15, 25) ? 0 : 2);
+					_d2 = DobjMonster.Hardiness - DobjMonster.DmgTaken - (gEngine.IsRulesetVersion(5) ? 0 : 2);
 
 					CombatState = CombatState.CheckArmor;
 
 					goto Cleanup;
 				}
 
-				if (_rl < (gEngine.IsRulesetVersion(5, 15, 25) ? 51 : 50))
+				if (_rl < (gEngine.IsRulesetVersion(5) ? 51 : 50))
 				{
 					A = 0;
 
@@ -594,7 +594,7 @@ namespace EamonRT.Game.Components
 					goto Cleanup;
 				}
 
-				if (_rl < 86 || !gEngine.IsRulesetVersion(5, 15, 25))
+				if (_rl < 86 || !gEngine.IsRulesetVersion(5))
 				{
 					S2 = S;
 
@@ -862,7 +862,7 @@ namespace EamonRT.Game.Components
 
 			if (BlastSpell)
 			{
-				if (gEngine.IsRulesetVersion(5, 15, 25))
+				if (gEngine.IsRulesetVersion(5))
 				{
 					D = 1;
 

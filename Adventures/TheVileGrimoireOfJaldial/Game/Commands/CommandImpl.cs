@@ -14,6 +14,32 @@ namespace TheVileGrimoireOfJaldial.Game.Commands
 	[ClassMappings]
 	public class CommandImpl : EamonRT.Game.Commands.CommandImpl, ICommandImpl
 	{
+		public override bool IsPlayerEnabled 
+		{
+			get
+			{
+				return base.IsPlayerEnabled || Command is IFreeCommand || Command is IRequestCommand || Command is ICloseCommand || Command is IDrinkCommand || Command is IEatCommand || Command is ILightCommand || Command is IOpenCommand || Command is IPutCommand || Command is IReadCommand || Command is IRemoveCommand || Command is IUseCommand || Command is IWearCommand || Command is IStatusCommand || Command is IGoCommand;
+			}
+
+			set
+			{
+				base.IsPlayerEnabled = value;
+			}
+		}
+
+		public override bool IsMonsterEnabled
+		{
+			get
+			{
+				return base.IsMonsterEnabled || Command is IMonsterRemoveCommand;
+			}
+
+			set
+			{
+				base.IsMonsterEnabled = value;
+			}
+		}
+
 		public override void PrintLightObj(IArtifact artifact)
 		{
 			Debug.Assert(artifact != null);

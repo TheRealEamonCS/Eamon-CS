@@ -350,6 +350,19 @@ namespace TheDeepCanyon.Game.Plugin
 			while ((room.Uid == 8 && direction == Direction.West) || (room.Uid == 22 && direction == Direction.North) || (room.Uid == 41 && direction == Direction.North) || (room.Uid == 43 && direction == Direction.East) || (room.Uid == 44 && direction == Direction.West) || (room.Uid == 61 && direction == Direction.West));
 		}
 
+		public override IList<IArtifact> GetReadyableWeaponList(IMonster monster)
+		{
+			IList<IArtifact> result;
+
+			PushRulesetVersion(0);
+
+			result = base.GetReadyableWeaponList(monster);
+
+			PopRulesetVersion();
+
+			return result;
+		}
+
 		public virtual void MagicRingLowersMonsterStats(IMonster monster)
 		{
 			Debug.Assert(monster != null);
@@ -379,7 +392,7 @@ namespace TheDeepCanyon.Game.Plugin
 
 		public Engine()
 		{
-			PushRulesetVersion(25);
+			PushRulesetVersion(5);
 		}
 	}
 }

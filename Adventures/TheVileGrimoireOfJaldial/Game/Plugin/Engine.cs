@@ -406,6 +406,19 @@ namespace TheVileGrimoireOfJaldial.Game.Plugin
 			base.MonsterDies(actorMonster, dobjMonster);
 		}
 
+		public override IList<IArtifact> GetReadyableWeaponList(IMonster monster)
+		{
+			IList<IArtifact> result;
+
+			PushRulesetVersion(0);
+
+			result = base.GetReadyableWeaponList(monster);
+
+			PopRulesetVersion();
+
+			return result;
+		}
+
 		public override IList<IMonster> GetHostileMonsterList(IMonster monster)
 		{
 			Debug.Assert(monster != null);
@@ -471,7 +484,7 @@ namespace TheVileGrimoireOfJaldial.Game.Plugin
 
 			NonEmotingMonsterUids = new long[] { 13, 18, 19, 20, 22, 25, 31, 32, 38 };
 
-			PushRulesetVersion(15);
+			PushRulesetVersion(5);
 
 			MacroFuncs.Add(3, () =>
 			{
