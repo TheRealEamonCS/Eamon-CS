@@ -129,6 +129,20 @@ namespace ThePyramidOfAnharos.Game
 							}
 						}
 					}
+
+					// Carpet
+
+					else if (Uid == 40)
+					{
+						var onyxCaseArtifact = gADB[39];
+
+						Debug.Assert(onyxCaseArtifact != null);
+
+						if (base.Location == 59 && value == -1 && onyxCaseArtifact.Location == 7059)
+						{
+							onyxCaseArtifact.Location = 6059;
+						}
+					}
 				}
 
 				base.Location = value;

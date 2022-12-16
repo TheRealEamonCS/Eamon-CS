@@ -2286,7 +2286,7 @@
         </member>
         <member name="P:Eamon.Framework.IGameState.Die">
             <summary>
-            Gets or sets a value indicating the player character death status (-1=Quitting Game, 0=Alive, 1=Dead).
+            Gets or sets a value indicating the player character death status (-1=Quitting Game; 0=Alive; 1=Dead).
             </summary>
         </member>
         <member name="P:Eamon.Framework.IGameState.Speed">
