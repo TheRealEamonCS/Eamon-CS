@@ -265,7 +265,11 @@ namespace TheDeepCanyon.Game.Plugin
 			}
 			else
 			{
+				PushRulesetVersion(0);
+
 				base.MonsterGetsAggravated(monster, printFinalNewLine);
+
+				PopRulesetVersion();
 			}
 		}
 

@@ -1822,7 +1822,13 @@ namespace EamonRT.Game.Plugin
 
 			if (monster.Reaction > Friendliness.Enemy)
 			{
-				var room = RDB[GameState.Ro];
+				Debug.Assert(gCharMonster != null);
+
+				var charRoom = gCharMonster.GetInRoom();
+
+				Debug.Assert(charRoom != null);
+
+				var room = monster.GetInRoom();
 
 				Debug.Assert(room != null);
 
@@ -1839,17 +1845,34 @@ namespace EamonRT.Game.Plugin
 					monster.Friendliness--;
 				}
 
-				monster.Reaction--;
+				var monsterList = new List<IMonster>() { monster };
 
-				if (monster.Reaction == Friendliness.Enemy)
+				if (IsRulesetVersion(5))
 				{
-					MiscEventFuncList02.Add(() =>
+					monsterList.AddRange(GetMonsterList(m => !m.IsCharacterMonster() && m.Uid != monster.Uid && m.IsInRoom(room) && m.Reaction > Friendliness.Enemy));
+
+					foreach (var monster01 in monsterList)
 					{
-						if (monster.IsInRoom(room))
+						monster01.ResolveReaction(Character.GetStat(Stat.Charisma));
+					}
+				}
+				else
+				{
+					monster.Reaction--;
+				}
+
+				foreach (var monster01 in monsterList)
+				{
+					if (monster01.Reaction == Friendliness.Enemy)
+					{
+						MiscEventFuncList02.Add(() =>
 						{
-							PrintMonsterGetsAngry(monster, printFinalNewLine);
-						}
-					});
+							if (monster01.IsInRoom(charRoom))
+							{
+								PrintMonsterGetsAngry(monster01, printFinalNewLine);
+							}
+						});
+					}
 				}
 			}
 		}

@@ -9,6 +9,8 @@ namespace ThePyramidOfAnharos.Framework.Plugin
 	{
 		string MapData { get; set; }
 
+		bool TaxLevied { get; set; }
+
 		void PrintGuideMonsterDirection();
 
 		void PrintTheGlyphsRead(long effectUid);

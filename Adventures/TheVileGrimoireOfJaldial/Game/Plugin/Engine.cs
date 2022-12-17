@@ -349,6 +349,15 @@ namespace TheVileGrimoireOfJaldial.Game.Plugin
 			gGameState.ClumsyTargets.Remove(monster.Uid);
 		}
 
+		public override void MonsterGetsAggravated(IMonster monster, bool printFinalNewLine = true)
+		{
+			PushRulesetVersion(0);
+
+			base.MonsterGetsAggravated(monster, printFinalNewLine);
+
+			PopRulesetVersion();
+		}
+
 		public override void MonsterDies(IMonster actorMonster, IMonster dobjMonster)
 		{
 			Debug.Assert(dobjMonster != null);

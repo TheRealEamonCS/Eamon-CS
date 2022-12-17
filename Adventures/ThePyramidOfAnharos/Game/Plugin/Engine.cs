@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 using Eamon;
+using Eamon.Framework;
 using Eamon.Framework.Primitive.Enums;
 using static ThePyramidOfAnharos.Game.Plugin.Globals;
 
@@ -16,6 +17,8 @@ namespace ThePyramidOfAnharos.Game.Plugin
 	public class Engine : EamonRT.Game.Plugin.Engine, Framework.Plugin.IEngine
 	{
 		public virtual string MapData { get; set; }
+
+		public virtual bool TaxLevied { get; set; }
 
 		public override RetCode LoadPluginClassMappings()
 		{
@@ -33,6 +36,17 @@ namespace ThePyramidOfAnharos.Game.Plugin
 		Cleanup:
 
 			return rc;
+		}
+
+		public override void PrintMonsterEmotes(IMonster monster, bool friendSmile = true)
+		{
+			Debug.Assert(monster != null);
+
+			Out.Write("{0}{1} {2}{3} at you.",
+				Environment.NewLine,
+				monster.GetTheName(true),
+				monster.EvalReaction("growl", "gaze", "smile"),
+				monster.EvalPlural("s", ""));
 		}
 
 		public override void InitArtifacts()
@@ -171,6 +185,22 @@ namespace ThePyramidOfAnharos.Game.Plugin
 				guideMonster.Reaction = Friendliness.Friend;
 
 				gCharacter.HeldGold -= (long)Math.Floor((200.0 / gGameState.GU) / gGameState.GU);
+			}
+		}
+
+		public override void SellInventoryToMerchant(bool sellInventory = true)
+		{
+			base.SellInventoryToMerchant(sellInventory);
+
+			if (Character.HeldGold > 0 && TaxLevied)
+			{
+				Out.Print("{0}", LineSep);
+
+				Out.Print("Unfortunately, it's all taxed away.");
+
+				Character.HeldGold = 0;
+
+				In.KeyPress(Buf);
 			}
 		}
 
