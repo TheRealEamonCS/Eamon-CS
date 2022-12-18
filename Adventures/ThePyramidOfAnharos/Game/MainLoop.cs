@@ -74,9 +74,15 @@ namespace ThePyramidOfAnharos.Game
 
 					gEngine.TaxLevied = true;
 
-					gCharacter.HeldGold = 0;
+					if (gCharacter.HeldGold > 0)
+					{
+						gCharacter.HeldGold = 0;
+					}
 
-					gCharacter.BankGold = 0;
+					if (gCharacter.BankGold > 0)
+					{
+						gCharacter.BankGold = 0;
+					}
 				}
 			}
 			else
@@ -85,9 +91,15 @@ namespace ThePyramidOfAnharos.Game
 
 				gEngine.TaxLevied = true;
 
-				gCharacter.HeldGold = 0;
+				if (gCharacter.HeldGold > 0)
+				{
+					gCharacter.HeldGold = 0;
+				}
 
-				gCharacter.BankGold = 0;
+				if (gCharacter.BankGold > 0)
+				{
+					gCharacter.BankGold = 0;
+				}
 			}
 
 			gEngine.In.KeyPress(gEngine.Buf);

@@ -17,7 +17,7 @@ namespace ThePyramidOfAnharos.Game.Components
 		{
 			PowerEventRoll = gEngine.RollDice(1, 100, 0);
 
-			if (PowerEventRoll > 80)
+			if (PowerEventRoll > 80 /* && ActorRoom.Zone != 2 */)
 			{
 				gOut.Print("A dust storm blows up suddenly. The stinging sand flays your skin.");
 

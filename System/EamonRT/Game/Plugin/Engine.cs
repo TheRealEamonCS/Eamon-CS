@@ -1853,7 +1853,7 @@ namespace EamonRT.Game.Plugin
 
 					foreach (var monster01 in monsterList)
 					{
-						monster01.ResolveReaction(Character.GetStat(Stat.Charisma));
+						monster01.ResolveReaction(Character);
 					}
 				}
 				else

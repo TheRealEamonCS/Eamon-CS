@@ -20,6 +20,10 @@ namespace ThePyramidOfAnharos.Game.States
 
 			if (eventType == EventType.AfterMoveMonsters)
 			{
+				var crazedHermitMonster = gMDB[5];
+
+				Debug.Assert(crazedHermitMonster != null);
+
 				var statueArtifact = gADB[63];
 
 				Debug.Assert(statueArtifact != null);
@@ -45,6 +49,10 @@ namespace ThePyramidOfAnharos.Game.States
 				{
 					statueArtifact.SetInRoomUid(30);
 				}
+
+				// Reset crazed hermit's reaction
+
+				crazedHermitMonster.ResolveReaction(gCharacter);
 			}
 			else if (eventType == EventType.AfterExtinguishLightSourceCheck)
 			{
