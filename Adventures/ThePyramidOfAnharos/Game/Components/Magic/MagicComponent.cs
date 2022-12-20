@@ -46,19 +46,19 @@ namespace ThePyramidOfAnharos.Game.Components
 
 				if (PowerEventRoll > 70)
 				{
-					gOut.Print("   Anharos must be made whole again.");
+					gOut.Print("\"Anharos must be made whole again.\"");
 				}
 				else if (PowerEventRoll > 60)
 				{
-					gOut.Print("   Follow the spectrum precisely.");
+					gOut.Print("\"Follow the spectrum precisely.\"");
 				}
 				else if (PowerEventRoll > 50)
 				{
-					gOut.Print("   Remember - For Anharos.");
+					gOut.Print("\"Remember - For Anharos.\"");
 				}
 				else if (PowerEventRoll > 40)
 				{
-					gOut.Print("   Only the pure can resist the gem.");
+					gOut.Print("\"Only the pure can resist the gem.\"");
 				}
 			}
 

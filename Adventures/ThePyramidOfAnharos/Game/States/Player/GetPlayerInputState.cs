@@ -139,19 +139,19 @@ namespace ThePyramidOfAnharos.Game.States
 				{
 					gOut.PunctSpaceCode = PunctSpaceCode.None;
 
-					gOut.Write("{0}As you enter the room, a voice emanates from {1},", Environment.NewLine, room.IsLit() ? "the statue" : "nearby");
+					gOut.Print("As you enter the room, a voice emanates from {0},", room.IsLit() ? "the statue" : "nearby");
 
-					gOut.Write("{0}  Hearken my word,", Environment.NewLine);
+					gOut.Write("{0}\"Hearken my word,", Environment.NewLine);
 
-					gOut.Write("{0}  On her is heard,", Environment.NewLine);
+					gOut.Write("{0}On her is heard,", Environment.NewLine);
 
-					gOut.Write("{0}  No other may", Environment.NewLine);
+					gOut.Write("{0}No other may", Environment.NewLine);
 
-					gOut.Write("{0}  Open the way,", Environment.NewLine);
+					gOut.Write("{0}Open the way,", Environment.NewLine);
 
-					gOut.Write("{0}  Respond the trait", Environment.NewLine);
+					gOut.Write("{0}Respond the trait", Environment.NewLine);
 
-					gOut.Write("{0}    To see his fate.{0}", Environment.NewLine);
+					gOut.Write("{0}To see his fate.\"{0}", Environment.NewLine);
 
 					gOut.Print("What is your answer?");
 
