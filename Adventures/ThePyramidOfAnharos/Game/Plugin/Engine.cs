@@ -69,22 +69,28 @@ namespace ThePyramidOfAnharos.Game.Plugin
 
 			MacroFuncs.Add(4, () =>
 			{
+				var result = "";
+
 				// Pyramid / Floor
 
 				if (GameState != null)
 				{
-					var effectUid = GameState.Ro == 12 ? 41 : GameState.Ro > 13 && GameState.Ro < 25 ? 39 : 40;
+					var effectUid = GameState.Ro == 12 ? 41 : GameState.Ro > 13 && GameState.Ro < 25 ? 39 : GameState.Ro > 24 && GameState.Ro < 43 ? 40 : 0;
 
-					var effect = EDB[effectUid];
+					var effect = effectUid > 0 ? EDB[effectUid] : null;
 
-					Debug.Assert(effect != null);
-
-					return effect.Desc;
+					if (effect != null)
+					{
+						result = effect.Desc;
+					}
 				}
-				else
+
+				if (result == "")
 				{
-					return "You see nothing special.";
+					result = "You see nothing special.";
 				}
+
+				return result;
 			});
 
 			var synonyms = new Dictionary<long, string[]>()

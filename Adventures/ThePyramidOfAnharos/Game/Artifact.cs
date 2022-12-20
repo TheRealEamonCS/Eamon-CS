@@ -76,7 +76,7 @@ namespace ThePyramidOfAnharos.Game
 
 					else if (Uid == 77)
 					{
-						if (gGameState.Ro == 12)
+						if (gGameState.Ro > 5 && gGameState.Ro < 14)
 						{
 							Name = "pyramid";
 
