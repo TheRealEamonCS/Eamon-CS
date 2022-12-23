@@ -22,47 +22,17 @@ namespace ThePyramidOfAnharos.Game.Commands
 
 			Debug.Assert(columnOfWaterArtifact != null);
 
+			var gotoCleanup = false;
+
 			// Acid moat
 
 			if (ActorRoom.Uid == 26 || ActorRoom.Uid == 27)
 			{
-				gEngine.PrintEffectDesc(23);
+				gEngine.InjurePartyAndDamageEquipment(ActorRoom, 23, ActorRoom.Uid == 26 ? 27 : 26, 2, 0.2, s => NextState = s, ref gotoCleanup);
 
-				var monsterList = gEngine.GetMonsterList(m => m.IsCharacterMonster(), m => !m.IsCharacterMonster() && m.Reaction == Friendliness.Friend && m.IsInRoom(ActorRoom));
-
-				foreach (var monster in monsterList)
+				if (gotoCleanup)
 				{
-					var dice = (long)Math.Floor(0.2 * (monster.Hardiness - monster.DmgTaken) + 1);
-
-					var combatComponent = gEngine.CreateInstance<ICombatComponent>(x =>
-					{
-						x.SetNextStateFunc = s => NextState = s;
-
-						x.ActorRoom = ActorRoom;
-
-						x.Dobj = monster;
-
-						x.OmitArmor = true;
-					});
-
-					combatComponent.ExecuteCalculateDamage(dice, 1);
-
-					var deadBodyArtifact = monster.DeadBody > 0 ? gADB[monster.DeadBody] : null;
-
-					if (deadBodyArtifact != null && !deadBodyArtifact.IsInLimbo())
-					{
-						deadBodyArtifact.SetInRoomUid(ActorRoom.Uid == 26 ? 27 : 26);
-					}
-
-					if (gGameState.Die > 0)
-					{
-						goto Cleanup;
-					}
-				}
-
-				foreach (var monster in monsterList)
-				{
-					gEngine.DamageWeaponsAndArmor(ActorRoom, monster, 2);
+					goto Cleanup;
 				}
 
 				gGameState.R2 = ActorRoom.Uid == 26 ? 27 : 26;

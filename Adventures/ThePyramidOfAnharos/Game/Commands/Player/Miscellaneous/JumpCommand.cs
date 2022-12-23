@@ -3,11 +3,9 @@
 
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
-using System;
 using System.Diagnostics;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
-using EamonRT.Framework.Components;
 using EamonRT.Framework.States;
 using static ThePyramidOfAnharos.Game.Plugin.Globals;
 
@@ -21,6 +19,8 @@ namespace ThePyramidOfAnharos.Game.Commands
 			var pikeArtifact = gADB[11];
 
 			Debug.Assert(pikeArtifact != null);
+
+			var gotoCleanup = false;
 
 			// Krell statue / Pike
 
@@ -37,43 +37,11 @@ namespace ThePyramidOfAnharos.Game.Commands
 			{
 				if (!pikeArtifact.IsCarriedByCharacter())
 				{
-					gEngine.PrintEffectDesc(20);
+					gEngine.InjurePartyAndDamageEquipment(ActorRoom, 20, ActorRoom.Uid == 26 ? 27 : 26, 1, 0.1, s => NextState = s, ref gotoCleanup);
 
-					var monsterList = gEngine.GetMonsterList(m => m.IsCharacterMonster(), m => !m.IsCharacterMonster() && m.Reaction == Friendliness.Friend && m.IsInRoom(ActorRoom));
-
-					foreach (var monster in monsterList)
+					if (gotoCleanup)
 					{
-						var dice = (long)Math.Floor(0.1 * (monster.Hardiness - monster.DmgTaken) + 1);
-
-						var combatComponent = gEngine.CreateInstance<ICombatComponent>(x =>
-						{
-							x.SetNextStateFunc = s => NextState = s;
-
-							x.ActorRoom = ActorRoom;
-
-							x.Dobj = monster;
-
-							x.OmitArmor = true;
-						});
-
-						combatComponent.ExecuteCalculateDamage(dice, 1);
-
-						var deadBodyArtifact = monster.DeadBody > 0 ? gADB[monster.DeadBody] : null;
-
-						if (deadBodyArtifact != null && !deadBodyArtifact.IsInLimbo())
-						{
-							deadBodyArtifact.SetInRoomUid(ActorRoom.Uid == 26 ? 27 : 26);
-						}
-
-						if (gGameState.Die > 0)
-						{
-							goto Cleanup;
-						}
-					}
-
-					foreach (var monster in monsterList)
-					{
-						gEngine.DamageWeaponsAndArmor(ActorRoom, monster);
+						goto Cleanup;
 					}
 				}
 				else

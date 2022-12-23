@@ -27,6 +27,8 @@ namespace ThePyramidOfAnharos.Game.States
 
 			base.ProcessEvents(eventType);
 
+			// Note: differs from the Apple II implementation in that these events occur regardless of room light level (but are sensitive to it)
+
 			if (eventType == EventType.BeforePrintCommandPrompt && gEngine.ShouldPreTurnProcess)
 			{
 				Debug.Assert(gCharMonster != null);
