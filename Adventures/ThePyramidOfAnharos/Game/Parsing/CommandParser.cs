@@ -34,18 +34,9 @@ namespace ThePyramidOfAnharos.Game.Parsing
 
 			if (afterFinishParsing)
 			{
-				// Can't light torch in Black room
-
-				if (NextCommand is ILightCommand && DobjArtifact != null && (DobjArtifact.Uid == 16 || DobjArtifact.Uid == 17) && ActorRoom.Uid == 39)
-				{
-					gOut.Print("Your light is extinguished as though snuffed out by an unseen watcher.");
-
-					NextState = gEngine.CreateInstance<IMonsterStartState>();
-				}
-
 				// Can't look at / examine anything in Black room
 
-				else if ((NextCommand is ILookCommand || NextCommand is IExamineCommand) && Dobj != null && ActorRoom.Uid == 39)
+				if ((NextCommand is ILookCommand || NextCommand is IExamineCommand) && Dobj != null && ActorRoom.Uid == 39)
 				{
 					NextState = gEngine.CreateInstance<IStartState>();
 				}
