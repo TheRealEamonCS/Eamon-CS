@@ -27,8 +27,6 @@ namespace ThePyramidOfAnharos.Game.States
 
 			base.ProcessEvents(eventType);
 
-			// Note: differs from the Apple II implementation in that these events occur regardless of room light level (but are sensitive to it)
-
 			if (eventType == EventType.BeforePrintCommandPrompt && gEngine.ShouldPreTurnProcess)
 			{
 				Debug.Assert(gCharMonster != null);
@@ -83,7 +81,7 @@ namespace ThePyramidOfAnharos.Game.States
 
 				// Guards attack
 
-				if (room.Uid == 17 && gGameState.KH != 1)
+				if (room.Uid == 17 && gGameState.KH != 1 && room.IsLit())
 				{
 					gGameState.KH = 1;
 
@@ -91,14 +89,7 @@ namespace ThePyramidOfAnharos.Game.States
 
 					guardsMonster.SetInRoom(room);
 
-					if (room.IsLit())
-					{
-						gEngine.PrintEffectDesc(54);
-					}
-					else
-					{
-						gOut.Print("As you gaze into the darkness, you are startled to hear something rise from the floor. You hear a rasping voice say, 'Death to the despoilers of the sleep of mighty Anharos', as it attacks.");
-					}
+					gEngine.PrintEffectDesc(54);
 
 					for (var i = 1; i <= guardsMonster.CurrGroupCount; i++)
 					{
@@ -128,6 +119,8 @@ namespace ThePyramidOfAnharos.Game.States
 					}
 				}
 
+				// Staircase retracts
+
 				if (room.Uid < 30 && gGameState.KU != 0)
 				{
 					staircaseArtifact.SetInLimbo();
@@ -137,11 +130,11 @@ namespace ThePyramidOfAnharos.Game.States
 
 				// Riddle
 
-				if (room.Uid == 30 && statueArtifact.IsInRoom(room) && gGameState.KU == 0)
+				if (room.Uid == 30 && statueArtifact.IsInRoom(room) && gGameState.KU == 0 && room.IsLit())
 				{
 					gOut.PunctSpaceCode = PunctSpaceCode.None;
 
-					gOut.Print("As you enter the room, a voice emanates from {0},", room.IsLit() ? "the statue" : "nearby");
+					gOut.Print("As you enter the room, a voice emanates from the statue,");
 
 					gOut.Write("{0}\"Hearken my word,", Environment.NewLine);
 
@@ -175,14 +168,7 @@ namespace ThePyramidOfAnharos.Game.States
 					}
 					else
 					{
-						if (room.IsLit())
-						{
-							gEngine.PrintEffectDesc(53);
-						}
-						else
-						{
-							gOut.Print("You hear a commotion, and something screeches at you. It advances toward you in the darkness.");
-						}
+						gEngine.PrintEffectDesc(53);
 
 						statueArtifact.SetInLimbo();
 
@@ -349,7 +335,7 @@ namespace ThePyramidOfAnharos.Game.States
 						dice = 1;
 					}
 
-					if (monster != null && monster.IsInRoom(room))
+					if (monster != null && monster.IsInRoom(room) && (room.IsLit() || (gEngine.LastCommand != null && gEngine.LastCommand.IsDarkEnabled)))
 					{
 						gOut.Print("{0} drains {1} life force.", monster.IsCharacterMonster() || room.IsLit() ? diamondOfPurityArtifact.GetTheName(true) : "Something", monster.IsCharacterMonster() ? "your" : room.EvalLightLevel("an entity's", monster.GetTheName(false).AddPossessiveSuffix()));
 
@@ -375,14 +361,13 @@ namespace ThePyramidOfAnharos.Game.States
 					}
 				}
 
-				{
-					// Friendlies burn one water unit each
+				// Burn down water units
 
+				if (room.IsLit() || (gEngine.LastCommand != null && gEngine.LastCommand.IsDarkEnabled))
+				{
 					var monsterList = gEngine.GetMonsterList(m => !m.IsCharacterMonster() && m.Reaction == Friendliness.Friend && m.IsInRoom(room));
 
 					gGameState.KW -= monsterList.Count;
-
-					// Player burns water units based on armor
 
 					gGameState.KW -= (gCharMonster.Armor < 3 ? 1 : gCharMonster.Armor < 8 ? gCharMonster.Armor - 1 : 6);
 
@@ -420,6 +405,8 @@ namespace ThePyramidOfAnharos.Game.States
 						}
 					}
 				}
+
+				// Guide gives advice
 
 				if (gSentenceParser.IsInputExhausted)
 				{
