@@ -121,7 +121,7 @@ namespace EamonRT.Game.Components
 					{
 						gEngine.SkillIncreaseFuncList.Add(() =>
 						{
-							if (!gEngine.IsRulesetVersion(5, 15, 25))
+							if (!gEngine.IsRulesetVersion(5))
 							{
 								PrintSpellAbilityIncreases(s, spell);
 							}
@@ -161,7 +161,7 @@ namespace EamonRT.Game.Components
 
 			gGameState.SetSa(s, 0);
 
-			if (gEngine.IsRulesetVersion(5, 15, 25))
+			if (gEngine.IsRulesetVersion(5))
 			{
 				gCharacter.SetSpellAbility(s, 0);
 			}
@@ -272,7 +272,7 @@ namespace EamonRT.Game.Components
 			{
 				PrintHealthImproves(DobjMonster);
 
-				DamageHealed = gEngine.RollDice(1, gEngine.IsRulesetVersion(5, 15, 25) ? 10 : 12, 0);
+				DamageHealed = gEngine.RollDice(1, gEngine.IsRulesetVersion(5) ? 10 : 12, 0);
 
 				DobjMonster.DmgTaken -= DamageHealed;
 			}
@@ -330,7 +330,7 @@ namespace EamonRT.Game.Components
 		/// <summary></summary>
 		public virtual void CalculateSpeedTurns()
 		{
-			SpeedTurns = gEngine.IsRulesetVersion(5, 15, 25) ? gEngine.RollDice(1, 25, 9) : gEngine.RollDice(1, 10, 10);
+			SpeedTurns = gEngine.IsRulesetVersion(5) ? gEngine.RollDice(1, 25, 9) : gEngine.RollDice(1, 10, 10);
 
 			gGameState.Speed += (SpeedTurns + 1);
 
@@ -373,7 +373,7 @@ namespace EamonRT.Game.Components
 		{
 			PowerEventRoll = gEngine.RollDice(1, 100, 0);
 
-			if (!gEngine.IsRulesetVersion(5, 15, 25))
+			if (!gEngine.IsRulesetVersion(5))
 			{
 				// 50% chance of boom
 

@@ -58,8 +58,9 @@ namespace EamonRT.Framework.Components
 		/// <param name="numDice"></param>
 		/// <param name="numSides"></param>
 		/// <param name="mod"></param>
-		void ExecuteCalculateDamage(long numDice, long numSides, long mod = 0);
-
+		/// <param name="nonCombat"></param>
+		void ExecuteCalculateDamage(long numDice, long numSides, long mod = 0, bool nonCombat = true);
+		
 		/// <summary></summary>
 		void ExecuteCheckMonsterStatus();
 

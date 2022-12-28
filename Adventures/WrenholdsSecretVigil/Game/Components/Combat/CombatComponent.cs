@@ -29,7 +29,7 @@ namespace WrenholdsSecretVigil.Game.Components
 			gEngine.MonsterCurses = false;
 		}
 
-		public override void PrintHealthStatus(IRoom room, IMonster actorMonster, IMonster dobjMonster, bool blastSpell)
+		public override void PrintHealthStatus(IRoom room, IMonster actorMonster, IMonster dobjMonster, bool blastSpell, bool nonCombat)
 		{
 			Debug.Assert(room != null && dobjMonster != null);
 
@@ -55,7 +55,7 @@ namespace WrenholdsSecretVigil.Game.Components
 				deadBodyArtifact.Seen = true;
 			}
 
-			base.PrintHealthStatus(room, actorMonster, dobjMonster, blastSpell);
+			base.PrintHealthStatus(room, actorMonster, dobjMonster, blastSpell, nonCombat);
 		}
 
 		public override void PrintAlreadyBrokeIt(IArtifact artifact)

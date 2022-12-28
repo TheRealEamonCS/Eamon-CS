@@ -1053,11 +1053,25 @@ namespace Eamon.Framework.Plugin
 		bool IsCharYOrN(char ch);
 
 		/// <summary>
+		/// Indicates whether a character is one of ['G', 'A', 'N'].
+		/// </summary>
+		/// <param name="ch"></param>
+		/// <returns></returns>
+		bool IsCharGOrAOrN(char ch);
+
+		/// <summary>
 		/// Indicates whether a character is one of ['S', 'T', 'R', 'X'].
 		/// </summary>
 		/// <param name="ch"></param>
 		/// <returns></returns>
 		bool IsCharSOrTOrROrX(char ch);
+
+		/// <summary>
+		/// Indicates whether a character is one of ['N', 'S', 'E', 'W'].
+		/// </summary>
+		/// <param name="ch"></param>
+		/// <returns></returns>
+		bool IsCharNOrSOrEOrW(char ch);
 
 		/// <summary>
 		/// Indicates whether a character is one of ['0', '1'].
@@ -1086,6 +1100,13 @@ namespace Eamon.Framework.Plugin
 		/// <param name="ch"></param>
 		/// <returns></returns>
 		bool IsChar1To3(char ch);
+
+		/// <summary>
+		/// Indicates whether a character is one of ['1', '2', '3', '4'].
+		/// </summary>
+		/// <param name="ch"></param>
+		/// <returns></returns>
+		bool IsChar1To4(char ch);
 
 		/// <summary>
 		/// Indicates whether a character is a numeric digit.

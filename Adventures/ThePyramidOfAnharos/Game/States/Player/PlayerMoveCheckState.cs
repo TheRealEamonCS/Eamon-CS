@@ -3,7 +3,9 @@
 
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
+using System;
 using System.Diagnostics;
+using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
@@ -18,17 +20,147 @@ namespace ThePyramidOfAnharos.Game.States
 		{
 			base.ProcessEvents(eventType);
 
-			if (eventType == EventType.AfterBlockingArtifactCheck)
+			Debug.Assert(gCharMonster != null);
+
+			var room = gCharMonster.GetInRoom();
+
+			Debug.Assert(room != null);
+
+			if (eventType == EventType.BeforeCanMoveToRoomCheck)
 			{
-				Debug.Assert(gCharMonster != null);
+				var omarMonster = gMDB[1];
 
-				var room = gCharMonster.GetInRoom();
+				Debug.Assert(omarMonster != null);
 
-				Debug.Assert(room != null);
+				var aliMonster = gMDB[2];
 
+				Debug.Assert(aliMonster != null);
+
+				var amuletArtifact = gADB[15];
+
+				Debug.Assert(amuletArtifact != null);
+
+				var tunicArtifact = gADB[45];
+
+				Debug.Assert(tunicArtifact != null);
+
+				var gotoCleanup = false;
+
+				// Wall of flames
+
+				if ((gGameState.Ro == 27 && gGameState.R2 == -28) || (gGameState.Ro == 28 && gGameState.R2 == -27))
+				{
+					if (!tunicArtifact.IsWornByCharacter())
+					{
+						gEngine.InjurePartyAndDamageEquipment(room, 19, Math.Abs(gGameState.R2), 1, 0.1, s => NextState = s, ref gotoCleanup);
+
+						if (gotoCleanup)
+						{
+							GotoCleanup = true;
+
+							goto Cleanup;
+						}
+					}
+					else
+					{
+						gEngine.PrintEffectDesc(17);
+					}
+
+					gGameState.R2 = Math.Abs(gGameState.R2);
+				}
+
+				// Dark cloud
+
+				else if (gGameState.R2 == -29 || (gGameState.Ro == 29 && gGameState.R2 == -28))
+				{
+					if (!amuletArtifact.IsWornByCharacter())
+					{
+						gEngine.InjurePartyAndDamageEquipment(room, 49, Math.Abs(gGameState.R2), 1, 0.1, s => NextState = s, ref gotoCleanup);
+
+						if (gotoCleanup)
+						{
+							GotoCleanup = true;
+
+							goto Cleanup;
+						}
+					}
+					else
+					{
+						gEngine.PrintEffectDesc(50);
+					}
+
+					gGameState.R2 = Math.Abs(gGameState.R2);
+				}
+
+				// Wander into desert
+
+				else if (gGameState.R2 < -89 && gGameState.R2 > -95)
+				{
+					gGameState.KL = Math.Abs(gGameState.R2) - 89;
+
+					gGameState.R2 = 67;
+				}
+
+				// Lost in desert
+
+				else if (gGameState.R2 == -95)
+				{
+					var km = 25 + (omarMonster.IsInRoom(room) && omarMonster.Reaction == Friendliness.Friend ? 50 : aliMonster.IsInRoom(room) && aliMonster.Reaction == Friendliness.Friend ? 25 : 0);
+
+					var rl = gEngine.RollDice(1, 100, 0);        // TODO: should modifier be -1 ???
+
+					if (km - rl >= 0)
+					{
+						switch (gGameState.KL)
+						{
+							case 1:
+
+								gGameState.R2 = gEngine.RollDice(1, 4, 0);
+
+								break;
+
+							case 2:
+
+								gGameState.R2 = gEngine.RollDice(1, 8, 5);
+
+								break;
+
+							case 3:
+
+								gGameState.R2 = gEngine.RollDice(1, 3, 43);
+
+								break;
+
+							case 4:
+
+								gGameState.R2 = gEngine.RollDice(1, 3, 49);
+
+								break;
+
+							case 5:
+
+								gGameState.R2 = gEngine.RollDice(1, 3, 63);
+
+								break;
+
+							default:
+
+								Debug.Assert(1 == 0);
+
+								break;
+						}
+					}
+					else
+					{
+						gGameState.R2 = 67;
+					}
+				}
+			}
+			else if (eventType == EventType.AfterBlockingArtifactCheck)
+			{
 				// Falling stone death trap
 
-				if (gGameState.Ro == 15 && gGameState.R2 == -98)
+				if (gGameState.R2 == -98)
 				{
 					if (room.IsLit())
 					{
@@ -37,6 +169,27 @@ namespace ThePyramidOfAnharos.Game.States
 					else
 					{
 						gOut.Print("As you move east, you feel the floor sink slightly under your feet. A noise above directs your gaze upward; moments later, something heavy crushes you. Splat! A most effective way of discouraging grave robbers or other snoops.");
+					}
+
+					gGameState.Die = 1;
+
+					NextState = gEngine.CreateInstance<IPlayerDeadState>(x =>
+					{
+						x.PrintLineSep = true;
+					});
+
+					GotoCleanup = true;
+
+					goto Cleanup;
+				}
+
+				// Abyss death trap
+
+				else if (gGameState.R2 == -97)
+				{
+					for (var i = 7; i <= 8; i++)
+					{
+						gEngine.PrintEffectDesc(i);
 					}
 
 					gGameState.Die = 1;

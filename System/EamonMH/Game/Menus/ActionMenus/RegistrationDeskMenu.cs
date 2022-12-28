@@ -129,7 +129,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 			gOut.Print("{0}", gEngine.LineSep);
 
-			gOut.Write("{0}You give him your gender ({1}=Male, {2}=Female): ",
+			gOut.Write("{0}You give him your gender ({1}=Male; {2}=Female): ",
 				Environment.NewLine,
 				(long)Gender.Male,
 				(long)Gender.Female);

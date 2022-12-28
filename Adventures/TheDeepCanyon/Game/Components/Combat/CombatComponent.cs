@@ -120,11 +120,11 @@ namespace TheDeepCanyon.Game.Components
 			}
 		}
 
-		public override void PrintHealthStatus(IRoom room, IMonster actorMonster, IMonster dobjMonster, bool blastSpell)
+		public override void PrintHealthStatus(IRoom room, IMonster actorMonster, IMonster dobjMonster, bool blastSpell, bool nonCombat)
 		{
 			Debug.Assert(room != null && dobjMonster != null);
 
-			base.PrintHealthStatus(room, actorMonster, dobjMonster, blastSpell);
+			base.PrintHealthStatus(room, actorMonster, dobjMonster, blastSpell, nonCombat);
 
 			if (dobjMonster.IsDead())
 			{
@@ -202,7 +202,7 @@ namespace TheDeepCanyon.Game.Components
 
 			if (!OmitMonsterStatus || ActorMonster == DobjMonster)
 			{
-				PrintHealthStatus(ActorRoom, ActorMonster, DobjMonster, BlastSpell);
+				PrintHealthStatus(ActorRoom, ActorMonster, DobjMonster, BlastSpell, NonCombat);
 			}
 
 			if (DobjMonster.IsDead())

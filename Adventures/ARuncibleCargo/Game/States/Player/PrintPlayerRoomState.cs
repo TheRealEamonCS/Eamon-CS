@@ -49,7 +49,7 @@ namespace ARuncibleCargo.Game.States
 
 					if (lookCommand != null)
 					{
-						gEngine.PrintPlayerRoom();
+						gEngine.PrintPlayerRoom(room);
 					}
 
 					// gEngine.SentenceParser.PrintDiscardingCommands() not called for this abrupt reality shift

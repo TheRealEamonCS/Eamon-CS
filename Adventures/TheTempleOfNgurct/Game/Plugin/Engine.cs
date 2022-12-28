@@ -10,6 +10,7 @@ using System.Reflection;
 using System.Text;
 using Eamon;
 using Eamon.Framework;
+using Eamon.Framework.Args;
 using Eamon.Framework.Primitive.Enums;
 using EamonRT.Framework.Components;
 using EamonRT.Framework.States;
@@ -37,6 +38,19 @@ namespace TheTempleOfNgurct.Game.Plugin
 		Cleanup:
 
 			return rc;
+		}
+
+		public override RetCode StatDisplay(IStatDisplayArgs args)
+		{
+			RetCode result;
+
+			PushRulesetVersion(0);
+
+			result = base.StatDisplay(args);
+
+			PopRulesetVersion();
+
+			return result;
 		}
 
 		public override void PrintMonsterEmotes(IMonster monster, bool friendSmile = true)

@@ -109,7 +109,7 @@ namespace TheDeepCanyon.Game.Components
 
 							Debug.Assert(artifact != null);
 
-							if (artifact.GeneralWeapon != null)
+							if ((artifact.IsCarriedByCharacter() || artifact.IsInRoom(ActorRoom)) && artifact.GeneralWeapon != null)
 							{
 								if (rl > 50)
 								{

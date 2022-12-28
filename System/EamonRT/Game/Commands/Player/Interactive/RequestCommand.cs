@@ -98,7 +98,7 @@ namespace EamonRT.Game.Commands
 
 			IsIobjEnabled = true;
 
-			if (gEngine.IsRulesetVersion(5, 25))
+			if (gEngine.IsRulesetVersion(5))
 			{
 				IsPlayerEnabled = false;
 			}

@@ -18,11 +18,9 @@ namespace ThePyramidOfAnharos.Game.Commands
 	{
 		public override void Execute()
 		{
-			Debug.Assert(DobjArtifact != null);
-
 			// Water
 
-			if (DobjArtifact.Uid == 78)
+			if (DobjArtifact != null && DobjArtifact.Uid == 78)
 			{
 				var waterBagArtifact = gADB[12];
 
@@ -104,6 +102,15 @@ namespace ThePyramidOfAnharos.Game.Commands
 			else
 			{
 				base.Execute();
+			}
+
+			// Diamond of Purity
+
+			if (DobjArtifact != null && DobjArtifact.Uid == 38 && DobjArtifact.IsCarriedByCharacter() && gGameState.KR < 4 && gGameState.GD == 0)
+			{
+				gEngine.PrintEffectDesc(56);
+
+				gGameState.GD = 1;
 			}
 		}
 

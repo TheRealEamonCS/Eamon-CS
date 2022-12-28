@@ -43,7 +43,7 @@ namespace Eamon.Framework.Primitive.Enums
 		Some,
 
 		/// <summary>
-		/// The name is preceded by "the".  For example, "the Rings of Xylo" or "the Emerald Warrior".
+		/// The name is preceded by "the".  For example, "the Rings of Zylo" or "the Emerald Warrior".
 		/// </summary>
 		/// <remarks>
 		/// Typically only applied to unique <see cref="IArtifact">Artifact</see>s or <see cref="IMonster">Monster</see>s, or those with special

@@ -8,13 +8,20 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 using Eamon;
+using Eamon.Framework;
 using Eamon.Framework.Primitive.Enums;
+using EamonRT.Framework.Components;
+using EamonRT.Framework.States;
 using static ThePyramidOfAnharos.Game.Plugin.Globals;
 
 namespace ThePyramidOfAnharos.Game.Plugin
 {
 	public class Engine : EamonRT.Game.Plugin.Engine, Framework.Plugin.IEngine
 	{
+		public virtual string MapData { get; set; }
+
+		public virtual bool TaxLevied { get; set; }
+
 		public override RetCode LoadPluginClassMappings()
 		{
 			RetCode rc;
@@ -31,6 +38,17 @@ namespace ThePyramidOfAnharos.Game.Plugin
 		Cleanup:
 
 			return rc;
+		}
+
+		public override void PrintMonsterEmotes(IMonster monster, bool friendSmile = true)
+		{
+			Debug.Assert(monster != null);
+
+			Out.Write("{0}{1} {2}{3} at you.",
+				Environment.NewLine,
+				monster.GetTheName(true),
+				monster.EvalReaction("growl", "gaze", "smile"),
+				monster.EvalPlural("s", ""));
 		}
 
 		public override void InitArtifacts()
@@ -51,6 +69,32 @@ namespace ThePyramidOfAnharos.Game.Plugin
 				return GameState != null && GameState.Ro == 16 ? "an exit into the desert to the south" : "a room inside the pyramid to the north";
 			});
 
+			MacroFuncs.Add(4, () =>
+			{
+				var result = "";
+
+				// Pyramid / Floor
+
+				if (GameState != null)
+				{
+					var effectUid = GameState.Ro == 12 ? 41 : GameState.Ro > 13 && GameState.Ro < 25 ? 39 : GameState.Ro > 24 && GameState.Ro < 43 ? 40 : 0;
+
+					var effect = effectUid > 0 ? EDB[effectUid] : null;
+
+					if (effect != null)
+					{
+						result = effect.Desc;
+					}
+				}
+
+				if (result == "")
+				{
+					result = "You see nothing special.";
+				}
+
+				return result;
+			});
+
 			var synonyms = new Dictionary<long, string[]>()
 			{
 				{ 3, new string[] { "sword" } },
@@ -59,6 +103,7 @@ namespace ThePyramidOfAnharos.Game.Plugin
 				{ 7, new string[] { "rifle", "gun" } },
 				{ 10, new string[] { "scimitar" } },
 				{ 12, new string[] { "bag" } },
+				{ 14, new string[] { "glyphs", "glyph" } },
 				{ 21, new string[] { "wall", "flame" } },
 				{ 22, new string[] { "wall", "flame" } },
 				{ 23, new string[] { "cloud" } },
@@ -68,11 +113,14 @@ namespace ThePyramidOfAnharos.Game.Plugin
 				{ 27, new string[] { "body" } },
 				{ 28, new string[] { "door" } },
 				{ 29, new string[] { "body" } },
+				{ 30, new string[] { "glyphs", "glyph" } },
 				{ 31, new string[] { "moon pool", "pool" } },
+				{ 32, new string[] { "glyphs", "glyph" } },
 				{ 34, new string[] { "mummy", "Anharos" } },
 				{ 35, new string[] { "door" } },
 				{ 38, new string[] { "Diamond", "Purity" } },
 				{ 39, new string[] { "case" } },
+				{ 40, new string[] { "glyphs", "glyph" } },
 				{ 42, new string[] { "leather", "armor" } },
 				{ 43, new string[] { "chain", "armor" } },
 				{ 44, new string[] { "plate", "armor" } },
@@ -98,6 +146,7 @@ namespace ThePyramidOfAnharos.Game.Plugin
 				{ 73, new string[] { "dead Basra", "dead body", "body", "Basra" } },
 				{ 74, new string[] { "dead children", "Riff children", "children", "dead Riff child", "dead child", "Riff child", "child" } },
 				{ 75, new string[] { "guards", "dead guard", "guard" } },
+				{ 76, new string[] { "glyphs", "glyph" } },
 			};
 
 			foreach (var synonym in synonyms)
@@ -109,6 +158,13 @@ namespace ThePyramidOfAnharos.Game.Plugin
 		public override void InitMonsters()
 		{
 			base.InitMonsters();
+
+			MacroFuncs.Add(3, () =>
+			{
+				// Not enough water for Farouk
+
+				return GameState != null && gGameState.KW < 20 ? ", but you have none to spare" : "";
+			});
 
 			var synonyms = new Dictionary<long, string[]>()
 			{
@@ -128,7 +184,7 @@ namespace ThePyramidOfAnharos.Game.Plugin
 
 			if (gGameState.GU > 0)
 			{
-				var guideMonster = gMDB[gGameState.GU];
+				var guideMonster = MDB[gGameState.GU];
 
 				Debug.Assert(guideMonster != null);
 
@@ -138,6 +194,27 @@ namespace ThePyramidOfAnharos.Game.Plugin
 
 				gCharacter.HeldGold -= (long)Math.Floor((200.0 / gGameState.GU) / gGameState.GU);
 			}
+		}
+
+		public override void SellInventoryToMerchant(bool sellInventory = true)
+		{
+			base.SellInventoryToMerchant(sellInventory);
+
+			if (Character.HeldGold > 0 && TaxLevied)
+			{
+				Out.Print("{0}", LineSep);
+
+				Out.Print("Unfortunately, it's all taxed away.");
+
+				Character.HeldGold = 0;
+
+				In.KeyPress(Buf);
+			}
+		}
+
+		public override void CheckToExtinguishLightSource()
+		{
+			// do nothing
 		}
 
 		public virtual void PrintGuideMonsterDirection()
@@ -190,9 +267,65 @@ namespace ThePyramidOfAnharos.Game.Plugin
 			PrintEffectDesc(effectUid);
 		}
 
+		public virtual void InjurePartyAndDamageEquipment(IRoom room, long effectUid, long deadBodyRoomUid, long equipmentDamageAmount, double injuryMultiplier, Action<IState> setNextStateFunc, ref bool gotoCleanup)
+		{
+			Debug.Assert(room != null && effectUid > 0 && equipmentDamageAmount > 0 && injuryMultiplier > 0.0 && setNextStateFunc != null);
+
+			PrintEffectDesc(effectUid);
+
+			var monsterList = GetMonsterList(m => m.IsCharacterMonster(), m => !m.IsCharacterMonster() && m.Reaction == Friendliness.Friend && m.IsInRoom(room));
+
+			foreach (var monster in monsterList)
+			{
+				var dice = (long)Math.Floor(injuryMultiplier * (monster.Hardiness - monster.DmgTaken) + 1);
+
+				var combatComponent = CreateInstance<ICombatComponent>(x =>
+				{
+					x.SetNextStateFunc = setNextStateFunc;
+
+					x.ActorRoom = room;
+
+					x.Dobj = monster;
+
+					x.OmitArmor = true;
+				});
+
+				combatComponent.ExecuteCalculateDamage(dice, 1);
+
+				var deadBodyArtifact = monster.DeadBody > 0 ? ADB[monster.DeadBody] : null;
+
+				if (deadBodyArtifact != null && !deadBodyArtifact.IsInLimbo())
+				{
+					deadBodyArtifact.SetInRoomUid(deadBodyRoomUid);
+				}
+
+				if (gGameState.Die > 0)
+				{
+					gotoCleanup = true;
+
+					goto Cleanup;
+				}
+			}
+
+			foreach (var monster in monsterList)
+			{
+				DamageWeaponsAndArmor(room, monster, equipmentDamageAmount);
+			}
+
+		Cleanup:
+
+			;
+		}
+
 		public Engine()
 		{
+			PushRulesetVersion(62);
+
 			EnableNegativeRoomUidLinks = true;
+
+			PoundCharPolicy = PoundCharPolicy.None;
+
+			MapData = @"ICAgICAvXCAgICAgICAgICAgICAgICAgICAgICAgIF8NCiAgICAvICBcICAgICAgICAgICAgICAgICAgICAgICEgIQ0KICAgLyAgICBcICAgLS0+ICAgLS0+ICAgLS0+ICAgISAhDQogIC8gICAgICBcICAgICAgICAgICAgICAgICAgICAhICENCiAvX19fX19fX19cICAgICAgICAgICAgICAgICAgIFtfXQ0KDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIQ0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICENCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBWDQoNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAhDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIQ0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFYNCg0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIC9cDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAvICBcDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcICAvDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXC8=";
 		}
 	}
 }

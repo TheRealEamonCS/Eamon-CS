@@ -69,7 +69,7 @@ namespace Eamon.Framework
 		long Af { get; set; }
 
 		/// <summary>
-		/// Gets or sets a value indicating the player character death status (-1=Quitting Game, 0=Alive, 1=Dead).
+		/// Gets or sets a value indicating the player character death status (-1=Quitting Game; 0=Alive; 1=Dead).
 		/// </summary>
 		long Die { get; set; }
 

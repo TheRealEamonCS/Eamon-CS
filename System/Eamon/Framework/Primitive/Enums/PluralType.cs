@@ -13,7 +13,7 @@ namespace Eamon.Framework.Primitive.Enums
 	/// improve the aesthetics of the output, making it more natural to read.  You can modify any record at runtime to change its
 	/// plural type, if desired.  The plural type is only applicable to plural Artifacts and group Monsters, although if possible
 	/// you should still assign the correct one even when it won't be used.  If you have a special situation where none of the
-	/// following values applies (e.g., "Rings of Xylo"), customized plural names can be created using <see cref="IEffect">Effect</see>s.
+	/// following values applies (e.g., "Rings of Zylo"), customized plural names can be created using <see cref="IEffect">Effect</see>s.
 	/// </remarks>
 	public enum PluralType : long
 	{

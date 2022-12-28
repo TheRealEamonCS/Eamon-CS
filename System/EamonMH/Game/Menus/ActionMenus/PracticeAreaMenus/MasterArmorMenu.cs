@@ -57,7 +57,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 				if (gCharacter.HeldGold >= ap)
 				{
-					gOut.Write("{0}1=Hit, 2=Rest, X=Exit: ", Environment.NewLine);
+					gOut.Write("{0}1=Hit; 2=Rest; X=Exit: ", Environment.NewLine);
 
 					Buf.Clear();
 

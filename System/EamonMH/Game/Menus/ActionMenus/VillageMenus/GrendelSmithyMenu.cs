@@ -66,7 +66,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 			gOut.Print("{0}", gEngine.LineSep);
 
-			gOut.Write("{0}U=Used weapon, C=Custom weapon, X=Exit: ", Environment.NewLine);
+			gOut.Write("{0}U=Used weapon; C=Custom weapon; X=Exit: ", Environment.NewLine);
 
 			Buf.Clear();
 
@@ -342,7 +342,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 				Buf.AppendFormat("{0}{1}{2}={3}{4}",
 					i == 0 ? Environment.NewLine : "",
-					i != 0 ? ", " : "",
+					i != 0 ? "; " : "",
 					(long)weaponValues[(int)i],
 					weapon.MarcosName ?? weapon.Name,
 					i == weaponValues.Count - 1 ? ": " : "");

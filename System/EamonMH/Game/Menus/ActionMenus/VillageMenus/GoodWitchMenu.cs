@@ -62,7 +62,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 				Buf.AppendFormat("{0}{1}{2}={3}{4}",
 					i == 0 ? Environment.NewLine : "",
-					i != 0 ? ", " : "",
+					i != 0 ? "; " : "",
 					(long)statValues[(int)i],
 					stat.Name,
 					i == statValues.Count - 1 ? ": " : "");
@@ -104,7 +104,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 				if (gCharacter.HeldGold >= ap)
 				{
-					gOut.Write("{0}1=Raise, X=Exit: ", Environment.NewLine);
+					gOut.Write("{0}1=Raise; X=Exit: ", Environment.NewLine);
 
 					Buf.Clear();
 
