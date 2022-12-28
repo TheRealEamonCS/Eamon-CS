@@ -36,11 +36,11 @@ namespace ThePyramidOfAnharos.Game.Commands
 				gOut.Print("That would accomplish nothing.");
 
 				gOut.Print("Try something else.");
+
+				goto Cleanup;
 			}
-			else
-			{
-				gOut.Print("I don't understand.");
-			}
+
+			gOut.Print("I don't understand.");
 
 		Cleanup:
 

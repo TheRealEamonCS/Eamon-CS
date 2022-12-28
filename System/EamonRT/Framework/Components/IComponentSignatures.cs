@@ -135,7 +135,8 @@ namespace EamonRT.Framework.Components
 		/// <param name="actorMonster"></param>
 		/// <param name="dobjMonster"></param>
 		/// <param name="blastSpell"></param>
-		void PrintHealthStatus(IRoom room, IMonster actorMonster, IMonster dobjMonster, bool blastSpell);
+		/// <param name="nonCombat"></param>
+		void PrintHealthStatus(IRoom room, IMonster actorMonster, IMonster dobjMonster, bool blastSpell, bool nonCombat);
 
 		/// <summary></summary>
 		void PrintZapDirectHit();

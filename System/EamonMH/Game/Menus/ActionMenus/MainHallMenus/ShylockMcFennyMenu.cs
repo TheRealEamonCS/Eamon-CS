@@ -36,7 +36,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 			gOut.Print("{0}", gEngine.LineSep);
 
-			gOut.Write("{0}D=Deposit gold, W=Withdraw gold, X=Exit: ", Environment.NewLine);
+			gOut.Write("{0}D=Deposit gold; W=Withdraw gold; X=Exit: ", Environment.NewLine);
 
 			Buf.Clear();
 

@@ -87,7 +87,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 						gOut.Print("{0}", gEngine.LineSep);
 
-						gOut.Write("{0}B=Buy weapon, S=Sell weapon, A=Buy better armor, X=Exit: ", Environment.NewLine);
+						gOut.Write("{0}B=Buy weapon; S=Sell weapon; A=Buy better armor; X=Exit: ", Environment.NewLine);
 
 						Buf.Clear();
 
@@ -157,10 +157,10 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 								Buf.AppendFormat("{0}{1}{2}={3}{4}",
 									i == 0 ? Environment.NewLine : "",
-									i != 0 ? ", " : "",
+									i != 0 ? "; " : "",
 									(long)weaponValues[(int)i],
 									weapon.MarcosName ?? weapon.Name,
-									i == weaponValues.Count - 1 ? ", X=Exit: " : "");
+									i == weaponValues.Count - 1 ? "; X=Exit: " : "");
 							}
 
 							gOut.Write("{0}", Buf);
@@ -203,7 +203,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 								gOut.Print("{0}", gEngine.LineSep);
 
-								gOut.Write("{0}G=Good quality, F=Fair quality, P=Poor quality, X=Exit: ", Environment.NewLine);
+								gOut.Write("{0}G=Good quality; F=Fair quality; P=Poor quality; X=Exit: ", Environment.NewLine);
 
 								Buf.Clear();
 
@@ -522,10 +522,10 @@ namespace EamonMH.Game.Menus.ActionMenus
 							{
 								Buf.AppendFormat("{0}{1}{2}={3}{4}",
 									armor.MarcosNum == 1 ? Environment.NewLine : "",
-									armor.MarcosNum != 1 ? ", " : "",
+									armor.MarcosNum != 1 ? "; " : "",
 									armor.MarcosNum,
 									armor.MarcosName ?? armor.Name,
-									armor.MarcosNum == j ? ", X=Exit: " : "");
+									armor.MarcosNum == j ? "; X=Exit: " : "");
 							}
 						}
 

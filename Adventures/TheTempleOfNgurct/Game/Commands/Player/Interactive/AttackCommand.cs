@@ -159,7 +159,7 @@ namespace TheTempleOfNgurct.Game.Commands
 							x.OmitArmor = true;
 						});
 
-						combatComponent.ExecuteCalculateDamage(savedVsFire ? 3 : 6, 6);
+						combatComponent.ExecuteCalculateDamage(savedVsFire ? 3 : 6, 6, 0, false);
 
 						gEngine.PauseCombat();
 					}

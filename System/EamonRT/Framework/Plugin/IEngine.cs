@@ -194,7 +194,8 @@ namespace EamonRT.Framework.Plugin
 		#region Public Methods
 
 		/// <summary></summary>
-		void PrintPlayerRoom();
+		/// <param name="room"></param>
+		void PrintPlayerRoom(IRoom room);
 
 		/// <summary></summary>
 		void PrintToWhom();
@@ -242,6 +243,12 @@ namespace EamonRT.Framework.Plugin
 		/// <summary></summary>
 		/// <param name="artifact"></param>
 		void PrintArtifactVanishes(IArtifact artifact);
+
+		/// <summary></summary>
+		/// <param name="room"></param>
+		/// <param name="monster"></param>
+		/// <param name="artifact"></param>
+		void PrintArtifactBreaks(IRoom room, IMonster monster, IArtifact artifact);
 
 		/// <summary></summary>
 		/// <param name="artifact"></param>
@@ -744,6 +751,14 @@ namespace EamonRT.Framework.Plugin
 		/// <param name="bonus"></param>
 		/// <returns></returns>
 		bool SaveThrow(Stat stat, long bonus = 0);
+
+		/// <summary></summary>
+		/// <param name="room"></param>
+		/// <param name="monster"></param>
+		/// <param name="damage"></param>
+		/// <param name="recurse"></param>
+		/// <returns></returns>
+		void DamageWeaponsAndArmor(IRoom room, IMonster monster, long damage = 1, bool recurse = false);
 
 		/// <summary></summary>
 		/// <param name="actionList"></param>

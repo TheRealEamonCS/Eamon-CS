@@ -3,7 +3,9 @@
 
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
+using System.Diagnostics;
 using Eamon.Framework;
+using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using static ThePyramidOfAnharos.Game.Plugin.Globals;
 
@@ -20,22 +22,78 @@ namespace ThePyramidOfAnharos.Game
 
 				if (gEngine.EnableMutateProperties)
 				{
-					// Door
+					// Map
 
-					if (Uid == 76)
+					if (Uid == 51)
+					{
+						var reliquariesArtifact = gADB[32];
+
+						Debug.Assert(reliquariesArtifact != null);
+
+						var sarcophagusArtifact = gADB[33];
+
+						Debug.Assert(sarcophagusArtifact != null);
+
+						// Map vanishes when sarcophagus is closed
+
+						if (reliquariesArtifact.IsInLimbo() && !sarcophagusArtifact.InContainer.IsOpen())
+						{
+							result = gEngine.LimboLocation;
+						}
+					}
+
+					// Door / Arch
+
+					else if (Uid == 76)
 					{
 						if (gGameState.Ro == 6)
 						{
+							IsPlural = false;
+
+							PluralType = PluralType.S;
+
+							Name = "door";
+
+							ArticleType = ArticleType.A;
+
+							result = gGameState.Ro;
+						}
+						else if (gGameState.Ro == 29)
+						{
+							IsPlural = false;
+
+							PluralType = PluralType.Es;
+
+							Name = "arch";
+
+							ArticleType = ArticleType.An;
+
 							result = gGameState.Ro;
 						}
 					}
 
-					// Glyphs
+					// Pyramid / Floor
 
 					else if (Uid == 77)
 					{
-						if (gGameState.Ro == 6 || gGameState.Ro == 29 || gGameState.Ro == 31)
+						if (gGameState.Ro > 5 && gGameState.Ro < 14)
 						{
+							Name = "pyramid";
+
+							ArticleType = ArticleType.A;
+
+							Synonyms = null;
+
+							result = gGameState.Ro;
+						}
+						else if (gGameState.Ro > 13 && gGameState.Ro < 43)
+						{
+							Name = "floor";
+
+							ArticleType = ArticleType.The;
+
+							Synonyms = new string[] { "dust" };
+
 							result = gGameState.Ro;
 						}
 					}
@@ -69,6 +127,20 @@ namespace ThePyramidOfAnharos.Game
 							{
 								gGameState.KW = Field2;
 							}
+						}
+					}
+
+					// Carpet
+
+					else if (Uid == 40)
+					{
+						var onyxCaseArtifact = gADB[39];
+
+						Debug.Assert(onyxCaseArtifact != null);
+
+						if (base.Location == 59 && value == -1 && onyxCaseArtifact.Location == 7059)
+						{
+							onyxCaseArtifact.Location = 6059;
 						}
 					}
 				}

@@ -251,9 +251,9 @@ namespace EamonRT.Game.Components
 			ComponentImpl.PrintBlowTurned(monster, omitBboaPadding);
 		}
 
-		public virtual void PrintHealthStatus(IRoom room, IMonster actorMonster, IMonster dobjMonster, bool blastSpell)
+		public virtual void PrintHealthStatus(IRoom room, IMonster actorMonster, IMonster dobjMonster, bool blastSpell, bool nonCombat)
 		{
-			ComponentImpl.PrintHealthStatus(room, actorMonster, dobjMonster, blastSpell);
+			ComponentImpl.PrintHealthStatus(room, actorMonster, dobjMonster, blastSpell, nonCombat);
 		}
 
 		public virtual void PrintZapDirectHit()

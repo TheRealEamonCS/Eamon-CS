@@ -372,10 +372,8 @@ namespace EamonRT.Game.Plugin
 			}
 		}
 
-		public virtual void PrintPlayerRoom()
+		public virtual void PrintPlayerRoom(IRoom room)
 		{
-			var room = RDB[GameState.Ro];
-
 			Debug.Assert(room != null);
 
 			Buf.Clear();
@@ -457,7 +455,7 @@ namespace EamonRT.Game.Plugin
 		{
 			Debug.Assert(artifact != null);
 
-			Out.Print("{0} {1}", artifact.GetTheName(true), IsRulesetVersion(5, 15, 25) ?
+			Out.Print("{0} {1}", artifact.GetTheName(true), IsRulesetVersion(5) ?
 				string.Format("come{0} alive!", artifact.EvalPlural("s", "")) :
 				string.Format("come{0} to life!", artifact.EvalPlural("s", "")));
 		}
@@ -467,6 +465,20 @@ namespace EamonRT.Game.Plugin
 			Debug.Assert(artifact != null);
 
 			Out.Print("{0} vanish{1}!", artifact.GetTheName(true), artifact.EvalPlural("es", ""));
+		}
+
+		public virtual void PrintArtifactBreaks(IRoom room, IMonster monster, IArtifact artifact)
+		{
+			Debug.Assert(room != null && monster != null && artifact != null);
+
+			if (monster.IsCharacterMonster() || room.IsLit())
+			{
+				Out.Print("{0} break{1}!", artifact.GetTheName(true), artifact.EvalPlural("s", ""));
+			}
+			else
+			{
+				Out.Print("Something breaks!");
+			}
 		}
 
 		public virtual void PrintEnterExtinguishLightChoice(IArtifact artifact)
@@ -560,7 +572,7 @@ namespace EamonRT.Game.Plugin
 		{
 			Debug.Assert(monster != null);
 
-			if (IsRulesetVersion(5, 15, 25) && monster.Reaction == Friendliness.Friend)
+			if (IsRulesetVersion(5) && monster.Reaction == Friendliness.Friend)
 			{
 				Out.Write("{0}{1} {2}{3} back.",
 					Environment.NewLine,
@@ -576,7 +588,7 @@ namespace EamonRT.Game.Plugin
 					monster.EvalReaction("growl", "ignore", friendSmile ? "smile" : "wave"),
 					monster.EvalPlural("s", ""),
 					monster.Reaction != Friendliness.Neutral ? "at " : "",
-					IsRulesetVersion(5, 15, 25) && monster.Reaction == Friendliness.Enemy ? "!" : ".");
+					IsRulesetVersion(5) && monster.Reaction == Friendliness.Enemy ? "!" : ".");
 			}
 		}
 
@@ -599,7 +611,7 @@ namespace EamonRT.Game.Plugin
 
 			var isCharMonster = monster.IsCharacterMonster();
 
-			if (IsRulesetVersion(5, 15, 25))
+			if (IsRulesetVersion(5))
 			{
 				Out.Print("Some of {0} wounds seem to clear up.",
 					isCharMonster ? "your" :
@@ -1810,7 +1822,13 @@ namespace EamonRT.Game.Plugin
 
 			if (monster.Reaction > Friendliness.Enemy)
 			{
-				var room = RDB[GameState.Ro];
+				Debug.Assert(gCharMonster != null);
+
+				var charRoom = gCharMonster.GetInRoom();
+
+				Debug.Assert(charRoom != null);
+
+				var room = monster.GetInRoom();
 
 				Debug.Assert(room != null);
 
@@ -1827,17 +1845,34 @@ namespace EamonRT.Game.Plugin
 					monster.Friendliness--;
 				}
 
-				monster.Reaction--;
+				var monsterList = new List<IMonster>() { monster };
 
-				if (monster.Reaction == Friendliness.Enemy)
+				if (IsRulesetVersion(5))
 				{
-					MiscEventFuncList02.Add(() =>
+					monsterList.AddRange(GetMonsterList(m => !m.IsCharacterMonster() && m.Uid != monster.Uid && m.IsInRoom(room) && m.Reaction > Friendliness.Enemy));
+
+					foreach (var monster01 in monsterList)
 					{
-						if (monster.IsInRoom(room))
+						monster01.ResolveReaction(Character);
+					}
+				}
+				else
+				{
+					monster.Reaction--;
+				}
+
+				foreach (var monster01 in monsterList)
+				{
+					if (monster01.Reaction == Friendliness.Enemy)
+					{
+						MiscEventFuncList02.Add(() =>
 						{
-							PrintMonsterGetsAngry(monster, printFinalNewLine);
-						}
-					});
+							if (monster01.IsInRoom(charRoom))
+							{
+								PrintMonsterGetsAngry(monster01, printFinalNewLine);
+							}
+						});
+					}
 				}
 			}
 		}
@@ -3235,6 +3270,143 @@ namespace EamonRT.Game.Plugin
 			var rl = RollDice(1, 22, 2);
 
 			return rl <= value;
+		}
+
+		public virtual void DamageWeaponsAndArmor(IRoom room, IMonster monster, long damage = 1, bool recurse = false)
+		{
+			Debug.Assert(room != null);
+
+			Debug.Assert(monster != null);
+
+			Debug.Assert(damage > 0);
+
+			// Damage weapons
+
+			var artifactList = monster.IsCharacterMonster() ? 
+				GetArtifactList(a => (a.IsCarriedByCharacter(recurse) || a.IsWornByCharacter(recurse)) && !a.IsWornByCharacter() && a.GeneralWeapon != null) : 
+				GetArtifactList(a => (a.IsCarriedByMonster(monster, recurse) || a.IsWornByMonster(monster, recurse)) && !a.IsWornByMonster(monster) && a.GeneralWeapon != null);
+
+			foreach (var artifact in artifactList)
+			{
+				artifact.GeneralWeapon.Field4 = Math.Max(0, artifact.GeneralWeapon.Field4 - damage);
+
+				if (artifact.GeneralWeapon.Field4 <= 0)
+				{
+					if (artifact.IsCarriedByCharacter() || artifact.IsCarriedByMonster())
+					{
+						PrintArtifactBreaks(room, monster, artifact);
+					}
+
+					if (monster.Weapon == artifact.Uid)
+					{
+						artifact.RemoveStateDesc(artifact.GetReadyWeaponDesc());
+
+						monster.Weapon = -1;
+					}
+
+					artifact.SetInLimbo();
+
+					artifact.GeneralWeapon.Field4 = 1;
+				}
+			}
+
+			// Damage armor
+
+			artifactList = monster.IsCharacterMonster() ?
+				GetArtifactList(a => (a.IsCarriedByCharacter(recurse) || a.IsWornByCharacter(recurse)) && a.Wearable != null && a.Wearable.Field1 > 0 && a.Wearable.Field2 == (long)Clothing.ArmorShields) :
+				GetArtifactList(a => (a.IsCarriedByMonster(monster, recurse) || a.IsWornByMonster(monster, recurse)) && a.Wearable != null && a.Wearable.Field1 > 0 && a.Wearable.Field2 == (long)Clothing.ArmorShields);
+
+			Out.EnableOutput = false;
+
+			foreach (var artifact in artifactList)
+			{
+				var wornByChar = artifact.IsWornByCharacter();
+
+				var wornByMonster = artifact.IsWornByMonster();
+
+				if (wornByChar)
+				{
+					var command = CreateInstance<IRemoveCommand>(x =>
+					{
+						x.ActorMonster = monster;
+
+						x.ActorRoom = room;
+
+						x.Dobj = artifact;
+					});
+
+					command.Execute();
+				}
+				else if (wornByMonster)
+				{
+					/*
+					var command = CreateInstance<IMonsterRemoveCommand>(x =>
+					{
+						x.ActorMonster = monster;
+
+						x.ActorRoom = room;
+
+						x.Dobj = artifact;
+					});
+
+					command.Execute();
+					*/
+				}
+
+				artifact.Wearable.Field1 = Math.Max(0, artifact.Wearable.Field1 - damage);
+
+				while (artifact.Wearable.Field1 > 0 && !gEngine.IsValidArtifactArmor(artifact.Wearable.Field1))
+				{
+					artifact.Wearable.Field1--;
+				}
+
+				if (artifact.Wearable.Field1 <= 0)
+				{
+					if (artifact.IsCarriedByCharacter() || artifact.IsCarriedByMonster())
+					{
+						Out.EnableOutput = true;
+
+						PrintArtifactBreaks(room, monster, artifact);
+
+						Out.EnableOutput = false;
+					}
+
+					artifact.SetInLimbo();
+
+					artifact.Wearable.Field1 = 0;
+				}
+
+				if (wornByChar && artifact.IsCarriedByCharacter())
+				{
+					var command = CreateInstance<IWearCommand>(x =>
+					{
+						x.ActorMonster = monster;
+
+						x.ActorRoom = room;
+
+						x.Dobj = artifact;
+					});
+
+					command.Execute();
+				}
+				else if (wornByMonster && artifact.IsCarriedByMonster())
+				{
+					/*
+					var command = CreateInstance<IMonsterWearCommand>(x =>
+					{
+						x.ActorMonster = monster;
+
+						x.ActorRoom = room;
+
+						x.Dobj = artifact;
+					});
+
+					command.Execute();
+					*/
+				}
+			}
+
+			Out.EnableOutput = true;
 		}
 
 		public virtual void CheckActionList(IList<Action> actionList)

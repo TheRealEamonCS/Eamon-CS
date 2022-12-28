@@ -75,7 +75,7 @@ namespace StrongholdOfKahrDur.Game.States
 
 				case 2:
 
-					combatComponent.ExecuteCalculateDamage(1, 8);
+					combatComponent.ExecuteCalculateDamage(1, 8, 0, false);
 
 					break;
 
@@ -83,7 +83,7 @@ namespace StrongholdOfKahrDur.Game.States
 
 				case 3:
 
-					combatComponent.ExecuteCalculateDamage(1, 6);
+					combatComponent.ExecuteCalculateDamage(1, 6, 0, false);
 
 					break;
 
@@ -91,7 +91,7 @@ namespace StrongholdOfKahrDur.Game.States
 
 				case 4:
 
-					combatComponent.ExecuteCalculateDamage(1, 10);
+					combatComponent.ExecuteCalculateDamage(1, 10, 0, false);
 
 					break;
 

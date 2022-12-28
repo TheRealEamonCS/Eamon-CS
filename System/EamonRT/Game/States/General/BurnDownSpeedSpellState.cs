@@ -49,7 +49,7 @@ namespace EamonRT.Game.States
 
 			PrintSpellExpiredRoll = gEngine.RollDice(1, 100, 0);
 
-			if (PrintSpellExpiredRoll > 80 || !gEngine.IsRulesetVersion(5, 15, 25))
+			if (PrintSpellExpiredRoll > 80 || !gEngine.IsRulesetVersion(5))
 			{
 				PrintSpeedSpellExpired();
 			}

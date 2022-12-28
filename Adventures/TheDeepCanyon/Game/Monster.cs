@@ -46,7 +46,7 @@ namespace TheDeepCanyon.Game
 
 			// Fido and elephants need special handling
 
-			return Uid != 11 && Uid != 24 && (!gEngine.IsRulesetVersion(5, 25) && (Reaction == Friendliness.Enemy || (Reaction == Friendliness.Neutral && artifact.Value < 3000)));
+			return Uid != 11 && Uid != 24 && (!gEngine.IsRulesetVersion(5) && (Reaction == Friendliness.Enemy || (Reaction == Friendliness.Neutral && artifact.Value < 3000)));
 		}
 
 		public override bool ShouldRefuseToAcceptDeadBody(IArtifact artifact)
@@ -58,7 +58,7 @@ namespace TheDeepCanyon.Game
 
 		public override void CalculateGiftFriendliness(long value, bool isArtifactValue)
 		{
-			Debug.Assert(gEngine.IsRulesetVersion(5, 25));
+			Debug.Assert(gEngine.IsRulesetVersion(5));
 
 			long f = (long)(Friendliness - 100);
 

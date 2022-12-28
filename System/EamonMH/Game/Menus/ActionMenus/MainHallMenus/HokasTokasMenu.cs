@@ -82,10 +82,10 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 				Buf.AppendFormat("{0}{1}{2}={3}{4}",
 					i == (long)spellValues[0] ? Environment.NewLine : "",
-					i != (long)spellValues[0] ? ", " : "",
+					i != (long)spellValues[0] ? "; " : "",
 					i,
 					spell.HokasName != null ? spell.HokasName : spell.Name,
-					i == (long)spellValues[spellValues.Count - 1] ? ", X=Exit: " : "");
+					i == (long)spellValues[spellValues.Count - 1] ? "; X=Exit: " : "");
 			}
 
 			gOut.Write("{0}", Buf);

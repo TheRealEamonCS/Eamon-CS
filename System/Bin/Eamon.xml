@@ -2286,7 +2286,7 @@
         </member>
         <member name="P:Eamon.Framework.IGameState.Die">
             <summary>
-            Gets or sets a value indicating the player character death status (-1=Quitting Game, 0=Alive, 1=Dead).
+            Gets or sets a value indicating the player character death status (-1=Quitting Game; 0=Alive; 1=Dead).
             </summary>
         </member>
         <member name="P:Eamon.Framework.IGameState.Speed">
@@ -4392,9 +4392,23 @@
             <param name="ch"></param>
             <returns></returns>
         </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.IsCharGOrAOrN(System.Char)">
+            <summary>
+            Indicates whether a character is one of ['G', 'A', 'N'].
+            </summary>
+            <param name="ch"></param>
+            <returns></returns>
+        </member>
         <member name="M:Eamon.Framework.Plugin.IEngine.IsCharSOrTOrROrX(System.Char)">
             <summary>
             Indicates whether a character is one of ['S', 'T', 'R', 'X'].
+            </summary>
+            <param name="ch"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.IsCharNOrSOrEOrW(System.Char)">
+            <summary>
+            Indicates whether a character is one of ['N', 'S', 'E', 'W'].
             </summary>
             <param name="ch"></param>
             <returns></returns>
@@ -4423,6 +4437,13 @@
         <member name="M:Eamon.Framework.Plugin.IEngine.IsChar1To3(System.Char)">
             <summary>
             Indicates whether a character is one of ['1', '2', '3'].
+            </summary>
+            <param name="ch"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.IsChar1To4(System.Char)">
+            <summary>
+            Indicates whether a character is one of ['1', '2', '3', '4'].
             </summary>
             <param name="ch"></param>
             <returns></returns>
@@ -5888,7 +5909,7 @@
         </member>
         <member name="F:Eamon.Framework.Primitive.Enums.ArticleType.The">
             <summary>
-            The name is preceded by "the".  For example, "the Rings of Xylo" or "the Emerald Warrior".
+            The name is preceded by "the".  For example, "the Rings of Zylo" or "the Emerald Warrior".
             </summary>
             <remarks>
             Typically only applied to unique <see cref="T:Eamon.Framework.IArtifact">Artifact</see>s or <see cref="T:Eamon.Framework.IMonster">Monster</see>s, or those with special
@@ -6262,7 +6283,7 @@
             improve the aesthetics of the output, making it more natural to read.  You can modify any record at runtime to change its
             plural type, if desired.  The plural type is only applicable to plural Artifacts and group Monsters, although if possible
             you should still assign the correct one even when it won't be used.  If you have a special situation where none of the
-            following values applies (e.g., "Rings of Xylo"), customized plural names can be created using <see cref="T:Eamon.Framework.IEffect">Effect</see>s.
+            following values applies (e.g., "Rings of Zylo"), customized plural names can be created using <see cref="T:Eamon.Framework.IEffect">Effect</see>s.
             </remarks>
         </member>
         <member name="F:Eamon.Framework.Primitive.Enums.PluralType.None">

@@ -26,7 +26,7 @@ namespace StrongholdOfKahrDur.Game.Components
 
 				// If player is wearing Wizard's Helm (25), blast spell is more potent
 
-				ExecuteCalculateDamage(2, helmArtifact.IsWornByCharacter() ? 12 : 5);
+				ExecuteCalculateDamage(2, helmArtifact.IsWornByCharacter() ? 12 : 5, 0, false);
 
 				gEngine.PauseCombatAfterSkillGains = gEngine.SkillIncreaseFuncList.Count > 0;
 

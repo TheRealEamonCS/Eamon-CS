@@ -12,6 +12,15 @@ namespace TheDeepCanyon.Game.Parsing
 	[ClassMappings]
 	public class CommandParser : EamonRT.Game.Parsing.CommandParser, ICommandParser
 	{
+		public override void FinishParsingInventoryCommand()
+		{
+			gEngine.PushRulesetVersion(0);
+
+			base.FinishParsingInventoryCommand();
+
+			gEngine.PopRulesetVersion();
+		}
+
 		public virtual void FinishParsingSetCommand()
 		{
 			ResolveRecord(false);

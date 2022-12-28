@@ -20,17 +20,22 @@ namespace TheVileGrimoireOfJaldial.Game.Parsing
 	[ClassMappings]
 	public class CommandParser : EamonRT.Game.Parsing.CommandParser, ICommandParser
 	{
-		public virtual void FinishParsingSearchCommand()
+		public override void FinishParsingHealCommand()
 		{
-			if (CurrToken < Tokens.Length)
-			{
-				ParseName();
+			gEngine.PushRulesetVersion(0);
 
-				if (!ObjData.Name.Equals("room", StringComparison.OrdinalIgnoreCase) && !ObjData.Name.Equals("area", StringComparison.OrdinalIgnoreCase) && !(ActorRoom.Uid == 89 && ObjData.Name.ContainsAny(new string[] { "tapestries", "tapestry" }, StringComparison.OrdinalIgnoreCase)))
-				{
-					ResolveRecord(false);
-				}
-			}
+			base.FinishParsingHealCommand();
+
+			gEngine.PopRulesetVersion();
+		}
+
+		public override void FinishParsingInventoryCommand()
+		{
+			gEngine.PushRulesetVersion(0);
+
+			base.FinishParsingInventoryCommand();
+
+			gEngine.PopRulesetVersion();
 		}
 
 		public override void FinishParsingSettingsCommand()
@@ -83,6 +88,19 @@ namespace TheVileGrimoireOfJaldial.Game.Parsing
 			else
 			{
 				base.FinishParsingSettingsCommand();
+			}
+		}
+
+		public virtual void FinishParsingSearchCommand()
+		{
+			if (CurrToken < Tokens.Length)
+			{
+				ParseName();
+
+				if (!ObjData.Name.Equals("room", StringComparison.OrdinalIgnoreCase) && !ObjData.Name.Equals("area", StringComparison.OrdinalIgnoreCase) && !(ActorRoom.Uid == 89 && ObjData.Name.ContainsAny(new string[] { "tapestries", "tapestry" }, StringComparison.OrdinalIgnoreCase)))
+				{
+					ResolveRecord(false);
+				}
 			}
 		}
 

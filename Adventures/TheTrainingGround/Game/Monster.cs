@@ -23,7 +23,7 @@ namespace TheTrainingGround.Game
 		{
 			Debug.Assert(artifact != null);
 
-			return ((Uid == 5 && artifact.Uid == 8) || (Uid == 14 && artifact.Uid == 51)) ? false : (!gEngine.IsRulesetVersion(5, 25) && (Reaction == Friendliness.Enemy || (Reaction == Friendliness.Neutral && artifact.Value < 3000)));
+			return ((Uid == 5 && artifact.Uid == 8) || (Uid == 14 && artifact.Uid == 51)) ? false : (!gEngine.IsRulesetVersion(5) && (Reaction == Friendliness.Enemy || (Reaction == Friendliness.Neutral && artifact.Value < 3000)));
 		}
 	}
 }

@@ -46,7 +46,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.Components
 			}
 		}
 
-		public override void PrintHealthStatus(IRoom room, IMonster actorMonster, IMonster dobjMonster, bool blastSpell)
+		public override void PrintHealthStatus(IRoom room, IMonster actorMonster, IMonster dobjMonster, bool blastSpell, bool nonCombat)
 		{
 			Debug.Assert(room != null && dobjMonster != null);
 
@@ -61,7 +61,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.Components
 				gEngine.PrintEffectDesc(58);
 			}
 
-			base.PrintHealthStatus(room, actorMonster, dobjMonster, blastSpell);
+			base.PrintHealthStatus(room, actorMonster, dobjMonster, blastSpell, nonCombat);
 
 			// Player kills black spider
 

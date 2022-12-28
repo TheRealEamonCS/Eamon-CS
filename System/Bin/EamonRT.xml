@@ -1043,11 +1043,12 @@
         <member name="P:EamonRT.Framework.Components.ICombatComponent.WeaponRevealType">
             <summary></summary>
         </member>
-        <member name="M:EamonRT.Framework.Components.ICombatComponent.ExecuteCalculateDamage(System.Int64,System.Int64,System.Int64)">
+        <member name="M:EamonRT.Framework.Components.ICombatComponent.ExecuteCalculateDamage(System.Int64,System.Int64,System.Int64,System.Boolean)">
             <summary></summary>
             <param name="numDice"></param>
             <param name="numSides"></param>
             <param name="mod"></param>
+            <param name="nonCombat"></param>
         </member>
         <member name="M:EamonRT.Framework.Components.ICombatComponent.ExecuteCheckMonsterStatus">
             <summary></summary>
@@ -1181,12 +1182,13 @@
             <param name="monster"></param>
             <param name="omitBboaPadding"></param>
         </member>
-        <member name="M:EamonRT.Framework.Components.IComponentSignatures.PrintHealthStatus(Eamon.Framework.IRoom,Eamon.Framework.IMonster,Eamon.Framework.IMonster,System.Boolean)">
+        <member name="M:EamonRT.Framework.Components.IComponentSignatures.PrintHealthStatus(Eamon.Framework.IRoom,Eamon.Framework.IMonster,Eamon.Framework.IMonster,System.Boolean,System.Boolean)">
             <summary></summary>
             <param name="room"></param>
             <param name="actorMonster"></param>
             <param name="dobjMonster"></param>
             <param name="blastSpell"></param>
+            <param name="nonCombat"></param>
         </member>
         <member name="M:EamonRT.Framework.Components.IComponentSignatures.PrintZapDirectHit">
             <summary></summary>
@@ -1691,8 +1693,9 @@
         <member name="P:EamonRT.Framework.Plugin.IEngine.PercentCharPolicy">
             <summary></summary>
         </member>
-        <member name="M:EamonRT.Framework.Plugin.IEngine.PrintPlayerRoom">
+        <member name="M:EamonRT.Framework.Plugin.IEngine.PrintPlayerRoom(Eamon.Framework.IRoom)">
             <summary></summary>
+            <param name="room"></param>
         </member>
         <member name="M:EamonRT.Framework.Plugin.IEngine.PrintToWhom">
             <summary></summary>
@@ -1739,6 +1742,12 @@
         </member>
         <member name="M:EamonRT.Framework.Plugin.IEngine.PrintArtifactVanishes(Eamon.Framework.IArtifact)">
             <summary></summary>
+            <param name="artifact"></param>
+        </member>
+        <member name="M:EamonRT.Framework.Plugin.IEngine.PrintArtifactBreaks(Eamon.Framework.IRoom,Eamon.Framework.IMonster,Eamon.Framework.IArtifact)">
+            <summary></summary>
+            <param name="room"></param>
+            <param name="monster"></param>
             <param name="artifact"></param>
         </member>
         <member name="M:EamonRT.Framework.Plugin.IEngine.PrintEnterExtinguishLightChoice(Eamon.Framework.IArtifact)">
@@ -2241,6 +2250,14 @@
             <summary></summary>
             <param name="stat"></param>
             <param name="bonus"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EamonRT.Framework.Plugin.IEngine.DamageWeaponsAndArmor(Eamon.Framework.IRoom,Eamon.Framework.IMonster,System.Int64,System.Boolean)">
+            <summary></summary>
+            <param name="room"></param>
+            <param name="monster"></param>
+            <param name="damage"></param>
+            <param name="recurse"></param>
             <returns></returns>
         </member>
         <member name="M:EamonRT.Framework.Plugin.IEngine.CheckActionList(System.Collections.Generic.IList{System.Action})">
@@ -3504,6 +3521,9 @@
             <summary></summary>
         </member>
         <member name="P:EamonRT.Game.Components.CombatComponent.LightOut">
+            <summary></summary>
+        </member>
+        <member name="P:EamonRT.Game.Components.CombatComponent.NonCombat">
             <summary></summary>
         </member>
         <member name="P:EamonRT.Game.Components.CombatComponent.WeaponCount">
