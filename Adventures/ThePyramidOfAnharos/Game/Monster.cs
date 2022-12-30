@@ -3,11 +3,12 @@
 
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
-using Eamon.Framework;
-using Eamon.Game.Attributes;
+using System;
 using System.Diagnostics;
 using System.Text;
-using System;
+using Eamon.Framework;
+using Eamon.Framework.Primitive.Enums;
+using Eamon.Game.Attributes;
 using static ThePyramidOfAnharos.Game.Plugin.Globals;
 
 namespace ThePyramidOfAnharos.Game
@@ -15,6 +16,16 @@ namespace ThePyramidOfAnharos.Game
 	[ClassMappings]
 	public class Monster : Eamon.Game.Monster, IMonster
 	{
+		public override bool CanMoveToRoomUid(long roomUid, bool fleeing)
+		{
+			return fleeing ? roomUid > 0 : base.CanMoveToRoomUid(roomUid, fleeing);
+		}
+
+		public override bool CanMoveInDirection(Direction dir, bool fleeing)
+		{
+			return fleeing ? dir >= Direction.North && dir <= Direction.Down : base.CanMoveInDirection(dir, fleeing);
+		}
+
 		public override void AddHealthStatus(StringBuilder buf, bool addNewLine = true)
 		{
 			string result = null;

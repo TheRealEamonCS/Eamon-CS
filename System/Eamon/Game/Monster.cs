@@ -462,6 +462,13 @@ namespace Eamon.Game
 			return CanMoveToRoomUid(room.Uid, fleeing);
 		}
 
+		public virtual bool CanMoveInDirection(Direction dir, bool fleeing)
+		{
+			Debug.Assert(Enum.IsDefined(typeof(Direction), dir));
+
+			return true;
+		}
+
 		public virtual bool CanAttackWithMultipleWeapons()
 		{
 			return false;

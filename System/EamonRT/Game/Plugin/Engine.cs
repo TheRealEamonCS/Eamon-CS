@@ -2378,7 +2378,7 @@ namespace EamonRT.Game.Plugin
 					roomUid = room.GetDir(dv);
 				}
 
-				if (roomUid != 0 && (!monster.CanMoveToRoomUid(roomUid, fleeing) || GetBlockedDirectionArtifact(room.Uid, roomUid, dv) != null))
+				if (roomUid != 0 && (!monster.CanMoveInDirection(dv, fleeing) || !monster.CanMoveToRoomUid(roomUid, fleeing) || GetBlockedDirectionArtifact(room.Uid, roomUid, dv) != null))
 				{
 					roomUid = 0;
 				}
@@ -2429,7 +2429,7 @@ namespace EamonRT.Game.Plugin
 					roomUid = room.GetDir(rl);
 				}
 
-				if (roomUid != 0 && (!monster.CanMoveToRoomUid(roomUid, fleeing) || GetBlockedDirectionArtifact(room.Uid, roomUid, (Direction)rl) != null))
+				if (roomUid != 0 && (!monster.CanMoveInDirection((Direction)rl, fleeing) || !monster.CanMoveToRoomUid(roomUid, fleeing) || GetBlockedDirectionArtifact(room.Uid, roomUid, (Direction)rl) != null))
 				{
 					roomUid = 0;
 				}
