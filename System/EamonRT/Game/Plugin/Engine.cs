@@ -455,7 +455,7 @@ namespace EamonRT.Game.Plugin
 		{
 			Debug.Assert(artifact != null);
 
-			Out.Print("{0} {1}", artifact.GetTheName(true), IsRulesetVersion(5) ?
+			Out.Print("{0} {1}", artifact.GetTheName(true), IsRulesetVersion(5, 62) ?
 				string.Format("come{0} alive!", artifact.EvalPlural("s", "")) :
 				string.Format("come{0} to life!", artifact.EvalPlural("s", "")));
 		}
@@ -572,7 +572,7 @@ namespace EamonRT.Game.Plugin
 		{
 			Debug.Assert(monster != null);
 
-			if (IsRulesetVersion(5) && monster.Reaction == Friendliness.Friend)
+			if (IsRulesetVersion(5, 62) && monster.Reaction == Friendliness.Friend)
 			{
 				Out.Write("{0}{1} {2}{3} back.",
 					Environment.NewLine,
@@ -588,7 +588,7 @@ namespace EamonRT.Game.Plugin
 					monster.EvalReaction("growl", "ignore", friendSmile ? "smile" : "wave"),
 					monster.EvalPlural("s", ""),
 					monster.Reaction != Friendliness.Neutral ? "at " : "",
-					IsRulesetVersion(5) && monster.Reaction == Friendliness.Enemy ? "!" : ".");
+					IsRulesetVersion(5, 62) && monster.Reaction == Friendliness.Enemy ? "!" : ".");
 			}
 		}
 
@@ -611,7 +611,7 @@ namespace EamonRT.Game.Plugin
 
 			var isCharMonster = monster.IsCharacterMonster();
 
-			if (IsRulesetVersion(5))
+			if (IsRulesetVersion(5, 62))
 			{
 				Out.Print("Some of {0} wounds seem to clear up.",
 					isCharMonster ? "your" :
@@ -1847,7 +1847,7 @@ namespace EamonRT.Game.Plugin
 
 				var monsterList = new List<IMonster>() { monster };
 
-				if (IsRulesetVersion(5))
+				if (IsRulesetVersion(5, 62))
 				{
 					monsterList.AddRange(GetMonsterList(m => !m.IsCharacterMonster() && m.Uid != monster.Uid && m.IsInRoom(room) && m.Reaction > Friendliness.Enemy));
 
@@ -2750,7 +2750,7 @@ namespace EamonRT.Game.Plugin
 					}
 					else if (a.IsCarriedByContainerContainerTypeExposedToMonster(monster, ExposeContainersRecursively) || a.IsCarriedByContainerContainerTypeExposedToRoom(room, ExposeContainersRecursively))
 					{
-						result = !IsRulesetVersion(5) &&
+						result = !IsRulesetVersion(5, 62) &&
 										monsterList.FirstOrDefault(m => m.Weapon == -a.Uid - 1) == null &&
 										(monster.Weapon == -a.Uid - 1 || a.GetCarriedByContainer().Seen || !room.IsLit()) &&
 										(monster.Weapon == -a.Uid - 1 || a.Seen || !room.IsLit()) &&

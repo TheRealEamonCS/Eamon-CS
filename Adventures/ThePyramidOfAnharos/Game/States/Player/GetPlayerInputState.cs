@@ -138,15 +138,15 @@ namespace ThePyramidOfAnharos.Game.States
 
 					gOut.Write("{0}\"Hearken my word,", Environment.NewLine);
 
-					gOut.Write("{0}On her is heard,", Environment.NewLine);
+					gOut.Write("{0} On her is heard,", Environment.NewLine);
 
-					gOut.Write("{0}No other may", Environment.NewLine);
+					gOut.Write("{0} No other may", Environment.NewLine);
 
-					gOut.Write("{0}Open the way,", Environment.NewLine);
+					gOut.Write("{0} Open the way,", Environment.NewLine);
 
-					gOut.Write("{0}Respond the trait", Environment.NewLine);
+					gOut.Write("{0} Respond the trait", Environment.NewLine);
 
-					gOut.Write("{0}To see his fate.\"{0}", Environment.NewLine);
+					gOut.Write("{0} To see his fate.\"{0}", Environment.NewLine);
 
 					gOut.Print("What is your answer?");
 

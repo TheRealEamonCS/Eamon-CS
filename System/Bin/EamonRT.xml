@@ -1265,6 +1265,15 @@
         <member name="M:EamonRT.Framework.Components.IComponentSignatures.PrintAllWoundsHealed">
             <summary></summary>
         </member>
+        <member name="M:EamonRT.Framework.Components.IComponentSignatures.PrintTeleportToRoom">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Framework.Components.IComponentSignatures.PrintArmorThickens">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Framework.Components.IComponentSignatures.PrintMagicSkillsIncrease">
+            <summary></summary>
+        </member>
         <member name="T:EamonRT.Framework.Components.IMagicComponent">
             <summary></summary>
         </member>
@@ -2698,6 +2707,9 @@
         <member name="F:EamonRT.Framework.Primitive.Enums.MagicState.SonicBoomFortuneCookie">
             <summary></summary>
         </member>
+        <member name="F:EamonRT.Framework.Primitive.Enums.MagicState.RaiseDead">
+            <summary></summary>
+        </member>
         <member name="F:EamonRT.Framework.Primitive.Enums.MagicState.RaiseDeadVanishArtifacts">
             <summary></summary>
         </member>
@@ -2708,6 +2720,15 @@
             <summary></summary>
         </member>
         <member name="F:EamonRT.Framework.Primitive.Enums.MagicState.AllWoundsHealed">
+            <summary></summary>
+        </member>
+        <member name="F:EamonRT.Framework.Primitive.Enums.MagicState.TeleportToRoom">
+            <summary></summary>
+        </member>
+        <member name="F:EamonRT.Framework.Primitive.Enums.MagicState.ArmorThickens">
+            <summary></summary>
+        </member>
+        <member name="F:EamonRT.Framework.Primitive.Enums.MagicState.MagicSkillsIncrease">
             <summary></summary>
         </member>
         <member name="F:EamonRT.Framework.Primitive.Enums.MagicState.EndMagic">
@@ -3709,6 +3730,9 @@
         <member name="M:EamonRT.Game.Components.MagicComponent.SonicBoomFortuneCookie">
             <summary></summary>
         </member>
+        <member name="M:EamonRT.Game.Components.MagicComponent.RaiseDead">
+            <summary></summary>
+        </member>
         <member name="M:EamonRT.Game.Components.MagicComponent.RaiseDeadVanishArtifacts">
             <summary></summary>
         </member>
@@ -3719,6 +3743,15 @@
             <summary></summary>
         </member>
         <member name="M:EamonRT.Game.Components.MagicComponent.AllWoundsHealed">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Game.Components.MagicComponent.TeleportToRoom">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Game.Components.MagicComponent.ArmorThickens">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Game.Components.MagicComponent.MagicSkillsIncrease">
             <summary></summary>
         </member>
         <member name="M:EamonRT.Game.Components.MagicComponent.ExecuteStateMachine">

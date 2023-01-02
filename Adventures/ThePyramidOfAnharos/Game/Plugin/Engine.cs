@@ -104,6 +104,8 @@ namespace ThePyramidOfAnharos.Game.Plugin
 				{ 10, new string[] { "scimitar" } },
 				{ 12, new string[] { "bag" } },
 				{ 14, new string[] { "glyphs", "glyph" } },
+				{ 16, new string[] { "torches" } },
+				{ 17, new string[] { "torches" } },
 				{ 21, new string[] { "wall", "flame" } },
 				{ 22, new string[] { "wall", "flame" } },
 				{ 23, new string[] { "cloud" } },

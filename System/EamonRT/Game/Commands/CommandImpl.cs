@@ -348,7 +348,7 @@ namespace EamonRT.Game.Commands
 		{
 			Debug.Assert(artifact != null);
 
-			if (gEngine.IsRulesetVersion(5))
+			if (gEngine.IsRulesetVersion(5, 62))
 			{
 				gOut.Print("You're wearing {0}.", artifact.EvalPlural("it", "them"));
 			}
@@ -362,7 +362,7 @@ namespace EamonRT.Game.Commands
 		{
 			Debug.Assert(artifact != null);
 
-			if (gEngine.IsRulesetVersion(5))
+			if (gEngine.IsRulesetVersion(5, 62))
 			{
 				gOut.Print("You're wearing {0}.", artifact.GetTheName());
 			}
@@ -980,9 +980,9 @@ namespace EamonRT.Game.Commands
 
 		public virtual void PrintNotEnoughGold()
 		{
-			if (gEngine.IsRulesetVersion(5) || gCharacter.HeldGold < 0)
+			if (gEngine.IsRulesetVersion(5, 62) || gCharacter.HeldGold < 0)
 			{
-				gOut.Print("You aren't carrying that much gold of your own!");
+				gOut.Print("You aren't carrying that much gold{0}!", gEngine.IsRulesetVersion(62) ? "" : " of your own");
 			}
 			else
 			{
@@ -994,7 +994,7 @@ namespace EamonRT.Game.Commands
 
 		public virtual void PrintMustFirstReadyWeapon()
 		{
-			if (gEngine.IsRulesetVersion(5))
+			if (gEngine.IsRulesetVersion(5, 62))
 			{
 				gOut.Print("You have no weapon ready!");
 			}
@@ -1061,7 +1061,7 @@ namespace EamonRT.Game.Commands
 
 		public virtual void PrintCalmDown()
 		{
-			if (gEngine.IsRulesetVersion(5))
+			if (gEngine.IsRulesetVersion(5, 62))
 			{
 				gOut.Print("There's nothing to flee from!");
 			}

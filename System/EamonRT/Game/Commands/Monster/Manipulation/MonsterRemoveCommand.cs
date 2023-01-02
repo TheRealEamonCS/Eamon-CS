@@ -182,7 +182,7 @@ namespace EamonRT.Game.Commands
 
 			IsPlayerEnabled = false;
 
-			if (!gEngine.IsRulesetVersion(5))
+			if (!gEngine.IsRulesetVersion(5, 62))
 			{
 				IsMonsterEnabled = true;
 			}

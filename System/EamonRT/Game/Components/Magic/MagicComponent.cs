@@ -4,11 +4,13 @@
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using Eamon.Framework;
 using Eamon.Framework.Primitive.Classes;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
+using Eamon.Game.Utilities;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.Components;
 using EamonRT.Framework.Primitive.Enums;
@@ -23,6 +25,8 @@ namespace EamonRT.Game.Components
 		public virtual Func<IArtifact, bool>[] ResurrectWhereClauseFuncs { get; set; }
 
 		public virtual Func<IArtifact, bool>[] VanishWhereClauseFuncs { get; set; }
+
+		public virtual IList<Spell> SpellValueList { get; set; }
 
 		public virtual bool CastSpell { get; set; }
 
@@ -121,7 +125,7 @@ namespace EamonRT.Game.Components
 					{
 						gEngine.SkillIncreaseFuncList.Add(() =>
 						{
-							if (!gEngine.IsRulesetVersion(5))
+							if (!gEngine.IsRulesetVersion(5, 62))
 							{
 								PrintSpellAbilityIncreases(s, spell);
 							}
@@ -161,7 +165,7 @@ namespace EamonRT.Game.Components
 
 			gGameState.SetSa(s, 0);
 
-			if (gEngine.IsRulesetVersion(5))
+			if (gEngine.IsRulesetVersion(5, 62))
 			{
 				gCharacter.SetSpellAbility(s, 0);
 			}
@@ -272,7 +276,7 @@ namespace EamonRT.Game.Components
 			{
 				PrintHealthImproves(DobjMonster);
 
-				DamageHealed = gEngine.RollDice(1, gEngine.IsRulesetVersion(5) ? 10 : 12, 0);
+				DamageHealed = gEngine.RollDice(1, gEngine.IsRulesetVersion(5, 62) ? 10 : 12, 0);
 
 				DobjMonster.DmgTaken -= DamageHealed;
 			}
@@ -330,7 +334,7 @@ namespace EamonRT.Game.Components
 		/// <summary></summary>
 		public virtual void CalculateSpeedTurns()
 		{
-			SpeedTurns = gEngine.IsRulesetVersion(5) ? gEngine.RollDice(1, 25, 9) : gEngine.RollDice(1, 10, 10);
+			SpeedTurns = gEngine.IsRulesetVersion(5, 62) ? gEngine.RollDice(1, 25, 9) : gEngine.RollDice(1, 10, 10);
 
 			gGameState.Speed += (SpeedTurns + 1);
 
@@ -365,36 +369,62 @@ namespace EamonRT.Game.Components
 		/// <summary></summary>
 		public virtual void CheckAfterCastPower()
 		{
-			MagicState = MagicState.SonicBoomFortuneCookie;
+			PowerEventRoll = gEngine.RollDice(1, 100, 0);
+
+			if (gEngine.IsRulesetVersion(5))
+			{
+				MagicState = MagicState.RaiseDeadVanishArtifacts;
+			}
+			else if (gEngine.IsRulesetVersion(62))
+			{
+				MagicState = MagicState.TeleportToRoom;
+			}
+			else
+			{
+				MagicState = MagicState.SonicBoomFortuneCookie;
+			}
 		}
 
 		/// <summary></summary>
 		public virtual void SonicBoomFortuneCookie()
 		{
-			PowerEventRoll = gEngine.RollDice(1, 100, 0);
+			// 50% chance of boom
 
-			if (!gEngine.IsRulesetVersion(5))
+			if (PowerEventRoll > 50)
 			{
-				// 50% chance of boom
-
-				if (PowerEventRoll > 50)
-				{
-					PrintSonicBoom(ActorRoom);
-				}
-
-				// 50% chance of fortune cookie
-
-				else
-				{
-					PrintFortuneCookie();
-				}
-
-				MagicState = MagicState.EndMagic;
-
-				goto Cleanup;
+				PrintSonicBoom(ActorRoom);
 			}
 
-			MagicState = MagicState.RaiseDeadVanishArtifacts;
+			// 50% chance of fortune cookie
+
+			else
+			{
+				PrintFortuneCookie();
+			}
+
+			MagicState = MagicState.EndMagic;
+		}
+
+		/// <summary></summary>
+		public virtual void RaiseDead()
+		{
+			// 25% chance of raise the dead
+
+			if (PowerEventRoll < 80)
+			{
+				if (gEngine.ResurrectDeadBodies(ActorRoom, ResurrectWhereClauseFuncs))
+				{
+					MagicState = MagicState.EndMagic;
+
+					goto Cleanup;
+				}
+			}
+
+			// 20% chance of SPEED spell
+
+			CastSpell = false;
+
+			MagicState = MagicState.BeginSpellSpeed;
 
 		Cleanup:
 
@@ -451,11 +481,114 @@ namespace EamonRT.Game.Components
 		/// <summary></summary>
 		public virtual void SonicBoom()
 		{
-			// 75% chance of boom
+			// 20%/75% chance of boom
 
-			if (PowerEventRoll < 86)
+			if ((gEngine.IsRulesetVersion(62) && PowerEventRoll < 55) || (!gEngine.IsRulesetVersion(62) && PowerEventRoll < 86))
 			{
 				PrintSonicBoom(ActorRoom);
+
+				MagicState = MagicState.EndMagic;
+
+				goto Cleanup;
+			}
+
+			if (gEngine.IsRulesetVersion(62))
+			{
+				MagicState = MagicState.RaiseDead;
+			}
+			else
+			{
+				MagicState = MagicState.AllWoundsHealed;
+			}
+
+		Cleanup:
+
+			;
+		}
+
+		/// <summary></summary>
+		public virtual void AllWoundsHealed()
+		{
+			// 10%/5% chance of full heal
+
+			if ((gEngine.IsRulesetVersion(62) && PowerEventRoll < 35 && ActorMonster.DmgTaken > 0) || (!gEngine.IsRulesetVersion(62) && PowerEventRoll > 95))
+			{
+				PrintAllWoundsHealed();
+
+				ActorMonster.DmgTaken = 0;
+
+				MagicState = MagicState.EndMagic;
+
+				goto Cleanup;
+			}
+
+			if (gEngine.IsRulesetVersion(62))
+			{
+				MagicState = MagicState.MagicSkillsIncrease;
+			}
+			else
+			{
+				// 10% chance of SPEED spell
+
+				CastSpell = false;
+
+				MagicState = MagicState.BeginSpellSpeed;
+			}
+
+		Cleanup:
+
+			;
+		}
+
+		/// <summary></summary>
+		public virtual void TeleportToRoom()
+		{
+			// 9% chance of teleport
+
+			if (PowerEventRoll < 10)
+			{
+				PrintTeleportToRoom();
+
+				gGameState.R2 = gEngine.RollDice(1, gEngine.Module.NumRooms, 0);
+
+				SetNextStateFunc(gEngine.CreateInstance<IAfterPlayerMoveState>(x =>
+				{
+					x.MoveMonsters = false;
+				}));
+
+				MagicState = MagicState.EndMagic;
+
+				goto Cleanup;
+			}
+
+			MagicState = MagicState.ArmorThickens;
+
+		Cleanup:
+
+			;
+		}
+
+		/// <summary></summary>
+		public virtual void ArmorThickens()
+		{
+			// 15% chance of armor thickening
+
+			if (PowerEventRoll < 25)
+			{
+				var rl = gEngine.RollDice(1, 8, -1);      // TODO: verify 8
+
+				if (gGameState.Ar <= 0 || rl < ActorMonster.Armor)
+				{
+					PowerEventRoll = 1;
+
+					MagicState = MagicState.TeleportToRoom;
+
+					goto Cleanup;
+				}
+
+				PrintArmorThickens();
+
+				ActorMonster.Armor += 2;
 
 				MagicState = MagicState.EndMagic;
 
@@ -470,26 +603,36 @@ namespace EamonRT.Game.Components
 		}
 
 		/// <summary></summary>
-		public virtual void AllWoundsHealed()
+		public virtual void MagicSkillsIncrease()
 		{
-			// 5% chance of full heal
+			// 10% chance of magic skills increasing
 
-			if (PowerEventRoll > 95)
+			if (PowerEventRoll < 35)
 			{
-				PrintAllWoundsHealed();
+				PrintMagicSkillsIncrease();
 
-				ActorMonster.DmgTaken = 0;
+				SpellValueList = EnumUtil.GetValues<Spell>();
+
+				foreach (var sv in SpellValueList)
+				{
+					var spell = gEngine.GetSpell(sv);
+
+					Debug.Assert(spell != null);
+
+					gGameState.SetSa(sv, gCharacter.GetSpellAbility(sv) * 2);
+
+					if (gGameState.GetSa(sv) > spell.MaxValue)
+					{
+						gGameState.SetSa(sv, spell.MaxValue);
+					}
+				}
 
 				MagicState = MagicState.EndMagic;
 
 				goto Cleanup;
 			}
 
-			// 10% chance of SPEED spell
-
-			CastSpell = false;
-
-			MagicState = MagicState.BeginSpellSpeed;
+			MagicState = MagicState.SonicBoom;
 
 		Cleanup:
 
@@ -607,6 +750,12 @@ namespace EamonRT.Game.Components
 
 						break;
 
+					case MagicState.RaiseDead:
+
+						RaiseDead();
+
+						break;
+
 					case MagicState.RaiseDeadVanishArtifacts:
 
 						RaiseDeadVanishArtifacts();
@@ -628,6 +777,24 @@ namespace EamonRT.Game.Components
 					case MagicState.AllWoundsHealed:
 
 						AllWoundsHealed();
+
+						break;
+
+					case MagicState.TeleportToRoom:
+
+						TeleportToRoom();
+
+						break;
+
+					case MagicState.ArmorThickens:
+
+						ArmorThickens();
+
+						break;
+
+					case MagicState.MagicSkillsIncrease:
+
+						MagicSkillsIncrease();
 
 						break;
 
