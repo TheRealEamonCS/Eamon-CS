@@ -492,23 +492,26 @@ namespace EamonRT.Game.Plugin
 		{
 			Debug.Assert(artifact != null);
 
-			if (goldAmount > 0)
+			if (!IsRulesetVersion(5, 62))
 			{
-				Buf01.SetFormat("{0} gold piece{1}", goldAmount, goldAmount != 1 ? "s" : "");
-			}
-			else
-			{
-				Buf01.SetFormat("nothing");
-			}
+				if (goldAmount > 0)
+				{
+					Buf01.SetFormat("{0} gold piece{1}", goldAmount, goldAmount != 1 ? "s" : "");
+				}
+				else
+				{
+					Buf01.SetFormat("nothing");
+				}
 
-			var ac = artifact.Drinkable;
+				var ac = artifact.Drinkable;
 
-			Out.Write("{0}{1}{2} {3} worth {4}.",
-				Environment.NewLine,
-				artifact.GetTheName(true, false),
-				ac != null && ac.Field2 < 1 && !artifact.Name.Contains("empty", StringComparison.OrdinalIgnoreCase) ? " (empty)" : "",
-				artifact.EvalPlural("is", "are"),
-				Buf01);
+				Out.Write("{0}{1}{2} {3} worth {4}.",
+					Environment.NewLine,
+					artifact.GetTheName(true, false),
+					ac != null && ac.Field2 < 1 && !artifact.Name.Contains("empty", StringComparison.OrdinalIgnoreCase) ? " (empty)" : "",
+					artifact.EvalPlural("is", "are"),
+					Buf01);
+			}
 		}
 
 		public virtual void PrintNothingHappens()
@@ -654,12 +657,21 @@ namespace EamonRT.Game.Plugin
 
 		public virtual void PrintTooManyWeapons()
 		{
-			Out.Print("As you enter the Main Hall, Lord William Missilefire approaches you and says, \"You have too many weapons to keep them all, four is the legal limit.\"");
+			Out.Print("As you {0}enter the Main Hall, Lord William Missilefire {1}, \"You have too many weapons to keep them all, four is the legal limit.\"", 
+				IsRulesetVersion(5, 62) ? "start to " : "", 
+				IsRulesetVersion(5, 62) ? "appears and tells you" : "approaches you and says");
 		}
 
 		public virtual void PrintDeliverGoods()
 		{
-			Out.Print("You deliver your goods to Sam Slicker, the local buyer for such things.  He examines your items and pays you what they are worth.");
+			if (IsRulesetVersion(5, 62))
+			{
+				Out.Write("{0}As you deliver your treasures to Sam Slicker, the local buyer for such things, he examines your goods and pays you ", Environment.NewLine);
+			}
+			else
+			{			
+				Out.Print("You deliver your goods to Sam Slicker, the local buyer for such things.  He examines your items and pays you what they are worth.");
+			}
 		}
 
 		public virtual void PrintYourWeaponsAre()
@@ -674,7 +686,14 @@ namespace EamonRT.Game.Plugin
 
 		public virtual void PrintAllWoundsHealed()
 		{
-			Out.Print("All of your wounds are healed.");
+			if (IsRulesetVersion(62))
+			{
+				Out.Print("Your wounds heal!");
+			}
+			else
+			{
+				Out.Print("All of your wounds are healed.");
+			}
 		}
 
 		public virtual void PrintYouHavePerished()
@@ -829,7 +848,14 @@ namespace EamonRT.Game.Plugin
 
 		public virtual void PrintGoodsPayment(bool goodsExist, long goldAmount)
 		{
-			Out.Print("{0}He pays you {1} gold piece{2} total.", goodsExist ? Environment.NewLine : "", goldAmount, goldAmount != 1 ? "s" : "");
+			if (IsRulesetVersion(5, 62))
+			{
+				Out.Write("{0} gold piece{1}.{2}", goldAmount, goldAmount != 1 ? "s" : "", Environment.NewLine);
+			}
+			else
+			{
+				Out.Print("{0}He pays you {1} gold piece{2} total.", goodsExist ? Environment.NewLine : "", goldAmount, goldAmount != 1 ? "s" : "");
+			}
 		}
 
 		public virtual void PrintMacroReplacedPagedString(string str, StringBuilder buf)

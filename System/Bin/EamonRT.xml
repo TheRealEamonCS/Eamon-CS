@@ -2855,6 +2855,12 @@
         <member name="M:EamonRT.Framework.States.IStateSignatures.PrintSpeedSpellExpired">
             <summary></summary>
         </member>
+        <member name="M:EamonRT.Framework.States.IStateSignatures.BeforePrintCommands">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Framework.States.IStateSignatures.AfterPrintCommands">
+            <summary></summary>
+        </member>
         <member name="M:EamonRT.Framework.States.IStateSignatures.ProcessEvents(EamonRT.Framework.Primitive.Enums.EventType)">
             <summary></summary>
             <param name="eventType"></param>

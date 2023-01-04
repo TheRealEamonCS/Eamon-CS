@@ -420,7 +420,7 @@ namespace EamonRT.Game.Components
 				}
 			}
 
-			// 20% chance of SPEED spell
+			// 21% chance of SPEED spell
 
 			CastSpell = false;
 

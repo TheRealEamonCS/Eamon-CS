@@ -45,5 +45,15 @@ namespace TheVileGrimoireOfJaldial.Game.States
 				base.PrintEnemiesNearby();
 			}
 		}
+
+		public override void BeforePrintCommands()
+		{
+			gOut.Print("What's that?  I only understand these commands ---");
+		}
+
+		public override void AfterPrintCommands()
+		{
+			gOut.Print("You may press ENTER to repeat the last action.");
+		}
 	}
 }
