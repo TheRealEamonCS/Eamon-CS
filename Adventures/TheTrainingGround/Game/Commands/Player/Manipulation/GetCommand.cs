@@ -17,11 +17,11 @@ namespace TheTrainingGround.Game.Commands
 	{
 		public virtual bool RevealSecretPassage { get; set; }
 
-		public override void PrintTaken(IArtifact artifact)
+		public override void PrintTaken(IArtifact artifact, bool getAll = false)
 		{
 			Debug.Assert(artifact != null);
 
-			base.PrintTaken(artifact);
+			base.PrintTaken(artifact, getAll);
 
 			// Taking Purple book reveals secret passage
 

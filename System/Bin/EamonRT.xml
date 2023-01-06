@@ -124,9 +124,10 @@
             <summary></summary>
             <param name="artifact"></param>
         </member>
-        <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintTooHeavy(Eamon.Framework.IArtifact)">
+        <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintTooHeavy(Eamon.Framework.IArtifact,System.Boolean)">
             <summary></summary>
             <param name="artifact"></param>
+            <param name="getAll"></param>
         </member>
         <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintMustBeFreed(Eamon.Framework.IArtifact)">
             <summary></summary>
@@ -164,9 +165,10 @@
             <summary></summary>
             <param name="artifact"></param>
         </member>
-        <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintTaken(Eamon.Framework.IArtifact)">
+        <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintTaken(Eamon.Framework.IArtifact,System.Boolean)">
             <summary></summary>
             <param name="artifact"></param>
+            <param name="getAll"></param>
         </member>
         <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintDropped(Eamon.Framework.IArtifact)">
             <summary></summary>

@@ -190,11 +190,36 @@ namespace EamonRT.Game.Commands
 			gOut.Print("{0} {1} best if left alone.", artifact.GetTheName(true), artifact.EvalPlural("is", "are"));
 		}
 
-		public virtual void PrintTooHeavy(IArtifact artifact)
+		public virtual void PrintTooHeavy(IArtifact artifact, bool getAll = false)
 		{
 			Debug.Assert(artifact != null);
 
-			gOut.Print("{0} {1} too heavy.", artifact.GetTheName(true), artifact.EvalPlural("is", "are"));
+			if (gEngine.IsRulesetVersion(5) && Command is IGetCommand)
+			{
+				if (getAll)
+				{
+					gOut.Print("{0} {1} too heavy.", artifact.GetTheName(true), artifact.EvalPlural("is", "are"));
+				}
+				else
+				{
+					gOut.Print("{0} too heavy for you.", artifact.EvalPlural("It is", "They are"));
+				}
+			}
+			else if (gEngine.IsRulesetVersion(62) && Command is IGetCommand && !(Command.NextState is IRequestCommand))
+			{
+				if (getAll)
+				{
+					gOut.Print("{0} can't be moved.", artifact.GetTheName(true));
+				}
+				else
+				{
+					gOut.Print("You can't budge {0}!", artifact.EvalPlural("it", "them"));
+				}
+			}
+			else
+			{
+				gOut.Print("{0} {1} too heavy.", artifact.GetTheName(true), artifact.EvalPlural("is", "are"));
+			}
 		}
 
 		public virtual void PrintMustBeFreed(IArtifact artifact)
@@ -250,21 +275,42 @@ namespace EamonRT.Game.Commands
 		{
 			Debug.Assert(artifact != null);
 
-			gOut.Write("{0}{1} received.", Environment.NewLine, artifact.GetNoneName(true, false));
+			if (gEngine.IsRulesetVersion(5, 62))
+			{
+				gOut.Write("{0}Got {1}.", Environment.NewLine, artifact.EvalPlural("it", "them"));
+			}
+			else
+			{
+				gOut.Write("{0}{1} received.", Environment.NewLine, artifact.GetNoneName(true, false));
+			}
 		}
 
 		public virtual void PrintRetrieved(IArtifact artifact)
 		{
 			Debug.Assert(artifact != null);
 
-			gOut.Write("{0}{1} retrieved.", Environment.NewLine, artifact.GetNoneName(true, false));
+			if (gEngine.IsRulesetVersion(5, 62))
+			{
+				gOut.Write("{0}Got {1}.", Environment.NewLine, artifact.EvalPlural("it", "them"));
+			}
+			else
+			{
+				gOut.Write("{0}{1} retrieved.", Environment.NewLine, artifact.GetNoneName(true, false));
+			}
 		}
 
-		public virtual void PrintTaken(IArtifact artifact)
+		public virtual void PrintTaken(IArtifact artifact, bool getAll = false)
 		{
 			Debug.Assert(artifact != null);
 
-			gOut.Write("{0}{1} taken.", Environment.NewLine, artifact.GetNoneName(true, false));
+			if (gEngine.IsRulesetVersion(5, 62) && !getAll)
+			{
+				gOut.Write("{0}Got {1}.", Environment.NewLine, artifact.EvalPlural("it", "them"));
+			}
+			else
+			{
+				gOut.Write("{0}{1} taken.", Environment.NewLine, artifact.GetNoneName(true, false));
+			}
 		}
 
 		public virtual void PrintDropped(IArtifact artifact)
@@ -278,7 +324,14 @@ namespace EamonRT.Game.Commands
 		{
 			Debug.Assert(artifact != null);
 
-			gOut.Print("{0} readied.", artifact.GetNoneName(true, false));
+			if (gEngine.IsRulesetVersion(5, 62))
+			{
+				gOut.Print("Readied.");
+			}
+			else
+			{
+				gOut.Print("{0} readied.", artifact.GetNoneName(true, false));
+			}
 		}
 
 		public virtual void PrintNotOpen(IArtifact artifact)
@@ -1041,7 +1094,14 @@ namespace EamonRT.Game.Commands
 
 		public virtual void PrintNobodyHereByThatName()
 		{
-			gOut.Print("Nobody here by that name!");
+			if (gEngine.IsRulesetVersion(5, 62) && Command is IAttackCommand)
+			{
+				gOut.Print("Attack who?");
+			}
+			else
+			{
+				gOut.Print("Nobody here by that name!");
+			}
 		}
 
 		public virtual void PrintNothingHereByThatName()

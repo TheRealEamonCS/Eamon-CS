@@ -40,6 +40,51 @@ namespace TheVileGrimoireOfJaldial.Game.Commands
 			}
 		}
 
+		public override void PrintTooHeavy(IArtifact artifact, bool getAll = false)
+		{
+			gEngine.PushRulesetVersion(0);
+
+			base.PrintTooHeavy(artifact, getAll);
+
+			gEngine.PopRulesetVersion();
+		}
+
+		public override void PrintReceived(IArtifact artifact)
+		{
+			gEngine.PushRulesetVersion(0);
+
+			base.PrintReceived(artifact);
+
+			gEngine.PopRulesetVersion();
+		}
+
+		public override void PrintRetrieved(IArtifact artifact)
+		{
+			gEngine.PushRulesetVersion(0);
+
+			base.PrintRetrieved(artifact);
+
+			gEngine.PopRulesetVersion();
+		}
+
+		public override void PrintTaken(IArtifact artifact, bool getAll = false)
+		{
+			gEngine.PushRulesetVersion(0);
+
+			base.PrintTaken(artifact, getAll);
+
+			gEngine.PopRulesetVersion();
+		}
+
+		public override void PrintReadied(IArtifact artifact)
+		{
+			gEngine.PushRulesetVersion(0);
+
+			base.PrintReadied(artifact);
+
+			gEngine.PopRulesetVersion();
+		}
+
 		public override void PrintLightObj(IArtifact artifact)
 		{
 			Debug.Assert(artifact != null);
@@ -66,6 +111,15 @@ namespace TheVileGrimoireOfJaldial.Game.Commands
 			{
 				base.PrintLightExtinguished(artifact);
 			}
+		}
+
+		public override void PrintNobodyHereByThatName()
+		{
+			gEngine.PushRulesetVersion(0);
+
+			base.PrintNobodyHereByThatName();
+
+			gEngine.PopRulesetVersion();
 		}
 
 		public override bool ShouldShowUnseenArtifacts(IRoom room, IArtifact artifact)

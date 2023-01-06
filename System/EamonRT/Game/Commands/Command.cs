@@ -352,9 +352,9 @@ namespace EamonRT.Game.Commands
 			CommandImpl.PrintBestLeftAlone(artifact);
 		}
 
-		public virtual void PrintTooHeavy(IArtifact artifact)
+		public virtual void PrintTooHeavy(IArtifact artifact, bool getAll = false)
 		{
-			CommandImpl.PrintTooHeavy(artifact);
+			CommandImpl.PrintTooHeavy(artifact, getAll);
 		}
 
 		public virtual void PrintMustBeFreed(IArtifact artifact)
@@ -402,9 +402,9 @@ namespace EamonRT.Game.Commands
 			CommandImpl.PrintRetrieved(artifact);
 		}
 
-		public virtual void PrintTaken(IArtifact artifact)
+		public virtual void PrintTaken(IArtifact artifact, bool getAll = false)
 		{
-			CommandImpl.PrintTaken(artifact);
+			CommandImpl.PrintTaken(artifact, getAll);
 		}
 
 		public virtual void PrintDropped(IArtifact artifact)

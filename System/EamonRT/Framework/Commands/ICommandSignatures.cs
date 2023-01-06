@@ -123,7 +123,8 @@ namespace EamonRT.Framework.Commands
 
 		/// <summary></summary>
 		/// <param name="artifact"></param>
-		void PrintTooHeavy(IArtifact artifact);
+		/// <param name="getAll"></param>
+		void PrintTooHeavy(IArtifact artifact, bool getAll = false);
 
 		/// <summary></summary>
 		/// <param name="artifact"></param>
@@ -163,7 +164,8 @@ namespace EamonRT.Framework.Commands
 
 		/// <summary></summary>
 		/// <param name="artifact"></param>
-		void PrintTaken(IArtifact artifact);
+		/// <param name="getAll"></param>
+		void PrintTaken(IArtifact artifact, bool getAll = false);
 
 		/// <summary></summary>
 		/// <param name="artifact"></param>
