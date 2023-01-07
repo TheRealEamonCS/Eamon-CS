@@ -113,13 +113,27 @@ namespace TheVileGrimoireOfJaldial.Game.Commands
 			}
 		}
 
-		public override void PrintNobodyHereByThatName()
+		public override void PrintDontHaveItNotHere()
 		{
 			gEngine.PushRulesetVersion(0);
 
-			base.PrintNobodyHereByThatName();
+			base.PrintDontHaveItNotHere();
 
 			gEngine.PopRulesetVersion();
+		}
+
+		public override void PrintDontHaveIt()
+		{
+			gEngine.PushRulesetVersion(0);
+
+			base.PrintDontHaveIt();
+
+			gEngine.PopRulesetVersion();
+		}
+
+		public override bool ShouldAllowRedirectToGetCommand()
+		{
+			return true;
 		}
 
 		public override bool ShouldShowUnseenArtifacts(IRoom room, IArtifact artifact)

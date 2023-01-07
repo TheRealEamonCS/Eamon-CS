@@ -69,7 +69,13 @@ namespace EamonRT.Game.Commands
 
 			if (!DobjArtifact.IsCarriedByCharacter())
 			{
-				if (!GetCommandCalled)
+				if (!ShouldAllowRedirectToGetCommand())
+				{
+					PrintDontHaveIt02(DobjArtifact);
+
+					NextState = gEngine.CreateInstance<IStartState>();
+				}
+				else if (!GetCommandCalled)
 				{
 					RedirectToGetCommand<IReadyCommand>(DobjArtifact);
 				}

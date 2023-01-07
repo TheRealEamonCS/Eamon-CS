@@ -1059,12 +1059,19 @@ namespace EamonRT.Game.Commands
 
 		public virtual void PrintDontHaveItNotHere()
 		{
-			gOut.Print("You don't have it and it's not here.");
+			gOut.Print("{0} it and it's not here.", gEngine.IsRulesetVersion(5, 62) ? "You aren't carrying" : "You don't have");
 		}
 
 		public virtual void PrintDontHaveIt()
 		{
-			gOut.Print("You don't have it.");
+			gOut.Print("{0} it.", gEngine.IsRulesetVersion(5, 62) ? "You aren't carrying" : "You don't have");
+		}
+
+		public virtual void PrintDontHaveIt02(IArtifact artifact)
+		{
+			Debug.Assert(artifact != null);
+
+			gOut.Print("{0} {1}.", gEngine.IsRulesetVersion(5, 62) ? "You aren't carrying" : "You don't have", artifact.EvalPlural("it", "them"));
 		}
 
 		public virtual void PrintDontNeedTo()
@@ -1094,14 +1101,7 @@ namespace EamonRT.Game.Commands
 
 		public virtual void PrintNobodyHereByThatName()
 		{
-			if (gEngine.IsRulesetVersion(5, 62) && Command is IAttackCommand)
-			{
-				gOut.Print("Attack who?");
-			}
-			else
-			{
-				gOut.Print("Nobody here by that name!");
-			}
+			gOut.Print("Nobody here by that name!");
 		}
 
 		public virtual void PrintNothingHereByThatName()
@@ -1259,6 +1259,11 @@ namespace EamonRT.Game.Commands
 		public virtual bool ShouldAllowSkillGains()
 		{
 			return true;
+		}
+
+		public virtual bool ShouldAllowRedirectToGetCommand()
+		{
+			return !gEngine.IsRulesetVersion(5, 62);
 		}
 
 		public virtual bool ShouldShowUnseenArtifacts(IRoom room, IArtifact artifact)

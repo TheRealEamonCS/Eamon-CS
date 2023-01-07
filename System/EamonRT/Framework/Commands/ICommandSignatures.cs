@@ -537,6 +537,10 @@ namespace EamonRT.Framework.Commands
 		void PrintDontHaveIt();
 
 		/// <summary></summary>
+		/// <param name="artifact"></param>
+		void PrintDontHaveIt02(IArtifact artifact);
+
+		/// <summary></summary>
 		void PrintDontNeedTo();
 
 		/// <summary></summary>
@@ -648,6 +652,10 @@ namespace EamonRT.Framework.Commands
 		/// <summary></summary>
 		/// <returns></returns>
 		bool ShouldAllowSkillGains();
+
+		/// <summary></summary>
+		/// <returns></returns>
+		bool ShouldAllowRedirectToGetCommand();
 
 		/// <summary></summary>
 		/// <param name="room"></param>

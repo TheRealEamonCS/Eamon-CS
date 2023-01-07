@@ -539,6 +539,10 @@
         <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintDontHaveIt">
             <summary></summary>
         </member>
+        <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintDontHaveIt02(Eamon.Framework.IArtifact)">
+            <summary></summary>
+            <param name="artifact"></param>
+        </member>
         <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintDontNeedTo">
             <summary></summary>
         </member>
@@ -649,6 +653,10 @@
             <returns></returns>
         </member>
         <member name="M:EamonRT.Framework.Commands.ICommandSignatures.ShouldAllowSkillGains">
+            <summary></summary>
+            <returns></returns>
+        </member>
+        <member name="M:EamonRT.Framework.Commands.ICommandSignatures.ShouldAllowRedirectToGetCommand">
             <summary></summary>
             <returns></returns>
         </member>

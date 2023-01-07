@@ -817,6 +817,11 @@ namespace EamonRT.Game.Commands
 			CommandImpl.PrintDontHaveIt();
 		}
 
+		public virtual void PrintDontHaveIt02(IArtifact artifact)
+		{
+			CommandImpl.PrintDontHaveIt02(artifact);
+		}
+
 		public virtual void PrintDontNeedTo()
 		{
 			CommandImpl.PrintDontNeedTo();
@@ -995,6 +1000,11 @@ namespace EamonRT.Game.Commands
 		public virtual bool ShouldAllowSkillGains()
 		{
 			return CommandImpl.ShouldAllowSkillGains();
+		}
+
+		public virtual bool ShouldAllowRedirectToGetCommand()
+		{
+			return CommandImpl.ShouldAllowRedirectToGetCommand();
 		}
 
 		public virtual bool ShouldShowUnseenArtifacts(IRoom room, IArtifact artifact)
