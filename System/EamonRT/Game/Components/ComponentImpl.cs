@@ -274,10 +274,12 @@ namespace EamonRT.Game.Components
 		{
 			Debug.Assert(artifact != null);
 
-			gOut.Print("{0}{1} {2} to pieces{3}!",
+			gOut.Print("{0}{1} {2}{3}!",
 				Environment.NewLine,
 				artifact.GetTheName(true),
-				artifact.EvalPlural("smashes", "smash"),
+				gEngine.IsRulesetVersion(62) ? 
+					artifact.EvalPlural("shatters", "shatter") : 
+					artifact.EvalPlural("smashes to pieces", "smash to pieces"),
 				spillContents ?
 					string.Format("; {0} contents spill {1}",
 						artifact.EvalPlural("its", "their"), 
@@ -301,7 +303,9 @@ namespace EamonRT.Game.Components
 		{
 			Debug.Assert(Enum.IsDefined(typeof(Spell), s) && spell != null);
 
-			gOut.Print("The strain of attempting to cast {0} overloads your brain and you forget it completely{1}.", spell.Name, gEngine.IsRulesetVersion(5, 62) ? "" : " for the rest of this adventure");
+			gOut.Print("The strain of attempting to cast {0} overloads your brain and you forget it completely{1}.", 
+				gEngine.IsRulesetVersion(5, 62) ? "this spell" : spell.Name, 
+				gEngine.IsRulesetVersion(5, 62) ? "" : " for the rest of this adventure");
 		}
 
 		public virtual void PrintSpellAbilityIncreases(Spell s, ISpell spell)
