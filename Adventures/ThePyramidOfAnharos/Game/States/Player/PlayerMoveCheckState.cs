@@ -48,11 +48,11 @@ namespace ThePyramidOfAnharos.Game.States
 
 				// Wall of flames
 
-				if ((gGameState.Ro == 27 && gGameState.R2 == -28) || (gGameState.Ro == 28 && gGameState.R2 == -27))
+				if ((gGameState.Ro == 27 && gGameState.R2 == 28) || (gGameState.Ro == 28 && gGameState.R2 == 27))
 				{
 					if (!tunicArtifact.IsWornByCharacter())
 					{
-						gEngine.InjurePartyAndDamageEquipment(room, 19, Math.Abs(gGameState.R2), 1, 0.1, s => NextState = s, ref gotoCleanup);
+						gEngine.InjurePartyAndDamageEquipment(room, 19, gGameState.R2, 1, 0.1, s => NextState = s, ref gotoCleanup);
 
 						if (gotoCleanup)
 						{
@@ -65,17 +65,15 @@ namespace ThePyramidOfAnharos.Game.States
 					{
 						gEngine.PrintEffectDesc(17);
 					}
-
-					gGameState.R2 = Math.Abs(gGameState.R2);
 				}
 
 				// Dark cloud
 
-				else if (gGameState.R2 == -29 || (gGameState.Ro == 29 && gGameState.R2 == -28))
+				else if (gGameState.R2 == 29 || (gGameState.Ro == 29 && gGameState.R2 == 28))
 				{
 					if (!amuletArtifact.IsWornByCharacter())
 					{
-						gEngine.InjurePartyAndDamageEquipment(room, 49, Math.Abs(gGameState.R2), 1, 0.1, s => NextState = s, ref gotoCleanup);
+						gEngine.InjurePartyAndDamageEquipment(room, 49, gGameState.R2, 1, 0.1, s => NextState = s, ref gotoCleanup);
 
 						if (gotoCleanup)
 						{
@@ -88,8 +86,6 @@ namespace ThePyramidOfAnharos.Game.States
 					{
 						gEngine.PrintEffectDesc(50);
 					}
-
-					gGameState.R2 = Math.Abs(gGameState.R2);
 				}
 
 				// Wander into desert

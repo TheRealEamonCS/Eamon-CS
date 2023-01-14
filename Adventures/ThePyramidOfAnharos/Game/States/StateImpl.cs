@@ -17,6 +17,8 @@ namespace ThePyramidOfAnharos.Game.States
 		{
 			IList<long> monsterUidList = null;
 
+			// Guards reanimate and attack
+
 			if (gEngine.GuardsAttack)
 			{
 				monsterUidList = new List<long> { 20 };

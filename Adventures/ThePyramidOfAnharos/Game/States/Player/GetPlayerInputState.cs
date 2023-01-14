@@ -79,7 +79,7 @@ namespace ThePyramidOfAnharos.Game.States
 
 				Debug.Assert(deadGuardsArtifact != null);
 
-				// Guards attack
+				// Guards reanimate and attack
 
 				if (room.Uid == 17 && gGameState.KH != 1 && room.IsLit())
 				{

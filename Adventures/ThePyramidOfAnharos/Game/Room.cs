@@ -76,9 +76,34 @@ namespace ThePyramidOfAnharos.Game
 
 		public override RetCode GetExitList(StringBuilder buf, Func<string, string> modFunc = null, bool useNames = true)
 		{
+			RetCode rc;
+			
+			rc = RetCode.Success;
+
 			// No obvious exits in desert
 
-			return Zone != 1 ? base.GetExitList(buf, modFunc, useNames) : RetCode.Success;
+			if (Zone != 1)
+			{
+				// Between Flames & Cloud
+
+				if (Uid == 28)
+				{
+					buf.AppendFormat("none.");
+				}
+
+				// By Dark Cloud
+
+				else if (Uid == 29)
+				{
+					buf.AppendFormat("south.");
+				}
+				else
+				{
+					rc = base.GetExitList(buf, modFunc, useNames);
+				}
+			}
+
+			return rc;
 		}
 
 		public override RetCode BuildPrintedTooDarkToSeeDesc(StringBuilder buf)
