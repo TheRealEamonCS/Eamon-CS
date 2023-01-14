@@ -91,32 +91,15 @@ namespace ThePyramidOfAnharos.Game.States
 
 					gEngine.PrintEffectDesc(54);
 
-					for (var i = 1; i <= guardsMonster.CurrGroupCount; i++)
-					{
-						var combatComponent = gEngine.CreateInstance<ICombatComponent>(x =>
-						{
-							x.SetNextStateFunc = s => NextState = s;
+					gEngine.GuardsAttack = true;
 
-							x.ActorMonster = guardsMonster;
+					gEngine.InitialState = gEngine.CreateInstance<IGetPlayerInputState>();
 
-							x.ActorRoom = room;
+					NextState = gEngine.CreateInstance<IMonsterStartState>();
 
-							x.Dobj = gCharMonster;
+					GotoCleanup = true;
 
-							x.MemberNumber = i;
-
-							x.AttackNumber = 1;
-						});
-
-						combatComponent.ExecuteAttack();
-
-						if (gGameState.Die > 0)
-						{
-							GotoCleanup = true;
-
-							goto Cleanup;
-						}
-					}
+					goto Cleanup;
 				}
 
 				// Staircase retracts

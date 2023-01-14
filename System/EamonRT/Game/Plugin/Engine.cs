@@ -77,6 +77,8 @@ namespace EamonRT.Game.Plugin
 
 		public virtual ICommandParser CommandParser { get; set; }
 
+		public virtual IState InitialState { get; set; }
+
 		public virtual IState CurrState { get; set; }
 
 		public virtual IState NextState { get; set; }

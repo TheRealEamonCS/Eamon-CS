@@ -1614,6 +1614,9 @@
         <member name="P:EamonRT.Framework.Plugin.IEngine.CommandParser">
             <summary></summary>
         </member>
+        <member name="P:EamonRT.Framework.Plugin.IEngine.InitialState">
+            <summary></summary>
+        </member>
         <member name="P:EamonRT.Framework.Plugin.IEngine.CurrState">
             <summary></summary>
         </member>

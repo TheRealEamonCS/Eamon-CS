@@ -22,6 +22,8 @@ namespace ThePyramidOfAnharos.Game.Plugin
 
 		public virtual bool TaxLevied { get; set; }
 
+		public virtual bool GuardsAttack { get; set; }
+
 		public override RetCode LoadPluginClassMappings()
 		{
 			RetCode rc;
