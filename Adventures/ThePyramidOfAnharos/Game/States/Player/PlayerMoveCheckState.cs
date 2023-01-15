@@ -69,7 +69,7 @@ namespace ThePyramidOfAnharos.Game.States
 
 				// Dark cloud
 
-				else if (gGameState.R2 == 29 || (gGameState.Ro == 29 && gGameState.R2 == 28))
+				else if ((gGameState.Ro == 28 && gGameState.R2 == 29) || (gGameState.Ro == 29 && gGameState.R2 == 28))
 				{
 					if (!amuletArtifact.IsWornByCharacter())
 					{
