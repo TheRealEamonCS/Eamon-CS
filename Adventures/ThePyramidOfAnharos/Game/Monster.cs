@@ -79,5 +79,12 @@ namespace ThePyramidOfAnharos.Game
 
 			;
 		}
+
+		public override string[] GetWeaponAttackDescs(IArtifact artifact)
+		{
+			// Whip
+
+			return artifact != null && artifact.Uid == 5 ? new string[] { "whip{0} at" } : base.GetWeaponAttackDescs(artifact);
+		}
 	}
 }

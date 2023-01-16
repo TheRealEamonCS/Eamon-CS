@@ -119,7 +119,7 @@ namespace ThePyramidOfAnharos.Game.Plugin
 				{ 29, new string[] { "body" } },
 				{ 30, new string[] { "glyphs", "glyph" } },
 				{ 31, new string[] { "moon pool", "pool" } },
-				{ 32, new string[] { "glyphs", "glyph" } },
+				{ 32, new string[] { "urns", "glyphs", "urn", "glyph" } },
 				{ 34, new string[] { "mummy", "Anharos" } },
 				{ 35, new string[] { "door" } },
 				{ 38, new string[] { "Diamond", "Purity" } },
