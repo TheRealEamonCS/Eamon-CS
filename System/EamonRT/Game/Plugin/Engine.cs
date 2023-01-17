@@ -3383,7 +3383,7 @@ namespace EamonRT.Game.Plugin
 
 				artifact.Wearable.Field1 = Math.Max(0, artifact.Wearable.Field1 - damage);
 
-				while (artifact.Wearable.Field1 > 0 && !gEngine.IsValidArtifactArmor(artifact.Wearable.Field1))
+				while (artifact.Wearable.Field1 > 0 && !IsValidArtifactArmor(artifact.Wearable.Field1))
 				{
 					artifact.Wearable.Field1--;
 				}
