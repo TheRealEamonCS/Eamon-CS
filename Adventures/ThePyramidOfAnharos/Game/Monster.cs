@@ -5,6 +5,7 @@
 
 using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Text;
 using Eamon.Framework;
 using Eamon.Framework.Primitive.Enums;
@@ -16,6 +17,15 @@ namespace ThePyramidOfAnharos.Game
 	[ClassMappings]
 	public class Monster : Eamon.Game.Monster, IMonster
 	{
+		public override bool HasHumanNaturalAttackDescs()
+		{
+			var monsterUids = new long[] { 1, 2, 6, 7, 9, 10, 11, 12, 13, 14, 15 };
+
+			// Use appropriate natural attack descriptions for humans
+
+			return monsterUids.Contains(Uid) ? true : base.HasHumanNaturalAttackDescs();
+		}
+
 		public override bool CanMoveToRoomUid(long roomUid, bool fleeing)
 		{
 			return fleeing ? roomUid > 0 : base.CanMoveToRoomUid(roomUid, fleeing);
