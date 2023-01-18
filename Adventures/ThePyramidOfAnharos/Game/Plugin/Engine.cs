@@ -124,7 +124,7 @@ namespace ThePyramidOfAnharos.Game.Plugin
 				{ 35, new string[] { "door" } },
 				{ 38, new string[] { "Diamond", "Purity" } },
 				{ 39, new string[] { "case" } },
-				{ 40, new string[] { "glyphs", "glyph" } },
+				{ 40, new string[] { "persian carpet", "persian rug", "rug", "glyphs", "glyph" } },
 				{ 42, new string[] { "leather", "armor" } },
 				{ 43, new string[] { "chain", "armor" } },
 				{ 44, new string[] { "plate", "armor" } },

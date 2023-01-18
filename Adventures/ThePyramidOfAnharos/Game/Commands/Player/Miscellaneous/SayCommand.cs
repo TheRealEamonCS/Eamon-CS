@@ -31,6 +31,8 @@ namespace ThePyramidOfAnharos.Game.Commands
 
 				Debug.Assert(carpetArtifact != null);
 
+				// Pyramid doors
+
 				if (ProcessedPhrase.Equals("for anharos", StringComparison.OrdinalIgnoreCase))
 				{
 					if (gGameState.Ro == 6 || gGameState.Ro == 14)
@@ -46,6 +48,9 @@ namespace ThePyramidOfAnharos.Game.Commands
 						gEngine.PrintEffectDesc(13 - gGameState.KF);
 					}
 				}
+
+				// Carpet
+
 				else if (ProcessedPhrase.Equals("soar with alaxar", StringComparison.OrdinalIgnoreCase) && carpetArtifact.IsCarriedByCharacter())
 				{
 					gEngine.PrintEffectDesc(14);
@@ -60,7 +65,7 @@ namespace ThePyramidOfAnharos.Game.Commands
 
 					if (buf.Length > 0)
 					{
-						gGameState.R2 = buf[0] == '1' ? 12 : buf[0] == '2' ? 49 : buf[0] == '3' ? 55 : 1;
+						gGameState.R2 = ActorRoom.Zone == 2 && gGameState.KF == 0 ? 16 : buf[0] == '1' ? 12 : buf[0] == '2' ? 49 : buf[0] == '3' ? 55 : 1;
 					}
 					else
 					{
