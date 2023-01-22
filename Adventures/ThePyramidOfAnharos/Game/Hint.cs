@@ -21,6 +21,8 @@ namespace ThePyramidOfAnharos.Game
 				{
 					IRoom room, room02 = null;
 
+					IArtifact artifact, artifact02 = null;
+
 					switch (Uid)
 					{
 						case 4:
@@ -109,23 +111,43 @@ namespace ThePyramidOfAnharos.Game
 
 						case 14:
 
-							return true;
+							room = gRDB[59];
+
+							Debug.Assert(room != null);
+
+							return room.Seen;
 
 						case 15:
 
-							return true;
+							artifact = gADB[38];
+
+							Debug.Assert(artifact != null);
+
+							return artifact.Seen;
 
 						case 16:
 
-							return true;
+							room = gRDB[31];
+
+							Debug.Assert(room != null);
+
+							artifact = gADB[38];
+
+							Debug.Assert(artifact != null);
+
+							return room.Seen && artifact.Seen;
 
 						case 17:
 
-							return true;
+							artifact = gADB[30];
 
-						case 18:
+							Debug.Assert(artifact != null);
 
-							return true;
+							artifact02 = gADB[38];
+
+							Debug.Assert(artifact02 != null);
+
+							return artifact02.IsCarriedByContainer(artifact);
 
 						default:
 
