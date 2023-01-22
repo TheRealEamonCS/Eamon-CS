@@ -57,6 +57,61 @@ namespace ThePyramidOfAnharos.Game.Helpers
 			return Record.KH >= 0 && Record.KH <= 1;
 		}
 
+		public virtual bool ValidateKL()
+		{
+			return true;		// TODO: implement
+		}
+
+		public virtual bool ValidateKN()
+		{
+			return Record.KN >= 0 && Record.KN <= 1;
+		}
+
+		public virtual bool ValidateKO()
+		{
+			return Record.KO >= 0 && Record.KO <= 1;
+		}
+
+		public virtual bool ValidateKP()
+		{
+			return Record.KP >= 0 && Record.KP <= 1;
+		}
+
+		public virtual bool ValidateKQ()
+		{
+			return Record.KQ >= 0 && Record.KQ <= 1;
+		}
+
+		public virtual bool ValidateKR()
+		{
+			return Record.KR >= 0 && Record.KR <= 4;
+		}
+
+		public virtual bool ValidateKS()
+		{
+			return Record.KS >= 0 && Record.KS <= 7;
+		}
+
+		public virtual bool ValidateKT()
+		{
+			return Record.KT >= 0 && Record.KT <= 1;
+		}
+
+		public virtual bool ValidateKU()
+		{
+			return Record.KU >= 0 && Record.KU <= 2;
+		}
+
+		public virtual bool ValidateKV()
+		{
+			return Record.KV >= 0 && Record.KV <= 1;
+		}
+
+		public virtual bool ValidateKW()
+		{
+			return Record.KW <= 200;
+		}
+
 		public GameStateHelper()
 		{
 
