@@ -920,8 +920,9 @@ namespace Eamon.Framework.Plugin
 		/// Indicates whether an armor value is valid for an wearable <see cref="IArtifact">Artifact</see>.
 		/// </summary>
 		/// <param name="armor"></param>
+		/// <param name="includeShields"></param>
 		/// <returns></returns>
-		bool IsValidArtifactArmor(long armor);
+		bool IsValidArtifactArmor(long armor, bool includeShields = true);
 
 		/// <summary>
 		/// Indicates whether an armor value is valid for a <see cref="IMonster">Monster</see>.

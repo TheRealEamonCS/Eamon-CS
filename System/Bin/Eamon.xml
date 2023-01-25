@@ -4262,11 +4262,12 @@
             <param name="artifactType"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.Plugin.IEngine.IsValidArtifactArmor(System.Int64)">
+        <member name="M:Eamon.Framework.Plugin.IEngine.IsValidArtifactArmor(System.Int64,System.Boolean)">
             <summary>
             Indicates whether an armor value is valid for an wearable <see cref="T:Eamon.Framework.IArtifact">Artifact</see>.
             </summary>
             <param name="armor"></param>
+            <param name="includeShields"></param>
             <returns></returns>
         </member>
         <member name="M:Eamon.Framework.Plugin.IEngine.IsValidMonsterArmor(System.Int64)">

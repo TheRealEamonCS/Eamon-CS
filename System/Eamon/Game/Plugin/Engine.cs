@@ -2634,9 +2634,9 @@ namespace Eamon.Game.Plugin
 			return Enum.IsDefined(typeof(ArtifactType), artifactType) && artifactType != ArtifactType.None;
 		}
 
-		public virtual bool IsValidArtifactArmor(long armor)
+		public virtual bool IsValidArtifactArmor(long armor, bool includeShields = true)
 		{
-			return Enum.IsDefined(typeof(Armor), armor) && (armor == (long)Armor.ClothesShield || armor % 2 == 0);
+			return Enum.IsDefined(typeof(Armor), armor) && ((includeShields && armor == (long)Armor.ClothesShield) || armor % 2 == 0);
 		}
 
 		public virtual bool IsValidMonsterArmor(long armor)
