@@ -293,6 +293,8 @@ namespace ThePyramidOfAnharos.Game.Plugin
 
 			foreach (var monster in monsterList)
 			{
+				var containedList = monster.GetContainedList();
+
 				var dice = (long)Math.Floor(injuryMultiplier * (monster.Hardiness - monster.DmgTaken) + 1);
 
 				var combatComponent = CreateInstance<ICombatComponent>(x =>
@@ -308,24 +310,40 @@ namespace ThePyramidOfAnharos.Game.Plugin
 
 				combatComponent.ExecuteCalculateDamage(dice, 1);
 
-				var deadBodyArtifact = monster.DeadBody > 0 ? ADB[monster.DeadBody] : null;
-
-				if (deadBodyArtifact != null && !deadBodyArtifact.IsInLimbo())
-				{
-					deadBodyArtifact.SetInRoomUid(deadBodyRoomUid);
-				}
-
 				if (gGameState.Die > 0)
 				{
 					gotoCleanup = true;
 
 					goto Cleanup;
 				}
-			}
 
-			foreach (var monster in monsterList)
-			{
+				if (monster.IsInLimbo())
+				{
+					foreach (var artifact in containedList)
+					{
+						artifact.SetCarriedByMonster(monster);
+					}
+				}
+
 				DamageWeaponsAndArmor(room, monster, equipmentDamageAmount);
+
+				if (monster.IsInLimbo())
+				{
+					var deadBodyArtifact = monster.DeadBody > 0 ? ADB[monster.DeadBody] : null;
+
+					if (deadBodyArtifact != null && !deadBodyArtifact.IsInLimbo())
+					{
+						deadBodyArtifact.SetInRoomUid(deadBodyRoomUid);
+					}
+
+					foreach (var artifact in containedList)
+					{
+						if (!artifact.IsInLimbo())
+						{
+							artifact.SetInRoomUid(deadBodyRoomUid);
+						}
+					}
+				}
 			}
 
 		Cleanup:
