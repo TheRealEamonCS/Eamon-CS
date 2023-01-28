@@ -141,7 +141,20 @@ namespace EamonRT.Game.States
 
 		public virtual void PrintSpeedSpellExpired()
 		{
-			gOut.Print("Your speed spell has{0} expired!", gEngine.IsRulesetVersion(5) ? " just" : "");
+			gOut.Print("Your speed spell has{0} expired!", gEngine.IsRulesetVersion(5, 62) ? " just" : "");
+		}
+
+		public virtual void BeforePrintCommands()
+		{
+			if (gEngine.IsRulesetVersion(5, 62))
+			{
+				gOut.Print("Huh?  I only understand these commands --");
+			}
+		}
+
+		public virtual void AfterPrintCommands()
+		{
+
 		}
 
 		public virtual void ProcessEvents(EventType eventType)

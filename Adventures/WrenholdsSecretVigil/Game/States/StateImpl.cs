@@ -1,5 +1,5 @@
 ﻿
-// UnrecognizedCommandState.cs
+// StateImpl.cs
 
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
@@ -10,13 +10,11 @@ using static WrenholdsSecretVigil.Game.Plugin.Globals;
 namespace WrenholdsSecretVigil.Game.States
 {
 	[ClassMappings]
-	public class UnrecognizedCommandState : EamonRT.Game.States.UnrecognizedCommandState, IUnrecognizedCommandState
+	public class StateImpl : EamonRT.Game.States.StateImpl, IStateImpl
 	{
-		public override void Execute()
+		public override void BeforePrintCommands()
 		{
 			gOut.Print("Pray thee adventurer, please use these commands ---");
-
-			base.Execute();
 		}
 	}
 }

@@ -104,13 +104,31 @@ namespace ThePyramidOfAnharos.Game
 
 			set
 			{
+				// Note: using hardcoded Locations for simplicity
+
 				if (gEngine.EnableMutateProperties)
 				{
+					// Damascene sword
+
+					if (Uid == 3)
+					{
+						// Saala el Kahir drops it or picks it up
+
+						if (base.Location == -8 && value != -8)
+						{
+							Field4 = 12;
+						}
+						else if (base.Location != -8 && value == -8)
+						{
+							Field4 = 8;
+						}
+					}
+
 					// Water bag
 
-					if (Uid == 12)
+					else if (Uid == 12)
 					{
-						// Note: using hardcoded Location for simplicity
+						// Player drops it or picks it up
 
 						if (base.Location == -1 && value != -1)
 						{
@@ -137,6 +155,8 @@ namespace ThePyramidOfAnharos.Game
 						var onyxCaseArtifact = gADB[39];
 
 						Debug.Assert(onyxCaseArtifact != null);
+
+						// Player picks it up
 
 						if (base.Location == 59 && value == -1 && onyxCaseArtifact.Location == 7059)
 						{

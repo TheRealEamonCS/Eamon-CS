@@ -66,7 +66,7 @@ namespace WrenholdsSecretVigil.Game.Commands
 			}
 		}
 
-		public override void PrintTaken(IArtifact artifact)
+		public override void PrintTaken(IArtifact artifact, bool getAll = false)
 		{
 			Debug.Assert(artifact != null);
 
@@ -99,14 +99,14 @@ namespace WrenholdsSecretVigil.Game.Commands
 
 				gEngine.PrintEffectDesc(30);
 
-				base.PrintTaken(artifact);
+				base.PrintTaken(artifact, getAll);
 			}
 
 			// Get medallion
 
 			else if (artifact.Uid == 10 && gGameState.MedallionCharges > 0)
 			{
-				base.PrintTaken(artifact);
+				base.PrintTaken(artifact, getAll);
 
 				gOut.Write("{0}{0}Your hand feels relaxed, but strong.", Environment.NewLine);
 
@@ -120,7 +120,7 @@ namespace WrenholdsSecretVigil.Game.Commands
 
 			else if (artifact.Uid == 26 && bronzeKeyArtifact.IsInLimbo())
 			{
-				base.PrintTaken(artifact);
+				base.PrintTaken(artifact, getAll);
 
 				bronzeKeyArtifact.SetInRoom(ActorRoom);
 
@@ -136,7 +136,7 @@ namespace WrenholdsSecretVigil.Game.Commands
 
 			else if (artifact.Uid == 40 && ac.Type == ArtifactType.DoorGate)
 			{
-				base.PrintTaken(artifact);
+				base.PrintTaken(artifact, getAll);
 
 				ActorRoom.SetDir(Direction.South, 68);
 
@@ -154,7 +154,7 @@ namespace WrenholdsSecretVigil.Game.Commands
 			}
 			else
 			{
-				base.PrintTaken(artifact);
+				base.PrintTaken(artifact, getAll);
 			}
 		}
 

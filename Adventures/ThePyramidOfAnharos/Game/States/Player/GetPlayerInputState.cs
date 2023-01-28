@@ -79,7 +79,7 @@ namespace ThePyramidOfAnharos.Game.States
 
 				Debug.Assert(deadGuardsArtifact != null);
 
-				// Guards attack
+				// Guards reanimate and attack
 
 				if (room.Uid == 17 && gGameState.KH != 1 && room.IsLit())
 				{
@@ -91,32 +91,15 @@ namespace ThePyramidOfAnharos.Game.States
 
 					gEngine.PrintEffectDesc(54);
 
-					for (var i = 1; i <= guardsMonster.CurrGroupCount; i++)
-					{
-						var combatComponent = gEngine.CreateInstance<ICombatComponent>(x =>
-						{
-							x.SetNextStateFunc = s => NextState = s;
+					gEngine.GuardsAttack = true;
 
-							x.ActorMonster = guardsMonster;
+					gEngine.InitialState = gEngine.CreateInstance<IGetPlayerInputState>();
 
-							x.ActorRoom = room;
+					NextState = gEngine.CreateInstance<IMonsterStartState>();
 
-							x.Dobj = gCharMonster;
+					GotoCleanup = true;
 
-							x.MemberNumber = i;
-
-							x.AttackNumber = 1;
-						});
-
-						combatComponent.ExecuteAttack();
-
-						if (gGameState.Die > 0)
-						{
-							GotoCleanup = true;
-
-							goto Cleanup;
-						}
-					}
+					goto Cleanup;
 				}
 
 				// Staircase retracts
@@ -138,15 +121,15 @@ namespace ThePyramidOfAnharos.Game.States
 
 					gOut.Write("{0}\"Hearken my word,", Environment.NewLine);
 
-					gOut.Write("{0}On her is heard,", Environment.NewLine);
+					gOut.Write("{0} On her is heard,", Environment.NewLine);
 
-					gOut.Write("{0}No other may", Environment.NewLine);
+					gOut.Write("{0} No other may", Environment.NewLine);
 
-					gOut.Write("{0}Open the way,", Environment.NewLine);
+					gOut.Write("{0} Open the way,", Environment.NewLine);
 
-					gOut.Write("{0}Respond the trait", Environment.NewLine);
+					gOut.Write("{0} Respond the trait", Environment.NewLine);
 
-					gOut.Write("{0}To see his fate.\"{0}", Environment.NewLine);
+					gOut.Write("{0} To see his fate.\"{0}", Environment.NewLine);
 
 					gOut.Print("What is your answer?");
 

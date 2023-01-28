@@ -55,7 +55,7 @@ namespace EamonRT.Game.Commands
 
 			IsDobjPrepEnabled = true;
 
-			if (gEngine.IsRulesetVersion(5))
+			if (gEngine.IsRulesetVersion(5, 62))
 			{
 				IsPlayerEnabled = false;
 			}

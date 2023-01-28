@@ -810,7 +810,7 @@ namespace EamonRT.Game.Parsing
 			{
 				if (ActorRoom.IsLit())
 				{
-					if (gEngine.IsRulesetVersion(5))
+					if (gEngine.IsRulesetVersion(5, 62))
 					{
 						ResolveRecord(false);
 					}

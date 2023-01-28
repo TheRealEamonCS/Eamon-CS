@@ -12,7 +12,7 @@ namespace ThePyramidOfAnharos.Game.Commands
 	[ClassMappings]
 	public class CommandImpl : EamonRT.Game.Commands.CommandImpl, ICommandImpl
 	{
-		public override bool IsDarkEnabled 
+		public override bool IsDarkEnabled
 		{
 			get
 			{
@@ -31,6 +31,32 @@ namespace ThePyramidOfAnharos.Game.Commands
 			set
 			{
 				base.IsDarkEnabled = value;
+			}
+		}
+
+		public override bool IsPlayerEnabled
+		{
+			get
+			{
+				return base.IsPlayerEnabled || Command is ICloseCommand || Command is IRemoveCommand || Command is IWearCommand;
+			}
+
+			set
+			{
+				base.IsPlayerEnabled = value;
+			}
+		}
+
+		public override bool IsMonsterEnabled
+		{
+			get
+			{
+				return base.IsMonsterEnabled || Command is IMonsterRemoveCommand;
+			}
+
+			set
+			{
+				base.IsMonsterEnabled = value;
 			}
 		}
 

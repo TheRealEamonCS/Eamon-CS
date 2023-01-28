@@ -52,6 +52,8 @@ namespace EamonRT.Game.States
 
 			EnabledCommandList = gEngine.CommandList.Where(x => x.IsEnabled(CharMonster) && x.IsListed).ToList();
 
+			BeforePrintCommands();
+
 			PrintCommands(EnabledCommandList, CommandType.Movement, ref _newSeen);
 
 			PrintCommands(EnabledCommandList, CommandType.Manipulation, ref _newSeen);
@@ -64,6 +66,8 @@ namespace EamonRT.Game.States
 			{
 				PrintNewCommandSeen();
 			}
+
+			AfterPrintCommands();
 
 			if (NextState == null)
 			{

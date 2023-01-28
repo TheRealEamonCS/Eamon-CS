@@ -826,7 +826,7 @@ namespace Eamon.Game.Helpers
 		/// <summary></summary>
 		public virtual void PrintDescGroupCount()
 		{
-			var fullDesc = "Enter the number of members in the Monster's group." + (gEngine.IsRulesetVersion(5) ? Environment.NewLine + Environment.NewLine + "For classic Eamon games this value should always be 1." : "");
+			var fullDesc = "Enter the number of members in the Monster's group." + (gEngine.IsRulesetVersion(5, 62) ? Environment.NewLine + Environment.NewLine + "For classic Eamon games this value should always be 1." : "");
 
 			var briefDesc = "1=Single Monster; (GT 1)=Multiple Monsters";
 
@@ -836,7 +836,7 @@ namespace Eamon.Game.Helpers
 		/// <summary></summary>
 		public virtual void PrintDescAttackCount()
 		{
-			var fullDesc = "Enter the number of attacks per round for each member of the Monster's group." + Environment.NewLine + Environment.NewLine + (gEngine.IsRulesetVersion(5) ? "For classic Eamon games this value should always be 1." : "When the value is < -1, ABS(value) is attacks per round.");
+			var fullDesc = "Enter the number of attacks per round for each member of the Monster's group." + Environment.NewLine + Environment.NewLine + (gEngine.IsRulesetVersion(5, 62) ? "For classic Eamon games this value should always be 1." : "When the value is < -1, ABS(value) is attacks per round.");
 
 			var briefDesc = "1=Single attack, single target; (GT 1)=Multiple attacks, single target;      (LT -1)=Multiple attacks, multiple targets";
 
@@ -846,7 +846,7 @@ namespace Eamon.Game.Helpers
 		/// <summary></summary>
 		public virtual void PrintDescCourage()
 		{
-			var fullDesc = "Enter the courage of the Monster." + (gEngine.IsRulesetVersion(5) ? Environment.NewLine + Environment.NewLine + "For classic Eamon games this value should always be between 1 and 100, inclusive." : "");
+			var fullDesc = "Enter the courage of the Monster." + (gEngine.IsRulesetVersion(5, 62) ? Environment.NewLine + Environment.NewLine + "For classic Eamon games this value should always be between 1 and 105, inclusive." : "");
 
 			var briefDesc = "80-90=Weak Monster; 95-100=Medium Monster; 200=Tough/Exceptional Monster";
 
@@ -971,7 +971,7 @@ namespace Eamon.Game.Helpers
 		{
 			int j;
 
-			var fullDesc = "Enter the friendliness of the Monster." + (gEngine.IsRulesetVersion(5) ? Environment.NewLine + Environment.NewLine + "For classic Eamon games this value should always be between 100 and 200, inclusive." : "");
+			var fullDesc = "Enter the friendliness of the Monster." + (gEngine.IsRulesetVersion(5, 62) ? Environment.NewLine + Environment.NewLine + "For classic Eamon games this value should always be between 100 and 200, inclusive." : "");
 
 			var briefDesc = new StringBuilder(gEngine.BufSize);
 

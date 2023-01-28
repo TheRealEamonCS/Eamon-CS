@@ -155,6 +155,16 @@ namespace EamonRT.Game.States
 			StateImpl.PrintSpeedSpellExpired();
 		}
 
+		public virtual void BeforePrintCommands()
+		{
+			StateImpl.BeforePrintCommands();
+		}
+
+		public virtual void AfterPrintCommands()
+		{
+			StateImpl.AfterPrintCommands();
+		}
+
 		public virtual void ProcessEvents(EventType eventType)
 		{
 			StateImpl.ProcessEvents(eventType);

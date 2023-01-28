@@ -72,7 +72,7 @@ namespace AlternateBeginnersCave.Game.Plugin
 
 			buf03 = new StringBuilder(BufSize);
 
-			var omitSkillStats = IsRulesetVersion(5) && GetGameState() != null;
+			var omitSkillStats = IsRulesetVersion(5, 62) && GetGameState() != null;
 
 			Out.Print("{0,-36}Gender: {1,-9}Damage Taken: {2}/{3}",
 				args.Monster.Name.ToUpper(),

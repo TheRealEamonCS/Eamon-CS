@@ -189,7 +189,7 @@ namespace TheVileGrimoireOfJaldial.Game
 
 			gEngine.PushRulesetVersion(0);
 
-			result = Uid == 24 || Uid == 36 || (!gEngine.IsRulesetVersion(5) && (Reaction == Enums.Friendliness.Enemy || (Reaction == Enums.Friendliness.Neutral && artifact.Value < 3000)));
+			result = Uid == 24 || Uid == 36 || (!gEngine.IsRulesetVersion(5, 62) && (Reaction == Enums.Friendliness.Enemy || (Reaction == Enums.Friendliness.Neutral && artifact.Value < 3000)));
 
 			gEngine.PopRulesetVersion();
 

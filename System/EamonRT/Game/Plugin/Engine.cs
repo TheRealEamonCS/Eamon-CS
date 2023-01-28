@@ -77,6 +77,8 @@ namespace EamonRT.Game.Plugin
 
 		public virtual ICommandParser CommandParser { get; set; }
 
+		public virtual IState InitialState { get; set; }
+
 		public virtual IState CurrState { get; set; }
 
 		public virtual IState NextState { get; set; }
@@ -455,7 +457,7 @@ namespace EamonRT.Game.Plugin
 		{
 			Debug.Assert(artifact != null);
 
-			Out.Print("{0} {1}", artifact.GetTheName(true), IsRulesetVersion(5) ?
+			Out.Print("{0} {1}", artifact.GetTheName(true), IsRulesetVersion(5, 62) ?
 				string.Format("come{0} alive!", artifact.EvalPlural("s", "")) :
 				string.Format("come{0} to life!", artifact.EvalPlural("s", "")));
 		}
@@ -492,23 +494,26 @@ namespace EamonRT.Game.Plugin
 		{
 			Debug.Assert(artifact != null);
 
-			if (goldAmount > 0)
+			if (!IsRulesetVersion(5, 62))
 			{
-				Buf01.SetFormat("{0} gold piece{1}", goldAmount, goldAmount != 1 ? "s" : "");
-			}
-			else
-			{
-				Buf01.SetFormat("nothing");
-			}
+				if (goldAmount > 0)
+				{
+					Buf01.SetFormat("{0} gold piece{1}", goldAmount, goldAmount != 1 ? "s" : "");
+				}
+				else
+				{
+					Buf01.SetFormat("nothing");
+				}
 
-			var ac = artifact.Drinkable;
+				var ac = artifact.Drinkable;
 
-			Out.Write("{0}{1}{2} {3} worth {4}.",
-				Environment.NewLine,
-				artifact.GetTheName(true, false),
-				ac != null && ac.Field2 < 1 && !artifact.Name.Contains("empty", StringComparison.OrdinalIgnoreCase) ? " (empty)" : "",
-				artifact.EvalPlural("is", "are"),
-				Buf01);
+				Out.Write("{0}{1}{2} {3} worth {4}.",
+					Environment.NewLine,
+					artifact.GetTheName(true, false),
+					ac != null && ac.Field2 < 1 && !artifact.Name.Contains("empty", StringComparison.OrdinalIgnoreCase) ? " (empty)" : "",
+					artifact.EvalPlural("is", "are"),
+					Buf01);
+			}
 		}
 
 		public virtual void PrintNothingHappens()
@@ -572,7 +577,7 @@ namespace EamonRT.Game.Plugin
 		{
 			Debug.Assert(monster != null);
 
-			if (IsRulesetVersion(5) && monster.Reaction == Friendliness.Friend)
+			if (IsRulesetVersion(5, 62) && monster.Reaction == Friendliness.Friend)
 			{
 				Out.Write("{0}{1} {2}{3} back.",
 					Environment.NewLine,
@@ -588,7 +593,7 @@ namespace EamonRT.Game.Plugin
 					monster.EvalReaction("growl", "ignore", friendSmile ? "smile" : "wave"),
 					monster.EvalPlural("s", ""),
 					monster.Reaction != Friendliness.Neutral ? "at " : "",
-					IsRulesetVersion(5) && monster.Reaction == Friendliness.Enemy ? "!" : ".");
+					IsRulesetVersion(5, 62) && monster.Reaction == Friendliness.Enemy ? "!" : ".");
 			}
 		}
 
@@ -611,7 +616,7 @@ namespace EamonRT.Game.Plugin
 
 			var isCharMonster = monster.IsCharacterMonster();
 
-			if (IsRulesetVersion(5))
+			if (IsRulesetVersion(5, 62))
 			{
 				Out.Print("Some of {0} wounds seem to clear up.",
 					isCharMonster ? "your" :
@@ -654,12 +659,21 @@ namespace EamonRT.Game.Plugin
 
 		public virtual void PrintTooManyWeapons()
 		{
-			Out.Print("As you enter the Main Hall, Lord William Missilefire approaches you and says, \"You have too many weapons to keep them all, four is the legal limit.\"");
+			Out.Print("As you {0}enter the Main Hall, Lord William Missilefire {1}, \"You have too many weapons to keep them all, four is the legal limit.\"", 
+				IsRulesetVersion(5, 62) ? "start to " : "", 
+				IsRulesetVersion(5, 62) ? "appears and tells you" : "approaches you and says");
 		}
 
 		public virtual void PrintDeliverGoods()
 		{
-			Out.Print("You deliver your goods to Sam Slicker, the local buyer for such things.  He examines your items and pays you what they are worth.");
+			if (IsRulesetVersion(5, 62))
+			{
+				Out.Write("{0}As you deliver your treasures to Sam Slicker, the local buyer for such things, he examines your goods and pays you ", Environment.NewLine);
+			}
+			else
+			{			
+				Out.Print("You deliver your goods to Sam Slicker, the local buyer for such things.  He examines your items and pays you what they are worth.");
+			}
 		}
 
 		public virtual void PrintYourWeaponsAre()
@@ -674,7 +688,14 @@ namespace EamonRT.Game.Plugin
 
 		public virtual void PrintAllWoundsHealed()
 		{
-			Out.Print("All of your wounds are healed.");
+			if (IsRulesetVersion(62))
+			{
+				Out.Print("Your wounds heal!");
+			}
+			else
+			{
+				Out.Print("All of your wounds are healed.");
+			}
 		}
 
 		public virtual void PrintYouHavePerished()
@@ -829,7 +850,14 @@ namespace EamonRT.Game.Plugin
 
 		public virtual void PrintGoodsPayment(bool goodsExist, long goldAmount)
 		{
-			Out.Print("{0}He pays you {1} gold piece{2} total.", goodsExist ? Environment.NewLine : "", goldAmount, goldAmount != 1 ? "s" : "");
+			if (IsRulesetVersion(5, 62))
+			{
+				Out.Write("{0} gold piece{1}.{2}", goldAmount, goldAmount != 1 ? "s" : "", Environment.NewLine);
+			}
+			else
+			{
+				Out.Print("{0}He pays you {1} gold piece{2} total.", goodsExist ? Environment.NewLine : "", goldAmount, goldAmount != 1 ? "s" : "");
+			}
 		}
 
 		public virtual void PrintMacroReplacedPagedString(string str, StringBuilder buf)
@@ -1847,7 +1875,7 @@ namespace EamonRT.Game.Plugin
 
 				var monsterList = new List<IMonster>() { monster };
 
-				if (IsRulesetVersion(5))
+				if (IsRulesetVersion(5, 62))
 				{
 					monsterList.AddRange(GetMonsterList(m => !m.IsCharacterMonster() && m.Uid != monster.Uid && m.IsInRoom(room) && m.Reaction > Friendliness.Enemy));
 
@@ -2378,7 +2406,7 @@ namespace EamonRT.Game.Plugin
 					roomUid = room.GetDir(dv);
 				}
 
-				if (roomUid != 0 && (!monster.CanMoveToRoomUid(roomUid, fleeing) || GetBlockedDirectionArtifact(room.Uid, roomUid, dv) != null))
+				if (roomUid != 0 && (!monster.CanMoveInDirection(dv, fleeing) || !monster.CanMoveToRoomUid(roomUid, fleeing) || GetBlockedDirectionArtifact(room.Uid, roomUid, dv) != null))
 				{
 					roomUid = 0;
 				}
@@ -2429,7 +2457,7 @@ namespace EamonRT.Game.Plugin
 					roomUid = room.GetDir(rl);
 				}
 
-				if (roomUid != 0 && (!monster.CanMoveToRoomUid(roomUid, fleeing) || GetBlockedDirectionArtifact(room.Uid, roomUid, (Direction)rl) != null))
+				if (roomUid != 0 && (!monster.CanMoveInDirection((Direction)rl, fleeing) || !monster.CanMoveToRoomUid(roomUid, fleeing) || GetBlockedDirectionArtifact(room.Uid, roomUid, (Direction)rl) != null))
 				{
 					roomUid = 0;
 				}
@@ -2750,7 +2778,7 @@ namespace EamonRT.Game.Plugin
 					}
 					else if (a.IsCarriedByContainerContainerTypeExposedToMonster(monster, ExposeContainersRecursively) || a.IsCarriedByContainerContainerTypeExposedToRoom(room, ExposeContainersRecursively))
 					{
-						result = !IsRulesetVersion(5) &&
+						result = !IsRulesetVersion(5, 62) &&
 										monsterList.FirstOrDefault(m => m.Weapon == -a.Uid - 1) == null &&
 										(monster.Weapon == -a.Uid - 1 || a.GetCarriedByContainer().Seen || !room.IsLit()) &&
 										(monster.Weapon == -a.Uid - 1 || a.Seen || !room.IsLit()) &&
@@ -3355,7 +3383,7 @@ namespace EamonRT.Game.Plugin
 
 				artifact.Wearable.Field1 = Math.Max(0, artifact.Wearable.Field1 - damage);
 
-				while (artifact.Wearable.Field1 > 0 && !gEngine.IsValidArtifactArmor(artifact.Wearable.Field1))
+				while (artifact.Wearable.Field1 > 0 && !IsValidArtifactArmor(artifact.Wearable.Field1, false))
 				{
 					artifact.Wearable.Field1--;
 				}

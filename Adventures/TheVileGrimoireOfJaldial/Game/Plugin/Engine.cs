@@ -78,6 +78,15 @@ namespace TheVileGrimoireOfJaldial.Game.Plugin
 			}
 		}
 
+		public override void PrintArtifactIsWorth(IArtifact artifact, long goldAmount)
+		{
+			PushRulesetVersion(0);
+
+			base.PrintArtifactIsWorth(artifact, goldAmount);
+
+			PopRulesetVersion();
+		}
+
 		public override void PrintMonsterEmotes(IMonster monster, bool friendSmile = true)
 		{
 			Debug.Assert(monster != null);
@@ -171,6 +180,33 @@ namespace TheVileGrimoireOfJaldial.Game.Plugin
 			{
 				base.PrintMonsterEmotes(monster, friendSmile);
 			}
+		}
+
+		public override void PrintTooManyWeapons()
+		{
+			PushRulesetVersion(0);
+
+			base.PrintTooManyWeapons();
+
+			PopRulesetVersion();
+		}
+
+		public override void PrintDeliverGoods()
+		{
+			PushRulesetVersion(0);
+
+			base.PrintDeliverGoods();
+
+			PopRulesetVersion();
+		}
+
+		public override void PrintGoodsPayment(bool goodsExist, long goldAmount)
+		{
+			PushRulesetVersion(0);
+
+			base.PrintGoodsPayment(goodsExist, goldAmount);
+
+			PopRulesetVersion();
 		}
 
 		public override void InitArtifacts()

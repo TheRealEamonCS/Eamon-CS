@@ -58,7 +58,7 @@ namespace Eamon.Game
 		{
 			get
 			{
-				return gEngine.EnableMutateProperties && gEngine.IsRulesetVersion(5) && IsWeaponless(false) && _courage < 200 ? _courage / 2 : _courage;
+				return gEngine.EnableMutateProperties && gEngine.IsRulesetVersion(5, 62) && IsWeaponless(false) && _courage < 200 ? _courage / 2 : _courage;
 			}
 
 			set
@@ -462,6 +462,13 @@ namespace Eamon.Game
 			return CanMoveToRoomUid(room.Uid, fleeing);
 		}
 
+		public virtual bool CanMoveInDirection(Direction dir, bool fleeing)
+		{
+			Debug.Assert(Enum.IsDefined(typeof(Direction), dir));
+
+			return true;
+		}
+
 		public virtual bool CanAttackWithMultipleWeapons()
 		{
 			return false;
@@ -587,7 +594,7 @@ namespace Eamon.Game
 		{
 			Debug.Assert(artifact != null);
 
-			return !HasCarriedInventory() || (!gEngine.IsRulesetVersion(5) && (Reaction == Friendliness.Enemy || (Reaction == Friendliness.Neutral && artifact.Value < 3000)));
+			return !HasCarriedInventory() || (!gEngine.IsRulesetVersion(5, 62) && (Reaction == Friendliness.Enemy || (Reaction == Friendliness.Neutral && artifact.Value < 3000)));
 		}
 
 		public virtual bool ShouldRefuseToAcceptDeadBody(IArtifact artifact)
@@ -608,9 +615,16 @@ namespace Eamon.Game
 
 			var gameState = gEngine.GetGameState();
 
-			if (gEngine.IsRulesetVersion(5) && gameState != null)
+			if (gEngine.IsRulesetVersion(5, 62) && gameState != null)
 			{
-				var rl = (long)Math.Round((double)gameState.GetDTTL(Reaction) / (double)gameState.GetNBTL(Reaction) * 100 + gEngine.RollDice(1, 41, -21));
+				var x = gEngine.RollDice(1, 41, -21);
+				
+				if (gEngine.IsRulesetVersion(62) && x == 0)
+				{
+					x++;
+				}
+				
+				var rl = (long)Math.Round((double)gameState.GetDTTL(Reaction) / (double)gameState.GetNBTL(Reaction) * 100 + x);
 
 				result = rl <= Courage;
 			}
@@ -650,65 +664,30 @@ namespace Eamon.Game
 		{
 			if (gEngine.IsValidMonsterFriendlinessPct(Friendliness))
 			{
-				if (gEngine.IsRulesetVersion(5))
+				var f = (long)Friendliness - 100;
+
+				if (f > 0 && f < 100)
 				{
-					var f = (long)Friendliness - 100;
-
-					if (f > 0 && f < 100)
-					{
-						f += gEngine.GetCharismaFactor(charisma);
-					}
-
-					var k = Friendliness.Friend;
-
-					var rl = gEngine.RollDice(1, 100, 0);
-
-					if (rl > f)
-					{
-						k--;
-
-						rl = gEngine.RollDice(1, 100, 0);
-
-						if (rl > f)
-						{
-							k--;
-						}
-					}
-
-					Reaction = k;
+					f += gEngine.GetCharismaFactor(charisma);
 				}
-				else
+
+				var k = Friendliness.Enemy;
+
+				var rl = gEngine.RollDice(1, 100, 0);
+
+				if (f >= rl)
 				{
-					var f = (long)Friendliness - 100;
+					k++;
 
-					var k = Friendliness.Friend;
+					rl = gEngine.RollDice(1, 100, 0);
 
-					var rl = gEngine.RollDice(1, 100, 0);
-
-					if (f > 0 && f < 100)
+					if (f >= rl)
 					{
-						rl -= gEngine.GetCharismaFactor(charisma);
+						k++;
 					}
-
-					if (rl > f)
-					{
-						k--;
-
-						rl = gEngine.RollDice(1, 100, 0);
-
-						if (f > 0 && f < 100)
-						{
-							rl -= gEngine.GetCharismaFactor(charisma);
-						}
-
-						if (rl > f)
-						{
-							k--;
-						}
-					}
-
-					Reaction = k;
 				}
+
+				Reaction = k;
 			}
 			else
 			{
@@ -728,7 +707,7 @@ namespace Eamon.Game
 
 		public virtual void CalculateGiftFriendliness(long value, bool isArtifactValue)
 		{
-			Debug.Assert(gEngine.IsRulesetVersion(5));
+			Debug.Assert(gEngine.IsRulesetVersion(5, 62));
 
 			if (isArtifactValue)       // Scaled from EDX to original Eamon values
 			{
@@ -1020,7 +999,7 @@ namespace Eamon.Game
 
 				if (x == 4)
 				{
-					result = (gEngine.IsRulesetVersion(5) ? "very " : "") + "badly injured.";
+					result = (gEngine.IsRulesetVersion(5, 62) ? "very " : "") + "badly injured.";
 				}
 				else if (x == 3)
 				{

@@ -15,6 +15,15 @@ namespace ThePyramidOfAnharos.Game.Parsing
 	[ClassMappings]
 	public class CommandParser : EamonRT.Game.Parsing.CommandParser, ICommandParser
 	{
+		public override void FinishParsingHealCommand()
+		{
+			gEngine.PushRulesetVersion(5);
+
+			base.FinishParsingHealCommand();
+
+			gEngine.PopRulesetVersion();
+		}
+
 		public override void FinishParsingGetCommand()
 		{
 			var waterArtifact = gADB[78];

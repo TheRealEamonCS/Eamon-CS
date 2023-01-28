@@ -133,7 +133,7 @@ namespace EamonRT.Game.Commands
 
 				gCharacter.HeldGold -= GoldAmount;
 
-				if (gEngine.IsRulesetVersion(5))
+				if (gEngine.IsRulesetVersion(5, 62))
 				{
 					IobjMonster.CalculateGiftFriendliness(GoldAmount, false);
 
@@ -167,7 +167,13 @@ namespace EamonRT.Game.Commands
 
 			if (!DobjArtifact.IsCarriedByCharacter())
 			{
-				if (!GetCommandCalled)
+				if (!ShouldAllowRedirectToGetCommand())
+				{
+					PrintDontHaveIt02(DobjArtifact);
+
+					NextState = gEngine.CreateInstance<IStartState>();
+				}
+				else if (!GetCommandCalled)
 				{
 					RedirectToGetCommand<IGiveCommand>(DobjArtifact);
 				}
@@ -262,11 +268,11 @@ namespace EamonRT.Game.Commands
 
 			DobjArtAc = DobjArtifact.GetArtifactCategory(new ArtifactType[] { ArtifactType.Drinkable, ArtifactType.Edible });
 
-			if (gEngine.IsRulesetVersion(5) || DobjArtAc == null || DobjArtAc.Field2 <= 0)
+			if (gEngine.IsRulesetVersion(5, 62) || DobjArtAc == null || DobjArtAc.Field2 <= 0)
 			{
 				DobjArtifact.SetCarriedByMonster(IobjMonster);
 
-				if (gEngine.IsRulesetVersion(5))
+				if (gEngine.IsRulesetVersion(5, 62))
 				{
 					IobjMonster.CalculateGiftFriendliness(DobjArtifact.Value, true);
 

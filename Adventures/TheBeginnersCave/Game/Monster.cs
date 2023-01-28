@@ -59,7 +59,7 @@ namespace TheBeginnersCave.Game
 		{
 			Debug.Assert(artifact != null);
 
-			return !gEngine.IsRulesetVersion(5) && (Reaction == Friendliness.Enemy || (Reaction == Friendliness.Neutral && artifact.Value < 3000));
+			return !gEngine.IsRulesetVersion(5, 62) && (Reaction == Friendliness.Enemy || (Reaction == Friendliness.Neutral && artifact.Value < 3000));
 		}
 
 		public override void AddHealthStatus(StringBuilder buf, bool addNewLine = true)

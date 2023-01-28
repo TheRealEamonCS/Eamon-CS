@@ -63,6 +63,9 @@ namespace EamonRT.Framework.Primitive.Enums
 		SonicBoomFortuneCookie,
 
 		/// <summary></summary>
+		RaiseDead,
+
+		/// <summary></summary>
 		RaiseDeadVanishArtifacts,
 
 		/// <summary></summary>
@@ -73,6 +76,15 @@ namespace EamonRT.Framework.Primitive.Enums
 
 		/// <summary></summary>
 		AllWoundsHealed,
+
+		/// <summary></summary>
+		TeleportToRoom,
+
+		/// <summary></summary>
+		ArmorThickens,
+
+		/// <summary></summary>
+		MagicSkillsIncrease,
 
 		/// <summary></summary>
 		EndMagic,
