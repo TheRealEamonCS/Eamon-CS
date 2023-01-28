@@ -218,6 +218,12 @@ namespace Eamon.Framework
 		/// <returns></returns>
 		bool CanMoveToRoom(IRoom room, bool fleeing);
 
+		/// <summary></summary>
+		/// <param name="dir"></param>
+		/// <param name="fleeing"></param>
+		/// <returns></returns>
+		bool CanMoveInDirection(Direction dir, bool fleeing);
+
 		/// <summary>
 		/// Indicates whether this <see cref="IMonster">Monster</see> is allowed to attack with multiple <see cref="IArtifact">Artifact</see> weapons
 		/// in a single combat round, if certain other conditions are met.

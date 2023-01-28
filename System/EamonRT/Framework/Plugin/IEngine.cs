@@ -92,6 +92,9 @@ namespace EamonRT.Framework.Plugin
 		ICommandParser CommandParser { get; set; }
 
 		/// <summary></summary>
+		IState InitialState { get; set; }
+
+		/// <summary></summary>
 		IState CurrState { get; set; }
 
 		/// <summary></summary>

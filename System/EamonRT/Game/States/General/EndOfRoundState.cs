@@ -39,7 +39,9 @@ namespace EamonRT.Game.States
 
 			if (NextState == null)
 			{
-				NextState = gEngine.CreateInstance<IStartState>(); 
+				NextState = gEngine.InitialState != null ? gEngine.InitialState : gEngine.CreateInstance<IStartState>();
+
+				gEngine.InitialState = null;
 			}
 
 			gEngine.NextState = NextState;

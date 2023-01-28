@@ -265,7 +265,7 @@ namespace EamonRT.Game.Commands
 				}
 				else if (!OmitWeightCheck && (DobjArtifactWeight + ActorMonsterInventoryWeight > ActorMonster.GetWeightCarryableGronds()))
 				{
-					ProcessAction(() => PrintTooHeavy(artifact), ref nlFlag);
+					ProcessAction(() => PrintTooHeavy(artifact, GetAll), ref nlFlag);
 				}
 				else if (ac.Type == ArtifactType.BoundMonster)
 				{
@@ -295,7 +295,7 @@ namespace EamonRT.Game.Commands
 						}
 						else
 						{
-							PrintTaken(artifact);
+							PrintTaken(artifact, GetAll);
 						}
 
 						nlFlag = true;

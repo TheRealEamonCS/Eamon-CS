@@ -22,6 +22,8 @@ namespace ThePyramidOfAnharos.Game.Plugin
 
 		public virtual bool TaxLevied { get; set; }
 
+		public virtual bool GuardsAttack { get; set; }
+
 		public override RetCode LoadPluginClassMappings()
 		{
 			RetCode rc;
@@ -104,6 +106,8 @@ namespace ThePyramidOfAnharos.Game.Plugin
 				{ 10, new string[] { "scimitar" } },
 				{ 12, new string[] { "bag" } },
 				{ 14, new string[] { "glyphs", "glyph" } },
+				{ 16, new string[] { "torches" } },
+				{ 17, new string[] { "torches" } },
 				{ 21, new string[] { "wall", "flame" } },
 				{ 22, new string[] { "wall", "flame" } },
 				{ 23, new string[] { "cloud" } },
@@ -115,12 +119,12 @@ namespace ThePyramidOfAnharos.Game.Plugin
 				{ 29, new string[] { "body" } },
 				{ 30, new string[] { "glyphs", "glyph" } },
 				{ 31, new string[] { "moon pool", "pool" } },
-				{ 32, new string[] { "glyphs", "glyph" } },
+				{ 32, new string[] { "urns", "glyphs", "urn", "glyph" } },
 				{ 34, new string[] { "mummy", "Anharos" } },
 				{ 35, new string[] { "door" } },
 				{ 38, new string[] { "Diamond", "Purity" } },
 				{ 39, new string[] { "case" } },
-				{ 40, new string[] { "glyphs", "glyph" } },
+				{ 40, new string[] { "persian carpet", "persian rug", "rug", "glyphs", "glyph" } },
 				{ 42, new string[] { "leather", "armor" } },
 				{ 43, new string[] { "chain", "armor" } },
 				{ 44, new string[] { "plate", "armor" } },
@@ -217,6 +221,18 @@ namespace ThePyramidOfAnharos.Game.Plugin
 			// do nothing
 		}
 
+		public override void MoveMonsters(params Func<IMonster, bool>[] whereClauseFuncs)
+		{
+			// Move avatar of Alaxar / guards even when unseen
+
+			base.MoveMonsters
+			(
+				whereClauseFuncs != null && whereClauseFuncs.Length > 0 ? 
+				whereClauseFuncs : 
+				new Func<IMonster, bool>[] { m => !m.IsCharacterMonster() && (m.Uid == 8 || m.Uid == 20 || m.Seen) && m.Location == GameState.R3 }
+			);
+		}
+
 		public virtual void PrintGuideMonsterDirection()
 		{
 			Debug.Assert(gCharMonster != null);
@@ -277,6 +293,8 @@ namespace ThePyramidOfAnharos.Game.Plugin
 
 			foreach (var monster in monsterList)
 			{
+				var containedList = monster.GetContainedList();
+
 				var dice = (long)Math.Floor(injuryMultiplier * (monster.Hardiness - monster.DmgTaken) + 1);
 
 				var combatComponent = CreateInstance<ICombatComponent>(x =>
@@ -292,24 +310,40 @@ namespace ThePyramidOfAnharos.Game.Plugin
 
 				combatComponent.ExecuteCalculateDamage(dice, 1);
 
-				var deadBodyArtifact = monster.DeadBody > 0 ? ADB[monster.DeadBody] : null;
-
-				if (deadBodyArtifact != null && !deadBodyArtifact.IsInLimbo())
-				{
-					deadBodyArtifact.SetInRoomUid(deadBodyRoomUid);
-				}
-
 				if (gGameState.Die > 0)
 				{
 					gotoCleanup = true;
 
 					goto Cleanup;
 				}
-			}
 
-			foreach (var monster in monsterList)
-			{
+				if (monster.IsInLimbo())
+				{
+					foreach (var artifact in containedList)
+					{
+						artifact.SetCarriedByMonster(monster);
+					}
+				}
+
 				DamageWeaponsAndArmor(room, monster, equipmentDamageAmount);
+
+				if (monster.IsInLimbo())
+				{
+					var deadBodyArtifact = monster.DeadBody > 0 ? ADB[monster.DeadBody] : null;
+
+					if (deadBodyArtifact != null && !deadBodyArtifact.IsInLimbo())
+					{
+						deadBodyArtifact.SetInRoomUid(deadBodyRoomUid);
+					}
+
+					foreach (var artifact in containedList)
+					{
+						if (!artifact.IsInLimbo())
+						{
+							artifact.SetInRoomUid(deadBodyRoomUid);
+						}
+					}
+				}
 			}
 
 		Cleanup:

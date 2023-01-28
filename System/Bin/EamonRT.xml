@@ -124,9 +124,10 @@
             <summary></summary>
             <param name="artifact"></param>
         </member>
-        <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintTooHeavy(Eamon.Framework.IArtifact)">
+        <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintTooHeavy(Eamon.Framework.IArtifact,System.Boolean)">
             <summary></summary>
             <param name="artifact"></param>
+            <param name="getAll"></param>
         </member>
         <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintMustBeFreed(Eamon.Framework.IArtifact)">
             <summary></summary>
@@ -164,9 +165,10 @@
             <summary></summary>
             <param name="artifact"></param>
         </member>
-        <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintTaken(Eamon.Framework.IArtifact)">
+        <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintTaken(Eamon.Framework.IArtifact,System.Boolean)">
             <summary></summary>
             <param name="artifact"></param>
+            <param name="getAll"></param>
         </member>
         <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintDropped(Eamon.Framework.IArtifact)">
             <summary></summary>
@@ -537,6 +539,10 @@
         <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintDontHaveIt">
             <summary></summary>
         </member>
+        <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintDontHaveIt02(Eamon.Framework.IArtifact)">
+            <summary></summary>
+            <param name="artifact"></param>
+        </member>
         <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintDontNeedTo">
             <summary></summary>
         </member>
@@ -647,6 +653,10 @@
             <returns></returns>
         </member>
         <member name="M:EamonRT.Framework.Commands.ICommandSignatures.ShouldAllowSkillGains">
+            <summary></summary>
+            <returns></returns>
+        </member>
+        <member name="M:EamonRT.Framework.Commands.ICommandSignatures.ShouldAllowRedirectToGetCommand">
             <summary></summary>
             <returns></returns>
         </member>
@@ -1265,6 +1275,15 @@
         <member name="M:EamonRT.Framework.Components.IComponentSignatures.PrintAllWoundsHealed">
             <summary></summary>
         </member>
+        <member name="M:EamonRT.Framework.Components.IComponentSignatures.PrintTeleportToRoom">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Framework.Components.IComponentSignatures.PrintArmorThickens">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Framework.Components.IComponentSignatures.PrintMagicSkillsIncrease">
+            <summary></summary>
+        </member>
         <member name="T:EamonRT.Framework.Components.IMagicComponent">
             <summary></summary>
         </member>
@@ -1593,6 +1612,9 @@
             <summary></summary>
         </member>
         <member name="P:EamonRT.Framework.Plugin.IEngine.CommandParser">
+            <summary></summary>
+        </member>
+        <member name="P:EamonRT.Framework.Plugin.IEngine.InitialState">
             <summary></summary>
         </member>
         <member name="P:EamonRT.Framework.Plugin.IEngine.CurrState">
@@ -2698,6 +2720,9 @@
         <member name="F:EamonRT.Framework.Primitive.Enums.MagicState.SonicBoomFortuneCookie">
             <summary></summary>
         </member>
+        <member name="F:EamonRT.Framework.Primitive.Enums.MagicState.RaiseDead">
+            <summary></summary>
+        </member>
         <member name="F:EamonRT.Framework.Primitive.Enums.MagicState.RaiseDeadVanishArtifacts">
             <summary></summary>
         </member>
@@ -2708,6 +2733,15 @@
             <summary></summary>
         </member>
         <member name="F:EamonRT.Framework.Primitive.Enums.MagicState.AllWoundsHealed">
+            <summary></summary>
+        </member>
+        <member name="F:EamonRT.Framework.Primitive.Enums.MagicState.TeleportToRoom">
+            <summary></summary>
+        </member>
+        <member name="F:EamonRT.Framework.Primitive.Enums.MagicState.ArmorThickens">
+            <summary></summary>
+        </member>
+        <member name="F:EamonRT.Framework.Primitive.Enums.MagicState.MagicSkillsIncrease">
             <summary></summary>
         </member>
         <member name="F:EamonRT.Framework.Primitive.Enums.MagicState.EndMagic">
@@ -2832,6 +2866,12 @@
             <summary></summary>
         </member>
         <member name="M:EamonRT.Framework.States.IStateSignatures.PrintSpeedSpellExpired">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Framework.States.IStateSignatures.BeforePrintCommands">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Framework.States.IStateSignatures.AfterPrintCommands">
             <summary></summary>
         </member>
         <member name="M:EamonRT.Framework.States.IStateSignatures.ProcessEvents(EamonRT.Framework.Primitive.Enums.EventType)">
@@ -3709,6 +3749,9 @@
         <member name="M:EamonRT.Game.Components.MagicComponent.SonicBoomFortuneCookie">
             <summary></summary>
         </member>
+        <member name="M:EamonRT.Game.Components.MagicComponent.RaiseDead">
+            <summary></summary>
+        </member>
         <member name="M:EamonRT.Game.Components.MagicComponent.RaiseDeadVanishArtifacts">
             <summary></summary>
         </member>
@@ -3719,6 +3762,15 @@
             <summary></summary>
         </member>
         <member name="M:EamonRT.Game.Components.MagicComponent.AllWoundsHealed">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Game.Components.MagicComponent.TeleportToRoom">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Game.Components.MagicComponent.ArmorThickens">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Game.Components.MagicComponent.MagicSkillsIncrease">
             <summary></summary>
         </member>
         <member name="M:EamonRT.Game.Components.MagicComponent.ExecuteStateMachine">

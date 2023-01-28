@@ -65,7 +65,13 @@ namespace EamonRT.Game.Commands
 
 			if (!DobjArtifact.IsCarriedByCharacter())
 			{
-				if (!GetCommandCalled)
+				if (!ShouldAllowRedirectToGetCommand())
+				{
+					PrintDontHaveIt02(DobjArtifact);
+
+					NextState = gEngine.CreateInstance<IStartState>();
+				}
+				else if (!GetCommandCalled)
 				{
 					RedirectToGetCommand<IWearCommand>(DobjArtifact);
 				}
@@ -162,7 +168,7 @@ namespace EamonRT.Game.Commands
 		{
 			SortOrder = 240;
 
-			if (gEngine.IsRulesetVersion(5))
+			if (gEngine.IsRulesetVersion(5, 62))
 			{
 				IsPlayerEnabled = false;
 			}

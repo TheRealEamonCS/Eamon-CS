@@ -129,7 +129,7 @@ namespace EamonRT.Game.Commands
 		{
 			SortOrder = 110;
 
-			if (gEngine.IsRulesetVersion(5))
+			if (gEngine.IsRulesetVersion(5, 62))
 			{
 				IsPlayerEnabled = false;
 			}

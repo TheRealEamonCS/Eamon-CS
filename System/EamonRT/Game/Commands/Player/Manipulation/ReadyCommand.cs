@@ -69,7 +69,13 @@ namespace EamonRT.Game.Commands
 
 			if (!DobjArtifact.IsCarriedByCharacter())
 			{
-				if (!GetCommandCalled)
+				if (!ShouldAllowRedirectToGetCommand())
+				{
+					PrintDontHaveIt02(DobjArtifact);
+
+					NextState = gEngine.CreateInstance<IStartState>();
+				}
+				else if (!GetCommandCalled)
 				{
 					RedirectToGetCommand<IReadyCommand>(DobjArtifact);
 				}
@@ -148,7 +154,7 @@ namespace EamonRT.Game.Commands
 
 			Type = CommandType.Manipulation;
 
-			ArtTypes = gEngine.IsRulesetVersion(5) ?
+			ArtTypes = gEngine.IsRulesetVersion(5, 62) ?
 				new ArtifactType[] { ArtifactType.Weapon, ArtifactType.MagicWeapon } :
 				new ArtifactType[] { ArtifactType.Weapon, ArtifactType.MagicWeapon, ArtifactType.Wearable };
 		}

@@ -22,7 +22,7 @@ namespace ThePyramidOfAnharos.Game.Commands
 
 			if ((DobjArtifact.Uid == 16 || DobjArtifact.Uid == 17) && ActorRoom.Uid == 39)
 			{
-				gOut.Print("Your light is extinguished as though snuffed out by an unseen watcher.");
+				PrintWontLight(DobjArtifact);
 
 				NextState = gEngine.CreateInstance<IMonsterStartState>();
 			}

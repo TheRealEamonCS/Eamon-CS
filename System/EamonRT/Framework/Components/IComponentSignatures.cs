@@ -212,5 +212,14 @@ namespace EamonRT.Framework.Components
 
 		/// <summary></summary>
 		void PrintAllWoundsHealed();
+
+		/// <summary></summary>
+		void PrintTeleportToRoom();
+
+		/// <summary></summary>
+		void PrintArmorThickens();
+
+		/// <summary></summary>
+		void PrintMagicSkillsIncrease();
 	}
 }

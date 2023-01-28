@@ -15,6 +15,8 @@ namespace ThePyramidOfAnharos.Framework.Plugin
 
 		bool TaxLevied { get; set; }
 
+		bool GuardsAttack { get; set; }
+
 		void PrintGuideMonsterDirection();
 
 		void PrintTheGlyphsRead(long effectUid);

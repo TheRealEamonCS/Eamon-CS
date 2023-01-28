@@ -82,6 +82,12 @@ namespace EamonRT.Framework.States
 		void PrintSpeedSpellExpired();
 
 		/// <summary></summary>
+		void BeforePrintCommands();
+
+		/// <summary></summary>
+		void AfterPrintCommands();
+
+		/// <summary></summary>
 		/// <param name="eventType"></param>
 		void ProcessEvents(EventType eventType);
 

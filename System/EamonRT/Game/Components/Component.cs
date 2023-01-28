@@ -346,6 +346,21 @@ namespace EamonRT.Game.Components
 			ComponentImpl.PrintAllWoundsHealed();
 		}
 
+		public virtual void PrintTeleportToRoom()
+		{
+			ComponentImpl.PrintTeleportToRoom();
+		}
+
+		public virtual void PrintArmorThickens()
+		{
+			ComponentImpl.PrintArmorThickens();
+		}
+
+		public virtual void PrintMagicSkillsIncrease()
+		{
+			ComponentImpl.PrintMagicSkillsIncrease();
+		}
+
 		public Component()
 		{
 			ComponentImpl = gEngine.CreateInstance<IComponentImpl>(x =>
