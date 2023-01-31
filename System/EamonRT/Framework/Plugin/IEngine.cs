@@ -11,6 +11,7 @@ using Eamon.Framework;
 using Eamon.Framework.Args;
 using Eamon.Framework.Primitive.Classes;
 using Eamon.Framework.Primitive.Enums;
+using EamonRT.Framework.Args;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.Parsing;
 using EamonRT.Framework.States;
@@ -760,8 +761,12 @@ namespace EamonRT.Framework.Plugin
 		/// <param name="monster"></param>
 		/// <param name="damage"></param>
 		/// <param name="recurse"></param>
-		/// <returns></returns>
 		void DamageWeaponsAndArmor(IRoom room, IMonster monster, long damage = 1, bool recurse = false);
+
+		/// <summary></summary>
+		/// <param name="injureAndDamageArgs"></param>
+		/// <param name="gotoCleanup"></param>
+		void InjurePartyAndDamageEquipment(IInjureAndDamageArgs injureAndDamageArgs, ref bool gotoCleanup);
 
 		/// <summary></summary>
 		/// <param name="actionList"></param>

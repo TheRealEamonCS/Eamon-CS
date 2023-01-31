@@ -19,7 +19,9 @@ using Eamon.Game.Extensions;
 using Eamon.Game.Utilities;
 using Eamon.ThirdParty;
 using EamonRT.Framework;
+using EamonRT.Framework.Args;
 using EamonRT.Framework.Commands;
+using EamonRT.Framework.Components;
 using EamonRT.Framework.Parsing;
 using EamonRT.Framework.Plugin;
 using EamonRT.Framework.States;
@@ -3435,6 +3437,77 @@ namespace EamonRT.Game.Plugin
 			}
 
 			Out.EnableOutput = true;
+		}
+
+		public virtual void InjurePartyAndDamageEquipment(IInjureAndDamageArgs injureAndDamageArgs, ref bool gotoCleanup)
+		{
+			Debug.Assert(injureAndDamageArgs != null && injureAndDamageArgs.Room != null && injureAndDamageArgs.EquipmentDamageAmount > 0 && injureAndDamageArgs.InjuryMultiplier > 0.0 && injureAndDamageArgs.SetNextStateFunc != null);
+
+			if (injureAndDamageArgs.EffectUid > 0)
+			{
+				PrintEffectDesc(injureAndDamageArgs.EffectUid);
+			}
+
+			var monsterList = GetMonsterList(m => m.IsCharacterMonster(), m => !m.IsCharacterMonster() && m.Reaction == Friendliness.Friend && m.IsInRoom(injureAndDamageArgs.Room));
+
+			foreach (var monster in monsterList)
+			{
+				var containedList = monster.GetContainedList();
+
+				var dice = (long)Math.Floor(injureAndDamageArgs.InjuryMultiplier * (monster.Hardiness - monster.DmgTaken) + 1);
+
+				var combatComponent = CreateInstance<ICombatComponent>(x =>
+				{
+					x.SetNextStateFunc = injureAndDamageArgs.SetNextStateFunc;
+
+					x.ActorRoom = injureAndDamageArgs.Room;
+
+					x.Dobj = monster;
+
+					x.OmitArmor = true;
+				});
+
+				combatComponent.ExecuteCalculateDamage(dice, 1);
+
+				if (gGameState.Die > 0)
+				{
+					gotoCleanup = true;
+
+					goto Cleanup;
+				}
+
+				if (monster.IsInLimbo())
+				{
+					foreach (var artifact in containedList)
+					{
+						artifact.SetCarriedByMonster(monster);
+					}
+				}
+
+				DamageWeaponsAndArmor(injureAndDamageArgs.Room, monster, injureAndDamageArgs.EquipmentDamageAmount);
+
+				if (monster.IsInLimbo())
+				{
+					var deadBodyArtifact = monster.DeadBody > 0 ? ADB[monster.DeadBody] : null;
+
+					if (deadBodyArtifact != null && !deadBodyArtifact.IsInLimbo())
+					{
+						deadBodyArtifact.SetInRoomUid(injureAndDamageArgs.DeadBodyRoomUid);
+					}
+
+					foreach (var artifact in containedList)
+					{
+						if (!artifact.IsInLimbo())
+						{
+							artifact.SetInRoomUid(injureAndDamageArgs.DeadBodyRoomUid);
+						}
+					}
+				}
+			}
+
+		Cleanup:
+
+			;
 		}
 
 		public virtual void CheckActionList(IList<Action> actionList)

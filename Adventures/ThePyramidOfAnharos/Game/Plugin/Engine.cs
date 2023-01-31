@@ -10,8 +10,6 @@ using System.Reflection;
 using Eamon;
 using Eamon.Framework;
 using Eamon.Framework.Primitive.Enums;
-using EamonRT.Framework.Components;
-using EamonRT.Framework.States;
 using static ThePyramidOfAnharos.Game.Plugin.Globals;
 
 namespace ThePyramidOfAnharos.Game.Plugin
@@ -281,74 +279,6 @@ namespace ThePyramidOfAnharos.Game.Plugin
 			Out.Print("The glyphs read:");
 
 			PrintEffectDesc(effectUid);
-		}
-
-		public virtual void InjurePartyAndDamageEquipment(IRoom room, long effectUid, long deadBodyRoomUid, long equipmentDamageAmount, double injuryMultiplier, Action<IState> setNextStateFunc, ref bool gotoCleanup)
-		{
-			Debug.Assert(room != null && effectUid > 0 && equipmentDamageAmount > 0 && injuryMultiplier > 0.0 && setNextStateFunc != null);
-
-			PrintEffectDesc(effectUid);
-
-			var monsterList = GetMonsterList(m => m.IsCharacterMonster(), m => !m.IsCharacterMonster() && m.Reaction == Friendliness.Friend && m.IsInRoom(room));
-
-			foreach (var monster in monsterList)
-			{
-				var containedList = monster.GetContainedList();
-
-				var dice = (long)Math.Floor(injuryMultiplier * (monster.Hardiness - monster.DmgTaken) + 1);
-
-				var combatComponent = CreateInstance<ICombatComponent>(x =>
-				{
-					x.SetNextStateFunc = setNextStateFunc;
-
-					x.ActorRoom = room;
-
-					x.Dobj = monster;
-
-					x.OmitArmor = true;
-				});
-
-				combatComponent.ExecuteCalculateDamage(dice, 1);
-
-				if (gGameState.Die > 0)
-				{
-					gotoCleanup = true;
-
-					goto Cleanup;
-				}
-
-				if (monster.IsInLimbo())
-				{
-					foreach (var artifact in containedList)
-					{
-						artifact.SetCarriedByMonster(monster);
-					}
-				}
-
-				DamageWeaponsAndArmor(room, monster, equipmentDamageAmount);
-
-				if (monster.IsInLimbo())
-				{
-					var deadBodyArtifact = monster.DeadBody > 0 ? ADB[monster.DeadBody] : null;
-
-					if (deadBodyArtifact != null && !deadBodyArtifact.IsInLimbo())
-					{
-						deadBodyArtifact.SetInRoomUid(deadBodyRoomUid);
-					}
-
-					foreach (var artifact in containedList)
-					{
-						if (!artifact.IsInLimbo())
-						{
-							artifact.SetInRoomUid(deadBodyRoomUid);
-						}
-					}
-				}
-			}
-
-		Cleanup:
-
-			;
 		}
 
 		public Engine()
