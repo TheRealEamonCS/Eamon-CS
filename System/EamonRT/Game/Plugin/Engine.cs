@@ -4191,6 +4191,11 @@ namespace EamonRT.Game.Plugin
 			if (monster.Field1 > 0)
 			{
 				monster.Hardiness = damageFactor * monster.Field1;
+
+				if (monster.Field2 > 0 && monster.Hardiness < monster.Field2)
+				{
+					monster.Hardiness = monster.Field2;
+				}
 			}
 		}
 
