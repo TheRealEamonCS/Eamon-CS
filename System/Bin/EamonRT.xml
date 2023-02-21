@@ -3896,13 +3896,13 @@
             <returns></returns>
         </member>
         <member name="M:EamonRT.Game.Plugin.Engine.ScaledValueMinMaxEncode(System.Int64,System.Int64)">
-            <summary>Encode an 8-digit number where the high 4 digits are the maxValue and the low 4 digits are the minValue</summary>
+            <summary>Encode an 6-digit number where the high 3 digits are the maxValue and the low 3 digits are the minValue</summary>
             <param name="minValue"></param>
             <param name="maxValue"></param>
             <returns></returns>
         </member>
         <member name="M:EamonRT.Game.Plugin.Engine.ScaledValueMinMaxDecode(System.Int64,System.Int64@,System.Int64@)">
-            <summary>Decode an 8-digit number where the high 4 digits are the maxValue and the low 4 digits are the minValue</summary>
+            <summary>Decode an 6-digit number where the high 3 digits are the maxValue and the low 3 digits are the minValue</summary>
             <param name="encodedValue"></param>
             <param name="minValue"></param>
             <param name="maxValue"></param>

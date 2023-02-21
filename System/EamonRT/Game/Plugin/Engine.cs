@@ -4179,24 +4179,24 @@ namespace EamonRT.Game.Plugin
 			return (a2 + x) + (a2 >= 3 ? 2 : 0);
 		}
 
-		/// <summary>Encode an 8-digit number where the high 4 digits are the maxValue and the low 4 digits are the minValue</summary>
+		/// <summary>Encode an 6-digit number where the high 3 digits are the maxValue and the low 3 digits are the minValue</summary>
 		/// <param name="minValue"></param>
 		/// <param name="maxValue"></param>
 		/// <returns></returns>
 		public virtual long ScaledValueMinMaxEncode(long minValue, long maxValue)
 		{
-			return maxValue * 10000 + minValue;
+			return maxValue * 1000 + minValue;
 		}
 
-		/// <summary>Decode an 8-digit number where the high 4 digits are the maxValue and the low 4 digits are the minValue</summary>
+		/// <summary>Decode an 6-digit number where the high 3 digits are the maxValue and the low 3 digits are the minValue</summary>
 		/// <param name="encodedValue"></param>
 		/// <param name="minValue"></param>
 		/// <param name="maxValue"></param>
 		public virtual void ScaledValueMinMaxDecode(long encodedValue, out long minValue, out long maxValue)
 		{
-			minValue = encodedValue % 10000;
+			minValue = encodedValue % 1000;
 
-			maxValue = encodedValue / 10000;
+			maxValue = encodedValue / 1000;
 		}
 
 		/// <summary></summary>
