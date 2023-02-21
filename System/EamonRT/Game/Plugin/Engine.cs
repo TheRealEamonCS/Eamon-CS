@@ -4179,6 +4179,26 @@ namespace EamonRT.Game.Plugin
 			return (a2 + x) + (a2 >= 3 ? 2 : 0);
 		}
 
+		/// <summary>Encode an 8-digit number where the high 4 digits are the maxValue and the low 4 digits are the minValue</summary>
+		/// <param name="minValue"></param>
+		/// <param name="maxValue"></param>
+		/// <returns></returns>
+		public virtual long ScaledValueMinMaxEncode(long minValue, long maxValue)
+		{
+			return maxValue * 10000 + minValue;
+		}
+
+		/// <summary>Decode an 8-digit number where the high 4 digits are the maxValue and the low 4 digits are the minValue</summary>
+		/// <param name="encodedValue"></param>
+		/// <param name="minValue"></param>
+		/// <param name="maxValue"></param>
+		public virtual void ScaledValueMinMaxDecode(long encodedValue, out long minValue, out long maxValue)
+		{
+			minValue = encodedValue % 10000;
+
+			maxValue = encodedValue / 10000;
+		}
+
 		/// <summary></summary>
 		/// <param name="monster"></param>
 		/// <param name="damageFactor"></param>
@@ -4192,9 +4212,23 @@ namespace EamonRT.Game.Plugin
 			{
 				monster.Hardiness = damageFactor * monster.Field1;
 
-				if (monster.Field2 > 0 && monster.Hardiness < monster.Field2)
+				if (monster.Field2 > 0)
 				{
-					monster.Hardiness = monster.Field2;
+					long minValue = 0;
+					
+					long maxValue = 0;
+					
+					ScaledValueMinMaxDecode(monster.Field2, out minValue, out maxValue);
+
+					if (minValue > 0 && monster.Hardiness < minValue)
+					{
+						monster.Hardiness = minValue;
+					}
+					
+					if (maxValue > 0 && monster.Hardiness > maxValue)
+					{
+						monster.Hardiness = maxValue;
+					}
 				}
 			}
 		}

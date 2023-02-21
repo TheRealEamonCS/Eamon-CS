@@ -3895,6 +3895,18 @@
             <summary></summary>
             <returns></returns>
         </member>
+        <member name="M:EamonRT.Game.Plugin.Engine.ScaledValueMinMaxEncode(System.Int64,System.Int64)">
+            <summary>Encode an 8-digit number where the high 4 digits are the maxValue and the low 4 digits are the minValue</summary>
+            <param name="minValue"></param>
+            <param name="maxValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EamonRT.Game.Plugin.Engine.ScaledValueMinMaxDecode(System.Int64,System.Int64@,System.Int64@)">
+            <summary>Decode an 8-digit number where the high 4 digits are the maxValue and the low 4 digits are the minValue</summary>
+            <param name="encodedValue"></param>
+            <param name="minValue"></param>
+            <param name="maxValue"></param>
+        </member>
         <member name="M:EamonRT.Game.Plugin.Engine.SetScaledHardiness(Eamon.Framework.IMonster,System.Int64)">
             <summary></summary>
             <param name="monster"></param>
