@@ -4,6 +4,27 @@
         <name>EamonRT</name>
     </assembly>
     <members>
+        <member name="T:EamonRT.Framework.Args.IInjureAndDamageArgs">
+            <summary></summary>
+        </member>
+        <member name="P:EamonRT.Framework.Args.IInjureAndDamageArgs.Room">
+            <summary></summary>
+        </member>
+        <member name="P:EamonRT.Framework.Args.IInjureAndDamageArgs.EffectUid">
+            <summary></summary>
+        </member>
+        <member name="P:EamonRT.Framework.Args.IInjureAndDamageArgs.DeadBodyRoomUid">
+            <summary></summary>
+        </member>
+        <member name="P:EamonRT.Framework.Args.IInjureAndDamageArgs.EquipmentDamageAmount">
+            <summary></summary>
+        </member>
+        <member name="P:EamonRT.Framework.Args.IInjureAndDamageArgs.InjuryMultiplier">
+            <summary></summary>
+        </member>
+        <member name="P:EamonRT.Framework.Args.IInjureAndDamageArgs.SetNextStateFunc">
+            <summary></summary>
+        </member>
         <member name="T:EamonRT.Framework.Commands.ICommand">
             <summary></summary>
         </member>
@@ -2280,7 +2301,11 @@
             <param name="monster"></param>
             <param name="damage"></param>
             <param name="recurse"></param>
-            <returns></returns>
+        </member>
+        <member name="M:EamonRT.Framework.Plugin.IEngine.InjurePartyAndDamageEquipment(EamonRT.Framework.Args.IInjureAndDamageArgs,System.Boolean@)">
+            <summary></summary>
+            <param name="injureAndDamageArgs"></param>
+            <param name="gotoCleanup"></param>
         </member>
         <member name="M:EamonRT.Framework.Plugin.IEngine.CheckActionList(System.Collections.Generic.IList{System.Action})">
             <summary></summary>
@@ -3869,6 +3894,18 @@
         <member name="M:EamonRT.Game.Plugin.Engine.ConvertArmorToArtifacts">
             <summary></summary>
             <returns></returns>
+        </member>
+        <member name="M:EamonRT.Game.Plugin.Engine.ScaledValueMinMaxEncode(System.Int64,System.Int64)">
+            <summary>Encode an 6-digit number where the high 3 digits are the maxValue and the low 3 digits are the minValue</summary>
+            <param name="minValue"></param>
+            <param name="maxValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EamonRT.Game.Plugin.Engine.ScaledValueMinMaxDecode(System.Int64,System.Int64@,System.Int64@)">
+            <summary>Decode an 6-digit number where the high 3 digits are the maxValue and the low 3 digits are the minValue</summary>
+            <param name="encodedValue"></param>
+            <param name="minValue"></param>
+            <param name="maxValue"></param>
         </member>
         <member name="M:EamonRT.Game.Plugin.Engine.SetScaledHardiness(Eamon.Framework.IMonster,System.Int64)">
             <summary></summary>

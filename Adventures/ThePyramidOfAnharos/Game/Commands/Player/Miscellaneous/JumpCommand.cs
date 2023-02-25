@@ -6,6 +6,7 @@
 using System.Diagnostics;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
+using EamonRT.Framework.Args;
 using EamonRT.Framework.States;
 using static ThePyramidOfAnharos.Game.Plugin.Globals;
 
@@ -37,7 +38,22 @@ namespace ThePyramidOfAnharos.Game.Commands
 			{
 				if (!pikeArtifact.IsCarriedByCharacter())
 				{
-					gEngine.InjurePartyAndDamageEquipment(ActorRoom, 20, ActorRoom.Uid == 26 ? 27 : 26, 1, 0.1, s => NextState = s, ref gotoCleanup);
+					var injureAndDamageArgs = gEngine.CreateInstance<IInjureAndDamageArgs>(x =>
+					{
+						x.Room = ActorRoom;
+
+						x.EffectUid = 20;
+
+						x.DeadBodyRoomUid = ActorRoom.Uid == 26 ? 27 : 26;
+
+						x.EquipmentDamageAmount = 1;
+
+						x.InjuryMultiplier = 0.1;
+
+						x.SetNextStateFunc = s => NextState = s;
+					});
+				
+					gEngine.InjurePartyAndDamageEquipment(injureAndDamageArgs, ref gotoCleanup);
 
 					if (gotoCleanup)
 					{
