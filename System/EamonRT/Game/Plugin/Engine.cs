@@ -19,7 +19,9 @@ using Eamon.Game.Extensions;
 using Eamon.Game.Utilities;
 using Eamon.ThirdParty;
 using EamonRT.Framework;
+using EamonRT.Framework.Args;
 using EamonRT.Framework.Commands;
+using EamonRT.Framework.Components;
 using EamonRT.Framework.Parsing;
 using EamonRT.Framework.Plugin;
 using EamonRT.Framework.States;
@@ -3437,6 +3439,77 @@ namespace EamonRT.Game.Plugin
 			Out.EnableOutput = true;
 		}
 
+		public virtual void InjurePartyAndDamageEquipment(IInjureAndDamageArgs injureAndDamageArgs, ref bool gotoCleanup)
+		{
+			Debug.Assert(injureAndDamageArgs != null && injureAndDamageArgs.Room != null && injureAndDamageArgs.EquipmentDamageAmount > 0 && injureAndDamageArgs.InjuryMultiplier > 0.0 && injureAndDamageArgs.SetNextStateFunc != null);
+
+			if (injureAndDamageArgs.EffectUid > 0)
+			{
+				PrintEffectDesc(injureAndDamageArgs.EffectUid);
+			}
+
+			var monsterList = GetMonsterList(m => m.IsCharacterMonster(), m => !m.IsCharacterMonster() && m.Reaction == Friendliness.Friend && m.IsInRoom(injureAndDamageArgs.Room));
+
+			foreach (var monster in monsterList)
+			{
+				var containedList = monster.GetContainedList();
+
+				var dice = (long)Math.Floor(injureAndDamageArgs.InjuryMultiplier * (monster.Hardiness - monster.DmgTaken) + 1);
+
+				var combatComponent = CreateInstance<ICombatComponent>(x =>
+				{
+					x.SetNextStateFunc = injureAndDamageArgs.SetNextStateFunc;
+
+					x.ActorRoom = injureAndDamageArgs.Room;
+
+					x.Dobj = monster;
+
+					x.OmitArmor = true;
+				});
+
+				combatComponent.ExecuteCalculateDamage(dice, 1);
+
+				if (gGameState.Die > 0)
+				{
+					gotoCleanup = true;
+
+					goto Cleanup;
+				}
+
+				if (monster.IsInLimbo())
+				{
+					foreach (var artifact in containedList)
+					{
+						artifact.SetCarriedByMonster(monster);
+					}
+				}
+
+				DamageWeaponsAndArmor(injureAndDamageArgs.Room, monster, injureAndDamageArgs.EquipmentDamageAmount);
+
+				if (monster.IsInLimbo())
+				{
+					var deadBodyArtifact = monster.DeadBody > 0 ? ADB[monster.DeadBody] : null;
+
+					if (deadBodyArtifact != null && !deadBodyArtifact.IsInLimbo())
+					{
+						deadBodyArtifact.SetInRoomUid(injureAndDamageArgs.DeadBodyRoomUid);
+					}
+
+					foreach (var artifact in containedList)
+					{
+						if (!artifact.IsInLimbo())
+						{
+							artifact.SetInRoomUid(injureAndDamageArgs.DeadBodyRoomUid);
+						}
+					}
+				}
+			}
+
+		Cleanup:
+
+			;
+		}
+
 		public virtual void CheckActionList(IList<Action> actionList)
 		{
 			Debug.Assert(actionList != null);
@@ -4106,6 +4179,26 @@ namespace EamonRT.Game.Plugin
 			return (a2 + x) + (a2 >= 3 ? 2 : 0);
 		}
 
+		/// <summary>Encode an 6-digit number where the high 3 digits are the maxValue and the low 3 digits are the minValue</summary>
+		/// <param name="minValue"></param>
+		/// <param name="maxValue"></param>
+		/// <returns></returns>
+		public virtual long ScaledValueMinMaxEncode(long minValue, long maxValue)
+		{
+			return maxValue * 1000 + minValue;
+		}
+
+		/// <summary>Decode an 6-digit number where the high 3 digits are the maxValue and the low 3 digits are the minValue</summary>
+		/// <param name="encodedValue"></param>
+		/// <param name="minValue"></param>
+		/// <param name="maxValue"></param>
+		public virtual void ScaledValueMinMaxDecode(long encodedValue, out long minValue, out long maxValue)
+		{
+			minValue = encodedValue % 1000;
+
+			maxValue = encodedValue / 1000;
+		}
+
 		/// <summary></summary>
 		/// <param name="monster"></param>
 		/// <param name="damageFactor"></param>
@@ -4118,6 +4211,25 @@ namespace EamonRT.Game.Plugin
 			if (monster.Field1 > 0)
 			{
 				monster.Hardiness = damageFactor * monster.Field1;
+
+				if (monster.Field2 > 0)
+				{
+					long minValue = 0;
+					
+					long maxValue = 0;
+					
+					ScaledValueMinMaxDecode(monster.Field2, out minValue, out maxValue);
+
+					if (minValue > 0 && monster.Hardiness < minValue)
+					{
+						monster.Hardiness = minValue;
+					}
+					
+					if (maxValue > 0 && monster.Hardiness > maxValue)
+					{
+						monster.Hardiness = maxValue;
+					}
+				}
 			}
 		}
 

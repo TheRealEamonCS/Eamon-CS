@@ -7,6 +7,7 @@ using System;
 using System.Diagnostics;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
+using EamonRT.Framework.Args;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
 using static ThePyramidOfAnharos.Game.Plugin.Globals;
@@ -52,7 +53,22 @@ namespace ThePyramidOfAnharos.Game.States
 				{
 					if (!tunicArtifact.IsWornByCharacter())
 					{
-						gEngine.InjurePartyAndDamageEquipment(room, 19, gGameState.R2, 1, 0.1, s => NextState = s, ref gotoCleanup);
+						var injureAndDamageArgs = gEngine.CreateInstance<IInjureAndDamageArgs>(x =>
+						{
+							x.Room = room;
+
+							x.EffectUid = 19;
+
+							x.DeadBodyRoomUid = gGameState.R2;
+
+							x.EquipmentDamageAmount = 1;
+
+							x.InjuryMultiplier = 0.1;
+
+							x.SetNextStateFunc = s => NextState = s;
+						});
+
+						gEngine.InjurePartyAndDamageEquipment(injureAndDamageArgs, ref gotoCleanup);
 
 						if (gotoCleanup)
 						{
@@ -73,7 +89,22 @@ namespace ThePyramidOfAnharos.Game.States
 				{
 					if (!amuletArtifact.IsWornByCharacter())
 					{
-						gEngine.InjurePartyAndDamageEquipment(room, 49, gGameState.R2, 1, 0.1, s => NextState = s, ref gotoCleanup);
+						var injureAndDamageArgs = gEngine.CreateInstance<IInjureAndDamageArgs>(x =>
+						{
+							x.Room = room;
+
+							x.EffectUid = 49;
+
+							x.DeadBodyRoomUid = gGameState.R2;
+
+							x.EquipmentDamageAmount = 1;
+
+							x.InjuryMultiplier = 0.1;
+
+							x.SetNextStateFunc = s => NextState = s;
+						});
+					
+						gEngine.InjurePartyAndDamageEquipment(injureAndDamageArgs, ref gotoCleanup);
 
 						if (gotoCleanup)
 						{

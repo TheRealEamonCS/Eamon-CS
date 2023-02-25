@@ -3,11 +3,10 @@
 
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
-using System;
 using System.Diagnostics;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
-using EamonRT.Framework.Components;
+using EamonRT.Framework.Args;
 using EamonRT.Framework.States;
 using static ThePyramidOfAnharos.Game.Plugin.Globals;
 
@@ -28,7 +27,22 @@ namespace ThePyramidOfAnharos.Game.Commands
 
 			if (ActorRoom.Uid == 26 || ActorRoom.Uid == 27)
 			{
-				gEngine.InjurePartyAndDamageEquipment(ActorRoom, 23, ActorRoom.Uid == 26 ? 27 : 26, 2, 0.2, s => NextState = s, ref gotoCleanup);
+				var injureAndDamageArgs = gEngine.CreateInstance<IInjureAndDamageArgs>(x =>
+				{
+					x.Room = ActorRoom;
+
+					x.EffectUid = 23;
+
+					x.DeadBodyRoomUid = ActorRoom.Uid == 26 ? 27 : 26;
+
+					x.EquipmentDamageAmount = 2;
+
+					x.InjuryMultiplier = 0.2;
+
+					x.SetNextStateFunc = s => NextState = s;
+				});
+			
+				gEngine.InjurePartyAndDamageEquipment(injureAndDamageArgs, ref gotoCleanup);
 
 				if (gotoCleanup)
 				{
