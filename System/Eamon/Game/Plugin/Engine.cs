@@ -1227,6 +1227,11 @@ namespace Eamon.Game.Plugin
 				}),
 				CreateInstance<IPrep>(x =>
 				{
+					x.Name = "over";
+					x.ContainerType = (ContainerType)(-1);
+				}),
+				CreateInstance<IPrep>(x =>
+				{
 					x.Name = "across";
 					x.ContainerType = (ContainerType)(-1);
 				})
