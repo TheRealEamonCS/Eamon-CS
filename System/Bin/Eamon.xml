@@ -1607,6 +1607,14 @@
             <param name="containerType"></param>
             <returns></returns>
         </member>
+        <member name="M:Eamon.Framework.IArtifact.GetContainerSomethingDesc">
+            <summary></summary>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.IArtifact.GetContainerSomeStuffDesc">
+            <summary></summary>
+            <returns></returns>
+        </member>
         <member name="M:Eamon.Framework.IArtifact.GetDoorGateFleeDesc">
             <summary></summary>
             <returns></returns>

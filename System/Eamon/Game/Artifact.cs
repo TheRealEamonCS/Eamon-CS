@@ -1307,6 +1307,16 @@ namespace Eamon.Game
 			return long.MaxValue;
 		}
 
+		public virtual string GetContainerSomethingDesc()
+		{
+			return "something";
+		}
+
+		public virtual string GetContainerSomeStuffDesc()
+		{
+			return "some stuff";
+		}
+
 		public virtual string GetDoorGateFleeDesc()
 		{
 			return "";
@@ -1701,7 +1711,7 @@ namespace Eamon.Game
 						result = string.Format
 						(
 							" with {0} {1} {2}",
-							ac.Field5 == (long)ContainerDisplayCode.ArtifactNameList && contentsList.Count <= maxContentsNameListCount ? buf.ToString() : contentsList.Count > 1 || contentsList[0].IsPlural ? "some stuff" : ac.Field5 == (long)ContainerDisplayCode.ArtifactNameSomeStuff ? contentsList[0].GetDecoratedName("Name", recordNameListArgs.ArticleType, false, recordNameListArgs.ShowCharOwned, recordNameListArgs.StateDescCode == StateDescDisplayCode.AllStateDescs || (recordNameListArgs.StateDescCode == StateDescDisplayCode.SideNotesOnly && contentsList[0].IsStateDescSideNotes()), recordNameListArgs.ShowContents, recordNameListArgs.GroupCountOne) : "something",
+							ac.Field5 == (long)ContainerDisplayCode.ArtifactNameList && contentsList.Count <= maxContentsNameListCount ? buf.ToString() : contentsList.Count > 1 || contentsList[0].IsPlural ? GetContainerSomeStuffDesc() : ac.Field5 == (long)ContainerDisplayCode.ArtifactNameSomeStuff ? contentsList[0].GetDecoratedName("Name", recordNameListArgs.ArticleType, false, recordNameListArgs.ShowCharOwned, recordNameListArgs.StateDescCode == StateDescDisplayCode.AllStateDescs || (recordNameListArgs.StateDescCode == StateDescDisplayCode.SideNotesOnly && contentsList[0].IsStateDescSideNotes()), recordNameListArgs.ShowContents, recordNameListArgs.GroupCountOne) : GetContainerSomethingDesc(),
 							gEngine.EvalContainerType(containerType, "inside", "on", "under", "behind"),
 							EvalPlural("it", "them")
 						);
