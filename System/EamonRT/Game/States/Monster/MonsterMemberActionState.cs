@@ -123,7 +123,7 @@ namespace EamonRT.Game.States
 
 		public virtual void MonsterMemberReadiesWeaponCheck()
 		{
-			if (LoopMonster.ShouldReadyWeapon() && ((LoopMonster.CombatCode == CombatCode.NaturalWeapons && LoopMonster.Weapon <= 0) || ((LoopMonster.CombatCode == CombatCode.Weapons || LoopMonster.CombatCode == CombatCode.Attacks) && LoopMonster.Weapon < 0)))
+			if (LoopMonster.ShouldReadyWeapon() && (((LoopMonster.CombatCode == CombatCode.NaturalWeapons || LoopMonster.CombatCode == CombatCode.NaturalAttacks) && LoopMonster.Weapon <= 0) || ((LoopMonster.CombatCode == CombatCode.Weapons || LoopMonster.CombatCode == CombatCode.Attacks) && LoopMonster.Weapon < 0)))
 			{
 				WeaponArtifactList = gEngine.BuildLoopWeaponArtifactList(LoopMonster);
 
@@ -209,7 +209,7 @@ namespace EamonRT.Game.States
 
 		public virtual void MonsterMemberReadiesNaturalWeaponCheck()
 		{
-			if (LoopMonster.CombatCode == CombatCode.NaturalWeapons && LoopMonster.Weapon < 0)
+			if ((LoopMonster.CombatCode == CombatCode.NaturalWeapons || LoopMonster.CombatCode == CombatCode.NaturalAttacks) && LoopMonster.Weapon < 0)
 			{
 				LoopMonster.Weapon = 0;
 			}

@@ -6070,6 +6070,11 @@
             The <see cref="T:Eamon.Framework.IMonster">Monster</see> will be described as "attacking"; otherwise mirrors the <see cref="F:Eamon.Framework.Primitive.Enums.CombatCode.Weapons">Weapons</see> setting.
             </summary>
         </member>
+        <member name="F:Eamon.Framework.Primitive.Enums.CombatCode.NaturalAttacks">
+            <summary>
+            The <see cref="T:Eamon.Framework.IMonster">Monster</see> will be described as "attacking"; otherwise mirrors the <see cref="F:Eamon.Framework.Primitive.Enums.CombatCode.NaturalWeapons">NaturalWeapons</see> setting.
+            </summary>
+        </member>
         <member name="T:Eamon.Framework.Primitive.Enums.CommandType">
             <summary></summary>
         </member>

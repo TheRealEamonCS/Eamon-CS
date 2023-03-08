@@ -2876,7 +2876,7 @@ namespace EamonRT.Game.Plugin
 
 			IList<IArtifact> artifactList = null;
 
-			if (monster.CombatCode == CombatCode.NaturalWeapons && monster.Weapon <= 0)
+			if ((monster.CombatCode == CombatCode.NaturalWeapons || monster.CombatCode == CombatCode.NaturalAttacks) && monster.Weapon <= 0)
 			{
 				artifactList = GetReadyableWeaponList(monster);
 

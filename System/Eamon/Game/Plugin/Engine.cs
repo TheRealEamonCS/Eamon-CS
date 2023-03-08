@@ -4947,7 +4947,8 @@ namespace Eamon.Game.Plugin
 				"Doesn't fight",
 				"Uses weapons or natural weapons",		// "Will use wep. or nat. weapons", 
 				"Normal",
-				"Uses 'attacks' only"						// "'ATTACKS' only"
+				"Uses 'attacks' only (W)",			// "'ATTACKS' only" (Weapons)
+				"Uses 'attacks' only (NW)"			// "'ATTACKS' only" (NaturalWeapons)
 			};
 
 			ContainerDisplayCodeDescs = new string[]
