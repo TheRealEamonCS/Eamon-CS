@@ -3638,6 +3638,27 @@
         <member name="M:EamonRT.Game.Components.CombatComponent.AttackMiss">
             <summary></summary>
         </member>
+        <member name="M:EamonRT.Game.Components.CombatComponent.AttackFumbleRecovered(System.Boolean@)">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Game.Components.CombatComponent.AttackFumbleWeaponDropped(System.Boolean@)">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Game.Components.CombatComponent.AttackFumbleWeaponHitsUser(System.Boolean@)">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Game.Components.CombatComponent.AttackFumbleSparksFly(System.Boolean@)">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Game.Components.CombatComponent.AttackFumbleWeaponDamaged(System.Boolean@)">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Game.Components.CombatComponent.AttackFumbleWeaponBroken(System.Boolean@)">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Game.Components.CombatComponent.AttackFumbleBrokenWeaponHitsUser(System.Boolean@)">
+            <summary></summary>
+        </member>
         <member name="M:EamonRT.Game.Components.CombatComponent.AttackFumble">
             <summary></summary>
         </member>

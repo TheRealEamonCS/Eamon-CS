@@ -426,78 +426,81 @@ namespace EamonRT.Game.Components
 		}
 
 		/// <summary></summary>
-		public virtual void AttackFumble()
+		public virtual void AttackFumbleRecovered(ref bool gotoCleanup)
+		{
+			PrintRecovered();
+
+			CombatState = CombatState.EndAttack;
+
+			gotoCleanup = true;
+		}
+
+		/// <summary></summary>
+		public virtual void AttackFumbleWeaponDropped(ref bool gotoCleanup)
 		{
 			RetCode rc;
 
-			PrintFumble();
-
-			_rl = gEngine.RollDice(1, 100, 0);
-
-			if ((gEngine.IsRulesetVersion(5, 62) && _rl < 36) || (!gEngine.IsRulesetVersion(5, 62) && _rl < 41))
+			if (gGameState.Ls > 0 && gGameState.Ls == ActorWeaponUid)
 			{
-				PrintRecovered();
+				LightOut = true;
+			}
+
+			ActorWeapon.SetInRoom(ActorRoom);
+
+			rc = ActorWeapon.RemoveStateDesc(ActorWeapon.GetReadyWeaponDesc());
+
+			Debug.Assert(gEngine.IsSuccess(rc));
+
+			ActorMonster.Weapon = !ActorMonster.IsCharacterMonster() ? -ActorWeaponUid - 1 : -1;
+
+			PrintWeaponDropped(ActorRoom, ActorMonster, ActorWeapon, WeaponRevealType);
+
+			CombatState = CombatState.EndAttack;
+
+			gotoCleanup = true;
+		}
+
+		/// <summary></summary>
+		public virtual void AttackFumbleWeaponHitsUser(ref bool gotoCleanup)
+		{
+			PrintWeaponHitsUser();
+
+			Dobj = ActorMonster;
+
+			CombatState = CombatState.AttackHit;
+
+			gotoCleanup = true;
+		}
+
+		/// <summary></summary>
+		public virtual void AttackFumbleSparksFly(ref bool gotoCleanup)
+		{
+			PrintSparksFly(ActorRoom, ActorMonster, ActorWeapon, WeaponRevealType);
+
+			CombatState = CombatState.EndAttack;
+
+			gotoCleanup = true;
+		}
+
+		/// <summary></summary>
+		public virtual void AttackFumbleWeaponDamaged(ref bool gotoCleanup)
+		{
+			ActorAc.Field4--;
+
+			if (ActorAc.Field4 > 0)
+			{
+				PrintWeaponDamaged();
 
 				CombatState = CombatState.EndAttack;
 
-				goto Cleanup;
+				gotoCleanup = true;
 			}
+		}
 
-			if ((gEngine.IsRulesetVersion(5, 62) && _rl < 76) || (!gEngine.IsRulesetVersion(5, 62) && _rl < 81))
-			{
-				if (gGameState.Ls > 0 && gGameState.Ls == ActorWeaponUid)
-				{
-					LightOut = true;
-				}
-
-				ActorWeapon.SetInRoom(ActorRoom);
-
-				rc = ActorWeapon.RemoveStateDesc(ActorWeapon.GetReadyWeaponDesc());
-
-				Debug.Assert(gEngine.IsSuccess(rc));
-
-				ActorMonster.Weapon = !ActorMonster.IsCharacterMonster() ? -ActorWeaponUid - 1 : -1;
-
-				PrintWeaponDropped(ActorRoom, ActorMonster, ActorWeapon, WeaponRevealType);
-
-				CombatState = CombatState.EndAttack;
-
-				goto Cleanup;
-			}
-
-			if (_rl > 95)
-			{
-				PrintWeaponHitsUser();
-
-				Dobj = ActorMonster;
-
-				CombatState = CombatState.AttackHit;
-
-				goto Cleanup;
-			}
-
-			if (ActorAc.Type == ArtifactType.MagicWeapon)
-			{
-				PrintSparksFly(ActorRoom, ActorMonster, ActorWeapon, WeaponRevealType);
-
-				CombatState = CombatState.EndAttack;
-
-				goto Cleanup;
-			}
-
-			if (_rl < 91)
-			{
-				ActorAc.Field4--;
-
-				if (ActorAc.Field4 > 0)
-				{
-					PrintWeaponDamaged();
-
-					CombatState = CombatState.EndAttack;
-
-					goto Cleanup;
-				}
-			}
+		/// <summary></summary>
+		public virtual void AttackFumbleWeaponBroken(ref bool gotoCleanup)
+		{
+			RetCode rc;
 
 			PrintWeaponBroken();
 
@@ -525,9 +528,13 @@ namespace EamonRT.Game.Components
 
 				CombatState = CombatState.EndAttack;
 
-				goto Cleanup;
+				gotoCleanup = true;
 			}
+		}
 
+		/// <summary></summary>
+		public virtual void AttackFumbleBrokenWeaponHitsUser(ref bool gotoCleanup)
+		{
 			PrintBrokenWeaponHitsUser();
 
 			Dobj = ActorMonster;
@@ -535,6 +542,82 @@ namespace EamonRT.Game.Components
 			_rl = gEngine.RollDice(1, 5, 95);
 
 			CombatState = CombatState.AttackHit;
+
+			gotoCleanup = true;
+		}
+
+		/// <summary></summary>
+		public virtual void AttackFumble()
+		{
+			bool gotoCleanup = false;
+
+			PrintFumble();
+
+			_rl = gEngine.RollDice(1, 100, 0);
+
+			if ((gEngine.IsRulesetVersion(5, 62) && _rl < 36) || (!gEngine.IsRulesetVersion(5, 62) && _rl < 41))
+			{
+				AttackFumbleRecovered(ref gotoCleanup);
+
+				if (gotoCleanup)
+				{
+					goto Cleanup;
+				}
+			}
+
+			if ((gEngine.IsRulesetVersion(5, 62) && _rl < 76) || (!gEngine.IsRulesetVersion(5, 62) && _rl < 81))
+			{
+				AttackFumbleWeaponDropped(ref gotoCleanup);
+
+				if (gotoCleanup)
+				{
+					goto Cleanup;
+				}
+			}
+
+			if (_rl > 95)
+			{
+				AttackFumbleWeaponHitsUser(ref gotoCleanup);
+
+				if (gotoCleanup)
+				{
+					goto Cleanup;
+				}
+			}
+
+			if (ActorAc.Type == ArtifactType.MagicWeapon)
+			{
+				AttackFumbleSparksFly(ref gotoCleanup);
+
+				if (gotoCleanup)
+				{
+					goto Cleanup;
+				}
+			}
+
+			if (_rl < 91)
+			{
+				AttackFumbleWeaponDamaged(ref gotoCleanup);
+
+				if (gotoCleanup)
+				{
+					goto Cleanup;
+				}
+			}
+
+			AttackFumbleWeaponBroken(ref gotoCleanup);
+
+			if (gotoCleanup)
+			{
+				goto Cleanup;
+			}
+
+			AttackFumbleBrokenWeaponHitsUser(ref gotoCleanup);
+
+			if (gotoCleanup)
+			{
+				goto Cleanup;
+			}
 
 		Cleanup:
 
