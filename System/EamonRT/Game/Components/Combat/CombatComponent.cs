@@ -107,6 +107,9 @@ namespace EamonRT.Game.Components
 		public virtual bool NonCombat { get; set; }
 
 		/// <summary></summary>
+		public virtual bool GotoCleanup { get; set; }
+
+		/// <summary></summary>
 		public virtual long WeaponCount { get; set; }
 
 		/// <summary></summary>
@@ -399,8 +402,20 @@ namespace EamonRT.Game.Components
 		}
 
 		/// <summary></summary>
+		public virtual void AttackMissMiss()
+		{
+			PrintMiss(DobjMonster, DobjWeapon);
+
+			CombatState = CombatState.EndAttack;
+
+			GotoCleanup = true;
+		}
+
+		/// <summary></summary>
 		public virtual void AttackMiss()
 		{
+			GotoCleanup = false;
+
 			DobjWeaponUid = DobjMonster.Weapon;
 
 			DobjWeapon = DobjWeaponUid > 0 ? gADB[DobjWeaponUid] : null;
@@ -411,11 +426,12 @@ namespace EamonRT.Game.Components
 
 			if (_rl < 97 || ActorWeaponUid == 0)
 			{
-				PrintMiss(DobjMonster, DobjWeapon);
+				AttackMissMiss();
 
-				CombatState = CombatState.EndAttack;
-
-				goto Cleanup;
+				if (GotoCleanup)
+				{
+					goto Cleanup;
+				}
 			}
 
 			CombatState = CombatState.AttackFumble;
@@ -426,17 +442,17 @@ namespace EamonRT.Game.Components
 		}
 
 		/// <summary></summary>
-		public virtual void AttackFumbleRecovered(ref bool gotoCleanup)
+		public virtual void AttackFumbleRecovered()
 		{
 			PrintRecovered();
 
 			CombatState = CombatState.EndAttack;
 
-			gotoCleanup = true;
+			GotoCleanup = true;
 		}
 
 		/// <summary></summary>
-		public virtual void AttackFumbleWeaponDropped(ref bool gotoCleanup)
+		public virtual void AttackFumbleWeaponDropped()
 		{
 			RetCode rc;
 
@@ -457,11 +473,11 @@ namespace EamonRT.Game.Components
 
 			CombatState = CombatState.EndAttack;
 
-			gotoCleanup = true;
+			GotoCleanup = true;
 		}
 
 		/// <summary></summary>
-		public virtual void AttackFumbleWeaponHitsUser(ref bool gotoCleanup)
+		public virtual void AttackFumbleWeaponHitsUser()
 		{
 			PrintWeaponHitsUser();
 
@@ -469,21 +485,21 @@ namespace EamonRT.Game.Components
 
 			CombatState = CombatState.AttackHit;
 
-			gotoCleanup = true;
+			GotoCleanup = true;
 		}
 
 		/// <summary></summary>
-		public virtual void AttackFumbleSparksFly(ref bool gotoCleanup)
+		public virtual void AttackFumbleSparksFly()
 		{
 			PrintSparksFly(ActorRoom, ActorMonster, ActorWeapon, WeaponRevealType);
 
 			CombatState = CombatState.EndAttack;
 
-			gotoCleanup = true;
+			GotoCleanup = true;
 		}
 
 		/// <summary></summary>
-		public virtual void AttackFumbleWeaponDamaged(ref bool gotoCleanup)
+		public virtual void AttackFumbleWeaponDamaged()
 		{
 			ActorAc.Field4--;
 
@@ -493,12 +509,12 @@ namespace EamonRT.Game.Components
 
 				CombatState = CombatState.EndAttack;
 
-				gotoCleanup = true;
+				GotoCleanup = true;
 			}
 		}
 
 		/// <summary></summary>
-		public virtual void AttackFumbleWeaponBroken(ref bool gotoCleanup)
+		public virtual void AttackFumbleWeaponBroken()
 		{
 			RetCode rc;
 
@@ -528,12 +544,12 @@ namespace EamonRT.Game.Components
 
 				CombatState = CombatState.EndAttack;
 
-				gotoCleanup = true;
+				GotoCleanup = true;
 			}
 		}
 
 		/// <summary></summary>
-		public virtual void AttackFumbleBrokenWeaponHitsUser(ref bool gotoCleanup)
+		public virtual void AttackFumbleBrokenWeaponHitsUser()
 		{
 			PrintBrokenWeaponHitsUser();
 
@@ -543,13 +559,13 @@ namespace EamonRT.Game.Components
 
 			CombatState = CombatState.AttackHit;
 
-			gotoCleanup = true;
+			GotoCleanup = true;
 		}
 
 		/// <summary></summary>
 		public virtual void AttackFumble()
 		{
-			bool gotoCleanup = false;
+			GotoCleanup = false;
 
 			PrintFumble();
 
@@ -557,9 +573,9 @@ namespace EamonRT.Game.Components
 
 			if ((gEngine.IsRulesetVersion(5, 62) && _rl < 36) || (!gEngine.IsRulesetVersion(5, 62) && _rl < 41))
 			{
-				AttackFumbleRecovered(ref gotoCleanup);
+				AttackFumbleRecovered();
 
-				if (gotoCleanup)
+				if (GotoCleanup)
 				{
 					goto Cleanup;
 				}
@@ -567,9 +583,9 @@ namespace EamonRT.Game.Components
 
 			if ((gEngine.IsRulesetVersion(5, 62) && _rl < 76) || (!gEngine.IsRulesetVersion(5, 62) && _rl < 81))
 			{
-				AttackFumbleWeaponDropped(ref gotoCleanup);
+				AttackFumbleWeaponDropped();
 
-				if (gotoCleanup)
+				if (GotoCleanup)
 				{
 					goto Cleanup;
 				}
@@ -577,9 +593,9 @@ namespace EamonRT.Game.Components
 
 			if (_rl > 95)
 			{
-				AttackFumbleWeaponHitsUser(ref gotoCleanup);
+				AttackFumbleWeaponHitsUser();
 
-				if (gotoCleanup)
+				if (GotoCleanup)
 				{
 					goto Cleanup;
 				}
@@ -587,9 +603,9 @@ namespace EamonRT.Game.Components
 
 			if (ActorAc.Type == ArtifactType.MagicWeapon)
 			{
-				AttackFumbleSparksFly(ref gotoCleanup);
+				AttackFumbleSparksFly();
 
-				if (gotoCleanup)
+				if (GotoCleanup)
 				{
 					goto Cleanup;
 				}
@@ -597,24 +613,24 @@ namespace EamonRT.Game.Components
 
 			if (_rl < 91)
 			{
-				AttackFumbleWeaponDamaged(ref gotoCleanup);
+				AttackFumbleWeaponDamaged();
 
-				if (gotoCleanup)
+				if (GotoCleanup)
 				{
 					goto Cleanup;
 				}
 			}
 
-			AttackFumbleWeaponBroken(ref gotoCleanup);
+			AttackFumbleWeaponBroken();
 
-			if (gotoCleanup)
+			if (GotoCleanup)
 			{
 				goto Cleanup;
 			}
 
-			AttackFumbleBrokenWeaponHitsUser(ref gotoCleanup);
+			AttackFumbleBrokenWeaponHitsUser();
 
-			if (gotoCleanup)
+			if (GotoCleanup)
 			{
 				goto Cleanup;
 			}
@@ -625,34 +641,38 @@ namespace EamonRT.Game.Components
 		}
 
 		/// <summary></summary>
-		public virtual void AttackHit()
+		public virtual void AttackHitHit()
 		{
-			if (ActorAc != null)
-			{
-				D = ActorAc.Field3;
+			PrintHit();
 
-				S = ActorAc.Field4;
-			}
-			else
-			{
-				D = ActorMonster.NwDice;
+			CombatState = CombatState.CalculateDamage;
 
-				S = ActorMonster.NwSides;
-			}
+			GotoCleanup = true;
+		}
 
-			A = OmitArmor ? 0 : 1;
+		/// <summary></summary>
+		public virtual void AttackHitCriticalHitKill()
+		{
+			_d2 = DobjMonster.Hardiness - DobjMonster.DmgTaken - (gEngine.IsRulesetVersion(5, 62) ? 0 : 2);
 
-			PrintStarPlus(DobjMonster);
+			CombatState = CombatState.CheckArmor;
 
-			if ((ActorMonster != DobjMonster && _rl >= 5) || (ActorMonster == DobjMonster && _rl < 100))
-			{
-				PrintHit();
+			GotoCleanup = true;
+		}
 
-				CombatState = CombatState.CalculateDamage;
+		/// <summary></summary>
+		public virtual void AttackHitCriticalHitNoArmor()
+		{
+			A = 0;
 
-				goto Cleanup;
-			}
+			CombatState = CombatState.CalculateDamage;
 
+			GotoCleanup = true;
+		}
+
+		/// <summary></summary>
+		public virtual void AttackHitCriticalHit()
+		{
 			PrintCriticalHit();
 
 			if (ActorMonster != DobjMonster || !gEngine.IsRulesetVersion(5, 62))
@@ -661,20 +681,22 @@ namespace EamonRT.Game.Components
 
 				if (_rl == 100)
 				{
-					_d2 = DobjMonster.Hardiness - DobjMonster.DmgTaken - (gEngine.IsRulesetVersion(5, 62) ? 0 : 2);
+					AttackHitCriticalHitKill();
 
-					CombatState = CombatState.CheckArmor;
-
-					goto Cleanup;
+					if (GotoCleanup)
+					{
+						goto Cleanup;
+					}
 				}
 
 				if (_rl < (gEngine.IsRulesetVersion(5, 62) ? 51 : 50))
 				{
-					A = 0;
+					AttackHitCriticalHitNoArmor();
 
-					CombatState = CombatState.CalculateDamage;
-
-					goto Cleanup;
+					if (GotoCleanup)
+					{
+						goto Cleanup;
+					}
 				}
 
 				if (_rl < 86 || !gEngine.IsRulesetVersion(5, 62))
@@ -698,6 +720,52 @@ namespace EamonRT.Game.Components
 			}
 
 			CombatState = CombatState.CalculateDamage;
+
+			GotoCleanup = true;
+
+		Cleanup:
+
+			;
+		}
+
+		/// <summary></summary>
+		public virtual void AttackHit()
+		{
+			GotoCleanup = false;
+
+			if (ActorAc != null)
+			{
+				D = ActorAc.Field3;
+
+				S = ActorAc.Field4;
+			}
+			else
+			{
+				D = ActorMonster.NwDice;
+
+				S = ActorMonster.NwSides;
+			}
+
+			A = OmitArmor ? 0 : 1;
+
+			PrintStarPlus(DobjMonster);
+
+			if ((ActorMonster != DobjMonster && _rl >= 5) || (ActorMonster == DobjMonster && _rl < 100))
+			{
+				AttackHitHit();
+
+				if (GotoCleanup)
+				{
+					goto Cleanup;
+				}
+			}
+
+			AttackHitCriticalHit();
+
+			if (GotoCleanup)
+			{
+				goto Cleanup;
+			}
 
 		Cleanup:
 
@@ -752,15 +820,28 @@ namespace EamonRT.Game.Components
 		}
 
 		/// <summary></summary>
+		public virtual void CheckArmorBlowTurned()
+		{
+			PrintBlowTurned(DobjMonster, OmitBboaPadding);
+
+			CombatState = CombatState.EndAttack;
+
+			GotoCleanup = true;
+		}
+
+		/// <summary></summary>
 		public virtual void CheckArmor()
 		{
+			GotoCleanup = false;
+
 			if (_d2 < 1)
 			{
-				PrintBlowTurned(DobjMonster, OmitBboaPadding);
+				CheckArmorBlowTurned();
 
-				CombatState = CombatState.EndAttack;
-
-				goto Cleanup;
+				if (GotoCleanup)
+				{
+					goto Cleanup;
+				}
 			}
 
 			CombatState = CombatState.CheckMonsterStatus;

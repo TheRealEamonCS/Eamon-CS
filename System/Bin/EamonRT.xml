@@ -3591,6 +3591,9 @@
         <member name="P:EamonRT.Game.Components.CombatComponent.NonCombat">
             <summary></summary>
         </member>
+        <member name="P:EamonRT.Game.Components.CombatComponent.GotoCleanup">
+            <summary></summary>
+        </member>
         <member name="P:EamonRT.Game.Components.CombatComponent.WeaponCount">
             <summary></summary>
         </member>
@@ -3635,31 +3638,46 @@
         <member name="M:EamonRT.Game.Components.CombatComponent.BeginAttack">
             <summary></summary>
         </member>
+        <member name="M:EamonRT.Game.Components.CombatComponent.AttackMissMiss">
+            <summary></summary>
+        </member>
         <member name="M:EamonRT.Game.Components.CombatComponent.AttackMiss">
             <summary></summary>
         </member>
-        <member name="M:EamonRT.Game.Components.CombatComponent.AttackFumbleRecovered(System.Boolean@)">
+        <member name="M:EamonRT.Game.Components.CombatComponent.AttackFumbleRecovered">
             <summary></summary>
         </member>
-        <member name="M:EamonRT.Game.Components.CombatComponent.AttackFumbleWeaponDropped(System.Boolean@)">
+        <member name="M:EamonRT.Game.Components.CombatComponent.AttackFumbleWeaponDropped">
             <summary></summary>
         </member>
-        <member name="M:EamonRT.Game.Components.CombatComponent.AttackFumbleWeaponHitsUser(System.Boolean@)">
+        <member name="M:EamonRT.Game.Components.CombatComponent.AttackFumbleWeaponHitsUser">
             <summary></summary>
         </member>
-        <member name="M:EamonRT.Game.Components.CombatComponent.AttackFumbleSparksFly(System.Boolean@)">
+        <member name="M:EamonRT.Game.Components.CombatComponent.AttackFumbleSparksFly">
             <summary></summary>
         </member>
-        <member name="M:EamonRT.Game.Components.CombatComponent.AttackFumbleWeaponDamaged(System.Boolean@)">
+        <member name="M:EamonRT.Game.Components.CombatComponent.AttackFumbleWeaponDamaged">
             <summary></summary>
         </member>
-        <member name="M:EamonRT.Game.Components.CombatComponent.AttackFumbleWeaponBroken(System.Boolean@)">
+        <member name="M:EamonRT.Game.Components.CombatComponent.AttackFumbleWeaponBroken">
             <summary></summary>
         </member>
-        <member name="M:EamonRT.Game.Components.CombatComponent.AttackFumbleBrokenWeaponHitsUser(System.Boolean@)">
+        <member name="M:EamonRT.Game.Components.CombatComponent.AttackFumbleBrokenWeaponHitsUser">
             <summary></summary>
         </member>
         <member name="M:EamonRT.Game.Components.CombatComponent.AttackFumble">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Game.Components.CombatComponent.AttackHitHit">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Game.Components.CombatComponent.AttackHitCriticalHitKill">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Game.Components.CombatComponent.AttackHitCriticalHitNoArmor">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Game.Components.CombatComponent.AttackHitCriticalHit">
             <summary></summary>
         </member>
         <member name="M:EamonRT.Game.Components.CombatComponent.AttackHit">
@@ -3669,6 +3687,9 @@
             <summary></summary>
         </member>
         <member name="M:EamonRT.Game.Components.CombatComponent.CalculateDamage">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Game.Components.CombatComponent.CheckArmorBlowTurned">
             <summary></summary>
         </member>
         <member name="M:EamonRT.Game.Components.CombatComponent.CheckArmor">
