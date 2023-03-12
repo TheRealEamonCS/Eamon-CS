@@ -792,7 +792,14 @@ namespace Eamon.Game
 		{
 			if (monsterFindFunc == null)
 			{
-				monsterFindFunc = a => a.IsCarriedByMonster(this);
+				if (IsCharacterMonster())
+				{
+					monsterFindFunc = a => a.IsCarriedByCharacter();
+				}
+				else
+				{
+					monsterFindFunc = a => a.IsCarriedByMonster(this);
+				}
 			}
 
 			var artifactList = gEngine.GetArtifactList(a => monsterFindFunc(a));
@@ -819,7 +826,14 @@ namespace Eamon.Game
 		{
 			if (monsterFindFunc == null)
 			{
-				monsterFindFunc = a => a.IsWornByMonster(this);
+				if (IsCharacterMonster())
+				{
+					monsterFindFunc = a => a.IsWornByCharacter();
+				}
+				else
+				{
+					monsterFindFunc = a => a.IsWornByMonster(this);
+				}
 			}
 
 			var artifactList = gEngine.GetArtifactList(a => monsterFindFunc(a));
@@ -846,7 +860,14 @@ namespace Eamon.Game
 		{
 			if (monsterFindFunc == null)
 			{
-				monsterFindFunc = a => a.IsCarriedByMonster(this) || a.IsWornByMonster(this);
+				if (IsCharacterMonster())
+				{
+					monsterFindFunc = a => a.IsCarriedByCharacter() || a.IsWornByCharacter();
+				}
+				else
+				{
+					monsterFindFunc = a => a.IsCarriedByMonster(this) || a.IsWornByMonster(this);
+				}
 			}
 
 			var artifactList = gEngine.GetArtifactList(a => monsterFindFunc(a));
