@@ -646,7 +646,7 @@ namespace Eamon.Game.Helpers
 
 					goto Cleanup;
 				}
-				else if ((Record.IsCharacterMonster() && !artifact.IsCarriedByCharacter() && !artifact.IsWornByCharacter()) || (!Record.IsCharacterMonster() && !artifact.IsCarriedByMonster(Record) && !artifact.IsWornByMonster(Record)))
+				else if (!artifact.IsCarriedByMonster(Record) && !artifact.IsWornByMonster(Record))
 				{
 					result = false;
 

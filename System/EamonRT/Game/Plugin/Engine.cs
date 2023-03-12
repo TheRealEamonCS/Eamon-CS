@@ -3312,9 +3312,7 @@ namespace EamonRT.Game.Plugin
 
 			// Damage weapons
 
-			var artifactList = monster.IsCharacterMonster() ? 
-				GetArtifactList(a => (a.IsCarriedByCharacter(recurse) || a.IsWornByCharacter(recurse)) && !a.IsWornByCharacter() && a.GeneralWeapon != null) : 
-				GetArtifactList(a => (a.IsCarriedByMonster(monster, recurse) || a.IsWornByMonster(monster, recurse)) && !a.IsWornByMonster(monster) && a.GeneralWeapon != null);
+			var artifactList = GetArtifactList(a => (a.IsCarriedByMonster(monster, recurse) || a.IsWornByMonster(monster, recurse)) && !a.IsWornByMonster(monster) && a.GeneralWeapon != null);
 
 			foreach (var artifact in artifactList)
 			{
@@ -3342,9 +3340,7 @@ namespace EamonRT.Game.Plugin
 
 			// Damage armor
 
-			artifactList = monster.IsCharacterMonster() ?
-				GetArtifactList(a => (a.IsCarriedByCharacter(recurse) || a.IsWornByCharacter(recurse)) && a.Wearable != null && a.Wearable.Field1 > 0 && a.Wearable.Field2 == (long)Clothing.ArmorShields) :
-				GetArtifactList(a => (a.IsCarriedByMonster(monster, recurse) || a.IsWornByMonster(monster, recurse)) && a.Wearable != null && a.Wearable.Field1 > 0 && a.Wearable.Field2 == (long)Clothing.ArmorShields);
+			artifactList = GetArtifactList(a => (a.IsCarriedByMonster(monster, recurse) || a.IsWornByMonster(monster, recurse)) && a.Wearable != null && a.Wearable.Field1 > 0 && a.Wearable.Field2 == (long)Clothing.ArmorShields);
 
 			Out.EnableOutput = false;
 
