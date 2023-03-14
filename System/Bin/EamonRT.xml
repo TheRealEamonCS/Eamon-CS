@@ -2679,6 +2679,11 @@
             An event that fires after checking if a non-enemy <see cref="T:Eamon.Framework.IMonster">Monster</see> should be attacked.
             </summary>
         </member>
+        <member name="F:EamonRT.Framework.Primitive.Enums.EventType.AfterRefuseDeadBodyCheck">
+            <summary>
+            An event that fires after checking if a <see cref="T:Eamon.Framework.IMonster">Monster</see> should refuse to accept a dead body gift.
+            </summary>
+        </member>
         <member name="T:EamonRT.Framework.Primitive.Enums.IntroStoryType">
             <summary></summary>
         </member>
