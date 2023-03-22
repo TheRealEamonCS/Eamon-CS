@@ -194,6 +194,12 @@ namespace Eamon.Framework.Plugin
 		string MscorlibRegexPattern { get; }
 
 		/// <summary></summary>
+		string CommandSepRegexPattern { get; }
+
+		/// <summary></summary>
+		string PronounRegexPattern { get; }
+
+		/// <summary></summary>
 		string CoreLibName { get; }
 
 		/// <summary></summary>

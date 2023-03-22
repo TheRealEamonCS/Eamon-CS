@@ -3551,6 +3551,12 @@
         <member name="P:Eamon.Framework.Plugin.IEngine.MscorlibRegexPattern">
             <summary></summary>
         </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.CommandSepRegexPattern">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.PronounRegexPattern">
+            <summary></summary>
+        </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.CoreLibName">
             <summary></summary>
         </member>

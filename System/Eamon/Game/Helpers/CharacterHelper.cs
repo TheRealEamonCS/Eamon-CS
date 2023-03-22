@@ -1378,12 +1378,7 @@ namespace Eamon.Game.Helpers
 				{
 					var recordArmorName = string.Format(" {0} ", Record.Armor.Name.ToLower());
 
-					result = Array.FindIndex(gEngine.CommandSepTokens, token => !Char.IsPunctuation(token[0]) ? recordArmorName.IndexOf(" " + token + " ") >= 0 : recordArmorName.IndexOf(token) >= 0) < 0;
-
-					if (result)
-					{
-						result = Array.FindIndex(gEngine.PronounTokens, token => recordArmorName.IndexOf(" " + token + " ") >= 0) < 0;
-					}
+					result = !Regex.IsMatch(recordArmorName, gEngine.CommandSepRegexPattern) && !Regex.IsMatch(recordArmorName, gEngine.PronounRegexPattern);
 
 					// TODO: might need to disallow verb name matches as well
 				}
@@ -1589,12 +1584,7 @@ namespace Eamon.Game.Helpers
 				{
 					var recordShieldName = string.Format(" {0} ", Record.Shield.Name.ToLower());
 
-					result = Array.FindIndex(gEngine.CommandSepTokens, token => !Char.IsPunctuation(token[0]) ? recordShieldName.IndexOf(" " + token + " ") >= 0 : recordShieldName.IndexOf(token) >= 0) < 0;
-
-					if (result)
-					{
-						result = Array.FindIndex(gEngine.PronounTokens, token => recordShieldName.IndexOf(" " + token + " ") >= 0) < 0;
-					}
+					result = !Regex.IsMatch(recordShieldName, gEngine.CommandSepRegexPattern) && !Regex.IsMatch(recordShieldName, gEngine.PronounRegexPattern);
 
 					// TODO: might need to disallow verb name matches as well
 				}
@@ -1836,12 +1826,7 @@ namespace Eamon.Game.Helpers
 				{
 					var recordWeaponName = string.Format(" {0} ", Record.GetWeapon(i).Name.ToLower());
 
-					result = Array.FindIndex(gEngine.CommandSepTokens, token => !Char.IsPunctuation(token[0]) ? recordWeaponName.IndexOf(" " + token + " ") >= 0 : recordWeaponName.IndexOf(token) >= 0) < 0;
-
-					if (result)
-					{
-						result = Array.FindIndex(gEngine.PronounTokens, token => recordWeaponName.IndexOf(" " + token + " ") >= 0) < 0;
-					}
+					result = !Regex.IsMatch(recordWeaponName, gEngine.CommandSepRegexPattern) && !Regex.IsMatch(recordWeaponName, gEngine.PronounRegexPattern);
 
 					// TODO: might need to disallow verb name matches as well
 				}
