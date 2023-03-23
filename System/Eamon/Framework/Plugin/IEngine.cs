@@ -200,6 +200,12 @@ namespace Eamon.Framework.Plugin
 		string PronounRegexPattern { get; }
 
 		/// <summary></summary>
+		string EverythingRegexPattern { get; }
+
+		/// <summary></summary>
+		string ExceptRegexPattern { get; }
+
+		/// <summary></summary>
 		string CoreLibName { get; }
 
 		/// <summary></summary>
