@@ -32,6 +32,11 @@ namespace Eamon.Framework.Primitive.Enums
 		/// <summary>
 		/// The <see cref="IMonster">Monster</see> will be described as "attacking"; otherwise mirrors the <see cref="Weapons">Weapons</see> setting.
 		/// </summary>
-		Attacks
+		Attacks,
+
+		/// <summary>
+		/// The <see cref="IMonster">Monster</see> will be described as "attacking"; otherwise mirrors the <see cref="NaturalWeapons">NaturalWeapons</see> setting.
+		/// </summary>
+		NaturalAttacks
 	}
 }

@@ -657,6 +657,14 @@ namespace Eamon.Framework
 
 		/// <summary></summary>
 		/// <returns></returns>
+		string GetContainerSomethingDesc();
+
+		/// <summary></summary>
+		/// <returns></returns>
+		string GetContainerSomeStuffDesc();
+
+		/// <summary></summary>
+		/// <returns></returns>
 		string GetDoorGateFleeDesc();
 
 		/// <summary></summary>

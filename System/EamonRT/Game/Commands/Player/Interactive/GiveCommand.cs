@@ -239,6 +239,13 @@ namespace EamonRT.Game.Commands
 				goto Cleanup;
 			}
 
+			ProcessEvents(EventType.AfterRefuseDeadBodyCheck);
+
+			if (GotoCleanup)
+			{
+				goto Cleanup;
+			}
+
 			if (gGameState.Ls == DobjArtifact.Uid)
 			{
 				Debug.Assert(DobjArtifact.LightSource != null);

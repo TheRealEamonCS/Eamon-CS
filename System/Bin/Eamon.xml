@@ -1607,6 +1607,14 @@
             <param name="containerType"></param>
             <returns></returns>
         </member>
+        <member name="M:Eamon.Framework.IArtifact.GetContainerSomethingDesc">
+            <summary></summary>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.IArtifact.GetContainerSomeStuffDesc">
+            <summary></summary>
+            <returns></returns>
+        </member>
         <member name="M:Eamon.Framework.IArtifact.GetDoorGateFleeDesc">
             <summary></summary>
             <returns></returns>
@@ -3541,6 +3549,18 @@
             <summary></summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.MscorlibRegexPattern">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.CommandSepRegexPattern">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.PronounRegexPattern">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.EverythingRegexPattern">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.ExceptRegexPattern">
             <summary></summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.CoreLibName">
@@ -6060,6 +6080,11 @@
         <member name="F:Eamon.Framework.Primitive.Enums.CombatCode.Attacks">
             <summary>
             The <see cref="T:Eamon.Framework.IMonster">Monster</see> will be described as "attacking"; otherwise mirrors the <see cref="F:Eamon.Framework.Primitive.Enums.CombatCode.Weapons">Weapons</see> setting.
+            </summary>
+        </member>
+        <member name="F:Eamon.Framework.Primitive.Enums.CombatCode.NaturalAttacks">
+            <summary>
+            The <see cref="T:Eamon.Framework.IMonster">Monster</see> will be described as "attacking"; otherwise mirrors the <see cref="F:Eamon.Framework.Primitive.Enums.CombatCode.NaturalWeapons">NaturalWeapons</see> setting.
             </summary>
         </member>
         <member name="T:Eamon.Framework.Primitive.Enums.CommandType">

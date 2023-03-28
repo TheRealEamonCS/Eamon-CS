@@ -1090,7 +1090,7 @@ namespace Eamon.Game
 
 			var attackDesc = "attack{0}";
 
-			if (IsCharacterMonster() || (room.IsLit() && CombatCode != CombatCode.Attacks))
+			if (IsCharacterMonster() || (room.IsLit() && CombatCode != CombatCode.Attacks && CombatCode != CombatCode.NaturalAttacks))
 			{
 				var attackDescs = artifact != null ? GetWeaponAttackDescs(artifact) : HasHumanNaturalAttackDescs() ? GetHumanAttackDescs() : GetNaturalAttackDescs();
 

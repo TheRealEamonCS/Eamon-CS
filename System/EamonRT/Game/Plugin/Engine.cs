@@ -2876,7 +2876,7 @@ namespace EamonRT.Game.Plugin
 
 			IList<IArtifact> artifactList = null;
 
-			if (monster.CombatCode == CombatCode.NaturalWeapons && monster.Weapon <= 0)
+			if ((monster.CombatCode == CombatCode.NaturalWeapons || monster.CombatCode == CombatCode.NaturalAttacks) && monster.Weapon <= 0)
 			{
 				artifactList = GetReadyableWeaponList(monster);
 
@@ -3112,41 +3112,47 @@ namespace EamonRT.Game.Plugin
 		{
 			Debug.Assert(buf != null);
 
+			var guid = Guid.NewGuid();
+
+			var oneGuidString = string.Format(" {0} ", guid.ToString());
+
+			var twoGuidString = string.Format(" {0} {0} ", guid.ToString());
+
 			buf.SetFormat(" {0} ", buf.ToString().ToLower());
 
-			// begin TODO: validate Artifact and Monster names don't contain these tokens (add to invalid name tokens array)
-
-			buf.SetFormat("{0}", buf.ToString().Replace(" everything ", " all "));
-
-			buf.SetFormat("{0}", buf.ToString().Replace(" except ", " but "));
-
-			buf.SetFormat("{0}", buf.ToString().Replace(" excluding ", " but "));
-
-			buf.SetFormat("{0}", buf.ToString().Replace(" omitting ", " but "));
-
-			// end TODO
-
-			foreach (var token in CommandSepTokens)
+			while (Regex.IsMatch(buf.ToString(), gEngine.EverythingRegexPattern))
 			{
-				buf.SetFormat("{0}", buf.ToString().Replace(!Char.IsPunctuation(token[0]) ? " " + token + " " : token, " , "));
+				buf.SetFormat("{0}", Regex.Replace(buf.ToString(), gEngine.EverythingRegexPattern, " all "));
+			}
+
+			while (Regex.IsMatch(buf.ToString(), gEngine.ExceptRegexPattern))
+			{
+				buf.SetFormat("{0}", Regex.Replace(buf.ToString(), gEngine.ExceptRegexPattern, " but "));
+			}
+
+			while (Regex.IsMatch(buf.ToString(), gEngine.CommandSepRegexPattern))
+			{
+				buf.SetFormat("{0}", Regex.Replace(buf.ToString(), gEngine.CommandSepRegexPattern, oneGuidString));
 			}
 
 			buf.SetFormat(" {0} ", Regex.Replace(buf.ToString(), @"\s+", " ").Trim());
 
-			while (buf.ToString().IndexOf(" , , ") >= 0)
+			while (buf.ToString().IndexOf(twoGuidString) >= 0)
 			{
-				buf.SetFormat("{0}", buf.ToString().Replace(" , , ", " , "));
+				buf.SetFormat("{0}", buf.ToString().Replace(twoGuidString, oneGuidString));
 			}
 
-			while (buf.ToString().StartsWith(" , "))
+			while (buf.ToString().StartsWith(oneGuidString))
 			{
-				buf.SetFormat("{0}", buf.ToString().Substring(3));
+				buf.SetFormat("{0}", buf.ToString().Substring(oneGuidString.Length));
 			}
 
-			while (buf.ToString().EndsWith(" , "))
+			while (buf.ToString().EndsWith(oneGuidString))
 			{
-				buf.SetFormat("{0}", buf.ToString().Substring(0, buf.Length - 3));
+				buf.SetFormat("{0}", buf.ToString().Substring(0, buf.Length - oneGuidString.Length));
 			}
+
+			buf.SetFormat("{0}", buf.ToString().Replace(guid.ToString(), ","));
 
 			return buf.Trim();
 		}
@@ -3156,8 +3162,6 @@ namespace EamonRT.Game.Plugin
 			Debug.Assert(buf != null);
 
 			buf.SetFormat(" {0} ", buf.ToString().ToLower());
-
-			// begin TODO: validate Artifact and Monster names don't contain these tokens (add to invalid name tokens array)
 
 			buf = buf.Replace(" in to ", " into ");
 
@@ -3180,8 +3184,6 @@ namespace EamonRT.Game.Plugin
 			buf = buf.Replace(" in back of ", " behind ");
 
 			buf = buf.Replace(" from behind ", " frombehind ");
-
-			// end TODO
 
 			return buf.Trim();
 		}
@@ -3312,9 +3314,7 @@ namespace EamonRT.Game.Plugin
 
 			// Damage weapons
 
-			var artifactList = monster.IsCharacterMonster() ? 
-				GetArtifactList(a => (a.IsCarriedByCharacter(recurse) || a.IsWornByCharacter(recurse)) && !a.IsWornByCharacter() && a.GeneralWeapon != null) : 
-				GetArtifactList(a => (a.IsCarriedByMonster(monster, recurse) || a.IsWornByMonster(monster, recurse)) && !a.IsWornByMonster(monster) && a.GeneralWeapon != null);
+			var artifactList = GetArtifactList(a => (a.IsCarriedByMonster(monster, recurse) || a.IsWornByMonster(monster, recurse)) && !a.IsWornByMonster(monster) && a.GeneralWeapon != null);
 
 			foreach (var artifact in artifactList)
 			{
@@ -3342,9 +3342,7 @@ namespace EamonRT.Game.Plugin
 
 			// Damage armor
 
-			artifactList = monster.IsCharacterMonster() ?
-				GetArtifactList(a => (a.IsCarriedByCharacter(recurse) || a.IsWornByCharacter(recurse)) && a.Wearable != null && a.Wearable.Field1 > 0 && a.Wearable.Field2 == (long)Clothing.ArmorShields) :
-				GetArtifactList(a => (a.IsCarriedByMonster(monster, recurse) || a.IsWornByMonster(monster, recurse)) && a.Wearable != null && a.Wearable.Field1 > 0 && a.Wearable.Field2 == (long)Clothing.ArmorShields);
+			artifactList = GetArtifactList(a => (a.IsCarriedByMonster(monster, recurse) || a.IsWornByMonster(monster, recurse)) && a.Wearable != null && a.Wearable.Field1 > 0 && a.Wearable.Field2 == (long)Clothing.ArmorShields);
 
 			Out.EnableOutput = false;
 

@@ -169,7 +169,7 @@ namespace TheDeepCanyon.Game.Components
 
 			var rl = gEngine.RollDice(1, 100, 0);
 
-			var isNetCarriedByDefender = DobjMonster.IsCharacterMonster() ? netArtifact.IsCarriedByCharacter() : netArtifact.IsCarriedByMonster(DobjMonster);
+			var isNetCarriedByDefender = netArtifact.IsCarriedByMonster(DobjMonster);
 
 			// Various bats strangled by net
 

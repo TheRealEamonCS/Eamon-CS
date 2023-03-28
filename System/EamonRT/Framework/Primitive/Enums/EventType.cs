@@ -237,5 +237,10 @@ namespace EamonRT.Framework.Primitive.Enums
 		/// An event that fires after checking if a non-enemy <see cref="IMonster">Monster</see> should be attacked.
 		/// </summary>
 		AfterAttackNonEnemyCheck,
+
+		/// <summary>
+		/// An event that fires after checking if a <see cref="IMonster">Monster</see> should refuse to accept a dead body gift.
+		/// </summary>
+		AfterRefuseDeadBodyCheck,
 	}
 }

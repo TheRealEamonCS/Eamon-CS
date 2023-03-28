@@ -2679,6 +2679,11 @@
             An event that fires after checking if a non-enemy <see cref="T:Eamon.Framework.IMonster">Monster</see> should be attacked.
             </summary>
         </member>
+        <member name="F:EamonRT.Framework.Primitive.Enums.EventType.AfterRefuseDeadBodyCheck">
+            <summary>
+            An event that fires after checking if a <see cref="T:Eamon.Framework.IMonster">Monster</see> should refuse to accept a dead body gift.
+            </summary>
+        </member>
         <member name="T:EamonRT.Framework.Primitive.Enums.IntroStoryType">
             <summary></summary>
         </member>
@@ -3591,6 +3596,9 @@
         <member name="P:EamonRT.Game.Components.CombatComponent.NonCombat">
             <summary></summary>
         </member>
+        <member name="P:EamonRT.Game.Components.CombatComponent.GotoCleanup">
+            <summary></summary>
+        </member>
         <member name="P:EamonRT.Game.Components.CombatComponent.WeaponCount">
             <summary></summary>
         </member>
@@ -3635,10 +3643,46 @@
         <member name="M:EamonRT.Game.Components.CombatComponent.BeginAttack">
             <summary></summary>
         </member>
+        <member name="M:EamonRT.Game.Components.CombatComponent.AttackMissMiss">
+            <summary></summary>
+        </member>
         <member name="M:EamonRT.Game.Components.CombatComponent.AttackMiss">
             <summary></summary>
         </member>
+        <member name="M:EamonRT.Game.Components.CombatComponent.AttackFumbleRecovered">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Game.Components.CombatComponent.AttackFumbleWeaponDropped">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Game.Components.CombatComponent.AttackFumbleWeaponHitsUser">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Game.Components.CombatComponent.AttackFumbleSparksFly">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Game.Components.CombatComponent.AttackFumbleWeaponDamaged">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Game.Components.CombatComponent.AttackFumbleWeaponBroken">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Game.Components.CombatComponent.AttackFumbleBrokenWeaponHitsUser">
+            <summary></summary>
+        </member>
         <member name="M:EamonRT.Game.Components.CombatComponent.AttackFumble">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Game.Components.CombatComponent.AttackHitHit">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Game.Components.CombatComponent.AttackHitCriticalHitKill">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Game.Components.CombatComponent.AttackHitCriticalHitNoArmor">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Game.Components.CombatComponent.AttackHitCriticalHit">
             <summary></summary>
         </member>
         <member name="M:EamonRT.Game.Components.CombatComponent.AttackHit">
@@ -3648,6 +3692,9 @@
             <summary></summary>
         </member>
         <member name="M:EamonRT.Game.Components.CombatComponent.CalculateDamage">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Game.Components.CombatComponent.CheckArmorBlowTurned">
             <summary></summary>
         </member>
         <member name="M:EamonRT.Game.Components.CombatComponent.CheckArmor">
