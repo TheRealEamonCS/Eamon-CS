@@ -373,12 +373,7 @@ namespace Eamon.Game.Helpers
 			{
 				var recordName = string.Format(" {0} ", Record.Name.ToLower());
 
-				result = Array.FindIndex(gEngine.CommandSepTokens, token => !Char.IsPunctuation(token[0]) ? recordName.IndexOf(" " + token + " ") >= 0 : recordName.IndexOf(token) >= 0) < 0;
-
-				if (result)
-				{
-					result = Array.FindIndex(gEngine.PronounTokens, token => recordName.IndexOf(" " + token + " ") >= 0) < 0;
-				}
+				result = !Regex.IsMatch(recordName, gEngine.CommandSepRegexPattern) && !Regex.IsMatch(recordName, gEngine.PronounRegexPattern);
 
 				// TODO: might need to disallow verb name matches as well
 			}

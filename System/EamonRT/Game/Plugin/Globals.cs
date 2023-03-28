@@ -104,5 +104,13 @@ namespace EamonRT.Game.Plugin
 				return gGameState != null ? gMDB[gGameState.Cm] : null;
 			}
 		}
+
+		public static Eamon.Framework.IRoom gCharRoom
+		{
+			get
+			{
+				return gGameState != null ? gRDB[gGameState.Ro] : null;
+			}
+		}
 	}
 }

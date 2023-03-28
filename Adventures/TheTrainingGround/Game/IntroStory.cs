@@ -40,7 +40,7 @@ namespace TheTrainingGround.Game
 					gEngine.PrintEffectDesc(19);
 				}
 
-				gOut.Print("\"OK, let's be careful in there, {0}!\" he says, as he walks away.", gCharacter.EvalGender("son", "miss", ""));
+				gOut.Print("\"OK, let's be careful in there{0}!\" he says, as he walks away.", gCharacter.EvalGender(", son", ", miss", ""));
 			}
 		}
 	}

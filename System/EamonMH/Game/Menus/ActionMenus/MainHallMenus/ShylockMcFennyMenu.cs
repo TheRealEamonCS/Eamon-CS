@@ -25,10 +25,10 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 			gOut.Print("{0}", gEngine.LineSep);
 
-			gOut.Write("{0}You have no trouble spotting Shylock McFenny, the local banker, due to his large belly.  You attract his attention, and he comes over to you.{0}{0}\"Well, {1} my dear {2} what a pleasure to see you!  Do you want to make a deposit or a withdrawal?\"{0}",
+			gOut.Write("{0}You have no trouble spotting Shylock McFenny, the local banker, due to his large belly.  You attract his attention, and he comes over to you.{0}{0}\"Well, {1} my dear{2} what a pleasure to see you!  Do you want to make a deposit or a withdrawal?\"{0}",
 				Environment.NewLine,
 				gCharacter.Name,
-				gCharacter.EvalGender("boy", "girl", "thing"));
+				gCharacter.EvalGender(" boy", " girl", ""));
 
 			gOut.Print("You have {0} GP in hand, {1} GP in the bank.",
 				gCharacter.HeldGold,

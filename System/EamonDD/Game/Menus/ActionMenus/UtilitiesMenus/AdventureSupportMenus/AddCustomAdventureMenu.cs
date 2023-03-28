@@ -202,6 +202,14 @@ namespace YourAdventureName.Game.Plugin
 			}
 		}
 
+		public static Eamon.Framework.IRoom gCharRoom
+		{
+			get
+			{
+				return (Eamon.Framework.IRoom)EamonRT.Game.Plugin.Globals.gCharRoom;
+			}
+		}
+
 		public static Eamon.Framework.IMonster gActorMonster(object obj)
 		{
 			if (obj is ICommandParser commandParser)

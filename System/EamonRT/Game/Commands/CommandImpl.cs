@@ -439,7 +439,7 @@ namespace EamonRT.Game.Commands
 			gOut.Print("{0} {1} {2} {3} {4}.  Remove it first.", 
 				artifact.GetTheName(true), 
 				artifact.EvalPlural("has", "have"), 
-				isPlural ? "some stuff" : "something", 
+				isPlural ? artifact.GetContainerSomeStuffDesc() : artifact.GetContainerSomethingDesc(), 
 				gEngine.EvalContainerType(containerType, "inside", "on", "under", "behind"), 
 				artifact.EvalPlural("it", "them"));
 		}
