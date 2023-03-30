@@ -206,6 +206,12 @@ namespace Eamon.Framework.Plugin
 		string ExceptRegexPattern { get; }
 
 		/// <summary></summary>
+		string SentenceRegexPattern { get; }
+
+		/// <summary></summary>
+		string CommandVerbRegexPattern { get; }
+
+		/// <summary></summary>
 		string CoreLibName { get; }
 
 		/// <summary></summary>

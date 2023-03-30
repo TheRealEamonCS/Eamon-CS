@@ -3874,6 +3874,9 @@
         <member name="M:EamonRT.Game.IntroStory.PrintOutputDefault">
             <summary></summary>
         </member>
+        <member name="P:EamonRT.Game.Parsing.SentenceParser.RegexMatch">
+            <summary></summary>
+        </member>
         <member name="P:EamonRT.Game.Parsing.SentenceParser.TokenCommand">
             <summary></summary>
         </member>
@@ -3893,6 +3896,9 @@
             <summary></summary>
         </member>
         <member name="P:EamonRT.Game.Parsing.SentenceParser.NewCommandStr">
+            <summary></summary>
+        </member>
+        <member name="P:EamonRT.Game.Parsing.SentenceParser.VerbToken">
             <summary></summary>
         </member>
         <member name="P:EamonRT.Game.Parsing.SentenceParser.Tokens">

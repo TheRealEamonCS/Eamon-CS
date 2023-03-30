@@ -153,6 +153,10 @@ namespace Eamon.Game.Plugin
 
 		public virtual string ExceptRegexPattern { get; protected set; } = @" except | excluding | omitting ";
 
+		public virtual string SentenceRegexPattern { get; protected set; } = @"(?<=^|,\s)([^,\s]*)([^,]*)(?=\s*(?:,|$))";
+
+		public virtual string CommandVerbRegexPattern { get; protected set; } = @"(\w+).*";
+
 		public virtual string CoreLibName { get; protected set; } = @"System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e";
 
 		public virtual string MscorlibName { get; protected set; } = @"mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089";
