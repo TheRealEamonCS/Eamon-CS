@@ -48,9 +48,6 @@ namespace EamonRT.Game.Parsing
 		}
 
 		/// <summary></summary>
-		public virtual Match RegexMatch { get; set; }
-
-		/// <summary></summary>
 		public virtual ICommand TokenCommand { get; set; }
 
 		/// <summary></summary>
@@ -70,9 +67,6 @@ namespace EamonRT.Game.Parsing
 
 		/// <summary></summary>
 		public virtual string NewCommandStr { get; set; }
-
-		/// <summary></summary>
-		public virtual string VerbToken { get; set; }
 
 		/// <summary></summary>
 		public virtual string[] Tokens { get; set; }
@@ -115,7 +109,7 @@ namespace EamonRT.Game.Parsing
 		{
 			// Disallow match of QuitCommand in the middle of a sentence using "it" (which is reserved for a pronoun)
 
-			return !(TokenCommand is IQuitCommand) || !RegexMatch.Groups[1].Value.Trim().Equals("it", StringComparison.OrdinalIgnoreCase);
+			return !(TokenCommand is IQuitCommand) || !Tokens[CurrToken + 1].Equals("it", StringComparison.OrdinalIgnoreCase);
 		}
 
 		public virtual void PrintDiscardingCommands()
@@ -135,8 +129,6 @@ namespace EamonRT.Game.Parsing
 
 			ParserInputStrList.Clear();
 
-			RegexMatch = null;
-
 			TokenCommand = null;
 
 			CurrInputStr = "";
@@ -150,8 +142,6 @@ namespace EamonRT.Game.Parsing
 			CommandFormatStr = "";
 
 			NewCommandStr = "";
-
-			VerbToken = "";
 
 			Tokens = null;
 
@@ -542,54 +532,66 @@ namespace EamonRT.Game.Parsing
 				}
 			}
 
+			OrigInputStr = InputBuf.ToString();
+
 			LastInputStr = InputBuf.ToString();
 
 			InputBuf = gEngine.NormalizePlayerInput(InputBuf);
 
-			CurrIndex = 0;
+			Tokens = InputBuf.ToString().Split(new char[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
 
-			RegexMatch = Regex.Match(InputBuf.ToString(), gEngine.SentenceRegexPattern);
-
-			while (RegexMatch.Success)
+			for (CurrToken = 0; CurrToken < Tokens.Length; CurrToken++)
 			{
-				if (RegexMatch.Groups.Count > 1 && !string.IsNullOrWhiteSpace(RegexMatch.Groups[0].Value.Trim()))
+				if (CurrToken == 0)
 				{
-					VerbToken = RegexMatch.Groups[1].Value.Trim();
+					TokenCommand = gEngine.GetCommandUsingToken(gCharMonster, Tokens[CurrToken]);
 
-					TokenCommand = !string.IsNullOrWhiteSpace(VerbToken) ? gEngine.GetCommandUsingToken(gCharMonster, VerbToken) : null;
-
-					if (TokenCommand != null && CurrIndex == 0 && gEngine.IsQuotedStringCommand(TokenCommand))
+					if (TokenCommand != null && gEngine.IsQuotedStringCommand(TokenCommand))
 					{
-						ParserInputStrList.Add(LastInputStr);
+						ParserInputStrList.Add(OrigInputStr);
 
 						goto Cleanup;
 					}
-					else if ((TokenCommand != null && (CurrIndex == 0 || IsValidTokenCommandMatch())) || ParserInputStrList.Count <= 0)
+				}
+				else if (Tokens[CurrToken] == "," && CurrToken + 1 < Tokens.Length)
+				{
+					TokenCommand = gEngine.GetCommandUsingToken(gCharMonster, Tokens[CurrToken + 1]);
+
+					if (TokenCommand != null && IsValidTokenCommandMatch())
 					{
-						ParserInputStrList.Add(RegexMatch.Groups[0].Value.Trim());
-					}
-					else
-					{
-						ParserInputStrList[ParserInputStrList.Count - 1] = string.Format("{0} , {1}", ParserInputStrList[ParserInputStrList.Count - 1], RegexMatch.Groups[0].Value.Trim());
+						CurrInputStr = string.Join(" ", Tokens.Skip((int)(StartToken)).Take((int)(CurrToken - StartToken)));
+
+						if (CurrInputStr.Length > 0)
+						{
+							ParserInputStrList.Add(CurrInputStr);
+						}
+
+						StartToken = CurrToken + 1;
 					}
 				}
+			}
 
-				CurrIndex++;
+			if (Tokens.Length > 0)
+			{
+				CurrInputStr = string.Join(" ", Tokens.Skip((int)(StartToken)).Take((int)(Tokens.Length - StartToken)));
 
-				RegexMatch = RegexMatch.NextMatch();
+				if (CurrInputStr.Length > 0)
+				{
+					ParserInputStrList.Add(CurrInputStr);
+				}
 			}
 
 			if (ParserInputStrList.Count > 1)
 			{
 				for (CurrIndex = 0; CurrIndex < ParserInputStrList.Count; CurrIndex++)
 				{
-					RegexMatch = Regex.Match(ParserInputStrList[(int)CurrIndex], gEngine.CommandVerbRegexPattern);
+					CurrInputStr = ParserInputStrList[(int)CurrIndex];
 
-					if (RegexMatch.Success && RegexMatch.Groups.Count > 1)
+					Tokens = CurrInputStr.Split(new char[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
+
+					if (Tokens.Length > 0)
 					{
-						VerbToken = RegexMatch.Groups[1].Value.Trim();
-
-						TokenCommand = !string.IsNullOrWhiteSpace(VerbToken) ? gEngine.GetCommandUsingToken(gCharMonster, VerbToken) : null;
+						TokenCommand = gEngine.GetCommandUsingToken(gCharMonster, Tokens[0]);
 
 						if (TokenCommand == null)
 						{
@@ -620,9 +622,9 @@ namespace EamonRT.Game.Parsing
 				}
 			}
 
-			if (ParserInputStrList.Count < 1 && LastInputStr.Length > 0)
+			if (ParserInputStrList.Count < 1 && OrigInputStr.Length > 0)
 			{
-				ParserInputStrList.Add(LastInputStr);
+				ParserInputStrList.Add(OrigInputStr);
 			}
 
 		Cleanup:

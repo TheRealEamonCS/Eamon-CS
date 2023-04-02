@@ -3563,12 +3563,6 @@
         <member name="P:Eamon.Framework.Plugin.IEngine.ExceptRegexPattern">
             <summary></summary>
         </member>
-        <member name="P:Eamon.Framework.Plugin.IEngine.SentenceRegexPattern">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IEngine.CommandVerbRegexPattern">
-            <summary></summary>
-        </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.CoreLibName">
             <summary></summary>
         </member>
