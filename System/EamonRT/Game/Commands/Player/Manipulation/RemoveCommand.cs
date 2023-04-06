@@ -18,12 +18,6 @@ namespace EamonRT.Game.Commands
 	[ClassMappings]
 	public class RemoveCommand : Command, IRemoveCommand
 	{
-		public long _dobjArtifactCount;
-
-		public long _dobjArtifactWeight;
-
-		public long _actorMonsterInventoryWeight;
-
 		/// <summary></summary>
 		public virtual IArtifactCategory ArmorArtifactAc { get; set; }
 
