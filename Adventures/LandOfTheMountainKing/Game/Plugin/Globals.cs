@@ -94,6 +94,14 @@ namespace LandOfTheMountainKing.Game.Plugin
 			}
 		}
 
+		public static Eamon.Framework.IRoom gCharRoom
+		{
+			get
+			{
+				return (Eamon.Framework.IRoom)EamonRT.Game.Plugin.Globals.gCharRoom;
+			}
+		}
+
 		public static LandOfTheMountainKing.Framework.ILMKKP1 gLMKKP1
 		{
 			get

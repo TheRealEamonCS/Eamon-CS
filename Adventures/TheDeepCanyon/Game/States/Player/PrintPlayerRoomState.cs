@@ -139,9 +139,16 @@ namespace TheDeepCanyon.Game.States
 				if (room.Uid == 2 && gEngine.LastCommand != null && gEngine.LastCommand.Type != CommandType.Movement && !gGameState.SquirrelRing)
 				{
 					gEngine.PrintEffectDesc(2);
-
-					ringArtifact.SetCarriedByCharacter();           // TODO: put in room if too heavy to carry
-
+					
+					if (gCharMonster.CanCarryArtifactWeight(ringArtifact))
+					{
+						ringArtifact.SetCarriedByCharacter();
+					}
+					else
+					{
+						ringArtifact.SetInRoom(gCharRoom);
+					}
+					
 					gGameState.SquirrelRing = true;
 				}
 

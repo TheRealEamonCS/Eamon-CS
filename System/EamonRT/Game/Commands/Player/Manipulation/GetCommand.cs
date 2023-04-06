@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using Eamon;
 using Eamon.Framework;
 using Eamon.Framework.Primitive.Classes;
 using Eamon.Framework.Primitive.Enums;
@@ -21,12 +20,6 @@ namespace EamonRT.Game.Commands
 	[ClassMappings]
 	public class GetCommand : Command, IGetCommand
 	{
-		public long _dobjArtifactCount;
-
-		public long _dobjArtifactWeight;
-
-		public long _actorMonsterInventoryWeight;
-
 		public bool _newlineFlag;
 
 		public virtual bool GetAll { get; set; }
@@ -54,48 +47,6 @@ namespace EamonRT.Game.Commands
 
 		/// <summary></summary>
 		public virtual ICommand RedirectCommand { get; set; }
-
-		/// <summary></summary>
-		public virtual long DobjArtifactCount
-		{
-			get
-			{
-				return _dobjArtifactCount;
-			}
-
-			set
-			{
-				_dobjArtifactCount = value;
-			}
-		}
-
-		/// <summary></summary>
-		public virtual long DobjArtifactWeight
-		{
-			get
-			{
-				return _dobjArtifactWeight;
-			}
-
-			set
-			{
-				_dobjArtifactWeight = value;
-			}
-		}
-
-		/// <summary></summary>
-		public virtual long ActorMonsterInventoryWeight
-		{
-			get
-			{
-				return _actorMonsterInventoryWeight;
-			}
-
-			set
-			{
-				_actorMonsterInventoryWeight = value;
-			}
-		}
 
 		/// <summary></summary>
 		public virtual bool OmitWeightCheck { get; set; }
@@ -218,8 +169,6 @@ namespace EamonRT.Game.Commands
 
 		public virtual void ProcessArtifact(IArtifact artifact, IArtifactCategory ac, ref bool nlFlag)
 		{
-			RetCode rc;
-
 			Debug.Assert(artifact != null);
 
 			Debug.Assert(ac != null);
@@ -236,70 +185,46 @@ namespace EamonRT.Game.Commands
 			{
 				ProcessAction(() => PrintCantVerbThat(artifact), ref nlFlag);
 			}
+			else if (ac.Type == ArtifactType.DeadBody && ac.Field1 != 1)
+			{
+				ProcessAction(() => PrintBestLeftAlone(artifact), ref nlFlag);
+			}
+			else if (!OmitWeightCheck && !ActorMonster.CanCarryArtifactWeight(artifact))
+			{
+				ProcessAction(() => PrintTooHeavy(artifact, GetAll), ref nlFlag);
+			}
+			else if (ac.Type == ArtifactType.BoundMonster)
+			{
+				ProcessAction(() => PrintMustBeFreed(artifact), ref nlFlag);
+			}
 			else
 			{
-				DobjArtifactCount = 0;
+				WeaponAffinityMonster = gEngine.GetMonsterList(m => m.IsInRoom(ActorRoom) && m.Weapon == -artifact.Uid - 1 && m != ActorMonster).FirstOrDefault();
 
-				DobjArtifactWeight = artifact.Weight;
-
-				if (artifact.GeneralContainer != null)
+				if (WeaponAffinityMonster != null)
 				{
-					rc = artifact.GetContainerInfo(ref _dobjArtifactCount, ref _dobjArtifactWeight, ContainerType.In, true);
-
-					Debug.Assert(gEngine.IsSuccess(rc));
-
-					rc = artifact.GetContainerInfo(ref _dobjArtifactCount, ref _dobjArtifactWeight, ContainerType.On, true);
-
-					Debug.Assert(gEngine.IsSuccess(rc));
-				}
-
-				ActorMonsterInventoryWeight = 0;
-
-				rc = ActorMonster.GetFullInventoryWeight(ref _actorMonsterInventoryWeight, recurse: true);
-
-				Debug.Assert(gEngine.IsSuccess(rc));
-
-				if (ac.Type == ArtifactType.DeadBody && ac.Field1 != 1)
-				{
-					ProcessAction(() => PrintBestLeftAlone(artifact), ref nlFlag);
-				}
-				else if (!OmitWeightCheck && (DobjArtifactWeight + ActorMonsterInventoryWeight > ActorMonster.GetWeightCarryableGronds()))
-				{
-					ProcessAction(() => PrintTooHeavy(artifact, GetAll), ref nlFlag);
-				}
-				else if (ac.Type == ArtifactType.BoundMonster)
-				{
-					ProcessAction(() => PrintMustBeFreed(artifact), ref nlFlag);
+					ProcessAction(() => PrintObjBelongsToActor(artifact, WeaponAffinityMonster), ref nlFlag);
 				}
 				else
 				{
-					WeaponAffinityMonster = gEngine.GetMonsterList(m => m.IsInRoom(ActorRoom) && m.Weapon == -artifact.Uid - 1 && m != ActorMonster).FirstOrDefault();
+					IsCarriedByContainer = artifact.IsCarriedByContainer();
 
-					if (WeaponAffinityMonster != null)
+					artifact.SetCarriedByCharacter();
+
+					if (NextState is IRequestCommand)
 					{
-						ProcessAction(() => PrintObjBelongsToActor(artifact, WeaponAffinityMonster), ref nlFlag);
+						PrintReceived(artifact);
+					}
+					else if (NextState is IRemoveCommand || IsCarriedByContainer)
+					{
+						PrintRetrieved(artifact);
 					}
 					else
 					{
-						IsCarriedByContainer = artifact.IsCarriedByContainer();
-
-						artifact.SetCarriedByCharacter();
-
-						if (NextState is IRequestCommand)
-						{
-							PrintReceived(artifact);
-						}
-						else if (NextState is IRemoveCommand || IsCarriedByContainer)
-						{
-							PrintRetrieved(artifact);
-						}
-						else
-						{
-							PrintTaken(artifact, GetAll);
-						}
-
-						nlFlag = true;
+						PrintTaken(artifact, GetAll);
 					}
+
+					nlFlag = true;
 				}
 			}
 		}

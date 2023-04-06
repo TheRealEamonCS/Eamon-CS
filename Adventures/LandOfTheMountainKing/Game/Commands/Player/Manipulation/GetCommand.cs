@@ -53,7 +53,14 @@ namespace LandOfTheMountainKing.Game.Commands
 				{
 					var effect = gEDB[22];
 					ProcessAction(() => gOut.Print("{0}", effect.Desc), ref nlFlag);
-					SilverSword.SetCarriedByCharacter();			// TODO: put silver sword in Room if its too heavy to be carried
+					if (ActorMonster.CanCarryArtifactWeight(SilverSword))
+					{
+						SilverSword.SetCarriedByCharacter();
+					}
+					else
+					{
+						SilverSword.SetInRoom(ActorRoom);
+					}
 					artifact.SetInLimbo();
 					if (ActorMonster.Weapon <= 0 && SilverSword.IsCarriedByCharacter())
 					{

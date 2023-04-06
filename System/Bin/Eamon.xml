@@ -2789,6 +2789,11 @@
             </remarks>
             <returns>If so then <c>true</c>, otherwise <c>false</c>.</returns>
         </member>
+        <member name="M:Eamon.Framework.IMonster.CanCarryArtifactWeight(Eamon.Framework.IArtifact)">
+            <summary></summary>
+            <param name="artifact"></param>
+            <returns></returns>
+        </member>
         <member name="M:Eamon.Framework.IMonster.GetCarryingWeaponUid">
             <summary></summary>
             <returns></returns>
