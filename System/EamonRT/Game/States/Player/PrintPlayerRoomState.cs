@@ -15,8 +15,6 @@ namespace EamonRT.Game.States
 	[ClassMappings]
 	public class PrintPlayerRoomState : State, IPrintPlayerRoomState
 	{
-		public virtual IRoom CurrRoom { get; set; }
-
 		public override void Execute()
 		{
 			Debug.Assert(gCharMonster != null);
@@ -28,15 +26,20 @@ namespace EamonRT.Game.States
 				goto Cleanup;
 			}
 
-			CurrRoom = gCharMonster.GetInRoom();
-
-			Debug.Assert(CurrRoom != null);
+			Debug.Assert(gCharRoom != null);
 
 			// If room is dark or we've run out of player input print player Room
 
-			if ((!CurrRoom.IsLit() && (gEngine.LastCommand == null || !gEngine.LastCommand.IsDarkEnabled)) || gSentenceParser.IsInputExhausted)
+			if ((!gCharRoom.IsLit() && (gEngine.LastCommand == null || !gEngine.LastCommand.IsDarkEnabled)) || gSentenceParser.IsInputExhausted)
 			{
-				gEngine.PrintPlayerRoom(CurrRoom);
+				gEngine.PrintPlayerRoom(gCharRoom);
+			}
+
+			ProcessEvents(EventType.AfterPrintPlayerRoom);
+
+			if (GotoCleanup)
+			{
+				goto Cleanup;
 			}
 
 		Cleanup:

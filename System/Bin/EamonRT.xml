@@ -2501,6 +2501,11 @@
             An event that fires before the player's <see cref="T:Eamon.Framework.IRoom">Room</see> is printed.
             </summary>
         </member>
+        <member name="F:EamonRT.Framework.Primitive.Enums.EventType.AfterPrintPlayerRoom">
+            <summary>
+            An event that fires after the player's <see cref="T:Eamon.Framework.IRoom">Room</see> is printed.
+            </summary>
+        </member>
         <member name="F:EamonRT.Framework.Primitive.Enums.EventType.AfterClearLastCommandList">
             <summary>
             An event that fires after the player's command is processed (but not executed)

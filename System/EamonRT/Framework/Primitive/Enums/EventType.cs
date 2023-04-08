@@ -61,6 +61,11 @@ namespace EamonRT.Framework.Primitive.Enums
 		BeforePrintPlayerRoom,
 
 		/// <summary>
+		/// An event that fires after the player's <see cref="IRoom">Room</see> is printed.
+		/// </summary>
+		AfterPrintPlayerRoom,
+
+		/// <summary>
 		/// An event that fires after the player's command is processed (but not executed)
 		/// and the <see cref="IEngine.LastCommandList">LastCommandList</see> cleared.
 		/// </summary>
