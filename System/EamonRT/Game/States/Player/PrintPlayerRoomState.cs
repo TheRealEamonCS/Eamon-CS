@@ -19,14 +19,14 @@ namespace EamonRT.Game.States
 		{
 			Debug.Assert(gCharMonster != null);
 
+			Debug.Assert(gCharRoom != null);
+
 			ProcessEvents(EventType.BeforePrintPlayerRoom);
 
 			if (GotoCleanup)
 			{
 				goto Cleanup;
 			}
-
-			Debug.Assert(gCharRoom != null);
 
 			// If room is dark or we've run out of player input print player Room
 
