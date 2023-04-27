@@ -11,6 +11,14 @@ namespace Eamon.Mobile.ViewModels
 {
 	public class AboutViewModel : BaseViewModel
 	{
+		public string BuildGuid
+		{
+			get
+			{
+				return App.GetBuildGuid();
+			}
+		}
+
 		public AboutViewModel()
 		{
 			Title = "About";

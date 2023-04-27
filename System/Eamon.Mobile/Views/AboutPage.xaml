@@ -33,7 +33,18 @@
           </Label.FormattedText>
         </Label>
 
-			<Label 
+				<Label FontSize="Micro" TextColor="{StaticResource LightTextColor}">
+					<Label.FormattedText>
+						<FormattedString>
+							<FormattedString.Spans>
+								<Span Text="BuildGuid: " />
+								<Span Text="{Binding BuildGuid, Mode=TwoWay}" />
+							</FormattedString.Spans>
+						</FormattedString>
+					</Label.FormattedText>
+				</Label>
+
+				<Label 
 				FontSize="Micro" 
 				TextColor="{StaticResource LightTextColor}"
 				Text="Copyright (c) 2014+ by Michael Penner.  All rights reserved." />
