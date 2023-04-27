@@ -3171,6 +3171,8 @@ namespace EamonRT.Game.Plugin
 
 			buf = buf.Replace(" from in ", " fromin ");
 
+			buf = buf.Replace(" outside ", " out ");
+			
 			buf = buf.Replace(" on to ", " onto ");
 
 			buf = buf.Replace(" on top of ", " on ");
