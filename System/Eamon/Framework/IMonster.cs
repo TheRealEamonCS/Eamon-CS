@@ -237,6 +237,11 @@ namespace Eamon.Framework
 		bool CanAttackWithMultipleWeapons();
 
 		/// <summary></summary>
+		/// <param name="artifact"></param>
+		/// <returns></returns>
+		bool CanCarryArtifactWeight(IArtifact artifact);
+
+		/// <summary></summary>
 		/// <returns></returns>
 		long GetCarryingWeaponUid();
 

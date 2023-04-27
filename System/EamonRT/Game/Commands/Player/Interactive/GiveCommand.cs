@@ -18,12 +18,6 @@ namespace EamonRT.Game.Commands
 	[ClassMappings]
 	public class GiveCommand : Command, IGiveCommand
 	{
-		public long _dobjArtifactCount;
-
-		public long _dobjArtifactWeight;
-
-		public long _iobjMonsterInventoryWeight;
-
 		public virtual long GoldAmount { get; set; }
 
 		/// <summary></summary>
@@ -31,48 +25,6 @@ namespace EamonRT.Game.Commands
 
 		/// <summary></summary>
 		public virtual string IobjMonsterName { get; set; }
-
-		/// <summary></summary>
-		public virtual long DobjArtifactCount
-		{
-			get
-			{
-				return _dobjArtifactCount;
-			}
-
-			set
-			{
-				_dobjArtifactCount = value;
-			}
-		}
-
-		/// <summary></summary>
-		public virtual long DobjArtifactWeight
-		{
-			get
-			{
-				return _dobjArtifactWeight;
-			}
-
-			set
-			{
-				_dobjArtifactWeight = value;
-			}
-		}
-
-		/// <summary></summary>
-		public virtual long IobjMonsterInventoryWeight
-		{
-			get
-			{
-				return _iobjMonsterInventoryWeight;
-			}
-
-			set
-			{
-				_iobjMonsterInventoryWeight = value;
-			}
-		}
 
 		/// <summary></summary>
 		public virtual bool ObjOpened { get; set; }
@@ -194,35 +146,11 @@ namespace EamonRT.Game.Commands
 				goto Cleanup;
 			}
 
-			DobjArtifactCount = 0;
-
-			DobjArtifactWeight = DobjArtifact.Weight;
-
-			if (DobjArtifact.GeneralContainer != null)
+			if (gEngine.EnforceMonsterWeightLimits && !IobjMonster.CanCarryArtifactWeight(DobjArtifact))
 			{
-				rc = DobjArtifact.GetContainerInfo(ref _dobjArtifactCount, ref _dobjArtifactWeight, ContainerType.In, true);
+				PrintTooHeavy(DobjArtifact);
 
-				Debug.Assert(gEngine.IsSuccess(rc));
-
-				rc = DobjArtifact.GetContainerInfo(ref _dobjArtifactCount, ref _dobjArtifactWeight, ContainerType.On, true);
-
-				Debug.Assert(gEngine.IsSuccess(rc));
-			}
-
-			if (gEngine.EnforceMonsterWeightLimits)
-			{
-				IobjMonsterInventoryWeight = 0;
-
-				rc = IobjMonster.GetFullInventoryWeight(ref _iobjMonsterInventoryWeight, recurse: true);
-
-				Debug.Assert(gEngine.IsSuccess(rc));
-
-				if (DobjArtifactWeight > IobjMonster.GetWeightCarryableGronds() || DobjArtifactWeight + IobjMonsterInventoryWeight > IobjMonster.GetWeightCarryableGronds() * IobjMonster.CurrGroupCount)
-				{
-					PrintTooHeavy(DobjArtifact);
-
-					goto Cleanup;
-				}
+				goto Cleanup;
 			}
 
 			ProcessEvents(EventType.AfterEnforceMonsterWeightLimitsCheck);

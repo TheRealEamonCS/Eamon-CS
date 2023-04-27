@@ -2501,6 +2501,11 @@
             An event that fires before the player's <see cref="T:Eamon.Framework.IRoom">Room</see> is printed.
             </summary>
         </member>
+        <member name="F:EamonRT.Framework.Primitive.Enums.EventType.AfterPrintPlayerRoom">
+            <summary>
+            An event that fires after the player's <see cref="T:Eamon.Framework.IRoom">Room</see> is printed.
+            </summary>
+        </member>
         <member name="F:EamonRT.Framework.Primitive.Enums.EventType.AfterClearLastCommandList">
             <summary>
             An event that fires after the player's command is processed (but not executed)
@@ -3044,15 +3049,6 @@
         <member name="P:EamonRT.Game.Commands.MonsterGetCommand.DobjArtAc">
             <summary></summary>
         </member>
-        <member name="P:EamonRT.Game.Commands.MonsterGetCommand.DobjArtifactCount">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Game.Commands.MonsterGetCommand.DobjArtifactWeight">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Game.Commands.MonsterGetCommand.ActorMonsterInventoryWeight">
-            <summary></summary>
-        </member>
         <member name="P:EamonRT.Game.Commands.MonsterGetCommand.OmitWeightCheck">
             <summary></summary>
         </member>
@@ -3069,15 +3065,6 @@
             <summary></summary>
         </member>
         <member name="P:EamonRT.Game.Commands.MonsterRemoveCommand.MonsterName">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Game.Commands.MonsterRemoveCommand.DobjArtifactCount">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Game.Commands.MonsterRemoveCommand.DobjArtifactWeight">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Game.Commands.MonsterRemoveCommand.ActorMonsterInventoryWeight">
             <summary></summary>
         </member>
         <member name="P:EamonRT.Game.Commands.MonsterRemoveCommand.OmitWeightCheck">
@@ -3123,15 +3110,6 @@
             <summary></summary>
         </member>
         <member name="P:EamonRT.Game.Commands.GiveCommand.IobjMonsterName">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Game.Commands.GiveCommand.DobjArtifactCount">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Game.Commands.GiveCommand.DobjArtifactWeight">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Game.Commands.GiveCommand.IobjMonsterInventoryWeight">
             <summary></summary>
         </member>
         <member name="P:EamonRT.Game.Commands.GiveCommand.ObjOpened">
@@ -3240,15 +3218,6 @@
             <summary></summary>
         </member>
         <member name="P:EamonRT.Game.Commands.GetCommand.RedirectCommand">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Game.Commands.GetCommand.DobjArtifactCount">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Game.Commands.GetCommand.DobjArtifactWeight">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Game.Commands.GetCommand.ActorMonsterInventoryWeight">
             <summary></summary>
         </member>
         <member name="P:EamonRT.Game.Commands.GetCommand.OmitWeightCheck">

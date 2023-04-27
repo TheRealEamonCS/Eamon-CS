@@ -474,6 +474,47 @@ namespace Eamon.Game
 			return false;
 		}
 
+		public virtual bool CanCarryArtifactWeight(IArtifact artifact)
+		{
+			RetCode rc;
+
+			Debug.Assert(artifact != null);
+
+			var result = false;
+
+			var c = 0L;
+
+			var w = artifact.Weight;
+
+			if (artifact.GeneralContainer != null)
+			{
+				rc = artifact.GetContainerInfo(ref c, ref w, ContainerType.In, true);
+
+				Debug.Assert(gEngine.IsSuccess(rc));
+
+				rc = artifact.GetContainerInfo(ref c, ref w, ContainerType.On, true);
+
+				Debug.Assert(gEngine.IsSuccess(rc));
+			}
+
+			var monWeight = 0L;
+
+			rc = GetFullInventoryWeight(ref monWeight, recurse: true);
+
+			Debug.Assert(gEngine.IsSuccess(rc));
+
+			if (IsCharacterMonster())
+			{
+				result = w + monWeight <= GetWeightCarryableGronds();
+			}
+			else
+			{
+				result = w <= GetWeightCarryableGronds() && w + monWeight <= GetWeightCarryableGronds() * CurrGroupCount;
+			}
+
+			return result;
+		}
+
 		public virtual long GetCarryingWeaponUid()
 		{
 			return IsCarryingWeapon() ? Weapon : 0;

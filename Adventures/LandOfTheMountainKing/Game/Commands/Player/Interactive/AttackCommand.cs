@@ -29,7 +29,14 @@ namespace LandOfTheMountainKing.Game.Commands
 
 				gOut.Print("Around his neck you find a necklace, which you take.");
 
-				necklaceArtifact.SetCarriedByCharacter();			// TODO: put necklace in Room if its too heavy to be carried
+				if (ActorMonster.CanCarryArtifactWeight(necklaceArtifact))
+				{
+					necklaceArtifact.SetCarriedByCharacter();
+				}
+				else
+				{
+					necklaceArtifact.SetInRoom(ActorRoom);
+				}
 			}
 			else
 			{

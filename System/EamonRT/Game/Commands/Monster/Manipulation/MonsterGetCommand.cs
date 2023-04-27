@@ -5,7 +5,6 @@
 
 using System.Collections.Generic;
 using System.Diagnostics;
-using Eamon;
 using Eamon.Framework;
 using Eamon.Framework.Primitive.Classes;
 using Eamon.Framework.Primitive.Enums;
@@ -19,12 +18,6 @@ namespace EamonRT.Game.Commands
 	[ClassMappings]
 	public class MonsterGetCommand : Command, IMonsterGetCommand
 	{
-		public long _dobjArtifactCount;
-
-		public long _dobjArtifactWeight;
-
-		public long _actorMonsterInventoryWeight;
-
 		/// <summary></summary>
 		public virtual ArtifactType[] ArtTypes { get; set; }
 
@@ -35,54 +28,10 @@ namespace EamonRT.Game.Commands
 		public virtual IArtifactCategory DobjArtAc { get; set; }
 
 		/// <summary></summary>
-		public virtual long DobjArtifactCount
-		{
-			get
-			{
-				return _dobjArtifactCount;
-			}
-
-			set
-			{
-				_dobjArtifactCount = value;
-			}
-		}
-
-		/// <summary></summary>
-		public virtual long DobjArtifactWeight
-		{
-			get
-			{
-				return _dobjArtifactWeight;
-			}
-
-			set
-			{
-				_dobjArtifactWeight = value;
-			}
-		}
-
-		/// <summary></summary>
-		public virtual long ActorMonsterInventoryWeight
-		{
-			get
-			{
-				return _actorMonsterInventoryWeight;
-			}
-
-			set
-			{
-				_actorMonsterInventoryWeight = value;
-			}
-		}
-
-		/// <summary></summary>
 		public virtual bool OmitWeightCheck { get; set; }
 
 		public override void Execute()
 		{
-			RetCode rc;
-
 			Debug.Assert(DobjArtifact != null);
 
 			ArtTypes = new ArtifactType[] { ArtifactType.DisguisedMonster, ArtifactType.DeadBody, ArtifactType.BoundMonster, ArtifactType.Weapon, ArtifactType.MagicWeapon };
@@ -98,28 +47,7 @@ namespace EamonRT.Game.Commands
 			{
 				OmitWeightCheck = DobjArtifact.IsCarriedByMonster(ActorMonster, true);
 
-				DobjArtifactCount = 0;
-
-				DobjArtifactWeight = DobjArtifact.Weight;
-
-				if (DobjArtifact.GeneralContainer != null)
-				{
-					rc = DobjArtifact.GetContainerInfo(ref _dobjArtifactCount, ref _dobjArtifactWeight, ContainerType.In, true);
-
-					Debug.Assert(gEngine.IsSuccess(rc));
-
-					rc = DobjArtifact.GetContainerInfo(ref _dobjArtifactCount, ref _dobjArtifactWeight, ContainerType.On, true);
-
-					Debug.Assert(gEngine.IsSuccess(rc));
-				}
-
-				ActorMonsterInventoryWeight = 0;
-
-				rc = ActorMonster.GetFullInventoryWeight(ref _actorMonsterInventoryWeight, recurse: true);
-
-				Debug.Assert(gEngine.IsSuccess(rc));
-
-				if (!gEngine.EnforceMonsterWeightLimits || OmitWeightCheck || (DobjArtifactWeight <= ActorMonster.GetWeightCarryableGronds() && DobjArtifactWeight + ActorMonsterInventoryWeight <= ActorMonster.GetWeightCarryableGronds() * ActorMonster.CurrGroupCount))
+				if (!gEngine.EnforceMonsterWeightLimits || OmitWeightCheck || ActorMonster.CanCarryArtifactWeight(DobjArtifact))
 				{
 					DobjArtifact.SetCarriedByMonster(ActorMonster);
 

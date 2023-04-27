@@ -33,7 +33,14 @@ namespace LandOfTheMountainKing.Game
 
 				if (gLMKKP1.NecklaceTaken == 0)
 				{
-					Necklace.SetCarriedByCharacter();			// TODO: put necklace in Room if its too heavy to be carried
+					if (gCharMonster.CanCarryArtifactWeight(Necklace))
+					{
+						Necklace.SetCarriedByCharacter();
+					}
+					else
+					{
+						Necklace.SetInRoom(gCharRoom);
+					}
 
 					gLMKKP1.NecklaceTaken = 1;
 				}
