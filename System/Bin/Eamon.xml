@@ -1223,9 +1223,10 @@
             <param name="recurse"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IArtifact.IsCarriedByMonster(System.Boolean)">
+        <member name="M:Eamon.Framework.IArtifact.IsCarriedByMonster(System.Boolean,System.Boolean)">
             <summary></summary>
             <param name="recurse"></param>
+            <param name="includeCharacter"></param>
             <returns></returns>
         </member>
         <member name="M:Eamon.Framework.IArtifact.IsCarriedByContainer">
@@ -1237,9 +1238,10 @@
             <param name="recurse"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IArtifact.IsWornByMonster(System.Boolean)">
+        <member name="M:Eamon.Framework.IArtifact.IsWornByMonster(System.Boolean,System.Boolean)">
             <summary></summary>
             <param name="recurse"></param>
+            <param name="includeCharacter"></param>
             <returns></returns>
         </member>
         <member name="M:Eamon.Framework.IArtifact.IsReadyableByCharacter">
@@ -1271,10 +1273,11 @@
             <param name="recurse"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IArtifact.IsCarriedByMonsterUid(System.Int64,System.Boolean)">
+        <member name="M:Eamon.Framework.IArtifact.IsCarriedByMonsterUid(System.Int64,System.Boolean,System.Boolean)">
             <summary></summary>
             <param name="monsterUid"></param>
             <param name="recurse"></param>
+            <param name="includeCharacter"></param>
             <returns></returns>
         </member>
         <member name="M:Eamon.Framework.IArtifact.IsCarriedByContainerUid(System.Int64,System.Boolean)">
@@ -1283,10 +1286,11 @@
             <param name="recurse"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IArtifact.IsWornByMonsterUid(System.Int64,System.Boolean)">
+        <member name="M:Eamon.Framework.IArtifact.IsWornByMonsterUid(System.Int64,System.Boolean,System.Boolean)">
             <summary></summary>
             <param name="monsterUid"></param>
             <param name="recurse"></param>
+            <param name="includeCharacter"></param>
             <returns></returns>
         </member>
         <member name="M:Eamon.Framework.IArtifact.IsReadyableByMonsterUid(System.Int64)">
@@ -1311,10 +1315,11 @@
             <param name="recurse"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IArtifact.IsCarriedByContainerContainerTypeExposedToMonsterUid(System.Int64,System.Boolean)">
+        <member name="M:Eamon.Framework.IArtifact.IsCarriedByContainerContainerTypeExposedToMonsterUid(System.Int64,System.Boolean,System.Boolean)">
             <summary></summary>
             <param name="monsterUid"></param>
             <param name="recurse"></param>
+            <param name="includeCharacter"></param>
             <returns></returns>
         </member>
         <member name="M:Eamon.Framework.IArtifact.IsCarriedByContainerContainerTypeExposedToRoomUid(System.Int64,System.Boolean)">
@@ -1323,10 +1328,11 @@
             <param name="recurse"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IArtifact.IsCarriedByMonster(Eamon.Framework.IMonster,System.Boolean)">
+        <member name="M:Eamon.Framework.IArtifact.IsCarriedByMonster(Eamon.Framework.IMonster,System.Boolean,System.Boolean)">
             <summary></summary>
             <param name="monster"></param>
             <param name="recurse"></param>
+            <param name="includeCharacter"></param>
             <returns></returns>
         </member>
         <member name="M:Eamon.Framework.IArtifact.IsCarriedByContainer(Eamon.Framework.IArtifact,System.Boolean)">
@@ -1335,10 +1341,11 @@
             <param name="recurse"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IArtifact.IsWornByMonster(Eamon.Framework.IMonster,System.Boolean)">
+        <member name="M:Eamon.Framework.IArtifact.IsWornByMonster(Eamon.Framework.IMonster,System.Boolean,System.Boolean)">
             <summary></summary>
             <param name="monster"></param>
             <param name="recurse"></param>
+            <param name="includeCharacter"></param>
             <returns></returns>
         </member>
         <member name="M:Eamon.Framework.IArtifact.IsReadyableByMonster(Eamon.Framework.IMonster)">
@@ -1370,9 +1377,10 @@
             <param name="recurse"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IArtifact.GetCarriedByMonsterUid(System.Boolean)">
+        <member name="M:Eamon.Framework.IArtifact.GetCarriedByMonsterUid(System.Boolean,System.Boolean)">
             <summary></summary>
             <param name="recurse"></param>
+            <param name="includeCharacter"></param>
             <returns></returns>
         </member>
         <member name="M:Eamon.Framework.IArtifact.GetCarriedByContainerUid(System.Boolean)">
@@ -1380,9 +1388,10 @@
             <param name="recurse"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IArtifact.GetWornByMonsterUid(System.Boolean)">
+        <member name="M:Eamon.Framework.IArtifact.GetWornByMonsterUid(System.Boolean,System.Boolean)">
             <summary></summary>
             <param name="recurse"></param>
+            <param name="includeCharacter"></param>
             <returns></returns>
         </member>
         <member name="M:Eamon.Framework.IArtifact.GetInRoomUid(System.Boolean)">
@@ -1395,9 +1404,10 @@
             <param name="recurse"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IArtifact.GetCarriedByMonster(System.Boolean)">
+        <member name="M:Eamon.Framework.IArtifact.GetCarriedByMonster(System.Boolean,System.Boolean)">
             <summary></summary>
             <param name="recurse"></param>
+            <param name="includeCharacter"></param>
             <returns></returns>
         </member>
         <member name="M:Eamon.Framework.IArtifact.GetCarriedByContainer(System.Boolean)">
@@ -1405,9 +1415,10 @@
             <param name="recurse"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IArtifact.GetWornByMonster(System.Boolean)">
+        <member name="M:Eamon.Framework.IArtifact.GetWornByMonster(System.Boolean,System.Boolean)">
             <summary></summary>
             <param name="recurse"></param>
+            <param name="includeCharacter"></param>
             <returns></returns>
         </member>
         <member name="M:Eamon.Framework.IArtifact.GetInRoom(System.Boolean)">
@@ -1427,9 +1438,10 @@
         <member name="M:Eamon.Framework.IArtifact.SetCarriedByCharacter">
             <summary></summary>
         </member>
-        <member name="M:Eamon.Framework.IArtifact.SetCarriedByMonsterUid(System.Int64)">
+        <member name="M:Eamon.Framework.IArtifact.SetCarriedByMonsterUid(System.Int64,System.Boolean)">
             <summary></summary>
             <param name="monsterUid"></param>
+            <param name="includeCharacter"></param>
         </member>
         <member name="M:Eamon.Framework.IArtifact.SetCarriedByContainerUid(System.Int64,Eamon.Framework.Primitive.Enums.ContainerType)">
             <summary></summary>
@@ -1439,9 +1451,10 @@
         <member name="M:Eamon.Framework.IArtifact.SetWornByCharacter">
             <summary></summary>
         </member>
-        <member name="M:Eamon.Framework.IArtifact.SetWornByMonsterUid(System.Int64)">
+        <member name="M:Eamon.Framework.IArtifact.SetWornByMonsterUid(System.Int64,System.Boolean)">
             <summary></summary>
             <param name="monsterUid"></param>
+            <param name="includeCharacter"></param>
         </member>
         <member name="M:Eamon.Framework.IArtifact.SetInRoomUid(System.Int64)">
             <summary></summary>
