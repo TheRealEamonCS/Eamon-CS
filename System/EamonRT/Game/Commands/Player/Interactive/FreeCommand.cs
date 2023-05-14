@@ -96,7 +96,7 @@ namespace EamonRT.Game.Commands
 				goto Cleanup;
 			}
 
-			if (KeyArtifact != null && !KeyArtifact.IsCarriedByCharacter() && !KeyArtifact.IsWornByCharacter() && !KeyArtifact.IsInRoom(ActorRoom))
+			if (KeyArtifact != null && !KeyArtifact.IsCarriedByMonster(ActorMonster) && !KeyArtifact.IsWornByMonster(ActorMonster) && !KeyArtifact.IsInRoom(ActorRoom))
 			{
 				PrintDontHaveTheKey();
 

@@ -90,7 +90,7 @@ namespace ARuncibleCargo.Game.Commands
 						goto Cleanup;
 					}
 
-					if (!cargoArtifact.IsInRoom(ActorRoom) && !cargoArtifact.IsCarriedByCharacter())
+					if (!cargoArtifact.IsInRoom(ActorRoom) && !cargoArtifact.IsCarriedByMonster(ActorMonster))
 					{
 						gEngine.PrintEffectDesc(107);
 

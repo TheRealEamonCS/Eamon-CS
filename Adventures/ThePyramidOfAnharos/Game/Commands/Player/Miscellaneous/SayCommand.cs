@@ -51,7 +51,7 @@ namespace ThePyramidOfAnharos.Game.Commands
 
 				// Carpet
 
-				else if (ProcessedPhrase.Equals("soar with alaxar", StringComparison.OrdinalIgnoreCase) && carpetArtifact.IsCarriedByCharacter())
+				else if (ProcessedPhrase.Equals("soar with alaxar", StringComparison.OrdinalIgnoreCase) && carpetArtifact.IsCarriedByMonster(ActorMonster))
 				{
 					gEngine.PrintEffectDesc(14);
 

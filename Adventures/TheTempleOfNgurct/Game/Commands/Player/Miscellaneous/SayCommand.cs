@@ -28,7 +28,7 @@ namespace TheTempleOfNgurct.Game.Commands
 
 				Debug.Assert(medallionArtifact != null);
 
-				if (medallionArtifact.IsCarriedByCharacter() || medallionArtifact.IsInRoom(ActorRoom))
+				if (medallionArtifact.IsCarriedByMonster(ActorMonster) || medallionArtifact.IsInRoom(ActorRoom))
 				{
 					var alkandaMonster = gMDB[56];
 

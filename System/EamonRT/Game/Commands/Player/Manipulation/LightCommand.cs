@@ -34,7 +34,7 @@ namespace EamonRT.Game.Commands
 
 			if (DobjArtAc == null)
 			{
-				if (ActorMonster.IsInRoomLit() || DobjArtifact.IsCarriedByCharacter())
+				if (ActorMonster.IsInRoomLit() || DobjArtifact.IsCarriedByMonster(ActorMonster))
 				{
 					PrintCantVerbObj(DobjArtifact);
 				}
@@ -46,7 +46,7 @@ namespace EamonRT.Game.Commands
 
 			if (!DobjArtifact.IsUnmovable())
 			{
-				if (!DobjArtifact.IsCarriedByCharacter())
+				if (!DobjArtifact.IsCarriedByMonster(ActorMonster))
 				{
 					if (!ShouldAllowRedirectToGetCommand())
 					{

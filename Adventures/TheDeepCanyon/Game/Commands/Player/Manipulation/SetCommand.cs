@@ -36,7 +36,7 @@ namespace TheDeepCanyon.Game.Commands
 
 					NextState = gEngine.CreateInstance<IStartState>();
 				}
-				else if (!cheeseArtifact.IsCarriedByCharacter() && !cheeseArtifact.IsInRoom(ActorRoom))
+				else if (!cheeseArtifact.IsCarriedByMonster(ActorMonster) && !cheeseArtifact.IsInRoom(ActorRoom))
 				{
 					gOut.Print("You have no bait.");
 
@@ -53,7 +53,7 @@ namespace TheDeepCanyon.Game.Commands
 
 					if (!mouseArtifact.IsInLimbo())
 					{
-						if (mouseArtifact.IsCarriedByCharacter() || mouseArtifact.IsCarriedByContainer(DobjArtifact) || mouseArtifact.IsInRoom(ActorRoom))
+						if (mouseArtifact.IsCarriedByMonster(ActorMonster) || mouseArtifact.IsCarriedByContainer(DobjArtifact) || mouseArtifact.IsInRoom(ActorRoom))
 						{
 							gOut.Print("The mouse escapes as you set the trap.");
 						}

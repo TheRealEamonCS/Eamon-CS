@@ -223,7 +223,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.Commands
 
 								goldNuggetsArtifact.Weight += (goldNuggetCount * 2);
 
-								if (!goldNuggetsArtifact.IsCarriedByCharacter() /* || goldNuggetsArtifact too heavy to carry */)      // TODO: implement
+								if (!goldNuggetsArtifact.IsCarriedByMonster(ActorMonster) /* || goldNuggetsArtifact too heavy to carry */)      // TODO: implement
 								{
 									goldNuggetsArtifact.SetInRoom(ActorRoom);
 								}

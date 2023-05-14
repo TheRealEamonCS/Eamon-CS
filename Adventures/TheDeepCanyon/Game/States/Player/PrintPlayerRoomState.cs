@@ -142,7 +142,7 @@ namespace TheDeepCanyon.Game.States
 					
 					if (gCharMonster.CanCarryArtifactWeight(ringArtifact))
 					{
-						ringArtifact.SetCarriedByCharacter();
+						ringArtifact.SetCarriedByMonster(gCharMonster);
 					}
 					else
 					{

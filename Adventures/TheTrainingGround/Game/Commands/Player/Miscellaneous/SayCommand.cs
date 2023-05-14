@@ -27,7 +27,7 @@ namespace TheTrainingGround.Game.Commands
 
 				var magicWordsSpoken = ProcessedPhrase.Equals("thor", StringComparison.OrdinalIgnoreCase) || ProcessedPhrase.Equals("thor's hammer", StringComparison.OrdinalIgnoreCase);
 
-				var hammerPresent = hammerArtifact.IsCarriedByCharacter() || hammerArtifact.IsInRoom(ActorRoom);
+				var hammerPresent = hammerArtifact.IsCarriedByMonster(ActorMonster) || hammerArtifact.IsInRoom(ActorRoom);
 
 				// Hammer of Thor
 

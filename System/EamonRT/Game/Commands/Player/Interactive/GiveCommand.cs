@@ -108,7 +108,7 @@ namespace EamonRT.Game.Commands
 				goto Cleanup;
 			}
 
-			if (DobjArtifact.IsWornByCharacter())
+			if (DobjArtifact.IsWornByMonster(ActorMonster))
 			{
 				PrintWearingRemoveFirst(DobjArtifact);
 
@@ -117,7 +117,7 @@ namespace EamonRT.Game.Commands
 				goto Cleanup;
 			}
 
-			if (!DobjArtifact.IsCarriedByCharacter())
+			if (!DobjArtifact.IsCarriedByMonster(ActorMonster))
 			{
 				if (!ShouldAllowRedirectToGetCommand())
 				{

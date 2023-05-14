@@ -35,7 +35,7 @@ namespace TheVileGrimoireOfJaldial.Game
 
 			Debug.Assert(parchmentArtifact != null);
 
-			var carryingParchment = parchmentArtifact.IsCarriedByCharacter();
+			var carryingParchment = parchmentArtifact.IsCarriedByMonster(gCharMonster);
 
 			parchmentArtifact.SetInLimbo();
 
@@ -47,7 +47,7 @@ namespace TheVileGrimoireOfJaldial.Game
 
 			gOut.Print("After exploring the graveyard for {0} day{1}, {2} hour{3}, and {4} minute{5} you finally head homeward.", gGameState.Day, gGameState.Day != 1 ? "s" : "", hour, hour != 1 ? "s" : "", minute, minute != 1 ? "s" : "");
 
-			if (grimoireArtifact.IsCarriedByCharacter())
+			if (grimoireArtifact.IsCarriedByMonster(gCharMonster))
 			{
 				var reward = (gCharacter.GetStat(Stat.Charisma) * grimoireArtifact.Value) / 10;
 
@@ -69,7 +69,7 @@ namespace TheVileGrimoireOfJaldial.Game
 
 				grimoireArtifact.SetInLimbo();
 			}
-			else if (leatherBoundBookArtifact.IsCarriedByCharacter())
+			else if (leatherBoundBookArtifact.IsCarriedByMonster(gCharMonster))
 			{
 				gEngine.PrintEffectDesc(164);
 
@@ -114,7 +114,7 @@ namespace TheVileGrimoireOfJaldial.Game
 
 			Debug.Assert(cloakArtifact != null);
 
-			if (armorArtifact != null && armorArtifact.Uid != 19 && cloakArtifact.IsWornByCharacter())
+			if (armorArtifact != null && armorArtifact.Uid != 19 && cloakArtifact.IsWornByMonster(gCharMonster))
 			{
 				if (armorArtifact.Desc.Length + cloakArtifact.Desc.Length + 2 <= gEngine.ArtDescLen)
 				{
@@ -130,7 +130,7 @@ namespace TheVileGrimoireOfJaldial.Game
 
 			Debug.Assert(gauntletsArtifact != null);
 
-			if (gauntletsArtifact.IsWornByCharacter())
+			if (gauntletsArtifact.IsWornByMonster(gCharMonster))
 			{
 				if (armorArtifact != null && armorArtifact.Desc.Length + gauntletsArtifact.Desc.Length + 2 <= gEngine.ArtDescLen)
 				{

@@ -31,7 +31,7 @@ namespace LandOfTheMountainKing.Game.Commands
 
 				if (ActorMonster.CanCarryArtifactWeight(necklaceArtifact))
 				{
-					necklaceArtifact.SetCarriedByCharacter();
+					necklaceArtifact.SetCarriedByMonster(ActorMonster);
 				}
 				else
 				{

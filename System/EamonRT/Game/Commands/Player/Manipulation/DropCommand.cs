@@ -32,7 +32,7 @@ namespace EamonRT.Game.Commands
 
 			if (DobjArtifact != null)
 			{
-				if (DobjArtifact.IsWornByCharacter())
+				if (DobjArtifact.IsWornByMonster(ActorMonster))
 				{
 					PrintWearingRemoveFirst(DobjArtifact);
 
@@ -41,11 +41,11 @@ namespace EamonRT.Game.Commands
 					goto Cleanup;
 				}
 
-				if (!DobjArtifact.IsCarriedByCharacter())
+				if (!DobjArtifact.IsCarriedByMonster(ActorMonster))
 				{
 					if (!GetCommandCalled)
 					{
-						if (DobjArtifact.IsCarriedByCharacter(true) && DobjArtifact.IsCarriedByContainer())
+						if (DobjArtifact.IsCarriedByMonster(ActorMonster, true) && DobjArtifact.IsCarriedByContainer())
 						{
 							RedirectToGetCommand<IDropCommand>(DobjArtifact);
 						}
@@ -121,7 +121,7 @@ namespace EamonRT.Game.Commands
 
 				Debug.Assert(LsArtifact != null && LsArtifact.LightSource != null);
 
-				if ((DropAll || LsArtifact == DobjArtifact) && LsArtifact.IsCarriedByCharacter())
+				if ((DropAll || LsArtifact == DobjArtifact) && LsArtifact.IsCarriedByMonster(ActorMonster))
 				{
 					gEngine.LightOut(LsArtifact);
 				}

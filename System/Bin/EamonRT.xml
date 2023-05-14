@@ -3433,6 +3433,9 @@
         <member name="P:EamonRT.Game.Commands.RestoreCommand.SaveFilesetsCount">
             <summary></summary>
         </member>
+        <member name="P:EamonRT.Game.Commands.RestoreCommand.OrigCm">
+            <summary></summary>
+        </member>
         <member name="P:EamonRT.Game.Commands.SaveCommand.FullArtifactList">
             <summary></summary>
         </member>
@@ -3461,6 +3464,9 @@
             <summary></summary>
         </member>
         <member name="P:EamonRT.Game.Commands.SaveCommand.SaveFileNameIndex">
+            <summary></summary>
+        </member>
+        <member name="P:EamonRT.Game.Commands.SaveCommand.OrigCm">
             <summary></summary>
         </member>
         <member name="P:EamonRT.Game.Commands.SaveCommand.GameSaved">

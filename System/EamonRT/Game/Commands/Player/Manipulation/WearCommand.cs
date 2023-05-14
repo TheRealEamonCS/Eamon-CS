@@ -54,7 +54,7 @@ namespace EamonRT.Game.Commands
 				goto Cleanup;
 			}
 
-			if (DobjArtifact.IsWornByCharacter())
+			if (DobjArtifact.IsWornByMonster(ActorMonster))
 			{
 				PrintAlreadyWearingObj(DobjArtifact);
 
@@ -63,7 +63,7 @@ namespace EamonRT.Game.Commands
 				goto Cleanup;
 			}
 
-			if (!DobjArtifact.IsCarriedByCharacter())
+			if (!DobjArtifact.IsCarriedByMonster(ActorMonster))
 			{
 				if (!ShouldAllowRedirectToGetCommand())
 				{
@@ -145,7 +145,7 @@ namespace EamonRT.Game.Commands
 				}
 			}
 
-			DobjArtifact.SetWornByCharacter();
+			DobjArtifact.SetWornByMonster(ActorMonster);
 
 			PrintWorn(DobjArtifact);
 

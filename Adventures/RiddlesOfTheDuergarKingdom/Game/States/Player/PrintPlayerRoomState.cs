@@ -56,7 +56,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.States
 				{
 					gOut.Print("You have encountered Professor Berescroft, mentioned by the letter posted in the Main Hall, who is leading the archaeological survey.  A long-winded (but hopefully interesting) monologue follows.  A grad student will accompany you on your journey.  He hands you a fountain pen to sign the presented document, necessary to indemnify Eamon University.");			// TODO: refactor
 
-					fountainPenArtifact.SetCarriedByCharacter();
+					fountainPenArtifact.SetCarriedByMonster(gCharMonster);
 
 					gGameState.BerescroftMet = true;
 				}

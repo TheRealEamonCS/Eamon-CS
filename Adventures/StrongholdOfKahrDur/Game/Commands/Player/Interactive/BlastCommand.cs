@@ -23,7 +23,7 @@ namespace StrongholdOfKahrDur.Game.Commands
 
 				Debug.Assert(helmArtifact != null);
 
-				return helmArtifact.IsWornByCharacter();
+				return helmArtifact.IsWornByMonster(ActorMonster);
 			}
 			else
 			{

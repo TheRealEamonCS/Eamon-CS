@@ -46,7 +46,7 @@ namespace LandOfTheMountainKing.Game.Components
 				gEngine.PrintEffectDesc(51);
 				gEngine.PrintEffectDesc(58);
 				gEngine.In.KeyPress(gEngine.Buf);
-				gADB[30].SetCarriedByCharacter();
+				gADB[30].SetCarriedByMonster(gCharMonster);
 				gEngine.ExitType = ExitType.FinishAdventure;
 				gEngine.MainLoop.ShouldShutdown = true;
 				OmitFinalNewLine = true;

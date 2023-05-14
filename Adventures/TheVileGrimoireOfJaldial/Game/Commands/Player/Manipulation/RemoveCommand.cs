@@ -55,11 +55,11 @@ namespace TheVileGrimoireOfJaldial.Game.Commands
 
 				// Remove crimson cloak if removing armor
 
-				if (DobjArtifact.Uid != 19 && DobjArtifact.Uid == gGameState.Ar && cloakArtifact.IsWornByCharacter())
+				if (DobjArtifact.Uid != 19 && DobjArtifact.Uid == gGameState.Ar && cloakArtifact.IsWornByMonster(ActorMonster))
 				{
 					gOut.Print("[Removing {0} first.]", cloakArtifact.GetTheName());
 
-					cloakArtifact.SetCarriedByCharacter();
+					cloakArtifact.SetCarriedByMonster(ActorMonster);
 
 					armorArtifact.Wearable.Field1 -= 2;
 				}
@@ -81,7 +81,7 @@ namespace TheVileGrimoireOfJaldial.Game.Commands
 				{
 					// Use the wooden bucket 
 
-					if (bucketArtifact.IsCarriedByCharacter() || bucketArtifact.IsInRoom(ActorRoom))
+					if (bucketArtifact.IsCarriedByMonster(ActorMonster) || bucketArtifact.IsInRoom(ActorRoom))
 					{
 						gOut.Print("[Using {0}.]", bucketArtifact.GetTheName());
 

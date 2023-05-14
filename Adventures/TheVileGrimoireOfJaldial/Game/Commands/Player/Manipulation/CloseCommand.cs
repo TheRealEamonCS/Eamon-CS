@@ -54,7 +54,7 @@ namespace TheVileGrimoireOfJaldial.Game.Commands
 
 			if ((DobjArtifact.Uid == 3 || DobjArtifact.Uid == 4 || DobjArtifact.Uid == 5) && DobjArtifact.DoorGate.IsOpen())
 			{
-				var keyList = gADB.Records.Cast<Framework.IArtifact>().Where(a => (a.IsInRoom(ActorRoom) || a.IsCarriedByCharacter()) && a.GetLeverageBonus() > 0).ToList();
+				var keyList = gADB.Records.Cast<Framework.IArtifact>().Where(a => (a.IsInRoom(ActorRoom) || a.IsCarriedByMonster(ActorMonster)) && a.GetLeverageBonus() > 0).ToList();
 
 				var key = keyList.Count > 0 ? keyList[0] : null;
 

@@ -44,7 +44,7 @@ namespace TheDeepCanyon.Game.Components
 
 		public override void CheckAfterCastPower()
 		{
-			Func<IArtifact, bool> findDeadBodiesFunc = a => a.DeadBody != null && (a.IsCarriedByCharacter() || a.IsInRoom(ActorRoom));
+			Func<IArtifact, bool> findDeadBodiesFunc = a => a.DeadBody != null && (a.IsCarriedByMonster(ActorMonster) || a.IsInRoom(ActorRoom));
 
 			var artifactList = gEngine.GetArtifactList(findDeadBodiesFunc);
 
@@ -109,7 +109,7 @@ namespace TheDeepCanyon.Game.Components
 
 							Debug.Assert(artifact != null);
 
-							if ((artifact.IsCarriedByCharacter() || artifact.IsInRoom(ActorRoom)) && artifact.GeneralWeapon != null)
+							if ((artifact.IsCarriedByMonster(ActorMonster) || artifact.IsInRoom(ActorRoom)) && artifact.GeneralWeapon != null)
 							{
 								if (rl > 50)
 								{

@@ -58,7 +58,7 @@ namespace EamonRT.Game.Commands
 				goto Cleanup;
 			}
 
-			if (!DobjArtifact.IsReadyableByCharacter())
+			if (!DobjArtifact.IsReadyableByMonster(ActorMonster))
 			{
 				PrintNotReadyableWeapon(DobjArtifact);
 
@@ -67,7 +67,7 @@ namespace EamonRT.Game.Commands
 				goto Cleanup;
 			}
 
-			if (!DobjArtifact.IsCarriedByCharacter())
+			if (!DobjArtifact.IsCarriedByMonster(ActorMonster))
 			{
 				if (!ShouldAllowRedirectToGetCommand())
 				{

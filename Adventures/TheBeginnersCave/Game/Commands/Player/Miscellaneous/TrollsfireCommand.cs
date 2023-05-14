@@ -35,7 +35,7 @@ namespace TheBeginnersCave.Game.Commands
 
 			// if Trollsfire is not being carried by the player character
 
-			if (!trollsfireArtifact.IsCarriedByCharacter())
+			if (!trollsfireArtifact.IsCarriedByMonster(ActorMonster))
 			{
 				gOut.Print("Nothing happens.");
 

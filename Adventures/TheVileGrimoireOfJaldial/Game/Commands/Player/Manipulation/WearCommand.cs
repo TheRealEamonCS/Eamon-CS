@@ -48,7 +48,7 @@ namespace TheVileGrimoireOfJaldial.Game.Commands
 
 			// Crimson cloak boosts armor class
 
-			if (DobjArtifact.Uid == 19 && DobjArtifact.IsCarriedByCharacter())
+			if (DobjArtifact.Uid == 19 && DobjArtifact.IsCarriedByMonster(ActorMonster))
 			{
 				var armorArtifact = gGameState.Ar > 0 ? gADB[gGameState.Ar] : null;
 

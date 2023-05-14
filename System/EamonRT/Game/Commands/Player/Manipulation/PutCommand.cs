@@ -64,7 +64,7 @@ namespace EamonRT.Game.Commands
 
 			Debug.Assert(DobjArtifact != null && IobjArtifact != null);
 
-			if (!DobjArtifact.IsCarriedByCharacter())
+			if (!DobjArtifact.IsCarriedByMonster(ActorMonster))
 			{
 				if (!ShouldAllowRedirectToGetCommand())
 				{
@@ -99,9 +99,9 @@ namespace EamonRT.Game.Commands
 				goto Cleanup;
 			}
 
-			if ((IobjArtifact.IsCarriedByCharacter() && !IobjArtifact.ShouldAddContentsWhenCarried(ContainerType)) || (IobjArtifact.IsWornByCharacter() && !IobjArtifact.ShouldAddContentsWhenWorn(ContainerType)))
+			if ((IobjArtifact.IsCarriedByMonster(ActorMonster) && !IobjArtifact.ShouldAddContentsWhenCarried(ContainerType)) || (IobjArtifact.IsWornByMonster(ActorMonster) && !IobjArtifact.ShouldAddContentsWhenWorn(ContainerType)))
 			{
-				if (IobjArtifact.IsCarriedByCharacter())
+				if (IobjArtifact.IsCarriedByMonster(ActorMonster))
 				{
 					PrintNotWhileCarryingObj(IobjArtifact);
 				}

@@ -36,7 +36,7 @@ namespace TheVileGrimoireOfJaldial.Game.Commands
 
 				// Summon efreeti
 
-				if ((parchmentArtifact.IsCarriedByCharacter() || parchmentArtifact.IsInRoom(ActorRoom)) && efreetiMonster.IsInLimbo() && ProcessedPhrase.Equals("rinnuk aukasker frudasdus", StringComparison.OrdinalIgnoreCase))
+				if ((parchmentArtifact.IsCarriedByMonster(ActorMonster) || parchmentArtifact.IsInRoom(ActorRoom)) && efreetiMonster.IsInLimbo() && ProcessedPhrase.Equals("rinnuk aukasker frudasdus", StringComparison.OrdinalIgnoreCase))
 				{
 					if (!gGameState.EfreetiKilled && ++gGameState.EfreetiSummons <= 3)
 					{

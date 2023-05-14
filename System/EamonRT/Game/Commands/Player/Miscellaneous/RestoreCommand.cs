@@ -46,6 +46,9 @@ namespace EamonRT.Game.Commands
 		/// <summary></summary>
 		public virtual long SaveFilesetsCount { get; set; }
 
+		/// <summary></summary>
+		public virtual long OrigCm { get; set; }
+
 		public override void Execute()
 		{
 			RetCode rc;
@@ -191,19 +194,25 @@ namespace EamonRT.Game.Commands
 					goto Cleanup;
 				}
 
+				OrigCm = gGameState.Cm;
+
+				gGameState.Cm = 0;
+
 				FullArtifactList = gEngine.Database.ArtifactTable.Records.ToList();
 
 				foreach (var artifact in FullArtifactList)
 				{
-					if (artifact.IsCarriedByMonsterUid(gGameState.Cm))
+					if (artifact.IsCarriedByMonsterUid(OrigCm))
 					{
-						artifact.SetCarriedByCharacter();
+						artifact.SetCarriedByMonster(gCharMonster);
 					}
-					else if (artifact.IsWornByMonsterUid(gGameState.Cm))
+					else if (artifact.IsWornByMonsterUid(OrigCm))
 					{
-						artifact.SetWornByCharacter();
+						artifact.SetWornByMonster(gCharMonster);
 					}
 				}
+
+				gGameState.Cm = OrigCm;
 
 				FullMonsterList = gEngine.Database.MonsterTable.Records.ToList();
 

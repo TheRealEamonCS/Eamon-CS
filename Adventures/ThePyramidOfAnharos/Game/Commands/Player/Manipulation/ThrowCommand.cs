@@ -20,7 +20,7 @@ namespace ThePyramidOfAnharos.Game.Commands
 
 			// Rope
 
-			if ((ActorRoom.Uid == 22 || ActorRoom.Uid == 25) && DobjArtifact.Uid == 13 && DobjArtifact.IsCarriedByCharacter())
+			if ((ActorRoom.Uid == 22 || ActorRoom.Uid == 25) && DobjArtifact.Uid == 13 && DobjArtifact.IsCarriedByMonster(ActorMonster))
 			{
 				gEngine.PrintEffectDesc(42);
 
@@ -31,7 +31,7 @@ namespace ThePyramidOfAnharos.Game.Commands
 				goto Cleanup;
 			}
 
-			if (DobjArtifact.IsCarriedByCharacter())
+			if (DobjArtifact.IsCarriedByMonster(ActorMonster))
 			{
 				gOut.Print("That would accomplish nothing.");
 

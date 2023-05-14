@@ -19,7 +19,7 @@ namespace WrenholdsSecretVigil.Game.Commands
 
 			Debug.Assert(medallionArtifact != null);
 
-			if (medallionArtifact.IsCarriedByCharacter() && gGameState.MedallionCharges > 0)
+			if (medallionArtifact.IsCarriedByMonster(ActorMonster) && gGameState.MedallionCharges > 0)
 			{
 				gOut.Print("{0} feel{1} warm in your hand!", medallionArtifact.GetTheName(true), medallionArtifact.EvalPlural("s", ""));
 

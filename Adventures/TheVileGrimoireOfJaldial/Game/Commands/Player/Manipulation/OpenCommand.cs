@@ -126,7 +126,7 @@ namespace TheVileGrimoireOfJaldial.Game.Commands
 			{
 				// Reset the Key Uid to the available Artifact with the best leverage (if any)
 
-				var keyList = gADB.Records.Cast<Framework.IArtifact>().Where(a => (a.IsInRoom(ActorRoom) || a.IsCarriedByCharacter()) && a.GetLeverageBonus() > 0).OrderByDescending(a01 => a01.GetLeverageBonus()).ToList();
+				var keyList = gADB.Records.Cast<Framework.IArtifact>().Where(a => (a.IsInRoom(ActorRoom) || a.IsCarriedByMonster(ActorMonster)) && a.GetLeverageBonus() > 0).OrderByDescending(a01 => a01.GetLeverageBonus()).ToList();
 
 				var key = keyList.Count > 0 ? keyList[0] : null;
 

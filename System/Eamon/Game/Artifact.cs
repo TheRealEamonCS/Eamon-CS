@@ -699,18 +699,14 @@ namespace Eamon.Game
 			Synonyms[index] = value;
 		}
 
-		public virtual bool IsCarriedByCharacter(bool recurse = false)
+		public virtual bool IsCarriedByMonster(MonsterType monsterType = MonsterType.NonCharMonster, bool recurse = false)
 		{
 			var artifact = recurse ? GetCarriedByContainer() : null;
 
-			return artifact != null ? artifact.IsCarriedByCharacter(recurse) : Location == -1;
-		}
-
-		public virtual bool IsCarriedByMonster(bool recurse = false, bool includeCharacter = false)
-		{
-			var artifact = recurse ? GetCarriedByContainer() : null;
-
-			return artifact != null ? artifact.IsCarriedByMonster(recurse, includeCharacter) : includeCharacter ? Location == -1 || (Location < -1 && Location > -999) : Location < -1 && Location > -999;
+			return artifact != null ? artifact.IsCarriedByMonster(monsterType, recurse) :
+				monsterType == MonsterType.Any ? (Location < -1 && Location > -999) || Location == -1 :
+				monsterType == MonsterType.NonCharMonster ? Location < -1 && Location > -999 : 
+				Location == -1;
 		}
 
 		public virtual bool IsCarriedByContainer()
@@ -718,29 +714,20 @@ namespace Eamon.Game
 			return Location > 1000 && Location < 5001;
 		}
 
-		public virtual bool IsWornByCharacter(bool recurse = false)
+		public virtual bool IsWornByMonster(MonsterType monsterType = MonsterType.NonCharMonster, bool recurse = false)
 		{
 			var artifact = recurse ? GetCarriedByContainer() : null;
 
-			return artifact != null ? artifact.IsWornByCharacter(recurse) : Location == -999;
-		}
-
-		public virtual bool IsWornByMonster(bool recurse = false, bool includeCharacter = false)
-		{
-			var artifact = recurse ? GetCarriedByContainer() : null;
-
-			return artifact != null ? artifact.IsWornByMonster(recurse, includeCharacter) : includeCharacter ? Location == -999 || Location < -1000 : Location < -1000;
-		}
-
-		public virtual bool IsReadyableByCharacter()
-		{
-			return GeneralWeapon != null;
+			return artifact != null ? artifact.IsWornByMonster(monsterType, recurse) : 
+				monsterType == MonsterType.Any ? Location < -1000 || Location == -999 : 
+				monsterType == MonsterType.NonCharMonster ? Location < -1000 :
+				Location == -999;
 		}
 
 		public virtual bool IsInRoom(bool recurse = false)
 		{
-			return recurse && GetCarriedByMonster(recurse, true) != null ? GetCarriedByMonster(recurse, true).IsInRoom() : 
-						recurse && GetWornByMonster(recurse, true) != null ? GetWornByMonster(recurse, true).IsInRoom() : 
+			return recurse && GetCarriedByMonster(recurse) != null ? GetCarriedByMonster(recurse).IsInRoom() : 
+						recurse && GetWornByMonster(recurse) != null ? GetWornByMonster(recurse).IsInRoom() : 
 						recurse && GetCarriedByContainer(recurse) != null ? GetCarriedByContainer(recurse).IsInRoom() :
 						Location > 0 && Location < 1001;
 		}
@@ -752,13 +739,13 @@ namespace Eamon.Game
 			return artifact != null ? artifact.IsEmbeddedInRoom(recurse) : Location > 5000 && Location < 6001;
 		}
 
-		public virtual bool IsCarriedByContainerContainerTypeExposedToMonster(bool recurse = false)
+		public virtual bool IsCarriedByContainerContainerTypeExposedToMonster(MonsterType monsterType = MonsterType.NonCharMonster, bool recurse = false)
 		{
 			var artifact = GetCarriedByContainer();
 
 			var containerType = GetCarriedByContainerContainerType();
 
-			return artifact != null && artifact.ShouldExposeContentsToMonster(containerType) && (containerType != ContainerType.In || (artifact.InContainer != null && artifact.InContainer.IsOpen()) || artifact.ShouldExposeInContentsWhenClosed()) && (!recurse || artifact.GetCarriedByContainer() == null || artifact.IsCarriedByContainerContainerTypeExposedToMonster(recurse));
+			return artifact != null && artifact.ShouldExposeContentsToMonster(monsterType, containerType) && (containerType != ContainerType.In || (artifact.InContainer != null && artifact.InContainer.IsOpen()) || artifact.ShouldExposeInContentsWhenClosed()) && (artifact.IsCarriedByMonster(monsterType) || (recurse && artifact.GetCarriedByContainer() != null && artifact.IsCarriedByContainerContainerTypeExposedToMonster(monsterType, recurse)));
 		}
 
 		public virtual bool IsCarriedByContainerContainerTypeExposedToRoom(bool recurse = false)
@@ -772,19 +759,21 @@ namespace Eamon.Game
 
 		public virtual bool IsInLimbo(bool recurse = false)
 		{
-			return recurse && GetCarriedByMonster(recurse, true) != null ? GetCarriedByMonster(recurse, true).IsInLimbo() :
-						recurse && GetWornByMonster(recurse, true) != null ? GetWornByMonster(recurse, true).IsInLimbo() :
+			return recurse && GetCarriedByMonster(recurse) != null ? GetCarriedByMonster(recurse).IsInLimbo() :
+						recurse && GetWornByMonster(recurse) != null ? GetWornByMonster(recurse).IsInLimbo() :
 						recurse && GetCarriedByContainer(recurse) != null ? GetCarriedByContainer(recurse).IsInLimbo() :
 						Location == gEngine.LimboLocation;
 		}
 
-		public virtual bool IsCarriedByMonsterUid(long monsterUid, bool recurse = false, bool includeCharacter = false)
+		public virtual bool IsCarriedByMonsterUid(long monsterUid, bool recurse = false)
 		{
 			var gameState = gEngine.GetGameState();
 
 			var artifact = recurse ? GetCarriedByContainer() : null;
 
-			return artifact != null ? artifact.IsCarriedByMonsterUid(monsterUid, recurse, includeCharacter) : includeCharacter && gameState != null && monsterUid == gameState.Cm ? Location == -1 : Location == (-monsterUid - 1);
+			return artifact != null ? artifact.IsCarriedByMonsterUid(monsterUid, recurse) :
+				monsterUid == long.MaxValue || (gameState != null && monsterUid == gameState.Cm) ? Location == -1 : 
+				Location == (-monsterUid - 1);
 		}
 
 		public virtual bool IsCarriedByContainerUid(long containerUid, bool recurse = false)
@@ -817,13 +806,15 @@ namespace Eamon.Game
 			}
 		}
 
-		public virtual bool IsWornByMonsterUid(long monsterUid, bool recurse = false, bool includeCharacter = false)
+		public virtual bool IsWornByMonsterUid(long monsterUid, bool recurse = false)
 		{
 			var gameState = gEngine.GetGameState();
 
 			var artifact = recurse ? GetCarriedByContainer() : null;
 
-			return artifact != null ? artifact.IsWornByMonsterUid(monsterUid, recurse, includeCharacter) : includeCharacter && gameState != null && monsterUid == gameState.Cm ? Location == -999 : Location == (-monsterUid - 1000);
+			return artifact != null ? artifact.IsWornByMonsterUid(monsterUid, recurse) :
+				monsterUid == long.MaxValue || (gameState != null && monsterUid == gameState.Cm) ? Location == -999 : 
+				Location == (-monsterUid - 1000);
 		}
 
 		public virtual bool IsReadyableByMonsterUid(long monsterUid)
@@ -833,8 +824,8 @@ namespace Eamon.Game
 
 		public virtual bool IsInRoomUid(long roomUid, bool recurse = false)
 		{
-			return recurse && GetCarriedByMonster(recurse, true) != null ? GetCarriedByMonster(recurse, true).IsInRoomUid(roomUid) :
-						recurse && GetWornByMonster(recurse, true) != null ? GetWornByMonster(recurse, true).IsInRoomUid(roomUid) :
+			return recurse && GetCarriedByMonster(recurse) != null ? GetCarriedByMonster(recurse).IsInRoomUid(roomUid) :
+						recurse && GetWornByMonster(recurse) != null ? GetWornByMonster(recurse).IsInRoomUid(roomUid) :
 						recurse && GetCarriedByContainer(recurse) != null ? GetCarriedByContainer(recurse).IsInRoomUid(roomUid) :
 						Location == roomUid;
 		}
@@ -846,24 +837,17 @@ namespace Eamon.Game
 			return artifact != null ? artifact.IsEmbeddedInRoomUid(roomUid, recurse) : Location == (roomUid + 5000);
 		}
 
-		public virtual bool IsCarriedByContainerContainerTypeExposedToCharacter(bool recurse = false)
-		{
-			var artifact = GetCarriedByContainer();
-
-			var containerType = GetCarriedByContainerContainerType();
-
-			return artifact != null && artifact.ShouldExposeContentsToCharacter(containerType) && (containerType != ContainerType.In || (artifact.InContainer != null && artifact.InContainer.IsOpen()) || artifact.ShouldExposeInContentsWhenClosed()) && (artifact.IsCarriedByCharacter() || (recurse && artifact.GetCarriedByContainer() != null && artifact.IsCarriedByContainerContainerTypeExposedToCharacter(recurse)));
-		}
-
-		public virtual bool IsCarriedByContainerContainerTypeExposedToMonsterUid(long monsterUid, bool recurse = false, bool includeCharacter = false)
+		public virtual bool IsCarriedByContainerContainerTypeExposedToMonsterUid(long monsterUid, bool recurse = false)
 		{
 			var gameState = gEngine.GetGameState();
 
 			var artifact = GetCarriedByContainer();
 
+			var monsterType = monsterUid == long.MaxValue || (gameState != null && monsterUid == gameState.Cm) ? MonsterType.CharMonster : MonsterType.NonCharMonster;
+
 			var containerType = GetCarriedByContainerContainerType();
 
-			return artifact != null && (includeCharacter && gameState != null && monsterUid == gameState.Cm ? artifact.ShouldExposeContentsToCharacter(containerType) : artifact.ShouldExposeContentsToMonster(containerType)) && (containerType != ContainerType.In || (artifact.InContainer != null && artifact.InContainer.IsOpen()) || artifact.ShouldExposeInContentsWhenClosed()) && (artifact.IsCarriedByMonsterUid(monsterUid, includeCharacter: includeCharacter) || (recurse && artifact.GetCarriedByContainer() != null && artifact.IsCarriedByContainerContainerTypeExposedToMonsterUid(monsterUid, recurse, includeCharacter)));
+			return artifact != null && artifact.ShouldExposeContentsToMonster(monsterType, containerType) && (containerType != ContainerType.In || (artifact.InContainer != null && artifact.InContainer.IsOpen()) || artifact.ShouldExposeInContentsWhenClosed()) && (artifact.IsCarriedByMonsterUid(monsterUid) || (recurse && artifact.GetCarriedByContainer() != null && artifact.IsCarriedByContainerContainerTypeExposedToMonsterUid(monsterUid, recurse)));
 		}
 
 		public virtual bool IsCarriedByContainerContainerTypeExposedToRoomUid(long roomUid, bool recurse = false)
@@ -875,11 +859,9 @@ namespace Eamon.Game
 			return artifact != null && artifact.ShouldExposeContentsToRoom(containerType) && (containerType != ContainerType.In || (artifact.InContainer != null && artifact.InContainer.IsOpen()) || artifact.ShouldExposeInContentsWhenClosed()) && (artifact.IsInRoomUid(roomUid) || (recurse && artifact.GetCarriedByContainer() != null && artifact.IsCarriedByContainerContainerTypeExposedToRoomUid(roomUid, recurse)));
 		}
 
-		public virtual bool IsCarriedByMonster(IMonster monster, bool recurse = false, bool includeCharacter = false)
+		public virtual bool IsCarriedByMonster(IMonster monster, bool recurse = false)
 		{
-			Debug.Assert(monster != null);
-
-			return IsCarriedByMonsterUid(monster.Uid, recurse, includeCharacter);
+			return IsCarriedByMonsterUid(monster != null ? monster.Uid : long.MaxValue, recurse);
 		}
 
 		public virtual bool IsCarriedByContainer(IArtifact container, bool recurse = false)
@@ -889,18 +871,14 @@ namespace Eamon.Game
 			return IsCarriedByContainerUid(container.Uid, recurse);
 		}
 
-		public virtual bool IsWornByMonster(IMonster monster, bool recurse = false, bool includeCharacter = false)
+		public virtual bool IsWornByMonster(IMonster monster, bool recurse = false)
 		{
-			Debug.Assert(monster != null);
-
-			return IsWornByMonsterUid(monster.Uid, recurse, includeCharacter);
+			return IsWornByMonsterUid(monster != null ? monster.Uid : long.MaxValue, recurse);
 		}
 
 		public virtual bool IsReadyableByMonster(IMonster monster)
 		{
-			Debug.Assert(monster != null);
-
-			return IsReadyableByMonsterUid(monster.Uid);
+			return IsReadyableByMonsterUid(monster != null ? monster.Uid : long.MaxValue);
 		}
 
 		public virtual bool IsInRoom(IRoom room, bool recurse = false)
@@ -919,9 +897,7 @@ namespace Eamon.Game
 
 		public virtual bool IsCarriedByContainerContainerTypeExposedToMonster(IMonster monster, bool recurse = false)
 		{
-			Debug.Assert(monster != null);
-
-			return IsCarriedByContainerContainerTypeExposedToMonsterUid(monster.Uid, recurse);
+			return IsCarriedByContainerContainerTypeExposedToMonsterUid(monster != null ? monster.Uid : long.MaxValue, recurse);
 		}
 
 		public virtual bool IsCarriedByContainerContainerTypeExposedToRoom(IRoom room, bool recurse = false)
@@ -931,13 +907,16 @@ namespace Eamon.Game
 			return IsCarriedByContainerContainerTypeExposedToRoomUid(room.Uid, recurse);
 		}
 
-		public virtual long GetCarriedByMonsterUid(bool recurse = false, bool includeCharacter = false)
+		public virtual long GetCarriedByMonsterUid(bool recurse = false)
 		{
 			var gameState = gEngine.GetGameState();
 
 			var artifact = recurse ? GetCarriedByContainer() : null;
 
-			return artifact != null ? artifact.GetCarriedByMonsterUid(recurse, includeCharacter) : includeCharacter && gameState != null && IsCarriedByCharacter() ? gameState.Cm : IsCarriedByMonster() ? -Location - 1 : 0;
+			return artifact != null ? artifact.GetCarriedByMonsterUid(recurse) : 
+				IsCarriedByMonster(MonsterType.CharMonster) && gameState != null ? gameState.Cm : 
+				IsCarriedByMonster() ? -Location - 1 : 
+				0;
 		}
 
 		public virtual long GetCarriedByContainerUid(bool recurse = false)
@@ -970,19 +949,22 @@ namespace Eamon.Game
 			}
 		}
 
-		public virtual long GetWornByMonsterUid(bool recurse = false, bool includeCharacter = false)
+		public virtual long GetWornByMonsterUid(bool recurse = false)
 		{
 			var gameState = gEngine.GetGameState();
 
 			var artifact = recurse ? GetCarriedByContainer() : null;
 
-			return artifact != null ? artifact.GetWornByMonsterUid(recurse, includeCharacter) : includeCharacter && gameState != null && IsWornByCharacter() ? gameState.Cm : IsWornByMonster() ? -Location - 1000 : 0;
+			return artifact != null ? artifact.GetWornByMonsterUid(recurse) : 
+				IsWornByMonster(MonsterType.CharMonster) && gameState != null ? gameState.Cm : 
+				IsWornByMonster() ? -Location - 1000 : 
+				0;
 		}
 
 		public virtual long GetInRoomUid(bool recurse = false)
 		{
-			return recurse && GetCarriedByMonster(recurse, true) != null ? GetCarriedByMonster(recurse, true).GetInRoomUid() :
-						recurse && GetWornByMonster(recurse, true) != null ? GetWornByMonster(recurse, true).GetInRoomUid() :
+			return recurse && GetCarriedByMonster(recurse) != null ? GetCarriedByMonster(recurse).GetInRoomUid() :
+						recurse && GetWornByMonster(recurse) != null ? GetWornByMonster(recurse).GetInRoomUid() :
 						recurse && GetCarriedByContainer(recurse) != null ? GetCarriedByContainer(recurse).GetInRoomUid() :
 						IsInRoom() ? Location : 0;
 		}
@@ -994,9 +976,9 @@ namespace Eamon.Game
 			return artifact != null ? artifact.GetEmbeddedInRoomUid(recurse) : IsEmbeddedInRoom() ? Location - 5000 : 0;
 		}
 
-		public virtual IMonster GetCarriedByMonster(bool recurse = false, bool includeCharacter = false)
+		public virtual IMonster GetCarriedByMonster(bool recurse = false)
 		{
-			var uid = GetCarriedByMonsterUid(recurse, includeCharacter);
+			var uid = GetCarriedByMonsterUid(recurse);
 
 			return gMDB[uid];
 		}
@@ -1008,9 +990,9 @@ namespace Eamon.Game
 			return gADB[uid];
 		}
 
-		public virtual IMonster GetWornByMonster(bool recurse = false, bool includeCharacter = false)
+		public virtual IMonster GetWornByMonster(bool recurse = false)
 		{
-			var uid = GetWornByMonsterUid(recurse, includeCharacter);
+			var uid = GetWornByMonsterUid(recurse);
 
 			return gMDB[uid];
 		}
@@ -1038,16 +1020,11 @@ namespace Eamon.Game
 						(ContainerType)(-1);
 		}
 
-		public virtual void SetCarriedByCharacter()
-		{
-			Location = -1;
-		}
-
-		public virtual void SetCarriedByMonsterUid(long monsterUid, bool includeCharacter = false)
+		public virtual void SetCarriedByMonsterUid(long monsterUid)
 		{
 			var gameState = gEngine.GetGameState();
 
-			Location = includeCharacter && gameState != null && monsterUid == gameState.Cm ? -1 : (-monsterUid - 1);
+			Location = monsterUid == long.MaxValue || (gameState != null && monsterUid == gameState.Cm) ? -1 : (-monsterUid - 1);
 		}
 
 		public virtual void SetCarriedByContainerUid(long containerUid, ContainerType containerType = ContainerType.In)
@@ -1060,16 +1037,11 @@ namespace Eamon.Game
 			Location = (containerUid + (((long)containerType * 1000) + 1000));
 		}
 
-		public virtual void SetWornByCharacter()
-		{
-			Location = -999;
-		}
-
-		public virtual void SetWornByMonsterUid(long monsterUid, bool includeCharacter = false)
+		public virtual void SetWornByMonsterUid(long monsterUid)
 		{
 			var gameState = gEngine.GetGameState();
 
-			Location = includeCharacter && gameState != null && monsterUid == gameState.Cm ? -999 : (-monsterUid - 1000);
+			Location = monsterUid == long.MaxValue || (gameState != null && monsterUid == gameState.Cm) ? -999 : (-monsterUid - 1000);
 		}
 
 		public virtual void SetInRoomUid(long roomUid)
@@ -1089,9 +1061,7 @@ namespace Eamon.Game
 
 		public virtual void SetCarriedByMonster(IMonster monster)
 		{
-			Debug.Assert(monster != null);
-
-			SetCarriedByMonsterUid(monster.Uid);
+			SetCarriedByMonsterUid(monster != null ? monster.Uid : long.MaxValue);
 		}
 
 		public virtual void SetCarriedByContainer(IArtifact container, ContainerType containerType = ContainerType.In)
@@ -1103,9 +1073,7 @@ namespace Eamon.Game
 
 		public virtual void SetWornByMonster(IMonster monster)
 		{
-			Debug.Assert(monster != null);
-
-			SetWornByMonsterUid(monster.Uid);
+			SetWornByMonsterUid(monster != null ? monster.Uid : long.MaxValue);
 		}
 
 		public virtual void SetInRoom(IRoom room)
@@ -1234,12 +1202,7 @@ namespace Eamon.Game
 			return false;
 		}
 
-		public virtual bool ShouldExposeContentsToCharacter(ContainerType containerType = ContainerType.In)
-		{
-			return containerType == ContainerType.On;
-		}
-
-		public virtual bool ShouldExposeContentsToMonster(ContainerType containerType = ContainerType.In)
+		public virtual bool ShouldExposeContentsToMonster(MonsterType monsterType = MonsterType.NonCharMonster, ContainerType containerType = ContainerType.In)
 		{
 			return containerType == ContainerType.On;
 		}
@@ -1687,7 +1650,7 @@ namespace Eamon.Game
 							{
 								x.ArticleType = ArticleType.A;
 
-								x.ShowCharOwned = !IsCarriedByCharacter() && !IsWornByCharacter();
+								x.ShowCharOwned = !IsCarriedByMonster(MonsterType.CharMonster) && !IsWornByMonster(MonsterType.CharMonster);
 
 								x.StateDescCode = StateDescDisplayCode.None;
 

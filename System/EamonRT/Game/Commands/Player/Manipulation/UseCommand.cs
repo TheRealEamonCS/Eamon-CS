@@ -44,7 +44,7 @@ namespace EamonRT.Game.Commands
 
 			if (DobjArtAc.Type == ArtifactType.DisguisedMonster)
 			{
-				if (!DobjArtifact.IsUnmovable() && !DobjArtifact.IsCarriedByCharacter())
+				if (!DobjArtifact.IsUnmovable() && !DobjArtifact.IsCarriedByMonster(ActorMonster))
 				{
 					if (DobjArtifact.IsCarriedByContainer())
 					{

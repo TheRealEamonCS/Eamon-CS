@@ -25,7 +25,7 @@ namespace ThePyramidOfAnharos.Game.Commands
 
 			// Krell statue / Pike
 
-			if (ActorRoom.Uid == 22 && pikeArtifact.IsCarriedByCharacter())
+			if (ActorRoom.Uid == 22 && pikeArtifact.IsCarriedByMonster(ActorMonster))
 			{
 				gEngine.PrintEffectDesc(22);
 
@@ -36,7 +36,7 @@ namespace ThePyramidOfAnharos.Game.Commands
 
 			if (ActorRoom.Uid == 26 || ActorRoom.Uid == 27)
 			{
-				if (!pikeArtifact.IsCarriedByCharacter())
+				if (!pikeArtifact.IsCarriedByMonster(ActorMonster))
 				{
 					var injureAndDamageArgs = gEngine.CreateInstance<IInjureAndDamageArgs>(x =>
 					{

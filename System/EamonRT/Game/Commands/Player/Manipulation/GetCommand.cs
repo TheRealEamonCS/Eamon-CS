@@ -107,11 +107,11 @@ namespace EamonRT.Game.Commands
 
 				Debug.Assert(DobjArtAc != null);
 
-				OmitWeightCheck = artifact.IsCarriedByCharacter(true);
+				OmitWeightCheck = artifact.IsCarriedByMonster(ActorMonster, true);
 
 				ProcessArtifact(artifact, DobjArtAc, ref _newlineFlag);
 
-				if (artifact.IsCarriedByCharacter())
+				if (artifact.IsCarriedByMonster(ActorMonster))
 				{
 					// when a weapon is picked up all monster affinities to that weapon are broken
 
@@ -124,7 +124,7 @@ namespace EamonRT.Game.Commands
 
 					WeaponArtifactAc = artifact.GeneralWeapon;
 
-					if (artifact.IsReadyableByCharacter() && (WeaponArtifact == null || gEngine.WeaponPowerCompare(artifact, WeaponArtifact) > 0) && (!GetAll || TakenArtifactList.Count == 1 || gGameState.Sh < 1 || WeaponArtifactAc.Field5 < 2))
+					if (artifact.IsReadyableByMonster(ActorMonster) && (WeaponArtifact == null || gEngine.WeaponPowerCompare(artifact, WeaponArtifact) > 0) && (!GetAll || TakenArtifactList.Count == 1 || gGameState.Sh < 1 || WeaponArtifactAc.Field5 < 2))
 					{
 						WeaponArtifact = artifact;
 					}
@@ -140,7 +140,7 @@ namespace EamonRT.Game.Commands
 
 			if (ActorRoom.IsLit())
 			{
-				if (!gEngine.AutoDisplayUnseenArtifactDescs && !GetAll && DobjArtifact.IsCarriedByCharacter() && !DobjArtifact.Seen)
+				if (!gEngine.AutoDisplayUnseenArtifactDescs && !GetAll && DobjArtifact.IsCarriedByMonster(ActorMonster) && !DobjArtifact.Seen)
 				{
 					PrintFullDesc(DobjArtifact, false, false);
 
@@ -209,7 +209,7 @@ namespace EamonRT.Game.Commands
 				{
 					IsCarriedByContainer = artifact.IsCarriedByContainer();
 
-					artifact.SetCarriedByCharacter();
+					artifact.SetCarriedByMonster(ActorMonster);
 
 					if (NextState is IRequestCommand)
 					{

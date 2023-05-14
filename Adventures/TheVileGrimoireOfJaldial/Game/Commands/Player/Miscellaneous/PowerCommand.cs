@@ -27,7 +27,7 @@ namespace TheVileGrimoireOfJaldial.Game.Commands
 
 			ResurrectWhereClauseFuncs = new Func<IArtifact, bool>[]
 			{
-				a => (a.IsCarriedByCharacter() || a.IsInRoomUid(gGameState.Ro)) && a.DeadBody != null && !FriendDeadBodyUidList.Contains(a.Uid)
+				a => (a.IsCarriedByMonsterUid(gGameState.Cm) || a.IsInRoomUid(gGameState.Ro)) && a.DeadBody != null && !FriendDeadBodyUidList.Contains(a.Uid)
 			};
 
 			// Can't make dead friends vanish

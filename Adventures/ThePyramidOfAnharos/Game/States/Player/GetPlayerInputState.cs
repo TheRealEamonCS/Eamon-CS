@@ -293,13 +293,13 @@ namespace ThePyramidOfAnharos.Game.States
 
 					long dice = 0;
 
-					if (diamondOfPurityArtifact.IsCarriedByCharacter() && gGameState.KR < 4)
+					if (diamondOfPurityArtifact.IsCarriedByMonster(gCharMonster) && gGameState.KR < 4)
 					{
 						monster = gCharMonster;
 
 						dice = 4 - gGameState.KR;
 					}
-					else if (diamondOfPurityArtifact.IsCarriedByContainer(onyxCaseArtifact) && onyxCaseArtifact.IsCarriedByCharacter() && gGameState.GD == 1 && gGameState.KR < 4)
+					else if (diamondOfPurityArtifact.IsCarriedByContainer(onyxCaseArtifact) && onyxCaseArtifact.IsCarriedByMonster(gCharMonster) && gGameState.GD == 1 && gGameState.KR < 4)
 					{
 						monster = gCharMonster;
 

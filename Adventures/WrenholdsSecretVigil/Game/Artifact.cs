@@ -14,13 +14,6 @@ namespace WrenholdsSecretVigil.Game
 	[ClassMappings(typeof(IArtifact))]
 	public class Artifact : Eamon.Game.Artifact, Framework.IArtifact
 	{
-		public override bool IsReadyableByCharacter()
-		{
-			// Only one-eyed ogre can wield large tree limb
-
-			return Uid != 7 && base.IsReadyableByCharacter();
-		}
-
 		public override bool IsReadyableByMonsterUid(long monsterUid)
 		{
 			// Only one-eyed ogre can wield large tree limb

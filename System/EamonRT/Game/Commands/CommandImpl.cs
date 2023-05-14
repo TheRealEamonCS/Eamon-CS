@@ -1272,7 +1272,7 @@ namespace EamonRT.Game.Commands
 			{
 				Debug.Assert(artifact != null);
 
-				return artifact.IsCarriedByCharacter();
+				return artifact.IsCarriedByMonster(Command.ActorMonster);
 			}
 			else if (Command is IRequestCommand)
 			{
@@ -1282,13 +1282,13 @@ namespace EamonRT.Game.Commands
 			{
 				Debug.Assert(artifact != null);
 
-				return artifact.IsWornByCharacter();
+				return artifact.IsWornByMonster(Command.ActorMonster);
 			}
 			else if (Command is IExamineCommand)
 			{
 				Debug.Assert(artifact != null);
 
-				return Enum.IsDefined(typeof(ContainerType), Command.ContainerType) && !artifact.IsWornByCharacter();
+				return Enum.IsDefined(typeof(ContainerType), Command.ContainerType) && !artifact.IsWornByMonster(Command.ActorMonster);
 			}
 			else if (Command is IGetCommand)
 			{
@@ -1300,13 +1300,13 @@ namespace EamonRT.Game.Commands
 
 				Debug.Assert(artifact != null);
 
-				return room.IsLit() && (artifact.LightSource != null ? artifact.IsCarriedByCharacter() : true);
+				return room.IsLit() && (artifact.LightSource != null ? artifact.IsCarriedByMonster(Command.ActorMonster) : true);
 			}
 			else if (Command is IPutCommand)
 			{
 				Debug.Assert(artifact != null);
 
-				return artifact.IsCarriedByCharacter();
+				return artifact.IsCarriedByMonster(Command.ActorMonster);
 			}
 			else if (Command is IReadyCommand readyCommand)
 			{
@@ -1318,11 +1318,11 @@ namespace EamonRT.Game.Commands
 				{
 					if (ac.Type == ArtifactType.Wearable)
 					{
-						return artifact.IsCarriedByCharacter();
+						return artifact.IsCarriedByMonster(Command.ActorMonster);
 					}
 					else
 					{
-						return !artifact.IsReadyableByCharacter() || artifact.IsCarriedByCharacter();
+						return !artifact.IsReadyableByMonster(Command.ActorMonster) || artifact.IsCarriedByMonster(Command.ActorMonster);
 					}
 				}
 				else
@@ -1334,7 +1334,7 @@ namespace EamonRT.Game.Commands
 			{
 				Debug.Assert(artifact != null);
 
-				return Command.CommandParser.ObjData == Command.CommandParser.IobjData || artifact.IsWornByCharacter();
+				return Command.CommandParser.ObjData == Command.CommandParser.IobjData || artifact.IsWornByMonster(Command.ActorMonster);
 			}
 			else if (Command is IUseCommand useCommand)
 			{
@@ -1346,11 +1346,11 @@ namespace EamonRT.Game.Commands
 				{
 					if (ac.IsWeapon01())
 					{
-						return !artifact.IsReadyableByCharacter() || artifact.IsCarriedByCharacter();
+						return !artifact.IsReadyableByMonster(Command.ActorMonster) || artifact.IsCarriedByMonster(Command.ActorMonster);
 					}
 					else if (ac.Type == ArtifactType.Wearable)
 					{
-						return artifact.IsCarriedByCharacter();
+						return artifact.IsCarriedByMonster(Command.ActorMonster);
 					}
 					else
 					{
@@ -1366,7 +1366,7 @@ namespace EamonRT.Game.Commands
 			{
 				Debug.Assert(artifact != null);
 
-				return artifact.Wearable != null ? artifact.IsCarriedByCharacter() || artifact.IsWornByCharacter() : true;
+				return artifact.Wearable != null ? artifact.IsCarriedByMonster(Command.ActorMonster) || artifact.IsWornByMonster(Command.ActorMonster) : true;
 			}
 			else
 			{

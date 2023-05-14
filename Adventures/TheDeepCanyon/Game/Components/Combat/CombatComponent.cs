@@ -169,7 +169,7 @@ namespace TheDeepCanyon.Game.Components
 
 			var rl = gEngine.RollDice(1, 100, 0);
 
-			var isNetCarriedByDefender = netArtifact.IsCarriedByMonster(DobjMonster, includeCharacter: true);
+			var isNetCarriedByDefender = netArtifact.IsCarriedByMonster(DobjMonster);
 
 			// Various bats strangled by net
 
@@ -219,7 +219,7 @@ namespace TheDeepCanyon.Game.Components
 					{
 						// Resurrect
 
-						if (ringArtifact.IsCarriedByCharacter() || ringArtifact.IsWornByCharacter())
+						if (ringArtifact.IsCarriedByMonster(DobjMonster) || ringArtifact.IsWornByMonster(DobjMonster))
 						{
 							SetNextStateFunc(gEngine.CreateInstance<IPlayerResurrectedState>());
 						}

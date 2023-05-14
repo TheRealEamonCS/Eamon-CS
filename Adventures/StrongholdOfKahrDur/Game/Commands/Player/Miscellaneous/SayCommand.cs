@@ -48,7 +48,7 @@ namespace StrongholdOfKahrDur.Game.Commands
 
 				// If the cauldron is present and the spell components (see effect #50) are in it then begin the spell casting process
 
-				if (ProcessedPhrase.Equals("knock nikto mellon", StringComparison.OrdinalIgnoreCase) && (cauldronArtifact.IsCarriedByCharacter() || cauldronArtifact.IsInRoom(ActorRoom)) && gEngine.SpellReagentsInCauldron(cauldronArtifact))
+				if (ProcessedPhrase.Equals("knock nikto mellon", StringComparison.OrdinalIgnoreCase) && (cauldronArtifact.IsCarriedByMonster(ActorMonster) || cauldronArtifact.IsInRoom(ActorRoom)) && gEngine.SpellReagentsInCauldron(cauldronArtifact))
 				{
 					gEngine.PrintEffectDesc(51);
 

@@ -165,7 +165,7 @@ namespace WrenholdsSecretVigil.Game.States
 
 						Debug.Assert(lifeOrbArtifact != null);
 
-						var carryingLifeOrb = lifeOrbArtifact.IsCarriedByCharacter();
+						var carryingLifeOrb = lifeOrbArtifact.IsCarriedByMonster(gCharMonster);
 
 						var lifeOrbInPedestal = lifeOrbArtifact.IsCarriedByContainerUid(43);
 
@@ -194,7 +194,7 @@ namespace WrenholdsSecretVigil.Game.States
 
 							Debug.Assert(magicBowArtifact != null);
 
-							magicBowArtifact.SetCarriedByCharacter();
+							magicBowArtifact.SetCarriedByMonster(gCharMonster);
 
 							gOut.Print("King Argas hands you the bow and one arrow.  You nock then let loose the arrow...");
 

@@ -5,7 +5,8 @@ ChangeLog: AlternateBeginnersCave
 
 Date            Version            Who            Notes
 ----------------------------------------------------------------------------------------------------------------------------------
-20221231        2.2.0              MP             RulesetVersion overhaul
+20230531        2.2.0              MP             Artifact Character/Monster Method Unification overhaul
+20221231                           MP             RulesetVersion overhaul
 20221031        2.1.0              MP             Plugin Class Unification overhaul
 20211211                           MP             ProcessEvents normalization overhaul
 20210420                           MP             Code complete 2.1.0

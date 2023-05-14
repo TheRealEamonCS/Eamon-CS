@@ -96,6 +96,9 @@ namespace EamonRT.Game.Commands
 		public virtual long SaveFileNameIndex { get; set; }
 
 		/// <summary></summary>
+		public virtual long OrigCm { get; set; }
+
+		/// <summary></summary>
 		public virtual bool GameSaved { get; set; }
 
 		public override void Execute()
@@ -330,17 +333,27 @@ namespace EamonRT.Game.Commands
 
 				gEngine.Config.DdEditingHints = true;
 
+				OrigCm = gGameState.Cm;
+
 				FullArtifactList = gEngine.Database.ArtifactTable.Records.ToList();
 
 				foreach (var artifact in FullArtifactList)
 				{
-					if (artifact.IsCarriedByCharacter())
+					if (artifact.IsCarriedByMonster(gCharMonster))
 					{
-						artifact.SetCarriedByMonsterUid(gGameState.Cm);
+						gGameState.Cm = 0;
+
+						artifact.SetCarriedByMonsterUid(OrigCm);
+
+						gGameState.Cm = OrigCm;
 					}
-					else if (artifact.IsWornByCharacter())
+					else if (artifact.IsWornByMonster(gCharMonster))
 					{
-						artifact.SetWornByMonsterUid(gGameState.Cm);
+						gGameState.Cm = 0;
+
+						artifact.SetWornByMonsterUid(OrigCm);
+
+						gGameState.Cm = OrigCm;
 					}
 				}
 
@@ -355,17 +368,21 @@ namespace EamonRT.Game.Commands
 					GameSaved = false;
 				}
 
+				gGameState.Cm = 0;
+
 				foreach (var artifact in FullArtifactList)
 				{
-					if (artifact.IsCarriedByMonsterUid(gGameState.Cm))
+					if (artifact.IsCarriedByMonsterUid(OrigCm))
 					{
-						artifact.SetCarriedByCharacter();
+						artifact.SetCarriedByMonster(gCharMonster);
 					}
-					else if (artifact.IsWornByMonsterUid(gGameState.Cm))
+					else if (artifact.IsWornByMonsterUid(OrigCm))
 					{
-						artifact.SetWornByCharacter();
+						artifact.SetWornByMonster(gCharMonster);
 					}
 				}
+
+				gGameState.Cm = OrigCm;
 
 				rc = gEngine.Database.SaveConfigs(SaveFileset.ConfigFileName, false);
 

@@ -96,7 +96,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.States
 
 					// In the broiling rooms
 
-					if (gEngine.BroilingRoomUids.Contains(gGameState.Ro) && !blacksmithSmockArtifact.IsWornByCharacter() && !blacksmithSmockArtifact2.IsWornByCharacter())
+					if (gEngine.BroilingRoomUids.Contains(gGameState.Ro) && !blacksmithSmockArtifact.IsWornByMonster(gCharMonster) && !blacksmithSmockArtifact2.IsWornByMonster(gCharMonster))
 					{
 						gEngine.PrintEffectDesc(41);
 

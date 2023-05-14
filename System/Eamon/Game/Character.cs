@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 using Eamon.Framework;
-using Eamon.Framework.Args;
 using Eamon.Framework.Primitive.Classes;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
@@ -397,7 +396,7 @@ namespace Eamon.Game
 
 			if (characterFindFunc == null)
 			{
-				characterFindFunc = a => a.IsCarriedByCharacter() || a.IsWornByCharacter();
+				characterFindFunc = a => a.IsCarriedByMonster(MonsterType.CharMonster) || a.IsWornByMonster(MonsterType.CharMonster);
 			}
 
 			var artifactList = gEngine.GetArtifactList(a => characterFindFunc(a));

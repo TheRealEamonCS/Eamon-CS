@@ -34,7 +34,7 @@ namespace TheTempleOfNgurct.Game.Commands
 
 				// Alignment conflict
 
-				if (!gGameState.AlignmentConflict && scimitarArtifact.IsCarriedByCharacter())
+				if (!gGameState.AlignmentConflict && scimitarArtifact.IsCarriedByMonster(ActorMonster))
 				{
 					gEngine.PrintEffectDesc(28);
 

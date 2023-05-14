@@ -30,7 +30,7 @@ namespace ARuncibleCargo.Game.States
 
 				// Cargo check
 
-				gGameState.CargoInRoom = cargoArtifact.IsInRoom(room) || cargoArtifact.IsCarriedByCharacter() ? 1 : 0;
+				gGameState.CargoInRoom = cargoArtifact.IsInRoom(room) || cargoArtifact.IsCarriedByMonster(gCharMonster) ? 1 : 0;
 			}
 		}
 	}

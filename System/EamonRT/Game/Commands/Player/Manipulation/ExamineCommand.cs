@@ -121,7 +121,7 @@ namespace EamonRT.Game.Commands
 				DobjArtAc.Field4 = 0;
 			}
 
-			if (!Enum.IsDefined(typeof(ContainerType), ContainerType) || (CheckContainerTypeInDobjArtName && string.Format(" {0} ", DobjArtifact.Name).IndexOf(string.Format(" {0} ", ContainerType.ToString()), StringComparison.OrdinalIgnoreCase) >= 0 && DobjArtifact.GeneralContainer == null) || DobjArtifact.IsWornByCharacter())
+			if (!Enum.IsDefined(typeof(ContainerType), ContainerType) || (CheckContainerTypeInDobjArtName && string.Format(" {0} ", DobjArtifact.Name).IndexOf(string.Format(" {0} ", ContainerType.ToString()), StringComparison.OrdinalIgnoreCase) >= 0 && DobjArtifact.GeneralContainer == null) || DobjArtifact.IsWornByMonster(ActorMonster))
 			{
 				PrintFullDesc(DobjArtifact, false, false);
 
@@ -178,7 +178,7 @@ namespace EamonRT.Game.Commands
 
 			ContainerArtifactList = DobjArtifact.GetContainedList(containerType: ContainerType);
 					
-			ShowCharOwned = !DobjArtifact.IsCarriedByCharacter() /* && !DobjArtifact.IsWornByCharacter() */;
+			ShowCharOwned = !DobjArtifact.IsCarriedByMonster(ActorMonster) /* && !DobjArtifact.IsWornByMonster(ActorMonster) */;
 
 			if (ContainerArtifactList.Count > 0)
 			{

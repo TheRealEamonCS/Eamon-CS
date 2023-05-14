@@ -30,7 +30,7 @@ namespace ThePyramidOfAnharos.Game.Commands
 
 				Debug.Assert(caravanArtifact != null);
 
-				if (waterBagArtifact.IsCarriedByCharacter())
+				if (waterBagArtifact.IsCarriedByMonster(ActorMonster))
 				{
 					if (ActorRoom.Uid == 26 || ActorRoom.Uid == 27)
 					{
@@ -106,7 +106,7 @@ namespace ThePyramidOfAnharos.Game.Commands
 
 			// Diamond of Purity
 
-			if (DobjArtifact != null && DobjArtifact.Uid == 38 && DobjArtifact.IsCarriedByCharacter() && gGameState.KR < 4 && gGameState.GD == 0)
+			if (DobjArtifact != null && DobjArtifact.Uid == 38 && DobjArtifact.IsCarriedByMonster(ActorMonster) && gGameState.KR < 4 && gGameState.GD == 0)
 			{
 				gEngine.PrintEffectDesc(56);
 
@@ -122,7 +122,7 @@ namespace ThePyramidOfAnharos.Game.Commands
 
 			// Rope
 
-			if (artifact.Uid == 13 && artifact.IsCarriedByCharacter())
+			if (artifact.Uid == 13 && artifact.IsCarriedByMonster(ActorMonster))
 			{
 				gGameState.KG = 0;
 			}

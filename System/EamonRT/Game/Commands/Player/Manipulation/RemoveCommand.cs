@@ -43,7 +43,7 @@ namespace EamonRT.Game.Commands
 					goto Cleanup;
 				}
 
-				if (!DobjArtifact.IsCarriedByCharacter())
+				if (!DobjArtifact.IsCarriedByMonster(ActorMonster))
 				{
 					if (DobjArtifact.DisguisedMonster == null)
 					{
@@ -53,7 +53,7 @@ namespace EamonRT.Game.Commands
 					goto Cleanup;
 				}
 
-				if (ActorMonster.Weapon <= 0 && DobjArtifact.IsReadyableByCharacter() && NextState == null)
+				if (ActorMonster.Weapon <= 0 && DobjArtifact.IsReadyableByMonster(ActorMonster) && NextState == null)
 				{
 					NextState = gEngine.CreateInstance<IReadyCommand>();
 
@@ -87,7 +87,7 @@ namespace EamonRT.Game.Commands
 				gGameState.Ar = 0;
 			}
 
-			DobjArtifact.SetCarriedByCharacter();
+			DobjArtifact.SetCarriedByMonster(ActorMonster);
 
 			PrintRemoved(DobjArtifact);
 

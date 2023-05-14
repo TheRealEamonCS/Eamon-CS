@@ -21,7 +21,7 @@ namespace TheDeepCanyon.Game.Commands
 
 			Debug.Assert(shovelArtifact != null);
 
-			if (!shovelArtifact.IsInRoom(ActorRoom) && !shovelArtifact.IsCarriedByCharacter())
+			if (!shovelArtifact.IsInRoom(ActorRoom) && !shovelArtifact.IsCarriedByMonster(ActorMonster))
 			{
 				gOut.Print("You don't have anything to dig with.");
 

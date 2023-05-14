@@ -3327,11 +3327,11 @@ namespace Eamon.Game.Helpers
 		{
 			string lookupMsg;
 
-			if (Record.IsCarriedByCharacter())
+			if (Record.IsCarriedByMonster(MonsterType.CharMonster))
 			{
 				lookupMsg = "Carried by Player Character";
 			}
-			else if (Record.IsWornByCharacter())
+			else if (Record.IsWornByMonster(MonsterType.CharMonster))
 			{
 				lookupMsg = "Worn by Player Character";
 			}

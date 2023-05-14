@@ -51,7 +51,7 @@ namespace ThePyramidOfAnharos.Game.States
 
 				if ((gGameState.Ro == 27 && gGameState.R2 == 28) || (gGameState.Ro == 28 && gGameState.R2 == 27))
 				{
-					if (!tunicArtifact.IsWornByCharacter())
+					if (!tunicArtifact.IsWornByMonster(gCharMonster))
 					{
 						var injureAndDamageArgs = gEngine.CreateInstance<IInjureAndDamageArgs>(x =>
 						{
@@ -87,7 +87,7 @@ namespace ThePyramidOfAnharos.Game.States
 
 				else if ((gGameState.Ro == 28 && gGameState.R2 == 29) || (gGameState.Ro == 29 && gGameState.R2 == 28))
 				{
-					if (!amuletArtifact.IsWornByCharacter())
+					if (!amuletArtifact.IsWornByMonster(gCharMonster))
 					{
 						var injureAndDamageArgs = gEngine.CreateInstance<IInjureAndDamageArgs>(x =>
 						{

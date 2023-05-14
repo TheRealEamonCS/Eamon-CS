@@ -5,7 +5,6 @@
 
 using System.Diagnostics;
 using Eamon.Game.Attributes;
-using Eamon.Game.Extensions;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.Primitive.Enums;
 using static TheBeginnersCave.Game.Plugin.Globals;
@@ -25,7 +24,7 @@ namespace TheBeginnersCave.Game.Commands
 
 				Debug.Assert(trollsfireArtifact != null);
 
-				if (trollsfireArtifact.IsCarriedByCharacter() && gGameState.Trollsfire == 1)
+				if (trollsfireArtifact.IsCarriedByMonster(ActorMonster) && gGameState.Trollsfire == 1)
 				{
 					gOut.Print("Trollsfire is alight!");
 				}

@@ -55,14 +55,14 @@ namespace LandOfTheMountainKing.Game.Commands
 					ProcessAction(() => gOut.Print("{0}", effect.Desc), ref nlFlag);
 					if (ActorMonster.CanCarryArtifactWeight(SilverSword))
 					{
-						SilverSword.SetCarriedByCharacter();
+						SilverSword.SetCarriedByMonster(ActorMonster);
 					}
 					else
 					{
 						SilverSword.SetInRoom(ActorRoom);
 					}
 					artifact.SetInLimbo();
-					if (ActorMonster.Weapon <= 0 && SilverSword.IsCarriedByCharacter())
+					if (ActorMonster.Weapon <= 0 && SilverSword.IsCarriedByMonster(ActorMonster))
 					{
 						PrintFullDesc(SilverSword, false, false);
 						SilverSword.Seen = true;

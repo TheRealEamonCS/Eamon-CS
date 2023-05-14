@@ -116,7 +116,7 @@ namespace EamonRT.Game.Commands
 
 				DobjArtContainedArtifactList = DobjArtifact.GetContainedList(containerType: DobjArtContainerType);
 
-				ShowCharOwned = !DobjArtifact.IsCarriedByCharacter() && !DobjArtifact.IsWornByCharacter();
+				ShowCharOwned = !DobjArtifact.IsCarriedByMonster(ActorMonster) && !DobjArtifact.IsWornByMonster(ActorMonster);
 
 				if (DobjArtContainedArtifactList.Count > 0)
 				{
