@@ -745,7 +745,7 @@ namespace Eamon.Game
 
 			var containerType = GetCarriedByContainerContainerType();
 
-			return artifact != null && artifact.ShouldExposeContentsToMonster(monsterType, containerType) && (containerType != ContainerType.In || (artifact.InContainer != null && artifact.InContainer.IsOpen()) || artifact.ShouldExposeInContentsWhenClosed()) && (artifact.IsCarriedByMonster(monsterType) || (recurse && artifact.GetCarriedByContainer() != null && artifact.IsCarriedByContainerContainerTypeExposedToMonster(monsterType, recurse)));
+			return artifact != null && artifact.ShouldExposeContentsToMonster(monsterType, containerType) && (containerType != ContainerType.In || (artifact.InContainer != null && artifact.InContainer.IsOpen()) || artifact.ShouldExposeInContentsWhenClosed()) && (!recurse || artifact.GetCarriedByContainer() == null || artifact.IsCarriedByContainerContainerTypeExposedToMonster(monsterType, recurse));
 		}
 
 		public virtual bool IsCarriedByContainerContainerTypeExposedToRoom(bool recurse = false)
