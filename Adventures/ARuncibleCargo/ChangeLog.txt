@@ -5,7 +5,8 @@ ChangeLog: ARuncibleCargo
 
 Date            Version            Who            Notes
 ----------------------------------------------------------------------------------------------------------------------------------
-20230531        2.2.0              MP             Artifact Character/Monster Method Unification overhaul
+20230531        2.2.0              MP             Player/Monster Command Unification overhaul
+20230531                           MP             Artifact Character/Monster Method Unification overhaul
 20221031        2.1.0              MP             Plugin Class Unification overhaul
 20211211                           MP             ProcessEvents normalization overhaul
 20210331                           MP             Player/Monster Command normalization overhaul

@@ -1022,6 +1022,16 @@ namespace EamonRT.Game.Commands
 			CommandImpl.Execute();
 		}
 
+		public virtual void ExecuteForPlayer()
+		{
+			CommandImpl.ExecuteForPlayer();
+		}
+
+		public virtual void ExecuteForMonster()
+		{
+			CommandImpl.ExecuteForMonster();
+		}
+
 		public virtual string GetPrintedVerb()
 		{
 			return CommandImpl.GetPrintedVerb();

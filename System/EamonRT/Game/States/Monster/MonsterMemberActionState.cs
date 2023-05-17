@@ -143,7 +143,7 @@ namespace EamonRT.Game.States
 							{
 								ContainerPrepName = gEngine.EvalContainerType(WeaponContainerType, "in", "on", "under", "behind");
 
-								ActionCommand = gEngine.CreateInstance<IMonsterRemoveCommand>(x =>
+								ActionCommand = gEngine.CreateInstance<IRemoveCommand>(x =>
 								{
 									x.ActorMonster = LoopMonster;
 
@@ -158,7 +158,7 @@ namespace EamonRT.Game.States
 							}
 							else
 							{
-								ActionCommand = gEngine.CreateInstance<IMonsterGetCommand>(x =>
+								ActionCommand = gEngine.CreateInstance<IGetCommand>(x =>
 								{
 									x.ActorMonster = LoopMonster;
 
@@ -184,7 +184,7 @@ namespace EamonRT.Game.States
 
 						if (WeaponArtifact.IsCarriedByMonster(LoopMonster))
 						{
-							ActionCommand = gEngine.CreateInstance<IMonsterReadyCommand>(x =>
+							ActionCommand = gEngine.CreateInstance<IReadyCommand>(x =>
 							{
 								x.ActorMonster = LoopMonster;
 
@@ -233,7 +233,7 @@ namespace EamonRT.Game.States
 							{
 								Debug.Assert(_spellTarget != null);
 
-								ActionCommand = gEngine.CreateInstance<IMonsterBlastCommand>(x =>
+								ActionCommand = gEngine.CreateInstance<IBlastCommand>(x =>
 								{
 									x.CheckAttack = true;
 								});
@@ -243,7 +243,7 @@ namespace EamonRT.Game.States
 
 						case Spell.Heal:
 
-							ActionCommand = gEngine.CreateInstance<IMonsterHealCommand>();
+							ActionCommand = gEngine.CreateInstance<IHealCommand>();
 
 							break;
 
@@ -251,7 +251,7 @@ namespace EamonRT.Game.States
 
 							Debug.Assert(_spellTarget == null);
 
-							ActionCommand = gEngine.CreateInstance<IMonsterSpeedCommand>();
+							ActionCommand = gEngine.CreateInstance<ISpeedCommand>();
 
 							break;
 
@@ -259,7 +259,7 @@ namespace EamonRT.Game.States
 
 							Debug.Assert(_spellTarget == null);
 
-							ActionCommand = gEngine.CreateInstance<IMonsterPowerCommand>();
+							ActionCommand = gEngine.CreateInstance<IPowerCommand>();
 
 							break;
 					}

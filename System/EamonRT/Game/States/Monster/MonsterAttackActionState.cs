@@ -107,7 +107,7 @@ namespace EamonRT.Game.States
 		{
 			HostileMonsterListIndex = gEngine.RollDice(1, HostileMonsterList.Count, -1);
 
-			ActionCommand = gEngine.CreateInstance<IMonsterAttackCommand>(x =>
+			ActionCommand = gEngine.CreateInstance<IAttackCommand>(x =>
 			{
 				x.NextState = gEngine.CreateInstance<IMonsterAttackLoopIncrementState>();
 

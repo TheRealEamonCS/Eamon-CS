@@ -1407,6 +1407,23 @@ namespace EamonRT.Game.Commands
 
 		public virtual void Execute()
 		{
+			if (Command.ActorMonster.IsCharacterMonster())
+			{
+				Command.ExecuteForPlayer();
+			}
+			else
+			{
+				Command.ExecuteForMonster();
+			}
+		}
+
+		public virtual void ExecuteForPlayer()
+		{
+
+		}
+
+		public virtual void ExecuteForMonster()
+		{
 
 		}
 

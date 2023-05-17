@@ -669,6 +669,12 @@
         <member name="M:EamonRT.Framework.Commands.ICommandSignatures.Stage">
             <summary></summary>
         </member>
+        <member name="M:EamonRT.Framework.Commands.ICommandSignatures.ExecuteForPlayer">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Framework.Commands.ICommandSignatures.ExecuteForMonster">
+            <summary></summary>
+        </member>
         <member name="M:EamonRT.Framework.Commands.ICommandSignatures.IsAllowedInRoom">
             <summary></summary>
             <returns></returns>
@@ -711,70 +717,13 @@
             <param name="artifact"></param>
             <param name="printTaking"></param>
         </member>
-        <member name="T:EamonRT.Framework.Commands.IMonsterAttackCommand">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Framework.Commands.IMonsterAttackCommand.BlastSpell">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Framework.Commands.IMonsterAttackCommand.CheckAttack">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Framework.Commands.IMonsterAttackCommand.MemberNumber">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Framework.Commands.IMonsterAttackCommand.AttackNumber">
-            <summary></summary>
-        </member>
-        <member name="T:EamonRT.Framework.Commands.IMonsterBlastCommand">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Framework.Commands.IMonsterBlastCommand.CastSpell">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Framework.Commands.IMonsterBlastCommand.CheckAttack">
-            <summary></summary>
-        </member>
-        <member name="T:EamonRT.Framework.Commands.IMonsterHealCommand">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Framework.Commands.IMonsterHealCommand.CastSpell">
-            <summary></summary>
-        </member>
-        <member name="T:EamonRT.Framework.Commands.IMonsterGetCommand">
-            <summary></summary>
-        </member>
-        <member name="T:EamonRT.Framework.Commands.IMonsterReadyCommand">
-            <summary></summary>
-        </member>
-        <member name="T:EamonRT.Framework.Commands.IMonsterRemoveCommand">
-            <summary></summary>
-        </member>
-        <member name="T:EamonRT.Framework.Commands.IMonsterPowerCommand">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Framework.Commands.IMonsterPowerCommand.CastSpell">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Framework.Commands.IMonsterPowerCommand.ResurrectWhereClauseFuncs">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Framework.Commands.IMonsterPowerCommand.VanishWhereClauseFuncs">
-            <summary></summary>
-        </member>
-        <member name="T:EamonRT.Framework.Commands.IMonsterSpeedCommand">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Framework.Commands.IMonsterSpeedCommand.CastSpell">
-            <summary></summary>
-        </member>
-        <member name="T:EamonRT.Framework.Commands.IMonsterFleeCommand">
-            <summary></summary>
-        </member>
         <member name="T:EamonRT.Framework.Commands.IAttackCommand">
             <summary></summary>
         </member>
         <member name="P:EamonRT.Framework.Commands.IAttackCommand.BlastSpell">
+            <summary></summary>
+        </member>
+        <member name="P:EamonRT.Framework.Commands.IAttackCommand.CheckAttack">
             <summary></summary>
         </member>
         <member name="P:EamonRT.Framework.Commands.IAttackCommand.MemberNumber">
@@ -787,6 +736,9 @@
             <summary></summary>
         </member>
         <member name="P:EamonRT.Framework.Commands.IBlastCommand.CastSpell">
+            <summary></summary>
+        </member>
+        <member name="P:EamonRT.Framework.Commands.IBlastCommand.CheckAttack">
             <summary></summary>
         </member>
         <member name="T:EamonRT.Framework.Commands.IFreeCommand">
@@ -3037,42 +2989,6 @@
         <member name="T:EamonRT.Framework.States.IProcessPlayerInputState">
             <summary></summary>
         </member>
-        <member name="P:EamonRT.Game.Commands.MonsterAttackCommand.CombatComponent">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Game.Commands.MonsterGetCommand.ArtTypes">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Game.Commands.MonsterGetCommand.FumbleMonsterList">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Game.Commands.MonsterGetCommand.DobjArtAc">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Game.Commands.MonsterGetCommand.OmitWeightCheck">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Game.Commands.MonsterReadyCommand.ActorWeapon">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Game.Commands.MonsterRemoveCommand.ArtTypes">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Game.Commands.MonsterRemoveCommand.FumbleMonsterList">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Game.Commands.MonsterRemoveCommand.DobjArtAc">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Game.Commands.MonsterRemoveCommand.MonsterName">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Game.Commands.MonsterRemoveCommand.OmitWeightCheck">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Game.Commands.MonsterPowerCommand.FortuneCookieRoll">
-            <summary></summary>
-        </member>
         <member name="P:EamonRT.Game.Commands.AttackCommand.DobjArtAc">
             <summary></summary>
         </member>
@@ -3313,6 +3229,18 @@
         <member name="P:EamonRT.Game.Commands.RemoveCommand.ShieldArtifact">
             <summary></summary>
         </member>
+        <member name="P:EamonRT.Game.Commands.RemoveCommand.FumbleMonsterList">
+            <summary></summary>
+        </member>
+        <member name="P:EamonRT.Game.Commands.RemoveCommand.DobjArtAc">
+            <summary></summary>
+        </member>
+        <member name="P:EamonRT.Game.Commands.RemoveCommand.MonsterName">
+            <summary></summary>
+        </member>
+        <member name="P:EamonRT.Game.Commands.RemoveCommand.OmitWeightCheck">
+            <summary></summary>
+        </member>
         <member name="P:EamonRT.Game.Commands.UseCommand.DobjArtAc">
             <summary></summary>
         </member>
@@ -3407,6 +3335,9 @@
             <summary></summary>
         </member>
         <member name="P:EamonRT.Game.Commands.PowerCommand.MagicComponent">
+            <summary></summary>
+        </member>
+        <member name="P:EamonRT.Game.Commands.PowerCommand.FortuneCookieRoll">
             <summary></summary>
         </member>
         <member name="P:EamonRT.Game.Commands.RestoreCommand.FullArtifactList">
