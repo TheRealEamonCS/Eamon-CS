@@ -20,6 +20,11 @@ namespace EamonRT.Game.Commands
 	[ClassMappings]
 	public class RemoveCommand : Command, IRemoveCommand
 	{
+		public virtual ArtifactType[] ArtTypes { get; set; }
+
+		/// <summary></summary>
+		public virtual IList<IMonster> FumbleMonsterList { get; set; }
+
 		/// <summary></summary>
 		public virtual IArtifactCategory ArmorArtifactAc { get; set; }
 
@@ -27,26 +32,19 @@ namespace EamonRT.Game.Commands
 		public virtual IArtifactCategory ShieldArtifactAc { get; set; }
 
 		/// <summary></summary>
+		public virtual IArtifactCategory DobjArtAc { get; set; }
+
+		/// <summary></summary>
 		public virtual IArtifact ArmorArtifact { get; set; }
 
 		/// <summary></summary>
 		public virtual IArtifact ShieldArtifact { get; set; }
-
-
-		public virtual ArtifactType[] ArtTypes { get; set; }
-
-		/// <summary></summary>
-		public virtual IList<IMonster> FumbleMonsterList { get; set; }
-
-		/// <summary></summary>
-		public virtual IArtifactCategory DobjArtAc { get; set; }
 
 		/// <summary></summary>
 		public virtual string MonsterName { get; set; }
 
 		/// <summary></summary>
 		public virtual bool OmitWeightCheck { get; set; }
-
 
 		public override void ExecuteForPlayer()
 		{

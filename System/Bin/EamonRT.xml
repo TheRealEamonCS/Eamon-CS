@@ -3217,22 +3217,22 @@
         <member name="P:EamonRT.Game.Commands.ReadyCommand.ActorWeapon">
             <summary></summary>
         </member>
+        <member name="P:EamonRT.Game.Commands.RemoveCommand.FumbleMonsterList">
+            <summary></summary>
+        </member>
         <member name="P:EamonRT.Game.Commands.RemoveCommand.ArmorArtifactAc">
             <summary></summary>
         </member>
         <member name="P:EamonRT.Game.Commands.RemoveCommand.ShieldArtifactAc">
             <summary></summary>
         </member>
+        <member name="P:EamonRT.Game.Commands.RemoveCommand.DobjArtAc">
+            <summary></summary>
+        </member>
         <member name="P:EamonRT.Game.Commands.RemoveCommand.ArmorArtifact">
             <summary></summary>
         </member>
         <member name="P:EamonRT.Game.Commands.RemoveCommand.ShieldArtifact">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Game.Commands.RemoveCommand.FumbleMonsterList">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Game.Commands.RemoveCommand.DobjArtAc">
             <summary></summary>
         </member>
         <member name="P:EamonRT.Game.Commands.RemoveCommand.MonsterName">
@@ -3334,10 +3334,10 @@
         <member name="P:EamonRT.Game.Commands.InventoryCommand.IsUninjuredGroup">
             <summary></summary>
         </member>
-        <member name="P:EamonRT.Game.Commands.PowerCommand.MagicComponent">
+        <member name="P:EamonRT.Game.Commands.PowerCommand.FortuneCookieRoll">
             <summary></summary>
         </member>
-        <member name="P:EamonRT.Game.Commands.PowerCommand.FortuneCookieRoll">
+        <member name="P:EamonRT.Game.Commands.PowerCommand.MagicComponent">
             <summary></summary>
         </member>
         <member name="P:EamonRT.Game.Commands.RestoreCommand.FullArtifactList">

@@ -24,12 +24,10 @@ namespace EamonRT.Game.Commands
 		public virtual bool CastSpell { get; set; }
 
 		/// <summary></summary>
-		public virtual IMagicComponent MagicComponent { get; set; }
-
-
-		/// <summary></summary>
 		public virtual long FortuneCookieRoll { get; set; }
 
+		/// <summary></summary>
+		public virtual IMagicComponent MagicComponent { get; set; }
 
 		public override void ExecuteForPlayer()
 		{
