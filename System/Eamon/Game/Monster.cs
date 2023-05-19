@@ -1253,6 +1253,13 @@ namespace Eamon.Game
 			return result;
 		}
 
+		public virtual string GetPovString(string youString, string maleString, string femaleString, string neutralString, string groupString)
+		{
+			Debug.Assert(youString != null && maleString != null && femaleString != null && neutralString != null);
+
+			return IsCharacterMonster() ? youString : CurrGroupCount > 1 && groupString != null ? groupString : EvalGender(maleString, femaleString, neutralString);
+		}
+
 		#endregion
 
 		#region Class Monster

@@ -15,20 +15,13 @@ namespace StrongholdOfKahrDur.Game.Commands
 	{
 		public override bool ShouldAllowSkillGains()
 		{
-			// When Necromancer is blasted only allow skill increases if wearing Wizard's Helm
+			var helmArtifact = gADB[25];
 
-			if (DobjMonster != null && DobjMonster.Uid == 22)
-			{
-				var helmArtifact = gADB[25];
+			Debug.Assert(helmArtifact != null);
 
-				Debug.Assert(helmArtifact != null);
+			// When Necromancer is BLASTed only allow skill increases if wearing Wizard's Helm
 
-				return helmArtifact.IsWornByMonster(ActorMonster);
-			}
-			else
-			{
-				return base.ShouldAllowSkillGains();
-			}
+			return DobjMonster != null && DobjMonster.Uid == 22 && !helmArtifact.IsWornByMonster(ActorMonster) ? false : base.ShouldAllowSkillGains();
 		}
 	}
 }

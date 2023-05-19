@@ -1258,7 +1258,7 @@ namespace EamonRT.Game.Commands
 
 		public virtual bool ShouldAllowSkillGains()
 		{
-			return true;
+			return ActorMonster != null && ActorMonster.IsCharacterMonster();
 		}
 
 		public virtual bool ShouldAllowRedirectToGetCommand()

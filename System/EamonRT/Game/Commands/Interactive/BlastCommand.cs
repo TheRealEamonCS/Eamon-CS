@@ -198,7 +198,7 @@ namespace EamonRT.Game.Commands
 
 		public override bool ShouldAllowSkillGains()
 		{
-			return DobjMonster != null || DobjArtifact.ShouldAllowBlastSkillGains();
+			return (DobjMonster != null || DobjArtifact.ShouldAllowBlastSkillGains()) && base.ShouldAllowSkillGains();
 		}
 
 		public BlastCommand()

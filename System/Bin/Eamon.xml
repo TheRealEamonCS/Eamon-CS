@@ -3046,6 +3046,15 @@
             <param name="enterDirection"></param>
             <returns></returns>
         </member>
+        <member name="M:Eamon.Framework.IMonster.GetPovString(System.String,System.String,System.String,System.String,System.String)">
+            <summary></summary>
+            <param name="youString"></param>
+            <param name="maleString"></param>
+            <param name="femaleString"></param>
+            <param name="neutralString"></param>
+            <param name="groupString"></param>
+            <returns></returns>
+        </member>
         <member name="T:Eamon.Framework.IRoom">
             <summary></summary>
         </member>
