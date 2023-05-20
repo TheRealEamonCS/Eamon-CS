@@ -1112,6 +1112,12 @@ namespace EamonRT.Game.Parsing
 
 					CurrToken += 2;
 				}
+				else if (Tokens[CurrToken].Equals("interactivefiction", StringComparison.OrdinalIgnoreCase) && bool.TryParse(Tokens[CurrToken + 1], out boolValue))
+				{
+					settingsCommand.InteractiveFiction = boolValue;
+
+					CurrToken += 2;
+				}
 				else if (Tokens[CurrToken].Equals("enhancedparser", StringComparison.OrdinalIgnoreCase) && bool.TryParse(Tokens[CurrToken + 1], out boolValue))
 				{
 					settingsCommand.EnhancedParser = boolValue;

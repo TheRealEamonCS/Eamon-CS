@@ -1018,6 +1018,7 @@ namespace EamonRT.Game.Commands
 			gOut.WriteLine("  {0,-22}{1,-22}{2,-22}", "VerboseArtifacts", "True, False", gGameState.Va);
 			gOut.WriteLine("  {0,-22}{1,-22}{2,-22}", "VerboseNames", "True, False", gGameState.Vn);
 			gOut.WriteLine("  {0,-22}{1,-22}{2,-22}", "MatureContent", "True, False", gGameState.MatureContent);
+			gOut.WriteLine("  {0,-22}{1,-22}{2,-22}", "InteractiveFiction", "True, False", gGameState.InteractiveFiction);
 			gOut.WriteLine("  {0,-22}{1,-22}{2,-22}", "EnhancedParser", "True, False", gGameState.EnhancedParser);
 
 			if (gGameState.EnhancedParser)
@@ -1258,7 +1259,7 @@ namespace EamonRT.Game.Commands
 
 		public virtual bool ShouldAllowSkillGains()
 		{
-			return ActorMonster != null && ActorMonster.IsCharacterMonster();
+			return Command.ActorMonster != null && Command.ActorMonster.IsCharacterMonster();
 		}
 
 		public virtual bool ShouldAllowRedirectToGetCommand()

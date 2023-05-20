@@ -2302,6 +2302,9 @@
             Gets or sets a value indicating whether mature content should be allowed during gameplay.
             </summary>
         </member>
+        <member name="P:Eamon.Framework.IGameState.InteractiveFiction">
+            <summary></summary>
+        </member>
         <member name="P:Eamon.Framework.IGameState.EnhancedParser">
             <summary></summary>
         </member>
