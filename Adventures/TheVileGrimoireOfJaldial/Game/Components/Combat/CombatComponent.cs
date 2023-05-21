@@ -205,7 +205,7 @@ namespace TheVileGrimoireOfJaldial.Game.Components
 
 				// Apply special defenses
 
-				if (ActorMonster?.Uid != 50 && !BlastSpell)
+				if (!gGameState.InteractiveFiction && ActorMonster?.Uid != 50 && !BlastSpell)
 				{
 					// Some monsters are immune to non-magical weapons
 
