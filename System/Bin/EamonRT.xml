@@ -2508,9 +2508,19 @@
             An event that fires before checking if an <see cref="T:Eamon.Framework.IArtifact">Artifact</see> is fully drunk.
             </summary>
         </member>
+        <member name="F:EamonRT.Framework.Primitive.Enums.EventType.BeforeDrinkArtifact">
+            <summary>
+            An event that fires before an <see cref="T:Eamon.Framework.IArtifact">Artifact</see> is drunk.
+            </summary>
+        </member>
         <member name="F:EamonRT.Framework.Primitive.Enums.EventType.AfterDrinkArtifact">
             <summary>
             An event that fires after an <see cref="T:Eamon.Framework.IArtifact">Artifact</see> is drunk.
+            </summary>
+        </member>
+        <member name="F:EamonRT.Framework.Primitive.Enums.EventType.BeforeEatArtifact">
+            <summary>
+            An event that fires before an <see cref="T:Eamon.Framework.IArtifact">Artifact</see> is eaten.
             </summary>
         </member>
         <member name="F:EamonRT.Framework.Primitive.Enums.EventType.AfterEatArtifact">
@@ -3025,6 +3035,9 @@
         <member name="P:EamonRT.Game.Commands.FreeCommand.KeyArtifactUid">
             <summary></summary>
         </member>
+        <member name="P:EamonRT.Game.Commands.GiveCommand.ArtTypes">
+            <summary></summary>
+        </member>
         <member name="P:EamonRT.Game.Commands.GiveCommand.DobjArtAc">
             <summary></summary>
         </member>
@@ -3061,10 +3074,7 @@
         <member name="P:EamonRT.Game.Commands.CloseCommand.DobjArtAc">
             <summary></summary>
         </member>
-        <member name="P:EamonRT.Game.Commands.DrinkCommand.DrinkableAc">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Game.Commands.DrinkCommand.EdibleAc">
+        <member name="P:EamonRT.Game.Commands.DrinkCommand.ArtTypes">
             <summary></summary>
         </member>
         <member name="P:EamonRT.Game.Commands.DrinkCommand.DobjArtAc">
@@ -3076,10 +3086,7 @@
         <member name="P:EamonRT.Game.Commands.DropCommand.LsArtifact">
             <summary></summary>
         </member>
-        <member name="P:EamonRT.Game.Commands.EatCommand.DrinkableAc">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Game.Commands.EatCommand.EdibleAc">
+        <member name="P:EamonRT.Game.Commands.EatCommand.ArtTypes">
             <summary></summary>
         </member>
         <member name="P:EamonRT.Game.Commands.EatCommand.DobjArtAc">
@@ -3154,25 +3161,10 @@
         <member name="P:EamonRT.Game.Commands.LightCommand.LsArtifact">
             <summary></summary>
         </member>
+        <member name="P:EamonRT.Game.Commands.OpenCommand.ArtTypes">
+            <summary></summary>
+        </member>
         <member name="P:EamonRT.Game.Commands.OpenCommand.OnContainerArtifactList">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Game.Commands.OpenCommand.DisguisedMonsterAc">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Game.Commands.OpenCommand.InContainerAc">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Game.Commands.OpenCommand.DoorGateAc">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Game.Commands.OpenCommand.DrinkableAc">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Game.Commands.OpenCommand.EdibleAc">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Game.Commands.OpenCommand.ReadableAc">
             <summary></summary>
         </member>
         <member name="P:EamonRT.Game.Commands.OpenCommand.DobjArtAc">
@@ -3196,10 +3188,7 @@
         <member name="P:EamonRT.Game.Commands.PutCommand.IobjArtifactWeight">
             <summary></summary>
         </member>
-        <member name="P:EamonRT.Game.Commands.ReadCommand.DisguisedMonsterAc">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Game.Commands.ReadCommand.ReadableAc">
+        <member name="P:EamonRT.Game.Commands.ReadCommand.ArtTypes">
             <summary></summary>
         </member>
         <member name="P:EamonRT.Game.Commands.ReadCommand.DobjArtAc">
@@ -3218,6 +3207,9 @@
             <summary></summary>
         </member>
         <member name="P:EamonRT.Game.Commands.ReadyCommand.ActorWeapon">
+            <summary></summary>
+        </member>
+        <member name="P:EamonRT.Game.Commands.RemoveCommand.ArtTypes">
             <summary></summary>
         </member>
         <member name="P:EamonRT.Game.Commands.RemoveCommand.FumbleMonsterList">

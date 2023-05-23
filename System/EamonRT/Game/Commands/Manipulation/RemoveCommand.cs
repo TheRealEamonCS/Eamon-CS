@@ -20,6 +20,7 @@ namespace EamonRT.Game.Commands
 	[ClassMappings]
 	public class RemoveCommand : Command, IRemoveCommand
 	{
+		/// <summary></summary>
 		public virtual ArtifactType[] ArtTypes { get; set; }
 
 		/// <summary></summary>
@@ -128,8 +129,6 @@ namespace EamonRT.Game.Commands
 
 			Debug.Assert(DobjArtifact.IsCarriedByContainer(IobjArtifact) && DobjArtifact.GetCarriedByContainerContainerType() == Prep.ContainerType);
 
-			ArtTypes = new ArtifactType[] { ArtifactType.DisguisedMonster, ArtifactType.DeadBody, ArtifactType.BoundMonster, ArtifactType.Weapon, ArtifactType.MagicWeapon };
-
 			DobjArtAc = DobjArtifact.GetArtifactCategory(ArtTypes, false);
 
 			if (DobjArtAc == null)
@@ -211,6 +210,8 @@ namespace EamonRT.Game.Commands
 			Verb = "remove";
 
 			Type = CommandType.Manipulation;
+
+			ArtTypes = new ArtifactType[] { ArtifactType.DisguisedMonster, ArtifactType.DeadBody, ArtifactType.BoundMonster, ArtifactType.Weapon, ArtifactType.MagicWeapon };
 		}
 	}
 }

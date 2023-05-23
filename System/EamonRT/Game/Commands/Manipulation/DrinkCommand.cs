@@ -18,10 +18,7 @@ namespace EamonRT.Game.Commands
 	public class DrinkCommand : Command, IDrinkCommand
 	{
 		/// <summary></summary>
-		public virtual IArtifactCategory DrinkableAc { get; set; }
-
-		/// <summary></summary>
-		public virtual IArtifactCategory EdibleAc { get; set; }
+		public virtual ArtifactType[] ArtTypes { get; set; }
 
 		/// <summary></summary>
 		public virtual IArtifactCategory DobjArtAc { get; set; }
@@ -30,17 +27,27 @@ namespace EamonRT.Game.Commands
 		{
 			Debug.Assert(DobjArtifact != null);
 
-			DrinkableAc = DobjArtifact.Drinkable;
+			ProcessEvents(EventType.BeforeDrinkArtifact);
 
-			EdibleAc = DobjArtifact.Edible;
+			if (GotoCleanup)
+			{
+				goto Cleanup;
+			}
 
-			DobjArtAc = DrinkableAc != null ? DrinkableAc : EdibleAc;
+			DobjArtAc = DobjArtifact.GetArtifactCategory(ArtTypes, false);
 
 			if (DobjArtAc == null)
 			{
 				PrintCantVerbObj(DobjArtifact);
 
 				NextState = gEngine.CreateInstance<IStartState>();
+
+				goto Cleanup;
+			}
+
+			if (DobjArtAc.Type == ArtifactType.DisguisedMonster)
+			{
+				gEngine.RevealDisguisedMonster(ActorRoom, DobjArtifact);
 
 				goto Cleanup;
 			}
@@ -157,6 +164,8 @@ namespace EamonRT.Game.Commands
 			Verb = "drink";
 
 			Type = CommandType.Manipulation;
+
+			ArtTypes = new ArtifactType[] { ArtifactType.DisguisedMonster, ArtifactType.Drinkable, ArtifactType.Edible };
 		}
 	}
 }

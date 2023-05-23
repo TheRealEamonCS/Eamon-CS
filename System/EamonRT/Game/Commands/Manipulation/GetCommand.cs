@@ -92,8 +92,6 @@ namespace EamonRT.Game.Commands
 				goto Cleanup;
 			}
 
-			ArtTypes = new ArtifactType[] { ArtifactType.DisguisedMonster, ArtifactType.DeadBody, ArtifactType.BoundMonster, ArtifactType.Weapon, ArtifactType.MagicWeapon };
-
 			NewlineFlag = false;
 
 			foreach (var artifact in TakenArtifactList)
@@ -170,8 +168,6 @@ namespace EamonRT.Game.Commands
 		public override void ExecuteForMonster()
 		{
 			Debug.Assert(DobjArtifact != null);
-
-			ArtTypes = new ArtifactType[] { ArtifactType.DisguisedMonster, ArtifactType.DeadBody, ArtifactType.BoundMonster, ArtifactType.Weapon, ArtifactType.MagicWeapon };
 
 			DobjArtAc = DobjArtifact.GetArtifactCategory(ArtTypes, false);
 
@@ -316,6 +312,8 @@ namespace EamonRT.Game.Commands
 			Verb = "get";
 
 			Type = CommandType.Manipulation;
+			
+			ArtTypes = new ArtifactType[] { ArtifactType.DisguisedMonster, ArtifactType.DeadBody, ArtifactType.BoundMonster, ArtifactType.Weapon, ArtifactType.MagicWeapon };
 		}
 	}
 }

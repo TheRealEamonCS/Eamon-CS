@@ -20,25 +20,10 @@ namespace EamonRT.Game.Commands
 	public class OpenCommand : Command, IOpenCommand
 	{
 		/// <summary></summary>
+		public virtual ArtifactType[] ArtTypes { get; set; }
+	
+		/// <summary></summary>
 		public virtual IList<IArtifact> OnContainerArtifactList { get; set; }
-
-		/// <summary></summary>
-		public virtual IArtifactCategory DisguisedMonsterAc { get; set; }
-
-		/// <summary></summary>
-		public virtual IArtifactCategory InContainerAc { get; set; }
-
-		/// <summary></summary>
-		public virtual IArtifactCategory DoorGateAc { get; set; }
-
-		/// <summary></summary>
-		public virtual IArtifactCategory DrinkableAc { get; set; }
-
-		/// <summary></summary>
-		public virtual IArtifactCategory EdibleAc { get; set; }
-
-		/// <summary></summary>
-		public virtual IArtifactCategory ReadableAc { get; set; }
 
 		/// <summary></summary>
 		public virtual IArtifactCategory DobjArtAc { get; set; }
@@ -53,24 +38,7 @@ namespace EamonRT.Game.Commands
 		{
 			Debug.Assert(DobjArtifact != null);
 
-			DisguisedMonsterAc = DobjArtifact.DisguisedMonster;
-
-			InContainerAc = DobjArtifact.InContainer;
-
-			DoorGateAc = DobjArtifact.DoorGate;
-
-			DrinkableAc = DobjArtifact.Drinkable;
-
-			EdibleAc = DobjArtifact.Edible;
-
-			ReadableAc = DobjArtifact.Readable;
-
-			DobjArtAc = DisguisedMonsterAc != null ? DisguisedMonsterAc : 
-						InContainerAc != null ? InContainerAc :
-						DoorGateAc != null ? DoorGateAc :
-						DrinkableAc != null ? DrinkableAc :
-						EdibleAc != null ? EdibleAc : 
-						ReadableAc;
+			DobjArtAc = DobjArtifact.GetArtifactCategory(ArtTypes, false);
 
 			if (DobjArtAc == null)
 			{
@@ -214,6 +182,8 @@ namespace EamonRT.Game.Commands
 			Verb = "open";
 
 			Type = CommandType.Manipulation;
+			
+			ArtTypes = new ArtifactType[] { ArtifactType.DisguisedMonster, ArtifactType.InContainer, ArtifactType.DoorGate, ArtifactType.Drinkable, ArtifactType.Edible, ArtifactType.Readable };
 		}
 	}
 }

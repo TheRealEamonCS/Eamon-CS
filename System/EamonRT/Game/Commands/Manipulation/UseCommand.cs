@@ -58,8 +58,6 @@ namespace EamonRT.Game.Commands
 
 				gEngine.RevealDisguisedMonster(ActorRoom, DobjArtifact);
 
-				NextState = gEngine.CreateInstance<IMonsterStartState>();
-
 				goto Cleanup;
 			}
 

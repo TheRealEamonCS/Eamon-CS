@@ -21,10 +21,7 @@ namespace EamonRT.Game.Commands
 	public class ReadCommand : Command, IReadCommand
 	{
 		/// <summary></summary>
-		public virtual IArtifactCategory DisguisedMonsterAc { get; set; }
-
-		/// <summary></summary>
-		public virtual IArtifactCategory ReadableAc { get; set; }
+		public virtual ArtifactType[] ArtTypes { get; set; }
 
 		/// <summary></summary>
 		public virtual IArtifactCategory DobjArtAc { get; set; }
@@ -41,12 +38,7 @@ namespace EamonRT.Game.Commands
 
 			Debug.Assert(DobjArtifact != null);
 
-			DisguisedMonsterAc = DobjArtifact.DisguisedMonster;
-
-			ReadableAc = DobjArtifact.Readable;
-
-			DobjArtAc = DisguisedMonsterAc != null ? DisguisedMonsterAc :
-						ReadableAc;
+			DobjArtAc = DobjArtifact.GetArtifactCategory(ArtTypes, false);
 
 			if (DobjArtAc == null)
 			{
@@ -133,6 +125,8 @@ namespace EamonRT.Game.Commands
 			Verb = "read";
 
 			Type = CommandType.Manipulation;
+			
+			ArtTypes = new ArtifactType[] { ArtifactType.DisguisedMonster, ArtifactType.Readable };
 		}
 	}
 }

@@ -21,6 +21,9 @@ namespace EamonRT.Game.Commands
 		public virtual long GoldAmount { get; set; }
 
 		/// <summary></summary>
+		public virtual ArtifactType[] ArtTypes { get; set; }
+		
+		/// <summary></summary>
 		public virtual IArtifactCategory DobjArtAc { get; set; }
 
 		/// <summary></summary>
@@ -201,7 +204,7 @@ namespace EamonRT.Game.Commands
 
 			PrintGiveObjToActor(DobjArtifact, IobjMonster);
 
-			DobjArtAc = DobjArtifact.GetArtifactCategory(new ArtifactType[] { ArtifactType.Drinkable, ArtifactType.Edible });
+			DobjArtAc = DobjArtifact.GetArtifactCategory(ArtTypes);
 
 			if (gEngine.IsRulesetVersion(5, 62) || DobjArtAc == null || DobjArtAc.Field2 <= 0)
 			{
@@ -317,6 +320,8 @@ namespace EamonRT.Game.Commands
 			Verb = "give";
 
 			Type = CommandType.Interactive;
+			
+			ArtTypes = new ArtifactType[] { ArtifactType.Drinkable, ArtifactType.Edible };
 		}
 	}
 }
