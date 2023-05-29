@@ -85,5 +85,13 @@ namespace TheBeginnersCave.Game.Plugin
 				return (Eamon.Framework.ICharacter)EamonRT.Game.Plugin.Globals.gCharacter;
 			}
 		}
+
+		public static Eamon.Framework.IMonster gCharMonster
+		{
+			get
+			{
+				return (Eamon.Framework.IMonster)EamonRT.Game.Plugin.Globals.gCharMonster;
+			}
+		}
 	}
 }

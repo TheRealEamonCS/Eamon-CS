@@ -152,7 +152,13 @@ namespace StrongholdOfKahrDur.Game.Plugin
 
 				Debug.Assert(monster01 != null);
 
+				var origLocation = monster01.Location;
+
+				monster01.Location = monster.Location;
+
 				base.MonsterGetsAggravated(monster01, printFinalNewLine);
+
+				monster01.Location = origLocation;
 			}
 		}
 
@@ -175,10 +181,16 @@ namespace StrongholdOfKahrDur.Game.Plugin
 						Out.WriteLine();
 					}
 
+					var origLocation = monster.Location;
+
+					monster.Location = actorMonster.Location;
+
 					while (monster.Reaction > Friendliness.Enemy)
 					{
-						base.MonsterGetsAggravated(monster, false);
+						base.MonsterGetsAggravated(monster);
 					}
+
+					monster.Location = origLocation;
 				}
 			}
 		}

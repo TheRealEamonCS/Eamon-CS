@@ -30,7 +30,7 @@ namespace TheDeepCanyon.Game.Commands
 		{
 			get
 			{
-				return base.IsMonsterEnabled || Command is IMonsterRemoveCommand;
+				return base.IsMonsterEnabled || Command is IRemoveCommand;
 			}
 
 			set

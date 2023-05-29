@@ -371,11 +371,11 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 					if (edxArtifact._ad4 == -1)
 					{
-						x.SetCarriedByCharacter();
+						x.SetCarriedByMonsterUid(long.MaxValue);
 					}
 					else if (edxArtifact._ad4 == -999)
 					{
-						x.SetWornByCharacter();
+						x.SetWornByMonsterUid(long.MaxValue);
 					}
 					else if (edxArtifact._ad4 < -1 && edxArtifact._ad4 > -1001)
 					{

@@ -62,7 +62,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.States
 				{
 					var lsArtifact = gGameState.Ls > 0 ? gADB[gGameState.Ls] : null;
 
-					if (lsArtifact != null && lsArtifact.IsCarriedByCharacter())
+					if (lsArtifact != null && lsArtifact.IsCarriedByMonster(gCharMonster))
 					{
 						gEngine.LightOut(lsArtifact);
 					}

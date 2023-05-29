@@ -99,7 +99,7 @@ namespace EamonRT.Game.Components
 
 			if (gGameState.GetSa(s) > 0 && gCharacter.GetSpellAbility(s) > 0)
 			{
-				rl = gEngine.RollDice(1, 100, 0);
+				rl = gGameState.InteractiveFiction ? 1 : gEngine.RollDice(1, 100, 0);
 			}
 
 			if (rl == 100)
@@ -113,7 +113,10 @@ namespace EamonRT.Game.Components
 			{
 				result = true;
 
-				gGameState.SetSa(s, (long)((double)gGameState.GetSa(s) * .5 + 1));
+				if (!gGameState.InteractiveFiction)
+				{
+					gGameState.SetSa(s, (long)((double)gGameState.GetSa(s) * .5 + 1));
+				}
 
 				if (!OmitSkillGains)
 				{
@@ -121,7 +124,7 @@ namespace EamonRT.Game.Components
 
 					rl += gCharacter.GetIntellectBonusPct();
 
-					if (rl > gCharacter.GetSpellAbility(s))
+					if (rl > gCharacter.GetSpellAbility(s) && !gGameState.InteractiveFiction)
 					{
 						gEngine.SkillIncreaseFuncList.Add(() =>
 						{

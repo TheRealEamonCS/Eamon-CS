@@ -57,7 +57,7 @@ namespace TheTempleOfNgurct.Game.Parsing
 				{
 					r => r is IArtifact a && a.IsInRoom(ActorRoom),
 					r => r is IArtifact a && a.IsEmbeddedInRoom(ActorRoom),
-					r => r is IArtifact a && (a.IsCarriedByContainerContainerTypeExposedToCharacter(gEngine.ExposeContainersRecursively) || a.IsCarriedByContainerContainerTypeExposedToRoom(ActorRoom, gEngine.ExposeContainersRecursively))
+					r => r is IArtifact a && (a.IsCarriedByContainerContainerTypeExposedToMonster(ActorMonster, gEngine.ExposeContainersRecursively) || a.IsCarriedByContainerContainerTypeExposedToRoom(ActorRoom, gEngine.ExposeContainersRecursively))
 				};
 
 				ObjData.RecordNotFoundFunc = NextCommand.PrintCantVerbThat;

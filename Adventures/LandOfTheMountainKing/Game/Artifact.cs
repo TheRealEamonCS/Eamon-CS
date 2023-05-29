@@ -35,7 +35,7 @@ namespace LandOfTheMountainKing.Game
 				{
 					if (gCharMonster.CanCarryArtifactWeight(Necklace))
 					{
-						Necklace.SetCarriedByCharacter();
+						Necklace.SetCarriedByMonster(gCharMonster);
 					}
 					else
 					{

@@ -125,7 +125,7 @@ namespace BeginnersCaveII.Game.Plugin
 
 					Debug.Assert(artifact != null);
 
-					artifact.SetCarriedByCharacter();
+					artifact.SetCarriedByMonster(gCharMonster);
 				}
 			}
 

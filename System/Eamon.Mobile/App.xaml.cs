@@ -58,6 +58,8 @@ namespace Eamon.Mobile
 
 		public static Func<string[]> GetAdventureDirs { get; set; }
 
+		public static Func<string> GetBuildGuid { get; set; }
+		
 		public static Func<string, bool> PluginExists { get; set; }
 
 		public static Action<string[], bool> ExecutePlugin { get; set; }

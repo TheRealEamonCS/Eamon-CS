@@ -226,7 +226,7 @@ namespace EamonRT.Game.Components
 
 				rl += gCharacter.GetIntellectBonusPct();
 
-				if (rl > gCharacter.GetWeaponAbility(s))
+				if (rl > gCharacter.GetWeaponAbility(s) && !gGameState.InteractiveFiction)
 				{
 					var weapon = gEngine.GetWeapon(s);
 
@@ -256,7 +256,7 @@ namespace EamonRT.Game.Components
 
 					rl += (long)Math.Round(((double)x / 100.0) * (double)gCharacter.GetIntellectBonusPct());
 
-					if (rl > gCharacter.ArmorExpertise)
+					if (rl > gCharacter.ArmorExpertise && !gGameState.InteractiveFiction)
 					{
 						gEngine.SkillIncreaseFuncList.Add(() =>
 						{
@@ -377,6 +377,26 @@ namespace EamonRT.Game.Components
 			gEngine.GetOddsToHit(ActorMonster, DobjMonster, ActorAc, Af, ref _odds);
 
 			RollToHitOrMiss();
+
+			if (gGameState.InteractiveFiction)
+			{
+				_odds = 50;
+
+				if (ActorMonster.IsCharacterMonster() || ActorMonster.Reaction == Friendliness.Friend)
+				{
+					if (_rl > _odds)
+					{
+						_rl = _odds;
+					}
+				}
+				else
+				{
+					if (_rl <= _odds)
+					{
+						_rl = _odds + 1;
+					}
+				}
+			}
 
 			if (ActorMonster.IsCharacterMonster() && _rl < 97 && (_rl < 5 || _rl <= _odds) && ActorAc != null && !OmitSkillGains)
 			{
@@ -815,6 +835,18 @@ namespace EamonRT.Game.Components
 			}
 
 			_d2 -= (A * DobjMonster.Armor);
+
+			if (gGameState.InteractiveFiction)
+			{
+				if (DobjMonster.IsCharacterMonster() || DobjMonster.Reaction == Friendliness.Friend)
+				{
+					_d2 = 0;
+				}
+				else
+				{
+					_d2 = DobjMonster.Hardiness - DobjMonster.DmgTaken;
+				}
+			}
 
 			CombatState = CombatState.CheckArmor;
 		}

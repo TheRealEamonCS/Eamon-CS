@@ -306,7 +306,7 @@ namespace AlternateBeginnersCave.Game.Plugin
 
 					Debug.Assert(artifact != null);
 
-					artifact.SetCarriedByCharacter();
+					artifact.SetCarriedByMonster(gCharMonster);
 				}
 			}
 

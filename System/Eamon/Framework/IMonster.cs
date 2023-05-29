@@ -519,6 +519,15 @@ namespace Eamon.Framework
 		/// <returns></returns>
 		string GetEnterRoomDescString(IRoom room, string monsterName, bool isPlural, bool fleeing, Direction enterDirection);
 
+		/// <summary></summary>
+		/// <param name="youString"></param>
+		/// <param name="maleString"></param>
+		/// <param name="femaleString"></param>
+		/// <param name="neutralString"></param>
+		/// <param name="groupString"></param>
+		/// <returns></returns>
+		string GetPovString(string youString, string maleString, string femaleString, string neutralString, string groupString);
+
 		#endregion
 	}
 }

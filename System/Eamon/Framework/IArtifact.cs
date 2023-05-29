@@ -267,32 +267,20 @@ namespace Eamon.Framework
 		void SetSynonym(long index, string value);
 
 		/// <summary></summary>
+		/// <param name="monsterType"></param>
 		/// <param name="recurse"></param>
 		/// <returns></returns>
-		bool IsCarriedByCharacter(bool recurse = false);
-
-		/// <summary></summary>
-		/// <param name="recurse"></param>
-		/// <returns></returns>
-		bool IsCarriedByMonster(bool recurse = false);
+		bool IsCarriedByMonster(MonsterType monsterType = MonsterType.NonCharMonster, bool recurse = false);
 
 		/// <summary></summary>
 		/// <returns></returns>
 		bool IsCarriedByContainer();
 
 		/// <summary></summary>
+		/// <param name="monsterType"></param>
 		/// <param name="recurse"></param>
 		/// <returns></returns>
-		bool IsWornByCharacter(bool recurse = false);
-
-		/// <summary></summary>
-		/// <param name="recurse"></param>
-		/// <returns></returns>
-		bool IsWornByMonster(bool recurse = false);
-
-		/// <summary></summary>
-		/// <returns></returns>
-		bool IsReadyableByCharacter();
+		bool IsWornByMonster(MonsterType monsterType = MonsterType.NonCharMonster, bool recurse = false);
 
 		/// <summary></summary>
 		/// <param name="recurse"></param>
@@ -305,9 +293,10 @@ namespace Eamon.Framework
 		bool IsEmbeddedInRoom(bool recurse = false);
 
 		/// <summary></summary>
+		/// <param name="monsterType"></param>
 		/// <param name="recurse"></param>
 		/// <returns></returns>
-		bool IsCarriedByContainerContainerTypeExposedToMonster(bool recurse = false);
+		bool IsCarriedByContainerContainerTypeExposedToMonster(MonsterType monsterType = MonsterType.NonCharMonster, bool recurse = false);
 
 		/// <summary></summary>
 		/// <param name="recurse"></param>
@@ -353,11 +342,6 @@ namespace Eamon.Framework
 		/// <param name="recurse"></param>
 		/// <returns></returns>
 		bool IsEmbeddedInRoomUid(long roomUid, bool recurse = false);
-
-		/// <summary></summary>
-		/// <param name="recurse"></param>
-		/// <returns></returns>
-		bool IsCarriedByContainerContainerTypeExposedToCharacter(bool recurse = false);
 
 		/// <summary></summary>
 		/// <param name="monsterUid"></param>
@@ -473,9 +457,6 @@ namespace Eamon.Framework
 		ContainerType GetCarriedByContainerContainerType();
 
 		/// <summary></summary>
-		void SetCarriedByCharacter();
-
-		/// <summary></summary>
 		/// <param name="monsterUid"></param>
 		void SetCarriedByMonsterUid(long monsterUid);
 
@@ -483,9 +464,6 @@ namespace Eamon.Framework
 		/// <param name="containerUid"></param>
 		/// <param name="containerType"></param>
 		void SetCarriedByContainerUid(long containerUid, ContainerType containerType = ContainerType.In);
-
-		/// <summary></summary>
-		void SetWornByCharacter();
 
 		/// <summary></summary>
 		/// <param name="monsterUid"></param>
@@ -596,14 +574,10 @@ namespace Eamon.Framework
 		bool ShouldExposeInContentsWhenClosed();
 
 		/// <summary></summary>
+		/// <param name="monsterType"></param>
 		/// <param name="containerType"></param>
 		/// <returns></returns>
-		bool ShouldExposeContentsToCharacter(ContainerType containerType = ContainerType.In);
-
-		/// <summary></summary>
-		/// <param name="containerType"></param>
-		/// <returns></returns>
-		bool ShouldExposeContentsToMonster(ContainerType containerType = ContainerType.In);
+		bool ShouldExposeContentsToMonster(MonsterType monsterType = MonsterType.NonCharMonster, ContainerType containerType = ContainerType.In);
 
 		/// <summary></summary>
 		/// <param name="containerType"></param>

@@ -28,7 +28,7 @@ namespace TheTempleOfNgurct.Game.States
 
 				// Ring of regeneration
 
-				if (ringArtifact.IsWornByCharacter() && gCharMonster.DmgTaken > 0 && ++gGameState.Regenerate == 5)
+				if (ringArtifact.IsWornByMonster(gCharMonster) && gCharMonster.DmgTaken > 0 && ++gGameState.Regenerate == 5)
 				{
 					gCharMonster.DmgTaken--;
 

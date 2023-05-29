@@ -65,6 +65,11 @@ namespace EamonPM
 				return dirList.ToArray();
 			};
 
+			App.GetBuildGuid = () =>
+			{
+				return SplashActivity.BuildGuid;
+			};
+			
 			App.PluginExists = (pluginFileName) =>
 			{
 				var pluginBaseName = Path.GetFileNameWithoutExtension(pluginFileName);

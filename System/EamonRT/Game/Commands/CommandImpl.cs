@@ -1018,6 +1018,7 @@ namespace EamonRT.Game.Commands
 			gOut.WriteLine("  {0,-22}{1,-22}{2,-22}", "VerboseArtifacts", "True, False", gGameState.Va);
 			gOut.WriteLine("  {0,-22}{1,-22}{2,-22}", "VerboseNames", "True, False", gGameState.Vn);
 			gOut.WriteLine("  {0,-22}{1,-22}{2,-22}", "MatureContent", "True, False", gGameState.MatureContent);
+			gOut.WriteLine("  {0,-22}{1,-22}{2,-22}", "InteractiveFiction", "True, False", gGameState.InteractiveFiction);
 			gOut.WriteLine("  {0,-22}{1,-22}{2,-22}", "EnhancedParser", "True, False", gGameState.EnhancedParser);
 
 			if (gGameState.EnhancedParser)
@@ -1258,7 +1259,7 @@ namespace EamonRT.Game.Commands
 
 		public virtual bool ShouldAllowSkillGains()
 		{
-			return true;
+			return Command.ActorMonster != null && Command.ActorMonster.IsCharacterMonster();
 		}
 
 		public virtual bool ShouldAllowRedirectToGetCommand()
@@ -1272,7 +1273,7 @@ namespace EamonRT.Game.Commands
 			{
 				Debug.Assert(artifact != null);
 
-				return artifact.IsCarriedByCharacter();
+				return artifact.IsCarriedByMonster(Command.ActorMonster);
 			}
 			else if (Command is IRequestCommand)
 			{
@@ -1282,13 +1283,13 @@ namespace EamonRT.Game.Commands
 			{
 				Debug.Assert(artifact != null);
 
-				return artifact.IsWornByCharacter();
+				return artifact.IsWornByMonster(Command.ActorMonster);
 			}
 			else if (Command is IExamineCommand)
 			{
 				Debug.Assert(artifact != null);
 
-				return Enum.IsDefined(typeof(ContainerType), Command.ContainerType) && !artifact.IsWornByCharacter();
+				return Enum.IsDefined(typeof(ContainerType), Command.ContainerType) && !artifact.IsWornByMonster(Command.ActorMonster);
 			}
 			else if (Command is IGetCommand)
 			{
@@ -1300,13 +1301,13 @@ namespace EamonRT.Game.Commands
 
 				Debug.Assert(artifact != null);
 
-				return room.IsLit() && (artifact.LightSource != null ? artifact.IsCarriedByCharacter() : true);
+				return room.IsLit() && (artifact.LightSource != null ? artifact.IsCarriedByMonster(Command.ActorMonster) : true);
 			}
 			else if (Command is IPutCommand)
 			{
 				Debug.Assert(artifact != null);
 
-				return artifact.IsCarriedByCharacter();
+				return artifact.IsCarriedByMonster(Command.ActorMonster);
 			}
 			else if (Command is IReadyCommand readyCommand)
 			{
@@ -1318,11 +1319,11 @@ namespace EamonRT.Game.Commands
 				{
 					if (ac.Type == ArtifactType.Wearable)
 					{
-						return artifact.IsCarriedByCharacter();
+						return artifact.IsCarriedByMonster(Command.ActorMonster);
 					}
 					else
 					{
-						return !artifact.IsReadyableByCharacter() || artifact.IsCarriedByCharacter();
+						return !artifact.IsReadyableByMonster(Command.ActorMonster) || artifact.IsCarriedByMonster(Command.ActorMonster);
 					}
 				}
 				else
@@ -1334,7 +1335,7 @@ namespace EamonRT.Game.Commands
 			{
 				Debug.Assert(artifact != null);
 
-				return Command.CommandParser.ObjData == Command.CommandParser.IobjData || artifact.IsWornByCharacter();
+				return Command.CommandParser.ObjData == Command.CommandParser.IobjData || artifact.IsWornByMonster(Command.ActorMonster);
 			}
 			else if (Command is IUseCommand useCommand)
 			{
@@ -1346,11 +1347,11 @@ namespace EamonRT.Game.Commands
 				{
 					if (ac.IsWeapon01())
 					{
-						return !artifact.IsReadyableByCharacter() || artifact.IsCarriedByCharacter();
+						return !artifact.IsReadyableByMonster(Command.ActorMonster) || artifact.IsCarriedByMonster(Command.ActorMonster);
 					}
 					else if (ac.Type == ArtifactType.Wearable)
 					{
-						return artifact.IsCarriedByCharacter();
+						return artifact.IsCarriedByMonster(Command.ActorMonster);
 					}
 					else
 					{
@@ -1366,7 +1367,7 @@ namespace EamonRT.Game.Commands
 			{
 				Debug.Assert(artifact != null);
 
-				return artifact.Wearable != null ? artifact.IsCarriedByCharacter() || artifact.IsWornByCharacter() : true;
+				return artifact.Wearable != null ? artifact.IsCarriedByMonster(Command.ActorMonster) || artifact.IsWornByMonster(Command.ActorMonster) : true;
 			}
 			else
 			{
@@ -1406,6 +1407,23 @@ namespace EamonRT.Game.Commands
 		}
 
 		public virtual void Execute()
+		{
+			if (Command.ActorMonster.IsCharacterMonster())
+			{
+				Command.ExecuteForPlayer();
+			}
+			else
+			{
+				Command.ExecuteForMonster();
+			}
+		}
+
+		public virtual void ExecuteForPlayer()
+		{
+
+		}
+
+		public virtual void ExecuteForMonster()
 		{
 
 		}

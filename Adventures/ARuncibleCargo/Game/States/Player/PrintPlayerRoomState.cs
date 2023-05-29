@@ -104,6 +104,8 @@ namespace ARuncibleCargo.Game.States
 
 					gameState.MatureContent = gameState01.MatureContent;
 
+					gameState.InteractiveFiction = gameState01.InteractiveFiction;
+
 					gameState.EnhancedParser = gameState01.EnhancedParser;
 
 					gameState.IobjPronounAffinity = gameState01.IobjPronounAffinity;
@@ -198,7 +200,7 @@ namespace ARuncibleCargo.Game.States
 
 				if (room.Uid != 102 && room.Uid != 43 && (room.Uid < 86 || room.Uid > 88))
 				{
-					if ((cargoArtifact.IsInRoom(room) || cargoArtifact.IsCarriedByCharacter()) && lilMonster.IsInRoom(room))
+					if ((cargoArtifact.IsInRoom(room) || cargoArtifact.IsCarriedByMonster(gCharMonster)) && lilMonster.IsInRoom(room))
 					{
 						cargoArtifact.SetCarriedByMonster(lilMonster);
 
@@ -262,7 +264,7 @@ namespace ARuncibleCargo.Game.States
 
 				// Cargo open counter
 
-				if ((cargoArtifact.IsInRoom(room) || cargoArtifact.IsCarriedByCharacter()) && ac.IsOpen())
+				if ((cargoArtifact.IsInRoom(room) || cargoArtifact.IsCarriedByMonster(gCharMonster)) && ac.IsOpen())
 				{
 					gameState.CargoOpenCounter++;
 

@@ -436,11 +436,11 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 					if (a2eArtifact._ad4 == -1)
 					{
-						x.SetCarriedByCharacter();
+						x.SetCarriedByMonsterUid(long.MaxValue);
 					}
 					else if (a2eArtifact._ad4 == -999)
 					{
-						x.SetWornByCharacter();
+						x.SetWornByMonsterUid(long.MaxValue);
 					}
 					else if (a2eArtifact._ad4 < -1 && a2eArtifact._ad4 > -501)
 					{

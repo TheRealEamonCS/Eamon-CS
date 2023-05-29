@@ -833,14 +833,7 @@ namespace Eamon.Game
 		{
 			if (monsterFindFunc == null)
 			{
-				if (IsCharacterMonster())
-				{
-					monsterFindFunc = a => a.IsCarriedByCharacter();
-				}
-				else
-				{
-					monsterFindFunc = a => a.IsCarriedByMonster(this);
-				}
+				monsterFindFunc = a => a.IsCarriedByMonster(this);
 			}
 
 			var artifactList = gEngine.GetArtifactList(a => monsterFindFunc(a));
@@ -867,14 +860,7 @@ namespace Eamon.Game
 		{
 			if (monsterFindFunc == null)
 			{
-				if (IsCharacterMonster())
-				{
-					monsterFindFunc = a => a.IsWornByCharacter();
-				}
-				else
-				{
-					monsterFindFunc = a => a.IsWornByMonster(this);
-				}
+				monsterFindFunc = a => a.IsWornByMonster(this);
 			}
 
 			var artifactList = gEngine.GetArtifactList(a => monsterFindFunc(a));
@@ -901,14 +887,7 @@ namespace Eamon.Game
 		{
 			if (monsterFindFunc == null)
 			{
-				if (IsCharacterMonster())
-				{
-					monsterFindFunc = a => a.IsCarriedByCharacter() || a.IsWornByCharacter();
-				}
-				else
-				{
-					monsterFindFunc = a => a.IsCarriedByMonster(this) || a.IsWornByMonster(this);
-				}
+				monsterFindFunc = a => a.IsCarriedByMonster(this) || a.IsWornByMonster(this);
 			}
 
 			var artifactList = gEngine.GetArtifactList(a => monsterFindFunc(a));
@@ -1272,6 +1251,13 @@ namespace Eamon.Game
 			}
 
 			return result;
+		}
+
+		public virtual string GetPovString(string youString, string maleString, string femaleString, string neutralString, string groupString)
+		{
+			Debug.Assert(youString != null && maleString != null && femaleString != null && neutralString != null);
+
+			return IsCharacterMonster() ? youString : CurrGroupCount > 1 && groupString != null ? groupString : EvalGender(maleString, femaleString, neutralString);
 		}
 
 		#endregion
