@@ -219,7 +219,7 @@ namespace TheDeepCanyon.Game.Components
 					{
 						// Resurrect
 
-						if (ringArtifact.IsCarriedByCharacter() || ringArtifact.IsWornByCharacter())
+						if (ringArtifact.IsCarriedByMonster(DobjMonster) || ringArtifact.IsWornByMonster(DobjMonster))
 						{
 							SetNextStateFunc(gEngine.CreateInstance<IPlayerResurrectedState>());
 						}

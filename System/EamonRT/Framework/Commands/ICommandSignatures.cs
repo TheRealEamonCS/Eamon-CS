@@ -646,6 +646,12 @@ namespace EamonRT.Framework.Commands
 		void Stage();
 
 		/// <summary></summary>
+		void ExecuteForPlayer();
+
+		/// <summary></summary>
+		void ExecuteForMonster();
+
+		/// <summary></summary>
 		/// <returns></returns>
 		bool IsAllowedInRoom();
 

@@ -5,4 +5,6 @@ ChangeLog: ThePyramidOfAnharos
 
 Date            Version            Who            Notes
 ----------------------------------------------------------------------------------------------------------------------------------
-20230131        2.2.0              MP             Code complete 2.2.0
+20230531        2.2.0              MP             Player/Monster Command Unification overhaul
+20230531                           MP             Artifact Character/Monster Method Unification overhaul
+20230131                           MP             Code complete 2.2.0

@@ -23,7 +23,7 @@ namespace BeginnersForest.Game.States
 
 			Debug.Assert(ringArtifact != null);
 
-			if (ringArtifact.IsWornByCharacter())
+			if (ringArtifact.IsWornByMonster(gCharMonster))
 			{
 				gEngine.PrintEffectDesc(17);
 			}

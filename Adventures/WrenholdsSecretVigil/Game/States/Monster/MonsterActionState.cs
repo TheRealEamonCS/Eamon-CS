@@ -28,7 +28,7 @@ namespace WrenholdsSecretVigil.Game.States
 
 			if (LoopMonster.CanMoveToRoom(true) && gEngine.DeviceOpened)
 			{
-				ActionCommand = gEngine.CreateInstance<IMonsterFleeCommand>(x =>
+				ActionCommand = gEngine.CreateInstance<IFleeCommand>(x =>
 				{
 					x.ActorMonster = LoopMonster;
 

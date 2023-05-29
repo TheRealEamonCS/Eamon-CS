@@ -52,7 +52,7 @@ namespace StrongholdOfKahrDur.Game.Components
 
 			// Necromancer cannot be blasted unless wearing Wizard's Helm
 
-			if (DobjMonster != null && DobjMonster.Uid == 22 && !helmArtifact.IsWornByCharacter())
+			if (DobjMonster != null && DobjMonster.Uid == 22 && !helmArtifact.IsWornByMonster(ActorMonster))
 			{
 				var rl = gEngine.RollDice(1, 4, 56);
 
@@ -80,7 +80,7 @@ namespace StrongholdOfKahrDur.Game.Components
 
 			// If the cauldron is prepared (see Effect #50) and the magic words have been spoken, unlock the portcullis
 
-			if (ActorRoom.Uid == 43 && gGameState.UsedCauldron && (cauldronArtifact.IsCarriedByCharacter() || cauldronArtifact.IsInRoom(ActorRoom)) && gEngine.SpellReagentsInCauldron(cauldronArtifact))
+			if (ActorRoom.Uid == 43 && gGameState.UsedCauldron && (cauldronArtifact.IsCarriedByMonster(ActorMonster) || cauldronArtifact.IsInRoom(ActorRoom)) && gEngine.SpellReagentsInCauldron(cauldronArtifact))
 			{
 				gEngine.PrintEffectDesc(52);
 

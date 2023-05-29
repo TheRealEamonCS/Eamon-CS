@@ -993,15 +993,15 @@ namespace EamonRT.Game.Plugin
 			{
 				RevealContentCounter--;
 
-				var artifactList = GetArtifactList(a => a.IsCarriedByCharacter() || a.IsWornByCharacter()).OrderByDescending(a => a.RecursiveWeight).ToList();
+				var artifactList = GetArtifactList(a => a.IsCarriedByMonster(gCharMonster) || a.IsWornByMonster(gCharMonster)).OrderByDescending(a => a.RecursiveWeight).ToList();
 
 				foreach (var artifact in artifactList)
 				{
-					if (artifact.IsWornByCharacter())
+					if (artifact.IsWornByMonster(gCharMonster))
 					{
 						if (artifact.Wearable == null || artifact.Wearable.Field1 > 0)
 						{
-							artifact.SetCarriedByCharacter();
+							artifact.SetCarriedByMonster(gCharMonster);
 						}
 					}
 
@@ -1046,7 +1046,7 @@ namespace EamonRT.Game.Plugin
 					Debug.Assert(room != null);
 				}
 
-				var artifactList = GetArtifactList(a => a.IsCarriedByCharacter() || a.IsWornByCharacter()).OrderByDescending(a => a.RecursiveWeight).ToList();
+				var artifactList = GetArtifactList(a => a.IsCarriedByMonster(gCharMonster) || a.IsWornByMonster(gCharMonster)).OrderByDescending(a => a.RecursiveWeight).ToList();
 
 				foreach (var artifact in artifactList)
 				{
@@ -1060,7 +1060,7 @@ namespace EamonRT.Game.Plugin
 
 					if (charWeight > gCharMonster.GetWeightCarryableGronds())
 					{
-						if (artifact.IsWornByCharacter())
+						if (artifact.IsWornByMonster(gCharMonster))
 						{
 							var removeCommand = CreateInstance<IRemoveCommand>(x =>
 							{
@@ -1336,7 +1336,7 @@ namespace EamonRT.Game.Plugin
 
 				if (x.Weight + charWeight <= Character.GetWeightCarryableGronds())
 				{
-					x.SetCarriedByCharacter();
+					x.SetCarriedByMonsterUid(long.MaxValue);
 				}
 				else
 				{
@@ -1642,18 +1642,18 @@ namespace EamonRT.Game.Plugin
 
 			weaponList.Clear();
 
-			var artifactList = GetArtifactList(a => a.IsWornByCharacter());
+			var artifactList = GetArtifactList(a => a.IsWornByMonster(gCharMonster));
 
 			foreach (var artifact in artifactList)
 			{
-				artifact.SetCarriedByCharacter();
+				artifact.SetCarriedByMonster(gCharMonster);
 			}
 
 			do
 			{
 				c = 0;
 
-				artifactList = GetArtifactList(a => a.IsCarriedByCharacter());
+				artifactList = GetArtifactList(a => a.IsCarriedByMonster(gCharMonster));
 
 				foreach (var artifact in artifactList)
 				{
@@ -1667,7 +1667,7 @@ namespace EamonRT.Game.Plugin
 						{
 							if (artifact01.Seen == true || artifact01.GetCarriedByContainerContainerType() != ContainerType.In || (artifact.InContainer != null && artifact.InContainer.IsOpen()) || artifact.ShouldExposeInContentsWhenClosed())
 							{
-								artifact01.SetCarriedByCharacter();
+								artifact01.SetCarriedByMonster(gCharMonster);
 
 								c = 1;
 							}
@@ -1683,11 +1683,11 @@ namespace EamonRT.Game.Plugin
 			{
 				artifact.Seen = false;
 
-				if (artifact.IsCarriedByCharacter())
+				if (artifact.IsCarriedByMonster(gCharMonster))
 				{
 					var ac = artifact.GeneralWeapon;
 
-					if (ac != null && ac == artifact.GetCategory(0) && artifact.IsReadyableByCharacter())
+					if (ac != null && ac == artifact.GetCategory(0) && artifact.IsReadyableByMonster(gCharMonster))
 					{
 						weaponList.Add(artifact);
 
@@ -1738,7 +1738,7 @@ namespace EamonRT.Game.Plugin
 
 					if (m >= 1 && m <= weaponList.Count)
 					{
-						weaponList[(int)m - 1].SetCarriedByCharacter();
+						weaponList[(int)m - 1].SetCarriedByMonster(gCharMonster);
 
 						weaponList.RemoveAt((int)m - 1);
 					}
@@ -1760,7 +1760,7 @@ namespace EamonRT.Game.Plugin
 
 				var rtio = GetMerchantRtio(c2);
 
-				var artifactList = GetArtifactList(a => a.IsCarriedByCharacter());
+				var artifactList = GetArtifactList(a => a.IsCarriedByMonster(gCharMonster));
 
 				foreach (var artifact in artifactList)
 				{
@@ -2166,7 +2166,7 @@ namespace EamonRT.Game.Plugin
 
 			IMonster revealMonster = null;
 
-			var showCharOwned = !artifact.IsCarriedByCharacter() && !artifact.IsWornByCharacter();
+			var showCharOwned = !artifact.IsCarriedByMonster(charMonster) && !artifact.IsWornByMonster(charMonster);
 
 			var recordNameListArgs = CreateInstance<IRecordNameListArgs>(x =>
 			{
@@ -2199,7 +2199,7 @@ namespace EamonRT.Game.Plugin
 
 					ProcessRevealArtifact:
 
-						recordNameListArgs.ShowCharOwned = !revealArtifact.IsCarriedByCharacter() && !revealArtifact.IsWornByCharacter();
+						recordNameListArgs.ShowCharOwned = !revealArtifact.IsCarriedByMonster(charMonster) && !revealArtifact.IsWornByMonster(charMonster);
 
 						revealMonster = revealArtifact.GetCarriedByMonster();
 
@@ -2214,7 +2214,7 @@ namespace EamonRT.Game.Plugin
 
 						var revealContainerAc = revealContainer != null && Enum.IsDefined(typeof(ContainerType), revealContainerType) ? EvalContainerType(revealContainerType, revealContainer.InContainer, revealContainer.OnContainer, revealContainer.UnderContainer, revealContainer.BehindContainer) : null;
 
-						if (revealArtifact.IsCarriedByCharacter() || revealArtifact.IsWornByCharacter())
+						if (revealArtifact.IsCarriedByMonster(charMonster) || revealArtifact.IsWornByMonster(charMonster))
 						{
 							var charWeight = 0L;
 
@@ -2224,12 +2224,12 @@ namespace EamonRT.Game.Plugin
 
 							var revealArtifactTooHeavy = charWeight > charMonster.GetWeightCarryableGronds();
 
-							if (revealArtifact.IsWornByCharacter() && (revealArtifact.Wearable == null || revealArtifactTooHeavy))
+							if (revealArtifact.IsWornByMonster(charMonster) && (revealArtifact.Wearable == null || revealArtifactTooHeavy))
 							{
-								revealArtifact.SetCarriedByCharacter();
+								revealArtifact.SetCarriedByMonster(charMonster);
 							}
 
-							if (revealArtifact.IsCarriedByCharacter() && revealArtifactTooHeavy)
+							if (revealArtifact.IsCarriedByMonster(charMonster) && revealArtifactTooHeavy)
 							{
 								revealArtifact.SetInRoom(room);
 							}
@@ -2949,7 +2949,7 @@ namespace EamonRT.Game.Plugin
 			{
 				// If the Artifact is worn by the player character
 
-				if (artifact.IsWornByCharacter())
+				if (artifact.IsWornByMonster(charMonster))
 				{
 					// In order to keep the game state from getting messed up we have to simulate an actual RemoveCommand execution
 
@@ -3024,7 +3024,7 @@ namespace EamonRT.Game.Plugin
 				// GetCommand because there isn't really any game state to mess up... but you could if you wanted to I guess
 				// just to be safe
 
-				artifact.SetCarriedByCharacter();
+				artifact.SetCarriedByMonster(charMonster);
 
 				// If the Artifact is Wearable, make sure it's worn (otherwise it will accidentally get sold to Sam Slicker)
 
@@ -3207,7 +3207,7 @@ namespace EamonRT.Game.Plugin
 			{
 				whereClauseFuncs = new Func<IArtifact, bool>[]
 				{
-					a => (a.IsCarriedByCharacter() || a.IsInRoom(room)) && a.DeadBody != null
+					a => (a.IsCarriedByMonster(gCharMonster) || a.IsInRoom(room)) && a.DeadBody != null
 				};
 			}
 
@@ -3324,7 +3324,7 @@ namespace EamonRT.Game.Plugin
 
 				if (artifact.GeneralWeapon.Field4 <= 0)
 				{
-					if (artifact.IsCarriedByCharacter() || artifact.IsCarriedByMonster())
+					if (artifact.IsCarriedByMonster(MonsterType.Any))
 					{
 						PrintArtifactBreaks(room, monster, artifact);
 					}
@@ -3350,7 +3350,7 @@ namespace EamonRT.Game.Plugin
 
 			foreach (var artifact in artifactList)
 			{
-				var wornByChar = artifact.IsWornByCharacter();
+				var wornByChar = artifact.IsWornByMonster(gCharMonster);
 
 				var wornByMonster = artifact.IsWornByMonster();
 
@@ -3392,7 +3392,7 @@ namespace EamonRT.Game.Plugin
 
 				if (artifact.Wearable.Field1 <= 0)
 				{
-					if (artifact.IsCarriedByCharacter() || artifact.IsCarriedByMonster())
+					if (artifact.IsCarriedByMonster(MonsterType.Any))
 					{
 						Out.EnableOutput = true;
 
@@ -3406,7 +3406,7 @@ namespace EamonRT.Game.Plugin
 					artifact.Wearable.Field1 = 0;
 				}
 
-				if (wornByChar && artifact.IsCarriedByCharacter())
+				if (wornByChar && artifact.IsCarriedByMonster(gCharMonster))
 				{
 					var command = CreateInstance<IWearCommand>(x =>
 					{
@@ -3959,7 +3959,7 @@ namespace EamonRT.Game.Plugin
 
 					Debug.Assert(ac != null);
 
-					if (artifact.IsCarriedByCharacter() && (cw == -1 || WeaponPowerCompare(artifact.Uid, cw) > 0) && (GameState.Sh < 1 || ac.Field5 < 2))
+					if (artifact.IsCarriedByMonster(gCharMonster) && (cw == -1 || WeaponPowerCompare(artifact.Uid, cw) > 0) && (GameState.Sh < 1 || ac.Field5 < 2))
 					{
 						cw = artifact.Uid;
 
@@ -4063,7 +4063,7 @@ namespace EamonRT.Game.Plugin
 
 					if (y.Weight + charWeight <= Character.GetWeightCarryableGronds())
 					{
-						y.SetWornByCharacter();
+						y.SetWornByMonsterUid(long.MaxValue);
 					}
 					else
 					{
@@ -4077,7 +4077,7 @@ namespace EamonRT.Game.Plugin
 
 				GameState.SetImportedArtUid(GameState.ImportedArtUidsIdx++, artifact.Uid);
 
-				if (artifact.IsWornByCharacter())
+				if (artifact.IsWornByMonster(gCharMonster))
 				{
 					GameState.Ar = artifact.Uid;
 
@@ -4154,7 +4154,7 @@ namespace EamonRT.Game.Plugin
 
 					if (y.Weight + charWeight <= Character.GetWeightCarryableGronds())
 					{
-						y.SetWornByCharacter();
+						y.SetWornByMonsterUid(long.MaxValue);
 					}
 					else
 					{
@@ -4168,7 +4168,7 @@ namespace EamonRT.Game.Plugin
 
 				GameState.SetImportedArtUid(GameState.ImportedArtUidsIdx++, artifact.Uid);
 
-				if (artifact.IsWornByCharacter())
+				if (artifact.IsWornByMonster(gCharMonster))
 				{
 					GameState.Sh = artifact.Uid;
 

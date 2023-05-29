@@ -62,7 +62,7 @@ namespace EamonRT.Game.States
 			{
 				Debug.Assert(LoopMonster.Reaction != Friendliness.Neutral);
 
-				ActionCommand = gEngine.CreateInstance<IMonsterFleeCommand>(x =>
+				ActionCommand = gEngine.CreateInstance<IFleeCommand>(x =>
 				{
 					x.ActorMonster = LoopMonster;
 

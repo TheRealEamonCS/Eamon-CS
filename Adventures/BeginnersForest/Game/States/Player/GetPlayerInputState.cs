@@ -42,7 +42,7 @@ namespace BeginnersForest.Game.States
 
 					// Grass blade turns into Greenblade
 
-					if (grassBladeArtifact.IsCarriedByCharacter() || grassBladeArtifact.IsInRoomUid(gGameState.Ro))
+					if (grassBladeArtifact.IsCarriedByMonster(gCharMonster) || grassBladeArtifact.IsInRoomUid(gGameState.Ro))
 					{
 						gEngine.PrintEffectDesc(20);
 

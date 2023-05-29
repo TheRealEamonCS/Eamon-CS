@@ -316,7 +316,7 @@ namespace ARuncibleCargo.Game.States
 
 				// Bill (or Amazon) hint at using explosives
 
-				if (room.Uid == 92 && (cargoArtifact.IsInRoom(room) || cargoArtifact.IsCarriedByCharacter()) && (explosiveDeviceArtifact.IsInRoom(room) || explosiveDeviceArtifact.IsCarriedByCharacter()) && (remoteDetonatorArtifact.IsInRoom(room) || remoteDetonatorArtifact.IsCarriedByCharacter()))
+				if (room.Uid == 92 && (cargoArtifact.IsInRoom(room) || cargoArtifact.IsCarriedByMonster(gCharMonster)) && (explosiveDeviceArtifact.IsInRoom(room) || explosiveDeviceArtifact.IsCarriedByMonster(gCharMonster)) && (remoteDetonatorArtifact.IsInRoom(room) || remoteDetonatorArtifact.IsCarriedByMonster(gCharMonster)))
 				{
 					var effectUid = 0L;
 

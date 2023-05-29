@@ -1218,13 +1218,9 @@
             <param name="index"></param>
             <param name="value"></param>
         </member>
-        <member name="M:Eamon.Framework.IArtifact.IsCarriedByCharacter(System.Boolean)">
+        <member name="M:Eamon.Framework.IArtifact.IsCarriedByMonster(Eamon.Framework.Primitive.Enums.MonsterType,System.Boolean)">
             <summary></summary>
-            <param name="recurse"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IArtifact.IsCarriedByMonster(System.Boolean)">
-            <summary></summary>
+            <param name="monsterType"></param>
             <param name="recurse"></param>
             <returns></returns>
         </member>
@@ -1232,18 +1228,10 @@
             <summary></summary>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IArtifact.IsWornByCharacter(System.Boolean)">
+        <member name="M:Eamon.Framework.IArtifact.IsWornByMonster(Eamon.Framework.Primitive.Enums.MonsterType,System.Boolean)">
             <summary></summary>
+            <param name="monsterType"></param>
             <param name="recurse"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IArtifact.IsWornByMonster(System.Boolean)">
-            <summary></summary>
-            <param name="recurse"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IArtifact.IsReadyableByCharacter">
-            <summary></summary>
             <returns></returns>
         </member>
         <member name="M:Eamon.Framework.IArtifact.IsInRoom(System.Boolean)">
@@ -1256,8 +1244,9 @@
             <param name="recurse"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IArtifact.IsCarriedByContainerContainerTypeExposedToMonster(System.Boolean)">
+        <member name="M:Eamon.Framework.IArtifact.IsCarriedByContainerContainerTypeExposedToMonster(Eamon.Framework.Primitive.Enums.MonsterType,System.Boolean)">
             <summary></summary>
+            <param name="monsterType"></param>
             <param name="recurse"></param>
             <returns></returns>
         </member>
@@ -1303,11 +1292,6 @@
         <member name="M:Eamon.Framework.IArtifact.IsEmbeddedInRoomUid(System.Int64,System.Boolean)">
             <summary></summary>
             <param name="roomUid"></param>
-            <param name="recurse"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IArtifact.IsCarriedByContainerContainerTypeExposedToCharacter(System.Boolean)">
-            <summary></summary>
             <param name="recurse"></param>
             <returns></returns>
         </member>
@@ -1424,9 +1408,6 @@
             <summary></summary>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IArtifact.SetCarriedByCharacter">
-            <summary></summary>
-        </member>
         <member name="M:Eamon.Framework.IArtifact.SetCarriedByMonsterUid(System.Int64)">
             <summary></summary>
             <param name="monsterUid"></param>
@@ -1435,9 +1416,6 @@
             <summary></summary>
             <param name="containerUid"></param>
             <param name="containerType"></param>
-        </member>
-        <member name="M:Eamon.Framework.IArtifact.SetWornByCharacter">
-            <summary></summary>
         </member>
         <member name="M:Eamon.Framework.IArtifact.SetWornByMonsterUid(System.Int64)">
             <summary></summary>
@@ -1547,13 +1525,9 @@
             <summary></summary>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IArtifact.ShouldExposeContentsToCharacter(Eamon.Framework.Primitive.Enums.ContainerType)">
+        <member name="M:Eamon.Framework.IArtifact.ShouldExposeContentsToMonster(Eamon.Framework.Primitive.Enums.MonsterType,Eamon.Framework.Primitive.Enums.ContainerType)">
             <summary></summary>
-            <param name="containerType"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Eamon.Framework.IArtifact.ShouldExposeContentsToMonster(Eamon.Framework.Primitive.Enums.ContainerType)">
-            <summary></summary>
+            <param name="monsterType"></param>
             <param name="containerType"></param>
             <returns></returns>
         </member>
@@ -2328,6 +2302,9 @@
             Gets or sets a value indicating whether mature content should be allowed during gameplay.
             </summary>
         </member>
+        <member name="P:Eamon.Framework.IGameState.InteractiveFiction">
+            <summary></summary>
+        </member>
         <member name="P:Eamon.Framework.IGameState.EnhancedParser">
             <summary></summary>
         </member>
@@ -3070,6 +3047,15 @@
             <param name="isPlural"></param>
             <param name="fleeing"></param>
             <param name="enterDirection"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.IMonster.GetPovString(System.String,System.String,System.String,System.String,System.String)">
+            <summary></summary>
+            <param name="youString"></param>
+            <param name="maleString"></param>
+            <param name="femaleString"></param>
+            <param name="neutralString"></param>
+            <param name="groupString"></param>
             <returns></returns>
         </member>
         <member name="T:Eamon.Framework.IRoom">

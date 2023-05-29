@@ -105,6 +105,9 @@ namespace Eamon.Framework
 		bool MatureContent { get; set; }
 
 		/// <summary></summary>
+		bool InteractiveFiction { get; set; }
+
+		/// <summary></summary>
 		bool EnhancedParser { get; set; }
 
 		/// <summary></summary>

@@ -55,7 +55,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 				AnalyseMonsterRecordTree(monster, "M", 1);
 			}
 
-			var artifactList = gEngine.GetArtifactList(a => !a.IsInRoom() && !a.IsEmbeddedInRoom() && (!gEngine.BortCommand || (!a.IsCarriedByCharacter() && !a.IsWornByCharacter())) && !a.IsCarriedByMonster() && !a.IsWornByMonster() && !a.IsCarriedByContainer());
+			var artifactList = gEngine.GetArtifactList(a => !a.IsInRoom() && !a.IsEmbeddedInRoom() && (!gEngine.BortCommand || (!a.IsCarriedByMonster(MonsterType.CharMonster) && !a.IsWornByMonster(MonsterType.CharMonster))) && !a.IsCarriedByMonster() && !a.IsWornByMonster() && !a.IsCarriedByContainer());
 
 			foreach (var artifact in artifactList)
 			{

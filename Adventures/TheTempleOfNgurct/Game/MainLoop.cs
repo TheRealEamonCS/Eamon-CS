@@ -23,7 +23,7 @@ namespace TheTempleOfNgurct.Game
 
 			Debug.Assert(medallionArtifact != null);
 
-			var carryingMedallion = medallionArtifact.IsCarriedByCharacter();
+			var carryingMedallion = medallionArtifact.IsCarriedByMonster(gCharMonster);
 
 			medallionArtifact.SetInLimbo();
 

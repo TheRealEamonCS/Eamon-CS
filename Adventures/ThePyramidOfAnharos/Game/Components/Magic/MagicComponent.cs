@@ -38,7 +38,7 @@ namespace ThePyramidOfAnharos.Game.Components
 			{
 				gOut.Print("A golden glow illuminates the area.");
 
-				gEngine.ResurrectDeadBodies(ActorRoom, a => a.Uid >= 56 && a.Uid <= 75 && (a.IsCarriedByCharacter() || a.IsInRoom(ActorRoom)));
+				gEngine.ResurrectDeadBodies(ActorRoom, a => a.Uid >= 56 && a.Uid <= 75 && (a.IsCarriedByMonster(ActorMonster) || a.IsInRoom(ActorRoom)));
 			}
 			else
 			{

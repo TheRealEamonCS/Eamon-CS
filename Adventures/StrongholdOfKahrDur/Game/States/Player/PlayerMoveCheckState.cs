@@ -36,7 +36,7 @@ namespace StrongholdOfKahrDur.Game.States
 
 				// Cannot enter forest if not wearing magical amulet
 
-				if (gGameState.Ro == 92 && gGameState.R2 == 65 && !amuletArtifact.IsWornByCharacter())
+				if (gGameState.Ro == 92 && gGameState.R2 == 65 && !amuletArtifact.IsWornByMonster(gCharMonster))
 				{
 					gEngine.PrintEffectDesc(45);
 
@@ -53,7 +53,7 @@ namespace StrongholdOfKahrDur.Game.States
 				{
 					// If descend pit w/ mgk boots, write effect
 
-					if (bootsArtifact.IsWornByCharacter())
+					if (bootsArtifact.IsWornByMonster(gCharMonster))
 					{
 						gEngine.PrintEffectDesc(47);
 					}
@@ -92,7 +92,7 @@ namespace StrongholdOfKahrDur.Game.States
 				{
 					// If ascend pit w/ mgk boots, write effect
 
-					if (bootsArtifact.IsWornByCharacter())
+					if (bootsArtifact.IsWornByMonster(gCharMonster))
 					{
 						gEngine.PrintEffectDesc(48);
 					}

@@ -669,6 +669,12 @@
         <member name="M:EamonRT.Framework.Commands.ICommandSignatures.Stage">
             <summary></summary>
         </member>
+        <member name="M:EamonRT.Framework.Commands.ICommandSignatures.ExecuteForPlayer">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Framework.Commands.ICommandSignatures.ExecuteForMonster">
+            <summary></summary>
+        </member>
         <member name="M:EamonRT.Framework.Commands.ICommandSignatures.IsAllowedInRoom">
             <summary></summary>
             <returns></returns>
@@ -711,70 +717,13 @@
             <param name="artifact"></param>
             <param name="printTaking"></param>
         </member>
-        <member name="T:EamonRT.Framework.Commands.IMonsterAttackCommand">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Framework.Commands.IMonsterAttackCommand.BlastSpell">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Framework.Commands.IMonsterAttackCommand.CheckAttack">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Framework.Commands.IMonsterAttackCommand.MemberNumber">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Framework.Commands.IMonsterAttackCommand.AttackNumber">
-            <summary></summary>
-        </member>
-        <member name="T:EamonRT.Framework.Commands.IMonsterBlastCommand">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Framework.Commands.IMonsterBlastCommand.CastSpell">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Framework.Commands.IMonsterBlastCommand.CheckAttack">
-            <summary></summary>
-        </member>
-        <member name="T:EamonRT.Framework.Commands.IMonsterHealCommand">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Framework.Commands.IMonsterHealCommand.CastSpell">
-            <summary></summary>
-        </member>
-        <member name="T:EamonRT.Framework.Commands.IMonsterGetCommand">
-            <summary></summary>
-        </member>
-        <member name="T:EamonRT.Framework.Commands.IMonsterReadyCommand">
-            <summary></summary>
-        </member>
-        <member name="T:EamonRT.Framework.Commands.IMonsterRemoveCommand">
-            <summary></summary>
-        </member>
-        <member name="T:EamonRT.Framework.Commands.IMonsterPowerCommand">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Framework.Commands.IMonsterPowerCommand.CastSpell">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Framework.Commands.IMonsterPowerCommand.ResurrectWhereClauseFuncs">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Framework.Commands.IMonsterPowerCommand.VanishWhereClauseFuncs">
-            <summary></summary>
-        </member>
-        <member name="T:EamonRT.Framework.Commands.IMonsterSpeedCommand">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Framework.Commands.IMonsterSpeedCommand.CastSpell">
-            <summary></summary>
-        </member>
-        <member name="T:EamonRT.Framework.Commands.IMonsterFleeCommand">
-            <summary></summary>
-        </member>
         <member name="T:EamonRT.Framework.Commands.IAttackCommand">
             <summary></summary>
         </member>
         <member name="P:EamonRT.Framework.Commands.IAttackCommand.BlastSpell">
+            <summary></summary>
+        </member>
+        <member name="P:EamonRT.Framework.Commands.IAttackCommand.CheckAttack">
             <summary></summary>
         </member>
         <member name="P:EamonRT.Framework.Commands.IAttackCommand.MemberNumber">
@@ -787,6 +736,9 @@
             <summary></summary>
         </member>
         <member name="P:EamonRT.Framework.Commands.IBlastCommand.CastSpell">
+            <summary></summary>
+        </member>
+        <member name="P:EamonRT.Framework.Commands.IBlastCommand.CheckAttack">
             <summary></summary>
         </member>
         <member name="T:EamonRT.Framework.Commands.IFreeCommand">
@@ -955,6 +907,9 @@
             <summary></summary>
         </member>
         <member name="P:EamonRT.Framework.Commands.ISettingsCommand.MatureContent">
+            <summary></summary>
+        </member>
+        <member name="P:EamonRT.Framework.Commands.ISettingsCommand.InteractiveFiction">
             <summary></summary>
         </member>
         <member name="P:EamonRT.Framework.Commands.ISettingsCommand.EnhancedParser">
@@ -2548,6 +2503,11 @@
             An event that fires after an <see cref="T:Eamon.Framework.IArtifact">Artifact</see> is closed.
             </summary>
         </member>
+        <member name="F:EamonRT.Framework.Primitive.Enums.EventType.BeforeDrinkArtifact">
+            <summary>
+            An event that fires before an <see cref="T:Eamon.Framework.IArtifact">Artifact</see> is drunk.
+            </summary>
+        </member>
         <member name="F:EamonRT.Framework.Primitive.Enums.EventType.BeforeNowEmptyArtifactCheck">
             <summary>
             An event that fires before checking if an <see cref="T:Eamon.Framework.IArtifact">Artifact</see> is fully drunk.
@@ -2556,6 +2516,11 @@
         <member name="F:EamonRT.Framework.Primitive.Enums.EventType.AfterDrinkArtifact">
             <summary>
             An event that fires after an <see cref="T:Eamon.Framework.IArtifact">Artifact</see> is drunk.
+            </summary>
+        </member>
+        <member name="F:EamonRT.Framework.Primitive.Enums.EventType.BeforeEatArtifact">
+            <summary>
+            An event that fires before an <see cref="T:Eamon.Framework.IArtifact">Artifact</see> is eaten.
             </summary>
         </member>
         <member name="F:EamonRT.Framework.Primitive.Enums.EventType.AfterEatArtifact">
@@ -3037,42 +3002,6 @@
         <member name="T:EamonRT.Framework.States.IProcessPlayerInputState">
             <summary></summary>
         </member>
-        <member name="P:EamonRT.Game.Commands.MonsterAttackCommand.CombatComponent">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Game.Commands.MonsterGetCommand.ArtTypes">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Game.Commands.MonsterGetCommand.FumbleMonsterList">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Game.Commands.MonsterGetCommand.DobjArtAc">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Game.Commands.MonsterGetCommand.OmitWeightCheck">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Game.Commands.MonsterReadyCommand.ActorWeapon">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Game.Commands.MonsterRemoveCommand.ArtTypes">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Game.Commands.MonsterRemoveCommand.FumbleMonsterList">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Game.Commands.MonsterRemoveCommand.DobjArtAc">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Game.Commands.MonsterRemoveCommand.MonsterName">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Game.Commands.MonsterRemoveCommand.OmitWeightCheck">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Game.Commands.MonsterPowerCommand.FortuneCookieRoll">
-            <summary></summary>
-        </member>
         <member name="P:EamonRT.Game.Commands.AttackCommand.DobjArtAc">
             <summary></summary>
         </member>
@@ -3104,6 +3033,9 @@
             <summary></summary>
         </member>
         <member name="P:EamonRT.Game.Commands.FreeCommand.KeyArtifactUid">
+            <summary></summary>
+        </member>
+        <member name="P:EamonRT.Game.Commands.GiveCommand.ArtTypes">
             <summary></summary>
         </member>
         <member name="P:EamonRT.Game.Commands.GiveCommand.DobjArtAc">
@@ -3142,10 +3074,7 @@
         <member name="P:EamonRT.Game.Commands.CloseCommand.DobjArtAc">
             <summary></summary>
         </member>
-        <member name="P:EamonRT.Game.Commands.DrinkCommand.DrinkableAc">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Game.Commands.DrinkCommand.EdibleAc">
+        <member name="P:EamonRT.Game.Commands.DrinkCommand.ArtTypes">
             <summary></summary>
         </member>
         <member name="P:EamonRT.Game.Commands.DrinkCommand.DobjArtAc">
@@ -3157,10 +3086,7 @@
         <member name="P:EamonRT.Game.Commands.DropCommand.LsArtifact">
             <summary></summary>
         </member>
-        <member name="P:EamonRT.Game.Commands.EatCommand.DrinkableAc">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Game.Commands.EatCommand.EdibleAc">
+        <member name="P:EamonRT.Game.Commands.EatCommand.ArtTypes">
             <summary></summary>
         </member>
         <member name="P:EamonRT.Game.Commands.EatCommand.DobjArtAc">
@@ -3235,25 +3161,10 @@
         <member name="P:EamonRT.Game.Commands.LightCommand.LsArtifact">
             <summary></summary>
         </member>
+        <member name="P:EamonRT.Game.Commands.OpenCommand.ArtTypes">
+            <summary></summary>
+        </member>
         <member name="P:EamonRT.Game.Commands.OpenCommand.OnContainerArtifactList">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Game.Commands.OpenCommand.DisguisedMonsterAc">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Game.Commands.OpenCommand.InContainerAc">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Game.Commands.OpenCommand.DoorGateAc">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Game.Commands.OpenCommand.DrinkableAc">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Game.Commands.OpenCommand.EdibleAc">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Game.Commands.OpenCommand.ReadableAc">
             <summary></summary>
         </member>
         <member name="P:EamonRT.Game.Commands.OpenCommand.DobjArtAc">
@@ -3277,10 +3188,7 @@
         <member name="P:EamonRT.Game.Commands.PutCommand.IobjArtifactWeight">
             <summary></summary>
         </member>
-        <member name="P:EamonRT.Game.Commands.ReadCommand.DisguisedMonsterAc">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Game.Commands.ReadCommand.ReadableAc">
+        <member name="P:EamonRT.Game.Commands.ReadCommand.ArtTypes">
             <summary></summary>
         </member>
         <member name="P:EamonRT.Game.Commands.ReadCommand.DobjArtAc">
@@ -3301,16 +3209,31 @@
         <member name="P:EamonRT.Game.Commands.ReadyCommand.ActorWeapon">
             <summary></summary>
         </member>
+        <member name="P:EamonRT.Game.Commands.RemoveCommand.ArtTypes">
+            <summary></summary>
+        </member>
+        <member name="P:EamonRT.Game.Commands.RemoveCommand.FumbleMonsterList">
+            <summary></summary>
+        </member>
         <member name="P:EamonRT.Game.Commands.RemoveCommand.ArmorArtifactAc">
             <summary></summary>
         </member>
         <member name="P:EamonRT.Game.Commands.RemoveCommand.ShieldArtifactAc">
             <summary></summary>
         </member>
+        <member name="P:EamonRT.Game.Commands.RemoveCommand.DobjArtAc">
+            <summary></summary>
+        </member>
         <member name="P:EamonRT.Game.Commands.RemoveCommand.ArmorArtifact">
             <summary></summary>
         </member>
         <member name="P:EamonRT.Game.Commands.RemoveCommand.ShieldArtifact">
+            <summary></summary>
+        </member>
+        <member name="P:EamonRT.Game.Commands.RemoveCommand.MonsterName">
+            <summary></summary>
+        </member>
+        <member name="P:EamonRT.Game.Commands.RemoveCommand.OmitWeightCheck">
             <summary></summary>
         </member>
         <member name="P:EamonRT.Game.Commands.UseCommand.DobjArtAc">
@@ -3406,6 +3329,9 @@
         <member name="P:EamonRT.Game.Commands.InventoryCommand.IsUninjuredGroup">
             <summary></summary>
         </member>
+        <member name="P:EamonRT.Game.Commands.PowerCommand.FortuneCookieRoll">
+            <summary></summary>
+        </member>
         <member name="P:EamonRT.Game.Commands.PowerCommand.MagicComponent">
             <summary></summary>
         </member>
@@ -3431,6 +3357,9 @@
             <summary></summary>
         </member>
         <member name="P:EamonRT.Game.Commands.RestoreCommand.SaveFilesetsCount">
+            <summary></summary>
+        </member>
+        <member name="P:EamonRT.Game.Commands.RestoreCommand.OrigCm">
             <summary></summary>
         </member>
         <member name="P:EamonRT.Game.Commands.SaveCommand.FullArtifactList">
@@ -3461,6 +3390,9 @@
             <summary></summary>
         </member>
         <member name="P:EamonRT.Game.Commands.SaveCommand.SaveFileNameIndex">
+            <summary></summary>
+        </member>
+        <member name="P:EamonRT.Game.Commands.SaveCommand.OrigCm">
             <summary></summary>
         </member>
         <member name="P:EamonRT.Game.Commands.SaveCommand.GameSaved">

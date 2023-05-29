@@ -45,7 +45,7 @@ namespace TheVileGrimoireOfJaldial.Game.States
 			{
 				if (gEngine.RollDice(1, 100, 0) < 25)
 				{
-					if (artifact.IsWornByCharacter())
+					if (artifact.IsWornByMonster(gCharMonster))
 					{
 						gEngine.CurrState = gEngine.CreateInstance<IRemoveCommand>(x =>
 						{

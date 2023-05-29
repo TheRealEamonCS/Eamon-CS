@@ -108,6 +108,11 @@ namespace EamonRT.Framework.Primitive.Enums
 		AfterCloseArtifact,
 
 		/// <summary>
+		/// An event that fires before an <see cref="IArtifact">Artifact</see> is drunk.
+		/// </summary>
+		BeforeDrinkArtifact,
+
+		/// <summary>
 		/// An event that fires before checking if an <see cref="IArtifact">Artifact</see> is fully drunk.
 		/// </summary>
 		BeforeNowEmptyArtifactCheck,
@@ -116,6 +121,11 @@ namespace EamonRT.Framework.Primitive.Enums
 		/// An event that fires after an <see cref="IArtifact">Artifact</see> is drunk.
 		/// </summary>
 		AfterDrinkArtifact,
+
+		/// <summary>
+		/// An event that fires before an <see cref="IArtifact">Artifact</see> is eaten.
+		/// </summary>
+		BeforeEatArtifact,
 
 		/// <summary>
 		/// An event that fires after an <see cref="IArtifact">Artifact</see> is eaten.

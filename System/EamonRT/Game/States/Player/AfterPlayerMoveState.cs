@@ -72,7 +72,7 @@ namespace EamonRT.Game.States
 
 				Debug.Assert(LsArtifact != null);
 
-				if (!LsArtifact.IsCarriedByCharacter())
+				if (!LsArtifact.IsCarriedByMonster(gCharMonster))
 				{
 					rc = LsArtifact.RemoveStateDesc(LsArtifact.GetProvidingLightDesc());
 
