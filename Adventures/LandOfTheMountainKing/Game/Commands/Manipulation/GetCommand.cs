@@ -42,17 +42,17 @@ namespace LandOfTheMountainKing.Game.Commands
 				{
 					var effect = gEDB[20];
 					SwampMonster.SetInRoomUid(8);
-					ProcessAction(() => gOut.Print("{0}", effect.Desc), ref nlFlag);
+					ProcessAction(100, () => gOut.Print("{0}", effect.Desc), ref nlFlag);
 				}
 				else if (SwampMonster.IsInRoomUid(8))
 				{
 					var effect = gEDB[21];
-					ProcessAction(() => gOut.Print("{0}", effect.Desc), ref nlFlag);
+					ProcessAction(101, () => gOut.Print("{0}", effect.Desc), ref nlFlag);
 				}
 				else if (gLMKKP1.SwampMonsterKilled == 1)
 				{
 					var effect = gEDB[22];
-					ProcessAction(() => gOut.Print("{0}", effect.Desc), ref nlFlag);
+					ProcessAction(102, () => gOut.Print("{0}", effect.Desc), ref nlFlag);
 					if (ActorMonster.CanCarryArtifactWeight(SilverSword))
 					{
 						SilverSword.SetCarriedByMonster(ActorMonster);
