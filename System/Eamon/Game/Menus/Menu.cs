@@ -69,7 +69,7 @@ namespace Eamon.Game.Menus
 					gOut.Write("{0}", MenuItemList[(int)i].LineText);
 				}
 
-				gOut.Write("{0}[X]: ", Environment.NewLine);
+				gOut.Write("{0}{1}[{2}X]: ", Environment.NewLine, gEngine.EnableScreenReaderMode ? "Your choice " : "", gEngine.EnableScreenReaderMode ? "Default " : "");
 
 				Buf.Clear();
 

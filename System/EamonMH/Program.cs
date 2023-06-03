@@ -171,7 +171,7 @@ namespace EamonMH
 
 							gOut.Print("The working directory [{0}] does not exist.", gEngine.WorkDir);
 
-							gOut.Write("{0}Would you like to create it (Y/N) [N]: ", Environment.NewLine);
+							gOut.Write("{0}Would you like to create it (Y/N) [{1}N]: ", Environment.NewLine, gEngine.EnableScreenReaderMode ? "Default " : "");
 
 							gEngine.Buf.Clear();
 
@@ -453,7 +453,7 @@ namespace EamonMH
 
 				if (rc != RetCode.Success)
 				{
-					gEngine.Error.WriteLine("{0}{1}", Environment.NewLine, new string('-', (int)gEngine.RightMargin));
+					gEngine.Error.WriteLine("{0}{1}", Environment.NewLine, gEngine.EnableScreenReaderMode ? "" : new string('-', (int)gEngine.RightMargin));
 
 					gEngine.Error.Write("{0}Press any key to continue: ", Environment.NewLine);
 

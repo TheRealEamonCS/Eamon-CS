@@ -265,6 +265,8 @@ namespace EamonRT.Game.Commands
 
 		public virtual void ProcessArtifact01(IArtifact artifact, IArtifactCategory ac, ref bool nlFlag)
 		{
+			Debug.Assert(artifact != null);
+
 			IsCarriedByContainer = artifact.IsCarriedByContainer();
 
 			artifact.SetCarriedByMonster(ActorMonster);

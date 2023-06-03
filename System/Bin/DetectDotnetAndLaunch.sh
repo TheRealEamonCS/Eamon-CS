@@ -4,7 +4,9 @@
 
 dotnet_found()
 {
-	xterm -e dotnet ./EamonPM.WindowsUnix.dll $@
+	GLOBAL_LAUNCH_PARAMETERS=`cat $GLOBAL_LAUNCH_PARAMETERS_TXT`
+
+	xterm -e dotnet ./EamonPM.WindowsUnix.dll $@ $GLOBAL_LAUNCH_PARAMETERS
 	exit 0
 }
 
@@ -22,6 +24,8 @@ UN=$$
 
 DOTNET_SDKS_TXT="./DOTNET_SDKS_$UN.TXT"
 DOTNET_RUNTIMES_TXT="./DOTNET_RUNTIMES_$UN.TXT"
+
+GLOBAL_LAUNCH_PARAMETERS_TXT="./GLOBAL_LAUNCH_PARAMETERS.TXT"
 
 if [ ! -f $UNIX_PREREQUISITES_TXT ]
 then

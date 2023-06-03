@@ -334,6 +334,10 @@ namespace EamonMH.Game.Plugin
 						CharacterName = Argv[i].Trim();
 					}
 				}
+				else if (Argv[i].Equals("--enableScreenReaderMode", StringComparison.OrdinalIgnoreCase) || Argv[i].Equals("-esrm", StringComparison.OrdinalIgnoreCase))
+				{
+					// do nothing
+				}
 				else if (Argv[i].Equals("--ignoreMutex", StringComparison.OrdinalIgnoreCase) || Argv[i].Equals("-im", StringComparison.OrdinalIgnoreCase))
 				{
 					// do nothing

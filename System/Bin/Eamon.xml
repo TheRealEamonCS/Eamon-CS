@@ -3744,6 +3744,9 @@
         <member name="P:Eamon.Framework.Plugin.IEngine.EnableNegativeRoomUidLinks">
             <summary></summary>
         </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.EnableScreenReaderMode">
+            <summary></summary>
+        </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.IgnoreMutex">
             <summary>
             Gets or sets a value indicating whether the <see cref="P:Eamon.Framework.Plugin.IEngine.Mutex">Mutex</see> should be ignored, allowing unlimited Eamon CS processes

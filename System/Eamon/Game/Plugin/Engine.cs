@@ -255,6 +255,8 @@ namespace Eamon.Game.Plugin
 
 		public virtual bool EnableNegativeRoomUidLinks { get; set; }
 
+		public virtual bool EnableScreenReaderMode { get; set; }
+		
 		public virtual bool IgnoreMutex { get; set; }
 
 		public virtual bool DisableValidation { get; set; }
@@ -522,6 +524,10 @@ namespace Eamon.Game.Plugin
 					{
 						FilePrefix = args[i].Trim();
 					}
+				}
+				else if (args[i].Equals("--enableScreenReaderMode", StringComparison.OrdinalIgnoreCase) || args[i].Equals("-esrm", StringComparison.OrdinalIgnoreCase))
+				{
+					EnableScreenReaderMode = true;
 				}
 				else if (args[i].Equals("--ignoreMutex", StringComparison.OrdinalIgnoreCase) || args[i].Equals("-im", StringComparison.OrdinalIgnoreCase))
 				{
@@ -1118,6 +1124,8 @@ namespace Eamon.Game.Plugin
 			{
 				Mutex.CreateAndWaitOne();
 			}
+
+			LineSep = EnableScreenReaderMode ? "" : new string('-', (int)RightMargin);
 
 			RevealContentArtifactList = new List<IArtifact>();
 
@@ -3146,7 +3154,12 @@ namespace Eamon.Game.Plugin
 				goto Cleanup;
 			}
 
-			if (fillChar == '\0')
+			if (EnableScreenReaderMode)
+			{
+				bufSize += "Default ".Length;
+			}
+
+			if (EnableScreenReaderMode || fillChar == '\0')
 			{
 				fillChar = ' ';
 			}
@@ -3178,11 +3191,11 @@ namespace Eamon.Game.Plugin
 
 			if (emptyVal != null)
 			{
-				sz = emptyVal.Length;
+				sz = emptyVal.Length + (EnableScreenReaderMode ? "Default " : "").Length;
 
 				p = Math.Max(q - (sz + 4), 0);
 
-				buf.Replace(p, Math.Min(sz + 4, q), string.Format("[{0}]{1} ", emptyVal, fillChar == ' ' ? ':' : fillChar));
+				buf.Replace(p, Math.Min(sz + 4, q), string.Format("[{0}{1}]{2} ", EnableScreenReaderMode ? "Default " : "", emptyVal, fillChar == ' ' ? ':' : fillChar));
 			}
 			else
 			{
@@ -3214,7 +3227,7 @@ namespace Eamon.Game.Plugin
 				goto Cleanup;
 			}
 
-			if (fillChar == '\0')
+			if (EnableScreenReaderMode || fillChar == '\0')
 			{
 				fillChar = ' ';
 			}
@@ -3824,7 +3837,7 @@ namespace Eamon.Game.Plugin
 
 			size = title.Length;
 
-			if (inBox)
+			if (!EnableScreenReaderMode && inBox)
 			{
 				Out.Write("{0}{1}|",
 					LineSep,
@@ -3835,7 +3848,7 @@ namespace Eamon.Game.Plugin
 
 			Out.Write("{0}{1}", new string(' ', (int)spaces), title);
 
-			if (inBox)
+			if (!EnableScreenReaderMode && inBox)
 			{
 				Out.Write("{0}|{1}{2}",
 					new string(' ', (int)((RightMargin - 1) - (1 + spaces + size))),
@@ -4886,8 +4899,6 @@ namespace Eamon.Game.Plugin
 			RulesetVersions = new long[NumRulesetVersions];
 
 			Buf = new StringBuilder(BufSize);
-
-			LineSep = new string('-', (int)RightMargin);
 
 			MacroFuncs = new Dictionary<long, Func<string>>();
 

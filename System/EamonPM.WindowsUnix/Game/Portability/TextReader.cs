@@ -49,7 +49,7 @@ namespace EamonPM.Game.Portability
 				goto Cleanup;
 			}
 
-			if (fillChar == '\0')
+			if (gEngine.EnableScreenReaderMode || fillChar == '\0')
 			{
 				fillChar = ' ';
 			}
@@ -214,29 +214,16 @@ namespace EamonPM.Game.Portability
 
 			buf.Length = i;
 
-			if (buf.Length == 0 && emptyVal != null)
+			if (!gEngine.EnableScreenReaderMode)
 			{
-				buf.SetFormat("{0}", emptyVal);
-			}
+				if (buf.Length == 0 && emptyVal != null)
+				{
+					buf.SetFormat("{0}", emptyVal);
+				}
 
-			gEngine.Out.SetCursorPosition(inputCh0Pos);
-
-			i = buf.Length;
-
-			if (maskChar != '\0')
-			{
-				gEngine.Out.Write(new string(maskChar, i));
-			}
-			else
-			{
-				gEngine.Out.Write("{0}", buf);
-			}
-
-			gEngine.Out.Write(new string(' ', (int)bufSize - i));
-
-			if (boxChars == null)
-			{
 				gEngine.Out.SetCursorPosition(inputCh0Pos);
+
+				i = buf.Length;
 
 				if (maskChar != '\0')
 				{
@@ -246,10 +233,35 @@ namespace EamonPM.Game.Portability
 				{
 					gEngine.Out.Write("{0}", buf);
 				}
+
+				gEngine.Out.Write(new string(' ', (int)bufSize - i));
+
+				if (boxChars == null)
+				{
+					gEngine.Out.SetCursorPosition(inputCh0Pos);
+
+					if (maskChar != '\0')
+					{
+						gEngine.Out.Write(new string(maskChar, i));
+					}
+					else
+					{
+						gEngine.Out.Write("{0}", buf);
+					}
+				}
+				else
+				{
+					gEngine.Out.Write(boxChars[1]);
+				}
 			}
 			else
 			{
-				gEngine.Out.Write(boxChars[1]);
+				if (buf.Length == 0 && emptyVal != null)
+				{
+					buf.SetFormat("{0}", emptyVal);
+
+					gEngine.Out.Write("{0}", buf);
+				}
 			}
 
 			gEngine.Out.Write(Environment.NewLine);

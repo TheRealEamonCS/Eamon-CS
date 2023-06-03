@@ -257,7 +257,7 @@ namespace EamonRT.Game.Plugin
 
 			CommandParser = CreateInstance<ICommandParser>();
 
-			CommandPrompt = "> ";
+			CommandPrompt = EnableScreenReaderMode ? "Your command: " : "> ";
 
 			ShouldPreTurnProcess = true;
 		}
@@ -747,7 +747,7 @@ namespace EamonRT.Game.Plugin
 
 		public virtual void PrintEnterSeeIntroStoryChoice()
 		{
-			Out.Write("{0}Would you like to see the introduction story again (Y/N) [N]: ", Environment.NewLine);
+			Out.Write("{0}Would you like to see the introduction story again (Y/N) [{1}N]: ", Environment.NewLine, EnableScreenReaderMode ? "Default " : "");
 		}
 
 		public virtual void PrintEnterWeaponNumberChoice()
@@ -3120,19 +3120,19 @@ namespace EamonRT.Game.Plugin
 
 			buf.SetFormat(" {0} ", buf.ToString().ToLower());
 
-			while (Regex.IsMatch(buf.ToString(), gEngine.EverythingRegexPattern))
+			while (Regex.IsMatch(buf.ToString(), EverythingRegexPattern))
 			{
-				buf.SetFormat("{0}", Regex.Replace(buf.ToString(), gEngine.EverythingRegexPattern, " all "));
+				buf.SetFormat("{0}", Regex.Replace(buf.ToString(), EverythingRegexPattern, " all "));
 			}
 
-			while (Regex.IsMatch(buf.ToString(), gEngine.ExceptRegexPattern))
+			while (Regex.IsMatch(buf.ToString(), ExceptRegexPattern))
 			{
-				buf.SetFormat("{0}", Regex.Replace(buf.ToString(), gEngine.ExceptRegexPattern, " but "));
+				buf.SetFormat("{0}", Regex.Replace(buf.ToString(), ExceptRegexPattern, " but "));
 			}
 
-			while (Regex.IsMatch(buf.ToString(), gEngine.CommandSepRegexPattern))
+			while (Regex.IsMatch(buf.ToString(), CommandSepRegexPattern))
 			{
-				buf.SetFormat("{0}", Regex.Replace(buf.ToString(), gEngine.CommandSepRegexPattern, oneGuidString));
+				buf.SetFormat("{0}", Regex.Replace(buf.ToString(), CommandSepRegexPattern, oneGuidString));
 			}
 
 			buf.SetFormat(" {0} ", Regex.Replace(buf.ToString(), @"\s+", " ").Trim());
@@ -3911,6 +3911,10 @@ namespace EamonRT.Game.Plugin
 
 						ConfigsModified = true;
 					}
+				}
+				else if (Argv[i].Equals("--enableScreenReaderMode", StringComparison.OrdinalIgnoreCase) || Argv[i].Equals("-esrm", StringComparison.OrdinalIgnoreCase))
+				{
+					// do nothing
 				}
 				else if (Argv[i].Equals("--ignoreMutex", StringComparison.OrdinalIgnoreCase) || Argv[i].Equals("-im", StringComparison.OrdinalIgnoreCase))
 				{
