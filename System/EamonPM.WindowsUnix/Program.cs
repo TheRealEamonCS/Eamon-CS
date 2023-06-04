@@ -179,8 +179,6 @@ namespace EamonPM
 					gEngine.In.ReadKey(true);
 
 					gEngine.Error.WriteLine();
-
-					gEngine.Thread.Sleep(150);
 				}
 
 				gEngine.Out.CursorVisible = true;

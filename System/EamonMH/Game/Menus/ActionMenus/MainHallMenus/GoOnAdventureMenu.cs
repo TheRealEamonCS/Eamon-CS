@@ -94,8 +94,6 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 						Debug.Assert(gEngine.IsSuccess(rc));
 
-						gEngine.Thread.Sleep(150);
-
 						if (Buf.Length > 0 && Buf[0] == 'X')
 						{
 							break;
@@ -124,8 +122,6 @@ namespace EamonMH.Game.Menus.ActionMenus
 				rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharDigitOrX, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
-
-				gEngine.Thread.Sleep(150);
 
 				if (Buf.Length > 0 && Buf[0] == 'X')
 				{

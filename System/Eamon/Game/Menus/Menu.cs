@@ -77,8 +77,6 @@ namespace Eamon.Game.Menus
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
-				gEngine.Thread.Sleep(150);
-
 				var menuItem = MenuItemList.FirstOrDefault(mi => mi.SelectChar == Buf[0]);
 
 				Debug.Assert(menuItem != null);

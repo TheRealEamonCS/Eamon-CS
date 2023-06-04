@@ -23,8 +23,6 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			Debug.Assert(editConfig01 != null);
 
-			gEngine.Thread.Sleep(150);
-
 			if (!gEngine.CompareInstances(EditRecord, editConfig01))
 			{
 				gOut.Write("{0}Would you like to save this updated Config record (Y/N): ", Environment.NewLine);
@@ -34,8 +32,6 @@ namespace EamonDD.Game.Menus.ActionMenus
 				rc = gEngine.In.ReadField(Buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, gEngine.IsCharYOrN);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
-
-				gEngine.Thread.Sleep(150);
 
 				if (Buf.Length > 0 && Buf[0] == 'N')
 				{

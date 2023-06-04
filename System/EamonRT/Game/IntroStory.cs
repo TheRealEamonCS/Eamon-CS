@@ -42,8 +42,6 @@ namespace EamonRT.Game
 
 					Debug.Assert(gEngine.IsSuccess(rc));
 
-					gEngine.Thread.Sleep(150);
-
 					if (Buf.Length > 0 && Buf[0] != 'Y')
 					{
 						result = false;
@@ -169,8 +167,6 @@ namespace EamonRT.Game
 					rc = gEngine.In.ReadField(Buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, IsCharWpnNum, null);
 
 					Debug.Assert(gEngine.IsSuccess(rc));
-
-					gEngine.Thread.Sleep(150);
 
 					gOut.Print("{0}", gEngine.LineSep);
 

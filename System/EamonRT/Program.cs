@@ -178,8 +178,6 @@ namespace EamonRT
 
 					Debug.Assert(gEngine.IsSuccess(rc));
 
-					gEngine.Thread.Sleep(150);
-
 					if (gEngine.Buf[0] != 'Y')
 					{
 						_nlFlag = false;
@@ -541,8 +539,6 @@ namespace EamonRT
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
-				gEngine.Thread.Sleep(150);
-
 				if (gEngine.Buf.Length > 0 && gEngine.Buf[0] == 'N')
 				{
 					_nlFlag = false;
@@ -813,8 +809,6 @@ namespace EamonRT
 					rc = gEngine.In.ReadField(gEngine.Buf, gEngine.BufSize02, null, ' ', '\0', true, "N", gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, gEngine.IsCharYOrN);
 
 					Debug.Assert(gEngine.IsSuccess(rc));
-
-					gEngine.Thread.Sleep(150);
 
 					if (gEngine.Buf[0] != 'Y')
 					{
@@ -1328,8 +1322,6 @@ namespace EamonRT
 					gEngine.In.ReadKey(true);
 
 					gEngine.Error.WriteLine();
-
-					gEngine.Thread.Sleep(150);
 				}
 
 				return;

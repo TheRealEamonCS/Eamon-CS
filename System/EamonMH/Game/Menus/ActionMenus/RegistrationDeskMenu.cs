@@ -149,8 +149,6 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 			Debug.Assert(helper.ValidateField("Gender"));
 
-			gEngine.Thread.Sleep(150);
-
 			gOut.Print("{0}", gEngine.LineSep);
 
 			character.Uid = gEngine.Database.GetCharacterUid();
@@ -211,8 +209,6 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 					Debug.Assert(gEngine.IsSuccess(rc));
 
-					gEngine.Thread.Sleep(150);
-
 					if (Buf.Length > 0 && Buf[0] == 'Y')
 					{
 						gOut.Print("{0}", gEngine.LineSep);
@@ -245,8 +241,6 @@ namespace EamonMH.Game.Menus.ActionMenus
 			rc = gEngine.In.ReadField(Buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharROrT, gEngine.IsCharROrT);
 
 			Debug.Assert(gEngine.IsSuccess(rc));
-
-			gEngine.Thread.Sleep(150);
 
 			gOut.Print("{0}", gEngine.LineSep);
 
@@ -361,8 +355,6 @@ namespace EamonMH.Game.Menus.ActionMenus
 					x.Record = character;
 				});
 
-				gEngine.Thread.Sleep(150);
-
 				if (helper.ValidateField("Name"))
 				{
 					gOut.Print("{0}", gEngine.LineSep);
@@ -391,8 +383,6 @@ namespace EamonMH.Game.Menus.ActionMenus
 						rc = gEngine.In.ReadField(Buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, gEngine.IsCharYOrN);
 
 						Debug.Assert(gEngine.IsSuccess(rc));
-
-						gEngine.Thread.Sleep(150);
 
 						if (Buf.Length > 0 && Buf[0] == 'Y')
 						{
@@ -454,8 +444,6 @@ namespace EamonMH.Game.Menus.ActionMenus
 							rc = gEngine.In.ReadField(Buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, gEngine.IsCharYOrN);
 
 							Debug.Assert(gEngine.IsSuccess(rc));
-
-							gEngine.Thread.Sleep(150);
 
 							if (Buf.Length > 0 && Buf[0] == 'Y')
 							{

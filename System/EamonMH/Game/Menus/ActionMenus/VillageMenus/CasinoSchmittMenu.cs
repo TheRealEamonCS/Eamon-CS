@@ -45,8 +45,6 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
-				gEngine.Thread.Sleep(150);
-
 				var bet = Convert.ToInt64(Buf.Trim().ToString());
 
 				if (bet > 0 && bet <= gCharacter.HeldGold && bet <= 10000)

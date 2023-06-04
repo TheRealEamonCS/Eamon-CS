@@ -61,8 +61,6 @@ namespace EamonDD.Game.Menus.ActionMenus
 			
 			helper.InputRecord(true, gEngine.Config.FieldDesc);
 
-			gEngine.Thread.Sleep(150);
-
 			if (!gEngine.CompareInstances(EditRecord, editRecord01))
 			{
 				gOut.Write("{0}Would you like to save this updated {1} record (Y/N): ", Environment.NewLine, RecordTypeName);
@@ -72,8 +70,6 @@ namespace EamonDD.Game.Menus.ActionMenus
 				rc = gEngine.In.ReadField(Buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, gEngine.IsCharYOrN);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
-
-				gEngine.Thread.Sleep(150);
 
 				if (Buf.Length > 0 && Buf[0] == 'N')
 				{
