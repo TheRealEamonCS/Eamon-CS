@@ -57,6 +57,8 @@ namespace ThePyramidOfAnharos.Game
 
 					Debug.Assert(gEngine.IsSuccess(rc));
 
+					gEngine.Thread.Sleep(150);
+
 					gOut.WriteLine("{0}{1}{0}", Environment.NewLine, gEngine.LineSep);
 
 					if (buf.Length > 0 && buf[0] == 'G')

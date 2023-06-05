@@ -179,6 +179,8 @@ namespace EamonMH
 
 							Debug.Assert(gEngine.IsSuccess(rc));
 
+							gEngine.Thread.Sleep(150);
+
 							if (gEngine.Buf[0] != 'Y')
 							{
 								nlFlag = false;
@@ -458,6 +460,8 @@ namespace EamonMH
 					gEngine.In.ReadKey(true);
 
 					gEngine.Error.WriteLine();
+
+					gEngine.Thread.Sleep(150);
 				}
 
 				return;

@@ -76,6 +76,8 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 			Debug.Assert(gEngine.IsSuccess(rc));
 
+			gEngine.Thread.Sleep(150);
+
 			gOut.Print("{0}", gEngine.LineSep);
 
 			Debug.Assert(Buf.Length > 0);
@@ -109,6 +111,8 @@ namespace EamonMH.Game.Menus.ActionMenus
 					rc = gEngine.In.ReadField(Buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsChar1Or2OrX, gEngine.IsChar1Or2OrX);
 
 					Debug.Assert(gEngine.IsSuccess(rc));
+
+					gEngine.Thread.Sleep(150);
 
 					gOut.Print("{0}", gEngine.LineSep);
 

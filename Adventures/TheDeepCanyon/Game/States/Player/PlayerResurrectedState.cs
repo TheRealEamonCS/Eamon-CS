@@ -40,6 +40,8 @@ namespace TheDeepCanyon.Game.States
 
 			Debug.Assert(gEngine.IsSuccess(rc));
 
+			gEngine.Thread.Sleep(150);
+
 			gOut.Print("{0}", gEngine.LineSep);
 
 			// gSentenceParser.PrintDiscardingCommands() not called for this abrupt reality shift

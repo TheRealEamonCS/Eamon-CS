@@ -1732,6 +1732,8 @@ namespace EamonRT.Game.Plugin
 
 					Debug.Assert(IsSuccess(rc));
 
+					Thread.Sleep(150);
+
 					var m = Convert.ToInt64(Buf.Trim().ToString());
 
 					if (m >= 1 && m <= weaponList.Count)

@@ -44,6 +44,8 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 			Debug.Assert(gEngine.IsSuccess(rc));
 
+			gEngine.Thread.Sleep(150);
+
 			if (Buf.Length == 0 || Buf[0] == 'X')
 			{
 				goto Cleanup;
@@ -68,6 +70,8 @@ namespace EamonMH.Game.Menus.ActionMenus
 				rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, ' ', '\0', false, null, null, gEngine.IsCharDigit, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
+
+				gEngine.Thread.Sleep(150);
 
 				i = Convert.ToInt64(Buf.Trim().ToString());
 
@@ -123,6 +127,8 @@ namespace EamonMH.Game.Menus.ActionMenus
 				rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, ' ', '\0', false, null, null, gEngine.IsCharDigit, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
+
+				gEngine.Thread.Sleep(150);
 
 				i = Convert.ToInt64(Buf.Trim().ToString());
 

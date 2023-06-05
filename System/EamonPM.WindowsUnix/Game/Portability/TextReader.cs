@@ -354,6 +354,8 @@ namespace EamonPM.Game.Portability
 				var rc = ReadField(buf, gEngine.BufSize02, null, ' ', '\0', true, null, gEngine.ModifyCharToNull, null, gEngine.IsCharAny);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
+
+				gEngine.Thread.Sleep(150);
 			}
 		}
 

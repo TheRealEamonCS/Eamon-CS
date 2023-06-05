@@ -74,6 +74,8 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 			Debug.Assert(gEngine.IsSuccess(rc));
 
+			gEngine.Thread.Sleep(150);
+
 			gOut.Print("{0}", gEngine.LineSep);
 
 			if (Buf.Length == 0 || Buf[0] == 'X')
@@ -118,6 +120,8 @@ namespace EamonMH.Game.Menus.ActionMenus
 				rc = gEngine.In.ReadField(Buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsChar1Or2OrX, gEngine.IsChar1Or2OrX);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
+
+				gEngine.Thread.Sleep(150);
 
 				gOut.Print("{0}", gEngine.LineSep);
 
@@ -188,6 +192,8 @@ namespace EamonMH.Game.Menus.ActionMenus
 				});
 
 				Debug.Assert(artifactHelper != null);
+
+				gEngine.Thread.Sleep(150);
 
 				if (!artifactHelper.ValidateField("Name") || wpnArtifact.Name.Equals("NONE", StringComparison.OrdinalIgnoreCase))
 				{
@@ -285,6 +291,8 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
+				gEngine.Thread.Sleep(150);
+
 				gOut.Print("{0}", gEngine.LineSep);
 
 				if (Buf.Length == 0 || Buf[0] == 'N')
@@ -347,6 +355,8 @@ namespace EamonMH.Game.Menus.ActionMenus
 			rc = gEngine.In.ReadField(Buf, gEngine.BufSize02, null, ' ', '\0', false, null, null, gEngine.IsCharWpnType, gEngine.IsCharWpnType);
 
 			Debug.Assert(gEngine.IsSuccess(rc));
+
+			gEngine.Thread.Sleep(150);
 
 			gOut.Print("{0}", gEngine.LineSep);
 
