@@ -89,7 +89,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 				while (Buf.Length < 49)
 				{
-					Buf.Append('.');
+					Buf.Append(gEngine.EnableScreenReaderMode ? ' ' : '.');
 				}
 
 				Buf.Length = 49;
@@ -99,7 +99,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 					Buf.Length--;
 				}
 
-				Buf.Append('.');
+				Buf.Append(gEngine.EnableScreenReaderMode ? ' ' : '.');
 
 				if (numDirs == 12)
 				{

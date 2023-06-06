@@ -25,7 +25,7 @@ ECS programs launch using a collection of batch files (or shell scripts in Unix)
 
 ECS Mobile mirrors the hierarchical directory structure of ECS Desktop, making the experience very similar.
 
-Players on newer versions of Windows may benefit by reconfiguring their Command console before running Eamon CS.  Please see [SUGGESTED GAMEPLAY SETTINGS](https://TheRealEamonCS.github.io/pages/TechnicalPaper/TechnicalPaper.html#ECSTP6) in the Technical Paper for more details.
+Players may benefit by reconfiguring their Command console before running Eamon CS, an optional step. If interested, please see [SUGGESTED GAMEPLAY SETTINGS](https://TheRealEamonCS.github.io/pages/TechnicalPaper/TechnicalPaper.html#ECSTP6) in the Technical Paper for more details.
 
 #### Contributing
 
