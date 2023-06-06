@@ -32,7 +32,7 @@ namespace Eamon.Game.Utilities
 
 		public static void RepaintWindow(IntPtr hWnd)
 		{
-			if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+			if (hWnd != IntPtr.Zero)
 			{
 				InvalidateRect(hWnd, IntPtr.Zero, true);
 
