@@ -357,11 +357,11 @@ namespace Eamon.Framework.Plugin
 		/// <summary></summary>
 		MemoryStream CloneStream { get; set; }
 
-        /// <summary></summary>
-        IntPtr ConsoleHandle { get; set; }
+		/// <summary></summary>
+		IntPtr ConsoleHandle { get; set; }
 
-        /// <summary></summary>
-        long MutatePropertyCounter { get; set; }
+		/// <summary></summary>
+		long MutatePropertyCounter { get; set; }
 
 		/// <summary></summary>
 		string WorkDir { get; set; }
