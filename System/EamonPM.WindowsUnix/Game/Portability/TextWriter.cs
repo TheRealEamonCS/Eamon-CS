@@ -317,9 +317,9 @@ namespace EamonPM.Game.Portability
 					Console.Error.Write("{0}", Buf);
 				}
 			}
-        }
+		}
 
-        public virtual void Write(string format, object arg0, object arg1)
+		public virtual void Write(string format, object arg0, object arg1)
 		{
 			Write(format, new object[] { arg0, arg1 });
 		}

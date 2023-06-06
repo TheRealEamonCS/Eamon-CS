@@ -9,10 +9,10 @@ using static Eamon.Game.Plugin.Globals;
 
 namespace EamonPM.Game.Portability
 {
-	public class Thread : IThread
-	{
-		public virtual void Sleep(long milliseconds)
-		{
+    public class Thread : IThread
+    {
+        public virtual void Sleep(long milliseconds)
+        {
             WindowRepainter.RepaintWindow(gEngine.ConsoleHandle);
 
             System.Threading.Thread.Sleep((int)milliseconds);
