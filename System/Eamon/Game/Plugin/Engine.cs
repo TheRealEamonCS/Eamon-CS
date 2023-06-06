@@ -229,7 +229,9 @@ namespace Eamon.Game.Plugin
 
 		public virtual MemoryStream CloneStream { get; set; } = new MemoryStream();
 
-		public virtual long MutatePropertyCounter { get; set; } = 1;
+        public virtual IntPtr ConsoleHandle { get; set; }
+
+        public virtual long MutatePropertyCounter { get; set; } = 1;
 
 		public virtual string WorkDir { get; set; } = "";
 
@@ -1125,15 +1127,17 @@ namespace Eamon.Game.Plugin
 				Mutex.CreateAndWaitOne();
 			}
 
-			LineSep = EnableScreenReaderMode ? "" : new string('-', (int)RightMargin);
+            ConsoleHandle = WindowRepainter.GetConsoleWindow01();
 
-			RevealContentArtifactList = new List<IArtifact>();
+            LineSep = EnableScreenReaderMode ? "" : new string('-', (int)RightMargin);
+
+            RevealContentArtifactList = new List<IArtifact>();
 
 			RevealContentFuncList = new List<Action>();
 
 			RevealContentCounter = 1;
 
-			Databases = new IDatabase[NumDatabases];
+            Databases = new IDatabase[NumDatabases];
 
 			DbStackTop = -1;
 

@@ -4,6 +4,8 @@
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
 using Eamon.Framework.Portability;
+using Eamon.Game.Utilities;
+using static Eamon.Game.Plugin.Globals;
 
 namespace EamonPM.Game.Portability
 {
@@ -11,7 +13,11 @@ namespace EamonPM.Game.Portability
 	{
 		public virtual void Sleep(long milliseconds)
 		{
-			System.Threading.Thread.Sleep((int)milliseconds);
-		}
-	}
+            WindowRepainter.RepaintWindow(gEngine.ConsoleHandle);
+
+            System.Threading.Thread.Sleep((int)milliseconds);
+
+            WindowRepainter.RepaintWindow(gEngine.ConsoleHandle);
+        }
+    }
 }

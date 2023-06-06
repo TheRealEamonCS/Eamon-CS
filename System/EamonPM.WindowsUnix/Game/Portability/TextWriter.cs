@@ -10,6 +10,7 @@ using System.Text.RegularExpressions;
 using Eamon.Framework.Portability;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Extensions;
+using Eamon.Game.Utilities;
 using static Eamon.Game.Plugin.Globals;
 
 namespace EamonPM.Game.Portability
@@ -67,6 +68,8 @@ namespace EamonPM.Game.Portability
 			set
 			{
 				Console.CursorVisible = value;
+				
+				WindowRepainter.RepaintWindow(gEngine.ConsoleHandle);
 			}
 		}
 
@@ -314,9 +317,9 @@ namespace EamonPM.Game.Portability
 					Console.Error.Write("{0}", Buf);
 				}
 			}
-		}
+        }
 
-		public virtual void Write(string format, object arg0, object arg1)
+        public virtual void Write(string format, object arg0, object arg1)
 		{
 			Write(format, new object[] { arg0, arg1 });
 		}

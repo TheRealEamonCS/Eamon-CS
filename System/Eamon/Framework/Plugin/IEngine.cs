@@ -283,25 +283,25 @@ namespace Eamon.Framework.Plugin
 		/// <summary></summary>
 		long NumRows { get; }
 
-		/// <summary>
-		/// Gets or sets the Dictionary that stores interface to class mappings as Key/Value pairs, used for dependency injection.
-		/// </summary>
-		/// <remarks>
-		/// This is the heart of the customized dependency injection architecture used by Eamon CS.  If you've ever wondered
-		/// how the system seems to "know" which class needs to be instantiated to make any game work, it is all based on the
-		/// contents of this Dictionary.  When the system calls <see cref="CreateInstance{T}(Action{T})">CreateInstance</see>,
-		/// this Dictionary is consulted and the concrete class corresponding to the provided interface is created.  If you use the
-		/// debugger to step through a game while its running, looking in this Dictionary at the Key/Value pairs is very enlightening.
-		/// Another piece to this puzzle is how the Dictionary itself is loaded during program bootstrap, and this information will be
-		/// provided in the comments for <see cref="LoadPluginClassMappings">LoadPluginClassMappings</see> and 
-		/// <see cref="LoadPluginClassMappings01(Assembly)">LoadPluginClassMappings01</see>.
-		/// <para>
-		/// Side note:  Research was done on dependency injection toolkits (like Ninject, etc.), but that avenue was avoided because it
-		/// would have introduced unnecessary dependencies for the project.  There don't seem to be any frameworks that fit what was
-		/// done in Eamon CS, so this dependency injection architecture is outside typical patterns.
-		/// </para>
-		/// </remarks>
-		IDictionary<Type, Type> ClassMappingsDictionary { get; set; }
+        /// <summary>
+        /// Gets or sets the Dictionary that stores interface to class mappings as Key/Value pairs, used for dependency injection.
+        /// </summary>
+        /// <remarks>
+        /// This is the heart of the customized dependency injection architecture used by Eamon CS.  If you've ever wondered
+        /// how the system seems to "know" which class needs to be instantiated to make any game work, it is all based on the
+        /// contents of this Dictionary.  When the system calls <see cref="CreateInstance{T}(Action{T})">CreateInstance</see>,
+        /// this Dictionary is consulted and the concrete class corresponding to the provided interface is created.  If you use the
+        /// debugger to step through a game while its running, looking in this Dictionary at the Key/Value pairs is very enlightening.
+        /// Another piece to this puzzle is how the Dictionary itself is loaded during program bootstrap, and this information will be
+        /// provided in the comments for <see cref="LoadPluginClassMappings">LoadPluginClassMappings</see> and 
+        /// <see cref="LoadPluginClassMappings01(Assembly)">LoadPluginClassMappings01</see>.
+        /// <para>
+        /// Side note:  Research was done on dependency injection toolkits (like Ninject, etc.), but that avenue was avoided because it
+        /// would have introduced unnecessary dependencies for the project.  There don't seem to be any frameworks that fit what was
+        /// done in Eamon CS, so this dependency injection architecture is outside typical patterns.
+        /// </para>
+        /// </remarks>
+        IDictionary<Type, Type> ClassMappingsDictionary { get; set; }
 
 		/// <summary>
 		/// Gets or sets the text reader that accepts user input from the console window.
@@ -357,8 +357,11 @@ namespace Eamon.Framework.Plugin
 		/// <summary></summary>
 		MemoryStream CloneStream { get; set; }
 
-		/// <summary></summary>
-		long MutatePropertyCounter { get; set; }
+        /// <summary></summary>
+        IntPtr ConsoleHandle { get; set; }
+
+        /// <summary></summary>
+        long MutatePropertyCounter { get; set; }
 
 		/// <summary></summary>
 		string WorkDir { get; set; }

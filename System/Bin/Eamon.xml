@@ -3706,6 +3706,9 @@
         <member name="P:Eamon.Framework.Plugin.IEngine.CloneStream">
             <summary></summary>
         </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.ConsoleHandle">
+            <summary></summary>
+        </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.MutatePropertyCounter">
             <summary></summary>
         </member>
@@ -9239,6 +9242,14 @@
             </summary>
             <remarks>
             Full credit:  https://stackoverflow.com/questions/26060441/reading-data-from-fixed-length-file-into-class-objects
+            </remarks>
+        </member>
+        <member name="T:Eamon.Game.Utilities.WindowRepainter">
+            <summary>
+            </summary>
+            <remarks>
+            Full credit:  
+                https://chat.openai.com/        "give me the C# code to repaint a window given its window handle"
             </remarks>
         </member>
         <member name="T:Eamon.RetCode">

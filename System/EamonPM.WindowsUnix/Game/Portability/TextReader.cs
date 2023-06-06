@@ -9,6 +9,7 @@ using System.Text;
 using Eamon;
 using Eamon.Framework.Portability;
 using Eamon.Game.Extensions;
+using Eamon.Game.Utilities;
 using static Eamon.Game.Plugin.Globals;
 
 namespace EamonPM.Game.Portability
@@ -42,7 +43,9 @@ namespace EamonPM.Game.Portability
 
 			rc = RetCode.Success;
 
-			if (!EnableInput)
+            WindowRepainter.RepaintWindow(gEngine.ConsoleHandle);
+
+            if (!EnableInput)
 			{
 				buf.Clear();
 
@@ -266,7 +269,9 @@ namespace EamonPM.Game.Portability
 
 			gEngine.Out.Write(Environment.NewLine);
 
-		Cleanup:
+            WindowRepainter.RepaintWindow(gEngine.ConsoleHandle);
+
+        Cleanup:
 
 			return rc;
 		}
@@ -323,13 +328,17 @@ namespace EamonPM.Game.Portability
 
 			if (EnableInput)
 			{
-				Console.CursorVisible = true;
+                WindowRepainter.RepaintWindow(gEngine.ConsoleHandle);
+
+                Console.CursorVisible = true;
 
 				ch = Console.ReadKey(intercept).KeyChar;
 
 				Console.CursorVisible = false;
-			}
-			else
+
+                WindowRepainter.RepaintWindow(gEngine.ConsoleHandle);
+            }
+            else
 			{
 				ch = '\0';
 			}
