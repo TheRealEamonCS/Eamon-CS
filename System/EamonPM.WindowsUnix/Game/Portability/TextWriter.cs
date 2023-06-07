@@ -69,7 +69,10 @@ namespace EamonPM.Game.Portability
 			{
 				Console.CursorVisible = value;
 				
-				WindowRepainter.RepaintWindow(gEngine.ConsoleHandle);
+				if (gEngine.RepaintWindow)
+				{
+					WindowRepainter.RepaintWindow(gEngine.ConsoleHandle);
+				}
 			}
 		}
 
@@ -316,6 +319,11 @@ namespace EamonPM.Game.Portability
 				{
 					Console.Error.Write("{0}", Buf);
 				}
+			}
+
+			if (gEngine.RepaintWindow)
+			{
+				WindowRepainter.RepaintWindow(gEngine.ConsoleHandle);
 			}
 		}
 

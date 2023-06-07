@@ -263,6 +263,8 @@ namespace Eamon.Game.Plugin
 
 		public virtual bool DisableValidation { get; set; }
 
+		public virtual bool RepaintWindow { get; set; }
+		
 		public virtual bool RunGameEditor { get; set; }
 
 		public virtual bool DeleteGameStateFromMainHall { get; set; }
@@ -538,6 +540,10 @@ namespace Eamon.Game.Plugin
 				else if (args[i].Equals("--disableValidation", StringComparison.OrdinalIgnoreCase) || args[i].Equals("-dv", StringComparison.OrdinalIgnoreCase))
 				{
 					DisableValidation = true;
+				}
+				else if (args[i].Equals("--repaintWindow", StringComparison.OrdinalIgnoreCase) || args[i].Equals("-rw", StringComparison.OrdinalIgnoreCase))
+				{
+					RepaintWindow = true;
 				}
 				else if (args[i].Equals("--runGameEditor", StringComparison.OrdinalIgnoreCase) || args[i].Equals("-rge", StringComparison.OrdinalIgnoreCase))
 				{

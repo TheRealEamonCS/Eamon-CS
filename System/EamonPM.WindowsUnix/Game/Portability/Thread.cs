@@ -13,11 +13,17 @@ namespace EamonPM.Game.Portability
 	{
 		public virtual void Sleep(long milliseconds)
 		{
-			WindowRepainter.RepaintWindow(gEngine.ConsoleHandle);
+			if (gEngine.RepaintWindow)
+			{
+				WindowRepainter.RepaintWindow(gEngine.ConsoleHandle);
+			}
 
 			System.Threading.Thread.Sleep((int)milliseconds);
 
-			WindowRepainter.RepaintWindow(gEngine.ConsoleHandle);
+			if (gEngine.RepaintWindow)
+			{
+				WindowRepainter.RepaintWindow(gEngine.ConsoleHandle);
+			}
 		}
 	}
 }

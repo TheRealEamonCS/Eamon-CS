@@ -43,7 +43,10 @@ namespace EamonPM.Game.Portability
 
 			rc = RetCode.Success;
 
-			WindowRepainter.RepaintWindow(gEngine.ConsoleHandle);
+			if (gEngine.RepaintWindow)
+			{
+				WindowRepainter.RepaintWindow(gEngine.ConsoleHandle);
+			}
 
 			if (!EnableInput)
 			{
@@ -269,7 +272,10 @@ namespace EamonPM.Game.Portability
 
 			gEngine.Out.Write(Environment.NewLine);
 
-			WindowRepainter.RepaintWindow(gEngine.ConsoleHandle);
+			if (gEngine.RepaintWindow)
+			{
+				WindowRepainter.RepaintWindow(gEngine.ConsoleHandle);
+			}
 
 		Cleanup:
 
@@ -328,7 +334,10 @@ namespace EamonPM.Game.Portability
 
 			if (EnableInput)
 			{
-				WindowRepainter.RepaintWindow(gEngine.ConsoleHandle);
+				if (gEngine.RepaintWindow)
+				{
+					WindowRepainter.RepaintWindow(gEngine.ConsoleHandle);
+				}
 
 				Console.CursorVisible = true;
 
@@ -336,7 +345,10 @@ namespace EamonPM.Game.Portability
 
 				Console.CursorVisible = false;
 
-				WindowRepainter.RepaintWindow(gEngine.ConsoleHandle);
+				if (gEngine.RepaintWindow)
+				{
+					WindowRepainter.RepaintWindow(gEngine.ConsoleHandle);
+				}
 			}
 			else
 			{

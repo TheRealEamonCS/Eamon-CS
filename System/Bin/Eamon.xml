@@ -3763,6 +3763,9 @@
         <member name="P:Eamon.Framework.Plugin.IEngine.DisableValidation">
             <summary></summary>
         </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.RepaintWindow">
+            <summary></summary>
+        </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.RunGameEditor">
             <summary></summary>
         </member>

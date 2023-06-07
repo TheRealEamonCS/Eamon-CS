@@ -415,6 +415,9 @@ namespace Eamon.Framework.Plugin
 		bool DisableValidation { get; set; }
 
 		/// <summary></summary>
+		bool RepaintWindow { get; set; }
+		
+		/// <summary></summary>
 		bool RunGameEditor { get; set; }
 
 		/// <summary></summary>

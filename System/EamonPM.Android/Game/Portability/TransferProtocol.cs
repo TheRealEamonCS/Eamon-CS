@@ -48,6 +48,11 @@ namespace EamonPM.Game.Portability
 
 			argsList.Add(characterName);
 
+			if (gEngine.RepaintWindow)
+			{
+				argsList.Add("-rw");
+			}
+			
 			if (gEngine.EnableScreenReaderMode)
 			{
 				argsList.Add("-esrm");
@@ -75,6 +80,11 @@ namespace EamonPM.Game.Portability
 
 			argsList.Add("EAMONCFG.DAT");
 
+			if (gEngine.RepaintWindow)
+			{
+				argsList.Add("-rw");
+			}
+			
 			if (gEngine.EnableScreenReaderMode)
 			{
 				argsList.Add("-esrm");
@@ -106,6 +116,11 @@ namespace EamonPM.Game.Portability
 
 			argsList.Add("-im");
 
+			if (gEngine.RepaintWindow)
+			{
+				argsList.Add("-rw");
+			}
+			
 			if (gEngine.EnableScreenReaderMode)
 			{
 				argsList.Add("-esrm");

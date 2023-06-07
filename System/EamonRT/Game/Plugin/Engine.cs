@@ -3924,6 +3924,10 @@ namespace EamonRT.Game.Plugin
 				{
 					// do nothing
 				}
+				else if (Argv[i].Equals("--repaintWindow", StringComparison.OrdinalIgnoreCase) || Argv[i].Equals("-rw", StringComparison.OrdinalIgnoreCase))
+				{
+					// do nothing
+				}
 				else if (Argv[i].Equals("--deleteGameState", StringComparison.OrdinalIgnoreCase) || Argv[i].Equals("-dgs", StringComparison.OrdinalIgnoreCase))
 				{
 					if (secondPass)

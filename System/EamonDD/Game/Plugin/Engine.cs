@@ -326,6 +326,10 @@ namespace EamonDD.Game.Plugin
 				{
 					// do nothing
 				}
+				else if (Argv[i].Equals("--repaintWindow", StringComparison.OrdinalIgnoreCase) || Argv[i].Equals("-rw", StringComparison.OrdinalIgnoreCase))
+				{
+					// do nothing
+				}
 				else if (Argv[i].Equals("--runGameEditor", StringComparison.OrdinalIgnoreCase) || Argv[i].Equals("-rge", StringComparison.OrdinalIgnoreCase))
 				{
 					// do nothing
