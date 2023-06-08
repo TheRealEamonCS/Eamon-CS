@@ -25,12 +25,10 @@ namespace Eamon.Mobile.ViewModels
 			{
 				var pluginFileName = string.Format("{0}.dll", dir);
 
-				BatchFiles.Add(new BatchFile()
-				{
-					Name = string.Format("Resume{0}", dir),
-
-					PluginArgs = new string[] { "-pfn", App.PluginExists(pluginFileName) ? pluginFileName : "EamonRT.dll", "-wd", string.Format(@"..\..\Adventures\{0}", dir) }
-				});
+				BatchFiles.Add
+				(
+					CreateBatchFile(string.Format("Resume{0}", dir), "-pfn", App.PluginExists(pluginFileName) ? pluginFileName : "EamonRT.dll", "-wd", string.Format(@"..\..\Adventures\{0}", dir))
+				);
 			}
 
 			BatchFiles = BatchFiles.OrderBy(bf => bf.Name).ToList();

@@ -10,29 +10,17 @@ namespace Eamon.Mobile.ViewModels
 {
 	public class EamonMHViewModel : BaseViewModel
 	{
-
 		public List<BatchFile> BatchFiles { get; set; }
 
 		public EamonMHViewModel()
 		{
 			Title = "EamonMH";
 
-			BatchFiles = new List<BatchFile>()
+			BatchFiles = new List<BatchFile>() 
 			{
-				new BatchFile()
-				{
-					Name = "EnterMainHallUsingAdventures",
-
-					PluginArgs = new string[] { "-pfn", "EamonMH.dll", "-fsfn", "ADVENTURES.DAT" }
-				},
-				new BatchFile()
-				{
-					Name = "EnterMainHallUsingCatalog",
-
-					PluginArgs = new string[] { "-pfn", "EamonMH.dll", "-fsfn", "CATALOG.DAT" }
-				}
+				CreateBatchFile("EnterMainHallUsingAdventures", "-pfn", "EamonMH.dll", "-fsfn", "ADVENTURES.DAT"),
+				CreateBatchFile("EnterMainHallUsingCatalog", "-pfn", "EamonMH.dll", "-fsfn", "CATALOG.DAT")
 			};
 		}
-
 	}
 }
