@@ -130,7 +130,10 @@ namespace EamonPM.Game.Portability
 
 				if (ch == '\r' || ch == '\n' || ch == '\t')
 				{
-					gEngine.Out.SetCursorPosition(inputCh0Pos);
+					if (!gEngine.EnableScreenReaderMode)
+					{
+						gEngine.Out.SetCursorPosition(inputCh0Pos);
+					}
 
 					if (i > 0 || emptyAllowed)
 					{

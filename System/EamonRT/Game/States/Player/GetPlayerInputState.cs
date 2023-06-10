@@ -60,11 +60,6 @@ namespace EamonRT.Game.States
 
 					gSentenceParser.InputBuf.SetFormat("{0}", gEngine.In.ReadLine());
 
-					if (gEngine.EnableScreenReaderMode && (gEngine.CommandPrompt.Length + gSentenceParser.InputBuf.Length) > gEngine.WindowWidth)
-					{
-						gOut.WriteLine();
-					}
-
 					gSentenceParser.Execute();
 				}
 			}
