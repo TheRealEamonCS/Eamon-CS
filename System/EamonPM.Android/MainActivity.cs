@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Threading;
 using Android.App;
 using Android.Content.PM;
@@ -218,6 +219,37 @@ namespace EamonPM
 		public virtual void PluginLoop(object obj)
 		{
 			var args = (string[])obj;
+
+			var argsList = new List<string>();
+
+			if (args != null)
+			{
+				argsList.AddRange(args);
+			}
+
+			var fileText = "";
+
+			try
+			{
+				fileText = gEngine.File.ReadAllText(gEngine.GlobalLaunchParametersFile);
+			}
+			catch (Exception)
+			{
+				// do nothing
+			}
+
+			fileText = fileText.Replace("\r\n", " ").Replace("\n", " ");
+
+			fileText = Regex.Replace(fileText, @"\s+", " ").Trim();
+
+			var tokens = fileText.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+
+			if (tokens != null)
+			{
+				argsList.AddRange(tokens);
+			}
+
+			args = argsList.ToArray();
 
 			while (true)
 			{

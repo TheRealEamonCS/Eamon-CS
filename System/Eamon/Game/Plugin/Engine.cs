@@ -171,8 +171,10 @@ namespace Eamon.Game.Plugin
 
 		public virtual string EamonDesktopSlnFile { get; protected set; } = @"..\..\Eamon.Desktop.sln";
 
-		public virtual string StackTraceFile { get; protected set; } = "STACKTRACE.TXT";
+		public virtual string StackTraceFile { get; protected set; } = @".\STACKTRACE.TXT";
 
+		public virtual string GlobalLaunchParametersFile { get; protected set; } = @".\GLOBAL_LAUNCH_PARAMETERS.TXT";
+		
 		public virtual string ProgVersion { get; protected set; } = "2.2.0";
 
 		public virtual long InfiniteDrinkableEdible { get; protected set; } = 9999;
@@ -410,8 +412,6 @@ namespace Eamon.Game.Plugin
 		public virtual void HandleException(Exception ex, string stackTraceFile, string errorMessage)
 		{
 			Debug.Assert(ex != null && !string.IsNullOrWhiteSpace(stackTraceFile) && !string.IsNullOrWhiteSpace(errorMessage));
-
-			stackTraceFile = Path.Combine(".", stackTraceFile);
 
 			try
 			{

@@ -343,6 +343,9 @@
         <member name="T:EamonDD.Framework.Menus.ActionMenus.IDeleteCustomAdventureClassesMenu">
             <summary></summary>
         </member>
+        <member name="T:EamonDD.Framework.Menus.ActionMenus.IEditGlobalLaunchParametersMenu">
+            <summary></summary>
+        </member>
         <member name="T:EamonDD.Framework.Menus.ActionMenus.IAnalyseAdventureRecordTreeMenu">
             <summary></summary>
         </member>
@@ -482,6 +485,9 @@
             <summary></summary>
         </member>
         <member name="T:EamonDD.Framework.Menus.HierarchicalMenus.IAdventureSupportMenu">
+            <summary></summary>
+        </member>
+        <member name="T:EamonDD.Framework.Menus.HierarchicalMenus.IGlobalLaunchParameterMenu">
             <summary></summary>
         </member>
         <member name="T:EamonDD.Framework.Menus.HierarchicalMenus.IUtilitiesMenu">

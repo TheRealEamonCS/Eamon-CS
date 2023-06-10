@@ -236,6 +236,9 @@ namespace Eamon.Framework.Plugin
 		string StackTraceFile { get; }
 
 		/// <summary></summary>
+		string GlobalLaunchParametersFile { get; }
+		
+		/// <summary></summary>
 		string ProgVersion { get; }
 
 		/// <summary></summary>

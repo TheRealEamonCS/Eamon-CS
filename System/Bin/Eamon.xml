@@ -3584,6 +3584,9 @@
         <member name="P:Eamon.Framework.Plugin.IEngine.StackTraceFile">
             <summary></summary>
         </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.GlobalLaunchParametersFile">
+            <summary></summary>
+        </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.ProgVersion">
             <summary></summary>
         </member>
