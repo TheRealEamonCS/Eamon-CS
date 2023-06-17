@@ -1414,6 +1414,10 @@
             <param name="artifact"></param>
             <param name="monster"></param>
         </member>
+        <member name="M:EamonRT.Framework.Parsing.ICommandParser.SetLastNameStrings(System.Collections.Generic.IList{Eamon.Framework.IArtifact})">
+            <summary></summary>
+            <param name="artifactList"></param>
+        </member>
         <member name="M:EamonRT.Framework.Parsing.ICommandParser.FinishParsing">
             <summary></summary>
         </member>

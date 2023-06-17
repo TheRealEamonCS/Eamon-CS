@@ -77,6 +77,8 @@ namespace EamonRT.Game.Commands
 				// screen out all weapons in the room which have monsters present with affinities to those weapons
 
 				TakenArtifactList = ActorRoom.GetTakeableList().Where(a => gEngine.GetMonsterList(m => m.IsInRoom(ActorRoom) && m.Weapon == -a.Uid - 1 && m != ActorMonster).FirstOrDefault() == null).ToList();
+
+				gCommandParser.SetLastNameStrings(TakenArtifactList);
 			}
 			else
 			{

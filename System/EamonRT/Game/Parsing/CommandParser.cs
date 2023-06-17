@@ -1422,6 +1422,58 @@ namespace EamonRT.Game.Parsing
 			}
 		}
 
+		public virtual void SetLastNameStrings(IList<IArtifact> artifactList)
+		{
+			Debug.Assert(artifactList != null);
+
+			if (gGameState.EnhancedParser)
+			{
+				if (artifactList.Count > 1)
+				{
+					var themIndex = Array.FindLastIndex(artifactList.ToArray(), artifact => artifact.IsPlural);
+
+					if (themIndex >= 0)
+					{
+						LastThemNameStr = gEngine.CloneInstance(artifactList[themIndex].Name.ToLower());
+					}
+					else
+					{
+						var themStr = "";
+
+						for (var i = 0; i < artifactList.Count; i++)
+						{
+							themStr += artifactList[i].Name.ToLower();
+
+							if (i < artifactList.Count - 1)
+							{
+								themStr += " , ";
+							}
+						}
+
+						LastThemNameStr = gEngine.CloneInstance(themStr);
+					}
+
+					var itIndex = Array.FindLastIndex(artifactList.ToArray(), artifact => !artifact.IsPlural);
+
+					if (itIndex >= 0)
+					{
+						LastItNameStr = gEngine.CloneInstance(artifactList[itIndex].Name.ToLower());
+					}
+				}
+				else if (artifactList.Count == 1)
+				{
+					if (artifactList[0].IsPlural)
+					{
+						LastThemNameStr = gEngine.CloneInstance(artifactList[0].Name.ToLower());
+					}
+					else
+					{
+						LastItNameStr = gEngine.CloneInstance(artifactList[0].Name.ToLower());
+					}
+				}
+			}
+		}
+
 		public virtual void FinishParsing()
 		{
 			Debug.Assert(NextCommand != null);
