@@ -1426,50 +1426,36 @@ namespace EamonRT.Game.Parsing
 		{
 			Debug.Assert(artifactList != null);
 
-			if (gGameState.EnhancedParser)
+			if (gGameState.EnhancedParser && artifactList.Count > 0)
 			{
-				if (artifactList.Count > 1)
+				var themIndex = Array.FindLastIndex(artifactList.ToArray(), artifact => artifact.IsPlural);
+
+				if (themIndex >= 0)
 				{
-					var themIndex = Array.FindLastIndex(artifactList.ToArray(), artifact => artifact.IsPlural);
-
-					if (themIndex >= 0)
-					{
-						LastThemNameStr = gEngine.CloneInstance(artifactList[themIndex].Name.ToLower());
-					}
-					else
-					{
-						var themStr = "";
-
-						for (var i = 0; i < artifactList.Count; i++)
-						{
-							themStr += artifactList[i].Name.ToLower();
-
-							if (i < artifactList.Count - 1)
-							{
-								themStr += " , ";
-							}
-						}
-
-						LastThemNameStr = gEngine.CloneInstance(themStr);
-					}
-
-					var itIndex = Array.FindLastIndex(artifactList.ToArray(), artifact => !artifact.IsPlural);
-
-					if (itIndex >= 0)
-					{
-						LastItNameStr = gEngine.CloneInstance(artifactList[itIndex].Name.ToLower());
-					}
+					LastThemNameStr = gEngine.CloneInstance(artifactList[themIndex].Name.ToLower());
 				}
-				else if (artifactList.Count == 1)
+				else if (artifactList.Count > 1)
 				{
-					if (artifactList[0].IsPlural)
+					var themStr = "";
+
+					for (var i = 0; i < artifactList.Count; i++)
 					{
-						LastThemNameStr = gEngine.CloneInstance(artifactList[0].Name.ToLower());
+						themStr += artifactList[i].Name.ToLower();
+
+						if (i < artifactList.Count - 1)
+						{
+							themStr += " , ";
+						}
 					}
-					else
-					{
-						LastItNameStr = gEngine.CloneInstance(artifactList[0].Name.ToLower());
-					}
+
+					LastThemNameStr = gEngine.CloneInstance(themStr);
+				}
+
+				var itIndex = Array.FindLastIndex(artifactList.ToArray(), artifact => !artifact.IsPlural);
+
+				if (itIndex >= 0)
+				{
+					LastItNameStr = gEngine.CloneInstance(artifactList[itIndex].Name.ToLower());
 				}
 			}
 		}
