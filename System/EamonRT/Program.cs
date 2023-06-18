@@ -121,6 +121,11 @@ namespace EamonRT
 				// do nothing
 			}
 
+			if (gEngine.EnableScreenReaderMode)
+			{
+				gEngine.Thread.Sleep(1000);
+			}
+
 			// make announcements
 
 			gOut.Write("{0}Eamon CS Dungeon Designer ({1}) {2}.", Environment.NewLine, ProgramName, gEngine.DdProgVersion);
@@ -737,6 +742,11 @@ namespace EamonRT
 			catch (Exception)
 			{
 				// do nothing
+			}
+
+			if (gEngine.EnableScreenReaderMode)
+			{
+				gEngine.Thread.Sleep(1000);
 			}
 
 			// set punctuation space code

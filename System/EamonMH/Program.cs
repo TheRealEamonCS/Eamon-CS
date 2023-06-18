@@ -125,6 +125,11 @@ namespace EamonMH
 						// do nothing
 					}
 
+					if (gEngine.EnableScreenReaderMode)
+					{
+						gEngine.Thread.Sleep(1000);
+					}
+
 					// make announcements
 
 					gOut.Write("{0}Eamon CS Main Hall ({1}) {2}.", Environment.NewLine, ProgramName, gEngine.ProgVersion);
