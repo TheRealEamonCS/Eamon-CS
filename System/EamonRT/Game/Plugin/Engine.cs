@@ -798,7 +798,7 @@ namespace EamonRT.Game.Plugin
 		{
 			Debug.Assert(saveSlot > 0);
 
-			Out.Print("[Using #{0} instead.]", saveSlot);
+			Out.Print("[Using #{0} instead{1}]", saveSlot, gEngine.EnableScreenReaderMode ? "" : ".");
 		}
 
 		public virtual void PrintEnterSaveSlotChoice(long numMenuItems)

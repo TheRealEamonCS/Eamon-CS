@@ -173,14 +173,14 @@ namespace EamonRT.Game.Commands
 		{
 			Debug.Assert(artifact != null);
 
-			gOut.Print("[Taking {0} first.]", artifact.EvalPlural("it", "them"));
+			gOut.Print("[Taking {0} first{1}]", artifact.EvalPlural("it", "them"), gEngine.EnableScreenReaderMode ? "" : ".");
 		}
 
 		public virtual void PrintRemovingFirst(IArtifact artifact)
 		{
 			Debug.Assert(artifact != null);
 
-			gOut.Print("[Removing {0} first.]", artifact.EvalPlural("it", "them"));
+			gOut.Print("[Removing {0} first{1}]", artifact.EvalPlural("it", "them"), gEngine.EnableScreenReaderMode ? "" : ".");
 		}
 
 		public virtual void PrintBestLeftAlone(IArtifact artifact)
@@ -678,9 +678,10 @@ namespace EamonRT.Game.Commands
 		{
 			Debug.Assert(monster != null);
 
-			gOut.Print("[You haven't saved a game yet but {0} will be left here should you choose to return.  Use \"quit hall\" if you don't want {1} to stay.]",
+			gOut.Print("[You haven't saved a game yet but {0} will be left here should you choose to return.  Use \"quit hall\" if you don't want {1} to stay{2}]",
 				monster.Name,
-				monster.EvalGender("him", "her", "it"));
+				monster.EvalGender("him", "her", "it"),
+				gEngine.EnableScreenReaderMode ? "" : ".");
 		}
 
 		public virtual void PrintFullDesc(IMonster monster, bool showName, bool showVerboseName)
