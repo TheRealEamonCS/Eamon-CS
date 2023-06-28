@@ -172,7 +172,7 @@ namespace EamonPM
 
 				if (rc != RetCode.Success)
 				{
-					gEngine.Error.WriteLine("{0}{1}", Environment.NewLine, new string('-', (int)gEngine.RightMargin));
+					gEngine.Error.WriteLine("{0}{1}", Environment.NewLine, gEngine.EnableScreenReaderMode ? "" : new string('-', (int)gEngine.RightMargin));
 
 					gEngine.Error.Write("{0}Press any key to continue: ", Environment.NewLine);
 

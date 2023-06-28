@@ -3,6 +3,7 @@
 
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
+using System.Collections.Generic;
 using System.Diagnostics;
 using Eamon.Framework.Portability;
 using static Eamon.Game.Plugin.Globals;
@@ -21,14 +22,42 @@ namespace EamonPM.Game.Portability
 
 			Debug.Assert(!string.IsNullOrWhiteSpace(characterName));
 
+			var argsList = new List<string>() { "-pfn", "EamonMH.dll", "-wd", "." };
+
 			if (!string.IsNullOrWhiteSpace(filePrefix))
 			{
-				Program.NextArgs = new string[] { "-pfn", "EamonMH.dll", "-wd", ".", "-fp", filePrefix, "-fsfn", filesetFileName, "-chrfn", characterFileName, "-efn", effectFileName, "-chrnm", characterName };
+				argsList.Add("-fp");
+
+				argsList.Add(filePrefix);
 			}
-			else
+
+			argsList.Add("-fsfn");
+
+			argsList.Add(filesetFileName);
+
+			argsList.Add("-chrfn");
+
+			argsList.Add(characterFileName);
+
+			argsList.Add("-efn");
+
+			argsList.Add(effectFileName);
+
+			argsList.Add("-chrnm");
+
+			argsList.Add(characterName);
+
+			if (gEngine.RepaintWindow)
 			{
-				Program.NextArgs = new string[] { "-pfn", "EamonMH.dll", "-wd", ".", "-fsfn", filesetFileName, "-chrfn", characterFileName, "-efn", effectFileName, "-chrnm", characterName };
+				argsList.Add("-rw");
 			}
+			
+			if (gEngine.EnableScreenReaderMode)
+			{
+				argsList.Add("-esrm");
+			}
+
+			Program.NextArgs = argsList.ToArray();
 		}
 
 		public virtual void SendCharacterOnAdventure(string workDir, string filePrefix, string pluginFileName)
@@ -37,14 +66,30 @@ namespace EamonPM.Game.Portability
 
 			Debug.Assert(!string.IsNullOrWhiteSpace(pluginFileName));
 
+			var argsList = new List<string>() { "-pfn", pluginFileName, "-wd", NormalizePath(workDir) };
+
 			if (!string.IsNullOrWhiteSpace(filePrefix))
 			{
-				Program.NextArgs = new string[] { "-pfn", pluginFileName, "-wd", NormalizePath(workDir), "-fp", filePrefix, "-cfgfn", "EAMONCFG.DAT" };
+				argsList.Add("-fp");
+
+				argsList.Add(filePrefix);
 			}
-			else
+
+			argsList.Add("-cfgfn");
+
+			argsList.Add("EAMONCFG.DAT");
+
+			if (gEngine.RepaintWindow)
 			{
-				Program.NextArgs = new string[] { "-pfn", pluginFileName, "-wd", NormalizePath(workDir), "-cfgfn", "EAMONCFG.DAT" };
+				argsList.Add("-rw");
 			}
+			
+			if (gEngine.EnableScreenReaderMode)
+			{
+				argsList.Add("-esrm");
+			}
+
+			Program.NextArgs = argsList.ToArray();
 		}
 
 		public virtual void RecallCharacterFromAdventure(string workDir, string filePrefix, string pluginFileName)
@@ -57,14 +102,30 @@ namespace EamonPM.Game.Portability
 
 			string[] args = null;
 
+			var argsList = new List<string>() { "-pfn", pluginFileName, "-wd", NormalizePath(workDir) };
+
 			if (!string.IsNullOrWhiteSpace(filePrefix))
 			{
-				args = new string[] { "-pfn", pluginFileName, "-wd", NormalizePath(workDir), "-fp", filePrefix, "-dgs", "-im" };
+				argsList.Add("-fp");
+
+				argsList.Add(filePrefix);
 			}
-			else
+
+			argsList.Add("-dgs");
+
+			argsList.Add("-im");
+
+			if (gEngine.RepaintWindow)
 			{
-				args = new string[] { "-pfn", pluginFileName, "-wd", NormalizePath(workDir), "-dgs", "-im" };
+				argsList.Add("-rw");
 			}
+			
+			if (gEngine.EnableScreenReaderMode)
+			{
+				argsList.Add("-esrm");
+			}
+
+			args = argsList.ToArray();
 
 			Program.ExecutePlugin(args, false);
 

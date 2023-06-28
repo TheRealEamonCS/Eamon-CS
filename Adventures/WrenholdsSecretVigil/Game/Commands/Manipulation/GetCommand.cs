@@ -168,7 +168,7 @@ namespace WrenholdsSecretVigil.Game.Commands
 
 			if (artifact.Uid == 24 || artifact.Uid == 25)
 			{
-				ProcessAction(() => PrintCantGetSlime(), ref nlFlag);
+				ProcessAction(100, () => PrintCantGetSlime(), ref nlFlag);
 			}
 
 			// Get rope
@@ -189,7 +189,7 @@ namespace WrenholdsSecretVigil.Game.Commands
 					gGameState.PulledRope = true;
 				}
 
-				ProcessAction(() => PrintCantDetachRope(), ref nlFlag);
+				ProcessAction(101, () => PrintCantDetachRope(), ref nlFlag);
 			}
 			else
 			{

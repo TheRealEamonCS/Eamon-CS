@@ -465,7 +465,7 @@ namespace YourAdventureName.YourGameNamespaceName
 				{
 					gOut.Print("{0}", gEngine.LineSep);
 
-					gOut.Write("{0}Add this game to adventure database \"{1}\" (Y/N) [{2}]: ", Environment.NewLine, advDbDataFile, inputDefaultValue);
+					gOut.Write("{0}Add this game to adventure database \"{1}\" (Y/N) [{2}{3}]: ", Environment.NewLine, advDbDataFile, gEngine.EnableScreenReaderMode ? "Default " : "", inputDefaultValue);
 
 					Buf.Clear();
 

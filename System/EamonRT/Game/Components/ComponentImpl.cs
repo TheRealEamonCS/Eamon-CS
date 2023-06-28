@@ -122,12 +122,12 @@ namespace EamonRT.Game.Components
 
 			MissDesc = monster.GetMissDescString(weapon);
 
-			gOut.Write("{0} --- {1}!", Environment.NewLine, MissDesc);
+			gOut.Write("{0} {1} {2}!", Environment.NewLine, gEngine.EnableScreenReaderMode ? "" : "---", MissDesc);
 		}
 
 		public virtual void PrintFumble()
 		{
-			gOut.Write("{0} ... A fumble!", Environment.NewLine);
+			gOut.Write("{0} {1} A fumble!", Environment.NewLine, gEngine.EnableScreenReaderMode ? "" : "...");
 		}
 
 		public virtual void PrintRecovered()
@@ -194,7 +194,7 @@ namespace EamonRT.Game.Components
 		{
 			Debug.Assert(monster != null);
 
-			gOut.Write("{0} {1} ", Environment.NewLine, monster.IsCharacterMonster() ? "***" : "+++");
+			gOut.Write("{0} {1} ", Environment.NewLine, gEngine.EnableScreenReaderMode ? "" : monster.IsCharacterMonster() ? "***" : "+++");
 		}
 
 		public virtual void PrintHit()

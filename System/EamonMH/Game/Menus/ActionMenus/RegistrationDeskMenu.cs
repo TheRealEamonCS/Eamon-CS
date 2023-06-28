@@ -258,15 +258,15 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 				gOut.Write("{0}You will have to buy a weapon.  Your chance to hit with it will be determined by the weapon complexity, your ability in that weapon class, how heavy your armor is, and the difference in agility between you and your enemy.{0}{0}The five classes of weapons (and your current abilities with each) are--{0}", Environment.NewLine);
 
-				gOut.Write("{0}{1,28}", Environment.NewLine, "Club/Mace......20%");
+				gOut.Write("{0}{1,28}", Environment.NewLine, string.Format("Club/Mace{0}20%", new String(gEngine.EnableScreenReaderMode ? ' ' : '.' , 6)));
 
-				gOut.Write("{0}{1,28}", Environment.NewLine, "Spear..........10%");
+				gOut.Write("{0}{1,28}", Environment.NewLine, string.Format("Spear{0}10%", new String(gEngine.EnableScreenReaderMode ? ' ' : '.', 10)));
 
-				gOut.Write("{0}{1,28}", Environment.NewLine, "Axe.............5%");
+				gOut.Write("{0}{1,28}", Environment.NewLine, string.Format("Axe{0}5%", new String(gEngine.EnableScreenReaderMode ? ' ' : '.', 13)));
 
-				gOut.Write("{0}{1,28}", Environment.NewLine, "Sword...........0%");
+				gOut.Write("{0}{1,28}", Environment.NewLine, string.Format("Sword{0}0%", new String(gEngine.EnableScreenReaderMode ? ' ' : '.', 11)));
 
-				gOut.Print("{0,28}", "Bow...........-10%");
+				gOut.Print("{0,28}", string.Format("Bow{0}-10%", new String(gEngine.EnableScreenReaderMode ? ' ' : '.', 11)));
 
 				gOut.Print("Every time you score a hit in battle, your ability in the weapon class may go up by 2%, if a random number from 1-100 is less than your chance to miss!");
 
@@ -278,17 +278,17 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 				gOut.Write("{0}{1,61}", Environment.NewLine, "Armor          Hits Absorbed        Odds Adjustment");
 
-				gOut.Write("{0}{1,61}", Environment.NewLine, "---------------------------------------------------");
+				gOut.Write("{0}{1,61}", Environment.NewLine, gEngine.EnableScreenReaderMode ? "" : "---------------------------------------------------");
 
-				gOut.Write("{0}{1,56}", Environment.NewLine, "None .................0 ....................0%");
+				gOut.Write("{0}{1,56}", Environment.NewLine, string.Format("None {0}0 {1}0%", new String(gEngine.EnableScreenReaderMode ? ' ' : '.', 17), new String(gEngine.EnableScreenReaderMode ? ' ' : '.', 20)));
 
-				gOut.Write("{0}{1,56}", Environment.NewLine, "Leather ..............1 ..................-10%");
+				gOut.Write("{0}{1,56}", Environment.NewLine, string.Format("Leather {0}1 {1}-10%", new String(gEngine.EnableScreenReaderMode ? ' ' : '.', 14), new String(gEngine.EnableScreenReaderMode ? ' ' : '.', 18)));
 
-				gOut.Write("{0}{1,56}", Environment.NewLine, "Chain ................2 ..................-20%");
+				gOut.Write("{0}{1,56}", Environment.NewLine, string.Format("Chain {0}2 {1}-20%", new String(gEngine.EnableScreenReaderMode ? ' ' : '.', 16), new String(gEngine.EnableScreenReaderMode ? ' ' : '.', 18)));
 
-				gOut.Write("{0}{1,56}", Environment.NewLine, "Plate ................5 ..................-60%");
+				gOut.Write("{0}{1,56}", Environment.NewLine, string.Format("Plate {0}5 {1}-60%", new String(gEngine.EnableScreenReaderMode ? ' ' : '.', 16), new String(gEngine.EnableScreenReaderMode ? ' ' : '.', 18)));
 
-				gOut.Print("{0,56}", "Shield ...............1 ...................-5%");
+				gOut.Print("{0,56}", string.Format("Shield {0}1 {1}-5%", new String(gEngine.EnableScreenReaderMode ? ' ' : '.', 15), new String(gEngine.EnableScreenReaderMode ? ' ' : '.', 19)));
 
 				gOut.Print("You will develop an Armor Expertise, which will go up when you hit a blow wearing armor and your expertise is less than the armor you are wearing.  No matter how high your Armor Expertise is, however, the net effect of armor will never increase your chance to hit.");
 

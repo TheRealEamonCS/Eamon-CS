@@ -158,11 +158,12 @@ namespace EamonDD.Game.Menus.ActionMenus
 						{
 							gOut.Print("{0}", gEngine.LineSep);
 
-							gOut.Write("{0}Would you like to derive directly from {1} (Y/N) [N]: ", Environment.NewLine,
+							gOut.Write("{0}Would you like to derive directly from {1} (Y/N) [{2}N]: ", Environment.NewLine,
 								classFileName.Contains(@"\Game\States\") ? "State" :
 								classFileName.Contains(@"\Game\Commands\") ? "Command" :
 								classFileName.Contains(@"\Framework\States\") ? "IState" :
-								"ICommand");
+								"ICommand",
+								gEngine.EnableScreenReaderMode ? "Default " : "");
 
 							Buf.Clear();
 
@@ -197,7 +198,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 					if (!includeInterface && classFileName.Contains(@"\Game\"))
 					{
-						gOut.Write("{0}Would you like to add a custom interface for this class (Y/N) [N]: ", Environment.NewLine);
+						gOut.Write("{0}Would you like to add a custom interface for this class (Y/N) [{1}N]: ", Environment.NewLine, gEngine.EnableScreenReaderMode ? "Default " : "");
 
 						Buf.Clear();
 

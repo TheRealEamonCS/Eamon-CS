@@ -77,6 +77,8 @@ namespace EamonRT.Game.Commands
 				// screen out all weapons in the room which have monsters present with affinities to those weapons
 
 				TakenArtifactList = ActorRoom.GetTakeableList().Where(a => gEngine.GetMonsterList(m => m.IsInRoom(ActorRoom) && m.Weapon == -a.Uid - 1 && m != ActorMonster).FirstOrDefault() == null).ToList();
+
+				gCommandParser.SetLastNameStrings(TakenArtifactList);
 			}
 			else
 			{
@@ -226,27 +228,27 @@ namespace EamonRT.Game.Commands
 
 			if (ac.Type == ArtifactType.DisguisedMonster)
 			{
-				ProcessAction(() => gEngine.RevealDisguisedMonster(ActorRoom, artifact), ref nlFlag);
+				ProcessAction(1, () => gEngine.RevealDisguisedMonster(ActorRoom, artifact), ref nlFlag);
 			}
 			else if (artifact.Weight > 900)
 			{
-				ProcessAction(() => PrintDontBeAbsurd(), ref nlFlag);
+				ProcessAction(2, () => PrintDontBeAbsurd(), ref nlFlag);
 			}
 			else if (artifact.IsUnmovable01())
 			{
-				ProcessAction(() => PrintCantVerbThat(artifact), ref nlFlag);
+				ProcessAction(3, () => PrintCantVerbThat(artifact), ref nlFlag);
 			}
 			else if (ac.Type == ArtifactType.DeadBody && ac.Field1 != 1)
 			{
-				ProcessAction(() => PrintBestLeftAlone(artifact), ref nlFlag);
+				ProcessAction(4, () => PrintBestLeftAlone(artifact), ref nlFlag);
 			}
 			else if (!OmitWeightCheck && !ActorMonster.CanCarryArtifactWeight(artifact))
 			{
-				ProcessAction(() => PrintTooHeavy(artifact, GetAll), ref nlFlag);
+				ProcessAction(5, () => PrintTooHeavy(artifact, GetAll), ref nlFlag);
 			}
 			else if (ac.Type == ArtifactType.BoundMonster)
 			{
-				ProcessAction(() => PrintMustBeFreed(artifact), ref nlFlag);
+				ProcessAction(6, () => PrintMustBeFreed(artifact), ref nlFlag);
 			}
 			else
 			{
@@ -254,33 +256,40 @@ namespace EamonRT.Game.Commands
 
 				if (WeaponAffinityMonster != null)
 				{
-					ProcessAction(() => PrintObjBelongsToActor(artifact, WeaponAffinityMonster), ref nlFlag);
+					ProcessAction(7, () => PrintObjBelongsToActor(artifact, WeaponAffinityMonster), ref nlFlag);
 				}
 				else
 				{
-					IsCarriedByContainer = artifact.IsCarriedByContainer();
-
-					artifact.SetCarriedByMonster(ActorMonster);
-
-					if (NextState is IRequestCommand)
-					{
-						PrintReceived(artifact);
-					}
-					else if (NextState is IRemoveCommand || IsCarriedByContainer)
-					{
-						PrintRetrieved(artifact);
-					}
-					else
-					{
-						PrintTaken(artifact, GetAll);
-					}
-
-					nlFlag = true;
+					ProcessArtifact01(artifact, ac, ref nlFlag);
 				}
 			}
 		}
 
-		public virtual void ProcessAction(Action action, ref bool nlFlag)
+		public virtual void ProcessArtifact01(IArtifact artifact, IArtifactCategory ac, ref bool nlFlag)
+		{
+			Debug.Assert(artifact != null);
+
+			IsCarriedByContainer = artifact.IsCarriedByContainer();
+
+			artifact.SetCarriedByMonster(ActorMonster);
+
+			if (NextState is IRequestCommand)
+			{
+				PrintReceived(artifact);
+			}
+			else if (NextState is IRemoveCommand || IsCarriedByContainer)
+			{
+				PrintRetrieved(artifact);
+			}
+			else
+			{
+				PrintTaken(artifact, GetAll);
+			}
+
+			nlFlag = true;
+		}
+		
+		public virtual void ProcessAction(long actionType, Action action, ref bool nlFlag)
 		{
 			Debug.Assert(action != null);
 

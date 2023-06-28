@@ -65,7 +65,16 @@ namespace EamonRT.Game.Commands
 
 			ProcessLightSource();
 
-			DroppedArtifactList = DropAll ? ActorMonster.GetCarriedList() : new List<IArtifact>() { DobjArtifact };
+			if (DropAll)
+			{
+				DroppedArtifactList = ActorMonster.GetCarriedList();
+
+				gCommandParser.SetLastNameStrings(DroppedArtifactList);
+			}
+			else
+			{
+				DroppedArtifactList = new List<IArtifact>() { DobjArtifact };
+			}
 
 			if (DroppedArtifactList.Count <= 0)
 			{
