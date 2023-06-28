@@ -3,6 +3,7 @@
 
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
+using System.Collections.Generic;
 using System.Text;
 using Eamon.Framework;
 using Eamon.Framework.Primitive.Classes;
@@ -101,6 +102,10 @@ namespace EamonRT.Framework.Parsing
 		/// <param name="artifact"></param>
 		/// <param name="monster"></param>
 		void SetLastNameStrings(IGameBase obj, string objDataName, IArtifact artifact, IMonster monster);
+
+		/// <summary></summary>
+		/// <param name="artifactList"></param>
+		void SetLastNameStrings(IList<IArtifact> artifactList);
 
 		/// <summary></summary>
 		void FinishParsing();

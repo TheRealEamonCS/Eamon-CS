@@ -55,33 +55,36 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 					gOut.Write("{0}The wheel is spinning ... ", Environment.NewLine);
 
-					var cursorPosition = gOut.GetCursorPosition();
-
-					for (var i = 0; i < 25; i++)
+					if (!gEngine.EnableScreenReaderMode)
 					{
-						gOut.Write("-");
+						var cursorPosition = gOut.GetCursorPosition();
 
-						gEngine.Thread.Sleep(30);
+						for (var i = 0; i < 25; i++)
+						{
+							gOut.Write("-");
 
-						gOut.SetCursorPosition(cursorPosition);
+							gEngine.Thread.Sleep(30);
 
-						gOut.Write("\\");
+							gOut.SetCursorPosition(cursorPosition);
 
-						gEngine.Thread.Sleep(30);
+							gOut.Write("\\");
 
-						gOut.SetCursorPosition(cursorPosition);
+							gEngine.Thread.Sleep(30);
 
-						gOut.Write("|");
+							gOut.SetCursorPosition(cursorPosition);
 
-						gEngine.Thread.Sleep(30);
+							gOut.Write("|");
 
-						gOut.SetCursorPosition(cursorPosition);
+							gEngine.Thread.Sleep(30);
 
-						gOut.Write("/");
+							gOut.SetCursorPosition(cursorPosition);
 
-						gEngine.Thread.Sleep(30);
+							gOut.Write("/");
 
-						gOut.SetCursorPosition(cursorPosition);
+							gEngine.Thread.Sleep(30);
+
+							gOut.SetCursorPosition(cursorPosition);
+						}
 					}
 
 					gOut.WriteLine(" ");

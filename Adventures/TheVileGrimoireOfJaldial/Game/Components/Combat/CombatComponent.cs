@@ -119,7 +119,7 @@ namespace TheVileGrimoireOfJaldial.Game.Components
 
 			if (!string.IsNullOrWhiteSpace(missDesc))
 			{
-				gOut.Write("{0} --- {1}!", Environment.NewLine, missDesc);
+				gOut.Write("{0} {1} {2}!", Environment.NewLine, gEngine.EnableScreenReaderMode ? "" : "---", missDesc);
 			}
 			else
 			{

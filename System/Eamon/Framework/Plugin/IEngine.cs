@@ -236,6 +236,9 @@ namespace Eamon.Framework.Plugin
 		string StackTraceFile { get; }
 
 		/// <summary></summary>
+		string GlobalLaunchParametersFile { get; }
+		
+		/// <summary></summary>
 		string ProgVersion { get; }
 
 		/// <summary></summary>
@@ -358,6 +361,9 @@ namespace Eamon.Framework.Plugin
 		MemoryStream CloneStream { get; set; }
 
 		/// <summary></summary>
+		IntPtr ConsoleHandle { get; set; }
+
+		/// <summary></summary>
 		long MutatePropertyCounter { get; set; }
 
 		/// <summary></summary>
@@ -395,6 +401,9 @@ namespace Eamon.Framework.Plugin
 		/// <summary></summary>
 		bool EnableNegativeRoomUidLinks { get; set; }
 
+		/// <summary></summary>
+		bool EnableScreenReaderMode { get; set; }
+		
 		/// <summary>
 		/// Gets or sets a value indicating whether the <see cref="Mutex">Mutex</see> should be ignored, allowing unlimited Eamon CS processes
 		/// to run simultaneously.
@@ -408,6 +417,9 @@ namespace Eamon.Framework.Plugin
 		/// <summary></summary>
 		bool DisableValidation { get; set; }
 
+		/// <summary></summary>
+		bool RepaintWindow { get; set; }
+		
 		/// <summary></summary>
 		bool RunGameEditor { get; set; }
 

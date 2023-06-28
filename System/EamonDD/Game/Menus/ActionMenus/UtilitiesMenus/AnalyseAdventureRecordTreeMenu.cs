@@ -64,7 +64,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			RecordTreeStringList.Add(string.Format("{0}]", roomList.Count > 0 || monsterList.Count > 0 || artifactList.Count > 0 ? Environment.NewLine : ""));
 
-			gOut.Write("{0}Would you like to use page breaks (Y/N) [Y]: ", Environment.NewLine);
+			gOut.Write("{0}Would you like to use page breaks (Y/N) [{1}Y]: ", Environment.NewLine, gEngine.EnableScreenReaderMode ? "Default " : "");
 
 			Buf.Clear();
 

@@ -3584,6 +3584,9 @@
         <member name="P:Eamon.Framework.Plugin.IEngine.StackTraceFile">
             <summary></summary>
         </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.GlobalLaunchParametersFile">
+            <summary></summary>
+        </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.ProgVersion">
             <summary></summary>
         </member>
@@ -3706,6 +3709,9 @@
         <member name="P:Eamon.Framework.Plugin.IEngine.CloneStream">
             <summary></summary>
         </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.ConsoleHandle">
+            <summary></summary>
+        </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.MutatePropertyCounter">
             <summary></summary>
         </member>
@@ -3744,6 +3750,9 @@
         <member name="P:Eamon.Framework.Plugin.IEngine.EnableNegativeRoomUidLinks">
             <summary></summary>
         </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.EnableScreenReaderMode">
+            <summary></summary>
+        </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.IgnoreMutex">
             <summary>
             Gets or sets a value indicating whether the <see cref="P:Eamon.Framework.Plugin.IEngine.Mutex">Mutex</see> should be ignored, allowing unlimited Eamon CS processes
@@ -3755,6 +3764,9 @@
             </remarks>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.DisableValidation">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Plugin.IEngine.RepaintWindow">
             <summary></summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.RunGameEditor">
@@ -9236,6 +9248,14 @@
             </summary>
             <remarks>
             Full credit:  https://stackoverflow.com/questions/26060441/reading-data-from-fixed-length-file-into-class-objects
+            </remarks>
+        </member>
+        <member name="T:Eamon.Game.Utilities.WindowRepainter">
+            <summary>
+            </summary>
+            <remarks>
+            Full credit:  
+                https://chat.openai.com/        "give me the C# code to repaint a window given its window handle"
             </remarks>
         </member>
         <member name="T:Eamon.RetCode">

@@ -6,6 +6,7 @@
 using Eamon.Framework;
 using Eamon.Framework.Primitive.Classes;
 using Eamon.Game.Attributes;
+using static TheTempleOfNgurct.Game.Plugin.Globals;
 
 namespace TheTempleOfNgurct.Game
 {
@@ -16,7 +17,7 @@ namespace TheTempleOfNgurct.Game
 		{
 			// Only player can wield fireball wand
 
-			return Uid != 63 && base.IsReadyableByMonsterUid(monsterUid);
+			return Uid != 63 || monsterUid == gCharMonster.Uid ? base.IsReadyableByMonsterUid(monsterUid) : false;
 		}
 
 		public override bool IsAttackable(ref IArtifactCategory ac)

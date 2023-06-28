@@ -998,7 +998,7 @@ namespace EamonRT.Game.Commands
 			gOut.Print("Usage:  BORT [Action] [Uid|Name]{0}", Environment.NewLine);
 
 			gOut.WriteLine("  {0,-22}{1,-22}", "Action", "Uid|Name");
-			gOut.WriteLine("  {0,-22}{1,-22}", "-----------------", "--------------------");
+			gOut.WriteLine("  {0,-22}{1,-22}", gEngine.EnableScreenReaderMode ? "" : "-----------------", gEngine.EnableScreenReaderMode ? "" : "--------------------");
 			gOut.WriteLine("  {0,-22}{1,-22}", "VisitArtifact", "Artifact Uid or Name");
 			gOut.WriteLine("  {0,-22}{1,-22}", "VisitMonster", "Monster Uid or Name");
 			gOut.WriteLine("  {0,-22}{1,-22}", "VisitRoom", "Room Uid or Name");
@@ -1012,7 +1012,7 @@ namespace EamonRT.Game.Commands
 			gOut.Print("Usage:  SETTINGS [Option] [Value]{0}", Environment.NewLine);
 
 			gOut.WriteLine("  {0,-22}{1,-22}{2,-22}", "Option", "Value", "Setting");
-			gOut.WriteLine("  {0,-22}{1,-22}{2,-22}", "------", "-----", "-------");
+			gOut.WriteLine("  {0,-22}{1,-22}{2,-22}", gEngine.EnableScreenReaderMode ? "" : "------", gEngine.EnableScreenReaderMode ? "" : "-----", gEngine.EnableScreenReaderMode ? "" : "-------");
 			gOut.WriteLine("  {0,-22}{1,-22}{2,-22}", "VerboseRooms", "True, False", gGameState.Vr);
 			gOut.WriteLine("  {0,-22}{1,-22}{2,-22}", "VerboseMonsters", "True, False", gGameState.Vm);
 			gOut.WriteLine("  {0,-22}{1,-22}{2,-22}", "VerboseArtifacts", "True, False", gGameState.Va);

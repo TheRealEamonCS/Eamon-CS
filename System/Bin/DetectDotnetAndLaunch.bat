@@ -15,6 +15,9 @@ set UN=%RANDOM%
 set DOTNET_SDKS_TXT=".\DOTNET_SDKS_%UN%.TXT"
 set DOTNET_RUNTIMES_TXT=".\DOTNET_RUNTIMES_%UN%.TXT"
 
+set GLOBAL_LAUNCH_PARAMETERS_TXT=".\GLOBAL_LAUNCH_PARAMETERS.TXT"
+set GLOBAL_LAUNCH_PARAMETERS=
+
 if not exist %WINDOWS_PREREQUISITES_TXT% (
 	goto dotnet_found
 )
@@ -46,5 +49,9 @@ exit 1
 
 :dotnet_found
 
-dotnet .\EamonPM.WindowsUnix.dll %*
+if exist %GLOBAL_LAUNCH_PARAMETERS_TXT% (
+	set /p GLOBAL_LAUNCH_PARAMETERS=<%GLOBAL_LAUNCH_PARAMETERS_TXT%
+)
+
+dotnet .\EamonPM.WindowsUnix.dll %* %GLOBAL_LAUNCH_PARAMETERS%
 exit 0

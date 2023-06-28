@@ -361,6 +361,9 @@
     <AndroidAsset Include="Assets\System\Bin\WORKBENCH.DAT" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidAsset Include="Assets\System\Bin\GLOBAL_LAUNCH_PARAMETERS.TXT" />
+  </ItemGroup>
+  <ItemGroup>
     <AndroidResource Include="Resources\drawable\splash_screen.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -744,6 +747,7 @@
   </Target>
   <PropertyGroup>
     <PreBuildEvent>xcopy "$(TargetDir)*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
+xcopy "$(TargetDir)GLOBAL_LAUNCH_PARAMETERS.TXT" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
 xcopy "$(TargetDir)..\..\Adventures\ARuncibleCargo\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\ARuncibleCargo" /I /S /Y
 xcopy "$(TargetDir)..\..\Adventures\BeginnersForest\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\BeginnersForest" /I /S /Y
 xcopy "$(TargetDir)..\..\Adventures\DemoAdventure\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\DemoAdventure" /I /S /Y

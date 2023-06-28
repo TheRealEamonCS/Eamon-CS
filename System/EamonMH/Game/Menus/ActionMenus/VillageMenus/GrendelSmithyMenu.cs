@@ -109,7 +109,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 				ap1 = gEngine.GetMerchantAskPrice(weaponPrice, (double)Rtio);
 
-				gOut.Write("{0}\"I happen to have two in stock right now.\"{0}{0}1. {1} (2D8  / 12%) ...... {2} GP{0}2. {3} (2D16 / 24%) ..... {4} GP{0}", Environment.NewLine, weaponList[j][0], ap0, weaponList[j][1], ap1);
+				gOut.Write("{0}\"I happen to have two in stock right now.\"{0}{0}1. {1} (2D8  / 12%) {2} {3} GP{0}2. {4} (2D16 / 24%) {5} {6} GP{0}", Environment.NewLine, weaponList[j][0], new String(gEngine.EnableScreenReaderMode ? ' ' : '.', 6), ap0, weaponList[j][1], new String(gEngine.EnableScreenReaderMode ? ' ' : '.', 5), ap1);
 
 				gOut.Print("{0}", gEngine.LineSep);
 
