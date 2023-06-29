@@ -84,7 +84,7 @@ namespace TheTempleOfNgurct.Game.Commands
 
 					gEngine.Buf.SetFormat("{0}", gEngine.In.ReadLine());
 
-					if (!gEngine.Buf.ToString().Equals("fire", StringComparison.OrdinalIgnoreCase))
+					if (!gEngine.Buf.ToString().Trim().Equals("fire", StringComparison.OrdinalIgnoreCase))
 					{
 						gOut.Print("Wrong!  Nothing happens!");
 
