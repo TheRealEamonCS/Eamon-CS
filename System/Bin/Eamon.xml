@@ -4623,16 +4623,22 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.Shuffle``1(System.Collections.Generic.IList{``0})">
+            <summary></summary>
+            <param name="list"></param>
+            <returns></returns>
+        </member>
         <member name="M:Eamon.Framework.Plugin.IEngine.GetRandomElement``1(``0[],System.Func{System.Int64})">
             <summary></summary>
             <param name="array"></param>
             <param name="indexFunc"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.Plugin.IEngine.GetNonRepeatingRandomElement``1(System.Collections.Generic.IList{``0},System.Collections.Generic.IList{``0})">
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetNonRepeatingRandomElement``1(System.Collections.Generic.IList{``0},System.Collections.Generic.IList{``0},System.Action{System.Collections.Generic.IList{``0}})">
             <summary></summary>
             <param name="sourceList"></param>
             <param name="usedList"></param>
+            <param name="shuffleFunc"></param>
             <returns></returns>
         </member>
         <member name="M:Eamon.Framework.Plugin.IEngine.EvalFriendliness``1(Eamon.Framework.Primitive.Enums.Friendliness,``0,``0,``0)">
@@ -6621,11 +6627,6 @@
             </returns>
             <remarks>
             Full credit:  https://stackoverflow.com/questions/10443461/c-sharp-array-findallindexof-which-findall-indexof
-            </remarks>
-        </member>
-        <member name="M:Eamon.Game.Extensions.IListExtensions.Shuffle``1(System.Collections.Generic.IList{``0},System.Random)">
-            <remarks>
-            Full credit:  https://stackoverflow.com/questions/273313/randomize-a-listt
             </remarks>
         </member>
         <member name="M:Eamon.Game.Extensions.StringExtensions.Contains(System.String,System.String,System.StringComparison)">
@@ -9253,6 +9254,11 @@
         <member name="M:Eamon.Game.Plugin.Engine.RestoreRecords(System.Collections.Generic.IList{Eamon.Framework.IGameBase})">
             <summary></summary>
             <param name="recordList"></param>
+        </member>
+        <member name="M:Eamon.Game.Plugin.Engine.Shuffle``1(System.Collections.Generic.IList{``0})">
+            <remarks>
+            Full credit:  https://stackoverflow.com/questions/273313/randomize-a-listt
+            </remarks>
         </member>
         <member name="T:Eamon.Game.Utilities.FixedLengthReader">
             <summary>

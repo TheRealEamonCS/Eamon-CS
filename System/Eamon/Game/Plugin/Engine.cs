@@ -3098,6 +3098,25 @@ namespace Eamon.Game.Plugin
 			return Database?.ModuleTable?.Records?.FirstOrDefault();
 		}
 
+		/// <remarks>
+		/// Full credit:  https://stackoverflow.com/questions/273313/randomize-a-listt
+		/// </remarks>
+		public virtual void Shuffle<T>(IList<T> list)
+		{
+			Debug.Assert(list != null);
+
+			int n = list.Count;
+
+			while (n > 1)
+			{
+				n--;
+				int k = Rand.Next(n + 1);
+				T value = list[k];
+				list[k] = list[n];
+				list[n] = value;
+			}
+		}
+
 		public virtual T GetRandomElement<T>(T[] array, Func<long> indexFunc = null)
 		{
 			var result = default(T);
@@ -3119,13 +3138,20 @@ namespace Eamon.Game.Plugin
 			return result;
 		}
 
-		public virtual T GetNonRepeatingRandomElement<T>(IList<T> sourceList, IList<T> usedList)
+		public virtual T GetNonRepeatingRandomElement<T>(IList<T> sourceList, IList<T> usedList, Action<IList<T>> shuffleFunc = null)
 		{
+			var result = default(T);
+
 			Debug.Assert(sourceList != null && usedList != null && (sourceList.Count > 0 || usedList.Count > 0));
+
+			if (shuffleFunc == null)
+			{
+				shuffleFunc = Shuffle;
+			}
 
 			if (sourceList.Count > 0 && usedList.Count == 0)
 			{
-				sourceList.Shuffle(Rand);
+				shuffleFunc(sourceList);
 			}
 			else if (sourceList.Count == 0)
 			{
@@ -3137,18 +3163,18 @@ namespace Eamon.Game.Plugin
 
 				do
 				{
-					sourceList.Shuffle(Rand);
+					shuffleFunc(sourceList);
 				}
 				while (sourceList.Count > 1 && EqualityComparer<T>.Default.Equals(sourceList[0], lastElement));
 			}
 
-			T element = sourceList[0];
+			result = sourceList[0];
 
 			sourceList.RemoveAt(0);
 
-			usedList.Add(element);
+			usedList.Add(result);
 
-			return element;
+			return result;
 		}
 
 		public virtual T EvalFriendliness<T>(Friendliness friendliness, T enemyValue, T neutralValue, T friendValue)
