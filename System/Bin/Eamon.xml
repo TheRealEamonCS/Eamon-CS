@@ -4629,6 +4629,12 @@
             <param name="indexFunc"></param>
             <returns></returns>
         </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetNonRepeatingRandomElement``1(System.Collections.Generic.IList{``0},System.Collections.Generic.IList{``0})">
+            <summary></summary>
+            <param name="sourceList"></param>
+            <param name="usedList"></param>
+            <returns></returns>
+        </member>
         <member name="M:Eamon.Framework.Plugin.IEngine.EvalFriendliness``1(Eamon.Framework.Primitive.Enums.Friendliness,``0,``0,``0)">
             <summary>
             Evaluates the <see cref="T:Eamon.Framework.Primitive.Enums.Friendliness"/>, returning a value of type T.
@@ -6615,6 +6621,11 @@
             </returns>
             <remarks>
             Full credit:  https://stackoverflow.com/questions/10443461/c-sharp-array-findallindexof-which-findall-indexof
+            </remarks>
+        </member>
+        <member name="M:Eamon.Game.Extensions.IListExtensions.Shuffle``1(System.Collections.Generic.IList{``0},System.Random)">
+            <remarks>
+            Full credit:  https://stackoverflow.com/questions/273313/randomize-a-listt
             </remarks>
         </member>
         <member name="M:Eamon.Game.Extensions.StringExtensions.Contains(System.String,System.String,System.StringComparison)">

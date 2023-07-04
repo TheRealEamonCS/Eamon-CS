@@ -3119,6 +3119,38 @@ namespace Eamon.Game.Plugin
 			return result;
 		}
 
+		public virtual T GetNonRepeatingRandomElement<T>(IList<T> sourceList, IList<T> usedList)
+		{
+			Debug.Assert(sourceList != null && usedList != null && (sourceList.Count > 0 || usedList.Count > 0));
+
+			if (sourceList.Count > 0 && usedList.Count == 0)
+			{
+				sourceList.Shuffle(Rand);
+			}
+			else if (sourceList.Count == 0)
+			{
+				var lastElement = usedList[usedList.Count - 1];
+
+				sourceList.AddRange(usedList);
+				
+				usedList.Clear();
+
+				do
+				{
+					sourceList.Shuffle(Rand);
+				}
+				while (sourceList.Count > 1 && EqualityComparer<T>.Default.Equals(sourceList[0], lastElement));
+			}
+
+			T element = sourceList[0];
+
+			sourceList.RemoveAt(0);
+
+			usedList.Add(element);
+
+			return element;
+		}
+
 		public virtual T EvalFriendliness<T>(Friendliness friendliness, T enemyValue, T neutralValue, T friendValue)
 		{
 			return friendliness == Friendliness.Enemy ? enemyValue : friendliness == Friendliness.Neutral ? neutralValue : friendValue;

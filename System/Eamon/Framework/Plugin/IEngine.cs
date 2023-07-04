@@ -1284,6 +1284,12 @@ namespace Eamon.Framework.Plugin
 		/// <returns></returns>
 		T GetRandomElement<T>(T[] array, Func<long> indexFunc = null);
 
+		/// <summary></summary>
+		/// <param name="sourceList"></param>
+		/// <param name="usedList"></param>
+		/// <returns></returns>
+		T GetNonRepeatingRandomElement<T>(IList<T> sourceList, IList<T> usedList);
+
 		/// <summary>
 		/// Evaluates the <see cref="Friendliness"/>, returning a value of type T.
 		/// </summary>
