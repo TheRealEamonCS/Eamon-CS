@@ -3153,7 +3153,7 @@ namespace Eamon.Game.Plugin
 			{
 				shuffleFunc(sourceList);
 			}
-			else if (sourceList.Count == 0)
+			else if (sourceList.Count == 0 && usedList.Count > 0)
 			{
 				var lastElement = usedList[usedList.Count - 1];
 
@@ -3168,11 +3168,40 @@ namespace Eamon.Game.Plugin
 				while (sourceList.Count > 1 && EqualityComparer<T>.Default.Equals(sourceList[0], lastElement));
 			}
 
-			result = sourceList[0];
+			if (sourceList.Count > 0)
+			{
+				result = sourceList[0];
 
-			sourceList.RemoveAt(0);
+				sourceList.RemoveAt(0);
 
-			usedList.Add(result);
+				usedList.Add(result);
+			}
+
+			return result;
+		}
+
+		public virtual T GetNonRepeatingRandomElement01<T>(IList<T> sourceList, bool shuffle = false, Action<IList<T>> shuffleFunc = null)
+		{
+			var result = default(T);
+
+			Debug.Assert(sourceList != null && sourceList.Count > 0);
+
+			if (shuffleFunc == null)
+			{
+				shuffleFunc = Shuffle;
+			}
+
+			if (shuffle)
+			{
+				shuffleFunc(sourceList);
+			}
+
+			if (sourceList.Count > 0)
+			{
+				result = sourceList[0];
+
+				sourceList.RemoveAt(0);
+			}
 
 			return result;
 		}

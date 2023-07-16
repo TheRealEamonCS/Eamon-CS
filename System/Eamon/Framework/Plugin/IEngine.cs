@@ -1280,7 +1280,6 @@ namespace Eamon.Framework.Plugin
 
 		/// <summary></summary>
 		/// <param name="list"></param>
-		/// <returns></returns>
 		void Shuffle<T>(IList<T> list);
 
 		/// <summary></summary>
@@ -1295,6 +1294,13 @@ namespace Eamon.Framework.Plugin
 		/// <param name="shuffleFunc"></param>
 		/// <returns></returns>
 		T GetNonRepeatingRandomElement<T>(IList<T> sourceList, IList<T> usedList, Action<IList<T>> shuffleFunc = null);
+
+		/// <summary></summary>
+		/// <param name="sourceList"></param>
+		/// <param name="shuffle"></param>
+		/// <param name="shuffleFunc"></param>
+		/// <returns></returns>
+		T GetNonRepeatingRandomElement01<T>(IList<T> sourceList, bool shuffle = false, Action<IList<T>> shuffleFunc = null);
 
 		/// <summary>
 		/// Evaluates the <see cref="Friendliness"/>, returning a value of type T.

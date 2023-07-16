@@ -4626,7 +4626,6 @@
         <member name="M:Eamon.Framework.Plugin.IEngine.Shuffle``1(System.Collections.Generic.IList{``0})">
             <summary></summary>
             <param name="list"></param>
-            <returns></returns>
         </member>
         <member name="M:Eamon.Framework.Plugin.IEngine.GetRandomElement``1(``0[],System.Func{System.Int64})">
             <summary></summary>
@@ -4638,6 +4637,13 @@
             <summary></summary>
             <param name="sourceList"></param>
             <param name="usedList"></param>
+            <param name="shuffleFunc"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetNonRepeatingRandomElement01``1(System.Collections.Generic.IList{``0},System.Boolean,System.Action{System.Collections.Generic.IList{``0}})">
+            <summary></summary>
+            <param name="sourceList"></param>
+            <param name="shuffle"></param>
             <param name="shuffleFunc"></param>
             <returns></returns>
         </member>
