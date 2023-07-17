@@ -3125,7 +3125,7 @@ namespace Eamon.Game.Plugin
 
 			if (indexFunc == null)
 			{
-				indexFunc = () => RollDice(1, array.Length, -1);
+				indexFunc = () => RollDice(1, Math.Max(array.Length, 1), -1);
 			}
 
 			var i = indexFunc();
