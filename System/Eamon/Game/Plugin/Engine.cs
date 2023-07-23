@@ -145,13 +145,13 @@ namespace Eamon.Game.Plugin
 
 		public virtual string MscorlibRegexPattern { get; protected set; } = @"mscorlib, Version=4\.0\.0\.0, Culture=neutral, PublicKeyToken=b77a5c561934e089";
 
-		public virtual string CommandSepRegexPattern { get; protected set; } = @"\.|\!|\?|;|,| and | then | also ";
+		public virtual string CommandSepRegexPattern { get; protected set; } = @"\.|\!|\?|;|,| (?:and|then|also) ";
 
-		public virtual string PronounRegexPattern { get; protected set; } = @" those | them | that | him | her | it ";
+		public virtual string PronounRegexPattern { get; protected set; } = @" (?:those|them|that|him|her|it) ";
 
 		public virtual string EverythingRegexPattern { get; protected set; } = @" everything ";
 
-		public virtual string ExceptRegexPattern { get; protected set; } = @" except | excluding | omitting ";
+		public virtual string ExceptRegexPattern { get; protected set; } = @" (?:except|excluding|omitting) ";
 
 		public virtual string CoreLibName { get; protected set; } = @"System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e";
 

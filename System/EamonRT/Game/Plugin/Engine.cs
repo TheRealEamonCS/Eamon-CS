@@ -1185,6 +1185,11 @@ namespace EamonRT.Game.Plugin
 			CommandList = CommandList.OrderBy(x => x.SortOrder).ToList();
 		}
 
+		public virtual void InitRooms()
+		{
+			// do nothing
+		}
+
 		public virtual void InitArtifacts()
 		{
 			var artifactList = Database.ArtifactTable.Records.ToList();

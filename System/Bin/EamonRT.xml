@@ -1998,6 +1998,9 @@
         <member name="M:EamonRT.Framework.Plugin.IEngine.CreateCommands">
             <summary></summary>
         </member>
+        <member name="M:EamonRT.Framework.Plugin.IEngine.InitRooms">
+            <summary></summary>
+        </member>
         <member name="M:EamonRT.Framework.Plugin.IEngine.InitArtifacts">
             <summary></summary>
         </member>

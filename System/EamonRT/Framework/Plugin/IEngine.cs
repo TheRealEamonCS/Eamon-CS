@@ -501,6 +501,9 @@ namespace EamonRT.Framework.Plugin
 		void CreateCommands();
 
 		/// <summary></summary>
+		void InitRooms();
+
+		/// <summary></summary>
 		void InitArtifacts();
 
 		/// <summary></summary>
