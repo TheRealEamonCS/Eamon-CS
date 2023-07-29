@@ -145,13 +145,13 @@ namespace Eamon.Game.Plugin
 
 		public virtual string MscorlibRegexPattern { get; protected set; } = @"mscorlib, Version=4\.0\.0\.0, Culture=neutral, PublicKeyToken=b77a5c561934e089";
 
-		public virtual string CommandSepRegexPattern { get; protected set; } = @"\.|\!|\?|;|,| and | then | also ";
+		public virtual string CommandSepRegexPattern { get; protected set; } = @"\.|\!|\?|;|,| (?:and|then|also) ";
 
-		public virtual string PronounRegexPattern { get; protected set; } = @" those | them | that | him | her | it ";
+		public virtual string PronounRegexPattern { get; protected set; } = @" (?:those|them|that|him|her|it) ";
 
 		public virtual string EverythingRegexPattern { get; protected set; } = @" everything ";
 
-		public virtual string ExceptRegexPattern { get; protected set; } = @" except | excluding | omitting ";
+		public virtual string ExceptRegexPattern { get; protected set; } = @" (?:except|excluding|omitting) ";
 
 		public virtual string CoreLibName { get; protected set; } = @"System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e";
 
@@ -3098,6 +3098,25 @@ namespace Eamon.Game.Plugin
 			return Database?.ModuleTable?.Records?.FirstOrDefault();
 		}
 
+		/// <remarks>
+		/// Full credit:  https://stackoverflow.com/questions/273313/randomize-a-listt
+		/// </remarks>
+		public virtual void Shuffle<T>(IList<T> list)
+		{
+			Debug.Assert(list != null);
+
+			int n = list.Count;
+
+			while (n > 1)
+			{
+				n--;
+				int k = Rand.Next(n + 1);
+				T value = list[k];
+				list[k] = list[n];
+				list[n] = value;
+			}
+		}
+
 		public virtual T GetRandomElement<T>(T[] array, Func<long> indexFunc = null)
 		{
 			var result = default(T);
@@ -3106,7 +3125,7 @@ namespace Eamon.Game.Plugin
 
 			if (indexFunc == null)
 			{
-				indexFunc = () => RollDice(1, array.Length, -1);
+				indexFunc = () => RollDice(1, Math.Max(array.Length, 1), -1);
 			}
 
 			var i = indexFunc();
@@ -3114,6 +3133,74 @@ namespace Eamon.Game.Plugin
 			if (i >= 0 && i < array.Length)
 			{
 				result = array[i];
+			}
+
+			return result;
+		}
+
+		public virtual T GetNonRepeatingRandomElement<T>(IList<T> sourceList, IList<T> usedList, Action<IList<T>> shuffleFunc = null)
+		{
+			var result = default(T);
+
+			Debug.Assert(sourceList != null && usedList != null && (sourceList.Count > 0 || usedList.Count > 0));
+
+			if (shuffleFunc == null)
+			{
+				shuffleFunc = Shuffle;
+			}
+
+			if (sourceList.Count > 0 && usedList.Count == 0)
+			{
+				shuffleFunc(sourceList);
+			}
+			else if (sourceList.Count == 0 && usedList.Count > 0)
+			{
+				var lastElement = usedList[usedList.Count - 1];
+
+				sourceList.AddRange(usedList);
+				
+				usedList.Clear();
+
+				do
+				{
+					shuffleFunc(sourceList);
+				}
+				while (sourceList.Count > 1 && EqualityComparer<T>.Default.Equals(sourceList[0], lastElement));
+			}
+
+			if (sourceList.Count > 0)
+			{
+				result = sourceList[0];
+
+				sourceList.RemoveAt(0);
+
+				usedList.Add(result);
+			}
+
+			return result;
+		}
+
+		public virtual T GetNonRepeatingRandomElement01<T>(IList<T> sourceList, bool shuffle = false, Action<IList<T>> shuffleFunc = null)
+		{
+			var result = default(T);
+
+			Debug.Assert(sourceList != null && sourceList.Count > 0);
+
+			if (shuffleFunc == null)
+			{
+				shuffleFunc = Shuffle;
+			}
+
+			if (shuffle)
+			{
+				shuffleFunc(sourceList);
+			}
+
+			if (sourceList.Count > 0)
+			{
+				result = sourceList[0];
+
+				sourceList.RemoveAt(0);
 			}
 
 			return result;
