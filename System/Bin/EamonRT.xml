@@ -76,6 +76,9 @@
         <member name="P:EamonRT.Framework.Commands.ICommandSignatures.Verb">
             <summary></summary>
         </member>
+        <member name="P:EamonRT.Framework.Commands.ICommandSignatures.ParserMatchName">
+            <summary></summary>
+        </member>
         <member name="P:EamonRT.Framework.Commands.ICommandSignatures.Prep">
             <summary></summary>
         </member>

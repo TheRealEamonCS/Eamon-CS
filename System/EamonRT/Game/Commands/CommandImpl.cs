@@ -110,6 +110,8 @@ namespace EamonRT.Game.Commands
 
 		public virtual string Verb { get; set; }
 
+		public virtual string ParserMatchName { get; set; }
+
 		public virtual IPrep Prep { get; set; }
 
 		public virtual CommandType Type { get; set; }

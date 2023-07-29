@@ -9,6 +9,7 @@ using System.Text;
 using Eamon.Framework;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
+using Polenter.Serialization;
 using static Eamon.Game.Plugin.Globals;
 
 namespace Eamon.Game
@@ -38,6 +39,9 @@ namespace Eamon.Game
 
 		[FieldName(600)]
 		public virtual ArticleType ArticleType { get; set; }
+
+		[ExcludeFromSerialization]
+		public virtual string ParserMatchName { get; set; }
 
 		#endregion
 

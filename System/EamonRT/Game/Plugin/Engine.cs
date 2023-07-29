@@ -2318,21 +2318,85 @@ namespace EamonRT.Game.Plugin
 
 			Debug.Assert(!string.IsNullOrWhiteSpace(token));
 
-			var command = CommandList.FirstOrDefault(x => x.Verb != null && x.Verb.Equals(token, StringComparison.OrdinalIgnoreCase) && x.IsEnabled(monster));
+			var command = CommandList.FirstOrDefault(x =>
+			{
+				var result = false;
+
+				result = x.Verb != null && x.Verb.Equals(token, StringComparison.OrdinalIgnoreCase) && x.IsEnabled(monster);
+
+				if (result)
+				{
+					x.ParserMatchName = CloneInstance(x.Verb);
+				}
+
+				return result;
+			});
 
 			if (command == null && synonymMatch)
 			{
-				command = CommandList.FirstOrDefault(x => x.Synonyms != null && x.Synonyms.FirstOrDefault(s => s.Equals(token, StringComparison.OrdinalIgnoreCase)) != null && x.IsEnabled(monster));
+				command = CommandList.FirstOrDefault(x =>
+				{
+					var result = false;
+
+					result = x.Synonyms != null && x.Synonyms.FirstOrDefault(s =>
+					{
+						var result01 = false;
+
+						result01 = s.Equals(token, StringComparison.OrdinalIgnoreCase);
+
+						if (result01)
+						{
+							x.ParserMatchName = CloneInstance(s);
+						}
+
+						return result01;
+
+					}) != null && x.IsEnabled(monster);
+
+					return result;
+				});
 			}
 
 			if (command == null && partialMatch)
 			{
-				command = CommandList.FirstOrDefault(x => x.Verb != null && (x.Verb.StartsWith(token, StringComparison.OrdinalIgnoreCase) || x.Verb.EndsWith(token, StringComparison.OrdinalIgnoreCase)) && x.IsEnabled(monster));
+				command = CommandList.FirstOrDefault(x =>
+				{
+					var result = false;
+
+					result = x.Verb != null && (x.Verb.StartsWith(token, StringComparison.OrdinalIgnoreCase) || x.Verb.EndsWith(token, StringComparison.OrdinalIgnoreCase)) && x.IsEnabled(monster);
+
+					if (result)
+					{
+						x.ParserMatchName = CloneInstance(x.Verb);
+					}
+
+					return result;
+				});
 			}
 
 			if (command == null && synonymMatch && partialMatch)
 			{
-				command = CommandList.FirstOrDefault(x => x.Synonyms != null && x.Synonyms.FirstOrDefault(s => s.StartsWith(token, StringComparison.OrdinalIgnoreCase) || s.EndsWith(token, StringComparison.OrdinalIgnoreCase)) != null && x.IsEnabled(monster));
+				command = CommandList.FirstOrDefault(x =>
+				{
+					var result = false;
+
+					result = x.Synonyms != null && x.Synonyms.FirstOrDefault(s =>
+					{
+						var result01 = false;
+
+						result01 = s.StartsWith(token, StringComparison.OrdinalIgnoreCase) || s.EndsWith(token, StringComparison.OrdinalIgnoreCase);
+
+						if (result01)
+						{
+							x.ParserMatchName = CloneInstance(s);
+						}
+
+						return result01;
+
+					}) != null && x.IsEnabled(monster);
+
+					return result;
+				});
 			}
 
 			return command;
@@ -2657,7 +2721,18 @@ namespace EamonRT.Game.Plugin
 
 			var filteredRecordList = recordList.Where(r =>
 			{
-				return r.Name.Equals(r is IArtifact ? name : name01, StringComparison.OrdinalIgnoreCase);
+				var result = false;
+
+				var frlName = r is IArtifact ? name : name01;
+
+				result = r.Name.Equals(frlName, StringComparison.OrdinalIgnoreCase);
+
+				if (result)
+				{
+					r.ParserMatchName = CloneInstance(r.Name);
+				}
+
+				return result;
 
 			}).ToList();
 
@@ -2667,34 +2742,23 @@ namespace EamonRT.Game.Plugin
 				{
 					var result = false;
 
+					var pluralName = r.GetPluralName01();
+
 					if (r is IArtifact a)
 					{
-						result = a.IsPlural && a.GetPluralName01().Equals(name, StringComparison.OrdinalIgnoreCase);
+						result = a.IsPlural && pluralName.Equals(name, StringComparison.OrdinalIgnoreCase);
 					}
 					else if (r is IMonster m)
 					{
-						result = m.GroupCount > 1 && m.GetPluralName01().Equals(name01, StringComparison.OrdinalIgnoreCase);
+						result = m.GroupCount > 1 && pluralName.Equals(name01, StringComparison.OrdinalIgnoreCase);
+					}
+
+					if (result)
+					{
+						r.ParserMatchName = CloneInstance(pluralName);
 					}
 
 					return result;
-
-				}).ToList();
-			}
-
-			if (filteredRecordList.Count == 0)
-			{
-				filteredRecordList = recordList.Where(r =>
-				{
-					return r.Synonyms != null && r.Synonyms.FirstOrDefault(s => s.Equals(r is IArtifact ? name : name01, StringComparison.OrdinalIgnoreCase)) != null;
-
-				}).ToList();
-			}
-
-			if (filteredRecordList.Count == 0)
-			{
-				filteredRecordList = recordList.Where(r =>
-				{
-					return r.Name.StartsWith(r is IArtifact ? name : name01, StringComparison.OrdinalIgnoreCase) || r.Name.EndsWith(r is IArtifact ? name : name01, StringComparison.OrdinalIgnoreCase);
 
 				}).ToList();
 			}
@@ -2705,13 +2769,41 @@ namespace EamonRT.Game.Plugin
 				{
 					var result = false;
 
-					if (r is IArtifact a)
+					var frlName = r is IArtifact ? name : name01;
+
+					result = r.Synonyms != null && r.Synonyms.FirstOrDefault(s =>
 					{
-						result = a.IsPlural && (a.GetPluralName01().StartsWith(name, StringComparison.OrdinalIgnoreCase) || a.GetPluralName01().EndsWith(name, StringComparison.OrdinalIgnoreCase));
-					}
-					else if (r is IMonster m)
+						var result01 = false;
+
+						result01 = s.Equals(frlName, StringComparison.OrdinalIgnoreCase);
+
+						if (result01)
+						{
+							r.ParserMatchName = CloneInstance(s);
+						}
+
+						return result01;
+
+					}) != null;
+
+					return result;
+
+				}).ToList();
+			}
+
+			if (filteredRecordList.Count == 0)
+			{
+				filteredRecordList = recordList.Where(r =>
+				{
+					var result = false;
+
+					var frlName = r is IArtifact ? name : name01;
+
+					result = r.Name.StartsWith(frlName, StringComparison.OrdinalIgnoreCase) || r.Name.EndsWith(frlName, StringComparison.OrdinalIgnoreCase);
+
+					if (result)
 					{
-						result = m.GroupCount > 1 && (m.GetPluralName01().StartsWith(name01, StringComparison.OrdinalIgnoreCase) || m.GetPluralName01().EndsWith(name01, StringComparison.OrdinalIgnoreCase));
+						r.ParserMatchName = CloneInstance(r.Name);
 					}
 
 					return result;
@@ -2723,7 +2815,53 @@ namespace EamonRT.Game.Plugin
 			{
 				filteredRecordList = recordList.Where(r =>
 				{
-					return r.Synonyms != null && r.Synonyms.FirstOrDefault(s => s.StartsWith(r is IArtifact ? name : name01, StringComparison.OrdinalIgnoreCase) || s.EndsWith(r is IArtifact ? name : name01, StringComparison.OrdinalIgnoreCase)) != null;
+					var result = false;
+
+					var pluralName = r.GetPluralName01();
+
+					if (r is IArtifact a)
+					{
+						result = a.IsPlural && (pluralName.StartsWith(name, StringComparison.OrdinalIgnoreCase) || pluralName.EndsWith(name, StringComparison.OrdinalIgnoreCase));
+					}
+					else if (r is IMonster m)
+					{
+						result = m.GroupCount > 1 && (pluralName.StartsWith(name01, StringComparison.OrdinalIgnoreCase) || pluralName.EndsWith(name01, StringComparison.OrdinalIgnoreCase));
+					}
+
+					if (result)
+					{
+						r.ParserMatchName = CloneInstance(pluralName);
+					}
+
+					return result;
+
+				}).ToList();
+			}
+
+			if (filteredRecordList.Count == 0)
+			{
+				filteredRecordList = recordList.Where(r =>
+				{
+					var result = false;
+
+					var frlName = r is IArtifact ? name : name01;
+
+					result = r.Synonyms != null && r.Synonyms.FirstOrDefault(s =>
+					{
+						var result01 = false;
+
+						result01 = s.StartsWith(frlName, StringComparison.OrdinalIgnoreCase) || s.EndsWith(frlName, StringComparison.OrdinalIgnoreCase);
+
+						if (result01)
+						{
+							r.ParserMatchName = CloneInstance(s);
+						}
+
+						return result01;
+
+					}) != null;
+
+					return result;
 
 				}).ToList();
 			}

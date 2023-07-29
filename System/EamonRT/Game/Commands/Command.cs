@@ -156,6 +156,19 @@ namespace EamonRT.Game.Commands
 			}
 		}
 
+		public virtual string ParserMatchName
+		{
+			get
+			{
+				return CommandImpl.ParserMatchName;
+			}
+
+			set
+			{
+				CommandImpl.ParserMatchName = value;
+			}
+		}
+
 		public virtual IPrep Prep
 		{
 			get

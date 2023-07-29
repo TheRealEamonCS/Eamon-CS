@@ -2152,6 +2152,11 @@
             prefixed to produce its listed Name.
             </summary>
         </member>
+        <member name="P:Eamon.Framework.IGameBase.ParserMatchName">
+            <summary>
+            Gets or sets the name or synonym of this <see cref="T:Eamon.Framework.IGameBase">Record</see> matched in the FilterRecordList method.
+            </summary>
+        </member>
         <member name="M:Eamon.Framework.IGameBase.SetParentReferences">
             <summary></summary>
         </member>
