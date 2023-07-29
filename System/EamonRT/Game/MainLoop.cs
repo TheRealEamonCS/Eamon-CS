@@ -52,6 +52,8 @@ namespace EamonRT.Game
 
 			gEngine.CreateCommands();
 
+			gEngine.InitRooms();
+
 			gEngine.InitArtifacts();
 
 			gEngine.InitMonsters();

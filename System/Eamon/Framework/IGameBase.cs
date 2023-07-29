@@ -63,6 +63,11 @@ namespace Eamon.Framework
 		/// </summary>
 		ArticleType ArticleType { get; set; }
 
+		/// <summary>
+		/// Gets or sets the name or synonym of this <see cref="IGameBase">Record</see> matched in the FilterRecordList method.
+		/// </summary>
+		string ParserMatchName { get; set; }
+
 		#endregion
 
 		#region Methods

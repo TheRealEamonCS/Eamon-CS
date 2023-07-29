@@ -76,6 +76,9 @@
         <member name="P:EamonRT.Framework.Commands.ICommandSignatures.Verb">
             <summary></summary>
         </member>
+        <member name="P:EamonRT.Framework.Commands.ICommandSignatures.ParserMatchName">
+            <summary></summary>
+        </member>
         <member name="P:EamonRT.Framework.Commands.ICommandSignatures.Prep">
             <summary></summary>
         </member>
@@ -1996,6 +1999,9 @@
             <summary></summary>
         </member>
         <member name="M:EamonRT.Framework.Plugin.IEngine.CreateCommands">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Framework.Plugin.IEngine.InitRooms">
             <summary></summary>
         </member>
         <member name="M:EamonRT.Framework.Plugin.IEngine.InitArtifacts">

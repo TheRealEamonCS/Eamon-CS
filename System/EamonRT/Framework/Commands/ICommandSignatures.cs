@@ -53,6 +53,9 @@ namespace EamonRT.Framework.Commands
 		string Verb { get; set; }
 
 		/// <summary></summary>
+		string ParserMatchName { get; set; }
+
+		/// <summary></summary>
 		IPrep Prep { get; set; }
 
 		/// <summary></summary>

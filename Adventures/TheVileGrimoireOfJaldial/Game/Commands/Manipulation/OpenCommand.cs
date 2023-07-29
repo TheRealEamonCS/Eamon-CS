@@ -141,7 +141,7 @@ namespace TheVileGrimoireOfJaldial.Game.Commands
 						DobjArtifact.InContainer.SetKeyUid(key.Uid);
 					}
 
-					gOut.Print("[Using {0} for leverage.]", key.GetTheName());
+					gOut.Print("[Using {0} for leverage{1}]", key.GetTheName(), gEngine.EnableScreenReaderMode ? "" : ".");
 
 					// Failed save throw versus Hardiness means door/container still stuck (should try again)
 

@@ -57,7 +57,7 @@ namespace TheVileGrimoireOfJaldial.Game.Commands
 
 				if (DobjArtifact.Uid != 19 && DobjArtifact.Uid == gGameState.Ar && cloakArtifact.IsWornByMonster(ActorMonster))
 				{
-					gOut.Print("[Removing {0} first.]", cloakArtifact.GetTheName());
+					gOut.Print("[Removing {0} first{1}]", cloakArtifact.GetTheName(), gEngine.EnableScreenReaderMode ? "" : ".");
 
 					cloakArtifact.SetCarriedByMonster(ActorMonster);
 
@@ -83,7 +83,7 @@ namespace TheVileGrimoireOfJaldial.Game.Commands
 
 					if (bucketArtifact.IsCarriedByMonster(ActorMonster) || bucketArtifact.IsInRoom(ActorRoom))
 					{
-						gOut.Print("[Using {0}.]", bucketArtifact.GetTheName());
+						gOut.Print("[Using {0}{1}]", bucketArtifact.GetTheName(), gEngine.EnableScreenReaderMode ? "" : ".");
 
 						var command = gEngine.CreateInstance<IUseCommand>();
 

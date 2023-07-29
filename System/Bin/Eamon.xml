@@ -2152,6 +2152,11 @@
             prefixed to produce its listed Name.
             </summary>
         </member>
+        <member name="P:Eamon.Framework.IGameBase.ParserMatchName">
+            <summary>
+            Gets or sets the name or synonym of this <see cref="T:Eamon.Framework.IGameBase">Record</see> matched in the FilterRecordList method.
+            </summary>
+        </member>
         <member name="M:Eamon.Framework.IGameBase.SetParentReferences">
             <summary></summary>
         </member>
@@ -4623,10 +4628,28 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.Shuffle``1(System.Collections.Generic.IList{``0})">
+            <summary></summary>
+            <param name="list"></param>
+        </member>
         <member name="M:Eamon.Framework.Plugin.IEngine.GetRandomElement``1(``0[],System.Func{System.Int64})">
             <summary></summary>
             <param name="array"></param>
             <param name="indexFunc"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetNonRepeatingRandomElement``1(System.Collections.Generic.IList{``0},System.Collections.Generic.IList{``0},System.Action{System.Collections.Generic.IList{``0}})">
+            <summary></summary>
+            <param name="sourceList"></param>
+            <param name="usedList"></param>
+            <param name="shuffleFunc"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.Plugin.IEngine.GetNonRepeatingRandomElement01``1(System.Collections.Generic.IList{``0},System.Boolean,System.Action{System.Collections.Generic.IList{``0}})">
+            <summary></summary>
+            <param name="sourceList"></param>
+            <param name="shuffle"></param>
+            <param name="shuffleFunc"></param>
             <returns></returns>
         </member>
         <member name="M:Eamon.Framework.Plugin.IEngine.EvalFriendliness``1(Eamon.Framework.Primitive.Enums.Friendliness,``0,``0,``0)">
@@ -9242,6 +9265,11 @@
         <member name="M:Eamon.Game.Plugin.Engine.RestoreRecords(System.Collections.Generic.IList{Eamon.Framework.IGameBase})">
             <summary></summary>
             <param name="recordList"></param>
+        </member>
+        <member name="M:Eamon.Game.Plugin.Engine.Shuffle``1(System.Collections.Generic.IList{``0})">
+            <remarks>
+            Full credit:  https://stackoverflow.com/questions/273313/randomize-a-listt
+            </remarks>
         </member>
         <member name="T:Eamon.Game.Utilities.FixedLengthReader">
             <summary>
