@@ -2723,9 +2723,9 @@ namespace EamonRT.Game.Plugin
 			{
 				var result = false;
 
-				var frlName = r is IArtifact ? name : name01;
+				var recName = r is IArtifact ? name : name01;
 
-				result = r.Name.Equals(frlName, StringComparison.OrdinalIgnoreCase);
+				result = r.Name.Equals(recName, StringComparison.OrdinalIgnoreCase);
 
 				if (result)
 				{
@@ -2769,13 +2769,13 @@ namespace EamonRT.Game.Plugin
 				{
 					var result = false;
 
-					var frlName = r is IArtifact ? name : name01;
+					var recName = r is IArtifact ? name : name01;
 
 					result = r.Synonyms != null && r.Synonyms.FirstOrDefault(s =>
 					{
 						var result01 = false;
 
-						result01 = s.Equals(frlName, StringComparison.OrdinalIgnoreCase);
+						result01 = s.Equals(recName, StringComparison.OrdinalIgnoreCase);
 
 						if (result01)
 						{
@@ -2797,9 +2797,9 @@ namespace EamonRT.Game.Plugin
 				{
 					var result = false;
 
-					var frlName = r is IArtifact ? name : name01;
+					var recName = r is IArtifact ? name : name01;
 
-					result = r.Name.StartsWith(frlName, StringComparison.OrdinalIgnoreCase) || r.Name.EndsWith(frlName, StringComparison.OrdinalIgnoreCase);
+					result = r.Name.StartsWith(recName, StringComparison.OrdinalIgnoreCase) || r.Name.EndsWith(recName, StringComparison.OrdinalIgnoreCase);
 
 					if (result)
 					{
@@ -2844,13 +2844,13 @@ namespace EamonRT.Game.Plugin
 				{
 					var result = false;
 
-					var frlName = r is IArtifact ? name : name01;
+					var recName = r is IArtifact ? name : name01;
 
 					result = r.Synonyms != null && r.Synonyms.FirstOrDefault(s =>
 					{
 						var result01 = false;
 
-						result01 = s.StartsWith(frlName, StringComparison.OrdinalIgnoreCase) || s.EndsWith(frlName, StringComparison.OrdinalIgnoreCase);
+						result01 = s.StartsWith(recName, StringComparison.OrdinalIgnoreCase) || s.EndsWith(recName, StringComparison.OrdinalIgnoreCase);
 
 						if (result01)
 						{
