@@ -1272,11 +1272,15 @@ namespace EamonRT.Game.Commands
 
 		public virtual bool ShouldShowUnseenArtifacts(IRoom room, IArtifact artifact)
 		{
-			if (Command is IGiveCommand)
+			if (room != null && !room.IsLit())
+			{
+				return false;
+			}
+			else if (Command is IGiveCommand)
 			{
 				Debug.Assert(artifact != null);
 
-				return artifact.IsCarriedByMonster(Command.ActorMonster);
+				return artifact.IsCarriedByMonster(Command.ActorMonster) || artifact.IsUnmovable() || !Command.ActorMonster.CanCarryArtifactWeight(artifact);
 			}
 			else if (Command is IRequestCommand)
 			{
@@ -1286,7 +1290,7 @@ namespace EamonRT.Game.Commands
 			{
 				Debug.Assert(artifact != null);
 
-				return artifact.IsWornByMonster(Command.ActorMonster);
+				return !artifact.IsCarriedByMonster(Command.ActorMonster);
 			}
 			else if (Command is IExamineCommand)
 			{
@@ -1296,21 +1300,21 @@ namespace EamonRT.Game.Commands
 			}
 			else if (Command is IGetCommand)
 			{
-				return false;
+				Debug.Assert(artifact != null);
+
+				return artifact.IsUnmovable() || !Command.ActorMonster.CanCarryArtifactWeight(artifact);
 			}
 			else if (Command is ILightCommand)
 			{
-				Debug.Assert(room != null);
-
 				Debug.Assert(artifact != null);
 
-				return room.IsLit() && (artifact.LightSource != null ? artifact.IsCarriedByMonster(Command.ActorMonster) : true);
+				return artifact.LightSource != null ? artifact.IsCarriedByMonster(Command.ActorMonster) || artifact.IsUnmovable() || !Command.ActorMonster.CanCarryArtifactWeight(artifact) : true;
 			}
 			else if (Command is IPutCommand)
 			{
 				Debug.Assert(artifact != null);
 
-				return artifact.IsCarriedByMonster(Command.ActorMonster);
+				return artifact.IsCarriedByMonster(Command.ActorMonster) || artifact.IsUnmovable() || !Command.ActorMonster.CanCarryArtifactWeight(artifact);
 			}
 			else if (Command is IReadyCommand readyCommand)
 			{
@@ -1318,27 +1322,13 @@ namespace EamonRT.Game.Commands
 
 				var ac = artifact.GetArtifactCategory(readyCommand.ArtTypes, false);
 
-				if (ac != null)
-				{
-					if (ac.Type == ArtifactType.Wearable)
-					{
-						return artifact.IsCarriedByMonster(Command.ActorMonster);
-					}
-					else
-					{
-						return !artifact.IsReadyableByMonster(Command.ActorMonster) || artifact.IsCarriedByMonster(Command.ActorMonster);
-					}
-				}
-				else
-				{
-					return true;
-				}
+				return ac != null ? artifact.IsCarriedByMonster(Command.ActorMonster) || artifact.IsUnmovable() || !Command.ActorMonster.CanCarryArtifactWeight(artifact) || (ac.Type != ArtifactType.Wearable && !artifact.IsReadyableByMonster(Command.ActorMonster)) : true;
 			}
 			else if (Command is IRemoveCommand)
 			{
 				Debug.Assert(artifact != null);
 
-				return Command.CommandParser.ObjData == Command.CommandParser.IobjData || artifact.IsWornByMonster(Command.ActorMonster);
+				return Command.CommandParser.ObjData == Command.CommandParser.IobjData || artifact.IsWornByMonster(Command.ActorMonster) || artifact.IsUnmovable() || !Command.ActorMonster.CanCarryArtifactWeight(artifact);
 			}
 			else if (Command is IUseCommand useCommand)
 			{
@@ -1346,31 +1336,13 @@ namespace EamonRT.Game.Commands
 
 				var ac = artifact.GetArtifactCategory(useCommand.ArtTypes, false);
 
-				if (ac != null)
-				{
-					if (ac.IsWeapon01())
-					{
-						return !artifact.IsReadyableByMonster(Command.ActorMonster) || artifact.IsCarriedByMonster(Command.ActorMonster);
-					}
-					else if (ac.Type == ArtifactType.Wearable)
-					{
-						return artifact.IsCarriedByMonster(Command.ActorMonster);
-					}
-					else
-					{
-						return true;
-					}
-				}
-				else
-				{
-					return true;
-				}
+				return ac != null && (ac.IsWeapon01() || ac.Type == ArtifactType.Wearable) ? artifact.IsCarriedByMonster(Command.ActorMonster) || artifact.IsUnmovable() || !Command.ActorMonster.CanCarryArtifactWeight(artifact) || (ac.IsWeapon01() && !artifact.IsReadyableByMonster(Command.ActorMonster)) : true;
 			}
 			else if (Command is IWearCommand)
 			{
 				Debug.Assert(artifact != null);
 
-				return artifact.Wearable != null ? artifact.IsCarriedByMonster(Command.ActorMonster) || artifact.IsWornByMonster(Command.ActorMonster) : true;
+				return artifact.Wearable != null ? artifact.IsWornByMonster(Command.ActorMonster) || artifact.IsCarriedByMonster(Command.ActorMonster) || artifact.IsUnmovable() || !Command.ActorMonster.CanCarryArtifactWeight(artifact) : true;
 			}
 			else
 			{
