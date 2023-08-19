@@ -830,7 +830,7 @@ namespace EamonRT.Game.Commands
 		{
 			Debug.Assert(artifact != null && monster != null);
 
-			gOut.Print("{0} belongs to {1}.", artifact.GetTheName(true), monster.GetTheName());
+			gOut.Print("{0} belong{1} to {2}.", artifact.GetTheName(true), artifact.EvalPlural("s", ""), monster.GetTheName());
 		}
 
 		public virtual void PrintFreeActorWithKey(IMonster monster, IArtifact key)
