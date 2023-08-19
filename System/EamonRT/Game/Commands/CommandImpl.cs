@@ -1083,6 +1083,13 @@ namespace EamonRT.Game.Commands
 			gOut.Print("You don't need to.");
 		}
 
+		public virtual void PrintDontNeedTo02(IArtifact artifact)
+		{
+			Debug.Assert(artifact != null);
+
+			gOut.Print("You don't need to do that to use {0}.", artifact.GetTheName());
+		}
+
 		public virtual void PrintCantDoThat()
 		{
 			gOut.Print("You can't do that.");

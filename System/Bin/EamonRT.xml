@@ -570,6 +570,9 @@
         <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintDontNeedTo">
             <summary></summary>
         </member>
+        <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintDontNeedTo02(Eamon.Framework.IArtifact)">
+            <summary></summary>
+        </member>
         <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintCantDoThat">
             <summary></summary>
         </member>

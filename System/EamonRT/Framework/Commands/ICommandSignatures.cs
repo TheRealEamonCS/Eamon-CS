@@ -547,6 +547,9 @@ namespace EamonRT.Framework.Commands
 		void PrintDontNeedTo();
 
 		/// <summary></summary>
+		void PrintDontNeedTo02(IArtifact artifact);
+
+		/// <summary></summary>
 		void PrintCantDoThat();
 
 		/// <summary></summary>
