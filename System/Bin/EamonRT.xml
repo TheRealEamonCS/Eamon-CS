@@ -2582,6 +2582,11 @@
             An event that fires after an <see cref="T:Eamon.Framework.IArtifact">Artifact</see> is read.
             </summary>
         </member>
+        <member name="F:EamonRT.Framework.Primitive.Enums.EventType.BeforeRemoveWornArtifact">
+            <summary>
+            An event that fires before a worn <see cref="T:Eamon.Framework.IArtifact">Artifact</see> is removed.
+            </summary>
+        </member>
         <member name="F:EamonRT.Framework.Primitive.Enums.EventType.AfterRemoveWornArtifact">
             <summary>
             An event that fires after a worn <see cref="T:Eamon.Framework.IArtifact">Artifact</see> is removed.
@@ -2590,6 +2595,11 @@
         <member name="F:EamonRT.Framework.Primitive.Enums.EventType.BeforeUseArtifact">
             <summary>
             An event that fires before an <see cref="T:Eamon.Framework.IArtifact">Artifact</see> is used.
+            </summary>
+        </member>
+        <member name="F:EamonRT.Framework.Primitive.Enums.EventType.BeforeWearArtifact">
+            <summary>
+            An event that fires before an <see cref="T:Eamon.Framework.IArtifact">Artifact</see> is worn.
             </summary>
         </member>
         <member name="F:EamonRT.Framework.Primitive.Enums.EventType.AfterWearArtifact">
