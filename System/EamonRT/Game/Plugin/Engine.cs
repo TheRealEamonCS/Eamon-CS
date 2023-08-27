@@ -2065,6 +2065,29 @@ namespace EamonRT.Game.Plugin
 
 			var shouldShowUnseenArtifacts = false;
 
+			var containerArtifact = artifact.GetCarriedByContainer();
+
+			while (containerArtifact != null && containerArtifact.IsCarriedByContainer())
+			{
+				containerArtifact = containerArtifact.GetCarriedByContainer();
+			}
+
+			// move an embedded container into the room
+
+			if (containerArtifact != null && containerArtifact.IsEmbeddedInRoom(room))
+			{
+				containerArtifact.SetInRoom(room);
+
+				var ac = containerArtifact.DoorGate;
+
+				if (ac != null)
+				{
+					ac.Field4 = 0;
+				}
+
+				shouldShowUnseenArtifacts = true;
+			}
+
 			// move an embedded artifact into the room
 
 			if (artifact.IsEmbeddedInRoom(room))
@@ -2091,6 +2114,15 @@ namespace EamonRT.Game.Plugin
 				var command = CommandParser.NextState as ICommand;
 
 				shouldShowUnseenArtifacts = command != null && command.ShouldShowUnseenArtifacts(room, artifact);
+			}
+
+			// fully describe an unseen container
+
+			if (shouldShowUnseenArtifacts && containerArtifact != null && !containerArtifact.Seen)
+			{
+				PrintFullDesc(containerArtifact, false, false);
+
+				containerArtifact.Seen = true;
 			}
 
 			// fully describe an unseen artifact

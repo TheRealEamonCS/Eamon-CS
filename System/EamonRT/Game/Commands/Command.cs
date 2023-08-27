@@ -840,6 +840,11 @@ namespace EamonRT.Game.Commands
 			CommandImpl.PrintDontNeedTo();
 		}
 
+		public virtual void PrintDontNeedTo02(IArtifact artifact)
+		{
+			CommandImpl.PrintDontNeedTo02(artifact);
+		}
+
 		public virtual void PrintCantDoThat()
 		{
 			CommandImpl.PrintCantDoThat();

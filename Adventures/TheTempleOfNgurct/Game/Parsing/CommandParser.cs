@@ -53,12 +53,7 @@ namespace TheTempleOfNgurct.Game.Parsing
 			}
 			else
 			{
-				ObjData.RecordWhereClauseList = new List<Func<IGameBase, bool>>()
-				{
-					r => r is IArtifact a && a.IsInRoom(ActorRoom),
-					r => r is IArtifact a && a.IsEmbeddedInRoom(ActorRoom),
-					r => r is IArtifact a && (a.IsCarriedByContainerContainerTypeExposedToMonster(ActorMonster, gEngine.ExposeContainersRecursively) || a.IsCarriedByContainerContainerTypeExposedToRoom(ActorRoom, gEngine.ExposeContainersRecursively))
-				};
+				ObjData.RecordWhereClauseList = GetRecordWhereClauseListGetCommand();
 
 				ObjData.RecordNotFoundFunc = NextCommand.PrintCantVerbThat;
 
