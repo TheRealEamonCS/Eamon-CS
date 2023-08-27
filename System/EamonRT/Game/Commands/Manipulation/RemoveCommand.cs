@@ -90,6 +90,13 @@ namespace EamonRT.Game.Commands
 
 			ShieldArtifactAc = ShieldArtifact != null ? ShieldArtifact.Wearable : null;
 
+			ProcessEvents(EventType.BeforeRemoveWornArtifact);
+
+			if (GotoCleanup)
+			{
+				goto Cleanup;
+			}
+
 			if (DobjArtifact.Uid == gGameState.Sh)
 			{
 				ActorMonster.Armor = ArmorArtifactAc != null ? (ArmorArtifactAc.Field1 / 2) + ((ArmorArtifactAc.Field1 / 2) >= 3 ? 2 : 0) : 0;

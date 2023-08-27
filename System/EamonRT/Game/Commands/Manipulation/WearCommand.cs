@@ -83,66 +83,71 @@ namespace EamonRT.Game.Commands
 				goto Cleanup;
 			}
 
-			if (DobjArtAc.Field1 > 0)
+			ArmorArtifact = gADB[gGameState.Ar];
+
+			ShieldArtifact = gADB[gGameState.Sh];
+
+			WeaponArtifact = ActorMonster.Weapon > 0 ? gADB[ActorMonster.Weapon] : null;
+
+			ArmorArtifactAc = ArmorArtifact != null ? ArmorArtifact.Wearable : null;
+
+			ShieldArtifactAc = ShieldArtifact != null ? ShieldArtifact.Wearable : null;
+
+			WeaponArtifactAc = WeaponArtifact != null ? WeaponArtifact.GeneralWeapon : null;
+
+			if (DobjArtAc.Field1 > 1 && ArmorArtifactAc != null)
 			{
-				ArmorArtifact = gADB[gGameState.Ar];
+				PrintAlreadyWearingArmor();
 
-				ShieldArtifact = gADB[gGameState.Sh];
+				NextState = gEngine.CreateInstance<IStartState>();
 
-				ArmorArtifactAc = ArmorArtifact != null ? ArmorArtifact.Wearable : null;
+				goto Cleanup;
+			}
 
-				ShieldArtifactAc = ShieldArtifact != null ? ShieldArtifact.Wearable : null;
+			if (DobjArtAc.Field1 == 1 && ShieldArtifactAc != null)
+			{
+				PrintAlreadyWearingShield();
 
-				if (DobjArtAc.Field1 > 1)
+				NextState = gEngine.CreateInstance<IStartState>();
+
+				goto Cleanup;
+			}
+
+			// can't wear shield while using two-handed weapon
+
+			if (DobjArtAc.Field1 == 1 && WeaponArtifactAc != null && WeaponArtifactAc.Field5 > 1)
+			{
+				PrintCantWearShieldWithWeapon(DobjArtifact, WeaponArtifact);
+
+				NextState = gEngine.CreateInstance<IStartState>();
+
+				goto Cleanup;
+			}
+
+			ProcessEvents(EventType.BeforeWearArtifact);
+
+			if (GotoCleanup)
+			{
+				goto Cleanup;
+			}
+
+			if (DobjArtAc.Field1 > 1)
+			{
+				if (DobjArtAc.Field1 > 14)
 				{
-					if (DobjArtAc.Field1 > 14)
-					{
-						DobjArtAc.Field1 = 14;
-					}
-
-					if (ArmorArtifactAc != null)
-					{
-						PrintAlreadyWearingArmor();
-
-						NextState = gEngine.CreateInstance<IStartState>();
-
-						goto Cleanup;
-					}
-
-					gGameState.Ar = DobjArtifact.Uid;
-
-					ActorMonster.Armor = (DobjArtAc.Field1 / 2) + ((DobjArtAc.Field1 / 2) >= 3 ? 2 : 0) + (ShieldArtifactAc != null ? ShieldArtifactAc.Field1 : 0);
+					DobjArtAc.Field1 = 14;
 				}
-				else
-				{
-					if (ShieldArtifactAc != null)
-					{
-						PrintAlreadyWearingShield();
 
-						NextState = gEngine.CreateInstance<IStartState>();
+				gGameState.Ar = DobjArtifact.Uid;
 
-						goto Cleanup;
-					}
+				ActorMonster.Armor = (DobjArtAc.Field1 / 2) + ((DobjArtAc.Field1 / 2) >= 3 ? 2 : 0) + (ShieldArtifactAc != null ? ShieldArtifactAc.Field1 : 0);
+			}
+			
+			if (DobjArtAc.Field1 == 1)
+			{
+				gGameState.Sh = DobjArtifact.Uid;
 
-					// can't wear shield while using two-handed weapon
-
-					WeaponArtifact = ActorMonster.Weapon > 0 ? gADB[ActorMonster.Weapon] : null;
-
-					WeaponArtifactAc = WeaponArtifact != null ? WeaponArtifact.GeneralWeapon : null;
-
-					if (WeaponArtifactAc != null && WeaponArtifactAc.Field5 > 1)
-					{
-						PrintCantWearShieldWithWeapon(DobjArtifact, WeaponArtifact);
-
-						NextState = gEngine.CreateInstance<IStartState>();
-
-						goto Cleanup;
-					}
-
-					gGameState.Sh = DobjArtifact.Uid;
-
-					ActorMonster.Armor = (ArmorArtifactAc != null ? (ArmorArtifactAc.Field1 / 2) + ((ArmorArtifactAc.Field1 / 2) >= 3 ? 2 : 0) : 0) + DobjArtAc.Field1;
-				}
+				ActorMonster.Armor = (ArmorArtifactAc != null ? (ArmorArtifactAc.Field1 / 2) + ((ArmorArtifactAc.Field1 / 2) >= 3 ? 2 : 0) : 0) + DobjArtAc.Field1;
 			}
 
 			DobjArtifact.SetWornByMonster(ActorMonster);

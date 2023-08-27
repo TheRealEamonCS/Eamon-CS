@@ -3,7 +3,7 @@
 
 #### Note: the Wiki now serves as a development log, to be updated periodically with the current project status.
 
-#### Last Wiki Update 20230430
+#### Last Wiki Update 20230811
 
 This project is Eamon CS (ECS), a C# port of the classic Eamon roleplaying game that debuted on the Apple II.  Initially created by Donald Brown, many variants have existed over the years on various computer systems.  ECS is the production version of Eamon AC (EAC), a prototype intended to convert the game from BASIC.  Hopefully, this Eamon will be the definitive version for the C family of languages, as EAC is obsolete.
 
@@ -15,7 +15,7 @@ Eamon CS Mobile currently runs on devices using Android 4.0 through 10.0.
 
 #### Installing
 
-There is no formal installer for Eamon CS.  To obtain a copy of this repository, you can either do a Git Clone using Visual Studio 2022+ or, more simply, download a .zip file using the green Code button above.  You must eliminate security warning message boxes if you download a .zip file on Windows.  To do this, please see PREREQUISITES as mentioned above.
+There is no formal installer for Eamon CS.  To obtain a copy of this repository, you can either do a Git Clone using Visual Studio 2022+ or, more simply, download a .zip file using the green Code button above.  You may need to eliminate security warning message boxes if you download a .zip file on Windows.  To do this, please see PREREQUISITES as mentioned above.
 
 To obtain Eamon CS Mobile, download the [EamonPM.Android-Signed.apk](https://github.com/TheRealEamonCS/Eamon-CS-Misc/tree/master/System/Bin) file directly onto your mobile device and install it.
 
@@ -31,7 +31,7 @@ Players may benefit by reconfiguring their Command console before running Eamon 
 
 Like all Eamons, ECS allows you to create adventures with no programming involved via the EamonDD data file editor.  But for the intrepid game designer, the system is infinitely extensible, using typical C# inheritance mechanisms.  The documentation has improved, and many adventures can be recompiled in Debug mode and stepped through to gain a better understanding of the system.  Please see [BUILDING NEW ADVENTURES](https://TheRealEamonCS.github.io/pages/TechnicalPaper/TechnicalPaper.html#ECSTP10) and associated sections in the Technical Paper for more details.
 
-Contact me if you are interested in contributing to the Eamon CS project or wish to port your own game or build a new one.  I can provide insight if areas of the code need clarification.  Eamon has always been an ideal programmer's learning tool.  If you build a game, you aren't just contributing to the system; you're honing your skills as a C# developer while having fun!
+Feel free to contact me if you are interested in contributing to the Eamon CS project or wish to port your own game or build a new one.  I can provide insight if areas of the code need clarification.  Eamon has always been an ideal programmer's learning tool.  If you build a game, you aren't just contributing to the system; you're honing your skills as a C# developer while having fun!
 
 #### Roadmap
 

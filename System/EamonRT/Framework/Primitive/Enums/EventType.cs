@@ -174,6 +174,11 @@ namespace EamonRT.Framework.Primitive.Enums
 		AfterReadArtifact,
 
 		/// <summary>
+		/// An event that fires before a worn <see cref="IArtifact">Artifact</see> is removed.
+		/// </summary>
+		BeforeRemoveWornArtifact,
+
+		/// <summary>
 		/// An event that fires after a worn <see cref="IArtifact">Artifact</see> is removed.
 		/// </summary>
 		AfterRemoveWornArtifact,
@@ -182,6 +187,11 @@ namespace EamonRT.Framework.Primitive.Enums
 		/// An event that fires before an <see cref="IArtifact">Artifact</see> is used.
 		/// </summary>
 		BeforeUseArtifact,
+
+		/// <summary>
+		/// An event that fires before an <see cref="IArtifact">Artifact</see> is worn.
+		/// </summary>
+		BeforeWearArtifact,
 
 		/// <summary>
 		/// An event that fires after an <see cref="IArtifact">Artifact</see> is worn.
