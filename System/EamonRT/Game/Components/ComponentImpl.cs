@@ -112,7 +112,7 @@ namespace EamonRT.Game.Components
 					weapon != null &&
 					(weaponRevealType == WeaponRevealType.Always ||
 					(weaponRevealType == WeaponRevealType.OnlyIfSeen && weapon.Seen)) ?
-						" with " + weapon.GetArticleName() :
+						" with " + room.EvalLightLevel("a weapon", weapon.GetArticleName()) :
 						"");
 		}
 
