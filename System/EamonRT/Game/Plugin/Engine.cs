@@ -471,17 +471,17 @@ namespace EamonRT.Game.Plugin
 			Out.Print("{0} vanish{1}!", artifact.GetTheName(true), artifact.EvalPlural("es", ""));
 		}
 
-		public virtual void PrintArtifactBreaks(IRoom room, IMonster monster, IArtifact artifact)
+		public virtual void PrintArtifactBreaks(IRoom room, IMonster monster, IArtifact artifact, bool prependNewLine = false)
 		{
 			Debug.Assert(room != null && monster != null && artifact != null);
 
 			if (monster.IsCharacterMonster() || room.IsLit())
 			{
-				Out.Print("{0} break{1}!", artifact.GetTheName(true), artifact.EvalPlural("s", ""));
+				Out.Print("{0}{1} break{2}!", prependNewLine ? Environment.NewLine : "", artifact.GetTheName(true), artifact.EvalPlural("s", ""));
 			}
 			else
 			{
-				Out.Print("Something breaks!");
+				Out.Print("{0}Something breaks!", prependNewLine ? Environment.NewLine : "");
 			}
 		}
 

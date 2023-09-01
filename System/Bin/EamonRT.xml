@@ -1752,11 +1752,12 @@
             <summary></summary>
             <param name="artifact"></param>
         </member>
-        <member name="M:EamonRT.Framework.Plugin.IEngine.PrintArtifactBreaks(Eamon.Framework.IRoom,Eamon.Framework.IMonster,Eamon.Framework.IArtifact)">
+        <member name="M:EamonRT.Framework.Plugin.IEngine.PrintArtifactBreaks(Eamon.Framework.IRoom,Eamon.Framework.IMonster,Eamon.Framework.IArtifact,System.Boolean)">
             <summary></summary>
             <param name="room"></param>
             <param name="monster"></param>
             <param name="artifact"></param>
+            <param name="prependNewLine"></param>
         </member>
         <member name="M:EamonRT.Framework.Plugin.IEngine.PrintEnterExtinguishLightChoice(Eamon.Framework.IArtifact)">
             <summary></summary>
