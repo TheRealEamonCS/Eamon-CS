@@ -2981,7 +2981,7 @@
         <member name="M:Eamon.Framework.IMonster.AddHealthStatus(System.Text.StringBuilder,System.Boolean)">
             <summary></summary>
             <param name="buf"></param>
-            <param name="addNewLine"></param>
+            <param name="appendNewLine"></param>
         </member>
         <member name="M:Eamon.Framework.IMonster.GetWeaponAttackDescs(Eamon.Framework.IArtifact)">
             <summary></summary>
@@ -5250,7 +5250,7 @@
         <member name="M:Eamon.Framework.Portability.ITextReader.KeyPress(System.Text.StringBuilder,System.Boolean)">
             <summary></summary>
             <param name="buf"></param>
-            <param name="initialNewLine"></param>
+            <param name="prependNewLine"></param>
         </member>
         <member name="T:Eamon.Framework.Portability.Coord">
             <summary></summary>

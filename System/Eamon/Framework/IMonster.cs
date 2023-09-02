@@ -445,8 +445,8 @@ namespace Eamon.Framework
 
 		/// <summary></summary>
 		/// <param name="buf"></param>
-		/// <param name="addNewLine"></param>
-		void AddHealthStatus(StringBuilder buf, bool addNewLine = true);
+		/// <param name="appendNewLine"></param>
+		void AddHealthStatus(StringBuilder buf, bool appendNewLine = true);
 
 		/// <summary></summary>
 		/// <param name="artifact"></param>

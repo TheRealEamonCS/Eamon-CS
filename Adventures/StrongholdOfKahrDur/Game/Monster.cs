@@ -59,7 +59,7 @@ namespace StrongholdOfKahrDur.Game
 			return Uid != 22 ? base.ShouldReadyWeapon() : false;
 		}
 
-		public override void AddHealthStatus(StringBuilder buf, bool addNewLine = true)
+		public override void AddHealthStatus(StringBuilder buf, bool appendNewLine = true)
 		{
 			string result = null;
 
@@ -106,7 +106,7 @@ namespace StrongholdOfKahrDur.Game
 
 			Debug.Assert(result != null);
 
-			buf.AppendFormat("{0}{1}", result, addNewLine ? Environment.NewLine : "");
+			buf.AppendFormat("{0}{1}", result, appendNewLine ? Environment.NewLine : "");
 
 		Cleanup:
 

@@ -994,7 +994,7 @@ namespace Eamon.Game
 			return rc;
 		}
 
-		public virtual void AddHealthStatus(StringBuilder buf, bool addNewLine = true)
+		public virtual void AddHealthStatus(StringBuilder buf, bool appendNewLine = true)
 		{
 			string result = null;
 
@@ -1041,7 +1041,7 @@ namespace Eamon.Game
 
 			Debug.Assert(result != null);
 
-			buf.AppendFormat("{0}{1}", result, addNewLine ? Environment.NewLine : "");
+			buf.AppendFormat("{0}{1}", result, appendNewLine ? Environment.NewLine : "");
 
 		Cleanup:
 
