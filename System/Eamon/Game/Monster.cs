@@ -643,6 +643,11 @@ namespace Eamon.Game
 			return true;
 		}
 
+		public virtual bool ShouldPreferMorePowerfulNaturalWeapons(IArtifact artifact)
+		{
+			return true;
+		}
+
 		public virtual bool CheckNBTLHostility()
 		{
 			var gameState = gEngine.GetGameState();

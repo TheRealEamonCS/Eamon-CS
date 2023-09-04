@@ -2855,6 +2855,11 @@
             <param name="artifact"></param>
             <returns></returns>
         </member>
+        <member name="M:Eamon.Framework.IMonster.ShouldPreferMorePowerfulNaturalWeapons(Eamon.Framework.IArtifact)">
+            <summary></summary>
+            <param name="artifact"></param>
+            <returns></returns>
+        </member>
         <member name="M:Eamon.Framework.IMonster.CheckNBTLHostility">
             <summary></summary>
             <returns></returns>

@@ -321,6 +321,11 @@ namespace Eamon.Framework
 		bool ShouldRefuseToAcceptDeadBody(IArtifact artifact);
 
 		/// <summary></summary>
+		/// <param name="artifact"></param>
+		/// <returns></returns>
+		bool ShouldPreferMorePowerfulNaturalWeapons(IArtifact artifact);
+
+		/// <summary></summary>
 		/// <returns></returns>
 		bool CheckNBTLHostility();
 
