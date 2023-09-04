@@ -323,7 +323,7 @@ namespace Eamon.Framework
 		/// <summary></summary>
 		/// <param name="artifact"></param>
 		/// <returns></returns>
-		bool ShouldPreferMorePowerfulNaturalWeapons(IArtifact artifact);
+		bool ShouldPreferNaturalWeaponsToWeakerWeapon(IArtifact artifact);
 
 		/// <summary></summary>
 		/// <returns></returns>

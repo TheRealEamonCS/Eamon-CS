@@ -2855,7 +2855,7 @@
             <param name="artifact"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IMonster.ShouldPreferMorePowerfulNaturalWeapons(Eamon.Framework.IArtifact)">
+        <member name="M:Eamon.Framework.IMonster.ShouldPreferNaturalWeaponsToWeakerWeapon(Eamon.Framework.IArtifact)">
             <summary></summary>
             <param name="artifact"></param>
             <returns></returns>

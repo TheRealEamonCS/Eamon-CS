@@ -3065,7 +3065,7 @@ namespace EamonRT.Game.Plugin
 
 					Debug.Assert(ac != null);
 
-					if (monster.Weapon != -wpnArtifact.Uid - 1 && monster.NwDice * monster.NwSides > ac.Field3 * ac.Field4 && monster.ShouldPreferMorePowerfulNaturalWeapons(wpnArtifact))
+					if (monster.Weapon != -wpnArtifact.Uid - 1 && monster.NwDice * monster.NwSides > ac.Field3 * ac.Field4 && monster.ShouldPreferNaturalWeaponsToWeakerWeapon(wpnArtifact))
 					{
 						artifactList = null;
 					}

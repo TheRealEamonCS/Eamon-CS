@@ -643,7 +643,7 @@ namespace Eamon.Game
 			return true;
 		}
 
-		public virtual bool ShouldPreferMorePowerfulNaturalWeapons(IArtifact artifact)
+		public virtual bool ShouldPreferNaturalWeaponsToWeakerWeapon(IArtifact artifact)
 		{
 			return true;
 		}
