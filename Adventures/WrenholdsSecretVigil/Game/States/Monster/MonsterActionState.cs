@@ -26,7 +26,7 @@ namespace WrenholdsSecretVigil.Game.States
 
 			// Try to open running device, all flee
 
-			if (LoopMonster.CanMoveToRoom(true) && gEngine.DeviceOpened)
+			if (LoopMonster.CanMoveToRoomUid(0, true) && gEngine.DeviceOpened)
 			{
 				ActionCommand = gEngine.CreateInstance<IFleeCommand>(x =>
 				{

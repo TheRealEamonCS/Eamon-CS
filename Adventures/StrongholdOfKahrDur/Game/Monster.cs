@@ -38,18 +38,20 @@ namespace StrongholdOfKahrDur.Game
 			return rc;
 		}
 
-		public override bool CanMoveToRoom(bool fleeing)
-		{
-			// Tree ents can't flee or follow
-
-			return Uid < 8 || Uid > 10 ? base.CanMoveToRoom(fleeing) : false;
-		}
-
 		public override bool CanMoveToRoomUid(long roomUid, bool fleeing)
 		{
-			// Necromancer can't move into a dark area
+			if (Uid < 8 || Uid > 10)
+			{
+				// Necromancer can't move into a dark area
 
-			return Uid != 22 || roomUid != 54 ? base.CanMoveToRoomUid(roomUid, fleeing) : false;
+				return Uid != 22 || roomUid != 54 ? base.CanMoveToRoomUid(roomUid, fleeing) : false;
+			}
+			else
+			{
+				// Tree ents can't flee or follow
+
+				return false;
+			}
 		}
 
 		public override bool ShouldReadyWeapon()

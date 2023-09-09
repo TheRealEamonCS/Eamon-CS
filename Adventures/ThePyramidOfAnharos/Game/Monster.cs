@@ -28,7 +28,7 @@ namespace ThePyramidOfAnharos.Game
 
 		public override bool CanMoveToRoomUid(long roomUid, bool fleeing)
 		{
-			return fleeing ? roomUid > 0 : base.CanMoveToRoomUid(roomUid, fleeing);
+			return fleeing ? roomUid >= 0 : base.CanMoveToRoomUid(roomUid, fleeing);
 		}
 
 		public override bool CanMoveInDirection(Direction dir, bool fleeing)

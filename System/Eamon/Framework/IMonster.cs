@@ -202,11 +202,6 @@ namespace Eamon.Framework
 		bool IsAttackable(IMonster monster);
 
 		/// <summary></summary>
-		/// <param name="fleeing"></param>
-		/// <returns></returns>
-		bool CanMoveToRoom(bool fleeing);
-
-		/// <summary></summary>
 		/// <param name="roomUid"></param>
 		/// <param name="fleeing"></param>
 		/// <returns></returns>

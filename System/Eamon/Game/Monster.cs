@@ -445,21 +445,16 @@ namespace Eamon.Game
 			return true;
 		}
 
-		public virtual bool CanMoveToRoom(bool fleeing)
-		{
-			return true;
-		}
-
 		public virtual bool CanMoveToRoomUid(long roomUid, bool fleeing)
 		{
-			return CanMoveToRoom(fleeing);
+			Debug.Assert(roomUid >= 0 || roomUid < 0);		// just for clarity
+
+			return true;
 		}
 
 		public virtual bool CanMoveToRoom(IRoom room, bool fleeing)
 		{
-			Debug.Assert(room != null);
-
-			return CanMoveToRoomUid(room.Uid, fleeing);
+			return CanMoveToRoomUid(room != null ? room.Uid : 0, fleeing);
 		}
 
 		public virtual bool CanMoveInDirection(Direction dir, bool fleeing)

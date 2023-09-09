@@ -135,7 +135,7 @@ namespace TheVileGrimoireOfJaldial.Game
 			return Uid != 24 && Uid != 36 ? base.HasCarriedInventory() : false;
 		}
 
-		public override bool CanMoveToRoom(bool fleeing)
+		public override bool CanMoveToRoomUid(long roomUid, bool fleeing)
 		{
 			// Parent griffin will never abandon the griffin cubs
 
@@ -145,20 +145,20 @@ namespace TheVileGrimoireOfJaldial.Game
 
 				Debug.Assert(smallGriffinMonster != null);
 
-				return GetInRoomUid() != smallGriffinMonster.GetInRoomUid() ? base.CanMoveToRoom(fleeing) : false;
+				return GetInRoomUid() != smallGriffinMonster.GetInRoomUid() ? base.CanMoveToRoomUid(roomUid, fleeing) : false;
 			}
 
 			// Jaldi'al, dark hood and griffin cubs will only flee, never follow
 
 			else if (Uid == 21 || Uid == 41 || Uid == 43)
 			{
-				return fleeing ? base.CanMoveToRoom(fleeing) : false;
+				return fleeing ? base.CanMoveToRoomUid(roomUid, fleeing) : false;
 			}
 			else
 			{
 				// Flora monsters, water weird and paralyzed monsters can't flee or follow
 
-				return Uid != 18 && Uid != 19 && Uid != 20 && Uid != 22 && Uid != 38 && !gGameState.ParalyzedTargets.ContainsKey(Uid) ? base.CanMoveToRoom(fleeing) : false;
+				return Uid != 18 && Uid != 19 && Uid != 20 && Uid != 22 && Uid != 38 && !gGameState.ParalyzedTargets.ContainsKey(Uid) ? base.CanMoveToRoomUid(roomUid, fleeing) : false;
 			}
 		}
 

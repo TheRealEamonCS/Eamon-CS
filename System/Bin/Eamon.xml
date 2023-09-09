@@ -2736,11 +2736,6 @@
             <param name="monster"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IMonster.CanMoveToRoom(System.Boolean)">
-            <summary></summary>
-            <param name="fleeing"></param>
-            <returns></returns>
-        </member>
         <member name="M:Eamon.Framework.IMonster.CanMoveToRoomUid(System.Int64,System.Boolean)">
             <summary></summary>
             <param name="roomUid"></param>
