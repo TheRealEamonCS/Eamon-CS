@@ -38,6 +38,8 @@ namespace RiddlesOfTheDuergarKingdom.Game.Parsing
 
 			Debug.Assert(fountainPenArtifact != null);
 
+			base.CheckPlayerCommand(afterFinishParsing);
+
 			if (afterFinishParsing)
 			{
 				// Can't enter wooden cart if (1) Professor Berescroft not met or (2) volcano erupting and at top of mine shaft or (3) stinking of sewage
@@ -126,14 +128,6 @@ namespace RiddlesOfTheDuergarKingdom.Game.Parsing
 
 					NextState = gEngine.CreateInstance<IStartState>();
 				}
-				else
-				{
-					base.CheckPlayerCommand(afterFinishParsing);
-				}
-			}
-			else
-			{
-				base.CheckPlayerCommand(afterFinishParsing);
 			}
 		}
 	}

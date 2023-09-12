@@ -20,6 +20,8 @@ namespace BeginnersForest.Game.Parsing
 		{
 			Debug.Assert(NextCommand != null);
 
+			base.CheckPlayerCommand(afterFinishParsing);
+
 			// Restrict commands while climbing cliff
 
 			if (afterFinishParsing && ActorRoom.Uid == 15 && !(NextCommand.Type == CommandType.Movement || NextCommand.Type == CommandType.Miscellaneous || NextCommand is IExamineCommand || NextCommand is IHealCommand || NextCommand is ISmileCommand))
@@ -27,10 +29,6 @@ namespace BeginnersForest.Game.Parsing
 				gOut.Print("You're clinging to the side of a cliff!");
 
 				NextState = gEngine.CreateInstance<IStartState>();
-			}
-			else
-			{
-				base.CheckPlayerCommand(afterFinishParsing);
 			}
 		}
 	}
