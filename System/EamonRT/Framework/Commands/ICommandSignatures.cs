@@ -92,6 +92,12 @@ namespace EamonRT.Framework.Commands
 		bool IsMonsterEnabled { get; set; }
 
 		/// <summary></summary>
+		/// <param name="artifact"></param>
+		/// <param name="containerType"></param>
+		/// <param name="showCharOwned"></param>
+		void BuildPrepContainerYouSeePrefix(IArtifact artifact, ContainerType containerType, bool showCharOwned);
+
+		/// <summary></summary>
 		/// <param name="obj"></param>
 		void PrintCantVerbObj(IGameBase obj);
 
