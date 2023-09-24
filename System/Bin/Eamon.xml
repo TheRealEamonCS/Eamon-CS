@@ -2383,24 +2383,28 @@
             <summary></summary>
             <remarks></remarks>
         </member>
-        <member name="M:Eamon.Framework.IGameState.GetNBTL(System.Int64)">
+        <member name="M:Eamon.Framework.IGameState.GetNBTL(System.Int64,System.Int64)">
             <summary></summary>
             <param name="index"></param>
+            <param name="roomUid"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IGameState.GetNBTL(Eamon.Framework.Primitive.Enums.Friendliness)">
+        <member name="M:Eamon.Framework.IGameState.GetNBTL(Eamon.Framework.Primitive.Enums.Friendliness,System.Int64)">
             <summary></summary>
             <param name="friendliness"></param>
+            <param name="roomUid"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IGameState.GetDTTL(System.Int64)">
+        <member name="M:Eamon.Framework.IGameState.GetDTTL(System.Int64,System.Int64)">
             <summary></summary>
             <param name="index"></param>
+            <param name="roomUid"></param>
             <returns></returns>
         </member>
-        <member name="M:Eamon.Framework.IGameState.GetDTTL(Eamon.Framework.Primitive.Enums.Friendliness)">
+        <member name="M:Eamon.Framework.IGameState.GetDTTL(Eamon.Framework.Primitive.Enums.Friendliness,System.Int64)">
             <summary></summary>
             <param name="friendliness"></param>
+            <param name="roomUid"></param>
             <returns></returns>
         </member>
         <member name="M:Eamon.Framework.IGameState.GetSa(System.Int64)">

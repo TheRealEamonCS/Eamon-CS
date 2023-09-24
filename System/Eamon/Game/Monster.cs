@@ -665,7 +665,7 @@ namespace Eamon.Game
 					x++;
 				}
 				
-				var rl = (long)Math.Round((double)gameState.GetDTTL(Reaction) / (double)gameState.GetNBTL(Reaction) * 100 + x);
+				var rl = (long)Math.Round((double)gameState.GetDTTL(Reaction, Location) / (double)gameState.GetNBTL(Reaction, Location) * 100 + x);
 
 				result = rl <= Courage;
 			}
