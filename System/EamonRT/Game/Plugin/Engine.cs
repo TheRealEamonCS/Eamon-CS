@@ -3946,8 +3946,6 @@ namespace EamonRT.Game.Plugin
 
 		public virtual void MoveMonsters(params Func<IMonster, bool>[] whereClauseFuncs)
 		{
-			long rl = 0;
-
 			if (whereClauseFuncs == null || whereClauseFuncs.Length == 0)
 			{
 				whereClauseFuncs = new Func<IMonster, bool>[]
@@ -3960,21 +3958,9 @@ namespace EamonRT.Game.Plugin
 
 			foreach (var monster in monsterList)
 			{
-				if (monster.CanMoveToRoomUid(GameState.Ro, false))
+				if (monster.CanMoveToRoomUid(GameState.Ro, false) && (monster.Reaction == Friendliness.Friend || (monster.Reaction == Friendliness.Enemy && monster.CheckCourage())))
 				{
-					if (monster.Reaction == Friendliness.Enemy)
-					{
-						rl = RollDice(1, 100, 0);
-
-						if (rl <= monster.Courage)
-						{
-							monster.Location = GameState.Ro;
-						}
-					}
-					else if (monster.Reaction == Friendliness.Friend)
-					{
-						monster.Location = GameState.Ro;
-					}
+					monster.Location = GameState.Ro;
 				}
 			}
 		}
