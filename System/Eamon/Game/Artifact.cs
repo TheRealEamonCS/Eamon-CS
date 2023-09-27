@@ -88,23 +88,31 @@ namespace Eamon.Game
 
 			set
 			{
-				if (gEngine.EnableMutateProperties && gEngine.RevealContentCounter > 0 && _location != value && GeneralContainer != null && !gEngine.RevealContentArtifactList.Contains(this))
+				if (gEngine.EnableMutateProperties && _location != value)
 				{
-					var room = gEngine.RevealContentRoom;
-
-					var monster = gEngine.RevealContentMonster;
-
-					var origLocation = _location;
-
-					gEngine.RevealContentArtifactList.Add(this);
-
-					gEngine.RevealContentFuncList.Add(() =>
+					if (gEngine.RevealContentCounter > 0 && GeneralContainer != null && !gEngine.RevealContentArtifactList.Contains(this))
 					{
-						if (gEngine.RevealContainerContentsFunc != null && room != null)
-						{ 
-							gEngine.RevealContainerContentsFunc(room, monster, this, origLocation, true);
-						}
-					});
+						var room = gEngine.RevealContentRoom;
+
+						var monster = gEngine.RevealContentMonster;
+
+						var origLocation = _location;
+
+						gEngine.RevealContentArtifactList.Add(this);
+
+						gEngine.RevealContentFuncList.Add(() =>
+						{
+							if (gEngine.RevealContainerContentsFunc != null && room != null)
+							{
+								gEngine.RevealContainerContentsFunc(room, monster, this, origLocation, true);
+							}
+						});
+					}
+
+					if (HasMoved(_location, value))
+					{
+						Moved = true;
+					}
 				}
 
 				_location = value;
@@ -697,6 +705,11 @@ namespace Eamon.Game
 		public virtual void SetSynonym(long index, string value)
 		{
 			Synonyms[index] = value;
+		}
+
+		public virtual bool HasMoved(long oldLocation, long newLocation)
+		{
+			return oldLocation != gEngine.LimboLocation && newLocation < 0 && newLocation > -999;
 		}
 
 		public virtual bool IsCarriedByMonster(MonsterType monsterType = MonsterType.NonCharMonster, bool recurse = false)

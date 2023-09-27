@@ -179,6 +179,12 @@ namespace Eamon.Framework
 		bool HasHumanNaturalAttackDescs();
 
 		/// <summary></summary>
+		/// <param name="oldLocation"></param>
+		/// <param name="newLocation"></param>
+		/// <returns></returns>
+		bool HasMoved(long oldLocation, long newLocation);
+
+		/// <summary></summary>
 		/// <returns></returns>
 		bool IsInRoom();
 

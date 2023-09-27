@@ -26,6 +26,8 @@ namespace Eamon.Game
 
 		public long _courage;
 
+		public long _location;
+
 		#endregion
 
 		#region Public Properties
@@ -68,7 +70,23 @@ namespace Eamon.Game
 		}
 
 		[FieldName(720)]
-		public virtual long Location { get; set; }
+		public virtual long Location 
+		{ 
+			get
+			{
+				return _location;
+			}
+
+			set
+			{
+				if (gEngine.EnableMutateProperties && _location != value && HasMoved(_location, value))
+				{
+					Moved = true;
+				}
+
+				_location = value;
+			}
+		}
 
 		[FieldName(740)]
 		public virtual CombatCode CombatCode { get; set; }
@@ -414,6 +432,11 @@ namespace Eamon.Game
 		public virtual bool HasHumanNaturalAttackDescs()
 		{
 			return IsCharacterMonster();
+		}
+
+		public virtual bool HasMoved(long oldLocation, long newLocation)
+		{
+			return oldLocation != gEngine.LimboLocation && newLocation != gEngine.LimboLocation;
 		}
 
 		public virtual bool IsInRoom()

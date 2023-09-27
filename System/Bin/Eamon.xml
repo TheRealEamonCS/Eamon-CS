@@ -1218,6 +1218,12 @@
             <param name="index"></param>
             <param name="value"></param>
         </member>
+        <member name="M:Eamon.Framework.IArtifact.HasMoved(System.Int64,System.Int64)">
+            <summary></summary>
+            <param name="oldLocation"></param>
+            <param name="newLocation"></param>
+            <returns></returns>
+        </member>
         <member name="M:Eamon.Framework.IArtifact.IsCarriedByMonster(Eamon.Framework.Primitive.Enums.MonsterType,System.Boolean)">
             <summary></summary>
             <param name="monsterType"></param>
@@ -2146,6 +2152,11 @@
             Gets or sets a value indicating whether this <see cref="T:Eamon.Framework.IGameBase">Record</see> has been seen by the player character.
             </summary>
         </member>
+        <member name="P:Eamon.Framework.IGameBase.Moved">
+            <summary>
+            Gets or sets a value indicating whether this <see cref="T:Eamon.Framework.IGameBase">Record</see> has been moved from its original Location.
+            </summary>
+        </member>
         <member name="P:Eamon.Framework.IGameBase.ArticleType">
             <summary>
             Gets or sets a value indicating how this <see cref="T:Eamon.Framework.IGameBase">Record</see>'s <see cref="P:Eamon.Framework.IGameBase.Name">Name</see> is
@@ -2715,6 +2726,12 @@
         </member>
         <member name="M:Eamon.Framework.IMonster.HasHumanNaturalAttackDescs">
             <summary></summary>
+            <returns></returns>
+        </member>
+        <member name="M:Eamon.Framework.IMonster.HasMoved(System.Int64,System.Int64)">
+            <summary></summary>
+            <param name="oldLocation"></param>
+            <param name="newLocation"></param>
             <returns></returns>
         </member>
         <member name="M:Eamon.Framework.IMonster.IsInRoom">
