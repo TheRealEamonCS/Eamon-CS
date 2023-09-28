@@ -150,7 +150,7 @@ namespace Eamon.Game
 		{
 			var nbtl = 0L;
 
-			var monsterList = gEngine.GetMonsterList(m => m.Location == (roomUid > 0 ? roomUid : Ro) && m.Reaction == (Friendliness)index);
+			var monsterList = gEngine.GetMonsterList(m => m.IsInRoomUid(roomUid > 0 ? roomUid : Ro) && m.Reaction == (Friendliness)index);
 
 			foreach (var monster in monsterList)
 			{
@@ -171,7 +171,7 @@ namespace Eamon.Game
 		{
 			var dttl = 0L;
 
-			var monsterList = gEngine.IsRulesetVersion(5, 62) ? gEngine.GetMonsterList(m => m.Location == (roomUid > 0 ? roomUid : Ro) && m.Reaction == (Friendliness)index) : new List<IMonster>();
+			var monsterList = gEngine.IsRulesetVersion(5, 62) ? gEngine.GetMonsterList(m => m.IsInRoomUid(roomUid > 0 ? roomUid : Ro) && m.Reaction == (Friendliness)index) : new List<IMonster>();
 
 			foreach (var monster in monsterList)
 			{
