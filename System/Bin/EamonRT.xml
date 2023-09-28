@@ -115,6 +115,12 @@
         <member name="P:EamonRT.Framework.Commands.ICommandSignatures.IsMonsterEnabled">
             <summary></summary>
         </member>
+        <member name="M:EamonRT.Framework.Commands.ICommandSignatures.BuildPrepContainerYouSeePrefix(Eamon.Framework.IArtifact,Eamon.Framework.Primitive.Enums.ContainerType,System.Boolean)">
+            <summary></summary>
+            <param name="artifact"></param>
+            <param name="containerType"></param>
+            <param name="showCharOwned"></param>
+        </member>
         <member name="M:EamonRT.Framework.Commands.ICommandSignatures.PrintCantVerbObj(Eamon.Framework.IGameBase)">
             <summary></summary>
             <param name="obj"></param>
@@ -1752,11 +1758,12 @@
             <summary></summary>
             <param name="artifact"></param>
         </member>
-        <member name="M:EamonRT.Framework.Plugin.IEngine.PrintArtifactBreaks(Eamon.Framework.IRoom,Eamon.Framework.IMonster,Eamon.Framework.IArtifact)">
+        <member name="M:EamonRT.Framework.Plugin.IEngine.PrintArtifactBreaks(Eamon.Framework.IRoom,Eamon.Framework.IMonster,Eamon.Framework.IArtifact,System.Boolean)">
             <summary></summary>
             <param name="room"></param>
             <param name="monster"></param>
             <param name="artifact"></param>
+            <param name="prependNewLine"></param>
         </member>
         <member name="M:EamonRT.Framework.Plugin.IEngine.PrintEnterExtinguishLightChoice(Eamon.Framework.IArtifact)">
             <summary></summary>
@@ -3140,6 +3147,9 @@
             <summary></summary>
         </member>
         <member name="P:EamonRT.Game.Commands.ExamineCommand.IsUninjuredGroupMonster">
+            <summary></summary>
+        </member>
+        <member name="P:EamonRT.Game.Commands.ExamineCommand.RevealedEmbeddedArtifact">
             <summary></summary>
         </member>
         <member name="P:EamonRT.Game.Commands.ExamineCommand.CheckContainerTypeInDobjArtName">

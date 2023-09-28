@@ -94,13 +94,13 @@ namespace TheVileGrimoireOfJaldial.Game
 
 		public virtual IDictionary<long, IList<long>> ClumsyTargets { get; set; }
 
-		public override long GetDTTL(long index)
+		public override long GetDTTL(long index, long roomUid = 0)
 		{
 			long result;
 
 			gEngine.PushRulesetVersion(0);
 
-			result = base.GetDTTL(index);
+			result = base.GetDTTL(index, roomUid);
 
 			gEngine.PopRulesetVersion();
 

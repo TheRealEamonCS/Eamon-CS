@@ -129,5 +129,15 @@ namespace Eamon.Game.Extensions
 
 			return source;
 		}
+
+		public static string ToSinglePaddedString(this string str)
+		{
+			return str != null ? string.Format(" {0} ", str.Trim()) : str;
+		}
+
+		public static string ToCompressedSinglePaddedString(this string str)
+		{
+			return str != null ? string.Format(" {0} ", str.Replace(" ", "").Trim()) : str;
+		}
 	}
 }

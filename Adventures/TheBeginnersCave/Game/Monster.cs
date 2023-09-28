@@ -62,7 +62,7 @@ namespace TheBeginnersCave.Game
 			return !gEngine.IsRulesetVersion(5, 62) && (Reaction == Friendliness.Enemy || (Reaction == Friendliness.Neutral && artifact.Value < 3000));
 		}
 
-		public override void AddHealthStatus(StringBuilder buf, bool addNewLine = true)
+		public override void AddHealthStatus(StringBuilder buf, bool appendNewLine = true)
 		{
 			string result = null;
 
@@ -135,7 +135,7 @@ namespace TheBeginnersCave.Game
 
 			Debug.Assert(result != null);
 
-			buf.AppendFormat("{0}{1}", result, addNewLine ? Environment.NewLine : "");
+			buf.AppendFormat("{0}{1}", result, appendNewLine ? Environment.NewLine : "");
 
 		Cleanup:
 

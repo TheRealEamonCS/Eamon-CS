@@ -471,17 +471,17 @@ namespace EamonRT.Game.Plugin
 			Out.Print("{0} vanish{1}!", artifact.GetTheName(true), artifact.EvalPlural("es", ""));
 		}
 
-		public virtual void PrintArtifactBreaks(IRoom room, IMonster monster, IArtifact artifact)
+		public virtual void PrintArtifactBreaks(IRoom room, IMonster monster, IArtifact artifact, bool prependNewLine = false)
 		{
 			Debug.Assert(room != null && monster != null && artifact != null);
 
 			if (monster.IsCharacterMonster() || room.IsLit())
 			{
-				Out.Print("{0} break{1}!", artifact.GetTheName(true), artifact.EvalPlural("s", ""));
+				Out.Print("{0}{1} break{2}!", prependNewLine ? Environment.NewLine : "", artifact.GetTheName(true), artifact.EvalPlural("s", ""));
 			}
 			else
 			{
-				Out.Print("Something breaks!");
+				Out.Print("{0}Something breaks!", prependNewLine ? Environment.NewLine : "");
 			}
 		}
 
@@ -3065,7 +3065,7 @@ namespace EamonRT.Game.Plugin
 
 					Debug.Assert(ac != null);
 
-					if (monster.Weapon != -wpnArtifact.Uid - 1 && monster.NwDice * monster.NwSides > ac.Field3 * ac.Field4)
+					if (monster.Weapon != -wpnArtifact.Uid - 1 && monster.NwDice * monster.NwSides > ac.Field3 * ac.Field4 && monster.ShouldPreferNaturalWeaponsToWeakerWeapon(wpnArtifact))
 					{
 						artifactList = null;
 					}
@@ -3946,8 +3946,6 @@ namespace EamonRT.Game.Plugin
 
 		public virtual void MoveMonsters(params Func<IMonster, bool>[] whereClauseFuncs)
 		{
-			long rl = 0;
-
 			if (whereClauseFuncs == null || whereClauseFuncs.Length == 0)
 			{
 				whereClauseFuncs = new Func<IMonster, bool>[]
@@ -3960,21 +3958,9 @@ namespace EamonRT.Game.Plugin
 
 			foreach (var monster in monsterList)
 			{
-				if (monster.CanMoveToRoomUid(GameState.Ro, false))
+				if (monster.CanMoveToRoomUid(GameState.Ro, false) && (monster.Reaction == Friendliness.Friend || (monster.Reaction == Friendliness.Enemy && monster.CheckCourage())))
 				{
-					if (monster.Reaction == Friendliness.Enemy)
-					{
-						rl = RollDice(1, 100, 0);
-
-						if (rl <= monster.Courage)
-						{
-							monster.Location = GameState.Ro;
-						}
-					}
-					else if (monster.Reaction == Friendliness.Friend)
-					{
-						monster.Location = GameState.Ro;
-					}
+					monster.Location = GameState.Ro;
 				}
 			}
 		}

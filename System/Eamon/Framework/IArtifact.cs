@@ -267,6 +267,12 @@ namespace Eamon.Framework
 		void SetSynonym(long index, string value);
 
 		/// <summary></summary>
+		/// <param name="oldLocation"></param>
+		/// <param name="newLocation"></param>
+		/// <returns></returns>
+		bool HasMoved(long oldLocation, long newLocation);
+
+		/// <summary></summary>
 		/// <param name="monsterType"></param>
 		/// <param name="recurse"></param>
 		/// <returns></returns>

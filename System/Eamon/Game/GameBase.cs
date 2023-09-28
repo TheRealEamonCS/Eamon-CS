@@ -37,6 +37,9 @@ namespace Eamon.Game
 		[FieldName(500)]
 		public virtual bool Seen { get; set; }
 
+		[FieldName(510)]
+		public virtual bool Moved { get; set; }
+
 		[FieldName(600)]
 		public virtual ArticleType ArticleType { get; set; }
 

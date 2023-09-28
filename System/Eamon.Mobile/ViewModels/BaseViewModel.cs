@@ -37,6 +37,16 @@ namespace Eamon.Mobile.ViewModels
 				pluginArgsList.AddRange(pluginArgs);
 			}
 
+			if (gEngine.IgnoreMutex)
+			{
+				pluginArgsList.Add("-im");
+			}
+
+			if (gEngine.DisableValidation)
+			{
+				pluginArgsList.Add("-dv");
+			}
+			
 			if (gEngine.RepaintWindow)
 			{
 				pluginArgsList.Add("-rw");

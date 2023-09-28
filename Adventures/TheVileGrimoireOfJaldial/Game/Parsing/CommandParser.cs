@@ -486,6 +486,8 @@ namespace TheVileGrimoireOfJaldial.Game.Parsing
 		{
 			Debug.Assert(NextCommand != null);
 
+			base.CheckPlayerCommand(afterFinishParsing);
+
 			if (afterFinishParsing)
 			{
 				// Restrict various commands while paralyzed
@@ -547,20 +549,8 @@ namespace TheVileGrimoireOfJaldial.Game.Parsing
 
 							NextState = gEngine.CreateInstance<IStartState>();
 						}
-						else
-						{
-							base.CheckPlayerCommand(afterFinishParsing);
-						}
-					}
-					else
-					{
-						base.CheckPlayerCommand(afterFinishParsing);
 					}
 				}
-			}
-			else
-			{
-				base.CheckPlayerCommand(afterFinishParsing);
 			}
 		}
 	}

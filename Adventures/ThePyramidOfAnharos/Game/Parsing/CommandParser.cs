@@ -41,6 +41,8 @@ namespace ThePyramidOfAnharos.Game.Parsing
 		{
 			Debug.Assert(NextCommand != null);
 
+			base.CheckPlayerCommand(afterFinishParsing);
+
 			if (afterFinishParsing)
 			{
 				// Can't look at / examine anything in Black room
@@ -49,14 +51,6 @@ namespace ThePyramidOfAnharos.Game.Parsing
 				{
 					NextState = gEngine.CreateInstance<IStartState>();
 				}
-				else
-				{
-					base.CheckPlayerCommand(afterFinishParsing);
-				}
-			}
-			else
-			{
-				base.CheckPlayerCommand(afterFinishParsing);
 			}
 		}
 

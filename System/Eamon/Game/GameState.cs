@@ -146,11 +146,11 @@ namespace Eamon.Game
 
 		#region Interface IGameState
 
-		public virtual long GetNBTL(long index)
+		public virtual long GetNBTL(long index, long roomUid = 0)
 		{
 			var nbtl = 0L;
 
-			var monsterList = gEngine.GetMonsterList(m => m.Location == Ro && m.Reaction == (Friendliness)index);
+			var monsterList = gEngine.GetMonsterList(m => m.IsInRoomUid(roomUid > 0 ? roomUid : Ro) && m.Reaction == (Friendliness)index);
 
 			foreach (var monster in monsterList)
 			{
@@ -162,16 +162,16 @@ namespace Eamon.Game
 			return nbtl;
 		}
 
-		public virtual long GetNBTL(Friendliness friendliness)
+		public virtual long GetNBTL(Friendliness friendliness, long roomUid = 0)
 		{
-			return GetNBTL((long)friendliness);
+			return GetNBTL((long)friendliness, roomUid);
 		}
 
-		public virtual long GetDTTL(long index)
+		public virtual long GetDTTL(long index, long roomUid = 0)
 		{
 			var dttl = 0L;
 
-			var monsterList = gEngine.IsRulesetVersion(5, 62) ? gEngine.GetMonsterList(m => m.Location == Ro && m.Reaction == (Friendliness)index) : new List<IMonster>();
+			var monsterList = gEngine.IsRulesetVersion(5, 62) ? gEngine.GetMonsterList(m => m.IsInRoomUid(roomUid > 0 ? roomUid : Ro) && m.Reaction == (Friendliness)index) : new List<IMonster>();
 
 			foreach (var monster in monsterList)
 			{
@@ -183,9 +183,9 @@ namespace Eamon.Game
 			return dttl;
 		}
 
-		public virtual long GetDTTL(Friendliness friendliness)
+		public virtual long GetDTTL(Friendliness friendliness, long roomUid = 0)
 		{
-			return GetDTTL((long)friendliness);
+			return GetDTTL((long)friendliness, roomUid);
 		}
 
 		public virtual long GetSa(long index)

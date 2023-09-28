@@ -1706,31 +1706,15 @@ namespace EamonRT.Game.Parsing
 
 					var numTokens = Tokens.Length - CurrToken;
 
-					if ((ObjData == DobjData && NextCommand.IsDobjPrepEnabled) || (ObjData == IobjData && NextCommand.IsIobjEnabled))
+					if (((ObjData == DobjData && NextCommand.IsDobjPrepEnabled) || (ObjData == IobjData && NextCommand.IsIobjEnabled)) && PrepTokenIndex == CurrToken)
 					{
-						if (PrepTokenIndex > CurrToken)
-						{
-							PrepTokenIndex = -1;
+						CurrToken++;
 
-							Prep = null;
-
-							NextCommand.Prep = null;
-
-							NextCommand.ContainerType = (ContainerType)(-1);
-						}
-						else if (PrepTokenIndex == CurrToken)
-						{
-							CurrToken++;
-
-							numTokens--;
-						}
+						numTokens--;
 					}
-					else if (ObjData == DobjData && NextCommand.IsIobjEnabled)
+					else if (ObjData == DobjData && NextCommand.IsIobjEnabled && PrepTokenIndex >= CurrToken)
 					{
-						if (PrepTokenIndex >= CurrToken)
-						{
-							numTokens = PrepTokenIndex - CurrToken;
-						}
+						numTokens = PrepTokenIndex - CurrToken;
 					}
 
 					ObjData.Name = string.Join(" ", Tokens.Skip((int)CurrToken).Take((int)numTokens));

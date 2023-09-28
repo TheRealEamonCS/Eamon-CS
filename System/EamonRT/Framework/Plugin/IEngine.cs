@@ -252,7 +252,8 @@ namespace EamonRT.Framework.Plugin
 		/// <param name="room"></param>
 		/// <param name="monster"></param>
 		/// <param name="artifact"></param>
-		void PrintArtifactBreaks(IRoom room, IMonster monster, IArtifact artifact);
+		/// <param name="prependNewLine"></param>
+		void PrintArtifactBreaks(IRoom room, IMonster monster, IArtifact artifact, bool prependNewLine = false);
 
 		/// <summary></summary>
 		/// <param name="artifact"></param>

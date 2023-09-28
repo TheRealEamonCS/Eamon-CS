@@ -186,23 +186,27 @@ namespace Eamon.Framework
 
 		/// <summary></summary>
 		/// <param name="index"></param>
+		/// <param name="roomUid"></param>
 		/// <returns></returns>
-		long GetNBTL(long index);
+		long GetNBTL(long index, long roomUid = 0);
 
 		/// <summary></summary>
 		/// <param name="friendliness"></param>
+		/// <param name="roomUid"></param>
 		/// <returns></returns>
-		long GetNBTL(Friendliness friendliness);
+		long GetNBTL(Friendliness friendliness, long roomUid = 0);
 
 		/// <summary></summary>
 		/// <param name="index"></param>
+		/// <param name="roomUid"></param>
 		/// <returns></returns>
-		long GetDTTL(long index);
+		long GetDTTL(long index, long roomUid = 0);
 
 		/// <summary></summary>
 		/// <param name="friendliness"></param>
+		/// <param name="roomUid"></param>
 		/// <returns></returns>
-		long GetDTTL(Friendliness friendliness);
+		long GetDTTL(Friendliness friendliness, long roomUid = 0);
 
 		/// <summary></summary>
 		/// <param name="index"></param>

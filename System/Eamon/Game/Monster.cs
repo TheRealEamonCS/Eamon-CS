@@ -26,6 +26,8 @@ namespace Eamon.Game
 
 		public long _courage;
 
+		public long _location;
+
 		#endregion
 
 		#region Public Properties
@@ -68,7 +70,23 @@ namespace Eamon.Game
 		}
 
 		[FieldName(720)]
-		public virtual long Location { get; set; }
+		public virtual long Location 
+		{ 
+			get
+			{
+				return _location;
+			}
+
+			set
+			{
+				if (gEngine.EnableMutateProperties && _location != value && HasMoved(_location, value))
+				{
+					Moved = true;
+				}
+
+				_location = value;
+			}
+		}
 
 		[FieldName(740)]
 		public virtual CombatCode CombatCode { get; set; }
@@ -416,6 +434,11 @@ namespace Eamon.Game
 			return IsCharacterMonster();
 		}
 
+		public virtual bool HasMoved(long oldLocation, long newLocation)
+		{
+			return oldLocation != gEngine.LimboLocation && newLocation != gEngine.LimboLocation;
+		}
+
 		public virtual bool IsInRoom()
 		{
 			return Location > 0 && Location < 1001;
@@ -445,21 +468,16 @@ namespace Eamon.Game
 			return true;
 		}
 
-		public virtual bool CanMoveToRoom(bool fleeing)
-		{
-			return true;
-		}
-
 		public virtual bool CanMoveToRoomUid(long roomUid, bool fleeing)
 		{
-			return CanMoveToRoom(fleeing);
+			Debug.Assert(roomUid >= 0 || roomUid < 0);		// just for clarity
+
+			return true;
 		}
 
 		public virtual bool CanMoveToRoom(IRoom room, bool fleeing)
 		{
-			Debug.Assert(room != null);
-
-			return CanMoveToRoomUid(room.Uid, fleeing);
+			return CanMoveToRoomUid(room != null ? room.Uid : 0, fleeing);
 		}
 
 		public virtual bool CanMoveInDirection(Direction dir, bool fleeing)
@@ -643,6 +661,11 @@ namespace Eamon.Game
 			return true;
 		}
 
+		public virtual bool ShouldPreferNaturalWeaponsToWeakerWeapon(IArtifact artifact)
+		{
+			return true;
+		}
+
 		public virtual bool CheckNBTLHostility()
 		{
 			var gameState = gEngine.GetGameState();
@@ -665,7 +688,7 @@ namespace Eamon.Game
 					x++;
 				}
 				
-				var rl = (long)Math.Round((double)gameState.GetDTTL(Reaction) / (double)gameState.GetNBTL(Reaction) * 100 + x);
+				var rl = (long)Math.Round((double)gameState.GetDTTL(Reaction, Location) / (double)gameState.GetNBTL(Reaction, Location) * 100 + x);
 
 				result = rl <= Courage;
 			}
@@ -994,7 +1017,7 @@ namespace Eamon.Game
 			return rc;
 		}
 
-		public virtual void AddHealthStatus(StringBuilder buf, bool addNewLine = true)
+		public virtual void AddHealthStatus(StringBuilder buf, bool appendNewLine = true)
 		{
 			string result = null;
 
@@ -1041,7 +1064,7 @@ namespace Eamon.Game
 
 			Debug.Assert(result != null);
 
-			buf.AppendFormat("{0}{1}", result, addNewLine ? Environment.NewLine : "");
+			buf.AppendFormat("{0}{1}", result, appendNewLine ? Environment.NewLine : "");
 
 		Cleanup:
 
