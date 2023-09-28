@@ -179,6 +179,12 @@ namespace Eamon.Framework
 		bool HasHumanNaturalAttackDescs();
 
 		/// <summary></summary>
+		/// <param name="oldLocation"></param>
+		/// <param name="newLocation"></param>
+		/// <returns></returns>
+		bool HasMoved(long oldLocation, long newLocation);
+
+		/// <summary></summary>
 		/// <returns></returns>
 		bool IsInRoom();
 
@@ -200,11 +206,6 @@ namespace Eamon.Framework
 		/// <param name="monster"></param>
 		/// <returns></returns>
 		bool IsAttackable(IMonster monster);
-
-		/// <summary></summary>
-		/// <param name="fleeing"></param>
-		/// <returns></returns>
-		bool CanMoveToRoom(bool fleeing);
 
 		/// <summary></summary>
 		/// <param name="roomUid"></param>
@@ -319,6 +320,11 @@ namespace Eamon.Framework
 		/// <param name="artifact"></param>
 		/// <returns></returns>
 		bool ShouldRefuseToAcceptDeadBody(IArtifact artifact);
+
+		/// <summary></summary>
+		/// <param name="artifact"></param>
+		/// <returns></returns>
+		bool ShouldPreferNaturalWeaponsToWeakerWeapon(IArtifact artifact);
 
 		/// <summary></summary>
 		/// <returns></returns>
@@ -445,8 +451,8 @@ namespace Eamon.Framework
 
 		/// <summary></summary>
 		/// <param name="buf"></param>
-		/// <param name="addNewLine"></param>
-		void AddHealthStatus(StringBuilder buf, bool addNewLine = true);
+		/// <param name="appendNewLine"></param>
+		void AddHealthStatus(StringBuilder buf, bool appendNewLine = true);
 
 		/// <summary></summary>
 		/// <param name="artifact"></param>

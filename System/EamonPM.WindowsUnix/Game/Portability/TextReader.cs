@@ -361,7 +361,7 @@ namespace EamonPM.Game.Portability
 			return ch;
 		}
 
-		public virtual void KeyPress(StringBuilder buf, bool initialNewLine = true)
+		public virtual void KeyPress(StringBuilder buf, bool prependNewLine = true)
 		{
 			Debug.Assert(gEngine != null);
 
@@ -369,7 +369,7 @@ namespace EamonPM.Game.Portability
 
 			if (EnableInput)
 			{
-				gEngine.Out.WriteLine("{0}{1}", initialNewLine ? Environment.NewLine : "", gEngine.LineSep);
+				gEngine.Out.WriteLine("{0}{1}", prependNewLine ? Environment.NewLine : "", gEngine.LineSep);
 
 				gEngine.Out.Write("{0}Press any key to continue: ", Environment.NewLine);
 

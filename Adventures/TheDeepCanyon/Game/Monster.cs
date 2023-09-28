@@ -28,11 +28,11 @@ namespace TheDeepCanyon.Game
 			return Uid == 3 || Uid == 4 || Uid == 5 || Uid == 12 || Uid == 20 || (gGameState != null && Uid == gGameState.Cm);
 		}
 
-		public override bool CanMoveToRoom(bool fleeing)
+		public override bool CanMoveToRoomUid(long roomUid, bool fleeing)
 		{
 			// Fido can't flee or follow
 
-			return Uid != 11 ? base.CanMoveToRoom(fleeing) : false;
+			return Uid != 11 ? base.CanMoveToRoomUid(roomUid, fleeing) : false;
 		}
 
 		public override bool ShouldRefuseToAcceptGold()

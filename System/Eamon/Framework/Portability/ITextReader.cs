@@ -56,7 +56,7 @@ namespace Eamon.Framework.Portability
 
 		/// <summary></summary>
 		/// <param name="buf"></param>
-		/// <param name="initialNewLine"></param>
-		void KeyPress(StringBuilder buf, bool initialNewLine = true);
+		/// <param name="prependNewLine"></param>
+		void KeyPress(StringBuilder buf, bool prependNewLine = true);
 	}
 }

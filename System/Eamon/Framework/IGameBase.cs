@@ -58,6 +58,11 @@ namespace Eamon.Framework
 		bool Seen { get; set; }
 
 		/// <summary>
+		/// Gets or sets a value indicating whether this <see cref="IGameBase">Record</see> has been moved from its original Location.
+		/// </summary>
+		bool Moved { get; set; }
+
+		/// <summary>
 		/// Gets or sets a value indicating how this <see cref="IGameBase">Record</see>'s <see cref="IGameBase.Name">Name</see> is
 		/// prefixed to produce its listed Name.
 		/// </summary>

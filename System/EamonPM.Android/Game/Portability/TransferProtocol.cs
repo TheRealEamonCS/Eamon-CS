@@ -48,6 +48,16 @@ namespace EamonPM.Game.Portability
 
 			argsList.Add(characterName);
 
+			if (gEngine.IgnoreMutex)
+			{
+				argsList.Add("-im");
+			}
+
+			if (gEngine.DisableValidation)
+			{
+				argsList.Add("-dv");
+			}
+			
 			if (gEngine.RepaintWindow)
 			{
 				argsList.Add("-rw");
@@ -80,6 +90,16 @@ namespace EamonPM.Game.Portability
 
 			argsList.Add("EAMONCFG.DAT");
 
+			if (gEngine.IgnoreMutex)
+			{
+				argsList.Add("-im");
+			}
+
+			if (gEngine.DisableValidation)
+			{
+				argsList.Add("-dv");
+			}
+			
 			if (gEngine.RepaintWindow)
 			{
 				argsList.Add("-rw");
@@ -116,6 +136,11 @@ namespace EamonPM.Game.Portability
 
 			argsList.Add("-im");
 
+			if (gEngine.DisableValidation)
+			{
+				argsList.Add("-dv");
+			}
+			
 			if (gEngine.RepaintWindow)
 			{
 				argsList.Add("-rw");

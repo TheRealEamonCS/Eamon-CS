@@ -58,7 +58,7 @@ namespace EamonRT.Game.States
 
 		public virtual void MonsterFleesCheck()
 		{
-			if (LoopMonster.CheckNBTLHostility() && LoopMonster.CanMoveToRoom(true) && !LoopMonster.CheckCourage())
+			if (LoopMonster.CheckNBTLHostility() && LoopMonster.CanMoveToRoomUid(0, true) && !LoopMonster.CheckCourage())
 			{
 				Debug.Assert(LoopMonster.Reaction != Friendliness.Neutral);
 

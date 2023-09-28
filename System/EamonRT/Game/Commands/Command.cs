@@ -325,6 +325,11 @@ namespace EamonRT.Game.Commands
 			}
 		}
 
+		public virtual void BuildPrepContainerYouSeePrefix(IArtifact artifact, ContainerType containerType, bool showCharOwned)
+		{
+			CommandImpl.BuildPrepContainerYouSeePrefix(artifact, containerType, showCharOwned);
+		}
+
 		public virtual void PrintCantVerbObj(IGameBase obj)
 		{
 			CommandImpl.PrintCantVerbObj(obj);

@@ -48,6 +48,9 @@ namespace EamonRT.Game.Commands
 		public virtual bool IsUninjuredGroupMonster { get; set; }
 
 		/// <summary></summary>
+		public virtual bool RevealedEmbeddedArtifact { get; set; }
+
+		/// <summary></summary>
 		public virtual bool CheckContainerTypeInDobjArtName { get; set; }
 
 		public override void ExecuteForPlayer()
@@ -105,10 +108,19 @@ namespace EamonRT.Game.Commands
 			if (DobjArtifact.IsEmbeddedInRoom(ActorRoom))
 			{
 				DobjArtifact.SetInRoom(ActorRoom);
+
+				RevealedEmbeddedArtifact = true;
 			}
 
 			if (DobjArtAc.Type == ArtifactType.DisguisedMonster)
 			{
+				if (RevealedEmbeddedArtifact)
+				{
+					PrintFullDesc(DobjArtifact, false, false);
+
+					DobjArtifact.Seen = true;
+				}
+
 				gEngine.RevealDisguisedMonster(ActorRoom, DobjArtifact);
 
 				NextState = gEngine.CreateInstance<IStartState>();

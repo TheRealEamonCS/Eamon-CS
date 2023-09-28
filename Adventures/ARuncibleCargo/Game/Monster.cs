@@ -47,29 +47,36 @@ namespace ARuncibleCargo.Game
 		
 		public override bool CanMoveToRoomUid(long roomUid, bool fleeing)
 		{
-			var room = gRDB[roomUid] as Framework.IRoom;
-
-			Debug.Assert(room != null);
-
-			// Nobody can flee into a water room
-
-			if (fleeing && room.IsWaterRoom())
+			if (roomUid > 0)
 			{
-				return false;
-			}
+				var room = gRDB[roomUid] as Framework.IRoom;
 
-			// Putrid rats and enormous alligator can't leave sewer
+				Debug.Assert(room != null);
 
-			else if (Uid == 13 || Uid == 14)
-			{
-				return roomUid != 13 && roomUid != 29 && roomUid != 50 ? base.CanMoveToRoomUid(roomUid, fleeing) : false;
-			}
+				// Nobody can flee into a water room
 
-			// Gelatinous ghoul can't leave hotel basement
+				if (fleeing && room.IsWaterRoom())
+				{
+					return false;
+				}
 
-			else if (Uid == 19)
-			{
-				return roomUid != 39 ? base.CanMoveToRoomUid(roomUid, fleeing) : false;
+				// Putrid rats and enormous alligator can't leave sewer
+
+				else if (Uid == 13 || Uid == 14)
+				{
+					return roomUid != 13 && roomUid != 29 && roomUid != 50 ? base.CanMoveToRoomUid(roomUid, fleeing) : false;
+				}
+
+				// Gelatinous ghoul can't leave hotel basement
+
+				else if (Uid == 19)
+				{
+					return roomUid != 39 ? base.CanMoveToRoomUid(roomUid, fleeing) : false;
+				}
+				else
+				{
+					return base.CanMoveToRoomUid(roomUid, fleeing);
+				}
 			}
 			else
 			{

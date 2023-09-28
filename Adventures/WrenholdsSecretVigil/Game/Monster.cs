@@ -61,9 +61,9 @@ namespace WrenholdsSecretVigil.Game
 			return gEngine.DeviceOpened ? CurrGroupCount : base.GetFleeingMemberCount();
 		}
 
-		public override void AddHealthStatus(StringBuilder buf, bool addNewLine = true)
+		public override void AddHealthStatus(StringBuilder buf, bool appendNewLine = true)
 		{
-			base.AddHealthStatus(buf, addNewLine);
+			base.AddHealthStatus(buf, appendNewLine);
 
 			buf.Replace("badly injured", "very badly injured");
 
