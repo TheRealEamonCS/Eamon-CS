@@ -3,13 +3,13 @@
 
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using Eamon.Framework;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using static TheWayfarersInn.Game.Plugin.Globals;
-using System.Collections.Generic;
 
 namespace TheWayfarersInn.Game
 {
