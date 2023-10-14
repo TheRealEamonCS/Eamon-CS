@@ -5,6 +5,8 @@
 
 using Eamon.Framework.DataStorage.Generic;
 using Eamon.Framework.Portability;
+using EamonRT.Framework.Commands;
+using EamonRT.Framework.Parsing;
 
 namespace TheWayfarersInn.Game.Plugin
 {
@@ -62,6 +64,14 @@ namespace TheWayfarersInn.Game.Plugin
 			}
 		}
 
+		public static EamonRT.Framework.Parsing.ISentenceParser gSentenceParser
+		{
+			get
+			{
+				return (EamonRT.Framework.Parsing.ISentenceParser)EamonRT.Game.Plugin.Globals.gSentenceParser;
+			}
+		}
+
 		public static EamonRT.Framework.Parsing.ICommandParser gCommandParser
 		{
 			get
@@ -83,6 +93,70 @@ namespace TheWayfarersInn.Game.Plugin
 			get
 			{
 				return (Eamon.Framework.ICharacter)EamonRT.Game.Plugin.Globals.gCharacter;
+			}
+		}
+
+		public static Eamon.Framework.IMonster gCharMonster
+		{
+			get
+			{
+				return (Eamon.Framework.IMonster)EamonRT.Game.Plugin.Globals.gCharMonster;
+			}
+		}
+
+		public static Framework.IRoom gCharRoom
+		{
+			get
+			{
+				return (Framework.IRoom)EamonRT.Game.Plugin.Globals.gCharRoom;
+			}
+		}
+
+		public static Framework.IRoom gActorRoom(object obj)
+		{
+			if (obj is ICommandParser commandParser)
+			{
+				return (Framework.IRoom)commandParser?.ActorRoom;
+			}
+			else if (obj is ICommand command)
+			{
+				return (Framework.IRoom)command?.ActorRoom;
+			}
+			else
+			{
+				return null;
+			}
+		}
+
+		public static Framework.IArtifact gDobjArtifact(object obj)
+		{
+			if (obj is ICommandParser commandParser)
+			{
+				return (Framework.IArtifact)commandParser?.DobjArtifact;
+			}
+			else if (obj is ICommand command)
+			{
+				return (Framework.IArtifact)command?.DobjArtifact;
+			}
+			else
+			{
+				return null;
+			}
+		}
+
+		public static Framework.IArtifact gIobjArtifact(object obj)
+		{
+			if (obj is ICommandParser commandParser)
+			{
+				return (Framework.IArtifact)commandParser?.IobjArtifact;
+			}
+			else if (obj is ICommand command)
+			{
+				return (Framework.IArtifact)command?.IobjArtifact;
+			}
+			else
+			{
+				return null;
 			}
 		}
 	}

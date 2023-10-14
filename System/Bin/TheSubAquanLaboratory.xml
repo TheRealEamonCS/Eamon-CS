@@ -1,0 +1,151 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TheSubAquanLaboratory</name>
+    </assembly>
+    <members>
+        <member name="T:TheSubAquanLaboratory.Framework.Commands.ISearchCommand">
+            <summary></summary>
+        </member>
+        <member name="T:TheSubAquanLaboratory.Framework.Commands.IExamineCommand">
+            <summary></summary>
+        </member>
+        <member name="P:TheSubAquanLaboratory.Framework.Commands.IExamineCommand.ExamineConsole">
+            <summary></summary>
+        </member>
+        <member name="T:TheSubAquanLaboratory.Framework.Commands.IPushCommand">
+            <summary></summary>
+        </member>
+        <member name="T:TheSubAquanLaboratory.Framework.Commands.ITurnCommand">
+            <summary></summary>
+        </member>
+        <member name="T:TheSubAquanLaboratory.Framework.Commands.IScoreCommand">
+            <summary></summary>
+        </member>
+        <member name="T:TheSubAquanLaboratory.Framework.IGameState">
+            <summary></summary>
+        </member>
+        <member name="P:TheSubAquanLaboratory.Framework.IGameState.FoodButtonPushes">
+            <summary></summary>
+        </member>
+        <member name="P:TheSubAquanLaboratory.Framework.IGameState.Sterilize">
+            <summary></summary>
+        </member>
+        <member name="P:TheSubAquanLaboratory.Framework.IGameState.Flood">
+            <summary></summary>
+        </member>
+        <member name="P:TheSubAquanLaboratory.Framework.IGameState.FloodLevel">
+            <summary></summary>
+        </member>
+        <member name="P:TheSubAquanLaboratory.Framework.IGameState.Elevation">
+            <summary></summary>
+        </member>
+        <member name="P:TheSubAquanLaboratory.Framework.IGameState.Energize">
+            <summary></summary>
+        </member>
+        <member name="P:TheSubAquanLaboratory.Framework.IGameState.EnergyMaceCharge">
+            <summary></summary>
+        </member>
+        <member name="P:TheSubAquanLaboratory.Framework.IGameState.LaserScalpelCharge">
+            <summary></summary>
+        </member>
+        <member name="P:TheSubAquanLaboratory.Framework.IGameState.CabinetOpen">
+            <summary></summary>
+        </member>
+        <member name="P:TheSubAquanLaboratory.Framework.IGameState.LockerOpen">
+            <summary></summary>
+        </member>
+        <member name="P:TheSubAquanLaboratory.Framework.IGameState.Shark">
+            <summary></summary>
+        </member>
+        <member name="P:TheSubAquanLaboratory.Framework.IGameState.FloorAttack">
+            <summary></summary>
+        </member>
+        <member name="P:TheSubAquanLaboratory.Framework.IGameState.QuestValue">
+            <summary></summary>
+        </member>
+        <member name="P:TheSubAquanLaboratory.Framework.IGameState.ReadPlaque">
+            <summary></summary>
+        </member>
+        <member name="P:TheSubAquanLaboratory.Framework.IGameState.ReadTerminals">
+            <summary></summary>
+        </member>
+        <member name="P:TheSubAquanLaboratory.Framework.IGameState.FakeWallExamines">
+            <summary></summary>
+        </member>
+        <member name="P:TheSubAquanLaboratory.Framework.IGameState.AlphabetDial">
+            <summary></summary>
+        </member>
+        <member name="P:TheSubAquanLaboratory.Framework.IGameState.ReadDisplayScreen">
+            <summary></summary>
+        </member>
+        <member name="P:TheSubAquanLaboratory.Framework.IGameState.LabRoomsSeen">
+            <summary></summary>
+        </member>
+        <member name="T:TheSubAquanLaboratory.Framework.IMonster">
+            <summary></summary>
+        </member>
+        <member name="M:TheSubAquanLaboratory.Framework.IMonster.IsAndroid">
+            <summary>Indicates whether this <see cref="T:TheSubAquanLaboratory.Framework.IMonster">Monster</see> is classified as an android.</summary>
+            <returns>If so then <c>true</c>, otherwise <c>false</c>.</returns>
+        </member>
+        <member name="T:TheSubAquanLaboratory.Framework.Plugin.IEngine">
+            <summary></summary>
+        </member>
+        <member name="P:TheSubAquanLaboratory.Framework.Plugin.IEngine.WallArtifact">
+            <summary></summary>
+        </member>
+        <member name="P:TheSubAquanLaboratory.Framework.Plugin.IEngine.WallZeroAc">
+            <summary></summary>
+        </member>
+        <member name="P:TheSubAquanLaboratory.Framework.Plugin.IEngine.WallDamage">
+            <summary></summary>
+        </member>
+        <member name="P:TheSubAquanLaboratory.Framework.Plugin.IEngine.AttackingWall">
+            <summary></summary>
+        </member>
+        <member name="M:TheSubAquanLaboratory.Framework.Plugin.IEngine.ProcessWallAttack(Eamon.Framework.IRoom,Eamon.Framework.IMonster,Eamon.Framework.IArtifact,System.Boolean)">
+            <summary></summary>
+            <param name="actorRoom"></param>
+            <param name="actorMonster"></param>
+            <param name="dobjArtifact"></param>
+            <param name="blastSpell"></param>
+        </member>
+        <member name="M:TheSubAquanLaboratory.Game.Helpers.GameStateHelper.ValidateFoodButtonPushes">
+            <summary></summary>
+            <returns></returns>
+        </member>
+        <member name="M:TheSubAquanLaboratory.Game.Helpers.GameStateHelper.ValidateFlood">
+            <summary></summary>
+            <returns></returns>
+        </member>
+        <member name="M:TheSubAquanLaboratory.Game.Helpers.GameStateHelper.ValidateFloodLevel">
+            <summary></summary>
+            <returns></returns>
+        </member>
+        <member name="M:TheSubAquanLaboratory.Game.Helpers.GameStateHelper.ValidateElevation">
+            <summary></summary>
+            <returns></returns>
+        </member>
+        <member name="M:TheSubAquanLaboratory.Game.Helpers.GameStateHelper.ValidateEnergyMaceCharge">
+            <summary></summary>
+            <returns></returns>
+        </member>
+        <member name="M:TheSubAquanLaboratory.Game.Helpers.GameStateHelper.ValidateLaserScalpelCharge">
+            <summary></summary>
+            <returns></returns>
+        </member>
+        <member name="M:TheSubAquanLaboratory.Game.Helpers.GameStateHelper.ValidateQuestValue">
+            <summary></summary>
+            <returns></returns>
+        </member>
+        <member name="M:TheSubAquanLaboratory.Game.Helpers.GameStateHelper.ValidateFakeWallExamines">
+            <summary></summary>
+            <returns></returns>
+        </member>
+        <member name="M:TheSubAquanLaboratory.Game.Helpers.GameStateHelper.ValidateLabRoomsSeen">
+            <summary></summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

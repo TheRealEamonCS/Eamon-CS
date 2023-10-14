@@ -360,6 +360,8 @@ namespace EamonPM
 			e = ThePyramidOfAnharos.Game.Plugin.Globals.gEngine;
 			
 			e = SampleAdventure.Game.Plugin.Globals.gEngine;
+
+			e = TheSubAquanLaboratory.Game.Plugin.Globals.gEngine;
 			
 			e = TheWayfarersInn.Game.Plugin.Globals.gEngine;
 
