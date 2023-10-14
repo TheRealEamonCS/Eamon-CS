@@ -103,11 +103,14 @@ namespace EamonPM.Game.Portability
 
 			if (EnableOutput && Stdout)
 			{
-				Console.SetCursorPosition(coord.X, coord.Y);
-			}
-			else
-			{
-				// do nothing
+				try
+				{
+					Console.SetCursorPosition(coord.X, coord.Y);
+				}
+				catch (Exception)
+				{
+					// do nothing
+				}
 			}
 		}
 
@@ -117,11 +120,14 @@ namespace EamonPM.Game.Portability
 
 			if (EnableOutput && Stdout)
 			{
-				Console.Title = title;
-			}
-			else
-			{
-				// do nothing
+				try
+				{
+					Console.Title = title;
+				}
+				catch (Exception)
+				{
+					// do nothing
+				}
 			}
 		}
 
@@ -129,13 +135,16 @@ namespace EamonPM.Game.Portability
 		{
 			if (EnableOutput && Stdout)
 			{
+				try
+				{
 #pragma warning disable CA1416 // Validate platform compatibility
-				Console.SetWindowSize((int)width, (int)height);
+					Console.SetWindowSize((int)width, (int)height);
 #pragma warning restore CA1416 // Validate platform compatibility
-			}
-			else
-			{
-				// do nothing
+				}
+				catch (Exception)
+				{
+					// do nothing
+				}
 			}
 		}
 
@@ -143,13 +152,16 @@ namespace EamonPM.Game.Portability
 		{
 			if (EnableOutput && Stdout)
 			{
+				try
+				{
 #pragma warning disable CA1416 // Validate platform compatibility
-				Console.SetBufferSize((int)width, (int)height);
+					Console.SetBufferSize((int)width, (int)height);
 #pragma warning restore CA1416 // Validate platform compatibility
-			}
-			else
-			{
-				// do nothing
+				}
+				catch (Exception)
+				{
+					// do nothing
+				}
 			}
 		}
 

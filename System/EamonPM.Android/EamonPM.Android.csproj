@@ -138,6 +138,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Bin\SampleAdventure.dll</HintPath>
     </Reference>
+    <Reference Include="TheSubAquanLaboratory, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Bin\TheSubAquanLaboratory.dll</HintPath>
+    </Reference>
     <Reference Include="TheWayfarersInn, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Bin\TheWayfarersInn.dll</HintPath>
@@ -696,6 +700,24 @@
     <AndroidAsset Include="Assets\Adventures\SampleAdventure\MODULE.DAT" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidAsset Include="Assets\Adventures\TheSubAquanLaboratory\ROOMS.DAT" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\Adventures\TheSubAquanLaboratory\ARTIFACTS.DAT" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\Adventures\TheSubAquanLaboratory\EFFECTS.DAT" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\Adventures\TheSubAquanLaboratory\HINTS.DAT" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\Adventures\TheSubAquanLaboratory\MODULE.DAT" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\Adventures\TheSubAquanLaboratory\MONSTERS.DAT" />
+  </ItemGroup>
+  <ItemGroup>
     <AndroidAsset Include="Assets\Adventures\TheWayfarersInn\ROOMS.DAT" />
   </ItemGroup>
   <ItemGroup>
@@ -767,6 +789,7 @@ xcopy "$(TargetDir)..\..\Adventures\TheTowerOfEamon\*.DAT" "$(TargetDir)..\Eamon
 xcopy "$(TargetDir)..\..\Adventures\EscapeFromMtMoon\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\EscapeFromMtMoon" /I /S /Y
 xcopy "$(TargetDir)..\..\Adventures\ThePyramidOfAnharos\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\ThePyramidOfAnharos" /I /S /Y
 xcopy "$(TargetDir)..\..\Adventures\SampleAdventure\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\SampleAdventure" /I /S /Y
+xcopy "$(TargetDir)..\..\Adventures\TheSubAquanLaboratory\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\TheSubAquanLaboratory" /I /S /Y
 xcopy "$(TargetDir)..\..\Adventures\TheWayfarersInn\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\TheWayfarersInn" /I /S /Y
 </PreBuildEvent>
   </PropertyGroup>

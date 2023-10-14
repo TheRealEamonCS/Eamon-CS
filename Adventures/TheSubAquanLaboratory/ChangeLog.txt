@@ -1,0 +1,35 @@
+﻿
+==================================================================================================================================
+ChangeLog: TheSubAquanLaboratory
+==================================================================================================================================
+
+Date            Version            Who            Notes
+----------------------------------------------------------------------------------------------------------------------------------
+20230531        2.2.0              MP             Player/Monster Command Unification overhaul
+20230531                           MP             Artifact Character/Monster Method Unification overhaul
+20221031        2.1.0              MP             Plugin Class Unification overhaul
+20220416                           MP             Back wall/Glass walls attack processing overhaul
+20211211                           MP             ProcessEvents normalization overhaul
+20210331                           MP             Player/Monster Command normalization overhaul
+20210331                           MP             GZip datafile overhaul
+20201031        1.7.0              MP             Direction overhaul
+20201031                           MP             CommandParser IGameBase overhaul
+20200930        1.6.0              MP             Full-sentence parser overhaul
+20200709                           MP             CommandParser/Command overhaul
+20200116                           MP             PluginContext convenience property overhaul
+20190601                           MP             ContainerType overhaul
+20190225        1.5.0              MP             Using Enums/Classes overhaul
+20181102                           MP             Rename CharacterWeapon to CharacterArtifact
+20180705        1.4.0              MP             Helper/Args overhaul
+20180527                           MP             Event Handler overhaul
+20180505                           MP             ClassMappings overhaul
+20180307                           MP             Rename ArtifactClass to ArtifactCategory
+20180126        1.3.0              MP             Print/SetPrint/AppendPrint overhaul
+20171021                           MP             Engine overhaul
+20171012                           MP             Eval/GameBase/Helper overhaul
+20170920                           MP             Compliant with .NET Standard 2.0
+20170326                           MP             Indexer overhaul; replaced with array accessor methods
+20170211        1.2.0              MP             Namespace overhaul
+20170123        1.1.0              MP             Portability overhaul; converted to plugin model
+20160919        1.0.0              MP             Code complete 1.0.0
+20160810                           MP             Work begins on C# port
