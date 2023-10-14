@@ -112,10 +112,6 @@ namespace EamonPM.Game.Portability
 					// do nothing
 				}
 			}
-			else
-			{
-				// do nothing
-			}
 		}
 
 		public virtual void SetWindowTitle(string title)
@@ -132,10 +128,6 @@ namespace EamonPM.Game.Portability
 				{
 					// do nothing
 				}
-			}
-			else
-			{
-				// do nothing
 			}
 		}
 
@@ -154,10 +146,6 @@ namespace EamonPM.Game.Portability
 					// do nothing
 				}
 			}
-			else
-			{
-				// do nothing
-			}
 		}
 
 		public virtual void SetBufferSize(long width, long height)
@@ -174,10 +162,6 @@ namespace EamonPM.Game.Portability
 				{
 					// do nothing
 				}
-			}
-			else
-			{
-				// do nothing
 			}
 		}
 
