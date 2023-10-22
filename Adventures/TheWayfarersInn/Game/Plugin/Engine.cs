@@ -1054,6 +1054,13 @@ namespace TheWayfarersInn.Game.Plugin
 		{
 			base.InitMonsters();
 
+			MacroFuncs.Add(59, () =>
+			{
+				var nolanMonster = MDB[24];
+
+				return GetMonsterWeaponName(nolanMonster);
+			});
+
 			var synonyms = new Dictionary<long, string[]>()
 			{
 				{ 1, new string[] { "pudding" } },

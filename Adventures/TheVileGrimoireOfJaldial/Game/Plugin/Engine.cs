@@ -504,15 +504,6 @@ namespace TheVileGrimoireOfJaldial.Game.Plugin
 			base.MoveMonsters(m => !m.IsCharacterMonster() && (m.Cast<Framework.IMonster>().Seen02 || m.Reaction == Friendliness.Friend) && m.Location == GameState.R3);
 		}
 
-		public virtual string GetMonsterWeaponName(IMonster monster)
-		{
-			Debug.Assert(monster != null);
-
-			var weaponArtifact = monster.Weapon > 0 ? ADB[monster.Weapon] : null;
-
-			return weaponArtifact != null ? weaponArtifact.GetArticleName() : "no weapon";
-		}
-
 		public Engine()
 		{
 			// Accommodate oversized Effect Descs

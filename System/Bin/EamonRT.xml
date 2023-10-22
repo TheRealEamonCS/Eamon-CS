@@ -2091,6 +2091,10 @@
             <summary></summary>
             <param name="monster"></param>
         </member>
+        <member name="M:EamonRT.Framework.Plugin.IEngine.GetMonsterWeaponName(Eamon.Framework.IMonster)">
+            <summary></summary>
+            <param name="monster"></param>
+        </member>
         <member name="M:EamonRT.Framework.Plugin.IEngine.RevealDisguisedMonster(Eamon.Framework.IRoom,Eamon.Framework.IArtifact)">
             <summary></summary>
             <param name="room"></param>
