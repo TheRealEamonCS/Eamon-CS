@@ -33,6 +33,14 @@ namespace TheWayfarersInn.Game
 
 							return mirrorArtifact.Seen && notebookArtifact.Seen;
 
+						case 6:
+
+							var childsSkeletonArtifact = gADB[54];
+
+							Debug.Assert(childsSkeletonArtifact != null);
+
+							return childsSkeletonArtifact.Seen;
+
 						default:
 
 							return base.Active;
