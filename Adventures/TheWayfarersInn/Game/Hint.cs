@@ -35,6 +35,14 @@ namespace TheWayfarersInn.Game
 
 						case 6:
 
+							var cellarDoorArtifact = gADB[33];
+
+							Debug.Assert(cellarDoorArtifact != null);
+
+							return cellarDoorArtifact.Seen;
+
+						case 7:
+
 							var childsSkeletonArtifact = gADB[54];
 
 							Debug.Assert(childsSkeletonArtifact != null);
