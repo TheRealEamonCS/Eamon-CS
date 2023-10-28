@@ -2009,6 +2009,15 @@ namespace EamonRT.Game.Plugin
 			// --> Add effects of monster's death here
 		}
 
+		public virtual string GetMonsterWeaponName(IMonster monster)
+		{
+			Debug.Assert(monster != null);
+
+			var weaponArtifact = monster.Weapon > 0 ? ADB[monster.Weapon] : null;
+
+			return weaponArtifact != null ? weaponArtifact.GetArticleName() : monster.Weapon == 0 ? "natural weapons" : "no weapon";
+		}
+
 		public virtual void RevealDisguisedMonster(IRoom room, IArtifact artifact)
 		{
 			RetCode rc;

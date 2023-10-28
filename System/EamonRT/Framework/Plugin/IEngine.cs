@@ -582,6 +582,10 @@ namespace EamonRT.Framework.Plugin
 		void ProcessMonsterDeathEvents(IMonster monster);
 
 		/// <summary></summary>
+		/// <param name="monster"></param>
+		string GetMonsterWeaponName(IMonster monster);
+
+		/// <summary></summary>
 		/// <param name="room"></param>
 		/// <param name="artifact"></param>
 		void RevealDisguisedMonster(IRoom room, IArtifact artifact);
