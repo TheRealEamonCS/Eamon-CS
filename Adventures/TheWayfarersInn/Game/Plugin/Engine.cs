@@ -1228,6 +1228,19 @@ namespace TheWayfarersInn.Game.Plugin
 			}
 		}
 
+		public override void GetRandomMoveDirection(IRoom room, IMonster monster, bool fleeing, ref Direction direction, ref bool found, ref long roomUid)
+		{
+			Debug.Assert(room != null);
+
+			// Exclude movement into Tiaga Gorge
+
+			do
+			{
+				base.GetRandomMoveDirection(room, monster, fleeing, ref direction, ref found, ref roomUid);
+			}
+			while ((room.Uid == 4 || room.Uid == 5 || room.Uid == 6 || room.Uid == 7) && roomUid == -60);
+		}
+
 		public override IList<IArtifact> GetReadyableWeaponList(IMonster monster)
 		{
 			var result = base.GetReadyableWeaponList(monster);
