@@ -3705,7 +3705,7 @@ namespace Eamon.Game.Plugin
 			{
 				if (spaceSeen)
 				{
-					if (Char.IsLetter(buf[p]))
+					if (!Char.IsWhiteSpace(buf[p]))
 					{
 						buf[p] = Char.ToUpper(buf[p]);
 
