@@ -365,9 +365,11 @@ namespace TheWayfarersInn.Game
 
 		public override bool IsRequestable()
 		{
-			// Leather armor / boots
+			var artifactUids = new long[] { 177, 178, 189 };
 
-			return Uid != 177 && Uid != 178 ? base.IsRequestable() : false;
+			// Leather armor / Boots / Ghostly teddy bear
+
+			return !artifactUids.Contains(Uid) ? base.IsRequestable() : false;
 		}
 
 		public override bool IsInContainerOpenedFromTop()

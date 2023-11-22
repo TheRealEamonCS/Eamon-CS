@@ -877,6 +877,7 @@ namespace TheWayfarersInn.Game.Plugin
 				{ 185, new string[] { "clothing", "fine outfit", "outfit", "fine clothes", "clothes" } },
 				{ 187, new string[] { "supplies", "rope", "grappling hook", "hook", "spy glass", "spyglass", "compass" } },
 				{ 188, new string[] { "unreachable loft" } },
+				{ 189, new string[] { "spectral teddy bear", "ghostly teddy", "ghostly bear", "spectral teddy", "spectral bear", "stuffed teddy", "teddy", "stuffed bear", "bear", "toy" } },
 
 			};
 

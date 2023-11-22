@@ -129,6 +129,20 @@ namespace TheWayfarersInn.Game.Commands
 			}
 		}
 
+		public override void PrintObjBelongsToActor(IArtifact artifact, IMonster monster)
+		{
+			// Charlotte / Ghostly teddy bear
+
+			if (artifact?.Uid == 189 && monster?.Uid == 4)
+			{
+				gOut.Print("{0} hugs {1} like it's her only friend.", monster.GetTheName(true), artifact.GetTheName());
+			}
+			else
+			{
+				base.PrintObjBelongsToActor(artifact, monster);
+			}
+		}
+
 		public override void PrintPutObjPrepContainer(IArtifact artifact, IArtifact container, ContainerType containerType)
 		{
 			Debug.Assert(artifact != null && container != null && Enum.IsDefined(typeof(ContainerType), containerType));
