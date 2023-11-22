@@ -26,15 +26,6 @@ namespace TheWayfarersInn.Game.Commands
 
 				NextState = gEngine.CreateInstance<IMonsterStartState>();
 			}
-
-			// Charlotte
-
-			else if (ActorRoom.IsLit() && DobjMonster != null && DobjMonster.Uid == 4)
-			{
-				gOut.Print("{0} is carrying a ghostly teddy bear.", DobjMonster.GetTheName(true));
-
-				NextState = gEngine.CreateInstance<IMonsterStartState>();
-			}
 			else
 			{
 				base.ExecuteForPlayer();

@@ -95,13 +95,6 @@ namespace TheWayfarersInn.Game
 			return Uid != 4 ? base.HasWornInventory() : false;
 		}
 
-		public override bool HasCarriedInventory()
-		{
-			// Charlotte has no carried inventory list
-
-			return Uid != 4 ? base.HasCarriedInventory() : false;
-		}
-
 		public override bool HasHumanNaturalAttackDescs()
 		{
 			var monsterUids = new long[] { 8, 24 };
@@ -179,6 +172,15 @@ namespace TheWayfarersInn.Game
 			// Unseen apparition / Charlotte
 
 			return !monsterUids.Contains(Uid) ? base.ShouldShowHealthStatusWhenExamined() : false;
+		}
+
+		public override bool ShouldShowHealthStatusWhenInventoried()
+		{
+			var monsterUids = new long[] { 4 };
+
+			// Charlotte
+
+			return !monsterUids.Contains(Uid) ? base.ShouldShowHealthStatusWhenInventoried() : false;
 		}
 
 		public override bool ShouldRefuseToAcceptGift(IArtifact artifact)

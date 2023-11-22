@@ -63,7 +63,7 @@ namespace TheWayfarersInn.Game.Parsing
 
 				// Haunting / Windows
 
-				else if (!(NextCommand is IExamineCommand) && DobjArtifact != null && (DobjArtifact.Uid == 151 || DobjArtifact.Uid == 153))
+				else if (!(NextCommand is IExamineCommand) && NextCommand.Type != CommandType.Movement && DobjArtifact != null && (DobjArtifact.Uid == 151 || DobjArtifact.Uid == 153))
 				{
 					gOut.Print("{0} {1} not accessible from here.", DobjArtifact.GetTheName(true), DobjArtifact.EvalPlural("is", "are"));
 

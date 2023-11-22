@@ -81,6 +81,17 @@ namespace TheWayfarersInn.Game.Commands
 
 						GotoCleanup = true;
 					}
+
+					// Disable giving
+
+					else
+					{
+						gEngine.PrintMonsterEmotes(IobjMonster);
+
+						gOut.WriteLine();
+
+						GotoCleanup = true;
+					}
 				}
 			}
 		}
