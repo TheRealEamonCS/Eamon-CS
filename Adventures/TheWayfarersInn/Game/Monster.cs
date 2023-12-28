@@ -65,18 +65,6 @@ namespace TheWayfarersInn.Game
 							result = gGameState.Ro;
 						}
 					}
-
-					// Charlotte
-
-					else if (Uid == 4 && gGameState.CharlotteDeathSeen)
-					{
-						var roomUids = new long[] { 34 };
-
-						if (roomUids.Contains(gGameState.Ro))
-						{
-							result = gGameState.Ro;
-						}
-					}
 				}
 
 				return result;
@@ -229,7 +217,7 @@ namespace TheWayfarersInn.Game
 
 				Uid == 7 ? new string[] { "lunge{0} at", "bite{0} at", "claw{0} at", "pounce{0} on" } :
 
-				// Giant yellow jackets
+				// Giant yellowjackets
 
 				Uid == 9 ? new string[] { "sting{0}", "jab{0} at" } :
 
@@ -307,7 +295,7 @@ namespace TheWayfarersInn.Game
 					armorDesc = "its coarse fur";
 				}
 
-				// Giant yellow jackets / Rust monster
+				// Giant yellowjackets / Rust monster
 
 				else if (Uid == 9 || Uid == 20)
 				{

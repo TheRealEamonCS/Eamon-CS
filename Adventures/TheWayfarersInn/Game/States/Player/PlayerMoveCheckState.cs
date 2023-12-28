@@ -7,7 +7,6 @@ using System;
 using System.Diagnostics;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
-using EamonRT.Framework.Components;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
 using static TheWayfarersInn.Game.Plugin.Globals;
@@ -40,40 +39,6 @@ namespace TheWayfarersInn.Game.States
 					NextState = gEngine.CreateInstance<IMonsterStartState>();
 
 					GotoCleanup = true;
-				}
-
-				// Exit jagged breach (lower floor)
-
-				else if ((gGameState.Ro == 42 && gGameState.R2 == 11) || (gGameState.Ro == 45 && gGameState.R2 == 9))
-				{
-					gEngine.PrintEffectDesc(136);
-				}
-
-				// Jump out jagged breach (upper floor)
-
-				else if ((gGameState.Ro == 57 && gGameState.R2 == 10) || (gGameState.Ro == 59 && gGameState.R2 == 12))
-				{
-					gEngine.PrintEffectDesc(137);
-
-					var combatComponent = gEngine.CreateInstance<ICombatComponent>(x =>
-					{
-						x.SetNextStateFunc = s => NextState = s;
-
-						x.ActorRoom = gCharRoom;
-
-						x.Dobj = gCharMonster;
-
-						x.OmitArmor = true;
-					});
-
-					combatComponent.ExecuteCalculateDamage(1, 1);
-
-					if (gGameState.Die > 0)
-					{
-						GotoCleanup = true;
-					}
-
-					// TODO: injure companions as well ???
 				}
 			}
 			else if (eventType == EventType.AfterBlockingArtifactCheck)

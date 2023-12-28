@@ -725,6 +725,16 @@ namespace EamonRT.Game.Plugin
 			Out.Write("{0}Your choice: ", Environment.NewLine);
 		}
 
+		public virtual void PrintReallyWantToStartOver()
+		{
+			Out.Write("{0}Do you really want to start over (Y/N): ", Environment.NewLine);
+		}
+
+		public virtual void PrintReallyWantToAcceptDeath()
+		{
+			Out.Write("{0}Do you really want to accept death (Y/N): ", Environment.NewLine);
+		}
+
 		public virtual void PrintWakingUpMonsters()
 		{
 			Out.WriteLine("Please wait a short while (waking up the monsters...)");
@@ -798,7 +808,7 @@ namespace EamonRT.Game.Plugin
 		{
 			Debug.Assert(saveSlot > 0);
 
-			Out.Print("[Using #{0} instead{1}]", saveSlot, gEngine.EnableScreenReaderMode ? "" : ".");
+			Out.Print("[Using #{0} instead{1}]", saveSlot, EnableScreenReaderMode ? "" : ".");
 		}
 
 		public virtual void PrintEnterSaveSlotChoice(long numMenuItems)
@@ -1793,48 +1803,94 @@ namespace EamonRT.Game.Plugin
 
 		public virtual void DeadMenu(bool printLineSep, ref bool restoreGame)
 		{
-			restoreGame = false;
-
-			if (printLineSep)
+			while (true)
 			{
+				restoreGame = false;
+
+				if (printLineSep)
+				{
+					Out.Print("{0}", LineSep);
+				}
+
+				PrintYouHavePerished();
+
+				PrintRestoreSavedGame();
+
+				PrintStartOver();
+
+				PrintAcceptDeath();
+
 				Out.Print("{0}", LineSep);
-			}
 
-			PrintYouHavePerished();
+				PrintEnterDeadMenuChoice();
 
-			PrintRestoreSavedGame();
+				Buf.Clear();
 
-			PrintStartOver();
+				var rc = In.ReadField(Buf, BufSize02, null, ' ', '\0', false, null, ModifyCharToUpper, IsChar1To3, null);
 
-			PrintAcceptDeath();
+				Debug.Assert(IsSuccess(rc));
 
-			Out.Print("{0}", LineSep);
+				var i = Convert.ToInt64(Buf.Trim().ToString());
 
-			PrintEnterDeadMenuChoice();
+				var confirmed = false;
 
-			Buf.Clear();
+				if (i == 2 || i == 3)
+				{
+					Out.Print("{0}", LineSep);
 
-			var rc = In.ReadField(Buf, BufSize02, null, ' ', '\0', false, null, ModifyCharToUpper, IsChar1To3, null);
+					if (i == 2)
+					{
+						PrintReallyWantToStartOver();
+					}
+					else
+					{
+						PrintReallyWantToAcceptDeath();
+					}
 
-			Debug.Assert(IsSuccess(rc));
+					Buf.Clear();
 
-			var i = Convert.ToInt64(Buf.Trim().ToString());
+					rc = In.ReadField(Buf, BufSize02, null, ' ', '\0', false, null, ModifyCharToUpper, IsCharYOrN, null);
 
-			if (i == 3)
-			{
-				ExitType = ExitType.GoToMainHall;
+					Debug.Assert(IsSuccess(rc));
 
-				MainLoop.ShouldShutdown = false;
-			}
-			else if (i == 2)
-			{
-				ExitType = ExitType.StartOver;
+					if (Buf.Length > 0 && Buf[0] == 'Y')
+					{
+						confirmed = true;
+					}
+					else
+					{
+						printLineSep = true;
+					}
+				}
 
-				MainLoop.ShouldShutdown = false;
-			}
-			else
-			{
-				restoreGame = true;
+				if (i == 3)
+				{
+					if (confirmed)
+					{
+						ExitType = ExitType.GoToMainHall;
+
+						MainLoop.ShouldShutdown = false;
+
+						break;
+					}
+				}
+				else if (i == 2)
+				{
+					if (confirmed)
+					{
+						ExitType = ExitType.StartOver;
+
+						MainLoop.ShouldShutdown = false;
+
+						break;
+					}
+				}
+				else
+				{
+					restoreGame = true;
+
+					break;
+				}
 			}
 		}
 

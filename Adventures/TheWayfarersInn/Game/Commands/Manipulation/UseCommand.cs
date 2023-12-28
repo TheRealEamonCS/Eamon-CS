@@ -23,6 +23,16 @@ namespace TheWayfarersInn.Game.Commands
 		{
 			Debug.Assert(DobjArtifact != null);
 
+			var roomUids = new long[] { 13, 50, 51 };
+
+			var unseenApparitionMonster = gMDB[2];
+
+			Debug.Assert(unseenApparitionMonster != null);
+
+			var childsApparitionMonster = gMDB[4];
+
+			Debug.Assert(childsApparitionMonster != null);
+
 			var nolanMonster = gMDB[24];
 
 			Debug.Assert(nolanMonster != null);
@@ -37,10 +47,6 @@ namespace TheWayfarersInn.Game.Commands
 
 					if (ActorRoom.Uid == 18)
 					{
-						var childsApparitionMonster = gMDB[4];
-
-						Debug.Assert(childsApparitionMonster != null);
-
 						var crumblingBrickWallArtifact = gADB[53];
 
 						Debug.Assert(crumblingBrickWallArtifact != null);
@@ -103,7 +109,7 @@ namespace TheWayfarersInn.Game.Commands
 					}
 					else
 					{
-						var digResult = ActorRoom.EvalRoomType("This isn't a suitable place for digging!", "You dig for a while but find nothing of interest.");
+						var digResult = ActorRoom.Type == RoomType.Outdoors && !roomUids.Contains(ActorRoom.Uid) ? "You dig for a while but find nothing of interest." : "This isn't a suitable place for digging!";
 
 						gOut.Print(digResult);
 					}
@@ -151,7 +157,9 @@ namespace TheWayfarersInn.Game.Commands
 			{
 				var actionType = DobjArtifact.Uid == 46 ? "mop" : "sweep";
 
-				gOut.Print(ActorRoom.EvalRoomType($"You {actionType} the floor for a while, which looks a little bit cleaner.", $"You want to {actionType}... the ground?"));
+				var actionResult = ActorRoom.Type == RoomType.Indoors || roomUids.Contains(ActorRoom.Uid) ? $"You {actionType} the floor for a while, which looks a little bit cleaner." : $"You want to {actionType}... the ground?";
+
+				gOut.Print(actionResult);
 
 				DobjArtifact.Moved = true;
 
@@ -183,7 +191,21 @@ namespace TheWayfarersInn.Game.Commands
 						gOut.Print("You fill {0} with fresh water from {1}.", DobjArtifact.GetTheName(), waterWellArtifact.GetTheName());
 
 						waterArtifact.SetCarriedByContainer(DobjArtifact);
-						
+
+						if (DobjArtifact.IsCarriedByMonster(ActorMonster))
+						{
+							var charInventoryWeight = 0L;
+
+							var rc = ActorMonster.GetFullInventoryWeight(ref charInventoryWeight, recurse: true);
+
+							Debug.Assert(gEngine.IsSuccess(rc));
+
+							if (charInventoryWeight > gEngine.GetWeightCarryableGronds(ActorMonster.Hardiness))
+							{
+								DobjArtifact.SetInRoom(ActorRoom);
+							}
+						}
+
 						if (!waterArtifact.Seen)
 						{
 							PrintFullDesc(waterArtifact, false, false);
@@ -302,14 +324,6 @@ namespace TheWayfarersInn.Game.Commands
 				{
 					if (!gGameState.CharlotteDeathSeen)
 					{
-						var unseenApparitionMonster = gMDB[2];
-
-						Debug.Assert(unseenApparitionMonster != null);
-
-						var childsApparitionMonster = gMDB[4];
-
-						Debug.Assert(childsApparitionMonster != null);
-
 						var northDoorArtifact = gADB[73];
 
 						Debug.Assert(northDoorArtifact != null);
@@ -449,7 +463,7 @@ namespace TheWayfarersInn.Game.Commands
 				{
 					if (ActorRoom.Uid == 27 && DobjArtifact.IsInRoom(ActorRoom))
 					{
-						if (!gGameState.DartboardCreepsOut)
+						if ((!unseenApparitionMonster.IsInLimbo() || !childsApparitionMonster.IsInLimbo()) && !gGameState.DartboardCreepsOut)
 						{
 							gEngine.PrintEffectDesc(131);
 
@@ -461,8 +475,8 @@ namespace TheWayfarersInn.Game.Commands
 						var rl = gEngine.RollDice(1, 100, 0);
 
 						gOut.Print("You{0} play a quick game of darts{1}",
-							nolanMonster.IsInRoom(ActorRoom) ? " and Nolan" : "", 
-							nolanMonster.IsInRoom(ActorRoom) ? string.Format(" and {0} handily!", rl > 50 ? "you beat him" : "he beats you") : ".");
+							nolanMonster.Reaction == Friendliness.Friend && nolanMonster.IsInRoom(ActorRoom) ? " and Nolan" : "",
+							nolanMonster.Reaction == Friendliness.Friend && nolanMonster.IsInRoom(ActorRoom) ? string.Format(" and {0} handily!", rl > 50 ? "you beat him" : "he beats you") : ".");
 					}
 					else
 					{
@@ -506,8 +520,8 @@ namespace TheWayfarersInn.Game.Commands
 					var rl = gEngine.RollDice(1, 100, 0);
 
 					gOut.Print("You{0} play a quick game of cards{1}",
-						nolanMonster.IsInRoom(ActorRoom) ? " and Nolan" : "",
-						nolanMonster.IsInRoom(ActorRoom) ? string.Format(" and {0} handily!", rl > 50 ? "you beat him" : "he beats you") : ".");
+						nolanMonster.Reaction == Friendliness.Friend && nolanMonster.IsInRoom(ActorRoom) ? " and Nolan" : "",
+						nolanMonster.Reaction == Friendliness.Friend && nolanMonster.IsInRoom(ActorRoom) ? string.Format(" and {0} handily!", rl > 50 ? "you beat him" : "he beats you") : ".");
 
 					// Using deck of cards damages its value
 

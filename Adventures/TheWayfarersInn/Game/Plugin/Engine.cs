@@ -117,7 +117,7 @@ namespace TheWayfarersInn.Game.Plugin
 				Out.Write("{0}{1} {2}{3} at you.", Environment.NewLine, monster.GetTheName(true), rl > 50 ? "gesture" : "curse", monster.EvalPlural("s", ""));
 			}
 
-			// Giant yellow jackets
+			// Giant yellowjackets
 
 			else if (monster.Uid == 9)
 			{
@@ -360,6 +360,8 @@ namespace TheWayfarersInn.Game.Plugin
 			});
 
 			MacroFuncs.Add(57, () => IsKitchenShelfBalanced() ? "" : " crooked");
+
+			MacroFuncs.Add(61, () => gGameState.LadderUsed ? " a" : " an unreachable");
 
 			var roomDescTemplate = @"You are in {0} room{1} with {2} furniture set{3}. The {4} window in the {5} wall overlooks {6} and casts {7} glow across the space. The {8} air smells faintly of {9}. {10}";
 
@@ -729,6 +731,86 @@ namespace TheWayfarersInn.Game.Plugin
 				return result;
 			});
 
+			MacroFuncs.Add(60, () =>
+			{
+				var result = "";
+
+				var smallBarnArtifact = ADB[8];
+
+				Debug.Assert(smallBarnArtifact != null);
+
+				if (smallBarnArtifact.DoorGate.IsOpen())
+				{
+					result = string.Format(" The door hangs ajar{0}.", GameState.Ls > 0 ? ", revealing a derelict interior" : "");
+				}
+
+				return result;
+			});
+
+			MacroFuncs.Add(62, () =>
+			{
+				var result = "";
+
+				var liquorCabinetArtifact = ADB[133];
+
+				Debug.Assert(liquorCabinetArtifact != null);
+
+				if (liquorCabinetArtifact.InContainer.IsOpen())
+				{
+					result = " Its shelves are empty of the colorful bottles and jars that once filled them.";
+				}
+
+				return result;
+			});
+
+			MacroFuncs.Add(63, () =>
+			{
+				var result = "";
+
+				var burlapSackArtifact = ADB[34];
+
+				Debug.Assert(burlapSackArtifact != null);
+
+				if (burlapSackArtifact.InContainer.IsOpen())
+				{
+					result = " The inside is an odd, swirling black vortex.";
+				}
+
+				return result;
+			});
+
+			MacroFuncs.Add(64, () =>
+			{
+				var result = "";
+
+				var bottleOfBourbonArtifact = ADB[130];
+
+				Debug.Assert(bottleOfBourbonArtifact != null);
+
+				if (bottleOfBourbonArtifact.Drinkable.Field2 > 0)
+				{
+					result = string.Format(" The bourbon inside has a deep amber color{0}.", bottleOfBourbonArtifact.Drinkable.IsOpen() ? " and a smoky aroma with notes of vanilla and caramel" : "");
+				}
+
+				return result;
+			});
+
+			MacroFuncs.Add(65, () =>
+			{
+				var result = "";
+
+				var armoireArtifact = ADB[184];
+
+				Debug.Assert(armoireArtifact != null);
+
+				if (!armoireArtifact.InContainer.IsOpen())
+				{
+					result = string.Format(" The closed doors, possibly concealing secrets, are safeguarded by a{0}.", armoireArtifact.InContainer.GetBreakageStrength() > 1000 ? " sturdy padlock, warding off potential thieves" : " broken padlock");
+				}
+
+				return result;
+			});
+
 			var synonyms = new Dictionary<long, string[]>()
 			{
 				{ 1, new string[] { "rickety suspension bridge", "wooden suspension bridge", "rickety bridge", "wooden bridge", "bridge" } },
@@ -750,7 +832,7 @@ namespace TheWayfarersInn.Game.Plugin
 				{ 20, new string[] { "stone temple", "stone temple door", "stone door", "temple door", "door" } },
 				{ 21, new string[] { "graveyard", "cemetary" } },
 				{ 24, new string[] { "pool" } },
-				{ 25, new string[] { "gravestones", "gravestone", "tombstones", "tombstone", "gravesites", "gravesite", "markers", "marker" } },
+				{ 25, new string[] { "gravestones", "gravestone", "tombstones", "tombstone", "headstones", "headstone", "gravesites", "gravesite", "markers", "marker", "stones", "stone" } },
 				{ 26, new string[] { "desk" } },
 				{ 27, new string[] { "key ring", "keys", "key" } },
 				{ 28, new string[] { "giant wood statue", "towering bear statue", "towering statue", "bear statue", "giant statue", "wooden statue", "wood statue", "statue", "statue base", "base", "giant bear", "bear", "ancient runes", "runes", "rune", "script", "text" } },
@@ -1072,7 +1154,7 @@ namespace TheWayfarersInn.Game.Plugin
 				{ 6, new string[] { "swarm of bats", "swarm", "bats" } },
 				{ 7, new string[] { "wolves", "wolf" } },
 				{ 8, new string[] { "robbers", "crypt crashers", "crashers", "robber", "crasher" } },
-				{ 9, new string[] { "giant jackets", "giant jacket", "yellow jackets", "yellow jacket", "jackets", "jacket", "insects", "insect" } },
+				{ 9, new string[] { "giant yellow jackets", "giant yellow jacket", "giant wasps", "giant wasp", "yellowjackets", "yellowjacket", "yellow jackets", "yellow jacket", "wasps", "wasp", "insects", "insect" } },
 				{ 10, new string[] { "giant beetles", "giant beetle", "bombardier beetles", "bombardier beetle", "beetles", "beetle", "insects", "insect" } },
 				{ 11, new string[] { "giant beetles", "giant beetle", "fire beetles", "fire beetle", "beetles", "beetle", "insects", "insect" } },
 				{ 12, new string[] { "giant recluses", "giant recluse", "brown recluses", "brown recluse", "giant spiders", "giant spider", "recluses", "recluse", "spiders", "spider" } },
@@ -1603,7 +1685,7 @@ namespace TheWayfarersInn.Game.Plugin
 
 					if (room.Seen && room02.Seen)
 					{
-						result += string.Format(" You must have missed {0} when you first explored the clearing.", numPaths > 1 ? "them" : "it");
+						result += string.Format(" You must have missed {0} when you first explored the area.", numPaths > 1 ? "them" : "it");
 					}
 
 					result += string.Format(" You make a mental note to investigate {0} later.", numPaths > 1 ? "these" : "this");
@@ -1692,7 +1774,7 @@ namespace TheWayfarersInn.Game.Plugin
 
 				null,
 
-				// Giant yellow jackets
+				// Giant yellowjackets
 
 				new long[] { 37, 38, 39 },
 
@@ -1908,7 +1990,7 @@ namespace TheWayfarersInn.Game.Plugin
 							m.GetTheName(true),
 							m02 != null && m02.IsCharacterMonster() ? "you" : record.GetTheName(),
 							m.EvalGender("his", "her", "its"),
-							m02 != null && m02.IsCharacterMonster() ? " you" : m02 != null ? m02.EvalGender(" him", " her", " it") : a02 != null ? a02.EvalPlural(" it", " them") : "");
+							m02 != null && m02.IsCharacterMonster() ? " you" : m02 != null && m02.CurrGroupCount > 1 ? " them" : m02 != null ? m02.EvalGender(" him", " her", " it") : a02 != null ? a02.EvalPlural(" it", " them") : "");
 					}
 				},
 				(r, m) =>

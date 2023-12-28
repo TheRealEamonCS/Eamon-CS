@@ -6,7 +6,6 @@
 using System.Diagnostics;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
-using EamonRT.Framework.Components;
 using EamonRT.Framework.States;
 using static TheWayfarersInn.Game.Plugin.Globals;
 
@@ -70,44 +69,6 @@ namespace TheWayfarersInn.Game.Commands
 					{
 						x.PrintLineSep = true;
 					});
-				}
-				else
-				{
-					PrintEnemiesNearby();
-
-					NextState = gEngine.CreateInstance<IStartState>();
-				}
-			}
-
-			// Courtyard
-
-			else if (DobjArtifact.Uid == 97)
-			{
-				if (!ActorMonster.CheckNBTLHostility())
-				{
-					gEngine.PrintEffectDesc(124);
-
-					var combatComponent = gEngine.CreateInstance<ICombatComponent>(x =>
-					{
-						x.SetNextStateFunc = s => NextState = s;
-
-						x.ActorRoom = ActorRoom;
-
-						x.Dobj = ActorMonster;
-
-						x.OmitArmor = true;
-					});
-
-					combatComponent.ExecuteCalculateDamage(1, 1);
-
-					if (gGameState.Die <= 0)
-					{
-						// TODO: injure companions as well ???
-
-						gGameState.R2 = ActorRoom.Uid == 50 ? 30 : 31;
-
-						NextState = gEngine.CreateInstance<IAfterPlayerMoveState>();
-					}
 				}
 				else
 				{

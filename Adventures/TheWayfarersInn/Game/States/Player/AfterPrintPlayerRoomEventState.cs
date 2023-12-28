@@ -321,7 +321,7 @@ namespace TheWayfarersInn.Game.States
 
 					if (childsApparitionMonster.IsInRoom(gCharRoom))
 					{
-						gOut.Print("{0} sniffles{1}.", gCharRoom.EvalLightLevel("The entity", childsApparitionMonster.GetTheName(true)), gCharRoom.EvalLightLevel("", ", wiping tears from her eyes"));
+						gOut.Print("{0} sniffles{1}.", gCharRoom.EvalLightLevel("An unseen entity", childsApparitionMonster.GetTheName(true)), gCharRoom.EvalLightLevel("", ", wiping tears from her eyes"));
 					}
 
 					rl = gEngine.RollDice(1, 100, 0);

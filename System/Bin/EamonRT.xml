@@ -1876,6 +1876,12 @@
         <member name="M:EamonRT.Framework.Plugin.IEngine.PrintEnterDeadMenuChoice">
             <summary></summary>
         </member>
+        <member name="M:EamonRT.Framework.Plugin.IEngine.PrintReallyWantToStartOver">
+            <summary></summary>
+        </member>
+        <member name="M:EamonRT.Framework.Plugin.IEngine.PrintReallyWantToAcceptDeath">
+            <summary></summary>
+        </member>
         <member name="M:EamonRT.Framework.Plugin.IEngine.PrintWakingUpMonsters">
             <summary></summary>
         </member>

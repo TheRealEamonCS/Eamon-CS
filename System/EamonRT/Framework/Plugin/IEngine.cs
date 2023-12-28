@@ -367,6 +367,12 @@ namespace EamonRT.Framework.Plugin
 		void PrintEnterDeadMenuChoice();
 
 		/// <summary></summary>
+		void PrintReallyWantToStartOver();
+
+		/// <summary></summary>
+		void PrintReallyWantToAcceptDeath();
+
+		/// <summary></summary>
 		void PrintWakingUpMonsters();
 
 		/// <summary></summary>

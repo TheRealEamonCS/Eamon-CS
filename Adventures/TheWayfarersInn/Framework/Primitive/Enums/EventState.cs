@@ -33,7 +33,7 @@ namespace TheWayfarersInn.Framework.Primitive.Enums
 		GraveRobbers,
 
 		/// <summary></summary>
-		GiantYellowJackets,
+		GiantYellowjackets,
 
 		/// <summary></summary>
 		GiantBombardierBeetles,

@@ -4,6 +4,7 @@
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
 using System.Diagnostics;
+using System.Linq;
 using Eamon;
 using Eamon.Framework;
 using Eamon.Framework.Primitive.Classes;
@@ -97,7 +98,10 @@ namespace EamonRT.Game.Commands
 
 				PrintCantReadyWeaponWithShield(DobjArtifact, ShieldArtifact);
 
-				NextState = gEngine.CreateInstance<IStartState>();
+				if (gEngine.LastCommandList.FirstOrDefault(c => c is IGetCommand) == null)
+				{
+					NextState = gEngine.CreateInstance<IStartState>();
+				}
 
 				goto Cleanup;
 			}

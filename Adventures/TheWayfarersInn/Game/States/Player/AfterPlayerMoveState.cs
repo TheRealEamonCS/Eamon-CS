@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Linq;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
+using EamonRT.Framework.Components;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
 using TheWayfarersInn.Framework.Primitive.Classes;
@@ -78,7 +79,7 @@ namespace TheWayfarersInn.Game.States
 
 				// Child's apparition / Charlotte arrives
 
-				if (gCharRoom.IsWayfarersInnRoom() && gCharRoom.IsLit() && gCharRoom.Uid != 38 && gCharRoom.Uid != 42 && !childsApparitionMonster.IsInLimbo() && !childsApparitionMonster.IsInRoom(gCharRoom))
+				if (gCharRoom.IsWayfarersInnRoom() && gCharRoom.Uid != 38 && gCharRoom.Uid != 42 && !childsApparitionMonster.IsInLimbo() && !childsApparitionMonster.IsInRoom(gCharRoom))
 				{
 					childsApparitionMonster.SetInRoom(gCharRoom);
 				}
@@ -168,7 +169,7 @@ namespace TheWayfarersInn.Game.States
 
 				// Go into root cellar; bourbon and folded note appear on bar
 
-				if (gGameState.Ro == 29 && gGameState.R3 == 28 && !gGameState.BourbonAppeared)
+				if (gGameState.Ro == 29 && gGameState.R3 == 28 && (!unseenApparitionMonster.IsInLimbo() || !childsApparitionMonster.IsInLimbo()) && !gGameState.BourbonAppeared)
 				{
 					bottleOfBourbonArtifact.SetCarriedByContainer(barArtifact, ContainerType.On);
 
@@ -180,6 +181,45 @@ namespace TheWayfarersInn.Game.States
 					}
 
 					gGameState.BourbonAppeared = true;
+				}
+
+				// Go through jagged breach (lower floor)
+
+				if ((gGameState.Ro == 11 && gGameState.R3 == 42) || (gGameState.Ro == 9 && gGameState.R3 == 45))
+				{
+					gEngine.PrintEffectDesc(136);
+				}
+
+				// Go through jagged breach (upper floor) / Go into courtyard from Collapsed Walkway or Balcony
+
+				if ((gGameState.Ro == 10 && gGameState.R3 == 57) || (gGameState.Ro == 12 && gGameState.R3 == 59) || (gGameState.Ro == 30 && gGameState.R3 == 50) || (gGameState.Ro == 31 && gGameState.R3 == 51))
+				{
+					gEngine.PrintEffectDesc(gGameState.Ro == 10 || gGameState.Ro == 12 ? 137 : 124);
+
+					var monsterList = gEngine.GetMonsterList(m => m.IsCharacterMonster(), m => m.Uid == 24 && m.IsInRoom(gCharRoom) && m.Reaction == Friendliness.Friend);
+
+					foreach (var monster in monsterList)
+					{
+						var combatComponent = gEngine.CreateInstance<ICombatComponent>(x =>
+						{
+							x.SetNextStateFunc = s => NextState = s;
+
+							x.ActorRoom = gCharRoom;
+
+							x.Dobj = monster;
+
+							x.OmitArmor = true;
+						});
+
+						combatComponent.ExecuteCalculateDamage(1, 1);
+
+						if (gGameState.Die > 0)
+						{
+							GotoCleanup = true;
+
+							goto Cleanup;
+						}
+					}
 				}
 
 				GuestRoomData guestRoomData = null;
@@ -301,6 +341,10 @@ namespace TheWayfarersInn.Game.States
 						gGameState.AfterPrintPlayerRoomEventHeap.Insert02(gGameState.CurrTurn + 1, "River", 0, null);
 					}
 				}
+
+			Cleanup:
+
+				;
 			}
 		}
 	}

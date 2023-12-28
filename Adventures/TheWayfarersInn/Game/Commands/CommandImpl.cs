@@ -59,6 +59,22 @@ namespace TheWayfarersInn.Game.Commands
 			}
 		}
 
+		public override void PrintCantVerbObj(IGameBase obj)
+		{
+			Debug.Assert(obj != null);
+
+			// Glass jar
+
+			if (Command is IOpenCommand && obj is IArtifact artifact && artifact.Uid == 123)
+			{
+				gOut.Print("You would only make a mess. Wait until you leave.");		// Borrowed from Beginner's Cave II
+			}
+			else
+			{
+				base.PrintCantVerbObj(obj);
+			}
+		}
+
 		public override void PrintDoYouMeanObj1OrObj2(IGameBase obj1, IGameBase obj2)
 		{
 			Debug.Assert(obj1 != null && obj2 != null);
@@ -74,6 +90,24 @@ namespace TheWayfarersInn.Game.Commands
 			else
 			{
 				base.PrintDoYouMeanObj1OrObj2(obj1, obj2);
+			}
+		}
+
+		public override void PrintWhyAttack(IGameBase obj)
+		{
+			var artifactUids = new long[] { 96, 97, 98 };
+
+			Debug.Assert(obj != null);
+
+			// Wayfarers Inn east wing / Courtyard / Distant spire
+
+			if (obj is IArtifact artifact && artifactUids.Contains(artifact.Uid))
+			{
+				gOut.Print("{0} {1} not accessible from here.", artifact.GetTheName(true), artifact.EvalPlural("is", "are"));
+			}
+			else
+			{
+				base.PrintWhyAttack(obj);
 			}
 		}
 
