@@ -89,7 +89,7 @@ namespace TheWayfarersInn.Game.States
 
 				// Child's apparition peeks from behind the majestic oak tree
 
-				if (gCharRoom.Uid == 31 && majesticOakTreeArtifact.Seen && !unseenApparitionMonster.IsInRoom(gCharRoom) && !childsApparitionMonster.Seen && !gGameState.CharlottePeeks && gEngine.ShouldPreTurnProcess && gSentenceParser.IsInputExhausted)
+				if (gCharRoom.Uid == 31 && majesticOakTreeArtifact.Seen && !unseenApparitionMonster.IsInLimbo() && !unseenApparitionMonster.IsInRoom(gCharRoom) && !gGameState.CharlottePeeks && gEngine.ShouldPreTurnProcess && gSentenceParser.IsInputExhausted)
 				{
 					gEngine.PrintEffectDesc(128);
 

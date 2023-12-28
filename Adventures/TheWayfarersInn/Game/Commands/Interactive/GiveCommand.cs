@@ -3,6 +3,7 @@
 
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
+using System.Linq;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.Primitive.Enums;
@@ -24,9 +25,24 @@ namespace TheWayfarersInn.Game.Commands
 
 				if (IobjMonster.Uid == 4)
 				{
+					var disabledStates = new long[] { 2, 3 };
+
+					var eventState = gGameState.GetEventState(EventState.ChildsApparition);
+
+					// Disable giving
+
+					if (disabledStates.Contains(eventState))
+					{
+						gEngine.PrintMonsterEmotes(IobjMonster);
+
+						gOut.WriteLine();
+
+						GotoCleanup = true;
+					}
+
 					// Portrait
 
-					if (DobjArtifact.Uid == 30)
+					else if (DobjArtifact.Uid == 30)
 					{
 						if (!gGameState.CharlottePortraitGiven)
 						{
@@ -77,7 +93,7 @@ namespace TheWayfarersInn.Game.Commands
 
 					else if (gDobjArtifact(this).IsArtisanBodyPartArtifact())
 					{
-						gOut.Print("{0} gets a mischievous glint in her eye and says, \"One of the others with hammers and saws...\" She then looks at the {1}.", IobjMonster.GetTheName(true), ActorRoom.EvalRoomType("floor", "ground"));
+						gOut.Print("{0} gets a mischievous glint in her eye and {1}then looks at the {2}.", IobjMonster.GetTheName(true), gGameState.CharlotteArtisansStory ? "says, \"One of the others with hammers and saws...\" She " : "", ActorRoom.EvalRoomType("floor", "ground"));
 
 						GotoCleanup = true;
 					}

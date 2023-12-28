@@ -34,6 +34,15 @@ namespace TheWayfarersInn.Game.Commands
 
 					GotoCleanup = true;
 				}
+
+				// Boots
+
+				else if (DobjArtifact.Uid == 178)
+				{
+					gOut.Print("{0} don't fit you.", DobjArtifact.GetTheName(true));
+
+					GotoCleanup = true;
+				}
 			}
 			else if (eventType == EventType.AfterWearArtifact)
 			{

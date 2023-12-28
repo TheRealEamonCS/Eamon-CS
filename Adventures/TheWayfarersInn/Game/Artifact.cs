@@ -124,6 +124,11 @@ namespace TheWayfarersInn.Game
 							if (roomUids.Contains(gGameState.Ro))
 							{
 								result = gGameState.Ro;
+
+								if (Uid == 97)
+								{
+									DoorGate.Field1 = result == 50 ? 30 : 31;
+								}
 							}
 
 							break;
@@ -349,9 +354,9 @@ namespace TheWayfarersInn.Game
 
 		public override bool IsAttackable(ref IArtifactCategory ac)
 		{
-			// Child's skeleton is not attackable
+			// Treeline gap / Small graveyard / Child's skeleton / Courtyard
 
-			if (Uid == 54)
+			if (Uid == 16 || Uid == 21 || Uid == 54 || Uid == 97)
 			{
 				ac = null;
 

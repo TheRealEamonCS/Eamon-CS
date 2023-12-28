@@ -4,6 +4,7 @@
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
 using System.Diagnostics;
+using System.Linq;
 using Eamon.Framework;
 using Eamon.Framework.Primitive.Classes;
 using Eamon.Framework.Primitive.Enums;
@@ -99,7 +100,10 @@ namespace EamonRT.Game.Commands
 			{
 				PrintAlreadyWearingArmor();
 
-				NextState = gEngine.CreateInstance<IStartState>();
+				if (gEngine.LastCommandList.FirstOrDefault(c => c is IGetCommand) == null)
+				{
+					NextState = gEngine.CreateInstance<IStartState>();
+				}
 
 				goto Cleanup;
 			}
@@ -108,7 +112,10 @@ namespace EamonRT.Game.Commands
 			{
 				PrintAlreadyWearingShield();
 
-				NextState = gEngine.CreateInstance<IStartState>();
+				if (gEngine.LastCommandList.FirstOrDefault(c => c is IGetCommand) == null)
+				{
+					NextState = gEngine.CreateInstance<IStartState>();
+				}
 
 				goto Cleanup;
 			}
@@ -119,7 +126,10 @@ namespace EamonRT.Game.Commands
 			{
 				PrintCantWearShieldWithWeapon(DobjArtifact, WeaponArtifact);
 
-				NextState = gEngine.CreateInstance<IStartState>();
+				if (gEngine.LastCommandList.FirstOrDefault(c => c is IGetCommand) == null)
+				{
+					NextState = gEngine.CreateInstance<IStartState>();
+				}
 
 				goto Cleanup;
 			}

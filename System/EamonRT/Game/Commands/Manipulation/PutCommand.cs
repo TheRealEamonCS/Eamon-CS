@@ -5,6 +5,7 @@
 
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using Eamon;
 using Eamon.Framework;
 using Eamon.Framework.Primitive.Classes;
@@ -94,7 +95,10 @@ namespace EamonRT.Game.Commands
 			{
 				PrintDontFollowYou();
 
-				NextState = gEngine.CreateInstance<IStartState>();
+				if (gEngine.LastCommandList.FirstOrDefault(c => c is IGetCommand) == null)
+				{
+					NextState = gEngine.CreateInstance<IStartState>();
+				}
 
 				goto Cleanup;
 			}
@@ -110,7 +114,10 @@ namespace EamonRT.Game.Commands
 					PrintNotWhileWearingObj(IobjArtifact);
 				}
 
-				NextState = gEngine.CreateInstance<IStartState>();
+				if (gEngine.LastCommandList.FirstOrDefault(c => c is IGetCommand) == null)
+				{
+					NextState = gEngine.CreateInstance<IStartState>();
+				}
 
 				goto Cleanup;
 			}
@@ -119,7 +126,10 @@ namespace EamonRT.Game.Commands
 			{
 				PrintMustFirstOpen(IobjArtifact);
 
-				NextState = gEngine.CreateInstance<IStartState>();
+				if (gEngine.LastCommandList.FirstOrDefault(c => c is IGetCommand) == null)
+				{
+					NextState = gEngine.CreateInstance<IStartState>();
+				}
 
 				goto Cleanup;
 			}
@@ -135,7 +145,10 @@ namespace EamonRT.Game.Commands
 			{
 				PrintMustFirstClose(IobjArtifact);
 
-				NextState = gEngine.CreateInstance<IStartState>();
+				if (gEngine.LastCommandList.FirstOrDefault(c => c is IGetCommand) == null)
+				{
+					NextState = gEngine.CreateInstance<IStartState>();
+				}
 
 				goto Cleanup;
 			}
@@ -152,7 +165,10 @@ namespace EamonRT.Game.Commands
 			{
 				PrintDontNeedTo();
 
-				NextState = gEngine.CreateInstance<IStartState>();
+				if (gEngine.LastCommandList.FirstOrDefault(c => c is IGetCommand) == null)
+				{
+					NextState = gEngine.CreateInstance<IStartState>();
+				}
 
 				goto Cleanup;
 			}
