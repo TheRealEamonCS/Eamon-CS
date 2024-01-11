@@ -778,7 +778,7 @@ namespace YourAdventureName.YourGameNamespaceName
 
 				var fsfn = gEngine.Path.Combine(".", advDbDataFile);
 
-				rc = gEngine.Database.LoadFilesets(fsfn, printOutput: false);
+				rc = gDatabase.LoadFilesets(fsfn, printOutput: false);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -786,7 +786,7 @@ namespace YourAdventureName.YourGameNamespaceName
 				{
 					var fileset = gEngine.CreateInstance<IFileset>(x =>
 					{
-						x.Uid = gEngine.Database.GetFilesetUid();
+						x.Uid = gDatabase.GetFilesetUid();
 
 						x.IsUidRecycled = true;
 
@@ -817,23 +817,23 @@ namespace YourAdventureName.YourGameNamespaceName
 						x.GameStateFileName = "NONE";
 					});
 
-					rc = gEngine.Database.AddFileset(fileset);
+					rc = gDatabase.AddFileset(fileset);
 
 					Debug.Assert(gEngine.IsSuccess(rc));
 				}
 				else
 				{
-					var fileset = gEngine.Database.FilesetTable.Records.FirstOrDefault(fs => fs.WorkDir.Equals(gEngine.AdventuresDir + @"\" + AdventureName, StringComparison.OrdinalIgnoreCase));
+					var fileset = gDatabase.FilesetTable.Records.FirstOrDefault(fs => fs.WorkDir.Equals(gEngine.AdventuresDir + @"\" + AdventureName, StringComparison.OrdinalIgnoreCase));
 
 					if (fileset != null)
 					{
-						gEngine.Database.RemoveFileset(fileset.Uid);
+						gDatabase.RemoveFileset(fileset.Uid);
 
 						fileset.Dispose();
 					}
 				}
 
-				rc = gEngine.Database.SaveFilesets(fsfn, printOutput: false);
+				rc = gDatabase.SaveFilesets(fsfn, printOutput: false);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 

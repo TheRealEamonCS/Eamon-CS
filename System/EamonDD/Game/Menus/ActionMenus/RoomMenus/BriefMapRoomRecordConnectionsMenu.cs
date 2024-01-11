@@ -43,11 +43,11 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			var directionValues = EnumUtil.GetValues<Direction>();
 
-			var k = gEngine.Database.GetRoomCount();
+			var k = gDatabase.GetRoomCount();
 
 			var i = 0;
 
-			foreach (var room in gEngine.Database.RoomTable.Records)
+			foreach (var room in gDatabase.RoomTable.Records)
 			{
 				if (showHeader)
 				{

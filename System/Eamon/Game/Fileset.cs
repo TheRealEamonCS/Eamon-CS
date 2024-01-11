@@ -74,7 +74,7 @@ namespace Eamon.Game
 
 			if (IsUidRecycled && Uid > 0)
 			{
-				gEngine.Database.FreeFilesetUid(Uid);
+				gDatabase.FreeFilesetUid(Uid);
 
 				Uid = 0;
 			}

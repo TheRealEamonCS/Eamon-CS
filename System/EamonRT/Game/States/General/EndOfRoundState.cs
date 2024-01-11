@@ -21,7 +21,7 @@ namespace EamonRT.Game.States
 
 		public override void Execute()
 		{
-			ResetMonsterList = gEngine.Database.MonsterTable.Records.ToList();
+			ResetMonsterList = gDatabase.MonsterTable.Records.ToList();
 
 			foreach (var monster in ResetMonsterList)
 			{

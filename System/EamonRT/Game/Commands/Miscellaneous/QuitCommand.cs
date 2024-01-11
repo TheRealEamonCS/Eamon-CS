@@ -46,7 +46,7 @@ namespace EamonRT.Game.Commands
 				goto Cleanup;
 			}
 
-			if (gEngine.Database.GetFilesetCount() == 0)
+			if (gDatabase.GetFilesetCount() == 0)
 			{
 				PrintHaventSavedGameYet(ActorMonster);
 			}

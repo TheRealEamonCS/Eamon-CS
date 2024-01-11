@@ -150,7 +150,7 @@ namespace Eamon.Game
 
 			if (IsUidRecycled && Uid > 0)
 			{
-				gEngine.Database.FreeMonsterUid(Uid);
+				gDatabase.FreeMonsterUid(Uid);
 
 				Uid = 0;
 			}

@@ -39,7 +39,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			var directionValues = EnumUtil.GetValues<Direction>();
 
-			foreach (var room in gEngine.Database.RoomTable.Records)
+			foreach (var room in gDatabase.RoomTable.Records)
 			{
 				Buf.SetFormat("{0}\tRoom {1}: {2}", Environment.NewLine, room.Uid, room.Name);
 

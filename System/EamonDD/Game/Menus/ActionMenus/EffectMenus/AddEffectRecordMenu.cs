@@ -30,7 +30,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 		{
 			Title = "ADD EFFECT RECORD";
 
-			RecordTable = gEngine.Database.EffectTable;
+			RecordTable = gDatabase.EffectTable;
 
 			RecordTypeName = "Effect";
 		}

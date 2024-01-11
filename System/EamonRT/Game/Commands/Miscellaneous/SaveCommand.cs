@@ -111,7 +111,7 @@ namespace EamonRT.Game.Commands
 
 				gEngine.RevealContentCounter--;
 
-				SaveFilesetsCount = gEngine.Database.GetFilesetCount();
+				SaveFilesetsCount = gDatabase.GetFilesetCount();
 
 				Debug.Assert(SaveFilesetsCount <= gEngine.NumSaveSlots);
 
@@ -123,16 +123,16 @@ namespace EamonRT.Game.Commands
 				{
 					SaveFileset = gEngine.CreateInstance<IFileset>(x =>
 					{
-						x.Uid = gEngine.Database.GetFilesetUid();
+						x.Uid = gDatabase.GetFilesetUid();
 						x.Name = "(none)";
 					});
 
-					rc = gEngine.Database.AddFileset(SaveFileset);
+					rc = gDatabase.AddFileset(SaveFileset);
 
 					Debug.Assert(gEngine.IsSuccess(rc));
 				}
 
-				SaveFilesetList = gEngine.Database.FilesetTable.Records.OrderBy(f => f.Uid).ToList();
+				SaveFilesetList = gDatabase.FilesetTable.Records.OrderBy(f => f.Uid).ToList();
 
 				SaveFileset = SaveFilesetList[(int)SaveSlot - 1];
 
@@ -335,7 +335,7 @@ namespace EamonRT.Game.Commands
 
 				OrigCm = gGameState.Cm;
 
-				FullArtifactList = gEngine.Database.ArtifactTable.Records.ToList();
+				FullArtifactList = gDatabase.ArtifactTable.Records.ToList();
 
 				foreach (var artifact in FullArtifactList)
 				{
@@ -384,7 +384,7 @@ namespace EamonRT.Game.Commands
 
 				gGameState.Cm = OrigCm;
 
-				rc = gEngine.Database.SaveConfigs(SaveFileset.ConfigFileName, false);
+				rc = gDatabase.SaveConfigs(SaveFileset.ConfigFileName, false);
 
 				if (gEngine.IsFailure(rc))
 				{

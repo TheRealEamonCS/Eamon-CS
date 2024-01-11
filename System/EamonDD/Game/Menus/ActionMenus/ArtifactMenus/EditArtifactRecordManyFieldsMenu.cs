@@ -23,7 +23,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 		{
 			Title = "EDIT ARTIFACT RECORD FIELDS";
 
-			RecordTable = gEngine.Database.ArtifactTable;
+			RecordTable = gDatabase.ArtifactTable;
 
 			RecordTypeName = "Artifact";
 		}

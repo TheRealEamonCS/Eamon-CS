@@ -23,7 +23,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 		{
 			Title = "LIST EFFECT RECORD DETAILS";
 
-			RecordTable = gEngine.Database.EffectTable;
+			RecordTable = gDatabase.EffectTable;
 
 			RecordTypeName = "Effect";
 		}

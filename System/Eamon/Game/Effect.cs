@@ -27,7 +27,7 @@ namespace Eamon.Game
 
 			if (IsUidRecycled && Uid > 0)
 			{
-				gEngine.Database.FreeEffectUid(Uid);
+				gDatabase.FreeEffectUid(Uid);
 
 				Uid = 0;
 			}

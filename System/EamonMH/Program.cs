@@ -209,7 +209,7 @@ namespace EamonMH
 					{
 						gOut.Print("{0}", gEngine.LineSep);
 
-						rc = gEngine.Database.LoadConfigs(gEngine.ConfigFileName);
+						rc = gDatabase.LoadConfigs(gEngine.ConfigFileName);
 
 						if (gEngine.IsFailure(rc))
 						{
@@ -245,11 +245,11 @@ namespace EamonMH
 						}
 						else
 						{
-							gEngine.Config.Uid = gEngine.Database.GetConfigUid();
+							gEngine.Config.Uid = gDatabase.GetConfigUid();
 
 							gEngine.Config.IsUidRecycled = true;
 
-							rc = gEngine.Database.AddConfig(gEngine.Config);
+							rc = gDatabase.AddConfig(gEngine.Config);
 
 							if (gEngine.IsFailure(rc))
 							{
@@ -283,7 +283,7 @@ namespace EamonMH
 
 					gOut.Print("{0}", gEngine.LineSep);
 
-					rc = gEngine.Database.LoadFilesets(gEngine.Config.MhFilesetFileName);
+					rc = gDatabase.LoadFilesets(gEngine.Config.MhFilesetFileName);
 
 					if (gEngine.IsFailure(rc))
 					{
@@ -292,7 +292,7 @@ namespace EamonMH
 						goto Cleanup;
 					}
 
-					rc = gEngine.Database.LoadCharacters(gEngine.Config.MhCharacterFileName);
+					rc = gDatabase.LoadCharacters(gEngine.Config.MhCharacterFileName);
 
 					if (gEngine.IsFailure(rc))
 					{
@@ -301,7 +301,7 @@ namespace EamonMH
 						goto Cleanup;
 					}
 
-					rc = gEngine.Database.LoadEffects(gEngine.Config.MhEffectFileName);
+					rc = gDatabase.LoadEffects(gEngine.Config.MhEffectFileName);
 
 					if (gEngine.IsFailure(rc))
 					{
@@ -316,7 +316,7 @@ namespace EamonMH
 
 					if (gEngine.CharacterName.Length > 0 && !gEngine.CharacterName.Equals("NONE", StringComparison.OrdinalIgnoreCase))
 					{
-						gEngine.Character = gEngine.Database.CharacterTable.Records.FirstOrDefault(c => c.Name.Equals(gEngine.CharacterName, StringComparison.OrdinalIgnoreCase));
+						gEngine.Character = gDatabase.CharacterTable.Records.FirstOrDefault(c => c.Name.Equals(gEngine.CharacterName, StringComparison.OrdinalIgnoreCase));
 
 						if (gCharacter == null || gCharacter.Uid <= 0 || gCharacter.Status != Status.Alive)
 						{
@@ -353,7 +353,7 @@ namespace EamonMH
 
 						if (gEngine.EffectsModified)
 						{
-							rc = gEngine.Database.SaveEffects(gEngine.Config.MhEffectFileName);
+							rc = gDatabase.SaveEffects(gEngine.Config.MhEffectFileName);
 
 							if (gEngine.IsFailure(rc))
 							{
@@ -367,7 +367,7 @@ namespace EamonMH
 
 						if (gEngine.CharactersModified)
 						{
-							rc = gEngine.Database.SaveCharacters(gEngine.Config.MhCharacterFileName);
+							rc = gDatabase.SaveCharacters(gEngine.Config.MhCharacterFileName);
 
 							if (gEngine.IsFailure(rc))
 							{
@@ -381,7 +381,7 @@ namespace EamonMH
 
 						if (gEngine.FilesetsModified)
 						{
-							rc = gEngine.Database.SaveFilesets(gEngine.Config.MhFilesetFileName);
+							rc = gDatabase.SaveFilesets(gEngine.Config.MhFilesetFileName);
 
 							if (gEngine.IsFailure(rc))
 							{
@@ -395,7 +395,7 @@ namespace EamonMH
 
 						if (gEngine.ConfigFileName.Length > 0 && gEngine.ConfigsModified)
 						{
-							rc = gEngine.Database.SaveConfigs(gEngine.ConfigFileName);
+							rc = gDatabase.SaveConfigs(gEngine.ConfigFileName);
 
 							if (gEngine.IsFailure(rc))
 							{

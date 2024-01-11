@@ -23,7 +23,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 		{
 			Title = "DELETE CHARACTER RECORD";
 
-			RecordTable = gEngine.Database.CharacterTable;
+			RecordTable = gDatabase.CharacterTable;
 
 			RecordTypeName = "Character";
 		}

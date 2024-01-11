@@ -23,7 +23,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 		{
 			Title = "EDIT MONSTER RECORD FIELD";
 
-			RecordTable = gEngine.Database.MonsterTable;
+			RecordTable = gDatabase.MonsterTable;
 
 			RecordTypeName = "Monster";
 		}

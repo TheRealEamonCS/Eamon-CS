@@ -1188,32 +1188,35 @@ namespace EamonRT.Game.Components
 					{
 						artifact.Location = DobjArtifact.Location;
 
-					ProcessSpilledArtifact:
-
-						SpilledArtifactContainer = artifact.GetCarriedByContainer();
-
-						SpilledArtifactContainerType = artifact.GetCarriedByContainerContainerType();
-
-						SpilledArtifactContainerAc = SpilledArtifactContainer != null && Enum.IsDefined(typeof(ContainerType), SpilledArtifactContainerType) ? gEngine.EvalContainerType(SpilledArtifactContainerType, SpilledArtifactContainer.InContainer, SpilledArtifactContainer.OnContainer, SpilledArtifactContainer.UnderContainer, SpilledArtifactContainer.BehindContainer) : null;
-
-						if (SpilledArtifactContainer != null && SpilledArtifactContainerAc != null)
+						while (true) 
 						{
-							SpilledArtifactContainerSeen = true;
+							SpilledArtifactContainer = artifact.GetCarriedByContainer();
 
-							var count = 0L;
+							SpilledArtifactContainerType = artifact.GetCarriedByContainerContainerType();
 
-							var weight = 0L;
+							SpilledArtifactContainerAc = SpilledArtifactContainer != null && Enum.IsDefined(typeof(ContainerType), SpilledArtifactContainerType) ? gEngine.EvalContainerType(SpilledArtifactContainerType, SpilledArtifactContainer.InContainer, SpilledArtifactContainer.OnContainer, SpilledArtifactContainer.UnderContainer, SpilledArtifactContainer.BehindContainer) : null;
 
-							rc = SpilledArtifactContainer.GetContainerInfo(ref count, ref weight, SpilledArtifactContainerType, false);
-
-							Debug.Assert(gEngine.IsSuccess(rc));
-
-							if (count > SpilledArtifactContainerAc.Field4 || weight > SpilledArtifactContainerAc.Field3)
+							if (SpilledArtifactContainer != null && SpilledArtifactContainerAc != null)
 							{
-								artifact.Location = SpilledArtifactContainer.Location;
+								SpilledArtifactContainerSeen = true;
 
-								goto ProcessSpilledArtifact;        // TODO: find a replacement for goto that doesn't increase complexity
+								var count = 0L;
+
+								var weight = 0L;
+
+								rc = SpilledArtifactContainer.GetContainerInfo(ref count, ref weight, SpilledArtifactContainerType, false);
+
+								Debug.Assert(gEngine.IsSuccess(rc));
+
+								if (count > SpilledArtifactContainerAc.Field4 || weight > SpilledArtifactContainerAc.Field3)
+								{
+									artifact.Location = SpilledArtifactContainer.Location;
+
+									continue;
+								}
 							}
+
+							break;
 						}
 					}
 

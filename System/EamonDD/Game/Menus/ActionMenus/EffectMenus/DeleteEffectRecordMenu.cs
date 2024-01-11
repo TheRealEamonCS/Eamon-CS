@@ -35,7 +35,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 		{
 			Title = "DELETE EFFECT RECORD";
 
-			RecordTable = gEngine.Database.EffectTable;
+			RecordTable = gDatabase.EffectTable;
 
 			RecordTypeName = "Effect";
 		}

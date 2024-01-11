@@ -222,7 +222,7 @@ namespace Eamon.Game.Helpers
 		{
 			if (Record.Uid <= 0)
 			{
-				Record.Uid = gEngine.Database.GetEffectUid();
+				Record.Uid = gDatabase.GetEffectUid();
 
 				Record.IsUidRecycled = true;
 			}

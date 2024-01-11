@@ -35,7 +35,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 		{
 			Title = "DELETE HINT RECORD";
 
-			RecordTable = gEngine.Database.HintTable;
+			RecordTable = gDatabase.HintTable;
 
 			RecordTypeName = "Hint";
 		}

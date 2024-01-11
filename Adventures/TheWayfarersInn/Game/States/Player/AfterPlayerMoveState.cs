@@ -169,7 +169,7 @@ namespace TheWayfarersInn.Game.States
 
 				// Go into root cellar; bourbon and folded note appear on bar
 
-				if (gGameState.Ro == 29 && gGameState.R3 == 28 && (!unseenApparitionMonster.IsInLimbo() || !childsApparitionMonster.IsInLimbo()) && !gGameState.BourbonAppeared)
+				if (gGameState.Ro == 29 && gGameState.R3 == 28 && !gGameState.CharlotteRestInPeace && !gGameState.BourbonAppeared)
 				{
 					bottleOfBourbonArtifact.SetCarriedByContainer(barArtifact, ContainerType.On);
 

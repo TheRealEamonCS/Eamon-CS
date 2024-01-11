@@ -654,7 +654,7 @@ namespace Eamon.Game.Helpers
 		{
 			if (Record.Uid <= 0)
 			{
-				Record.Uid = gEngine.Database.GetHintUid();
+				Record.Uid = gDatabase.GetHintUid();
 
 				Record.IsUidRecycled = true;
 			}

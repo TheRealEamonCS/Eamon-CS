@@ -1001,7 +1001,7 @@ namespace Eamon.Game.Helpers
 		{
 			if (Record.Uid <= 0)
 			{
-				Record.Uid = gEngine.Database.GetFilesetUid();
+				Record.Uid = gDatabase.GetFilesetUid();
 
 				Record.IsUidRecycled = true;
 			}

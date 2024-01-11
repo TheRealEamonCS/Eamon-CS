@@ -71,7 +71,7 @@ namespace TheTrainingGround.Game.States
 
 							// Exclude character monster
 
-							rl = gEngine.RollDice(1, gEngine.Database.MonsterTable.Records.Count - 1, 0);
+							rl = gEngine.RollDice(1, gDatabase.MonsterTable.Records.Count - 1, 0);
 
 							var summonedMonster = gMDB[rl];
 

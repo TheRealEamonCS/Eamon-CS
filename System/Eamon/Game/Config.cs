@@ -138,7 +138,7 @@ namespace Eamon.Game
 
 			if (IsUidRecycled && Uid > 0)
 			{
-				gEngine.Database.FreeConfigUid(Uid);
+				gDatabase.FreeConfigUid(Uid);
 
 				Uid = 0;
 			}
@@ -161,7 +161,7 @@ namespace Eamon.Game
 		{
 			RetCode rc;
 
-			rc = gEngine.Database.LoadFilesets(RtFilesetFileName, validate, printOutput);
+			rc = gDatabase.LoadFilesets(RtFilesetFileName, validate, printOutput);
 
 			if (gEngine.IsFailure(rc))
 			{
@@ -170,7 +170,7 @@ namespace Eamon.Game
 				goto Cleanup;
 			}
 
-			rc = gEngine.Database.LoadCharacters(RtCharacterFileName, validate, printOutput);
+			rc = gDatabase.LoadCharacters(RtCharacterFileName, validate, printOutput);
 
 			if (gEngine.IsFailure(rc))
 			{
@@ -179,7 +179,7 @@ namespace Eamon.Game
 				goto Cleanup;
 			}
 
-			rc = gEngine.Database.LoadModules(RtModuleFileName, validate, printOutput);
+			rc = gDatabase.LoadModules(RtModuleFileName, validate, printOutput);
 
 			if (gEngine.IsFailure(rc))
 			{
@@ -188,7 +188,7 @@ namespace Eamon.Game
 				goto Cleanup;
 			}
 
-			rc = gEngine.Database.LoadRooms(RtRoomFileName, validate, printOutput);
+			rc = gDatabase.LoadRooms(RtRoomFileName, validate, printOutput);
 
 			if (gEngine.IsFailure(rc))
 			{
@@ -197,7 +197,7 @@ namespace Eamon.Game
 				goto Cleanup;
 			}
 
-			rc = gEngine.Database.LoadArtifacts(RtArtifactFileName, validate, printOutput);
+			rc = gDatabase.LoadArtifacts(RtArtifactFileName, validate, printOutput);
 
 			if (gEngine.IsFailure(rc))
 			{
@@ -206,7 +206,7 @@ namespace Eamon.Game
 				goto Cleanup;
 			}
 
-			rc = gEngine.Database.LoadEffects(RtEffectFileName, validate, printOutput);
+			rc = gDatabase.LoadEffects(RtEffectFileName, validate, printOutput);
 
 			if (gEngine.IsFailure(rc))
 			{
@@ -215,7 +215,7 @@ namespace Eamon.Game
 				goto Cleanup;
 			}
 
-			rc = gEngine.Database.LoadMonsters(RtMonsterFileName, validate, printOutput);
+			rc = gDatabase.LoadMonsters(RtMonsterFileName, validate, printOutput);
 
 			if (gEngine.IsFailure(rc))
 			{
@@ -224,7 +224,7 @@ namespace Eamon.Game
 				goto Cleanup;
 			}
 
-			rc = gEngine.Database.LoadHints(RtHintFileName, validate, printOutput);
+			rc = gDatabase.LoadHints(RtHintFileName, validate, printOutput);
 
 			if (gEngine.IsFailure(rc))
 			{
@@ -233,7 +233,7 @@ namespace Eamon.Game
 				goto Cleanup;
 			}
 
-			rc = gEngine.Database.LoadGameStates(RtGameStateFileName, validate, printOutput);
+			rc = gDatabase.LoadGameStates(RtGameStateFileName, validate, printOutput);
 
 			if (gEngine.IsFailure(rc))
 			{
@@ -251,7 +251,7 @@ namespace Eamon.Game
 		{
 			RetCode rc;
 
-			rc = gEngine.Database.SaveGameStates(RtGameStateFileName, printOutput);
+			rc = gDatabase.SaveGameStates(RtGameStateFileName, printOutput);
 
 			if (gEngine.IsFailure(rc))
 			{
@@ -260,7 +260,7 @@ namespace Eamon.Game
 				goto Cleanup;
 			}
 
-			rc = gEngine.Database.SaveHints(RtHintFileName, printOutput);
+			rc = gDatabase.SaveHints(RtHintFileName, printOutput);
 
 			if (gEngine.IsFailure(rc))
 			{
@@ -269,7 +269,7 @@ namespace Eamon.Game
 				goto Cleanup;
 			}
 
-			rc = gEngine.Database.SaveMonsters(RtMonsterFileName, printOutput);
+			rc = gDatabase.SaveMonsters(RtMonsterFileName, printOutput);
 
 			if (gEngine.IsFailure(rc))
 			{
@@ -278,7 +278,7 @@ namespace Eamon.Game
 				goto Cleanup;
 			}
 
-			rc = gEngine.Database.SaveEffects(RtEffectFileName, printOutput);
+			rc = gDatabase.SaveEffects(RtEffectFileName, printOutput);
 
 			if (gEngine.IsFailure(rc))
 			{
@@ -287,7 +287,7 @@ namespace Eamon.Game
 				goto Cleanup;
 			}
 
-			rc = gEngine.Database.SaveArtifacts(RtArtifactFileName, printOutput);
+			rc = gDatabase.SaveArtifacts(RtArtifactFileName, printOutput);
 
 			if (gEngine.IsFailure(rc))
 			{
@@ -296,7 +296,7 @@ namespace Eamon.Game
 				goto Cleanup;
 			}
 
-			rc = gEngine.Database.SaveRooms(RtRoomFileName, printOutput);
+			rc = gDatabase.SaveRooms(RtRoomFileName, printOutput);
 
 			if (gEngine.IsFailure(rc))
 			{
@@ -305,7 +305,7 @@ namespace Eamon.Game
 				goto Cleanup;
 			}
 
-			rc = gEngine.Database.SaveModules(RtModuleFileName, printOutput);
+			rc = gDatabase.SaveModules(RtModuleFileName, printOutput);
 
 			if (gEngine.IsFailure(rc))
 			{
@@ -314,7 +314,7 @@ namespace Eamon.Game
 				goto Cleanup;
 			}
 
-			rc = gEngine.Database.SaveCharacters(RtCharacterFileName, printOutput);
+			rc = gDatabase.SaveCharacters(RtCharacterFileName, printOutput);
 
 			if (gEngine.IsFailure(rc))
 			{
@@ -323,7 +323,7 @@ namespace Eamon.Game
 				goto Cleanup;
 			}
 
-			rc = gEngine.Database.SaveFilesets(RtFilesetFileName, printOutput);
+			rc = gDatabase.SaveFilesets(RtFilesetFileName, printOutput);
 
 			if (gEngine.IsFailure(rc))
 			{
@@ -352,7 +352,7 @@ namespace Eamon.Game
 
 			rc = RetCode.Success;
 
-			foreach (var fs in gEngine.Database.FilesetTable.Records)
+			foreach (var fs in gDatabase.FilesetTable.Records)
 			{
 				rc = fs.DeleteFiles(null);
 
@@ -361,11 +361,11 @@ namespace Eamon.Game
 
 			if (startOver)
 			{
-				rc = gEngine.Database.FreeFilesets();
+				rc = gDatabase.FreeFilesets();
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
-				rc = gEngine.Database.SaveFilesets(RtFilesetFileName, false);
+				rc = gDatabase.SaveFilesets(RtFilesetFileName, false);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 			}

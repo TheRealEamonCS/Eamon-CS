@@ -208,11 +208,11 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			gEngine.Module = null;
 
-			gEngine.Database.FreeModules();
+			gDatabase.FreeModules();
 
 			var module = gEngine.CreateInstance<IModule>(x =>
 			{
-				x.Uid = gEngine.Database.GetModuleUid();
+				x.Uid = gDatabase.GetModuleUid();
 
 				x.Name = edxAdv.Name.Trim().Truncate(gEngine.ModNameLen);
 
@@ -239,13 +239,13 @@ namespace EamonDD.Game.Menus.ActionMenus
 				x.NumHints = edxHintList.Count;
 			});
 
-			gEngine.Database.AddModule(module);
+			gDatabase.AddModule(module);
 
 			gEngine.ModulesModified = true;
 
 			gEngine.Module = module;
 
-			gEngine.Database.FreeRooms();
+			gDatabase.FreeRooms();
 
 			for (var i = 0; i < edxAdv._nr; i++)
 			{
@@ -285,7 +285,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 				var room = gEngine.CreateInstance<IRoom>(x =>
 				{
-					x.Uid = gEngine.Database.GetRoomUid();
+					x.Uid = gDatabase.GetRoomUid();
 
 					x.Name = edxRoom._rname.Truncate(gEngine.RmNameLen);
 
@@ -319,12 +319,12 @@ namespace EamonDD.Game.Menus.ActionMenus
 					}
 				});
 
-				gEngine.Database.AddRoom(room);
+				gDatabase.AddRoom(room);
 			}
 
 			gEngine.RoomsModified = true;
 
-			gEngine.Database.FreeArtifacts();
+			gDatabase.FreeArtifacts();
 
 			var artifactHelper = gEngine.CreateInstance<IArtifactHelper>();
 
@@ -357,7 +357,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 				var artifact = gEngine.CreateInstance<IArtifact>(x =>
 				{
-					x.Uid = gEngine.Database.GetArtifactUid();
+					x.Uid = gDatabase.GetArtifactUid();
 
 					x.Name = edxArtifact._artname.Truncate(gEngine.ArtNameLen);
 
@@ -434,7 +434,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 					artifact.Name = "TODO";
 				}
 
-				gEngine.Database.AddArtifact(artifact);
+				gDatabase.AddArtifact(artifact);
 			}
 
 			var containerList = gADB.Records.Where(a => a.Type == ArtifactType.InContainer).ToList();
@@ -458,7 +458,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			gEngine.ArtifactsModified = true;
 
-			gEngine.Database.FreeEffects();
+			gDatabase.FreeEffects();
 
 			for (var i = 0; i < edxAdv._ne; i++)
 			{
@@ -480,17 +480,17 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 				var effect = gEngine.CreateInstance<IEffect>(x =>
 				{
-					x.Uid = gEngine.Database.GetEffectUid();
+					x.Uid = gDatabase.GetEffectUid();
 
 					x.Desc = edxEffect._text.Truncate(gEngine.EffDescLen);
 				});
 
-				gEngine.Database.AddEffect(effect);
+				gDatabase.AddEffect(effect);
 			}
 
 			gEngine.EffectsModified = true;
 
-			gEngine.Database.FreeMonsters();
+			gDatabase.FreeMonsters();
 
 			var monsterHelper = gEngine.CreateInstance<IMonsterHelper>();
 
@@ -523,7 +523,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 				var monster = gEngine.CreateInstance<IMonster>(x =>
 				{
-					x.Uid = gEngine.Database.GetMonsterUid();
+					x.Uid = gDatabase.GetMonsterUid();
 
 					x.Name = edxMonster._mname.Truncate(gEngine.MonNameLen);
 
@@ -569,12 +569,12 @@ namespace EamonDD.Game.Menus.ActionMenus
 					monster.Name = "TODO";
 				}
 
-				gEngine.Database.AddMonster(monster);
+				gDatabase.AddMonster(monster);
 			}
 
 			gEngine.MonstersModified = true;
 
-			gEngine.Database.FreeHints();
+			gDatabase.FreeHints();
 
 			for (var i = 0; i < edxHintList.Count; i++)
 			{
@@ -591,7 +591,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 				var hint = gEngine.CreateInstance<IHint>(x =>
 				{
-					x.Uid = gEngine.Database.GetHintUid();
+					x.Uid = gDatabase.GetHintUid();
 
 					x.Active = true;
 
@@ -621,7 +621,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 					}
 				});
 
-				gEngine.Database.AddHint(hint);
+				gDatabase.AddHint(hint);
 			}
 
 			gEngine.HintsModified = true;

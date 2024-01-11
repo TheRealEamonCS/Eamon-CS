@@ -2299,98 +2299,101 @@ namespace EamonRT.Game.Plugin
 					{
 						revealArtifact.Location = location;
 
-					ProcessRevealArtifact:
+						while (true) 
+						{ 
+							recordNameListArgs.ShowCharOwned = !revealArtifact.IsCarriedByMonster(charMonster) && !revealArtifact.IsWornByMonster(charMonster);
 
-						recordNameListArgs.ShowCharOwned = !revealArtifact.IsCarriedByMonster(charMonster) && !revealArtifact.IsWornByMonster(charMonster);
+							revealMonster = revealArtifact.GetCarriedByMonster();
 
-						revealMonster = revealArtifact.GetCarriedByMonster();
-
-						if (revealMonster == null)
-						{
-							revealMonster = revealArtifact.GetWornByMonster();
-						}
-
-						var revealContainer = revealArtifact.GetCarriedByContainer();
-
-						var revealContainerType = revealArtifact.GetCarriedByContainerContainerType();
-
-						var revealContainerAc = revealContainer != null && Enum.IsDefined(typeof(ContainerType), revealContainerType) ? EvalContainerType(revealContainerType, revealContainer.InContainer, revealContainer.OnContainer, revealContainer.UnderContainer, revealContainer.BehindContainer) : null;
-
-						if (revealArtifact.IsCarriedByMonster(charMonster) || revealArtifact.IsWornByMonster(charMonster))
-						{
-							var charWeight = 0L;
-
-							rc = charMonster.GetFullInventoryWeight(ref charWeight, recurse: true);
-
-							Debug.Assert(IsSuccess(rc));
-
-							var revealArtifactTooHeavy = charWeight > charMonster.GetWeightCarryableGronds();
-
-							if (revealArtifact.IsWornByMonster(charMonster) && (revealArtifact.Wearable == null || revealArtifactTooHeavy))
+							if (revealMonster == null)
 							{
-								revealArtifact.SetCarriedByMonster(charMonster);
+								revealMonster = revealArtifact.GetWornByMonster();
 							}
 
-							if (revealArtifact.IsCarriedByMonster(charMonster) && revealArtifactTooHeavy)
+							var revealContainer = revealArtifact.GetCarriedByContainer();
+
+							var revealContainerType = revealArtifact.GetCarriedByContainerContainerType();
+
+							var revealContainerAc = revealContainer != null && Enum.IsDefined(typeof(ContainerType), revealContainerType) ? EvalContainerType(revealContainerType, revealContainer.InContainer, revealContainer.OnContainer, revealContainer.UnderContainer, revealContainer.BehindContainer) : null;
+
+							if (revealArtifact.IsCarriedByMonster(charMonster) || revealArtifact.IsWornByMonster(charMonster))
 							{
-								revealArtifact.SetInRoom(room);
+								var charWeight = 0L;
+
+								rc = charMonster.GetFullInventoryWeight(ref charWeight, recurse: true);
+
+								Debug.Assert(IsSuccess(rc));
+
+								var revealArtifactTooHeavy = charWeight > charMonster.GetWeightCarryableGronds();
+
+								if (revealArtifact.IsWornByMonster(charMonster) && (revealArtifact.Wearable == null || revealArtifactTooHeavy))
+								{
+									revealArtifact.SetCarriedByMonster(charMonster);
+								}
+
+								if (revealArtifact.IsCarriedByMonster(charMonster) && revealArtifactTooHeavy)
+								{
+									revealArtifact.SetInRoom(room);
+								}
 							}
-						}
-						else if (revealMonster != null)
-						{
-							var monWeight = 0L;
-
-							rc = revealMonster.GetFullInventoryWeight(ref monWeight, recurse: true);
-
-							Debug.Assert(IsSuccess(rc));
-
-							var revealArtifactTooHeavy = EnforceMonsterWeightLimits && (revealArtifact.RecursiveWeight > revealMonster.GetWeightCarryableGronds() || monWeight > revealMonster.GetWeightCarryableGronds() * revealMonster.CurrGroupCount);
-
-							if (revealArtifact.IsWornByMonster(revealMonster) && (revealArtifact.Wearable == null || revealArtifactTooHeavy))
+							else if (revealMonster != null)
 							{
-								revealArtifact.SetCarriedByMonster(revealMonster);
-							}
+								var monWeight = 0L;
 
-							if (revealArtifact.IsCarriedByMonster(revealMonster) && revealArtifactTooHeavy)
+								rc = revealMonster.GetFullInventoryWeight(ref monWeight, recurse: true);
+
+								Debug.Assert(IsSuccess(rc));
+
+								var revealArtifactTooHeavy = EnforceMonsterWeightLimits && (revealArtifact.RecursiveWeight > revealMonster.GetWeightCarryableGronds() || monWeight > revealMonster.GetWeightCarryableGronds() * revealMonster.CurrGroupCount);
+
+								if (revealArtifact.IsWornByMonster(revealMonster) && (revealArtifact.Wearable == null || revealArtifactTooHeavy))
+								{
+									revealArtifact.SetCarriedByMonster(revealMonster);
+								}
+
+								if (revealArtifact.IsCarriedByMonster(revealMonster) && revealArtifactTooHeavy)
+								{
+									revealArtifact.SetInRoom(room);
+								}
+							}
+							else if (revealContainer != null && revealContainerAc != null)
 							{
-								revealArtifact.SetInRoom(room);
+								var count = 0L;
+
+								var weight = 0L;
+
+								rc = revealContainer.GetContainerInfo(ref count, ref weight, revealContainerType, false);
+
+								Debug.Assert(IsSuccess(rc));
+
+								if (count > revealContainerAc.Field4 || weight > revealContainerAc.Field3)
+								{
+									revealArtifact.Location = revealContainer.Location;
+
+									continue;
+								}
 							}
-						}
-						else if (revealContainer != null && revealContainerAc != null)
-						{
-							var count = 0L;
-
-							var weight = 0L;
-
-							rc = revealContainer.GetContainerInfo(ref count, ref weight, revealContainerType, false);
-
-							Debug.Assert(IsSuccess(rc));
-
-							if (count > revealContainerAc.Field4 || weight > revealContainerAc.Field3)
+							else if (revealArtifact.IsEmbeddedInRoom(room))
 							{
-								revealArtifact.Location = revealContainer.Location;
+								if (artifact.IsInRoom(room))
+								{
+									revealArtifact.SetCarriedByContainer(artifact, containerType);
 
-								goto ProcessRevealArtifact;         // TODO: find a replacement for goto that doesn't increase complexity
+									revealContents = false;
+								}
+								else
+								{
+									revealArtifact.SetInRoom(room);
+								}
 							}
-						}
-						else if (revealArtifact.IsEmbeddedInRoom(room))
-						{
-							if (artifact.IsInRoom(room))
+							else if (revealArtifact.IsInLimbo())
 							{
 								revealArtifact.SetCarriedByContainer(artifact, containerType);
 
 								revealContents = false;
 							}
-							else
-							{
-								revealArtifact.SetInRoom(room);
-							}
-						}
-						else if (revealArtifact.IsInLimbo())
-						{
-							revealArtifact.SetCarriedByContainer(artifact, containerType);
 
-							revealContents = false;
+							break;
 						}
 					}
 

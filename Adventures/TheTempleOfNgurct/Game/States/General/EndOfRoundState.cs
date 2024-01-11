@@ -47,7 +47,7 @@ namespace TheTempleOfNgurct.Game.States
 
 					var ac = cellDoorArtifact != null ? cellDoorArtifact.DoorGate : null;
 
-					if (ac == null || ac.GetKeyUid() <= 0)
+					if ((ac == null || ac.GetKeyUid() <= 0) && gGameState.DwLoopCounter <= 15)
 					{
 						gSentenceParser.PrintDiscardingCommands();
 

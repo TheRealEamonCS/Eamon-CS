@@ -467,7 +467,7 @@ namespace Eamon.Game
 
 			if (IsUidRecycled && Uid > 0)
 			{
-				gEngine.Database.FreeArtifactUid(Uid);
+				gDatabase.FreeArtifactUid(Uid);
 
 				Uid = 0;
 			}

@@ -3,9 +3,9 @@
 
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
+using Eamon.Framework.DataStorage;
 using Eamon.Framework.DataStorage.Generic;
 using Eamon.Framework.Portability;
-using EamonRT.Framework;
 using EamonRT.Framework.Parsing;
 using EamonRT.Framework.Plugin;
 
@@ -30,6 +30,14 @@ namespace EamonRT.Game.Plugin
 			get 
 			{
 				return EamonDD.Game.Plugin.Globals.gOut;
+			}
+		}
+
+		public static IDatabase gDatabase
+		{
+			get
+			{
+				return EamonDD.Game.Plugin.Globals.gDatabase;
 			}
 		}
 

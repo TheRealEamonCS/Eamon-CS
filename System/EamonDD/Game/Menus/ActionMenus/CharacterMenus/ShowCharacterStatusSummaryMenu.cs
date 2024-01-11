@@ -80,19 +80,19 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 					Debug.Assert(gEngine.IsSuccess(rc));
 
-					rc = gEngine.Database.LoadCharacters(chrfn, printOutput: false);
+					rc = gDatabase.LoadCharacters(chrfn, printOutput: false);
 
 					Debug.Assert(gEngine.IsSuccess(rc));
 
-					rc = gEngine.Database.LoadModules(modfn, printOutput: false);
+					rc = gDatabase.LoadModules(modfn, printOutput: false);
 
 					Debug.Assert(gEngine.IsSuccess(rc));
 
-					var character = gEngine.Database.CharacterTable.Records.FirstOrDefault();
+					var character = gDatabase.CharacterTable.Records.FirstOrDefault();
 
 					Debug.Assert(character != null);
 
-					var module = gEngine.Database.ModuleTable.Records.FirstOrDefault();
+					var module = gDatabase.ModuleTable.Records.FirstOrDefault();
 
 					Debug.Assert(module != null);
 
@@ -111,7 +111,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 				i++;
 			}
 
-			var characterTable = gEngine.Database.CharacterTable;
+			var characterTable = gDatabase.CharacterTable;
 
 			j = characterTable.GetRecordCount();
 

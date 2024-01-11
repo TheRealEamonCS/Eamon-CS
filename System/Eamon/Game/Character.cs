@@ -111,7 +111,7 @@ namespace Eamon.Game
 
 			if (IsUidRecycled && Uid > 0)
 			{
-				gEngine.Database.FreeCharacterUid(Uid);
+				gDatabase.FreeCharacterUid(Uid);
 
 				Uid = 0;
 			}

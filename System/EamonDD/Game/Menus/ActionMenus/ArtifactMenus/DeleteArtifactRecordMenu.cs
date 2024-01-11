@@ -30,7 +30,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 		{
 			Title = "DELETE ARTIFACT RECORD";
 
-			RecordTable = gEngine.Database.ArtifactTable;
+			RecordTable = gDatabase.ArtifactTable;
 
 			RecordTypeName = "Artifact";
 		}

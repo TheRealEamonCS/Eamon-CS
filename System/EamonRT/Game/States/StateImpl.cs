@@ -247,7 +247,7 @@ namespace EamonRT.Game.States
 
 		public virtual IList<long> GetLoopMonsterUidList()
 		{
-			return gEngine.Database.MonsterTable.Records.OrderBy(m => m.Uid).Select(m01 => m01.Uid).ToList();
+			return gDatabase.MonsterTable.Records.OrderBy(m => m.Uid).Select(m01 => m01.Uid).ToList();
 		}
 
 		public virtual void Stage()

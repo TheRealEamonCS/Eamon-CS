@@ -36,14 +36,14 @@ namespace EamonRT.Game.Commands
 
 			gEngine.ShouldPreTurnProcess = false;
 			
-			if (gEngine.Database.GetHintCount() <= 0)
+			if (gDatabase.GetHintCount() <= 0)
 			{
 				PrintNoHintsAvailable();
 
 				goto Cleanup;
 			}
 
-			ActiveHintList = gEngine.Database.HintTable.Records.Where(h => h.Active).OrderBy(h => h.Uid).ToList();
+			ActiveHintList = gDatabase.HintTable.Records.Where(h => h.Active).OrderBy(h => h.Uid).ToList();
 
 			if (ActiveHintList.Count <= 0)
 			{

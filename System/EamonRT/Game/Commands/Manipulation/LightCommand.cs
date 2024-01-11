@@ -71,8 +71,6 @@ namespace EamonRT.Game.Commands
 			{
 				PrintWontLight(DobjArtifact);
 
-				NextState = gEngine.CreateInstance<IMonsterStartState>();
-
 				goto Cleanup;
 			}
 
@@ -96,8 +94,6 @@ namespace EamonRT.Game.Commands
 
 					PrintLightExtinguished(DobjArtifact);
 				}
-
-				NextState = gEngine.CreateInstance<IMonsterStartState>();
 
 				goto Cleanup;
 			}

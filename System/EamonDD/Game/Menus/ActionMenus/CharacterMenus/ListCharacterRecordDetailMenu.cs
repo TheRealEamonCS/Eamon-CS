@@ -18,7 +18,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 		{
 			Title = "LIST CHARACTER RECORD DETAILS";
 
-			RecordTable = gEngine.Database.CharacterTable;
+			RecordTable = gDatabase.CharacterTable;
 
 			RecordTypeName = "Character";
 		}

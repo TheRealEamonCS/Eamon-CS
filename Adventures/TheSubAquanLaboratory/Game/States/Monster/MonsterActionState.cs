@@ -26,7 +26,7 @@ namespace TheSubAquanLaboratory.Game.States
 
 			// Friendly monsters attack the back wall or glass walls
 
-			if (gEngine.AttackingWall && LoopMonster.IsInRoomUid(gGameState.Ro) && LoopMonster.Reaction == Friendliness.Friend && ((LoopMonster.Weapon > -1 && LoopMonster.Weapon <= gEngine.Database.GetArtifactCount()) || LoopMonster.CombatCode == CombatCode.NaturalWeapons) && gGameState.GetNBTL(Friendliness.Enemy) <= 0)
+			if (gEngine.AttackingWall && LoopMonster.IsInRoomUid(gGameState.Ro) && LoopMonster.Reaction == Friendliness.Friend && ((LoopMonster.Weapon > -1 && LoopMonster.Weapon <= gDatabase.GetArtifactCount()) || LoopMonster.CombatCode == CombatCode.NaturalWeapons) && gGameState.GetNBTL(Friendliness.Enemy) <= 0)
 			{
 				gEngine.ProcessWallAttack(LoopMonsterRoom, LoopMonster, gEngine.WallArtifact, false);
 

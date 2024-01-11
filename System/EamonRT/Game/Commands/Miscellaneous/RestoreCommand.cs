@@ -61,19 +61,19 @@ namespace EamonRT.Game.Commands
 
 				OrigCurrState = gEngine.CurrState;
 
-				SaveFilesetsCount = gEngine.Database.GetFilesetCount();
+				SaveFilesetsCount = gDatabase.GetFilesetCount();
 
 				Debug.Assert(SaveFilesetsCount <= gEngine.NumSaveSlots);
 
 				Debug.Assert(SaveSlot >= 1 && SaveSlot <= SaveFilesetsCount);
 
-				SaveFilesetList = gEngine.Database.FilesetTable.Records.OrderBy(f => f.Uid).ToList();
+				SaveFilesetList = gDatabase.FilesetTable.Records.OrderBy(f => f.Uid).ToList();
 
 				SaveFileset = SaveFilesetList[(int)SaveSlot - 1];
 
 				SaveConfig = gEngine.CreateInstance<IConfig>();
 
-				rc = gEngine.Database.LoadConfigs(SaveFileset.ConfigFileName, printOutput: false);
+				rc = gDatabase.LoadConfigs(SaveFileset.ConfigFileName, printOutput: false);
 
 				if (gEngine.IsFailure(rc))
 				{
@@ -136,7 +136,7 @@ namespace EamonRT.Game.Commands
 
 				// fileset is now invalid
 
-				gEngine.Character = gEngine.Database.CharacterTable.Records.FirstOrDefault();
+				gEngine.Character = gDatabase.CharacterTable.Records.FirstOrDefault();
 
 				if (gCharacter == null || gCharacter.Uid <= 0 || gCharacter.Status != Status.Adventuring || string.IsNullOrWhiteSpace(gCharacter.Name) || gCharacter.Name.Equals("NONE", StringComparison.OrdinalIgnoreCase))
 				{
@@ -198,7 +198,7 @@ namespace EamonRT.Game.Commands
 
 				gGameState.Cm = 0;
 
-				FullArtifactList = gEngine.Database.ArtifactTable.Records.ToList();
+				FullArtifactList = gDatabase.ArtifactTable.Records.ToList();
 
 				foreach (var artifact in FullArtifactList)
 				{
@@ -214,7 +214,7 @@ namespace EamonRT.Game.Commands
 
 				gGameState.Cm = OrigCm;
 
-				FullMonsterList = gEngine.Database.MonsterTable.Records.ToList();
+				FullMonsterList = gDatabase.MonsterTable.Records.ToList();
 
 				foreach (var monster in FullMonsterList)
 				{

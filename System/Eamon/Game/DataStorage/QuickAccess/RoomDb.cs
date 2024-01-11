@@ -20,19 +20,19 @@ namespace Eamon.Game.DataStorage.QuickAccess
 		{
 			get
 			{
-				return gEngine.Database.FindRoom(uid);
+				return gDatabase.FindRoom(uid);
 			}
 
 			set
 			{
 				if (value == null || value.Uid == uid)
 				{
-					gEngine.Database.RemoveRoom(uid);
+					gDatabase.RemoveRoom(uid);
 				}
 
 				if (value != null && value.Uid == uid)
 				{
-					gEngine.Database.AddRoom(value, CopyAddedRecord);
+					gDatabase.AddRoom(value, CopyAddedRecord);
 				}
 			}
 		}
@@ -41,7 +41,7 @@ namespace Eamon.Game.DataStorage.QuickAccess
 		{
 			get
 			{
-				return gEngine.Database?.RoomTable?.Records;
+				return gDatabase?.RoomTable?.Records;
 			}
 		}
 
