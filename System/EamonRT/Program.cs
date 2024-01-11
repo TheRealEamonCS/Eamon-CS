@@ -208,7 +208,7 @@ namespace EamonRT
 			{
 				gOut.Print("{0}", gEngine.LineSep);
 
-				rc = gEngine.Database.LoadConfigs(gEngine.ConfigFileName);
+				rc = gDatabase.LoadConfigs(gEngine.ConfigFileName);
 
 				if (gEngine.IsFailure(rc))
 				{
@@ -300,11 +300,11 @@ namespace EamonRT
 				}
 				else
 				{
-					gEngine.Config.Uid = gEngine.Database.GetConfigUid();
+					gEngine.Config.Uid = gDatabase.GetConfigUid();
 
 					gEngine.Config.IsUidRecycled = true;
 
-					rc = gEngine.Database.AddConfig(gEngine.Config);
+					rc = gDatabase.AddConfig(gEngine.Config);
 
 					if (gEngine.IsFailure(rc))
 					{
@@ -343,7 +343,7 @@ namespace EamonRT
 
 			if (gEngine.Config.DdEditingFilesets)
 			{
-				rc = gEngine.Database.LoadFilesets(gEngine.Config.DdFilesetFileName);
+				rc = gDatabase.LoadFilesets(gEngine.Config.DdFilesetFileName);
 
 				if (gEngine.IsFailure(rc))
 				{
@@ -355,7 +355,7 @@ namespace EamonRT
 
 			if (gEngine.Config.DdEditingCharacters)
 			{
-				rc = gEngine.Database.LoadCharacters(gEngine.Config.DdCharacterFileName);
+				rc = gDatabase.LoadCharacters(gEngine.Config.DdCharacterFileName);
 
 				if (gEngine.IsFailure(rc))
 				{
@@ -367,7 +367,7 @@ namespace EamonRT
 
 			if (gEngine.Config.DdEditingModules)
 			{
-				rc = gEngine.Database.LoadModules(gEngine.Config.DdModuleFileName);
+				rc = gDatabase.LoadModules(gEngine.Config.DdModuleFileName);
 
 				if (gEngine.IsFailure(rc))
 				{
@@ -379,7 +379,7 @@ namespace EamonRT
 
 			if (gEngine.Config.DdEditingRooms)
 			{
-				rc = gEngine.Database.LoadRooms(gEngine.Config.DdRoomFileName);
+				rc = gDatabase.LoadRooms(gEngine.Config.DdRoomFileName);
 
 				if (gEngine.IsFailure(rc))
 				{
@@ -391,7 +391,7 @@ namespace EamonRT
 
 			if (gEngine.Config.DdEditingArtifacts)
 			{
-				rc = gEngine.Database.LoadArtifacts(gEngine.Config.DdArtifactFileName);
+				rc = gDatabase.LoadArtifacts(gEngine.Config.DdArtifactFileName);
 
 				if (gEngine.IsFailure(rc))
 				{
@@ -403,7 +403,7 @@ namespace EamonRT
 
 			if (gEngine.Config.DdEditingEffects)
 			{
-				rc = gEngine.Database.LoadEffects(gEngine.Config.DdEffectFileName);
+				rc = gDatabase.LoadEffects(gEngine.Config.DdEffectFileName);
 
 				if (gEngine.IsFailure(rc))
 				{
@@ -415,7 +415,7 @@ namespace EamonRT
 
 			if (gEngine.Config.DdEditingMonsters)
 			{
-				rc = gEngine.Database.LoadMonsters(gEngine.Config.DdMonsterFileName);
+				rc = gDatabase.LoadMonsters(gEngine.Config.DdMonsterFileName);
 
 				if (gEngine.IsFailure(rc))
 				{
@@ -427,7 +427,7 @@ namespace EamonRT
 
 			if (gEngine.Config.DdEditingHints)
 			{
-				rc = gEngine.Database.LoadHints(gEngine.Config.DdHintFileName);
+				rc = gDatabase.LoadHints(gEngine.Config.DdHintFileName);
 
 				if (gEngine.IsFailure(rc))
 				{
@@ -451,7 +451,7 @@ namespace EamonRT
 						{
 							var lastDv = EnumUtil.GetLastValue<Direction>();
 
-							foreach (var room in gEngine.Database.RoomTable.Records)
+							foreach (var room in gDatabase.RoomTable.Records)
 							{
 								for (var dv = Direction.Northeast; dv <= lastDv; dv++)
 								{
@@ -467,38 +467,38 @@ namespace EamonRT
 							}
 						}
 
-						if (gEngine.Module.NumRooms != gEngine.Database.GetRoomCount())
+						if (gEngine.Module.NumRooms != gDatabase.GetRoomCount())
 						{
-							gEngine.Module.NumRooms = gEngine.Database.GetRoomCount();
+							gEngine.Module.NumRooms = gDatabase.GetRoomCount();
 
 							gEngine.ModulesModified = true;
 						}
 					}
 
-					if (gEngine.Config.DdEditingArtifacts && gEngine.Module.NumArtifacts != gEngine.Database.GetArtifactCount())
+					if (gEngine.Config.DdEditingArtifacts && gEngine.Module.NumArtifacts != gDatabase.GetArtifactCount())
 					{
-						gEngine.Module.NumArtifacts = gEngine.Database.GetArtifactCount();
+						gEngine.Module.NumArtifacts = gDatabase.GetArtifactCount();
 
 						gEngine.ModulesModified = true;
 					}
 
-					if (gEngine.Config.DdEditingEffects && gEngine.Module.NumEffects != gEngine.Database.GetEffectCount())
+					if (gEngine.Config.DdEditingEffects && gEngine.Module.NumEffects != gDatabase.GetEffectCount())
 					{
-						gEngine.Module.NumEffects = gEngine.Database.GetEffectCount();
+						gEngine.Module.NumEffects = gDatabase.GetEffectCount();
 
 						gEngine.ModulesModified = true;
 					}
 
-					if (gEngine.Config.DdEditingMonsters && gEngine.Module.NumMonsters != gEngine.Database.GetMonsterCount())
+					if (gEngine.Config.DdEditingMonsters && gEngine.Module.NumMonsters != gDatabase.GetMonsterCount())
 					{
-						gEngine.Module.NumMonsters = gEngine.Database.GetMonsterCount();
+						gEngine.Module.NumMonsters = gDatabase.GetMonsterCount();
 
 						gEngine.ModulesModified = true;
 					}
 
-					if (gEngine.Config.DdEditingHints && gEngine.Module.NumHints != gEngine.Database.GetHintCount())
+					if (gEngine.Config.DdEditingHints && gEngine.Module.NumHints != gDatabase.GetHintCount())
 					{
-						gEngine.Module.NumHints = gEngine.Database.GetHintCount();
+						gEngine.Module.NumHints = gDatabase.GetHintCount();
 
 						gEngine.ModulesModified = true;
 					}
@@ -561,7 +561,7 @@ namespace EamonRT
 
 				if (gEngine.HintsModified)
 				{
-					rc = gEngine.Database.SaveHints(gEngine.Config.DdHintFileName);
+					rc = gDatabase.SaveHints(gEngine.Config.DdHintFileName);
 
 					if (gEngine.IsFailure(rc))
 					{
@@ -575,7 +575,7 @@ namespace EamonRT
 
 				if (gEngine.MonstersModified)
 				{
-					rc = gEngine.Database.SaveMonsters(gEngine.Config.DdMonsterFileName);
+					rc = gDatabase.SaveMonsters(gEngine.Config.DdMonsterFileName);
 
 					if (gEngine.IsFailure(rc))
 					{
@@ -589,7 +589,7 @@ namespace EamonRT
 
 				if (gEngine.EffectsModified)
 				{
-					rc = gEngine.Database.SaveEffects(gEngine.Config.DdEffectFileName);
+					rc = gDatabase.SaveEffects(gEngine.Config.DdEffectFileName);
 
 					if (gEngine.IsFailure(rc))
 					{
@@ -603,7 +603,7 @@ namespace EamonRT
 
 				if (gEngine.ArtifactsModified)
 				{
-					rc = gEngine.Database.SaveArtifacts(gEngine.Config.DdArtifactFileName);
+					rc = gDatabase.SaveArtifacts(gEngine.Config.DdArtifactFileName);
 
 					if (gEngine.IsFailure(rc))
 					{
@@ -617,7 +617,7 @@ namespace EamonRT
 
 				if (gEngine.RoomsModified)
 				{
-					rc = gEngine.Database.SaveRooms(gEngine.Config.DdRoomFileName);
+					rc = gDatabase.SaveRooms(gEngine.Config.DdRoomFileName);
 
 					if (gEngine.IsFailure(rc))
 					{
@@ -631,7 +631,7 @@ namespace EamonRT
 
 				if (gEngine.ModulesModified)
 				{
-					rc = gEngine.Database.SaveModules(gEngine.Config.DdModuleFileName);
+					rc = gDatabase.SaveModules(gEngine.Config.DdModuleFileName);
 
 					if (gEngine.IsFailure(rc))
 					{
@@ -645,7 +645,7 @@ namespace EamonRT
 
 				if (gEngine.CharactersModified)
 				{
-					rc = gEngine.Database.SaveCharacters(gEngine.Config.DdCharacterFileName);
+					rc = gDatabase.SaveCharacters(gEngine.Config.DdCharacterFileName);
 
 					if (gEngine.IsFailure(rc))
 					{
@@ -659,7 +659,7 @@ namespace EamonRT
 
 				if (gEngine.FilesetsModified)
 				{
-					rc = gEngine.Database.SaveFilesets(gEngine.Config.DdFilesetFileName);
+					rc = gDatabase.SaveFilesets(gEngine.Config.DdFilesetFileName);
 
 					if (gEngine.IsFailure(rc))
 					{
@@ -673,7 +673,7 @@ namespace EamonRT
 
 				if (gEngine.ConfigFileName.Length > 0 && gEngine.ConfigsModified)
 				{
-					rc = gEngine.Database.SaveConfigs(gEngine.ConfigFileName);
+					rc = gDatabase.SaveConfigs(gEngine.ConfigFileName);
 
 					if (gEngine.IsFailure(rc))
 					{
@@ -849,7 +849,7 @@ namespace EamonRT
 			{
 				gOut.Print("{0}", gEngine.LineSep);
 
-				rc = gEngine.Database.LoadConfigs(gEngine.ConfigFileName);
+				rc = gDatabase.LoadConfigs(gEngine.ConfigFileName);
 
 				if (gEngine.IsFailure(rc))
 				{
@@ -862,7 +862,7 @@ namespace EamonRT
 
 				if (config != null)
 				{
-					config = gEngine.Database.RemoveConfig(config.Uid);
+					config = gDatabase.RemoveConfig(config.Uid);
 
 					Debug.Assert(config != null);
 
@@ -878,7 +878,7 @@ namespace EamonRT
 
 					config = config01;
 
-					rc = gEngine.Database.AddConfig(config);
+					rc = gDatabase.AddConfig(config);
 
 					Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -947,11 +947,11 @@ namespace EamonRT
 				}
 				else
 				{
-					gEngine.Config.Uid = gEngine.Database.GetConfigUid();
+					gEngine.Config.Uid = gDatabase.GetConfigUid();
 
 					gEngine.Config.IsUidRecycled = true;
 
-					rc = gEngine.Database.AddConfig(gEngine.Config);
+					rc = gDatabase.AddConfig(gEngine.Config);
 
 					if (gEngine.IsFailure(rc))
 					{
@@ -998,11 +998,11 @@ namespace EamonRT
 			{
 				gOut.WriteLine();
 
-				character = gEngine.Database.CharacterTable.Records.FirstOrDefault();
+				character = gDatabase.CharacterTable.Records.FirstOrDefault();
 
 				if (character != null)
 				{
-					character = gEngine.Database.RemoveCharacter(character.Uid);
+					character = gDatabase.RemoveCharacter(character.Uid);
 
 					Debug.Assert(character != null);
 
@@ -1018,7 +1018,7 @@ namespace EamonRT
 
 					character = character01;
 
-					rc = gEngine.Database.AddCharacter(character);
+					rc = gDatabase.AddCharacter(character);
 
 					Debug.Assert(gEngine.IsSuccess(rc));
 				}
@@ -1070,12 +1070,12 @@ namespace EamonRT
 				{
 					gEngine.GameState = gEngine.CreateInstance<IGameState>(x =>
 					{
-						x.Uid = gEngine.Database.GetGameStateUid();
+						x.Uid = gDatabase.GetGameStateUid();
 					});
 
 					Debug.Assert(gGameState != null);
 
-					rc = gEngine.Database.AddGameState(gGameState);
+					rc = gDatabase.AddGameState(gGameState);
 
 					Debug.Assert(gEngine.IsSuccess(rc));
 				}
@@ -1162,7 +1162,7 @@ namespace EamonRT
 
 					Debug.Assert(gEngine.IsSuccess(rc));
 
-					rc = gEngine.Database.LoadCharacters(gEngine.Config.MhCharacterFileName, printOutput: false);
+					rc = gDatabase.LoadCharacters(gEngine.Config.MhCharacterFileName, printOutput: false);
 
 					Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -1172,7 +1172,7 @@ namespace EamonRT
 					{
 						if (gEngine.DeleteCharacter)
 						{
-							gEngine.Database.RemoveCharacter(character.Uid);
+							gDatabase.RemoveCharacter(character.Uid);
 
 							character.Dispose();
 						}
@@ -1188,7 +1188,7 @@ namespace EamonRT
 							character.Status = (gGameState.Die != 1 ? Status.Alive : Status.Dead);
 						}
 
-						rc = gEngine.Database.SaveCharacters(gEngine.Config.MhCharacterFileName, false);
+						rc = gDatabase.SaveCharacters(gEngine.Config.MhCharacterFileName, false);
 
 						Debug.Assert(gEngine.IsSuccess(rc));
 

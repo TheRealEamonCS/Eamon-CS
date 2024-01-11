@@ -48,7 +48,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 				{
 					var directionValues = EnumUtil.GetValues<Direction>();
 
-					foreach (var room in gEngine.Database.RoomTable.Records)
+					foreach (var room in gDatabase.RoomTable.Records)
 					{
 						for (var i = editModule01.NumDirs; i < EditRecord.NumDirs; i++)
 						{
@@ -61,11 +61,11 @@ namespace EamonDD.Game.Menus.ActionMenus
 					}
 				}
 
-				var module = gEngine.Database.RemoveModule(EditRecord.Uid);
+				var module = gDatabase.RemoveModule(EditRecord.Uid);
 
 				Debug.Assert(module != null);
 
-				rc = gEngine.Database.AddModule(editModule01);
+				rc = gDatabase.AddModule(editModule01);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 

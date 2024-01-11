@@ -23,7 +23,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 		{
 			Title = "EDIT FILESET RECORD FIELD";
 
-			RecordTable = gEngine.Database.FilesetTable;
+			RecordTable = gDatabase.FilesetTable;
 
 			RecordTypeName = "Fileset";
 		}

@@ -52,7 +52,7 @@ namespace TheSubAquanLaboratory.Game.Commands
 				gOut.WriteLine();
 			}
 
-			var rooms = gEngine.Database.RoomTable.Records.Where(r => r.Zone == 2).ToList();
+			var rooms = gDatabase.RoomTable.Records.Where(r => r.Zone == 2).ToList();
 
 			var seenCount = rooms.Count(r => r.Seen);
 

@@ -53,7 +53,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 					goto Cleanup;
 				}
 
-				var module = gEngine.Database.RemoveModule(gEngine.Module.Uid);
+				var module = gDatabase.RemoveModule(gEngine.Module.Uid);
 
 				Debug.Assert(module != null);
 

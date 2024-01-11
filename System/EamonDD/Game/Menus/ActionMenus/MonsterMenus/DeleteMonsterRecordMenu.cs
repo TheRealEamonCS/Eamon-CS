@@ -30,7 +30,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 		{
 			Title = "DELETE MONSTER RECORD";
 
-			RecordTable = gEngine.Database.MonsterTable;
+			RecordTable = gDatabase.MonsterTable;
 
 			RecordTypeName = "Monster";
 		}

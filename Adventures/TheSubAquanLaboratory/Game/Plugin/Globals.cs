@@ -3,6 +3,7 @@
 
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
+using Eamon.Framework.DataStorage;
 using Eamon.Framework.DataStorage.Generic;
 using Eamon.Framework.Portability;
 using EamonRT.Framework.Commands;
@@ -29,6 +30,14 @@ namespace TheSubAquanLaboratory.Game.Plugin
 			get
 			{
 				return EamonRT.Game.Plugin.Globals.gOut;
+			}
+		}
+
+		public static IDatabase gDatabase
+		{
+			get
+			{
+				return EamonRT.Game.Plugin.Globals.gDatabase;
 			}
 		}
 

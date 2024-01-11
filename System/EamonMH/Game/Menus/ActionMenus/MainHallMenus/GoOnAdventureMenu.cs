@@ -42,7 +42,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 			var nlFlag = false;
 
-			var j = gEngine.Database.GetFilesetCount();
+			var j = gDatabase.GetFilesetCount();
 
 			if (index == 0)
 			{
@@ -70,7 +70,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 				var helper = gEngine.CreateInstance<IFilesetHelper>();
 
-				var filesets = gEngine.Database.FilesetTable.Records;
+				var filesets = gDatabase.FilesetTable.Records;
 
 				foreach (var fileset01 in filesets)
 				{
@@ -162,7 +162,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 					{
 						var fsfn = gEngine.Path.Combine(fileset.WorkDir, fileset.FilesetFileName);
 
-						rc = gEngine.Database.LoadFilesets(fsfn, printOutput: false);
+						rc = gDatabase.LoadFilesets(fsfn, printOutput: false);
 
 						Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -174,11 +174,11 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 						var chrfn = gEngine.Path.Combine(fileset.WorkDir, "FRESHMEAT.DAT");
 
-						rc = gEngine.Database.LoadCharacters(chrfn, printOutput: false);
+						rc = gDatabase.LoadCharacters(chrfn, printOutput: false);
 
 						Debug.Assert(gEngine.IsSuccess(rc));
 
-						var character = gEngine.Database.CharacterTable.Records.FirstOrDefault();
+						var character = gDatabase.CharacterTable.Records.FirstOrDefault();
 
 						if (character != null && character.Uid > 0 && !string.IsNullOrWhiteSpace(character.Name) && !character.Name.Equals("NONE", StringComparison.OrdinalIgnoreCase))
 						{
@@ -187,7 +187,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 							goto Cleanup01;
 						}
 
-						gEngine.Database.FreeCharacters();
+						gDatabase.FreeCharacters();
 
 						gCharacter.Status = Status.Adventuring;
 
@@ -195,44 +195,44 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 						character = gEngine.CloneInstance(gCharacter);
 
-						rc = gEngine.Database.AddCharacter(character);
+						rc = gDatabase.AddCharacter(character);
 
 						Debug.Assert(gEngine.IsSuccess(rc));
 
-						rc = gEngine.Database.SaveCharacters(chrfn, false);
+						rc = gDatabase.SaveCharacters(chrfn, false);
 
 						Debug.Assert(gEngine.IsSuccess(rc));
 
 						var fsfn = gEngine.Path.Combine(fileset.WorkDir, "SAVEGAME.DAT");
 
-						rc = gEngine.Database.LoadFilesets(fsfn, printOutput: false);
+						rc = gDatabase.LoadFilesets(fsfn, printOutput: false);
 
 						Debug.Assert(gEngine.IsSuccess(rc));
 
-						filesets = gEngine.Database.FilesetTable.Records;
+						filesets = gDatabase.FilesetTable.Records;
 
 						foreach (var fileset01 in filesets)
 						{
 							fileset01.DeleteFiles(null);
 						}
 
-						gEngine.Database.FreeFilesets();
+						gDatabase.FreeFilesets();
 
-						rc = gEngine.Database.SaveFilesets(fsfn, false);
+						rc = gDatabase.SaveFilesets(fsfn, false);
 
 						Debug.Assert(gEngine.IsSuccess(rc));
 
 						var cfgfn = gEngine.Path.Combine(fileset.WorkDir, "EAMONCFG.DAT");
 
-						rc = gEngine.Database.LoadConfigs(cfgfn, printOutput: false);
+						rc = gDatabase.LoadConfigs(cfgfn, printOutput: false);
 
 						Debug.Assert(gEngine.IsSuccess(rc));
 
-						gEngine.Database.FreeConfigs();
+						gDatabase.FreeConfigs();
 
 						var config = gEngine.CloneInstance(gEngine.Config);
 
-						config.Uid = gEngine.Database.GetConfigUid();
+						config.Uid = gDatabase.GetConfigUid();
 
 						config.IsUidRecycled = true;
 
@@ -276,11 +276,11 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 						config.DdEditingCharacters = true;
 
-						rc = gEngine.Database.AddConfig(config);
+						rc = gDatabase.AddConfig(config);
 
 						Debug.Assert(gEngine.IsSuccess(rc));
 
-						rc = gEngine.Database.SaveConfigs(cfgfn, false);
+						rc = gDatabase.SaveConfigs(cfgfn, false);
 
 						Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -298,7 +298,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 						// silently sync characters file with newly created files above
 
-						rc = gEngine.Database.SaveCharacters(gEngine.Config.MhCharacterFileName, false);
+						rc = gDatabase.SaveCharacters(gEngine.Config.MhCharacterFileName, false);
 
 						Debug.Assert(gEngine.IsSuccess(rc));
 

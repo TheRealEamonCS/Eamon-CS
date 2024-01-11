@@ -54,7 +54,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 							goto Cleanup;
 						}
 
-						gEngine.Database.ModuleTable.FreeUids.Remove(NewRecordUid);
+						gDatabase.ModuleTable.FreeUids.Remove(NewRecordUid);
 					}
 				}
 
@@ -89,7 +89,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 					goto Cleanup;
 				}
 
-				rc = gEngine.Database.AddModule(module);
+				rc = gDatabase.AddModule(module);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 

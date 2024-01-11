@@ -18,7 +18,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 		{
 			Title = "ANALYSE HINT RECORDS";
 
-			RecordTable = gEngine.Database.HintTable;
+			RecordTable = gDatabase.HintTable;
 
 			RecordTypeName = "Hint";
 		}

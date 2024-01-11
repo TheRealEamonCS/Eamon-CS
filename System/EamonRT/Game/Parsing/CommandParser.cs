@@ -1007,7 +1007,7 @@ namespace EamonRT.Game.Parsing
 				CurrToken++;
 			}
 
-			var filesets = gEngine.Database.FilesetTable.Records.ToList();
+			var filesets = gDatabase.FilesetTable.Records.ToList();
 
 			var filesetsCount = filesets.Count();
 
@@ -1107,7 +1107,7 @@ namespace EamonRT.Game.Parsing
 				saveCommand.SaveName = "Quick Saved Game";
 			}
 
-			var filesets = gEngine.Database.FilesetTable.Records.ToList();
+			var filesets = gDatabase.FilesetTable.Records.ToList();
 
 			var filesetsCount = filesets.Count();
 

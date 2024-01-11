@@ -18,7 +18,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 		{
 			Title = "ANALYSE EFFECT RECORDS";
 
-			RecordTable = gEngine.Database.EffectTable;
+			RecordTable = gDatabase.EffectTable;
 
 			RecordTypeName = "Effect";
 		}

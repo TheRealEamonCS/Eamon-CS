@@ -39,7 +39,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			gEngine.PrintTitle("GENERATE DEAD BODY ARTIFACT RECORDS", true);
 
-			var maxMonUid = gEngine.Database.GetMonsterUid(false);
+			var maxMonUid = gDatabase.GetMonsterUid(false);
 
 			gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(43, '\0', 0, "Enter the starting Monster Uid", "1"));
 
@@ -150,7 +150,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 					artifact = gEngine.CreateInstance<IArtifact>(x =>
 					{
-						x.Uid = gEngine.Database.GetArtifactUid();
+						x.Uid = gDatabase.GetArtifactUid();
 						x.Name = string.Format("{0}{1} body", monster.Name, char.ToUpper(lastChar) != 'S' ? "'s" : "'");
 						x.Desc = string.Format("You see {0}.", x.Name);
 						x.IsListed = true;
@@ -169,7 +169,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 						artUids[1] = artifact.Uid;
 					}
 
-					rc = gEngine.Database.AddArtifact(artifact);
+					rc = gDatabase.AddArtifact(artifact);
 
 					Debug.Assert(gEngine.IsSuccess(rc));
 

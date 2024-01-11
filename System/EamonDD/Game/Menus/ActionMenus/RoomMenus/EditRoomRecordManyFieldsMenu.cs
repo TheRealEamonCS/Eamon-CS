@@ -23,7 +23,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 		{
 			Title = "EDIT ROOM RECORD FIELDS";
 
-			RecordTable = gEngine.Database.RoomTable;
+			RecordTable = gDatabase.RoomTable;
 
 			RecordTypeName = "Room";
 		}

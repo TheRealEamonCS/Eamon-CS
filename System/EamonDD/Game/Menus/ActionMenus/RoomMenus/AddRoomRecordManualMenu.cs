@@ -30,7 +30,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 		{
 			Title = "ADD ROOM RECORD";
 
-			RecordTable = gEngine.Database.RoomTable;
+			RecordTable = gDatabase.RoomTable;
 
 			RecordTypeName = "Room";
 		}

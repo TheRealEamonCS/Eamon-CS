@@ -27,27 +27,27 @@ namespace EamonDD.Game.Menus
 
 			if (!gEngine.BortCommand && gEngine.Config.DdEditingFilesets)
 			{
-				gOut.Write("{0}Filesets: {1}", "  ", gEngine.Database.GetFilesetCount());
+				gOut.Write("{0}Filesets: {1}", "  ", gDatabase.GetFilesetCount());
 			}
 
 			if (!gEngine.BortCommand && gEngine.Config.DdEditingCharacters)
 			{
-				gOut.Write("{0}Characters: {1}", "  ", gEngine.Database.GetCharacterCount());
+				gOut.Write("{0}Characters: {1}", "  ", gDatabase.GetCharacterCount());
 			}
 
 			if (gEngine.Config.DdEditingModules)
 			{
-				gOut.Write("{0}Modules: {1}", "  ", gEngine.Database.GetModuleCount());
+				gOut.Write("{0}Modules: {1}", "  ", gDatabase.GetModuleCount());
 			}
 
 			if (gEngine.Config.DdEditingRooms)
 			{
-				gOut.Write("{0}Rooms: {1}", "  ", gEngine.Database.GetRoomCount());
+				gOut.Write("{0}Rooms: {1}", "  ", gDatabase.GetRoomCount());
 			}
 
 			if (gEngine.Config.DdEditingArtifacts)
 			{
-				gOut.Write("{0}Artifacts: {1}", "  ", gEngine.Database.GetArtifactCount());
+				gOut.Write("{0}Artifacts: {1}", "  ", gDatabase.GetArtifactCount());
 			}
 
 			gOut.WriteLine();
@@ -60,21 +60,21 @@ namespace EamonDD.Game.Menus
 
 				if (gEngine.Config.DdEditingEffects)
 				{
-					gOut.Write("Effects: {0}", gEngine.Database.GetEffectCount());
+					gOut.Write("Effects: {0}", gDatabase.GetEffectCount());
 
 					i++;
 				}
 
 				if (gEngine.Config.DdEditingMonsters)
 				{
-					gOut.Write("{0}Monsters: {1}", i > 0 ? "  " : "", gEngine.Database.GetMonsterCount());
+					gOut.Write("{0}Monsters: {1}", i > 0 ? "  " : "", gDatabase.GetMonsterCount());
 
 					i++;
 				}
 
 				if (gEngine.Config.DdEditingHints)
 				{
-					gOut.Write("{0}Hints: {1}", i > 0 ? "  " : "", gEngine.Database.GetHintCount());
+					gOut.Write("{0}Hints: {1}", i > 0 ? "  " : "", gDatabase.GetHintCount());
 
 					i++;
 				}
@@ -90,12 +90,12 @@ namespace EamonDD.Game.Menus
 
 		public virtual void PrintFilesetMenuSubtitle()
 		{
-			gOut.Print("Filesets: {0}", gEngine.Database.GetFilesetCount());
+			gOut.Print("Filesets: {0}", gDatabase.GetFilesetCount());
 		}
 
 		public virtual void PrintCharacterMenuSubtitle()
 		{
-			gOut.Print("Characters: {0}", gEngine.Database.GetCharacterCount());
+			gOut.Print("Characters: {0}", gDatabase.GetCharacterCount());
 		}
 
 		public virtual void PrintModuleMenuSubtitle()
@@ -106,7 +106,7 @@ namespace EamonDD.Game.Menus
 					gEngine.Module != null ? gEngine.Module.Name : gEngine.UnknownName);
 			}
 
-			gOut.Print("Modules: {0}", gEngine.Database.GetModuleCount());
+			gOut.Print("Modules: {0}", gDatabase.GetModuleCount());
 		}
 
 		public virtual void PrintRoomMenuSubtitle()
@@ -117,7 +117,7 @@ namespace EamonDD.Game.Menus
 					gEngine.Module != null ? gEngine.Module.Name : gEngine.UnknownName);
 			}
 
-			gOut.Print("Rooms: {0}", gEngine.Database.GetRoomCount());
+			gOut.Print("Rooms: {0}", gDatabase.GetRoomCount());
 		}
 
 		public virtual void PrintArtifactMenuSubtitle()
@@ -128,7 +128,7 @@ namespace EamonDD.Game.Menus
 					gEngine.Module != null ? gEngine.Module.Name : gEngine.UnknownName);
 			}
 
-			gOut.Print("Artifacts: {0}", gEngine.Database.GetArtifactCount());
+			gOut.Print("Artifacts: {0}", gDatabase.GetArtifactCount());
 		}
 
 		public virtual void PrintEffectMenuSubtitle()
@@ -139,7 +139,7 @@ namespace EamonDD.Game.Menus
 					gEngine.Module != null ? gEngine.Module.Name : gEngine.UnknownName);
 			}
 
-			gOut.Print("Effects: {0}", gEngine.Database.GetEffectCount());
+			gOut.Print("Effects: {0}", gDatabase.GetEffectCount());
 		}
 
 		public virtual void PrintMonsterMenuSubtitle()
@@ -150,7 +150,7 @@ namespace EamonDD.Game.Menus
 					gEngine.Module != null ? gEngine.Module.Name : gEngine.UnknownName);
 			}
 
-			gOut.Print("Monsters: {0}", gEngine.Database.GetMonsterCount());
+			gOut.Print("Monsters: {0}", gDatabase.GetMonsterCount());
 		}
 
 		public virtual void PrintHintMenuSubtitle()
@@ -161,7 +161,7 @@ namespace EamonDD.Game.Menus
 					gEngine.Module != null ? gEngine.Module.Name : gEngine.UnknownName);
 			}
 
-			gOut.Print("Hints: {0}", gEngine.Database.GetHintCount());
+			gOut.Print("Hints: {0}", gDatabase.GetHintCount());
 		}
 	}
 }

@@ -3689,7 +3689,7 @@ namespace Eamon.Game.Helpers
 		{
 			if (Record.Uid <= 0)
 			{
-				Record.Uid = gEngine.Database.GetArtifactUid();
+				Record.Uid = gDatabase.GetArtifactUid();
 
 				Record.IsUidRecycled = true;
 			}

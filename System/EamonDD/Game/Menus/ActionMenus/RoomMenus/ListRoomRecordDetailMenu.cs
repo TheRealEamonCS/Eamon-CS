@@ -18,7 +18,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 		{
 			Title = "LIST ROOM RECORD DETAILS";
 
-			RecordTable = gEngine.Database.RoomTable;
+			RecordTable = gDatabase.RoomTable;
 
 			RecordTypeName = "Room";
 		}

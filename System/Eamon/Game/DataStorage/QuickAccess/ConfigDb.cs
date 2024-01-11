@@ -20,19 +20,19 @@ namespace Eamon.Game.DataStorage.QuickAccess
 		{
 			get
 			{
-				return gEngine.Database.FindConfig(uid);
+				return gDatabase.FindConfig(uid);
 			}
 
 			set
 			{
 				if (value == null || value.Uid == uid)
 				{
-					gEngine.Database.RemoveConfig(uid);
+					gDatabase.RemoveConfig(uid);
 				}
 
 				if (value != null && value.Uid == uid)
 				{
-					gEngine.Database.AddConfig(value, CopyAddedRecord);
+					gDatabase.AddConfig(value, CopyAddedRecord);
 				}
 			}
 		}
@@ -41,7 +41,7 @@ namespace Eamon.Game.DataStorage.QuickAccess
 		{
 			get
 			{
-				return gEngine.Database?.ConfigTable?.Records;
+				return gDatabase?.ConfigTable?.Records;
 			}
 		}
 

@@ -58,7 +58,7 @@ namespace ARuncibleCargo.Game.States
 
 					// Nothing in the dream affects the real world; revert game state now that player is awake
 
-					var filesetTable = gEngine.CloneInstance(gEngine.Database.FilesetTable);
+					var filesetTable = gEngine.CloneInstance(gDatabase.FilesetTable);
 
 					Debug.Assert(filesetTable != null);
 
@@ -74,11 +74,11 @@ namespace ARuncibleCargo.Game.States
 
 					Debug.Assert(gEngine.IsSuccess(rc));
 
-					gEngine.Database.FilesetTable = filesetTable;
+					gDatabase.FilesetTable = filesetTable;
 
 					gEngine.Config = gEngine.GetConfig();
 
-					gEngine.Character = gEngine.Database.CharacterTable.Records.FirstOrDefault();
+					gEngine.Character = gDatabase.CharacterTable.Records.FirstOrDefault();
 
 					gEngine.Module = gEngine.GetModule();
 

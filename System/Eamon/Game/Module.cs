@@ -69,7 +69,7 @@ namespace Eamon.Game
 
 			if (IsUidRecycled && Uid > 0)
 			{
-				gEngine.Database.FreeModuleUid(Uid);
+				gDatabase.FreeModuleUid(Uid);
 
 				Uid = 0;
 			}

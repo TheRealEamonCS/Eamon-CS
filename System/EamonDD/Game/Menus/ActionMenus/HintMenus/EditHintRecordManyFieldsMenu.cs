@@ -23,7 +23,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 		{
 			Title = "EDIT HINT RECORD FIELDS";
 
-			RecordTable = gEngine.Database.HintTable;
+			RecordTable = gDatabase.HintTable;
 
 			RecordTypeName = "Hint";
 		}

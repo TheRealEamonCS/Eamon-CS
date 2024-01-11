@@ -20,19 +20,19 @@ namespace Eamon.Game.DataStorage.QuickAccess
 		{
 			get
 			{
-				return gEngine.Database.FindEffect(uid);
+				return gDatabase.FindEffect(uid);
 			}
 
 			set
 			{
 				if (value == null || value.Uid == uid)
 				{
-					gEngine.Database.RemoveEffect(uid);
+					gDatabase.RemoveEffect(uid);
 				}
 
 				if (value != null && value.Uid == uid)
 				{
-					gEngine.Database.AddEffect(value, CopyAddedRecord);
+					gDatabase.AddEffect(value, CopyAddedRecord);
 				}
 			}
 		}
@@ -41,7 +41,7 @@ namespace Eamon.Game.DataStorage.QuickAccess
 		{
 			get
 			{
-				return gEngine.Database?.EffectTable?.Records;
+				return gDatabase?.EffectTable?.Records;
 			}
 		}
 

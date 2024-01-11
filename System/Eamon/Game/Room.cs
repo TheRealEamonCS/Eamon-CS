@@ -54,7 +54,7 @@ namespace Eamon.Game
 
 			if (IsUidRecycled && Uid > 0)
 			{
-				gEngine.Database.FreeRoomUid(Uid);
+				gDatabase.FreeRoomUid(Uid);
 
 				Uid = 0;
 			}

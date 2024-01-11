@@ -18,7 +18,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 		{
 			Title = "LIST FILESET RECORD DETAILS";
 
-			RecordTable = gEngine.Database.FilesetTable;
+			RecordTable = gDatabase.FilesetTable;
 
 			RecordTypeName = "Fileset";
 		}

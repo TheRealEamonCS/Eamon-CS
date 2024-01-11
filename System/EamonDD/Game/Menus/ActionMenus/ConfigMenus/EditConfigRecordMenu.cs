@@ -42,11 +42,11 @@ namespace EamonDD.Game.Menus.ActionMenus
 					goto Cleanup;
 				}
 
-				var config = gEngine.Database.RemoveConfig(EditRecord.Uid);
+				var config = gDatabase.RemoveConfig(EditRecord.Uid);
 
 				if (config != null)
 				{
-					rc = gEngine.Database.AddConfig(editConfig01);
+					rc = gDatabase.AddConfig(editConfig01);
 
 					Debug.Assert(gEngine.IsSuccess(rc));
 				}

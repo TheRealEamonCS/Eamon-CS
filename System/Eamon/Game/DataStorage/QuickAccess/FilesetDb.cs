@@ -20,19 +20,19 @@ namespace Eamon.Game.DataStorage.QuickAccess
 		{
 			get
 			{
-				return gEngine.Database.FindFileset(uid);
+				return gDatabase.FindFileset(uid);
 			}
 
 			set
 			{
 				if (value == null || value.Uid == uid)
 				{
-					gEngine.Database.RemoveFileset(uid);
+					gDatabase.RemoveFileset(uid);
 				}
 
 				if (value != null && value.Uid == uid)
 				{
-					gEngine.Database.AddFileset(value, CopyAddedRecord);
+					gDatabase.AddFileset(value, CopyAddedRecord);
 				}
 			}
 		}
@@ -41,7 +41,7 @@ namespace Eamon.Game.DataStorage.QuickAccess
 		{
 			get
 			{
-				return gEngine.Database?.FilesetTable?.Records;
+				return gDatabase?.FilesetTable?.Records;
 			}
 		}
 

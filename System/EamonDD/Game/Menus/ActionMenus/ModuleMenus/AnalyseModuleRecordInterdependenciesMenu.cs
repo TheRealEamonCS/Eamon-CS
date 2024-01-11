@@ -18,7 +18,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 		{
 			Title = "ANALYSE MODULE RECORDS";
 
-			RecordTable = gEngine.Database.ModuleTable;
+			RecordTable = gDatabase.ModuleTable;
 
 			RecordTypeName = "Module";
 		}

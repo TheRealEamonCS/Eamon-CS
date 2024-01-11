@@ -20,19 +20,19 @@ namespace Eamon.Game.DataStorage.QuickAccess
 		{
 			get
 			{
-				return gEngine.Database.FindGameState(uid);
+				return gDatabase.FindGameState(uid);
 			}
 
 			set
 			{
 				if (value == null || value.Uid == uid)
 				{
-					gEngine.Database.RemoveGameState(uid);
+					gDatabase.RemoveGameState(uid);
 				}
 
 				if (value != null && value.Uid == uid)
 				{
-					gEngine.Database.AddGameState(value, CopyAddedRecord);
+					gDatabase.AddGameState(value, CopyAddedRecord);
 				}
 			}
 		}
@@ -41,7 +41,7 @@ namespace Eamon.Game.DataStorage.QuickAccess
 		{
 			get
 			{
-				return gEngine.Database?.GameStateTable?.Records;
+				return gDatabase?.GameStateTable?.Records;
 			}
 		}
 

@@ -18,7 +18,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 		{
 			Title = "ANALYSE ARTIFACT RECORDS";
 
-			RecordTable = gEngine.Database.ArtifactTable;
+			RecordTable = gDatabase.ArtifactTable;
 
 			RecordTypeName = "Artifact";
 		}

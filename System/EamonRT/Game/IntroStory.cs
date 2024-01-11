@@ -28,7 +28,7 @@ namespace EamonRT.Game
 			{
 				var result = true;
 
-				if (gEngine.Database.GetFilesetCount() > 0)
+				if (gDatabase.GetFilesetCount() > 0)
 				{
 					gOut.Print("{0}", gEngine.LineSep);
 

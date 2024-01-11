@@ -37,7 +37,7 @@ namespace EamonRT.Game.States
 
 			while (true)
 			{
-				gEngine.LoopMonsterUid = gEngine.LoopMonsterUidListIndex < gEngine.LoopMonsterUidList.Count ? gEngine.LoopMonsterUidList[(int)(gEngine.LoopMonsterUidListIndex++)] : gEngine.Database.GetMonsterUid(false) + 1;
+				gEngine.LoopMonsterUid = gEngine.LoopMonsterUidListIndex < gEngine.LoopMonsterUidList.Count ? gEngine.LoopMonsterUidList[(int)(gEngine.LoopMonsterUidListIndex++)] : gDatabase.GetMonsterUid(false) + 1;
 
 				LoopMonster = gMDB[gEngine.LoopMonsterUid];
 

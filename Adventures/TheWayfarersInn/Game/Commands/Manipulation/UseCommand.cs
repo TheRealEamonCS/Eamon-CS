@@ -463,7 +463,7 @@ namespace TheWayfarersInn.Game.Commands
 				{
 					if (ActorRoom.Uid == 27 && DobjArtifact.IsInRoom(ActorRoom))
 					{
-						if ((!unseenApparitionMonster.IsInLimbo() || !childsApparitionMonster.IsInLimbo()) && !gGameState.DartboardCreepsOut)
+						if (!gGameState.CharlotteRestInPeace && !gGameState.DartboardCreepsOut)
 						{
 							gEngine.PrintEffectDesc(131);
 

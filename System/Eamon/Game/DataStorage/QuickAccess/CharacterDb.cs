@@ -20,19 +20,19 @@ namespace Eamon.Game.DataStorage.QuickAccess
 		{
 			get
 			{
-				return gEngine.Database.FindCharacter(uid);
+				return gDatabase.FindCharacter(uid);
 			}
 
 			set
 			{
 				if (value == null || value.Uid == uid)
 				{
-					gEngine.Database.RemoveCharacter(uid);
+					gDatabase.RemoveCharacter(uid);
 				}
 
 				if (value != null && value.Uid == uid)
 				{
-					gEngine.Database.AddCharacter(value, CopyAddedRecord);
+					gDatabase.AddCharacter(value, CopyAddedRecord);
 				}
 			}
 		}
@@ -41,7 +41,7 @@ namespace Eamon.Game.DataStorage.QuickAccess
 		{
 			get
 			{
-				return gEngine.Database?.CharacterTable?.Records;
+				return gDatabase?.CharacterTable?.Records;
 			}
 		}
 

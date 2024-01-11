@@ -891,7 +891,7 @@ namespace Eamon.Game.Helpers
 		{
 			if (Record.Uid <= 0)
 			{
-				Record.Uid = gEngine.Database.GetRoomUid();
+				Record.Uid = gDatabase.GetRoomUid();
 
 				Record.IsUidRecycled = true;
 			}

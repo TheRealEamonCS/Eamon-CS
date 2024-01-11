@@ -45,7 +45,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 			{
 				artifact = gEngine.CreateInstance<IArtifact>(x =>
 				{
-					x.Uid = gEngine.Database.GetArtifactUid();
+					x.Uid = gDatabase.GetArtifactUid();
 					x.Name = string.Format("artifact {0}", x.Uid);
 					x.Desc = string.Format("You see artifact {0}.", x.Uid);
 					x.IsListed = true;
@@ -63,7 +63,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 					artUids[1] = artifact.Uid;
 				}
 
-				rc = gEngine.Database.AddArtifact(artifact);
+				rc = gDatabase.AddArtifact(artifact);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 

@@ -2296,7 +2296,7 @@ namespace Eamon.Game.Helpers
 		{
 			if (Record.Uid <= 0)
 			{
-				Record.Uid = gEngine.Database.GetMonsterUid();
+				Record.Uid = gDatabase.GetMonsterUid();
 
 				Record.IsUidRecycled = true;
 			}

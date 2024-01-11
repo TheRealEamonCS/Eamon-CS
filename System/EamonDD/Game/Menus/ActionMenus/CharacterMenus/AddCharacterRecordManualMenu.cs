@@ -23,7 +23,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 		{
 			Title = "ADD CHARACTER RECORD";
 
-			RecordTable = gEngine.Database.CharacterTable;
+			RecordTable = gDatabase.CharacterTable;
 
 			RecordTypeName = "Character";
 		}

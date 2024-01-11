@@ -59,7 +59,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 		{
 			RetCode rc;
 
-			var filesets = gEngine.Database.FilesetTable.Records;
+			var filesets = gDatabase.FilesetTable.Records;
 
 			foreach (var fileset in filesets)
 			{
@@ -71,7 +71,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 				{
 					var fsfn = gEngine.Path.Combine(fileset.WorkDir, fileset.FilesetFileName);
 
-					rc = gEngine.Database.LoadFilesets(fsfn, printOutput: false);
+					rc = gDatabase.LoadFilesets(fsfn, printOutput: false);
 
 					Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -83,11 +83,11 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 					if (gEngine.File.Exists(chrfn))
 					{
-						rc = gEngine.Database.LoadCharacters(chrfn, printOutput: false);
+						rc = gDatabase.LoadCharacters(chrfn, printOutput: false);
 
 						Debug.Assert(gEngine.IsSuccess(rc));
 
-						var character = gEngine.Database.CharacterTable.Records.FirstOrDefault();
+						var character = gDatabase.CharacterTable.Records.FirstOrDefault();
 
 						if (character != null && character.Uid == gCharacter.Uid && character.Name.Equals(gCharacter.Name, StringComparison.OrdinalIgnoreCase))
 						{
@@ -153,7 +153,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 			gOut.Print("{0}", gEngine.LineSep);
 
-			character.Uid = gEngine.Database.GetCharacterUid();
+			character.Uid = gDatabase.GetCharacterUid();
 
 			character.IsUidRecycled = true;
 
@@ -230,7 +230,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 				}
 			}
 
-			rc = gEngine.Database.AddCharacter(character);
+			rc = gDatabase.AddCharacter(character);
 
 			Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -369,14 +369,14 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 					if (effect == null)
 					{
-						var effectUid = gEngine.RollDice(1, gEngine.Database.GetEffectCount(), 0);
+						var effectUid = gEngine.RollDice(1, gDatabase.GetEffectCount(), 0);
 
 						effect = gEDB[effectUid];
 					}
 
 					gOut.Print("He starts looking through his book, while muttering something about {0}", effect != null ? effect.Desc : "not having enough snappy comments.");
 
-					gEngine.Character = gEngine.Database.CharacterTable.Records.FirstOrDefault(c => c.Name.Equals(character.Name, StringComparison.OrdinalIgnoreCase));
+					gEngine.Character = gDatabase.CharacterTable.Records.FirstOrDefault(c => c.Name.Equals(character.Name, StringComparison.OrdinalIgnoreCase));
 
 					if (gCharacter == null)
 					{

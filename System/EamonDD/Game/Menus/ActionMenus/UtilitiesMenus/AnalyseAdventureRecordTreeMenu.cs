@@ -41,7 +41,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 				Environment.NewLine,
 				gEngine.Module != null ? gEngine.Module.Name : gEngine.UnknownName));
 
-			var roomList = gEngine.Database.RoomTable.Records;
+			var roomList = gDatabase.RoomTable.Records;
 
 			foreach (var room in roomList)
 			{

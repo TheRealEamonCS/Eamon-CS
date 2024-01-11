@@ -18,7 +18,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 		{
 			Title = "ANALYSE MONSTER RECORDS";
 
-			RecordTable = gEngine.Database.MonsterTable;
+			RecordTable = gDatabase.MonsterTable;
 
 			RecordTypeName = "Monster";
 		}
