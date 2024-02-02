@@ -17,7 +17,7 @@ namespace TheBeginnersCave.Game.Commands
 		{
 			Debug.Assert(DobjArtifact != null || DobjMonster != null);
 
-			// don't show bites/drinks left for spices
+			// Don't show bites/drinks left for spices
 
 			if (DobjArtifact != null && DobjArtifact.Uid == 8)
 			{

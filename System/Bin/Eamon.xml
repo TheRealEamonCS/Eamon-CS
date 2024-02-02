@@ -2279,9 +2279,6 @@
             the player character (may be 0 if none exists).
             </summary>
         </member>
-        <member name="P:Eamon.Framework.IGameState.Af">
-            <summary></summary>
-        </member>
         <member name="P:Eamon.Framework.IGameState.Die">
             <summary>
             Gets or sets a value indicating the player character death status (-1=Quitting Game; 0=Alive; 1=Dead).
@@ -2319,19 +2316,34 @@
             </summary>
         </member>
         <member name="P:Eamon.Framework.IGameState.InteractiveFiction">
-            <summary></summary>
+            <summary>
+            Gets or sets a value indicating whether the game is being played as traditional Interactive
+            Fiction or an Eamon adventure.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.IGameState.EnhancedParser">
-            <summary></summary>
+            <summary>
+            Gets or sets a value indicating whether the game is using an enhanced parser or traditional
+            Eamon parser.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.IGameState.IobjPronounAffinity">
-            <summary></summary>
+            <summary>
+            Gets or sets a value indicating whether pronouns attach to the most recently used indirect
+            or direct object (enhanced parser only).
+            </summary>
         </member>
         <member name="P:Eamon.Framework.IGameState.ShowPronounChanges">
-            <summary></summary>
+            <summary>
+            Gets or sets a value indicating whether the parser emits a message when it changes the object
+            referred to by a pronoun. (enhanced parser only).
+            </summary>
         </member>
         <member name="P:Eamon.Framework.IGameState.ShowFulfillMessages">
-            <summary></summary>
+            <summary>
+            Gets or sets a value indicating whether the parser emits a message when it executes each
+            command in a series (enhanced parser only).
+            </summary>
         </member>
         <member name="P:Eamon.Framework.IGameState.CurrTurn">
             <summary>
@@ -2357,13 +2369,24 @@
         <member name="P:Eamon.Framework.IGameState.UsedWpnIdx">
             <summary>
             Gets or sets a value that indexes <see cref="P:Eamon.Framework.IGameState.HeldWpnUids">HeldWpnUids</see> and indicates which weapon in that
-            array is being used by the player in the game.  (Only used in the beginner's adventures).
+            array is being used by the player in the game (Beginner's adventures only).
             </summary>
         </member>
         <member name="P:Eamon.Framework.IGameState.Sa">
             <summary>
             Gets or sets an array of player character <see cref="T:Eamon.Framework.Primitive.Enums.Spell">Spell</see> abilities that is updated during gameplay.
             </summary>
+            <remarks>
+            This array is initialized and synchronized with the player character's permanent
+            <see cref="P:Eamon.Framework.ICharacter.SpellAbilities">SpellAbilities</see> before and during the game. Avoid accessing array elements
+            directly in favor of using Getter/Setter/Mutator methods to ensure games can override when necessary.
+            </remarks>
+            <seealso cref="M:Eamon.Framework.IGameState.GetSa(System.Int64)"/>
+            <seealso cref="M:Eamon.Framework.IGameState.GetSa(Eamon.Framework.Primitive.Enums.Spell)"/>
+            <seealso cref="M:Eamon.Framework.IGameState.SetSa(System.Int64,System.Int64)"/>
+            <seealso cref="M:Eamon.Framework.IGameState.SetSa(Eamon.Framework.Primitive.Enums.Spell,System.Int64)"/>
+            <seealso cref="M:Eamon.Framework.IGameState.ModSa(System.Int64,System.Int64)"/>
+            <seealso cref="M:Eamon.Framework.IGameState.ModSa(Eamon.Framework.Primitive.Enums.Spell,System.Int64)"/>
         </member>
         <member name="P:Eamon.Framework.IGameState.ImportedArtUids">
             <summary>
@@ -2371,102 +2394,191 @@
             to the Artifacts brought into the game by the player (armor, shield and weapons).
             </summary>
             <remarks>
-            The <see cref="P:Eamon.Framework.IGameState.ImportedArtUidsIdx">ImportedArtUidsIdx</see> property indicates the number of
-            <see cref="T:Eamon.Framework.IArtifact">Artifact</see><see cref="P:Eamon.Framework.IGameBase.Uid"> Uid</see>s stored in the array (and also the next
-            element available to store another).
+            This array is loaded during game startup. The <see cref="P:Eamon.Framework.IGameState.ImportedArtUidsIdx">ImportedArtUidsIdx</see> property
+            indicates the number of <see cref="T:Eamon.Framework.IArtifact">Artifact</see><see cref="P:Eamon.Framework.IGameBase.Uid"> Uid</see>s stored in the
+            array (and also the next element available to store another). Avoid accessing array elements directly in favor
+            of using Getter/Setter methods to ensure games can override when necessary.
             </remarks>
+            <seealso cref="M:Eamon.Framework.IGameState.GetImportedArtUid(System.Int64)"/>
+            <seealso cref="M:Eamon.Framework.IGameState.SetImportedArtUid(System.Int64,System.Int64)"/>
         </member>
         <member name="P:Eamon.Framework.IGameState.HeldWpnUids">
             <summary>
             Gets or sets an array of <see cref="T:Eamon.Framework.IArtifact">Artifact</see><see cref="P:Eamon.Framework.IGameBase.Uid"> Uid</see>s corresponding
-            to the weapons brought into the game by the player.  (Only used in the beginner's adventures).
+            to the weapons brought into the game by the player (Beginner's adventures only).
             </summary>
             <remarks>
-            All but one of these weapons is put in limbo; the <see cref="P:Eamon.Framework.IGameState.UsedWpnIdx">UsedWpnIdx</see> property indicates which
-            weapon is being used by the player in the game.  All weapons are returned to the player when the game is exited.
+            All but one of these weapons is put in limbo at game startup; the <see cref="P:Eamon.Framework.IGameState.UsedWpnIdx">UsedWpnIdx</see> property
+            indicates which weapon is being used by the player in the game.  All weapons are returned to the player when the
+            game is exited. Avoid accessing array elements directly in favor of using Getter/Setter methods to ensure games
+            can override when necessary.
             </remarks>
+            <seealso cref="M:Eamon.Framework.IGameState.GetHeldWpnUid(System.Int64)"/>
+            <seealso cref="M:Eamon.Framework.IGameState.SetHeldWpnUid(System.Int64,System.Int64)"/>
         </member>
         <member name="P:Eamon.Framework.IGameState.BeforePrintPlayerRoomEventHeap">
-            <summary></summary>
+            <summary>
+            Gets or sets the data structure that holds events to be fired before the player character's current
+            <see cref="T:Eamon.Framework.IRoom">Room</see> is printed.</summary>
             <remarks></remarks>
         </member>
         <member name="P:Eamon.Framework.IGameState.AfterPrintPlayerRoomEventHeap">
-            <summary></summary>
+            <summary>
+            Gets or sets the data structure that holds events to be fired after the player character's current
+            <see cref="T:Eamon.Framework.IRoom">Room</see> is printed, but before the command prompt is displayed.
+            </summary>
             <remarks></remarks>
         </member>
         <member name="M:Eamon.Framework.IGameState.GetNBTL(System.Int64,System.Int64)">
-            <summary></summary>
-            <param name="index"></param>
-            <param name="roomUid"></param>
-            <returns></returns>
+            <summary>
+            Gets the total <see cref="F:Eamon.Framework.Primitive.Enums.Stat.Hardiness">Hardiness</see> of <see cref="T:Eamon.Framework.IMonster">Monsters</see> with a specified
+            <see cref="T:Eamon.Framework.Primitive.Enums.Friendliness"/> in a particular <see cref="T:Eamon.Framework.IRoom">Room</see>.
+            </summary>
+            <param name="index">The Friendliness value expressed as a long datatype.</param>
+            <param name="roomUid">The Room <see cref="P:Eamon.Framework.IGameBase.Uid"> Uid</see>, or 0 for the player's current Room. (Optional)</param>
+            <remarks>
+            For group Monsters, the value added to the sum is equal to (Hardiness * <see cref="P:Eamon.Framework.IMonster.CurrGroupCount">CurrGroupCount</see>).
+            When the <paramref name="roomUid"/> is omitted the player's current Room is used. This method can be overridden in games when
+            necessary.
+            </remarks>
+            <returns>A single summed Hardiness value for all affected Monsters.</returns>
+            <seealso cref="M:Eamon.Framework.IGameState.GetNBTL(Eamon.Framework.Primitive.Enums.Friendliness,System.Int64)"/>
         </member>
         <member name="M:Eamon.Framework.IGameState.GetNBTL(Eamon.Framework.Primitive.Enums.Friendliness,System.Int64)">
-            <summary></summary>
-            <param name="friendliness"></param>
-            <param name="roomUid"></param>
-            <returns></returns>
+            <summary>
+            Gets the total <see cref="F:Eamon.Framework.Primitive.Enums.Stat.Hardiness">Hardiness</see> of <see cref="T:Eamon.Framework.IMonster">Monsters</see> with a specified
+            <see cref="T:Eamon.Framework.Primitive.Enums.Friendliness"/> in a particular <see cref="T:Eamon.Framework.IRoom">Room</see>.
+            </summary>
+            <param name="friendliness">The Friendliness value.</param>
+            <param name="roomUid">The Room <see cref="P:Eamon.Framework.IGameBase.Uid"> Uid</see>, or 0 for the player's current Room. (Optional)</param>
+            <remarks>
+            This convenience wrapper should typically never be overridden in games. The other base method remarks are also applicable here.
+            </remarks>
+            <returns>A single summed Hardiness value for all affected Monsters.</returns>
+            <seealso cref="M:Eamon.Framework.IGameState.GetNBTL(System.Int64,System.Int64)"/>
         </member>
         <member name="M:Eamon.Framework.IGameState.GetDTTL(System.Int64,System.Int64)">
-            <summary></summary>
-            <param name="index"></param>
-            <param name="roomUid"></param>
-            <returns></returns>
+            <summary>
+            Gets the total <see cref="P:Eamon.Framework.IMonster.DmgTaken">DmgTaken</see> of <see cref="T:Eamon.Framework.IMonster">Monsters</see> with a specified
+            <see cref="T:Eamon.Framework.Primitive.Enums.Friendliness"/> in a particular <see cref="T:Eamon.Framework.IRoom">Room</see>.
+            </summary>
+            <param name="index">The Friendliness value expressed as a long datatype.</param>
+            <param name="roomUid">The Room <see cref="P:Eamon.Framework.IGameBase.Uid"> Uid</see>, or 0 for the player's current Room. (Optional)</param>
+            <remarks>
+            This method returns the summed damage taken for games using Ruleset Version 5 or 62; for others it returns 0. For group
+            Monsters, the value added to the sum is the damage taken by the "current" group member. When the <paramref name="roomUid"/>
+            is omitted the player's current Room is used. This method can be overridden in games when necessary.
+            </remarks>
+            <returns>A single summed DmgTaken value for all affected Monsters.</returns>
+            <seealso cref="M:Eamon.Framework.IGameState.GetDTTL(Eamon.Framework.Primitive.Enums.Friendliness,System.Int64)"/>
         </member>
         <member name="M:Eamon.Framework.IGameState.GetDTTL(Eamon.Framework.Primitive.Enums.Friendliness,System.Int64)">
-            <summary></summary>
-            <param name="friendliness"></param>
-            <param name="roomUid"></param>
-            <returns></returns>
+            <summary>
+            Gets the total <see cref="P:Eamon.Framework.IMonster.DmgTaken">DmgTaken</see> of <see cref="T:Eamon.Framework.IMonster">Monsters</see> with a specified
+            <see cref="T:Eamon.Framework.Primitive.Enums.Friendliness"/> in a particular <see cref="T:Eamon.Framework.IRoom">Room</see>.
+            </summary>
+            <param name="friendliness">The Friendliness value.</param>
+            <param name="roomUid">The Room <see cref="P:Eamon.Framework.IGameBase.Uid"> Uid</see>, or 0 for the player's current Room. (Optional)</param>
+            <remarks>
+            This convenience wrapper should typically never be overridden in games. The other base method remarks are also applicable here.
+            </remarks>
+            <returns>A single summed DmgTaken value for all affected Monsters.</returns>
+            <seealso cref="M:Eamon.Framework.IGameState.GetDTTL(System.Int64,System.Int64)"/>
         </member>
         <member name="M:Eamon.Framework.IGameState.GetSa(System.Int64)">
-            <summary></summary>
-            <param name="index"></param>
-            <returns></returns>
+            <summary>Gets the player's current ability for a given <see cref="T:Eamon.Framework.Primitive.Enums.Spell"/>.</summary>
+            <param name="index">The Spell value expressed as a long datatype.</param>
+            <remarks>
+            The value changes during gameplay based on Spell usage and regeneration each round. This method can be overridden in games
+            when necessary.
+            </remarks>
+            <returns>The current ability value for the Spell.</returns>
+            <seealso cref="M:Eamon.Framework.IGameState.GetSa(Eamon.Framework.Primitive.Enums.Spell)"/>
         </member>
         <member name="M:Eamon.Framework.IGameState.GetSa(Eamon.Framework.Primitive.Enums.Spell)">
-            <summary></summary>
-            <param name="spell"></param>
-            <returns></returns>
+            <summary>Gets the player's current ability for a given <see cref="T:Eamon.Framework.Primitive.Enums.Spell"/>.</summary>
+            <param name="spell">The Spell value.</param>
+            <remarks>
+            This convenience wrapper should typically never be overridden in games. The other base method remarks are also applicable here.
+            </remarks>
+            <returns>The current ability value for the Spell.</returns>
+            <seealso cref="M:Eamon.Framework.IGameState.GetSa(System.Int64)"/>
         </member>
         <member name="M:Eamon.Framework.IGameState.GetImportedArtUid(System.Int64)">
-            <summary></summary>
-            <param name="index"></param>
-            <returns></returns>
+            <summary>Gets the imported <see cref="T:Eamon.Framework.IArtifact">Artifact</see><see cref="P:Eamon.Framework.IGameBase.Uid"> Uid</see> at a given index.</summary>
+            <param name="index">The array index.</param>
+            <remarks>The <see cref="P:Eamon.Framework.IGameState.ImportedArtUids">ImportedArtUids</see> array stores Artifacts imported by the player into the game. This
+            method can be overridden in games when necessary.</remarks>
+            <returns>The imported Artifact Uid.</returns>
         </member>
         <member name="M:Eamon.Framework.IGameState.GetHeldWpnUid(System.Int64)">
-            <summary></summary>
-            <param name="index"></param>
-            <returns></returns>
+            <summary>Gets the held weapon <see cref="T:Eamon.Framework.IArtifact">Artifact</see><see cref="P:Eamon.Framework.IGameBase.Uid"> Uid</see> at a given index.</summary>
+            <param name="index">The array index.</param>
+            <remarks>The <see cref="P:Eamon.Framework.IGameState.HeldWpnUids">HeldWpnUids</see> array stores all weapon Artifacts brought into a Beginner's adventure. This
+            method can be overridden in games when necessary.</remarks>
+            <returns>The held weapon Artifact Uid.</returns>
         </member>
         <member name="M:Eamon.Framework.IGameState.SetSa(System.Int64,System.Int64)">
-            <summary></summary>
-            <param name="index"></param>
-            <param name="value"></param>
+            <summary>Sets the player's current ability for a given <see cref="T:Eamon.Framework.Primitive.Enums.Spell"/>.</summary>
+            <param name="index">The Spell value expressed as a long datatype.</param>
+            <param name="value">The new current ability value.</param>
+            <remarks>
+            The current ability value can be changed during gameplay for any reason. This method can be overridden in games
+            when necessary.
+            </remarks>
+            <seealso cref="M:Eamon.Framework.IGameState.SetSa(Eamon.Framework.Primitive.Enums.Spell,System.Int64)"/>
         </member>
         <member name="M:Eamon.Framework.IGameState.SetSa(Eamon.Framework.Primitive.Enums.Spell,System.Int64)">
-            <summary></summary>
-            <param name="spell"></param>
-            <param name="value"></param>
+            <summary>Sets the player's current ability for a given <see cref="T:Eamon.Framework.Primitive.Enums.Spell"/>.</summary>
+            <param name="spell">The Spell value.</param>
+            <param name="value">The new current ability value.</param>
+            <remarks>
+            This convenience wrapper should typically never be overridden in games. The other base method remarks are also applicable here.
+            </remarks>
+            <seealso cref="M:Eamon.Framework.IGameState.SetSa(System.Int64,System.Int64)"/>
         </member>
         <member name="M:Eamon.Framework.IGameState.SetImportedArtUid(System.Int64,System.Int64)">
-            <summary></summary>
-            <param name="index"></param>
-            <param name="value"></param>
+            <summary>
+            Sets the imported <see cref="T:Eamon.Framework.IArtifact">Artifact</see><see cref="P:Eamon.Framework.IGameBase.Uid"> Uid</see> at a
+            specified index to a given value.
+            </summary>
+            <param name="index">The array index.</param>
+            <param name="value">The new imported Artifact Uid.</param>
+            <remarks>
+            The imported Artifact Uid is stored in the <see cref="P:Eamon.Framework.IGameState.ImportedArtUids">ImportedArtUids</see>
+            array. This method can be overridden in games when necessary.
+            </remarks>
         </member>
         <member name="M:Eamon.Framework.IGameState.SetHeldWpnUid(System.Int64,System.Int64)">
-            <summary></summary>
-            <param name="index"></param>
-            <param name="value"></param>
+            <summary>
+            Sets the held weapon <see cref="T:Eamon.Framework.IArtifact">Artifact</see><see cref="P:Eamon.Framework.IGameBase.Uid"> Uid</see> at a
+            specified index to a given value.
+            </summary>
+            <param name="index">The array index.</param>
+            <param name="value">The new held weapon Artifact Uid.</param>
+            <remarks>
+            The held weapon Artifact Uid is stored in the <see cref="P:Eamon.Framework.IGameState.HeldWpnUids">HeldWpnUids</see> array.
+            This method can be overridden in games when necessary.
+            </remarks>
         </member>
         <member name="M:Eamon.Framework.IGameState.ModSa(System.Int64,System.Int64)">
-            <summary></summary>
-            <param name="index"></param>
-            <param name="value"></param>
+            <summary>Modifies the player's current ability for a given <see cref="T:Eamon.Framework.Primitive.Enums.Spell"/>.</summary>
+            <param name="index">The Spell value expressed as a long datatype.</param>
+            <param name="value">The modifier to the current ability value.</param>
+            <remarks>
+            The current ability value can be incremented or decremented during gameplay for any reason, based on the
+            <paramref name="value"/> being positive or negative. This method can be overridden in games when necessary.
+            </remarks>
+            <seealso cref="M:Eamon.Framework.IGameState.ModSa(Eamon.Framework.Primitive.Enums.Spell,System.Int64)"/>
         </member>
         <member name="M:Eamon.Framework.IGameState.ModSa(Eamon.Framework.Primitive.Enums.Spell,System.Int64)">
-            <summary></summary>
-            <param name="spell"></param>
-            <param name="value"></param>
+            <summary>Modifies the player's current ability for a given <see cref="T:Eamon.Framework.Primitive.Enums.Spell"/>.</summary>
+            <param name="spell">The Spell value.</param>
+            <param name="value">The modifier to the current ability value.</param>
+            <remarks>
+            This convenience wrapper should typically never be overridden in games. The other base method remarks are also applicable here.
+            </remarks>
+            <seealso cref="M:Eamon.Framework.IGameState.ModSa(System.Int64,System.Int64)"/>
         </member>
         <member name="T:Eamon.Framework.IHint">
             <summary></summary>

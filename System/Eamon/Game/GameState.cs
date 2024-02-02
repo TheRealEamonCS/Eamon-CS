@@ -41,9 +41,6 @@ namespace Eamon.Game
 		[FieldName(740)]
 		public virtual long Sh { get; set; }
 
-		[FieldName(760)]
-		public virtual long Af { get; set; }
-
 		[FieldName(780)]
 		public virtual long Die { get; set; }
 
