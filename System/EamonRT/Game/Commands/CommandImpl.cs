@@ -21,6 +21,30 @@ using static EamonRT.Game.Plugin.Globals;
 
 namespace EamonRT.Game.Commands
 {
+	/// <summary>
+	/// An implementation of the <see cref="Commands.Command">Command</see> class that can be subclassed and
+	/// overridden at the game level.
+	/// </summary>
+	/// <remarks>
+	/// This class was introduced to allow the game designer to override the logic in the abstract base class
+	/// Command. While it's already possible to override each Command individually for derived behavior, CommandImpl
+	/// offers a way to modify behavior globally. Command and CommandImpl together form two halves of a single
+	/// conceptual class.
+	/// <para>
+	/// When subclassing and writing code in CommandImpl, avoid direct access to its methods or properties. Instead, use
+	/// the <see cref="Command">Command</see> property to access them indirectly, for example,
+	/// <see cref="Command.PrintNotEnoughGold()">Command.PrintNotEnoughGold()</see> or
+	/// <see cref="Command.ActorRoom">Command.ActorRoom</see>.
+	/// This ensures that if a subclass of Command overrides a property or method, Command will use the overridden
+	/// version rather than the CommandImpl version.
+	/// </para>
+	/// <para>
+	/// TODO: add examples to illustrate the practical applications and advantages of using this implementation.
+	/// </para>
+	/// </remarks>
+	/// <seealso cref="ICommandImpl" />
+	/// <seealso cref="ICommand" />
+	/// <seealso cref="ICommandSignatures" />
 	[ClassMappings]
 	public class CommandImpl : ICommandImpl
 	{
