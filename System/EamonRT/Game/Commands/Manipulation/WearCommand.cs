@@ -120,7 +120,7 @@ namespace EamonRT.Game.Commands
 				goto Cleanup;
 			}
 
-			// can't wear shield while using two-handed weapon
+			// Can't wear shield while using two-handed weapon
 
 			if (DobjArtAc.Field1 == 1 && WeaponArtifactAc != null && WeaponArtifactAc.Field5 > 1)
 			{

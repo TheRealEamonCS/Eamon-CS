@@ -5,11 +5,24 @@
 
 using System;
 using Eamon.Framework.Primitive.Enums;
+using Eamon.Game;
 using Eamon.Game.Utilities;
 
 namespace Eamon.Framework
 {
-	/// <summary></summary>
+	/// <summary>
+	/// Represents the base properties that comprise the saved state of a game. These properties are stored when the
+	/// game is saved and restored when the game is resumed.
+	/// </summary>
+	/// <remarks>
+	/// Game designers can extend this interface and add new properties needed for the game state of their
+	/// new game, implementing those properties in the game's underlying derived GameState class. Provided the
+	/// SharpSerializer library can handle the new properties, the save and restore of the game's new GameState is
+	/// automatically supported by Eamon CS. Luckily, this library is very powerful and only exotic things like cyclic
+	/// graphs aren't supported. Be careful to distinguish between game state and scratch variables used only during
+	/// gameplay, which are best stored elsewhere (perhaps in <see cref="Plugin.IEngine">IEngine</see>).
+	/// </remarks>
+	/// <seealso cref="GameState"/>
 	public interface IGameState : IGameBase, IComparable<IGameState>
 	{
 		#region Properties
