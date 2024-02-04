@@ -3042,6 +3042,32 @@
         <member name="T:EamonRT.Framework.States.IProcessPlayerInputState">
             <summary></summary>
         </member>
+        <member name="T:EamonRT.Game.Commands.CommandImpl">
+            <summary>
+            An implementation of the <see cref="T:EamonRT.Game.Commands.Command">Command</see> class that can be subclassed and
+            overridden at the game level.
+            </summary>
+            <remarks>
+            This class was introduced to allow the game designer to override the logic in the abstract base class
+            Command. While it's already possible to override each Command individually for derived behavior, CommandImpl
+            offers a way to modify behavior globally. Command and CommandImpl together form two halves of a single
+            conceptual class.
+            <para>
+            When subclassing and writing code in CommandImpl, avoid direct access to its methods or properties. Instead, use
+            the <see cref="P:EamonRT.Game.Commands.CommandImpl.Command">Command</see> property to access them indirectly, for example,
+            <see cref="M:EamonRT.Game.Commands.Command.PrintNotEnoughGold">Command.PrintNotEnoughGold()</see> or
+            <see cref="P:EamonRT.Game.Commands.Command.ActorRoom">Command.ActorRoom</see>.
+            This ensures that if a subclass of Command overrides a property or method, Command will use the overridden
+            version rather than the CommandImpl version.
+            </para>
+            <para>
+            TODO: add examples to illustrate the practical applications and advantages of using this implementation.
+            </para>
+            </remarks>
+            <seealso cref="T:EamonRT.Framework.Commands.ICommandImpl" />
+            <seealso cref="T:EamonRT.Framework.Commands.ICommand" />
+            <seealso cref="T:EamonRT.Framework.Commands.ICommandSignatures" />
+        </member>
         <member name="P:EamonRT.Game.Commands.AttackCommand.DobjArtAc">
             <summary></summary>
         </member>

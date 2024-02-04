@@ -2226,7 +2226,19 @@
             <returns></returns>
         </member>
         <member name="T:Eamon.Framework.IGameState">
-            <summary></summary>
+            <summary>
+            Represents the base properties that comprise the saved state of a game. These properties are stored when the
+            game is saved and restored when the game is resumed.
+            </summary>
+            <remarks>
+            Game designers can extend this interface and add new properties needed for the game state of their
+            new game, implementing those properties in the game's underlying derived GameState class. Provided the
+            SharpSerializer library can handle the new properties, the save and restore of the game's new GameState is
+            automatically supported by Eamon CS. Luckily, this library is very powerful and only exotic things like cyclic
+            graphs aren't supported. Be careful to distinguish between game state and scratch variables used only during
+            gameplay, which are best stored elsewhere (perhaps in <see cref="T:Eamon.Framework.Plugin.IEngine">IEngine</see>).
+            </remarks>
+            <seealso cref="T:Eamon.Game.GameState"/>
         </member>
         <member name="P:Eamon.Framework.IGameState.Ar">
             <summary>
@@ -9403,6 +9415,35 @@
             <remarks>
             Full credit:  https://stackoverflow.com/questions/273313/randomize-a-listt
             </remarks>
+        </member>
+        <member name="T:Eamon.Game.Plugin.Globals">
+            <summary></summary>
+            <remarks></remarks>
+        </member>
+        <member name="P:Eamon.Game.Plugin.Globals.gEngine">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Game.Plugin.Globals.gOut">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Game.Plugin.Globals.gDatabase">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Game.Plugin.Globals.gRDB">
+            <summary>Gets the current <see cref="T:Eamon.Framework.IRoom">Room</see> database.</summary>
+            <remarks>You can get or set a specific Room by providing the Room <see cref="P:Eamon.Framework.IGameBase.Uid">Uid</see> as an indexer.</remarks>
+        </member>
+        <member name="P:Eamon.Game.Plugin.Globals.gADB">
+            <summary>Gets the current <see cref="T:Eamon.Framework.IArtifact">Artifact</see> database.</summary>
+            <remarks>You can get or set a specific Artifact by providing the Artifact <see cref="P:Eamon.Framework.IGameBase.Uid">Uid</see> as an indexer.</remarks>
+        </member>
+        <member name="P:Eamon.Game.Plugin.Globals.gEDB">
+            <summary>Gets the current <see cref="T:Eamon.Framework.IEffect">Effect</see> database.</summary>
+            <remarks>You can get or set a specific Effect by providing the Effect <see cref="P:Eamon.Framework.IGameBase.Uid">Uid</see> as an indexer.</remarks>
+        </member>
+        <member name="P:Eamon.Game.Plugin.Globals.gMDB">
+            <summary>Gets the current <see cref="T:Eamon.Framework.IMonster">Monster</see> database.</summary>
+            <remarks>You can get or set a specific Monster by providing the Monster <see cref="P:Eamon.Framework.IGameBase.Uid">Uid</see> as an indexer.</remarks>
         </member>
         <member name="T:Eamon.Game.Utilities.FixedLengthReader">
             <summary>

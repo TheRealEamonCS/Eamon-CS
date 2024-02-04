@@ -11,6 +11,8 @@ using EamonRT.Framework.Plugin;
 
 namespace EamonRT.Game.Plugin
 {
+#pragma warning disable IDE1006 // Naming Styles
+
 	public static class Globals
 	{
 		public static IEngine gEngine
@@ -121,4 +123,6 @@ namespace EamonRT.Game.Plugin
 			}
 		}
 	}
+
+#pragma warning restore IDE1006 // Naming Styles
 }

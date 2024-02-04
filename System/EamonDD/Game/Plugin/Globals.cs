@@ -10,6 +10,8 @@ using EamonDD.Framework.Plugin;
 
 namespace EamonDD.Game.Plugin
 {
+#pragma warning disable IDE1006 // Naming Styles
+
 	public static class Globals
 	{
 		public static IEngine gEngine
@@ -72,4 +74,6 @@ namespace EamonDD.Game.Plugin
 			}
 		}
 	}
+
+#pragma warning restore IDE1006 // Naming Styles
 }

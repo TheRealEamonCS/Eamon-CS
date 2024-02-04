@@ -11,11 +11,17 @@ using Eamon.Framework.Portability;
 
 namespace Eamon.Game.Plugin
 {
+#pragma warning disable IDE1006 // Naming Styles
+
+	/// <summary></summary>
+	/// <remarks></remarks>
 	public static class Globals
 	{
+		/// <summary></summary>
 		public static IEngine gEngine { get; set; }
 
-		public static ITextWriter gOut 
+		/// <summary></summary>
+		public static ITextWriter gOut
 		{
 			get 
 			{
@@ -23,6 +29,7 @@ namespace Eamon.Game.Plugin
 			}
 		}
 
+		/// <summary></summary>
 		public static IDatabase gDatabase
 		{
 			get
@@ -31,7 +38,9 @@ namespace Eamon.Game.Plugin
 			}
 		}
 
-		public static IRecordDb<IRoom> gRDB 
+		/// <summary>Gets the current <see cref="IRoom">Room</see> database.</summary>
+		/// <remarks>You can get or set a specific Room by providing the Room <see cref="IGameBase.Uid">Uid</see> as an indexer.</remarks>
+		public static IRecordDb<IRoom> gRDB
 		{
 			get 
 			{
@@ -39,7 +48,9 @@ namespace Eamon.Game.Plugin
 			}
 		}
 
-		public static IRecordDb<IArtifact> gADB 
+		/// <summary>Gets the current <see cref="IArtifact">Artifact</see> database.</summary>
+		/// <remarks>You can get or set a specific Artifact by providing the Artifact <see cref="IGameBase.Uid">Uid</see> as an indexer.</remarks>
+		public static IRecordDb<IArtifact> gADB
 		{
 			get 
 			{
@@ -47,7 +58,9 @@ namespace Eamon.Game.Plugin
 			}
 		}
 
-		public static IRecordDb<IEffect> gEDB 
+		/// <summary>Gets the current <see cref="IEffect">Effect</see> database.</summary>
+		/// <remarks>You can get or set a specific Effect by providing the Effect <see cref="IGameBase.Uid">Uid</see> as an indexer.</remarks>
+		public static IRecordDb<IEffect> gEDB
 		{
 			get 
 			{
@@ -55,7 +68,9 @@ namespace Eamon.Game.Plugin
 			}
 		}
 
-		public static IRecordDb<IMonster> gMDB 
+		/// <summary>Gets the current <see cref="IMonster">Monster</see> database.</summary>
+		/// <remarks>You can get or set a specific Monster by providing the Monster <see cref="IGameBase.Uid">Uid</see> as an indexer.</remarks>
+		public static IRecordDb<IMonster> gMDB
 		{
 			get
 			{
@@ -63,4 +78,6 @@ namespace Eamon.Game.Plugin
 			}
 		}
 	}
+
+#pragma warning restore IDE1006 // Naming Styles
 }
