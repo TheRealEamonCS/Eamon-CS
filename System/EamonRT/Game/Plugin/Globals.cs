@@ -13,8 +13,10 @@ namespace EamonRT.Game.Plugin
 {
 #pragma warning disable IDE1006 // Naming Styles
 
+	/// <inheritdoc cref="EamonDD.Game.Plugin.Globals"/>
 	public static class Globals
 	{
+		/// <inheritdoc cref="EamonDD.Game.Plugin.Globals.gEngine"/>
 		public static IEngine gEngine
 		{
 			get
@@ -27,6 +29,7 @@ namespace EamonRT.Game.Plugin
 			}
 		}
 
+		/// <inheritdoc cref="EamonDD.Game.Plugin.Globals.gOut"/>
 		public static ITextWriter gOut 
 		{
 			get 
@@ -35,6 +38,7 @@ namespace EamonRT.Game.Plugin
 			}
 		}
 
+		/// <inheritdoc cref="EamonDD.Game.Plugin.Globals.gDatabase"/>
 		public static IDatabase gDatabase
 		{
 			get
@@ -43,6 +47,7 @@ namespace EamonRT.Game.Plugin
 			}
 		}
 
+		/// <inheritdoc cref="EamonDD.Game.Plugin.Globals.gRDB"/>
 		public static IRecordDb<Eamon.Framework.IRoom> gRDB 
 		{
 			get 
@@ -51,6 +56,7 @@ namespace EamonRT.Game.Plugin
 			}
 		}
 
+		/// <inheritdoc cref="EamonDD.Game.Plugin.Globals.gADB"/>
 		public static IRecordDb<Eamon.Framework.IArtifact> gADB 
 		{
 			get 
@@ -59,6 +65,7 @@ namespace EamonRT.Game.Plugin
 			}
 		}
 
+		/// <inheritdoc cref="EamonDD.Game.Plugin.Globals.gEDB"/>
 		public static IRecordDb<Eamon.Framework.IEffect> gEDB 
 		{
 			get 
@@ -67,6 +74,7 @@ namespace EamonRT.Game.Plugin
 			}
 		}
 
+		/// <inheritdoc cref="EamonDD.Game.Plugin.Globals.gMDB"/>
 		public static IRecordDb<Eamon.Framework.IMonster> gMDB 
 		{
 			get 

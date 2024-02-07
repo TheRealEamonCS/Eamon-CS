@@ -3929,6 +3929,54 @@
             <param name="monster"></param>
             <param name="damageFactor"></param>
         </member>
+        <member name="T:EamonRT.Game.Plugin.Globals">
+            <inheritdoc cref="T:EamonDD.Game.Plugin.Globals"/>
+        </member>
+        <member name="P:EamonRT.Game.Plugin.Globals.gEngine">
+            <inheritdoc cref="P:EamonDD.Game.Plugin.Globals.gEngine"/>
+        </member>
+        <member name="P:EamonRT.Game.Plugin.Globals.gOut">
+            <inheritdoc cref="P:EamonDD.Game.Plugin.Globals.gOut"/>
+        </member>
+        <member name="P:EamonRT.Game.Plugin.Globals.gDatabase">
+            <inheritdoc cref="P:EamonDD.Game.Plugin.Globals.gDatabase"/>
+        </member>
+        <member name="P:EamonRT.Game.Plugin.Globals.gRDB">
+            <inheritdoc cref="P:EamonDD.Game.Plugin.Globals.gRDB"/>
+        </member>
+        <member name="P:EamonRT.Game.Plugin.Globals.gADB">
+            <inheritdoc cref="P:EamonDD.Game.Plugin.Globals.gADB"/>
+        </member>
+        <member name="P:EamonRT.Game.Plugin.Globals.gEDB">
+            <inheritdoc cref="P:EamonDD.Game.Plugin.Globals.gEDB"/>
+        </member>
+        <member name="P:EamonRT.Game.Plugin.Globals.gMDB">
+            <inheritdoc cref="P:EamonDD.Game.Plugin.Globals.gMDB"/>
+        </member>
+        <member name="P:EamonRT.Game.Plugin.Globals.gSentenceParser">
+            <summary></summary>
+            <remarks></remarks>
+        </member>
+        <member name="P:EamonRT.Game.Plugin.Globals.gCommandParser">
+            <summary></summary>
+            <remarks></remarks>
+        </member>
+        <member name="P:EamonRT.Game.Plugin.Globals.gGameState">
+            <summary></summary>
+            <remarks></remarks>
+        </member>
+        <member name="P:EamonRT.Game.Plugin.Globals.gCharacter">
+            <summary></summary>
+            <remarks></remarks>
+        </member>
+        <member name="P:EamonRT.Game.Plugin.Globals.gCharMonster">
+            <summary></summary>
+            <remarks></remarks>
+        </member>
+        <member name="P:EamonRT.Game.Plugin.Globals.gCharRoom">
+            <summary></summary>
+            <remarks></remarks>
+        </member>
         <member name="P:EamonRT.Game.States.BurnDownLightSourceState.LsArtAc">
             <summary></summary>
         </member>

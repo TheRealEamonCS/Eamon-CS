@@ -324,6 +324,34 @@
         <member name="P:EamonMH.Game.Menus.ActionMenus.VillageSquareMenu.AddedPotency">
             <summary></summary>
         </member>
+        <member name="T:EamonMH.Game.Plugin.Globals">
+            <inheritdoc cref="T:Eamon.Game.Plugin.Globals"/>
+        </member>
+        <member name="P:EamonMH.Game.Plugin.Globals.gEngine">
+            <inheritdoc cref="P:Eamon.Game.Plugin.Globals.gEngine"/>
+        </member>
+        <member name="P:EamonMH.Game.Plugin.Globals.gOut">
+            <inheritdoc cref="P:Eamon.Game.Plugin.Globals.gOut"/>
+        </member>
+        <member name="P:EamonMH.Game.Plugin.Globals.gDatabase">
+            <inheritdoc cref="P:Eamon.Game.Plugin.Globals.gDatabase"/>
+        </member>
+        <member name="P:EamonMH.Game.Plugin.Globals.gRDB">
+            <inheritdoc cref="P:Eamon.Game.Plugin.Globals.gRDB"/>
+        </member>
+        <member name="P:EamonMH.Game.Plugin.Globals.gADB">
+            <inheritdoc cref="P:Eamon.Game.Plugin.Globals.gADB"/>
+        </member>
+        <member name="P:EamonMH.Game.Plugin.Globals.gEDB">
+            <inheritdoc cref="P:Eamon.Game.Plugin.Globals.gEDB"/>
+        </member>
+        <member name="P:EamonMH.Game.Plugin.Globals.gMDB">
+            <inheritdoc cref="P:Eamon.Game.Plugin.Globals.gMDB"/>
+        </member>
+        <member name="P:EamonMH.Game.Plugin.Globals.gCharacter">
+            <summary></summary>
+            <remarks></remarks>
+        </member>
         <member name="P:EamonMH.Program.ProgramName">
             <summary></summary>
         </member>

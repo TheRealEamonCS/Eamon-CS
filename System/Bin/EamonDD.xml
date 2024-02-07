@@ -879,5 +879,29 @@
             <param name="tag"></param>
             <param name="indentLevel"></param>
         </member>
+        <member name="T:EamonDD.Game.Plugin.Globals">
+            <inheritdoc cref="T:Eamon.Game.Plugin.Globals"/>
+        </member>
+        <member name="P:EamonDD.Game.Plugin.Globals.gEngine">
+            <inheritdoc cref="P:Eamon.Game.Plugin.Globals.gEngine"/>
+        </member>
+        <member name="P:EamonDD.Game.Plugin.Globals.gOut">
+            <inheritdoc cref="P:Eamon.Game.Plugin.Globals.gOut"/>
+        </member>
+        <member name="P:EamonDD.Game.Plugin.Globals.gDatabase">
+            <inheritdoc cref="P:Eamon.Game.Plugin.Globals.gDatabase"/>
+        </member>
+        <member name="P:EamonDD.Game.Plugin.Globals.gRDB">
+            <inheritdoc cref="P:Eamon.Game.Plugin.Globals.gRDB"/>
+        </member>
+        <member name="P:EamonDD.Game.Plugin.Globals.gADB">
+            <inheritdoc cref="P:Eamon.Game.Plugin.Globals.gADB"/>
+        </member>
+        <member name="P:EamonDD.Game.Plugin.Globals.gEDB">
+            <inheritdoc cref="P:Eamon.Game.Plugin.Globals.gEDB"/>
+        </member>
+        <member name="P:EamonDD.Game.Plugin.Globals.gMDB">
+            <inheritdoc cref="P:Eamon.Game.Plugin.Globals.gMDB"/>
+        </member>
     </members>
 </doc>
