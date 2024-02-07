@@ -2987,7 +2987,7 @@
             <param name="eventName"></param>
             <param name="eventParam"></param>
         </member>
-        <member name="M:EamonRT.Framework.States.IAfterPrintPlayerRoomEventState.FireEvent02(Eamon.Game.Utilities.EventData)">
+        <member name="M:EamonRT.Framework.States.IAfterPrintPlayerRoomEventState.FireEvent02(Eamon.Framework.Utilities.IEventData)">
             <summary></summary>
             <param name="eventData"></param>
         </member>
@@ -3008,7 +3008,7 @@
             <param name="eventName"></param>
             <param name="eventParam"></param>
         </member>
-        <member name="M:EamonRT.Framework.States.IBeforePrintPlayerRoomEventState.FireEvent02(Eamon.Game.Utilities.EventData)">
+        <member name="M:EamonRT.Framework.States.IBeforePrintPlayerRoomEventState.FireEvent02(Eamon.Framework.Utilities.IEventData)">
             <summary></summary>
             <param name="eventData"></param>
         </member>

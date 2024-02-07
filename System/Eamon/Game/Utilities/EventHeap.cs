@@ -6,19 +6,25 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Eamon.Framework.Utilities;
+using Eamon.Game.Attributes;
+using static Eamon.Game.Plugin.Globals;
 
 namespace Eamon.Game.Utilities
 {
-	public class EventData
+	[ClassMappings]
+	public class EventData : IEventData
 	{
 		public virtual string EventName { get; set; }
 
 		public virtual object EventParam { get; set; }
 	}
 
-	public class EventHeap
+	[ClassMappings]
+	public class EventHeap : IEventHeap
 	{
-		public virtual IDictionary<long, IList<EventData>> EventDictionary { get; set; }
+		/// <summary></summary>
+		public virtual IDictionary<long, IList<IEventData>> EventDictionary { get; set; }
 
 		public virtual bool IsEmpty()
 		{
@@ -30,21 +36,28 @@ namespace Eamon.Game.Utilities
 			EventDictionary.Clear();
 		}
 
-		public virtual bool Insert(long key, string eventName, Func<long, EventData, bool> duplicateFindFunc = null)
+		public virtual bool Insert(long key, string eventName, Func<long, IEventData, bool> duplicateFindFunc = null)
 		{
 			return Insert02(key, eventName, null, duplicateFindFunc);
 		}
 
-		public virtual bool Insert02(long key, string eventName, object eventParam, Func<long, EventData, bool> duplicateFindFunc = null)
+		public virtual bool Insert02(long key, string eventName, object eventParam, Func<long, IEventData, bool> duplicateFindFunc = null)
 		{
-			return Insert03(key, new EventData() { EventName = eventName, EventParam = eventParam }, duplicateFindFunc);
+			var eventData = gEngine.CreateInstance<IEventData>(x => 
+			{ 
+				x.EventName = eventName;
+				
+				x.EventParam = eventParam; 
+			});
+			
+			return Insert03(key, eventData, duplicateFindFunc);
 		}
 
-		public virtual bool Insert03(long key, EventData value, Func<long, EventData, bool> duplicateFindFunc = null)
+		public virtual bool Insert03(long key, IEventData value, Func<long, IEventData, bool> duplicateFindFunc = null)
 		{
 			var result = false;
 
-			IList<EventData> listValue;
+			IList<IEventData> listValue;
 
 			if (key >= 0 && value != null && !string.IsNullOrWhiteSpace(value.EventName))
 			{
@@ -58,7 +71,7 @@ namespace Eamon.Game.Utilities
 					}
 					else
 					{
-						listValue = new List<EventData>();
+						listValue = new List<IEventData>();
 
 						listValue.Add(value);
 
@@ -72,9 +85,9 @@ namespace Eamon.Game.Utilities
 			return result;
 		}
 
-		public virtual IList<KeyValuePair<long, EventData>> Find(Func<long, EventData, bool> findFunc = null)
+		public virtual IList<KeyValuePair<long, IEventData>> Find(Func<long, IEventData, bool> findFunc = null)
 		{
-			var eventList = new List<KeyValuePair<long, EventData>>();
+			var eventList = new List<KeyValuePair<long, IEventData>>();
 
 			foreach (var entry in EventDictionary)
 			{
@@ -82,7 +95,7 @@ namespace Eamon.Game.Utilities
 				{
 					if (findFunc != null && findFunc(entry.Key, eventData))
 					{
-						eventList.Add(new KeyValuePair<long, EventData>(entry.Key, eventData));
+						eventList.Add(new KeyValuePair<long, IEventData>(entry.Key, eventData));
 					}
 				}
 			}
@@ -90,9 +103,9 @@ namespace Eamon.Game.Utilities
 			return eventList;
 		}
 
-		public virtual IList<KeyValuePair<long, EventData>> Remove(Func<long, EventData, bool> findFunc = null)
+		public virtual IList<KeyValuePair<long, IEventData>> Remove(Func<long, IEventData, bool> findFunc = null)
 		{
-			IList<EventData> listValue;
+			IList<IEventData> listValue;
 
 			var eventList = Find(findFunc);
 
@@ -107,9 +120,9 @@ namespace Eamon.Game.Utilities
 			return eventList;
 		}
 
-		public virtual void RemoveMin(ref long key, ref EventData value)
+		public virtual void RemoveMin(ref long key, ref IEventData value)
 		{
-			IList<EventData> listValue;
+			IList<IEventData> listValue;
 
 			if (EventDictionary.Count > 0)
 			{
@@ -128,9 +141,9 @@ namespace Eamon.Game.Utilities
 			}
 		}
 
-		public virtual void PeekMin(ref long key, ref EventData value)
+		public virtual void PeekMin(ref long key, ref IEventData value)
 		{
-			IList<EventData> listValue;
+			IList<IEventData> listValue;
 
 			if (EventDictionary.Count > 0)
 			{
@@ -144,7 +157,7 @@ namespace Eamon.Game.Utilities
 
 		public EventHeap()
 		{
-			EventDictionary = new SortedDictionary<long, IList<EventData>>();
+			EventDictionary = new SortedDictionary<long, IList<IEventData>>();
 		}
 	}
 }

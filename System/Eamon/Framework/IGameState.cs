@@ -5,8 +5,7 @@
 
 using System;
 using Eamon.Framework.Primitive.Enums;
-using Eamon.Game;
-using Eamon.Game.Utilities;
+using Eamon.Framework.Utilities;
 
 namespace Eamon.Framework
 {
@@ -22,7 +21,6 @@ namespace Eamon.Framework
 	/// graphs aren't supported. Be careful to distinguish between game state and scratch variables used only during
 	/// gameplay, which are best stored elsewhere (perhaps in <see cref="Plugin.IEngine">IEngine</see>).
 	/// </remarks>
-	/// <seealso cref="GameState"/>
 	public interface IGameState : IGameBase, IComparable<IGameState>
 	{
 		#region Properties
@@ -219,14 +217,14 @@ namespace Eamon.Framework
 		/// Gets or sets the data structure that holds events to be fired before the player character's current
 		/// <see cref="IRoom">Room</see> is printed.</summary>
 		/// <remarks></remarks>
-		EventHeap BeforePrintPlayerRoomEventHeap { get; set; }
+		IEventHeap BeforePrintPlayerRoomEventHeap { get; set; }
 
 		/// <summary>
 		/// Gets or sets the data structure that holds events to be fired after the player character's current
 		/// <see cref="IRoom">Room</see> is printed, but before the command prompt is displayed.
 		/// </summary>
 		/// <remarks></remarks>
-		EventHeap AfterPrintPlayerRoomEventHeap { get; set; }
+		IEventHeap AfterPrintPlayerRoomEventHeap { get; set; }
 
 		#endregion
 

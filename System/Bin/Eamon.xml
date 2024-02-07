@@ -2238,7 +2238,6 @@
             graphs aren't supported. Be careful to distinguish between game state and scratch variables used only during
             gameplay, which are best stored elsewhere (perhaps in <see cref="T:Eamon.Framework.Plugin.IEngine">IEngine</see>).
             </remarks>
-            <seealso cref="T:Eamon.Game.GameState"/>
         </member>
         <member name="P:Eamon.Framework.IGameState.Ar">
             <summary>
@@ -6733,6 +6732,45 @@
         <member name="F:Eamon.Framework.Primitive.Enums.Weapon.Sword">
             <summary></summary>
         </member>
+        <member name="T:Eamon.Framework.Utilities.IEventData">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Utilities.IEventData.EventName">
+            <summary></summary>
+        </member>
+        <member name="P:Eamon.Framework.Utilities.IEventData.EventParam">
+            <summary></summary>
+        </member>
+        <member name="T:Eamon.Framework.Utilities.IEventHeap">
+            <summary></summary>
+        </member>
+        <member name="M:Eamon.Framework.Utilities.IEventHeap.IsEmpty">
+            <summary></summary>
+        </member>
+        <member name="M:Eamon.Framework.Utilities.IEventHeap.Clear">
+            <summary></summary>
+        </member>
+        <member name="M:Eamon.Framework.Utilities.IEventHeap.Insert(System.Int64,System.String,System.Func{System.Int64,Eamon.Framework.Utilities.IEventData,System.Boolean})">
+            <summary></summary>
+        </member>
+        <member name="M:Eamon.Framework.Utilities.IEventHeap.Insert02(System.Int64,System.String,System.Object,System.Func{System.Int64,Eamon.Framework.Utilities.IEventData,System.Boolean})">
+            <summary></summary>
+        </member>
+        <member name="M:Eamon.Framework.Utilities.IEventHeap.Insert03(System.Int64,Eamon.Framework.Utilities.IEventData,System.Func{System.Int64,Eamon.Framework.Utilities.IEventData,System.Boolean})">
+            <summary></summary>
+        </member>
+        <member name="M:Eamon.Framework.Utilities.IEventHeap.Find(System.Func{System.Int64,Eamon.Framework.Utilities.IEventData,System.Boolean})">
+            <summary></summary>
+        </member>
+        <member name="M:Eamon.Framework.Utilities.IEventHeap.Remove(System.Func{System.Int64,Eamon.Framework.Utilities.IEventData,System.Boolean})">
+            <summary></summary>
+        </member>
+        <member name="M:Eamon.Framework.Utilities.IEventHeap.RemoveMin(System.Int64@,Eamon.Framework.Utilities.IEventData@)">
+            <summary></summary>
+        </member>
+        <member name="M:Eamon.Framework.Utilities.IEventHeap.PeekMin(System.Int64@,Eamon.Framework.Utilities.IEventData@)">
+            <summary></summary>
+        </member>
         <member name="T:Eamon.Game.Attributes.ClassMappingsAttribute">
             <summary>
             An attribute that decorates concrete classes in Eamon CS, which corresponding interfaces resolve to via
@@ -9427,23 +9465,42 @@
             <summary></summary>
         </member>
         <member name="P:Eamon.Game.Plugin.Globals.gDatabase">
-            <summary></summary>
+            <summary>Gets the current global database.</summary>
+            <remarks>
+            All game Records reside in this global database, which can be used either directly or through various quick accessors
+            (such as <see cref="P:Eamon.Game.Plugin.Globals.gRDB">gRDB</see>, etc). The database also exports a variety of services via its many methods.
+            </remarks>
         </member>
         <member name="P:Eamon.Game.Plugin.Globals.gRDB">
             <summary>Gets the current <see cref="T:Eamon.Framework.IRoom">Room</see> database.</summary>
-            <remarks>You can get or set a specific Room by providing the Room <see cref="P:Eamon.Framework.IGameBase.Uid">Uid</see> as an indexer.</remarks>
+            <remarks>
+            The <see cref="P:Eamon.Framework.DataStorage.Generic.IRecordDb`1.Records">Records</see> property provides access to the Room collection. Additionally, you can 
+            get or set a specific Room by using its <see cref="P:Eamon.Framework.IGameBase.Uid">Uid</see> as an indexer.
+            </remarks>
         </member>
         <member name="P:Eamon.Game.Plugin.Globals.gADB">
             <summary>Gets the current <see cref="T:Eamon.Framework.IArtifact">Artifact</see> database.</summary>
-            <remarks>You can get or set a specific Artifact by providing the Artifact <see cref="P:Eamon.Framework.IGameBase.Uid">Uid</see> as an indexer.</remarks>
+            <remarks>
+            The <see cref="P:Eamon.Framework.DataStorage.Generic.IRecordDb`1.Records">Records</see> property provides access to the Artifact collection. Additionally, you can 
+            get or set a specific Artifact by using its <see cref="P:Eamon.Framework.IGameBase.Uid">Uid</see> as an indexer.
+            </remarks>
         </member>
         <member name="P:Eamon.Game.Plugin.Globals.gEDB">
             <summary>Gets the current <see cref="T:Eamon.Framework.IEffect">Effect</see> database.</summary>
-            <remarks>You can get or set a specific Effect by providing the Effect <see cref="P:Eamon.Framework.IGameBase.Uid">Uid</see> as an indexer.</remarks>
+            <remarks>
+            The <see cref="P:Eamon.Framework.DataStorage.Generic.IRecordDb`1.Records">Records</see> property provides access to the Effect collection. Additionally, you can 
+            get or set a specific Effect by using its <see cref="P:Eamon.Framework.IGameBase.Uid">Uid</see> as an indexer.
+            </remarks>
         </member>
         <member name="P:Eamon.Game.Plugin.Globals.gMDB">
             <summary>Gets the current <see cref="T:Eamon.Framework.IMonster">Monster</see> database.</summary>
-            <remarks>You can get or set a specific Monster by providing the Monster <see cref="P:Eamon.Framework.IGameBase.Uid">Uid</see> as an indexer.</remarks>
+            <remarks>
+            The <see cref="P:Eamon.Framework.DataStorage.Generic.IRecordDb`1.Records">Records</see> property provides access to the Monster collection. Additionally, you can 
+            get or set a specific Monster by using its <see cref="P:Eamon.Framework.IGameBase.Uid">Uid</see> as an indexer.
+            </remarks>
+        </member>
+        <member name="P:Eamon.Game.Utilities.EventHeap.EventDictionary">
+            <summary></summary>
         </member>
         <member name="T:Eamon.Game.Utilities.FixedLengthReader">
             <summary>

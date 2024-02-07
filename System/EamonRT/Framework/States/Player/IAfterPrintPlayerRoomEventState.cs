@@ -3,7 +3,7 @@
 
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
-using Eamon.Game.Utilities;
+using Eamon.Framework.Utilities;
 
 namespace EamonRT.Framework.States
 {
@@ -17,6 +17,6 @@ namespace EamonRT.Framework.States
 
 		/// <summary></summary>
 		/// <param name="eventData"></param>
-		void FireEvent02(EventData eventData);
+		void FireEvent02(IEventData eventData);
 	}
 }
