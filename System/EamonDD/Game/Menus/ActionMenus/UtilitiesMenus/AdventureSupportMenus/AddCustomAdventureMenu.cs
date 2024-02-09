@@ -101,6 +101,7 @@ namespace YourAdventureName.Game.Plugin
 
 // Copyright (c) 2014+ by YourAuthorName.  All rights reserved.
 
+using Eamon.Framework;
 using Eamon.Framework.DataStorage;
 using Eamon.Framework.DataStorage.Generic;
 using Eamon.Framework.Portability;
@@ -235,8 +236,15 @@ namespace YourAdventureName.Game.Plugin
 			}
 		}
 
-		/// <summary></summary>
-		/// <remarks></remarks>
+		/// <summary>Gets the ActorMonster property of an object as a game-specific interface.</summary>
+		/// <param name=""obj"">The object with the ActorMonster property.</param>
+		/// <remarks>
+		/// Use only within <see cref=""ICommandParser"">CommandParser</see> and <see cref=""ICommand"">Command</see> classes or
+		/// their derivatives, with the ""this"" keyword as a parameter. It allows easy access to new methods and properties in
+		/// a game-specific <see cref=""IMonster""/> interface. Adjust the return type or remove this method if no such interface
+		/// exists.
+		/// </remarks>
+		/// <returns>The ActorMonster downcast to a game-specific interface.</returns>
 		public static Eamon.Framework.IMonster gActorMonster(object obj)
 		{
 			if (obj is ICommandParser commandParser)
@@ -253,8 +261,15 @@ namespace YourAdventureName.Game.Plugin
 			}
 		}
 
-		/// <summary></summary>
-		/// <remarks></remarks>
+		/// <summary>Gets the ActorRoom property of an object as a game-specific interface.</summary>
+		/// <param name=""obj"">The object with the ActorRoom property.</param>
+		/// <remarks>
+		/// Use only within <see cref=""ICommandParser"">CommandParser</see> and <see cref=""ICommand"">Command</see> classes or
+		/// their derivatives, with the ""this"" keyword as a parameter. It allows easy access to new methods and properties in
+		/// a game-specific <see cref=""IRoom""/> interface. Adjust the return type or remove this method if no such interface
+		/// exists.
+		/// </remarks>
+		/// <returns>The ActorRoom downcast to a game-specific interface.</returns>
 		public static Eamon.Framework.IRoom gActorRoom(object obj)
 		{
 			if (obj is ICommandParser commandParser)
@@ -271,8 +286,15 @@ namespace YourAdventureName.Game.Plugin
 			}
 		}
 
-		/// <summary></summary>
-		/// <remarks></remarks>
+		/// <summary>Gets the DobjArtifact property of an object as a game-specific interface.</summary>
+		/// <param name=""obj"">The object with the DobjArtifact property.</param>
+		/// <remarks>
+		/// Use only within <see cref=""ICommandParser"">CommandParser</see> and <see cref=""ICommand"">Command</see> classes or
+		/// their derivatives, with the ""this"" keyword as a parameter. It allows easy access to new methods and properties in
+		/// a game-specific <see cref=""IArtifact""/> interface. Adjust the return type or remove this method if no such interface
+		/// exists.
+		/// </remarks>
+		/// <returns>The DobjArtifact downcast to a game-specific interface.</returns>
 		public static Eamon.Framework.IArtifact gDobjArtifact(object obj)
 		{
 			if (obj is ICommandParser commandParser)
@@ -289,8 +311,15 @@ namespace YourAdventureName.Game.Plugin
 			}
 		}
 
-		/// <summary></summary>
-		/// <remarks></remarks>
+		/// <summary>Gets the DobjMonster property of an object as a game-specific interface.</summary>
+		/// <param name=""obj"">The object with the DobjMonster property.</param>
+		/// <remarks>
+		/// Use only within <see cref=""ICommandParser"">CommandParser</see> and <see cref=""ICommand"">Command</see> classes or
+		/// their derivatives, with the ""this"" keyword as a parameter. It allows easy access to new methods and properties in
+		/// a game-specific <see cref=""IMonster""/> interface. Adjust the return type or remove this method if no such interface
+		/// exists.
+		/// </remarks>
+		/// <returns>The DobjMonster downcast to a game-specific interface.</returns>
 		public static Eamon.Framework.IMonster gDobjMonster(object obj)
 		{
 			if (obj is ICommandParser commandParser)
@@ -307,8 +336,15 @@ namespace YourAdventureName.Game.Plugin
 			}
 		}
 
-		/// <summary></summary>
-		/// <remarks></remarks>
+		/// <summary>Gets the IobjArtifact property of an object as a game-specific interface.</summary>
+		/// <param name=""obj"">The object with the IobjArtifact property.</param>
+		/// <remarks>
+		/// Use only within <see cref=""ICommandParser"">CommandParser</see> and <see cref=""ICommand"">Command</see> classes or
+		/// their derivatives, with the ""this"" keyword as a parameter. It allows easy access to new methods and properties in
+		/// a game-specific <see cref=""IArtifact""/> interface. Adjust the return type or remove this method if no such interface
+		/// exists.
+		/// </remarks>
+		/// <returns>The IobjArtifact downcast to a game-specific interface.</returns>
 		public static Eamon.Framework.IArtifact gIobjArtifact(object obj)
 		{
 			if (obj is ICommandParser commandParser)
@@ -325,8 +361,15 @@ namespace YourAdventureName.Game.Plugin
 			}
 		}
 
-		/// <summary></summary>
-		/// <remarks></remarks>
+		/// <summary>Gets the IobjMonster property of an object as a game-specific interface.</summary>
+		/// <param name=""obj"">The object with the IobjMonster property.</param>
+		/// <remarks>
+		/// Use only within <see cref=""ICommandParser"">CommandParser</see> and <see cref=""ICommand"">Command</see> classes or
+		/// their derivatives, with the ""this"" keyword as a parameter. It allows easy access to new methods and properties in
+		/// a game-specific <see cref=""IMonster""/> interface. Adjust the return type or remove this method if no such interface
+		/// exists.
+		/// </remarks>
+		/// <returns>The IobjMonster downcast to a game-specific interface.</returns>
 		public static Eamon.Framework.IMonster gIobjMonster(object obj)
 		{
 			if (obj is ICommandParser commandParser)
