@@ -3970,12 +3970,24 @@
             <remarks></remarks>
         </member>
         <member name="P:EamonRT.Game.Plugin.Globals.gCharMonster">
-            <summary></summary>
-            <remarks></remarks>
+            <summary>
+            Gets the <see cref="T:Eamon.Framework.IMonster">Monster</see> in the game corresponding to the player
+            character, if available.
+            </summary>
+            <remarks>
+            Returns the corresponding Monster when the <see cref="P:Eamon.Framework.IGameState.Cm">GameState.Cm</see> property is available and valid;
+            otherwise, returns null.
+            </remarks>
         </member>
         <member name="P:EamonRT.Game.Plugin.Globals.gCharRoom">
-            <summary></summary>
-            <remarks></remarks>
+            <summary>
+            Gets the <see cref="T:Eamon.Framework.IRoom">Room</see> in the game where the player character is
+            currently located, if available.
+            </summary>
+            <remarks>
+            Returns the corresponding Room when the <see cref="P:Eamon.Framework.IGameState.Ro">GameState.Ro</see> property is available and valid;
+            otherwise, returns null.
+            </remarks>
         </member>
         <member name="P:EamonRT.Game.States.BurnDownLightSourceState.LsArtAc">
             <summary></summary>

@@ -6,7 +6,6 @@
 using Eamon.Framework;
 using Eamon.Framework.DataStorage;
 using Eamon.Framework.DataStorage.Generic;
-using Eamon.Framework.Plugin;
 using Eamon.Framework.Portability;
 
 namespace Eamon.Game.Plugin
@@ -18,7 +17,7 @@ namespace Eamon.Game.Plugin
 	public static class Globals
 	{
 		/// <summary></summary>
-		public static IEngine gEngine { get; set; }
+		public static Framework.Plugin.IEngine gEngine { get; set; }
 
 		/// <summary></summary>
 		public static ITextWriter gOut

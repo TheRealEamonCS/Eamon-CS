@@ -336,17 +336,8 @@
         <member name="P:EamonMH.Game.Plugin.Globals.gDatabase">
             <inheritdoc cref="P:Eamon.Game.Plugin.Globals.gDatabase"/>
         </member>
-        <member name="P:EamonMH.Game.Plugin.Globals.gRDB">
-            <inheritdoc cref="P:Eamon.Game.Plugin.Globals.gRDB"/>
-        </member>
-        <member name="P:EamonMH.Game.Plugin.Globals.gADB">
-            <inheritdoc cref="P:Eamon.Game.Plugin.Globals.gADB"/>
-        </member>
         <member name="P:EamonMH.Game.Plugin.Globals.gEDB">
             <inheritdoc cref="P:Eamon.Game.Plugin.Globals.gEDB"/>
-        </member>
-        <member name="P:EamonMH.Game.Plugin.Globals.gMDB">
-            <inheritdoc cref="P:Eamon.Game.Plugin.Globals.gMDB"/>
         </member>
         <member name="P:EamonMH.Game.Plugin.Globals.gCharacter">
             <summary></summary>

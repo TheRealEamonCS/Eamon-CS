@@ -3,11 +3,11 @@
 
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
+using Eamon.Framework;
 using Eamon.Framework.DataStorage;
 using Eamon.Framework.DataStorage.Generic;
 using Eamon.Framework.Portability;
 using EamonRT.Framework.Parsing;
-using EamonRT.Framework.Plugin;
 
 namespace EamonRT.Game.Plugin
 {
@@ -17,11 +17,11 @@ namespace EamonRT.Game.Plugin
 	public static class Globals
 	{
 		/// <inheritdoc cref="EamonDD.Game.Plugin.Globals.gEngine"/>
-		public static IEngine gEngine
+		public static Framework.Plugin.IEngine gEngine
 		{
 			get
 			{
-				return (IEngine)EamonDD.Game.Plugin.Globals.gEngine;
+				return (Framework.Plugin.IEngine)EamonDD.Game.Plugin.Globals.gEngine;
 			}
 			set
 			{
@@ -48,7 +48,7 @@ namespace EamonRT.Game.Plugin
 		}
 
 		/// <inheritdoc cref="EamonDD.Game.Plugin.Globals.gRDB"/>
-		public static IRecordDb<Eamon.Framework.IRoom> gRDB 
+		public static IRecordDb<IRoom> gRDB 
 		{
 			get 
 			{
@@ -57,7 +57,7 @@ namespace EamonRT.Game.Plugin
 		}
 
 		/// <inheritdoc cref="EamonDD.Game.Plugin.Globals.gADB"/>
-		public static IRecordDb<Eamon.Framework.IArtifact> gADB 
+		public static IRecordDb<IArtifact> gADB 
 		{
 			get 
 			{
@@ -66,7 +66,7 @@ namespace EamonRT.Game.Plugin
 		}
 
 		/// <inheritdoc cref="EamonDD.Game.Plugin.Globals.gEDB"/>
-		public static IRecordDb<Eamon.Framework.IEffect> gEDB 
+		public static IRecordDb<IEffect> gEDB 
 		{
 			get 
 			{
@@ -75,7 +75,7 @@ namespace EamonRT.Game.Plugin
 		}
 
 		/// <inheritdoc cref="EamonDD.Game.Plugin.Globals.gMDB"/>
-		public static IRecordDb<Eamon.Framework.IMonster> gMDB 
+		public static IRecordDb<IMonster> gMDB 
 		{
 			get 
 			{
@@ -83,6 +83,8 @@ namespace EamonRT.Game.Plugin
 			}
 		}
 
+		/// <summary></summary>
+		/// <remarks></remarks>
 		public static ISentenceParser gSentenceParser
 		{
 			get
@@ -91,6 +93,8 @@ namespace EamonRT.Game.Plugin
 			}
 		}
 
+		/// <summary></summary>
+		/// <remarks></remarks>
 		public static ICommandParser gCommandParser
 		{
 			get
@@ -99,7 +103,9 @@ namespace EamonRT.Game.Plugin
 			}
 		}
 
-		public static Eamon.Framework.IGameState gGameState
+		/// <summary></summary>
+		/// <remarks></remarks>
+		public static IGameState gGameState
 		{
 			get 
 			{
@@ -107,7 +113,9 @@ namespace EamonRT.Game.Plugin
 			}
 		}
 
-		public static Eamon.Framework.ICharacter gCharacter
+		/// <summary></summary>
+		/// <remarks></remarks>
+		public static ICharacter gCharacter
 		{
 			get
 			{
@@ -115,7 +123,15 @@ namespace EamonRT.Game.Plugin
 			}
 		}
 
-		public static Eamon.Framework.IMonster gCharMonster
+		/// <summary>
+		/// Gets the <see cref="IMonster">Monster</see> in the game corresponding to the player
+		/// character, if available.
+		/// </summary>
+		/// <remarks>
+		/// Returns the corresponding Monster when the <see cref="IGameState.Cm">GameState.Cm</see> property is available and valid;
+		/// otherwise, returns null.
+		/// </remarks>
+		public static IMonster gCharMonster
 		{
 			get
 			{
@@ -123,7 +139,15 @@ namespace EamonRT.Game.Plugin
 			}
 		}
 
-		public static Eamon.Framework.IRoom gCharRoom
+		/// <summary>
+		/// Gets the <see cref="IRoom">Room</see> in the game where the player character is
+		/// currently located, if available.
+		/// </summary>
+		/// <remarks>
+		/// Returns the corresponding Room when the <see cref="IGameState.Ro">GameState.Ro</see> property is available and valid;
+		/// otherwise, returns null.
+		/// </remarks>
+		public static IRoom gCharRoom
 		{
 			get
 			{

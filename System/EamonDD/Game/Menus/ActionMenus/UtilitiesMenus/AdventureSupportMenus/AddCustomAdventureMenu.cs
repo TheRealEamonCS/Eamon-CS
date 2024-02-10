@@ -133,7 +133,7 @@ namespace YourAdventureName.Game.Plugin
 		{
 			get
 			{
-				return EamonRT.Game.Plugin.Globals.gOut;
+				return (ITextWriter)EamonRT.Game.Plugin.Globals.gOut;
 			}
 		}
 
@@ -142,61 +142,61 @@ namespace YourAdventureName.Game.Plugin
 		{
 			get
 			{
-				return EamonRT.Game.Plugin.Globals.gDatabase;
+				return (IDatabase)EamonRT.Game.Plugin.Globals.gDatabase;
 			}
 		}
 
 		/// <inheritdoc cref=""EamonRT.Game.Plugin.Globals.gRDB""/>
-		public static IRecordDb<Eamon.Framework.IRoom> gRDB
+		public static IRecordDb<IRoom> gRDB
 		{
 			get
 			{
-				return (IRecordDb<Eamon.Framework.IRoom>)EamonRT.Game.Plugin.Globals.gRDB;
+				return EamonRT.Game.Plugin.Globals.gRDB;
 			}
 		}
 
 		/// <inheritdoc cref=""EamonRT.Game.Plugin.Globals.gADB""/>
-		public static IRecordDb<Eamon.Framework.IArtifact> gADB
+		public static IRecordDb<IArtifact> gADB
 		{
 			get
 			{
-				return (IRecordDb<Eamon.Framework.IArtifact>)EamonRT.Game.Plugin.Globals.gADB;
+				return EamonRT.Game.Plugin.Globals.gADB;
 			}
 		}
 
 		/// <inheritdoc cref=""EamonRT.Game.Plugin.Globals.gEDB""/>
-		public static IRecordDb<Eamon.Framework.IEffect> gEDB
+		public static IRecordDb<IEffect> gEDB
 		{
 			get
 			{
-				return (IRecordDb<Eamon.Framework.IEffect>)EamonRT.Game.Plugin.Globals.gEDB;
+				return EamonRT.Game.Plugin.Globals.gEDB;
 			}
 		}
 
 		/// <inheritdoc cref=""EamonRT.Game.Plugin.Globals.gMDB""/>
-		public static IRecordDb<Eamon.Framework.IMonster> gMDB
+		public static IRecordDb<IMonster> gMDB
 		{
 			get
 			{
-				return (IRecordDb<Eamon.Framework.IMonster>)EamonRT.Game.Plugin.Globals.gMDB;
+				return EamonRT.Game.Plugin.Globals.gMDB;
 			}
 		}
 
 		/// <inheritdoc cref=""EamonRT.Game.Plugin.Globals.gSentenceParser""/>
-		public static EamonRT.Framework.Parsing.ISentenceParser gSentenceParser
+		public static ISentenceParser gSentenceParser
 		{
 			get
 			{
-				return (EamonRT.Framework.Parsing.ISentenceParser)EamonRT.Game.Plugin.Globals.gSentenceParser;
+				return (ISentenceParser)EamonRT.Game.Plugin.Globals.gSentenceParser;
 			}
 		}
 
 		/// <inheritdoc cref=""EamonRT.Game.Plugin.Globals.gCommandParser""/>
-		public static EamonRT.Framework.Parsing.ICommandParser gCommandParser
+		public static ICommandParser gCommandParser
 		{
 			get
 			{
-				return (EamonRT.Framework.Parsing.ICommandParser)EamonRT.Game.Plugin.Globals.gCommandParser;
+				return (ICommandParser)EamonRT.Game.Plugin.Globals.gCommandParser;
 			}
 		}
 
@@ -210,29 +210,29 @@ namespace YourAdventureName.Game.Plugin
 		}
 
 		/// <inheritdoc cref=""EamonRT.Game.Plugin.Globals.gCharacter""/>
-		public static Eamon.Framework.ICharacter gCharacter
+		public static ICharacter gCharacter
 		{
 			get
 			{
-				return (Eamon.Framework.ICharacter)EamonRT.Game.Plugin.Globals.gCharacter;
+				return (ICharacter)EamonRT.Game.Plugin.Globals.gCharacter;
 			}
 		}
 
 		/// <inheritdoc cref=""EamonRT.Game.Plugin.Globals.gCharMonster""/>
-		public static Eamon.Framework.IMonster gCharMonster
+		public static IMonster gCharMonster
 		{
 			get
 			{
-				return (Eamon.Framework.IMonster)EamonRT.Game.Plugin.Globals.gCharMonster;
+				return (IMonster)EamonRT.Game.Plugin.Globals.gCharMonster;
 			}
 		}
 
 		/// <inheritdoc cref=""EamonRT.Game.Plugin.Globals.gCharRoom""/>
-		public static Eamon.Framework.IRoom gCharRoom
+		public static IRoom gCharRoom
 		{
 			get
 			{
-				return (Eamon.Framework.IRoom)EamonRT.Game.Plugin.Globals.gCharRoom;
+				return (IRoom)EamonRT.Game.Plugin.Globals.gCharRoom;
 			}
 		}
 
@@ -245,15 +245,15 @@ namespace YourAdventureName.Game.Plugin
 		/// exists.
 		/// </remarks>
 		/// <returns>The ActorMonster downcast to a game-specific interface.</returns>
-		public static Eamon.Framework.IMonster gActorMonster(object obj)
+		public static IMonster gActorMonster(object obj)
 		{
 			if (obj is ICommandParser commandParser)
 			{
-				return (Eamon.Framework.IMonster)commandParser?.ActorMonster;
+				return (IMonster)commandParser?.ActorMonster;
 			}
 			else if (obj is ICommand command)
 			{
-				return (Eamon.Framework.IMonster)command?.ActorMonster;
+				return (IMonster)command?.ActorMonster;
 			}
 			else
 			{
@@ -270,15 +270,15 @@ namespace YourAdventureName.Game.Plugin
 		/// exists.
 		/// </remarks>
 		/// <returns>The ActorRoom downcast to a game-specific interface.</returns>
-		public static Eamon.Framework.IRoom gActorRoom(object obj)
+		public static IRoom gActorRoom(object obj)
 		{
 			if (obj is ICommandParser commandParser)
 			{
-				return (Eamon.Framework.IRoom)commandParser?.ActorRoom;
+				return (IRoom)commandParser?.ActorRoom;
 			}
 			else if (obj is ICommand command)
 			{
-				return (Eamon.Framework.IRoom)command?.ActorRoom;
+				return (IRoom)command?.ActorRoom;
 			}
 			else
 			{
@@ -295,15 +295,15 @@ namespace YourAdventureName.Game.Plugin
 		/// exists.
 		/// </remarks>
 		/// <returns>The DobjArtifact downcast to a game-specific interface.</returns>
-		public static Eamon.Framework.IArtifact gDobjArtifact(object obj)
+		public static IArtifact gDobjArtifact(object obj)
 		{
 			if (obj is ICommandParser commandParser)
 			{
-				return (Eamon.Framework.IArtifact)commandParser?.DobjArtifact;
+				return (IArtifact)commandParser?.DobjArtifact;
 			}
 			else if (obj is ICommand command)
 			{
-				return (Eamon.Framework.IArtifact)command?.DobjArtifact;
+				return (IArtifact)command?.DobjArtifact;
 			}
 			else
 			{
@@ -320,15 +320,15 @@ namespace YourAdventureName.Game.Plugin
 		/// exists.
 		/// </remarks>
 		/// <returns>The DobjMonster downcast to a game-specific interface.</returns>
-		public static Eamon.Framework.IMonster gDobjMonster(object obj)
+		public static IMonster gDobjMonster(object obj)
 		{
 			if (obj is ICommandParser commandParser)
 			{
-				return (Eamon.Framework.IMonster)commandParser?.DobjMonster;
+				return (IMonster)commandParser?.DobjMonster;
 			}
 			else if (obj is ICommand command)
 			{
-				return (Eamon.Framework.IMonster)command?.DobjMonster;
+				return (IMonster)command?.DobjMonster;
 			}
 			else
 			{
@@ -345,15 +345,15 @@ namespace YourAdventureName.Game.Plugin
 		/// exists.
 		/// </remarks>
 		/// <returns>The IobjArtifact downcast to a game-specific interface.</returns>
-		public static Eamon.Framework.IArtifact gIobjArtifact(object obj)
+		public static IArtifact gIobjArtifact(object obj)
 		{
 			if (obj is ICommandParser commandParser)
 			{
-				return (Eamon.Framework.IArtifact)commandParser?.IobjArtifact;
+				return (IArtifact)commandParser?.IobjArtifact;
 			}
 			else if (obj is ICommand command)
 			{
-				return (Eamon.Framework.IArtifact)command?.IobjArtifact;
+				return (IArtifact)command?.IobjArtifact;
 			}
 			else
 			{
@@ -370,15 +370,15 @@ namespace YourAdventureName.Game.Plugin
 		/// exists.
 		/// </remarks>
 		/// <returns>The IobjMonster downcast to a game-specific interface.</returns>
-		public static Eamon.Framework.IMonster gIobjMonster(object obj)
+		public static IMonster gIobjMonster(object obj)
 		{
 			if (obj is ICommandParser commandParser)
 			{
-				return (Eamon.Framework.IMonster)commandParser?.IobjMonster;
+				return (IMonster)commandParser?.IobjMonster;
 			}
 			else if (obj is ICommand command)
 			{
-				return (Eamon.Framework.IMonster)command?.IobjMonster;
+				return (IMonster)command?.IobjMonster;
 			}
 			else
 			{
