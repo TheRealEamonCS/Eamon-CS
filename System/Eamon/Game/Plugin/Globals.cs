@@ -35,12 +35,12 @@ namespace Eamon.Game.Plugin
         /// </remarks>
         public static Framework.Plugin.IEngine gEngine { get; set; }
 
-        /// <summary>Gets the object that outputs text to the player's display device.</summary>
-        /// <remarks>
-        /// Text is displayed differently on various devices; in Eamon CS Desktop, it goes directly to the console, while in Eamon CS
+		/// <summary>Gets the object that outputs text to the player's display device.</summary>
+		/// <remarks>
+		/// Text is displayed differently on various devices; in Eamon CS Desktop, it goes directly to the console, while in Eamon CS
 		/// Mobile, it's appended to a text label. Despite the variation, the output maintains a consistent aesthetic for text
 		/// adventures. The object features properties and methods to control its behavior.
-        /// </remarks>
+		/// </remarks>
         public static ITextWriter gOut
 		{
 			get 
