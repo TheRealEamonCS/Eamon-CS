@@ -13,7 +13,7 @@ namespace Eamon.Game.Plugin
 {
 	public static class ContextStack
 	{
-		private static Stack<IEngine> EngineStack { get; set; } = new Stack<IEngine>();
+		public static Stack<IEngine> EngineStack { get; set; } = new Stack<IEngine>();
 
 		public static void PushEngine(Type engineType = null)
 		{

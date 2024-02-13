@@ -32,7 +32,7 @@ namespace SampleAdventure.Game.Plugin
 		{
 			get
 			{
-				return EamonRT.Game.Plugin.Globals.gOut;
+				return (ITextWriter)EamonRT.Game.Plugin.Globals.gOut;
 			}
 		}
 
@@ -77,7 +77,7 @@ namespace SampleAdventure.Game.Plugin
 		{
 			get
 			{
-				return EamonRT.Game.Plugin.Globals.gGameState;
+				return (IGameState)EamonRT.Game.Plugin.Globals.gGameState;
 			}
 		}
 
@@ -86,7 +86,7 @@ namespace SampleAdventure.Game.Plugin
 		{
 			get
 			{
-				return EamonRT.Game.Plugin.Globals.gCharacter;
+				return (ICharacter)EamonRT.Game.Plugin.Globals.gCharacter;
 			}
 		}
 
@@ -95,7 +95,7 @@ namespace SampleAdventure.Game.Plugin
 		{
 			get
 			{
-				return EamonRT.Game.Plugin.Globals.gCharMonster;
+				return (IMonster)EamonRT.Game.Plugin.Globals.gCharMonster;
 			}
 		}
 	}
