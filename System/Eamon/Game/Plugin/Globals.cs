@@ -23,17 +23,17 @@ namespace Eamon.Game.Plugin
 	/// </remarks>
 	public static class Globals
 	{
-        /// <summary>
-        /// Gets or sets the current Eamon CS engine instance which serves as the primary entry point for accessing and managing
-        /// various aspects of the system.
-        /// </summary>
-        /// <remarks>
-        /// This property is pivotal in Eamon CS. It is comparable to the root node of a garbage collection tree, where all game-related
-        /// objects (except certain static classes) are accessible either directly or through indirect references. The vast list of
-        /// properties and methods on this class can be expanded to include game-specific content. When seeking specific
-        /// functionality or data within Eamon CS, the recommendation is to explore its capabilities first.
-        /// </remarks>
-        public static Framework.Plugin.IEngine gEngine { get; set; }
+		/// <summary>
+		/// Gets or sets the current Eamon CS engine instance which serves as the primary entry point for accessing and managing
+		/// various aspects of the system.
+		/// </summary>
+		/// <remarks>
+		/// This property is pivotal in Eamon CS. It is comparable to the root node of a garbage collection tree, where all game-related
+		/// objects (except certain static classes) are accessible either directly or through indirect references. The vast list of
+		/// properties and methods on this class can be expanded to include game-specific content. When seeking specific
+		/// functionality or data within Eamon CS, the recommendation is to explore its capabilities first.
+		/// </remarks>
+		public static Framework.Plugin.IEngine gEngine { get; set; }
 
 		/// <summary>Gets the object that outputs text to the player's display device.</summary>
 		/// <remarks>
@@ -41,7 +41,7 @@ namespace Eamon.Game.Plugin
 		/// Mobile, it's appended to a text label. Despite the variation, the output maintains a consistent aesthetic for text
 		/// adventures. The object features properties and methods to control its behavior.
 		/// </remarks>
-        public static ITextWriter gOut
+		public static ITextWriter gOut
 		{
 			get 
 			{
