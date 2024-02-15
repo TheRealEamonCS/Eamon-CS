@@ -55,9 +55,15 @@ namespace EamonMH.Game.Plugin
 			}
 		}
 
-		/// <summary></summary>
-		/// <remarks></remarks>
-		public static ICharacter gCharacter
+		/// <summary>Gets the player character being used in the Main Hall.</summary>
+		/// <remarks>
+		/// The player character is selected (or created) in the Main Hall based on the player's interactions with the Burly
+		/// Irishman at the front desk. Existing characters are retrieved from the CHARACTERS.DAT file or recalled from an 
+		/// in-progress adventure. The player character record is updated based on activities in the Main Hall and environs.
+		/// When sent on an adventure, the status is updated in CHARACTERS.DAT and the character is sent into the game using
+		/// the FRESHMEAT.DAT file. When the game ends, the player character is re-imported into the Main Hall fully updated.
+		/// </remarks>
+        public static ICharacter gCharacter
 		{
 			get
 			{

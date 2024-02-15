@@ -879,6 +879,15 @@
             <param name="tag"></param>
             <param name="indentLevel"></param>
         </member>
+        <member name="T:EamonDD.Game.Plugin.ContextStack">
+            <inheritdoc cref="T:Eamon.Game.Plugin.ContextStack"/>
+        </member>
+        <member name="M:EamonDD.Game.Plugin.ContextStack.PushEngine(System.Type)">
+            <inheritdoc cref="M:Eamon.Game.Plugin.ContextStack.PushEngine(System.Type)"/>
+        </member>
+        <member name="M:EamonDD.Game.Plugin.ContextStack.PopEngine">
+            <inheritdoc cref="M:Eamon.Game.Plugin.ContextStack.PopEngine"/>
+        </member>
         <member name="T:EamonDD.Game.Plugin.Globals">
             <inheritdoc cref="T:Eamon.Game.Plugin.Globals"/>
         </member>

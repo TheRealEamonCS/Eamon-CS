@@ -9371,6 +9371,22 @@
         <member name="M:Eamon.Game.Helpers.RoomHelper.InputDirsElement">
             <summary></summary>
         </member>
+        <member name="T:Eamon.Game.Plugin.ContextStack">
+            <summary></summary>
+            <remarks></remarks>
+        </member>
+        <member name="P:Eamon.Game.Plugin.ContextStack.EngineStack">
+            <summary></summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:Eamon.Game.Plugin.ContextStack.PushEngine(System.Type)">
+            <summary></summary>
+            <remarks></remarks>
+        </member>
+        <member name="M:Eamon.Game.Plugin.ContextStack.PopEngine">
+            <summary></summary>
+            <remarks></remarks>
+        </member>
         <member name="P:Eamon.Game.Plugin.Engine.RulesetVersions">
             <summary></summary>
         </member>
@@ -9467,7 +9483,7 @@
         </member>
         <member name="P:Eamon.Game.Plugin.Globals.gEngine">
             <summary>
-            Gets or sets the current Eamon CS engine instance which serves as the primary entry point for accessing and managing
+            Gets or sets the Eamon CS game engine which serves as the primary entry point for accessing and managing
             various aspects of the system.
             </summary>
             <remarks>
@@ -9486,35 +9502,35 @@
             </remarks>
         </member>
         <member name="P:Eamon.Game.Plugin.Globals.gDatabase">
-            <summary>Gets the current global database.</summary>
+            <summary>Gets the global Record database.</summary>
             <remarks>
             All game Records reside in this global database, which can be used either directly or through various quick accessors
             (such as <see cref="P:Eamon.Game.Plugin.Globals.gRDB">gRDB</see>, etc). The database also exports a variety of services via its many methods.
             </remarks>
         </member>
         <member name="P:Eamon.Game.Plugin.Globals.gRDB">
-            <summary>Gets the current <see cref="T:Eamon.Framework.IRoom">Room</see> database.</summary>
+            <summary>Gets the <see cref="T:Eamon.Framework.IRoom">Room</see> database.</summary>
             <remarks>
             The <see cref="P:Eamon.Framework.DataStorage.Generic.IRecordDb`1.Records">Records</see> property provides access to the Room collection. Additionally, you can 
             get or set a specific Room by using its <see cref="P:Eamon.Framework.IGameBase.Uid">Uid</see> as an indexer.
             </remarks>
         </member>
         <member name="P:Eamon.Game.Plugin.Globals.gADB">
-            <summary>Gets the current <see cref="T:Eamon.Framework.IArtifact">Artifact</see> database.</summary>
+            <summary>Gets the <see cref="T:Eamon.Framework.IArtifact">Artifact</see> database.</summary>
             <remarks>
             The <see cref="P:Eamon.Framework.DataStorage.Generic.IRecordDb`1.Records">Records</see> property provides access to the Artifact collection. Additionally, you can 
             get or set a specific Artifact by using its <see cref="P:Eamon.Framework.IGameBase.Uid">Uid</see> as an indexer.
             </remarks>
         </member>
         <member name="P:Eamon.Game.Plugin.Globals.gEDB">
-            <summary>Gets the current <see cref="T:Eamon.Framework.IEffect">Effect</see> database.</summary>
+            <summary>Gets the <see cref="T:Eamon.Framework.IEffect">Effect</see> database.</summary>
             <remarks>
             The <see cref="P:Eamon.Framework.DataStorage.Generic.IRecordDb`1.Records">Records</see> property provides access to the Effect collection. Additionally, you can 
             get or set a specific Effect by using its <see cref="P:Eamon.Framework.IGameBase.Uid">Uid</see> as an indexer.
             </remarks>
         </member>
         <member name="P:Eamon.Game.Plugin.Globals.gMDB">
-            <summary>Gets the current <see cref="T:Eamon.Framework.IMonster">Monster</see> database.</summary>
+            <summary>Gets the <see cref="T:Eamon.Framework.IMonster">Monster</see> database.</summary>
             <remarks>
             The <see cref="P:Eamon.Framework.DataStorage.Generic.IRecordDb`1.Records">Records</see> property provides access to the Monster collection. Additionally, you can 
             get or set a specific Monster by using its <see cref="P:Eamon.Framework.IGameBase.Uid">Uid</see> as an indexer.
