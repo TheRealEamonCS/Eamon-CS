@@ -7,16 +7,16 @@ using System;
 
 namespace EamonMH.Game.Plugin
 {
-    /// <inheritdoc cref="Eamon.Game.Plugin.ContextStack"/>
+	/// <inheritdoc cref="Eamon.Game.Plugin.ContextStack"/>
 	public static class ContextStack
 	{
-        /// <inheritdoc cref="Eamon.Game.Plugin.ContextStack.PushEngine(Type)"/>
+		/// <inheritdoc cref="Eamon.Game.Plugin.ContextStack.PushEngine(Type)"/>
 		public static void PushEngine(Type engineType = null)
 		{
 			Eamon.Game.Plugin.ContextStack.PushEngine(engineType);
 		}
 
-        /// <inheritdoc cref="Eamon.Game.Plugin.ContextStack.PopEngine()"/>
+		/// <inheritdoc cref="Eamon.Game.Plugin.ContextStack.PopEngine()"/>
 		public static void PopEngine()
 		{
 			Eamon.Game.Plugin.ContextStack.PopEngine();

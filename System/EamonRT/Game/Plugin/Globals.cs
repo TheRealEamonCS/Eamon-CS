@@ -92,7 +92,7 @@ namespace EamonRT.Game.Plugin
 		/// When the EnhancedParser game setting is enabled, a single instance created during startup is reused throughout gameplay for
 		/// improved performance.
 		/// </remarks>
-        public static ISentenceParser gSentenceParser
+		public static ISentenceParser gSentenceParser
 		{
 			get
 			{
@@ -100,15 +100,15 @@ namespace EamonRT.Game.Plugin
 			}
 		}
 
-        /// <summary>
-        /// Gets the game command parser responsible for parsing commands from the player.
-        /// </summary>
-        /// <remarks>
+		/// <summary>
+		/// Gets the game command parser responsible for parsing commands from the player.
+		/// </summary>
+		/// <remarks>
 		/// Provides parsing for traditional Eamon commands of the form "VERB [DOBJ [PREP IOBJ]]". Depending on the EnhancedParser
 		/// game setting, it takes its input either from a <see cref="ISentenceParser">SentenceParser</see> or directly from the player.
 		/// A single instance is created during startup and reused throughout gameplay for improved performance.
 		/// </remarks>
-        public static ICommandParser gCommandParser
+		public static ICommandParser gCommandParser
 		{
 			get
 			{
@@ -123,7 +123,7 @@ namespace EamonRT.Game.Plugin
 		/// property persists between game sessions through <see cref="ISaveCommand">Save</see> and
 		/// <see cref="IRestoreCommand">Restore</see> operations.
 		/// </remarks>
-        public static IGameState gGameState
+		public static IGameState gGameState
 		{
 			get 
 			{

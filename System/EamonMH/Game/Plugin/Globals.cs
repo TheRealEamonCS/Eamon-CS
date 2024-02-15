@@ -63,7 +63,7 @@ namespace EamonMH.Game.Plugin
 		/// When sent on an adventure, the status is updated in CHARACTERS.DAT and the character is sent into the game using
 		/// the FRESHMEAT.DAT file. When the game ends, the player character is re-imported into the Main Hall fully updated.
 		/// </remarks>
-        public static ICharacter gCharacter
+		public static ICharacter gCharacter
 		{
 			get
 			{
