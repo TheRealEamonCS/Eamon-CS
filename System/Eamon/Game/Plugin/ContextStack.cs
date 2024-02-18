@@ -11,21 +11,21 @@ using static Eamon.Game.Plugin.Globals;
 
 namespace Eamon.Game.Plugin
 {
-    /// <summary>
+	/// <summary>
 	/// Manages the plugin context stack in the Eamon CS game system.
-    /// </summary>
-    /// <remarks>
-    /// This class is designed to handle a dynamic stack of <see cref="IEngine">Engine</see> instances. When the
-    /// program call stack unwinds, Engines are pushed onto this stack in reverse order. The Engine for the currently
-    /// executing plugin is always positioned at the top of the stack, providing critical functionality. To optimize
-    /// accessibility, the stack top is referenced by the <see cref="Globals.gEngine">Globals.gEngine</see> property,
+	/// </summary>
+	/// <remarks>
+	/// This class is designed to handle a dynamic stack of <see cref="IEngine">Engine</see> instances. When the
+	/// program call stack unwinds, Engines are pushed onto this stack in reverse order. The Engine for the currently
+	/// executing plugin is always positioned at the top of the stack, providing critical functionality. To optimize
+	/// accessibility, the stack top is referenced by the <see cref="Globals.gEngine">Globals.gEngine</see> property,
 	/// instead of being stored within the stack itself.
-    /// 
-    /// When the current plugin's execution completes, its corresponding Engine is popped off the top of the stack
-    /// and discarded. This ensures the previously executed plugin's Engine is readily accessible for subsequent
-    /// operations.
-    /// </remarks>
-    public static class ContextStack
+	/// 
+	/// When the current plugin's execution completes, its corresponding Engine is popped off the top of the stack
+	/// and discarded. This ensures the previously executed plugin's Engine is readily accessible for subsequent
+	/// operations.
+	/// </remarks>
+	public static class ContextStack
 	{
 		/// <summary>The stack of <see cref="IEngine">Engine</see> instances for currently executing plugins.</summary>
 		/// <remarks>This is loaded in reverse order, in a manner similar to the loading of the
