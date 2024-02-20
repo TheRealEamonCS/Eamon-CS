@@ -8,7 +8,7 @@ using Eamon.Framework.Primitive.Enums;
 
 namespace WrenholdsSecretVigil.Framework
 {
-	/// <summary></summary>
+	/// <inheritdoc />
 	public interface IRoom : Eamon.Framework.IRoom
 	{
 		/// <summary></summary>

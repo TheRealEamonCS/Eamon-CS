@@ -4,6 +4,12 @@
         <name>LandOfTheMountainKing</name>
     </assembly>
     <members>
+        <member name="T:LandOfTheMountainKing.Framework.IGameState">
+            <inheritdoc />
+        </member>
+        <member name="T:LandOfTheMountainKing.Framework.Plugin.IEngine">
+            <inheritdoc />
+        </member>
         <member name="T:LandOfTheMountainKing.Game.Plugin.Globals">
             <inheritdoc cref="T:EamonRT.Game.Plugin.Globals"/>
         </member>

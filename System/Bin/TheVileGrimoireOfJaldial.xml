@@ -4,8 +4,26 @@
         <name>TheVileGrimoireOfJaldial</name>
     </assembly>
     <members>
+        <member name="T:TheVileGrimoireOfJaldial.Framework.Commands.ISearchCommand">
+            <summary></summary>
+        </member>
+        <member name="T:TheVileGrimoireOfJaldial.Framework.Commands.ISettingsCommand">
+            <inheritdoc />
+        </member>
+        <member name="T:TheVileGrimoireOfJaldial.Framework.Commands.ITimeCommand">
+            <summary></summary>
+        </member>
+        <member name="T:TheVileGrimoireOfJaldial.Framework.Commands.IWaitCommand">
+            <summary></summary>
+        </member>
         <member name="P:TheVileGrimoireOfJaldial.Framework.Commands.IWaitCommand.Minutes">
             <summary></summary>
+        </member>
+        <member name="T:TheVileGrimoireOfJaldial.Framework.Components.ICombatComponent">
+            <inheritdoc />
+        </member>
+        <member name="T:TheVileGrimoireOfJaldial.Framework.IArtifact">
+            <inheritdoc />
         </member>
         <member name="P:TheVileGrimoireOfJaldial.Framework.IArtifact.Seen02">
             <summary></summary>
@@ -15,6 +33,9 @@
         </member>
         <member name="M:TheVileGrimoireOfJaldial.Framework.IArtifact.GetLeverageBonus">
             <summary></summary>
+        </member>
+        <member name="T:TheVileGrimoireOfJaldial.Framework.IGameState">
+            <inheritdoc />
         </member>
         <member name="P:TheVileGrimoireOfJaldial.Framework.IGameState.FoggyRoomWeatherIntensity">
             <summary></summary>
@@ -133,6 +154,9 @@
         <member name="M:TheVileGrimoireOfJaldial.Framework.IGameState.SetFoggyRoomWeatherIntensity(TheVileGrimoireOfJaldial.Framework.IRoom)">
             <summary></summary>
         </member>
+        <member name="T:TheVileGrimoireOfJaldial.Framework.IMonster">
+            <inheritdoc />
+        </member>
         <member name="P:TheVileGrimoireOfJaldial.Framework.IMonster.Seen02">
             <summary></summary>
         </member>
@@ -141,6 +165,9 @@
         </member>
         <member name="M:TheVileGrimoireOfJaldial.Framework.IMonster.SetAttackModality">
             <summary></summary>
+        </member>
+        <member name="T:TheVileGrimoireOfJaldial.Framework.IRoom">
+            <inheritdoc />
         </member>
         <member name="P:TheVileGrimoireOfJaldial.Framework.IRoom.Seen02">
             <summary></summary>
@@ -175,6 +202,12 @@
         <member name="M:TheVileGrimoireOfJaldial.Framework.IRoom.GetWeatherIntensity">
             <summary></summary>
         </member>
+        <member name="T:TheVileGrimoireOfJaldial.Framework.Parsing.IParserData">
+            <inheritdoc />
+        </member>
+        <member name="T:TheVileGrimoireOfJaldial.Framework.Plugin.IEngine">
+            <inheritdoc />
+        </member>
         <member name="P:TheVileGrimoireOfJaldial.Framework.Plugin.IEngine.EventRoll">
             <summary></summary>
         </member>
@@ -200,6 +233,9 @@
             <summary></summary>
         </member>
         <member name="F:TheVileGrimoireOfJaldial.Framework.Primitive.Enums.WeatherType.Fog">
+            <summary></summary>
+        </member>
+        <member name="T:TheVileGrimoireOfJaldial.Framework.States.IPlayerResurrectedState">
             <summary></summary>
         </member>
         <member name="M:TheVileGrimoireOfJaldial.Game.Helpers.GameStateHelper.ValidateFoggyRoomWeatherIntensity">

@@ -5,7 +5,7 @@
 
 namespace WrenholdsSecretVigil.Framework
 {
-	/// <summary></summary>
+	/// <inheritdoc />
 	public interface IMonster : Eamon.Framework.IMonster
 	{
 		/// <summary>Indicates whether this <see cref="IMonster">Monster</see> should refuse to accept a given <see cref="Eamon.Framework.IArtifact">Artifact</see> as a gift.</summary>

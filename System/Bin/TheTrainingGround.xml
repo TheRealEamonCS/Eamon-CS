@@ -5,7 +5,7 @@
     </assembly>
     <members>
         <member name="T:TheTrainingGround.Framework.IGameState">
-            <summary></summary>
+            <inheritdoc />
         </member>
         <member name="P:TheTrainingGround.Framework.IGameState.GenderChangeCounter">
             <summary></summary>
@@ -38,7 +38,7 @@
             <summary></summary>
         </member>
         <member name="T:TheTrainingGround.Framework.Plugin.IEngine">
-            <summary></summary>
+            <inheritdoc />
         </member>
         <member name="M:TheTrainingGround.Game.Helpers.GameStateHelper.ValidateGenderChangeCounter">
             <summary></summary>

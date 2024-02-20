@@ -12,6 +12,7 @@ using Eamon.Framework.Primitive.Enums;
 namespace Eamon.Framework
 {
 	/// <summary></summary>
+	/// <remarks></remarks>
 	public interface ICharacter : IGameBase, IComparable<ICharacter>
 	{
 		#region Properties

@@ -4,6 +4,9 @@
         <name>BeginnersCaveII</name>
     </assembly>
     <members>
+        <member name="T:BeginnersCaveII.Framework.Plugin.IEngine">
+            <inheritdoc />
+        </member>
         <member name="P:BeginnersCaveII.Game.Plugin.Engine.HeldWpnIdx">
             <summary></summary>
         </member>

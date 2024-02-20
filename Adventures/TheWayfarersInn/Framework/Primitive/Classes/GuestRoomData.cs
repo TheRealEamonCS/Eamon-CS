@@ -7,6 +7,7 @@ using Eamon.Framework.Primitive.Enums;
 
 namespace TheWayfarersInn.Framework.Primitive.Classes
 {
+	/// <summary></summary>
 	public class GuestRoomData
 	{
 		public virtual string FurnitureSetDesc { get; set; }

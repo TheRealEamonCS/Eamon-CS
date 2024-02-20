@@ -7,6 +7,7 @@ using static TheVileGrimoireOfJaldial.Game.Plugin.Globals;
 
 namespace TheVileGrimoireOfJaldial.Framework
 {
+	/// <inheritdoc />
 	public interface IMonster : Eamon.Framework.IMonster
 	{
 		/// <summary></summary>

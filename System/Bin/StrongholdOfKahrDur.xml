@@ -5,7 +5,7 @@
     </assembly>
     <members>
         <member name="T:StrongholdOfKahrDur.Framework.IGameState">
-            <summary></summary>
+            <inheritdoc />
         </member>
         <member name="P:StrongholdOfKahrDur.Framework.IGameState.LichState">
             <summary></summary>
@@ -14,7 +14,7 @@
             <summary></summary>
         </member>
         <member name="T:StrongholdOfKahrDur.Framework.Plugin.IEngine">
-            <summary></summary>
+            <inheritdoc />
         </member>
         <member name="M:StrongholdOfKahrDur.Framework.Plugin.IEngine.SpellReagentsInCauldron(Eamon.Framework.IArtifact)">
             <summary></summary>

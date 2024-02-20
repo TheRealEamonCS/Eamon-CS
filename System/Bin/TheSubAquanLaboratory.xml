@@ -8,7 +8,7 @@
             <summary></summary>
         </member>
         <member name="T:TheSubAquanLaboratory.Framework.Commands.IExamineCommand">
-            <summary></summary>
+            <inheritdoc />
         </member>
         <member name="P:TheSubAquanLaboratory.Framework.Commands.IExamineCommand.ExamineConsole">
             <summary></summary>
@@ -23,7 +23,7 @@
             <summary></summary>
         </member>
         <member name="T:TheSubAquanLaboratory.Framework.IGameState">
-            <summary></summary>
+            <inheritdoc />
         </member>
         <member name="P:TheSubAquanLaboratory.Framework.IGameState.FoodButtonPushes">
             <summary></summary>
@@ -83,14 +83,14 @@
             <summary></summary>
         </member>
         <member name="T:TheSubAquanLaboratory.Framework.IMonster">
-            <summary></summary>
+            <inheritdoc />
         </member>
         <member name="M:TheSubAquanLaboratory.Framework.IMonster.IsAndroid">
             <summary>Indicates whether this <see cref="T:TheSubAquanLaboratory.Framework.IMonster">Monster</see> is classified as an android.</summary>
             <returns>If so then <c>true</c>, otherwise <c>false</c>.</returns>
         </member>
         <member name="T:TheSubAquanLaboratory.Framework.Plugin.IEngine">
-            <summary></summary>
+            <inheritdoc />
         </member>
         <member name="P:TheSubAquanLaboratory.Framework.Plugin.IEngine.WallArtifact">
             <summary></summary>

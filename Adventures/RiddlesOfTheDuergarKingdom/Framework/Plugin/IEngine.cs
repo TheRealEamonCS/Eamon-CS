@@ -7,6 +7,7 @@ using Eamon.Framework;
 
 namespace RiddlesOfTheDuergarKingdom.Framework.Plugin
 {
+	/// <inheritdoc />
 	public interface IEngine : EamonRT.Framework.Plugin.IEngine
 	{
 		/// <summary></summary>

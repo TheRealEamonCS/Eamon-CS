@@ -4,6 +4,21 @@
         <name>ThePyramidOfAnharos</name>
     </assembly>
     <members>
+        <member name="T:ThePyramidOfAnharos.Framework.Commands.IThrowCommand">
+            <summary></summary>
+        </member>
+        <member name="T:ThePyramidOfAnharos.Framework.Commands.IJumpCommand">
+            <summary></summary>
+        </member>
+        <member name="T:ThePyramidOfAnharos.Framework.Commands.ISwimCommand">
+            <summary></summary>
+        </member>
+        <member name="T:ThePyramidOfAnharos.Framework.IGameState">
+            <inheritdoc />
+        </member>
+        <member name="T:ThePyramidOfAnharos.Framework.Plugin.IEngine">
+            <inheritdoc />
+        </member>
         <member name="T:ThePyramidOfAnharos.Game.Plugin.Globals">
             <inheritdoc cref="T:EamonRT.Game.Plugin.Globals"/>
         </member>

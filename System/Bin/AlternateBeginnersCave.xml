@@ -4,6 +4,9 @@
         <name>AlternateBeginnersCave</name>
     </assembly>
     <members>
+        <member name="T:AlternateBeginnersCave.Framework.IGameState">
+            <inheritdoc />
+        </member>
         <member name="P:AlternateBeginnersCave.Framework.IGameState.MagicDaggerCounter">
             <summary></summary>
         </member>
@@ -12,6 +15,9 @@
         </member>
         <member name="P:AlternateBeginnersCave.Framework.IGameState.DrankVial">
             <summary></summary>
+        </member>
+        <member name="T:AlternateBeginnersCave.Framework.Plugin.IEngine">
+            <inheritdoc />
         </member>
         <member name="P:AlternateBeginnersCave.Game.GameState.MagicDaggerCounter">
             <summary></summary>

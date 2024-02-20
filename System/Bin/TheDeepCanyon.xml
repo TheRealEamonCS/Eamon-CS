@@ -4,10 +4,28 @@
         <name>TheDeepCanyon</name>
     </assembly>
     <members>
+        <member name="T:TheDeepCanyon.Framework.Commands.ISetCommand">
+            <summary></summary>
+        </member>
+        <member name="T:TheDeepCanyon.Framework.Commands.IDigCommand">
+            <summary></summary>
+        </member>
+        <member name="T:TheDeepCanyon.Framework.Commands.IWaitCommand">
+            <summary></summary>
+        </member>
+        <member name="T:TheDeepCanyon.Framework.IGameState">
+            <inheritdoc />
+        </member>
+        <member name="T:TheDeepCanyon.Framework.Plugin.IEngine">
+            <inheritdoc />
+        </member>
         <member name="M:TheDeepCanyon.Framework.Plugin.IEngine.MagicRingLowersMonsterStats(Eamon.Framework.IMonster)">
             <summary></summary>
             <param name="monster"></param>
             <returns></returns>
+        </member>
+        <member name="T:TheDeepCanyon.Framework.States.IPlayerResurrectedState">
+            <summary></summary>
         </member>
         <member name="M:TheDeepCanyon.Game.Parsing.SentenceParser.IsValidTokenCommandMatch">
             <summary></summary>

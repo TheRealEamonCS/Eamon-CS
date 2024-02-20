@@ -52,13 +52,14 @@ namespace YourAdventureName
 
 namespace YourAdventureName.Framework.Plugin
 {
+	/// <inheritdoc />
 	public interface IEngine : EamonRT.Framework.Plugin.IEngine
 	{
 
 	}
 }
 "
-		};
+        };
 
 		/// <summary></summary>
 		public virtual string[] PluginCsText { get; set; } = new string[]

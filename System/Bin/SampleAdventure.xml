@@ -4,6 +4,9 @@
         <name>SampleAdventure</name>
     </assembly>
     <members>
+        <member name="T:SampleAdventure.Framework.Plugin.IEngine">
+            <inheritdoc />
+        </member>
         <member name="T:SampleAdventure.Game.Plugin.Globals">
             <inheritdoc cref="T:EamonRT.Game.Plugin.Globals"/>
         </member>

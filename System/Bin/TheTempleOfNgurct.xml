@@ -5,7 +5,7 @@
     </assembly>
     <members>
         <member name="T:TheTempleOfNgurct.Framework.IGameState">
-            <summary></summary>
+            <inheritdoc />
         </member>
         <member name="P:TheTempleOfNgurct.Framework.IGameState.WanderingMonster">
             <summary></summary>
@@ -32,7 +32,7 @@
             <summary></summary>
         </member>
         <member name="T:TheTempleOfNgurct.Framework.Plugin.IEngine">
-            <summary></summary>
+            <inheritdoc />
         </member>
         <member name="P:TheTempleOfNgurct.Framework.Plugin.IEngine.FireDamage">
             <summary></summary>

@@ -527,7 +527,7 @@
             <summary></summary>
         </member>
         <member name="T:EamonDD.Framework.Plugin.IEngine">
-            <summary></summary>
+            <inheritdoc />
         </member>
         <member name="P:EamonDD.Framework.Plugin.IEngine.DdProgVersion">
             <summary></summary>

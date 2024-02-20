@@ -5,7 +5,10 @@
     </assembly>
     <members>
         <member name="T:TheWayfarersInn.Framework.IArtifact">
-            <summary></summary>
+            <inheritdoc />
+        </member>
+        <member name="T:TheWayfarersInn.Framework.IGameState">
+            <inheritdoc />
         </member>
         <member name="P:TheWayfarersInn.Framework.IGameState.WoodenBridgeUseCounter">
             <summary></summary>
@@ -141,6 +144,9 @@
             <param name="eventState"></param>
             <param name="value"></param>
         </member>
+        <member name="T:TheWayfarersInn.Framework.IRoom">
+            <inheritdoc />
+        </member>
         <member name="P:TheWayfarersInn.Framework.IRoom.AboveRoomUid">
             <summary></summary>
         </member>
@@ -157,6 +163,12 @@
             <summary></summary>
         </member>
         <member name="M:TheWayfarersInn.Framework.IRoom.IsWayfarersInnRoom">
+            <summary></summary>
+        </member>
+        <member name="T:TheWayfarersInn.Framework.Plugin.IEngine">
+            <inheritdoc />
+        </member>
+        <member name="T:TheWayfarersInn.Framework.Primitive.Classes.GuestRoomData">
             <summary></summary>
         </member>
         <member name="T:TheWayfarersInn.Framework.Primitive.Enums.EventState">

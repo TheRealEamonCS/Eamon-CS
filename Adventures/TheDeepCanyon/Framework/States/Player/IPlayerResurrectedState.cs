@@ -8,6 +8,7 @@ using static TheDeepCanyon.Game.Plugin.Globals;
 
 namespace TheDeepCanyon.Framework.States
 {
+	/// <summary></summary>
 	public interface IPlayerResurrectedState : IState
 	{
 

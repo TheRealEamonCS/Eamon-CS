@@ -5,7 +5,7 @@
 
 namespace TheWayfarersInn.Framework
 {
-	/// <summary></summary>
+	/// <inheritdoc />
 	public interface IArtifact : Eamon.Framework.IArtifact
 	{
 		bool IsArtisanBodyPartArtifact();

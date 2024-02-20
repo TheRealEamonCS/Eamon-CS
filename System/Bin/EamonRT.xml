@@ -1535,7 +1535,7 @@
             <summary></summary>
         </member>
         <member name="T:EamonRT.Framework.Plugin.IEngine">
-            <summary></summary>
+            <inheritdoc />
         </member>
         <member name="P:EamonRT.Framework.Plugin.IEngine.PageSep">
             <summary></summary>
@@ -3983,9 +3983,7 @@
             </remarks>
         </member>
         <member name="P:EamonRT.Game.Plugin.Globals.gGameState">
-            <summary>
-            Gets the game state for the current game.
-            </summary>
+            <summary>Gets the game state for the current game.</summary>
             <remarks>
             Provides access to methods and data both universal to all games and specific to the current one. It allows
             for retrieval and modification of the game state as needed during runtime. The data referenced by this

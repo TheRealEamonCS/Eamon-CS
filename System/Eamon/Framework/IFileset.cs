@@ -8,6 +8,7 @@ using System;
 namespace Eamon.Framework
 {
 	/// <summary></summary>
+	/// <remarks></remarks>
 	public interface IFileset : IGameBase, IComparable<IFileset>
 	{
 		#region Properties

@@ -5,7 +5,7 @@
 
 namespace ARuncibleCargo.Framework
 {
-	/// <summary></summary>
+	/// <inheritdoc />
 	public interface IRoom : Eamon.Framework.IRoom
 	{
 		/// <summary>Indicates whether this <see cref="IRoom">Room</see> consists of open water (Malphigian Sea).</summary>

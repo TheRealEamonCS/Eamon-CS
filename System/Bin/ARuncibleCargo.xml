@@ -5,7 +5,7 @@
     </assembly>
     <members>
         <member name="T:ARuncibleCargo.Framework.IGameState">
-            <summary></summary>
+            <inheritdoc />
         </member>
         <member name="P:ARuncibleCargo.Framework.IGameState.DreamCounter">
             <summary></summary>
@@ -63,14 +63,14 @@
             <param name="value"></param>
         </member>
         <member name="T:ARuncibleCargo.Framework.IRoom">
-            <summary></summary>
+            <inheritdoc />
         </member>
         <member name="M:ARuncibleCargo.Framework.IRoom.IsWaterRoom">
             <summary>Indicates whether this <see cref="T:ARuncibleCargo.Framework.IRoom">Room</see> consists of open water (Malphigian Sea).</summary>
             <returns>If so then <c>true</c>, otherwise <c>false</c>.</returns>
         </member>
         <member name="T:ARuncibleCargo.Framework.Plugin.IEngine">
-            <summary></summary>
+            <inheritdoc />
         </member>
         <member name="P:ARuncibleCargo.Framework.Plugin.IEngine.SnapshotFileName">
             <summary></summary>

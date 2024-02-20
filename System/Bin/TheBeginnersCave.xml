@@ -10,7 +10,7 @@
             </summary>
         </member>
         <member name="T:TheBeginnersCave.Framework.IGameState">
-            <summary></summary>
+            <inheritdoc />
         </member>
         <member name="P:TheBeginnersCave.Framework.IGameState.Trollsfire">
             <summary>
@@ -21,7 +21,7 @@
             <summary></summary>
         </member>
         <member name="T:TheBeginnersCave.Framework.Plugin.IEngine">
-            <summary></summary>
+            <inheritdoc />
         </member>
         <member name="P:TheBeginnersCave.Framework.Plugin.IEngine.AlightDesc">
             <summary></summary>

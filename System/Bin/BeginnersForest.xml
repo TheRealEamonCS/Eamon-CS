@@ -5,7 +5,7 @@
     </assembly>
     <members>
         <member name="T:BeginnersForest.Framework.IGameState">
-            <summary></summary>
+            <inheritdoc />
         </member>
         <member name="P:BeginnersForest.Framework.IGameState.QueenGiftEffectUid">
             <summary></summary>
@@ -17,7 +17,7 @@
             <summary></summary>
         </member>
         <member name="T:BeginnersForest.Framework.Plugin.IEngine">
-            <summary></summary>
+            <inheritdoc />
         </member>
         <member name="M:BeginnersForest.Game.Helpers.GameStateHelper.ValidateQueenGiftEffectUid">
             <summary></summary>

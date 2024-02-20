@@ -7,6 +7,7 @@ using static RiddlesOfTheDuergarKingdom.Game.Plugin.Globals;
 
 namespace RiddlesOfTheDuergarKingdom.Framework
 {
+	/// <inheritdoc />
 	public interface IRoom : Eamon.Framework.IRoom
 	{
 		/// <summary></summary>
