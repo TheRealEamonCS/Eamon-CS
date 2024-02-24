@@ -7,11 +7,11 @@
     <SignAssembly>true</SignAssembly>
     <DelaySign>false</DelaySign>
     <AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
-    <Copyright>Copyright ©  2010-2017, Pawel Idzikowski</Copyright>
+    <Copyright>Copyright ©  2010-2021, Pawel Idzikowski</Copyright>
     <Product>SharpSerializer</Product>
     <Company>Polenter - Software Solutions</Company>
     <Authors>Pawel Idzikowski</Authors>
-    <Version>3.0.1</Version>
+    <Version>3.0.2</Version>
     <PackageId>SharpSerializer</PackageId>
     <PackageIconUrl>http://www.sharpserializer.com/SharpSerializer032.png</PackageIconUrl>
     <PackageTags>serializer binary serializer xml serializer xml serialize binary serialize xml serialize serialization binary serialization xml serialization repository isolated storage tombstoning xbox winrt</PackageTags>
