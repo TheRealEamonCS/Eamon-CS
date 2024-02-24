@@ -5,6 +5,7 @@
 
 namespace ThePyramidOfAnharos.Framework.Plugin
 {
+	/// <inheritdoc />
 	public interface IEngine : EamonRT.Framework.Plugin.IEngine
 	{
 		string MapData { get; set; }

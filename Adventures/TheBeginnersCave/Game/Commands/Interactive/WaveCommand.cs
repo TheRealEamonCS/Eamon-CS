@@ -16,7 +16,7 @@ namespace TheBeginnersCave.Game.Commands
 	{
 		public override void ExecuteForPlayer()
 		{
-			// historical response from original
+			// Historical response from original
 
 			if (gGameState.GetNBTL(Friendliness.Enemy) > 0)
 			{

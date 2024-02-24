@@ -5,6 +5,7 @@
 
 namespace TheVileGrimoireOfJaldial.Framework.Plugin
 {
+	/// <inheritdoc />
 	public interface IEngine : EamonRT.Framework.Plugin.IEngine
 	{
 		long StartHour { get; set; }

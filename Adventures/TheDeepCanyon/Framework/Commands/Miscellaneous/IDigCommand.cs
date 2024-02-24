@@ -8,6 +8,7 @@ using static TheDeepCanyon.Game.Plugin.Globals;
 
 namespace TheDeepCanyon.Framework.Commands
 {
+	/// <summary></summary>
 	public interface IDigCommand : ICommand
 	{
 

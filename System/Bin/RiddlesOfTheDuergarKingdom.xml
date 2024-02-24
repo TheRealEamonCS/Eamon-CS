@@ -4,6 +4,18 @@
         <name>RiddlesOfTheDuergarKingdom</name>
     </assembly>
     <members>
+        <member name="T:RiddlesOfTheDuergarKingdom.Framework.Commands.IPushCommand">
+            <summary></summary>
+        </member>
+        <member name="T:RiddlesOfTheDuergarKingdom.Framework.Commands.IWaitCommand">
+            <summary></summary>
+        </member>
+        <member name="T:RiddlesOfTheDuergarKingdom.Framework.Commands.IClimbCommand">
+            <summary></summary>
+        </member>
+        <member name="T:RiddlesOfTheDuergarKingdom.Framework.IGameState">
+            <inheritdoc />
+        </member>
         <member name="P:RiddlesOfTheDuergarKingdom.Framework.IGameState.GradStudentCompanionUid">
             <summary></summary>
         </member>
@@ -64,8 +76,14 @@
         <member name="P:RiddlesOfTheDuergarKingdom.Framework.IGameState.PoisonedTargets">
             <summary></summary>
         </member>
+        <member name="T:RiddlesOfTheDuergarKingdom.Framework.IRoom">
+            <inheritdoc />
+        </member>
         <member name="P:RiddlesOfTheDuergarKingdom.Framework.IRoom.GradStudentCompanionSeen">
             <summary></summary>
+        </member>
+        <member name="T:RiddlesOfTheDuergarKingdom.Framework.Plugin.IEngine">
+            <inheritdoc />
         </member>
         <member name="P:RiddlesOfTheDuergarKingdom.Framework.Plugin.IEngine.PoisonInjuryTurns">
             <summary></summary>

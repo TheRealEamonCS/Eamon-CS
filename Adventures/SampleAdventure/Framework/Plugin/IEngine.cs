@@ -5,6 +5,7 @@
 
 namespace SampleAdventure.Framework.Plugin
 {
+	/// <inheritdoc />
 	public interface IEngine : EamonRT.Framework.Plugin.IEngine
 	{
 

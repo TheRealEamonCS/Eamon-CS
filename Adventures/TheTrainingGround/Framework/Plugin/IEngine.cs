@@ -5,7 +5,7 @@
 
 namespace TheTrainingGround.Framework.Plugin
 {
-	/// <summary></summary>
+	/// <inheritdoc />
 	public interface IEngine : EamonRT.Framework.Plugin.IEngine
 	{
 

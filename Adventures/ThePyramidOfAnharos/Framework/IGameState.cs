@@ -7,6 +7,7 @@ using static ThePyramidOfAnharos.Game.Plugin.Globals;
 
 namespace ThePyramidOfAnharos.Framework
 {
+	/// <inheritdoc />
 	public interface IGameState : Eamon.Framework.IGameState
 	{
 		long GD { get; set; }

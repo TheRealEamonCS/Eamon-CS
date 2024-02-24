@@ -1535,7 +1535,7 @@
             <summary></summary>
         </member>
         <member name="T:EamonRT.Framework.Plugin.IEngine">
-            <summary></summary>
+            <inheritdoc />
         </member>
         <member name="P:EamonRT.Framework.Plugin.IEngine.PageSep">
             <summary></summary>
@@ -2987,7 +2987,7 @@
             <param name="eventName"></param>
             <param name="eventParam"></param>
         </member>
-        <member name="M:EamonRT.Framework.States.IAfterPrintPlayerRoomEventState.FireEvent02(Eamon.Game.Utilities.EventData)">
+        <member name="M:EamonRT.Framework.States.IAfterPrintPlayerRoomEventState.FireEvent02(Eamon.Framework.Utilities.IEventData)">
             <summary></summary>
             <param name="eventData"></param>
         </member>
@@ -3008,7 +3008,7 @@
             <param name="eventName"></param>
             <param name="eventParam"></param>
         </member>
-        <member name="M:EamonRT.Framework.States.IBeforePrintPlayerRoomEventState.FireEvent02(Eamon.Game.Utilities.EventData)">
+        <member name="M:EamonRT.Framework.States.IBeforePrintPlayerRoomEventState.FireEvent02(Eamon.Framework.Utilities.IEventData)">
             <summary></summary>
             <param name="eventData"></param>
         </member>
@@ -3041,6 +3041,32 @@
         </member>
         <member name="T:EamonRT.Framework.States.IProcessPlayerInputState">
             <summary></summary>
+        </member>
+        <member name="T:EamonRT.Game.Commands.CommandImpl">
+            <summary>
+            An implementation of the <see cref="T:EamonRT.Game.Commands.Command">Command</see> class that can be subclassed and
+            overridden at the game level.
+            </summary>
+            <remarks>
+            This class was introduced to allow the game designer to override the logic in the abstract base class
+            Command. While it's already possible to override each Command individually for derived behavior, CommandImpl
+            offers a way to modify behavior globally. Command and CommandImpl together form two halves of a single
+            conceptual class.
+            <para>
+            When subclassing and writing code in CommandImpl, avoid direct access to its methods or properties. Instead, use
+            the <see cref="P:EamonRT.Game.Commands.CommandImpl.Command">Command</see> property to access them indirectly, for example,
+            <see cref="M:EamonRT.Game.Commands.Command.PrintNotEnoughGold">Command.PrintNotEnoughGold()</see> or
+            <see cref="P:EamonRT.Game.Commands.Command.ActorRoom">Command.ActorRoom</see>.
+            This ensures that if a subclass of Command overrides a property or method, Command will use the overridden
+            version rather than the CommandImpl version.
+            </para>
+            <para>
+            TODO: add examples to illustrate the practical applications and advantages of using this implementation.
+            </para>
+            </remarks>
+            <seealso cref="T:EamonRT.Framework.Commands.ICommandImpl" />
+            <seealso cref="T:EamonRT.Framework.Commands.ICommand" />
+            <seealso cref="T:EamonRT.Framework.Commands.ICommandSignatures" />
         </member>
         <member name="P:EamonRT.Game.Commands.AttackCommand.DobjArtAc">
             <summary></summary>
@@ -3878,6 +3904,15 @@
         <member name="M:EamonRT.Game.Parsing.SentenceParser.IsValidTokenCommandMatch">
             <summary></summary>
         </member>
+        <member name="T:EamonRT.Game.Plugin.ContextStack">
+            <inheritdoc cref="T:EamonDD.Game.Plugin.ContextStack"/>
+        </member>
+        <member name="M:EamonRT.Game.Plugin.ContextStack.PushEngine(System.Type)">
+            <inheritdoc cref="M:EamonDD.Game.Plugin.ContextStack.PushEngine(System.Type)"/>
+        </member>
+        <member name="M:EamonRT.Game.Plugin.ContextStack.PopEngine">
+            <inheritdoc cref="M:EamonDD.Game.Plugin.ContextStack.PopEngine"/>
+        </member>
         <member name="M:EamonRT.Game.Plugin.Engine.ConvertWeaponsToArtifacts">
             <summary></summary>
             <returns></returns>
@@ -3902,6 +3937,89 @@
             <summary></summary>
             <param name="monster"></param>
             <param name="damageFactor"></param>
+        </member>
+        <member name="T:EamonRT.Game.Plugin.Globals">
+            <inheritdoc cref="T:EamonDD.Game.Plugin.Globals"/>
+        </member>
+        <member name="P:EamonRT.Game.Plugin.Globals.gEngine">
+            <inheritdoc cref="P:EamonDD.Game.Plugin.Globals.gEngine"/>
+        </member>
+        <member name="P:EamonRT.Game.Plugin.Globals.gOut">
+            <inheritdoc cref="P:EamonDD.Game.Plugin.Globals.gOut"/>
+        </member>
+        <member name="P:EamonRT.Game.Plugin.Globals.gDatabase">
+            <inheritdoc cref="P:EamonDD.Game.Plugin.Globals.gDatabase"/>
+        </member>
+        <member name="P:EamonRT.Game.Plugin.Globals.gRDB">
+            <inheritdoc cref="P:EamonDD.Game.Plugin.Globals.gRDB"/>
+        </member>
+        <member name="P:EamonRT.Game.Plugin.Globals.gADB">
+            <inheritdoc cref="P:EamonDD.Game.Plugin.Globals.gADB"/>
+        </member>
+        <member name="P:EamonRT.Game.Plugin.Globals.gEDB">
+            <inheritdoc cref="P:EamonDD.Game.Plugin.Globals.gEDB"/>
+        </member>
+        <member name="P:EamonRT.Game.Plugin.Globals.gMDB">
+            <inheritdoc cref="P:EamonDD.Game.Plugin.Globals.gMDB"/>
+        </member>
+        <member name="P:EamonRT.Game.Plugin.Globals.gSentenceParser">
+            <summary>
+            Gets the game sentence parser responsible for splitting full sentence commands from the player.
+            </summary>
+            <remarks>
+            Transforms full sentence commands into simpler instructions for the legacy <see cref="T:EamonRT.Framework.Parsing.ICommandParser">CommandParser</see>.
+            When the EnhancedParser game setting is enabled, a single instance created during startup is reused throughout gameplay for
+            improved performance.
+            </remarks>
+        </member>
+        <member name="P:EamonRT.Game.Plugin.Globals.gCommandParser">
+            <summary>
+            Gets the game command parser responsible for parsing commands from the player.
+            </summary>
+            <remarks>
+            Provides parsing for traditional Eamon commands of the form "VERB [DOBJ [PREP IOBJ]]". Depending on the EnhancedParser
+            game setting, it takes its input either from a <see cref="T:EamonRT.Framework.Parsing.ISentenceParser">SentenceParser</see> or directly from the player.
+            A single instance is created during startup and reused throughout gameplay for improved performance.
+            </remarks>
+        </member>
+        <member name="P:EamonRT.Game.Plugin.Globals.gGameState">
+            <summary>Gets the game state for the current game.</summary>
+            <remarks>
+            Provides access to methods and data both universal to all games and specific to the current one. It allows
+            for retrieval and modification of the game state as needed during runtime. The data referenced by this
+            property persists between game sessions through <see cref="T:EamonRT.Framework.Commands.ISaveCommand">Save</see> and
+            <see cref="T:EamonRT.Framework.Commands.IRestoreCommand">Restore</see> operations.
+            </remarks>
+        </member>
+        <member name="P:EamonRT.Game.Plugin.Globals.gCharacter">
+            <summary>Gets the player character being used in the current game.</summary>
+            <remarks>
+            The player character is selected in the Main Hall and imported into the game using the FRESHMEAT.DAT file. A
+            <see cref="T:Eamon.Framework.IMonster">Monster</see> record is built with key pieces of data and used during game play, referenced by
+            <see cref="P:EamonRT.Game.Plugin.Globals.gCharMonster">gCharMonster</see>. Generally, after that the two records are synchronized as needed, and
+            the character record is accessed or updated for data not stored in the Monster record. When the game ends,
+            FRESHMEAT.DAT is updated before the player character is sent back to the Main Hall.
+            </remarks>
+        </member>
+        <member name="P:EamonRT.Game.Plugin.Globals.gCharMonster">
+            <summary>
+            Gets the <see cref="T:Eamon.Framework.IMonster">Monster</see> in the game corresponding to the player
+            character, if available.
+            </summary>
+            <remarks>
+            Returns the corresponding Monster when the <see cref="P:Eamon.Framework.IGameState.Cm">GameState.Cm</see> property is available and valid;
+            otherwise, returns null.
+            </remarks>
+        </member>
+        <member name="P:EamonRT.Game.Plugin.Globals.gCharRoom">
+            <summary>
+            Gets the <see cref="T:Eamon.Framework.IRoom">Room</see> in the game where the player character is
+            currently located, if available.
+            </summary>
+            <remarks>
+            Returns the corresponding Room when the <see cref="P:Eamon.Framework.IGameState.Ro">GameState.Ro</see> property is available and valid;
+            otherwise, returns null.
+            </remarks>
         </member>
         <member name="P:EamonRT.Game.States.BurnDownLightSourceState.LsArtAc">
             <summary></summary>

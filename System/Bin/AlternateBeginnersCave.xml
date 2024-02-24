@@ -4,6 +4,9 @@
         <name>AlternateBeginnersCave</name>
     </assembly>
     <members>
+        <member name="T:AlternateBeginnersCave.Framework.IGameState">
+            <inheritdoc />
+        </member>
         <member name="P:AlternateBeginnersCave.Framework.IGameState.MagicDaggerCounter">
             <summary></summary>
         </member>
@@ -12,6 +15,9 @@
         </member>
         <member name="P:AlternateBeginnersCave.Framework.IGameState.DrankVial">
             <summary></summary>
+        </member>
+        <member name="T:AlternateBeginnersCave.Framework.Plugin.IEngine">
+            <inheritdoc />
         </member>
         <member name="P:AlternateBeginnersCave.Game.GameState.MagicDaggerCounter">
             <summary></summary>
@@ -28,6 +34,33 @@
         </member>
         <member name="P:AlternateBeginnersCave.Game.Plugin.Engine.HeldWpnIdx">
             <summary></summary>
+        </member>
+        <member name="T:AlternateBeginnersCave.Game.Plugin.Globals">
+            <inheritdoc cref="T:EamonRT.Game.Plugin.Globals"/>
+        </member>
+        <member name="P:AlternateBeginnersCave.Game.Plugin.Globals.gEngine">
+            <inheritdoc cref="P:EamonRT.Game.Plugin.Globals.gEngine"/>
+        </member>
+        <member name="P:AlternateBeginnersCave.Game.Plugin.Globals.gOut">
+            <inheritdoc cref="P:EamonRT.Game.Plugin.Globals.gOut"/>
+        </member>
+        <member name="P:AlternateBeginnersCave.Game.Plugin.Globals.gRDB">
+            <inheritdoc cref="P:EamonRT.Game.Plugin.Globals.gRDB"/>
+        </member>
+        <member name="P:AlternateBeginnersCave.Game.Plugin.Globals.gADB">
+            <inheritdoc cref="P:EamonRT.Game.Plugin.Globals.gADB"/>
+        </member>
+        <member name="P:AlternateBeginnersCave.Game.Plugin.Globals.gMDB">
+            <inheritdoc cref="P:EamonRT.Game.Plugin.Globals.gMDB"/>
+        </member>
+        <member name="P:AlternateBeginnersCave.Game.Plugin.Globals.gGameState">
+            <inheritdoc cref="P:EamonRT.Game.Plugin.Globals.gGameState"/>
+        </member>
+        <member name="P:AlternateBeginnersCave.Game.Plugin.Globals.gCharacter">
+            <inheritdoc cref="P:EamonRT.Game.Plugin.Globals.gCharacter"/>
+        </member>
+        <member name="P:AlternateBeginnersCave.Game.Plugin.Globals.gCharMonster">
+            <inheritdoc cref="P:EamonRT.Game.Plugin.Globals.gCharMonster"/>
         </member>
     </members>
 </doc>

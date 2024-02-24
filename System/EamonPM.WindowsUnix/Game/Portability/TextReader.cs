@@ -137,7 +137,7 @@ namespace EamonPM.Game.Portability
 
 					if (i > 0 || emptyAllowed)
 					{
-						goto ExitLoop;
+						break;
 					}
 				}
 				else if (ch == 0x1B)
@@ -211,13 +211,11 @@ namespace EamonPM.Game.Portability
 
 						if (termChar)
 						{
-							goto ExitLoop;
+							break;
 						}
 					}
 				}
 			}
-
-		ExitLoop:
 
 			Console.CursorVisible = false;
 

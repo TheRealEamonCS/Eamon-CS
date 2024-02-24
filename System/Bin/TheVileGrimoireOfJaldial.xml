@@ -4,8 +4,26 @@
         <name>TheVileGrimoireOfJaldial</name>
     </assembly>
     <members>
+        <member name="T:TheVileGrimoireOfJaldial.Framework.Commands.ISearchCommand">
+            <summary></summary>
+        </member>
+        <member name="T:TheVileGrimoireOfJaldial.Framework.Commands.ISettingsCommand">
+            <inheritdoc />
+        </member>
+        <member name="T:TheVileGrimoireOfJaldial.Framework.Commands.ITimeCommand">
+            <summary></summary>
+        </member>
+        <member name="T:TheVileGrimoireOfJaldial.Framework.Commands.IWaitCommand">
+            <summary></summary>
+        </member>
         <member name="P:TheVileGrimoireOfJaldial.Framework.Commands.IWaitCommand.Minutes">
             <summary></summary>
+        </member>
+        <member name="T:TheVileGrimoireOfJaldial.Framework.Components.ICombatComponent">
+            <inheritdoc />
+        </member>
+        <member name="T:TheVileGrimoireOfJaldial.Framework.IArtifact">
+            <inheritdoc />
         </member>
         <member name="P:TheVileGrimoireOfJaldial.Framework.IArtifact.Seen02">
             <summary></summary>
@@ -15,6 +33,9 @@
         </member>
         <member name="M:TheVileGrimoireOfJaldial.Framework.IArtifact.GetLeverageBonus">
             <summary></summary>
+        </member>
+        <member name="T:TheVileGrimoireOfJaldial.Framework.IGameState">
+            <inheritdoc />
         </member>
         <member name="P:TheVileGrimoireOfJaldial.Framework.IGameState.FoggyRoomWeatherIntensity">
             <summary></summary>
@@ -133,6 +154,9 @@
         <member name="M:TheVileGrimoireOfJaldial.Framework.IGameState.SetFoggyRoomWeatherIntensity(TheVileGrimoireOfJaldial.Framework.IRoom)">
             <summary></summary>
         </member>
+        <member name="T:TheVileGrimoireOfJaldial.Framework.IMonster">
+            <inheritdoc />
+        </member>
         <member name="P:TheVileGrimoireOfJaldial.Framework.IMonster.Seen02">
             <summary></summary>
         </member>
@@ -141,6 +165,9 @@
         </member>
         <member name="M:TheVileGrimoireOfJaldial.Framework.IMonster.SetAttackModality">
             <summary></summary>
+        </member>
+        <member name="T:TheVileGrimoireOfJaldial.Framework.IRoom">
+            <inheritdoc />
         </member>
         <member name="P:TheVileGrimoireOfJaldial.Framework.IRoom.Seen02">
             <summary></summary>
@@ -175,6 +202,12 @@
         <member name="M:TheVileGrimoireOfJaldial.Framework.IRoom.GetWeatherIntensity">
             <summary></summary>
         </member>
+        <member name="T:TheVileGrimoireOfJaldial.Framework.Parsing.IParserData">
+            <inheritdoc />
+        </member>
+        <member name="T:TheVileGrimoireOfJaldial.Framework.Plugin.IEngine">
+            <inheritdoc />
+        </member>
         <member name="P:TheVileGrimoireOfJaldial.Framework.Plugin.IEngine.EventRoll">
             <summary></summary>
         </member>
@@ -200,6 +233,9 @@
             <summary></summary>
         </member>
         <member name="F:TheVileGrimoireOfJaldial.Framework.Primitive.Enums.WeatherType.Fog">
+            <summary></summary>
+        </member>
+        <member name="T:TheVileGrimoireOfJaldial.Framework.States.IPlayerResurrectedState">
             <summary></summary>
         </member>
         <member name="M:TheVileGrimoireOfJaldial.Game.Helpers.GameStateHelper.ValidateFoggyRoomWeatherIntensity">
@@ -272,6 +308,61 @@
         </member>
         <member name="M:TheVileGrimoireOfJaldial.Game.Parsing.SentenceParser.IsValidTokenCommandMatch">
             <summary></summary>
+        </member>
+        <member name="T:TheVileGrimoireOfJaldial.Game.Plugin.Globals">
+            <inheritdoc cref="T:EamonRT.Game.Plugin.Globals"/>
+        </member>
+        <member name="P:TheVileGrimoireOfJaldial.Game.Plugin.Globals.gEngine">
+            <inheritdoc cref="P:EamonRT.Game.Plugin.Globals.gEngine"/>
+        </member>
+        <member name="P:TheVileGrimoireOfJaldial.Game.Plugin.Globals.gOut">
+            <inheritdoc cref="P:EamonRT.Game.Plugin.Globals.gOut"/>
+        </member>
+        <member name="P:TheVileGrimoireOfJaldial.Game.Plugin.Globals.gRDB">
+            <inheritdoc cref="P:EamonRT.Game.Plugin.Globals.gRDB"/>
+        </member>
+        <member name="P:TheVileGrimoireOfJaldial.Game.Plugin.Globals.gADB">
+            <inheritdoc cref="P:EamonRT.Game.Plugin.Globals.gADB"/>
+        </member>
+        <member name="P:TheVileGrimoireOfJaldial.Game.Plugin.Globals.gEDB">
+            <inheritdoc cref="P:EamonRT.Game.Plugin.Globals.gEDB"/>
+        </member>
+        <member name="P:TheVileGrimoireOfJaldial.Game.Plugin.Globals.gMDB">
+            <inheritdoc cref="P:EamonRT.Game.Plugin.Globals.gMDB"/>
+        </member>
+        <member name="P:TheVileGrimoireOfJaldial.Game.Plugin.Globals.gSentenceParser">
+            <inheritdoc cref="P:EamonRT.Game.Plugin.Globals.gSentenceParser"/>
+        </member>
+        <member name="P:TheVileGrimoireOfJaldial.Game.Plugin.Globals.gGameState">
+            <inheritdoc cref="P:EamonRT.Game.Plugin.Globals.gGameState"/>
+        </member>
+        <member name="P:TheVileGrimoireOfJaldial.Game.Plugin.Globals.gCharacter">
+            <inheritdoc cref="P:EamonRT.Game.Plugin.Globals.gCharacter"/>
+        </member>
+        <member name="P:TheVileGrimoireOfJaldial.Game.Plugin.Globals.gCharMonster">
+            <inheritdoc cref="P:EamonRT.Game.Plugin.Globals.gCharMonster"/>
+        </member>
+        <member name="M:TheVileGrimoireOfJaldial.Game.Plugin.Globals.gActorMonster(System.Object)">
+            <summary>Gets the ActorMonster property of an object as a game-specific interface.</summary>
+            <param name="obj">The object with the ActorMonster property.</param>
+            <remarks>
+            Use only within <see cref="T:EamonRT.Framework.Parsing.ICommandParser">CommandParser</see> and <see cref="T:EamonRT.Framework.Commands.ICommand">Command</see> classes or
+            their derivatives, with the "this" keyword as a parameter. It allows easy access to new methods and properties in
+            a game-specific <see cref="T:Eamon.Framework.IMonster"/> interface. Adjust the return type or remove this method if no such interface
+            exists.
+            </remarks>
+            <returns>The ActorMonster downcast to a game-specific interface.</returns>
+        </member>
+        <member name="M:TheVileGrimoireOfJaldial.Game.Plugin.Globals.gActorRoom(System.Object)">
+            <summary>Gets the ActorRoom property of an object as a game-specific interface.</summary>
+            <param name="obj">The object with the ActorRoom property.</param>
+            <remarks>
+            Use only within <see cref="T:EamonRT.Framework.Parsing.ICommandParser">CommandParser</see> and <see cref="T:EamonRT.Framework.Commands.ICommand">Command</see> classes or
+            their derivatives, with the "this" keyword as a parameter. It allows easy access to new methods and properties in
+            a game-specific <see cref="T:Eamon.Framework.IRoom"/> interface. Adjust the return type or remove this method if no such interface
+            exists.
+            </remarks>
+            <returns>The ActorRoom downcast to a game-specific interface.</returns>
         </member>
     </members>
 </doc>

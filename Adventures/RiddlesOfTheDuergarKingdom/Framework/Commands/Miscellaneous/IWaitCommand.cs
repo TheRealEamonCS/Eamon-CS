@@ -8,6 +8,7 @@ using static RiddlesOfTheDuergarKingdom.Game.Plugin.Globals;
 
 namespace RiddlesOfTheDuergarKingdom.Framework.Commands
 {
+	/// <summary></summary>
 	public interface IWaitCommand : ICommand
 	{
 

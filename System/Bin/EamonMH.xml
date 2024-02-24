@@ -74,7 +74,7 @@
             <summary></summary>
         </member>
         <member name="T:EamonMH.Framework.Plugin.IEngine">
-            <summary></summary>
+            <inheritdoc />
         </member>
         <member name="P:EamonMH.Framework.Plugin.IEngine.Argv">
             <summary></summary>
@@ -323,6 +323,40 @@
         </member>
         <member name="P:EamonMH.Game.Menus.ActionMenus.VillageSquareMenu.AddedPotency">
             <summary></summary>
+        </member>
+        <member name="T:EamonMH.Game.Plugin.ContextStack">
+            <inheritdoc cref="T:Eamon.Game.Plugin.ContextStack"/>
+        </member>
+        <member name="M:EamonMH.Game.Plugin.ContextStack.PushEngine(System.Type)">
+            <inheritdoc cref="M:Eamon.Game.Plugin.ContextStack.PushEngine(System.Type)"/>
+        </member>
+        <member name="M:EamonMH.Game.Plugin.ContextStack.PopEngine">
+            <inheritdoc cref="M:Eamon.Game.Plugin.ContextStack.PopEngine"/>
+        </member>
+        <member name="T:EamonMH.Game.Plugin.Globals">
+            <inheritdoc cref="T:Eamon.Game.Plugin.Globals"/>
+        </member>
+        <member name="P:EamonMH.Game.Plugin.Globals.gEngine">
+            <inheritdoc cref="P:Eamon.Game.Plugin.Globals.gEngine"/>
+        </member>
+        <member name="P:EamonMH.Game.Plugin.Globals.gOut">
+            <inheritdoc cref="P:Eamon.Game.Plugin.Globals.gOut"/>
+        </member>
+        <member name="P:EamonMH.Game.Plugin.Globals.gDatabase">
+            <inheritdoc cref="P:Eamon.Game.Plugin.Globals.gDatabase"/>
+        </member>
+        <member name="P:EamonMH.Game.Plugin.Globals.gEDB">
+            <inheritdoc cref="P:Eamon.Game.Plugin.Globals.gEDB"/>
+        </member>
+        <member name="P:EamonMH.Game.Plugin.Globals.gCharacter">
+            <summary>Gets the player character being used in the Main Hall.</summary>
+            <remarks>
+            The player character is selected (or created) in the Main Hall based on the player's interactions with the Burly
+            Irishman at the front desk. Existing characters are retrieved from the CHARACTERS.DAT file or recalled from an 
+            in-progress adventure. The player character record is updated based on activities in the Main Hall and environs.
+            When sent on an adventure, the status is updated in CHARACTERS.DAT and the character is sent into the game using
+            the FRESHMEAT.DAT file. When the game ends, the player character is re-imported into the Main Hall fully updated.
+            </remarks>
         </member>
         <member name="P:EamonMH.Program.ProgramName">
             <summary></summary>

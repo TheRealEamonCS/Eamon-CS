@@ -5,7 +5,7 @@
 
 namespace TheSubAquanLaboratory.Framework
 {
-	/// <summary></summary>
+	/// <inheritdoc />
 	public interface IGameState : Eamon.Framework.IGameState
 	{
 		/// <summary></summary>

@@ -10,6 +10,7 @@ using static TheWayfarersInn.Game.Plugin.Globals;
 
 namespace TheWayfarersInn.Framework
 {
+	/// <inheritdoc />
 	public interface IGameState : Eamon.Framework.IGameState
 	{
 		#region Properties

@@ -5,7 +5,7 @@
     </assembly>
     <members>
         <member name="T:BeginnersForest.Framework.IGameState">
-            <summary></summary>
+            <inheritdoc />
         </member>
         <member name="P:BeginnersForest.Framework.IGameState.QueenGiftEffectUid">
             <summary></summary>
@@ -17,7 +17,7 @@
             <summary></summary>
         </member>
         <member name="T:BeginnersForest.Framework.Plugin.IEngine">
-            <summary></summary>
+            <inheritdoc />
         </member>
         <member name="M:BeginnersForest.Game.Helpers.GameStateHelper.ValidateQueenGiftEffectUid">
             <summary></summary>
@@ -33,6 +33,30 @@
         </member>
         <member name="P:BeginnersForest.Game.Plugin.Engine.HeldWpnIdx">
             <summary></summary>
+        </member>
+        <member name="T:BeginnersForest.Game.Plugin.Globals">
+            <inheritdoc cref="T:EamonRT.Game.Plugin.Globals"/>
+        </member>
+        <member name="P:BeginnersForest.Game.Plugin.Globals.gEngine">
+            <inheritdoc cref="P:EamonRT.Game.Plugin.Globals.gEngine"/>
+        </member>
+        <member name="P:BeginnersForest.Game.Plugin.Globals.gOut">
+            <inheritdoc cref="P:EamonRT.Game.Plugin.Globals.gOut"/>
+        </member>
+        <member name="P:BeginnersForest.Game.Plugin.Globals.gRDB">
+            <inheritdoc cref="P:EamonRT.Game.Plugin.Globals.gRDB"/>
+        </member>
+        <member name="P:BeginnersForest.Game.Plugin.Globals.gADB">
+            <inheritdoc cref="P:EamonRT.Game.Plugin.Globals.gADB"/>
+        </member>
+        <member name="P:BeginnersForest.Game.Plugin.Globals.gMDB">
+            <inheritdoc cref="P:EamonRT.Game.Plugin.Globals.gMDB"/>
+        </member>
+        <member name="P:BeginnersForest.Game.Plugin.Globals.gGameState">
+            <inheritdoc cref="P:EamonRT.Game.Plugin.Globals.gGameState"/>
+        </member>
+        <member name="P:BeginnersForest.Game.Plugin.Globals.gCharMonster">
+            <inheritdoc cref="P:EamonRT.Game.Plugin.Globals.gCharMonster"/>
         </member>
     </members>
 </doc>

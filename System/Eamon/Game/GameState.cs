@@ -7,8 +7,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using Eamon.Framework;
 using Eamon.Framework.Primitive.Enums;
+using Eamon.Framework.Utilities;
 using Eamon.Game.Attributes;
-using Eamon.Game.Utilities;
 using static Eamon.Game.Plugin.Globals;
 
 namespace Eamon.Game
@@ -40,9 +40,6 @@ namespace Eamon.Game
 
 		[FieldName(740)]
 		public virtual long Sh { get; set; }
-
-		[FieldName(760)]
-		public virtual long Af { get; set; }
 
 		[FieldName(780)]
 		public virtual long Die { get; set; }
@@ -105,10 +102,10 @@ namespace Eamon.Game
 		public virtual long[] HeldWpnUids { get; set; }
 
 		[FieldName(1100)]
-		public virtual EventHeap BeforePrintPlayerRoomEventHeap { get; set; }
+		public virtual IEventHeap BeforePrintPlayerRoomEventHeap { get; set; }
 
 		[FieldName(1120)]
-		public virtual EventHeap AfterPrintPlayerRoomEventHeap { get; set; }
+		public virtual IEventHeap AfterPrintPlayerRoomEventHeap { get; set; }
 
 		#endregion
 
@@ -256,9 +253,9 @@ namespace Eamon.Game
 
 			HeldWpnUids = new long[character.Weapons.Length];
 
-			BeforePrintPlayerRoomEventHeap = new EventHeap();
+			BeforePrintPlayerRoomEventHeap = gEngine.CreateInstance<IEventHeap>();
 
-			AfterPrintPlayerRoomEventHeap = new EventHeap();
+			AfterPrintPlayerRoomEventHeap = gEngine.CreateInstance<IEventHeap>();
 		}
 
 		#endregion

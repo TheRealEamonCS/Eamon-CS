@@ -8,6 +8,7 @@ using static TheVileGrimoireOfJaldial.Game.Plugin.Globals;
 
 namespace TheVileGrimoireOfJaldial.Framework.Commands
 {
+	/// <summary></summary>
 	public interface IWaitCommand : ICommand
 	{
 		/// <summary></summary>

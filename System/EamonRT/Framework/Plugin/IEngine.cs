@@ -18,7 +18,7 @@ using EamonRT.Framework.States;
 
 namespace EamonRT.Framework.Plugin
 {
-	/// <summary></summary>
+	/// <inheritdoc />
 	public interface IEngine : EamonDD.Framework.Plugin.IEngine
 	{
 		#region Public Properties

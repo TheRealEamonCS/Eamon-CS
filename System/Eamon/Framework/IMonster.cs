@@ -13,6 +13,7 @@ using Enums = Eamon.Framework.Primitive.Enums;
 namespace Eamon.Framework
 {
 	/// <summary></summary>
+	/// <remarks></remarks>
 	public interface IMonster : IGameBase, IComparable<IMonster>
 	{
 		#region Properties

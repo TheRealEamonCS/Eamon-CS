@@ -7,6 +7,7 @@ using static TheVileGrimoireOfJaldial.Game.Plugin.Globals;
 
 namespace TheVileGrimoireOfJaldial.Framework.Components
 {
+	/// <inheritdoc />
 	public interface ICombatComponent : EamonRT.Framework.Components.ICombatComponent
 	{
 		bool CrossbowTrap { get; set; }

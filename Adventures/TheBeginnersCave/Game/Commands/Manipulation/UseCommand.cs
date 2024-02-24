@@ -17,7 +17,7 @@ namespace TheBeginnersCave.Game.Commands
 		{
 			Debug.Assert(DobjArtifact != null);
 
-			// skip Trollsfire for ready redirect
+			// Skip Trollsfire for ready redirect
 
 			if (DobjArtifact.Uid == 10)
 			{

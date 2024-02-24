@@ -8,7 +8,7 @@
             <summary></summary>
         </member>
         <member name="T:TheSubAquanLaboratory.Framework.Commands.IExamineCommand">
-            <summary></summary>
+            <inheritdoc />
         </member>
         <member name="P:TheSubAquanLaboratory.Framework.Commands.IExamineCommand.ExamineConsole">
             <summary></summary>
@@ -23,7 +23,7 @@
             <summary></summary>
         </member>
         <member name="T:TheSubAquanLaboratory.Framework.IGameState">
-            <summary></summary>
+            <inheritdoc />
         </member>
         <member name="P:TheSubAquanLaboratory.Framework.IGameState.FoodButtonPushes">
             <summary></summary>
@@ -83,14 +83,14 @@
             <summary></summary>
         </member>
         <member name="T:TheSubAquanLaboratory.Framework.IMonster">
-            <summary></summary>
+            <inheritdoc />
         </member>
         <member name="M:TheSubAquanLaboratory.Framework.IMonster.IsAndroid">
             <summary>Indicates whether this <see cref="T:TheSubAquanLaboratory.Framework.IMonster">Monster</see> is classified as an android.</summary>
             <returns>If so then <c>true</c>, otherwise <c>false</c>.</returns>
         </member>
         <member name="T:TheSubAquanLaboratory.Framework.Plugin.IEngine">
-            <summary></summary>
+            <inheritdoc />
         </member>
         <member name="P:TheSubAquanLaboratory.Framework.Plugin.IEngine.WallArtifact">
             <summary></summary>
@@ -146,6 +146,39 @@
         <member name="M:TheSubAquanLaboratory.Game.Helpers.GameStateHelper.ValidateLabRoomsSeen">
             <summary></summary>
             <returns></returns>
+        </member>
+        <member name="T:TheSubAquanLaboratory.Game.Plugin.Globals">
+            <inheritdoc cref="T:EamonRT.Game.Plugin.Globals"/>
+        </member>
+        <member name="P:TheSubAquanLaboratory.Game.Plugin.Globals.gEngine">
+            <inheritdoc cref="P:EamonRT.Game.Plugin.Globals.gEngine"/>
+        </member>
+        <member name="P:TheSubAquanLaboratory.Game.Plugin.Globals.gOut">
+            <inheritdoc cref="P:EamonRT.Game.Plugin.Globals.gOut"/>
+        </member>
+        <member name="P:TheSubAquanLaboratory.Game.Plugin.Globals.gDatabase">
+            <inheritdoc cref="P:EamonRT.Game.Plugin.Globals.gDatabase"/>
+        </member>
+        <member name="P:TheSubAquanLaboratory.Game.Plugin.Globals.gRDB">
+            <inheritdoc cref="P:EamonRT.Game.Plugin.Globals.gRDB"/>
+        </member>
+        <member name="P:TheSubAquanLaboratory.Game.Plugin.Globals.gADB">
+            <inheritdoc cref="P:EamonRT.Game.Plugin.Globals.gADB"/>
+        </member>
+        <member name="P:TheSubAquanLaboratory.Game.Plugin.Globals.gEDB">
+            <inheritdoc cref="P:EamonRT.Game.Plugin.Globals.gEDB"/>
+        </member>
+        <member name="P:TheSubAquanLaboratory.Game.Plugin.Globals.gMDB">
+            <inheritdoc cref="P:EamonRT.Game.Plugin.Globals.gMDB"/>
+        </member>
+        <member name="P:TheSubAquanLaboratory.Game.Plugin.Globals.gGameState">
+            <inheritdoc cref="P:EamonRT.Game.Plugin.Globals.gGameState"/>
+        </member>
+        <member name="P:TheSubAquanLaboratory.Game.Plugin.Globals.gCharacter">
+            <inheritdoc cref="P:EamonRT.Game.Plugin.Globals.gCharacter"/>
+        </member>
+        <member name="P:TheSubAquanLaboratory.Game.Plugin.Globals.gCharMonster">
+            <inheritdoc cref="P:EamonRT.Game.Plugin.Globals.gCharMonster"/>
         </member>
     </members>
 </doc>

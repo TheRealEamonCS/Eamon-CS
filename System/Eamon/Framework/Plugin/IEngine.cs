@@ -18,6 +18,7 @@ using Eamon.Framework.Primitive.Enums;
 namespace Eamon.Framework.Plugin
 {
 	/// <summary></summary>
+	/// <remarks></remarks>
 	public interface IEngine
 	{
 		#region Public Properties
