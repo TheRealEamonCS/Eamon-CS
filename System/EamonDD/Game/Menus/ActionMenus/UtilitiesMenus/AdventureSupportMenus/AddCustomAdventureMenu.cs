@@ -59,7 +59,7 @@ namespace YourAdventureName.Framework.Plugin
 	}
 }
 "
-        };
+		};
 
 		/// <summary></summary>
 		public virtual string[] PluginCsText { get; set; } = new string[]
