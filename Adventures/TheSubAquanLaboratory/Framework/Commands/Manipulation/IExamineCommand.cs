@@ -5,7 +5,7 @@
 
 namespace TheSubAquanLaboratory.Framework.Commands
 {
-	/// <summary></summary>
+	/// <inheritdoc />
 	public interface IExamineCommand : EamonRT.Framework.Commands.IExamineCommand
 	{
 		/// <summary></summary>

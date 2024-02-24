@@ -7,6 +7,7 @@ using static TheDeepCanyon.Game.Plugin.Globals;
 
 namespace TheDeepCanyon.Framework
 {
+	/// <inheritdoc />
 	public interface IGameState : Eamon.Framework.IGameState
 	{
 		long FidoSleepCounter { get; set; }

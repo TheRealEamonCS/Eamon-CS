@@ -8,6 +8,7 @@ using static ThePyramidOfAnharos.Game.Plugin.Globals;
 
 namespace ThePyramidOfAnharos.Framework.Commands
 {
+	/// <summary></summary>
 	public interface IJumpCommand : ICommand
 	{
 

@@ -10,7 +10,7 @@ using EamonMH.Framework.Menus;
 
 namespace EamonMH.Framework.Plugin
 {
-	/// <summary></summary>
+	/// <inheritdoc />
 	public interface IEngine : Eamon.Framework.Plugin.IEngine
 	{
 		#region Public Properties

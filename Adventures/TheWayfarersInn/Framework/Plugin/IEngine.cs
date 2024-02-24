@@ -10,6 +10,7 @@ using Eamon.Framework.Primitive.Enums;
 
 namespace TheWayfarersInn.Framework.Plugin
 {
+	/// <inheritdoc />
 	public interface IEngine : EamonRT.Framework.Plugin.IEngine
 	{
 		string AccountingLedgerData { get; set; }

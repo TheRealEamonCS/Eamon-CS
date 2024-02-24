@@ -3,13 +3,18 @@
 
 // Copyright (c) 2014+ by Kenneth Pedersen.  All rights reserved.
 
+using Eamon.Framework;
 using Eamon.Framework.DataStorage.Generic;
 using Eamon.Framework.Portability;
 
 namespace LandOfTheMountainKing.Game.Plugin
 {
+#pragma warning disable IDE1006 // Naming Styles
+
+	/// <inheritdoc cref="EamonRT.Game.Plugin.Globals"/>
 	public static class Globals
 	{
+		/// <inheritdoc cref="EamonRT.Game.Plugin.Globals.gEngine"/>
 		public static Framework.Plugin.IEngine gEngine
 		{
 			get
@@ -22,6 +27,7 @@ namespace LandOfTheMountainKing.Game.Plugin
 			}
 		}
 
+		/// <inheritdoc cref="EamonRT.Game.Plugin.Globals.gOut"/>
 		public static ITextWriter gOut
 		{
 			get
@@ -30,46 +36,43 @@ namespace LandOfTheMountainKing.Game.Plugin
 			}
 		}
 
-		public static IRecordDb<Eamon.Framework.IRoom> gRDB
+		/// <inheritdoc cref="EamonRT.Game.Plugin.Globals.gRDB"/>
+		public static IRecordDb<IRoom> gRDB
 		{
 			get
 			{
-				return (IRecordDb<Eamon.Framework.IRoom>)EamonRT.Game.Plugin.Globals.gRDB;
+				return EamonRT.Game.Plugin.Globals.gRDB;
 			}
 		}
 
-		public static IRecordDb<Eamon.Framework.IArtifact> gADB
+		/// <inheritdoc cref="EamonRT.Game.Plugin.Globals.gADB"/>
+		public static IRecordDb<IArtifact> gADB
 		{
 			get
 			{
-				return (IRecordDb<Eamon.Framework.IArtifact>)EamonRT.Game.Plugin.Globals.gADB;
+				return EamonRT.Game.Plugin.Globals.gADB;
 			}
 		}
 
-		public static IRecordDb<Eamon.Framework.IEffect> gEDB
+		/// <inheritdoc cref="EamonRT.Game.Plugin.Globals.gEDB"/>
+		public static IRecordDb<IEffect> gEDB
 		{
 			get
 			{
-				return (IRecordDb<Eamon.Framework.IEffect>)EamonRT.Game.Plugin.Globals.gEDB;
+				return EamonRT.Game.Plugin.Globals.gEDB;
 			}
 		}
 
-		public static IRecordDb<Eamon.Framework.IMonster> gMDB
+		/// <inheritdoc cref="EamonRT.Game.Plugin.Globals.gMDB"/>
+		public static IRecordDb<IMonster> gMDB
 		{
 			get
 			{
-				return (IRecordDb<Eamon.Framework.IMonster>)EamonRT.Game.Plugin.Globals.gMDB;
+				return EamonRT.Game.Plugin.Globals.gMDB;
 			}
 		}
 
-		public static EamonRT.Framework.Parsing.ICommandParser gCommandParser
-		{
-			get
-			{
-				return (EamonRT.Framework.Parsing.ICommandParser)EamonRT.Game.Plugin.Globals.gCommandParser;
-			}
-		}
-
+		/// <inheritdoc cref="EamonRT.Game.Plugin.Globals.gGameState"/>
 		public static Framework.IGameState gGameState
 		{
 			get
@@ -78,36 +81,43 @@ namespace LandOfTheMountainKing.Game.Plugin
 			}
 		}
 
-		public static Eamon.Framework.ICharacter gCharacter
+		/// <inheritdoc cref="EamonRT.Game.Plugin.Globals.gCharacter"/>
+		public static ICharacter gCharacter
 		{
 			get
 			{
-				return (Eamon.Framework.ICharacter)EamonRT.Game.Plugin.Globals.gCharacter;
+				return EamonRT.Game.Plugin.Globals.gCharacter;
 			}
 		}
 
-		public static Eamon.Framework.IMonster gCharMonster
+		/// <inheritdoc cref="EamonRT.Game.Plugin.Globals.gCharMonster"/>
+		public static IMonster gCharMonster
 		{
 			get
 			{
-				return (Eamon.Framework.IMonster)EamonRT.Game.Plugin.Globals.gCharMonster;
+				return EamonRT.Game.Plugin.Globals.gCharMonster;
 			}
 		}
 
-		public static Eamon.Framework.IRoom gCharRoom
+		/// <inheritdoc cref="EamonRT.Game.Plugin.Globals.gCharRoom"/>
+		public static IRoom gCharRoom
 		{
 			get
 			{
-				return (Eamon.Framework.IRoom)EamonRT.Game.Plugin.Globals.gCharRoom;
+				return EamonRT.Game.Plugin.Globals.gCharRoom;
 			}
 		}
 
-		public static LandOfTheMountainKing.Framework.ILMKKP1 gLMKKP1
+		/// <summary></summary>
+		/// <remarks></remarks>
+		public static Framework.ILMKKP1 gLMKKP1
 		{
 			get
 			{
-				return (LandOfTheMountainKing.Framework.ILMKKP1)gGameState?.LMKKP1;
+				return gGameState?.LMKKP1;
 			}
 		}
 	}
+
+#pragma warning restore IDE1006 // Naming Styles
 }

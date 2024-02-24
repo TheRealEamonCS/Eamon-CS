@@ -5,7 +5,7 @@
 
 namespace TheTempleOfNgurct.Framework
 {
-	/// <summary></summary>
+	/// <inheritdoc />
 	public interface IGameState : Eamon.Framework.IGameState
 	{
 		#region Properties

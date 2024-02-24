@@ -8,6 +8,7 @@ using static RiddlesOfTheDuergarKingdom.Game.Plugin.Globals;
 
 namespace RiddlesOfTheDuergarKingdom.Framework
 {
+	/// <inheritdoc />
 	public interface IGameState : Eamon.Framework.IGameState
 	{
 		#region Properties

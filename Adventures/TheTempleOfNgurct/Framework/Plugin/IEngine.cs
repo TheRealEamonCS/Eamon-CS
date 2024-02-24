@@ -10,7 +10,7 @@ using EamonRT.Framework.States;
 
 namespace TheTempleOfNgurct.Framework.Plugin
 {
-	/// <summary></summary>
+	/// <inheritdoc />
 	public interface IEngine : EamonRT.Framework.Plugin.IEngine
 	{
 		/// <summary></summary>

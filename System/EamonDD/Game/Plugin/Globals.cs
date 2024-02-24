@@ -3,20 +3,24 @@
 
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
+using Eamon.Framework;
 using Eamon.Framework.DataStorage;
 using Eamon.Framework.DataStorage.Generic;
 using Eamon.Framework.Portability;
-using EamonDD.Framework.Plugin;
 
 namespace EamonDD.Game.Plugin
 {
+#pragma warning disable IDE1006 // Naming Styles
+
+	/// <inheritdoc cref="Eamon.Game.Plugin.Globals"/>
 	public static class Globals
 	{
-		public static IEngine gEngine
+		/// <inheritdoc cref="Eamon.Game.Plugin.Globals.gEngine"/>
+		public static Framework.Plugin.IEngine gEngine
 		{
 			get
 			{
-				return (IEngine)Eamon.Game.Plugin.Globals.gEngine;
+				return (Framework.Plugin.IEngine)Eamon.Game.Plugin.Globals.gEngine;
 			}
 			set
 			{
@@ -24,6 +28,7 @@ namespace EamonDD.Game.Plugin
 			}
 		}
 
+		/// <inheritdoc cref="Eamon.Game.Plugin.Globals.gOut"/>
 		public static ITextWriter gOut 
 		{
 			get 
@@ -32,6 +37,7 @@ namespace EamonDD.Game.Plugin
 			}
 		}
 
+		/// <inheritdoc cref="Eamon.Game.Plugin.Globals.gDatabase"/>
 		public static IDatabase gDatabase
 		{
 			get
@@ -40,7 +46,8 @@ namespace EamonDD.Game.Plugin
 			}
 		}
 
-		public static IRecordDb<Eamon.Framework.IRoom> gRDB 
+		/// <inheritdoc cref="Eamon.Game.Plugin.Globals.gRDB"/>
+		public static IRecordDb<IRoom> gRDB 
 		{
 			get 
 			{
@@ -48,7 +55,8 @@ namespace EamonDD.Game.Plugin
 			}
 		}
 
-		public static IRecordDb<Eamon.Framework.IArtifact> gADB 
+		/// <inheritdoc cref="Eamon.Game.Plugin.Globals.gADB"/>
+		public static IRecordDb<IArtifact> gADB 
 		{
 			get 
 			{
@@ -56,7 +64,8 @@ namespace EamonDD.Game.Plugin
 			}
 		}
 
-		public static IRecordDb<Eamon.Framework.IEffect> gEDB 
+		/// <inheritdoc cref="Eamon.Game.Plugin.Globals.gEDB"/>
+		public static IRecordDb<IEffect> gEDB 
 		{
 			get 
 			{
@@ -64,7 +73,8 @@ namespace EamonDD.Game.Plugin
 			}
 		}
 
-		public static IRecordDb<Eamon.Framework.IMonster> gMDB 
+		/// <inheritdoc cref="Eamon.Game.Plugin.Globals.gMDB"/>
+		public static IRecordDb<IMonster> gMDB 
 		{
 			get 
 			{
@@ -72,4 +82,6 @@ namespace EamonDD.Game.Plugin
 			}
 		}
 	}
+
+#pragma warning restore IDE1006 // Naming Styles
 }

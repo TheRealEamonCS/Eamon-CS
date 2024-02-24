@@ -3,6 +3,7 @@
 
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
+using Eamon.Framework;
 using Eamon.Framework.DataStorage.Generic;
 using Eamon.Framework.Portability;
 using EamonRT.Framework.Commands;
@@ -10,8 +11,12 @@ using EamonRT.Framework.Parsing;
 
 namespace TheWayfarersInn.Game.Plugin
 {
+#pragma warning disable IDE1006 // Naming Styles
+
+	/// <inheritdoc cref="EamonRT.Game.Plugin.Globals"/>
 	public static class Globals
 	{
+		/// <inheritdoc cref="EamonRT.Game.Plugin.Globals.gEngine"/>
 		public static Framework.Plugin.IEngine gEngine
 		{
 			get
@@ -24,6 +29,7 @@ namespace TheWayfarersInn.Game.Plugin
 			}
 		}
 
+		/// <inheritdoc cref="EamonRT.Game.Plugin.Globals.gOut"/>
 		public static ITextWriter gOut
 		{
 			get
@@ -32,54 +38,43 @@ namespace TheWayfarersInn.Game.Plugin
 			}
 		}
 
-		public static IRecordDb<Eamon.Framework.IRoom> gRDB
+		/// <inheritdoc cref="EamonRT.Game.Plugin.Globals.gRDB"/>
+		public static IRecordDb<IRoom> gRDB
 		{
 			get
 			{
-				return (IRecordDb<Eamon.Framework.IRoom>)EamonRT.Game.Plugin.Globals.gRDB;
+				return EamonRT.Game.Plugin.Globals.gRDB;
 			}
 		}
 
-		public static IRecordDb<Eamon.Framework.IArtifact> gADB
+		/// <inheritdoc cref="EamonRT.Game.Plugin.Globals.gADB"/>
+		public static IRecordDb<IArtifact> gADB
 		{
 			get
 			{
-				return (IRecordDb<Eamon.Framework.IArtifact>)EamonRT.Game.Plugin.Globals.gADB;
+				return EamonRT.Game.Plugin.Globals.gADB;
 			}
 		}
 
-		public static IRecordDb<Eamon.Framework.IEffect> gEDB
+		/// <inheritdoc cref="EamonRT.Game.Plugin.Globals.gMDB"/>
+		public static IRecordDb<IMonster> gMDB
 		{
 			get
 			{
-				return (IRecordDb<Eamon.Framework.IEffect>)EamonRT.Game.Plugin.Globals.gEDB;
+				return EamonRT.Game.Plugin.Globals.gMDB;
 			}
 		}
 
-		public static IRecordDb<Eamon.Framework.IMonster> gMDB
+		/// <inheritdoc cref="EamonRT.Game.Plugin.Globals.gSentenceParser"/>
+		public static ISentenceParser gSentenceParser
 		{
 			get
 			{
-				return (IRecordDb<Eamon.Framework.IMonster>)EamonRT.Game.Plugin.Globals.gMDB;
+				return EamonRT.Game.Plugin.Globals.gSentenceParser;
 			}
 		}
 
-		public static EamonRT.Framework.Parsing.ISentenceParser gSentenceParser
-		{
-			get
-			{
-				return (EamonRT.Framework.Parsing.ISentenceParser)EamonRT.Game.Plugin.Globals.gSentenceParser;
-			}
-		}
-
-		public static EamonRT.Framework.Parsing.ICommandParser gCommandParser
-		{
-			get
-			{
-				return (EamonRT.Framework.Parsing.ICommandParser)EamonRT.Game.Plugin.Globals.gCommandParser;
-			}
-		}
-
+		/// <inheritdoc cref="EamonRT.Game.Plugin.Globals.gGameState"/>
 		public static Framework.IGameState gGameState
 		{
 			get
@@ -88,22 +83,25 @@ namespace TheWayfarersInn.Game.Plugin
 			}
 		}
 
-		public static Eamon.Framework.ICharacter gCharacter
+		/// <inheritdoc cref="EamonRT.Game.Plugin.Globals.gCharacter"/>
+		public static ICharacter gCharacter
 		{
 			get
 			{
-				return (Eamon.Framework.ICharacter)EamonRT.Game.Plugin.Globals.gCharacter;
+				return EamonRT.Game.Plugin.Globals.gCharacter;
 			}
 		}
 
-		public static Eamon.Framework.IMonster gCharMonster
+		/// <inheritdoc cref="EamonRT.Game.Plugin.Globals.gCharMonster"/>
+		public static IMonster gCharMonster
 		{
 			get
 			{
-				return (Eamon.Framework.IMonster)EamonRT.Game.Plugin.Globals.gCharMonster;
+				return EamonRT.Game.Plugin.Globals.gCharMonster;
 			}
 		}
 
+		/// <inheritdoc cref="EamonRT.Game.Plugin.Globals.gCharRoom"/>
 		public static Framework.IRoom gCharRoom
 		{
 			get
@@ -112,6 +110,15 @@ namespace TheWayfarersInn.Game.Plugin
 			}
 		}
 
+		/// <summary>Gets the ActorRoom property of an object as a game-specific interface.</summary>
+		/// <param name="obj">The object with the ActorRoom property.</param>
+		/// <remarks>
+		/// Use only within <see cref="ICommandParser">CommandParser</see> and <see cref="ICommand">Command</see> classes or
+		/// their derivatives, with the "this" keyword as a parameter. It allows easy access to new methods and properties in
+		/// a game-specific <see cref="IRoom"/> interface. Adjust the return type or remove this method if no such interface
+		/// exists.
+		/// </remarks>
+		/// <returns>The ActorRoom downcast to a game-specific interface.</returns>
 		public static Framework.IRoom gActorRoom(object obj)
 		{
 			if (obj is ICommandParser commandParser)
@@ -128,6 +135,15 @@ namespace TheWayfarersInn.Game.Plugin
 			}
 		}
 
+		/// <summary>Gets the DobjArtifact property of an object as a game-specific interface.</summary>
+		/// <param name="obj">The object with the DobjArtifact property.</param>
+		/// <remarks>
+		/// Use only within <see cref="ICommandParser">CommandParser</see> and <see cref="ICommand">Command</see> classes or
+		/// their derivatives, with the "this" keyword as a parameter. It allows easy access to new methods and properties in
+		/// a game-specific <see cref="IArtifact"/> interface. Adjust the return type or remove this method if no such interface
+		/// exists.
+		/// </remarks>
+		/// <returns>The DobjArtifact downcast to a game-specific interface.</returns>
 		public static Framework.IArtifact gDobjArtifact(object obj)
 		{
 			if (obj is ICommandParser commandParser)
@@ -143,21 +159,7 @@ namespace TheWayfarersInn.Game.Plugin
 				return null;
 			}
 		}
-
-		public static Framework.IArtifact gIobjArtifact(object obj)
-		{
-			if (obj is ICommandParser commandParser)
-			{
-				return (Framework.IArtifact)commandParser?.IobjArtifact;
-			}
-			else if (obj is ICommand command)
-			{
-				return (Framework.IArtifact)command?.IobjArtifact;
-			}
-			else
-			{
-				return null;
-			}
-		}
 	}
+
+#pragma warning restore IDE1006 // Naming Styles
 }

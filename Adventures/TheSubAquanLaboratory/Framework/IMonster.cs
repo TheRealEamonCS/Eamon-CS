@@ -5,7 +5,7 @@
 
 namespace TheSubAquanLaboratory.Framework
 {
-	/// <summary></summary>
+	/// <inheritdoc />
 	public interface IMonster : Eamon.Framework.IMonster
 	{
 		/// <summary>Indicates whether this <see cref="IMonster">Monster</see> is classified as an android.</summary>

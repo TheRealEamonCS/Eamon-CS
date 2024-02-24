@@ -5,8 +5,8 @@
 
 using System.Diagnostics;
 using System.Reflection;
+using Eamon.Framework.Utilities;
 using Eamon.Game.Attributes;
-using Eamon.Game.Utilities;
 using EamonRT.Framework.States;
 using static EamonRT.Game.Plugin.Globals;
 
@@ -17,7 +17,7 @@ namespace EamonRT.Game.States
 	{
 		public long _eventTurn;
 
-		public EventData _eventData;
+		public IEventData _eventData;
 
 		/// <summary></summary>
 		public virtual string EventMethodName { get; set; }
@@ -40,7 +40,7 @@ namespace EamonRT.Game.States
 		}
 
 		/// <summary></summary>
-		public virtual EventData EventData
+		public virtual IEventData EventData
 		{
 			get
 			{
@@ -96,10 +96,17 @@ namespace EamonRT.Game.States
 
 		public virtual void FireEvent(string eventName, object eventParam)
 		{
-			FireEvent02(new EventData() { EventName = eventName, EventParam = eventParam });
+			var eventData = gEngine.CreateInstance<IEventData>(x => 
+			{ 
+				x.EventName = eventName; 
+				
+				x.EventParam = eventParam; 
+			});
+			
+			FireEvent02(eventData);
 		}
 
-		public virtual void FireEvent02(EventData eventData)
+		public virtual void FireEvent02(IEventData eventData)
 		{
 			Debug.Assert(eventData != null && !string.IsNullOrWhiteSpace(eventData.EventName));
 

@@ -7,6 +7,7 @@ using static TheVileGrimoireOfJaldial.Game.Plugin.Globals;
 
 namespace TheVileGrimoireOfJaldial.Framework.Commands
 {
+	/// <inheritdoc />
 	public interface ISettingsCommand : EamonRT.Framework.Commands.ISettingsCommand
 	{
 		bool? ShowCombatDamage { get; set; }

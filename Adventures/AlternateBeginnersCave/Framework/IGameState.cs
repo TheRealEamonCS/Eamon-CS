@@ -7,6 +7,7 @@ using static AlternateBeginnersCave.Game.Plugin.Globals;
 
 namespace AlternateBeginnersCave.Framework
 {
+	/// <inheritdoc />
 	public interface IGameState : Eamon.Framework.IGameState
 	{
 		#region Properties

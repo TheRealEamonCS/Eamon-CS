@@ -5,7 +5,7 @@
 
 namespace WrenholdsSecretVigil.Framework
 {
-	/// <summary></summary>
+	/// <inheritdoc />
 	public interface IArtifact : Eamon.Framework.IArtifact
 	{
 		/// <summary>Indicates whether this <see cref="IArtifact">Artifact</see> is buried in a given <see cref="Eamon.Framework.IRoom">Room</see>.</summary>

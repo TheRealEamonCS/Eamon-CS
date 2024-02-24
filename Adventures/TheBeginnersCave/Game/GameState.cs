@@ -28,23 +28,23 @@ namespace TheBeginnersCave.Game
 			{
 				RetCode rc;
 
-				// if toggling the Trollsfire effect
+				// If toggling the Trollsfire effect
 
 				if (gEngine.EnableMutateProperties && _trollsfire != value)
 				{
-					// find Trollsfire in the game database
+					// Find Trollsfire in the game database
 
 					var trollsfireArtifact = gADB[10];
 
 					Debug.Assert(trollsfireArtifact != null);
 
-					// look up the data relating to artifact type MagicWeapon
+					// Look up the data relating to artifact type MagicWeapon
 
 					var ac = trollsfireArtifact.MagicWeapon;
 
 					Debug.Assert(ac != null);
 
-					// if activating the Trollsfire effect
+					// If activating the Trollsfire effect
 
 					if (value != 0)
 					{
@@ -72,7 +72,7 @@ namespace TheBeginnersCave.Game
 					}
 				}
 
-				// store change to Trollsfire property in backing field
+				// Store change to Trollsfire property in backing field
 
 				_trollsfire = value;
 			}

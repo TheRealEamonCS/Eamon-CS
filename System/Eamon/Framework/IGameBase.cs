@@ -10,6 +10,7 @@ using Eamon.Framework.Primitive.Enums;
 namespace Eamon.Framework
 {
 	/// <summary></summary>
+	/// <remarks></remarks>
 	public interface IGameBase : IDisposable
 	{
 		#region Properties

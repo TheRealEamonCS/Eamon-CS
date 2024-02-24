@@ -9,6 +9,7 @@ using static TheVileGrimoireOfJaldial.Game.Plugin.Globals;
 
 namespace TheVileGrimoireOfJaldial.Framework
 {
+	/// <inheritdoc />
 	public interface IGameState : Eamon.Framework.IGameState
 	{
 		/// <summary></summary>

@@ -22,7 +22,7 @@ namespace TheBeginnersCave.Game.Commands
 
 			if (eventType == EventType.BeforePrintArtifactReadText)
 			{
-				// saving throw vs. intellect for book trap warning
+				// Saving throw vs. Intellect for book trap warning
 
 				if (DobjArtifact.Uid == 9)
 				{
@@ -47,7 +47,7 @@ namespace TheBeginnersCave.Game.Commands
 			}
 			else if (eventType == EventType.AfterReadArtifact)
 			{
-				// book trap
+				// Book trap
 
 				if (DobjArtifact.Uid == 9)
 				{
@@ -69,7 +69,7 @@ namespace TheBeginnersCave.Game.Commands
 		{
 			Debug.Assert(DobjArtifact != null);
 
-			// change name of bottle
+			// Change name of bottle
 
 			if (DobjArtifact.Uid == 3)
 			{

@@ -31,7 +31,7 @@ namespace TheBeginnersCave.Game.Commands
 
 			if (eventType == EventType.AfterNumberOfExitsCheck)
 			{
-				// another classic Eamon moment...
+				// Another classic Eamon moment...
 
 				var mimicMonster = gMDB[7];
 

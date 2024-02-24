@@ -88,7 +88,7 @@ namespace EamonRT.Game.Commands
 				goto Cleanup;
 			}
 
-			// can't use two-handed weapon while wearing shield
+			// Can't use two-handed weapon while wearing shield
 
 			if (gGameState.Sh > 0 && DobjArtAc.Field5 > 1)
 			{

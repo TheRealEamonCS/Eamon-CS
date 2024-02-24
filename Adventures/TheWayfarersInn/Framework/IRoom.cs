@@ -7,6 +7,7 @@ using static TheWayfarersInn.Game.Plugin.Globals;
 
 namespace TheWayfarersInn.Framework
 {
+	/// <inheritdoc />
 	public interface IRoom : Eamon.Framework.IRoom
 	{
 		/// <summary></summary>

@@ -7,6 +7,7 @@ using Eamon.Framework;
 
 namespace TheDeepCanyon.Framework.Plugin
 {
+	/// <inheritdoc />
 	public interface IEngine : EamonRT.Framework.Plugin.IEngine
 	{
 		long ResurrectMonsterUid { get; set; }

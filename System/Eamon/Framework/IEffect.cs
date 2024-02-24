@@ -9,6 +9,7 @@ using System.Text;
 namespace Eamon.Framework
 {
 	/// <summary></summary>
+	/// <remarks></remarks>
 	public interface IEffect : IGameBase, IComparable<IEffect>
 	{
 		#region Methods

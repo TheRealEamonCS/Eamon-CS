@@ -27,20 +27,20 @@ namespace TheBeginnersCave.Game
 			{
 				if (gEngine.EnableMutateProperties)
 				{
-					// if this is any monster going from wielding Trollsfire to not wielding Trollsfire
+					// If this is any monster going from wielding Trollsfire to not wielding Trollsfire
 
 					if (base.Weapon == 10 && value != 10)
 					{
-						// deactivate Trollsfire effect; the Trollsfire property is complex and does a fair bit of processing
+						// Deactivate Trollsfire effect; the Trollsfire property is complex and does a fair bit of processing
 
 						gGameState.Trollsfire = 0;
 					}
 
-					// if this is the pirate going from not wielding Trollsfire to wielding Trollsfire
+					// If this is the pirate going from not wielding Trollsfire to wielding Trollsfire
 
 					else if (Uid == 8 && base.Weapon != 10 && value == 10)
 					{
-						// activate Trollsfire effect
+						// Activate Trollsfire effect
 
 						gGameState.Trollsfire = 1;
 					}
@@ -83,7 +83,7 @@ namespace TheBeginnersCave.Game
 
 				x = (((long)((double)(x * 5) / (double)Hardiness)) + 1) * (x > 0 ? 1 : 0);
 
-				// historical status reports from original
+				// Historical status reports from original
 
 				result = "at death's door, knocking loudly.";
 
