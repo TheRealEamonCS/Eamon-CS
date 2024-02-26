@@ -3539,12 +3539,11 @@
             since these properties and methods are largely stand-alone, plus proper documentation will improve things
             considerably.
             <para>
-            This class combined with the <see cref="T:Eamon.Framework.IGameBase">GameBase</see> derivatives (<see cref="T:Eamon.Framework.IRoom">Room</see>,
-            <see cref="T:Eamon.Framework.IArtifact">Artifact</see>, etc.) are used to implement games in Eamon CS. The different plugin
-            Engine classes form a hierarchy, often overriding or adding new functionality at higher system levels
-            (particularly in games). This is also the default class you can use to store runtime (non-persisted) game
-            state variables, although this is optional. Please take a look at the various games implemented in Eamon CS
-            to see how Engine is used.
+            This class combined with the <see cref="T:Eamon.Framework.IGameBase">GameBase</see>, Command, State, and Component derivatives
+            (among others) are used to implement games in Eamon CS. The different plugin Engine classes form a hierarchy,
+            often overriding or adding new functionality at higher system levels (particularly in games). This is also
+            the default class you can use to store runtime (non-persisted) game state variables, although it is
+            optional. Please take a look at the various games implemented in Eamon CS to see how Engine is used.
             </para>
             </remarks>
         </member>
@@ -3561,106 +3560,174 @@
             <summary></summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.ArtNameLen">
-            <summary></summary>
+            <summary>
+            Gets the maximum length of an <see cref="T:Eamon.Framework.IArtifact">Artifact</see> <see cref="P:Eamon.Framework.IGameBase.Name">Name</see>.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.ArtStateDescLen">
-            <summary></summary>
+            <summary>
+            Gets the maximum length of an <see cref="T:Eamon.Framework.IArtifact">Artifact</see> <see cref="P:Eamon.Framework.IArtifact.StateDesc">StateDesc</see>.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.ArtDescLen">
-            <summary></summary>
+            <summary>
+            Gets the maximum length of an <see cref="T:Eamon.Framework.IArtifact">Artifact</see> <see cref="P:Eamon.Framework.IGameBase.Desc">Desc</see>.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.CharNameLen">
-            <summary></summary>
+            <summary>
+            Gets the maximum length of a <see cref="T:Eamon.Framework.ICharacter">Character</see> <see cref="P:Eamon.Framework.IGameBase.Name">Name</see>.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.CharArtNameLen">
-            <summary></summary>
+            <summary>
+            Gets the maximum length of a <see cref="T:Eamon.Framework.ICharacter">Character</see> <see cref="T:Eamon.Framework.IArtifact">Artifact</see> <see cref="P:Eamon.Framework.IGameBase.Name">Name</see> (e.g., armor, shield, or weapon).
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.CharArtDescLen">
-            <summary></summary>
+            <summary>
+            Gets the maximum length of a <see cref="T:Eamon.Framework.ICharacter">Character</see> <see cref="T:Eamon.Framework.IArtifact">Artifact</see> <see cref="P:Eamon.Framework.IGameBase.Desc">Desc</see> (e.g., armor, shield, or weapon).
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.EffDescLen">
-            <summary></summary>
+            <summary>
+            Gets the maximum length of an <see cref="T:Eamon.Framework.IEffect">Effect</see> <see cref="P:Eamon.Framework.IGameBase.Desc">Desc</see>.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.FsNameLen">
-            <summary></summary>
+            <summary>
+            Gets the maximum length of a <see cref="T:Eamon.Framework.IFileset">Fileset</see> <see cref="P:Eamon.Framework.IGameBase.Name">Name</see>.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.FsFileNameLen">
-            <summary></summary>
+            <summary>
+            Gets the maximum length of a <see cref="T:Eamon.Framework.IFileset">Fileset</see> file name (e.g., <see cref="P:Eamon.Framework.IFileset.PluginFileName">PluginFileName</see>, etc).
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.HntQuestionLen">
-            <summary></summary>
+            <summary>
+            Gets the maximum length of a <see cref="T:Eamon.Framework.IHint">Hint</see> <see cref="P:Eamon.Framework.IHint.Question">Question</see>.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.HntAnswerLen">
-            <summary></summary>
+            <summary>
+            Gets the maximum length of a <see cref="T:Eamon.Framework.IHint">Hint</see> <see cref="P:Eamon.Framework.IHint.Answers">Answer</see>.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.ModNameLen">
-            <summary></summary>
+            <summary>
+            Gets the maximum length of a <see cref="T:Eamon.Framework.IModule">Module</see> <see cref="P:Eamon.Framework.IGameBase.Name">Name</see>.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.ModDescLen">
-            <summary></summary>
+            <summary>
+            Gets the maximum length of a <see cref="T:Eamon.Framework.IModule">Module</see> <see cref="P:Eamon.Framework.IGameBase.Desc">Desc</see>.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.ModAuthorLen">
-            <summary></summary>
+            <summary>
+            Gets the maximum length of a <see cref="T:Eamon.Framework.IModule">Module</see> <see cref="P:Eamon.Framework.IModule.Author">Author</see>.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.ModVolLabelLen">
-            <summary></summary>
+            <summary>
+            Gets the maximum length of a <see cref="T:Eamon.Framework.IModule">Module</see> <see cref="P:Eamon.Framework.IModule.VolLabel">VolLabel</see>.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.ModSerialNumLen">
-            <summary></summary>
+            <summary>
+            Gets the maximum length of a <see cref="T:Eamon.Framework.IModule">Module</see> <see cref="P:Eamon.Framework.IModule.SerialNum">SerialNum</see>.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.MonNameLen">
-            <summary></summary>
+            <summary>
+            Gets the maximum length of a <see cref="T:Eamon.Framework.IMonster">Monster</see> <see cref="P:Eamon.Framework.IGameBase.Name">Name</see>.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.MonStateDescLen">
-            <summary></summary>
+            <summary>
+            Gets the maximum length of a <see cref="T:Eamon.Framework.IMonster">Monster</see> <see cref="P:Eamon.Framework.IMonster.StateDesc">StateDesc</see>.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.MonDescLen">
-            <summary></summary>
+            <summary>
+            Gets the maximum length of a <see cref="T:Eamon.Framework.IMonster">Monster</see> <see cref="P:Eamon.Framework.IGameBase.Desc">Desc</see>.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.RmNameLen">
-            <summary></summary>
+            <summary>
+            Gets the maximum length of a <see cref="T:Eamon.Framework.IRoom">Room</see> <see cref="P:Eamon.Framework.IGameBase.Name">Name</see>.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.RmDescLen">
-            <summary></summary>
+            <summary>
+            Gets the maximum length of a <see cref="T:Eamon.Framework.IRoom">Room</see> <see cref="P:Eamon.Framework.IGameBase.Desc">Desc</see>.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.AxePrice">
-            <summary></summary>
+            <summary>
+            Gets the base price, in gold pieces, of an <see cref="F:Eamon.Framework.Primitive.Enums.Weapon.Axe">axe</see> sold by Marcos Cavielli.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.BowPrice">
-            <summary></summary>
+            <summary>
+            Gets the base price, in gold pieces, of a <see cref="F:Eamon.Framework.Primitive.Enums.Weapon.Bow">bow</see> sold by Marcos Cavielli.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.MacePrice">
-            <summary></summary>
+            <summary>
+            Gets the base price, in gold pieces, of a <see cref="F:Eamon.Framework.Primitive.Enums.Weapon.Club">mace</see> sold by Marcos Cavielli.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.SpearPrice">
-            <summary></summary>
+            <summary>
+            Gets the base price, in gold pieces, of a <see cref="F:Eamon.Framework.Primitive.Enums.Weapon.Spear">spear</see> sold by Marcos Cavielli.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.SwordPrice">
-            <summary></summary>
+            <summary>
+            Gets the base price, in gold pieces, of a <see cref="F:Eamon.Framework.Primitive.Enums.Weapon.Sword">sword</see> sold by Marcos Cavielli.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.ShieldPrice">
-            <summary></summary>
+            <summary>
+            Gets the base price, in gold pieces, of a <see cref="F:Eamon.Framework.Primitive.Enums.Armor.ClothesShield">shield</see> sold by Marcos Cavielli.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.LeatherArmorPrice">
-            <summary></summary>
+            <summary>
+            Gets the base price, in gold pieces, of some <see cref="F:Eamon.Framework.Primitive.Enums.Armor.Leather">leather</see> armor sold by Marcos Cavielli.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.ChainMailPrice">
-            <summary></summary>
+            <summary>
+            Gets the base price, in gold pieces, of some <see cref="F:Eamon.Framework.Primitive.Enums.Armor.ChainMail">chain mail</see> armor sold by Marcos Cavielli.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.PlateMailPrice">
-            <summary></summary>
+            <summary>
+            Gets the base price, in gold pieces, of some <see cref="F:Eamon.Framework.Primitive.Enums.Armor.PlateMail">plate mail</see> armor sold by Marcos Cavielli.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.BlastPrice">
-            <summary></summary>
+            <summary>
+            Gets the base price, in gold pieces, of the <see cref="F:Eamon.Framework.Primitive.Enums.Spell.Blast">Blast</see> spell sold by Hokas Tokas.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.HealPrice">
-            <summary></summary>
+            <summary>
+            Gets the base price, in gold pieces, of the <see cref="F:Eamon.Framework.Primitive.Enums.Spell.Heal">Heal</see> spell sold by Hokas Tokas.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.SpeedPrice">
-            <summary></summary>
+            <summary>
+            Gets the base price, in gold pieces, of the <see cref="F:Eamon.Framework.Primitive.Enums.Spell.Speed">Speed</see> spell sold by Hokas Tokas.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.PowerPrice">
-            <summary></summary>
+            <summary>
+            Gets the base price, in gold pieces, of the <see cref="F:Eamon.Framework.Primitive.Enums.Spell.Power">Power</see> spell sold by Hokas Tokas.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.RecallPrice">
             <summary></summary>
@@ -4464,7 +4531,7 @@
         </member>
         <member name="M:Eamon.Framework.Plugin.IEngine.IsValidArtifactArmor(System.Int64,System.Boolean)">
             <summary>
-            Indicates whether an armor value is valid for an wearable <see cref="T:Eamon.Framework.IArtifact">Artifact</see>.
+            Indicates whether an armor value is valid for a wearable <see cref="T:Eamon.Framework.IArtifact">Artifact</see>.
             </summary>
             <param name="armor"></param>
             <param name="includeShields"></param>

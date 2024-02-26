@@ -51,106 +51,174 @@ namespace Eamon.Framework.Plugin
 		/// <summary></summary>
 		string CourageDesc { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the maximum length of an <see cref="IArtifact">Artifact</see> <see cref="IGameBase.Name">Name</see>.
+		/// </summary>
 		int ArtNameLen { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the maximum length of an <see cref="IArtifact">Artifact</see> <see cref="IArtifact.StateDesc">StateDesc</see>.
+		/// </summary>
 		int ArtStateDescLen { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the maximum length of an <see cref="IArtifact">Artifact</see> <see cref="IGameBase.Desc">Desc</see>.
+		/// </summary>
 		int ArtDescLen { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the maximum length of a <see cref="ICharacter">Character</see> <see cref="IGameBase.Name">Name</see>.
+		/// </summary>
 		int CharNameLen { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the maximum length of a <see cref="ICharacter">Character</see> <see cref="IArtifact">Artifact</see> <see cref="IGameBase.Name">Name</see> (e.g., armor, shield, or weapon).
+		/// </summary>
 		int CharArtNameLen { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the maximum length of a <see cref="ICharacter">Character</see> <see cref="IArtifact">Artifact</see> <see cref="IGameBase.Desc">Desc</see> (e.g., armor, shield, or weapon).
+		/// </summary>
 		int CharArtDescLen { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the maximum length of an <see cref="IEffect">Effect</see> <see cref="IGameBase.Desc">Desc</see>.
+		/// </summary>
 		int EffDescLen { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the maximum length of a <see cref="IFileset">Fileset</see> <see cref="IGameBase.Name">Name</see>.
+		/// </summary>
 		int FsNameLen { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the maximum length of a <see cref="IFileset">Fileset</see> file name (e.g., <see cref="IFileset.PluginFileName">PluginFileName</see>, etc).
+		/// </summary>
 		int FsFileNameLen { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the maximum length of a <see cref="IHint">Hint</see> <see cref="IHint.Question">Question</see>.
+		/// </summary>
 		int HntQuestionLen { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the maximum length of a <see cref="IHint">Hint</see> <see cref="IHint.Answers">Answer</see>.
+		/// </summary>
 		int HntAnswerLen { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the maximum length of a <see cref="IModule">Module</see> <see cref="IGameBase.Name">Name</see>.
+		/// </summary>
 		int ModNameLen { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the maximum length of a <see cref="IModule">Module</see> <see cref="IGameBase.Desc">Desc</see>.
+		/// </summary>
 		int ModDescLen { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the maximum length of a <see cref="IModule">Module</see> <see cref="IModule.Author">Author</see>.
+		/// </summary>
 		int ModAuthorLen { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the maximum length of a <see cref="IModule">Module</see> <see cref="IModule.VolLabel">VolLabel</see>.
+		/// </summary>
 		int ModVolLabelLen { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the maximum length of a <see cref="IModule">Module</see> <see cref="IModule.SerialNum">SerialNum</see>.
+		/// </summary>
 		int ModSerialNumLen { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the maximum length of a <see cref="IMonster">Monster</see> <see cref="IGameBase.Name">Name</see>.
+		/// </summary>
 		int MonNameLen { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the maximum length of a <see cref="IMonster">Monster</see> <see cref="IMonster.StateDesc">StateDesc</see>.
+		/// </summary>
 		int MonStateDescLen { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the maximum length of a <see cref="IMonster">Monster</see> <see cref="IGameBase.Desc">Desc</see>.
+		/// </summary>
 		int MonDescLen { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the maximum length of a <see cref="IRoom">Room</see> <see cref="IGameBase.Name">Name</see>.
+		/// </summary>
 		int RmNameLen { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the maximum length of a <see cref="IRoom">Room</see> <see cref="IGameBase.Desc">Desc</see>.
+		/// </summary>
 		int RmDescLen { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the base price, in gold pieces, of an <see cref="Weapon.Axe">axe</see> sold by Marcos Cavielli.
+		/// </summary>
 		long AxePrice { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the base price, in gold pieces, of a <see cref="Weapon.Bow">bow</see> sold by Marcos Cavielli.
+		/// </summary>
 		long BowPrice { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the base price, in gold pieces, of a <see cref="Weapon.Club">mace</see> sold by Marcos Cavielli.
+		/// </summary>
 		long MacePrice { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the base price, in gold pieces, of a <see cref="Weapon.Spear">spear</see> sold by Marcos Cavielli.
+		/// </summary>
 		long SpearPrice { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the base price, in gold pieces, of a <see cref="Weapon.Sword">sword</see> sold by Marcos Cavielli.
+		/// </summary>
 		long SwordPrice { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the base price, in gold pieces, of a <see cref="Armor.ClothesShield">shield</see> sold by Marcos Cavielli.
+		/// </summary>
 		long ShieldPrice { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the base price, in gold pieces, of some <see cref="Armor.Leather">leather</see> armor sold by Marcos Cavielli.
+		/// </summary>
 		long LeatherArmorPrice { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the base price, in gold pieces, of some <see cref="Armor.ChainMail">chain mail</see> armor sold by Marcos Cavielli.
+		/// </summary>
 		long ChainMailPrice { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the base price, in gold pieces, of some <see cref="Armor.PlateMail">plate mail</see> armor sold by Marcos Cavielli.
+		/// </summary>
 		long PlateMailPrice { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the base price, in gold pieces, of the <see cref="Spell.Blast">Blast</see> spell sold by Hokas Tokas.
+		/// </summary>
 		long BlastPrice { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the base price, in gold pieces, of the <see cref="Spell.Heal">Heal</see> spell sold by Hokas Tokas.
+		/// </summary>
 		long HealPrice { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the base price, in gold pieces, of the <see cref="Spell.Speed">Speed</see> spell sold by Hokas Tokas.
+		/// </summary>
 		long SpeedPrice { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the base price, in gold pieces, of the <see cref="Spell.Power">Power</see> spell sold by Hokas Tokas.
+		/// </summary>
 		long PowerPrice { get; }
 
 		/// <summary></summary>
@@ -958,7 +1026,7 @@ namespace Eamon.Framework.Plugin
 		bool IsValidArtifactType(ArtifactType artifactType);
 
 		/// <summary>
-		/// Indicates whether an armor value is valid for an wearable <see cref="IArtifact">Artifact</see>.
+		/// Indicates whether an armor value is valid for a wearable <see cref="IArtifact">Artifact</see>.
 		/// </summary>
 		/// <param name="armor"></param>
 		/// <param name="includeShields"></param>
