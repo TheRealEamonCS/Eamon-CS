@@ -141,6 +141,7 @@ using static YourAdventureName.Game.Plugin.Globals;
 
 namespace YourAdventureName.YourFrameworkNamespaceName
 {
+	/// <inheritdoc />
 	public interface YourInterfaceName : EamonLibraryName.YourFrameworkNamespaceName.YourInterfaceName
 	{
 
@@ -159,6 +160,7 @@ YourEamonRTUsingStatementusing static YourAdventureName.Game.Plugin.Globals;
 
 namespace YourAdventureName.YourFrameworkNamespaceName
 {
+	/// <inheritdoc />
 	public interface YourInterfaceName : EamonRTInterfaceName
 	{
 
