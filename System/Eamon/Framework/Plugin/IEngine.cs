@@ -17,26 +17,26 @@ using Eamon.Framework.Primitive.Enums;
 
 namespace Eamon.Framework.Plugin
 {
-    /// <summary>Implements the core functionality of the Eamon CS game engine.</summary>
-    /// <remarks>
-    /// Spending any amount of time looking through the Eamon CS code base reveals how critical this class is. 
-    /// Originally, it was split into three classes encompassing (low level) ClassMappings, Constants, and the
-    /// Engine itself. But this led to a convoluted property thunking implementation that was resolved when the
-    /// classes were merged into a single mega-class. Clearly this is against typical conventions, the tendency is
-    /// to split complexity apart, but in this case it felt like the conglomerate class simplified things, in spite
-    /// of the large amount of functionality contained within. Doing so doesn't really increase overall complexity
-    /// since these properties and methods are largely stand-alone, plus proper documentation will improve things
-    /// considerably.
-    /// <para>
-    /// This class combined with the <see cref="IGameBase">GameBase</see> derivatives (<see cref="IRoom">Room</see>,
+	/// <summary>Implements the core functionality of the Eamon CS game engine.</summary>
+	/// <remarks>
+	/// Spending any amount of time looking through the Eamon CS code base reveals how critical this class is. 
+	/// Originally, it was split into three classes encompassing (low level) ClassMappings, Constants, and the
+	/// Engine itself. But this led to a convoluted property thunking implementation that was resolved when the
+	/// classes were merged into a single mega-class. Clearly this is against typical conventions, the tendency is
+	/// to split complexity apart, but in this case it felt like the conglomerate class simplified things, in spite
+	/// of the large amount of functionality contained within. Doing so doesn't really increase overall complexity
+	/// since these properties and methods are largely stand-alone, plus proper documentation will improve things
+	/// considerably.
+	/// <para>
+	/// This class combined with the <see cref="IGameBase">GameBase</see> derivatives (<see cref="IRoom">Room</see>,
 	/// <see cref="IArtifact">Artifact</see>, etc.) are used to implement games in Eamon CS. The different plugin
 	/// Engine classes form a hierarchy, often overriding or adding new functionality at higher system levels
 	/// (particularly in games). This is also the default class you can use to store runtime (non-persisted) game
 	/// state variables, although this is optional. Please take a look at the various games implemented in Eamon CS
 	/// to see how Engine is used.
-    /// </para>
-    /// </remarks>
-    public interface IEngine
+	/// </para>
+	/// </remarks>
+	public interface IEngine
 	{
 		#region Public Properties
 
