@@ -28,12 +28,11 @@ namespace Eamon.Framework.Plugin
 	/// since these properties and methods are largely stand-alone, plus proper documentation will improve things
 	/// considerably.
 	/// <para>
-	/// This class combined with the <see cref="IGameBase">GameBase</see> derivatives (<see cref="IRoom">Room</see>,
-	/// <see cref="IArtifact">Artifact</see>, etc.) are used to implement games in Eamon CS. The different plugin
-	/// Engine classes form a hierarchy, often overriding or adding new functionality at higher system levels
-	/// (particularly in games). This is also the default class you can use to store runtime (non-persisted) game
-	/// state variables, although this is optional. Please take a look at the various games implemented in Eamon CS
-	/// to see how Engine is used.
+	/// This class combined with the <see cref="IGameBase">GameBase</see>, Command, State, and Component derivatives
+	/// (among others) are used to implement games in Eamon CS. The different plugin Engine classes form a hierarchy,
+	/// often overriding or adding new functionality at higher system levels (particularly in games). This is also
+	/// the default class you can use to store runtime (non-persisted) game state variables, although it is
+	/// optional. Please take a look at the various games implemented in Eamon CS to see how Engine is used.
 	/// </para>
 	/// </remarks>
 	public interface IEngine
