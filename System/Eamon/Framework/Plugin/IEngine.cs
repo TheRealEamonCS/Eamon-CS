@@ -221,25 +221,39 @@ namespace Eamon.Framework.Plugin
 		/// </summary>
 		long PowerPrice { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the base price, in gold pieces, of being recalled from an adventure by a local wizard, as noted by the Burly Irishman at the Front Desk.
+		/// </summary>
 		long RecallPrice { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the base price, in gold pieces, of having a <see cref="Stat">Stat</see> boosted by the Good Witch.
+		/// </summary>
 		long StatGainPrice { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the base price, in gold pieces, of having a <see cref="Weapon">weapon</see> training session with Don Diego.
+		/// </summary>
 		long WeaponTrainingPrice { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the base price, in gold pieces, of having an <see cref="Armor">armor</see> training session with the giant.
+		/// </summary>
 		long ArmorTrainingPrice { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the base price, in gold pieces, of having a <see cref="Spell">spell</see> training session with the licensed wizard.
+		/// </summary>
 		long SpellTrainingPrice { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the base price, in gold pieces, of purchasing services from the practice area info booth.
+		/// </summary>
 		long InfoBoothPrice { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the base price, in gold pieces, of interacting with the village fountain statue.
+		/// </summary>
 		long FountainPrice { get; }
 
 		/// <summary></summary>
@@ -296,7 +310,13 @@ namespace Eamon.Framework.Plugin
 		/// <summary></summary>
 		string MscorlibName { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the format string used to produce error messages during <see cref="Record"/> interdependency checking.
+		/// </summary>
+		/// <remarks>
+		/// The Eamon CS Dungeon Designer plugin (EamonDD) uses this format string to produce error messages when analysing
+		/// Record interdependencies. A variety of potential error conditions can be caught during this process.
+		/// </remarks>
 		string RecIdepErrorFmtStr { get; }
 
 		/// <summary></summary>
@@ -323,7 +343,13 @@ namespace Eamon.Framework.Plugin
 		/// <summary></summary>
 		string GlobalLaunchParametersFile { get; }
 		
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the Eamon CS system version displayed on program startup.
+		/// </summary>
+		/// <remarks>
+		/// All Eamon CS programs and plugins share a common version number, which is embedded in a <see cref="Mutex">Mutex</see> name
+		/// to prevent duplicate processes from running.
+		/// </remarks>
 		string ProgVersion { get; }
 
 		/// <summary></summary>

@@ -3730,25 +3730,39 @@
             </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.RecallPrice">
-            <summary></summary>
+            <summary>
+            Gets the base price, in gold pieces, of being recalled from an adventure by a local wizard, as noted by the Burly Irishman at the Front Desk.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.StatGainPrice">
-            <summary></summary>
+            <summary>
+            Gets the base price, in gold pieces, of having a <see cref="T:Eamon.Framework.Primitive.Enums.Stat">Stat</see> boosted by the Good Witch.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.WeaponTrainingPrice">
-            <summary></summary>
+            <summary>
+            Gets the base price, in gold pieces, of having a <see cref="T:Eamon.Framework.Primitive.Enums.Weapon">weapon</see> training session with Don Diego.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.ArmorTrainingPrice">
-            <summary></summary>
+            <summary>
+            Gets the base price, in gold pieces, of having an <see cref="T:Eamon.Framework.Primitive.Enums.Armor">armor</see> training session with the giant.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.SpellTrainingPrice">
-            <summary></summary>
+            <summary>
+            Gets the base price, in gold pieces, of having a <see cref="T:Eamon.Framework.Primitive.Enums.Spell">spell</see> training session with the licensed wizard.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.InfoBoothPrice">
-            <summary></summary>
+            <summary>
+            Gets the base price, in gold pieces, of purchasing services from the practice area info booth.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.FountainPrice">
-            <summary></summary>
+            <summary>
+            Gets the base price, in gold pieces, of interacting with the village fountain statue.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.NumDatabases">
             <summary></summary>
@@ -3805,7 +3819,13 @@
             <summary></summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.RecIdepErrorFmtStr">
-            <summary></summary>
+            <summary>
+            Gets the format string used to produce error messages during <see cref="T:Eamon.Framework.Primitive.Enums.Record"/> interdependency checking.
+            </summary>
+            <remarks>
+            The Eamon CS Dungeon Designer plugin (EamonDD) uses this format string to produce error messages when analysing
+            Record interdependencies. A variety of potential error conditions can be caught during this process.
+            </remarks>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.AndroidAdventuresDir">
             <summary></summary>
@@ -3832,7 +3852,13 @@
             <summary></summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.ProgVersion">
-            <summary></summary>
+            <summary>
+            Gets the Eamon CS system version displayed on program startup.
+            </summary>
+            <remarks>
+            All Eamon CS programs and plugins share a common version number, which is embedded in a <see cref="P:Eamon.Framework.Plugin.IEngine.Mutex">Mutex</see> name
+            to prevent duplicate processes from running.
+            </remarks>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.InfiniteDrinkableEdible">
             <summary></summary>
