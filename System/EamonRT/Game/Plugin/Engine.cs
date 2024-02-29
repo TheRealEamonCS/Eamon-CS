@@ -35,8 +35,6 @@ namespace EamonRT.Game.Plugin
 
 		public virtual string PageSep { get; protected set; } = "@@PB";
 
-		public virtual string RtProgVersion { get; protected set; }
-
 		public virtual StringBuilder Buf01 { get; set; }
 
 		public virtual IList<ICommand> CommandList { get; set; }
@@ -742,7 +740,7 @@ namespace EamonRT.Game.Plugin
 
 		public virtual void PrintBaseProgramVersion()
 		{
-			Out.WriteLine("[Base Program {0}]", RtProgVersion);
+			Out.WriteLine("[Base Program {0}]", ProgVersion);
 		}
 
 		public virtual void PrintWelcomeToEamonCS()
@@ -4474,8 +4472,6 @@ namespace EamonRT.Game.Plugin
 
 		public Engine()
 		{
-			RtProgVersion = ProgVersion;
-
 			Buf01 = new StringBuilder(BufSize);
 
 			RevealContainerContentsFunc = RevealContainerContents;

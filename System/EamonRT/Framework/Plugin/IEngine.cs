@@ -23,11 +23,14 @@ namespace EamonRT.Framework.Plugin
 	{
 		#region Public Properties
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the page separator sequence used to delineate the pages of a multi-page text block.
+		/// </summary>
+		/// <remarks>
+		/// These are typically embedded in the prologue and epilogue stories of games. After each page is read,
+		/// the next is accessed when the user presses Enter.
+		/// </remarks>
 		string PageSep { get; }
-
-		/// <summary></summary>
-		string RtProgVersion { get; }
 
 		/// <summary></summary>
 		StringBuilder Buf01 { get; set; }
@@ -110,7 +113,9 @@ namespace EamonRT.Framework.Plugin
 		/// <summary></summary>
 		ExitType ExitType { get; set; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the command prompt presented to the player when requesting input.
+		/// </summary>
 		string CommandPrompt { get; set; }
 
 		/// <summary></summary>
@@ -175,7 +180,9 @@ namespace EamonRT.Framework.Plugin
 		/// <summary></summary>
 		double ScaledHardinessMaxDamageDivisor { get; set; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Indicates whether non-player character <see cref="IMonster">Monster</see>s should have carried inventory weight limits.
+		/// </summary>
 		bool EnforceMonsterWeightLimits { get; set; }
 
 		/// <summary></summary>

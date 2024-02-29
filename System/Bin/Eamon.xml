@@ -2448,7 +2448,7 @@
         </member>
         <member name="M:Eamon.Framework.IGameState.GetNBTL(System.Int64,System.Int64)">
             <summary>
-            Gets the total <see cref="F:Eamon.Framework.Primitive.Enums.Stat.Hardiness">Hardiness</see> of <see cref="T:Eamon.Framework.IMonster">Monsters</see> with a specified
+            Gets the total <see cref="F:Eamon.Framework.Primitive.Enums.Stat.Hardiness">Hardiness</see> of <see cref="T:Eamon.Framework.IMonster">Monster</see>s with a specified
             <see cref="T:Eamon.Framework.Primitive.Enums.Friendliness"/> in a particular <see cref="T:Eamon.Framework.IRoom">Room</see>.
             </summary>
             <param name="index">The Friendliness value expressed as a long datatype.</param>
@@ -2463,7 +2463,7 @@
         </member>
         <member name="M:Eamon.Framework.IGameState.GetNBTL(Eamon.Framework.Primitive.Enums.Friendliness,System.Int64)">
             <summary>
-            Gets the total <see cref="F:Eamon.Framework.Primitive.Enums.Stat.Hardiness">Hardiness</see> of <see cref="T:Eamon.Framework.IMonster">Monsters</see> with a specified
+            Gets the total <see cref="F:Eamon.Framework.Primitive.Enums.Stat.Hardiness">Hardiness</see> of <see cref="T:Eamon.Framework.IMonster">Monster</see>s with a specified
             <see cref="T:Eamon.Framework.Primitive.Enums.Friendliness"/> in a particular <see cref="T:Eamon.Framework.IRoom">Room</see>.
             </summary>
             <param name="friendliness">The Friendliness value.</param>
@@ -2476,7 +2476,7 @@
         </member>
         <member name="M:Eamon.Framework.IGameState.GetDTTL(System.Int64,System.Int64)">
             <summary>
-            Gets the total <see cref="P:Eamon.Framework.IMonster.DmgTaken">DmgTaken</see> of <see cref="T:Eamon.Framework.IMonster">Monsters</see> with a specified
+            Gets the total <see cref="P:Eamon.Framework.IMonster.DmgTaken">DmgTaken</see> of <see cref="T:Eamon.Framework.IMonster">Monster</see>s with a specified
             <see cref="T:Eamon.Framework.Primitive.Enums.Friendliness"/> in a particular <see cref="T:Eamon.Framework.IRoom">Room</see>.
             </summary>
             <param name="index">The Friendliness value expressed as a long datatype.</param>
@@ -2491,7 +2491,7 @@
         </member>
         <member name="M:Eamon.Framework.IGameState.GetDTTL(Eamon.Framework.Primitive.Enums.Friendliness,System.Int64)">
             <summary>
-            Gets the total <see cref="P:Eamon.Framework.IMonster.DmgTaken">DmgTaken</see> of <see cref="T:Eamon.Framework.IMonster">Monsters</see> with a specified
+            Gets the total <see cref="P:Eamon.Framework.IMonster.DmgTaken">DmgTaken</see> of <see cref="T:Eamon.Framework.IMonster">Monster</see>s with a specified
             <see cref="T:Eamon.Framework.Primitive.Enums.Friendliness"/> in a particular <see cref="T:Eamon.Framework.IRoom">Room</see>.
             </summary>
             <param name="friendliness">The Friendliness value.</param>
@@ -3846,7 +3846,16 @@
             <summary></summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.StackTraceFile">
-            <summary></summary>
+            <summary>
+            Gets the name of the error file dumped when an unexpected system shutdown occurs.
+            </summary>
+            <remarks>
+            If an unexpected and unrecoverable error occurs, Eamon CS will abort execution and dump a series of error messages to
+            a stack trace file located in the current working directory (typically System\Bin or an Adventure folder). This usually
+            happens for uncaught exceptions, or record validation errors. Looking in the file can be helpful to overcome the issue. But
+            in the case of a game engine bug, if possible, please contact TheRealEamonCS@hotmail.com and provide this file along with a
+            description of your actions. It can greatly aid in the debugging process.
+            </remarks>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.GlobalLaunchParametersFile">
             <summary></summary>
@@ -3870,10 +3879,24 @@
             <summary></summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.MinWeaponComplexity">
-            <summary></summary>
+            <summary>
+            Gets the minimum allowed weapon Complexity.
+            </summary>
+            <remarks>
+            For <see cref="T:Eamon.Framework.IArtifact">Artifact</see>s with a <see cref="P:Eamon.Framework.Primitive.Classes.IArtifactCategory.Type">Type</see> of <see cref="F:Eamon.Framework.Primitive.Enums.ArtifactType.Weapon">Weapon</see>
+            or <see cref="F:Eamon.Framework.Primitive.Enums.ArtifactType.MagicWeapon">MagicWeapon</see>, this denotes the minimum value for <see cref="P:Eamon.Framework.Primitive.Classes.IArtifactCategory.Field1">Field1</see>, also
+            known as Odds.
+            </remarks>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.MaxWeaponComplexity">
-            <summary></summary>
+            <summary>
+            Gets the maximum allowed weapon Complexity.
+            </summary>
+            <remarks>
+            For <see cref="T:Eamon.Framework.IArtifact">Artifact</see>s with a <see cref="P:Eamon.Framework.Primitive.Classes.IArtifactCategory.Type">Type</see> of <see cref="F:Eamon.Framework.Primitive.Enums.ArtifactType.Weapon">Weapon</see>
+            or <see cref="F:Eamon.Framework.Primitive.Enums.ArtifactType.MagicWeapon">MagicWeapon</see>, this denotes the maximum value for <see cref="P:Eamon.Framework.Primitive.Classes.IArtifactCategory.Field1">Field1</see>, also
+            known as Odds.
+            </remarks>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.MinGoldValue">
             <summary></summary>

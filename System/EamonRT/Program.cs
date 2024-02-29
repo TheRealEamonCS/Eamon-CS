@@ -128,7 +128,7 @@ namespace EamonRT
 
 			// make announcements
 
-			gOut.Write("{0}Eamon CS Dungeon Designer ({1}) {2}.", Environment.NewLine, ProgramName, gEngine.DdProgVersion);
+			gOut.Write("{0}Eamon CS Dungeon Designer ({1}) {2}.", Environment.NewLine, ProgramName, gEngine.ProgVersion);
 
 			gOut.Write("{0}Copyright (c) 2014+ by Michael Penner.  All rights reserved.", Environment.NewLine);
 
@@ -755,7 +755,7 @@ namespace EamonRT
 
 			// make announcements
 
-			gOut.Write("{0}Eamon CS Runtime ({1}) {2}.", Environment.NewLine, ProgramName, gEngine.RtProgVersion);
+			gOut.Write("{0}Eamon CS Runtime ({1}) {2}.", Environment.NewLine, ProgramName, gEngine.ProgVersion);
 
 			gOut.Write("{0}Copyright (c) 2014+ by Michael Penner.  All rights reserved.", Environment.NewLine);
 

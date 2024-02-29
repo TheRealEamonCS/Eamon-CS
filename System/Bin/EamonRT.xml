@@ -1538,10 +1538,13 @@
             <inheritdoc />
         </member>
         <member name="P:EamonRT.Framework.Plugin.IEngine.PageSep">
-            <summary></summary>
-        </member>
-        <member name="P:EamonRT.Framework.Plugin.IEngine.RtProgVersion">
-            <summary></summary>
+            <summary>
+            Gets the page separator sequence used to delineate the pages of a multi-page text block.
+            </summary>
+            <remarks>
+            These are typically embedded in the prologue and epilogue stories of games. After each page is read,
+            the next is accessed when the user presses Enter.
+            </remarks>
         </member>
         <member name="P:EamonRT.Framework.Plugin.IEngine.Buf01">
             <summary></summary>
@@ -1625,7 +1628,9 @@
             <summary></summary>
         </member>
         <member name="P:EamonRT.Framework.Plugin.IEngine.CommandPrompt">
-            <summary></summary>
+            <summary>
+            Gets the command prompt presented to the player when requesting input.
+            </summary>
         </member>
         <member name="P:EamonRT.Framework.Plugin.IEngine.CurrCommand">
             <summary></summary>
@@ -1690,7 +1695,9 @@
             <summary></summary>
         </member>
         <member name="P:EamonRT.Framework.Plugin.IEngine.EnforceMonsterWeightLimits">
-            <summary></summary>
+            <summary>
+            Indicates whether non-player character <see cref="T:Eamon.Framework.IMonster">Monster</see>s should have carried inventory weight limits.
+            </summary>
         </member>
         <member name="P:EamonRT.Framework.Plugin.IEngine.UseMonsterScaledHardinessValues">
             <summary></summary>

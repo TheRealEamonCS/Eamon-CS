@@ -337,7 +337,16 @@ namespace Eamon.Framework.Plugin
 		/// <summary></summary>
 		string EamonDesktopSlnFile { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the name of the error file dumped when an unexpected system shutdown occurs.
+		/// </summary>
+		/// <remarks>
+		/// If an unexpected and unrecoverable error occurs, Eamon CS will abort execution and dump a series of error messages to
+		/// a stack trace file located in the current working directory (typically System\Bin or an Adventure folder). This usually
+		/// happens for uncaught exceptions, or record validation errors. Looking in the file can be helpful to overcome the issue. But
+		/// in the case of a game engine bug, if possible, please contact TheRealEamonCS@hotmail.com and provide this file along with a
+		/// description of your actions. It can greatly aid in the debugging process.
+		/// </remarks>
 		string StackTraceFile { get; }
 
 		/// <summary></summary>
@@ -361,10 +370,24 @@ namespace Eamon.Framework.Plugin
 		/// <summary></summary>
 		long LimboLocation { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the minimum allowed weapon Complexity.
+		/// </summary>
+		/// <remarks>
+		/// For <see cref="IArtifact">Artifact</see>s with a <see cref="IArtifactCategory.Type">Type</see> of <see cref="ArtifactType.Weapon">Weapon</see>
+		/// or <see cref="ArtifactType.MagicWeapon">MagicWeapon</see>, this denotes the minimum value for <see cref="IArtifactCategory.Field1">Field1</see>, also
+		/// known as Odds.
+		/// </remarks>
 		long MinWeaponComplexity { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the maximum allowed weapon Complexity.
+		/// </summary>
+		/// <remarks>
+		/// For <see cref="IArtifact">Artifact</see>s with a <see cref="IArtifactCategory.Type">Type</see> of <see cref="ArtifactType.Weapon">Weapon</see>
+		/// or <see cref="ArtifactType.MagicWeapon">MagicWeapon</see>, this denotes the maximum value for <see cref="IArtifactCategory.Field1">Field1</see>, also
+		/// known as Odds.
+		/// </remarks>
 		long MaxWeaponComplexity { get; }
 
 		/// <summary></summary>

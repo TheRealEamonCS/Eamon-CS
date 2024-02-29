@@ -19,8 +19,6 @@ namespace EamonDD.Game.Plugin
 	{
 		#region Public Properties
 
-		public virtual string DdProgVersion { get; protected set; }
-
 		public virtual string[] Argv { get; set; }
 
 		public virtual long WordWrapCurrColumn { get; set; }
@@ -352,7 +350,7 @@ namespace EamonDD.Game.Plugin
 
 		public Engine()
 		{
-			DdProgVersion = ProgVersion;
+
 		}
 	}
 }
