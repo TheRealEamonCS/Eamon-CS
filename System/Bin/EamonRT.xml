@@ -1574,7 +1574,15 @@
             <summary></summary>
         </member>
         <member name="P:EamonRT.Framework.Plugin.IEngine.PauseCombatActionsCounter">
-            <summary></summary>
+            <summary>
+            Gets or sets a value that tracks the number of <see cref="T:Eamon.Framework.IMonster">Monster</see> actions performed during a
+            combat round.
+            </summary>
+            <remarks>
+            This counter, associated with the PauseCombatActions EamonRT setting, is incremented for each Monster combat
+            round action. When it reaches <see cref="P:Eamon.Framework.IGameState.PauseCombatActions">PauseCombatActions</see>, the player
+            must press Enter to continue the combat round.
+            </remarks>
         </member>
         <member name="P:EamonRT.Framework.Plugin.IEngine.LoopMonsterUidListIndex">
             <summary></summary>
@@ -1657,7 +1665,14 @@
             <summary></summary>
         </member>
         <member name="P:EamonRT.Framework.Plugin.IEngine.GameRunning">
-            <summary></summary>
+            <summary>
+            Indicates whether the EamonRT main game loop is currently running.
+            </summary>
+            <remarks>
+            The <see cref="T:EamonRT.Framework.IMainLoop">MainLoop</see>'s <see cref="M:EamonRT.Framework.IMainLoop.Execute">Execute</see> method will continue to run while
+            this property evaluates to true. The processing loop drives the game engine's central state machine. The property is
+            sensitive to changes in <see cref="P:EamonRT.Framework.Plugin.IEngine.ExitType">ExitType</see>.
+            </remarks>
         </member>
         <member name="P:EamonRT.Framework.Plugin.IEngine.DeleteGameStateAfterLoop">
             <summary></summary>
@@ -1709,10 +1724,20 @@
             <summary></summary>
         </member>
         <member name="P:EamonRT.Framework.Plugin.IEngine.PoundCharPolicy">
-            <summary></summary>
+            <summary>
+            The game engine policy for appending pound characters ('#') to <see cref="T:Eamon.Framework.IArtifact">Artifact</see>s with duplicate names.
+            </summary>
+            <remarks>
+            This helps the parser identify specific Artifacts during disambiguation.
+            </remarks>
         </member>
         <member name="P:EamonRT.Framework.Plugin.IEngine.PercentCharPolicy">
-            <summary></summary>
+            <summary>
+            The game engine policy for appending percent characters ('%') to <see cref="T:Eamon.Framework.IMonster">Monster</see>s with duplicate names.
+            </summary>
+            <remarks>
+            This helps the parser identify specific Monsters during disambiguation.
+            </remarks>
         </member>
         <member name="M:EamonRT.Framework.Plugin.IEngine.PrintPlayerRoom(Eamon.Framework.IRoom)">
             <summary></summary>

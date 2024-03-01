@@ -59,7 +59,15 @@ namespace EamonRT.Framework.Plugin
 		/// <summary></summary>
 		long ActionListCounter { get; set; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets or sets a value that tracks the number of <see cref="IMonster">Monster</see> actions performed during a
+		/// combat round.
+		/// </summary>
+		/// <remarks>
+		/// This counter, associated with the PauseCombatActions EamonRT setting, is incremented for each Monster combat
+		/// round action. When it reaches <see cref="IGameState.PauseCombatActions">PauseCombatActions</see>, the player
+		/// must press Enter to continue the combat round.
+		/// </remarks>
 		long PauseCombatActionsCounter { get; set; }
 
 		/// <summary></summary>
@@ -142,7 +150,14 @@ namespace EamonRT.Framework.Plugin
 		/// <summary></summary>
 		bool PlayerMoved { get; set; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Indicates whether the EamonRT main game loop is currently running.
+		/// </summary>
+		/// <remarks>
+		/// The <see cref="IMainLoop">MainLoop</see>'s <see cref="IMainLoop.Execute">Execute</see> method will continue to run while
+		/// this property evaluates to true. The processing loop drives the game engine's central state machine. The property is
+		/// sensitive to changes in <see cref="ExitType">ExitType</see>.
+		/// </remarks>
 		bool GameRunning { get; }
 
 		/// <summary></summary>
@@ -194,10 +209,20 @@ namespace EamonRT.Framework.Plugin
 		/// <summary></summary>
 		bool ExposeContainersRecursively { get; set; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// The game engine policy for appending pound characters ('#') to <see cref="IArtifact">Artifact</see>s with duplicate names.
+		/// </summary>
+		/// <remarks>
+		/// This helps the parser identify specific Artifacts during disambiguation.
+		/// </remarks>
 		PoundCharPolicy PoundCharPolicy { get; set; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// The game engine policy for appending percent characters ('%') to <see cref="IMonster">Monster</see>s with duplicate names.
+		/// </summary>
+		/// <remarks>
+		/// This helps the parser identify specific Monsters during disambiguation.
+		/// </remarks>
 		PercentCharPolicy PercentCharPolicy { get; set; }
 
 		#endregion
