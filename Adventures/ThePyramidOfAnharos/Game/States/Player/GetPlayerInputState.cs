@@ -141,11 +141,15 @@ namespace ThePyramidOfAnharos.Game.States
 
 					buf.SetFormat("{0}", gEngine.In.ReadLine());
 
+					IGameBase record = null;
+
 					if (buf.ToString().Equals("honor", StringComparison.OrdinalIgnoreCase))
 					{
 						gEngine.PrintEffectDesc(52);
 
 						staircaseArtifact.SetInRoom(room);
+
+						record = staircaseArtifact;
 
 						gGameState.KU = 2;
 					}
@@ -157,7 +161,20 @@ namespace ThePyramidOfAnharos.Game.States
 
 						avatarOfAlaxarMonster.SetInRoom(room);
 
+						record = avatarOfAlaxarMonster;
+
 						gGameState.KU = 1;
+					}
+
+					if (!record.Seen)
+					{
+						buf.Clear();
+
+						record.BuildPrintedFullDesc(buf, true, false);
+
+						gOut.Write("{0}", buf);
+
+						record.Seen = true;
 					}
 				}
 
