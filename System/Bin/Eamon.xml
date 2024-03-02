@@ -3840,7 +3840,13 @@
             <summary></summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.ProcessMutexName">
-            <summary></summary>
+            <summary>
+            Gets the name of the <see cref="P:Eamon.Framework.Plugin.IEngine.Mutex">Mutex</see> used to synchronize Eamon CS processes.
+            </summary>
+            <remarks>
+            Due to the use of an in-memory database, only one Eamon CS process is allowed to run at a time. The <see cref="P:Eamon.Framework.Plugin.IEngine.ProgVersion">ProgVersion</see>
+            is embedded in the name.
+            </remarks>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.EamonDesktopSlnFile">
             <summary></summary>
@@ -4105,34 +4111,74 @@
             <summary></summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.CFGDB">
-            <summary></summary>
+            <summary>Gets or sets the <see cref="T:Eamon.Framework.IConfig">Config</see> database quick-accessor.</summary>
+            <remarks>
+            The <see cref="P:Eamon.Framework.DataStorage.Generic.IRecordDb`1.Records">Records</see> property provides access to the Config collection. Additionally, you can 
+            get or set a specific Config by using its <see cref="P:Eamon.Framework.IGameBase.Uid">Uid</see> as an indexer.
+            </remarks>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.FSDB">
-            <summary></summary>
+            <summary>Gets or sets the <see cref="T:Eamon.Framework.IFileset">Fileset</see> database quick-accessor.</summary>
+            <remarks>
+            The <see cref="P:Eamon.Framework.DataStorage.Generic.IRecordDb`1.Records">Records</see> property provides access to the Fileset collection. Additionally, you can 
+            get or set a specific Fileset by using its <see cref="P:Eamon.Framework.IGameBase.Uid">Uid</see> as an indexer.
+            </remarks>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.CHRDB">
-            <summary></summary>
+            <summary>Gets or sets the <see cref="T:Eamon.Framework.ICharacter">Character</see> database quick-accessor.</summary>
+            <remarks>
+            The <see cref="P:Eamon.Framework.DataStorage.Generic.IRecordDb`1.Records">Records</see> property provides access to the Character collection. Additionally, you can 
+            get or set a specific Character by using its <see cref="P:Eamon.Framework.IGameBase.Uid">Uid</see> as an indexer.
+            </remarks>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.MODDB">
-            <summary></summary>
+            <summary>Gets or sets the <see cref="T:Eamon.Framework.IModule">Module</see> database quick-accessor.</summary>
+            <remarks>
+            The <see cref="P:Eamon.Framework.DataStorage.Generic.IRecordDb`1.Records">Records</see> property provides access to the Module collection. Additionally, you can 
+            get or set a specific Module by using its <see cref="P:Eamon.Framework.IGameBase.Uid">Uid</see> as an indexer.
+            </remarks>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.RDB">
-            <summary></summary>
+            <summary>Gets or sets the <see cref="T:Eamon.Framework.IRoom">Room</see> database quick-accessor.</summary>
+            <remarks>
+            The <see cref="P:Eamon.Framework.DataStorage.Generic.IRecordDb`1.Records">Records</see> property provides access to the Room collection. Additionally, you can 
+            get or set a specific Room by using its <see cref="P:Eamon.Framework.IGameBase.Uid">Uid</see> as an indexer.
+            </remarks>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.ADB">
-            <summary></summary>
+            <summary>Gets or sets the <see cref="T:Eamon.Framework.IArtifact">Artifact</see> database quick-accessor.</summary>
+            <remarks>
+            The <see cref="P:Eamon.Framework.DataStorage.Generic.IRecordDb`1.Records">Records</see> property provides access to the Artifact collection. Additionally, you can 
+            get or set a specific Artifact by using its <see cref="P:Eamon.Framework.IGameBase.Uid">Uid</see> as an indexer.
+            </remarks>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.EDB">
-            <summary></summary>
+            <summary>Gets or sets the <see cref="T:Eamon.Framework.IEffect">Effect</see> database quick-accessor.</summary>
+            <remarks>
+            The <see cref="P:Eamon.Framework.DataStorage.Generic.IRecordDb`1.Records">Records</see> property provides access to the Effect collection. Additionally, you can 
+            get or set a specific Effect by using its <see cref="P:Eamon.Framework.IGameBase.Uid">Uid</see> as an indexer.
+            </remarks>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.MDB">
-            <summary></summary>
+            <summary>Gets or sets the <see cref="T:Eamon.Framework.IMonster">Monster</see> database quick-accessor.</summary>
+            <remarks>
+            The <see cref="P:Eamon.Framework.DataStorage.Generic.IRecordDb`1.Records">Records</see> property provides access to the Monster collection. Additionally, you can 
+            get or set a specific Monster by using its <see cref="P:Eamon.Framework.IGameBase.Uid">Uid</see> as an indexer.
+            </remarks>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.HDB">
-            <summary></summary>
+            <summary>Gets or sets the <see cref="T:Eamon.Framework.IHint">Hint</see> database quick-accessor.</summary>
+            <remarks>
+            The <see cref="P:Eamon.Framework.DataStorage.Generic.IRecordDb`1.Records">Records</see> property provides access to the Hint collection. Additionally, you can 
+            get or set a specific Hint by using its <see cref="P:Eamon.Framework.IGameBase.Uid">Uid</see> as an indexer.
+            </remarks>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.GSDB">
-            <summary></summary>
+            <summary>Gets or sets the <see cref="T:Eamon.Framework.IGameState">GameState</see> database quick-accessor.</summary>
+            <remarks>
+            The <see cref="P:Eamon.Framework.DataStorage.Generic.IRecordDb`1.Records">Records</see> property provides access to the GameState collection. Additionally, you can 
+            get or set a specific GameState by using its <see cref="P:Eamon.Framework.IGameBase.Uid">Uid</see> as an indexer.
+            </remarks>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.MacroFuncs">
             <summary>

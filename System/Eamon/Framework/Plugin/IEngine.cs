@@ -331,7 +331,13 @@ namespace Eamon.Framework.Plugin
 		/// <summary></summary>
 		string DefaultWorkDir { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the name of the <see cref="Mutex">Mutex</see> used to synchronize Eamon CS processes.
+		/// </summary>
+		/// <remarks>
+		/// Due to the use of an in-memory database, only one Eamon CS process is allowed to run at a time. The <see cref="ProgVersion">ProgVersion</see>
+		/// is embedded in the name.
+		/// </remarks>
 		string ProcessMutexName { get; }
 
 		/// <summary></summary>
@@ -596,34 +602,74 @@ namespace Eamon.Framework.Plugin
 		/// <summary></summary>
 		Coord CursorPosition { get; set; }
 
-		/// <summary></summary>
+		/// <summary>Gets or sets the <see cref="IConfig">Config</see> database quick-accessor.</summary>
+		/// <remarks>
+		/// The <see cref="IRecordDb{T}.Records">Records</see> property provides access to the Config collection. Additionally, you can 
+		/// get or set a specific Config by using its <see cref="IGameBase.Uid">Uid</see> as an indexer.
+		/// </remarks>
 		IRecordDb<IConfig> CFGDB { get; set; }
 
-		/// <summary></summary>
+		/// <summary>Gets or sets the <see cref="IFileset">Fileset</see> database quick-accessor.</summary>
+		/// <remarks>
+		/// The <see cref="IRecordDb{T}.Records">Records</see> property provides access to the Fileset collection. Additionally, you can 
+		/// get or set a specific Fileset by using its <see cref="IGameBase.Uid">Uid</see> as an indexer.
+		/// </remarks>
 		IRecordDb<IFileset> FSDB { get; set; }
 
-		/// <summary></summary>
+		/// <summary>Gets or sets the <see cref="ICharacter">Character</see> database quick-accessor.</summary>
+		/// <remarks>
+		/// The <see cref="IRecordDb{T}.Records">Records</see> property provides access to the Character collection. Additionally, you can 
+		/// get or set a specific Character by using its <see cref="IGameBase.Uid">Uid</see> as an indexer.
+		/// </remarks>
 		IRecordDb<ICharacter> CHRDB { get; set; }
 
-		/// <summary></summary>
+		/// <summary>Gets or sets the <see cref="IModule">Module</see> database quick-accessor.</summary>
+		/// <remarks>
+		/// The <see cref="IRecordDb{T}.Records">Records</see> property provides access to the Module collection. Additionally, you can 
+		/// get or set a specific Module by using its <see cref="IGameBase.Uid">Uid</see> as an indexer.
+		/// </remarks>
 		IRecordDb<IModule> MODDB { get; set; }
 
-		/// <summary></summary>
+		/// <summary>Gets or sets the <see cref="IRoom">Room</see> database quick-accessor.</summary>
+		/// <remarks>
+		/// The <see cref="IRecordDb{T}.Records">Records</see> property provides access to the Room collection. Additionally, you can 
+		/// get or set a specific Room by using its <see cref="IGameBase.Uid">Uid</see> as an indexer.
+		/// </remarks>
 		IRecordDb<IRoom> RDB { get; set; }
 
-		/// <summary></summary>
+		/// <summary>Gets or sets the <see cref="IArtifact">Artifact</see> database quick-accessor.</summary>
+		/// <remarks>
+		/// The <see cref="IRecordDb{T}.Records">Records</see> property provides access to the Artifact collection. Additionally, you can 
+		/// get or set a specific Artifact by using its <see cref="IGameBase.Uid">Uid</see> as an indexer.
+		/// </remarks>
 		IRecordDb<IArtifact> ADB { get; set; }
 
-		/// <summary></summary>
+		/// <summary>Gets or sets the <see cref="IEffect">Effect</see> database quick-accessor.</summary>
+		/// <remarks>
+		/// The <see cref="IRecordDb{T}.Records">Records</see> property provides access to the Effect collection. Additionally, you can 
+		/// get or set a specific Effect by using its <see cref="IGameBase.Uid">Uid</see> as an indexer.
+		/// </remarks>
 		IRecordDb<IEffect> EDB { get; set; }
 
-		/// <summary></summary>
+		/// <summary>Gets or sets the <see cref="IMonster">Monster</see> database quick-accessor.</summary>
+		/// <remarks>
+		/// The <see cref="IRecordDb{T}.Records">Records</see> property provides access to the Monster collection. Additionally, you can 
+		/// get or set a specific Monster by using its <see cref="IGameBase.Uid">Uid</see> as an indexer.
+		/// </remarks>
 		IRecordDb<IMonster> MDB { get; set; }
 
-		/// <summary></summary>
+		/// <summary>Gets or sets the <see cref="IHint">Hint</see> database quick-accessor.</summary>
+		/// <remarks>
+		/// The <see cref="IRecordDb{T}.Records">Records</see> property provides access to the Hint collection. Additionally, you can 
+		/// get or set a specific Hint by using its <see cref="IGameBase.Uid">Uid</see> as an indexer.
+		/// </remarks>
 		IRecordDb<IHint> HDB { get; set; }
 
-		/// <summary></summary>
+		/// <summary>Gets or sets the <see cref="IGameState">GameState</see> database quick-accessor.</summary>
+		/// <remarks>
+		/// The <see cref="IRecordDb{T}.Records">Records</see> property provides access to the GameState collection. Additionally, you can 
+		/// get or set a specific GameState by using its <see cref="IGameBase.Uid">Uid</see> as an indexer.
+		/// </remarks>
 		IRecordDb<IGameState> GSDB { get; set; }
 
 		/// <summary>
