@@ -2205,7 +2205,7 @@ namespace Eamon.Game.Helpers
 
 			if (activeWeapon)
 			{
-				if (Record.GetWeapon(i).Field5 == 0)  // auto-upgrade old weapons
+				if (Record.GetWeapon(i).Field5 == 0)  // Auto-upgrade old weapons
 				{
 					Record.GetWeapon(i).Field5 = Record.GetWeapon(i).Field2 == (long)Weapon.Bow ? 2 : 1;
 				}
@@ -2224,7 +2224,7 @@ namespace Eamon.Game.Helpers
 
 		#region ValidateInterdependencies Methods
 
-		// do nothing
+		// Do nothing
 
 		#endregion
 
@@ -3855,7 +3855,7 @@ namespace Eamon.Game.Helpers
 
 		#region BuildValue Methods
 
-		// do nothing
+		// Do nothing
 
 		#endregion
 

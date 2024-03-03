@@ -24,7 +24,7 @@ namespace EamonPM.Game.Portability
 			}
 			catch (AbandonedMutexException)
 			{
-				// do nothing
+				// Do nothing
 			}
 		}
 	}

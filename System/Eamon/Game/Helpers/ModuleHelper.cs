@@ -124,13 +124,13 @@ namespace Eamon.Game.Helpers
 
 		#region GetName Methods
 
-		// do nothing
+		// Do nothing
 
 		#endregion
 
 		#region GetValue Methods
 
-		// do nothing
+		// Do nothing
 
 		#endregion
 
@@ -909,7 +909,7 @@ namespace Eamon.Game.Helpers
 
 		#region BuildValue Methods
 
-		// do nothing
+		// Do nothing
 
 		#endregion
 

@@ -142,7 +142,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 				}
 				catch (Exception)
 				{
-					// do nothing
+					// Do nothing
 				}
 
 				if (fileset != null)
@@ -296,7 +296,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 						Debug.Assert(gEngine.IsSuccess(rc));
 
-						// silently sync characters file with newly created files above
+						// Silently sync characters file with newly created files above
 
 						rc = gDatabase.SaveCharacters(gEngine.Config.MhCharacterFileName, false);
 

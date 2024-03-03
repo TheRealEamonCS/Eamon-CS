@@ -578,7 +578,7 @@ namespace EamonRT.Game.Commands
 
 		public virtual void PrintLightExtinguished(IArtifact artifact)
 		{
-			// do nothing
+			// Do nothing
 		}
 
 		public virtual void PrintAlreadyWearingObj(IArtifact artifact)

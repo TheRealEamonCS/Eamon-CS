@@ -71,7 +71,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 					}
 					catch (Exception)
 					{
-						// do nothing
+						// Do nothing
 					}
 
 					var modfn = gEngine.Path.Combine(adventureDirs[i], "MODULE.DAT");

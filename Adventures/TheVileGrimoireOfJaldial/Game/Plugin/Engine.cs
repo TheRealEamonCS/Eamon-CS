@@ -496,7 +496,7 @@ namespace TheVileGrimoireOfJaldial.Game.Plugin
 
 		public override void CheckToExtinguishLightSource()
 		{
-			// do nothing
+			// Do nothing
 		}
 
 		public override void MoveMonsters(params Func<IMonster, bool>[] whereClauseFuncs)

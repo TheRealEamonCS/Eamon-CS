@@ -165,7 +165,7 @@ namespace EamonRT.Game.Commands
 						}
 					}
 
-					// when a weapon is picked up all monster affinities to that weapon are broken
+					// When a weapon is picked up all monster affinities to that weapon are broken
 
 					FumbleMonsterList = gEngine.GetMonsterList(m => m.Weapon == -DobjArtifact.Uid - 1 && m != ActorMonster);
 

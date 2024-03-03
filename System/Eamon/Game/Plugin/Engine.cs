@@ -419,7 +419,7 @@ namespace Eamon.Game.Plugin
 			}
 			catch (Exception)
 			{
-				// do nothing
+				// Do nothing
 			}
 
 			var errorBuf = new StringBuilder(BufSize);
@@ -3738,7 +3738,7 @@ namespace Eamon.Game.Plugin
 			{
 				if (ex != null)
 				{
-					// do nothing
+					// Do nothing
 				}
 			}
 
@@ -3750,7 +3750,7 @@ namespace Eamon.Game.Plugin
 			{
 				if (ex != null)
 				{
-					// do nothing
+					// Do nothing
 				}
 			}
 
@@ -3762,7 +3762,7 @@ namespace Eamon.Game.Plugin
 			{
 				if (ex != null)
 				{
-					// do nothing
+					// Do nothing
 				}
 			}
 		}

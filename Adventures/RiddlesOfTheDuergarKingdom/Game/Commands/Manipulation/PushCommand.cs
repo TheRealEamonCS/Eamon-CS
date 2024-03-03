@@ -21,7 +21,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.Commands
 
 			switch (DobjArtifact.Uid)
 			{
-				case 46:    // ore cart
+				case 46:    // Ore cart
 
 					if (DobjArtifact.IsCarriedByContainer())
 					{

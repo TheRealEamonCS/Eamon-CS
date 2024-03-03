@@ -130,7 +130,7 @@ namespace EamonRT.Game
 
 			PrintOutputBeginnersPrelude();
 
-			var i = 0L;       // weird disambiguation hack
+			var i = 0L;       // Weird disambiguation hack
 
 			if (!gCharacter.GetWeapon(i).IsActive())
 			{

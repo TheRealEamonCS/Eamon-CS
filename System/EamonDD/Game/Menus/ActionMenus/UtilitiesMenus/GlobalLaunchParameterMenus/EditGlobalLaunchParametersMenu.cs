@@ -42,7 +42,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 			}
 			catch (Exception)
 			{
-				// do nothing
+				// Do nothing
 			}
 
 			origFileText = origFileText.Replace("\r\n", " ").Replace("\n", " ");

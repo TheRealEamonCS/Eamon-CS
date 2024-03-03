@@ -28,7 +28,7 @@ namespace Eamon.Game.Helpers
 
 		#region GetPrintedName Methods
 
-		// do nothing
+		// Do nothing
 
 		#endregion
 
@@ -336,31 +336,31 @@ namespace Eamon.Game.Helpers
 
 		#region ValidateInterdependencies Methods
 
-		// do nothing
+		// Do nothing
 
 		#endregion
 
 		#region PrintDesc Methods
 
-		// do nothing
+		// Do nothing
 
 		#endregion
 
 		#region List Methods
 
-		// do nothing
+		// Do nothing
 
 		#endregion
 
 		#region Input Methods
 
-		// do nothing
+		// Do nothing
 
 		#endregion
 
 		#region BuildValue Methods
 
-		// do nothing
+		// Do nothing
 
 		#endregion
 

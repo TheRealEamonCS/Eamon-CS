@@ -543,7 +543,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 						default:
 
-							// do nothing
+							// Do nothing
 
 							break;
 					}

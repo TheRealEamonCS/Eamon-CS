@@ -69,7 +69,7 @@ namespace Eamon.Game
 
 		public virtual void SetParentReferences()
 		{
-			// do nothing
+			// Do nothing
 		}
 
 		public virtual string GetPluralName(string fieldName)

@@ -118,7 +118,7 @@ namespace EamonRT.Game.States
 
 		public virtual void MonsterMemberMiscActionCheck()
 		{
-			// do nothing
+			// Do nothing
 		}
 
 		public virtual void MonsterMemberReadiesWeaponCheck()
@@ -296,7 +296,7 @@ namespace EamonRT.Game.States
 
 		public virtual void MonsterMemberMiscActionCheck02()
 		{
-			// do nothing
+			// Do nothing
 		}
 
 		public MonsterMemberActionState()

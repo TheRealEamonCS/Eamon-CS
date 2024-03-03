@@ -125,14 +125,14 @@ namespace EamonDD.Game.Plugin
 				{
 					if (++i < Argv.Length)
 					{
-						// do nothing
+						// Do nothing
 					}
 				}
 				else if (Argv[i].Equals("--filePrefix", StringComparison.OrdinalIgnoreCase) || Argv[i].Equals("-fp", StringComparison.OrdinalIgnoreCase))
 				{
 					if (++i < Argv.Length)
 					{
-						// do nothing
+						// Do nothing
 					}
 				}
 				else if (Argv[i].Equals("--configFileName", StringComparison.OrdinalIgnoreCase) || Argv[i].Equals("-cfgfn", StringComparison.OrdinalIgnoreCase))
@@ -314,23 +314,23 @@ namespace EamonDD.Game.Plugin
 				}
 				else if (Argv[i].Equals("--enableScreenReaderMode", StringComparison.OrdinalIgnoreCase) || Argv[i].Equals("-esrm", StringComparison.OrdinalIgnoreCase))
 				{
-					// do nothing
+					// Do nothing
 				}
 				else if (Argv[i].Equals("--ignoreMutex", StringComparison.OrdinalIgnoreCase) || Argv[i].Equals("-im", StringComparison.OrdinalIgnoreCase))
 				{
-					// do nothing
+					// Do nothing
 				}
 				else if (Argv[i].Equals("--disableValidation", StringComparison.OrdinalIgnoreCase) || Argv[i].Equals("-dv", StringComparison.OrdinalIgnoreCase))
 				{
-					// do nothing
+					// Do nothing
 				}
 				else if (Argv[i].Equals("--repaintWindow", StringComparison.OrdinalIgnoreCase) || Argv[i].Equals("-rw", StringComparison.OrdinalIgnoreCase))
 				{
-					// do nothing
+					// Do nothing
 				}
 				else if (Argv[i].Equals("--runGameEditor", StringComparison.OrdinalIgnoreCase) || Argv[i].Equals("-rge", StringComparison.OrdinalIgnoreCase))
 				{
-					// do nothing
+					// Do nothing
 				}
 				else if (secondPass)
 				{

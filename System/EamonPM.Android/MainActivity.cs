@@ -235,7 +235,7 @@ namespace EamonPM
 			}
 			catch (Exception)
 			{
-				// do nothing
+				// Do nothing
 			}
 
 			fileText = fileText.Replace("\r\n", " ").Replace("\n", " ");
@@ -262,7 +262,7 @@ namespace EamonPM
 
 				var currWorkDir = Directory.GetCurrentDirectory();
 
-				// if current working directory invalid, bail out
+				// If current working directory invalid, bail out
 
 				if (!currWorkDir.EndsWith(systemBinDir) || currWorkDir.Length <= systemBinDir.Length || !Directory.Exists(gEngine.AdventuresDir.Replace('\\', Path.DirectorySeparatorChar)))
 				{
@@ -275,7 +275,7 @@ namespace EamonPM
 				}
 				catch (Exception e)
 				{
-					// print message box
+					// Print message box
 
 					// goto Cleanup;
 				}

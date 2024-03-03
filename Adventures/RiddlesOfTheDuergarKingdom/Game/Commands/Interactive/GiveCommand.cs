@@ -66,7 +66,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.Commands
 
 				else if (IobjMonster.Uid == 21 && IobjMonster.Reaction == Friendliness.Friend && DobjArtifact.Uid == 93)
 				{
-					// do nothing
+					// Do nothing
 				}
 
 				// Further disable bribing

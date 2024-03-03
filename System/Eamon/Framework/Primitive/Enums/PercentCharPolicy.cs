@@ -9,9 +9,9 @@ namespace Eamon.Framework.Primitive.Enums
 	public enum PercentCharPolicy : long
 	{
 		/// <summary></summary>
-		None = 0,               // no percent chars on monster names
+		None = 0,					// No percent chars on monster names
 
 		/// <summary></summary>
-		AllMonsters          // percent chars on all monsters in database
+		AllMonsters					// Percent chars on all monsters in database
 	}
 }

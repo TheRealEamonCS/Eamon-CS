@@ -46,7 +46,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			if (Buf.Length > 0 && Buf[0] == 'X')
 			{
-				// do nothing
+				// Do nothing
 			}
 
 			gOut.Print("{0}", gEngine.LineSep);
