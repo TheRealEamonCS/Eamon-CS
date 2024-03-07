@@ -256,10 +256,26 @@ namespace Eamon.Framework.Plugin
 		/// </summary>
 		long FountainPrice { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the maximum number of <see cref="IDatabase">Database</see>s allowed in the database stack.
+		/// </summary>
+		/// <remarks>
+		/// When a plugin is loaded, a new plugin-specific database is instantiated and pushed onto the stack. For example, EamonMH
+		/// might use a database containing <see cref="ICharacter">Character</see>s, (snappy) <see cref="IEffect">Effect</see>s and
+		/// (adventure) <see cref="IFileset">Fileset</see>s. But, when an adventure starts, a new database with game-specific
+		/// records is pushed onto the stack. Then, when the game exits, the game database is popped off the stack, and the
+		/// EamonMH database is restored. There may be other scenarios as well.
+		/// </remarks>
 		long NumDatabases { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the maximum number of <see cref="RulesetVersion">RulesetVersion</see>s allowed in the ruleset version stack.
+		/// </summary>
+		/// <remarks>
+		/// The game engine emulates different versions of Eamon using a stack of ruleset versions. It is possible to alter game
+		/// behavior at key points by pushing a different ruleset version on the stack, then later popping it off. Various games
+		/// actually do this. But pushing a single ruleset version on and leaving it is more typical.
+		/// </remarks>
 		long NumRulesetVersions { get; }
 
 		/// <summary></summary>
@@ -319,13 +335,19 @@ namespace Eamon.Framework.Plugin
 		/// </remarks>
 		string RecIdepErrorFmtStr { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the Adventures directory path on Android platforms, relative to the working directory.
+		/// </summary>
 		string AndroidAdventuresDir { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the Adventures directory path on non-Android platforms, relative to the working directory.
+		/// </summary>
 		string AdventuresDir { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the QuickLaunch directory path, relative to the working directory.
+		/// </summary>
 		string QuickLaunchDir { get; }
 
 		/// <summary></summary>
@@ -340,11 +362,13 @@ namespace Eamon.Framework.Plugin
 		/// </remarks>
 		string ProcessMutexName { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the Eamon CS Desktop Solution path and file name, relative to the working directory.
+		/// </summary>
 		string EamonDesktopSlnFile { get; }
 
 		/// <summary>
-		/// Gets the name of the error file dumped when an unexpected system shutdown occurs.
+		/// Gets the relative path and name of the error file dumped when an unexpected system shutdown occurs.
 		/// </summary>
 		/// <remarks>
 		/// If an unexpected and unrecoverable error occurs, Eamon CS will abort execution and dump a series of error messages to
@@ -355,7 +379,9 @@ namespace Eamon.Framework.Plugin
 		/// </remarks>
 		string StackTraceFile { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the Global Launch Parameters path and file name, relative to the working directory.
+		/// </summary>
 		string GlobalLaunchParametersFile { get; }
 		
 		/// <summary>
@@ -367,7 +393,13 @@ namespace Eamon.Framework.Plugin
 		/// </remarks>
 		string ProgVersion { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets a value indicating whether a <see cref="ArtifactType.Drinkable">Drinkable</see> or <see cref="ArtifactType.Edible">Edible</see>
+		/// <see cref="IArtifact">Artifact</see> has infinite quantity.
+		/// </summary>
+		/// <remarks>
+		/// This value would be stored in <see cref="IArtifactCategory.Field2">Field2</see>.
+		/// </remarks>
 		long InfiniteDrinkableEdible { get; }
 
 		/// <summary></summary>
@@ -405,7 +437,13 @@ namespace Eamon.Framework.Plugin
 		/// <summary></summary>
 		long MaxPathLen { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the maximum recursion level for macro replacement.
+		/// </summary>
+		/// <remarks>
+		/// When resolving <see cref="MacroFuncs">MacroFuncs</see> macros, this value is a circuit breaker that ensures there is
+		/// never an infinite loop.
+		/// </remarks>
 		long MaxRecursionLevel { get; }
 
 		/// <summary></summary>
@@ -517,8 +555,8 @@ namespace Eamon.Framework.Plugin
 		/// </summary>
 		/// <remarks>
 		/// Earlier rulesets of Eamon gave a different "vibe" to the gameplay experience, so a means to support them was introduced.  Currently supported
-		/// rulesets include 5 for DDD5 and 0 for Eamon Deluxe.  The Temple of Ngurct is the only game using DDD5 at the time of this writing.  Recent
-		/// enhancements allow a game to change rulesets dynamically at runtime.
+		/// rulesets include 5 for DDD5, 62 for DDD6.2, and 0 for Eamon Deluxe.  The Temple of Ngurct is the only game using DDD5 at the time of this
+		/// writing.  Recent enhancements allow a game to change rulesets dynamically at runtime.
 		/// </remarks>
 		long RulesetVersion { get; }
 
