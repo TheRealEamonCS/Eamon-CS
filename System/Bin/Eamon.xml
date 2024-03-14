@@ -3787,7 +3787,13 @@
             </remarks>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.NumArtifactCategories">
-            <summary></summary>
+            <summary>
+            Gets the maximum number of Categories assignable to a single <see cref="T:Eamon.Framework.IArtifact">Artifact</see>.
+            </summary>
+            <remarks>
+            Each Artifact fits into one or more Categories defined by <see cref="T:Eamon.Framework.Primitive.Enums.ArtifactType"/>, which affects its behavior when
+            manipulated by various Commands during the game.
+            </remarks>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.BufSize">
             <summary></summary>
@@ -3911,10 +3917,22 @@
             </remarks>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.DirectionExit">
-            <summary></summary>
+            <summary>
+            Gets the <see cref="T:Eamon.Framework.IRoom">Room</see> <see cref="P:Eamon.Framework.IGameBase.Uid"> Uid</see> constant representing an exit from a game.
+            </summary>
+            <remarks>
+            Traversing a Room <see cref="T:Eamon.Framework.Primitive.Enums.Direction"/> link set to this value will return the player to the Main Hall.
+            </remarks>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.LimboLocation">
-            <summary></summary>
+            <summary>
+            Gets the <see cref="T:Eamon.Framework.IRoom">Room</see> <see cref="P:Eamon.Framework.IGameBase.Uid"> Uid</see> constant representing "limbo".
+            </summary>
+            <remarks>
+            Setting a <see cref="T:Eamon.Framework.IMonster">Monster</see> <see cref="P:Eamon.Framework.IMonster.Location">Location</see> or <see cref="T:Eamon.Framework.IArtifact">Artifact</see>
+            <see cref="P:Eamon.Framework.IArtifact.Location">Location</see> to this value makes it unreachable by putting it "outside the known universe" (outside
+            the game). A Room <see cref="T:Eamon.Framework.Primitive.Enums.Direction"/> link set to this value is not traversable.
+            </remarks>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.MinWeaponComplexity">
             <summary>
@@ -3937,10 +3955,20 @@
             </remarks>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.MinGoldValue">
-            <summary></summary>
+            <summary>
+            Gets the minimum amount of gold the player character can carry or hold in the bank.
+            </summary>
+            <remarks>
+            This negative number actually represents the maximum amount of debt oweable by the player character.
+            </remarks>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.MaxGoldValue">
-            <summary></summary>
+            <summary>
+            Gets the maximum amount of gold the player character can carry or hold in the bank.
+            </summary>
+            <remarks>
+            This maximum value applies separately to each.
+            </remarks>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.MaxPathLen">
             <summary></summary>
@@ -4101,7 +4129,15 @@
             </remarks>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.DisableValidation">
-            <summary></summary>
+            <summary>
+            Gets or sets a value indicating whether validation should be disabled when Records are loaded.
+            </summary>
+            <remarks>
+            The various <see cref="T:Eamon.Framework.Helpers.Generic.IHelper`1">Helper</see> subclasses perform Record validation to ensure the data being loaded
+            is as expected, but there are times when this default behavior is undesirable. For example, when porting an adventure from a previous
+            Eamon system, the Record data may need to be massaged to make it compatible with Eamon CS. Doing this requires validation to be 
+            temporarily disabled.
+            </remarks>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.RepaintWindow">
             <summary></summary>

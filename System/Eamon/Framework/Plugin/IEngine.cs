@@ -278,7 +278,13 @@ namespace Eamon.Framework.Plugin
 		/// </remarks>
 		long NumRulesetVersions { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the maximum number of Categories assignable to a single <see cref="IArtifact">Artifact</see>.
+		/// </summary>
+		/// <remarks>
+		/// Each Artifact fits into one or more Categories defined by <see cref="ArtifactType"/>, which affects its behavior when
+		/// manipulated by various Commands during the game.
+		/// </remarks>
 		long NumArtifactCategories { get; }
 
 		/// <summary></summary>
@@ -402,10 +408,22 @@ namespace Eamon.Framework.Plugin
 		/// </remarks>
 		long InfiniteDrinkableEdible { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the <see cref="IRoom">Room</see> <see cref="IGameBase.Uid"> Uid</see> constant representing an exit from a game.
+		/// </summary>
+		/// <remarks>
+		/// Traversing a Room <see cref="Direction"/> link set to this value will return the player to the Main Hall.
+		/// </remarks>
 		long DirectionExit { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the <see cref="IRoom">Room</see> <see cref="IGameBase.Uid"> Uid</see> constant representing "limbo".
+		/// </summary>
+		/// <remarks>
+		/// Setting a <see cref="IMonster">Monster</see> <see cref="IMonster.Location">Location</see> or <see cref="IArtifact">Artifact</see>
+		/// <see cref="IArtifact.Location">Location</see> to this value makes it unreachable by putting it "outside the known universe" (outside
+		/// the game). A Room <see cref="Direction"/> link set to this value is not traversable.
+		/// </remarks>
 		long LimboLocation { get; }
 
 		/// <summary>
@@ -428,10 +446,20 @@ namespace Eamon.Framework.Plugin
 		/// </remarks>
 		long MaxWeaponComplexity { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the minimum amount of gold the player character can carry or hold in the bank.
+		/// </summary>
+		/// <remarks>
+		/// This negative number actually represents the maximum amount of debt oweable by the player character.
+		/// </remarks>
 		long MinGoldValue { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the maximum amount of gold the player character can carry or hold in the bank.
+		/// </summary>
+		/// <remarks>
+		/// This maximum value applies separately to each.
+		/// </remarks>
 		long MaxGoldValue { get; }
 
 		/// <summary></summary>
@@ -592,7 +620,15 @@ namespace Eamon.Framework.Plugin
 		/// </remarks>
 		bool IgnoreMutex { get; set; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets or sets a value indicating whether validation should be disabled when Records are loaded.
+		/// </summary>
+		/// <remarks>
+		/// The various <see cref="Helpers.Generic.IHelper{T}">Helper</see> subclasses perform Record validation to ensure the data being loaded
+		/// is as expected, but there are times when this default behavior is undesirable. For example, when porting an adventure from a previous
+		/// Eamon system, the Record data may need to be massaged to make it compatible with Eamon CS. Doing this requires validation to be 
+		/// temporarily disabled.
+		/// </remarks>
 		bool DisableValidation { get; set; }
 
 		/// <summary></summary>
