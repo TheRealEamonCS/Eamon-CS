@@ -1579,9 +1579,9 @@
             combat round.
             </summary>
             <remarks>
-            This counter, associated with the PauseCombatActions EamonRT setting, is incremented for each Monster combat
-            round action. When it reaches <see cref="P:Eamon.Framework.IGameState.PauseCombatActions">PauseCombatActions</see>, the player
-            must press Enter to continue the combat round.
+            This counter, associated with the PauseCombatActions EamonRT setting, is incremented for each <see cref="T:Eamon.Framework.IMonster">Monster</see>
+            combat round action. When it reaches <see cref="P:Eamon.Framework.IGameState.PauseCombatActions">PauseCombatActions</see>, the player must press
+            Enter to continue the combat round.
             </remarks>
         </member>
         <member name="P:EamonRT.Framework.Plugin.IEngine.LoopMonsterUidListIndex">
@@ -1653,7 +1653,15 @@
             <summary></summary>
         </member>
         <member name="P:EamonRT.Framework.Plugin.IEngine.ShouldPreTurnProcess">
-            <summary></summary>
+            <summary>
+            Gets or sets a value indicating whether "pre-turn" processing should be done at the beginning of a new round.
+            </summary>
+            <remarks>
+            This processing typically occurs after the player executes a <see cref="T:EamonRT.Framework.Commands.ICommand">Command</see> that directly impacts the
+            game world, but before new input is requested. Included tasks are burning down light sources and <see cref="F:Eamon.Framework.Primitive.Enums.Spell.Speed">Speed</see>
+            spells, regenerating <see cref="T:Eamon.Framework.Primitive.Enums.Spell">Spell</see> abilities, and firing certain game-specific events. Generally speaking, "pre-turn"
+            processing is suppressed for "out-of-band" Commands like <see cref="T:EamonRT.Framework.Commands.IStatusCommand">Status</see>, etc.
+            </remarks>
         </member>
         <member name="P:EamonRT.Framework.Plugin.IEngine.PauseCombatAfterSkillGains">
             <summary></summary>
@@ -1728,7 +1736,7 @@
             The game engine policy for appending pound characters ('#') to <see cref="T:Eamon.Framework.IArtifact">Artifact</see>s with duplicate names.
             </summary>
             <remarks>
-            This helps the parser identify specific Artifacts during disambiguation.
+            This helps the parser identify specific <see cref="T:Eamon.Framework.IArtifact">Artifact</see>s during disambiguation.
             </remarks>
         </member>
         <member name="P:EamonRT.Framework.Plugin.IEngine.PercentCharPolicy">
@@ -1736,7 +1744,7 @@
             The game engine policy for appending percent characters ('%') to <see cref="T:Eamon.Framework.IMonster">Monster</see>s with duplicate names.
             </summary>
             <remarks>
-            This helps the parser identify specific Monsters during disambiguation.
+            This helps the parser identify specific <see cref="T:Eamon.Framework.IMonster">Monster</see>s during disambiguation.
             </remarks>
         </member>
         <member name="M:EamonRT.Framework.Plugin.IEngine.PrintPlayerRoom(Eamon.Framework.IRoom)">

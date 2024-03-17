@@ -287,16 +287,24 @@ namespace Eamon.Framework.Plugin
 		/// </remarks>
 		long NumArtifactCategories { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the default size for large, discardable StringBuilders created during system processing.
+		/// </summary>
 		int BufSize { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the default size for small, discardable StringBuilders created during system processing.
+		/// </summary>
 		int BufSize01 { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the default size for tiny, discardable StringBuilders created during system processing.
+		/// </summary>
 		int BufSize02 { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the default size for medium, discardable StringBuilders created during system processing.
+		/// </summary>
 		int BufSize03 { get; }
 
 		/// <summary></summary>
@@ -333,7 +341,7 @@ namespace Eamon.Framework.Plugin
 		string MscorlibName { get; }
 
 		/// <summary>
-		/// Gets the format string used to produce error messages during <see cref="Record"/> interdependency checking.
+		/// Gets the format string used to produce error messages during <see cref="IGameBase">Record</see> interdependency checking.
 		/// </summary>
 		/// <remarks>
 		/// The Eamon CS Dungeon Designer plugin (EamonDD) uses this format string to produce error messages when analysing
@@ -621,7 +629,7 @@ namespace Eamon.Framework.Plugin
 		bool IgnoreMutex { get; set; }
 
 		/// <summary>
-		/// Gets or sets a value indicating whether validation should be disabled when Records are loaded.
+		/// Gets or sets a value indicating whether validation should be disabled when <see cref="IGameBase">Record</see>s are loaded.
 		/// </summary>
 		/// <remarks>
 		/// The various <see cref="Helpers.Generic.IHelper{T}">Helper</see> subclasses perform Record validation to ensure the data being loaded

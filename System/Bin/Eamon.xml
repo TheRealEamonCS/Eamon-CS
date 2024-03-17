@@ -2602,16 +2602,36 @@
             <remarks></remarks>
         </member>
         <member name="P:Eamon.Framework.IHint.Active">
-            <summary></summary>
+            <summary>
+            Gets or sets whether this <see cref="T:Eamon.Framework.IHint">Hint</see> is available to the player.
+            </summary>
+            <remarks>
+            <see cref="T:Eamon.Framework.IHint">Hint</see>s can be active at all times or, if necessary, deactivated initially and later activated (or vice versa) when
+            certain arbitrary conditions are met.
+            </remarks>
         </member>
         <member name="P:Eamon.Framework.IHint.Question">
-            <summary></summary>
+            <summary>
+            Gets or sets the Question answered or topic addressed by this <see cref="T:Eamon.Framework.IHint">Hint</see>.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.IHint.NumAnswers">
-            <summary></summary>
+            <summary>
+            Gets or sets the number of Answers for the <see cref="T:Eamon.Framework.IHint">Hint</see>'s Question.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.IHint.Answers">
-            <summary></summary>
+            <summary>
+            Gets or sets an array of <see cref="T:Eamon.Framework.IHint">Hint</see> Answers.
+            </summary>
+            <remarks>
+            The array always contains the same number of elements. The first <see cref="P:Eamon.Framework.IHint.NumAnswers">NumAnswers</see> elements
+            contain increasingly explicit Answers to the <see cref="P:Eamon.Framework.IHint.Question">Question</see>, while the remaining unused
+            elements are set to an empty string. Avoid accessing array elements directly in favor of using Getter/Setter
+            methods to ensure games can override when necessary.
+            </remarks>
+            <seealso cref="M:Eamon.Framework.IHint.GetAnswer(System.Int64)"/>
+            <seealso cref="M:Eamon.Framework.IHint.SetAnswer(System.Int64,System.String)"/>
         </member>
         <member name="M:Eamon.Framework.IHint.GetAnswer(System.Int64)">
             <summary></summary>
@@ -3244,11 +3264,15 @@
             Gets or sets an array of <see cref="T:Eamon.Framework.IRoom">Room</see> exit links, each element corresponding to one <see cref="T:Eamon.Framework.Primitive.Enums.Direction">Direction</see>.
             </summary>
             <remarks>
-            The elements of this array can be manipulated during game play, but you should never do so directly.  Instead, use the
-            <see cref="M:Eamon.Framework.IRoom.GetDir(Eamon.Framework.Primitive.Enums.Direction)"/> and <see cref="M:Eamon.Framework.IRoom.SetDir(Eamon.Framework.Primitive.Enums.Direction,System.Int64)"/> methods.  The 0'th element is unused.
+            The array always contains the same number of elements, and the 0'th element is unused. Exit links can be <see cref="T:Eamon.Framework.IRoom">Room</see>
+            <see cref="P:Eamon.Framework.IGameBase.Uid"> Uid</see>s or special codes representing things like game exits, doors, blocked pathways or other more exotic
+            game-specific portals. Avoid accessing array elements directly in favor of using Getter/Setter methods to ensure games can override when
+            necessary.
             </remarks>
             <seealso cref="M:Eamon.Framework.IRoom.GetDir(System.Int64)"/>
+            <seealso cref="M:Eamon.Framework.IRoom.GetDir(Eamon.Framework.Primitive.Enums.Direction)"/>
             <seealso cref="M:Eamon.Framework.IRoom.SetDir(System.Int64,System.Int64)"/>
+            <seealso cref="M:Eamon.Framework.IRoom.SetDir(Eamon.Framework.Primitive.Enums.Direction,System.Int64)"/>
         </member>
         <member name="M:Eamon.Framework.IRoom.GetDir(System.Int64)">
             <summary></summary>
@@ -3796,16 +3820,24 @@
             </remarks>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.BufSize">
-            <summary></summary>
+            <summary>
+            Gets the default size for large, discardable StringBuilders created during system processing.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.BufSize01">
-            <summary></summary>
+            <summary>
+            Gets the default size for small, discardable StringBuilders created during system processing.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.BufSize02">
-            <summary></summary>
+            <summary>
+            Gets the default size for tiny, discardable StringBuilders created during system processing.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.BufSize03">
-            <summary></summary>
+            <summary>
+            Gets the default size for medium, discardable StringBuilders created during system processing.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.ResolveEffectRegexPattern">
             <summary></summary>
@@ -3842,7 +3874,7 @@
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.RecIdepErrorFmtStr">
             <summary>
-            Gets the format string used to produce error messages during <see cref="T:Eamon.Framework.Primitive.Enums.Record"/> interdependency checking.
+            Gets the format string used to produce error messages during <see cref="T:Eamon.Framework.IGameBase">Record</see> interdependency checking.
             </summary>
             <remarks>
             The Eamon CS Dungeon Designer plugin (EamonDD) uses this format string to produce error messages when analysing
@@ -4130,7 +4162,7 @@
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.DisableValidation">
             <summary>
-            Gets or sets a value indicating whether validation should be disabled when Records are loaded.
+            Gets or sets a value indicating whether validation should be disabled when <see cref="T:Eamon.Framework.IGameBase">Record</see>s are loaded.
             </summary>
             <remarks>
             The various <see cref="T:Eamon.Framework.Helpers.Generic.IHelper`1">Helper</see> subclasses perform Record validation to ensure the data being loaded

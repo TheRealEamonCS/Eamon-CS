@@ -64,9 +64,9 @@ namespace EamonRT.Framework.Plugin
 		/// combat round.
 		/// </summary>
 		/// <remarks>
-		/// This counter, associated with the PauseCombatActions EamonRT setting, is incremented for each Monster combat
-		/// round action. When it reaches <see cref="IGameState.PauseCombatActions">PauseCombatActions</see>, the player
-		/// must press Enter to continue the combat round.
+		/// This counter, associated with the PauseCombatActions EamonRT setting, is incremented for each <see cref="IMonster">Monster</see>
+		/// combat round action. When it reaches <see cref="IGameState.PauseCombatActions">PauseCombatActions</see>, the player must press
+		/// Enter to continue the combat round.
 		/// </remarks>
 		long PauseCombatActionsCounter { get; set; }
 
@@ -138,7 +138,15 @@ namespace EamonRT.Framework.Plugin
 		/// <summary></summary>
 		bool CommandPromptSeen { get; set; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets or sets a value indicating whether "pre-turn" processing should be done at the beginning of a new round.
+		/// </summary>
+		/// <remarks>
+		/// This processing typically occurs after the player executes a <see cref="ICommand">Command</see> that directly impacts the
+		/// game world, but before new input is requested. Included tasks are burning down light sources and <see cref="Spell.Speed">Speed</see>
+		/// spells, regenerating <see cref="Spell">Spell</see> abilities, and firing certain game-specific events. Generally speaking, "pre-turn"
+		/// processing is suppressed for "out-of-band" Commands like <see cref="IStatusCommand">Status</see>, etc.
+		/// </remarks>
 		bool ShouldPreTurnProcess { get; set; }
 
 		/// <summary></summary>
@@ -213,7 +221,7 @@ namespace EamonRT.Framework.Plugin
 		/// The game engine policy for appending pound characters ('#') to <see cref="IArtifact">Artifact</see>s with duplicate names.
 		/// </summary>
 		/// <remarks>
-		/// This helps the parser identify specific Artifacts during disambiguation.
+		/// This helps the parser identify specific <see cref="IArtifact">Artifact</see>s during disambiguation.
 		/// </remarks>
 		PoundCharPolicy PoundCharPolicy { get; set; }
 
@@ -221,7 +229,7 @@ namespace EamonRT.Framework.Plugin
 		/// The game engine policy for appending percent characters ('%') to <see cref="IMonster">Monster</see>s with duplicate names.
 		/// </summary>
 		/// <remarks>
-		/// This helps the parser identify specific Monsters during disambiguation.
+		/// This helps the parser identify specific <see cref="IMonster">Monster</see>s during disambiguation.
 		/// </remarks>
 		PercentCharPolicy PercentCharPolicy { get; set; }
 
