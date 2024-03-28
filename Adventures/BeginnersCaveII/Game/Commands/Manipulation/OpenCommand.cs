@@ -18,7 +18,7 @@ namespace BeginnersCaveII.Game.Commands
 		{
 			Debug.Assert(DobjArtifact != null);
 
-			// open treasure chest
+			// Open treasure chest
 
 			if (DobjArtifact.Uid == 5)
 			{

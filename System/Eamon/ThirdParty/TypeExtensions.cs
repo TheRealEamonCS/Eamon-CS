@@ -11,7 +11,7 @@ namespace Eamon.ThirdParty
 {
 	public static class TypeExtensions
 	{
-		public static IEnumerable<Type> GetInterfaces(this Type type, bool includeInherited)		// note: this needs thorough testing
+		public static IEnumerable<Type> GetInterfaces(this Type type, bool includeInherited)		// Note: this needs thorough testing
 		{
 			if (includeInherited || type.BaseType == null)
 			{

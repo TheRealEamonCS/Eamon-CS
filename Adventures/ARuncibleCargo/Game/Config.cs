@@ -26,7 +26,7 @@ namespace ARuncibleCargo.Game
 			{
 				if (ex != null)
 				{
-					// do nothing
+					// Do nothing
 				}
 			}
 

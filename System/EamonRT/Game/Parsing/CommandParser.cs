@@ -1841,7 +1841,7 @@ namespace EamonRT.Game.Parsing
 		{
 			Debug.Assert(NextCommand != null);
 
-			// do nothing
+			// Do nothing
 		}
 
 		public virtual void Execute()

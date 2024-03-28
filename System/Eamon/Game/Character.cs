@@ -106,7 +106,7 @@ namespace Eamon.Game
 		{
 			if (disposing)
 			{
-				// get rid of managed resources
+				// Get rid of managed resources
 			}
 
 			if (IsUidRecycled && Uid > 0)
@@ -722,7 +722,7 @@ namespace Eamon.Game
 		{
 			if (gEngine.EnableMutateProperties)
 			{
-				// extinguish HeldGold debt with BankGold assets
+				// Extinguish HeldGold debt with BankGold assets
 
 				if (_heldGold < 0 && _bankGold > 0)
 				{
@@ -740,7 +740,7 @@ namespace Eamon.Game
 					}
 				}
 
-				// extinguish BankGold debt with HeldGold assets
+				// Extinguish BankGold debt with HeldGold assets
 
 				if (_bankGold < 0 && _heldGold > 0)
 				{
@@ -758,7 +758,7 @@ namespace Eamon.Game
 					}
 				}
 
-				// move remaining debt to HeldGold if possible
+				// Move remaining debt to HeldGold if possible
 
 				if (_bankGold < 0)
 				{
@@ -777,7 +777,7 @@ namespace Eamon.Game
 				}
 			}
 
-			// force values into valid range
+			// Force values into valid range
 
 			if (_heldGold < gEngine.MinGoldValue)
 			{

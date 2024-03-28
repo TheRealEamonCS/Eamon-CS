@@ -530,7 +530,8 @@
               
             Its methods GetAllProperties and IgnoreProperty can be
               overwritten in an inherited class to customize its functionality. 
-              Its property PropertiesToIgnore contains properties, which are ignored during the serialization.
+              Its property PropertiesToIgnore contains properties and its property PropertyTypesToIgnore
+              container types, which are ignored during the serialization.
             </summary>
         </member>
         <member name="P:Polenter.Serialization.Advanced.PropertyProvider.PropertiesToIgnore">
@@ -545,6 +546,15 @@
             I.e. System.Collections.Generic.List"string" has the "Capacity" property which is irrelevant for
             the whole Serialization and should be ignored
             PropertyProvider.PropertiesToIgnore.Add(typeof(List"string"), "Capacity")
+            </remarks>
+        </member>
+        <member name="P:Polenter.Serialization.Advanced.PropertyProvider.PropertyTypesToIgnore">
+            <summary>
+              Which types should be ignored
+            </summary>
+            <remarks>
+            Sometimes you want to ignore some types during the serialization.
+            To ignore a type add these types to the list PropertyTypesToIgnore.
             </remarks>
         </member>
         <member name="P:Polenter.Serialization.Advanced.PropertyProvider.AttributesToIgnore">
@@ -573,6 +583,7 @@
             <returns>
               true if the property:
               - is in the PropertiesToIgnore,
+              - is in the PropertyTypesToIgnore,
               - contains ExcludeFromSerializationAttribute,
               - does not have it's set or get accessor
               - is indexer
@@ -2107,6 +2118,17 @@
               the whole Serialization and should be ignored.
             </remarks>
         </member>
+        <member name="P:Polenter.Serialization.Core.AdvancedSharpSerializerSettings.PropertyTypesToIgnore">
+            <summary>
+              Which properties should be ignored during the serialization.
+            </summary>
+            <remarks>
+              In your business objects you can mark these properties with ExcludeFromSerializationAttribute
+              In built in .NET Framework classes you can not do this. Therefore you define these properties here.
+              I.e. System.Collections.Generic.List has property Capacity which is irrelevant for
+              the whole Serialization and should be ignored.
+            </remarks>
+        </member>
         <member name="P:Polenter.Serialization.Core.AdvancedSharpSerializerSettings.AttributesToIgnore">
             <summary>
             All Properties marked with one of the contained attribute-types will be ignored on save.
@@ -2383,6 +2405,12 @@
             </summary>
             <param name = "propertyProvider">provides all important properties of the decomposed object</param>
         </member>
+        <member name="M:Polenter.Serialization.Serializing.PropertyFactory.#ctor(Polenter.Serialization.Advanced.PropertyProvider,System.Collections.Generic.IEqualityComparer{System.Object})">
+            <summary>
+            </summary>
+            <param name = "propertyProvider">provides all important properties of the decomposed object</param>
+            <param name="objectComparer">A Comparer, used to define objects with the same references</param>
+        </member>
         <member name="M:Polenter.Serialization.Serializing.PropertyFactory.CreateProperty(System.String,System.Object)">
             <summary>
             </summary>
@@ -2567,6 +2595,11 @@
         <member name="P:Polenter.Serialization.SharpSerializer.RootName">
             <summary>
               What name should have the root property. Default is "Root".
+            </summary>
+        </member>
+        <member name="P:Polenter.Serialization.SharpSerializer.ObjectComparer">
+            <summary>
+            A Comparer, used to define objects with the same references
             </summary>
         </member>
         <member name="P:Polenter.Serialization.SharpSerializer.InstanceCreator">

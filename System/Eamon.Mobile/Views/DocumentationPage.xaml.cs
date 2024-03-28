@@ -33,7 +33,7 @@ namespace Eamon.Mobile.Views
 				}
 				else
 				{
-					// unknown file type
+					// Unknown file type
 				}
 			}
 

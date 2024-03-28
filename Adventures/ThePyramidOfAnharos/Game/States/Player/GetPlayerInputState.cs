@@ -157,6 +157,17 @@ namespace ThePyramidOfAnharos.Game.States
 
 						avatarOfAlaxarMonster.SetInRoom(room);
 
+						if (!avatarOfAlaxarMonster.Seen)
+						{
+							buf.Clear();
+
+							avatarOfAlaxarMonster.BuildPrintedFullDesc(buf, true, false);
+
+							gOut.Write("{0}", buf);
+
+							avatarOfAlaxarMonster.Seen = true;
+						}
+
 						gGameState.KU = 1;
 					}
 				}

@@ -149,7 +149,7 @@ namespace Eamon.Mobile.Views
 					});
 				}
 			}
-			else		// never reached, but just in case
+			else		// Never reached, but just in case
 			{
 				Device.StartTimer(new TimeSpan(0, 0, 0, 0, 250), () =>
 				{

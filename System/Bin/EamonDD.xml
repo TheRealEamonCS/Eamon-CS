@@ -529,9 +529,6 @@
         <member name="T:EamonDD.Framework.Plugin.IEngine">
             <inheritdoc />
         </member>
-        <member name="P:EamonDD.Framework.Plugin.IEngine.DdProgVersion">
-            <summary></summary>
-        </member>
         <member name="P:EamonDD.Framework.Plugin.IEngine.Argv">
             <summary></summary>
         </member>

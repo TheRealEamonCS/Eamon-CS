@@ -23,11 +23,14 @@ namespace EamonRT.Framework.Plugin
 	{
 		#region Public Properties
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the page separator sequence used to delineate the pages of a multi-page text block.
+		/// </summary>
+		/// <remarks>
+		/// These are typically embedded in the prologue and epilogue stories of games. After each page is read,
+		/// the next is accessed when the user presses Enter.
+		/// </remarks>
 		string PageSep { get; }
-
-		/// <summary></summary>
-		string RtProgVersion { get; }
 
 		/// <summary></summary>
 		StringBuilder Buf01 { get; set; }
@@ -56,7 +59,15 @@ namespace EamonRT.Framework.Plugin
 		/// <summary></summary>
 		long ActionListCounter { get; set; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets or sets a value that tracks the number of <see cref="IMonster">Monster</see> actions performed during a
+		/// combat round.
+		/// </summary>
+		/// <remarks>
+		/// This counter, associated with the PauseCombatActions EamonRT setting, is incremented for each <see cref="IMonster">Monster</see>
+		/// combat round action. When it reaches <see cref="IGameState.PauseCombatActions">PauseCombatActions</see>, the player must press
+		/// Enter to continue the combat round.
+		/// </remarks>
 		long PauseCombatActionsCounter { get; set; }
 
 		/// <summary></summary>
@@ -110,7 +121,9 @@ namespace EamonRT.Framework.Plugin
 		/// <summary></summary>
 		ExitType ExitType { get; set; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the command prompt presented to the player when requesting input.
+		/// </summary>
 		string CommandPrompt { get; set; }
 
 		/// <summary></summary>
@@ -125,7 +138,15 @@ namespace EamonRT.Framework.Plugin
 		/// <summary></summary>
 		bool CommandPromptSeen { get; set; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets or sets a value indicating whether "pre-turn" processing should be done at the beginning of a new round.
+		/// </summary>
+		/// <remarks>
+		/// This processing typically occurs after the player executes a <see cref="ICommand">Command</see> that directly impacts the
+		/// game world, but before new input is requested. Included tasks are burning down light sources and <see cref="Spell.Speed">Speed</see>
+		/// spells, regenerating <see cref="Spell">Spell</see> abilities, and firing certain game-specific events. Generally speaking, "pre-turn"
+		/// processing is suppressed for "out-of-band" Commands like <see cref="IStatusCommand">Status</see>, etc.
+		/// </remarks>
 		bool ShouldPreTurnProcess { get; set; }
 
 		/// <summary></summary>
@@ -137,7 +158,14 @@ namespace EamonRT.Framework.Plugin
 		/// <summary></summary>
 		bool PlayerMoved { get; set; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Indicates whether the EamonRT main game loop is currently running.
+		/// </summary>
+		/// <remarks>
+		/// The <see cref="IMainLoop">MainLoop</see>'s <see cref="IMainLoop.Execute">Execute</see> method will continue to run while
+		/// this property evaluates to true. The processing loop drives the game engine's central state machine. The property is
+		/// sensitive to changes in <see cref="ExitType">ExitType</see>.
+		/// </remarks>
 		bool GameRunning { get; }
 
 		/// <summary></summary>
@@ -175,7 +203,9 @@ namespace EamonRT.Framework.Plugin
 		/// <summary></summary>
 		double ScaledHardinessMaxDamageDivisor { get; set; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Indicates whether non-player character <see cref="IMonster">Monster</see>s should have carried inventory weight limits.
+		/// </summary>
 		bool EnforceMonsterWeightLimits { get; set; }
 
 		/// <summary></summary>
@@ -187,10 +217,20 @@ namespace EamonRT.Framework.Plugin
 		/// <summary></summary>
 		bool ExposeContainersRecursively { get; set; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// The game engine policy for appending pound characters ('#') to <see cref="IArtifact">Artifact</see>s with duplicate names.
+		/// </summary>
+		/// <remarks>
+		/// This helps the parser identify specific <see cref="IArtifact">Artifact</see>s during disambiguation.
+		/// </remarks>
 		PoundCharPolicy PoundCharPolicy { get; set; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// The game engine policy for appending percent characters ('%') to <see cref="IMonster">Monster</see>s with duplicate names.
+		/// </summary>
+		/// <remarks>
+		/// This helps the parser identify specific <see cref="IMonster">Monster</see>s during disambiguation.
+		/// </remarks>
 		PercentCharPolicy PercentCharPolicy { get; set; }
 
 		#endregion

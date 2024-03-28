@@ -44,16 +44,16 @@ namespace LandOfTheMountainKing.Game.Commands
 						{
 							gEngine.PrintEffectDesc(10);
 							var room = gRDB[10];
-							// this actually toggles the light level between light and dark
-							// the EvalLightLevel method evaluates the room's current light level and returns darkValue if its dark, lightValue if its light
+							// This actually toggles the light level between light and dark
+							// The EvalLightLevel method evaluates the room's current light level and returns darkValue if its dark, lightValue if its light
 							room.LightLvl = room.EvalLightLevel(LightLevel.Light, LightLevel.Dark);
 						}
 						if (gLMKKP1.Lampdir == 4)
 						{
 							gEngine.PrintEffectDesc(11);
 							var room = gRDB[10];
-							// this actually toggles the light level between light and dark
-							// the EvalLightLevel method evaluates the room's current light level and returns darkValue if its dark, lightValue if its light
+							// This actually toggles the light level between light and dark
+							// The EvalLightLevel method evaluates the room's current light level and returns darkValue if its dark, lightValue if its light
 							room.LightLvl = room.EvalLightLevel(LightLevel.Light, LightLevel.Dark);
 						}
 						if (gLMKKP1.Lampdir == 5)

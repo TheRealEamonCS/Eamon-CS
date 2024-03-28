@@ -35,8 +35,8 @@ namespace LandOfTheMountainKing.Game.Commands
 
 			if (artifact.Uid == 23)
 			{
-				var SwampMonster = gMDB[6]; // create Swamp monster variable
-				var SilverSword = gADB[25]; // create SilverSword variable
+				var SwampMonster = gMDB[6]; // Create Swamp monster variable
+				var SilverSword = gADB[25]; // Create SilverSword variable
 
 				if (gLMKKP1.SwampMonsterKilled == 0 && SwampMonster.IsInLimbo())
 				{

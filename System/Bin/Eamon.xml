@@ -2448,7 +2448,7 @@
         </member>
         <member name="M:Eamon.Framework.IGameState.GetNBTL(System.Int64,System.Int64)">
             <summary>
-            Gets the total <see cref="F:Eamon.Framework.Primitive.Enums.Stat.Hardiness">Hardiness</see> of <see cref="T:Eamon.Framework.IMonster">Monsters</see> with a specified
+            Gets the total <see cref="F:Eamon.Framework.Primitive.Enums.Stat.Hardiness">Hardiness</see> of <see cref="T:Eamon.Framework.IMonster">Monster</see>s with a specified
             <see cref="T:Eamon.Framework.Primitive.Enums.Friendliness"/> in a particular <see cref="T:Eamon.Framework.IRoom">Room</see>.
             </summary>
             <param name="index">The Friendliness value expressed as a long datatype.</param>
@@ -2463,7 +2463,7 @@
         </member>
         <member name="M:Eamon.Framework.IGameState.GetNBTL(Eamon.Framework.Primitive.Enums.Friendliness,System.Int64)">
             <summary>
-            Gets the total <see cref="F:Eamon.Framework.Primitive.Enums.Stat.Hardiness">Hardiness</see> of <see cref="T:Eamon.Framework.IMonster">Monsters</see> with a specified
+            Gets the total <see cref="F:Eamon.Framework.Primitive.Enums.Stat.Hardiness">Hardiness</see> of <see cref="T:Eamon.Framework.IMonster">Monster</see>s with a specified
             <see cref="T:Eamon.Framework.Primitive.Enums.Friendliness"/> in a particular <see cref="T:Eamon.Framework.IRoom">Room</see>.
             </summary>
             <param name="friendliness">The Friendliness value.</param>
@@ -2476,7 +2476,7 @@
         </member>
         <member name="M:Eamon.Framework.IGameState.GetDTTL(System.Int64,System.Int64)">
             <summary>
-            Gets the total <see cref="P:Eamon.Framework.IMonster.DmgTaken">DmgTaken</see> of <see cref="T:Eamon.Framework.IMonster">Monsters</see> with a specified
+            Gets the total <see cref="P:Eamon.Framework.IMonster.DmgTaken">DmgTaken</see> of <see cref="T:Eamon.Framework.IMonster">Monster</see>s with a specified
             <see cref="T:Eamon.Framework.Primitive.Enums.Friendliness"/> in a particular <see cref="T:Eamon.Framework.IRoom">Room</see>.
             </summary>
             <param name="index">The Friendliness value expressed as a long datatype.</param>
@@ -2491,7 +2491,7 @@
         </member>
         <member name="M:Eamon.Framework.IGameState.GetDTTL(Eamon.Framework.Primitive.Enums.Friendliness,System.Int64)">
             <summary>
-            Gets the total <see cref="P:Eamon.Framework.IMonster.DmgTaken">DmgTaken</see> of <see cref="T:Eamon.Framework.IMonster">Monsters</see> with a specified
+            Gets the total <see cref="P:Eamon.Framework.IMonster.DmgTaken">DmgTaken</see> of <see cref="T:Eamon.Framework.IMonster">Monster</see>s with a specified
             <see cref="T:Eamon.Framework.Primitive.Enums.Friendliness"/> in a particular <see cref="T:Eamon.Framework.IRoom">Room</see>.
             </summary>
             <param name="friendliness">The Friendliness value.</param>
@@ -2602,16 +2602,36 @@
             <remarks></remarks>
         </member>
         <member name="P:Eamon.Framework.IHint.Active">
-            <summary></summary>
+            <summary>
+            Gets or sets whether this <see cref="T:Eamon.Framework.IHint">Hint</see> is available to the player.
+            </summary>
+            <remarks>
+            <see cref="T:Eamon.Framework.IHint">Hint</see>s can be active at all times or, if necessary, deactivated initially and later activated (or vice versa) when
+            certain arbitrary conditions are met.
+            </remarks>
         </member>
         <member name="P:Eamon.Framework.IHint.Question">
-            <summary></summary>
+            <summary>
+            Gets or sets the Question answered or topic addressed by this <see cref="T:Eamon.Framework.IHint">Hint</see>.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.IHint.NumAnswers">
-            <summary></summary>
+            <summary>
+            Gets or sets the number of Answers for the <see cref="T:Eamon.Framework.IHint">Hint</see>'s Question.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.IHint.Answers">
-            <summary></summary>
+            <summary>
+            Gets or sets an array of <see cref="T:Eamon.Framework.IHint">Hint</see> Answers.
+            </summary>
+            <remarks>
+            The array always contains the same number of elements. The first <see cref="P:Eamon.Framework.IHint.NumAnswers">NumAnswers</see> elements
+            contain increasingly explicit Answers to the <see cref="P:Eamon.Framework.IHint.Question">Question</see>, while the remaining unused
+            elements are set to an empty string. Avoid accessing array elements directly in favor of using Getter/Setter
+            methods to ensure games can override when necessary.
+            </remarks>
+            <seealso cref="M:Eamon.Framework.IHint.GetAnswer(System.Int64)"/>
+            <seealso cref="M:Eamon.Framework.IHint.SetAnswer(System.Int64,System.String)"/>
         </member>
         <member name="M:Eamon.Framework.IHint.GetAnswer(System.Int64)">
             <summary></summary>
@@ -2722,10 +2742,14 @@
             </summary>
         </member>
         <member name="P:Eamon.Framework.IMonster.Hardiness">
-            <summary></summary>
+            <summary>
+            Gets or sets this <see cref="T:Eamon.Framework.IMonster">Monster</see>'s <see cref="F:Eamon.Framework.Primitive.Enums.Stat.Hardiness">Hardiness</see> <see cref="T:Eamon.Framework.Primitive.Enums.Stat"/>.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.IMonster.Agility">
-            <summary></summary>
+            <summary>
+            Gets or sets this <see cref="T:Eamon.Framework.IMonster">Monster</see>'s <see cref="F:Eamon.Framework.Primitive.Enums.Stat.Agility">Agility</see> <see cref="T:Eamon.Framework.Primitive.Enums.Stat"/>.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.IMonster.GroupCount">
             <summary>
@@ -2756,7 +2780,10 @@
             <summary></summary>
         </member>
         <member name="P:Eamon.Framework.IMonster.Weapon">
-            <summary></summary>
+            <summary>
+            Gets or sets the <see cref="T:Eamon.Framework.IArtifact">Artifact</see><see cref="P:Eamon.Framework.IGameBase.Uid"> Uid</see> for this <see cref="T:Eamon.Framework.IMonster">Monster</see>'s
+            readied weapon (may be 0 or negative if none exists).
+            </summary>
         </member>
         <member name="P:Eamon.Framework.IMonster.NwDice">
             <summary>
@@ -3244,11 +3271,15 @@
             Gets or sets an array of <see cref="T:Eamon.Framework.IRoom">Room</see> exit links, each element corresponding to one <see cref="T:Eamon.Framework.Primitive.Enums.Direction">Direction</see>.
             </summary>
             <remarks>
-            The elements of this array can be manipulated during game play, but you should never do so directly.  Instead, use the
-            <see cref="M:Eamon.Framework.IRoom.GetDir(Eamon.Framework.Primitive.Enums.Direction)"/> and <see cref="M:Eamon.Framework.IRoom.SetDir(Eamon.Framework.Primitive.Enums.Direction,System.Int64)"/> methods.  The 0'th element is unused.
+            The array always contains the same number of elements, and the 0'th element is unused. Exit links can be <see cref="T:Eamon.Framework.IRoom">Room</see>
+            <see cref="P:Eamon.Framework.IGameBase.Uid"> Uid</see>s or special codes representing things like game exits, doors, blocked pathways or other more exotic
+            game-specific portals. Avoid accessing array elements directly in favor of using Getter/Setter methods to ensure games can override when
+            necessary.
             </remarks>
             <seealso cref="M:Eamon.Framework.IRoom.GetDir(System.Int64)"/>
+            <seealso cref="M:Eamon.Framework.IRoom.GetDir(Eamon.Framework.Primitive.Enums.Direction)"/>
             <seealso cref="M:Eamon.Framework.IRoom.SetDir(System.Int64,System.Int64)"/>
+            <seealso cref="M:Eamon.Framework.IRoom.SetDir(Eamon.Framework.Primitive.Enums.Direction,System.Int64)"/>
         </member>
         <member name="M:Eamon.Framework.IRoom.GetDir(System.Int64)">
             <summary></summary>
@@ -3528,8 +3559,24 @@
             <summary></summary>
         </member>
         <member name="T:Eamon.Framework.Plugin.IEngine">
-            <summary></summary>
-            <remarks></remarks>
+            <summary>Implements the core functionality of the Eamon CS game engine.</summary>
+            <remarks>
+            Spending any amount of time looking through the Eamon CS code base reveals how critical this class is. 
+            Originally, it was split into three classes encompassing (low level) ClassMappings, Constants, and the
+            Engine itself. But this led to a convoluted property thunking implementation that was resolved when the
+            classes were merged into a single mega-class. Clearly this is against typical conventions, the tendency is
+            to split complexity apart, but in this case it felt like the conglomerate class simplified things, in spite
+            of the large amount of functionality contained within. Doing so doesn't really increase overall complexity
+            since these properties and methods are largely stand-alone, plus proper documentation will improve things
+            considerably.
+            <para>
+            This class combined with the <see cref="T:Eamon.Framework.IGameBase">GameBase</see>, Command, State, and Component derivatives
+            (among others) are used to implement games in Eamon CS. The different plugin Engine classes form a hierarchy,
+            often overriding or adding new functionality at higher system levels (particularly in games). This is also
+            the default class you can use to store runtime (non-persisted) game state variables, although it is
+            optional. Please take a look at the various games implemented in Eamon CS to see how Engine is used.
+            </para>
+            </remarks>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.CommandSepTokens">
             <summary></summary>
@@ -3544,148 +3591,260 @@
             <summary></summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.ArtNameLen">
-            <summary></summary>
+            <summary>
+            Gets the maximum length of an <see cref="T:Eamon.Framework.IArtifact">Artifact</see> <see cref="P:Eamon.Framework.IGameBase.Name">Name</see>.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.ArtStateDescLen">
-            <summary></summary>
+            <summary>
+            Gets the maximum length of an <see cref="T:Eamon.Framework.IArtifact">Artifact</see> <see cref="P:Eamon.Framework.IArtifact.StateDesc">StateDesc</see>.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.ArtDescLen">
-            <summary></summary>
+            <summary>
+            Gets the maximum length of an <see cref="T:Eamon.Framework.IArtifact">Artifact</see> <see cref="P:Eamon.Framework.IGameBase.Desc">Desc</see>.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.CharNameLen">
-            <summary></summary>
+            <summary>
+            Gets the maximum length of a <see cref="T:Eamon.Framework.ICharacter">Character</see> <see cref="P:Eamon.Framework.IGameBase.Name">Name</see>.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.CharArtNameLen">
-            <summary></summary>
+            <summary>
+            Gets the maximum length of a <see cref="T:Eamon.Framework.ICharacter">Character</see> <see cref="T:Eamon.Framework.IArtifact">Artifact</see> <see cref="P:Eamon.Framework.IGameBase.Name">Name</see> (e.g., armor, shield, or weapon).
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.CharArtDescLen">
-            <summary></summary>
+            <summary>
+            Gets the maximum length of a <see cref="T:Eamon.Framework.ICharacter">Character</see> <see cref="T:Eamon.Framework.IArtifact">Artifact</see> <see cref="P:Eamon.Framework.IGameBase.Desc">Desc</see> (e.g., armor, shield, or weapon).
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.EffDescLen">
-            <summary></summary>
+            <summary>
+            Gets the maximum length of an <see cref="T:Eamon.Framework.IEffect">Effect</see> <see cref="P:Eamon.Framework.IGameBase.Desc">Desc</see>.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.FsNameLen">
-            <summary></summary>
+            <summary>
+            Gets the maximum length of a <see cref="T:Eamon.Framework.IFileset">Fileset</see> <see cref="P:Eamon.Framework.IGameBase.Name">Name</see>.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.FsFileNameLen">
-            <summary></summary>
+            <summary>
+            Gets the maximum length of a <see cref="T:Eamon.Framework.IFileset">Fileset</see> file name (e.g., <see cref="P:Eamon.Framework.IFileset.PluginFileName">PluginFileName</see>, etc).
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.HntQuestionLen">
-            <summary></summary>
+            <summary>
+            Gets the maximum length of a <see cref="T:Eamon.Framework.IHint">Hint</see> <see cref="P:Eamon.Framework.IHint.Question">Question</see>.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.HntAnswerLen">
-            <summary></summary>
+            <summary>
+            Gets the maximum length of a <see cref="T:Eamon.Framework.IHint">Hint</see> <see cref="P:Eamon.Framework.IHint.Answers">Answer</see>.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.ModNameLen">
-            <summary></summary>
+            <summary>
+            Gets the maximum length of a <see cref="T:Eamon.Framework.IModule">Module</see> <see cref="P:Eamon.Framework.IGameBase.Name">Name</see>.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.ModDescLen">
-            <summary></summary>
+            <summary>
+            Gets the maximum length of a <see cref="T:Eamon.Framework.IModule">Module</see> <see cref="P:Eamon.Framework.IGameBase.Desc">Desc</see>.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.ModAuthorLen">
-            <summary></summary>
+            <summary>
+            Gets the maximum length of a <see cref="T:Eamon.Framework.IModule">Module</see> <see cref="P:Eamon.Framework.IModule.Author">Author</see>.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.ModVolLabelLen">
-            <summary></summary>
+            <summary>
+            Gets the maximum length of a <see cref="T:Eamon.Framework.IModule">Module</see> <see cref="P:Eamon.Framework.IModule.VolLabel">VolLabel</see>.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.ModSerialNumLen">
-            <summary></summary>
+            <summary>
+            Gets the maximum length of a <see cref="T:Eamon.Framework.IModule">Module</see> <see cref="P:Eamon.Framework.IModule.SerialNum">SerialNum</see>.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.MonNameLen">
-            <summary></summary>
+            <summary>
+            Gets the maximum length of a <see cref="T:Eamon.Framework.IMonster">Monster</see> <see cref="P:Eamon.Framework.IGameBase.Name">Name</see>.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.MonStateDescLen">
-            <summary></summary>
+            <summary>
+            Gets the maximum length of a <see cref="T:Eamon.Framework.IMonster">Monster</see> <see cref="P:Eamon.Framework.IMonster.StateDesc">StateDesc</see>.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.MonDescLen">
-            <summary></summary>
+            <summary>
+            Gets the maximum length of a <see cref="T:Eamon.Framework.IMonster">Monster</see> <see cref="P:Eamon.Framework.IGameBase.Desc">Desc</see>.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.RmNameLen">
-            <summary></summary>
+            <summary>
+            Gets the maximum length of a <see cref="T:Eamon.Framework.IRoom">Room</see> <see cref="P:Eamon.Framework.IGameBase.Name">Name</see>.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.RmDescLen">
-            <summary></summary>
+            <summary>
+            Gets the maximum length of a <see cref="T:Eamon.Framework.IRoom">Room</see> <see cref="P:Eamon.Framework.IGameBase.Desc">Desc</see>.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.AxePrice">
-            <summary></summary>
+            <summary>
+            Gets the base price, in gold pieces, of an <see cref="F:Eamon.Framework.Primitive.Enums.Weapon.Axe">axe</see> sold by Marcos Cavielli.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.BowPrice">
-            <summary></summary>
+            <summary>
+            Gets the base price, in gold pieces, of a <see cref="F:Eamon.Framework.Primitive.Enums.Weapon.Bow">bow</see> sold by Marcos Cavielli.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.MacePrice">
-            <summary></summary>
+            <summary>
+            Gets the base price, in gold pieces, of a <see cref="F:Eamon.Framework.Primitive.Enums.Weapon.Club">mace</see> sold by Marcos Cavielli.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.SpearPrice">
-            <summary></summary>
+            <summary>
+            Gets the base price, in gold pieces, of a <see cref="F:Eamon.Framework.Primitive.Enums.Weapon.Spear">spear</see> sold by Marcos Cavielli.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.SwordPrice">
-            <summary></summary>
+            <summary>
+            Gets the base price, in gold pieces, of a <see cref="F:Eamon.Framework.Primitive.Enums.Weapon.Sword">sword</see> sold by Marcos Cavielli.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.ShieldPrice">
-            <summary></summary>
+            <summary>
+            Gets the base price, in gold pieces, of a <see cref="F:Eamon.Framework.Primitive.Enums.Armor.ClothesShield">shield</see> sold by Marcos Cavielli.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.LeatherArmorPrice">
-            <summary></summary>
+            <summary>
+            Gets the base price, in gold pieces, of some <see cref="F:Eamon.Framework.Primitive.Enums.Armor.Leather">leather</see> armor sold by Marcos Cavielli.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.ChainMailPrice">
-            <summary></summary>
+            <summary>
+            Gets the base price, in gold pieces, of some <see cref="F:Eamon.Framework.Primitive.Enums.Armor.ChainMail">chain mail</see> armor sold by Marcos Cavielli.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.PlateMailPrice">
-            <summary></summary>
+            <summary>
+            Gets the base price, in gold pieces, of some <see cref="F:Eamon.Framework.Primitive.Enums.Armor.PlateMail">plate mail</see> armor sold by Marcos Cavielli.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.BlastPrice">
-            <summary></summary>
+            <summary>
+            Gets the base price, in gold pieces, of the <see cref="F:Eamon.Framework.Primitive.Enums.Spell.Blast">Blast</see> spell sold by Hokas Tokas.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.HealPrice">
-            <summary></summary>
+            <summary>
+            Gets the base price, in gold pieces, of the <see cref="F:Eamon.Framework.Primitive.Enums.Spell.Heal">Heal</see> spell sold by Hokas Tokas.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.SpeedPrice">
-            <summary></summary>
+            <summary>
+            Gets the base price, in gold pieces, of the <see cref="F:Eamon.Framework.Primitive.Enums.Spell.Speed">Speed</see> spell sold by Hokas Tokas.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.PowerPrice">
-            <summary></summary>
+            <summary>
+            Gets the base price, in gold pieces, of the <see cref="F:Eamon.Framework.Primitive.Enums.Spell.Power">Power</see> spell sold by Hokas Tokas.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.RecallPrice">
-            <summary></summary>
+            <summary>
+            Gets the base price, in gold pieces, of being recalled from an adventure by a local wizard, as noted by the Burly Irishman at the Front Desk.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.StatGainPrice">
-            <summary></summary>
+            <summary>
+            Gets the base price, in gold pieces, of having a <see cref="T:Eamon.Framework.Primitive.Enums.Stat">Stat</see> boosted by the Good Witch.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.WeaponTrainingPrice">
-            <summary></summary>
+            <summary>
+            Gets the base price, in gold pieces, of having a <see cref="T:Eamon.Framework.Primitive.Enums.Weapon">weapon</see> training session with Don Diego.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.ArmorTrainingPrice">
-            <summary></summary>
+            <summary>
+            Gets the base price, in gold pieces, of having an <see cref="T:Eamon.Framework.Primitive.Enums.Armor">armor</see> training session with the giant.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.SpellTrainingPrice">
-            <summary></summary>
+            <summary>
+            Gets the base price, in gold pieces, of having a <see cref="T:Eamon.Framework.Primitive.Enums.Spell">spell</see> training session with the licensed wizard.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.InfoBoothPrice">
-            <summary></summary>
+            <summary>
+            Gets the base price, in gold pieces, of purchasing services from the practice area info booth.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.FountainPrice">
-            <summary></summary>
+            <summary>
+            Gets the base price, in gold pieces, of interacting with the village fountain statue.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.NumDatabases">
-            <summary></summary>
+            <summary>
+            Gets the maximum number of <see cref="T:Eamon.Framework.DataStorage.IDatabase">Database</see>s allowed in the database stack.
+            </summary>
+            <remarks>
+            When a plugin is loaded, a new plugin-specific database is instantiated and pushed onto the stack. For example, EamonMH
+            might use a database containing <see cref="T:Eamon.Framework.ICharacter">Character</see>s, (snappy) <see cref="T:Eamon.Framework.IEffect">Effect</see>s and
+            (adventure) <see cref="T:Eamon.Framework.IFileset">Fileset</see>s. But, when an adventure starts, a new database with game-specific
+            records is pushed onto the stack. Then, when the game exits, the game database is popped off the stack, and the
+            EamonMH database is restored. There may be other scenarios as well.
+            </remarks>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.NumRulesetVersions">
-            <summary></summary>
+            <summary>
+            Gets the maximum number of <see cref="P:Eamon.Framework.Plugin.IEngine.RulesetVersion">RulesetVersion</see>s allowed in the ruleset version stack.
+            </summary>
+            <remarks>
+            The game engine emulates different versions of Eamon using a stack of ruleset versions. It is possible to alter game
+            behavior at key points by pushing a different ruleset version on the stack, then later popping it off. Various games
+            actually do this. But pushing a single ruleset version on and leaving it is more typical.
+            </remarks>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.NumArtifactCategories">
-            <summary></summary>
+            <summary>
+            Gets the maximum number of Categories assignable to a single <see cref="T:Eamon.Framework.IArtifact">Artifact</see>.
+            </summary>
+            <remarks>
+            Each Artifact fits into one or more Categories defined by <see cref="T:Eamon.Framework.Primitive.Enums.ArtifactType"/>, which affects its behavior when
+            manipulated by various Commands during the game.
+            </remarks>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.BufSize">
-            <summary></summary>
+            <summary>
+            Gets the default size for large, discardable StringBuilders created during system processing.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.BufSize01">
-            <summary></summary>
+            <summary>
+            Gets the default size for small, discardable StringBuilders created during system processing.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.BufSize02">
-            <summary></summary>
+            <summary>
+            Gets the default size for tiny, discardable StringBuilders created during system processing.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.BufSize03">
-            <summary></summary>
+            <summary>
+            Gets the default size for medium, discardable StringBuilders created during system processing.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.ResolveEffectRegexPattern">
             <summary></summary>
@@ -3721,61 +3880,146 @@
             <summary></summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.RecIdepErrorFmtStr">
-            <summary></summary>
+            <summary>
+            Gets the format string used to produce error messages during <see cref="T:Eamon.Framework.IGameBase">Record</see> interdependency checking.
+            </summary>
+            <remarks>
+            The Eamon CS Dungeon Designer plugin (EamonDD) uses this format string to produce error messages when analysing
+            Record interdependencies. A variety of potential error conditions can be caught during this process.
+            </remarks>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.AndroidAdventuresDir">
-            <summary></summary>
+            <summary>
+            Gets the Adventures directory path on Android platforms, relative to the working directory.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.AdventuresDir">
-            <summary></summary>
+            <summary>
+            Gets the Adventures directory path on non-Android platforms, relative to the working directory.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.QuickLaunchDir">
-            <summary></summary>
+            <summary>
+            Gets the QuickLaunch directory path, relative to the working directory.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.DefaultWorkDir">
             <summary></summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.ProcessMutexName">
-            <summary></summary>
+            <summary>
+            Gets the name of the <see cref="P:Eamon.Framework.Plugin.IEngine.Mutex">Mutex</see> used to synchronize Eamon CS processes.
+            </summary>
+            <remarks>
+            Due to the use of an in-memory database, only one Eamon CS process is allowed to run at a time. The <see cref="P:Eamon.Framework.Plugin.IEngine.ProgVersion">ProgVersion</see>
+            is embedded in the name.
+            </remarks>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.EamonDesktopSlnFile">
-            <summary></summary>
+            <summary>
+            Gets the Eamon CS Desktop Solution path and file name, relative to the working directory.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.StackTraceFile">
-            <summary></summary>
+            <summary>
+            Gets the relative path and name of the error file dumped when an unexpected system shutdown occurs.
+            </summary>
+            <remarks>
+            If an unexpected and unrecoverable error occurs, Eamon CS will abort execution and dump a series of error messages to
+            a stack trace file located in the current working directory (typically System\Bin or an Adventure folder). This usually
+            happens for uncaught exceptions, or record validation errors. Looking in the file can be helpful to overcome the issue. But
+            in the case of a game engine bug, if possible, please contact TheRealEamonCS@hotmail.com and provide this file along with a
+            description of your actions. It can greatly aid in the debugging process.
+            </remarks>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.GlobalLaunchParametersFile">
-            <summary></summary>
+            <summary>
+            Gets the Global Launch Parameters path and file name, relative to the working directory.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.ProgVersion">
-            <summary></summary>
+            <summary>
+            Gets the Eamon CS system version displayed on program startup.
+            </summary>
+            <remarks>
+            All Eamon CS programs and plugins share a common version number, which is embedded in a <see cref="P:Eamon.Framework.Plugin.IEngine.Mutex">Mutex</see> name
+            to prevent duplicate processes from running.
+            </remarks>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.InfiniteDrinkableEdible">
-            <summary></summary>
+            <summary>
+            Gets a value indicating whether a <see cref="F:Eamon.Framework.Primitive.Enums.ArtifactType.Drinkable">Drinkable</see> or <see cref="F:Eamon.Framework.Primitive.Enums.ArtifactType.Edible">Edible</see>
+            <see cref="T:Eamon.Framework.IArtifact">Artifact</see> has infinite quantity.
+            </summary>
+            <remarks>
+            This value would be stored in <see cref="P:Eamon.Framework.Primitive.Classes.IArtifactCategory.Field2">Field2</see>.
+            </remarks>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.DirectionExit">
-            <summary></summary>
+            <summary>
+            Gets the <see cref="T:Eamon.Framework.IRoom">Room</see> <see cref="P:Eamon.Framework.IGameBase.Uid"> Uid</see> constant representing an exit from a game.
+            </summary>
+            <remarks>
+            Traversing a Room <see cref="T:Eamon.Framework.Primitive.Enums.Direction"/> link set to this value will return the player to the Main Hall.
+            </remarks>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.LimboLocation">
-            <summary></summary>
+            <summary>
+            Gets the <see cref="T:Eamon.Framework.IRoom">Room</see> <see cref="P:Eamon.Framework.IGameBase.Uid"> Uid</see> constant representing "limbo".
+            </summary>
+            <remarks>
+            Setting a <see cref="T:Eamon.Framework.IMonster">Monster</see> <see cref="P:Eamon.Framework.IMonster.Location">Location</see> or <see cref="T:Eamon.Framework.IArtifact">Artifact</see>
+            <see cref="P:Eamon.Framework.IArtifact.Location">Location</see> to this value makes it unreachable by putting it "outside the known universe" (outside
+            the game). A Room <see cref="T:Eamon.Framework.Primitive.Enums.Direction"/> link set to this value is not traversable.
+            </remarks>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.MinWeaponComplexity">
-            <summary></summary>
+            <summary>
+            Gets the minimum allowed weapon Complexity.
+            </summary>
+            <remarks>
+            For <see cref="T:Eamon.Framework.IArtifact">Artifact</see>s with a <see cref="P:Eamon.Framework.Primitive.Classes.IArtifactCategory.Type">Type</see> of <see cref="F:Eamon.Framework.Primitive.Enums.ArtifactType.Weapon">Weapon</see>
+            or <see cref="F:Eamon.Framework.Primitive.Enums.ArtifactType.MagicWeapon">MagicWeapon</see>, this denotes the minimum value for <see cref="P:Eamon.Framework.Primitive.Classes.IArtifactCategory.Field1">Field1</see>, also
+            known as Odds.
+            </remarks>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.MaxWeaponComplexity">
-            <summary></summary>
+            <summary>
+            Gets the maximum allowed weapon Complexity.
+            </summary>
+            <remarks>
+            For <see cref="T:Eamon.Framework.IArtifact">Artifact</see>s with a <see cref="P:Eamon.Framework.Primitive.Classes.IArtifactCategory.Type">Type</see> of <see cref="F:Eamon.Framework.Primitive.Enums.ArtifactType.Weapon">Weapon</see>
+            or <see cref="F:Eamon.Framework.Primitive.Enums.ArtifactType.MagicWeapon">MagicWeapon</see>, this denotes the maximum value for <see cref="P:Eamon.Framework.Primitive.Classes.IArtifactCategory.Field1">Field1</see>, also
+            known as Odds.
+            </remarks>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.MinGoldValue">
-            <summary></summary>
+            <summary>
+            Gets the minimum amount of gold the player character can carry or hold in the bank.
+            </summary>
+            <remarks>
+            This negative number actually represents the maximum amount of debt oweable by the player character.
+            </remarks>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.MaxGoldValue">
-            <summary></summary>
+            <summary>
+            Gets the maximum amount of gold the player character can carry or hold in the bank.
+            </summary>
+            <remarks>
+            This maximum value applies separately to each.
+            </remarks>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.MaxPathLen">
             <summary></summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.MaxRecursionLevel">
-            <summary></summary>
+            <summary>
+            Gets the maximum recursion level for macro replacement.
+            </summary>
+            <remarks>
+            When resolving <see cref="P:Eamon.Framework.Plugin.IEngine.MacroFuncs">MacroFuncs</see> macros, this value is a circuit breaker that ensures there is
+            never an infinite loop.
+            </remarks>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.WindowWidth">
             <summary></summary>
@@ -3887,8 +4131,8 @@
             </summary>
             <remarks>
             Earlier rulesets of Eamon gave a different "vibe" to the gameplay experience, so a means to support them was introduced.  Currently supported
-            rulesets include 5 for DDD5 and 0 for Eamon Deluxe.  The Temple of Ngurct is the only game using DDD5 at the time of this writing.  Recent
-            enhancements allow a game to change rulesets dynamically at runtime.
+            rulesets include 5 for DDD5, 62 for DDD6.2, and 0 for Eamon Deluxe.  The Temple of Ngurct is the only game using DDD5 at the time of this
+            writing.  Recent enhancements allow a game to change rulesets dynamically at runtime.
             </remarks>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.EnableMutateProperties">
@@ -3924,7 +4168,15 @@
             </remarks>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.DisableValidation">
-            <summary></summary>
+            <summary>
+            Gets or sets a value indicating whether validation should be disabled when <see cref="T:Eamon.Framework.IGameBase">Record</see>s are loaded.
+            </summary>
+            <remarks>
+            The various <see cref="T:Eamon.Framework.Helpers.Generic.IHelper`1">Helper</see> subclasses perform Record validation to ensure the data being loaded
+            is as expected, but there are times when this default behavior is undesirable. For example, when porting an adventure from a previous
+            Eamon system, the Record data may need to be massaged to make it compatible with Eamon CS. Doing this requires validation to be 
+            temporarily disabled.
+            </remarks>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.RepaintWindow">
             <summary></summary>
@@ -3972,34 +4224,74 @@
             <summary></summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.CFGDB">
-            <summary></summary>
+            <summary>Gets or sets the <see cref="T:Eamon.Framework.IConfig">Config</see> database quick-accessor.</summary>
+            <remarks>
+            The <see cref="P:Eamon.Framework.DataStorage.Generic.IRecordDb`1.Records">Records</see> property provides access to the Config collection. Additionally, you can 
+            get or set a specific Config by using its <see cref="P:Eamon.Framework.IGameBase.Uid">Uid</see> as an indexer.
+            </remarks>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.FSDB">
-            <summary></summary>
+            <summary>Gets or sets the <see cref="T:Eamon.Framework.IFileset">Fileset</see> database quick-accessor.</summary>
+            <remarks>
+            The <see cref="P:Eamon.Framework.DataStorage.Generic.IRecordDb`1.Records">Records</see> property provides access to the Fileset collection. Additionally, you can 
+            get or set a specific Fileset by using its <see cref="P:Eamon.Framework.IGameBase.Uid">Uid</see> as an indexer.
+            </remarks>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.CHRDB">
-            <summary></summary>
+            <summary>Gets or sets the <see cref="T:Eamon.Framework.ICharacter">Character</see> database quick-accessor.</summary>
+            <remarks>
+            The <see cref="P:Eamon.Framework.DataStorage.Generic.IRecordDb`1.Records">Records</see> property provides access to the Character collection. Additionally, you can 
+            get or set a specific Character by using its <see cref="P:Eamon.Framework.IGameBase.Uid">Uid</see> as an indexer.
+            </remarks>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.MODDB">
-            <summary></summary>
+            <summary>Gets or sets the <see cref="T:Eamon.Framework.IModule">Module</see> database quick-accessor.</summary>
+            <remarks>
+            The <see cref="P:Eamon.Framework.DataStorage.Generic.IRecordDb`1.Records">Records</see> property provides access to the Module collection. Additionally, you can 
+            get or set a specific Module by using its <see cref="P:Eamon.Framework.IGameBase.Uid">Uid</see> as an indexer.
+            </remarks>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.RDB">
-            <summary></summary>
+            <summary>Gets or sets the <see cref="T:Eamon.Framework.IRoom">Room</see> database quick-accessor.</summary>
+            <remarks>
+            The <see cref="P:Eamon.Framework.DataStorage.Generic.IRecordDb`1.Records">Records</see> property provides access to the Room collection. Additionally, you can 
+            get or set a specific Room by using its <see cref="P:Eamon.Framework.IGameBase.Uid">Uid</see> as an indexer.
+            </remarks>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.ADB">
-            <summary></summary>
+            <summary>Gets or sets the <see cref="T:Eamon.Framework.IArtifact">Artifact</see> database quick-accessor.</summary>
+            <remarks>
+            The <see cref="P:Eamon.Framework.DataStorage.Generic.IRecordDb`1.Records">Records</see> property provides access to the Artifact collection. Additionally, you can 
+            get or set a specific Artifact by using its <see cref="P:Eamon.Framework.IGameBase.Uid">Uid</see> as an indexer.
+            </remarks>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.EDB">
-            <summary></summary>
+            <summary>Gets or sets the <see cref="T:Eamon.Framework.IEffect">Effect</see> database quick-accessor.</summary>
+            <remarks>
+            The <see cref="P:Eamon.Framework.DataStorage.Generic.IRecordDb`1.Records">Records</see> property provides access to the Effect collection. Additionally, you can 
+            get or set a specific Effect by using its <see cref="P:Eamon.Framework.IGameBase.Uid">Uid</see> as an indexer.
+            </remarks>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.MDB">
-            <summary></summary>
+            <summary>Gets or sets the <see cref="T:Eamon.Framework.IMonster">Monster</see> database quick-accessor.</summary>
+            <remarks>
+            The <see cref="P:Eamon.Framework.DataStorage.Generic.IRecordDb`1.Records">Records</see> property provides access to the Monster collection. Additionally, you can 
+            get or set a specific Monster by using its <see cref="P:Eamon.Framework.IGameBase.Uid">Uid</see> as an indexer.
+            </remarks>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.HDB">
-            <summary></summary>
+            <summary>Gets or sets the <see cref="T:Eamon.Framework.IHint">Hint</see> database quick-accessor.</summary>
+            <remarks>
+            The <see cref="P:Eamon.Framework.DataStorage.Generic.IRecordDb`1.Records">Records</see> property provides access to the Hint collection. Additionally, you can 
+            get or set a specific Hint by using its <see cref="P:Eamon.Framework.IGameBase.Uid">Uid</see> as an indexer.
+            </remarks>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.GSDB">
-            <summary></summary>
+            <summary>Gets or sets the <see cref="T:Eamon.Framework.IGameState">GameState</see> database quick-accessor.</summary>
+            <remarks>
+            The <see cref="P:Eamon.Framework.DataStorage.Generic.IRecordDb`1.Records">Records</see> property provides access to the GameState collection. Additionally, you can 
+            get or set a specific GameState by using its <see cref="P:Eamon.Framework.IGameBase.Uid">Uid</see> as an indexer.
+            </remarks>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.MacroFuncs">
             <summary>
@@ -4447,7 +4739,7 @@
         </member>
         <member name="M:Eamon.Framework.Plugin.IEngine.IsValidArtifactArmor(System.Int64,System.Boolean)">
             <summary>
-            Indicates whether an armor value is valid for an wearable <see cref="T:Eamon.Framework.IArtifact">Artifact</see>.
+            Indicates whether an armor value is valid for a wearable <see cref="T:Eamon.Framework.IArtifact">Artifact</see>.
             </summary>
             <param name="armor"></param>
             <param name="includeShields"></param>
@@ -6663,7 +6955,8 @@
             </summary>
             <remarks>
             The last three should be familiar to anyone who has been involved with Eamon before; <see cref="F:Eamon.Framework.Primitive.Enums.Stat.Intellect">Intellect</see>
-            is unique to Eamon CS, and represents the character's mental capacity, wisdom and/or intelligence.
+            is unique to Eamon CS, and represents the character's mental capacity, wisdom and/or intelligence. Some of these Stats are used
+            by <see cref="T:Eamon.Framework.IMonster">Monster</see>s as well.
             </remarks>
         </member>
         <member name="F:Eamon.Framework.Primitive.Enums.Stat.Intellect">

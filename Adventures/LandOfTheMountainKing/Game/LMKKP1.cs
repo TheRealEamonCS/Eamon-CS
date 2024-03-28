@@ -13,7 +13,7 @@ namespace LandOfTheMountainKing.Game
 	{
 		public virtual int Lampdir { get; set; }		// = 7;	SET IN MAINLOOP.CS
 		public virtual int NecklaceTaken { get; set; }		// 0:not taken, 1:taken but not given, 2:given
-		public virtual int SaidHello { get; set; }      // have you already said hello to Lisa?
+		public virtual int SaidHello { get; set; }      // Have you already said hello to Lisa?
 		public virtual int SwampMonsterKilled { get; set; }      //	SET IN MAINLOOP.CS
 
 		public virtual long Hard { get; set; }			//	SET IN MAINLOOP.CS

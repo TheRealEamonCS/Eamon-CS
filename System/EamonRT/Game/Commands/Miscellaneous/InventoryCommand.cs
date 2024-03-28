@@ -208,7 +208,7 @@ namespace EamonRT.Game.Commands
 		{
 			if (IsCharMonster)
 			{
-				// use total debt for characters with no assets; otherwise use HeldGold (which may be debt or asset)
+				// Use total debt for characters with no assets; otherwise use HeldGold (which may be debt or asset)
 
 				TotalGold = gCharacter.HeldGold < 0 && gCharacter.BankGold < 0 ? gCharacter.HeldGold + gCharacter.BankGold : gCharacter.HeldGold;
 

@@ -40,11 +40,15 @@ namespace Eamon.Framework
 		/// Gets or sets an array of <see cref="IRoom">Room</see> exit links, each element corresponding to one <see cref="Direction">Direction</see>.
 		/// </summary>
 		/// <remarks>
-		/// The elements of this array can be manipulated during game play, but you should never do so directly.  Instead, use the
-		/// <see cref="GetDir(Direction)"/> and <see cref="SetDir(Direction,long)"/> methods.  The 0'th element is unused.
+		/// The array always contains the same number of elements, and the 0'th element is unused. Exit links can be <see cref="IRoom">Room</see>
+		/// <see cref="IGameBase.Uid"> Uid</see>s or special codes representing things like game exits, doors, blocked pathways or other more exotic
+		/// game-specific portals. Avoid accessing array elements directly in favor of using Getter/Setter methods to ensure games can override when
+		/// necessary.
 		/// </remarks>
 		/// <seealso cref="GetDir(long)"/>
+		/// <seealso cref="GetDir(Direction)"/>
 		/// <seealso cref="SetDir(long,long)"/>
+		/// <seealso cref="SetDir(Direction,long)"/>
 		long[] Dirs { get; set; }
 
 		#endregion

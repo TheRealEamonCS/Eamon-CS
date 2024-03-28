@@ -17,8 +17,24 @@ using Eamon.Framework.Primitive.Enums;
 
 namespace Eamon.Framework.Plugin
 {
-	/// <summary></summary>
-	/// <remarks></remarks>
+	/// <summary>Implements the core functionality of the Eamon CS game engine.</summary>
+	/// <remarks>
+	/// Spending any amount of time looking through the Eamon CS code base reveals how critical this class is. 
+	/// Originally, it was split into three classes encompassing (low level) ClassMappings, Constants, and the
+	/// Engine itself. But this led to a convoluted property thunking implementation that was resolved when the
+	/// classes were merged into a single mega-class. Clearly this is against typical conventions, the tendency is
+	/// to split complexity apart, but in this case it felt like the conglomerate class simplified things, in spite
+	/// of the large amount of functionality contained within. Doing so doesn't really increase overall complexity
+	/// since these properties and methods are largely stand-alone, plus proper documentation will improve things
+	/// considerably.
+	/// <para>
+	/// This class combined with the <see cref="IGameBase">GameBase</see>, Command, State, and Component derivatives
+	/// (among others) are used to implement games in Eamon CS. The different plugin Engine classes form a hierarchy,
+	/// often overriding or adding new functionality at higher system levels (particularly in games). This is also
+	/// the default class you can use to store runtime (non-persisted) game state variables, although it is
+	/// optional. Please take a look at the various games implemented in Eamon CS to see how Engine is used.
+	/// </para>
+	/// </remarks>
 	public interface IEngine
 	{
 		#region Public Properties
@@ -35,148 +51,260 @@ namespace Eamon.Framework.Plugin
 		/// <summary></summary>
 		string CourageDesc { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the maximum length of an <see cref="IArtifact">Artifact</see> <see cref="IGameBase.Name">Name</see>.
+		/// </summary>
 		int ArtNameLen { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the maximum length of an <see cref="IArtifact">Artifact</see> <see cref="IArtifact.StateDesc">StateDesc</see>.
+		/// </summary>
 		int ArtStateDescLen { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the maximum length of an <see cref="IArtifact">Artifact</see> <see cref="IGameBase.Desc">Desc</see>.
+		/// </summary>
 		int ArtDescLen { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the maximum length of a <see cref="ICharacter">Character</see> <see cref="IGameBase.Name">Name</see>.
+		/// </summary>
 		int CharNameLen { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the maximum length of a <see cref="ICharacter">Character</see> <see cref="IArtifact">Artifact</see> <see cref="IGameBase.Name">Name</see> (e.g., armor, shield, or weapon).
+		/// </summary>
 		int CharArtNameLen { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the maximum length of a <see cref="ICharacter">Character</see> <see cref="IArtifact">Artifact</see> <see cref="IGameBase.Desc">Desc</see> (e.g., armor, shield, or weapon).
+		/// </summary>
 		int CharArtDescLen { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the maximum length of an <see cref="IEffect">Effect</see> <see cref="IGameBase.Desc">Desc</see>.
+		/// </summary>
 		int EffDescLen { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the maximum length of a <see cref="IFileset">Fileset</see> <see cref="IGameBase.Name">Name</see>.
+		/// </summary>
 		int FsNameLen { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the maximum length of a <see cref="IFileset">Fileset</see> file name (e.g., <see cref="IFileset.PluginFileName">PluginFileName</see>, etc).
+		/// </summary>
 		int FsFileNameLen { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the maximum length of a <see cref="IHint">Hint</see> <see cref="IHint.Question">Question</see>.
+		/// </summary>
 		int HntQuestionLen { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the maximum length of a <see cref="IHint">Hint</see> <see cref="IHint.Answers">Answer</see>.
+		/// </summary>
 		int HntAnswerLen { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the maximum length of a <see cref="IModule">Module</see> <see cref="IGameBase.Name">Name</see>.
+		/// </summary>
 		int ModNameLen { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the maximum length of a <see cref="IModule">Module</see> <see cref="IGameBase.Desc">Desc</see>.
+		/// </summary>
 		int ModDescLen { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the maximum length of a <see cref="IModule">Module</see> <see cref="IModule.Author">Author</see>.
+		/// </summary>
 		int ModAuthorLen { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the maximum length of a <see cref="IModule">Module</see> <see cref="IModule.VolLabel">VolLabel</see>.
+		/// </summary>
 		int ModVolLabelLen { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the maximum length of a <see cref="IModule">Module</see> <see cref="IModule.SerialNum">SerialNum</see>.
+		/// </summary>
 		int ModSerialNumLen { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the maximum length of a <see cref="IMonster">Monster</see> <see cref="IGameBase.Name">Name</see>.
+		/// </summary>
 		int MonNameLen { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the maximum length of a <see cref="IMonster">Monster</see> <see cref="IMonster.StateDesc">StateDesc</see>.
+		/// </summary>
 		int MonStateDescLen { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the maximum length of a <see cref="IMonster">Monster</see> <see cref="IGameBase.Desc">Desc</see>.
+		/// </summary>
 		int MonDescLen { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the maximum length of a <see cref="IRoom">Room</see> <see cref="IGameBase.Name">Name</see>.
+		/// </summary>
 		int RmNameLen { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the maximum length of a <see cref="IRoom">Room</see> <see cref="IGameBase.Desc">Desc</see>.
+		/// </summary>
 		int RmDescLen { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the base price, in gold pieces, of an <see cref="Weapon.Axe">axe</see> sold by Marcos Cavielli.
+		/// </summary>
 		long AxePrice { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the base price, in gold pieces, of a <see cref="Weapon.Bow">bow</see> sold by Marcos Cavielli.
+		/// </summary>
 		long BowPrice { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the base price, in gold pieces, of a <see cref="Weapon.Club">mace</see> sold by Marcos Cavielli.
+		/// </summary>
 		long MacePrice { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the base price, in gold pieces, of a <see cref="Weapon.Spear">spear</see> sold by Marcos Cavielli.
+		/// </summary>
 		long SpearPrice { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the base price, in gold pieces, of a <see cref="Weapon.Sword">sword</see> sold by Marcos Cavielli.
+		/// </summary>
 		long SwordPrice { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the base price, in gold pieces, of a <see cref="Armor.ClothesShield">shield</see> sold by Marcos Cavielli.
+		/// </summary>
 		long ShieldPrice { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the base price, in gold pieces, of some <see cref="Armor.Leather">leather</see> armor sold by Marcos Cavielli.
+		/// </summary>
 		long LeatherArmorPrice { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the base price, in gold pieces, of some <see cref="Armor.ChainMail">chain mail</see> armor sold by Marcos Cavielli.
+		/// </summary>
 		long ChainMailPrice { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the base price, in gold pieces, of some <see cref="Armor.PlateMail">plate mail</see> armor sold by Marcos Cavielli.
+		/// </summary>
 		long PlateMailPrice { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the base price, in gold pieces, of the <see cref="Spell.Blast">Blast</see> spell sold by Hokas Tokas.
+		/// </summary>
 		long BlastPrice { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the base price, in gold pieces, of the <see cref="Spell.Heal">Heal</see> spell sold by Hokas Tokas.
+		/// </summary>
 		long HealPrice { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the base price, in gold pieces, of the <see cref="Spell.Speed">Speed</see> spell sold by Hokas Tokas.
+		/// </summary>
 		long SpeedPrice { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the base price, in gold pieces, of the <see cref="Spell.Power">Power</see> spell sold by Hokas Tokas.
+		/// </summary>
 		long PowerPrice { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the base price, in gold pieces, of being recalled from an adventure by a local wizard, as noted by the Burly Irishman at the Front Desk.
+		/// </summary>
 		long RecallPrice { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the base price, in gold pieces, of having a <see cref="Stat">Stat</see> boosted by the Good Witch.
+		/// </summary>
 		long StatGainPrice { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the base price, in gold pieces, of having a <see cref="Weapon">weapon</see> training session with Don Diego.
+		/// </summary>
 		long WeaponTrainingPrice { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the base price, in gold pieces, of having an <see cref="Armor">armor</see> training session with the giant.
+		/// </summary>
 		long ArmorTrainingPrice { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the base price, in gold pieces, of having a <see cref="Spell">spell</see> training session with the licensed wizard.
+		/// </summary>
 		long SpellTrainingPrice { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the base price, in gold pieces, of purchasing services from the practice area info booth.
+		/// </summary>
 		long InfoBoothPrice { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the base price, in gold pieces, of interacting with the village fountain statue.
+		/// </summary>
 		long FountainPrice { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the maximum number of <see cref="IDatabase">Database</see>s allowed in the database stack.
+		/// </summary>
+		/// <remarks>
+		/// When a plugin is loaded, a new plugin-specific database is instantiated and pushed onto the stack. For example, EamonMH
+		/// might use a database containing <see cref="ICharacter">Character</see>s, (snappy) <see cref="IEffect">Effect</see>s and
+		/// (adventure) <see cref="IFileset">Fileset</see>s. But, when an adventure starts, a new database with game-specific
+		/// records is pushed onto the stack. Then, when the game exits, the game database is popped off the stack, and the
+		/// EamonMH database is restored. There may be other scenarios as well.
+		/// </remarks>
 		long NumDatabases { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the maximum number of <see cref="RulesetVersion">RulesetVersion</see>s allowed in the ruleset version stack.
+		/// </summary>
+		/// <remarks>
+		/// The game engine emulates different versions of Eamon using a stack of ruleset versions. It is possible to alter game
+		/// behavior at key points by pushing a different ruleset version on the stack, then later popping it off. Various games
+		/// actually do this. But pushing a single ruleset version on and leaving it is more typical.
+		/// </remarks>
 		long NumRulesetVersions { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the maximum number of Categories assignable to a single <see cref="IArtifact">Artifact</see>.
+		/// </summary>
+		/// <remarks>
+		/// Each Artifact fits into one or more Categories defined by <see cref="ArtifactType"/>, which affects its behavior when
+		/// manipulated by various Commands during the game.
+		/// </remarks>
 		long NumArtifactCategories { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the default size for large, discardable StringBuilders created during system processing.
+		/// </summary>
 		int BufSize { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the default size for small, discardable StringBuilders created during system processing.
+		/// </summary>
 		int BufSize01 { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the default size for tiny, discardable StringBuilders created during system processing.
+		/// </summary>
 		int BufSize02 { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the default size for medium, discardable StringBuilders created during system processing.
+		/// </summary>
 		int BufSize03 { get; }
 
 		/// <summary></summary>
@@ -212,61 +340,146 @@ namespace Eamon.Framework.Plugin
 		/// <summary></summary>
 		string MscorlibName { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the format string used to produce error messages during <see cref="IGameBase">Record</see> interdependency checking.
+		/// </summary>
+		/// <remarks>
+		/// The Eamon CS Dungeon Designer plugin (EamonDD) uses this format string to produce error messages when analysing
+		/// Record interdependencies. A variety of potential error conditions can be caught during this process.
+		/// </remarks>
 		string RecIdepErrorFmtStr { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the Adventures directory path on Android platforms, relative to the working directory.
+		/// </summary>
 		string AndroidAdventuresDir { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the Adventures directory path on non-Android platforms, relative to the working directory.
+		/// </summary>
 		string AdventuresDir { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the QuickLaunch directory path, relative to the working directory.
+		/// </summary>
 		string QuickLaunchDir { get; }
 
 		/// <summary></summary>
 		string DefaultWorkDir { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the name of the <see cref="Mutex">Mutex</see> used to synchronize Eamon CS processes.
+		/// </summary>
+		/// <remarks>
+		/// Due to the use of an in-memory database, only one Eamon CS process is allowed to run at a time. The <see cref="ProgVersion">ProgVersion</see>
+		/// is embedded in the name.
+		/// </remarks>
 		string ProcessMutexName { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the Eamon CS Desktop Solution path and file name, relative to the working directory.
+		/// </summary>
 		string EamonDesktopSlnFile { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the relative path and name of the error file dumped when an unexpected system shutdown occurs.
+		/// </summary>
+		/// <remarks>
+		/// If an unexpected and unrecoverable error occurs, Eamon CS will abort execution and dump a series of error messages to
+		/// a stack trace file located in the current working directory (typically System\Bin or an Adventure folder). This usually
+		/// happens for uncaught exceptions, or record validation errors. Looking in the file can be helpful to overcome the issue. But
+		/// in the case of a game engine bug, if possible, please contact TheRealEamonCS@hotmail.com and provide this file along with a
+		/// description of your actions. It can greatly aid in the debugging process.
+		/// </remarks>
 		string StackTraceFile { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the Global Launch Parameters path and file name, relative to the working directory.
+		/// </summary>
 		string GlobalLaunchParametersFile { get; }
 		
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the Eamon CS system version displayed on program startup.
+		/// </summary>
+		/// <remarks>
+		/// All Eamon CS programs and plugins share a common version number, which is embedded in a <see cref="Mutex">Mutex</see> name
+		/// to prevent duplicate processes from running.
+		/// </remarks>
 		string ProgVersion { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets a value indicating whether a <see cref="ArtifactType.Drinkable">Drinkable</see> or <see cref="ArtifactType.Edible">Edible</see>
+		/// <see cref="IArtifact">Artifact</see> has infinite quantity.
+		/// </summary>
+		/// <remarks>
+		/// This value would be stored in <see cref="IArtifactCategory.Field2">Field2</see>.
+		/// </remarks>
 		long InfiniteDrinkableEdible { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the <see cref="IRoom">Room</see> <see cref="IGameBase.Uid"> Uid</see> constant representing an exit from a game.
+		/// </summary>
+		/// <remarks>
+		/// Traversing a Room <see cref="Direction"/> link set to this value will return the player to the Main Hall.
+		/// </remarks>
 		long DirectionExit { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the <see cref="IRoom">Room</see> <see cref="IGameBase.Uid"> Uid</see> constant representing "limbo".
+		/// </summary>
+		/// <remarks>
+		/// Setting a <see cref="IMonster">Monster</see> <see cref="IMonster.Location">Location</see> or <see cref="IArtifact">Artifact</see>
+		/// <see cref="IArtifact.Location">Location</see> to this value makes it unreachable by putting it "outside the known universe" (outside
+		/// the game). A Room <see cref="Direction"/> link set to this value is not traversable.
+		/// </remarks>
 		long LimboLocation { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the minimum allowed weapon Complexity.
+		/// </summary>
+		/// <remarks>
+		/// For <see cref="IArtifact">Artifact</see>s with a <see cref="IArtifactCategory.Type">Type</see> of <see cref="ArtifactType.Weapon">Weapon</see>
+		/// or <see cref="ArtifactType.MagicWeapon">MagicWeapon</see>, this denotes the minimum value for <see cref="IArtifactCategory.Field1">Field1</see>, also
+		/// known as Odds.
+		/// </remarks>
 		long MinWeaponComplexity { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the maximum allowed weapon Complexity.
+		/// </summary>
+		/// <remarks>
+		/// For <see cref="IArtifact">Artifact</see>s with a <see cref="IArtifactCategory.Type">Type</see> of <see cref="ArtifactType.Weapon">Weapon</see>
+		/// or <see cref="ArtifactType.MagicWeapon">MagicWeapon</see>, this denotes the maximum value for <see cref="IArtifactCategory.Field1">Field1</see>, also
+		/// known as Odds.
+		/// </remarks>
 		long MaxWeaponComplexity { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the minimum amount of gold the player character can carry or hold in the bank.
+		/// </summary>
+		/// <remarks>
+		/// This negative number actually represents the maximum amount of debt oweable by the player character.
+		/// </remarks>
 		long MinGoldValue { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the maximum amount of gold the player character can carry or hold in the bank.
+		/// </summary>
+		/// <remarks>
+		/// This maximum value applies separately to each.
+		/// </remarks>
 		long MaxGoldValue { get; }
 
 		/// <summary></summary>
 		long MaxPathLen { get; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets the maximum recursion level for macro replacement.
+		/// </summary>
+		/// <remarks>
+		/// When resolving <see cref="MacroFuncs">MacroFuncs</see> macros, this value is a circuit breaker that ensures there is
+		/// never an infinite loop.
+		/// </remarks>
 		long MaxRecursionLevel { get; }
 
 		/// <summary></summary>
@@ -378,8 +591,8 @@ namespace Eamon.Framework.Plugin
 		/// </summary>
 		/// <remarks>
 		/// Earlier rulesets of Eamon gave a different "vibe" to the gameplay experience, so a means to support them was introduced.  Currently supported
-		/// rulesets include 5 for DDD5 and 0 for Eamon Deluxe.  The Temple of Ngurct is the only game using DDD5 at the time of this writing.  Recent
-		/// enhancements allow a game to change rulesets dynamically at runtime.
+		/// rulesets include 5 for DDD5, 62 for DDD6.2, and 0 for Eamon Deluxe.  The Temple of Ngurct is the only game using DDD5 at the time of this
+		/// writing.  Recent enhancements allow a game to change rulesets dynamically at runtime.
 		/// </remarks>
 		long RulesetVersion { get; }
 
@@ -415,7 +628,15 @@ namespace Eamon.Framework.Plugin
 		/// </remarks>
 		bool IgnoreMutex { get; set; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets or sets a value indicating whether validation should be disabled when <see cref="IGameBase">Record</see>s are loaded.
+		/// </summary>
+		/// <remarks>
+		/// The various <see cref="Helpers.Generic.IHelper{T}">Helper</see> subclasses perform Record validation to ensure the data being loaded
+		/// is as expected, but there are times when this default behavior is undesirable. For example, when porting an adventure from a previous
+		/// Eamon system, the Record data may need to be massaged to make it compatible with Eamon CS. Doing this requires validation to be 
+		/// temporarily disabled.
+		/// </remarks>
 		bool DisableValidation { get; set; }
 
 		/// <summary></summary>
@@ -463,34 +684,74 @@ namespace Eamon.Framework.Plugin
 		/// <summary></summary>
 		Coord CursorPosition { get; set; }
 
-		/// <summary></summary>
+		/// <summary>Gets or sets the <see cref="IConfig">Config</see> database quick-accessor.</summary>
+		/// <remarks>
+		/// The <see cref="IRecordDb{T}.Records">Records</see> property provides access to the Config collection. Additionally, you can 
+		/// get or set a specific Config by using its <see cref="IGameBase.Uid">Uid</see> as an indexer.
+		/// </remarks>
 		IRecordDb<IConfig> CFGDB { get; set; }
 
-		/// <summary></summary>
+		/// <summary>Gets or sets the <see cref="IFileset">Fileset</see> database quick-accessor.</summary>
+		/// <remarks>
+		/// The <see cref="IRecordDb{T}.Records">Records</see> property provides access to the Fileset collection. Additionally, you can 
+		/// get or set a specific Fileset by using its <see cref="IGameBase.Uid">Uid</see> as an indexer.
+		/// </remarks>
 		IRecordDb<IFileset> FSDB { get; set; }
 
-		/// <summary></summary>
+		/// <summary>Gets or sets the <see cref="ICharacter">Character</see> database quick-accessor.</summary>
+		/// <remarks>
+		/// The <see cref="IRecordDb{T}.Records">Records</see> property provides access to the Character collection. Additionally, you can 
+		/// get or set a specific Character by using its <see cref="IGameBase.Uid">Uid</see> as an indexer.
+		/// </remarks>
 		IRecordDb<ICharacter> CHRDB { get; set; }
 
-		/// <summary></summary>
+		/// <summary>Gets or sets the <see cref="IModule">Module</see> database quick-accessor.</summary>
+		/// <remarks>
+		/// The <see cref="IRecordDb{T}.Records">Records</see> property provides access to the Module collection. Additionally, you can 
+		/// get or set a specific Module by using its <see cref="IGameBase.Uid">Uid</see> as an indexer.
+		/// </remarks>
 		IRecordDb<IModule> MODDB { get; set; }
 
-		/// <summary></summary>
+		/// <summary>Gets or sets the <see cref="IRoom">Room</see> database quick-accessor.</summary>
+		/// <remarks>
+		/// The <see cref="IRecordDb{T}.Records">Records</see> property provides access to the Room collection. Additionally, you can 
+		/// get or set a specific Room by using its <see cref="IGameBase.Uid">Uid</see> as an indexer.
+		/// </remarks>
 		IRecordDb<IRoom> RDB { get; set; }
 
-		/// <summary></summary>
+		/// <summary>Gets or sets the <see cref="IArtifact">Artifact</see> database quick-accessor.</summary>
+		/// <remarks>
+		/// The <see cref="IRecordDb{T}.Records">Records</see> property provides access to the Artifact collection. Additionally, you can 
+		/// get or set a specific Artifact by using its <see cref="IGameBase.Uid">Uid</see> as an indexer.
+		/// </remarks>
 		IRecordDb<IArtifact> ADB { get; set; }
 
-		/// <summary></summary>
+		/// <summary>Gets or sets the <see cref="IEffect">Effect</see> database quick-accessor.</summary>
+		/// <remarks>
+		/// The <see cref="IRecordDb{T}.Records">Records</see> property provides access to the Effect collection. Additionally, you can 
+		/// get or set a specific Effect by using its <see cref="IGameBase.Uid">Uid</see> as an indexer.
+		/// </remarks>
 		IRecordDb<IEffect> EDB { get; set; }
 
-		/// <summary></summary>
+		/// <summary>Gets or sets the <see cref="IMonster">Monster</see> database quick-accessor.</summary>
+		/// <remarks>
+		/// The <see cref="IRecordDb{T}.Records">Records</see> property provides access to the Monster collection. Additionally, you can 
+		/// get or set a specific Monster by using its <see cref="IGameBase.Uid">Uid</see> as an indexer.
+		/// </remarks>
 		IRecordDb<IMonster> MDB { get; set; }
 
-		/// <summary></summary>
+		/// <summary>Gets or sets the <see cref="IHint">Hint</see> database quick-accessor.</summary>
+		/// <remarks>
+		/// The <see cref="IRecordDb{T}.Records">Records</see> property provides access to the Hint collection. Additionally, you can 
+		/// get or set a specific Hint by using its <see cref="IGameBase.Uid">Uid</see> as an indexer.
+		/// </remarks>
 		IRecordDb<IHint> HDB { get; set; }
 
-		/// <summary></summary>
+		/// <summary>Gets or sets the <see cref="IGameState">GameState</see> database quick-accessor.</summary>
+		/// <remarks>
+		/// The <see cref="IRecordDb{T}.Records">Records</see> property provides access to the GameState collection. Additionally, you can 
+		/// get or set a specific GameState by using its <see cref="IGameBase.Uid">Uid</see> as an indexer.
+		/// </remarks>
 		IRecordDb<IGameState> GSDB { get; set; }
 
 		/// <summary>
@@ -942,7 +1203,7 @@ namespace Eamon.Framework.Plugin
 		bool IsValidArtifactType(ArtifactType artifactType);
 
 		/// <summary>
-		/// Indicates whether an armor value is valid for an wearable <see cref="IArtifact">Artifact</see>.
+		/// Indicates whether an armor value is valid for a wearable <see cref="IArtifact">Artifact</see>.
 		/// </summary>
 		/// <param name="armor"></param>
 		/// <param name="includeShields"></param>

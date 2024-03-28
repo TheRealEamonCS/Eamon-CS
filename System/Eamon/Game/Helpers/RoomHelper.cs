@@ -879,7 +879,7 @@ namespace Eamon.Game.Helpers
 
 		#region BuildValue Methods
 
-		// do nothing
+		// Do nothing
 
 		#endregion
 

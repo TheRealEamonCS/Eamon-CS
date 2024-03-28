@@ -145,7 +145,7 @@ namespace Eamon.Game
 		{
 			if (disposing)
 			{
-				// get rid of managed resources
+				// Get rid of managed resources
 			}
 
 			if (IsUidRecycled && Uid > 0)
@@ -470,7 +470,7 @@ namespace Eamon.Game
 
 		public virtual bool CanMoveToRoomUid(long roomUid, bool fleeing)
 		{
-			Debug.Assert(roomUid >= 0 || roomUid < 0);		// just for clarity
+			Debug.Assert(roomUid >= 0 || roomUid < 0);		// Just for clarity
 
 			return true;
 		}

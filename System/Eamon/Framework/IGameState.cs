@@ -231,7 +231,7 @@ namespace Eamon.Framework
 		#region Methods
 
 		/// <summary>
-		/// Gets the total <see cref="Stat.Hardiness">Hardiness</see> of <see cref="IMonster">Monsters</see> with a specified
+		/// Gets the total <see cref="Stat.Hardiness">Hardiness</see> of <see cref="IMonster">Monster</see>s with a specified
 		/// <see cref="Friendliness"/> in a particular <see cref="IRoom">Room</see>.
 		/// </summary>
 		/// <param name="index">The Friendliness value expressed as a long datatype.</param>
@@ -246,7 +246,7 @@ namespace Eamon.Framework
 		long GetNBTL(long index, long roomUid = 0);
 
 		/// <summary>
-		/// Gets the total <see cref="Stat.Hardiness">Hardiness</see> of <see cref="IMonster">Monsters</see> with a specified
+		/// Gets the total <see cref="Stat.Hardiness">Hardiness</see> of <see cref="IMonster">Monster</see>s with a specified
 		/// <see cref="Friendliness"/> in a particular <see cref="IRoom">Room</see>.
 		/// </summary>
 		/// <param name="friendliness">The Friendliness value.</param>
@@ -259,7 +259,7 @@ namespace Eamon.Framework
 		long GetNBTL(Friendliness friendliness, long roomUid = 0);
 
 		/// <summary>
-		/// Gets the total <see cref="IMonster.DmgTaken">DmgTaken</see> of <see cref="IMonster">Monsters</see> with a specified
+		/// Gets the total <see cref="IMonster.DmgTaken">DmgTaken</see> of <see cref="IMonster">Monster</see>s with a specified
 		/// <see cref="Friendliness"/> in a particular <see cref="IRoom">Room</see>.
 		/// </summary>
 		/// <param name="index">The Friendliness value expressed as a long datatype.</param>
@@ -274,7 +274,7 @@ namespace Eamon.Framework
 		long GetDTTL(long index, long roomUid = 0);
 
 		/// <summary>
-		/// Gets the total <see cref="IMonster.DmgTaken">DmgTaken</see> of <see cref="IMonster">Monsters</see> with a specified
+		/// Gets the total <see cref="IMonster.DmgTaken">DmgTaken</see> of <see cref="IMonster">Monster</see>s with a specified
 		/// <see cref="Friendliness"/> in a particular <see cref="IRoom">Room</see>.
 		/// </summary>
 		/// <param name="friendliness">The Friendliness value.</param>

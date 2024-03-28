@@ -18,7 +18,7 @@ namespace TheVileGrimoireOfJaldial.Game.Commands
 		{
 			Debug.Assert(ActorMonster != null && DobjMonster != null);
 
-			// efreeti has special attack behavior when water weird is present
+			// Efreeti has special attack behavior when water weird is present
 
 			if (ActorMonster.Uid == 50 && AttackNumber == 1)
 			{

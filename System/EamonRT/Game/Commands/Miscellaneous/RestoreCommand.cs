@@ -134,7 +134,7 @@ namespace EamonRT.Game.Commands
 					goto Cleanup;
 				}
 
-				// fileset is now invalid
+				// Fileset is now invalid
 
 				gEngine.Character = gDatabase.CharacterTable.Records.FirstOrDefault();
 

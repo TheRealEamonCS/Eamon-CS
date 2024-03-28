@@ -1211,7 +1211,7 @@ namespace TheWayfarersInn.Game.Plugin
 
 			Debug.Assert(gCharMonster != null);
 
-			if (gCharMonster.Weapon > 0)       // will always be most powerful weapon
+			if (gCharMonster.Weapon > 0)       // Will always be most powerful weapon
 			{
 				var artifact = ADB[gCharMonster.Weapon];
 
@@ -1224,7 +1224,7 @@ namespace TheWayfarersInn.Game.Plugin
 				maxDamage = ac.Field3 * ac.Field4;
 			}
 
-			// adjust maxDamage for Nolan's machete (if necessary)
+			// Adjust maxDamage for Nolan's machete (if necessary)
 
 			var macheteArtifact = ADB[152];
 
@@ -1387,7 +1387,7 @@ namespace TheWayfarersInn.Game.Plugin
 
 		public override void CheckToExtinguishLightSource()
 		{
-			// do nothing
+			// Do nothing
 		}
 
 		public virtual bool IsWindowRoomUid(long roomUid)
