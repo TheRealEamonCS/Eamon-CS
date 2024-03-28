@@ -2742,10 +2742,14 @@
             </summary>
         </member>
         <member name="P:Eamon.Framework.IMonster.Hardiness">
-            <summary></summary>
+            <summary>
+            Gets or sets this <see cref="T:Eamon.Framework.IMonster">Monster</see>'s <see cref="F:Eamon.Framework.Primitive.Enums.Stat.Hardiness">Hardiness</see> <see cref="T:Eamon.Framework.Primitive.Enums.Stat"/>.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.IMonster.Agility">
-            <summary></summary>
+            <summary>
+            Gets or sets this <see cref="T:Eamon.Framework.IMonster">Monster</see>'s <see cref="F:Eamon.Framework.Primitive.Enums.Stat.Agility">Agility</see> <see cref="T:Eamon.Framework.Primitive.Enums.Stat"/>.
+            </summary>
         </member>
         <member name="P:Eamon.Framework.IMonster.GroupCount">
             <summary>
@@ -2776,7 +2780,10 @@
             <summary></summary>
         </member>
         <member name="P:Eamon.Framework.IMonster.Weapon">
-            <summary></summary>
+            <summary>
+            Gets or sets the <see cref="T:Eamon.Framework.IArtifact">Artifact</see><see cref="P:Eamon.Framework.IGameBase.Uid"> Uid</see> for this <see cref="T:Eamon.Framework.IMonster">Monster</see>'s
+            readied weapon (may be 0 or negative if none exists).
+            </summary>
         </member>
         <member name="P:Eamon.Framework.IMonster.NwDice">
             <summary>
@@ -6948,7 +6955,8 @@
             </summary>
             <remarks>
             The last three should be familiar to anyone who has been involved with Eamon before; <see cref="F:Eamon.Framework.Primitive.Enums.Stat.Intellect">Intellect</see>
-            is unique to Eamon CS, and represents the character's mental capacity, wisdom and/or intelligence.
+            is unique to Eamon CS, and represents the character's mental capacity, wisdom and/or intelligence. Some of these Stats are used
+            by <see cref="T:Eamon.Framework.IMonster">Monster</see>s as well.
             </remarks>
         </member>
         <member name="F:Eamon.Framework.Primitive.Enums.Stat.Intellect">

@@ -10,7 +10,8 @@ namespace Eamon.Framework.Primitive.Enums
 	/// </summary>
 	/// <remarks>
 	/// The last three should be familiar to anyone who has been involved with Eamon before; <see cref="Stat.Intellect">Intellect</see>
-	/// is unique to Eamon CS, and represents the character's mental capacity, wisdom and/or intelligence.
+	/// is unique to Eamon CS, and represents the character's mental capacity, wisdom and/or intelligence. Some of these Stats are used
+	/// by <see cref="IMonster">Monster</see>s as well.
 	/// </remarks>
 	public enum Stat : long
 	{
