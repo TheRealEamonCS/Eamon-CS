@@ -77,7 +77,7 @@ namespace EamonPM.Game.Portability
 			}
 			catch (Exception ex)
 			{
-				// do something
+				// Do something
 			}
 			finally
 			{

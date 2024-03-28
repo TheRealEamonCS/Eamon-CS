@@ -15,9 +15,6 @@ namespace EamonDD.Framework.Plugin
 		#region Public Properties
 
 		/// <summary></summary>
-		string DdProgVersion { get; }
-
-		/// <summary></summary>
 		string[] Argv { get; set; }
 
 		/// <summary></summary>

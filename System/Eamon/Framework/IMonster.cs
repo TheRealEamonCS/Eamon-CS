@@ -36,10 +36,14 @@ namespace Eamon.Framework
 		/// </summary>
 		PluralType PluralType { get; set; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets or sets this <see cref="IMonster">Monster</see>'s <see cref="Stat.Hardiness">Hardiness</see> <see cref="Stat"/>.
+		/// </summary>
 		long Hardiness { get; set; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets or sets this <see cref="IMonster">Monster</see>'s <see cref="Stat.Agility">Agility</see> <see cref="Stat"/>.
+		/// </summary>
 		long Agility { get; set; }
 
 		/// <summary>
@@ -70,7 +74,10 @@ namespace Eamon.Framework
 		/// <summary></summary>
 		long Armor { get; set; }
 
-		/// <summary></summary>
+		/// <summary>
+		/// Gets or sets the <see cref="IArtifact">Artifact</see><see cref="IGameBase.Uid"> Uid</see> for this <see cref="IMonster">Monster</see>'s
+		/// readied weapon (may be 0 or negative if none exists).
+		/// </summary>
 		long Weapon { get; set; }
 
 		/// <summary>

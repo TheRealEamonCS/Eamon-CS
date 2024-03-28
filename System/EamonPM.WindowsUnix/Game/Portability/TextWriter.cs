@@ -109,7 +109,7 @@ namespace EamonPM.Game.Portability
 				}
 				catch (Exception)
 				{
-					// do nothing
+					// Do nothing
 				}
 			}
 		}
@@ -126,7 +126,7 @@ namespace EamonPM.Game.Portability
 				}
 				catch (Exception)
 				{
-					// do nothing
+					// Do nothing
 				}
 			}
 		}
@@ -143,7 +143,7 @@ namespace EamonPM.Game.Portability
 				}
 				catch (Exception)
 				{
-					// do nothing
+					// Do nothing
 				}
 			}
 		}
@@ -160,7 +160,7 @@ namespace EamonPM.Game.Portability
 				}
 				catch (Exception)
 				{
-					// do nothing
+					// Do nothing
 				}
 			}
 		}

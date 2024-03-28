@@ -42,19 +42,19 @@ namespace Eamon.Game.Helpers
 
 		#region GetPrintedName Methods
 
-		// do nothing
+		// Do nothing
 
 		#endregion
 
 		#region GetName Methods
 
-		// do nothing
+		// Do nothing
 
 		#endregion
 
 		#region GetValue Methods
 
-		// do nothing
+		// Do nothing
 
 		#endregion
 
@@ -210,7 +210,7 @@ namespace Eamon.Game.Helpers
 
 		#region BuildValue Methods
 
-		// do nothing
+		// Do nothing
 
 		#endregion
 

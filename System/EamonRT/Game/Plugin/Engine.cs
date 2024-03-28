@@ -35,8 +35,6 @@ namespace EamonRT.Game.Plugin
 
 		public virtual string PageSep { get; protected set; } = "@@PB";
 
-		public virtual string RtProgVersion { get; protected set; }
-
 		public virtual StringBuilder Buf01 { get; set; }
 
 		public virtual IList<ICommand> CommandList { get; set; }
@@ -370,7 +368,7 @@ namespace EamonRT.Game.Plugin
 
 				case PropertyResetCode.RevealContainerContents:
 
-					// do nothing
+					// Do nothing
 
 					break;
 			}
@@ -742,7 +740,7 @@ namespace EamonRT.Game.Plugin
 
 		public virtual void PrintBaseProgramVersion()
 		{
-			Out.WriteLine("[Base Program {0}]", RtProgVersion);
+			Out.WriteLine("[Base Program {0}]", ProgVersion);
 		}
 
 		public virtual void PrintWelcomeToEamonCS()
@@ -1197,7 +1195,7 @@ namespace EamonRT.Game.Plugin
 
 		public virtual void InitRooms()
 		{
-			// do nothing
+			// Do nothing
 		}
 
 		public virtual void InitArtifacts()
@@ -1254,7 +1252,7 @@ namespace EamonRT.Game.Plugin
 
 			Debug.Assert(gCharMonster != null);
 
-			if (gCharMonster.Weapon > 0)       // will always be most powerful weapon
+			if (gCharMonster.Weapon > 0)       // Will always be most powerful weapon
 			{
 				var artifact = ADB[gCharMonster.Weapon];
 
@@ -2137,7 +2135,7 @@ namespace EamonRT.Game.Plugin
 				containerArtifact = containerArtifact.GetCarriedByContainer();
 			}
 
-			// move an embedded container into the room
+			// Move an embedded container into the room
 
 			if (containerArtifact != null && containerArtifact.IsEmbeddedInRoom(room))
 			{
@@ -2153,7 +2151,7 @@ namespace EamonRT.Game.Plugin
 				shouldShowUnseenArtifacts = true;
 			}
 
-			// move an embedded artifact into the room
+			// Move an embedded artifact into the room
 
 			if (artifact.IsEmbeddedInRoom(room))
 			{
@@ -2181,7 +2179,7 @@ namespace EamonRT.Game.Plugin
 				shouldShowUnseenArtifacts = command != null && command.ShouldShowUnseenArtifacts(room, artifact);
 			}
 
-			// fully describe an unseen container
+			// Fully describe an unseen container
 
 			if (shouldShowUnseenArtifacts && containerArtifact != null && !containerArtifact.Seen)
 			{
@@ -2190,7 +2188,7 @@ namespace EamonRT.Game.Plugin
 				containerArtifact.Seen = true;
 			}
 
-			// fully describe an unseen artifact
+			// Fully describe an unseen artifact
 
 			if (shouldShowUnseenArtifacts && !artifact.Seen)
 			{
@@ -3063,7 +3061,7 @@ namespace EamonRT.Game.Plugin
 				}
 			}).ToList();
 
-			// filter out two-handed weapons if monster wearing shield
+			// Filter out two-handed weapons if monster wearing shield
 
 			var shield = monster.GetWornList().FirstOrDefault(a =>
 			{
@@ -3247,7 +3245,7 @@ namespace EamonRT.Game.Plugin
 
 			Debug.Assert(charMonster != null);
 
-			// grab a random Room - we'll use StartRoom here since it really doesn't matter
+			// Grab a random Room - we'll use StartRoom here since it really doesn't matter
 
 			var room = RDB[StartRoom];
 
@@ -3294,7 +3292,7 @@ namespace EamonRT.Game.Plugin
 
 			Out.EnableOutput = true;
 
-			// (no need to update CurrState to anything else since we're shutting down)
+			// (No need to update CurrState to anything else since we're shutting down)
 		}
 
 		public virtual RetCode BuildCommandList(IList<ICommand> commands, CommandType cmdType, StringBuilder buf, ref bool newSeen)
@@ -4043,14 +4041,14 @@ namespace EamonRT.Game.Plugin
 				{
 					if (++i < Argv.Length)
 					{
-						// do nothing
+						// Do nothing
 					}
 				}
 				else if (Argv[i].Equals("--filePrefix", StringComparison.OrdinalIgnoreCase) || Argv[i].Equals("-fp", StringComparison.OrdinalIgnoreCase))
 				{
 					if (++i < Argv.Length)
 					{
-						// do nothing
+						// Do nothing
 					}
 				}
 				else if (Argv[i].Equals("--configFileName", StringComparison.OrdinalIgnoreCase) || Argv[i].Equals("-cfgfn", StringComparison.OrdinalIgnoreCase))
@@ -4143,19 +4141,19 @@ namespace EamonRT.Game.Plugin
 				}
 				else if (Argv[i].Equals("--enableScreenReaderMode", StringComparison.OrdinalIgnoreCase) || Argv[i].Equals("-esrm", StringComparison.OrdinalIgnoreCase))
 				{
-					// do nothing
+					// Do nothing
 				}
 				else if (Argv[i].Equals("--ignoreMutex", StringComparison.OrdinalIgnoreCase) || Argv[i].Equals("-im", StringComparison.OrdinalIgnoreCase))
 				{
-					// do nothing
+					// Do nothing
 				}
 				else if (Argv[i].Equals("--disableValidation", StringComparison.OrdinalIgnoreCase) || Argv[i].Equals("-dv", StringComparison.OrdinalIgnoreCase))
 				{
-					// do nothing
+					// Do nothing
 				}
 				else if (Argv[i].Equals("--repaintWindow", StringComparison.OrdinalIgnoreCase) || Argv[i].Equals("-rw", StringComparison.OrdinalIgnoreCase))
 				{
-					// do nothing
+					// Do nothing
 				}
 				else if (Argv[i].Equals("--deleteGameState", StringComparison.OrdinalIgnoreCase) || Argv[i].Equals("-dgs", StringComparison.OrdinalIgnoreCase))
 				{
@@ -4474,8 +4472,6 @@ namespace EamonRT.Game.Plugin
 
 		public Engine()
 		{
-			RtProgVersion = ProgVersion;
-
 			Buf01 = new StringBuilder(BufSize);
 
 			RevealContainerContentsFunc = RevealContainerContents;

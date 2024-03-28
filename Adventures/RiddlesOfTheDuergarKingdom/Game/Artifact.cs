@@ -240,7 +240,7 @@ namespace RiddlesOfTheDuergarKingdom.Game
 
 						default:
 
-							// do nothing
+							// Do nothing
 
 							break;
 					}

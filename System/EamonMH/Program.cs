@@ -55,15 +55,15 @@ namespace EamonMH
 
 				gEngine.LoadPortabilityClassMappings = LoadPortabilityClassMappings;
 
-				// resolve portability class mappings
+				// Resolve portability class mappings
 
 				gEngine.ResolvePortabilityClassMappings();
 
-				// process command line args
+				// Process command line args
 
 				gEngine.ProcessArgv(args);
 
-				// load plugin class mappings
+				// Load plugin class mappings
 
 				rc = gEngine.LoadPluginClassMappings();
 
@@ -76,25 +76,25 @@ namespace EamonMH
 
 				try
 				{
-					// initialize system
+					// Initialize system
 
 					gEngine.InitSystem();
 
 					gEngine.LineWrapUserInput = LineWrapUserInput;
 
-					// disable resolution of uid macros
+					// Disable resolution of uid macros
 
 					gOut.ResolveUidMacros = false;
 
-					// disable extraneous newline suppression
+					// Disable extraneous newline suppression
 
 					gOut.SuppressNewLines = false;
 
-					// make the cursor disappear
+					// Make the cursor disappear
 
 					gOut.CursorVisible = false;
 
-					// initialize Config record
+					// Initialize Config record
 
 					gEngine.Config.Uid = 1;
 
@@ -106,7 +106,7 @@ namespace EamonMH
 
 					gEngine.Config.WordWrapMargin = gEngine.RightMargin;
 
-					// change window title bar and size
+					// Change window title bar and size
 
 					gOut.SetWindowTitle(ProgramName);
 
@@ -122,7 +122,7 @@ namespace EamonMH
 					}
 					catch (Exception)
 					{
-						// do nothing
+						// Do nothing
 					}
 
 					if (gEngine.EnableScreenReaderMode)
@@ -130,7 +130,7 @@ namespace EamonMH
 						gEngine.Thread.Sleep(1000);
 					}
 
-					// make announcements
+					// Make announcements
 
 					gOut.Write("{0}Eamon CS Main Hall ({1}) {2}.", Environment.NewLine, ProgramName, gEngine.ProgVersion);
 
@@ -138,7 +138,7 @@ namespace EamonMH
 
 					gOut.Print("This MIT Licensed free software has ABSOLUTELY NO WARRANTY.");
 
-					// copy and store command line args
+					// Copy and store command line args
 
 					gEngine.Argv = new string[args.Length];
 
@@ -147,18 +147,18 @@ namespace EamonMH
 						gEngine.Argv[i] = gEngine.CloneInstance(args[i]);
 					}
 
-					// process command line args
+					// Process command line args
 
 					gEngine.MhProcessArgv(false, ref nlFlag);
 
-					// assign default work directory, if necessary
+					// Assign default work directory, if necessary
 
 					if (gEngine.WorkDir.Length == 0)
 					{
 						gEngine.WorkDir = gEngine.DefaultWorkDir;
 					}
 
-					// initialize Config record
+					// Initialize Config record
 
 					gEngine.Config.MhFilesetFileName = "ADVENTURES.DAT";
 
@@ -168,7 +168,7 @@ namespace EamonMH
 
 					if (gEngine.WorkDir.Length > 0)
 					{
-						// if working directory does not exist
+						// If working directory does not exist
 
 						if (!gEngine.Directory.Exists(gEngine.WorkDir))
 						{
@@ -193,17 +193,17 @@ namespace EamonMH
 								goto Cleanup;
 							}
 
-							// create working directory
+							// Create working directory
 
 							gEngine.Directory.CreateDirectory(gEngine.WorkDir);
 						}
 
-						// change to working directory
+						// Change to working directory
 
 						gEngine.Directory.SetCurrentDirectory(gEngine.WorkDir);
 					}
 
-					// load the config datafile
+					// Load the config datafile
 
 					if (gEngine.ConfigFileName.Length > 0)
 					{
@@ -270,7 +270,7 @@ namespace EamonMH
 
 					nlFlag = false;
 
-					// process command line args
+					// Process command line args
 
 					gEngine.MhProcessArgv(true, ref nlFlag);
 
@@ -312,7 +312,7 @@ namespace EamonMH
 
 					gOut.WriteLine();
 
-					// auto load character if necessary
+					// Auto load character if necessary
 
 					if (gEngine.CharacterName.Length > 0 && !gEngine.CharacterName.Equals("NONE", StringComparison.OrdinalIgnoreCase))
 					{
@@ -326,7 +326,7 @@ namespace EamonMH
 						}
 					}
 
-					// create appropriate menu
+					// Create appropriate menu
 
 					if (gCharacter != null)
 					{
@@ -337,19 +337,19 @@ namespace EamonMH
 						gEngine.Menu = gEngine.CreateInstance<IOuterChamberMenu>();
 					}
 
-					// call appropriate menu
+					// Call appropriate menu
 
 					gEngine.Menu.Execute();
 
 					var saveDataFiles = (gEngine.ConfigFileName.Length > 0 && gEngine.ConfigsModified) || gEngine.FilesetsModified || gEngine.CharactersModified || gEngine.EffectsModified;
 
-					// save datafiles, if any modifications were made
+					// Save datafiles, if any modifications were made
 
 					if (saveDataFiles)
 					{
 						gOut.Print("{0}", gEngine.LineSep);
 
-						// save the datafiles
+						// Save the datafiles
 
 						if (gEngine.EffectsModified)
 						{
@@ -410,7 +410,7 @@ namespace EamonMH
 						gOut.WriteLine();
 					}
 
-					// send character on adventure if necessary
+					// Send character on adventure if necessary
 
 					if (gEngine.GoOnAdventure)
 					{
@@ -435,7 +435,7 @@ namespace EamonMH
 				}
 				finally
 				{
-					// de-initialize system
+					// De-initialize system
 
 					gEngine.DeinitSystem();
 				}

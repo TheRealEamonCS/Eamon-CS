@@ -74,7 +74,7 @@ namespace EamonRT.Game.Commands
 
 			if (GetAll)
 			{
-				// screen out all weapons in the room which have monsters present with affinities to those weapons
+				// Screen out all weapons in the room which have monsters present with affinities to those weapons
 
 				TakenArtifactList = ActorRoom.GetTakeableList().Where(a => gEngine.GetMonsterList(m => m.IsInRoom(ActorRoom) && m.Weapon == -a.Uid - 1 && m != ActorMonster).FirstOrDefault() == null).ToList();
 
@@ -113,7 +113,7 @@ namespace EamonRT.Game.Commands
 
 				if (artifact.IsCarriedByMonster(ActorMonster))
 				{
-					// when a weapon is picked up all monster affinities to that weapon are broken
+					// When a weapon is picked up all monster affinities to that weapon are broken
 
 					FumbleMonsterList = gEngine.GetMonsterList(m => m.Weapon == -artifact.Uid - 1 && m != ActorMonster);
 
@@ -200,7 +200,7 @@ namespace EamonRT.Game.Commands
 						}
 					}
 
-					// when a weapon is picked up all monster affinities to that weapon are broken
+					// When a weapon is picked up all monster affinities to that weapon are broken
 
 					FumbleMonsterList = gEngine.GetMonsterList(m => m.Weapon == -DobjArtifact.Uid - 1 && m != ActorMonster);
 

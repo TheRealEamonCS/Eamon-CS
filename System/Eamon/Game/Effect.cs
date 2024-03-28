@@ -22,7 +22,7 @@ namespace Eamon.Game
 		{
 			if (disposing)
 			{
-				// get rid of managed resources
+				// Get rid of managed resources
 			}
 
 			if (IsUidRecycled && Uid > 0)

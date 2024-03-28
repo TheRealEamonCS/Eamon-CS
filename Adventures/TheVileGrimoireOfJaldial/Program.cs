@@ -11,7 +11,7 @@ namespace TheVileGrimoireOfJaldial
 	{
 		public override void SetPunctSpaceCode()
 		{
-			// do nothing
+			// Do nothing
 		}
 
 		public Program()

@@ -78,19 +78,19 @@ namespace EamonRT
 
 			ProgramName = "EamonDD";
 
-			// disable resolution of uid macros
+			// Disable resolution of uid macros
 
 			gOut.ResolveUidMacros = false;
 
-			// disable extraneous newline suppression
+			// Disable extraneous newline suppression
 
 			gOut.SuppressNewLines = false;
 
-			// make the cursor disappear
+			// Make the cursor disappear
 
 			gOut.CursorVisible = false;
 
-			// initialize Config record
+			// Initialize Config record
 
 			gEngine.Config.Uid = 1;
 
@@ -102,7 +102,7 @@ namespace EamonRT
 
 			gEngine.Config.WordWrapMargin = gEngine.RightMargin;
 
-			// change window title bar and size
+			// Change window title bar and size
 
 			gOut.SetWindowTitle(ProgramName);
 
@@ -118,7 +118,7 @@ namespace EamonRT
 			}
 			catch (Exception)
 			{
-				// do nothing
+				// Do nothing
 			}
 
 			if (gEngine.EnableScreenReaderMode)
@@ -126,15 +126,15 @@ namespace EamonRT
 				gEngine.Thread.Sleep(1000);
 			}
 
-			// make announcements
+			// Make announcements
 
-			gOut.Write("{0}Eamon CS Dungeon Designer ({1}) {2}.", Environment.NewLine, ProgramName, gEngine.DdProgVersion);
+			gOut.Write("{0}Eamon CS Dungeon Designer ({1}) {2}.", Environment.NewLine, ProgramName, gEngine.ProgVersion);
 
 			gOut.Write("{0}Copyright (c) 2014+ by Michael Penner.  All rights reserved.", Environment.NewLine);
 
 			gOut.Print("This MIT Licensed free software has ABSOLUTELY NO WARRANTY.");
 
-			// copy and store command line args
+			// Copy and store command line args
 
 			gEngine.Argv = new string[args.Length];
 
@@ -143,11 +143,11 @@ namespace EamonRT
 				gEngine.Argv[i] = gEngine.CloneInstance(args[i]);
 			}
 
-			// process command line args
+			// Process command line args
 
 			gEngine.DdProcessArgv(false, ref _ddfnFlag, ref _nlFlag);
 
-			// initialize Config record
+			// Initialize Config record
 
 			gEngine.Config.DdFilesetFileName = "FILESETS.DAT";
 
@@ -167,7 +167,7 @@ namespace EamonRT
 
 			if (gEngine.WorkDir.Length > 0)
 			{
-				// if working directory does not exist
+				// If working directory does not exist
 
 				if (!gEngine.Directory.Exists(gEngine.WorkDir))
 				{
@@ -192,17 +192,17 @@ namespace EamonRT
 						goto Cleanup;
 					}
 
-					// create working directory
+					// Create working directory
 
 					gEngine.Directory.CreateDirectory(gEngine.WorkDir);
 				}
 
-				// change to working directory
+				// Change to working directory
 
 				gEngine.Directory.SetCurrentDirectory(gEngine.WorkDir);
 			}
 
-			// load the config datafile
+			// Load the config datafile
 
 			if (gEngine.ConfigFileName.Length > 0)
 			{
@@ -325,7 +325,7 @@ namespace EamonRT
 
 			_nlFlag = false;
 
-			// process command line args
+			// Process command line args
 
 			gEngine.DdProcessArgv(true, ref _ddfnFlag, ref _nlFlag);
 
@@ -439,7 +439,7 @@ namespace EamonRT
 
 			if (gEngine.Config.DdEditingModules)
 			{
-				// find the first Module record
+				// Find the first Module record
 
 				gEngine.Module = gEngine.GetModule();
 
@@ -510,15 +510,15 @@ namespace EamonRT
 				gOut.WriteLine();
 			}
 
-			// create main menu
+			// Create main menu
 
 			gEngine.Menu = gEngine.CreateInstance<IMainMenu>();
 
-			// call main menu
+			// Call main menu
 
 			gEngine.Menu.Execute();
 
-			// update module last modified time if necessary
+			// Update module last modified time if necessary
 
 			if (gEngine.ModulesModified || gEngine.RoomsModified || gEngine.ArtifactsModified || gEngine.EffectsModified || gEngine.MonstersModified || gEngine.HintsModified)
 			{
@@ -530,7 +530,7 @@ namespace EamonRT
 				}
 			}
 
-			// prompt user to save datafiles, if any modifications were made
+			// Prompt user to save datafiles, if any modifications were made
 
 			if ((gEngine.ConfigFileName.Length > 0 && gEngine.ConfigsModified) || gEngine.FilesetsModified || gEngine.CharactersModified || gEngine.ModulesModified || gEngine.RoomsModified || gEngine.ArtifactsModified || gEngine.EffectsModified || gEngine.MonstersModified || gEngine.HintsModified)
 			{
@@ -557,7 +557,7 @@ namespace EamonRT
 
 				gOut.Print("{0}", gEngine.LineSep);
 
-				// save the datafiles
+				// Save the datafiles
 
 				if (gEngine.HintsModified)
 				{
@@ -709,11 +709,11 @@ namespace EamonRT
 
 			rc = RetCode.Success;
 
-			// make the cursor disappear
+			// Make the cursor disappear
 
 			gOut.CursorVisible = false;
 
-			// initialize Config record
+			// Initialize Config record
 
 			gEngine.Config.Uid = 1;
 
@@ -725,7 +725,7 @@ namespace EamonRT
 
 			gEngine.Config.WordWrapMargin = gEngine.RightMargin;
 
-			// change window title bar and size
+			// Change window title bar and size
 
 			gOut.SetWindowTitle(ProgramName);
 
@@ -741,7 +741,7 @@ namespace EamonRT
 			}
 			catch (Exception)
 			{
-				// do nothing
+				// Do nothing
 			}
 
 			if (gEngine.EnableScreenReaderMode)
@@ -749,19 +749,19 @@ namespace EamonRT
 				gEngine.Thread.Sleep(1000);
 			}
 
-			// set punctuation space code
+			// Set punctuation space code
 
 			SetPunctSpaceCode();
 
-			// make announcements
+			// Make announcements
 
-			gOut.Write("{0}Eamon CS Runtime ({1}) {2}.", Environment.NewLine, ProgramName, gEngine.RtProgVersion);
+			gOut.Write("{0}Eamon CS Runtime ({1}) {2}.", Environment.NewLine, ProgramName, gEngine.ProgVersion);
 
 			gOut.Write("{0}Copyright (c) 2014+ by Michael Penner.  All rights reserved.", Environment.NewLine);
 
 			gOut.Print("This MIT Licensed free software has ABSOLUTELY NO WARRANTY.");
 
-			// copy and store command line args
+			// Copy and store command line args
 
 			gEngine.Argv = new string[args.Length];
 
@@ -770,11 +770,11 @@ namespace EamonRT
 				gEngine.Argv[i] = gEngine.CloneInstance(args[i]);
 			}
 
-			// process command line args
+			// Process command line args
 
 			gEngine.RtProcessArgv(false, ref _nlFlag);
 
-			// assign default work directory, if necessary
+			// Assign default work directory, if necessary
 
 			if (gEngine.WorkDir.Length == 0)
 			{
@@ -786,7 +786,7 @@ namespace EamonRT
 				gEngine.ConfigFileName = "EAMONCFG.DAT";
 			}
 
-			// initialize Config record
+			// Initialize Config record
 
 			gEngine.Config.RtFilesetFileName = "SAVEGAME.DAT";
 
@@ -808,7 +808,7 @@ namespace EamonRT
 
 			if (gEngine.WorkDir.Length > 0)
 			{
-				// if working directory does not exist
+				// If working directory does not exist
 
 				if (!gEngine.Directory.Exists(gEngine.WorkDir))
 				{
@@ -833,17 +833,17 @@ namespace EamonRT
 						goto Cleanup;
 					}
 
-					// create working directory
+					// Create working directory
 
 					gEngine.Directory.CreateDirectory(gEngine.WorkDir);
 				}
 
-				// change to working directory
+				// Change to working directory
 
 				gEngine.Directory.SetCurrentDirectory(gEngine.WorkDir);
 			}
 
-			// load the config datafile
+			// Load the config datafile
 
 			if (gEngine.ConfigFileName.Length > 0)
 			{
@@ -972,7 +972,7 @@ namespace EamonRT
 
 			_nlFlag = false;
 
-			// process command line args
+			// Process command line args
 
 			gEngine.RtProcessArgv(true, ref _nlFlag);
 
@@ -1271,15 +1271,15 @@ namespace EamonRT
 
 				gEngine.LoadPortabilityClassMappings = LoadPortabilityClassMappings;
 
-				// resolve portability class mappings
+				// Resolve portability class mappings
 
 				gEngine.ResolvePortabilityClassMappings();
 
-				// process command line args
+				// Process command line args
 
 				gEngine.ProcessArgv(args);
 
-				// load plugin class mappings
+				// Load plugin class mappings
 
 				rc = gEngine.LoadPluginClassMappings();
 
@@ -1292,13 +1292,13 @@ namespace EamonRT
 
 				try
 				{
-					// initialize system
+					// Initialize system
 
 					gEngine.InitSystem();
 
 					gEngine.LineWrapUserInput = LineWrapUserInput;
 
-					// call appropriate program
+					// Call appropriate program
 
 					rc = gEngine.RunGameEditor ? DdMain(args) : RtMain(args);
 				}
@@ -1308,7 +1308,7 @@ namespace EamonRT
 				}
 				finally
 				{
-					// de-initialize system
+					// De-initialize system
 
 					gEngine.DeinitSystem();
 				}

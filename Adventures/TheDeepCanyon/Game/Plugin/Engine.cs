@@ -212,7 +212,7 @@ namespace TheDeepCanyon.Game.Plugin
 
 			MacroFuncs.Add(1, () =>
 			{
-				// silver lantern
+				// Silver lantern
 
 				return GameState != null && GameState.Ls == 7 ? "lit" : "unlit";
 			});

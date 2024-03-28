@@ -77,7 +77,7 @@
     <Reference Include="FormsViewGroup, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Xamarin.Forms.4.4.0.991265\lib\MonoAndroid81\FormsViewGroup.dll</HintPath>
     </Reference>
-    <Reference Include="Polenter.SharpSerializer, Version=2.20.0.0, Culture=neutral, PublicKeyToken=8f4f20011571ee5f, processorArchitecture=MSIL">
+    <Reference Include="Polenter.SharpSerializer, Version=3.0.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Bin\Polenter.SharpSerializer.dll</HintPath>
     </Reference>

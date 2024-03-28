@@ -561,7 +561,7 @@ namespace Eamon.Game.Helpers
 
 					default:
 
-						// do nothing
+						// Do nothing
 
 						break;
 				}
@@ -645,7 +645,7 @@ namespace Eamon.Game.Helpers
 
 					default:
 
-						// do nothing
+						// Do nothing
 
 						break;
 				}
@@ -721,7 +721,7 @@ namespace Eamon.Game.Helpers
 
 					default:
 
-						// do nothing
+						// Do nothing
 
 						break;
 				}
@@ -782,7 +782,7 @@ namespace Eamon.Game.Helpers
 
 					default:
 
-						// do nothing
+						// Do nothing
 
 						break;
 				}
@@ -822,7 +822,7 @@ namespace Eamon.Game.Helpers
 					case ArtifactType.Weapon:
 					case ArtifactType.MagicWeapon:
 
-						if (Record.GetCategory(i).Field5 == 0)	// auto-upgrade old weapons
+						if (Record.GetCategory(i).Field5 == 0)	// Auto-upgrade old weapons
 						{
 							Record.GetCategory(i).Field5 = Record.GetCategory(i).Field2 == (long)Weapon.Bow ? 2 : 1;
 						}
@@ -842,7 +842,7 @@ namespace Eamon.Game.Helpers
 
 					default:
 
-						// do nothing
+						// Do nothing
 
 						break;
 				}
@@ -1265,7 +1265,7 @@ namespace Eamon.Game.Helpers
 
 					default:
 					{
-						// do nothing
+						// Do nothing
 
 						break;
 					}
@@ -1406,7 +1406,7 @@ namespace Eamon.Game.Helpers
 
 					default:
 					{
-						// do nothing
+						// Do nothing
 
 						break;
 					}
@@ -1493,7 +1493,7 @@ namespace Eamon.Game.Helpers
 
 					default:
 					{
-						// do nothing
+						// Do nothing
 
 						break;
 					}
@@ -1768,7 +1768,7 @@ namespace Eamon.Game.Helpers
 
 				default:
 
-					// do nothing
+					// Do nothing
 
 					break;
 			}
@@ -1883,7 +1883,7 @@ namespace Eamon.Game.Helpers
 
 				default:
 
-					// do nothing
+					// Do nothing
 
 					break;
 			}
@@ -1970,7 +1970,7 @@ namespace Eamon.Game.Helpers
 
 				default:
 
-					// do nothing
+					// Do nothing
 
 					break;
 			}
@@ -2025,7 +2025,7 @@ namespace Eamon.Game.Helpers
 
 				default:
 
-					// do nothing
+					// Do nothing
 
 					break;
 			}
@@ -2073,7 +2073,7 @@ namespace Eamon.Game.Helpers
 
 				default:
 
-					// do nothing
+					// Do nothing
 
 					break;
 			}

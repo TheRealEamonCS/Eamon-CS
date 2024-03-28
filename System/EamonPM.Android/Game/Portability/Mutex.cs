@@ -13,7 +13,7 @@ namespace EamonPM.Game.Portability
 	{
 		public virtual void CreateAndWaitOne()
 		{
-			// do nothing
+			// Do nothing
 		}
 	}
 }

@@ -9,12 +9,12 @@ namespace Eamon.Framework.Primitive.Enums
 	public enum PoundCharPolicy : long
 	{
 		/// <summary></summary>
-		None = 0,					// no pound chars on artifact names
+		None = 0,					// No pound chars on artifact names
 
 		/// <summary></summary>
-		PlayerArtifactsOnly,		// pound chars only on player artifact names
+		PlayerArtifactsOnly,		// Pound chars only on player artifact names
 		
 		/// <summary></summary>
-		AllArtifacts				// pound chars on all artifacts in database
+		AllArtifacts				// Pound chars on all artifacts in database
 	}
 }
