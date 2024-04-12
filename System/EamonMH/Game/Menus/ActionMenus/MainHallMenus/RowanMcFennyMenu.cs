@@ -1,5 +1,5 @@
 ﻿
-// IanMcFennyMenu.cs
+// RowanMcFennyMenu.cs
 
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
@@ -16,7 +16,7 @@ using static EamonMH.Game.Plugin.Globals;
 namespace EamonMH.Game.Menus.ActionMenus
 {
 	[ClassMappings]
-	public class IanMcFennyMenu : Menu, IIanMcFennyMenu
+	public class RowanMcFennyMenu : Menu, IRowanMcFennyMenu
 	{
 		public override void Execute()
 		{
@@ -25,7 +25,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 			gOut.Print("{0}", gEngine.LineSep);
 
-			gOut.Write("{0}You have no trouble spotting Ian McFenny, the local banker, due to his large belly.  You attract his attention, and he comes over to you.{0}{0}\"Well, {1} my dear{2} what a pleasure to see you!  Do you want to make a deposit or a withdrawal?\"{0}",
+			gOut.Write("{0}You have no trouble spotting Rowan McFenny, the local banker, due to his large belly.  You attract his attention, and he comes over to you.{0}{0}\"Well, {1} my dear{2} what a pleasure to see you!  Do you want to make a deposit or a withdrawal?\"{0}",
 				Environment.NewLine,
 				gCharacter.Name,
 				gCharacter.EvalGender(" boy", " girl", ""));
@@ -55,7 +55,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 			if (Buf[0] == 'D')
 			{
-				gOut.Print("Ian gets a wide grin on his face and says, \"Good for you!  How much do you want to deposit?\"");
+				gOut.Print("Rowan gets a wide grin on his face and says, \"Good for you!  How much do you want to deposit?\"");
 
 				gOut.Print("You have {0} GP in hand, {1} GP in the bank.",
 					gCharacter.HeldGold,
@@ -92,11 +92,11 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 						gEngine.CharactersModified = true;
 
-						Buf.SetPrint("Ian takes your money, puts it in his bag, listens to it jingle, then thanks you and walks away.");
+						Buf.SetPrint("Rowan takes your money, puts it in his bag, listens to it jingle, then thanks you and walks away.");
 					}
 					else
 					{
-						Buf.SetPrint("Ian was very pleased when you told him the sum, but when he discovered that you didn't have that much on you, he walked away shouting about fools who try to play tricks on a kindly banker.");
+						Buf.SetPrint("Rowan was very pleased when you told him the sum, but when he discovered that you didn't have that much on you, he walked away shouting about fools who try to play tricks on a kindly banker.");
 					}
 				}
 				else
@@ -110,7 +110,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 			{
 				Debug.Assert(Buf[0] == 'W');
 
-				gOut.Print("Ian says, \"Well, you have {0} gold piece{1} stored with me.  How many do you want to take back?\"", 
+				gOut.Print("Rowan says, \"Well, you have {0} gold piece{1} stored with me.  How many do you want to take back?\"", 
 					gCharacter.BankGold,
 					gCharacter.BankGold != 1 ? "s" : "");
 
@@ -174,7 +174,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 			;
 		}
 
-		public IanMcFennyMenu()
+		public RowanMcFennyMenu()
 		{
 			Buf = gEngine.Buf;
 		}
