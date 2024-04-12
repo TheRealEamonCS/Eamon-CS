@@ -22,10 +22,10 @@
         <member name="T:EamonMH.Framework.Menus.ActionMenus.IHokasTokasMenu">
             <summary></summary>
         </member>
-        <member name="T:EamonMH.Framework.Menus.ActionMenus.IMarcosCavielliMenu">
+        <member name="T:EamonMH.Framework.Menus.ActionMenus.IIanMcFennyMenu">
             <summary></summary>
         </member>
-        <member name="T:EamonMH.Framework.Menus.ActionMenus.IShylockMcFennyMenu">
+        <member name="T:EamonMH.Framework.Menus.ActionMenus.IMarcosCavielliMenu">
             <summary></summary>
         </member>
         <member name="T:EamonMH.Framework.Menus.ActionMenus.IDonDiegoMenu">
