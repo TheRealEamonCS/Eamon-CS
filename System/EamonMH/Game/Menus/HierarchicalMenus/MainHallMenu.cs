@@ -72,7 +72,7 @@ namespace EamonMH.Game.Menus.HierarchicalMenus
 			{
 				x.SelectChar = (char)('1' + MenuItemList.Count);
 				x.LineText = string.Format("{0}{1}. Find the banker to deposit or withdraw some gold.", Environment.NewLine, MenuItemList.Count + 1);
-				x.SubMenu = gEngine.CreateInstance<IShylockMcFennyMenu>();
+				x.SubMenu = gEngine.CreateInstance<IRowanMcFennyMenu>();
 			}));
 
 			MenuItemList.Add(gEngine.CreateInstance<IMenuItem>(x =>
