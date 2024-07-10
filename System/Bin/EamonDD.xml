@@ -744,18 +744,6 @@
         <member name="P:EamonDD.Game.Menus.ActionMenus.AdventureSupportMenu01.HintsXmlText">
             <summary></summary>
         </member>
-        <member name="P:EamonDD.Game.Menus.ActionMenus.AdventureSupportMenu01.EditAdventureShText">
-            <summary></summary>
-        </member>
-        <member name="P:EamonDD.Game.Menus.ActionMenus.AdventureSupportMenu01.ResumeAdventureShText">
-            <summary></summary>
-        </member>
-        <member name="P:EamonDD.Game.Menus.ActionMenus.AdventureSupportMenu01.EditAdventureBatText">
-            <summary></summary>
-        </member>
-        <member name="P:EamonDD.Game.Menus.ActionMenus.AdventureSupportMenu01.ResumeAdventureBatText">
-            <summary></summary>
-        </member>
         <member name="P:EamonDD.Game.Menus.ActionMenus.AdventureSupportMenu01.InterfaceCsText">
             <summary></summary>
         </member>
@@ -807,9 +795,6 @@
         <member name="M:EamonDD.Game.Menus.ActionMenus.AdventureSupportMenu01.QueryToProcessAdventure">
             <summary></summary>
         </member>
-        <member name="M:EamonDD.Game.Menus.ActionMenus.AdventureSupportMenu01.CreateQuickLaunchFiles">
-            <summary></summary>
-        </member>
         <member name="M:EamonDD.Game.Menus.ActionMenus.AdventureSupportMenu01.CreateAdventureFolder">
             <summary></summary>
         </member>
@@ -844,9 +829,6 @@
             <summary></summary>
         </member>
         <member name="M:EamonDD.Game.Menus.ActionMenus.DeleteAdventureMenu.DeleteAdventureFolder">
-            <summary></summary>
-        </member>
-        <member name="M:EamonDD.Game.Menus.ActionMenus.DeleteAdventureMenu.DeleteQuickLaunchFiles">
             <summary></summary>
         </member>
         <member name="M:EamonDD.Game.Menus.ActionMenus.DeleteAdventureMenu.PrintAdventureDeleted">

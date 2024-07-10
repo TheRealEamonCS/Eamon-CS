@@ -346,10 +346,6 @@ namespace EamonMH.Game.Plugin
 				{
 					// Do nothing
 				}
-				else if (Argv[i].Equals("--repaintWindow", StringComparison.OrdinalIgnoreCase) || Argv[i].Equals("-rw", StringComparison.OrdinalIgnoreCase))
-				{
-					// Do nothing
-				}
 				else if (secondPass)
 				{
 					if (!nlFlag)

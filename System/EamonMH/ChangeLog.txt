@@ -5,6 +5,7 @@ ChangeLog: EamonMH
 
 Date            Version            Who            Notes
 ----------------------------------------------------------------------------------------------------------------------------------
+20240931        3.0.0              MP             Avalonia overhaul
 20240110        2.2.0              MP             gDatabase overhaul
 20221031        2.1.0              MP             Plugin Class Unification overhaul
 20210331                           MP             GZip datafile overhaul

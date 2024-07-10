@@ -71,8 +71,6 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			DeleteAdventureFolder();
 
-			DeleteQuickLaunchFiles();
-
 			PrintAdventureDeleted();
 
 		Cleanup:
@@ -137,7 +135,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 						process.StartInfo.CreateNoWindow = true;
 
 						process.StartInfo.FileName = "dotnet";
-						process.StartInfo.Arguments = string.Format("sln Eamon.Desktop.sln remove \"{0}\"", projName);
+						process.StartInfo.Arguments = string.Format("sln Eamon-CS.sln remove \"{0}\"", projName);
 						process.StartInfo.WorkingDirectory = string.Format("..{0}..", gEngine.Path.DirectorySeparatorChar);
 
 						gOut.Write("Removing {0} project ... ", gEngine.Path.GetFileNameWithoutExtension(projName));
@@ -189,43 +187,6 @@ namespace EamonDD.Game.Menus.ActionMenus
 				if (gEngine.Directory.Exists(gEngine.AndroidAdventuresDir + @"\" + AdventureName))
 				{
 					gEngine.Directory.Delete(gEngine.AndroidAdventuresDir + @"\" + AdventureName, true);
-				}
-			}
-		}
-
-		/// <summary></summary>
-		public virtual void DeleteQuickLaunchFiles()
-		{
-			// Note: QuickLaunch files missing in Eamon CS Mobile
-
-			if (IsAdventureNameValid())
-			{
-				var srcFileName = gEngine.QuickLaunchDir + @"\Unix\EamonDD\Edit" + AdventureName + ".sh";
-
-				if (gEngine.File.Exists(srcFileName))
-				{
-					gEngine.File.Delete(srcFileName);
-				}
-
-				srcFileName = gEngine.QuickLaunchDir + @"\Unix\EamonRT\Resume" + AdventureName + ".sh";
-
-				if (gEngine.File.Exists(srcFileName))
-				{
-					gEngine.File.Delete(srcFileName);
-				}
-
-				srcFileName = gEngine.QuickLaunchDir + @"\Windows\EamonDD\Edit" + AdventureName + ".bat";
-
-				if (gEngine.File.Exists(srcFileName))
-				{
-					gEngine.File.Delete(srcFileName);
-				}
-
-				srcFileName = gEngine.QuickLaunchDir + @"\Windows\EamonRT\Resume" + AdventureName + ".bat";
-
-				if (gEngine.File.Exists(srcFileName))
-				{
-					gEngine.File.Delete(srcFileName);
 				}
 			}
 		}

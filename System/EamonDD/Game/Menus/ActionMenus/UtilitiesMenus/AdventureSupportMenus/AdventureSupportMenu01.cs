@@ -48,20 +48,20 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 		/// <summary></summary>
 		public virtual string HintsXmlText { get; set; } =
-@"<Complex name=""Root"" type=""Eamon.Game.DataStorage.HintDbTable, Eamon, Version=2.2.0.0, Culture=neutral, PublicKeyToken=null"">
+@"<Complex name=""Root"" type=""Eamon.Game.DataStorage.HintDbTable, Eamon, Version=3.0.0.0, Culture=neutral, PublicKeyToken=null"">
   <Properties>
-    <Collection name=""Records"" type=""Eamon.ThirdParty.BTree`1[[Eamon.Framework.IHint, Eamon, Version=2.2.0.0, Culture=neutral, PublicKeyToken=null]], Eamon, Version=2.2.0.0, Culture=neutral, PublicKeyToken=null"">
+    <Collection name=""Records"" type=""Eamon.ThirdParty.BTree`1[[Eamon.Framework.IHint, Eamon, Version=3.0.0.0, Culture=neutral, PublicKeyToken=null]], Eamon, Version=3.0.0.0, Culture=neutral, PublicKeyToken=null"">
       <Properties>
         <Simple name=""IsReadOnly"" value=""False"" />
         <Simple name=""AllowDuplicates"" value=""False"" />
       </Properties>
       <Items>
-        <Complex type=""YourAdventureName.Game.Hint, YourAdventureName, Version=2.2.0.0, Culture=neutral, PublicKeyToken=null"">
+        <Complex type=""YourAdventureName.Game.Hint, YourAdventureName, Version=3.0.0.0, Culture=neutral, PublicKeyToken=null"">
           <Properties>
             <Simple name=""Uid"" value=""1"" />
             <Simple name=""IsUidRecycled"" value=""True"" />
             <Simple name=""Active"" value=""True"" />
-            <Simple name=""Question"" value=""EAMON CS 2.2 GENERAL HELP."" />
+            <Simple name=""Question"" value=""EAMON CS 3.0 GENERAL HELP."" />
             <Simple name=""NumAnswers"" value=""8"" />
             <SingleArray name=""Answers"">
               <Items>
@@ -77,12 +77,12 @@ namespace EamonDD.Game.Menus.ActionMenus
             </SingleArray>
           </Properties>
         </Complex>
-        <Complex type=""YourAdventureName.Game.Hint, YourAdventureName, Version=2.2.0.0, Culture=neutral, PublicKeyToken=null"">
+        <Complex type=""YourAdventureName.Game.Hint, YourAdventureName, Version=3.0.0.0, Culture=neutral, PublicKeyToken=null"">
           <Properties>
             <Simple name=""Uid"" value=""2"" />
             <Simple name=""IsUidRecycled"" value=""True"" />
             <Simple name=""Active"" value=""True"" />
-            <Simple name=""Question"" value=""EAMON CS 2.2 NEW COMMANDS."" />
+            <Simple name=""Question"" value=""EAMON CS 3.0 NEW COMMANDS."" />
             <Simple name=""NumAnswers"" value=""3"" />
             <SingleArray name=""Answers"">
               <Items>
@@ -100,7 +100,7 @@ namespace EamonDD.Game.Menus.ActionMenus
         </Complex>
       </Items>
     </Collection>
-    <Collection name=""FreeUids"" type=""System.Collections.Generic.List`1[[System.Int64, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e"">
+    <Collection name=""FreeUids"" type=""System.Collections.Generic.List`1[[System.Int64, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e"">
       <Properties>
         <Simple name=""Capacity"" value=""0"" />
       </Properties>
@@ -109,26 +109,6 @@ namespace EamonDD.Game.Menus.ActionMenus
     <Simple name=""CurrUid"" value=""2"" />
   </Properties>
 </Complex>";
-
-		/// <summary></summary>
-		public virtual string EditAdventureShText { get; set; }
-
-		/// <summary></summary>
-		public virtual string ResumeAdventureShText { get; set; }
-
-		/// <summary></summary>
-		public virtual string EditAdventureBatText { get; set; } =
-@"@echo off
-cd ..\..\..\System\Bin
-.\DetectDotnetAndLaunch.bat -pfn YourLibraryName.dll -wd ..\..\Adventures\YourAdventureName -la -rge
-";
-
-		/// <summary></summary>
-		public virtual string ResumeAdventureBatText { get; set; } =
-@"@echo off
-cd ..\..\..\System\Bin
-.\DetectDotnetAndLaunch.bat -pfn YourLibraryName.dll -wd ..\..\Adventures\YourAdventureName
-";
 
 		/// <summary></summary>
 		public virtual string InterfaceCsText { get; set; } =
@@ -258,18 +238,18 @@ namespace YourAdventureName.YourGameNamespaceName
 		/// <summary></summary>
 		public virtual void CheckForPrerequisites()
 		{
-			if (!gEngine.File.Exists(gEngine.Path.GetFullPath(gEngine.EamonDesktopSlnFile)))
+			if (!gEngine.File.Exists(gEngine.Path.GetFullPath(gEngine.EamonCSSlnFile)))
 			{
 				if (SupportMenuType == SupportMenuType.DeleteAdventure)
 				{
 					gOut.Print("{0}", gEngine.LineSep);
 				}
 
-				gOut.Print("Could not locate the Eamon.Desktop solution at the following path:");
+				gOut.Print("Could not locate the Eamon-CS solution at the following path:");
 
 				gOut.WordWrap = false;
 
-				gOut.Print(gEngine.Path.GetFullPath(gEngine.EamonDesktopSlnFile));
+				gOut.Print(gEngine.Path.GetFullPath(gEngine.EamonCSSlnFile));
 
 				gOut.WordWrap = true;
 
@@ -585,42 +565,6 @@ namespace YourAdventureName.YourGameNamespaceName
 				gOut.Print("The adventure was not processed.");
 
 				GotoCleanup = true;
-			}
-		}
-
-		/// <summary></summary>
-		public virtual void CreateQuickLaunchFiles()
-		{
-			var yourLibraryName = this is IAddCustomAdventureMenu ? AdventureName : "EamonRT";
-
-			// Note: QuickLaunch files missing in Eamon CS Mobile
-
-			if (gEngine.Directory.Exists(gEngine.QuickLaunchDir + @"\Unix\EamonDD"))
-			{
-				var fileText = EditAdventureShText.Replace("YourLibraryName", yourLibraryName);
-
-				gEngine.File.WriteAllText(gEngine.QuickLaunchDir + @"\Unix\EamonDD\Edit" + AdventureName + ".sh", ReplaceMacros(fileText), new ASCIIEncoding());
-			}
-
-			if (gEngine.Directory.Exists(gEngine.QuickLaunchDir + @"\Unix\EamonRT"))
-			{
-				var fileText = ResumeAdventureShText.Replace("YourLibraryName", yourLibraryName);
-
-				gEngine.File.WriteAllText(gEngine.QuickLaunchDir + @"\Unix\EamonRT\Resume" + AdventureName + ".sh", ReplaceMacros(fileText), new ASCIIEncoding());
-			}
-
-			if (gEngine.Directory.Exists(gEngine.QuickLaunchDir + @"\Windows\EamonDD"))
-			{
-				var fileText = EditAdventureBatText.Replace("YourLibraryName", yourLibraryName);
-
-				gEngine.File.WriteAllText(gEngine.QuickLaunchDir + @"\Windows\EamonDD\Edit" + AdventureName + ".bat", ReplaceMacros(fileText), new ASCIIEncoding());
-			}
-
-			if (gEngine.Directory.Exists(gEngine.QuickLaunchDir + @"\Windows\EamonRT"))
-			{
-				var fileText = ResumeAdventureBatText.Replace("YourLibraryName", yourLibraryName);
-
-				gEngine.File.WriteAllText(gEngine.QuickLaunchDir + @"\Windows\EamonRT\Resume" + AdventureName + ".bat", ReplaceMacros(fileText), new ASCIIEncoding());
 			}
 		}
 
@@ -991,10 +935,6 @@ namespace YourAdventureName.YourGameNamespaceName
 									this is IAddCustomAdventureClassesMenu ? SupportMenuType.AddClasses :
 									this is IDeleteAdventureMenu ? SupportMenuType.DeleteAdventure :
 									SupportMenuType.DeleteClasses;
-
-			EditAdventureShText = string.Format(@"#!/bin/sh{0}cd ../../../System/Bin{0}./DetectDotnetAndLaunch.sh -pfn YourLibraryName.dll -wd ../../Adventures/YourAdventureName -la -rge{0}", '\n');
-
-			ResumeAdventureShText = string.Format(@"#!/bin/sh{0}cd ../../../System/Bin{0}./DetectDotnetAndLaunch.sh -pfn YourLibraryName.dll -wd ../../Adventures/YourAdventureName{0}", '\n');
 		}
 	}
 }

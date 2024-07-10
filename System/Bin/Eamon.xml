@@ -3855,9 +3855,6 @@
         <member name="P:Eamon.Framework.Plugin.IEngine.ValidWorkDirRegexPattern">
             <summary></summary>
         </member>
-        <member name="P:Eamon.Framework.Plugin.IEngine.CoreLibRegexPattern">
-            <summary></summary>
-        </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.MscorlibRegexPattern">
             <summary></summary>
         </member>
@@ -3874,9 +3871,6 @@
             <summary></summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.CoreLibName">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IEngine.MscorlibName">
             <summary></summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.RecIdepErrorFmtStr">
@@ -3915,9 +3909,9 @@
             is embedded in the name.
             </remarks>
         </member>
-        <member name="P:Eamon.Framework.Plugin.IEngine.EamonDesktopSlnFile">
+        <member name="P:Eamon.Framework.Plugin.IEngine.EamonCSSlnFile">
             <summary>
-            Gets the Eamon CS Desktop Solution path and file name, relative to the working directory.
+            Gets the Eamon CS Solution path and file name, relative to the working directory.
             </summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.StackTraceFile">
@@ -4113,9 +4107,6 @@
         <member name="P:Eamon.Framework.Plugin.IEngine.CloneStream">
             <summary></summary>
         </member>
-        <member name="P:Eamon.Framework.Plugin.IEngine.ConsoleHandle">
-            <summary></summary>
-        </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.MutatePropertyCounter">
             <summary></summary>
         </member>
@@ -4178,16 +4169,10 @@
             temporarily disabled.
             </remarks>
         </member>
-        <member name="P:Eamon.Framework.Plugin.IEngine.RepaintWindow">
-            <summary></summary>
-        </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.RunGameEditor">
             <summary></summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.DeleteGameStateFromMainHall">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Plugin.IEngine.ConvertDatafileToMscorlib">
             <summary></summary>
         </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.LoadPortabilityClassMappings">
@@ -5609,9 +5594,6 @@
             <summary></summary>
         </member>
         <member name="P:Eamon.Framework.Portability.IProgram.LineWrapUserInput">
-            <summary></summary>
-        </member>
-        <member name="P:Eamon.Framework.Portability.IProgram.ConvertDatafileToMscorlib">
             <summary></summary>
         </member>
         <member name="P:Eamon.Framework.Portability.IProgram.LoadPortabilityClassMappings">
@@ -9869,14 +9851,6 @@
             </summary>
             <remarks>
             Full credit:  https://stackoverflow.com/questions/26060441/reading-data-from-fixed-length-file-into-class-objects
-            </remarks>
-        </member>
-        <member name="T:Eamon.Game.Utilities.WindowRepainter">
-            <summary>
-            </summary>
-            <remarks>
-            Full credit:  
-                https://chat.openai.com/        "give me the C# code to repaint a window given its window handle"
             </remarks>
         </member>
         <member name="T:Eamon.RetCode">

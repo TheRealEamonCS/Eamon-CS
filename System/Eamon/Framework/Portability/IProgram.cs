@@ -18,9 +18,6 @@ namespace Eamon.Framework.Portability
 		bool LineWrapUserInput { get; set; }
 
 		/// <summary></summary>
-		bool ConvertDatafileToMscorlib { get; set; }
-
-		/// <summary></summary>
 		Action<IDictionary<Type, Type>> LoadPortabilityClassMappings { get; set; }
 
 		/// <summary></summary>

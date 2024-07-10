@@ -9,7 +9,7 @@ This project is Eamon CS (ECS), a C# port of the classic Eamon roleplaying game 
 
 #### Prerequisites
 
-Eamon CS includes precompiled binaries for Windows and Unix that require the .NET 6 Runtime or SDK (for developers) installed on your system.  Unfortunately, having the .NET installer in the Eamon CS distribution is not practical, but the QuickLaunch files auto-detect missing packages and tell you where to find them.  There are instructions for obtaining and installing these [PREREQUISITES](https://TheRealEamonCS.github.io/pages/TechnicalPaper/TechnicalPaper.html#ECSTP2) in Technical Paper on the [Eamon CS website](https://TheRealEamonCS.github.io).
+Eamon CS includes precompiled binaries for Windows and Unix that require the .NET 8 Runtime or SDK (for developers) installed on your system.  Unfortunately, having the .NET installer in the Eamon CS distribution is not practical, but the QuickLaunch files auto-detect missing packages and tell you where to find them.  There are instructions for obtaining and installing these [PREREQUISITES](https://TheRealEamonCS.github.io/pages/TechnicalPaper/TechnicalPaper.html#ECSTP2) in Technical Paper on the [Eamon CS website](https://TheRealEamonCS.github.io).
 
 Eamon CS Mobile currently runs on devices using Android 4.0 through 10.0.
 

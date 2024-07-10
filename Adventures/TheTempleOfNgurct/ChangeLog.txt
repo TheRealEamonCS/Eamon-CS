@@ -5,6 +5,7 @@ ChangeLog: TheTempleOfNgurct
 
 Date            Version            Who            Notes
 ----------------------------------------------------------------------------------------------------------------------------------
+20240931        3.0.0              MP             Avalonia overhaul
 20230531        2.2.0              MP             Player/Monster Command Unification overhaul
 20230531                           MP             Artifact Character/Monster Method Unification overhaul
 20221231                           MP             RulesetVersion overhaul
