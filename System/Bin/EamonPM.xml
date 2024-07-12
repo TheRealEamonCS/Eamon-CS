@@ -1,0 +1,138 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>EamonPM</name>
+    </assembly>
+    <members>
+        <member name="M:EamonPM.Game.Portability.Directory.NormalizePath(System.String)">
+            <summary></summary>
+            <param name="path"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EamonPM.Game.Portability.File.NormalizePath(System.String)">
+            <summary></summary>
+            <param name="path"></param>
+            <returns></returns>
+        </member>
+        <member name="P:EamonPM.Game.Portability.Mutex.ProcessMutex">
+            <summary></summary>
+        </member>
+        <member name="M:EamonPM.Game.Portability.Path.NormalizePath(System.String)">
+            <summary></summary>
+            <param name="path"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EamonPM.Game.Portability.SharpSerializer.NormalizePath(System.String)">
+            <summary></summary>
+            <param name="path"></param>
+            <returns></returns>
+        </member>
+        <member name="F:EamonPM.Game.Portability.TextWriter._suppressNewLines">
+            <summary></summary>
+        </member>
+        <member name="P:EamonPM.Game.Portability.TextWriter.Buf">
+            <summary></summary>
+        </member>
+        <member name="P:EamonPM.Game.Portability.TextWriter.Buf01">
+            <summary></summary>
+        </member>
+        <member name="P:EamonPM.Game.Portability.TextWriter.SingleSpaceRegex">
+            <summary></summary>
+        </member>
+        <member name="P:EamonPM.Game.Portability.TextWriter.DoubleSpaceRegex">
+            <summary></summary>
+        </member>
+        <member name="P:EamonPM.Game.Portability.TextWriter.ThreeNewLines">
+            <summary></summary>
+        </member>
+        <member name="P:EamonPM.Game.Portability.TextWriter.TwoNewLines">
+            <summary></summary>
+        </member>
+        <member name="P:EamonPM.Game.Portability.TextWriter.NumNewLines">
+            <summary></summary>
+        </member>
+        <member name="M:EamonPM.Game.Portability.TextWriter.EnforceOutputBufMaxSize">
+            <summary></summary>
+        </member>
+        <member name="M:EamonPM.Game.Portability.TextWriter.RefreshOutputText">
+            <summary></summary>
+        </member>
+        <member name="M:EamonPM.Game.Portability.TransferProtocol.NormalizePath(System.String)">
+            <summary></summary>
+            <param name="path"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EamonPM.Game.Views.AboutView.InitializeComponent(System.Boolean)">
+            <summary>
+            Wires up the controls and optionally loads XAML markup and attaches dev tools (if Avalonia.Diagnostics package is referenced).
+            </summary>
+            <param name="loadXaml">Should the XAML be loaded into the component.</param>
+        </member>
+        <member name="M:EamonPM.Game.Views.DocumentationView.InitializeComponent(System.Boolean)">
+            <summary>
+            Wires up the controls and optionally loads XAML markup and attaches dev tools (if Avalonia.Diagnostics package is referenced).
+            </summary>
+            <param name="loadXaml">Should the XAML be loaded into the component.</param>
+        </member>
+        <member name="M:EamonPM.Game.Views.EamonCSView.InitializeComponent(System.Boolean)">
+            <summary>
+            Wires up the controls and optionally loads XAML markup and attaches dev tools (if Avalonia.Diagnostics package is referenced).
+            </summary>
+            <param name="loadXaml">Should the XAML be loaded into the component.</param>
+        </member>
+        <member name="M:EamonPM.Game.Views.EamonDDView.InitializeComponent(System.Boolean)">
+            <summary>
+            Wires up the controls and optionally loads XAML markup and attaches dev tools (if Avalonia.Diagnostics package is referenced).
+            </summary>
+            <param name="loadXaml">Should the XAML be loaded into the component.</param>
+        </member>
+        <member name="M:EamonPM.Game.Views.EamonMHView.InitializeComponent(System.Boolean)">
+            <summary>
+            Wires up the controls and optionally loads XAML markup and attaches dev tools (if Avalonia.Diagnostics package is referenced).
+            </summary>
+            <param name="loadXaml">Should the XAML be loaded into the component.</param>
+        </member>
+        <member name="M:EamonPM.Game.Views.EamonRTView.InitializeComponent(System.Boolean)">
+            <summary>
+            Wires up the controls and optionally loads XAML markup and attaches dev tools (if Avalonia.Diagnostics package is referenced).
+            </summary>
+            <param name="loadXaml">Should the XAML be loaded into the component.</param>
+        </member>
+        <member name="M:EamonPM.Game.Views.MainView.InitializeComponent(System.Boolean)">
+            <summary>
+            Wires up the controls and optionally loads XAML markup and attaches dev tools (if Avalonia.Diagnostics package is referenced).
+            </summary>
+            <param name="loadXaml">Should the XAML be loaded into the component.</param>
+        </member>
+        <member name="M:EamonPM.Game.Views.MainWindow.InitializeComponent(System.Boolean)">
+            <summary>
+            Wires up the controls and optionally loads XAML markup and attaches dev tools (if Avalonia.Diagnostics package is referenced).
+            </summary>
+            <param name="loadXaml">Should the XAML be loaded into the component.</param>
+        </member>
+        <member name="M:EamonPM.Game.Views.PluginLauncherView.InitializeComponent(System.Boolean)">
+            <summary>
+            Wires up the controls and optionally loads XAML markup and attaches dev tools (if Avalonia.Diagnostics package is referenced).
+            </summary>
+            <param name="loadXaml">Should the XAML be loaded into the component.</param>
+        </member>
+        <member name="M:EamonPM.Game.Views.QuickLaunchView.InitializeComponent(System.Boolean)">
+            <summary>
+            Wires up the controls and optionally loads XAML markup and attaches dev tools (if Avalonia.Diagnostics package is referenced).
+            </summary>
+            <param name="loadXaml">Should the XAML be loaded into the component.</param>
+        </member>
+        <member name="M:EamonPM.Game.Views.SettingsView.InitializeComponent(System.Boolean)">
+            <summary>
+            Wires up the controls and optionally loads XAML markup and attaches dev tools (if Avalonia.Diagnostics package is referenced).
+            </summary>
+            <param name="loadXaml">Should the XAML be loaded into the component.</param>
+        </member>
+        <member name="M:EamonPM.Game.Views.SplashScreen.InitializeComponent(System.Boolean)">
+            <summary>
+            Wires up the controls and optionally loads XAML markup and attaches dev tools (if Avalonia.Diagnostics package is referenced).
+            </summary>
+            <param name="loadXaml">Should the XAML be loaded into the component.</param>
+        </member>
+    </members>
+</doc>
