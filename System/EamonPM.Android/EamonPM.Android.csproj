@@ -94,28 +94,28 @@
 
    <PropertyGroup>
 	  <PreBuildEvent>
-		 xcopy "$(TargetDir)EamonMH.dll" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
-		 xcopy "$(TargetDir)EamonDD.dll" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
-		 xcopy "$(TargetDir)EamonRT.dll" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
-		 xcopy "$(TargetDir)ARuncibleCargo.dll" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
-		 xcopy "$(TargetDir)BeginnersForest.dll" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
-		 xcopy "$(TargetDir)StrongholdOfKahrDur.dll" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
-		 xcopy "$(TargetDir)TheBeginnersCave.dll" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
-		 xcopy "$(TargetDir)TheTempleOfNgurct.dll" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
-		 xcopy "$(TargetDir)TheTrainingGround.dll" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
-		 xcopy "$(TargetDir)WrenholdsSecretVigil.dll" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
-		 xcopy "$(TargetDir)LandOfTheMountainKing.dll" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
-		 xcopy "$(TargetDir)TheVileGrimoireOfJaldial.dll" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
-		 xcopy "$(TargetDir)RiddlesOfTheDuergarKingdom.dll" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
-		 xcopy "$(TargetDir)BeginnersCaveII.dll" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
-		 xcopy "$(TargetDir)AlternateBeginnersCave.dll" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
-		 xcopy "$(TargetDir)TheDeepCanyon.dll" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
-		 xcopy "$(TargetDir)ThePyramidOfAnharos.dll" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
-		 xcopy "$(TargetDir)SampleAdventure.dll" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
-		 xcopy "$(TargetDir)TheSubAquanLaboratory.dll" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
-		 xcopy "$(TargetDir)TheWayfarersInn.dll" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
+		 xcopy "$(TargetDir)EamonMH.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
+		 xcopy "$(TargetDir)EamonDD.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
+		 xcopy "$(TargetDir)EamonRT.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
+		 xcopy "$(TargetDir)ARuncibleCargo.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
+		 xcopy "$(TargetDir)BeginnersForest.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
+		 xcopy "$(TargetDir)StrongholdOfKahrDur.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
+		 xcopy "$(TargetDir)TheBeginnersCave.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
+		 xcopy "$(TargetDir)TheTempleOfNgurct.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
+		 xcopy "$(TargetDir)TheTrainingGround.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
+		 xcopy "$(TargetDir)WrenholdsSecretVigil.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
+		 xcopy "$(TargetDir)LandOfTheMountainKing.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
+		 xcopy "$(TargetDir)TheVileGrimoireOfJaldial.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
+		 xcopy "$(TargetDir)RiddlesOfTheDuergarKingdom.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
+		 xcopy "$(TargetDir)BeginnersCaveII.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
+		 xcopy "$(TargetDir)AlternateBeginnersCave.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
+		 xcopy "$(TargetDir)TheDeepCanyon.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
+		 xcopy "$(TargetDir)ThePyramidOfAnharos.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
+		 xcopy "$(TargetDir)SampleAdventure.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
+		 xcopy "$(TargetDir)TheSubAquanLaboratory.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
+		 xcopy "$(TargetDir)TheWayfarersInn.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
 		 xcopy "$(TargetDir)*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
-		 xcopy "$(TargetDir)GLOBAL_LAUNCH_PARAMETERS.TXT" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
+		 xcopy "$(TargetDir)GLOBAL_LAUNCH_PARAMETERS.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
 		 xcopy "$(TargetDir)..\..\Adventures\ARuncibleCargo\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\ARuncibleCargo" /I /S /Y
 		 xcopy "$(TargetDir)..\..\Adventures\BeginnersForest\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\BeginnersForest" /I /S /Y
 		 xcopy "$(TargetDir)..\..\Adventures\DemoAdventure\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\DemoAdventure" /I /S /Y
