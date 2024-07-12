@@ -63,7 +63,7 @@
 			<Style Selector="TextBox:focus">
 			   <Style Selector="^ /template/ Border#PART_BorderElement">
 				  <Setter Property="Background" Value="{Binding BackgroundColor, Mode=TwoWay}" />
-				  <Setter Property="BorderBrush" Value="{Binding ForegroundColor, Mode=TwoWay}" />
+				  <Setter Property="BorderBrush" Value="{Binding BackgroundColor, Mode=TwoWay}" />
 			   </Style>
 			   <Style Selector="^ /template/ TextBlock#PART_Watermark">
 				  <Setter Property="Foreground" Value="{Binding ForegroundColor, Mode=TwoWay}" />
