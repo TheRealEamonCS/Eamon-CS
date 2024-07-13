@@ -531,7 +531,7 @@ namespace EamonPM
 			{
 				if (type == typeof(SettingsViewModel))
 				{
-					var fileName = gEngine.Path.Combine(BasePath, "System", "Bin", string.Format("{0}_SETTINGS.DAT", ProgramName.ToUpper().Replace(".", "_")));
+					var fileName = gEngine.Path.Combine(BasePath, "System", "Bin", "EAMONPM_SETTINGS.DAT");
 
 					try
 					{

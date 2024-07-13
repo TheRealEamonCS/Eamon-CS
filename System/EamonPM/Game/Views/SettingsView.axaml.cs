@@ -21,7 +21,7 @@ namespace EamonPM.Game.Views
 		{
 			var viewModel = DataContext as SettingsViewModel;
 
-			var fileName = gEngine.Path.Combine(App.BasePath, "System", "Bin", string.Format("{0}_SETTINGS.DAT", App.ProgramName.ToUpper().Replace(".", "_")));
+			var fileName = gEngine.Path.Combine(App.BasePath, "System", "Bin", "EAMONPM_SETTINGS.DAT");
 
 			try
 			{
