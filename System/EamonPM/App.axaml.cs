@@ -449,7 +449,23 @@ namespace EamonPM
 
 			switch (themeName)
 			{
-				case "Dark Forest":
+				case "Air":
+
+					resources["Primary"] = Avalonia.Media.Color.Parse("#1A73E8"); // Darker Rich Sky Blue
+					resources["PrimaryDark"] = Avalonia.Media.Color.Parse("#134B96"); // Darker Deep Sky Blue
+					resources["Accent"] = Avalonia.Media.Color.Parse("#64B5F6"); // Vibrant Light Blue
+					resources["TitleTabItemForegroundColor"] = Avalonia.Media.Color.Parse("#FFFFFF"); // White
+					resources["GeneralForegroundColor"] = Avalonia.Media.Color.Parse("#000000"); // Black
+					resources["LightBackgroundColor"] = Avalonia.Media.Color.Parse("#E3F2FD"); // Very Light Sky Blue
+					resources["DarkBackgroundColor"] = Avalonia.Media.Color.Parse("#90CAF9"); // Light Muted Blue
+					resources["GeneralBackgroundColor"] = Avalonia.Media.Color.Parse("#FFFFFF"); // White
+					resources["MediumGrayTextColor"] = Avalonia.Media.Color.Parse("#3F51B5"); // Medium Sky Blue
+					resources["LightTextColor"] = Avalonia.Media.Color.Parse("#7986CB"); // Light Muted Blue
+					resources["RowDivider"] = Avalonia.Media.Color.Parse("#B3E5FC"); // Very Light Blue
+
+					break;
+				
+				case "Earth":
 
 					resources["Primary"] = Avalonia.Media.Color.Parse("#6B4226"); // Rich Earthy Brown
 					resources["PrimaryDark"] = Avalonia.Media.Color.Parse("#4E2C1B"); // Deep Earthy Brown
@@ -465,23 +481,7 @@ namespace EamonPM
 
 					break;
 
-				case "Deep Ocean":
-
-					resources["Primary"] = Avalonia.Media.Color.Parse("#0D47A1"); // Deep Blue
-					resources["PrimaryDark"] = Avalonia.Media.Color.Parse("#002171"); // Darker Deep Blue
-					resources["Accent"] = Avalonia.Media.Color.Parse("#00BCD4"); // Aqua Blue
-					resources["TitleTabItemForegroundColor"] = Avalonia.Media.Color.Parse("#FFFFFF"); // White
-					resources["GeneralForegroundColor"] = Avalonia.Media.Color.Parse("#000000"); // Black
-					resources["LightBackgroundColor"] = Avalonia.Media.Color.Parse("#E0F7FA"); // Very Light Aqua
-					resources["DarkBackgroundColor"] = Avalonia.Media.Color.Parse("#B0BEC5"); // Light Grayish Blue
-					resources["GeneralBackgroundColor"] = Avalonia.Media.Color.Parse("#FFFFFF"); // White
-					resources["MediumGrayTextColor"] = Avalonia.Media.Color.Parse("#2C3B44"); // Darker Medium Grayish Blue
-					resources["LightTextColor"] = Avalonia.Media.Color.Parse("#788997"); // Darker Light Grayish Blue
-					resources["RowDivider"] = Avalonia.Media.Color.Parse("#CFD8DC"); // Very Light Grayish Blue
-
-					break;
-
-				case "Glowing Flame":
+				case "Fire":
 
 					resources["Primary"] = Avalonia.Media.Color.Parse("#B33B1B"); // Rich Ember Red
 					resources["PrimaryDark"] = Avalonia.Media.Color.Parse("#8F2500"); // Deep Dark Red
@@ -497,19 +497,19 @@ namespace EamonPM
 
 					break;
 
-				case "Open Sky":
+				case "Water":
 
-					resources["Primary"] = Avalonia.Media.Color.Parse("#1A73E8"); // Darker Rich Sky Blue
-					resources["PrimaryDark"] = Avalonia.Media.Color.Parse("#134B96"); // Darker Deep Sky Blue
-					resources["Accent"] = Avalonia.Media.Color.Parse("#64B5F6"); // Vibrant Light Blue
+					resources["Primary"] = Avalonia.Media.Color.Parse("#0D47A1"); // Deep Blue
+					resources["PrimaryDark"] = Avalonia.Media.Color.Parse("#002171"); // Darker Deep Blue
+					resources["Accent"] = Avalonia.Media.Color.Parse("#00BCD4"); // Aqua Blue
 					resources["TitleTabItemForegroundColor"] = Avalonia.Media.Color.Parse("#FFFFFF"); // White
 					resources["GeneralForegroundColor"] = Avalonia.Media.Color.Parse("#000000"); // Black
-					resources["LightBackgroundColor"] = Avalonia.Media.Color.Parse("#E3F2FD"); // Very Light Sky Blue
-					resources["DarkBackgroundColor"] = Avalonia.Media.Color.Parse("#90CAF9"); // Light Muted Blue
+					resources["LightBackgroundColor"] = Avalonia.Media.Color.Parse("#E0F7FA"); // Very Light Aqua
+					resources["DarkBackgroundColor"] = Avalonia.Media.Color.Parse("#B0BEC5"); // Light Grayish Blue
 					resources["GeneralBackgroundColor"] = Avalonia.Media.Color.Parse("#FFFFFF"); // White
-					resources["MediumGrayTextColor"] = Avalonia.Media.Color.Parse("#3F51B5"); // Medium Sky Blue
-					resources["LightTextColor"] = Avalonia.Media.Color.Parse("#7986CB"); // Light Muted Blue
-					resources["RowDivider"] = Avalonia.Media.Color.Parse("#B3E5FC"); // Very Light Blue
+					resources["MediumGrayTextColor"] = Avalonia.Media.Color.Parse("#2C3B44"); // Darker Medium Grayish Blue
+					resources["LightTextColor"] = Avalonia.Media.Color.Parse("#788997"); // Darker Light Grayish Blue
+					resources["RowDivider"] = Avalonia.Media.Color.Parse("#CFD8DC"); // Very Light Grayish Blue
 
 					break;
 

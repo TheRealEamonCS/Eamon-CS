@@ -302,7 +302,7 @@ namespace EamonPM.Game.ViewModels
 				"Source Code Pro", "Spleen", "Terminus", "Tex Gyre Cursor", "Ubuntu Mono", "Victor Mono", "Wumpus Mono"
 			};
 
-			AppThemeList = new List<string> { "Dark Forest", "Deep Ocean", "Glowing Flame", "Open Sky" };
+			AppThemeList = new List<string> { "Air", "Earth", "Fire", "Water" };
 
 			FontFamilyList = FontManager.Current.SystemFonts.Where(f => IsMonospaceFont(f.Name)).OrderBy(f => f.Name).ToList();
 
