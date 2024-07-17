@@ -11,6 +11,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Loader;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -25,12 +26,11 @@ using MsBox.Avalonia.Dto;
 using MsBox.Avalonia.Enums;
 using MsBox.Avalonia.Models;
 using Eamon.Framework.Portability;
+using Eamon.Game.Extensions;
 using EamonPM.Game.Views;
 using EamonPM.Game.ViewModels;
 using static Eamon.Game.Plugin.ContextStack;
 using static Eamon.Game.Plugin.Globals;
-using System.Text;
-using Avalonia.VisualTree;
 
 namespace EamonPM
 {
@@ -74,8 +74,6 @@ namespace EamonPM
 
 		public static Mutex OutputBufMutex { get; set; }
 
-		public static long OutputBufStartIndex { get; set; }
-
 		public static long InputBufSize { get; set; }
 
 		public static char[] InputBoxChars { get; set; }
@@ -112,8 +110,6 @@ namespace EamonPM
 			OutputBuf = new StringBuilder();
 
 			OutputBufMutex = new Mutex();
-
-			OutputBufStartIndex = -1;
 
 			FinishInput = new AutoResetEvent(false);
 
@@ -519,6 +515,78 @@ namespace EamonPM
 
 					break;
 			}
+		}
+
+		public static void EnforceOutputBufMaxSize()
+		{
+			DispatcherUIThreadPost(() =>
+			{
+				var pluginLauncherViewModel = GetViewModel(typeof(PluginLauncherViewModel)) as PluginLauncherViewModel;
+
+				try
+				{
+					OutputBufMutex.WaitOne();
+
+					if (OutputBuf.Length > pluginLauncherViewModel.OutputBufMaxSize)
+					{
+						var startIndex = OutputBuf.Length - pluginLauncherViewModel.OutputBufMaxSize;
+
+						var nlIndex = OutputBuf.IndexOf(Environment.NewLine[Environment.NewLine.Length - 1], startIndex);
+
+						if (nlIndex >= 0)
+						{
+							startIndex = nlIndex + 1;
+						}
+
+						OutputBuf.SetFormat("{0}", OutputBuf.ToString().Substring(startIndex));
+					}
+				}
+				catch (Exception ex)
+				{
+					// Do something
+				}
+				finally
+				{
+					OutputBufMutex.ReleaseMutex();
+				}
+			});
+		}
+
+		public static void RefreshOutputWindowText()
+		{
+			DispatcherUIThreadPost(() =>
+			{
+				var pluginLauncherViewModel = GetViewModel(typeof(PluginLauncherViewModel)) as PluginLauncherViewModel;
+
+				try
+				{
+					OutputBufMutex.WaitOne();
+
+					var startIndex = Math.Max(OutputBuf.Length - pluginLauncherViewModel.OutputWindowMaxSize, 0);
+
+					if (startIndex > 0)
+					{
+						var nlIndex = OutputBuf.IndexOf(Environment.NewLine[Environment.NewLine.Length - 1], startIndex);
+
+						if (nlIndex >= 0)
+						{
+							startIndex = nlIndex + 1;
+						}
+					}
+
+					var length = Math.Min(OutputBuf.Length - startIndex, pluginLauncherViewModel.OutputWindowMaxSize);
+
+					pluginLauncherViewModel.OutputText = OutputBuf.ToString(startIndex, length);
+				}
+				catch (Exception ex)
+				{
+					// Do something
+				}
+				finally
+				{
+					OutputBufMutex.ReleaseMutex();
+				}
+			});
 		}
 
 		public static ViewModelBase GetViewModel(Type type)

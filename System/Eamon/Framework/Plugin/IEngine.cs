@@ -666,9 +666,6 @@ namespace Eamon.Framework.Plugin
 		/// <summary></summary>
 		bool LineWrapUserInput { get; set; }
 
-		/// <summary></summary>
-		Coord CursorPosition { get; set; }
-
 		/// <summary>Gets or sets the <see cref="IConfig">Config</see> database quick-accessor.</summary>
 		/// <remarks>
 		/// The <see cref="IRecordDb{T}.Records">Records</see> property provides access to the Config collection. Additionally, you can 

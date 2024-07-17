@@ -45,17 +45,6 @@ namespace EamonRT.Game.States
 
 					gEngine.PlayerMoved = false;
 
-					gEngine.CursorPosition = gOut.GetCursorPosition();
-
-					if (gEngine.CursorPosition.Y > -1 && gEngine.CursorPosition.Y + 1 >= gOut.GetBufferHeight())
-					{
-						gEngine.CursorPosition.Y--;
-					}
-
-					gOut.WriteLine();
-
-					gOut.SetCursorPosition(gEngine.CursorPosition);
-
 					gSentenceParser.Clear();
 
 					gSentenceParser.InputBuf.SetFormat("{0}", gEngine.In.ReadLine());

@@ -135,13 +135,58 @@ namespace EamonPM.Game.Views
 		{
 			var pluginLauncherViewModel = App.GetViewModel(typeof(PluginLauncherViewModel)) as PluginLauncherViewModel;
 
-			if (sender is ComboBox comboBox && comboBox.SelectedItem != null && DataContext is SettingsViewModel settingsViewModel && pluginLauncherViewModel != null)
+			var pluginLauncherView = App.GetView(typeof(PluginLauncherView)) as PluginLauncherView;
+
+			if (sender is ComboBox comboBox && comboBox.SelectedItem != null && DataContext is SettingsViewModel settingsViewModel && pluginLauncherViewModel != null && pluginLauncherView != null)
 			{
 				var outputBufMaxSize = Convert.ToInt32(comboBox.SelectedItem);
 
 				settingsViewModel.OutputBufMaxSizeComboBoxSelectionChanged(outputBufMaxSize);
 
 				pluginLauncherViewModel.OutputBufMaxSizeComboBoxSelectionChanged(outputBufMaxSize);
+
+				var outputWindowSelectedIndex = OutputWindowMaxSizeComboBox.SelectedIndex;
+
+				settingsViewModel.OutputWindowMaxSizeComboBoxSync();
+
+				OutputWindowMaxSizeComboBox.SelectedIndex = outputWindowSelectedIndex > settingsViewModel.OutputWindowMaxSizeList.Count - 1 ? settingsViewModel.OutputWindowMaxSizeList.Count - 1 : outputWindowSelectedIndex;
+
+				App.EnforceOutputBufMaxSize();
+
+				App.RefreshOutputWindowText();
+
+				pluginLauncherView.OutputScrollViewerScrollToEnd();
+
+				// Weird hack to fix Save Settings button greyout
+
+				if (!App.InitializeSettings)
+				{
+					await Task.Delay(25);
+
+					SaveSettingsButton.IsEnabled = false;
+
+					SaveSettingsButton.IsEnabled = true;
+				}
+			}
+		}
+
+		public async void OutputWindowMaxSizeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			var pluginLauncherViewModel = App.GetViewModel(typeof(PluginLauncherViewModel)) as PluginLauncherViewModel;
+
+			var pluginLauncherView = App.GetView(typeof(PluginLauncherView)) as PluginLauncherView;
+
+			if (sender is ComboBox comboBox && comboBox.SelectedItem != null && DataContext is SettingsViewModel settingsViewModel && pluginLauncherViewModel != null && pluginLauncherView != null)
+			{
+				var outputWindowMaxSize = Convert.ToInt32(comboBox.SelectedItem);
+
+				settingsViewModel.OutputWindowMaxSizeComboBoxSelectionChanged(outputWindowMaxSize);
+
+				pluginLauncherViewModel.OutputWindowMaxSizeComboBoxSelectionChanged(outputWindowMaxSize);
+
+				App.RefreshOutputWindowText();
+
+				pluginLauncherView.OutputScrollViewerScrollToEnd();
 
 				// Weird hack to fix Save Settings button greyout
 
@@ -248,6 +293,13 @@ namespace EamonPM.Game.Views
 			if (OutputBufMaxSizeComboBox.SelectedIndex < 0)
 			{
 				OutputBufMaxSizeComboBox.SelectedIndex = 5;
+			}
+
+			OutputWindowMaxSizeComboBox.SelectedIndex = viewModel.OutputWindowMaxSizeList.IndexOf(viewModel.OutputWindowMaxSize);
+
+			if (OutputWindowMaxSizeComboBox.SelectedIndex < 0)
+			{
+				OutputWindowMaxSizeComboBox.SelectedIndex = Math.Min(viewModel.OutputWindowMaxSizeList.Count - 1, 2);
 			}
 
 			ForegroundColorPicker.Color = ColorHelper.FromHexString(viewModel.ForegroundColor, Color.FromRgb(0, 0, 0));

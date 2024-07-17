@@ -27,6 +27,8 @@ namespace EamonPM.Game.ViewModels
 
 		public int _outputBufMaxSize;
 
+		public int _outputWindowMaxSize;
+
 		public bool _keepKeyboardVisible;
 
 		public string _outputText;
@@ -128,6 +130,19 @@ namespace EamonPM.Game.ViewModels
 			}
 		}
 
+		public int OutputWindowMaxSize
+		{
+			get
+			{
+				return _outputWindowMaxSize;
+			}
+
+			set
+			{
+				this.RaiseAndSetIfChanged(ref _outputWindowMaxSize, value);
+			}
+		}
+
 		public bool KeepKeyboardVisible
 		{
 			get
@@ -210,6 +225,11 @@ namespace EamonPM.Game.ViewModels
 		public void OutputBufMaxSizeComboBoxSelectionChanged(int outputBufMaxSize)
 		{
 			OutputBufMaxSize = outputBufMaxSize;
+		}
+
+		public void OutputWindowMaxSizeComboBoxSelectionChanged(int outputWindowMaxSize)
+		{
+			OutputWindowMaxSize = outputWindowMaxSize;
 		}
 
 		public void KeepKeyboardVisibleToggleSwitchChanged(bool keepKeyboardVisible)

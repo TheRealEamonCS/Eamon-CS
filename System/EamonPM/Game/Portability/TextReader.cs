@@ -116,11 +116,22 @@ namespace EamonPM.Game.Portability
 
 			if (gEngine.EnableScreenReaderMode)
 			{
-				App.OutputBuf.Clear();
+				try
+				{
+					App.OutputBufMutex.WaitOne();
 
-				App.OutputBufStartIndex = -1;
+					App.OutputBuf.Clear();
 
-				startColumn = 0L;
+					startColumn = 0L;
+				}
+				catch (Exception ex)
+				{
+					// Do something
+				}
+				finally
+				{
+					App.OutputBufMutex.ReleaseMutex();
+				}
 			}
 
 			gEngine.LineWrap(buf.ToString(), Buf01, startColumn);
@@ -153,8 +164,6 @@ namespace EamonPM.Game.Portability
 		{
 			if (EnableInput)
 			{
-				var cursorPosition = gEngine.Out.GetCursorPosition();
-
 				var bufSize = (gEngine.WindowWidth * 2);
 
 				var buf = new StringBuilder(bufSize);

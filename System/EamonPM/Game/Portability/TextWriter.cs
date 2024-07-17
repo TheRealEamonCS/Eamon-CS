@@ -10,7 +10,6 @@ using System.Text.RegularExpressions;
 using Eamon.Framework.Portability;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Extensions;
-using EamonPM.Game.ViewModels;
 using static Eamon.Game.Plugin.Globals;
 
 namespace EamonPM.Game.Portability
@@ -102,11 +101,7 @@ namespace EamonPM.Game.Portability
 			{
 				App.OutputBufMutex.WaitOne();
 
-				EnforceOutputBufMaxSize();
-
 				App.OutputBuf.Length = coord.X;
-
-				RefreshOutputText();
 			}
 			catch (Exception ex)
 			{
@@ -116,6 +111,10 @@ namespace EamonPM.Game.Portability
 			{
 				App.OutputBufMutex.ReleaseMutex();
 			}
+
+			App.EnforceOutputBufMaxSize();
+
+			App.RefreshOutputWindowText();
 		}
 
 		public virtual void SetWindowTitle(string title)
@@ -320,8 +319,6 @@ namespace EamonPM.Game.Portability
 				{
 					App.OutputBufMutex.WaitOne();
 
-					EnforceOutputBufMaxSize();
-
 					if (Stdout)
 					{
 						App.OutputBuf.Append(Buf);
@@ -330,8 +327,6 @@ namespace EamonPM.Game.Portability
 					{
 						App.OutputBuf.Append(Buf);
 					}
-
-					RefreshOutputText();
 				}
 				catch (Exception ex)
 				{
@@ -341,6 +336,10 @@ namespace EamonPM.Game.Portability
 				{
 					App.OutputBufMutex.ReleaseMutex();
 				}
+
+				App.EnforceOutputBufMaxSize();
+
+				App.RefreshOutputWindowText();
 			}
 		}
 
@@ -457,67 +456,29 @@ namespace EamonPM.Game.Portability
 			WriteLine(format, new object[] { arg0, arg1, arg2 });
 		}
 
-		/// <summary></summary>
-		public virtual void EnforceOutputBufMaxSize()
+		public virtual void BackpatchLastCommand(string inputStr)
 		{
-			var settingsViewModel = App.GetViewModel(typeof(SettingsViewModel)) as SettingsViewModel;
+			Debug.Assert(!string.IsNullOrWhiteSpace(inputStr));
 
-			if (App.OutputBuf.Length - (App.OutputBufStartIndex + 1) > settingsViewModel.OutputBufMaxSize)
+			try
 			{
-				App.OutputBufMutex.ReleaseMutex();
-
-				gEngine.Thread.Sleep(1000);
-
 				App.OutputBufMutex.WaitOne();
 
-				while (App.OutputBuf.Length - (App.OutputBufStartIndex + 1) > settingsViewModel.OutputBufMaxSize)
+				if (App.OutputBuf.EndsWith(Environment.NewLine))
 				{
-					App.OutputBufStartIndex += (long)(settingsViewModel.OutputBufMaxSize * 0.25);
+					App.OutputBuf.Length -= Environment.NewLine.Length;
 				}
-
-				var nlChar = Environment.NewLine[Environment.NewLine.Length - 1];
-
-				while (App.OutputBufStartIndex > -1 && App.OutputBuf[(int)App.OutputBufStartIndex] != nlChar)
-				{
-					App.OutputBufStartIndex--;
-				}
-
-				RefreshOutputText();
-
-				App.OutputBufMutex.ReleaseMutex();
-
-				gEngine.Thread.Sleep(1000);
-
-				App.OutputBufMutex.WaitOne();
 			}
-		}
-
-		/// <summary></summary>
-		public virtual void RefreshOutputText()
-		{
-			App.DispatcherUIThreadPost(() =>
+			catch (Exception ex)
 			{
-				var pluginLauncherViewModel = App.GetViewModel(typeof(PluginLauncherViewModel)) as PluginLauncherViewModel;
+				// Do something
+			}
+			finally
+			{
+				App.OutputBufMutex.ReleaseMutex();
+			}
 
-				try
-				{
-					App.OutputBufMutex.WaitOne();
-
-					var startIndex = (int)(App.OutputBufStartIndex + 1);
-
-					var length = App.OutputBuf.Length - startIndex;
-
-					pluginLauncherViewModel.OutputText = App.OutputBuf.ToString(startIndex, length);
-				}
-				catch (Exception ex)
-				{
-					// Do something
-				}
-				finally
-				{
-					App.OutputBufMutex.ReleaseMutex();
-				}
-			});
+			gOut.WriteLine(inputStr);
 		}
 
 		public TextWriter()

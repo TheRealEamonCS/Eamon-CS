@@ -1860,13 +1860,6 @@ namespace EamonRT.Game.Parsing
 
 				if (InputBuf.Length > 0 && ActorMonster.IsCharacterMonster())
 				{
-					if (Environment.NewLine.Length == 1 && gEngine.CursorPosition.Y > -1 && gEngine.CursorPosition.Y + 1 >= gOut.GetBufferHeight())
-					{
-						gEngine.CursorPosition.Y--;
-					}
-
-					gOut.SetCursorPosition(gEngine.CursorPosition);
-
 					if (gEngine.LineWrapUserInput)
 					{
 						gEngine.LineWrap(InputBuf.ToString(), gEngine.Buf, gEngine.CommandPrompt.Length);
@@ -1878,7 +1871,7 @@ namespace EamonRT.Game.Parsing
 
 					gOut.WordWrap = false;
 
-					gOut.WriteLine(gEngine.Buf);
+					gOut.BackpatchLastCommand(gEngine.Buf.ToString());
 
 					gOut.WordWrap = true;
 				}

@@ -295,8 +295,6 @@ namespace Eamon.Game.Plugin
 
 		public virtual bool LineWrapUserInput { get; set; }
 
-		public virtual Coord CursorPosition { get; set; }
-
 		public virtual IRecordDb<IConfig> CFGDB { get; set; }
 
 		public virtual IRecordDb<IFileset> FSDB { get; set; }

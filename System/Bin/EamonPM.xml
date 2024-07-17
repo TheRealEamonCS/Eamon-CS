@@ -51,12 +51,6 @@
         <member name="P:EamonPM.Game.Portability.TextWriter.NumNewLines">
             <summary></summary>
         </member>
-        <member name="M:EamonPM.Game.Portability.TextWriter.EnforceOutputBufMaxSize">
-            <summary></summary>
-        </member>
-        <member name="M:EamonPM.Game.Portability.TextWriter.RefreshOutputText">
-            <summary></summary>
-        </member>
         <member name="M:EamonPM.Game.Portability.TransferProtocol.NormalizePath(System.String)">
             <summary></summary>
             <param name="path"></param>

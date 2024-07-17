@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using Avalonia.Media;
 using ReactiveUI;
@@ -28,6 +29,8 @@ namespace EamonPM.Game.ViewModels
 		public double _fontSize;
 
 		public int _outputBufMaxSize;
+
+		public int _outputWindowMaxSize;
 
 		public bool _keepKeyboardVisible;
 
@@ -54,6 +57,9 @@ namespace EamonPM.Game.ViewModels
 
 		[ExcludeFromSerialization]
 		public List<int> OutputBufMaxSizeList { get; set; }
+
+		[ExcludeFromSerialization]
+		public ObservableCollection<int> OutputWindowMaxSizeList { get; set; }
 
 		public string AppTheme
 		{
@@ -143,6 +149,19 @@ namespace EamonPM.Game.ViewModels
 			set
 			{
 				this.RaiseAndSetIfChanged(ref _outputBufMaxSize, value);
+			}
+		}
+
+		public int OutputWindowMaxSize
+		{
+			get
+			{
+				return _outputWindowMaxSize;
+			}
+
+			set
+			{
+				this.RaiseAndSetIfChanged(ref _outputWindowMaxSize, value);
 			}
 		}
 
@@ -250,6 +269,30 @@ namespace EamonPM.Game.ViewModels
 			SettingsChanged = true;
 		}
 
+		public void OutputWindowMaxSizeComboBoxSelectionChanged(int outputWindowMaxSize)
+		{
+			OutputWindowMaxSize = outputWindowMaxSize;
+
+			SettingsChanged = true;
+		}
+
+		public void OutputWindowMaxSizeComboBoxSync()
+		{
+			OutputWindowMaxSizeList.Clear();
+
+			for (var i = 0; i < OutputBufMaxSizeList.Count; i++)
+			{
+				if (OutputBufMaxSize >= OutputBufMaxSizeList[i])
+				{
+					OutputWindowMaxSizeList.Add(OutputBufMaxSizeList[i]);
+				}
+				else
+				{
+					break;
+				}
+			}
+		}
+
 		public void KeepKeyboardVisibleToggleSwitchChanged(bool keepKeyboardVisible)
 		{
 			KeepKeyboardVisible = keepKeyboardVisible;
@@ -315,7 +358,9 @@ namespace EamonPM.Game.ViewModels
 
 			FontSizeList = new List<int> { 6, 7, 8, 9, 10, 11, 12, 14, 16, 18, 20, 22, 24, 26, 28, 36, 48, 72 };
 
-			OutputBufMaxSizeList = new List<int> { 8192, 16384, 32768, 65536, 131072, 262144 };
+			OutputBufMaxSizeList = new List<int> { 8192, 16384, 32768, 65536, 131072, 262144, 524288, 1048576, int.MaxValue };
+
+			OutputWindowMaxSizeList = new ObservableCollection<int> { 8192, 16384, 32768, 65536, 131072, 262144 };
 
 			ForegroundColor = ColorHelper.ToHexString(Color.FromRgb(0, 0, 0));
 
@@ -330,6 +375,8 @@ namespace EamonPM.Game.ViewModels
 			FontSize = FontSizeList[7];
 
 			OutputBufMaxSize = OutputBufMaxSizeList[5];
+
+			OutputWindowMaxSize = OutputWindowMaxSizeList[2];
 
 			KeepKeyboardVisible = false;
 

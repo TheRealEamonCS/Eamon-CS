@@ -4205,9 +4205,6 @@
         <member name="P:Eamon.Framework.Plugin.IEngine.LineWrapUserInput">
             <summary></summary>
         </member>
-        <member name="P:Eamon.Framework.Plugin.IEngine.CursorPosition">
-            <summary></summary>
-        </member>
         <member name="P:Eamon.Framework.Plugin.IEngine.CFGDB">
             <summary>Gets or sets the <see cref="T:Eamon.Framework.IConfig">Config</see> database quick-accessor.</summary>
             <remarks>
@@ -5918,6 +5915,10 @@
             <param name="arg0"></param>
             <param name="arg1"></param>
             <param name="arg2"></param>
+        </member>
+        <member name="M:Eamon.Framework.Portability.ITextWriter.BackpatchLastCommand(System.String)">
+            <summary></summary>
+            <param name="inputStr"></param>
         </member>
         <member name="T:Eamon.Framework.Portability.IThread">
             <summary></summary>

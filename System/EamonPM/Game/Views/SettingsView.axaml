@@ -42,6 +42,8 @@
 			   <RowDefinition Height="1"  />
 			   <RowDefinition Height="50" />
 			   <RowDefinition Height="1"  />
+			   <RowDefinition Height="50" />
+			   <RowDefinition Height="1"  />
 			</Grid.RowDefinitions>
 			<Grid.ColumnDefinitions>
 			   <ColumnDefinition Width="200" />
@@ -195,21 +197,28 @@
 					   Fill="{DynamicResource RowDivider}" />
 
 
-
 			<TextBlock
 					Grid.Row="10"
 					Grid.Column="0"
 					Margin="10"
 					VerticalAlignment="Center"
-					Text="Foreground Color" />
+					Text="Scrollback Window Size" />
 
-			<ColorPicker Grid.Row="10"
-						 Grid.Column="1"
-						 Margin="0"
-						 VerticalAlignment="Center"
-						 HorizontalAlignment="Left"
-						 ColorChanged="ForegroundColorPicker_ColorChanged"
-						 x:Name="ForegroundColorPicker" />
+			<ComboBox
+					Grid.Row="10"
+					Grid.Column="1"
+					Margin="0"
+				    MaxDropDownHeight="200"
+					VerticalAlignment="Center"
+					ItemsSource="{Binding OutputWindowMaxSizeList, Mode=TwoWay}"
+					SelectionChanged="OutputWindowMaxSizeComboBox_SelectionChanged"
+					x:Name="OutputWindowMaxSizeComboBox">
+			   <ComboBox.ItemTemplate>
+				  <DataTemplate>
+					 <TextBlock Text="{Binding}" />
+				  </DataTemplate>
+			   </ComboBox.ItemTemplate>
+			</ComboBox>
 
 			<Rectangle Grid.Row="11"
 					   Grid.ColumnSpan="2"
@@ -217,20 +226,22 @@
 					   HorizontalAlignment="Stretch"
 					   Fill="{DynamicResource RowDivider}" />
 
+
+
 			<TextBlock
 					Grid.Row="12"
 					Grid.Column="0"
 					Margin="10"
 					VerticalAlignment="Center"
-					Text="Background Color" />
+					Text="Foreground Color" />
 
 			<ColorPicker Grid.Row="12"
 						 Grid.Column="1"
 						 Margin="0"
 						 VerticalAlignment="Center"
 						 HorizontalAlignment="Left"
-						 ColorChanged="BackgroundColorPicker_ColorChanged"
-						 x:Name="BackgroundColorPicker" />
+						 ColorChanged="ForegroundColorPicker_ColorChanged"
+						 x:Name="ForegroundColorPicker" />
 
 			<Rectangle Grid.Row="13"
 					   Grid.ColumnSpan="2"
@@ -238,16 +249,37 @@
 					   HorizontalAlignment="Stretch"
 					   Fill="{DynamicResource RowDivider}" />
 
-
 			<TextBlock
 					Grid.Row="14"
+					Grid.Column="0"
+					Margin="10"
+					VerticalAlignment="Center"
+					Text="Background Color" />
+
+			<ColorPicker Grid.Row="14"
+						 Grid.Column="1"
+						 Margin="0"
+						 VerticalAlignment="Center"
+						 HorizontalAlignment="Left"
+						 ColorChanged="BackgroundColorPicker_ColorChanged"
+						 x:Name="BackgroundColorPicker" />
+
+			<Rectangle Grid.Row="15"
+					   Grid.ColumnSpan="2"
+					   Height="1"
+					   HorizontalAlignment="Stretch"
+					   Fill="{DynamicResource RowDivider}" />
+
+
+			<TextBlock
+					Grid.Row="16"
 					Grid.Column="0"
 					Margin="10"
 					VerticalAlignment="Center"
 					Text="Keep Keyboard Visible" />
 
 			<ToggleSwitch
-				  Grid.Row="14"
+				  Grid.Row="16"
 				  Grid.Column="1"
 				  Margin="0"
 				  VerticalAlignment="Center"
@@ -256,28 +288,6 @@
 				  Checked="KeepKeyboardVisibleToggleSwitch_Changed"
 				  Unchecked="KeepKeyboardVisibleToggleSwitch_Changed"
 				  x:Name="KeepKeyboardVisibleToggleSwitch" />
-
-			<Rectangle Grid.Row="15"
-					   Grid.ColumnSpan="2"
-					   Height="1"
-					   HorizontalAlignment="Stretch"
-					   Fill="{DynamicResource RowDivider}" />
-
-			<TextBlock
-					Grid.Row="16"
-					Grid.Column="0"
-					Margin="10"
-					VerticalAlignment="Center"
-					Text="Window Width" />
-
-			<TextBlock
-				  Grid.Row="16"
-				  Grid.Column="1"
-				  Margin="0"
-				  VerticalAlignment="Center"
-				  HorizontalAlignment="Left"
-				  Text="{Binding WindowWidth, Mode=TwoWay}"
-				  x:Name="WindowWidthTextBlock" />
 
 			<Rectangle Grid.Row="17"
 					   Grid.ColumnSpan="2"
@@ -290,7 +300,7 @@
 					Grid.Column="0"
 					Margin="10"
 					VerticalAlignment="Center"
-					Text="Window Height" />
+					Text="Window Width" />
 
 			<TextBlock
 				  Grid.Row="18"
@@ -298,10 +308,32 @@
 				  Margin="0"
 				  VerticalAlignment="Center"
 				  HorizontalAlignment="Left"
+				  Text="{Binding WindowWidth, Mode=TwoWay}"
+				  x:Name="WindowWidthTextBlock" />
+
+			<Rectangle Grid.Row="19"
+					   Grid.ColumnSpan="2"
+					   Height="1"
+					   HorizontalAlignment="Stretch"
+					   Fill="{DynamicResource RowDivider}" />
+
+			<TextBlock
+					Grid.Row="20"
+					Grid.Column="0"
+					Margin="10"
+					VerticalAlignment="Center"
+					Text="Window Height" />
+
+			<TextBlock
+				  Grid.Row="20"
+				  Grid.Column="1"
+				  Margin="0"
+				  VerticalAlignment="Center"
+				  HorizontalAlignment="Left"
 				  Text="{Binding WindowHeight, Mode=TwoWay}"
 				  x:Name="WindowHeightTextBlock" />
 
-			<Rectangle Grid.Row="19"
+			<Rectangle Grid.Row="21"
 					   Grid.ColumnSpan="2"
 					   Height="1"
 					   HorizontalAlignment="Stretch"
