@@ -358,7 +358,7 @@ namespace EamonPM.Game.ViewModels
 
 			FontSizeList = new List<int> { 6, 7, 8, 9, 10, 11, 12, 14, 16, 18, 20, 22, 24, 26, 28, 36, 48, 72 };
 
-			OutputBufMaxSizeList = new List<int> { 8192, 16384, 32768, 65536, 131072, 262144, 524288, 1048576, int.MaxValue };
+			OutputBufMaxSizeList = new List<int> { 8192, 16384, 32768, 65536, 131072, 262144, 524288, 1048576 };
 
 			OutputWindowMaxSizeList = new ObservableCollection<int> { 8192, 16384, 32768, 65536, 131072, 262144 };
 
