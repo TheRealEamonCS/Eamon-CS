@@ -42,7 +42,7 @@ namespace EamonPM
 			- change the BuildGuid to upgrade the binary .apk file and the .DAT datafiles in the filesystem (but not CHARACTERS.DAT)
 		*/
 
-		public static string BuildGuid = "A397D6EC-CBC4-4907-BA7B-6A7619B7E308";
+		public static string BuildGuid = "4C9208E5-07FE-4BA7-90A2-AE05060D2435";
 
 		public static ConcurrentDictionary<Type, ViewModelBase> ViewModelDictionary { get; set; }
 
