@@ -2,55 +2,111 @@
 
 REM Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
+setlocal
+
 timeout /t 1 /nobreak >nul 2>&1
+
+cd /d "%~dp0"
+
+set "SCRIPT_DIR=%cd%"
+
+powershell -Command "if ('%SCRIPT_DIR%' -notmatch '(?-i).*\\Eamon-CS[^\\]*\\QuickLaunch\\Windows$') { exit 1 }" >nul 2>&1
+
+set VALID_SCRIPT_DIR=%ERRORLEVEL%
+
+if "%VALID_SCRIPT_DIR%"=="1" (
+	echo:
+	echo This batch file must be located in a valid Eamon CS repository.
+	echo:
+	pause
+	exit 1
+)
 
 cd ..\..
 
-set "BASE_PATH=%CD%"
+set "BASE_PATH=%cd%"
 
 cd System\Bin
 
-set WINDOWS_PREREQUISITES_TXT=".\WINDOWS_PREREQUISITES.TXT"
-set DOTNET_SDK_REGEX_TXT=".\DOTNET_SDK_REGEX.TXT"
-set DOTNET_RUNTIME_REGEX_TXT=".\DOTNET_RUNTIME_REGEX.TXT"
+set "LOCK_PATH=.\DETECT_DOTNET_AND_CONFIGURE.LOCK"
+
+if exist "%LOCK_PATH%" (
+	echo:
+	echo Found DETECT_DOTNET_AND_CONFIGURE.LOCK file in System\Bin, waiting . . .
+)
+
+:acquire_lock
+
+powershell -Command "try { $lockPath = '%LOCK_PATH%'; New-Item -ItemType File -Path $lockPath -ErrorAction Stop > $null; exit 0; } catch { exit 1; }" >nul 2>&1
+
+set LOCK_ACQUIRED=%ERRORLEVEL%
+
+if "%LOCK_ACQUIRED%"=="1" (
+    timeout /t 1 >nul 2>&1
+    goto acquire_lock
+)
+
+set "WINDOWS_PREREQUISITES_TXT=.\WINDOWS_PREREQUISITES.TXT"
+set "DOTNET_SDK_REGEX_TXT=.\DOTNET_SDK_REGEX.TXT"
+set "DOTNET_RUNTIME_REGEX_TXT=.\DOTNET_RUNTIME_REGEX.TXT"
 
 set UN=%RANDOM%
 
-set DOTNET_SDKS_TXT=".\DOTNET_SDKS_%UN%.TXT"
-set DOTNET_RUNTIMES_TXT=".\DOTNET_RUNTIMES_%UN%.TXT"
+set "DOTNET_SDKS_TXT=.\DOTNET_SDKS_%UN%.TXT"
+set "DOTNET_RUNTIMES_TXT=.\DOTNET_RUNTIMES_%UN%.TXT"
 
-if not exist %WINDOWS_PREREQUISITES_TXT% (
+if not exist "%WINDOWS_PREREQUISITES_TXT%" (
 	goto dotnet_found
 )
 
-set /p DOTNET_SDK_REGEX=<%DOTNET_SDK_REGEX_TXT%
-dotnet --list-sdks >%DOTNET_SDKS_TXT% 2>&1
+set /p DOTNET_SDK_REGEX=<"%DOTNET_SDK_REGEX_TXT%"
+dotnet --list-sdks >"%DOTNET_SDKS_TXT%" 2>&1
 powershell -Command "$result = (Get-Content '%DOTNET_SDKS_TXT%') -match '%DOTNET_SDK_REGEX%'; if ($result) { exit 0 } else { exit 1 }" >nul 2>&1
 set DOTNET_SDK_FOUND=%ERRORLEVEL%
-del /f /q %DOTNET_SDKS_TXT% >nul 2>&1
+del /f /q "%DOTNET_SDKS_TXT%" >nul 2>&1
 
 if "%DOTNET_SDK_FOUND%"=="0" (
 	goto dotnet_found
 )
 
-set /p DOTNET_RUNTIME_REGEX=<%DOTNET_RUNTIME_REGEX_TXT%
-dotnet --list-runtimes >%DOTNET_RUNTIMES_TXT% 2>&1
+set /p DOTNET_RUNTIME_REGEX=<"%DOTNET_RUNTIME_REGEX_TXT%"
+dotnet --list-runtimes >"%DOTNET_RUNTIMES_TXT%" 2>&1
 powershell -Command "$result = (Get-Content '%DOTNET_RUNTIMES_TXT%') -match '%DOTNET_RUNTIME_REGEX%'; if ($result) { exit 0 } else { exit 1 }" >nul 2>&1
 set DOTNET_RUNTIME_FOUND=%ERRORLEVEL%
-del /f /q %DOTNET_RUNTIMES_TXT% >nul 2>&1
+del /f /q "%DOTNET_RUNTIMES_TXT%" >nul 2>&1
 
 if "%DOTNET_RUNTIME_FOUND%"=="0" (
 	goto dotnet_found
 )
 
 mode con: cols=110 lines=50
-type %WINDOWS_PREREQUISITES_TXT%
+type "%WINDOWS_PREREQUISITES_TXT%"
 pause
-exit 1
+del /f /q "%LOCK_PATH%" >nul 2>&1
+exit 2
 
 :dotnet_found
 
 setlocal EnableDelayedExpansion
+
+set SYSTEM_CONFIGURED=0
+
+if not exist ".\publish" (
+	set SYSTEM_CONFIGURED=1
+)
+
+if not exist ".\runtimes" (
+	set SYSTEM_CONFIGURED=1
+)
+
+if "%SYSTEM_CONFIGURED%"=="1" (
+	echo:
+	echo This Eamon CS repository has already been configured.
+	echo:
+	pause
+	del /f /q "%LOCK_PATH%" >nul 2>&1
+	exit 3
+)
 
 :menu
 
@@ -66,38 +122,98 @@ if "%CHOICE%"=="1" set TARGET=win-x64
 if "%CHOICE%"=="2" set TARGET=win-arm64
 
 if not defined TARGET (
-    echo:
-    echo Invalid selection. Please try again.
-    goto menu
+	echo:
+	echo Invalid selection. Please try again.
+	goto menu
 )
 
-set PUBLISH_FILES=".\publish\%TARGET%\native\*"
-set RUNTIME_FILES=".\runtimes\%TARGET%\native\*"
+echo:
+
+xcopy ".\publish\%TARGET%\native\*" "." /I /S /Y
 
 echo:
 
-xcopy %PUBLISH_FILES% "." /I /S /Y
+xcopy ".\runtimes\%TARGET%\native\*" "." /I /S /Y
 
-echo:
+set "EXE_PATH=%BASE_PATH%\System\Bin\EamonPM.Desktop.exe"
+set "LNK_PATH=%BASE_PATH%\QuickLaunch\Windows\EamonPM.Desktop.exe.lnk"
 
-xcopy %RUNTIME_FILES% "." /I /S /Y
+powershell -Command "$WS = New-Object -ComObject WScript.Shell; $SC = $WS.CreateShortcut('%LNK_PATH%'); $SC.TargetPath = '%EXE_PATH%'; $result = $SC.Save(); exit $result" >nul 2>&1
 
-set EXE_PATH='%BASE_PATH%\System\Bin\EamonPM.Desktop.exe'
-set LNK_PATH='%BASE_PATH%\QuickLaunch\Windows\EamonPM.Desktop.exe.lnk'
-
-powershell -Command "$WS = New-Object -ComObject WScript.Shell; $SC = $WS.CreateShortcut(%LNK_PATH%); $SC.TargetPath = %EXE_PATH%; $result = $SC.Save(); exit $result" >nul 2>&1
 set SHORTCUT_CREATED=%ERRORLEVEL%
 
 echo:
 
 if "%SHORTCUT_CREATED%"=="0" (
-    echo Shortcut creation successful.
+
+	echo Shortcut creation successful.
+
+	del /f /q ".\publish\linux-arm64\native\EamonPM.Desktop" >nul 2>&1
+	del /f /q ".\publish\linux-x64\native\EamonPM.Desktop" >nul 2>&1
+	del /f /q ".\publish\osx-arm64\native\EamonPM.Desktop" >nul 2>&1
+	del /f /q ".\publish\osx-x64\native\EamonPM.Desktop" >nul 2>&1
+	del /f /q ".\publish\win-arm64\native\EamonPM.Desktop.exe" >nul 2>&1
+	del /f /q ".\publish\win-x64\native\EamonPM.Desktop.exe" >nul 2>&1
+
+	rd /q ".\publish\linux-arm64\native" >nul 2>&1
+	rd /q ".\publish\linux-arm64" >nul 2>&1
+	rd /q ".\publish\linux-x64\native" >nul 2>&1
+	rd /q ".\publish\linux-x64" >nul 2>&1
+
+	rd /q ".\publish\osx-arm64\native" >nul 2>&1
+	rd /q ".\publish\osx-arm64" >nul 2>&1
+	rd /q ".\publish\osx-x64\native" >nul 2>&1
+	rd /q ".\publish\osx-x64" >nul 2>&1
+
+	rd /q ".\publish\win-arm64\native" >nul 2>&1
+	rd /q ".\publish\win-arm64" >nul 2>&1
+	rd /q ".\publish\win-x64\native" >nul 2>&1
+	rd /q ".\publish\win-x64" >nul 2>&1
+
+	rd /q ".\publish" >nul 2>&1
+
+	del /f /q ".\runtimes\linux-arm64\native\libHarfBuzzSharp.so" >nul 2>&1
+	del /f /q ".\runtimes\linux-arm64\native\libSkiaSharp.so" >nul 2>&1
+	del /f /q ".\runtimes\linux-x64\native\libHarfBuzzSharp.so" >nul 2>&1
+	del /f /q ".\runtimes\linux-x64\native\libSkiaSharp.so" >nul 2>&1
+	del /f /q ".\runtimes\osx\native\libAvaloniaNative.dylib" >nul 2>&1
+	del /f /q ".\runtimes\osx\native\libHarfBuzzSharp.dylib" >nul 2>&1
+	del /f /q ".\runtimes\osx\native\libSkiaSharp.dylib" >nul 2>&1
+
+	del /f /q ".\runtimes\win-arm64\native\av_libglesv2.dll" >nul 2>&1
+	del /f /q ".\runtimes\win-arm64\native\libHarfBuzzSharp.dll" >nul 2>&1
+	del /f /q ".\runtimes\win-arm64\native\libSkiaSharp.dll" >nul 2>&1
+	del /f /q ".\runtimes\win-x64\native\av_libglesv2.dll" >nul 2>&1
+	del /f /q ".\runtimes\win-x64\native\libHarfBuzzSharp.dll" >nul 2>&1
+	del /f /q ".\runtimes\win-x64\native\libSkiaSharp.dll" >nul 2>&1
+
+	rd /q ".\runtimes\linux-arm64\native" >nul 2>&1
+	rd /q ".\runtimes\linux-arm64" >nul 2>&1
+	rd /q ".\runtimes\linux-x64\native" >nul 2>&1
+	rd /q ".\runtimes\linux-x64" >nul 2>&1
+
+	rd /q ".\runtimes\osx\native" >nul 2>&1
+	rd /q ".\runtimes\osx" >nul 2>&1
+
+	rd /q ".\runtimes\win-arm64\native" >nul 2>&1
+	rd /q ".\runtimes\win-arm64" >nul 2>&1
+	rd /q ".\runtimes\win-x64\native" >nul 2>&1
+	rd /q ".\runtimes\win-x64" >nul 2>&1
+
+	rd /q ".\runtimes" >nul 2>&1
+
+	echo:
+
+	echo Repository configuration successful.
+
 ) else (
-    echo Shortcut creation failed.
+	echo Shortcut creation failed.
 )
 
 echo:
 
 pause
+
+del /f /q "%LOCK_PATH%" >nul 2>&1
 
 exit 0
