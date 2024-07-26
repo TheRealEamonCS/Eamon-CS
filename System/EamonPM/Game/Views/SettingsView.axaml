@@ -151,6 +151,7 @@
 					Margin="0"
 					MaxDropDownHeight="200"
 					VerticalAlignment="Center"
+					HorizontalAlignment="Left"
 					ItemsSource="{Binding FontSizeList, Mode=TwoWay}"
 					SelectionChanged="FontSizeComboBox_SelectionChanged"
 					x:Name="FontSizeComboBox">
@@ -180,6 +181,7 @@
 					Margin="0"
 				    MaxDropDownHeight="200"
 					VerticalAlignment="Center"
+					HorizontalAlignment="Left"
 					ItemsSource="{Binding OutputBufMaxSizeList, Mode=TwoWay}"
 					SelectionChanged="OutputBufMaxSizeComboBox_SelectionChanged"
 					x:Name="OutputBufMaxSizeComboBox">
@@ -210,6 +212,7 @@
 					Margin="0"
 				    MaxDropDownHeight="200"
 					VerticalAlignment="Center"
+					HorizontalAlignment="Left"
 					ItemsSource="{Binding OutputWindowMaxSizeList, Mode=TwoWay}"
 					SelectionChanged="OutputWindowMaxSizeComboBox_SelectionChanged"
 					x:Name="OutputWindowMaxSizeComboBox">
@@ -353,10 +356,10 @@
 			  x:Name="SaveSettingsButton">
 		 <Button.Styles>
 			<Style Selector="Button:pointerover /template/ ContentPresenter">
-			   <Setter Property="Background" Value="White"></Setter>
+			   <Setter Property="Background" Value="{DynamicResource GeneralBackgroundColor}"></Setter>
 			</Style>
 			<Style Selector="Button:pressed /template/ ContentPresenter">
-			   <Setter Property="Background" Value="White"></Setter>
+			   <Setter Property="Background" Value="{DynamicResource GeneralBackgroundColor}"></Setter>
 			</Style>
 		 </Button.Styles>		 
 	  </Button>

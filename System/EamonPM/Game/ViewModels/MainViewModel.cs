@@ -17,6 +17,10 @@ namespace EamonPM.Game.ViewModels
 
 		public bool _isBackButtonActive;
 
+		public bool _isBackArrowActive;
+
+		public bool _isBackArrowDarkActive;
+
 		public string _mainTitle;
 
 		public double _windowWidth;
@@ -91,6 +95,32 @@ namespace EamonPM.Game.ViewModels
 			set
 			{
 				this.RaiseAndSetIfChanged(ref _isBackButtonActive, value);
+			}
+		}
+
+		public bool IsBackArrowActive
+		{
+			get
+			{
+				return _isBackArrowActive;
+			}
+
+			set
+			{
+				this.RaiseAndSetIfChanged(ref _isBackArrowActive, value);
+			}
+		}
+
+		public bool IsBackArrowDarkActive
+		{
+			get
+			{
+				return _isBackArrowDarkActive;
+			}
+
+			set
+			{
+				this.RaiseAndSetIfChanged(ref _isBackArrowDarkActive, value);
 			}
 		}
 

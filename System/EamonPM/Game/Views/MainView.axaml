@@ -32,7 +32,14 @@
 				  x:Name="BackButton">
 			<Button.Content>
 			   <StackPanel Orientation="Horizontal">
-				  <Image Source="avares://EamonPM/Assets/back_arrow.png"
+				  <Image IsVisible="{Binding IsBackArrowActive, Mode=TwoWay}"
+						   IsEnabled="{Binding IsBackArrowActive, Mode=TwoWay}"
+						   Source="avares://EamonPM/Assets/back_arrow.png"
+							 HorizontalAlignment="Center"
+							 VerticalAlignment="Center" />
+				  <Image IsVisible="{Binding IsBackArrowDarkActive, Mode=TwoWay}"
+						   IsEnabled="{Binding IsBackArrowDarkActive, Mode=TwoWay}"
+						   Source="avares://EamonPM/Assets/back_arrow_dark.png"
 							 HorizontalAlignment="Center"
 							 VerticalAlignment="Center" />
 			   </StackPanel>
