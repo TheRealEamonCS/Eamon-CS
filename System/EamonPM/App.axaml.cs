@@ -456,17 +456,17 @@ namespace EamonPM
 
 					app.RequestedThemeVariant = ThemeVariant.Light;
 
-					resources["Primary"] = Avalonia.Media.Color.Parse("#E0E0E0"); // Light Gray for Primary Elements
-					resources["PrimaryDark"] = Avalonia.Media.Color.Parse("#B0B0B0"); // Darker Gray for Primary Dark Elements
-					resources["Accent"] = Avalonia.Media.Color.Parse("#A0A0A0"); // Medium Gray for Interactive Elements
-					resources["TitleTabItemForegroundColor"] = Avalonia.Media.Color.Parse("#333333"); // Dark Gray for Text on Tabs
+					resources["Primary"] = Avalonia.Media.Color.Parse("#DCDCDC"); // Light Gray for Primary Elements
+					resources["PrimaryDark"] = Avalonia.Media.Color.Parse("#ABABAB"); // Darker Gray for Primary Dark Elements
+					resources["Accent"] = Avalonia.Media.Color.Parse("#9B9B9B"); // Medium Gray for Interactive Elements
+					resources["TitleTabItemForegroundColor"] = Avalonia.Media.Color.Parse("#313131"); // Dark Gray for Text on Tabs
 					resources["GeneralForegroundColor"] = Avalonia.Media.Color.Parse("#212121"); // Dark Gray for General Text
 					resources["LightBackgroundColor"] = Avalonia.Media.Color.Parse("#FFFFFF"); // White for Light Backgrounds
 					resources["DarkBackgroundColor"] = Avalonia.Media.Color.Parse("#F5F5F5"); // Light Gray for Dark Backgrounds
 					resources["GeneralBackgroundColor"] = Avalonia.Media.Color.Parse("#FAFAFA"); // Very Light Gray for General Backgrounds
 					resources["MediumGrayTextColor"] = Avalonia.Media.Color.Parse("#757575"); // Medium Gray for Subtle Text
-					resources["LightTextColor"] = Avalonia.Media.Color.Parse("#9E9E9E"); // Light Gray for Less Emphasized Text
-					resources["RowDivider"] = Avalonia.Media.Color.Parse("#DDDDDD"); // Light Gray for Row Dividers		#EEEEEE (light) #DDDDDD (midway, likely ideal) #D6D6D6 (comparable to Elementals)
+					resources["LightTextColor"] = Avalonia.Media.Color.Parse("#878787"); // Light Gray for Less Emphasized Text
+					resources["RowDivider"] = Avalonia.Media.Color.Parse("#D6D6D6"); // Light Gray for Row Dividers
 
 					break;
 
@@ -484,7 +484,7 @@ namespace EamonPM
 					resources["GeneralBackgroundColor"] = Avalonia.Media.Color.Parse("#121212"); // Black for General Backgrounds
 					resources["MediumGrayTextColor"] = Avalonia.Media.Color.Parse("#B0BEC5"); // Light Blue-Gray for Subtle Text
 					resources["LightTextColor"] = Avalonia.Media.Color.Parse("#CFD8DC"); // Soft Blue-Gray for Less Emphasized Text
-					resources["RowDivider"] = Avalonia.Media.Color.Parse("#37474F"); // Dark Blue-Gray for Row Dividers
+					resources["RowDivider"] = Avalonia.Media.Color.Parse("#415661"); // Dark Blue-Gray for Row Dividers
 
 					break;
 
