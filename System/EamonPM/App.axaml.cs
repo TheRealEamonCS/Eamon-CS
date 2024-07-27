@@ -456,17 +456,17 @@ namespace EamonPM
 
 					app.RequestedThemeVariant = ThemeVariant.Light;
 
-					resources["Primary"] = Avalonia.Media.Color.Parse("#DCDCDC"); // Light Gray for Primary Elements
-					resources["PrimaryDark"] = Avalonia.Media.Color.Parse("#ABABAB"); // Darker Gray for Primary Dark Elements
-					resources["Accent"] = Avalonia.Media.Color.Parse("#9B9B9B"); // Medium Gray for Interactive Elements
-					resources["TitleTabItemForegroundColor"] = Avalonia.Media.Color.Parse("#313131"); // Dark Gray for Text on Tabs
-					resources["GeneralForegroundColor"] = Avalonia.Media.Color.Parse("#212121"); // Dark Gray for General Text
-					resources["LightBackgroundColor"] = Avalonia.Media.Color.Parse("#FFFFFF"); // White for Light Backgrounds
-					resources["DarkBackgroundColor"] = Avalonia.Media.Color.Parse("#F5F5F5"); // Light Gray for Dark Backgrounds
-					resources["GeneralBackgroundColor"] = Avalonia.Media.Color.Parse("#FAFAFA"); // Very Light Gray for General Backgrounds
-					resources["MediumGrayTextColor"] = Avalonia.Media.Color.Parse("#757575"); // Medium Gray for Subtle Text
-					resources["LightTextColor"] = Avalonia.Media.Color.Parse("#878787"); // Light Gray for Less Emphasized Text
-					resources["RowDivider"] = Avalonia.Media.Color.Parse("#D6D6D6"); // Light Gray for Row Dividers
+					resources["Primary"] = Avalonia.Media.Color.Parse("#DCDCDC"); // Light Gray
+					resources["PrimaryDark"] = Avalonia.Media.Color.Parse("#ABABAB"); // Darker Gray
+					resources["Accent"] = Avalonia.Media.Color.Parse("#9B9B9B"); // Medium Gray
+					resources["TitleTabItemForegroundColor"] = Avalonia.Media.Color.Parse("#313131"); // Dark Gray
+					resources["GeneralForegroundColor"] = Avalonia.Media.Color.Parse("#212121"); // Dark Gray
+					resources["LightBackgroundColor"] = Avalonia.Media.Color.Parse("#FFFFFF"); // White
+					resources["DarkBackgroundColor"] = Avalonia.Media.Color.Parse("#F5F5F5"); // Light Gray
+					resources["GeneralBackgroundColor"] = Avalonia.Media.Color.Parse("#FAFAFA"); // Very Light Gray
+					resources["MediumGrayTextColor"] = Avalonia.Media.Color.Parse("#757575"); // Medium Gray
+					resources["LightTextColor"] = Avalonia.Media.Color.Parse("#878787"); // Light Gray
+					resources["RowDivider"] = Avalonia.Media.Color.Parse("#D6D6D6"); // Light Gray
 
 					break;
 
@@ -474,17 +474,17 @@ namespace EamonPM
 
 					app.RequestedThemeVariant = ThemeVariant.Dark;
 
-					resources["Primary"] = Avalonia.Media.Color.Parse("#424242"); // Dark Gray for Primary Elements
-					resources["PrimaryDark"] = Avalonia.Media.Color.Parse("#303030"); // Even Darker Gray for Primary Dark Elements
-					resources["Accent"] = Avalonia.Media.Color.Parse("#6F6F6F"); // Lighter Gray for Interactive Elements
-					resources["TitleTabItemForegroundColor"] = Avalonia.Media.Color.Parse("#FFFFFF"); // White for Text on Tabs
-					resources["GeneralForegroundColor"] = Avalonia.Media.Color.Parse("#E0E0E0"); // Light Gray for General Text
-					resources["LightBackgroundColor"] = Avalonia.Media.Color.Parse("#303030"); // Very Dark Gray for Light Backgrounds
-					resources["DarkBackgroundColor"] = Avalonia.Media.Color.Parse("#212121"); // Near Black for Dark Backgrounds
-					resources["GeneralBackgroundColor"] = Avalonia.Media.Color.Parse("#121212"); // Black for General Backgrounds
-					resources["MediumGrayTextColor"] = Avalonia.Media.Color.Parse("#B0BEC5"); // Light Blue-Gray for Subtle Text
-					resources["LightTextColor"] = Avalonia.Media.Color.Parse("#CFD8DC"); // Soft Blue-Gray for Less Emphasized Text
-					resources["RowDivider"] = Avalonia.Media.Color.Parse("#415661"); // Dark Blue-Gray for Row Dividers
+					resources["Primary"] = Avalonia.Media.Color.Parse("#424242"); // Dark Gray
+					resources["PrimaryDark"] = Avalonia.Media.Color.Parse("#303030"); // Darker Gray
+					resources["Accent"] = Avalonia.Media.Color.Parse("#6F6F6F"); // Lighter Gray
+					resources["TitleTabItemForegroundColor"] = Avalonia.Media.Color.Parse("#FFFFFF"); // White
+					resources["GeneralForegroundColor"] = Avalonia.Media.Color.Parse("#E0E0E0"); // Light Gray
+					resources["LightBackgroundColor"] = Avalonia.Media.Color.Parse("#303030"); // Very Dark Gray
+					resources["DarkBackgroundColor"] = Avalonia.Media.Color.Parse("#212121"); // Near Black
+					resources["GeneralBackgroundColor"] = Avalonia.Media.Color.Parse("#121212"); // Black
+					resources["MediumGrayTextColor"] = Avalonia.Media.Color.Parse("#B0BEC5"); // Light Blue-Gray
+					resources["LightTextColor"] = Avalonia.Media.Color.Parse("#CFD8DC"); // Soft Blue-Gray
+					resources["RowDivider"] = Avalonia.Media.Color.Parse("#37474F"); // Dark Blue-Gray
 
 					break;
 
