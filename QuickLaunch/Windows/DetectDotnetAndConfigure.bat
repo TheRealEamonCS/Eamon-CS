@@ -10,7 +10,7 @@ cd /d "%~dp0"
 
 set "SCRIPT_DIR=%cd%"
 
-powershell -Command "if ('%SCRIPT_DIR%' -notmatch '(?-i).*\\Eamon-CS[^\\]*\\QuickLaunch\\Windows$') { exit 1 }" >nul 2>&1
+powershell -ExecutionPolicy Bypass -Command "if ('%SCRIPT_DIR%' -notmatch '(?-i).*\\Eamon-CS[^\\]*\\QuickLaunch\\Windows$') { exit 1 }" >nul 2>&1
 
 set VALID_SCRIPT_DIR=%ERRORLEVEL%
 
@@ -29,6 +29,7 @@ set "BASE_PATH=%cd%"
 cd System\Bin
 
 set "LOCK_PATH=.\DETECT_DOTNET_AND_CONFIGURE.LOCK"
+set "CLEANUP_SCRIPT_PATH=.\DETECT_DOTNET_AND_CONFIGURE_CLEANUP.ps1"
 
 if exist "%LOCK_PATH%" (
 	echo:
@@ -37,7 +38,7 @@ if exist "%LOCK_PATH%" (
 
 :acquire_lock
 
-powershell -Command "try { $lockPath = '%LOCK_PATH%'; New-Item -ItemType File -Path $lockPath -ErrorAction Stop > $null; exit 0; } catch { exit 1; }" >nul 2>&1
+powershell -ExecutionPolicy Bypass -Command "try { $lockPath = '%LOCK_PATH%'; New-Item -ItemType File -Path $lockPath -ErrorAction Stop > $null; exit 0; } catch { exit 1; }" >nul 2>&1
 
 set LOCK_ACQUIRED=%ERRORLEVEL%
 
@@ -45,6 +46,17 @@ if "%LOCK_ACQUIRED%"=="1" (
     timeout /t 1 >nul 2>&1
     goto acquire_lock
 )
+
+echo $lockfile = '%LOCK_PATH%' > "%CLEANUP_SCRIPT_PATH%"
+echo while ($true) { >> "%CLEANUP_SCRIPT_PATH%"
+echo     $parent = Get-CimInstance Win32_Process -Filter "ProcessId=$pid" ^| Select-Object -ExpandProperty ParentProcessId >> "%CLEANUP_SCRIPT_PATH%"
+echo     if (!(Get-Process -Id $parent -ErrorAction SilentlyContinue)) { break } >> "%CLEANUP_SCRIPT_PATH%"
+echo     Start-Sleep -Seconds 1 >> "%CLEANUP_SCRIPT_PATH%"
+echo } >> "%CLEANUP_SCRIPT_PATH%"
+echo Remove-Item -Path $lockfile -Force -ErrorAction SilentlyContinue >> "%CLEANUP_SCRIPT_PATH%"
+echo Remove-Item -Path '%CLEANUP_SCRIPT_PATH%' -Force >> "%CLEANUP_SCRIPT_PATH%"
+
+start powershell -WindowStyle Hidden -ExecutionPolicy Bypass -File "%CLEANUP_SCRIPT_PATH%"
 
 set "WINDOWS_PREREQUISITES_TXT=.\WINDOWS_PREREQUISITES.TXT"
 set "DOTNET_SDK_REGEX_TXT=.\DOTNET_SDK_REGEX.TXT"
@@ -61,7 +73,7 @@ if not exist "%WINDOWS_PREREQUISITES_TXT%" (
 
 set /p DOTNET_SDK_REGEX=<"%DOTNET_SDK_REGEX_TXT%"
 dotnet --list-sdks >"%DOTNET_SDKS_TXT%" 2>&1
-powershell -Command "$result = (Get-Content '%DOTNET_SDKS_TXT%') -match '%DOTNET_SDK_REGEX%'; if ($result) { exit 0 } else { exit 1 }" >nul 2>&1
+powershell -ExecutionPolicy Bypass -Command "$result = (Get-Content '%DOTNET_SDKS_TXT%') -match '%DOTNET_SDK_REGEX%'; if ($result) { exit 0 } else { exit 1 }" >nul 2>&1
 set DOTNET_SDK_FOUND=%ERRORLEVEL%
 del /f /q "%DOTNET_SDKS_TXT%" >nul 2>&1
 
@@ -71,7 +83,7 @@ if "%DOTNET_SDK_FOUND%"=="0" (
 
 set /p DOTNET_RUNTIME_REGEX=<"%DOTNET_RUNTIME_REGEX_TXT%"
 dotnet --list-runtimes >"%DOTNET_RUNTIMES_TXT%" 2>&1
-powershell -Command "$result = (Get-Content '%DOTNET_RUNTIMES_TXT%') -match '%DOTNET_RUNTIME_REGEX%'; if ($result) { exit 0 } else { exit 1 }" >nul 2>&1
+powershell -ExecutionPolicy Bypass -Command "$result = (Get-Content '%DOTNET_RUNTIMES_TXT%') -match '%DOTNET_RUNTIME_REGEX%'; if ($result) { exit 0 } else { exit 1 }" >nul 2>&1
 set DOTNET_RUNTIME_FOUND=%ERRORLEVEL%
 del /f /q "%DOTNET_RUNTIMES_TXT%" >nul 2>&1
 
@@ -82,7 +94,6 @@ if "%DOTNET_RUNTIME_FOUND%"=="0" (
 mode con: cols=110 lines=50
 type "%WINDOWS_PREREQUISITES_TXT%"
 pause
-del /f /q "%LOCK_PATH%" >nul 2>&1
 exit 2
 
 :dotnet_found
@@ -104,7 +115,6 @@ if "%SYSTEM_CONFIGURED%"=="1" (
 	echo This Eamon CS repository has already been configured.
 	echo:
 	pause
-	del /f /q "%LOCK_PATH%" >nul 2>&1
 	exit 3
 )
 
@@ -138,7 +148,7 @@ xcopy ".\runtimes\%TARGET%\native\*" "." /I /S /Y
 set "EXE_PATH=%BASE_PATH%\System\Bin\EamonPM.Desktop.exe"
 set "LNK_PATH=%BASE_PATH%\QuickLaunch\Windows\EamonPM.Desktop.exe.lnk"
 
-powershell -Command "$WS = New-Object -ComObject WScript.Shell; $SC = $WS.CreateShortcut('%LNK_PATH%'); $SC.TargetPath = '%EXE_PATH%'; $result = $SC.Save(); exit $result" >nul 2>&1
+powershell -ExecutionPolicy Bypass -Command "$WS = New-Object -ComObject WScript.Shell; $SC = $WS.CreateShortcut('%LNK_PATH%'); $SC.TargetPath = '%EXE_PATH%'; $result = $SC.Save(); exit $result" >nul 2>&1
 
 set SHORTCUT_CREATED=%ERRORLEVEL%
 
@@ -213,7 +223,5 @@ if "%SHORTCUT_CREATED%"=="0" (
 echo:
 
 pause
-
-del /f /q "%LOCK_PATH%" >nul 2>&1
 
 exit 0
