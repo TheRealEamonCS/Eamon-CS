@@ -47,7 +47,7 @@ namespace EamonPM.Game.Views
 
 				if (!App.InitializeSettings)
 				{
-					await Task.Delay(25);
+					await Task.Delay(50);
 
 					SaveSettingsButton.IsEnabled = false;
 
@@ -72,7 +72,7 @@ namespace EamonPM.Game.Views
 
 				if (!App.InitializeSettings)
 				{
-					await Task.Delay(25);
+					await Task.Delay(50);
 
 					SaveSettingsButton.IsEnabled = false;
 
@@ -97,7 +97,7 @@ namespace EamonPM.Game.Views
 
 				if (!App.InitializeSettings)
 				{
-					await Task.Delay(25);
+					await Task.Delay(50);
 
 					SaveSettingsButton.IsEnabled = false;
 
@@ -122,7 +122,7 @@ namespace EamonPM.Game.Views
 
 				if (!App.InitializeSettings)
 				{
-					await Task.Delay(25);
+					await Task.Delay(50);
 
 					SaveSettingsButton.IsEnabled = false;
 
@@ -161,7 +161,7 @@ namespace EamonPM.Game.Views
 
 				if (!App.InitializeSettings)
 				{
-					await Task.Delay(25);
+					await Task.Delay(50);
 
 					SaveSettingsButton.IsEnabled = false;
 
@@ -192,7 +192,7 @@ namespace EamonPM.Game.Views
 
 				if (!App.InitializeSettings)
 				{
-					await Task.Delay(25);
+					await Task.Delay(50);
 
 					SaveSettingsButton.IsEnabled = false;
 
