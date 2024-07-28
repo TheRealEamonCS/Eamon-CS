@@ -530,7 +530,7 @@ namespace EamonPM
 
 					resources["Primary"] = Avalonia.Media.Color.Parse("#B33B1B"); // Rich Ember Red
 					resources["PrimaryDark"] = Avalonia.Media.Color.Parse("#8F2500"); // Deep Dark Red
-					resources["Accent"] = Avalonia.Media.Color.Parse("#FB8C00"); // Dark Orange
+					resources["Accent"] = Avalonia.Media.Color.Parse("#F57C00"); // Dark Orange
 					resources["TitleTabItemForegroundColor"] = Avalonia.Media.Color.Parse("#FFFFFF"); // White
 					resources["GeneralForegroundColor"] = Avalonia.Media.Color.Parse("#000000"); // Black
 					resources["LightBackgroundColor"] = Avalonia.Media.Color.Parse("#FFF3E0"); // Very Light Orange
