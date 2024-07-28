@@ -208,7 +208,7 @@ cd System/Bin
 
 LOCK_PATH="./DETECT_DOTNET_AND_CONFIGURE.LOCK"
 
-if [ -L "$LOCK_PATH" ]; then
+if [ -e "$LOCK_PATH" ]; then
     echo
     echo "Found DETECT_DOTNET_AND_CONFIGURE.LOCK file in System/Bin, waiting . . ."
 fi
