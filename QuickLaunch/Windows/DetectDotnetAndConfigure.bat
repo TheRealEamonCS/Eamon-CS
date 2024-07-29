@@ -56,7 +56,7 @@ echo } >> "%CLEANUP_SCRIPT_PATH%"
 echo Remove-Item -Path $lockfile -Force -ErrorAction SilentlyContinue >> "%CLEANUP_SCRIPT_PATH%"
 echo Remove-Item -Path '%CLEANUP_SCRIPT_PATH%' -Force >> "%CLEANUP_SCRIPT_PATH%"
 
-start powershell -WindowStyle Hidden -ExecutionPolicy Bypass -File "%CLEANUP_SCRIPT_PATH%"
+start /min powershell -WindowStyle Hidden -ExecutionPolicy Bypass -File "%CLEANUP_SCRIPT_PATH%"
 
 set "WINDOWS_PREREQUISITES_TXT=.\WINDOWS_PREREQUISITES.TXT"
 set "DOTNET_SDK_REGEX_TXT=.\DOTNET_SDK_REGEX.TXT"
