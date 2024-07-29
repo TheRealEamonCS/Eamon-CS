@@ -537,7 +537,7 @@ namespace EamonPM
 					resources["DarkBackgroundColor"] = Avalonia.Media.Color.Parse("#FFAB91"); // Light Muted Red
 					resources["GeneralBackgroundColor"] = Avalonia.Media.Color.Parse("#FFFFFF"); // White
 					resources["MediumGrayTextColor"] = Avalonia.Media.Color.Parse("#6B4226"); // Muted Warm Red Brown
-					resources["LightTextColor"] = Avalonia.Media.Color.Parse("#A0522D"); // Soft Light Red Brown
+					resources["LightTextColor"] = Avalonia.Media.Color.Parse("#A04D2A"); // Soft Light Red Brown
 					resources["RowDivider"] = Avalonia.Media.Color.Parse("#FFD1C4"); // Very Light Orangish Red
 
 					break;
