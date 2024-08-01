@@ -82,7 +82,7 @@ namespace EamonPM.Game.Portability
 
 		public virtual void DeleteEmptySubdirectories01(string path, string adventureName, bool recursive)
 		{
-			if (!string.IsNullOrWhiteSpace(path))
+			if (!string.IsNullOrWhiteSpace(path) && !string.IsNullOrWhiteSpace(adventureName))
 			{
 				foreach (var directory in System.IO.Directory.GetDirectories(NormalizePath(path)))
 				{
