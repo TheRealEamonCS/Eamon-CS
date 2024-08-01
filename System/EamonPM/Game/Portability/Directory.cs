@@ -3,8 +3,10 @@
 
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
-using System.Diagnostics;
+using System;
+using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using Eamon.Framework.Portability;
 using static Eamon.Game.Plugin.Globals;
 
@@ -17,69 +19,37 @@ namespace EamonPM.Game.Portability
 			return System.IO.Directory.Exists(NormalizePath(path));
 		}
 
-		public virtual bool IsEamonCSDirectory(string path, ref string parentName)
+		public virtual bool IsEamonCSAdventuresDirectory(string path, string adventureName)
 		{
 			var result = false;
 
-			if (!string.IsNullOrWhiteSpace(path) && parentName != null)
+			if (!string.IsNullOrWhiteSpace(path) && !string.IsNullOrWhiteSpace(adventureName))
 			{
-				parentName = "";
+				var fullPath = gEngine.Path.GetFullPath(NormalizePath(path));
 
-				var directoryInfo = new System.IO.DirectoryInfo(NormalizePath(path));
+				var separator = Regex.Escape(gEngine.Path.DirectorySeparatorChar.ToString());
 
-				while (directoryInfo != null && directoryInfo.Parent != null && directoryInfo.Root != null && directoryInfo.Parent.Name != directoryInfo.Root.Name)
+				var pattern = string.Format(@"(?-i).*{0}Eamon-CS[^{0}]*{0}Adventures{0}{1}({0}.*)?$", separator, adventureName);
+
+				var isValidDirectory = System.IO.Directory.Exists(fullPath);
+
+				if (isValidDirectory)
 				{
-					if (App.ProgramName == "EamonPM.Desktop")
+					try
 					{
-						if (directoryInfo.Parent.Name.Equals("Adventures") ||
-								directoryInfo.Parent.Name.Equals("QuickLaunch") ||
-								directoryInfo.Parent.Name.Equals("System"))
-						{
-							parentName = directoryInfo.Parent.Name;
-						}
-
-						if (parentName.Length > 0 &&
-								directoryInfo.Name.Equals(parentName) &&
-								directoryInfo.Parent.Name.StartsWith("Eamon-CS") &&
-								System.IO.Directory.Exists(gEngine.Path.Combine(directoryInfo.Parent.FullName, "Adventures")) &&
-								System.IO.Directory.Exists(gEngine.Path.Combine(directoryInfo.Parent.FullName, "QuickLaunch")) &&
-								System.IO.Directory.Exists(gEngine.Path.Combine(directoryInfo.Parent.FullName, "System")) &&
-								gEngine.File.Exists(gEngine.Path.Combine(directoryInfo.Parent.FullName, ".gitattributes")) &&
-								gEngine.File.Exists(gEngine.Path.Combine(directoryInfo.Parent.FullName, ".gitignore")) &&
-								gEngine.File.Exists(gEngine.Path.Combine(directoryInfo.Parent.FullName, "Eamon-CS.sln")) &&
-								gEngine.File.Exists(gEngine.Path.Combine(directoryInfo.Parent.FullName, "README.md")))
-						{
-							result = true;
-
-							break;
-						}
+						System.IO.Directory.EnumerateFileSystemEntries(fullPath).Any();
 					}
-					else if (App.ProgramName == "EamonPM.Android")
+					catch (IOException)
 					{
-						if (directoryInfo.Parent.Name.Equals("Adventures") ||
-								directoryInfo.Parent.Name.Equals("System"))
-						{
-							parentName = directoryInfo.Parent.Name;
-						}
-
-						if (parentName.Length > 0 &&
-								directoryInfo.Name.Equals(parentName) &&
-								directoryInfo.Parent.FullName.Contains("EamonPM.Android") &&
-								System.IO.Directory.Exists(gEngine.Path.Combine(directoryInfo.Parent.FullName, "Adventures")) &&
-								System.IO.Directory.Exists(gEngine.Path.Combine(directoryInfo.Parent.FullName, "System")))
-						{
-							result = true;
-
-							break;
-						}
+						isValidDirectory = false;
 					}
-					else
+					catch (UnauthorizedAccessException)
 					{
-						Debug.Assert(1 == 0);
+						isValidDirectory = false;
 					}
-
-					directoryInfo = directoryInfo.Parent;
 				}
+
+				result = isValidDirectory && Regex.IsMatch(fullPath, pattern);
 			}
 
 			return result;
@@ -89,11 +59,11 @@ namespace EamonPM.Game.Portability
 		{
 			if (!string.IsNullOrWhiteSpace(path))
 			{
+				var adventureName = gEngine.Path.GetFileName(path);
+
 				var fullPath = gEngine.Path.GetFullPath(NormalizePath(path));
 
-				var parentName = "";
-
-				if (IsEamonCSDirectory(path, ref parentName) && parentName != null && parentName.Equals("Adventures"))
+				if (IsEamonCSAdventuresDirectory(fullPath, adventureName))
 				{
 					System.IO.Directory.Delete(fullPath, recursive);
 				}
@@ -104,20 +74,28 @@ namespace EamonPM.Game.Portability
 		{
 			if (!string.IsNullOrWhiteSpace(path))
 			{
+				var adventureName = gEngine.Path.GetFileName(path);
+
+				DeleteEmptySubdirectories01(path, adventureName, recursive);
+			}
+		}
+
+		public virtual void DeleteEmptySubdirectories01(string path, string adventureName, bool recursive)
+		{
+			if (!string.IsNullOrWhiteSpace(path))
+			{
 				foreach (var directory in System.IO.Directory.GetDirectories(NormalizePath(path)))
 				{
 					if (recursive)
 					{
-						DeleteEmptySubdirectories(directory, recursive);
+						DeleteEmptySubdirectories01(directory, adventureName, recursive);
 					}
 
 					if (!System.IO.Directory.EnumerateFileSystemEntries(directory).Any())
 					{
 						var fullPath = gEngine.Path.GetFullPath(directory);
 
-						var parentName = "";
-
-						if (IsEamonCSDirectory(directory, ref parentName) && parentName != null && parentName.Equals("Adventures"))
+						if (IsEamonCSAdventuresDirectory(fullPath, adventureName))
 						{
 							System.IO.Directory.Delete(fullPath, false);
 						}

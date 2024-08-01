@@ -37,7 +37,7 @@ namespace EamonDD.Game.Menus.HierarchicalMenus
 
 			if (gEngine.IsAdventureFilesetLoaded())
 			{
-				if (!gEngine.BortCommand && (RuntimeInformation.IsOSPlatform(OSPlatform.Windows) || RuntimeInformation.IsOSPlatform(OSPlatform.Linux)))
+				if (!gEngine.BortCommand)
 				{
 					MenuItemList.Add(gEngine.CreateInstance<IMenuItem>(x =>
 					{

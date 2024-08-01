@@ -1086,7 +1086,7 @@ namespace EamonRT
 
 					gEngine.Error.Write("{0}Error: {1}.",
 						Environment.NewLine,
-						"Use EamonDD to define a start Room record for this adventure");
+						"Use EamonDD to define a Room record for this adventure");
 
 					gEngine.UnlinkOnFailure();
 
