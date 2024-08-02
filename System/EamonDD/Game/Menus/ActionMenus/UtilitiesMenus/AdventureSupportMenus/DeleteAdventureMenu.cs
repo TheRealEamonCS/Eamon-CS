@@ -48,16 +48,22 @@ namespace EamonDD.Game.Menus.ActionMenus
 			{
 				if (gEngine.File.Exists(gEngine.AdventuresDir + @"\" + AdventureName + @"\" + AdventureName + @".csproj"))
 				{
-					CheckForPrerequisites();
-
-					if (GotoCleanup)
+					if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows) || RuntimeInformation.IsOSPlatform(OSPlatform.Linux) || RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
 					{
-						goto Cleanup;
+						CheckForPrerequisites();
+
+						if (GotoCleanup)
+						{
+							goto Cleanup;
+						}
 					}
 
 					DeleteAdvBinaryFiles();
 
-					RemoveProjectFromSolution();
+					if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows) || RuntimeInformation.IsOSPlatform(OSPlatform.Linux) || RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+					{
+						RemoveProjectFromSolution();
+					}
 				}
 
 				UpdateAdvDbDataFiles();

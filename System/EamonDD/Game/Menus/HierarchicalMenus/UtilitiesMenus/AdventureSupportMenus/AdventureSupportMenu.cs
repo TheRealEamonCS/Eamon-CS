@@ -36,19 +36,22 @@ namespace EamonDD.Game.Menus.HierarchicalMenus
 				x.SubMenu = gEngine.CreateInstance<IAddStandardAdventureMenu>();
 			}));
 
-			MenuItemList.Add(gEngine.CreateInstance<IMenuItem>(x =>
+			if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows) || RuntimeInformation.IsOSPlatform(OSPlatform.Linux) || RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
 			{
-				x.SelectChar = (char)('1' + MenuItemList.Count);
-				x.LineText = string.Format("{0}{1}. Add a custom adventure.", Environment.NewLine, MenuItemList.Count + 1);
-				x.SubMenu = gEngine.CreateInstance<IAddCustomAdventureMenu>();
-			}));
+				MenuItemList.Add(gEngine.CreateInstance<IMenuItem>(x =>
+				{
+					x.SelectChar = (char)('1' + MenuItemList.Count);
+					x.LineText = string.Format("{0}{1}. Add a custom adventure.", Environment.NewLine, MenuItemList.Count + 1);
+					x.SubMenu = gEngine.CreateInstance<IAddCustomAdventureMenu>();
+				}));
 
-			MenuItemList.Add(gEngine.CreateInstance<IMenuItem>(x =>
-			{
-				x.SelectChar = (char)('1' + MenuItemList.Count);
-				x.LineText = string.Format("{0}{1}. Add custom adventure classes.", Environment.NewLine, MenuItemList.Count + 1);
-				x.SubMenu = gEngine.CreateInstance<IAddCustomAdventureClassesMenu>();
-			}));
+				MenuItemList.Add(gEngine.CreateInstance<IMenuItem>(x =>
+				{
+					x.SelectChar = (char)('1' + MenuItemList.Count);
+					x.LineText = string.Format("{0}{1}. Add custom adventure classes.", Environment.NewLine, MenuItemList.Count + 1);
+					x.SubMenu = gEngine.CreateInstance<IAddCustomAdventureClassesMenu>();
+				}));
+			}
 
 			MenuItemList.Add(gEngine.CreateInstance<IMenuItem>(x =>
 			{
@@ -57,12 +60,15 @@ namespace EamonDD.Game.Menus.HierarchicalMenus
 				x.SubMenu = gEngine.CreateInstance<IDeleteAdventureMenu>();
 			}));
 
-			MenuItemList.Add(gEngine.CreateInstance<IMenuItem>(x =>
+			if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows) || RuntimeInformation.IsOSPlatform(OSPlatform.Linux) || RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
 			{
-				x.SelectChar = (char)('1' + MenuItemList.Count);
-				x.LineText = string.Format("{0}{1}. Delete custom adventure classes.", Environment.NewLine, MenuItemList.Count + 1);
-				x.SubMenu = gEngine.CreateInstance<IDeleteCustomAdventureClassesMenu>();
-			}));
+				MenuItemList.Add(gEngine.CreateInstance<IMenuItem>(x =>
+				{
+					x.SelectChar = (char)('1' + MenuItemList.Count);
+					x.LineText = string.Format("{0}{1}. Delete custom adventure classes.", Environment.NewLine, MenuItemList.Count + 1);
+					x.SubMenu = gEngine.CreateInstance<IDeleteCustomAdventureClassesMenu>();
+				}));
+			}
 
 			MenuItemList.Add(gEngine.CreateInstance<IMenuItem>(x =>
 			{
