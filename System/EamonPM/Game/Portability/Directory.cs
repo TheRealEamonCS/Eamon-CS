@@ -4,6 +4,7 @@
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -29,7 +30,20 @@ namespace EamonPM.Game.Portability
 
 				var separator = Regex.Escape(gEngine.Path.DirectorySeparatorChar.ToString());
 
-				var pattern = string.Format(@"(?-i).*{0}Eamon-CS[^{0}]*{0}Adventures{0}{1}({0}.*)?$", separator, adventureName);
+				var pattern = string.Empty;
+
+				if (App.ProgramName == "EamonPM.Desktop")
+				{
+					pattern = string.Format(@"(?-i).*{0}Eamon-CS[^{0}]*{0}Adventures{0}{1}({0}.*)?$", separator, adventureName);
+				}
+				else if (App.ProgramName == "EamonPM.Android")
+				{
+					pattern = string.Format(@"(?-i).*{0}EamonPM.Android[^{0}]*{0}files{0}Adventures{0}{1}({0}.*)?$", separator, adventureName);
+				}
+				else
+				{
+					Debug.Assert(1 == 0);
+				}
 
 				result = System.IO.Directory.Exists(fullPath);
 
