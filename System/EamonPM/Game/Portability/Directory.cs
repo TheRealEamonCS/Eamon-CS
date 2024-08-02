@@ -31,9 +31,9 @@ namespace EamonPM.Game.Portability
 
 				var pattern = string.Format(@"(?-i).*{0}Eamon-CS[^{0}]*{0}Adventures{0}{1}({0}.*)?$", separator, adventureName);
 
-				var isValidDirectory = System.IO.Directory.Exists(fullPath);
+				result = System.IO.Directory.Exists(fullPath);
 
-				if (isValidDirectory)
+				if (result)
 				{
 					try
 					{
@@ -41,15 +41,18 @@ namespace EamonPM.Game.Portability
 					}
 					catch (IOException)
 					{
-						isValidDirectory = false;
+						result = false;
 					}
 					catch (UnauthorizedAccessException)
 					{
-						isValidDirectory = false;
+						result = false;
 					}
 				}
 
-				result = isValidDirectory && Regex.IsMatch(fullPath, pattern);
+				if (result)
+				{
+					result = Regex.IsMatch(fullPath, pattern);
+				}
 			}
 
 			return result;
