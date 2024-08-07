@@ -19,7 +19,12 @@
 		 <RowDefinition Height="Auto" />
 	  </Grid.RowDefinitions>
 
-	  <ScrollViewer Grid.Row="0" Margin="0,10,0,10" Background="{DynamicResource GeneralBackgroundColor}" VerticalScrollBarVisibility="Auto">
+	  <ScrollViewer 
+		 Grid.Row="0" 
+		 Margin="0,10,0,10" 
+		 Background="{DynamicResource GeneralBackgroundColor}" 
+		 HorizontalScrollBarVisibility="Auto"
+		 VerticalScrollBarVisibility="Auto">
 		 <Grid Margin="0" VerticalAlignment="Top">
 			<Grid.RowDefinitions>
 			   <RowDefinition Height="50"  />
@@ -54,7 +59,7 @@
 			<TextBlock
 					Grid.Row="0"
 					Grid.Column="0"
-					Margin="10"
+					Margin="10,0,10,0"
 					VerticalAlignment="Center"
 					Text="Application Theme" />
 
@@ -67,7 +72,7 @@
 
 			<ComboBox Grid.Row="0"
 					  Grid.Column="2"
-					  Margin="10"
+				   Margin="10,0,10,0"
 					  MaxDropDownHeight="200"
 					  VerticalAlignment="Center"
 					  HorizontalAlignment="Left"
@@ -91,13 +96,13 @@
 			<TextBlock
 					Grid.Row="2"
 					Grid.Column="0"
-					Margin="10"
+					Margin="10,0,10,0"
 					VerticalAlignment="Center"
 					Text="Font Family" />
 
 			<ComboBox Grid.Row="2"
 					  Grid.Column="2"
-					  Margin="10"
+				   Margin="10,0,10,0"
 					  MaxDropDownHeight="200"
 					  VerticalAlignment="Center"
 					  HorizontalAlignment="Left"
@@ -120,13 +125,13 @@
 			<TextBlock
 					Grid.Row="4"
 					Grid.Column="0"
-					Margin="10"
+					Margin="10,0,10,0"
 					VerticalAlignment="Center"
 					Text="Font Weight" />
 
 			<ComboBox Grid.Row="4"
 					  Grid.Column="2"
-					  Margin="10"
+				   Margin="10,0,10,0"
 					  MaxDropDownHeight="200"
 					  VerticalAlignment="Center"
 					  HorizontalAlignment="Left"
@@ -149,14 +154,14 @@
 			<TextBlock
 					Grid.Row="6"
 					Grid.Column="0"
-					Margin="10"
+					Margin="10,0,10,0"
 					VerticalAlignment="Center"
 					Text="Font Size" />
 
 			<ComboBox
 					Grid.Row="6"
 					Grid.Column="2"
-					Margin="10"
+					Margin="10,0,10,0"
 					MaxDropDownHeight="200"
 					VerticalAlignment="Center"
 					HorizontalAlignment="Left"
@@ -179,14 +184,14 @@
 			<TextBlock
 					Grid.Row="8"
 					Grid.Column="0"
-					Margin="10"
+					Margin="10,0,10,0"
 					VerticalAlignment="Center"
 					Text="Scrollback Buffer Size" />
 
 			<ComboBox
 					Grid.Row="8"
 					Grid.Column="2"
-					Margin="10"
+					Margin="10,0,10,0"
 				    MaxDropDownHeight="200"
 					VerticalAlignment="Center"
 					HorizontalAlignment="Left"
@@ -210,14 +215,14 @@
 			<TextBlock
 					Grid.Row="10"
 					Grid.Column="0"
-					Margin="10"
+					Margin="10,0,10,0"
 					VerticalAlignment="Center"
 					Text="Scrollback Window Size" />
 
 			<ComboBox
 					Grid.Row="10"
 					Grid.Column="2"
-					Margin="10"
+					Margin="10,0,10,0"
 				    MaxDropDownHeight="200"
 					VerticalAlignment="Center"
 					HorizontalAlignment="Left"
@@ -242,13 +247,13 @@
 			<TextBlock
 					Grid.Row="12"
 					Grid.Column="0"
-					Margin="10"
+					Margin="10,0,10,0"
 					VerticalAlignment="Center"
 					Text="Foreground Color" />
 
 			<ColorPicker Grid.Row="12"
 						 Grid.Column="2"
-						 Margin="10"
+					  Margin="10,0,10,0"
 						 VerticalAlignment="Center"
 						 HorizontalAlignment="Left"
 						 ColorChanged="ForegroundColorPicker_ColorChanged"
@@ -263,13 +268,13 @@
 			<TextBlock
 					Grid.Row="14"
 					Grid.Column="0"
-					Margin="10"
+					Margin="10,0,10,0"
 					VerticalAlignment="Center"
 					Text="Background Color" />
 
 			<ColorPicker Grid.Row="14"
 						 Grid.Column="2"
-						 Margin="10"
+					  Margin="10,0,10,0"
 						 VerticalAlignment="Center"
 						 HorizontalAlignment="Left"
 						 ColorChanged="BackgroundColorPicker_ColorChanged"
@@ -285,14 +290,14 @@
 			<TextBlock
 					Grid.Row="16"
 					Grid.Column="0"
-					Margin="10"
+					Margin="10,0,10,0"
 					VerticalAlignment="Center"
 					Text="Keep Keyboard Visible" />
 
 			<ToggleSwitch
 				  Grid.Row="16"
 				  Grid.Column="2"
-				  Margin="10"
+				  Margin="10,0,10,0"
 				  VerticalAlignment="Center"
 				  HorizontalAlignment="Left"
 				  IsChecked="{Binding KeepKeyboardVisible, Mode=TwoWay}"
@@ -309,14 +314,14 @@
 			<TextBlock
 					Grid.Row="18"
 					Grid.Column="0"
-					Margin="10"
+					Margin="10,0,10,0"
 					VerticalAlignment="Center"
 					Text="Window Width" />
 
 			<TextBlock
 				  Grid.Row="18"
 				  Grid.Column="2"
-				  Margin="10"
+				  Margin="10,0,10,0"
 				  VerticalAlignment="Center"
 				  HorizontalAlignment="Left"
 				  Text="{Binding WindowWidth, Mode=TwoWay}"
@@ -331,14 +336,14 @@
 			<TextBlock
 					Grid.Row="20"
 					Grid.Column="0"
-					Margin="10"
+					Margin="10,0,10,0"
 					VerticalAlignment="Center"
 					Text="Window Height" />
 
 			<TextBlock
 				  Grid.Row="20"
 				  Grid.Column="2"
-				  Margin="10"
+				  Margin="10,0,10,0"
 				  VerticalAlignment="Center"
 				  HorizontalAlignment="Left"
 				  Text="{Binding WindowHeight, Mode=TwoWay}"
