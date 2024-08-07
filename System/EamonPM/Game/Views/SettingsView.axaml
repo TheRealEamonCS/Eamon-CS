@@ -60,6 +60,7 @@
 
 			<Rectangle Grid.Row="0"
 					   Grid.Column="1"
+					   Grid.RowSpan="22"
 					   Width="1"
 					   VerticalAlignment="Stretch"
 					   Fill="{DynamicResource RowDivider}" />
@@ -94,12 +95,6 @@
 					VerticalAlignment="Center"
 					Text="Font Family" />
 
-			<Rectangle Grid.Row="2"
-					   Grid.Column="1"
-					   Width="1"
-					   VerticalAlignment="Stretch"
-					   Fill="{DynamicResource RowDivider}" />
-
 			<ComboBox Grid.Row="2"
 					  Grid.Column="2"
 					  Margin="10"
@@ -129,12 +124,6 @@
 					VerticalAlignment="Center"
 					Text="Font Weight" />
 
-			<Rectangle Grid.Row="4"
-					   Grid.Column="1"
-					   Width="1"
-					   VerticalAlignment="Stretch"
-					   Fill="{DynamicResource RowDivider}" />
-
 			<ComboBox Grid.Row="4"
 					  Grid.Column="2"
 					  Margin="10"
@@ -163,12 +152,6 @@
 					Margin="10"
 					VerticalAlignment="Center"
 					Text="Font Size" />
-
-			<Rectangle Grid.Row="6"
-					   Grid.Column="1"
-					   Width="1"
-					   VerticalAlignment="Stretch"
-					   Fill="{DynamicResource RowDivider}" />
 
 			<ComboBox
 					Grid.Row="6"
@@ -200,12 +183,6 @@
 					VerticalAlignment="Center"
 					Text="Scrollback Buffer Size" />
 
-			<Rectangle Grid.Row="8"
-					   Grid.Column="1"
-					   Width="1"
-					   VerticalAlignment="Stretch"
-					   Fill="{DynamicResource RowDivider}" />
-
 			<ComboBox
 					Grid.Row="8"
 					Grid.Column="2"
@@ -236,12 +213,6 @@
 					Margin="10"
 					VerticalAlignment="Center"
 					Text="Scrollback Window Size" />
-
-			<Rectangle Grid.Row="10"
-					   Grid.Column="1"
-					   Width="1"
-					   VerticalAlignment="Stretch"
-					   Fill="{DynamicResource RowDivider}" />
 
 			<ComboBox
 					Grid.Row="10"
@@ -275,12 +246,6 @@
 					VerticalAlignment="Center"
 					Text="Foreground Color" />
 
-			<Rectangle Grid.Row="12"
-					   Grid.Column="1"
-					   Width="1"
-					   VerticalAlignment="Stretch"
-					   Fill="{DynamicResource RowDivider}" />
-
 			<ColorPicker Grid.Row="12"
 						 Grid.Column="2"
 						 Margin="10"
@@ -301,12 +266,6 @@
 					Margin="10"
 					VerticalAlignment="Center"
 					Text="Background Color" />
-
-			<Rectangle Grid.Row="14"
-					   Grid.Column="1"
-					   Width="1"
-					   VerticalAlignment="Stretch"
-					   Fill="{DynamicResource RowDivider}" />
 
 			<ColorPicker Grid.Row="14"
 						 Grid.Column="2"
@@ -329,12 +288,6 @@
 					Margin="10"
 					VerticalAlignment="Center"
 					Text="Keep Keyboard Visible" />
-
-			<Rectangle Grid.Row="16"
-					   Grid.Column="1"
-					   Width="1"
-					   VerticalAlignment="Stretch"
-					   Fill="{DynamicResource RowDivider}" />
 
 			<ToggleSwitch
 				  Grid.Row="16"
@@ -360,12 +313,6 @@
 					VerticalAlignment="Center"
 					Text="Window Width" />
 
-			<Rectangle Grid.Row="18"
-					   Grid.Column="1"
-					   Width="1"
-					   VerticalAlignment="Stretch"
-					   Fill="{DynamicResource RowDivider}" />
-
 			<TextBlock
 				  Grid.Row="18"
 				  Grid.Column="2"
@@ -387,12 +334,6 @@
 					Margin="10"
 					VerticalAlignment="Center"
 					Text="Window Height" />
-
-			<Rectangle Grid.Row="20"
-					   Grid.Column="1"
-					   Width="1"
-					   VerticalAlignment="Stretch"
-					   Fill="{DynamicResource RowDivider}" />
 
 			<TextBlock
 				  Grid.Row="20"
