@@ -46,7 +46,8 @@
 			   <RowDefinition Height="1"  />
 			</Grid.RowDefinitions>
 			<Grid.ColumnDefinitions>
-			   <ColumnDefinition Width="200" />
+			   <ColumnDefinition Width="189" />
+			   <ColumnDefinition Width="Auto" />
 			   <ColumnDefinition Width="*" />
 			</Grid.ColumnDefinitions>
 
@@ -57,9 +58,15 @@
 					VerticalAlignment="Center"
 					Text="Application Theme" />
 
+			<Rectangle Grid.Row="0"
+					   Grid.Column="1"
+					   Width="1"
+					   VerticalAlignment="Stretch"
+					   Fill="{DynamicResource RowDivider}" />
+
 			<ComboBox Grid.Row="0"
-					  Grid.Column="1"
-					  Margin="0"
+					  Grid.Column="2"
+					  Margin="10"
 					  MaxDropDownHeight="200"
 					  VerticalAlignment="Center"
 					  HorizontalAlignment="Left"
@@ -74,7 +81,7 @@
 			</ComboBox>
 
 			<Rectangle Grid.Row="1"
-					   Grid.ColumnSpan="2"
+					   Grid.ColumnSpan="3"
 					   Height="1"
 					   HorizontalAlignment="Stretch"
 					   Fill="{DynamicResource RowDivider}" />
@@ -87,9 +94,15 @@
 					VerticalAlignment="Center"
 					Text="Font Family" />
 
+			<Rectangle Grid.Row="2"
+					   Grid.Column="1"
+					   Width="1"
+					   VerticalAlignment="Stretch"
+					   Fill="{DynamicResource RowDivider}" />
+
 			<ComboBox Grid.Row="2"
-					  Grid.Column="1"
-					  Margin="0"
+					  Grid.Column="2"
+					  Margin="10"
 					  MaxDropDownHeight="200"
 					  VerticalAlignment="Center"
 					  HorizontalAlignment="Left"
@@ -104,7 +117,7 @@
 			</ComboBox>
 
 			<Rectangle Grid.Row="3"
-					   Grid.ColumnSpan="2"
+					   Grid.ColumnSpan="3"
 					   Height="1"
 					   HorizontalAlignment="Stretch"
 					   Fill="{DynamicResource RowDivider}" />
@@ -116,9 +129,15 @@
 					VerticalAlignment="Center"
 					Text="Font Weight" />
 
+			<Rectangle Grid.Row="4"
+					   Grid.Column="1"
+					   Width="1"
+					   VerticalAlignment="Stretch"
+					   Fill="{DynamicResource RowDivider}" />
+
 			<ComboBox Grid.Row="4"
-					  Grid.Column="1"
-					  Margin="0"
+					  Grid.Column="2"
+					  Margin="10"
 					  MaxDropDownHeight="200"
 					  VerticalAlignment="Center"
 					  HorizontalAlignment="Left"
@@ -133,7 +152,7 @@
 			</ComboBox>
 
 			<Rectangle Grid.Row="5"
-					   Grid.ColumnSpan="2"
+					   Grid.ColumnSpan="3"
 					   Height="1"
 					   HorizontalAlignment="Stretch"
 					   Fill="{DynamicResource RowDivider}" />
@@ -145,10 +164,16 @@
 					VerticalAlignment="Center"
 					Text="Font Size" />
 
+			<Rectangle Grid.Row="6"
+					   Grid.Column="1"
+					   Width="1"
+					   VerticalAlignment="Stretch"
+					   Fill="{DynamicResource RowDivider}" />
+
 			<ComboBox
 					Grid.Row="6"
-					Grid.Column="1"
-					Margin="0"
+					Grid.Column="2"
+					Margin="10"
 					MaxDropDownHeight="200"
 					VerticalAlignment="Center"
 					HorizontalAlignment="Left"
@@ -163,7 +188,7 @@
 			</ComboBox>
 
 			<Rectangle Grid.Row="7"
-					   Grid.ColumnSpan="2"
+					   Grid.ColumnSpan="3"
 					   Height="1"
 					   HorizontalAlignment="Stretch"
 					   Fill="{DynamicResource RowDivider}" />
@@ -175,10 +200,16 @@
 					VerticalAlignment="Center"
 					Text="Scrollback Buffer Size" />
 
+			<Rectangle Grid.Row="8"
+					   Grid.Column="1"
+					   Width="1"
+					   VerticalAlignment="Stretch"
+					   Fill="{DynamicResource RowDivider}" />
+
 			<ComboBox
 					Grid.Row="8"
-					Grid.Column="1"
-					Margin="0"
+					Grid.Column="2"
+					Margin="10"
 				    MaxDropDownHeight="200"
 					VerticalAlignment="Center"
 					HorizontalAlignment="Left"
@@ -193,7 +224,7 @@
 			</ComboBox>
 
 			<Rectangle Grid.Row="9"
-					   Grid.ColumnSpan="2"
+					   Grid.ColumnSpan="3"
 					   Height="1"
 					   HorizontalAlignment="Stretch"
 					   Fill="{DynamicResource RowDivider}" />
@@ -206,10 +237,16 @@
 					VerticalAlignment="Center"
 					Text="Scrollback Window Size" />
 
+			<Rectangle Grid.Row="10"
+					   Grid.Column="1"
+					   Width="1"
+					   VerticalAlignment="Stretch"
+					   Fill="{DynamicResource RowDivider}" />
+
 			<ComboBox
 					Grid.Row="10"
-					Grid.Column="1"
-					Margin="0"
+					Grid.Column="2"
+					Margin="10"
 				    MaxDropDownHeight="200"
 					VerticalAlignment="Center"
 					HorizontalAlignment="Left"
@@ -224,7 +261,7 @@
 			</ComboBox>
 
 			<Rectangle Grid.Row="11"
-					   Grid.ColumnSpan="2"
+					   Grid.ColumnSpan="3"
 					   Height="1"
 					   HorizontalAlignment="Stretch"
 					   Fill="{DynamicResource RowDivider}" />
@@ -238,16 +275,22 @@
 					VerticalAlignment="Center"
 					Text="Foreground Color" />
 
+			<Rectangle Grid.Row="12"
+					   Grid.Column="1"
+					   Width="1"
+					   VerticalAlignment="Stretch"
+					   Fill="{DynamicResource RowDivider}" />
+
 			<ColorPicker Grid.Row="12"
-						 Grid.Column="1"
-						 Margin="0"
+						 Grid.Column="2"
+						 Margin="10"
 						 VerticalAlignment="Center"
 						 HorizontalAlignment="Left"
 						 ColorChanged="ForegroundColorPicker_ColorChanged"
 						 x:Name="ForegroundColorPicker" />
 
 			<Rectangle Grid.Row="13"
-					   Grid.ColumnSpan="2"
+					   Grid.ColumnSpan="3"
 					   Height="1"
 					   HorizontalAlignment="Stretch"
 					   Fill="{DynamicResource RowDivider}" />
@@ -259,16 +302,22 @@
 					VerticalAlignment="Center"
 					Text="Background Color" />
 
+			<Rectangle Grid.Row="14"
+					   Grid.Column="1"
+					   Width="1"
+					   VerticalAlignment="Stretch"
+					   Fill="{DynamicResource RowDivider}" />
+
 			<ColorPicker Grid.Row="14"
-						 Grid.Column="1"
-						 Margin="0"
+						 Grid.Column="2"
+						 Margin="10"
 						 VerticalAlignment="Center"
 						 HorizontalAlignment="Left"
 						 ColorChanged="BackgroundColorPicker_ColorChanged"
 						 x:Name="BackgroundColorPicker" />
 
 			<Rectangle Grid.Row="15"
-					   Grid.ColumnSpan="2"
+					   Grid.ColumnSpan="3"
 					   Height="1"
 					   HorizontalAlignment="Stretch"
 					   Fill="{DynamicResource RowDivider}" />
@@ -281,10 +330,16 @@
 					VerticalAlignment="Center"
 					Text="Keep Keyboard Visible" />
 
+			<Rectangle Grid.Row="16"
+					   Grid.Column="1"
+					   Width="1"
+					   VerticalAlignment="Stretch"
+					   Fill="{DynamicResource RowDivider}" />
+
 			<ToggleSwitch
 				  Grid.Row="16"
-				  Grid.Column="1"
-				  Margin="0"
+				  Grid.Column="2"
+				  Margin="10"
 				  VerticalAlignment="Center"
 				  HorizontalAlignment="Left"
 				  IsChecked="{Binding KeepKeyboardVisible, Mode=TwoWay}"
@@ -293,7 +348,7 @@
 				  x:Name="KeepKeyboardVisibleToggleSwitch" />
 
 			<Rectangle Grid.Row="17"
-					   Grid.ColumnSpan="2"
+					   Grid.ColumnSpan="3"
 					   Height="1"
 					   HorizontalAlignment="Stretch"
 					   Fill="{DynamicResource RowDivider}" />
@@ -305,17 +360,23 @@
 					VerticalAlignment="Center"
 					Text="Window Width" />
 
+			<Rectangle Grid.Row="18"
+					   Grid.Column="1"
+					   Width="1"
+					   VerticalAlignment="Stretch"
+					   Fill="{DynamicResource RowDivider}" />
+
 			<TextBlock
 				  Grid.Row="18"
-				  Grid.Column="1"
-				  Margin="0"
+				  Grid.Column="2"
+				  Margin="10"
 				  VerticalAlignment="Center"
 				  HorizontalAlignment="Left"
 				  Text="{Binding WindowWidth, Mode=TwoWay}"
 				  x:Name="WindowWidthTextBlock" />
 
 			<Rectangle Grid.Row="19"
-					   Grid.ColumnSpan="2"
+					   Grid.ColumnSpan="3"
 					   Height="1"
 					   HorizontalAlignment="Stretch"
 					   Fill="{DynamicResource RowDivider}" />
@@ -327,17 +388,23 @@
 					VerticalAlignment="Center"
 					Text="Window Height" />
 
+			<Rectangle Grid.Row="20"
+					   Grid.Column="1"
+					   Width="1"
+					   VerticalAlignment="Stretch"
+					   Fill="{DynamicResource RowDivider}" />
+
 			<TextBlock
 				  Grid.Row="20"
-				  Grid.Column="1"
-				  Margin="0"
+				  Grid.Column="2"
+				  Margin="10"
 				  VerticalAlignment="Center"
 				  HorizontalAlignment="Left"
 				  Text="{Binding WindowHeight, Mode=TwoWay}"
 				  x:Name="WindowHeightTextBlock" />
 
 			<Rectangle Grid.Row="21"
-					   Grid.ColumnSpan="2"
+					   Grid.ColumnSpan="3"
 					   Height="1"
 					   HorizontalAlignment="Stretch"
 					   Fill="{DynamicResource RowDivider}" />
