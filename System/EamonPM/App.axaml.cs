@@ -51,6 +51,8 @@ namespace EamonPM
 
 		public static string ProgramName { get; set; }
 
+		public static string OrigBasePath { get; set; }
+
 		public static string BasePath { get; set; }
 
 		public static Action KillProcessFunc { get; set; }
@@ -114,15 +116,11 @@ namespace EamonPM
 
 			FinishInput = new AutoResetEvent(false);
 
-			WorkDir = Path.Combine(BasePath, "System", "Bin");
-
 			PushEngine();
 
 			gEngine.LoadPortabilityClassMappings = LoadPortabilityClassMappings;
 
 			gEngine.ResolvePortabilityClassMappings();
-
-			Directory.SetCurrentDirectory(WorkDir);
 		}
 
 		public override async void OnFrameworkInitializationCompleted()
@@ -190,6 +188,37 @@ namespace EamonPM
 			}
 
 			base.OnFrameworkInitializationCompleted();
+
+			var separator = Regex.Escape(gEngine.Path.DirectorySeparatorChar.ToString());
+
+			var pattern = string.Empty;
+
+			if (ProgramName == "EamonPM.Desktop")
+			{
+				pattern = string.Format(@"(?-i).*{0}Eamon-CS[^{0}]*{0}System{0}Bin{0}?$", separator);
+			}
+			else if (ProgramName == "EamonPM.Android")
+			{
+				pattern = string.Format(@"(?-i).*{0}EamonPM.Android[^{0}]*{0}files{0}System{0}Bin{0}?$", separator);
+			}
+			else
+			{
+				Debug.Assert(1 == 0);
+			}
+
+			if (string.IsNullOrWhiteSpace(OrigBasePath) || !Regex.IsMatch(OrigBasePath, pattern))
+			{
+				await ShowErrorMessage("Program startup failed.", 
+					new Exception(string.IsNullOrWhiteSpace(OrigBasePath) ? 
+						"This program has an unknown base path." : 
+						"This program must be located in a valid Eamon CS repository."));
+
+				KillProcess();
+			}
+
+			WorkDir = Path.Combine(BasePath, "System", "Bin");
+
+			Directory.SetCurrentDirectory(WorkDir);
 		}
 
 		public static void ExecutePlugin(string[] args, bool enableStdio = true)
@@ -331,7 +360,7 @@ namespace EamonPM
 
 				// If current working directory invalid, bail out
 
-				if (!currWorkDir.EndsWith(systemBinDir) || currWorkDir.Length <= systemBinDir.Length || !Directory.Exists(gEngine.AdventuresDir.Replace('\\', Path.DirectorySeparatorChar)))
+				if (!currWorkDir.EndsWith(systemBinDir) || currWorkDir.Length <= systemBinDir.Length)
 				{
 					goto Cleanup;
 				}
@@ -433,7 +462,10 @@ namespace EamonPM
 
 			listBox.SelectedItem = null;
 
-			listBox.ScrollIntoView(listBox.Items[0]);
+			if (listBox.Items.Count > 0)
+			{
+				listBox.ScrollIntoView(listBox.Items[0]);
+			}
 		}
 
 		public static void ChangeTheme(string themeName)
@@ -699,13 +731,20 @@ namespace EamonPM
 
 		public static string[] GetAdventureDirs()
 		{
-			var fullDirs = gEngine.Directory.GetDirectories(gEngine.Path.Combine(BasePath, "Adventures"));
-
 			var dirList = new List<string>();
 
-			foreach (var fullDir in fullDirs)
+			try
 			{
-				dirList.Add(gEngine.Path.GetFileNameWithoutExtension(fullDir));
+				var fullDirs = gEngine.Directory.GetDirectories(gEngine.Path.Combine(BasePath, "Adventures"));
+
+				foreach (var fullDir in fullDirs)
+				{
+					dirList.Add(gEngine.Path.GetFileNameWithoutExtension(fullDir));
+				}
+			}
+			catch (Exception)
+			{
+				// Do nothing
 			}
 
 			return dirList.ToArray();

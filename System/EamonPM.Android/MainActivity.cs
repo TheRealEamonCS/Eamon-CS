@@ -38,6 +38,8 @@ namespace EamonPM.Android
 		{
 			App.ProgramName = "EamonPM.Android";
 
+			App.OrigBasePath = Path.Combine(FilesDir.Path, "System", "Bin");
+
 			App.BasePath = FilesDir.Path;
 
 			App.KillProcessFunc = () =>

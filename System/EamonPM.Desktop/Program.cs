@@ -13,6 +13,8 @@ namespace EamonPM.Desktop
 {
     class Program
     {
+        // MP NOTE: when changing this file regenerate both published executables and EamonPM.Desktop.dll (the former may be unchanged)
+
         // Initialization code. Don't use any Avalonia, third-party APIs or any
         // SynchronizationContext-reliant code before AppMain is called: things aren't initialized
         // yet and stuff might break.
@@ -20,6 +22,8 @@ namespace EamonPM.Desktop
         public static void Main(string[] args)
         {
 			App.ProgramName = "EamonPM.Desktop";
+
+            App.OrigBasePath = AppContext.BaseDirectory;
 
 			App.BasePath = AppContext.BaseDirectory.Replace("\\System\\Bin\\", "").Replace("/System/Bin/", "");
 

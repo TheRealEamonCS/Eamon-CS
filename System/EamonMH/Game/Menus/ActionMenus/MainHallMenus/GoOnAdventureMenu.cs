@@ -149,7 +149,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 				{
 					if (!gEngine.Directory.Exists(fileset.WorkDir))
 					{
-						var errorMessage = string.Format("Attempted to access a path [{0}] that is not on the disk.", fileset.WorkDir);
+						var errorMessage = string.Format("Attempted to access a path [{0}] that is not on the disk.", fileset.WorkDir.Replace('\\', gEngine.Path.DirectorySeparatorChar));
 
 						throw new Exception(errorMessage);
 					}
