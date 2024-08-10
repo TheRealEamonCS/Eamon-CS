@@ -6,6 +6,9 @@
 .gitattributes text eol=crlf
 .gitignore text eol=crlf
 .Xresources text eol=lf
+
+fileicon text eol=lf
+
 *.config text eol=crlf
 *.sln text eol=crlf
 *.md text eol=crlf

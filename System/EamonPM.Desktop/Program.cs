@@ -23,19 +23,19 @@ namespace EamonPM.Desktop
         {
 			App.ProgramName = "EamonPM.Desktop";
 
-            App.OrigBasePath = AppContext.BaseDirectory;
+			App.OrigBasePath = AppContext.BaseDirectory;
 
 			App.BasePath = AppContext.BaseDirectory.Replace("\\System\\Bin\\", "").Replace("/System/Bin/", "");
 
-            App.KillProcessFunc = () =>
-            {
+			App.KillProcessFunc = () =>
+			{
 				Thread.Sleep(150);
 
-                Environment.Exit(0);
+				Environment.Exit(0);
 			};
 
-            App.StartBrowserFunc = (url) =>
-            {
+			App.StartBrowserFunc = (url) =>
+			{
 				var proc = new Process();
 
 				proc.StartInfo.UseShellExecute = true;
