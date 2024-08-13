@@ -436,9 +436,7 @@ Date            Version            Who            Notes
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include=""..\..\System\EamonDD\EamonDD.csproj"" />
     <ProjectReference Include=""..\..\System\EamonRT\EamonRT.csproj"" />
-    <ProjectReference Include=""..\..\System\Eamon\Eamon.csproj"" />
   </ItemGroup>
 
 </Project>
