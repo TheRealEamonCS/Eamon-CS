@@ -151,6 +151,8 @@ namespace EamonDD.Game.Menus.ActionMenus
 				x.NumEffects = a2eAdv._ne;
 
 				x.NumMonsters = a2eAdv._nm;
+
+				x.NumHints = gDatabase.GetHintCount();
 			});
 
 			gDatabase.AddModule(module);
