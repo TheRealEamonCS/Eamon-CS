@@ -28,5 +28,12 @@ namespace SampleAdventure.Game.Plugin
 
 			return rc;
 		}
+
+		public Engine()
+		{
+			// The @@001 token in Module description will be replaced by a string returned from MacroFunc with key == 1
+
+			MacroFuncs.Add(1, () => System.IO.Path.DirectorySeparatorChar.ToString());
+		}
 	}
 }
