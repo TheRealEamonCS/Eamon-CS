@@ -28,7 +28,8 @@
     <DocumentationFile>..\Bin\EamonPM.Android.xml</DocumentationFile>
     <NoWarn>0419;1574;1591;1701;1702;1705</NoWarn>
     <RunAOTCompilation>False</RunAOTCompilation>
-    <PublishTrimmed>False</PublishTrimmed>
+    <PublishTrimmed>True</PublishTrimmed>
+    <TrimMode>partial</TrimMode>
   </PropertyGroup>
 
    <ItemGroup>
@@ -146,7 +147,27 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Adventures\ARuncibleCargo\ARuncibleCargo.csproj" />
+    <ProjectReference Include="..\..\Adventures\BeginnersForest\BeginnersForest.csproj" />
+    <ProjectReference Include="..\..\Adventures\StrongholdOfKahrDur\StrongholdOfKahrDur.csproj" />
+    <ProjectReference Include="..\..\Adventures\TheBeginnersCave\TheBeginnersCave.csproj" />
+    <ProjectReference Include="..\..\Adventures\TheTempleOfNgurct\TheTempleOfNgurct.csproj" />
+    <ProjectReference Include="..\..\Adventures\TheTrainingGround\TheTrainingGround.csproj" />
+    <ProjectReference Include="..\..\Adventures\WrenholdsSecretVigil\WrenholdsSecretVigil.csproj" />
+    <ProjectReference Include="..\..\Adventures\LandOfTheMountainKing\LandOfTheMountainKing.csproj" />
+    <ProjectReference Include="..\..\Adventures\TheVileGrimoireOfJaldial\TheVileGrimoireOfJaldial.csproj" />
+    <ProjectReference Include="..\..\Adventures\RiddlesOfTheDuergarKingdom\RiddlesOfTheDuergarKingdom.csproj" />
+    <ProjectReference Include="..\..\Adventures\BeginnersCaveII\BeginnersCaveII.csproj" />
+    <ProjectReference Include="..\..\Adventures\AlternateBeginnersCave\AlternateBeginnersCave.csproj" />
+    <ProjectReference Include="..\..\Adventures\TheDeepCanyon\TheDeepCanyon.csproj" />
+    <ProjectReference Include="..\..\Adventures\ThePyramidOfAnharos\ThePyramidOfAnharos.csproj" />
+    <ProjectReference Include="..\..\Adventures\SampleAdventure\SampleAdventure.csproj" />
+    <ProjectReference Include="..\..\Adventures\TheSubAquanLaboratory\TheSubAquanLaboratory.csproj" />
+    <ProjectReference Include="..\..\Adventures\TheWayfarersInn\TheWayfarersInn.csproj" />
+    <ProjectReference Include="..\EamonDD\EamonDD.csproj" />
+    <ProjectReference Include="..\EamonMH\EamonMH.csproj" />
     <ProjectReference Include="..\EamonPM\EamonPM.csproj" />
+    <ProjectReference Include="..\EamonRT\EamonRT.csproj" />
   </ItemGroup>
 
   <ItemGroup>
