@@ -95,49 +95,49 @@
 
    <PropertyGroup>
 	  <PreBuildEvent>
-		 xcopy "$(TargetDir)EamonMH.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
-		 xcopy "$(TargetDir)EamonDD.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
-		 xcopy "$(TargetDir)EamonRT.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
+		 xcopy "$(TargetDir)AlternateBeginnersCave.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
 		 xcopy "$(TargetDir)ARuncibleCargo.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
+		 xcopy "$(TargetDir)BeginnersCaveII.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
 		 xcopy "$(TargetDir)BeginnersForest.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
+		 xcopy "$(TargetDir)LandOfTheMountainKing.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
+		 xcopy "$(TargetDir)RiddlesOfTheDuergarKingdom.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
+		 xcopy "$(TargetDir)SampleAdventure.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
 		 xcopy "$(TargetDir)StrongholdOfKahrDur.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
 		 xcopy "$(TargetDir)TheBeginnersCave.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
-		 xcopy "$(TargetDir)TheTempleOfNgurct.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
-		 xcopy "$(TargetDir)TheTrainingGround.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
-		 xcopy "$(TargetDir)WrenholdsSecretVigil.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
-		 xcopy "$(TargetDir)LandOfTheMountainKing.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
-		 xcopy "$(TargetDir)TheVileGrimoireOfJaldial.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
-		 xcopy "$(TargetDir)RiddlesOfTheDuergarKingdom.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
-		 xcopy "$(TargetDir)BeginnersCaveII.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
-		 xcopy "$(TargetDir)AlternateBeginnersCave.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
 		 xcopy "$(TargetDir)TheDeepCanyon.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
 		 xcopy "$(TargetDir)ThePyramidOfAnharos.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
-		 xcopy "$(TargetDir)SampleAdventure.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
 		 xcopy "$(TargetDir)TheSubAquanLaboratory.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
+		 xcopy "$(TargetDir)TheTempleOfNgurct.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
+		 xcopy "$(TargetDir)TheTrainingGround.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
+		 xcopy "$(TargetDir)TheVileGrimoireOfJaldial.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
 		 xcopy "$(TargetDir)TheWayfarersInn.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
+		 xcopy "$(TargetDir)WrenholdsSecretVigil.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
+		 xcopy "$(TargetDir)EamonDD.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
+		 xcopy "$(TargetDir)EamonMH.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
+		 xcopy "$(TargetDir)EamonRT.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
 		 xcopy "$(TargetDir)*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
 		 xcopy "$(TargetDir)GLOBAL_LAUNCH_PARAMETERS.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
+		 xcopy "$(TargetDir)..\..\Adventures\AlternateBeginnersCave\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\AlternateBeginnersCave" /I /S /Y
 		 xcopy "$(TargetDir)..\..\Adventures\ARuncibleCargo\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\ARuncibleCargo" /I /S /Y
+		 xcopy "$(TargetDir)..\..\Adventures\BeginnersCaveII\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\BeginnersCaveII" /I /S /Y
 		 xcopy "$(TargetDir)..\..\Adventures\BeginnersForest\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\BeginnersForest" /I /S /Y
 		 xcopy "$(TargetDir)..\..\Adventures\DemoAdventure\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\DemoAdventure" /I /S /Y
+		 xcopy "$(TargetDir)..\..\Adventures\EscapeFromMtMoon\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\EscapeFromMtMoon" /I /S /Y
+		 xcopy "$(TargetDir)..\..\Adventures\LandOfTheMountainKing\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\LandOfTheMountainKing" /I /S /Y
+		 xcopy "$(TargetDir)..\..\Adventures\RiddlesOfTheDuergarKingdom\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\RiddlesOfTheDuergarKingdom" /I /S /Y
+		 xcopy "$(TargetDir)..\..\Adventures\SampleAdventure\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\SampleAdventure" /I /S /Y
 		 xcopy "$(TargetDir)..\..\Adventures\StrongholdOfKahrDur\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\StrongholdOfKahrDur" /I /S /Y
 		 xcopy "$(TargetDir)..\..\Adventures\TestAdventure\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\TestAdventure" /I /S /Y
 		 xcopy "$(TargetDir)..\..\Adventures\TheBeginnersCave\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\TheBeginnersCave" /I /S /Y
-		 xcopy "$(TargetDir)..\..\Adventures\TheTempleOfNgurct\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\TheTempleOfNgurct" /I /S /Y
-		 xcopy "$(TargetDir)..\..\Adventures\TheTrainingGround\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\TheTrainingGround" /I /S /Y
-		 xcopy "$(TargetDir)..\..\Adventures\WrenholdsSecretVigil\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\WrenholdsSecretVigil" /I /S /Y
-		 xcopy "$(TargetDir)..\..\Adventures\LandOfTheMountainKing\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\LandOfTheMountainKing" /I /S /Y
-		 xcopy "$(TargetDir)..\..\Adventures\TheVileGrimoireOfJaldial\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\TheVileGrimoireOfJaldial" /I /S /Y
-		 xcopy "$(TargetDir)..\..\Adventures\RiddlesOfTheDuergarKingdom\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\RiddlesOfTheDuergarKingdom" /I /S /Y
-		 xcopy "$(TargetDir)..\..\Adventures\BeginnersCaveII\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\BeginnersCaveII" /I /S /Y
-		 xcopy "$(TargetDir)..\..\Adventures\AlternateBeginnersCave\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\AlternateBeginnersCave" /I /S /Y
 		 xcopy "$(TargetDir)..\..\Adventures\TheDeepCanyon\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\TheDeepCanyon" /I /S /Y
-		 xcopy "$(TargetDir)..\..\Adventures\TheTowerOfEamon\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\TheTowerOfEamon" /I /S /Y
-		 xcopy "$(TargetDir)..\..\Adventures\EscapeFromMtMoon\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\EscapeFromMtMoon" /I /S /Y
 		 xcopy "$(TargetDir)..\..\Adventures\ThePyramidOfAnharos\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\ThePyramidOfAnharos" /I /S /Y
-		 xcopy "$(TargetDir)..\..\Adventures\SampleAdventure\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\SampleAdventure" /I /S /Y
 		 xcopy "$(TargetDir)..\..\Adventures\TheSubAquanLaboratory\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\TheSubAquanLaboratory" /I /S /Y
+		 xcopy "$(TargetDir)..\..\Adventures\TheTempleOfNgurct\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\TheTempleOfNgurct" /I /S /Y
+		 xcopy "$(TargetDir)..\..\Adventures\TheTowerOfEamon\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\TheTowerOfEamon" /I /S /Y
+		 xcopy "$(TargetDir)..\..\Adventures\TheTrainingGround\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\TheTrainingGround" /I /S /Y
+		 xcopy "$(TargetDir)..\..\Adventures\TheVileGrimoireOfJaldial\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\TheVileGrimoireOfJaldial" /I /S /Y
 		 xcopy "$(TargetDir)..\..\Adventures\TheWayfarersInn\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\TheWayfarersInn" /I /S /Y
+		 xcopy "$(TargetDir)..\..\Adventures\WrenholdsSecretVigil\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\WrenholdsSecretVigil" /I /S /Y
 	  </PreBuildEvent>
    </PropertyGroup>
 
@@ -147,23 +147,23 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Adventures\AlternateBeginnersCave\AlternateBeginnersCave.csproj" />
     <ProjectReference Include="..\..\Adventures\ARuncibleCargo\ARuncibleCargo.csproj" />
+    <ProjectReference Include="..\..\Adventures\BeginnersCaveII\BeginnersCaveII.csproj" />
     <ProjectReference Include="..\..\Adventures\BeginnersForest\BeginnersForest.csproj" />
+    <ProjectReference Include="..\..\Adventures\LandOfTheMountainKing\LandOfTheMountainKing.csproj" />
+    <ProjectReference Include="..\..\Adventures\RiddlesOfTheDuergarKingdom\RiddlesOfTheDuergarKingdom.csproj" />
+    <ProjectReference Include="..\..\Adventures\SampleAdventure\SampleAdventure.csproj" />
     <ProjectReference Include="..\..\Adventures\StrongholdOfKahrDur\StrongholdOfKahrDur.csproj" />
     <ProjectReference Include="..\..\Adventures\TheBeginnersCave\TheBeginnersCave.csproj" />
-    <ProjectReference Include="..\..\Adventures\TheTempleOfNgurct\TheTempleOfNgurct.csproj" />
-    <ProjectReference Include="..\..\Adventures\TheTrainingGround\TheTrainingGround.csproj" />
-    <ProjectReference Include="..\..\Adventures\WrenholdsSecretVigil\WrenholdsSecretVigil.csproj" />
-    <ProjectReference Include="..\..\Adventures\LandOfTheMountainKing\LandOfTheMountainKing.csproj" />
-    <ProjectReference Include="..\..\Adventures\TheVileGrimoireOfJaldial\TheVileGrimoireOfJaldial.csproj" />
-    <ProjectReference Include="..\..\Adventures\RiddlesOfTheDuergarKingdom\RiddlesOfTheDuergarKingdom.csproj" />
-    <ProjectReference Include="..\..\Adventures\BeginnersCaveII\BeginnersCaveII.csproj" />
-    <ProjectReference Include="..\..\Adventures\AlternateBeginnersCave\AlternateBeginnersCave.csproj" />
     <ProjectReference Include="..\..\Adventures\TheDeepCanyon\TheDeepCanyon.csproj" />
     <ProjectReference Include="..\..\Adventures\ThePyramidOfAnharos\ThePyramidOfAnharos.csproj" />
-    <ProjectReference Include="..\..\Adventures\SampleAdventure\SampleAdventure.csproj" />
     <ProjectReference Include="..\..\Adventures\TheSubAquanLaboratory\TheSubAquanLaboratory.csproj" />
+    <ProjectReference Include="..\..\Adventures\TheTempleOfNgurct\TheTempleOfNgurct.csproj" />
+    <ProjectReference Include="..\..\Adventures\TheTrainingGround\TheTrainingGround.csproj" />
+    <ProjectReference Include="..\..\Adventures\TheVileGrimoireOfJaldial\TheVileGrimoireOfJaldial.csproj" />
     <ProjectReference Include="..\..\Adventures\TheWayfarersInn\TheWayfarersInn.csproj" />
+    <ProjectReference Include="..\..\Adventures\WrenholdsSecretVigil\WrenholdsSecretVigil.csproj" />
     <ProjectReference Include="..\EamonDD\EamonDD.csproj" />
     <ProjectReference Include="..\EamonMH\EamonMH.csproj" />
     <ProjectReference Include="..\EamonPM\EamonPM.csproj" />
