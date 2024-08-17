@@ -50,11 +50,9 @@
     <TrimmerRootAssembly Include="$(OutputPath)TheVileGrimoireOfJaldial.dll" RootMode="All" />
     <TrimmerRootAssembly Include="$(OutputPath)TheWayfarersInn.dll" RootMode="All" />
     <TrimmerRootAssembly Include="$(OutputPath)WrenholdsSecretVigil.dll" RootMode="All" />
-    <TrimmerRootAssembly Include="$(OutputPath)Eamon.dll" RootMode="All" />
     <TrimmerRootAssembly Include="$(OutputPath)EamonDD.dll" RootMode="All" />
     <TrimmerRootAssembly Include="$(OutputPath)EamonMH.dll" RootMode="All" />
     <TrimmerRootAssembly Include="$(OutputPath)EamonRT.dll" RootMode="All" />
-    <TrimmerRootAssembly Include="$(OutputPath)Polenter.SharpSerializer.dll" RootMode="All" />
   </ItemGroup>
 
   <ItemGroup>
