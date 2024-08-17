@@ -33,6 +33,31 @@
   </PropertyGroup>
 
    <ItemGroup>
+	  <TrimmerRootAssembly Include="$(OutputPath)AlternateBeginnersCave.dll" RootMode="All" />
+	  <TrimmerRootAssembly Include="$(OutputPath)ARuncibleCargo.dll" RootMode="All" />
+	  <TrimmerRootAssembly Include="$(OutputPath)BeginnersCaveII.dll" RootMode="All" />
+	  <TrimmerRootAssembly Include="$(OutputPath)BeginnersForest.dll" RootMode="All" />
+	  <TrimmerRootAssembly Include="$(OutputPath)LandOfTheMountainKing.dll" RootMode="All" />
+	  <TrimmerRootAssembly Include="$(OutputPath)RiddlesOfTheDuergarKingdom.dll" RootMode="All" />
+	  <TrimmerRootAssembly Include="$(OutputPath)SampleAdventure.dll" RootMode="All" />
+	  <TrimmerRootAssembly Include="$(OutputPath)StrongholdOfKahrDur.dll" RootMode="All" />
+	  <TrimmerRootAssembly Include="$(OutputPath)TheBeginnersCave.dll" RootMode="All" />
+	  <TrimmerRootAssembly Include="$(OutputPath)TheDeepCanyon.dll" RootMode="All" />
+	  <TrimmerRootAssembly Include="$(OutputPath)ThePyramidOfAnharos.dll" RootMode="All" />
+	  <TrimmerRootAssembly Include="$(OutputPath)TheSubAquanLaboratory.dll" RootMode="All" />
+	  <TrimmerRootAssembly Include="$(OutputPath)TheTempleOfNgurct.dll" RootMode="All" />
+	  <TrimmerRootAssembly Include="$(OutputPath)TheTrainingGround.dll" RootMode="All" />
+	  <TrimmerRootAssembly Include="$(OutputPath)TheVileGrimoireOfJaldial.dll" RootMode="All" />
+	  <TrimmerRootAssembly Include="$(OutputPath)TheWayfarersInn.dll" RootMode="All" />
+	  <TrimmerRootAssembly Include="$(OutputPath)WrenholdsSecretVigil.dll" RootMode="All" />
+	  <TrimmerRootAssembly Include="$(OutputPath)Eamon.dll" RootMode="All" />
+	  <TrimmerRootAssembly Include="$(OutputPath)EamonDD.dll" RootMode="All" />
+	  <TrimmerRootAssembly Include="$(OutputPath)EamonMH.dll" RootMode="All" />
+	  <TrimmerRootAssembly Include="$(OutputPath)EamonRT.dll" RootMode="All" />
+	  <TrimmerRootAssembly Include="$(OutputPath)Polenter.SharpSerializer.dll" RootMode="All" />
+   </ItemGroup>
+
+   <ItemGroup>
 	  <AndroidResource Include="Resources\drawable-hdpi\eamon_dragon_neuc.png" />
    </ItemGroup>
    <ItemGroup>
@@ -147,27 +172,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Adventures\AlternateBeginnersCave\AlternateBeginnersCave.csproj" />
-    <ProjectReference Include="..\..\Adventures\ARuncibleCargo\ARuncibleCargo.csproj" />
-    <ProjectReference Include="..\..\Adventures\BeginnersCaveII\BeginnersCaveII.csproj" />
-    <ProjectReference Include="..\..\Adventures\BeginnersForest\BeginnersForest.csproj" />
-    <ProjectReference Include="..\..\Adventures\LandOfTheMountainKing\LandOfTheMountainKing.csproj" />
-    <ProjectReference Include="..\..\Adventures\RiddlesOfTheDuergarKingdom\RiddlesOfTheDuergarKingdom.csproj" />
-    <ProjectReference Include="..\..\Adventures\SampleAdventure\SampleAdventure.csproj" />
-    <ProjectReference Include="..\..\Adventures\StrongholdOfKahrDur\StrongholdOfKahrDur.csproj" />
-    <ProjectReference Include="..\..\Adventures\TheBeginnersCave\TheBeginnersCave.csproj" />
-    <ProjectReference Include="..\..\Adventures\TheDeepCanyon\TheDeepCanyon.csproj" />
-    <ProjectReference Include="..\..\Adventures\ThePyramidOfAnharos\ThePyramidOfAnharos.csproj" />
-    <ProjectReference Include="..\..\Adventures\TheSubAquanLaboratory\TheSubAquanLaboratory.csproj" />
-    <ProjectReference Include="..\..\Adventures\TheTempleOfNgurct\TheTempleOfNgurct.csproj" />
-    <ProjectReference Include="..\..\Adventures\TheTrainingGround\TheTrainingGround.csproj" />
-    <ProjectReference Include="..\..\Adventures\TheVileGrimoireOfJaldial\TheVileGrimoireOfJaldial.csproj" />
-    <ProjectReference Include="..\..\Adventures\TheWayfarersInn\TheWayfarersInn.csproj" />
-    <ProjectReference Include="..\..\Adventures\WrenholdsSecretVigil\WrenholdsSecretVigil.csproj" />
-    <ProjectReference Include="..\EamonDD\EamonDD.csproj" />
-    <ProjectReference Include="..\EamonMH\EamonMH.csproj" />
     <ProjectReference Include="..\EamonPM\EamonPM.csproj" />
-    <ProjectReference Include="..\EamonRT\EamonRT.csproj" />
   </ItemGroup>
 
   <ItemGroup>
