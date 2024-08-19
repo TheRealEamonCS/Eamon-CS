@@ -488,7 +488,7 @@ namespace EamonPM
 
 					app.RequestedThemeVariant = ThemeVariant.Light;
 
-					resources["Primary"] = Avalonia.Media.Color.Parse("#DCDCDC"); // Light Gray
+					resources["Primary"] = Avalonia.Media.Color.Parse("#D9D9D9"); // Light Gray
 					resources["PrimaryDark"] = Avalonia.Media.Color.Parse("#ABABAB"); // Darker Gray
 					resources["Accent"] = Avalonia.Media.Color.Parse("#9B9B9B"); // Medium Gray
 					resources["TitleTabItemForegroundColor"] = Avalonia.Media.Color.Parse("#313131"); // Dark Gray
@@ -544,7 +544,7 @@ namespace EamonPM
 
 					resources["Primary"] = Avalonia.Media.Color.Parse("#217A3A"); // Deep Forest Green
 					resources["PrimaryDark"] = Avalonia.Media.Color.Parse("#165225"); // Very Dark Forest Green
-					resources["Accent"] = Avalonia.Media.Color.Parse("#D09358"); // Honey Bronze
+					resources["Accent"] = Avalonia.Media.Color.Parse("#D98B4A"); // Honey Bronze
 					resources["TitleTabItemForegroundColor"] = Avalonia.Media.Color.Parse("#FFFFFF"); // White
 					resources["GeneralForegroundColor"] = Avalonia.Media.Color.Parse("#000000"); // Black
 					resources["LightBackgroundColor"] = Avalonia.Media.Color.Parse("#E8F5E9"); // Light Leaf Green
