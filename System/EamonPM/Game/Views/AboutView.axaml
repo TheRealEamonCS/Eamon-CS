@@ -32,13 +32,20 @@
 		 Background="{DynamicResource GeneralBackgroundColor}" 
 		 VerticalScrollBarVisibility="Auto">
 		 <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-			<TextBlock 
-			   FontSize="22" 
-			   HorizontalAlignment="Center" 
-			   Foreground="{DynamicResource GeneralForegroundColor}" 
-			   Margin="10,20,10,10">
-			   <Run FontWeight="DemiBold" Text="{Binding ProgramName, Mode=TwoWay}"></Run>
-			   <Run Foreground="{DynamicResource LightTextColor}"> 3.0.0</Run>
+			<TextBlock
+			   FontSize="22"
+			   HorizontalAlignment="Center"
+			   Foreground="{DynamicResource GeneralForegroundColor}"
+			   Margin="10,20,10,2">
+			   <Run FontWeight="DemiBold" Text="Eamon CS Plugin Manager"></Run>
+			</TextBlock>
+			<TextBlock
+			   FontSize="22"
+			   HorizontalAlignment="Center"
+			   Foreground="{DynamicResource GeneralForegroundColor}"
+			   Margin="10,0,10,10">
+			   <Run FontWeight="DemiBold" Text="{Binding ProgramNameWithParens, Mode=TwoWay}"></Run>
+			   <Run Foreground="{DynamicResource LightTextColor}"> 3.0.0.</Run>
 			</TextBlock>
 			<TextBlock 
 			   FontSize="10" 
@@ -46,7 +53,7 @@
 			   Foreground="{DynamicResource LightTextColor}" 
 			   Margin="10,0,10,10">
 			   <Run>BuildGuid: </Run>
-			   <Run Text="{Binding BuildGuid, Mode=TwoWay}"></Run>
+			   <Run Text="{Binding BuildGuidWithPeriod, Mode=TwoWay}"></Run>
 			</TextBlock>
 			<TextBlock
 			   FontSize="10"

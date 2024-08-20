@@ -15,11 +15,27 @@ namespace EamonPM.Game.ViewModels
 			}
 		}
 
+		public string BuildGuidWithPeriod
+		{
+			get
+			{
+				return string.Format("{0}.", BuildGuid);
+			}
+		}
+
 		public string ProgramName
 		{
 			get
 			{
 				return App.ProgramName;
+			}
+		}
+
+		public string ProgramNameWithParens
+		{
+			get
+			{
+				return string.Format("({0})", ProgramName);
 			}
 		}
 
