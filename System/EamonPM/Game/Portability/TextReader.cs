@@ -81,7 +81,10 @@ namespace EamonPM.Game.Portability
 			}
 			catch (Exception ex)
 			{
-				// Do something
+				if (ex != null)
+				{
+					// Do something
+				}
 			}
 			finally
 			{
@@ -126,7 +129,10 @@ namespace EamonPM.Game.Portability
 				}
 				catch (Exception ex)
 				{
-					// Do something
+					if (ex != null)
+					{
+						// Do something
+					}
 				}
 				finally
 				{

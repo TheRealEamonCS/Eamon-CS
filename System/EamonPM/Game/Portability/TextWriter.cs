@@ -105,7 +105,10 @@ namespace EamonPM.Game.Portability
 			}
 			catch (Exception ex)
 			{
-				// Do something
+				if (ex != null)
+				{
+					// Do something
+				}
 			}
 			finally
 			{
@@ -148,7 +151,10 @@ namespace EamonPM.Game.Portability
 			}
 			catch (Exception ex)
 			{
-				// Do something
+				if (ex != null)
+				{
+					// Do something
+				}
 			}
 			finally
 			{
@@ -330,7 +336,10 @@ namespace EamonPM.Game.Portability
 				}
 				catch (Exception ex)
 				{
-					// Do something
+					if (ex != null)
+					{
+						// Do something
+					}
 				}
 				finally
 				{
@@ -456,6 +465,7 @@ namespace EamonPM.Game.Portability
 			WriteLine(format, new object[] { arg0, arg1, arg2 });
 		}
 
+		/// <summary></summary>
 		public virtual void BackpatchLastCommand(string inputStr)
 		{
 			Debug.Assert(!string.IsNullOrWhiteSpace(inputStr));
@@ -471,7 +481,10 @@ namespace EamonPM.Game.Portability
 			}
 			catch (Exception ex)
 			{
-				// Do something
+				if (ex != null)
+				{
+					// Do something
+				}
 			}
 			finally
 			{

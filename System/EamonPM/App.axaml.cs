@@ -626,7 +626,10 @@ namespace EamonPM
 				}
 				catch (Exception ex)
 				{
-					// Do something
+					if (ex != null)
+					{
+						// Do something
+					}
 				}
 				finally
 				{
@@ -663,7 +666,10 @@ namespace EamonPM
 				}
 				catch (Exception ex)
 				{
-					// Do something
+					if (ex != null)
+					{
+						// Do something
+					}
 				}
 				finally
 				{
