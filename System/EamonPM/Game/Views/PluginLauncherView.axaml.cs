@@ -196,6 +196,13 @@ namespace EamonPM.Game.Views
 			}
 		}
 
+		public void SetInputTextWatermark(string value, bool useFloating)
+		{
+			InputTextBox.Watermark = value;
+
+			InputTextBox.UseFloatingWatermark = useFloating;
+		}
+
 		public async void SetInputTextNoEvents(string value)
 		{
 			var viewModel = DataContext as PluginLauncherViewModel;

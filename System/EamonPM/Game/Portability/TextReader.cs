@@ -95,6 +95,15 @@ namespace EamonPM.Game.Portability
 
 			App.DispatcherUIThreadPost(() =>
 			{
+				if (App.InputFillChar != '\0' && App.InputFillChar != ' ')
+				{
+					pluginLauncherView.SetInputTextWatermark(new string(App.InputFillChar, (int)App.InputBufSize), true);
+				}
+				else
+				{
+					pluginLauncherView.SetInputTextWatermark("Your command", false);
+				}
+
 				pluginLauncherView.SetInputTextNoEvents(defaultText);
 			});
 

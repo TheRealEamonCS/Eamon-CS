@@ -45,7 +45,6 @@
 		 FontWeight="{Binding FontWeight, Mode=TwoWay}"
 		 FontSize="{Binding FontSize, Mode=TwoWay}"
 		 Text="{Binding InputText, Mode=TwoWay}"
-		 Watermark="Your command"
 		 GotFocus="InputTextBox_GotFocus"
 		 LostFocus="InputTextBox_LostFocus"
 		 TextChanged="InputTextBox_TextChanged"
