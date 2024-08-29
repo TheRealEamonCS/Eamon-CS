@@ -37,9 +37,9 @@ namespace EamonPM.Game.ViewModels
 
 		public string _inputText;
 
-		public BatchFile BatchFile { get; set; }
+		public virtual BatchFile BatchFile { get; set; }
 
-		public Thickness InputTextBoxMargin
+		public virtual Thickness InputTextBoxMargin
 		{
 			get
 			{
@@ -52,7 +52,7 @@ namespace EamonPM.Game.ViewModels
 			}
 		}
 
-		public SolidColorBrush ForegroundColor
+		public virtual SolidColorBrush ForegroundColor
 		{
 			get
 			{
@@ -65,7 +65,7 @@ namespace EamonPM.Game.ViewModels
 			}
 		}
 
-		public SolidColorBrush BackgroundColor
+		public virtual SolidColorBrush BackgroundColor
 		{
 			get
 			{
@@ -78,7 +78,7 @@ namespace EamonPM.Game.ViewModels
 			}
 		}
 
-		public FontFamily FontFamily
+		public virtual FontFamily FontFamily
 		{
 			get
 			{
@@ -91,7 +91,7 @@ namespace EamonPM.Game.ViewModels
 			}
 		}
 
-		public FontWeight FontWeight
+		public virtual FontWeight FontWeight
 		{
 			get
 			{
@@ -104,7 +104,7 @@ namespace EamonPM.Game.ViewModels
 			}
 		}
 
-		public double FontSize
+		public virtual double FontSize
 		{
 			get
 			{
@@ -117,7 +117,7 @@ namespace EamonPM.Game.ViewModels
 			}
 		}
 
-		public int OutputBufMaxSize
+		public virtual int OutputBufMaxSize
 		{
 			get
 			{
@@ -130,7 +130,7 @@ namespace EamonPM.Game.ViewModels
 			}
 		}
 
-		public int OutputWindowMaxSize
+		public virtual int OutputWindowMaxSize
 		{
 			get
 			{
@@ -143,7 +143,7 @@ namespace EamonPM.Game.ViewModels
 			}
 		}
 
-		public bool KeepKeyboardVisible
+		public virtual bool KeepKeyboardVisible
 		{
 			get
 			{
@@ -156,7 +156,7 @@ namespace EamonPM.Game.ViewModels
 			}
 		}
 
-		public string OutputText
+		public virtual string OutputText
 		{
 			get
 			{
@@ -169,7 +169,7 @@ namespace EamonPM.Game.ViewModels
 			}
 		}
 
-		public string OldInputText
+		public virtual string OldInputText
 		{
 			get
 			{
@@ -177,7 +177,7 @@ namespace EamonPM.Game.ViewModels
 			}
 		}
 
-		public string InputText
+		public virtual string InputText
 		{
 			get
 			{
@@ -192,47 +192,47 @@ namespace EamonPM.Game.ViewModels
 			}
 		}
 
-		public void InputTextBoxMarginChanged(Thickness thickness)
+		public virtual void InputTextBoxMarginChanged(Thickness thickness)
 		{
 			InputTextBoxMargin = thickness;
 		}
 
-		public void ForegroundColorPickerColorChanged(Color color)
+		public virtual void ForegroundColorPickerColorChanged(Color color)
 		{
 			ForegroundColor = new SolidColorBrush(color);
 		}
 
-		public void BackgroundColorPickerColorChanged(Color color)
+		public virtual void BackgroundColorPickerColorChanged(Color color)
 		{
 			BackgroundColor = new SolidColorBrush(color);
 		}
 
-		public void FontFamilyComboBoxSelectionChanged(string fontFamily)
+		public virtual void FontFamilyComboBoxSelectionChanged(string fontFamily)
 		{
 			FontFamily = new FontFamily(fontFamily);
 		}
 
-		public void FontWeightComboBoxSelectionChanged(string fontWeight)
+		public virtual void FontWeightComboBoxSelectionChanged(string fontWeight)
 		{
 			FontWeight = FontWeightHelper.FromString(fontWeight);
 		}
 
-		public void FontSizeComboBoxSelectionChanged(double fontSize)
+		public virtual void FontSizeComboBoxSelectionChanged(double fontSize)
 		{
 			FontSize = fontSize;
 		}
 
-		public void OutputBufMaxSizeComboBoxSelectionChanged(int outputBufMaxSize)
+		public virtual void OutputBufMaxSizeComboBoxSelectionChanged(int outputBufMaxSize)
 		{
 			OutputBufMaxSize = outputBufMaxSize;
 		}
 
-		public void OutputWindowMaxSizeComboBoxSelectionChanged(int outputWindowMaxSize)
+		public virtual void OutputWindowMaxSizeComboBoxSelectionChanged(int outputWindowMaxSize)
 		{
 			OutputWindowMaxSize = outputWindowMaxSize;
 		}
 
-		public void KeepKeyboardVisibleToggleSwitchChanged(bool keepKeyboardVisible)
+		public virtual void KeepKeyboardVisibleToggleSwitchChanged(bool keepKeyboardVisible)
 		{
 			KeepKeyboardVisible = keepKeyboardVisible;
 		}

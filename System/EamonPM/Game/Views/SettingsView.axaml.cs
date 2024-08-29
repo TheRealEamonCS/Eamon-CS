@@ -17,7 +17,7 @@ namespace EamonPM.Game.Views
 {
 	public partial class SettingsView : UserControl
 	{
-		public async void SaveSettingsButton_Clicked(object sender, RoutedEventArgs e)
+		public virtual async void SaveSettingsButton_Clicked(object sender, RoutedEventArgs e)
 		{
 			var viewModel = DataContext as SettingsViewModel;
 
@@ -35,7 +35,7 @@ namespace EamonPM.Game.Views
 			viewModel.SettingsChanged = false;
 		}
 
-		public async void AppThemeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		public virtual async void AppThemeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			if (sender is ComboBox comboBox && comboBox.SelectedItem != null && DataContext is SettingsViewModel settingsViewModel)
 			{
@@ -56,7 +56,7 @@ namespace EamonPM.Game.Views
 			}
 		}
 
-		public async void FontFamilyComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		public virtual async void FontFamilyComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			var pluginLauncherViewModel = App.GetViewModel(typeof(PluginLauncherViewModel)) as PluginLauncherViewModel;
 
@@ -81,7 +81,7 @@ namespace EamonPM.Game.Views
 			}
 		}
 
-		public async void FontWeightComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		public virtual async void FontWeightComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			var pluginLauncherViewModel = App.GetViewModel(typeof(PluginLauncherViewModel)) as PluginLauncherViewModel;
 
@@ -106,7 +106,7 @@ namespace EamonPM.Game.Views
 			}
 		}
 
-		public async void FontSizeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		public virtual async void FontSizeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			var pluginLauncherViewModel = App.GetViewModel(typeof(PluginLauncherViewModel)) as PluginLauncherViewModel;
 
@@ -131,7 +131,7 @@ namespace EamonPM.Game.Views
 			}
 		}
 
-		public async void OutputBufMaxSizeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		public virtual async void OutputBufMaxSizeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			var pluginLauncherViewModel = App.GetViewModel(typeof(PluginLauncherViewModel)) as PluginLauncherViewModel;
 
@@ -170,7 +170,7 @@ namespace EamonPM.Game.Views
 			}
 		}
 
-		public async void OutputWindowMaxSizeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		public virtual async void OutputWindowMaxSizeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			var pluginLauncherViewModel = App.GetViewModel(typeof(PluginLauncherViewModel)) as PluginLauncherViewModel;
 
@@ -201,7 +201,7 @@ namespace EamonPM.Game.Views
 			}
 		}
 
-		public void ForegroundColorPicker_ColorChanged(object sender, ColorChangedEventArgs e)
+		public virtual void ForegroundColorPicker_ColorChanged(object sender, ColorChangedEventArgs e)
 		{
 			var pluginLauncherViewModel = App.GetViewModel(typeof(PluginLauncherViewModel)) as PluginLauncherViewModel;
 
@@ -215,7 +215,7 @@ namespace EamonPM.Game.Views
 			}
 		}
 
-		public void BackgroundColorPicker_ColorChanged(object sender, ColorChangedEventArgs e)
+		public virtual void BackgroundColorPicker_ColorChanged(object sender, ColorChangedEventArgs e)
 		{
 			var pluginLauncherViewModel = App.GetViewModel(typeof(PluginLauncherViewModel)) as PluginLauncherViewModel;
 
@@ -229,7 +229,7 @@ namespace EamonPM.Game.Views
 			}
 		}
 
-		public void KeepKeyboardVisibleToggleSwitch_Changed(object sender, RoutedEventArgs e)
+		public virtual void KeepKeyboardVisibleToggleSwitch_Changed(object sender, RoutedEventArgs e)
 		{
 			var pluginLauncherViewModel = App.GetViewModel(typeof(PluginLauncherViewModel)) as PluginLauncherViewModel;
 
@@ -242,7 +242,6 @@ namespace EamonPM.Game.Views
 				pluginLauncherViewModel.KeepKeyboardVisibleToggleSwitchChanged(keepKeyboardVisible);
 			}
 		}
-
 
 		public SettingsView()
 		{

@@ -3,15 +3,15 @@
 
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
+using System.Diagnostics;
 using Avalonia.Controls;
 using EamonPM.Game.ViewModels;
-using System.Diagnostics;
 
 namespace EamonPM.Game.Views
 {
 	public partial class EamonMHView : UserControl
 	{
-		public void BatchFileListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		public virtual void BatchFileListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			var mainViewModel = App.GetViewModel(typeof(MainViewModel)) as MainViewModel;
 

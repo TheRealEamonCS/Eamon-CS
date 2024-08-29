@@ -12,7 +12,7 @@ namespace EamonPM.Game.ViewModels
 {
 	public class EamonRTViewModel : ViewModelBase
 	{
-		public List<BatchFile> BatchFileList { get; set; }
+		public virtual List<BatchFile> BatchFileList { get; set; }
 
 		public EamonRTViewModel()
 		{

@@ -12,7 +12,7 @@ namespace EamonPM.Game.Views
 {
 	public partial class EamonRTView : UserControl
 	{
-		public void BatchFileListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		public virtual void BatchFileListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			var mainViewModel = App.GetViewModel(typeof(MainViewModel)) as MainViewModel;
 

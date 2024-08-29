@@ -10,7 +10,7 @@ namespace EamonPM.Game.Views
 {
 	public partial class AboutView : UserControl
 	{
-		public void WelcomeMessageTextBlock_SizeChanged(object sender, SizeChangedEventArgs e)
+		public virtual void WelcomeMessageTextBlock_SizeChanged(object sender, SizeChangedEventArgs e)
 		{
 			if (WelcomeMessageTextBlock.Bounds.Width > 0)
 			{

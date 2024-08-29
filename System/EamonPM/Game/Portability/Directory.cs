@@ -17,7 +17,7 @@ namespace EamonPM.Game.Portability
 	{
 		public virtual bool Exists(string path)
 		{
-			return System.IO.Directory.Exists(NormalizePath(path));
+			return System.IO.Directory.Exists(gEngine.Path.NormalizePath(path));
 		}
 
 		public virtual bool IsEamonCSAdventuresDirectory(string path, string adventureName)
@@ -26,7 +26,7 @@ namespace EamonPM.Game.Portability
 
 			if (!string.IsNullOrWhiteSpace(path) && !string.IsNullOrWhiteSpace(adventureName))
 			{
-				var fullPath = gEngine.Path.GetFullPath(NormalizePath(path));
+				var fullPath = gEngine.Path.GetFullPath(gEngine.Path.NormalizePath(path));
 
 				var separator = Regex.Escape(gEngine.Path.DirectorySeparatorChar.ToString());
 
@@ -78,7 +78,7 @@ namespace EamonPM.Game.Portability
 			{
 				var adventureName = gEngine.Path.GetFileName(path);
 
-				var fullPath = gEngine.Path.GetFullPath(NormalizePath(path));
+				var fullPath = gEngine.Path.GetFullPath(gEngine.Path.NormalizePath(path));
 
 				if (IsEamonCSAdventuresDirectory(fullPath, adventureName))
 				{
@@ -101,7 +101,7 @@ namespace EamonPM.Game.Portability
 		{
 			if (!string.IsNullOrWhiteSpace(path) && !string.IsNullOrWhiteSpace(adventureName))
 			{
-				foreach (var directory in System.IO.Directory.GetDirectories(NormalizePath(path)))
+				foreach (var directory in System.IO.Directory.GetDirectories(gEngine.Path.NormalizePath(path)))
 				{
 					if (recursive)
 					{
@@ -123,12 +123,12 @@ namespace EamonPM.Game.Portability
 
 		public virtual void CreateDirectory(string path)
 		{
-			System.IO.Directory.CreateDirectory(NormalizePath(path));
+			System.IO.Directory.CreateDirectory(gEngine.Path.NormalizePath(path));
 		}
 
 		public virtual void SetCurrentDirectory(string path)
 		{
-			System.IO.Directory.SetCurrentDirectory(NormalizePath(path));
+			System.IO.Directory.SetCurrentDirectory(gEngine.Path.NormalizePath(path));
 		}
 
 		public virtual string GetCurrentDirectory()
@@ -138,20 +138,12 @@ namespace EamonPM.Game.Portability
 
 		public virtual string[] GetFiles(string path)
 		{
-			return System.IO.Directory.GetFiles(NormalizePath(path));
+			return System.IO.Directory.GetFiles(gEngine.Path.NormalizePath(path));
 		}
 
 		public virtual string[] GetDirectories(string path)
 		{
-			return System.IO.Directory.GetDirectories(NormalizePath(path));
-		}
-
-		/// <summary></summary>
-		/// <param name="path"></param>
-		/// <returns></returns>
-		public virtual string NormalizePath(string path)
-		{
-			return path != null ? path.Replace(gEngine.Path.DirectorySeparatorChar == '\\' ? '/' : '\\', gEngine.Path.DirectorySeparatorChar) : null;
+			return System.IO.Directory.GetDirectories(gEngine.Path.NormalizePath(path));
 		}
 	}
 }

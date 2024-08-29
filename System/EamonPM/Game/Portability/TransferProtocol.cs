@@ -71,7 +71,7 @@ namespace EamonPM.Game.Portability
 
 			Debug.Assert(!string.IsNullOrWhiteSpace(pluginFileName));
 
-			var argsList = new List<string>() { "-pfn", pluginFileName, "-wd", NormalizePath(workDir) };
+			var argsList = new List<string>() { "-pfn", pluginFileName, "-wd", gEngine.Path.NormalizePath(workDir) };
 
 			if (!string.IsNullOrWhiteSpace(filePrefix))
 			{
@@ -112,7 +112,7 @@ namespace EamonPM.Game.Portability
 
 			string[] args = null;
 
-			var argsList = new List<string>() { "-pfn", pluginFileName, "-wd", NormalizePath(workDir) };
+			var argsList = new List<string>() { "-pfn", pluginFileName, "-wd", gEngine.Path.NormalizePath(workDir) };
 
 			if (!string.IsNullOrWhiteSpace(filePrefix))
 			{
@@ -140,14 +140,6 @@ namespace EamonPM.Game.Portability
 			App.ExecutePlugin(args, false);
 
 			gEngine.Directory.SetCurrentDirectory(dir);
-		}
-
-		/// <summary></summary>
-		/// <param name="path"></param>
-		/// <returns></returns>
-		public virtual string NormalizePath(string path)
-		{
-			return path != null ? path.Replace(gEngine.Path.DirectorySeparatorChar == '\\' ? '/' : '\\', gEngine.Path.DirectorySeparatorChar) : null;
 		}
 	}
 }

@@ -23,6 +23,11 @@ namespace EamonPM.Game.Portability
 			return NormalizePath(path1).Equals(NormalizePath(path2), System.IO.Path.DirectorySeparatorChar == '\\' ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal);
 		}
 
+		public virtual string NormalizePath(string path)
+		{
+			return path != null ? path.Replace(System.IO.Path.DirectorySeparatorChar == '\\' ? '/' : '\\', System.IO.Path.DirectorySeparatorChar) : null;
+		}
+
 		public virtual string Combine(params string[] paths)
 		{
 			string[] normalizedPaths = null;
@@ -68,14 +73,6 @@ namespace EamonPM.Game.Portability
 		public virtual string ChangeExtension(string path, string extension)
 		{
 			return System.IO.Path.ChangeExtension(NormalizePath(path), extension);
-		}
-
-		/// <summary></summary>
-		/// <param name="path"></param>
-		/// <returns></returns>
-		public virtual string NormalizePath(string path)
-		{
-			return path != null ? path.Replace(System.IO.Path.DirectorySeparatorChar == '\\' ? '/' : '\\', System.IO.Path.DirectorySeparatorChar) : null;
 		}
 	}
 }

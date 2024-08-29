@@ -8,36 +8,35 @@ using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
-using Avalonia.Threading;
 using EamonPM.Game.ViewModels;
 
 namespace EamonPM.Game.Views
 {
 	public partial class PluginLauncherView : UserControl
 	{
-		public void OutputScrollViewer_PointerWheelChanged(object sender, PointerWheelEventArgs e)
+		public virtual void OutputScrollViewer_PointerWheelChanged(object sender, PointerWheelEventArgs e)
 		{
 			InputTextBoxLoseFocus();
 		}
 
-		public void OutputScrollViewer_PointerPressed(object sender, PointerPressedEventArgs e)
+		public virtual void OutputScrollViewer_PointerPressed(object sender, PointerPressedEventArgs e)
 		{
 			InputTextBoxLoseFocus();
 		}
 
-		public void OutputTextBlock_GotFocus(object sender, GotFocusEventArgs e)
+		public virtual void OutputTextBlock_GotFocus(object sender, GotFocusEventArgs e)
 		{
 			OutputScrollViewer.ScrollToEnd();
 
 			e.Handled = true;
 		}
 
-		public void OutputTextBlock_PointerPressed(object sender, PointerPressedEventArgs e)
+		public virtual void OutputTextBlock_PointerPressed(object sender, PointerPressedEventArgs e)
 		{
 			InputTextBoxLoseFocus();
 		}
 
-		private void InputTextBox_GotFocus(object sender, GotFocusEventArgs e)
+		public virtual void InputTextBox_GotFocus(object sender, GotFocusEventArgs e)
 		{
 			if (DataContext is PluginLauncherViewModel pluginLauncherViewModel)
 			{
@@ -48,7 +47,7 @@ namespace EamonPM.Game.Views
 			}
 		}
 
-		private void InputTextBox_LostFocus(object sender, RoutedEventArgs e)
+		public virtual void InputTextBox_LostFocus(object sender, RoutedEventArgs e)
 		{
 			if (DataContext is PluginLauncherViewModel pluginLauncherViewModel)
 			{
@@ -59,7 +58,7 @@ namespace EamonPM.Game.Views
 			}
 		}
 
-		public void InputTextBox_TextChanged(object sender, TextChangedEventArgs e)
+		public virtual void InputTextBox_TextChanged(object sender, TextChangedEventArgs e)
 		{
 			var viewModel = DataContext as PluginLauncherViewModel;
 
@@ -128,7 +127,7 @@ namespace EamonPM.Game.Views
 			}
 		}
 
-		public void InputTextBox_KeyUp(object sender, KeyEventArgs e)
+		public virtual void InputTextBox_KeyUp(object sender, KeyEventArgs e)
 		{
 			if (DataContext is PluginLauncherViewModel pluginLauncherViewModel)
 			{
@@ -157,7 +156,7 @@ namespace EamonPM.Game.Views
 			}
 		}
 
-		public void InputEntry_Completed(object sender, EventArgs e)
+		public virtual void InputEntry_Completed(object sender, EventArgs e)
 		{
 			var viewModel = DataContext as PluginLauncherViewModel;
 
@@ -196,14 +195,14 @@ namespace EamonPM.Game.Views
 			}
 		}
 
-		public void SetInputTextWatermark(string value, bool useFloating)
+		public virtual void SetInputTextWatermark(string value, bool useFloating)
 		{
 			InputTextBox.Watermark = value;
 
 			InputTextBox.UseFloatingWatermark = useFloating;
 		}
 
-		public async void SetInputTextNoEvents(string value)
+		public virtual async void SetInputTextNoEvents(string value)
 		{
 			var viewModel = DataContext as PluginLauncherViewModel;
 
@@ -221,14 +220,14 @@ namespace EamonPM.Game.Views
 			}
 		}
 
-		public void InputTextBoxLoseFocus()
+		public virtual void InputTextBoxLoseFocus()
 		{
 			InputTextBox.IsEnabled = false;
 
 			InputTextBox.IsEnabled = true;
 		}
 
-		public void OutputScrollViewerScrollToEnd()
+		public virtual void OutputScrollViewerScrollToEnd()
 		{
 			App.DispatcherUIThreadPost(() =>
 			{

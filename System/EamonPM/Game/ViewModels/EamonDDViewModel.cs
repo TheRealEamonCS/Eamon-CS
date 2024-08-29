@@ -12,7 +12,7 @@ namespace EamonPM.Game.ViewModels
 {
 	public class EamonDDViewModel : ViewModelBase
 	{
-		public List<BatchFile> BatchFileList { get; set; }
+		public virtual List<BatchFile> BatchFileList { get; set; }
 
 		public EamonDDViewModel()
 		{
@@ -23,8 +23,8 @@ namespace EamonPM.Game.ViewModels
 				CreateBatchFile("EditCharacters", "-pfn", "EamonRT.dll", "-chrfn", "CHARACTERS.DAT", "-rge"),
 				CreateBatchFile("EditContemporary", "-pfn", "EamonRT.dll", "-fsfn", "CONTEMPORARY.DAT", "-rge"),
 				CreateBatchFile("EditFantasy", "-pfn", "EamonRT.dll", "-fsfn", "FANTASY.DAT", "-rge"),
-				CreateBatchFile("EditSciFi", "-pfn", "EamonRT.dll", "-fsfn", "SCIFI.DAT", "-rge"),
 				CreateBatchFile("EditHorror", "-pfn", "EamonRT.dll", "-fsfn", "HORROR.DAT", "-rge"),
+				CreateBatchFile("EditSciFi", "-pfn", "EamonRT.dll", "-fsfn", "SCIFI.DAT", "-rge"),
 				CreateBatchFile("EditTest", "-pfn", "EamonRT.dll", "-fsfn", "TEST.DAT", "-rge"),
 				CreateBatchFile("EditWorkbench", "-pfn", "EamonRT.dll", "-fsfn", "WORKBENCH.DAT", "-rge"),
 				CreateBatchFile("EditWorkInProgress", "-pfn", "EamonRT.dll", "-fsfn", "WIP.DAT", "-rge"),

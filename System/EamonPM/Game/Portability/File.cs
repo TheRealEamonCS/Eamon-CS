@@ -13,7 +13,7 @@ namespace EamonPM.Game.Portability
 	{
 		public virtual bool Exists(string path)
 		{
-			var normalizedPath = NormalizePath(path);
+			var normalizedPath = gEngine.Path.NormalizePath(path);
 
 			if (gEngine.Path.GetExtension(normalizedPath.ToUpper()) == ".DAT")
 			{
@@ -25,7 +25,7 @@ namespace EamonPM.Game.Portability
 
 		public virtual void Delete(string path)
 		{
-			var normalizedPath = NormalizePath(path);
+			var normalizedPath = gEngine.Path.NormalizePath(path);
 
 			if (gEngine.Path.GetExtension(normalizedPath.ToUpper()) == ".DAT")
 			{
@@ -37,9 +37,9 @@ namespace EamonPM.Game.Portability
 
 		public virtual void Copy(string sourceFileName, string destFileName, bool overwrite)
 		{
-			var normalizedSourceFileName = NormalizePath(sourceFileName);
+			var normalizedSourceFileName = gEngine.Path.NormalizePath(sourceFileName);
 
-			var normalizedDestFileName = NormalizePath(destFileName);
+			var normalizedDestFileName = gEngine.Path.NormalizePath(destFileName);
 
 			if (gEngine.Path.GetExtension(normalizedSourceFileName.ToUpper()) == ".DAT")
 			{
@@ -51,7 +51,7 @@ namespace EamonPM.Game.Portability
 
 		public virtual string ReadFirstLine(string path, Encoding encoding = null)
 		{
-			var normalizedPath = NormalizePath(path);
+			var normalizedPath = gEngine.Path.NormalizePath(path);
 
 			var firstLine = "";
 
@@ -83,7 +83,7 @@ namespace EamonPM.Game.Portability
 
 		public virtual string ReadAllText(string path, Encoding encoding = null)
 		{
-			var normalizedPath = NormalizePath(path);
+			var normalizedPath = gEngine.Path.NormalizePath(path);
 
 			var contents = "";
 
@@ -112,14 +112,14 @@ namespace EamonPM.Game.Portability
 
 		public virtual System.IO.FileStream OpenRead(string path)
 		{
-			var normalizedPath = NormalizePath(path);
+			var normalizedPath = gEngine.Path.NormalizePath(path);
 
 			return System.IO.File.OpenRead(normalizedPath);
 		}
 
 		public virtual void WriteAllText(string path, string contents, Encoding encoding = null)
 		{
-			var normalizedPath = NormalizePath(path);
+			var normalizedPath = gEngine.Path.NormalizePath(path);
 
 			if (gEngine.Path.GetExtension(normalizedPath.ToUpper()) == ".DAT")
 			{
@@ -142,7 +142,7 @@ namespace EamonPM.Game.Portability
 
 		public virtual void AppendAllText(string path, string contents, Encoding encoding = null)
 		{
-			var normalizedPath = NormalizePath(path);
+			var normalizedPath = gEngine.Path.NormalizePath(path);
 
 			if (gEngine.Path.GetExtension(normalizedPath.ToUpper()) == ".DAT")
 			{
@@ -161,14 +161,6 @@ namespace EamonPM.Game.Portability
 			{
 				System.IO.File.AppendAllText(normalizedPath, contents, encoding ?? new UTF8Encoding(true));
 			}
-		}
-
-		/// <summary></summary>
-		/// <param name="path"></param>
-		/// <returns></returns>
-		public virtual string NormalizePath(string path)
-		{
-			return path != null ? path.Replace(gEngine.Path.DirectorySeparatorChar == '\\' ? '/' : '\\', gEngine.Path.DirectorySeparatorChar) : null;
 		}
 	}
 }

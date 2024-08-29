@@ -5,7 +5,7 @@
 
 namespace EamonPM.Game.ViewModels
 {
-	public class SplashScreenViewModel: ViewModelBase
+	public class SplashScreenViewModel : ViewModelBase
 	{
 
 	}

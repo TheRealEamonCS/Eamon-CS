@@ -14,7 +14,7 @@ namespace EamonPM.Game.Portability
 	{
 		public virtual void Serialize<T>(T data, string fileName, bool binaryMode = false) where T : class
 		{
-			using (var fileStream = new FileStream(NormalizePath(fileName), FileMode.Create))
+			using (var fileStream = new FileStream(gEngine.Path.NormalizePath(fileName), FileMode.Create))
 			{
 				using (var gzipStream = new GZipStream(fileStream, CompressionMode.Compress))
 				{
@@ -41,7 +41,7 @@ namespace EamonPM.Game.Portability
 
 		public virtual T Deserialize<T>(string fileName, bool binaryMode = false) where T : class
 		{
-			using (var fileStream = new FileStream(NormalizePath(fileName), FileMode.Open))
+			using (var fileStream = new FileStream(gEngine.Path.NormalizePath(fileName), FileMode.Open))
 			{
 				using (var gzipStream = new GZipStream(fileStream, CompressionMode.Decompress))
 				{
@@ -68,14 +68,6 @@ namespace EamonPM.Game.Portability
 			}
 
 			return result;
-		}
-
-		/// <summary></summary>
-		/// <param name="path"></param>
-		/// <returns></returns>
-		public virtual string NormalizePath(string path)
-		{
-			return path != null ? path.Replace(gEngine.Path.DirectorySeparatorChar == '\\' ? '/' : '\\', gEngine.Path.DirectorySeparatorChar) : null;
 		}
 	}
 }

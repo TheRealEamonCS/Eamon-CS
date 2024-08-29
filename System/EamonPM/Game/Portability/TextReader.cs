@@ -217,7 +217,7 @@ namespace EamonPM.Game.Portability
 			{
 				var buf = new StringBuilder(gEngine.BufSize);
 
-				ReadField(buf, gEngine.BufSize02, null, ' ', '\0', true, null, null, null, (ch01) => true);
+				ReadField(buf, gEngine.BufSize02, null, ' ', '\0', true, null, intercept ? gEngine.ModifyCharToNull : null, null, gEngine.IsCharAny);
 
 				ch = buf.Length > 0 ? buf[0] : '\0';
 			}

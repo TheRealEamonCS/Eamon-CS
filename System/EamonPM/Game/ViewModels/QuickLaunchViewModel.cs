@@ -9,7 +9,7 @@ namespace EamonPM.Game.ViewModels
 {
 	public class QuickLaunchViewModel : ViewModelBase
 	{
-		public List<string> FolderList { get; set; }
+		public virtual List<string> FolderList { get; set; }
 
 		public QuickLaunchViewModel()
 		{

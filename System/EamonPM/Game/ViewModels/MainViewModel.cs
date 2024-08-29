@@ -27,13 +27,13 @@ namespace EamonPM.Game.ViewModels
 
 		public double _windowHeight;
 
-		public Stack<UserControl> ViewStack { get; set; }
+		public virtual Stack<UserControl> ViewStack { get; set; }
 
-		public Stack<string> MainTitleStack { get; set; }
+		public virtual Stack<string> MainTitleStack { get; set; }
 
-		public Stack<bool> IsBackButtonActiveStack { get; set; }
+		public virtual Stack<bool> IsBackButtonActiveStack { get; set; }
 
-		public UserControl CurrentView 
+		public virtual UserControl CurrentView 
 		{ 
 			get
 			{
@@ -46,7 +46,7 @@ namespace EamonPM.Game.ViewModels
 			}
 		}
 
-		public string MainTitle
+		public virtual string MainTitle
 		{
 			get
 			{
@@ -59,7 +59,7 @@ namespace EamonPM.Game.ViewModels
 			}
 		}
 
-		public double WindowWidth
+		public virtual double WindowWidth
 		{
 			get
 			{
@@ -72,7 +72,7 @@ namespace EamonPM.Game.ViewModels
 			}
 		}
 
-		public double WindowHeight
+		public virtual double WindowHeight
 		{
 			get
 			{
@@ -85,7 +85,7 @@ namespace EamonPM.Game.ViewModels
 			}
 		}
 
-		public bool IsBackButtonActive
+		public virtual bool IsBackButtonActive
 		{
 			get
 			{
@@ -98,7 +98,7 @@ namespace EamonPM.Game.ViewModels
 			}
 		}
 
-		public bool IsBackArrowActive
+		public virtual bool IsBackArrowActive
 		{
 			get
 			{
@@ -111,7 +111,7 @@ namespace EamonPM.Game.ViewModels
 			}
 		}
 
-		public bool IsBackArrowDarkActive
+		public virtual bool IsBackArrowDarkActive
 		{
 			get
 			{
@@ -124,7 +124,7 @@ namespace EamonPM.Game.ViewModels
 			}
 		}
 
-		public string ProgramName
+		public virtual string ProgramName
 		{
 			get
 			{
@@ -132,7 +132,7 @@ namespace EamonPM.Game.ViewModels
 			}
 		}
 
-		public void MainTabControlSelectionChanged(int selectedIndex)
+		public virtual void MainTabControlSelectionChanged(int selectedIndex)
 		{
 			switch (selectedIndex)
 			{
@@ -168,14 +168,14 @@ namespace EamonPM.Game.ViewModels
 			}
 		}
 
-		public void EamonPMMainWindowSizeChanged(double windowWidth, double windowHeight)
+		public virtual void EamonPMMainWindowSizeChanged(double windowWidth, double windowHeight)
 		{
 			WindowWidth = windowWidth;
 
 			WindowHeight = windowHeight;
 		}
 
-		public void NavigateTo(UserControl currentView, string mainTitle, bool isBackButtonActive)
+		public virtual void NavigateTo(UserControl currentView, string mainTitle, bool isBackButtonActive)
 		{
 			ViewStack.Push(currentView);
 

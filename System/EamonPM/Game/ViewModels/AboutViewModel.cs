@@ -7,35 +7,19 @@ namespace EamonPM.Game.ViewModels
 {
 	public class AboutViewModel : ViewModelBase
 	{
-		public string BuildGuid
+		public virtual string BuildGuidWithPeriod
 		{
 			get
 			{
-				return App.BuildGuid;
+				return string.Format("{0}.", App.BuildGuid);
 			}
 		}
 
-		public string BuildGuidWithPeriod
+		public virtual string ProgramNameWithParens
 		{
 			get
 			{
-				return string.Format("{0}.", BuildGuid);
-			}
-		}
-
-		public string ProgramName
-		{
-			get
-			{
-				return App.ProgramName;
-			}
-		}
-
-		public string ProgramNameWithParens
-		{
-			get
-			{
-				return string.Format("({0})", ProgramName);
+				return string.Format("({0})", App.ProgramName);
 			}
 		}
 

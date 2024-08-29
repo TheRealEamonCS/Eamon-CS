@@ -18,15 +18,19 @@ namespace EamonPM.Game.ViewModels
 	{
 		public string _appTheme;
 
-		public string _foregroundColor;
-
-		public string _backgroundColor;
-
 		public string _fontFamily;
 
 		public string _fontWeight;
 
+		public string _foregroundColor;
+
+		public string _backgroundColor;
+
 		public double _fontSize;
+
+		public double _windowWidth;
+
+		public double _windowHeight;
 
 		public int _outputBufMaxSize;
 
@@ -36,32 +40,28 @@ namespace EamonPM.Game.ViewModels
 
 		public bool _settingsChanged;
 
-		public double _windowWidth;
-
-		public double _windowHeight;
+		[ExcludeFromSerialization]
+		public virtual string[] MonospaceFonts { get; set; }
 
 		[ExcludeFromSerialization]
-		public string[] MonospaceFonts { get; set; }
+		public virtual List<string> AppThemeList { get; set; }
 
 		[ExcludeFromSerialization]
-		public List<string> AppThemeList { get; set; }
+		public virtual List<FontFamily> FontFamilyList { get; set; }
 
 		[ExcludeFromSerialization]
-		public List<FontFamily> FontFamilyList { get; set; }
+		public virtual List<FontWeight> FontWeightList { get; set; }
 
 		[ExcludeFromSerialization]
-		public List<FontWeight> FontWeightList { get; set; }
+		public virtual List<int> FontSizeList { get; set; }
 
 		[ExcludeFromSerialization]
-		public List<int> FontSizeList { get; set; }
+		public virtual List<int> OutputBufMaxSizeList { get; set; }
 
 		[ExcludeFromSerialization]
-		public List<int> OutputBufMaxSizeList { get; set; }
+		public virtual ObservableCollection<int> OutputWindowMaxSizeList { get; set; }
 
-		[ExcludeFromSerialization]
-		public ObservableCollection<int> OutputWindowMaxSizeList { get; set; }
-
-		public string AppTheme
+		public virtual string AppTheme
 		{
 			get
 			{
@@ -74,33 +74,7 @@ namespace EamonPM.Game.ViewModels
 			}
 		}
 
-		public string ForegroundColor
-		{
-			get
-			{
-				return _foregroundColor;
-			}
-
-			set
-			{
-				this.RaiseAndSetIfChanged(ref _foregroundColor, value);
-			}
-		}
-
-		public string BackgroundColor
-		{
-			get
-			{
-				return _backgroundColor;
-			}
-
-			set
-			{
-				this.RaiseAndSetIfChanged(ref _backgroundColor, value);
-			}
-		}
-
-		public string FontFamily
+		public virtual string FontFamily
 		{
 			get
 			{
@@ -113,7 +87,7 @@ namespace EamonPM.Game.ViewModels
 			}
 		}
 
-		public string FontWeight
+		public virtual string FontWeight
 		{
 			get
 			{
@@ -126,7 +100,33 @@ namespace EamonPM.Game.ViewModels
 			}
 		}
 
-		public double FontSize
+		public virtual string ForegroundColor
+		{
+			get
+			{
+				return _foregroundColor;
+			}
+
+			set
+			{
+				this.RaiseAndSetIfChanged(ref _foregroundColor, value);
+			}
+		}
+
+		public virtual string BackgroundColor
+		{
+			get
+			{
+				return _backgroundColor;
+			}
+
+			set
+			{
+				this.RaiseAndSetIfChanged(ref _backgroundColor, value);
+			}
+		}
+
+		public virtual double FontSize
 		{
 			get
 			{
@@ -139,7 +139,33 @@ namespace EamonPM.Game.ViewModels
 			}
 		}
 
-		public int OutputBufMaxSize
+		public virtual double WindowWidth
+		{
+			get
+			{
+				return _windowWidth;
+			}
+
+			set
+			{
+				this.RaiseAndSetIfChanged(ref _windowWidth, value);
+			}
+		}
+
+		public virtual double WindowHeight
+		{
+			get
+			{
+				return _windowHeight;
+			}
+
+			set
+			{
+				this.RaiseAndSetIfChanged(ref _windowHeight, value);
+			}
+		}
+
+		public virtual int OutputBufMaxSize
 		{
 			get
 			{
@@ -152,7 +178,7 @@ namespace EamonPM.Game.ViewModels
 			}
 		}
 
-		public int OutputWindowMaxSize
+		public virtual int OutputWindowMaxSize
 		{
 			get
 			{
@@ -165,7 +191,7 @@ namespace EamonPM.Game.ViewModels
 			}
 		}
 
-		public bool KeepKeyboardVisible
+		public virtual bool KeepKeyboardVisible
 		{
 			get
 			{
@@ -179,7 +205,7 @@ namespace EamonPM.Game.ViewModels
 		}
 
 		[ExcludeFromSerialization]
-		public bool SettingsChanged
+		public virtual bool SettingsChanged
 		{
 			get
 			{
@@ -192,33 +218,7 @@ namespace EamonPM.Game.ViewModels
 			}
 		}
 
-		public double WindowWidth
-		{
-			get
-			{
-				return _windowWidth;
-			}
-
-			set
-			{
-				this.RaiseAndSetIfChanged(ref _windowWidth, value);
-			}
-		}
-
-		public double WindowHeight
-		{
-			get
-			{
-				return _windowHeight;
-			}
-
-			set
-			{
-				this.RaiseAndSetIfChanged(ref _windowHeight, value);
-			}
-		}
-
-		public void AppThemeComboBoxSelectionChanged(string appTheme)
+		public virtual void AppThemeComboBoxSelectionChanged(string appTheme)
 		{
 			AppTheme = appTheme;
 
@@ -227,56 +227,65 @@ namespace EamonPM.Game.ViewModels
 			SettingsChanged = true;
 		}
 
-		public void ForegroundColorPickerColorChanged(Color color)
-		{
-			ForegroundColor = ColorHelper.ToHexString(color);
-
-			SettingsChanged = true;
-		}
-
-		public void BackgroundColorPickerColorChanged(Color color)
-		{
-			BackgroundColor = ColorHelper.ToHexString(color);
-
-			SettingsChanged = true;
-		}
-
-		public void FontFamilyComboBoxSelectionChanged(string fontFamily)
+		public virtual void FontFamilyComboBoxSelectionChanged(string fontFamily)
 		{
 			FontFamily = fontFamily;
 
 			SettingsChanged = true;
 		}
 
-		public void FontWeightComboBoxSelectionChanged(string fontWeight)
+		public virtual void FontWeightComboBoxSelectionChanged(string fontWeight)
 		{
 			FontWeight = fontWeight;
 
 			SettingsChanged = true;
 		}
 
-		public void FontSizeComboBoxSelectionChanged(double fontSize)
+		public virtual void ForegroundColorPickerColorChanged(Color color)
+		{
+			ForegroundColor = ColorHelper.ToHexString(color);
+
+			SettingsChanged = true;
+		}
+
+		public virtual void BackgroundColorPickerColorChanged(Color color)
+		{
+			BackgroundColor = ColorHelper.ToHexString(color);
+
+			SettingsChanged = true;
+		}
+
+		public virtual void FontSizeComboBoxSelectionChanged(double fontSize)
 		{
 			FontSize = fontSize;
 
 			SettingsChanged = true;
 		}
 
-		public void OutputBufMaxSizeComboBoxSelectionChanged(int outputBufMaxSize)
+		public virtual void EamonPMMainWindowSizeChanged(double windowWidth, double windowHeight)
+		{
+			WindowWidth = windowWidth;
+
+			WindowHeight = windowHeight;
+
+			SettingsChanged = true;
+		}
+
+		public virtual void OutputBufMaxSizeComboBoxSelectionChanged(int outputBufMaxSize)
 		{
 			OutputBufMaxSize = outputBufMaxSize;
 
 			SettingsChanged = true;
 		}
 
-		public void OutputWindowMaxSizeComboBoxSelectionChanged(int outputWindowMaxSize)
+		public virtual void OutputWindowMaxSizeComboBoxSelectionChanged(int outputWindowMaxSize)
 		{
 			OutputWindowMaxSize = outputWindowMaxSize;
 
 			SettingsChanged = true;
 		}
 
-		public void OutputWindowMaxSizeComboBoxSync()
+		public virtual void OutputWindowMaxSizeComboBoxSync()
 		{
 			OutputWindowMaxSizeList.Clear();
 
@@ -293,23 +302,14 @@ namespace EamonPM.Game.ViewModels
 			}
 		}
 
-		public void KeepKeyboardVisibleToggleSwitchChanged(bool keepKeyboardVisible)
+		public virtual void KeepKeyboardVisibleToggleSwitchChanged(bool keepKeyboardVisible)
 		{
 			KeepKeyboardVisible = keepKeyboardVisible;
 
 			SettingsChanged = true;
 		}
 
-		public void EamonPMMainWindowSizeChanged(double windowWidth, double windowHeight)
-		{
-			WindowWidth = windowWidth;
-
-			WindowHeight = windowHeight;
-
-			SettingsChanged = true;
-		}
-
-		public bool IsMonospaceFont(string fontFamily)
+		public virtual bool IsMonospaceFont(string fontFamily)
 		{
 			return MonospaceFonts.FirstOrDefault(ff => ff.Equals(fontFamily, StringComparison.OrdinalIgnoreCase)) != null;
 		}
@@ -362,27 +362,27 @@ namespace EamonPM.Game.ViewModels
 
 			OutputWindowMaxSizeList = new ObservableCollection<int> { 8192, 16384, 32768, 65536, 131072, 262144 };
 
-			ForegroundColor = ColorHelper.ToHexString(Color.FromRgb(0, 0, 0));
-
-			BackgroundColor = ColorHelper.ToHexString(Color.FromRgb(255, 255, 255));
-
 			AppTheme = AppThemeList[0];
 
 			FontFamily = FontFamilyList[0].Name;
 
 			FontWeight = FontWeightList[0].ToString();
 
+			ForegroundColor = ColorHelper.ToHexString(Color.FromRgb(0, 0, 0));
+
+			BackgroundColor = ColorHelper.ToHexString(Color.FromRgb(255, 255, 255));
+
 			FontSize = FontSizeList[7];
+
+			WindowWidth = 600;
+
+			WindowHeight = 800;
 
 			OutputBufMaxSize = OutputBufMaxSizeList[5];
 
 			OutputWindowMaxSize = OutputWindowMaxSizeList[2];
 
 			KeepKeyboardVisible = false;
-
-			WindowWidth = 600;
-
-			WindowHeight = 800;
 		}
 	}
 }

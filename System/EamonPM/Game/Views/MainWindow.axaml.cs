@@ -10,7 +10,7 @@ namespace EamonPM.Game.Views
 {
 	public partial class MainWindow : Window
 	{
-		public void EamonPMMainWindow_SizeChanged(object sender, SizeChangedEventArgs e)
+		public virtual void EamonPMMainWindow_SizeChanged(object sender, SizeChangedEventArgs e)
 		{
 			var settingsViewModel = App.GetViewModel(typeof(SettingsViewModel)) as SettingsViewModel;
 
@@ -24,7 +24,7 @@ namespace EamonPM.Game.Views
 			}
 		}
 
-		public void EamonPMMainWindow_Closed(object sender, WindowClosingEventArgs e)
+		public virtual void EamonPMMainWindow_Closed(object sender, WindowClosingEventArgs e)
 		{
 
 		}

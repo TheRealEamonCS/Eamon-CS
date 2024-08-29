@@ -8,16 +8,15 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Platform;
 using Avalonia.Interactivity;
-using Avalonia.Threading;
 using EamonPM.Game.ViewModels;
 
 namespace EamonPM.Game.Views
 {
 	public partial class MainView : UserControl
 	{
-		public TopLevel TopLevelView { get; set; }
+		public virtual TopLevel TopLevelView { get; set; }
 
-		public void BackButton_Clicked(object sender, RoutedEventArgs e)
+		public virtual void BackButton_Clicked(object sender, RoutedEventArgs e)
 		{
 			if (DataContext is MainViewModel viewModel)
 			{
@@ -60,7 +59,7 @@ namespace EamonPM.Game.Views
 			}
 		}
 
-		public void MainTabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		public virtual void MainTabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			if (sender is TabControl tabControl && DataContext is MainViewModel viewModel)
 			{
@@ -70,7 +69,7 @@ namespace EamonPM.Game.Views
 			}
 		}
 
-		public void InputPane_StateChanged(object sender, InputPaneStateEventArgs e)
+		public virtual void InputPane_StateChanged(object sender, InputPaneStateEventArgs e)
 		{
 			var screenBounds = this.VisualRoot.ClientSize;
 
@@ -97,7 +96,7 @@ namespace EamonPM.Game.Views
 			}
 		}
 
-		public void VisualTree_Attached(object sender, VisualTreeAttachmentEventArgs e)
+		public virtual void VisualTree_Attached(object sender, VisualTreeAttachmentEventArgs e)
 		{
 			TopLevelView = TopLevel.GetTopLevel(this);
 
@@ -112,7 +111,7 @@ namespace EamonPM.Game.Views
 			}
 		}
 
-		public void VisualTree_Detached(object sender, VisualTreeAttachmentEventArgs e)
+		public virtual void VisualTree_Detached(object sender, VisualTreeAttachmentEventArgs e)
 		{
 			if (TopLevelView != null)
 			{
