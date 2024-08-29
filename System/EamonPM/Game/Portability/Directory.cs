@@ -26,7 +26,7 @@ namespace EamonPM.Game.Portability
 
 			if (!string.IsNullOrWhiteSpace(path) && !string.IsNullOrWhiteSpace(adventureName))
 			{
-				var fullPath = gEngine.Path.GetFullPath(gEngine.Path.NormalizePath(path));
+				var fullPath = gEngine.Path.GetFullPath(path);
 
 				var separator = Regex.Escape(gEngine.Path.DirectorySeparatorChar.ToString());
 
@@ -78,7 +78,7 @@ namespace EamonPM.Game.Portability
 			{
 				var adventureName = gEngine.Path.GetFileName(path);
 
-				var fullPath = gEngine.Path.GetFullPath(gEngine.Path.NormalizePath(path));
+				var fullPath = gEngine.Path.GetFullPath(path);
 
 				if (IsEamonCSAdventuresDirectory(fullPath, adventureName))
 				{
@@ -108,7 +108,7 @@ namespace EamonPM.Game.Portability
 						DeleteEmptySubdirectories01(directory, adventureName, recursive);
 					}
 
-					if (!System.IO.Directory.EnumerateFileSystemEntries(directory).Any())
+					if (!System.IO.Directory.EnumerateFileSystemEntries(gEngine.Path.NormalizePath(directory)).Any())
 					{
 						var fullPath = gEngine.Path.GetFullPath(directory);
 

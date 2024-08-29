@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using Avalonia.Media;
 using ReactiveUI;
@@ -220,6 +221,8 @@ namespace EamonPM.Game.ViewModels
 
 		public virtual void AppThemeComboBoxSelectionChanged(string appTheme)
 		{
+			Debug.Assert(!string.IsNullOrWhiteSpace(appTheme));
+
 			AppTheme = appTheme;
 
 			App.ChangeTheme(appTheme);
@@ -229,6 +232,8 @@ namespace EamonPM.Game.ViewModels
 
 		public virtual void FontFamilyComboBoxSelectionChanged(string fontFamily)
 		{
+			Debug.Assert(!string.IsNullOrWhiteSpace(fontFamily));
+
 			FontFamily = fontFamily;
 
 			SettingsChanged = true;
@@ -236,6 +241,8 @@ namespace EamonPM.Game.ViewModels
 
 		public virtual void FontWeightComboBoxSelectionChanged(string fontWeight)
 		{
+			Debug.Assert(!string.IsNullOrWhiteSpace(fontWeight));
+
 			FontWeight = fontWeight;
 
 			SettingsChanged = true;
@@ -257,6 +264,8 @@ namespace EamonPM.Game.ViewModels
 
 		public virtual void FontSizeComboBoxSelectionChanged(double fontSize)
 		{
+			Debug.Assert(fontSize > 0);
+
 			FontSize = fontSize;
 
 			SettingsChanged = true;
@@ -264,6 +273,8 @@ namespace EamonPM.Game.ViewModels
 
 		public virtual void EamonPMMainWindowSizeChanged(double windowWidth, double windowHeight)
 		{
+			Debug.Assert(windowWidth > 0 && windowHeight > 0);
+
 			WindowWidth = windowWidth;
 
 			WindowHeight = windowHeight;
@@ -273,6 +284,8 @@ namespace EamonPM.Game.ViewModels
 
 		public virtual void OutputBufMaxSizeComboBoxSelectionChanged(int outputBufMaxSize)
 		{
+			Debug.Assert(outputBufMaxSize > 0);
+
 			OutputBufMaxSize = outputBufMaxSize;
 
 			SettingsChanged = true;
@@ -280,6 +293,8 @@ namespace EamonPM.Game.ViewModels
 
 		public virtual void OutputWindowMaxSizeComboBoxSelectionChanged(int outputWindowMaxSize)
 		{
+			Debug.Assert(outputWindowMaxSize > 0);
+
 			OutputWindowMaxSize = outputWindowMaxSize;
 
 			SettingsChanged = true;
@@ -311,6 +326,8 @@ namespace EamonPM.Game.ViewModels
 
 		public virtual bool IsMonospaceFont(string fontFamily)
 		{
+			Debug.Assert(!string.IsNullOrWhiteSpace(fontFamily));
+
 			return MonospaceFonts.FirstOrDefault(ff => ff.Equals(fontFamily, StringComparison.OrdinalIgnoreCase)) != null;
 		}
 

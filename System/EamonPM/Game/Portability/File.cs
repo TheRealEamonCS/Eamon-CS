@@ -15,7 +15,7 @@ namespace EamonPM.Game.Portability
 		{
 			var normalizedPath = gEngine.Path.NormalizePath(path);
 
-			if (gEngine.Path.GetExtension(normalizedPath.ToUpper()) == ".DAT")
+			if (gEngine.Path.GetExtension(normalizedPath?.ToUpper()) == ".DAT")
 			{
 				gEngine.ConvertDatafileFromXmlToDat(normalizedPath);
 			}
@@ -27,7 +27,7 @@ namespace EamonPM.Game.Portability
 		{
 			var normalizedPath = gEngine.Path.NormalizePath(path);
 
-			if (gEngine.Path.GetExtension(normalizedPath.ToUpper()) == ".DAT")
+			if (gEngine.Path.GetExtension(normalizedPath?.ToUpper()) == ".DAT")
 			{
 				gEngine.ConvertDatafileFromXmlToDat(normalizedPath);
 			}
@@ -41,7 +41,7 @@ namespace EamonPM.Game.Portability
 
 			var normalizedDestFileName = gEngine.Path.NormalizePath(destFileName);
 
-			if (gEngine.Path.GetExtension(normalizedSourceFileName.ToUpper()) == ".DAT")
+			if (gEngine.Path.GetExtension(normalizedSourceFileName?.ToUpper()) == ".DAT")
 			{
 				gEngine.ConvertDatafileFromXmlToDat(normalizedSourceFileName);
 			}
@@ -55,7 +55,7 @@ namespace EamonPM.Game.Portability
 
 			var firstLine = "";
 
-			if (gEngine.Path.GetExtension(normalizedPath.ToUpper()) == ".DAT")
+			if (gEngine.Path.GetExtension(normalizedPath?.ToUpper()) == ".DAT")
 			{
 				gEngine.ConvertDatafileFromXmlToDat(normalizedPath);
 
@@ -87,7 +87,7 @@ namespace EamonPM.Game.Portability
 
 			var contents = "";
 
-			if (gEngine.Path.GetExtension(normalizedPath.ToUpper()) == ".DAT")
+			if (gEngine.Path.GetExtension(normalizedPath?.ToUpper()) == ".DAT")
 			{
 				gEngine.ConvertDatafileFromXmlToDat(normalizedPath);
 
@@ -121,7 +121,7 @@ namespace EamonPM.Game.Portability
 		{
 			var normalizedPath = gEngine.Path.NormalizePath(path);
 
-			if (gEngine.Path.GetExtension(normalizedPath.ToUpper()) == ".DAT")
+			if (gEngine.Path.GetExtension(normalizedPath?.ToUpper()) == ".DAT")
 			{
 				using (var fileStream = new System.IO.FileStream(normalizedPath, System.IO.FileMode.Create))
 				{
@@ -144,7 +144,7 @@ namespace EamonPM.Game.Portability
 		{
 			var normalizedPath = gEngine.Path.NormalizePath(path);
 
-			if (gEngine.Path.GetExtension(normalizedPath.ToUpper()) == ".DAT")
+			if (gEngine.Path.GetExtension(normalizedPath?.ToUpper()) == ".DAT")
 			{
 				using (var fileStream = new System.IO.FileStream(normalizedPath, System.IO.FileMode.Append))
 				{

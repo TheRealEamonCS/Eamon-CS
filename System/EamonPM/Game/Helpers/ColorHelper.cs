@@ -18,7 +18,7 @@ namespace EamonPM.Game.Helpers
 		{
 			Color color;
 
-			if (!Color.TryParse(hex, out color))
+			if (string.IsNullOrWhiteSpace(hex) || !Color.TryParse(hex, out color))
 			{
 				color = defaultColor;
 			}
