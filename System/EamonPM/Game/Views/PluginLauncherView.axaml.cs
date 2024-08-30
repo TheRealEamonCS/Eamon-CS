@@ -62,17 +62,17 @@ namespace EamonPM.Game.Views
 		{
 			var viewModel = DataContext as PluginLauncherViewModel;
 
-			var newTextValue = viewModel.InputText ?? "";
+			var currInputText = viewModel.InputText ?? "";
 
-			var oldTextValue = viewModel.OldInputText ?? "";
+			var prevInputText = viewModel.PrevInputText ?? "";
 
-			if (newTextValue.Length > oldTextValue.Length)
+			if (currInputText.Length > prevInputText.Length)
 			{
-				var ch = newTextValue[newTextValue.Length - 1];
+				var ch = currInputText[currInputText.Length - 1];
 
 				var ch01 = ch;
 
-				if (App.InputBufSize > 0 && newTextValue.Length <= App.InputBufSize)
+				if (App.InputBufSize > 0 && currInputText.Length <= App.InputBufSize)
 				{
 					if (App.InputModifyCharFunc != null)
 					{
@@ -92,12 +92,12 @@ namespace EamonPM.Game.Views
 						{
 							if (ch != ch01)
 							{
-								SetInputTextNoEvents(string.Format("{0}{1}", oldTextValue, ch));
+								SetInputTextNoEvents(string.Format("{0}{1}", prevInputText, ch));
 							}
 						}
 						else
 						{
-							SetInputTextNoEvents(oldTextValue);
+							SetInputTextNoEvents(prevInputText);
 						}
 
 						var termChar = false;
@@ -117,12 +117,12 @@ namespace EamonPM.Game.Views
 					}
 					else
 					{
-						SetInputTextNoEvents(oldTextValue);
+						SetInputTextNoEvents(prevInputText);
 					}
 				}
 				else
 				{
-					SetInputTextNoEvents(oldTextValue);
+					SetInputTextNoEvents(prevInputText);
 				}
 			}
 		}

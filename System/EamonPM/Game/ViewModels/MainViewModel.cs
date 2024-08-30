@@ -15,17 +15,17 @@ namespace EamonPM.Game.ViewModels
 	{
 		public UserControl _currentView;
 
-		public bool _isBackButtonActive;
-
-		public bool _isBackArrowActive;
-
-		public bool _isBackArrowDarkActive;
-
 		public string _mainTitle;
 
 		public double _windowWidth;
 
 		public double _windowHeight;
+
+		public bool _isBackButtonActive;
+
+		public bool _isBackArrowActive;
+
+		public bool _isBackArrowDarkActive;
 
 		public virtual Stack<UserControl> ViewStack { get; set; }
 
@@ -170,6 +170,8 @@ namespace EamonPM.Game.ViewModels
 
 		public virtual void EamonPMMainWindowSizeChanged(double windowWidth, double windowHeight)
 		{
+			Debug.Assert(windowWidth > 0 && windowHeight > 0);
+
 			WindowWidth = windowWidth;
 
 			WindowHeight = windowHeight;
@@ -177,6 +179,8 @@ namespace EamonPM.Game.ViewModels
 
 		public virtual void NavigateTo(UserControl currentView, string mainTitle, bool isBackButtonActive)
 		{
+			Debug.Assert(currentView != null && !string.IsNullOrWhiteSpace(mainTitle));
+
 			ViewStack.Push(currentView);
 
 			MainTitleStack.Push(mainTitle);

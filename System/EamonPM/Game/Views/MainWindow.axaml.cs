@@ -3,6 +3,7 @@
 
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
+using System.Diagnostics;
 using Avalonia.Controls;
 using EamonPM.Game.ViewModels;
 
@@ -14,7 +15,7 @@ namespace EamonPM.Game.Views
 		{
 			var settingsViewModel = App.GetViewModel(typeof(SettingsViewModel)) as SettingsViewModel;
 
-			if (sender is MainWindow mainWindow && DataContext is MainViewModel viewModel)
+			if (sender is MainWindow mainWindow && e != null && DataContext is MainViewModel viewModel && settingsViewModel != null)
 			{
 				var newSize = e.NewSize;
 
@@ -26,7 +27,7 @@ namespace EamonPM.Game.Views
 
 		public virtual void EamonPMMainWindow_Closed(object sender, WindowClosingEventArgs e)
 		{
-
+			// Do nothing
 		}
 
 		public MainWindow()
@@ -36,6 +37,8 @@ namespace EamonPM.Game.Views
 			DataContext = App.GetViewModel(typeof(MainViewModel));
 
 			var viewModel = DataContext as MainViewModel;
+
+			Debug.Assert(viewModel != null);
 
 			viewModel.WindowWidth = 600;
 

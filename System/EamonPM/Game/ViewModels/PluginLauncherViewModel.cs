@@ -3,6 +3,7 @@
 
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
+using System.Diagnostics;
 using Avalonia;
 using Avalonia.Media;
 using ReactiveUI;
@@ -13,15 +14,15 @@ namespace EamonPM.Game.ViewModels
 {
 	public class PluginLauncherViewModel : ViewModelBase
 	{
-		public Thickness _inputTextBoxMargin;
+		public FontFamily _fontFamily;
+
+		public FontWeight _fontWeight;
 
 		public SolidColorBrush _foregroundColor;
 
 		public SolidColorBrush _backgroundColor;
 
-		public FontFamily _fontFamily;
-
-		public FontWeight _fontWeight;
+		public Thickness _inputTextBoxMargin;
 
 		public double _fontSize;
 
@@ -33,22 +34,35 @@ namespace EamonPM.Game.ViewModels
 
 		public string _outputText;
 
-		public string _oldInputText;
-
 		public string _inputText;
+
+		public string _prevInputText;
 
 		public virtual BatchFile BatchFile { get; set; }
 
-		public virtual Thickness InputTextBoxMargin
+		public virtual FontFamily FontFamily
 		{
 			get
 			{
-				return _inputTextBoxMargin;
+				return _fontFamily;
 			}
 
 			set
 			{
-				this.RaiseAndSetIfChanged(ref _inputTextBoxMargin, value);
+				this.RaiseAndSetIfChanged(ref _fontFamily, value);
+			}
+		}
+
+		public virtual FontWeight FontWeight
+		{
+			get
+			{
+				return _fontWeight;
+			}
+
+			set
+			{
+				this.RaiseAndSetIfChanged(ref _fontWeight, value);
 			}
 		}
 
@@ -78,29 +92,16 @@ namespace EamonPM.Game.ViewModels
 			}
 		}
 
-		public virtual FontFamily FontFamily
+		public virtual Thickness InputTextBoxMargin
 		{
 			get
 			{
-				return _fontFamily;
+				return _inputTextBoxMargin;
 			}
 
 			set
 			{
-				this.RaiseAndSetIfChanged(ref _fontFamily, value);
-			}
-		}
-
-		public virtual FontWeight FontWeight
-		{
-			get
-			{
-				return _fontWeight;
-			}
-
-			set
-			{
-				this.RaiseAndSetIfChanged(ref _fontWeight, value);
+				this.RaiseAndSetIfChanged(ref _inputTextBoxMargin, value);
 			}
 		}
 
@@ -169,14 +170,6 @@ namespace EamonPM.Game.ViewModels
 			}
 		}
 
-		public virtual string OldInputText
-		{
-			get
-			{
-				return _oldInputText;
-			}
-		}
-
 		public virtual string InputText
 		{
 			get
@@ -186,15 +179,32 @@ namespace EamonPM.Game.ViewModels
 
 			set
 			{
-				_oldInputText = _inputText;
+				_prevInputText = _inputText;
 
 				this.RaiseAndSetIfChanged(ref _inputText, value);
 			}
 		}
 
-		public virtual void InputTextBoxMarginChanged(Thickness thickness)
+		public virtual string PrevInputText
 		{
-			InputTextBoxMargin = thickness;
+			get
+			{
+				return _prevInputText;
+			}
+		}
+
+		public virtual void FontFamilyComboBoxSelectionChanged(string fontFamily)
+		{
+			Debug.Assert(!string.IsNullOrWhiteSpace(fontFamily));
+
+			FontFamily = new FontFamily(fontFamily);
+		}
+
+		public virtual void FontWeightComboBoxSelectionChanged(string fontWeight)
+		{
+			Debug.Assert(!string.IsNullOrWhiteSpace(fontWeight));
+
+			FontWeight = FontWeightHelper.FromString(fontWeight);
 		}
 
 		public virtual void ForegroundColorPickerColorChanged(Color color)
@@ -207,28 +217,29 @@ namespace EamonPM.Game.ViewModels
 			BackgroundColor = new SolidColorBrush(color);
 		}
 
-		public virtual void FontFamilyComboBoxSelectionChanged(string fontFamily)
+		public virtual void InputTextBoxMarginChanged(Thickness thickness)
 		{
-			FontFamily = new FontFamily(fontFamily);
-		}
-
-		public virtual void FontWeightComboBoxSelectionChanged(string fontWeight)
-		{
-			FontWeight = FontWeightHelper.FromString(fontWeight);
+			InputTextBoxMargin = thickness;
 		}
 
 		public virtual void FontSizeComboBoxSelectionChanged(double fontSize)
 		{
+			Debug.Assert(fontSize > 0);
+
 			FontSize = fontSize;
 		}
 
 		public virtual void OutputBufMaxSizeComboBoxSelectionChanged(int outputBufMaxSize)
 		{
+			Debug.Assert(outputBufMaxSize > 0);
+
 			OutputBufMaxSize = outputBufMaxSize;
 		}
 
 		public virtual void OutputWindowMaxSizeComboBoxSelectionChanged(int outputWindowMaxSize)
 		{
+			Debug.Assert(outputWindowMaxSize > 0);
+
 			OutputWindowMaxSize = outputWindowMaxSize;
 		}
 

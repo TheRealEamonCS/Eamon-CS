@@ -23,6 +23,8 @@ namespace EamonPM.Game.Views
 
 				var currentViewModel = App.GetViewModel(typeof(PluginLauncherViewModel)) as PluginLauncherViewModel;
 
+				Debug.Assert(currentViewModel != null);
+
 				currentViewModel.BatchFile = viewModel.BatchFileList[selectedIndex];
 
 				Debug.Assert(currentViewModel.BatchFile != null);
