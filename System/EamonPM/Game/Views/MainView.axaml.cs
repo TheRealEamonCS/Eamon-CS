@@ -53,7 +53,11 @@ namespace EamonPM.Game.Views
 
 				viewModel.CurrentView = viewModel.ViewStack.Peek();
 
+				Debug.Assert(viewModel.CurrentView != null);
+
 				viewModel.MainTitle = viewModel.MainTitleStack.Peek();
+
+				Debug.Assert(!string.IsNullOrWhiteSpace(viewModel.MainTitle));
 
 				viewModel.IsBackButtonActive = viewModel.IsBackButtonActiveStack.Peek();
 			}
@@ -63,7 +67,7 @@ namespace EamonPM.Game.Views
 		{
 			if (sender is TabControl tabControl && DataContext is MainViewModel viewModel)
 			{
-				int selectedIndex = tabControl.SelectedIndex;
+				var selectedIndex = tabControl.SelectedIndex;
 				
 				viewModel.MainTabControlSelectionChanged(selectedIndex);
 			}
@@ -73,11 +77,11 @@ namespace EamonPM.Game.Views
 		{
 			var screenBounds = this.VisualRoot.ClientSize;
 
-			var pluginLauncherView = App.GetView(typeof(PluginLauncherView)) as PluginLauncherView;
-
 			var pluginLauncherViewModel = App.GetViewModel(typeof(PluginLauncherViewModel)) as PluginLauncherViewModel;
 
-			if (sender is IInputPane inputPane && pluginLauncherViewModel != null)
+			var pluginLauncherView = App.GetView(typeof(PluginLauncherView)) as PluginLauncherView;
+
+			if (sender is IInputPane inputPane && e != null && pluginLauncherViewModel != null && pluginLauncherView != null)
 			{
 				if (e.NewState == InputPaneState.Open && e.EndRect.Top >= screenBounds.Height - e.EndRect.Height)
 				{

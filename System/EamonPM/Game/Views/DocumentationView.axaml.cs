@@ -14,7 +14,7 @@ namespace EamonPM.Game.Views
 	{
 		public virtual async void BrowserListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			if (sender is ListBox listBox && listBox.SelectedItem != null && DataContext is DocumentationViewModel viewModel)
+			if (sender is ListBox listBox && listBox.SelectedItem != null)
 			{
 				var url = "https://TheRealEamonCS.github.io";
 

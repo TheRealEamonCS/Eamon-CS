@@ -15,11 +15,11 @@ namespace EamonPM.Game.Views
 		{
 			var settingsViewModel = App.GetViewModel(typeof(SettingsViewModel)) as SettingsViewModel;
 
-			if (sender is MainWindow mainWindow && e != null && DataContext is MainViewModel viewModel && settingsViewModel != null)
+			if (sender is MainWindow mainWindow && e != null && DataContext is MainViewModel mainViewModel && settingsViewModel != null)
 			{
 				var newSize = e.NewSize;
 
-				viewModel.EamonPMMainWindowSizeChanged(newSize.Width, newSize.Height);
+				mainViewModel.EamonPMMainWindowSizeChanged(newSize.Width, newSize.Height);
 
 				settingsViewModel.EamonPMMainWindowSizeChanged(newSize.Width, newSize.Height);
 			}

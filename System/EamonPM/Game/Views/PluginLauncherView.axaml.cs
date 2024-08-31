@@ -4,6 +4,7 @@
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
 using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Input;
@@ -26,9 +27,12 @@ namespace EamonPM.Game.Views
 
 		public virtual void OutputTextBlock_GotFocus(object sender, GotFocusEventArgs e)
 		{
+			if (e != null)
+			{
 			OutputScrollViewer.ScrollToEnd();
 
 			e.Handled = true;
+		}
 		}
 
 		public virtual void OutputTextBlock_PointerPressed(object sender, PointerPressedEventArgs e)
@@ -38,9 +42,9 @@ namespace EamonPM.Game.Views
 
 		public virtual void InputTextBox_GotFocus(object sender, GotFocusEventArgs e)
 		{
-			if (DataContext is PluginLauncherViewModel pluginLauncherViewModel)
+			if (DataContext is PluginLauncherViewModel viewModel)
 			{
-				if (App.ProgramName == "EamonPM.Android" && pluginLauncherViewModel.KeepKeyboardVisible)
+				if (App.ProgramName == "EamonPM.Android" && viewModel.KeepKeyboardVisible)
 				{
 					App.ShowKeyboardFunc?.Invoke();
 				}
@@ -49,9 +53,9 @@ namespace EamonPM.Game.Views
 
 		public virtual void InputTextBox_LostFocus(object sender, RoutedEventArgs e)
 		{
-			if (DataContext is PluginLauncherViewModel pluginLauncherViewModel)
+			if (DataContext is PluginLauncherViewModel viewModel)
 			{
-				if (App.ProgramName == "EamonPM.Android" && pluginLauncherViewModel.KeepKeyboardVisible)
+				if (App.ProgramName == "EamonPM.Android" && viewModel.KeepKeyboardVisible)
 				{
 					App.HideKeyboardFunc?.Invoke();
 				}
@@ -60,11 +64,11 @@ namespace EamonPM.Game.Views
 
 		public virtual void InputTextBox_TextChanged(object sender, TextChangedEventArgs e)
 		{
-			var viewModel = DataContext as PluginLauncherViewModel;
+			if (DataContext is PluginLauncherViewModel viewModel)
+			{
+				var currInputText = viewModel.InputText ?? "";
 
-			var currInputText = viewModel.InputText ?? "";
-
-			var prevInputText = viewModel.PrevInputText ?? "";
+				var prevInputText = viewModel.PrevInputText ?? "";
 
 			if (currInputText.Length > prevInputText.Length)
 			{
@@ -126,10 +130,11 @@ namespace EamonPM.Game.Views
 				}
 			}
 		}
+		}
 
 		public virtual void InputTextBox_KeyUp(object sender, KeyEventArgs e)
 		{
-			if (DataContext is PluginLauncherViewModel pluginLauncherViewModel)
+			if (DataContext is PluginLauncherViewModel viewModel)
 			{
 				if (e.Key == Key.Escape)
 				{
@@ -141,7 +146,7 @@ namespace EamonPM.Game.Views
 				{
 					InputEntry_Completed(InputTextBox, null);
 
-					if (App.ProgramName != "EamonPM.Android" || pluginLauncherViewModel.KeepKeyboardVisible)
+					if (App.ProgramName != "EamonPM.Android" || viewModel.KeepKeyboardVisible)
 					{
 						// Keep focus
 						InputTextBox.Focus();
@@ -158,22 +163,22 @@ namespace EamonPM.Game.Views
 
 		public virtual void InputEntry_Completed(object sender, EventArgs e)
 		{
-			var viewModel = DataContext as PluginLauncherViewModel;
-
-			if (viewModel.InputText.Length > 0 || App.InputEmptyAllowed)
+			if (DataContext is PluginLauncherViewModel viewModel)
 			{
+				if (viewModel.InputText.Length > 0 || App.InputEmptyAllowed)
+				{
 				if (!App.FinishInputSet)         // Xamarin Forms bug workaround ???
 				{
 					App.FinishInputSet = true;
 
-					if (viewModel.InputText.Length == 0 && App.InputEmptyVal != null)
+						if (viewModel.InputText.Length == 0 && App.InputEmptyVal != null)
 					{
 						SetInputTextNoEvents(App.InputEmptyVal);
 					}
 
 					App.DispatcherUIThreadPost(() =>
 					{
-						if (App.ProgramName == "EamonPM.Android" && !viewModel.KeepKeyboardVisible)
+							if (App.ProgramName == "EamonPM.Android" && !viewModel.KeepKeyboardVisible)
 						{
 							InputTextBoxLoseFocus();        //InputEntry.Unfocus();
 						}
@@ -194,6 +199,7 @@ namespace EamonPM.Game.Views
 				*/
 			}
 		}
+		}
 
 		public virtual void SetInputTextWatermark(string value, bool useFloating)
 		{
@@ -204,13 +210,13 @@ namespace EamonPM.Game.Views
 
 		public virtual async void SetInputTextNoEvents(string value)
 		{
-			var viewModel = DataContext as PluginLauncherViewModel;
-
-			if (viewModel.InputText == null || !viewModel.InputText.Equals(value, StringComparison.Ordinal))
+			if (DataContext is PluginLauncherViewModel viewModel)
+			{
+				if (viewModel.InputText == null || !viewModel.InputText.Equals(value, StringComparison.Ordinal))
 			{
 				InputTextBox.TextChanged -= InputTextBox_TextChanged;
 
-				viewModel.InputText = value;
+					viewModel.InputText = value;
 
 				InputTextBox.CaretIndex = InputTextBox.Text.Length;
 
@@ -218,6 +224,7 @@ namespace EamonPM.Game.Views
 
 				InputTextBox.TextChanged += InputTextBox_TextChanged;
 			}
+		}
 		}
 
 		public virtual void InputTextBoxLoseFocus()
@@ -247,9 +254,11 @@ namespace EamonPM.Game.Views
 
 			var viewModel = DataContext as PluginLauncherViewModel;
 
+			Debug.Assert(viewModel != null);
+
 			viewModel.PropertyChanged += (o, e) =>
 			{
-				if (e.PropertyName == "OutputText")
+				if (e != null && e.PropertyName == "OutputText")
 				{
 					OutputScrollViewerScrollToEnd();
 				}

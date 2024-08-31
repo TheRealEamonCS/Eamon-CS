@@ -16,7 +16,7 @@ namespace EamonPM.Game.Views
 		{
 			var mainViewModel = App.GetViewModel(typeof(MainViewModel)) as MainViewModel;
 
-			if (sender is ListBox listBox && listBox.SelectedItem != null && DataContext is EamonRTViewModel viewModel && mainViewModel != null)
+			if (sender is ListBox listBox && listBox.SelectedItem != null && DataContext is EamonRTViewModel eamonRTViewModel && mainViewModel != null)
 			{
 				var selectedIndex = listBox.SelectedIndex;
 
@@ -26,7 +26,7 @@ namespace EamonPM.Game.Views
 
 				Debug.Assert(currentViewModel != null);
 
-				currentViewModel.BatchFile = viewModel.BatchFileList[selectedIndex];
+				currentViewModel.BatchFile = eamonRTViewModel.BatchFileList[selectedIndex];
 
 				Debug.Assert(currentViewModel.BatchFile != null);
 

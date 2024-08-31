@@ -4,6 +4,7 @@
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
 using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Avalonia.Controls;
@@ -17,31 +18,13 @@ namespace EamonPM.Game.Views
 {
 	public partial class SettingsView : UserControl
 	{
-		public virtual async void SaveSettingsButton_Clicked(object sender, RoutedEventArgs e)
-		{
-			var viewModel = DataContext as SettingsViewModel;
-
-			var fileName = gEngine.Path.Combine(App.BasePath, "System", "Bin", "EAMONPM_SETTINGS.DAT");
-
-			try
-			{
-				gEngine.SharpSerializer.Serialize(viewModel, fileName);
-			}
-			catch (Exception ex)
-			{
-				await App.ShowErrorMessage("Save Settings operation failed.", ex);
-			}
-
-			viewModel.SettingsChanged = false;
-		}
-
 		public virtual async void AppThemeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			if (sender is ComboBox comboBox && comboBox.SelectedItem != null && DataContext is SettingsViewModel settingsViewModel)
+			if (sender is ComboBox comboBox && comboBox.SelectedItem != null && DataContext is SettingsViewModel viewModel)
 			{
 				var appTheme = comboBox.SelectedItem as string;
 
-				settingsViewModel.AppThemeComboBoxSelectionChanged(appTheme);
+				viewModel.AppThemeComboBoxSelectionChanged(appTheme);
 
 				// Weird hack to fix Save Settings button greyout
 
@@ -68,8 +51,6 @@ namespace EamonPM.Game.Views
 
 				pluginLauncherViewModel.FontFamilyComboBoxSelectionChanged(fontFamily);
 
-				// Weird hack to fix Save Settings button greyout
-
 				if (!App.InitializeSettings)
 				{
 					await Task.Delay(50);
@@ -92,103 +73,6 @@ namespace EamonPM.Game.Views
 				settingsViewModel.FontWeightComboBoxSelectionChanged(fontWeight);
 
 				pluginLauncherViewModel.FontWeightComboBoxSelectionChanged(fontWeight);
-
-				// Weird hack to fix Save Settings button greyout
-
-				if (!App.InitializeSettings)
-				{
-					await Task.Delay(50);
-
-					SaveSettingsButton.IsEnabled = false;
-
-					SaveSettingsButton.IsEnabled = true;
-				}
-			}
-		}
-
-		public virtual async void FontSizeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-		{
-			var pluginLauncherViewModel = App.GetViewModel(typeof(PluginLauncherViewModel)) as PluginLauncherViewModel;
-
-			if (sender is ComboBox comboBox && comboBox.SelectedItem != null && DataContext is SettingsViewModel settingsViewModel && pluginLauncherViewModel != null)
-			{
-				var fontSize = Convert.ToDouble(comboBox.SelectedItem);
-
-				settingsViewModel.FontSizeComboBoxSelectionChanged(fontSize);
-
-				pluginLauncherViewModel.FontSizeComboBoxSelectionChanged(fontSize);
-
-				// Weird hack to fix Save Settings button greyout
-
-				if (!App.InitializeSettings)
-				{
-					await Task.Delay(50);
-
-					SaveSettingsButton.IsEnabled = false;
-
-					SaveSettingsButton.IsEnabled = true;
-				}
-			}
-		}
-
-		public virtual async void OutputBufMaxSizeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-		{
-			var pluginLauncherViewModel = App.GetViewModel(typeof(PluginLauncherViewModel)) as PluginLauncherViewModel;
-
-			var pluginLauncherView = App.GetView(typeof(PluginLauncherView)) as PluginLauncherView;
-
-			if (sender is ComboBox comboBox && comboBox.SelectedItem != null && DataContext is SettingsViewModel settingsViewModel && pluginLauncherViewModel != null && pluginLauncherView != null)
-			{
-				var outputBufMaxSize = Convert.ToInt32(comboBox.SelectedItem);
-
-				settingsViewModel.OutputBufMaxSizeComboBoxSelectionChanged(outputBufMaxSize);
-
-				pluginLauncherViewModel.OutputBufMaxSizeComboBoxSelectionChanged(outputBufMaxSize);
-
-				var outputWindowSelectedIndex = OutputWindowMaxSizeComboBox.SelectedIndex;
-
-				settingsViewModel.OutputWindowMaxSizeComboBoxSync();
-
-				OutputWindowMaxSizeComboBox.SelectedIndex = outputWindowSelectedIndex > settingsViewModel.OutputWindowMaxSizeList.Count - 1 ? settingsViewModel.OutputWindowMaxSizeList.Count - 1 : outputWindowSelectedIndex;
-
-				App.EnforceOutputBufMaxSize();
-
-				App.RefreshOutputWindowText();
-
-				pluginLauncherView.OutputScrollViewerScrollToEnd();
-
-				// Weird hack to fix Save Settings button greyout
-
-				if (!App.InitializeSettings)
-				{
-					await Task.Delay(50);
-
-					SaveSettingsButton.IsEnabled = false;
-
-					SaveSettingsButton.IsEnabled = true;
-				}
-			}
-		}
-
-		public virtual async void OutputWindowMaxSizeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-		{
-			var pluginLauncherViewModel = App.GetViewModel(typeof(PluginLauncherViewModel)) as PluginLauncherViewModel;
-
-			var pluginLauncherView = App.GetView(typeof(PluginLauncherView)) as PluginLauncherView;
-
-			if (sender is ComboBox comboBox && comboBox.SelectedItem != null && DataContext is SettingsViewModel settingsViewModel && pluginLauncherViewModel != null && pluginLauncherView != null)
-			{
-				var outputWindowMaxSize = Convert.ToInt32(comboBox.SelectedItem);
-
-				settingsViewModel.OutputWindowMaxSizeComboBoxSelectionChanged(outputWindowMaxSize);
-
-				pluginLauncherViewModel.OutputWindowMaxSizeComboBoxSelectionChanged(outputWindowMaxSize);
-
-				App.RefreshOutputWindowText();
-
-				pluginLauncherView.OutputScrollViewerScrollToEnd();
-
-				// Weird hack to fix Save Settings button greyout
 
 				if (!App.InitializeSettings)
 				{
@@ -229,6 +113,95 @@ namespace EamonPM.Game.Views
 			}
 		}
 
+		public virtual async void FontSizeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			var pluginLauncherViewModel = App.GetViewModel(typeof(PluginLauncherViewModel)) as PluginLauncherViewModel;
+
+			if (sender is ComboBox comboBox && comboBox.SelectedItem != null && DataContext is SettingsViewModel settingsViewModel && pluginLauncherViewModel != null)
+			{
+				var fontSize = Convert.ToDouble(comboBox.SelectedItem);
+
+				settingsViewModel.FontSizeComboBoxSelectionChanged(fontSize);
+
+				pluginLauncherViewModel.FontSizeComboBoxSelectionChanged(fontSize);
+
+				if (!App.InitializeSettings)
+				{
+					await Task.Delay(50);
+
+					SaveSettingsButton.IsEnabled = false;
+
+					SaveSettingsButton.IsEnabled = true;
+				}
+			}
+		}
+
+		public virtual async void OutputBufMaxSizeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			var pluginLauncherViewModel = App.GetViewModel(typeof(PluginLauncherViewModel)) as PluginLauncherViewModel;
+
+			var pluginLauncherView = App.GetView(typeof(PluginLauncherView)) as PluginLauncherView;
+
+			if (sender is ComboBox comboBox && comboBox.SelectedItem != null && DataContext is SettingsViewModel settingsViewModel && pluginLauncherViewModel != null && pluginLauncherView != null)
+			{
+				var outputBufMaxSize = Convert.ToInt32(comboBox.SelectedItem);
+
+				settingsViewModel.OutputBufMaxSizeComboBoxSelectionChanged(outputBufMaxSize);
+
+				pluginLauncherViewModel.OutputBufMaxSizeComboBoxSelectionChanged(outputBufMaxSize);
+
+				var outputWindowSelectedIndex = OutputWindowMaxSizeComboBox.SelectedIndex;
+
+				settingsViewModel.OutputWindowMaxSizeComboBoxSync();
+
+				OutputWindowMaxSizeComboBox.SelectedIndex = outputWindowSelectedIndex > settingsViewModel.OutputWindowMaxSizeList.Count - 1 ? settingsViewModel.OutputWindowMaxSizeList.Count - 1 : outputWindowSelectedIndex;
+
+				App.EnforceOutputBufMaxSize();
+
+				App.RefreshOutputWindowText();
+
+				pluginLauncherView.OutputScrollViewerScrollToEnd();
+
+				if (!App.InitializeSettings)
+				{
+					await Task.Delay(50);
+
+					SaveSettingsButton.IsEnabled = false;
+
+					SaveSettingsButton.IsEnabled = true;
+				}
+			}
+		}
+
+		public virtual async void OutputWindowMaxSizeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			var pluginLauncherViewModel = App.GetViewModel(typeof(PluginLauncherViewModel)) as PluginLauncherViewModel;
+
+			var pluginLauncherView = App.GetView(typeof(PluginLauncherView)) as PluginLauncherView;
+
+			if (sender is ComboBox comboBox && comboBox.SelectedItem != null && DataContext is SettingsViewModel settingsViewModel && pluginLauncherViewModel != null && pluginLauncherView != null)
+			{
+				var outputWindowMaxSize = Convert.ToInt32(comboBox.SelectedItem);
+
+				settingsViewModel.OutputWindowMaxSizeComboBoxSelectionChanged(outputWindowMaxSize);
+
+				pluginLauncherViewModel.OutputWindowMaxSizeComboBoxSelectionChanged(outputWindowMaxSize);
+
+				App.RefreshOutputWindowText();
+
+				pluginLauncherView.OutputScrollViewerScrollToEnd();
+
+				if (!App.InitializeSettings)
+				{
+					await Task.Delay(50);
+
+					SaveSettingsButton.IsEnabled = false;
+
+					SaveSettingsButton.IsEnabled = true;
+				}
+			}
+		}
+
 		public virtual void KeepKeyboardVisibleToggleSwitch_Changed(object sender, RoutedEventArgs e)
 		{
 			var pluginLauncherViewModel = App.GetViewModel(typeof(PluginLauncherViewModel)) as PluginLauncherViewModel;
@@ -243,6 +216,25 @@ namespace EamonPM.Game.Views
 			}
 		}
 
+		public virtual async void SaveSettingsButton_Clicked(object sender, RoutedEventArgs e)
+		{
+			if (DataContext is SettingsViewModel viewModel)
+			{
+				var fileName = gEngine.Path.Combine(App.BasePath, "System", "Bin", "EAMONPM_SETTINGS.DAT");
+
+				try
+				{
+					gEngine.SharpSerializer.Serialize(viewModel, fileName);
+				}
+				catch (Exception ex)
+				{
+					await App.ShowErrorMessage("Save Settings operation failed.", ex);
+				}
+
+				viewModel.SettingsChanged = false;
+			}
+		}
+
 		public SettingsView()
 		{
 			InitializeComponent();
@@ -252,6 +244,8 @@ namespace EamonPM.Game.Views
 			DataContext = App.GetViewModel(typeof(SettingsViewModel));
 
 			var viewModel = DataContext as SettingsViewModel;
+
+			Debug.Assert(viewModel != null);
 
 			var appTheme = viewModel.AppThemeList.FirstOrDefault(at => at.Equals(viewModel.AppTheme, StringComparison.OrdinalIgnoreCase));
 
@@ -301,6 +295,8 @@ namespace EamonPM.Game.Views
 				OutputWindowMaxSizeComboBox.SelectedIndex = Math.Min(viewModel.OutputWindowMaxSizeList.Count - 1, 2);
 			}
 
+			KeepKeyboardVisibleToggleSwitch.IsChecked = viewModel.KeepKeyboardVisible;
+
 			ForegroundColorPicker.Color = ColorHelper.FromHexString(viewModel.ForegroundColor, Color.FromRgb(0, 0, 0));
 
 			ForegroundColorPicker_ColorChanged(ForegroundColorPicker, null);
@@ -308,8 +304,6 @@ namespace EamonPM.Game.Views
 			BackgroundColorPicker.Color = ColorHelper.FromHexString(viewModel.BackgroundColor, Color.FromRgb(255, 255, 255));
 
 			BackgroundColorPicker_ColorChanged(BackgroundColorPicker, null);
-
-			KeepKeyboardVisibleToggleSwitch.IsChecked = viewModel.KeepKeyboardVisible;
 
 			App.InitializeSettings = false;
 		}
