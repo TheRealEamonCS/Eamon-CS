@@ -29,8 +29,6 @@ namespace EamonPM.Game.Views
 		{
 			if (e != null)
 			{
-				OutputScrollViewer.ScrollToEnd();
-
 				e.Handled = true;
 			}
 		}
