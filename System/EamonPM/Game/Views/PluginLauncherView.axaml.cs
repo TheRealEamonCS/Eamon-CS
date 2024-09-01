@@ -29,10 +29,10 @@ namespace EamonPM.Game.Views
 		{
 			if (e != null)
 			{
-			OutputScrollViewer.ScrollToEnd();
+				OutputScrollViewer.ScrollToEnd();
 
-			e.Handled = true;
-		}
+				e.Handled = true;
+			}
 		}
 
 		public virtual void OutputTextBlock_PointerPressed(object sender, PointerPressedEventArgs e)
@@ -66,70 +66,70 @@ namespace EamonPM.Game.Views
 		{
 			if (DataContext is PluginLauncherViewModel viewModel)
 			{
-				var currInputText = viewModel.InputText ?? "";
+				var inputText = viewModel.InputText ?? "";
 
-				var prevInputText = viewModel.PrevInputText ?? "";
+				var origInputText = viewModel.OrigInputText ?? "";
 
-			if (currInputText.Length > prevInputText.Length)
-			{
-				var ch = currInputText[currInputText.Length - 1];
-
-				var ch01 = ch;
-
-				if (App.InputBufSize > 0 && currInputText.Length <= App.InputBufSize)
+				if (inputText.Length > origInputText.Length)
 				{
-					if (App.InputModifyCharFunc != null)
-					{
-						ch = App.InputModifyCharFunc(ch);
-					}
+					var ch = inputText[inputText.Length - 1];
 
-					var validChar = true;
+					var ch01 = ch;
 
-					if (App.InputValidCharFunc != null)
+					if (App.InputBufSize > 0 && inputText.Length <= App.InputBufSize)
 					{
-						validChar = App.InputValidCharFunc(ch);
-					}
-
-					if (validChar)
-					{
-						if (ch != '\0')
+						if (App.InputModifyCharFunc != null)
 						{
-							if (ch != ch01)
+							ch = App.InputModifyCharFunc(ch);
+						}
+
+						var validChar = true;
+
+						if (App.InputValidCharFunc != null)
+						{
+							validChar = App.InputValidCharFunc(ch);
+						}
+
+						if (validChar)
+						{
+							if (ch != '\0')
 							{
-								SetInputTextNoEvents(string.Format("{0}{1}", prevInputText, ch));
+								if (ch != ch01)
+								{
+									SetInputTextNoEvents(string.Format("{0}{1}", origInputText, ch));
+								}
+							}
+							else
+							{
+								SetInputTextNoEvents(origInputText);
+							}
+
+							var termChar = false;
+
+							if (App.InputTermCharFunc != null)
+							{
+								termChar = App.InputTermCharFunc(ch);
+							}
+
+							if (termChar)
+							{
+								App.DispatcherUIThreadPost(() =>
+								{
+									InputTextBoxEntryCompleted();
+								});
 							}
 						}
 						else
 						{
-							SetInputTextNoEvents(prevInputText);
-						}
-
-						var termChar = false;
-
-						if (App.InputTermCharFunc != null)
-						{
-							termChar = App.InputTermCharFunc(ch);
-						}
-
-						if (termChar)
-						{
-							App.DispatcherUIThreadPost(() =>
-							{
-								InputEntry_Completed(InputTextBox, null);
-							});
+							SetInputTextNoEvents(origInputText);
 						}
 					}
 					else
 					{
-						SetInputTextNoEvents(prevInputText);
+						SetInputTextNoEvents(origInputText);
 					}
 				}
-				else
-				{
-					SetInputTextNoEvents(prevInputText);
-				}
 			}
-		}
 		}
 
 		public virtual void InputTextBox_KeyUp(object sender, KeyEventArgs e)
@@ -144,7 +144,7 @@ namespace EamonPM.Game.Views
 				}
 				else if (e.Key == Key.Enter)
 				{
-					InputEntry_Completed(InputTextBox, null);
+					InputTextBoxEntryCompleted();
 
 					if (App.ProgramName != "EamonPM.Android" || viewModel.KeepKeyboardVisible)
 					{
@@ -161,44 +161,48 @@ namespace EamonPM.Game.Views
 			}
 		}
 
-		public virtual void InputEntry_Completed(object sender, EventArgs e)
+		public virtual void OutputScrollViewerScrollToEnd()
+		{
+			App.DispatcherUIThreadPost(() =>
+			{
+				OutputScrollViewer.ScrollToEnd();
+			});
+		}
+
+		public virtual void InputTextBoxLoseFocus()
+		{
+			InputTextBox.IsEnabled = false;
+
+			InputTextBox.IsEnabled = true;
+		}
+
+		public virtual void InputTextBoxEntryCompleted()
 		{
 			if (DataContext is PluginLauncherViewModel viewModel)
 			{
 				if (viewModel.InputText.Length > 0 || App.InputEmptyAllowed)
 				{
-				if (!App.FinishInputSet)         // Xamarin Forms bug workaround ???
-				{
-					App.FinishInputSet = true;
+					if (!App.FinishInputSet)         // Xamarin Forms bug workaround ???
+					{
+						App.FinishInputSet = true;
 
 						if (viewModel.InputText.Length == 0 && App.InputEmptyVal != null)
-					{
-						SetInputTextNoEvents(App.InputEmptyVal);
-					}
-
-					App.DispatcherUIThreadPost(() =>
-					{
-							if (App.ProgramName == "EamonPM.Android" && !viewModel.KeepKeyboardVisible)
 						{
-							InputTextBoxLoseFocus();        //InputEntry.Unfocus();
+							SetInputTextNoEvents(App.InputEmptyVal);
 						}
 
-						App.FinishInput.Set();
-					});
+						App.DispatcherUIThreadPost(() =>
+						{
+							if (App.ProgramName == "EamonPM.Android" && !viewModel.KeepKeyboardVisible)
+							{
+								InputTextBoxLoseFocus();
+							}
+
+							App.FinishInput.Set();
+						});
+					}
 				}
 			}
-			else        // Never reached, but just in case
-			{
-				/*
-				Device.StartTimer(new TimeSpan(0, 0, 0, 0, 250), () =>
-				{
-					InputEntry.Focus();
-
-					return false;
-				});
-				*/
-			}
-		}
 		}
 
 		public virtual void SetInputTextWatermark(string value, bool useFloating)
@@ -213,33 +217,18 @@ namespace EamonPM.Game.Views
 			if (DataContext is PluginLauncherViewModel viewModel)
 			{
 				if (viewModel.InputText == null || !viewModel.InputText.Equals(value, StringComparison.Ordinal))
-			{
-				InputTextBox.TextChanged -= InputTextBox_TextChanged;
+				{
+					InputTextBox.TextChanged -= InputTextBox_TextChanged;
 
 					viewModel.InputText = value;
 
-				InputTextBox.CaretIndex = InputTextBox.Text.Length;
+					InputTextBox.CaretIndex = InputTextBox.Text.Length;
 
-				await Task.Yield();
+					await Task.Yield();
 
-				InputTextBox.TextChanged += InputTextBox_TextChanged;
+					InputTextBox.TextChanged += InputTextBox_TextChanged;
+				}
 			}
-		}
-		}
-
-		public virtual void InputTextBoxLoseFocus()
-		{
-			InputTextBox.IsEnabled = false;
-
-			InputTextBox.IsEnabled = true;
-		}
-
-		public virtual void OutputScrollViewerScrollToEnd()
-		{
-			App.DispatcherUIThreadPost(() =>
-			{
-				OutputScrollViewer.ScrollToEnd();
-			});
 		}
 
 		public PluginLauncherView()

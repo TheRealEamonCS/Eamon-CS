@@ -34,9 +34,9 @@ namespace EamonPM.Game.ViewModels
 
 		public string _outputText;
 
-		public string _inputText;
+		public string _origInputText;
 
-		public string _prevInputText;
+		public string _inputText;
 
 		public virtual BatchFile BatchFile { get; set; }
 
@@ -170,6 +170,14 @@ namespace EamonPM.Game.ViewModels
 			}
 		}
 
+		public virtual string OrigInputText
+		{
+			get
+			{
+				return _origInputText;
+			}
+		}
+
 		public virtual string InputText
 		{
 			get
@@ -179,17 +187,9 @@ namespace EamonPM.Game.ViewModels
 
 			set
 			{
-				_prevInputText = _inputText;
+				_origInputText = _inputText;
 
 				this.RaiseAndSetIfChanged(ref _inputText, value);
-			}
-		}
-
-		public virtual string PrevInputText
-		{
-			get
-			{
-				return _prevInputText;
 			}
 		}
 
