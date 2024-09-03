@@ -3,9 +3,9 @@
 
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System;
 using System.Linq;
 using Eamon.Framework;
 using Eamon.Game.Attributes;
@@ -16,10 +16,6 @@ namespace TheWayfarersInn.Game
 	[ClassMappings(typeof(IRoom))]
 	public class Room : Eamon.Game.Room, Framework.IRoom
 	{
-		public virtual long AboveRoomUid { get; set; }
-
-		public virtual long BelowRoomUid { get; set; }
-
 		public override long GetDir(long index)
 		{
 			if (gEngine.EnableMutateProperties)

@@ -16,38 +16,6 @@ namespace TheWayfarersInn.Game.States
 	[ClassMappings]
 	public class AfterPrintPlayerRoomEventState : EamonRT.Game.States.AfterPrintPlayerRoomEventState, IAfterPrintPlayerRoomEventState
 	{
-		public virtual void UnseenApparitionEvent(object obj)
-		{
-			//long rl;
-
-			var unseenApparitionMonster = gMDB[2];
-
-			Debug.Assert(unseenApparitionMonster != null);
-
-			var eventState = gGameState.GetEventState(EventState.UnseenApparition);
-
-			if (unseenApparitionMonster.IsInLimbo() || (!gCharRoom.IsWayfarersInnRoom() && !gCharRoom.IsWayfarersInnClearingRoom()))
-			{
-				eventState = 0;
-			}
-
-			switch (eventState)
-			{
-				case 1:
-
-					// TODO: implement
-
-					break;
-			}
-
-			gGameState.SetEventState(EventState.UnseenApparition, eventState);
-
-			if (eventState > 0)
-			{
-				gGameState.AfterPrintPlayerRoomEventHeap.Insert02(gGameState.CurrTurn + 1, "UnseenApparition", 0, null);
-			}
-		}
-
 		public virtual void BlueBandedCentipedesEvent(object obj)
 		{
 			long rl;
@@ -431,38 +399,6 @@ namespace TheWayfarersInn.Game.States
 			if (eventState > 0)
 			{
 				gGameState.AfterPrintPlayerRoomEventHeap.Insert02(gGameState.CurrTurn + 1, "ChildsApparition", 0, null);
-			}
-		}
-
-		public virtual void NolanEvent(object obj)
-		{
-			//long rl;
-
-			var nolanMonster = gMDB[24];
-
-			Debug.Assert(nolanMonster != null);
-
-			var eventState = gGameState.GetEventState(EventState.Nolan);
-
-			if (nolanMonster.IsInLimbo())
-			{
-				eventState = 0;
-			}
-
-			switch (eventState)
-			{
-				case 1:
-
-					// TODO: implement
-
-					break;
-			}
-
-			gGameState.SetEventState(EventState.Nolan, eventState);
-
-			if (eventState > 0)
-			{
-				gGameState.AfterPrintPlayerRoomEventHeap.Insert02(gGameState.CurrTurn + 1, "Nolan", 0, null);
 			}
 		}
 

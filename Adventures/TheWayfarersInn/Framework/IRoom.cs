@@ -11,12 +11,6 @@ namespace TheWayfarersInn.Framework
 	public interface IRoom : Eamon.Framework.IRoom
 	{
 		/// <summary></summary>
-		long AboveRoomUid { get; set; }
-
-		/// <summary></summary>
-		long BelowRoomUid { get; set; }
-
-		/// <summary></summary>
 		bool IsForestRoom();
 
 		/// <summary></summary>

@@ -53,8 +53,6 @@ namespace TheWayfarersInn.Framework.Plugin
 
 		void GetOutdoorsHauntingData(long charRoomUid, long unseenApparitionRoomUid, ref string stateDesc);
 
-		void GetIndoorsHauntingData(long charRoomUid, long unseenApparitionRoomUid);
-
 		void BuildDecorationArtifact(long artifactUid, long effectUid, string name, string[] synonyms, string stateDesc, ArticleType articleType = ArticleType.A, PluralType pluralType = PluralType.S, bool isPlural = false);
 	}
 }

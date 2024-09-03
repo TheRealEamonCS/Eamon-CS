@@ -78,9 +78,20 @@ namespace TheWayfarersInn.Game
 
 		public override bool HasWornInventory()
 		{
-			// Charlotte has no worn inventory list
+			var monsterUids = new long[] { 8, 15, 16, 17, 24 };
 
-			return Uid != 4 ? base.HasWornInventory() : false;
+			// Some monsters have no worn inventory list
+
+			return Uid == gGameState?.Cm || monsterUids.Contains(Uid) ? base.HasWornInventory() : false;
+		}
+
+		public override bool HasCarriedInventory()
+		{
+			var monsterUids = new long[] { 4, 8, 15, 16, 17, 24 };
+
+			// Some monsters have no carried inventory list
+
+			return Uid == gGameState?.Cm || monsterUids.Contains(Uid) ? base.HasCarriedInventory() : false;
 		}
 
 		public override bool HasHumanNaturalAttackDescs()

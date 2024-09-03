@@ -1554,11 +1554,6 @@ namespace TheWayfarersInn.Game.Plugin
 			}
 		}
 
-		public virtual void GetIndoorsHauntingData(long charRoomUid, long unseenApparitionRoomUid)
-		{
-
-		}
-
 		public virtual void BuildDecorationArtifact(long artifactUid, long effectUid, string name, string[] synonyms, string stateDesc, ArticleType articleType = ArticleType.A, PluralType pluralType = PluralType.S, bool isPlural = false)
 		{
 			Debug.Assert(artifactUid > 0 && effectUid > 0 && !string.IsNullOrWhiteSpace(name) && synonyms != null && synonyms.Length > 0 && Enum.IsDefined(typeof(ArticleType), articleType) && Enum.IsDefined(typeof(PluralType), pluralType));

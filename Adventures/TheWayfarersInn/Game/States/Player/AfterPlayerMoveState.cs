@@ -25,10 +25,6 @@ namespace TheWayfarersInn.Game.States
 
 			if (eventType == EventType.AfterExtinguishLightSourceCheck)
 			{
-				var unseenApparitionMonster = gMDB[2];
-
-				Debug.Assert(unseenApparitionMonster != null);
-
 				var childsApparitionMonster = gMDB[4];
 
 				Debug.Assert(childsApparitionMonster != null);
@@ -36,10 +32,6 @@ namespace TheWayfarersInn.Game.States
 				var direWolvesMonster = gMDB[7];
 
 				Debug.Assert(direWolvesMonster != null);
-
-				var nolanMonster = gMDB[24];
-
-				Debug.Assert(nolanMonster != null);
 
 				var woodenBridgeArtifact = gADB[1];
 
@@ -272,20 +264,6 @@ namespace TheWayfarersInn.Game.States
 			
 				// Spin up event state machines
 
-				if (!unseenApparitionMonster.IsInLimbo() && (gCharRoom.IsWayfarersInnRoom() || gCharRoom.IsWayfarersInnClearingRoom()))
-				{
-					var eventState = gGameState.GetEventState(EventState.UnseenApparition);
-
-					if (eventState == 0)
-					{
-						eventState++;
-
-						gGameState.SetEventState(EventState.UnseenApparition, eventState);
-
-						gGameState.AfterPrintPlayerRoomEventHeap.Insert02(gGameState.CurrTurn + 1, "UnseenApparition", 0, null);
-					}
-				}
-
 				if (!childsApparitionMonster.IsInLimbo() && gCharRoom.IsWayfarersInnRoom())
 				{
 					var eventState = gGameState.GetEventState(EventState.ChildsApparition);
@@ -297,20 +275,6 @@ namespace TheWayfarersInn.Game.States
 						gGameState.SetEventState(EventState.ChildsApparition, eventState);
 
 						gGameState.AfterPrintPlayerRoomEventHeap.Insert02(gGameState.CurrTurn + 1, "ChildsApparition", 0, null);
-					}
-				}
-
-				if (!nolanMonster.IsInLimbo())
-				{
-					var eventState = gGameState.GetEventState(EventState.Nolan);
-
-					if (eventState == 0)
-					{
-						eventState++;
-
-						gGameState.SetEventState(EventState.Nolan, eventState);
-
-						gGameState.AfterPrintPlayerRoomEventHeap.Insert02(gGameState.CurrTurn + 1, "Nolan", 0, null);
 					}
 				}
 
