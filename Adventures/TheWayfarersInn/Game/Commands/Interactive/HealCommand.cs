@@ -18,9 +18,9 @@ namespace TheWayfarersInn.Game.Commands
 		{
 			Debug.Assert(DobjMonster != null);
 
-			// Unseen apparition
+			// Unseen apparition / Charlotte
 
-			if (DobjMonster.Uid == 2)
+			if (DobjMonster.Uid == 2 || DobjMonster.Uid == 4)
 			{
 				PrintCantVerbObj(DobjMonster);
 

@@ -182,6 +182,13 @@ namespace TheWayfarersInn.Game
 			return !monsterUids.Contains(Uid) ? base.ShouldShowHealthStatusWhenInventoried() : false;
 		}
 
+		public override bool ShouldRefuseToAcceptGold()
+		{
+			// Charlotte
+
+			return Uid != 4 ? base.ShouldRefuseToAcceptGold() : true;
+		}
+
 		public override bool ShouldRefuseToAcceptGift(IArtifact artifact)
 		{
 			var artifactUids = new long[] { 30, 43, 52, 54, 55, 87, 93, 102, 110 };
@@ -190,7 +197,7 @@ namespace TheWayfarersInn.Game
 
 			// Charlotte accepts a few gifts
 
-			return Uid != 4 || !artifactUids.Contains(artifact.Uid) ? base.ShouldRefuseToAcceptGift(artifact) : false;
+			return Uid != 4 || artifactUids.Contains(artifact.Uid) ? base.ShouldRefuseToAcceptGift(artifact) : true;
 		}
 
 		public override bool ShouldPreferNaturalWeaponsToWeakerWeapon(IArtifact artifact)
