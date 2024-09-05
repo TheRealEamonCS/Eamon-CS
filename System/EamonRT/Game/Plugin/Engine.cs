@@ -1990,10 +1990,6 @@ namespace EamonRT.Game.Plugin
 
 						if (weapon != null)
 						{
-							rc = weapon.RemoveStateDesc(weapon.GetReadyWeaponDesc());
-
-							Debug.Assert(IsSuccess(rc));
-
 							weapon.SetInRoom(room);
 						}
 					}

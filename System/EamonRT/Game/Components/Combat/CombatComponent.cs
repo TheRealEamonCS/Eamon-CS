@@ -74,6 +74,9 @@ namespace EamonRT.Game.Components
 		public virtual IArtifact SpilledArtifactContainer { get; set; }
 
 		/// <summary></summary>
+		public virtual IArtifact ReadyWeapon { get; set; }
+
+		/// <summary></summary>
 		public virtual IArtifact ActorWeapon { get; set; }
 
 		/// <summary></summary>
@@ -333,6 +336,8 @@ namespace EamonRT.Game.Components
 
 			ActorWeaponUid = ActorMonster.Weapon;
 
+			ReadyWeapon = ActorWeaponUid > 0 ? gADB[ActorWeaponUid] : null;
+
 			if (ActorWeaponUid > 0 && ActorMonster.GroupCount == 1 && AttackNumber > 1 && ActorMonster.CanAttackWithMultipleWeapons())
 			{
 				WeaponList = ActorMonster.GetCarriedList().Where(x => x.IsReadyableByMonster(ActorMonster)).ToList();
@@ -368,7 +373,7 @@ namespace EamonRT.Game.Components
 				ActorWeapon = ActorWeaponUid > 0 ? gADB[ActorWeaponUid] : null;
 			}
 
-			Debug.Assert(ActorWeaponUid == 0 || (ActorWeapon != null && ActorWeapon.GeneralWeapon != null));
+			Debug.Assert(ActorWeaponUid == 0 || (ReadyWeapon != null && ReadyWeapon.GeneralWeapon != null && ActorWeapon != null && ActorWeapon.GeneralWeapon != null));
 
 			ActorAc = ActorWeapon != null ? ActorWeapon.GeneralWeapon : null;
 
@@ -483,7 +488,7 @@ namespace EamonRT.Game.Components
 
 			ActorWeapon.SetInRoom(ActorRoom);
 
-			rc = ActorWeapon.RemoveStateDesc(ActorWeapon.GetReadyWeaponDesc());
+			rc = ReadyWeapon.RemoveStateDesc(ReadyWeapon.GetReadyWeaponDesc());
 
 			Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -547,11 +552,14 @@ namespace EamonRT.Game.Components
 
 			ActorWeapon.SetInLimbo();
 
-			rc = ActorWeapon.RemoveStateDesc(ActorWeapon.GetReadyWeaponDesc());
+			if (ReadyWeapon.Uid == ActorWeaponUid)
+			{
+				rc = ActorWeapon.RemoveStateDesc(ActorWeapon.GetReadyWeaponDesc());
 
-			Debug.Assert(gEngine.IsSuccess(rc));
+				Debug.Assert(gEngine.IsSuccess(rc));
 
-			ActorMonster.Weapon = -1;
+				ActorMonster.Weapon = -1;
+			}
 
 			_rl = gEngine.RollDice(1, 100, 0);
 
