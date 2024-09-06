@@ -81,7 +81,16 @@ namespace EamonRT.Game.Commands
 
 				if (NumExits == 0)
 				{
-					PrintNoPlaceToGo();
+					if (Enum.IsDefined(typeof(Direction), Direction))
+					{
+						PrintAttemptingToFlee(DobjArtifact, Direction);
+
+						PrintCantGoThatWay();
+					}
+					else
+					{
+						PrintNoPlaceToGo();
+					}
 
 					NextState = gEngine.CreateInstance<IStartState>();
 
