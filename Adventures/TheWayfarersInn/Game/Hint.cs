@@ -42,6 +42,7 @@ namespace TheWayfarersInn.Game
 							return cellarDoorArtifact.Seen;
 
 						case 7:
+						case 8:
 
 							var childsSkeletonArtifact = gADB[54];
 
