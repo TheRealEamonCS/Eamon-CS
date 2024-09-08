@@ -832,7 +832,7 @@ namespace TheWayfarersInn.Game.Plugin
 				{ 20, new string[] { "stone temple", "stone temple door", "stone door", "temple door", "door" } },
 				{ 21, new string[] { "graveyard", "cemetary" } },
 				{ 24, new string[] { "pool" } },
-				{ 25, new string[] { "gravestones", "gravestone", "tombstones", "tombstone", "headstones", "headstone", "gravesites", "gravesite", "markers", "marker", "stones", "stone" } },
+				{ 25, new string[] { "gravestones", "gravestone", "tombstones", "tombstone", "headstones", "headstone", "gravesites", "gravesite", "markers", "marker", "stones", "stone", "inscriptions", "inscription" } },
 				{ 26, new string[] { "desk" } },
 				{ 27, new string[] { "key ring", "keys", "key" } },
 				{ 28, new string[] { "giant wood statue", "towering bear statue", "towering statue", "bear statue", "giant statue", "wooden statue", "wood statue", "statue", "statue base", "base", "giant bear", "bear", "ancient runes", "runes", "rune", "script", "text" } },
