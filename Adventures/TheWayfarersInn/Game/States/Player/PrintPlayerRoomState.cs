@@ -78,31 +78,43 @@ namespace TheWayfarersInn.Game.States
 
 				Debug.Assert(hauntingArtifact != null);
 
-				// Bottle of bourbon / folded note noticed by player
-
-				if (gGameState.BourbonAppeared && !gGameState.BourbonNoticed && barArtifact.IsInRoom(gCharRoom) && gCharRoom.IsLit() && gEngine.ShouldPreTurnProcess && gSentenceParser.IsInputExhausted)
+				if (gEngine.ShouldPreTurnProcess && gSentenceParser.IsInputExhausted)
 				{
-					gEngine.PrintEffectDesc(133);
+					// Bottle of bourbon / folded note noticed by player
 
-					gGameState.BourbonNoticed = true;
-				}
+					if (gGameState.BourbonAppeared && !gGameState.BourbonNoticed && barArtifact.IsInRoom(gCharRoom) && gCharRoom.IsLit())
+					{
+						gEngine.PrintEffectDesc(133);
 
-				// Child's apparition peeks from behind the majestic oak tree
+						gGameState.BourbonNoticed = true;
+					}
 
-				if (gCharRoom.Uid == 31 && majesticOakTreeArtifact.Seen && !unseenApparitionMonster.IsInLimbo() && !unseenApparitionMonster.IsInRoom(gCharRoom) && !gGameState.CharlottePeeks && gEngine.ShouldPreTurnProcess && gSentenceParser.IsInputExhausted)
-				{
-					gEngine.PrintEffectDesc(128);
+					// Child's apparition peeks from behind the majestic oak tree
 
-					gGameState.CharlottePeeks = true;
-				}
+					if (gCharRoom.Uid == 31 && majesticOakTreeArtifact.Seen && !unseenApparitionMonster.IsInLimbo() && !unseenApparitionMonster.IsInRoom(gCharRoom) && !gGameState.CharlottePeeks)
+					{
+						gEngine.PrintEffectDesc(128);
 
-				// Go back to Charlotte (from Entryway)
+						gGameState.CharlottePeeks = true;
+					}
 
-				if (gGameState.Ro == 23 && gGameState.R3 == 13 && gGameState.CharlotteMet && childsApparitionMonster.IsInRoomUid(gGameState.Ro) && !gGameState.CharlotteGreets && gEngine.ShouldPreTurnProcess && gSentenceParser.IsInputExhausted)
-				{
-					gEngine.PrintEffectDesc(63);
+					// Go back to Charlotte (from Entryway)
 
-					gGameState.CharlotteGreets = true;
+					if (gGameState.Ro == 23 && gGameState.R3 == 13 && gGameState.CharlotteMet && childsApparitionMonster.IsInRoomUid(gGameState.Ro) && !gGameState.CharlotteGreets)
+					{
+						gEngine.PrintEffectDesc(63);
+
+						gGameState.CharlotteGreets = true;
+					}
+
+					// Go into foyer after Charlotte rests in peace; Caldwell family reunited
+
+					if (gGameState.Ro == 23 && gGameState.R3 == 13 && gGameState.CharlotteRestInPeace && !gGameState.CharlotteReunited)
+					{
+						gEngine.PrintEffectDesc(57);
+
+						gGameState.CharlotteReunited = true;
+					}
 				}
 
 				var rl = gEngine.RollDice(1, 100, 0);

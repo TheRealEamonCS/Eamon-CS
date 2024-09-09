@@ -136,15 +136,6 @@ namespace TheWayfarersInn.Game.States
 					northDoorArtifact.DoorGate.SetOpen(false);
 				}
 
-				// Go into foyer after Charlotte rests in peace; Caldwell family reunited
-
-				if (gGameState.Ro == 23 && gGameState.R3 == 13 && gGameState.CharlotteRestInPeace && !gGameState.CharlotteReunited)
-				{
-					gEngine.PrintEffectDesc(57);
-
-					gGameState.CharlotteReunited = true;
-				}
-
 				// Go into root cellar; bourbon and folded note appear on bar
 
 				if (gGameState.Ro == 29 && gGameState.R3 == 28 && !gGameState.CharlotteRestInPeace && !gGameState.BourbonAppeared)
