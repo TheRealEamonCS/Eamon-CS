@@ -136,20 +136,6 @@ namespace TheWayfarersInn.Game.States
 					northDoorArtifact.DoorGate.SetOpen(false);
 				}
 
-				// Go where Charlotte can't follow (to Entryway or Clearing)
-
-				if (((gGameState.Ro == 13 && gGameState.R3 == 23) || (gGameState.Ro == 9 && gGameState.R3 == 45) || (gGameState.Ro == 10 && gGameState.R3 == 57) || (gGameState.Ro == 12 && gGameState.R3 == 59)) && gGameState.CharlotteMet && childsApparitionMonster.IsInRoomUid(gGameState.R3))
-				{
-					gEngine.PrintEffectDesc(61);
-				}
-
-				// Go back to Charlotte (from Entryway)
-
-				if (gGameState.Ro == 23 && gGameState.R3 == 13 && gGameState.CharlotteMet && childsApparitionMonster.IsInRoomUid(gGameState.Ro))
-				{
-					gEngine.PrintEffectDesc(63);
-				}
-
 				// Go into foyer after Charlotte rests in peace; Caldwell family reunited
 
 				if (gGameState.Ro == 23 && gGameState.R3 == 13 && gGameState.CharlotteRestInPeace && !gGameState.CharlotteReunited)
@@ -214,6 +200,13 @@ namespace TheWayfarersInn.Game.States
 					}
 				}
 
+				// Go where Charlotte can't follow (to Entryway or Clearing)
+
+				if (((gGameState.Ro == 13 && gGameState.R3 == 23) || (gGameState.Ro == 9 && gGameState.R3 == 45) || (gGameState.Ro == 10 && gGameState.R3 == 57) || (gGameState.Ro == 12 && gGameState.R3 == 59)) && gGameState.CharlotteMet && childsApparitionMonster.IsInRoomUid(gGameState.R3))
+				{
+					gEngine.PrintEffectDesc(61);
+				}
+
 				GuestRoomData guestRoomData = null;
 
 				// Go into guest room; add found artifact to furniture set if necessary
@@ -262,6 +255,13 @@ namespace TheWayfarersInn.Game.States
 					wildlifeArtifact.SetInLimbo();
 				}
 			
+				// Make sure Charlotte greets the player again
+
+				if (!gCharRoom.IsWayfarersInnRoom())
+				{
+					gGameState.CharlotteGreets = false;
+				}
+
 				// Spin up event state machines
 
 				if (!childsApparitionMonster.IsInLimbo() && gCharRoom.IsWayfarersInnRoom())

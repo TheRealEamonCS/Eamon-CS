@@ -58,6 +58,9 @@ namespace TheWayfarersInn.Framework
 		bool CharlottePeeks { get; set; }
 
 		/// <summary></summary>
+		bool CharlotteGreets { get; set; }
+
+		/// <summary></summary>
 		bool CharlotteDeathSeen { get; set; }
 
 		/// <summary></summary>

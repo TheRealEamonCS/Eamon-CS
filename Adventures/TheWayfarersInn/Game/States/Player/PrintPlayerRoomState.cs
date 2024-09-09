@@ -96,6 +96,15 @@ namespace TheWayfarersInn.Game.States
 					gGameState.CharlottePeeks = true;
 				}
 
+				// Go back to Charlotte (from Entryway)
+
+				if (gGameState.Ro == 23 && gGameState.R3 == 13 && gGameState.CharlotteMet && childsApparitionMonster.IsInRoomUid(gGameState.Ro) && !gGameState.CharlotteGreets && gEngine.ShouldPreTurnProcess && gSentenceParser.IsInputExhausted)
+				{
+					gEngine.PrintEffectDesc(63);
+
+					gGameState.CharlotteGreets = true;
+				}
+
 				var rl = gEngine.RollDice(1, 100, 0);
 
 				var hauntingArtifactVanished = false;

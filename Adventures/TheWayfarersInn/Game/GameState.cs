@@ -54,6 +54,8 @@ namespace TheWayfarersInn.Game
 
 		public virtual bool CharlottePeeks { get; set; }
 
+		public virtual bool CharlotteGreets { get; set; }
+
 		public virtual bool CharlotteDeathSeen { get; set; }
 
 		public virtual bool CharlotteMet { get; set; }
