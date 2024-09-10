@@ -43,11 +43,33 @@ namespace EamonPM
 			- change the BuildGuid to upgrade the binary .apk file and the .DAT datafiles in the filesystem (but not CHARACTERS.DAT)
 		*/
 
-		public static string BuildGuid = "4C9208E5-07FE-4BA7-90A2-AE05060D2435";
-
 		public static ConcurrentDictionary<Type, ViewModelBase> ViewModelDictionary { get; set; }
 
 		public static ConcurrentDictionary<Type, Control> ViewDictionary { get; set; }
+
+		public static Thread GameThread { get; set; }
+
+		public static StringBuilder OutputBuf { get; set; }
+
+		public static Mutex OutputBufMutex { get; set; }
+
+		public static AutoResetEvent FinishInput { get; set; }
+
+		public static Action<string> StartBrowserFunc { get; set; }
+
+		public static Action KillProcessFunc { get; set; }
+
+		public static Action ShowKeyboardFunc { get; set; }
+
+		public static Action HideKeyboardFunc { get; set; }
+
+		public static Func<char, char> InputModifyCharFunc { get; set; }
+
+		public static Func<char, bool> InputValidCharFunc { get; set; }
+
+		public static Func<char, bool> InputTermCharFunc { get; set; }
+
+		public static string BuildGuid = "4C9208E5-07FE-4BA7-90A2-AE05060D2435";
 
 		public static string ProgramName { get; set; }
 
@@ -55,27 +77,11 @@ namespace EamonPM
 
 		public static string BasePath { get; set; }
 
-		public static Action KillProcessFunc { get; set; }
-
-		public static Action<string> StartBrowserFunc { get; set; }
-
-		public static Action ShowKeyboardFunc { get; set; }
-
-		public static Action HideKeyboardFunc { get; set; }
-
-		public static bool InitializeSettings { get; set; }
-
-
-
-		public static Thread GameThread { get; set; }
-
 		public static string WorkDir { get; set; }
 
 		public static string[] NextArgs { get; set; }
 
-		public static StringBuilder OutputBuf { get; set; }
-
-		public static Mutex OutputBufMutex { get; set; }
+		public static string InputEmptyVal { get; set; }
 
 		public static long InputBufSize { get; set; }
 
@@ -85,22 +91,11 @@ namespace EamonPM
 
 		public static char InputMaskChar { get; set; }
 
+		public static bool InitializeSettings { get; set; }
+
 		public static bool InputEmptyAllowed { get; set; }
 
 		public static bool FinishInputSet { get; set; }
-
-		public static string InputEmptyVal { get; set; }
-
-		public static Func<char, char> InputModifyCharFunc { get; set; }
-
-		public static Func<char, bool> InputValidCharFunc { get; set; }
-
-		public static Func<char, bool> InputTermCharFunc { get; set; }
-
-		public static AutoResetEvent FinishInput { get; set; }
-
-
-
 
 		public override void Initialize()
 		{
@@ -221,6 +216,50 @@ namespace EamonPM
 			Directory.SetCurrentDirectory(WorkDir);
 		}
 
+		public static void LoadPortabilityClassMappings(IDictionary<Type, Type> classMappings)
+		{
+			Debug.Assert(classMappings != null);
+
+			classMappings[typeof(ITextReader)] = typeof(Game.Portability.TextReader);
+
+			classMappings[typeof(ITextWriter)] = typeof(Game.Portability.TextWriter);
+
+			classMappings[typeof(IMutex)] = typeof(Game.Portability.Mutex);
+
+			classMappings[typeof(ITransferProtocol)] = typeof(Game.Portability.TransferProtocol);
+
+			classMappings[typeof(IDirectory)] = typeof(Game.Portability.Directory);
+
+			classMappings[typeof(IFile)] = typeof(Game.Portability.File);
+
+			classMappings[typeof(IPath)] = typeof(Game.Portability.Path);
+
+			classMappings[typeof(ISharpSerializer)] = typeof(Game.Portability.SharpSerializer);
+
+			classMappings[typeof(IThread)] = typeof(Game.Portability.Thread);
+		}
+
+		public static Assembly LoadAssembly(string assemblyPath)
+		{
+			Debug.Assert(!string.IsNullOrWhiteSpace(assemblyPath));
+
+			var assembly = AssemblyLoadContext.Default.LoadFromAssemblyPath(assemblyPath);
+
+			Debug.Assert(assembly != null);
+
+			foreach (var dependency in assembly.GetReferencedAssemblies())
+			{
+				var dependencyPath = Path.Combine(WorkDir, dependency.Name + ".dll");
+
+				if (File.Exists(dependencyPath))
+				{
+					LoadAssembly(dependencyPath);
+				}
+			}
+
+			return assembly;
+		}
+
 		public static void ExecutePlugin(string[] args, bool enableStdio = true)
 		{
 			Debug.Assert(args != null);
@@ -266,50 +305,6 @@ namespace EamonPM
 			program.LoadPortabilityClassMappings = LoadPortabilityClassMappings;
 
 			program.Main(args.Skip(2).ToArray());
-		}
-
-		public static Assembly LoadAssembly(string assemblyPath)
-		{
-			Debug.Assert(!string.IsNullOrWhiteSpace(assemblyPath));
-
-			var assembly = AssemblyLoadContext.Default.LoadFromAssemblyPath(assemblyPath);
-
-			Debug.Assert(assembly != null);
-
-			foreach (var dependency in assembly.GetReferencedAssemblies())
-			{
-				var dependencyPath = Path.Combine(WorkDir, dependency.Name + ".dll");
-
-				if (File.Exists(dependencyPath))
-				{
-					LoadAssembly(dependencyPath);
-				}
-			}
-
-			return assembly;
-		}
-
-		public static void LoadPortabilityClassMappings(IDictionary<Type, Type> classMappings)
-		{
-			Debug.Assert(classMappings != null);
-
-			classMappings[typeof(ITextReader)] = typeof(Game.Portability.TextReader);
-
-			classMappings[typeof(ITextWriter)] = typeof(Game.Portability.TextWriter);
-
-			classMappings[typeof(IMutex)] = typeof(Game.Portability.Mutex);
-
-			classMappings[typeof(ITransferProtocol)] = typeof(Game.Portability.TransferProtocol);
-
-			classMappings[typeof(IDirectory)] = typeof(Game.Portability.Directory);
-
-			classMappings[typeof(IFile)] = typeof(Game.Portability.File);
-
-			classMappings[typeof(IPath)] = typeof(Game.Portability.Path);
-
-			classMappings[typeof(ISharpSerializer)] = typeof(Game.Portability.SharpSerializer);
-
-			classMappings[typeof(IThread)] = typeof(Game.Portability.Thread);
 		}
 
 		public static async void PluginLoop(object obj)
@@ -414,6 +409,23 @@ namespace EamonPM
 			GameThread.Start(pluginLauncherViewModel.BatchFile.PluginArgs);
 		}
 
+		public static void KillProcess()
+		{
+			if (GameThread != null)
+			{
+				GameThread.Join(0);
+
+				if (GameThread.IsAlive)
+				{
+					//GameThread.Abort();
+				}
+			}
+
+			PopEngine();
+
+			KillProcessFunc?.Invoke();
+		}
+
 		public static bool ShouldStopApplicationOnBackPressed()
 		{
 			var mainView = GetView(typeof(MainView)) as MainView;
@@ -432,40 +444,11 @@ namespace EamonPM
 			}
 		}
 
-		public static void KillProcess()
-		{
-			if (GameThread != null)
-			{
-				GameThread.Join(0);
-
-				if (GameThread.IsAlive)
-				{
-					//GameThread.Abort();
-				}
-			}
-
-			PopEngine();
-
-			KillProcessFunc?.Invoke();
-		}
-
 		public static void DispatcherUIThreadPost(Action actionFunc)
 		{
 			Debug.Assert(actionFunc != null);
 
 			Dispatcher.UIThread.Post(actionFunc);
-		}
-
-		public static void ResetListBox(ListBox listBox)
-		{
-			Debug.Assert(listBox != null);
-
-			listBox.SelectedItem = null;
-
-			if (listBox.Items.Count > 0)
-			{
-				listBox.ScrollIntoView(listBox.Items[0]);
-			}
 		}
 
 		public static void ChangeTheme(string themeName)
@@ -537,7 +520,7 @@ namespace EamonPM
 					resources["RowDivider"] = Avalonia.Media.Color.Parse("#B3E5FC"); // Very Light Blue
 
 					break;
-				
+
 				case "Element Earth":
 
 					app.RequestedThemeVariant = ThemeVariant.Light;
@@ -597,6 +580,18 @@ namespace EamonPM
 					Debug.Assert(1 == 0);
 
 					break;
+			}
+		}
+
+		public static void ResetListBox(ListBox listBox)
+		{
+			Debug.Assert(listBox != null);
+
+			listBox.SelectedItem = null;
+
+			if (listBox.Items.Count > 0)
+			{
+				listBox.ScrollIntoView(listBox.Items[0]);
 			}
 		}
 
