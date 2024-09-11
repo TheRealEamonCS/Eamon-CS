@@ -1419,12 +1419,12 @@ namespace TheWayfarersInn.Game.Plugin
 
 				room = RDB[rl] as Framework.IRoom;
 			}
-			while (!room.IsWayfarersInnRoom() || (omittedRoomUids != null && omittedRoomUids.Contains(room.Uid)) || (gCharRoom.IsWayfarersInnClearingRoom() && !gGameState.OutdoorsHauntingSeen && !IsWindowRoomUid(room.Uid)));
+			while (!room.IsWayfarersInnRoom() || (omittedRoomUids != null && omittedRoomUids.Contains(room.Uid)) || (gCharRoom.IsWayfarersInnClearingRoom() && !gGameState.HauntingSeen && !IsWindowRoomUid(room.Uid)));
 
 			return room;
 		}
 
-		public virtual void GetOutdoorsHauntingData(long charRoomUid, long unseenApparitionRoomUid, ref string stateDesc)
+		public virtual void GetHauntingData(long charRoomUid, long unseenApparitionRoomUid, ref string stateDesc)
 		{
 			switch (charRoomUid)
 			{

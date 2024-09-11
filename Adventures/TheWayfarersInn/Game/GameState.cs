@@ -46,7 +46,7 @@ namespace TheWayfarersInn.Game
 		[FieldName(1130)]
 		public virtual long[] EventStates { get; set; }
 
-		public virtual bool OutdoorsHauntingSeen { get; set; }
+		public virtual bool HauntingSeen { get; set; }
 
 		public virtual bool UnseenApparitionMet { get; set; }
 

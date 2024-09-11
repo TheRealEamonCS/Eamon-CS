@@ -46,7 +46,7 @@ namespace TheWayfarersInn.Framework
 		long[] EventStates { get; set; }
 
 		/// <summary></summary>
-		bool OutdoorsHauntingSeen { get; set; }
+		bool HauntingSeen { get; set; }
 
 		/// <summary></summary>
 		bool UnseenApparitionMet { get; set; }

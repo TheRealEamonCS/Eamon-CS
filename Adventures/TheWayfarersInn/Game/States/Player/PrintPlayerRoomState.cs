@@ -145,14 +145,7 @@ namespace TheWayfarersInn.Game.States
 
 					if (hauntingArtifact.IsInRoom(gCharRoom))
 					{
-						if (gCharRoom.IsWayfarersInnClearingRoom())
-						{
-							gOut.Print("{0} suddenly {1}!", hauntingArtifact.GetTheName(true), hauntingArtifact.EvalPlural("vanishes", "vanish"));
-						}
-						else
-						{
-							// TODO: implement
-						}
+						gOut.Print("{0} suddenly {1}!", hauntingArtifact.GetTheName(true), hauntingArtifact.EvalPlural("vanishes", "vanish"));
 
 						hauntingArtifactVanished = true;
 					}
@@ -164,30 +157,23 @@ namespace TheWayfarersInn.Game.States
 
 				if (hauntingArtifact.IsInLimbo() && !hauntingArtifactVanished)
 				{
-					if (gCharRoom.IsWayfarersInnClearingRoom())
+					var stateDesc = "";
+
+					gEngine.GetHauntingData(gCharRoom.Uid, unseenApparitionMonster.GetInRoomUid(), ref stateDesc);
+
+					rl = gEngine.RollDice(1, 100, 0);
+
+					if (!string.IsNullOrWhiteSpace(stateDesc) && (rl < 50 || !gGameState.HauntingSeen))
 					{
-						var stateDesc = "";
+						var name = gEngine.GetRandomElement(new string[] { "ghostly face", "ghostly figure", "ghostly form", "ghostly light" });
 
-						gEngine.GetOutdoorsHauntingData(gCharRoom.Uid, unseenApparitionMonster.GetInRoomUid(), ref stateDesc);
+						var synonyms = new string[] { name.Split(' ')[1] };
 
-						rl = gEngine.RollDice(1, 100, 0);
+						hauntingArtifact.Field1 = gEngine.RollDice(1, 4, -1);
 
-						if (!string.IsNullOrWhiteSpace(stateDesc) && (rl < 50 || !gGameState.OutdoorsHauntingSeen))
-						{
-							var name = gEngine.GetRandomElement(new string[] { "ghostly face", "ghostly figure", "ghostly form", "ghostly light" });
+						gEngine.BuildDecorationArtifact(151, 56, name, synonyms, stateDesc);
 
-							var synonyms = new string[] { name.Split(' ')[1] };
-
-							hauntingArtifact.Field1 = gEngine.RollDice(1, 4, -1);
-
-							gEngine.BuildDecorationArtifact(151, 56, name, synonyms, stateDesc);
-
-							gGameState.OutdoorsHauntingSeen = true;
-						}
-					}
-					else
-					{
-						// TODO: implement
+						gGameState.HauntingSeen = true;
 					}
 				}
 

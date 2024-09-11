@@ -42,18 +42,6 @@ namespace TheWayfarersInn.Game
 			return (Uid != 17 && Uid != 18) || index != 12 ? base.IsDirectionInObviousExitsList(index) : false;
 		}
 
-		public override string GetYouAlsoSee(bool showDesc, IList<IMonster> monsterList, IList<IArtifact> artifactList, IList<IGameBase> recordList)
-		{
-			Debug.Assert(monsterList != null && artifactList != null && recordList != null);
-
-			// Always use "notice" when indoors haunting Artifact in artifactList (may be auditory)
-
-			return string.Format("{0}You {1}{2}",
-					!showDesc ? Environment.NewLine : "",
-					showDesc ? "also " : "",
-					IsWayfarersInnRoom() && artifactList.FirstOrDefault(a => a.Uid == 151) != null ? "notice " : showDesc && !monsterList.Any() ? "notice " : "see ");
-		}
-
 		public override bool IsArtifactListedInRoom(IArtifact artifact)
 		{
 			if (artifact != null && artifact.IsInRoom(this))

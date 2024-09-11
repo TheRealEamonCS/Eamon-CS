@@ -51,7 +51,7 @@ namespace TheWayfarersInn.Framework.Plugin
 
 		Eamon.Framework.IRoom GetRandomWayfarersInnRoom(long[] omittedRoomUids);
 
-		void GetOutdoorsHauntingData(long charRoomUid, long unseenApparitionRoomUid, ref string stateDesc);
+		void GetHauntingData(long charRoomUid, long unseenApparitionRoomUid, ref string stateDesc);
 
 		void BuildDecorationArtifact(long artifactUid, long effectUid, string name, string[] synonyms, string stateDesc, ArticleType articleType = ArticleType.A, PluralType pluralType = PluralType.S, bool isPlural = false);
 	}
