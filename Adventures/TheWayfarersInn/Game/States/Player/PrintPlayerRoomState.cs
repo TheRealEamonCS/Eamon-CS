@@ -89,6 +89,15 @@ namespace TheWayfarersInn.Game.States
 						gGameState.BourbonNoticed = true;
 					}
 
+					// Bedroom door creaks open
+
+					if (gCharRoom.Uid == 38 && gGameState.CharlotteDeathSeen && !gGameState.DoorCreaksOpen)
+					{
+						gEngine.PrintEffectDesc(60);
+
+						gGameState.DoorCreaksOpen = true;
+					}
+
 					// Child's apparition peeks from behind the majestic oak tree
 
 					if (gCharRoom.Uid == 31 && majesticOakTreeArtifact.Seen && !unseenApparitionMonster.IsInLimbo() && !unseenApparitionMonster.IsInRoom(gCharRoom) && !gGameState.CharlottePeeks)

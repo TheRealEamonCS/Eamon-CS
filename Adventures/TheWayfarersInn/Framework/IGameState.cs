@@ -49,9 +49,6 @@ namespace TheWayfarersInn.Framework
 		bool OutdoorsHauntingSeen { get; set; }
 
 		/// <summary></summary>
-		bool IndoorsHauntingSeen { get; set; }
-
-		/// <summary></summary>
 		bool UnseenApparitionMet { get; set; }
 
 		/// <summary></summary>
@@ -119,6 +116,9 @@ namespace TheWayfarersInn.Framework
 
 		/// <summary></summary>
 		bool BourbonNoticed { get; set; }
+
+		/// <summary></summary>
+		bool DoorCreaksOpen { get; set; }
 
 		/// <summary></summary>
 		bool DartboardCreepsOut { get; set; }

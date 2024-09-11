@@ -48,8 +48,6 @@ namespace TheWayfarersInn.Game
 
 		public virtual bool OutdoorsHauntingSeen { get; set; }
 
-		public virtual bool IndoorsHauntingSeen { get; set; }
-
 		public virtual bool UnseenApparitionMet { get; set; }
 
 		public virtual bool CharlottePeeks { get; set; }
@@ -95,6 +93,8 @@ namespace TheWayfarersInn.Game
 		public virtual bool BourbonAppeared { get; set; }
 
 		public virtual bool BourbonNoticed { get; set; }
+
+		public virtual bool DoorCreaksOpen { get; set; }
 
 		public virtual bool DartboardCreepsOut { get; set; }
 
