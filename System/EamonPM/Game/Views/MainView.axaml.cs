@@ -77,9 +77,9 @@ namespace EamonPM.Game.Views
 		{
 			var screenBounds = this.VisualRoot.ClientSize;
 
-			var pluginLauncherViewModel = App.GetViewModel(typeof(PluginLauncherViewModel)) as PluginLauncherViewModel;
-
 			var pluginLauncherView = App.GetView(typeof(PluginLauncherView)) as PluginLauncherView;
+
+			var pluginLauncherViewModel = App.GetViewModel(typeof(PluginLauncherViewModel)) as PluginLauncherViewModel;
 
 			if (sender is IInputPane inputPane && e != null && pluginLauncherViewModel != null && pluginLauncherView != null)
 			{

@@ -138,9 +138,9 @@ namespace EamonPM.Game.Views
 
 		public virtual async void OutputBufMaxSizeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			var pluginLauncherViewModel = App.GetViewModel(typeof(PluginLauncherViewModel)) as PluginLauncherViewModel;
-
 			var pluginLauncherView = App.GetView(typeof(PluginLauncherView)) as PluginLauncherView;
+
+			var pluginLauncherViewModel = App.GetViewModel(typeof(PluginLauncherViewModel)) as PluginLauncherViewModel;
 
 			if (sender is ComboBox comboBox && comboBox.SelectedItem != null && DataContext is SettingsViewModel settingsViewModel && pluginLauncherViewModel != null && pluginLauncherView != null)
 			{
@@ -175,9 +175,9 @@ namespace EamonPM.Game.Views
 
 		public virtual async void OutputWindowMaxSizeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			var pluginLauncherViewModel = App.GetViewModel(typeof(PluginLauncherViewModel)) as PluginLauncherViewModel;
-
 			var pluginLauncherView = App.GetView(typeof(PluginLauncherView)) as PluginLauncherView;
+
+			var pluginLauncherViewModel = App.GetViewModel(typeof(PluginLauncherViewModel)) as PluginLauncherViewModel;
 
 			if (sender is ComboBox comboBox && comboBox.SelectedItem != null && DataContext is SettingsViewModel settingsViewModel && pluginLauncherViewModel != null && pluginLauncherView != null)
 			{

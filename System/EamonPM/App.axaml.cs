@@ -7,7 +7,6 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Loader;
@@ -20,6 +19,7 @@ using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
+using Avalonia.Media;
 using Avalonia.Styling;
 using Avalonia.Threading;
 using MsBox.Avalonia;
@@ -120,12 +120,12 @@ namespace EamonPM
 
 		public override async void OnFrameworkInitializationCompleted()
 		{
+			var settingsView = GetView(typeof(SettingsView)) as SettingsView;
+
+			var settingsViewModel = GetViewModel(typeof(SettingsViewModel)) as SettingsViewModel;
+
 			if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
 			{
-				var settingsView = GetView(typeof(SettingsView)) as SettingsView;
-
-				var settingsViewModel = GetViewModel(typeof(SettingsViewModel)) as SettingsViewModel;
-
 				var splashScreen = GetView(typeof(SplashScreen)) as Window;
 
 				desktop.MainWindow = splashScreen;
@@ -160,15 +160,9 @@ namespace EamonPM
 				mainWindow.Show();
 
 				splashScreen.Close();
-
-				settingsViewModel.SettingsChanged = false;
 			}
 			else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
 			{
-				var settingsView = GetView(typeof(SettingsView)) as SettingsView;
-
-				var settingsViewModel = GetViewModel(typeof(SettingsViewModel)) as SettingsViewModel;
-
 				var mainView = GetView(typeof(MainView));
 
 				var mainViewModel = GetViewModel(typeof(MainViewModel)) as MainViewModel;
@@ -178,9 +172,9 @@ namespace EamonPM
 				mainViewModel.NavigateTo(eamonCSView, "Eamon CS", false);
 
 				singleViewPlatform.MainView = mainView;
-
-				settingsViewModel.SettingsChanged = false;
 			}
+
+			settingsViewModel.SettingsChanged = false;
 
 			base.OnFrameworkInitializationCompleted();
 
@@ -211,9 +205,9 @@ namespace EamonPM
 				KillProcess();
 			}
 
-			WorkDir = Path.Combine(BasePath, "System", "Bin");
+			WorkDir = gEngine.Path.Combine(BasePath, "System", "Bin");
 
-			Directory.SetCurrentDirectory(WorkDir);
+			gEngine.Directory.SetCurrentDirectory(WorkDir);
 		}
 
 		public static void LoadPortabilityClassMappings(IDictionary<Type, Type> classMappings)
@@ -249,9 +243,9 @@ namespace EamonPM
 
 			foreach (var dependency in assembly.GetReferencedAssemblies())
 			{
-				var dependencyPath = Path.Combine(WorkDir, dependency.Name + ".dll");
+				var dependencyPath = gEngine.Path.Combine(WorkDir, dependency.Name + ".dll");
 
-				if (File.Exists(dependencyPath))
+				if (gEngine.File.Exists(dependencyPath))
 				{
 					LoadAssembly(dependencyPath);
 				}
@@ -270,12 +264,12 @@ namespace EamonPM
 
 			var mainViewModel = GetViewModel(typeof(MainViewModel)) as MainViewModel;
 
-			var pluginFileName = Path.GetFileNameWithoutExtension(args[1]);
+			var pluginFileName = gEngine.Path.GetFileNameWithoutExtension(args[1]);
 
 			var mainTitle =
-				args.Contains("-dgs") || args.Contains("EamonMH.dll") ? "EamonMH" :
-				args.Contains("-rge") ? "EamonDD" :
-				args.Contains("EamonRT.dll") ? "EamonRT" :
+				Array.Exists(args, arg => arg.Equals("-dgs", StringComparison.OrdinalIgnoreCase) || arg.Equals("EamonMH.dll", StringComparison.OrdinalIgnoreCase)) ? "EamonMH" :
+				Array.Exists(args, arg => arg.Equals("-rge", StringComparison.OrdinalIgnoreCase)) ? "EamonDD" :
+				Array.Exists(args, arg => arg.Equals("EamonRT.dll", StringComparison.OrdinalIgnoreCase)) ? "EamonRT" :
 				pluginFileName;
 
 			mainViewModel.MainTitleStack.Pop();
@@ -284,7 +278,7 @@ namespace EamonPM
 
 			mainViewModel.MainTitle = mainTitle;
 
-			var plugin = LoadAssembly(Path.Combine(WorkDir, args[1]));
+			var plugin = LoadAssembly(gEngine.Path.Combine(WorkDir, args[1]));
 
 			Debug.Assert(plugin != null);
 
@@ -349,9 +343,9 @@ namespace EamonPM
 					goto Cleanup;
 				}
 
-				var systemBinDir = string.Format("{0}System{0}Bin", Path.DirectorySeparatorChar);
+				var systemBinDir = string.Format("{0}System{0}Bin", gEngine.Path.DirectorySeparatorChar);
 
-				var currWorkDir = Directory.GetCurrentDirectory();
+				var currWorkDir = gEngine.Directory.GetCurrentDirectory();
 
 				// If current working directory invalid, bail out
 
@@ -387,7 +381,7 @@ namespace EamonPM
 				pluginLauncherView.InputTextBoxLoseFocus();
 			});
 
-			Thread.Sleep(750);
+			gEngine.Thread.Sleep(750);
 
 			DispatcherUIThreadPost(() =>
 			{
@@ -405,6 +399,8 @@ namespace EamonPM
 			{ 
 				IsBackground = true 
 			};
+
+			Debug.Assert(pluginLauncherViewModel.BatchFile != null);
 
 			GameThread.Start(pluginLauncherViewModel.BatchFile.PluginArgs);
 		}
@@ -454,10 +450,12 @@ namespace EamonPM
 		public static void ChangeTheme(string themeName)
 		{
 			var app = Application.Current;
-			if (app == null)
-				return;
+
+			Debug.Assert(app != null);
 
 			var resources = app.Resources;
+
+			Debug.Assert(resources != null);
 
 			var mainViewModel = GetViewModel(typeof(MainViewModel)) as MainViewModel;
 
@@ -465,23 +463,23 @@ namespace EamonPM
 
 			mainViewModel.IsBackArrowDarkActive = themeName == "Default Light";
 
+			app.RequestedThemeVariant = ThemeVariant.Light;
+
 			switch (themeName)
 			{
 				case "Default Light":
 
-					app.RequestedThemeVariant = ThemeVariant.Light;
-
-					resources["Primary"] = Avalonia.Media.Color.Parse("#D9D9D9"); // Light Gray
-					resources["PrimaryDark"] = Avalonia.Media.Color.Parse("#ABABAB"); // Darker Gray
-					resources["Accent"] = Avalonia.Media.Color.Parse("#9B9B9B"); // Medium Gray
-					resources["TitleTabItemForegroundColor"] = Avalonia.Media.Color.Parse("#313131"); // Dark Gray
-					resources["GeneralForegroundColor"] = Avalonia.Media.Color.Parse("#212121"); // Dark Gray
-					resources["LightBackgroundColor"] = Avalonia.Media.Color.Parse("#FFFFFF"); // White
-					resources["DarkBackgroundColor"] = Avalonia.Media.Color.Parse("#F5F5F5"); // Light Gray
-					resources["GeneralBackgroundColor"] = Avalonia.Media.Color.Parse("#FAFAFA"); // Very Light Gray
-					resources["MediumGrayTextColor"] = Avalonia.Media.Color.Parse("#757575"); // Medium Gray
-					resources["LightTextColor"] = Avalonia.Media.Color.Parse("#878787"); // Light Gray
-					resources["RowDivider"] = Avalonia.Media.Color.Parse("#D6D6D6"); // Light Gray
+					resources["Primary"] = Color.Parse("#D9D9D9"); // Light Gray
+					resources["PrimaryDark"] = Color.Parse("#ABABAB"); // Darker Gray
+					resources["Accent"] = Color.Parse("#9B9B9B"); // Medium Gray
+					resources["TitleTabItemForegroundColor"] = Color.Parse("#313131"); // Dark Gray
+					resources["GeneralForegroundColor"] = Color.Parse("#212121"); // Dark Gray
+					resources["LightBackgroundColor"] = Color.Parse("#FFFFFF"); // White
+					resources["DarkBackgroundColor"] = Color.Parse("#F5F5F5"); // Light Gray
+					resources["GeneralBackgroundColor"] = Color.Parse("#FAFAFA"); // Very Light Gray
+					resources["MediumGrayTextColor"] = Color.Parse("#757575"); // Medium Gray
+					resources["LightTextColor"] = Color.Parse("#878787"); // Light Gray
+					resources["RowDivider"] = Color.Parse("#D6D6D6"); // Light Gray
 
 					break;
 
@@ -489,89 +487,81 @@ namespace EamonPM
 
 					app.RequestedThemeVariant = ThemeVariant.Dark;
 
-					resources["Primary"] = Avalonia.Media.Color.Parse("#424242"); // Dark Gray
-					resources["PrimaryDark"] = Avalonia.Media.Color.Parse("#303030"); // Darker Gray
-					resources["Accent"] = Avalonia.Media.Color.Parse("#6F6F6F"); // Lighter Gray
-					resources["TitleTabItemForegroundColor"] = Avalonia.Media.Color.Parse("#FFFFFF"); // White
-					resources["GeneralForegroundColor"] = Avalonia.Media.Color.Parse("#E0E0E0"); // Light Gray
-					resources["LightBackgroundColor"] = Avalonia.Media.Color.Parse("#303030"); // Very Dark Gray
-					resources["DarkBackgroundColor"] = Avalonia.Media.Color.Parse("#212121"); // Near Black
-					resources["GeneralBackgroundColor"] = Avalonia.Media.Color.Parse("#121212"); // Black
-					resources["MediumGrayTextColor"] = Avalonia.Media.Color.Parse("#B0BEC5"); // Light Blue-Gray
-					resources["LightTextColor"] = Avalonia.Media.Color.Parse("#CFD8DC"); // Soft Blue-Gray
-					resources["RowDivider"] = Avalonia.Media.Color.Parse("#37474F"); // Dark Blue-Gray
+					resources["Primary"] = Color.Parse("#424242"); // Dark Gray
+					resources["PrimaryDark"] = Color.Parse("#303030"); // Darker Gray
+					resources["Accent"] = Color.Parse("#6F6F6F"); // Lighter Gray
+					resources["TitleTabItemForegroundColor"] = Color.Parse("#FFFFFF"); // White
+					resources["GeneralForegroundColor"] = Color.Parse("#E0E0E0"); // Light Gray
+					resources["LightBackgroundColor"] = Color.Parse("#303030"); // Very Dark Gray
+					resources["DarkBackgroundColor"] = Color.Parse("#212121"); // Near Black
+					resources["GeneralBackgroundColor"] = Color.Parse("#121212"); // Black
+					resources["MediumGrayTextColor"] = Color.Parse("#B0BEC5"); // Light Blue-Gray
+					resources["LightTextColor"] = Color.Parse("#CFD8DC"); // Soft Blue-Gray
+					resources["RowDivider"] = Color.Parse("#37474F"); // Dark Blue-Gray
 
 					break;
 
 				case "Element Air":
 
-					app.RequestedThemeVariant = ThemeVariant.Light;
-
-					resources["Primary"] = Avalonia.Media.Color.Parse("#1970DB"); // Darker Rich Sky Blue
-					resources["PrimaryDark"] = Avalonia.Media.Color.Parse("#12488F"); // Darker Deep Sky Blue
-					resources["Accent"] = Avalonia.Media.Color.Parse("#64B5F6"); // Vibrant Light Blue
-					resources["TitleTabItemForegroundColor"] = Avalonia.Media.Color.Parse("#FFFFFF"); // White
-					resources["GeneralForegroundColor"] = Avalonia.Media.Color.Parse("#000000"); // Black
-					resources["LightBackgroundColor"] = Avalonia.Media.Color.Parse("#E3F2FD"); // Very Light Sky Blue
-					resources["DarkBackgroundColor"] = Avalonia.Media.Color.Parse("#90CAF9"); // Light Muted Blue
-					resources["GeneralBackgroundColor"] = Avalonia.Media.Color.Parse("#FFFFFF"); // White
-					resources["MediumGrayTextColor"] = Avalonia.Media.Color.Parse("#3F51B5"); // Medium Sky Blue
-					resources["LightTextColor"] = Avalonia.Media.Color.Parse("#7986CB"); // Light Muted Blue
-					resources["RowDivider"] = Avalonia.Media.Color.Parse("#B3E5FC"); // Very Light Blue
+					resources["Primary"] = Color.Parse("#1970DB"); // Darker Rich Sky Blue
+					resources["PrimaryDark"] = Color.Parse("#12488F"); // Darker Deep Sky Blue
+					resources["Accent"] = Color.Parse("#64B5F6"); // Vibrant Light Blue
+					resources["TitleTabItemForegroundColor"] = Color.Parse("#FFFFFF"); // White
+					resources["GeneralForegroundColor"] = Color.Parse("#000000"); // Black
+					resources["LightBackgroundColor"] = Color.Parse("#E3F2FD"); // Very Light Sky Blue
+					resources["DarkBackgroundColor"] = Color.Parse("#90CAF9"); // Light Muted Blue
+					resources["GeneralBackgroundColor"] = Color.Parse("#FFFFFF"); // White
+					resources["MediumGrayTextColor"] = Color.Parse("#3F51B5"); // Medium Sky Blue
+					resources["LightTextColor"] = Color.Parse("#7986CB"); // Light Muted Blue
+					resources["RowDivider"] = Color.Parse("#B3E5FC"); // Very Light Blue
 
 					break;
 
 				case "Element Earth":
 
-					app.RequestedThemeVariant = ThemeVariant.Light;
-
-					resources["Primary"] = Avalonia.Media.Color.Parse("#217A3A"); // Deep Forest Green
-					resources["PrimaryDark"] = Avalonia.Media.Color.Parse("#165225"); // Very Dark Forest Green
-					resources["Accent"] = Avalonia.Media.Color.Parse("#D98B4A"); // Honey Bronze
-					resources["TitleTabItemForegroundColor"] = Avalonia.Media.Color.Parse("#FFFFFF"); // White
-					resources["GeneralForegroundColor"] = Avalonia.Media.Color.Parse("#000000"); // Black
-					resources["LightBackgroundColor"] = Avalonia.Media.Color.Parse("#E8F5E9"); // Light Leaf Green
-					resources["DarkBackgroundColor"] = Avalonia.Media.Color.Parse("#4E6B58"); // Muted Olive Green
-					resources["GeneralBackgroundColor"] = Avalonia.Media.Color.Parse("#FFFFFF"); // White
-					resources["MediumGrayTextColor"] = Avalonia.Media.Color.Parse("#2E3B33"); // Dark Olive Green
-					resources["LightTextColor"] = Avalonia.Media.Color.Parse("#73877B"); // Light Sage Green
-					resources["RowDivider"] = Avalonia.Media.Color.Parse("#C8E6C9"); // Very Light Mint Green
+					resources["Primary"] = Color.Parse("#217A3A"); // Deep Forest Green
+					resources["PrimaryDark"] = Color.Parse("#165225"); // Very Dark Forest Green
+					resources["Accent"] = Color.Parse("#D98B4A"); // Honey Bronze
+					resources["TitleTabItemForegroundColor"] = Color.Parse("#FFFFFF"); // White
+					resources["GeneralForegroundColor"] = Color.Parse("#000000"); // Black
+					resources["LightBackgroundColor"] = Color.Parse("#E8F5E9"); // Light Leaf Green
+					resources["DarkBackgroundColor"] = Color.Parse("#4E6B58"); // Muted Olive Green
+					resources["GeneralBackgroundColor"] = Color.Parse("#FFFFFF"); // White
+					resources["MediumGrayTextColor"] = Color.Parse("#2E3B33"); // Dark Olive Green
+					resources["LightTextColor"] = Color.Parse("#73877B"); // Light Sage Green
+					resources["RowDivider"] = Color.Parse("#C8E6C9"); // Very Light Mint Green
 
 					break;
 
 				case "Element Fire":
 
-					app.RequestedThemeVariant = ThemeVariant.Light;
-
-					resources["Primary"] = Avalonia.Media.Color.Parse("#B33B1B"); // Rich Ember Red
-					resources["PrimaryDark"] = Avalonia.Media.Color.Parse("#8F2500"); // Deep Dark Red
-					resources["Accent"] = Avalonia.Media.Color.Parse("#F57C00"); // Dark Orange
-					resources["TitleTabItemForegroundColor"] = Avalonia.Media.Color.Parse("#FFFFFF"); // White
-					resources["GeneralForegroundColor"] = Avalonia.Media.Color.Parse("#000000"); // Black
-					resources["LightBackgroundColor"] = Avalonia.Media.Color.Parse("#FFF3E0"); // Very Light Orange
-					resources["DarkBackgroundColor"] = Avalonia.Media.Color.Parse("#FFAB91"); // Light Muted Red
-					resources["GeneralBackgroundColor"] = Avalonia.Media.Color.Parse("#FFFFFF"); // White
-					resources["MediumGrayTextColor"] = Avalonia.Media.Color.Parse("#6B4226"); // Muted Warm Red Brown
-					resources["LightTextColor"] = Avalonia.Media.Color.Parse("#A04D2A"); // Soft Light Red Brown
-					resources["RowDivider"] = Avalonia.Media.Color.Parse("#FFD1C4"); // Very Light Orangish Red
+					resources["Primary"] = Color.Parse("#B33B1B"); // Rich Ember Red
+					resources["PrimaryDark"] = Color.Parse("#8F2500"); // Deep Dark Red
+					resources["Accent"] = Color.Parse("#F57C00"); // Dark Orange
+					resources["TitleTabItemForegroundColor"] = Color.Parse("#FFFFFF"); // White
+					resources["GeneralForegroundColor"] = Color.Parse("#000000"); // Black
+					resources["LightBackgroundColor"] = Color.Parse("#FFF3E0"); // Very Light Orange
+					resources["DarkBackgroundColor"] = Color.Parse("#FFAB91"); // Light Muted Red
+					resources["GeneralBackgroundColor"] = Color.Parse("#FFFFFF"); // White
+					resources["MediumGrayTextColor"] = Color.Parse("#6B4226"); // Muted Warm Red Brown
+					resources["LightTextColor"] = Color.Parse("#A04D2A"); // Soft Light Red Brown
+					resources["RowDivider"] = Color.Parse("#FFD1C4"); // Very Light Orangish Red
 
 					break;
 
 				case "Element Water":
 
-					app.RequestedThemeVariant = ThemeVariant.Light;
-
-					resources["Primary"] = Avalonia.Media.Color.Parse("#0D47A1"); // Deep Blue
-					resources["PrimaryDark"] = Avalonia.Media.Color.Parse("#002171"); // Darker Deep Blue
-					resources["Accent"] = Avalonia.Media.Color.Parse("#00BCD4"); // Aqua Blue
-					resources["TitleTabItemForegroundColor"] = Avalonia.Media.Color.Parse("#FFFFFF"); // White
-					resources["GeneralForegroundColor"] = Avalonia.Media.Color.Parse("#000000"); // Black
-					resources["LightBackgroundColor"] = Avalonia.Media.Color.Parse("#E0F7FA"); // Very Light Aqua
-					resources["DarkBackgroundColor"] = Avalonia.Media.Color.Parse("#B0BEC5"); // Light Grayish Blue
-					resources["GeneralBackgroundColor"] = Avalonia.Media.Color.Parse("#FFFFFF"); // White
-					resources["MediumGrayTextColor"] = Avalonia.Media.Color.Parse("#2C3B44"); // Darker Medium Grayish Blue
-					resources["LightTextColor"] = Avalonia.Media.Color.Parse("#788997"); // Darker Light Grayish Blue
-					resources["RowDivider"] = Avalonia.Media.Color.Parse("#CFD8DC"); // Very Light Grayish Blue
+					resources["Primary"] = Color.Parse("#0D47A1"); // Deep Blue
+					resources["PrimaryDark"] = Color.Parse("#002171"); // Darker Deep Blue
+					resources["Accent"] = Color.Parse("#00BCD4"); // Aqua Blue
+					resources["TitleTabItemForegroundColor"] = Color.Parse("#FFFFFF"); // White
+					resources["GeneralForegroundColor"] = Color.Parse("#000000"); // Black
+					resources["LightBackgroundColor"] = Color.Parse("#E0F7FA"); // Very Light Aqua
+					resources["DarkBackgroundColor"] = Color.Parse("#B0BEC5"); // Light Grayish Blue
+					resources["GeneralBackgroundColor"] = Color.Parse("#FFFFFF"); // White
+					resources["MediumGrayTextColor"] = Color.Parse("#2C3B44"); // Darker Medium Grayish Blue
+					resources["LightTextColor"] = Color.Parse("#788997"); // Darker Light Grayish Blue
+					resources["RowDivider"] = Color.Parse("#CFD8DC"); // Very Light Grayish Blue
 
 					break;
 
@@ -611,7 +601,7 @@ namespace EamonPM
 
 						var nlIndex = OutputBuf.IndexOf(Environment.NewLine[Environment.NewLine.Length - 1], startIndex);
 
-						if (nlIndex >= 0)
+						if (nlIndex > startIndex)
 						{
 							startIndex = nlIndex + 1;
 						}
@@ -643,21 +633,23 @@ namespace EamonPM
 				{
 					OutputBufMutex.WaitOne();
 
-					var startIndex = Math.Max(OutputBuf.Length - pluginLauncherViewModel.OutputWindowMaxSize, 0);
+					var startIndex = OutputBuf.Length - pluginLauncherViewModel.OutputWindowMaxSize;
 
 					if (startIndex > 0)
 					{
 						var nlIndex = OutputBuf.IndexOf(Environment.NewLine[Environment.NewLine.Length - 1], startIndex);
 
-						if (nlIndex >= 0)
+						if (nlIndex > startIndex)
 						{
 							startIndex = nlIndex + 1;
 						}
 					}
+					else
+					{
+						startIndex = 0;
+					}
 
-					var length = Math.Min(OutputBuf.Length - startIndex, pluginLauncherViewModel.OutputWindowMaxSize);
-
-					pluginLauncherViewModel.OutputText = OutputBuf.ToString(startIndex, length);
+					pluginLauncherViewModel.OutputText = OutputBuf.ToString().Substring(startIndex);
 				}
 				catch (Exception ex)
 				{
