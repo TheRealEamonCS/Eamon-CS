@@ -665,11 +665,27 @@ namespace EamonPM
 			});
 		}
 
+		public static Control GetView(Type type)
+		{
+			Debug.Assert(type != null);
+
+			Control result = null;
+
+			if (!ViewDictionary.TryGetValue(type, out result))
+			{
+				result = (Control)Activator.CreateInstance(type);
+
+				ViewDictionary[type] = result;
+			}
+
+			return result;
+		}
+
 		public static ViewModelBase GetViewModel(Type type)
 		{
 			Debug.Assert(type != null);
 
-			ViewModelBase result;
+			ViewModelBase result = null;
 
 			if (!ViewModelDictionary.TryGetValue(type, out result))
 			{
@@ -706,22 +722,6 @@ namespace EamonPM
 			return result;
 		}
 
-		public static Control GetView(Type type)
-		{
-			Debug.Assert(type != null);
-
-			Control result;
-
-			if (!ViewDictionary.TryGetValue(type, out result))
-			{
-				result = (Control)Activator.CreateInstance(type);
-
-				ViewDictionary[type] = result;
-			}
-
-			return result;
-		}
-
 		public static string[] GetAdventureDirs()
 		{
 			var dirList = new List<string>();
@@ -745,6 +745,8 @@ namespace EamonPM
 
 		public static bool PluginExists(string pluginFileName)
 		{
+			Debug.Assert(!string.IsNullOrWhiteSpace(pluginFileName));
+
 			var pluginPath = gEngine.Path.Combine(BasePath, "System", "Bin", pluginFileName);
 
 			var result = gEngine.File.Exists(pluginPath);
@@ -754,17 +756,17 @@ namespace EamonPM
 
 		public static async Task ShowErrorMessage(string message, Exception ex)
 		{
-			Debug.Assert(message != null);
+			Debug.Assert(!string.IsNullOrWhiteSpace(message));
 
 			Debug.Assert(ex != null);
 
 			await Dispatcher.UIThread.InvokeAsync(async () =>
 			{
-				var errorMessage = $"{message}\n\nError Type: {ex.GetType().Name}\n\nError Message: {ex.Message}";
+				var errorMessage = string.Format("{0}{1}{1}Error Type: {2}{1}{1}Error Message: {3}", message, Environment.NewLine, ex.GetType().Name, ex.Message);
 
 				if (ex.InnerException != null)
 				{
-					errorMessage += $"\n\nInner Error Type: {ex.InnerException.GetType().Name}\n\nInner Error Message: {ex.InnerException.Message}";
+					errorMessage += string.Format("{0}{0}Inner Error Type: {1}{0}{0}Inner Error Message: {2}", Environment.NewLine, ex.InnerException.GetType().Name, ex.InnerException.Message);
 				}
 
 				var messageBoxCustom = MessageBoxManager.GetMessageBoxCustom(
