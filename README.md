@@ -21,11 +21,11 @@ To obtain Eamon CS Mobile, download the [EamonPM.Android-Signed.apk](https://git
 
 #### Playing
 
-Inside the QuickLaunch directory, you should locate a platform-specific script called DetectDotnetAndConfigure.  Running this script successfully will configure Eamon CS, making it playable. 
+Inside the QuickLaunch directory, you'll find a platform-specific script called DetectDotnetAndConfigure.  Successfully running this script configures Eamon CS, making it playable. 
 
-The Eamon CS game runner, implemented using Avalonia UI, gives an identical user experience on all supported platforms.  Additionally, the game runner features a Settings Tab, allowing for customization. Please see [SUGGESTED GAMEPLAY SETTINGS](https://TheRealEamonCS.github.io/pages/TechnicalPaper/TechnicalPaper.html#ECSTP6) in the Technical Paper for more details.
+The Eamon CS game runner, built with Avalonia UI, offers a consistent user experience across all supported platforms and includes a Settings tab for customization.  Please see [SUGGESTED GAMEPLAY SETTINGS](https://TheRealEamonCS.github.io/pages/TechnicalPaper/TechnicalPaper.html#ECSTP6) in the Technical Paper for more details.
 
-For convenience, the EamonPM program shortcut can be moved to your desktop to easily access the system.
+For convenience, you can move the generated EamonPM program shortcut to your desktop for easy access.
 
 #### Contributing
 
