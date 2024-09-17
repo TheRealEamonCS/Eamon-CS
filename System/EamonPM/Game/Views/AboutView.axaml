@@ -49,14 +49,6 @@
 					<Run Foreground="{DynamicResource LightTextColor}"> 3.0.0.</Run>
 				</TextBlock>
 
-				<TextBlock FontSize="10" 
-						   HorizontalAlignment="Center" 
-						   Foreground="{DynamicResource LightTextColor}" 
-						   Margin="10,0,10,10">
-					<Run>BuildGuid: </Run>
-					<Run Text="{Binding BuildGuidWithPeriod, Mode=TwoWay}" />
-				</TextBlock>
-
 				<TextBlock FontSize="10"
 						   HorizontalAlignment="Center"
 						   Foreground="{DynamicResource LightTextColor}"
@@ -66,10 +58,18 @@
 				<TextBlock FontSize="10"
 						   HorizontalAlignment="Center"
 						   Foreground="{DynamicResource LightTextColor}"
-						   Margin="10,0,10,40"
+						   Margin="10,0,10,10"
 						   Text="This MIT Licensed free software has ABSOLUTELY NO WARRANTY." />
 
-				<TextBlock HorizontalAlignment="Center" 
+			   <TextBlock FontSize="10"
+						  HorizontalAlignment="Center"
+						  Foreground="{DynamicResource LightTextColor}"
+						  Margin="10,0,10,40">
+				  <Run>BuildGuid: </Run>
+				  <Run Text="{Binding BuildGuidWithPeriod, Mode=TwoWay}" />
+			   </TextBlock>
+
+			   <TextBlock HorizontalAlignment="Center" 
 						   Foreground="{DynamicResource GeneralForegroundColor}" 
 						   Margin="10,0,10,20" 
 						   TextWrapping="Wrap" 
