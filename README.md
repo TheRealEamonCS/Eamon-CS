@@ -25,7 +25,7 @@ Inside the QuickLaunch directory, you'll find a platform-specific script called 
 
 The Eamon CS game runner, built with Avalonia UI, offers a consistent user experience across all supported platforms and includes a Settings tab for customization.  Please see [SUGGESTED GAMEPLAY SETTINGS](https://TheRealEamonCS.github.io/pages/TechnicalPaper/TechnicalPaper.html#ECSTP6) in the Technical Paper for more details.
 
-For convenience, you can move the generated EamonPM program shortcut to your desktop for easy access.
+If helpful, you can move the generated EamonPM program shortcut to your desktop for easy access.
 
 #### Contributing
 
