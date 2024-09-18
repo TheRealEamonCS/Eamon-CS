@@ -21,23 +21,23 @@ namespace EamonPM.Game.ViewModels
 
 		public string _fontFamily;
 
-		public string _fontWeight;
-
-		public string _foregroundColor;
-
-		public string _backgroundColor;
-
 		public double _fontSize;
 
-		public double _windowWidth;
-
-		public double _windowHeight;
+		public string _fontWeight;
 
 		public int _outputBufMaxSize;
 
 		public int _outputWindowMaxSize;
 
+		public string _backgroundColor;
+
+		public string _foregroundColor;
+
 		public bool _keepKeyboardVisible;
+
+		public double _windowHeight;
+
+		public double _windowWidth;
 
 		public bool _settingsChanged;
 
@@ -51,10 +51,10 @@ namespace EamonPM.Game.ViewModels
 		public virtual List<FontFamily> FontFamilyList { get; set; }
 
 		[ExcludeFromSerialization]
-		public virtual List<FontWeight> FontWeightList { get; set; }
+		public virtual List<int> FontSizeList { get; set; }
 
 		[ExcludeFromSerialization]
-		public virtual List<int> FontSizeList { get; set; }
+		public virtual List<FontWeight> FontWeightList { get; set; }
 
 		[ExcludeFromSerialization]
 		public virtual List<int> OutputBufMaxSizeList { get; set; }
@@ -88,45 +88,6 @@ namespace EamonPM.Game.ViewModels
 			}
 		}
 
-		public virtual string FontWeight
-		{
-			get
-			{
-				return _fontWeight;
-			}
-
-			set
-			{
-				this.RaiseAndSetIfChanged(ref _fontWeight, value);
-			}
-		}
-
-		public virtual string ForegroundColor
-		{
-			get
-			{
-				return _foregroundColor;
-			}
-
-			set
-			{
-				this.RaiseAndSetIfChanged(ref _foregroundColor, value);
-			}
-		}
-
-		public virtual string BackgroundColor
-		{
-			get
-			{
-				return _backgroundColor;
-			}
-
-			set
-			{
-				this.RaiseAndSetIfChanged(ref _backgroundColor, value);
-			}
-		}
-
 		public virtual double FontSize
 		{
 			get
@@ -140,29 +101,16 @@ namespace EamonPM.Game.ViewModels
 			}
 		}
 
-		public virtual double WindowWidth
+		public virtual string FontWeight
 		{
 			get
 			{
-				return _windowWidth;
+				return _fontWeight;
 			}
 
 			set
 			{
-				this.RaiseAndSetIfChanged(ref _windowWidth, value);
-			}
-		}
-
-		public virtual double WindowHeight
-		{
-			get
-			{
-				return _windowHeight;
-			}
-
-			set
-			{
-				this.RaiseAndSetIfChanged(ref _windowHeight, value);
+				this.RaiseAndSetIfChanged(ref _fontWeight, value);
 			}
 		}
 
@@ -192,6 +140,32 @@ namespace EamonPM.Game.ViewModels
 			}
 		}
 
+		public virtual string BackgroundColor
+		{
+			get
+			{
+				return _backgroundColor;
+			}
+
+			set
+			{
+				this.RaiseAndSetIfChanged(ref _backgroundColor, value);
+			}
+		}
+
+		public virtual string ForegroundColor
+		{
+			get
+			{
+				return _foregroundColor;
+			}
+
+			set
+			{
+				this.RaiseAndSetIfChanged(ref _foregroundColor, value);
+			}
+		}
+
 		public virtual bool KeepKeyboardVisible
 		{
 			get
@@ -202,6 +176,32 @@ namespace EamonPM.Game.ViewModels
 			set
 			{
 				this.RaiseAndSetIfChanged(ref _keepKeyboardVisible, value);
+			}
+		}
+
+		public virtual double WindowHeight
+		{
+			get
+			{
+				return _windowHeight;
+			}
+
+			set
+			{
+				this.RaiseAndSetIfChanged(ref _windowHeight, value);
+			}
+		}
+
+		public virtual double WindowWidth
+		{
+			get
+			{
+				return _windowWidth;
+			}
+
+			set
+			{
+				this.RaiseAndSetIfChanged(ref _windowWidth, value);
 			}
 		}
 
@@ -239,29 +239,6 @@ namespace EamonPM.Game.ViewModels
 			SettingsChanged = true;
 		}
 
-		public virtual void FontWeightComboBoxSelectionChanged(string fontWeight)
-		{
-			Debug.Assert(!string.IsNullOrWhiteSpace(fontWeight));
-
-			FontWeight = fontWeight;
-
-			SettingsChanged = true;
-		}
-
-		public virtual void ForegroundColorPickerColorChanged(Color color)
-		{
-			ForegroundColor = ColorHelper.ToHexString(color);
-
-			SettingsChanged = true;
-		}
-
-		public virtual void BackgroundColorPickerColorChanged(Color color)
-		{
-			BackgroundColor = ColorHelper.ToHexString(color);
-
-			SettingsChanged = true;
-		}
-
 		public virtual void FontSizeComboBoxSelectionChanged(double fontSize)
 		{
 			Debug.Assert(fontSize > 0);
@@ -271,13 +248,11 @@ namespace EamonPM.Game.ViewModels
 			SettingsChanged = true;
 		}
 
-		public virtual void EamonPMMainWindowSizeChanged(double windowWidth, double windowHeight)
+		public virtual void FontWeightComboBoxSelectionChanged(string fontWeight)
 		{
-			Debug.Assert(windowWidth > 0 && windowHeight > 0);
+			Debug.Assert(!string.IsNullOrWhiteSpace(fontWeight));
 
-			WindowWidth = windowWidth;
-
-			WindowHeight = windowHeight;
+			FontWeight = fontWeight;
 
 			SettingsChanged = true;
 		}
@@ -300,6 +275,38 @@ namespace EamonPM.Game.ViewModels
 			SettingsChanged = true;
 		}
 
+		public virtual void BackgroundColorPickerColorChanged(Color color)
+		{
+			BackgroundColor = ColorHelper.ToHexString(color);
+
+			SettingsChanged = true;
+		}
+
+		public virtual void ForegroundColorPickerColorChanged(Color color)
+		{
+			ForegroundColor = ColorHelper.ToHexString(color);
+
+			SettingsChanged = true;
+		}
+
+		public virtual void KeepKeyboardVisibleToggleSwitchChanged(bool keepKeyboardVisible)
+		{
+			KeepKeyboardVisible = keepKeyboardVisible;
+
+			SettingsChanged = true;
+		}
+
+		public virtual void EamonPMMainWindowSizeChanged(double windowWidth, double windowHeight)
+		{
+			Debug.Assert(windowWidth > 0 && windowHeight > 0);
+
+			WindowWidth = windowWidth;
+
+			WindowHeight = windowHeight;
+
+			SettingsChanged = true;
+		}
+
 		public virtual void OutputWindowMaxSizeComboBoxSync()
 		{
 			OutputWindowMaxSizeList.Clear();
@@ -315,13 +322,6 @@ namespace EamonPM.Game.ViewModels
 					break;
 				}
 			}
-		}
-
-		public virtual void KeepKeyboardVisibleToggleSwitchChanged(bool keepKeyboardVisible)
-		{
-			KeepKeyboardVisible = keepKeyboardVisible;
-
-			SettingsChanged = true;
 		}
 
 		public virtual bool IsMonospaceFont(string fontFamily)
@@ -371,9 +371,9 @@ namespace EamonPM.Game.ViewModels
 				FontFamilyList = FontManager.Current.SystemFonts.OrderBy(f => f.Name).ToList();
 			}
 
-			FontWeightList = new List<FontWeight> { Avalonia.Media.FontWeight.Normal, Avalonia.Media.FontWeight.Bold, Avalonia.Media.FontWeight.Black };
-
 			FontSizeList = new List<int> { 6, 7, 8, 9, 10, 11, 12, 14, 16, 18, 20, 22, 24, 26, 28, 36, 48, 72 };
+
+			FontWeightList = new List<FontWeight> { Avalonia.Media.FontWeight.Normal, Avalonia.Media.FontWeight.Bold, Avalonia.Media.FontWeight.Black };
 
 			OutputBufMaxSizeList = new List<int> { 8192, 16384, 32768, 65536, 131072, 262144, 524288, 1048576 };
 
@@ -383,23 +383,23 @@ namespace EamonPM.Game.ViewModels
 
 			FontFamily = FontFamilyList[0].Name;
 
-			FontWeight = FontWeightList[0].ToString();
-
-			ForegroundColor = ColorHelper.ToHexString(Color.FromRgb(0, 0, 0));
-
-			BackgroundColor = ColorHelper.ToHexString(Color.FromRgb(255, 255, 255));
-
 			FontSize = FontSizeList[7];
 
-			WindowWidth = 600;
-
-			WindowHeight = 800;
+			FontWeight = FontWeightList[0].ToString();
 
 			OutputBufMaxSize = OutputBufMaxSizeList[5];
 
 			OutputWindowMaxSize = OutputWindowMaxSizeList[2];
 
+			BackgroundColor = ColorHelper.ToHexString(Color.FromRgb(255, 255, 255));
+
+			ForegroundColor = ColorHelper.ToHexString(Color.FromRgb(0, 0, 0));
+
 			KeepKeyboardVisible = false;
+
+			WindowWidth = 600;
+
+			WindowHeight = 800;
 		}
 	}
 }

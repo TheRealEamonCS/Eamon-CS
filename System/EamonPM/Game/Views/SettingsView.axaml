@@ -118,11 +118,14 @@
 						   HorizontalAlignment="Stretch"
 						   Fill="{DynamicResource RowDivider}" />
 
+
+
+
 				<TextBlock Grid.Row="4"
 						   Grid.Column="0"
 						   Margin="10,0,10,0"
 						   VerticalAlignment="Center"
-						   Text="Font Weight" />
+						   Text="Font Size" />
 
 				<ComboBox Grid.Row="4"
 						  Grid.Column="2"
@@ -130,12 +133,12 @@
 						  MaxDropDownHeight="200"
 						  VerticalAlignment="Center"
 						  HorizontalAlignment="Left"
-						  ItemsSource="{Binding FontWeightList, Mode=TwoWay}"
-						  SelectionChanged="FontWeightComboBox_SelectionChanged"
-						  x:Name="FontWeightComboBox">
+						  ItemsSource="{Binding FontSizeList, Mode=TwoWay}"
+						  SelectionChanged="FontSizeComboBox_SelectionChanged"
+						  x:Name="FontSizeComboBox">
 					<ComboBox.ItemTemplate>
 						<DataTemplate>
-							<TextBlock Text="{Binding}" FontWeight="{Binding}" />
+							<TextBlock Text="{Binding}" />
 						</DataTemplate>
 					</ComboBox.ItemTemplate>
 				</ComboBox>
@@ -150,7 +153,7 @@
 						   Grid.Column="0"
 						   Margin="10,0,10,0"
 						   VerticalAlignment="Center"
-						   Text="Font Size" />
+						   Text="Font Weight" />
 
 				<ComboBox Grid.Row="6"
 						  Grid.Column="2"
@@ -158,12 +161,12 @@
 						  MaxDropDownHeight="200"
 						  VerticalAlignment="Center"
 						  HorizontalAlignment="Left"
-						  ItemsSource="{Binding FontSizeList, Mode=TwoWay}"
-						  SelectionChanged="FontSizeComboBox_SelectionChanged"
-						  x:Name="FontSizeComboBox">
+						  ItemsSource="{Binding FontWeightList, Mode=TwoWay}"
+						  SelectionChanged="FontWeightComboBox_SelectionChanged"
+						  x:Name="FontWeightComboBox">
 					<ComboBox.ItemTemplate>
 						<DataTemplate>
-							<TextBlock Text="{Binding}" />
+							<TextBlock Text="{Binding}" FontWeight="{Binding}" />
 						</DataTemplate>
 					</ComboBox.ItemTemplate>
 				</ComboBox>
@@ -234,15 +237,15 @@
 						   Grid.Column="0"
 						   Margin="10,0,10,0"
 						   VerticalAlignment="Center"
-						   Text="Foreground Color" />
+						   Text="Background Color" />
 
 				<ColorPicker Grid.Row="12"
 							 Grid.Column="2"
 							 Margin="10,0,10,0"
 							 VerticalAlignment="Center"
 							 HorizontalAlignment="Left"
-							 ColorChanged="ForegroundColorPicker_ColorChanged"
-							 x:Name="ForegroundColorPicker" />
+							 ColorChanged="BackgroundColorPicker_ColorChanged"
+							 x:Name="BackgroundColorPicker" />
 
 				<Rectangle Grid.Row="13"
 						   Grid.ColumnSpan="3"
@@ -254,15 +257,15 @@
 						   Grid.Column="0"
 						   Margin="10,0,10,0"
 						   VerticalAlignment="Center"
-						   Text="Background Color" />
+						   Text="Foreground Color" />
 
 				<ColorPicker Grid.Row="14"
 							 Grid.Column="2"
 							 Margin="10,0,10,0"
 							 VerticalAlignment="Center"
 							 HorizontalAlignment="Left"
-							 ColorChanged="BackgroundColorPicker_ColorChanged"
-							 x:Name="BackgroundColorPicker" />
+							 ColorChanged="ForegroundColorPicker_ColorChanged"
+							 x:Name="ForegroundColorPicker" />
 
 				<Rectangle Grid.Row="15"
 						   Grid.ColumnSpan="3"
@@ -296,15 +299,15 @@
 						   Grid.Column="0"
 						   Margin="10,0,10,0"
 						   VerticalAlignment="Center"
-						   Text="Window Width" />
+						   Text="Window Height" />
 
 				<TextBlock Grid.Row="18"
 						   Grid.Column="2"
 						   Margin="10,0,10,0"
 						   VerticalAlignment="Center"
 						   HorizontalAlignment="Left"
-						   Text="{Binding WindowWidth, Mode=TwoWay}"
-						   x:Name="WindowWidthTextBlock" />
+						   Text="{Binding WindowHeight, Mode=TwoWay}"
+						   x:Name="WindowHeightTextBlock" />
 
 				<Rectangle Grid.Row="19"
 						   Grid.ColumnSpan="3"
@@ -316,15 +319,15 @@
 						   Grid.Column="0"
 						   Margin="10,0,10,0"
 						   VerticalAlignment="Center"
-						   Text="Window Height" />
+						   Text="Window Width" />
 
 				<TextBlock Grid.Row="20"
 						   Grid.Column="2"
 						   Margin="10,0,10,0"
 						   VerticalAlignment="Center"
 						   HorizontalAlignment="Left"
-						   Text="{Binding WindowHeight, Mode=TwoWay}"
-						   x:Name="WindowHeightTextBlock" />
+						   Text="{Binding WindowWidth, Mode=TwoWay}"
+						   x:Name="WindowWidthTextBlock" />
 
 				<Rectangle Grid.Row="21"
 						   Grid.ColumnSpan="3"

@@ -18,9 +18,9 @@ namespace EamonPM.Game.ViewModels
 
 		public FontWeight _fontWeight;
 
-		public SolidColorBrush _foregroundColor;
-
 		public SolidColorBrush _backgroundColor;
+
+		public SolidColorBrush _foregroundColor;
 
 		public Thickness _inputTextBoxMargin;
 
@@ -66,19 +66,6 @@ namespace EamonPM.Game.ViewModels
 			}
 		}
 
-		public virtual SolidColorBrush ForegroundColor
-		{
-			get
-			{
-				return _foregroundColor;
-			}
-
-			set
-			{
-				this.RaiseAndSetIfChanged(ref _foregroundColor, value);
-			}
-		}
-
 		public virtual SolidColorBrush BackgroundColor
 		{
 			get
@@ -89,6 +76,19 @@ namespace EamonPM.Game.ViewModels
 			set
 			{
 				this.RaiseAndSetIfChanged(ref _backgroundColor, value);
+			}
+		}
+
+		public virtual SolidColorBrush ForegroundColor
+		{
+			get
+			{
+				return _foregroundColor;
+			}
+
+			set
+			{
+				this.RaiseAndSetIfChanged(ref _foregroundColor, value);
 			}
 		}
 
@@ -207,14 +207,14 @@ namespace EamonPM.Game.ViewModels
 			FontWeight = FontWeightHelper.FromString(fontWeight);
 		}
 
-		public virtual void ForegroundColorPickerColorChanged(Color color)
-		{
-			ForegroundColor = new SolidColorBrush(color);
-		}
-
 		public virtual void BackgroundColorPickerColorChanged(Color color)
 		{
 			BackgroundColor = new SolidColorBrush(color);
+		}
+
+		public virtual void ForegroundColorPickerColorChanged(Color color)
+		{
+			ForegroundColor = new SolidColorBrush(color);
 		}
 
 		public virtual void InputTextBoxMarginChanged(Thickness thickness)

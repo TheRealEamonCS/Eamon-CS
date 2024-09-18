@@ -62,17 +62,17 @@ namespace EamonPM.Game.Views
 			}
 		}
 
-		public virtual async void FontWeightComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		public virtual async void FontSizeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			var pluginLauncherViewModel = App.GetViewModel(typeof(PluginLauncherViewModel)) as PluginLauncherViewModel;
 
 			if (sender is ComboBox comboBox && comboBox.SelectedItem != null && DataContext is SettingsViewModel settingsViewModel && pluginLauncherViewModel != null)
 			{
-				var fontWeight = (string)comboBox.SelectedItem.ToString();
+				var fontSize = Convert.ToDouble(comboBox.SelectedItem);
 
-				settingsViewModel.FontWeightComboBoxSelectionChanged(fontWeight);
+				settingsViewModel.FontSizeComboBoxSelectionChanged(fontSize);
 
-				pluginLauncherViewModel.FontWeightComboBoxSelectionChanged(fontWeight);
+				pluginLauncherViewModel.FontSizeComboBoxSelectionChanged(fontSize);
 
 				if (!App.InitializeSettings)
 				{
@@ -85,45 +85,17 @@ namespace EamonPM.Game.Views
 			}
 		}
 
-		public virtual void ForegroundColorPicker_ColorChanged(object sender, ColorChangedEventArgs e)
-		{
-			var pluginLauncherViewModel = App.GetViewModel(typeof(PluginLauncherViewModel)) as PluginLauncherViewModel;
-
-			if (sender is ColorPicker colorPicker && DataContext is SettingsViewModel settingsViewModel && pluginLauncherViewModel != null)
-			{
-				var color = colorPicker.Color;
-
-				settingsViewModel.ForegroundColorPickerColorChanged(color);
-
-				pluginLauncherViewModel.ForegroundColorPickerColorChanged(color);
-			}
-		}
-
-		public virtual void BackgroundColorPicker_ColorChanged(object sender, ColorChangedEventArgs e)
-		{
-			var pluginLauncherViewModel = App.GetViewModel(typeof(PluginLauncherViewModel)) as PluginLauncherViewModel;
-
-			if (sender is ColorPicker colorPicker && DataContext is SettingsViewModel settingsViewModel && pluginLauncherViewModel != null)
-			{
-				var color = colorPicker.Color;
-
-				settingsViewModel.BackgroundColorPickerColorChanged(color);
-
-				pluginLauncherViewModel.BackgroundColorPickerColorChanged(color);
-			}
-		}
-
-		public virtual async void FontSizeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		public virtual async void FontWeightComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			var pluginLauncherViewModel = App.GetViewModel(typeof(PluginLauncherViewModel)) as PluginLauncherViewModel;
 
 			if (sender is ComboBox comboBox && comboBox.SelectedItem != null && DataContext is SettingsViewModel settingsViewModel && pluginLauncherViewModel != null)
 			{
-				var fontSize = Convert.ToDouble(comboBox.SelectedItem);
+				var fontWeight = (string)comboBox.SelectedItem.ToString();
 
-				settingsViewModel.FontSizeComboBoxSelectionChanged(fontSize);
+				settingsViewModel.FontWeightComboBoxSelectionChanged(fontWeight);
 
-				pluginLauncherViewModel.FontSizeComboBoxSelectionChanged(fontSize);
+				pluginLauncherViewModel.FontWeightComboBoxSelectionChanged(fontWeight);
 
 				if (!App.InitializeSettings)
 				{
@@ -202,6 +174,34 @@ namespace EamonPM.Game.Views
 			}
 		}
 
+		public virtual void BackgroundColorPicker_ColorChanged(object sender, ColorChangedEventArgs e)
+		{
+			var pluginLauncherViewModel = App.GetViewModel(typeof(PluginLauncherViewModel)) as PluginLauncherViewModel;
+
+			if (sender is ColorPicker colorPicker && DataContext is SettingsViewModel settingsViewModel && pluginLauncherViewModel != null)
+			{
+				var color = colorPicker.Color;
+
+				settingsViewModel.BackgroundColorPickerColorChanged(color);
+
+				pluginLauncherViewModel.BackgroundColorPickerColorChanged(color);
+			}
+		}
+
+		public virtual void ForegroundColorPicker_ColorChanged(object sender, ColorChangedEventArgs e)
+		{
+			var pluginLauncherViewModel = App.GetViewModel(typeof(PluginLauncherViewModel)) as PluginLauncherViewModel;
+
+			if (sender is ColorPicker colorPicker && DataContext is SettingsViewModel settingsViewModel && pluginLauncherViewModel != null)
+			{
+				var color = colorPicker.Color;
+
+				settingsViewModel.ForegroundColorPickerColorChanged(color);
+
+				pluginLauncherViewModel.ForegroundColorPickerColorChanged(color);
+			}
+		}
+
 		public virtual void KeepKeyboardVisibleToggleSwitch_Changed(object sender, RoutedEventArgs e)
 		{
 			var pluginLauncherViewModel = App.GetViewModel(typeof(PluginLauncherViewModel)) as PluginLauncherViewModel;
@@ -265,6 +265,13 @@ namespace EamonPM.Game.Views
 				FontFamilyComboBox.SelectedIndex = 0;
 			}
 
+			FontSizeComboBox.SelectedIndex = viewModel.FontSizeList.IndexOf((int)viewModel.FontSize);
+
+			if (FontSizeComboBox.SelectedIndex < 0)
+			{
+				FontSizeComboBox.SelectedIndex = 7;
+			}
+
 			var fontWeight = viewModel.FontWeightList.FirstOrDefault(fw => fw.ToString().Equals(viewModel.FontWeight, StringComparison.OrdinalIgnoreCase));
 
 			FontWeightComboBox.SelectedIndex = viewModel.FontWeightList.IndexOf(fontWeight);
@@ -272,13 +279,6 @@ namespace EamonPM.Game.Views
 			if (FontWeightComboBox.SelectedIndex < 0)
 			{
 				FontWeightComboBox.SelectedIndex = 0;
-			}
-
-			FontSizeComboBox.SelectedIndex = viewModel.FontSizeList.IndexOf((int)viewModel.FontSize);
-
-			if (FontSizeComboBox.SelectedIndex < 0)
-			{
-				FontSizeComboBox.SelectedIndex = 7;
 			}
 
 			OutputBufMaxSizeComboBox.SelectedIndex = viewModel.OutputBufMaxSizeList.IndexOf(viewModel.OutputBufMaxSize);
@@ -295,15 +295,15 @@ namespace EamonPM.Game.Views
 				OutputWindowMaxSizeComboBox.SelectedIndex = Math.Min(viewModel.OutputWindowMaxSizeList.Count - 1, 2);
 			}
 
-			KeepKeyboardVisibleToggleSwitch.IsChecked = viewModel.KeepKeyboardVisible;
+			BackgroundColorPicker.Color = ColorHelper.FromHexString(viewModel.BackgroundColor, Color.FromRgb(255, 255, 255));
+
+			BackgroundColorPicker_ColorChanged(BackgroundColorPicker, null);
 
 			ForegroundColorPicker.Color = ColorHelper.FromHexString(viewModel.ForegroundColor, Color.FromRgb(0, 0, 0));
 
 			ForegroundColorPicker_ColorChanged(ForegroundColorPicker, null);
 
-			BackgroundColorPicker.Color = ColorHelper.FromHexString(viewModel.BackgroundColor, Color.FromRgb(255, 255, 255));
-
-			BackgroundColorPicker_ColorChanged(BackgroundColorPicker, null);
+			KeepKeyboardVisibleToggleSwitch.IsChecked = viewModel.KeepKeyboardVisible;
 
 			App.InitializeSettings = false;
 		}
