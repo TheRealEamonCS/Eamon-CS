@@ -16,21 +16,21 @@ namespace EamonPM.Game.ViewModels
 	{
 		public FontFamily _fontFamily;
 
-		public FontWeight _fontWeight;
-
-		public SolidColorBrush _backgroundColor;
-
-		public SolidColorBrush _foregroundColor;
-
-		public Thickness _inputTextBoxMargin;
-
 		public double _fontSize;
+
+		public FontWeight _fontWeight;
 
 		public int _outputBufMaxSize;
 
 		public int _outputWindowMaxSize;
 
+		public SolidColorBrush _backgroundColor;
+
+		public SolidColorBrush _foregroundColor;
+
 		public bool _keepKeyboardVisible;
+
+		public Thickness _inputTextBoxMargin;
 
 		public string _outputText;
 
@@ -53,58 +53,6 @@ namespace EamonPM.Game.ViewModels
 			}
 		}
 
-		public virtual FontWeight FontWeight
-		{
-			get
-			{
-				return _fontWeight;
-			}
-
-			set
-			{
-				this.RaiseAndSetIfChanged(ref _fontWeight, value);
-			}
-		}
-
-		public virtual SolidColorBrush BackgroundColor
-		{
-			get
-			{
-				return _backgroundColor;
-			}
-
-			set
-			{
-				this.RaiseAndSetIfChanged(ref _backgroundColor, value);
-			}
-		}
-
-		public virtual SolidColorBrush ForegroundColor
-		{
-			get
-			{
-				return _foregroundColor;
-			}
-
-			set
-			{
-				this.RaiseAndSetIfChanged(ref _foregroundColor, value);
-			}
-		}
-
-		public virtual Thickness InputTextBoxMargin
-		{
-			get
-			{
-				return _inputTextBoxMargin;
-			}
-
-			set
-			{
-				this.RaiseAndSetIfChanged(ref _inputTextBoxMargin, value);
-			}
-		}
-
 		public virtual double FontSize
 		{
 			get
@@ -115,6 +63,19 @@ namespace EamonPM.Game.ViewModels
 			set
 			{
 				this.RaiseAndSetIfChanged(ref _fontSize, value);
+			}
+		}
+
+		public virtual FontWeight FontWeight
+		{
+			get
+			{
+				return _fontWeight;
+			}
+
+			set
+			{
+				this.RaiseAndSetIfChanged(ref _fontWeight, value);
 			}
 		}
 
@@ -144,6 +105,32 @@ namespace EamonPM.Game.ViewModels
 			}
 		}
 
+		public virtual SolidColorBrush BackgroundColor
+		{
+			get
+			{
+				return _backgroundColor;
+			}
+
+			set
+			{
+				this.RaiseAndSetIfChanged(ref _backgroundColor, value);
+			}
+		}
+
+		public virtual SolidColorBrush ForegroundColor
+		{
+			get
+			{
+				return _foregroundColor;
+			}
+
+			set
+			{
+				this.RaiseAndSetIfChanged(ref _foregroundColor, value);
+			}
+		}
+
 		public virtual bool KeepKeyboardVisible
 		{
 			get
@@ -154,6 +141,19 @@ namespace EamonPM.Game.ViewModels
 			set
 			{
 				this.RaiseAndSetIfChanged(ref _keepKeyboardVisible, value);
+			}
+		}
+
+		public virtual Thickness InputTextBoxMargin
+		{
+			get
+			{
+				return _inputTextBoxMargin;
+			}
+
+			set
+			{
+				this.RaiseAndSetIfChanged(ref _inputTextBoxMargin, value);
 			}
 		}
 
@@ -200,33 +200,18 @@ namespace EamonPM.Game.ViewModels
 			FontFamily = new FontFamily(fontFamily);
 		}
 
-		public virtual void FontWeightComboBoxSelectionChanged(string fontWeight)
-		{
-			Debug.Assert(!string.IsNullOrWhiteSpace(fontWeight));
-
-			FontWeight = FontWeightHelper.FromString(fontWeight);
-		}
-
-		public virtual void BackgroundColorPickerColorChanged(Color color)
-		{
-			BackgroundColor = new SolidColorBrush(color);
-		}
-
-		public virtual void ForegroundColorPickerColorChanged(Color color)
-		{
-			ForegroundColor = new SolidColorBrush(color);
-		}
-
-		public virtual void InputTextBoxMarginChanged(Thickness thickness)
-		{
-			InputTextBoxMargin = thickness;
-		}
-
 		public virtual void FontSizeComboBoxSelectionChanged(double fontSize)
 		{
 			Debug.Assert(fontSize > 0);
 
 			FontSize = fontSize;
+		}
+
+		public virtual void FontWeightComboBoxSelectionChanged(string fontWeight)
+		{
+			Debug.Assert(!string.IsNullOrWhiteSpace(fontWeight));
+
+			FontWeight = FontWeightHelper.FromString(fontWeight);
 		}
 
 		public virtual void OutputBufMaxSizeComboBoxSelectionChanged(int outputBufMaxSize)
@@ -243,9 +228,24 @@ namespace EamonPM.Game.ViewModels
 			OutputWindowMaxSize = outputWindowMaxSize;
 		}
 
+		public virtual void BackgroundColorPickerColorChanged(Color color)
+		{
+			BackgroundColor = new SolidColorBrush(color);
+		}
+
+		public virtual void ForegroundColorPickerColorChanged(Color color)
+		{
+			ForegroundColor = new SolidColorBrush(color);
+		}
+
 		public virtual void KeepKeyboardVisibleToggleSwitchChanged(bool keepKeyboardVisible)
 		{
 			KeepKeyboardVisible = keepKeyboardVisible;
+		}
+
+		public virtual void InputTextBoxMarginChanged(Thickness thickness)
+		{
+			InputTextBoxMargin = thickness;
 		}
 
 		public PluginLauncherViewModel()
