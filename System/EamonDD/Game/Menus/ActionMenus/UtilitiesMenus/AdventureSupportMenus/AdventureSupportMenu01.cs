@@ -297,11 +297,11 @@ namespace YourAdventureName.YourGameNamespaceName
 			{
 				if (SupportMenuType == SupportMenuType.AddClasses)
 				{
-					gOut.Print(@"Note:  this menu option will allow you to enter the file paths for interfaces or classes you wish to add to the adventure; the actual addition will occur after you are given a final warning.  Your working directory is System and you should enter relative file paths (e.g., .\Eamon\Game\Monster.cs or .\EamonRT\Game\Components\Combat\CombatComponent.cs).  For any classes added, the corresponding .DAT datafiles (if any) will be updated appropriately.");
+					gOut.Print(@"Note:  this menu option will allow you to enter the file paths for interfaces or classes you wish to add to the adventure; the actual addition will occur after you are given a final warning.  Your working directory is System and you should enter relative file paths (e.g., .{0}Eamon{0}Game{0}Monster.cs or .{0}EamonRT{0}Game{0}Components{0}Combat{0}CombatComponent.cs).  For any classes added, the corresponding .DAT datafiles (if any) will be updated appropriately.", gEngine.Path.DirectorySeparatorChar);
 				}
 				else if (SupportMenuType == SupportMenuType.DeleteClasses)
 				{
-					gOut.Print(@"Note:  this menu option will allow you to enter the file paths for interfaces or classes you wish to remove from the adventure; the actual deletion will occur after you are given a final warning.  Your working directory is the adventure folder for the game you've selected and you should enter relative file paths (e.g., .\Game\Monster.cs).  For any classes deleted, the corresponding .DAT datafiles (if any) will be updated appropriately.");
+					gOut.Print(@"Note:  this menu option will allow you to enter the file paths for interfaces or classes you wish to remove from the adventure; the actual deletion will occur after you are given a final warning.  Your working directory is the adventure folder for the game you've selected and you should enter relative file paths (e.g., .{0}Game{0}Monster.cs).  For any classes deleted, the corresponding .DAT datafiles (if any) will be updated appropriately.", gEngine.Path.DirectorySeparatorChar);
 				}
 
 				gOut.Print("You must enter the name of the adventure you wish to {0} (e.g., The Beginner's Cave).  This should be the formal name of the adventure shown in the Main Hall's list of adventures; input should always be properly title-cased.", SupportMenuType == SupportMenuType.DeleteAdventure ? "delete" : "process");
@@ -542,7 +542,7 @@ namespace YourAdventureName.YourGameNamespaceName
 
 			foreach (var selectedClassFile in SelectedClassFileList)
 			{
-				gOut.Write("{0}{1}", Environment.NewLine, selectedClassFile);
+				gOut.Write("{0}{1}", Environment.NewLine, selectedClassFile.Replace('\\', gEngine.Path.DirectorySeparatorChar));
 			}
 
 			gOut.WriteLine();
