@@ -63,6 +63,8 @@ namespace EamonPM
 
 		public static Action HideKeyboardFunc { get; set; }
 
+		public static Action<bool> RefreshStatusFunc { get; set; }
+
 		public static Func<char, char> InputModifyCharFunc { get; set; }
 
 		public static Func<char, bool> InputValidCharFunc { get; set; }
@@ -571,6 +573,8 @@ namespace EamonPM
 
 					break;
 			}
+
+			RefreshStatusFunc?.Invoke(themeName != "Default Dark");
 		}
 
 		public static void ResetListBox(ListBox listBox)

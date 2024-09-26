@@ -10,6 +10,7 @@ using Android.App;
 using Android.Content;
 using Android.Content.PM;
 using Android.OS;
+using Android.Views;
 using Android.Views.InputMethods;
 using Avalonia;
 using Avalonia.Android;
@@ -73,6 +74,32 @@ namespace EamonPM.Android
 					var inputMethodManager = (InputMethodManager)GetSystemService(Context.InputMethodService);
 					inputMethodManager.HideSoftInputFromWindow(view.WindowToken, 0);
 					view.ClearFocus();
+				}
+			};
+
+			App.RefreshStatusFunc = isLightTheme =>
+			{
+				if (Build.VERSION.SdkInt >= BuildVersionCodes.O) // Android 8.0 (API level 26) and above
+				{
+					var window = Window;
+					var decorView = window?.DecorView;
+					if (decorView != null)
+					{
+						var flags = decorView.SystemUiFlags;
+
+						if (isLightTheme)
+						{
+							flags |= (SystemUiFlags)SystemUiFlags.LightStatusBar;
+							window.SetStatusBarColor(Android2.Graphics.Color.White);
+						}
+						else
+						{
+							flags &= ~(SystemUiFlags)SystemUiFlags.LightStatusBar;
+							window.SetStatusBarColor(Android2.Graphics.Color.Black);
+						}
+
+						decorView.SystemUiFlags = flags;
+					}
 				}
 			};
 
