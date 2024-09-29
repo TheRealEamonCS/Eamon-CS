@@ -775,7 +775,7 @@ namespace EamonRT.Game.Plugin
 
 		public virtual void PrintRestartGameUsingResume()
 		{
-			Out.Print("You can restart the game by running the Resume[GameName] script item.");
+			Out.Print("You can restart the game by running the Resume[GameName] plugin script.");
 		}
 
 		public virtual void PrintMemorialService()

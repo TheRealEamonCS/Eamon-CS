@@ -1,5 +1,5 @@
 ﻿
-// PluginScriptsView.axaml.cs
+// PluginsView.axaml.cs
 
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
@@ -8,7 +8,7 @@ using EamonPM.Game.ViewModels;
 
 namespace EamonPM.Game.Views
 {
-	public partial class PluginScriptsView : UserControl
+	public partial class PluginsView : UserControl
 	{
 		public virtual void PluginListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
@@ -30,11 +30,11 @@ namespace EamonPM.Game.Views
 			}
 		}
 
-		public PluginScriptsView()
+		public PluginsView()
 		{
 			InitializeComponent();
 
-			DataContext = App.GetViewModel(typeof(PluginScriptsViewModel));
+			DataContext = App.GetViewModel(typeof(PluginsViewModel));
 		}
 	}
 }

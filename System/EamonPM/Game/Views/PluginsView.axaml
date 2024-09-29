@@ -6,12 +6,12 @@
 			 mc:Ignorable="d" 
 			 d:DesignWidth="600"
 			 d:DesignHeight="800"
-			 x:Class="EamonPM.Game.Views.PluginScriptsView"
-			 x:DataType="vm:PluginScriptsViewModel">
+			 x:Class="EamonPM.Game.Views.PluginsView"
+			 x:DataType="vm:PluginsViewModel">
 	<Design.DataContext>
 		<!-- This only sets the DataContext for the previewer in an IDE,
 			 to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
-		<vm:PluginScriptsViewModel />
+		<vm:PluginsViewModel />
 	</Design.DataContext>
 
 	<Grid Margin="0">

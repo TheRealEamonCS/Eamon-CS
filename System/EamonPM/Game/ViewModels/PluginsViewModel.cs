@@ -1,5 +1,5 @@
 
-// PluginScriptsViewModel.cs
+// PluginsViewModel.cs
 
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
@@ -7,11 +7,11 @@ using System.Collections.Generic;
 
 namespace EamonPM.Game.ViewModels
 {
-	public class PluginScriptsViewModel : ViewModelBase
+	public class PluginsViewModel : ViewModelBase
 	{
 		public virtual List<string> PluginList { get; set; }
 
-		public PluginScriptsViewModel()
+		public PluginsViewModel()
 		{
 			PluginList = new List<string>()
 			{
