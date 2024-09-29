@@ -13,7 +13,7 @@ namespace EamonPM.Game.ViewModels
 {
 	public class ViewModelBase : ReactiveObject
 	{
-		public virtual BatchFile CreateBatchFile(string name, params string[] pluginArgs)
+		public virtual PluginScript CreatePluginScript(string name, params string[] pluginArgs)
 		{
 			Debug.Assert(!string.IsNullOrWhiteSpace(name));
 
@@ -39,7 +39,7 @@ namespace EamonPM.Game.ViewModels
 				pluginArgsList.Add("-esrm");
 			}
 
-			return new BatchFile()
+			return new PluginScript()
 			{
 				Name = name,
 

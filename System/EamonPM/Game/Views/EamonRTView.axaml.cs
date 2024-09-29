@@ -12,7 +12,7 @@ namespace EamonPM.Game.Views
 {
 	public partial class EamonRTView : UserControl
 	{
-		public virtual void BatchFileListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		public virtual void PluginScriptListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			var mainViewModel = App.GetViewModel(typeof(MainViewModel)) as MainViewModel;
 
@@ -26,11 +26,11 @@ namespace EamonPM.Game.Views
 
 				Debug.Assert(currentViewModel != null);
 
-				currentViewModel.BatchFile = eamonRTViewModel.BatchFileList[selectedIndex];
+				currentViewModel.PluginScript = eamonRTViewModel.PluginScriptList[selectedIndex];
 
-				Debug.Assert(currentViewModel.BatchFile != null);
+				Debug.Assert(currentViewModel.PluginScript != null);
 
-				var mainTitle = gEngine.Path.GetFileNameWithoutExtension(currentViewModel.BatchFile.PluginArgs[1]);
+				var mainTitle = gEngine.Path.GetFileNameWithoutExtension(currentViewModel.PluginScript.PluginArgs[1]);
 
 				mainViewModel.NavigateTo(currentView, mainTitle, false);
 

@@ -12,11 +12,11 @@ namespace EamonPM.Game.ViewModels
 {
 	public class EamonRTViewModel : ViewModelBase
 	{
-		public virtual List<BatchFile> BatchFileList { get; set; }
+		public virtual List<PluginScript> PluginScriptList { get; set; }
 
 		public EamonRTViewModel()
 		{
-			BatchFileList = new List<BatchFile>();
+			PluginScriptList = new List<PluginScript>();
 
 			var adventureDirs = App.GetAdventureDirs();
 
@@ -24,13 +24,13 @@ namespace EamonPM.Game.ViewModels
 			{
 				var pluginFileName = string.Format("{0}.dll", dir);
 
-				BatchFileList.Add
+				PluginScriptList.Add
 				(
-					CreateBatchFile(string.Format("Resume{0}", dir), "-pfn", App.PluginExists(pluginFileName) ? pluginFileName : "EamonRT.dll", "-wd", gEngine.Path.Combine("..", "..", "Adventures", dir))
+					CreatePluginScript(string.Format("Resume{0}", dir), "-pfn", App.PluginExists(pluginFileName) ? pluginFileName : "EamonRT.dll", "-wd", gEngine.Path.Combine("..", "..", "Adventures", dir))
 				);
 			}
 
-			BatchFileList = BatchFileList.OrderBy(bf => bf.Name).ToList();
+			PluginScriptList = PluginScriptList.OrderBy(ps => ps.Name).ToList();
 		}
 	}
 }

@@ -1,11 +1,11 @@
 ﻿
-// BatchFile.cs
+// PluginScript.cs
 
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
 namespace EamonPM.Game.Primitive.Classes
 {
-	public class BatchFile
+	public class PluginScript
 	{
 		public virtual string Name { get; set; }
 

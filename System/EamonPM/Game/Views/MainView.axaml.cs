@@ -30,15 +30,15 @@ namespace EamonPM.Game.Views
 				}
 				else if (currentView is EamonDDView eamonDDView)
 				{
-					App.ResetListBox(eamonDDView.BatchFileListBox);
+					App.ResetListBox(eamonDDView.PluginScriptListBox);
 				}
 				else if (currentView is EamonMHView eamonMHView)
 				{
-					App.ResetListBox(eamonMHView.BatchFileListBox);
+					App.ResetListBox(eamonMHView.PluginScriptListBox);
 				}
 				else if (currentView is EamonRTView eamonRTView)
 				{
-					App.ResetListBox(eamonRTView.BatchFileListBox);
+					App.ResetListBox(eamonRTView.PluginScriptListBox);
 				}
 				else if (currentView is PluginScriptsView pluginScriptsView)
 				{

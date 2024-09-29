@@ -11,7 +11,7 @@ namespace EamonPM.Game.Views
 {
 	public partial class EamonDDView : UserControl
 	{
-		public virtual void BatchFileListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		public virtual void PluginScriptListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			var mainViewModel = App.GetViewModel(typeof(MainViewModel)) as MainViewModel;
 
@@ -25,9 +25,9 @@ namespace EamonPM.Game.Views
 
 				Debug.Assert(currentViewModel != null);
 
-				currentViewModel.BatchFile = eamonDDViewModel.BatchFileList[selectedIndex];
+				currentViewModel.PluginScript = eamonDDViewModel.PluginScriptList[selectedIndex];
 
-				Debug.Assert(currentViewModel.BatchFile != null);
+				Debug.Assert(currentViewModel.PluginScript != null);
 
 				mainViewModel.NavigateTo(currentView, "EamonDD", false);
 
