@@ -16,7 +16,7 @@ namespace EamonPM.Game.ViewModels
 			FolderList = new List<string>()
 			{
 				"Documentation",
-				"QuickLaunch"
+				"PluginScripts"
 			};
 		}
 	}

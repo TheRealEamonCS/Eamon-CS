@@ -1,5 +1,5 @@
 ﻿
-// QuickLaunchView.axaml.cs
+// PluginScriptsView.axaml.cs
 
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
@@ -8,7 +8,7 @@ using EamonPM.Game.ViewModels;
 
 namespace EamonPM.Game.Views
 {
-	public partial class QuickLaunchView : UserControl
+	public partial class PluginScriptsView : UserControl
 	{
 		public virtual void FolderListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
@@ -30,11 +30,11 @@ namespace EamonPM.Game.Views
 			}
 		}
 
-		public QuickLaunchView()
+		public PluginScriptsView()
 		{
 			InitializeComponent();
 
-			DataContext = App.GetViewModel(typeof(QuickLaunchViewModel));
+			DataContext = App.GetViewModel(typeof(PluginScriptsViewModel));
 		}
 	}
 }

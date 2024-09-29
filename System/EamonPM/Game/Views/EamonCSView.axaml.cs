@@ -20,7 +20,7 @@ namespace EamonPM.Game.Views
 
 				var currentView = App.GetView(
 					selectedIndex == 0 ? typeof(DocumentationView) : 
-					typeof(QuickLaunchView)
+					typeof(PluginScriptsView)
 				) as UserControl;
 
 				mainViewModel.NavigateTo(currentView, listBox.SelectedItem.ToString().Replace("View", ""), true);
