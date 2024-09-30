@@ -43,9 +43,9 @@ namespace EamonPM
 			- change the BuildGuid to upgrade the binary .apk file and the .DAT datafiles in the filesystem (but not CHARACTERS.DAT)
 		*/
 
-		public static ConcurrentDictionary<Type, ViewModelBase> ViewModelDictionary { get; set; }
+		public static IDictionary<Type, ViewModelBase> ViewModelDictionary { get; set; }
 
-		public static ConcurrentDictionary<Type, Control> ViewDictionary { get; set; }
+		public static IDictionary<Type, Control> ViewDictionary { get; set; }
 
 		public static Thread GameThread { get; set; }
 

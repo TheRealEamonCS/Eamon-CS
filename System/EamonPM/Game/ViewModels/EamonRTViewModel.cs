@@ -12,7 +12,7 @@ namespace EamonPM.Game.ViewModels
 {
 	public class EamonRTViewModel : ViewModelBase
 	{
-		public virtual List<PluginScript> NodeList { get; set; }
+		public virtual IList<PluginScript> NodeList { get; set; }
 
 		public EamonRTViewModel()
 		{

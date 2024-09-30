@@ -45,19 +45,19 @@ namespace EamonPM.Game.ViewModels
 		public virtual string[] MonospaceFonts { get; set; }
 
 		[ExcludeFromSerialization]
-		public virtual List<string> AppThemeList { get; set; }
+		public virtual IList<string> AppThemeList { get; set; }
 
 		[ExcludeFromSerialization]
-		public virtual List<FontFamily> FontFamilyList { get; set; }
+		public virtual IList<FontFamily> FontFamilyList { get; set; }
 
 		[ExcludeFromSerialization]
-		public virtual List<int> FontSizeList { get; set; }
+		public virtual IList<int> FontSizeList { get; set; }
 
 		[ExcludeFromSerialization]
-		public virtual List<FontWeight> FontWeightList { get; set; }
+		public virtual IList<FontWeight> FontWeightList { get; set; }
 
 		[ExcludeFromSerialization]
-		public virtual List<int> OutputBufMaxSizeList { get; set; }
+		public virtual IList<int> OutputBufMaxSizeList { get; set; }
 
 		[ExcludeFromSerialization]
 		public virtual ObservableCollection<int> OutputWindowMaxSizeList { get; set; }
