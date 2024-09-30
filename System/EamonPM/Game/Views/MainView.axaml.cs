@@ -26,23 +26,23 @@ namespace EamonPM.Game.Views
 
 				if (currentView is DocumentationView documentationView)
 				{
-					App.ResetListBox(documentationView.BrowserListBox);
+					App.ResetListBox(documentationView.NodeListBox);
 				}
 				else if (currentView is EamonDDView eamonDDView)
 				{
-					App.ResetListBox(eamonDDView.PluginScriptListBox);
+					App.ResetListBox(eamonDDView.NodeListBox);
 				}
 				else if (currentView is EamonMHView eamonMHView)
 				{
-					App.ResetListBox(eamonMHView.PluginScriptListBox);
+					App.ResetListBox(eamonMHView.NodeListBox);
 				}
 				else if (currentView is EamonRTView eamonRTView)
 				{
-					App.ResetListBox(eamonRTView.PluginScriptListBox);
+					App.ResetListBox(eamonRTView.NodeListBox);
 				}
 				else if (currentView is PluginsView pluginsView)
 				{
-					App.ResetListBox(pluginsView.PluginListBox);
+					App.ResetListBox(pluginsView.NodeListBox);
 				}
 
 				viewModel.ViewStack.Pop();

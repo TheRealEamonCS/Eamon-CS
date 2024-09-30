@@ -11,7 +11,7 @@ namespace EamonPM.Game.Views
 {
 	public partial class EamonDDView : UserControl
 	{
-		public virtual void PluginScriptListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		public virtual void NodeListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			var mainViewModel = App.GetViewModel(typeof(MainViewModel)) as MainViewModel;
 
@@ -25,7 +25,7 @@ namespace EamonPM.Game.Views
 
 				Debug.Assert(currentViewModel != null);
 
-				currentViewModel.PluginScript = eamonDDViewModel.PluginScriptList[selectedIndex];
+				currentViewModel.PluginScript = eamonDDViewModel.NodeList[selectedIndex];
 
 				Debug.Assert(currentViewModel.PluginScript != null);
 

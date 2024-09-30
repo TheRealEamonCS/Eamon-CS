@@ -12,7 +12,7 @@ namespace EamonPM.Game.Views
 {
 	public partial class EamonRTView : UserControl
 	{
-		public virtual void PluginScriptListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		public virtual void NodeListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			var mainViewModel = App.GetViewModel(typeof(MainViewModel)) as MainViewModel;
 
@@ -26,7 +26,7 @@ namespace EamonPM.Game.Views
 
 				Debug.Assert(currentViewModel != null);
 
-				currentViewModel.PluginScript = eamonRTViewModel.PluginScriptList[selectedIndex];
+				currentViewModel.PluginScript = eamonRTViewModel.NodeList[selectedIndex];
 
 				Debug.Assert(currentViewModel.PluginScript != null);
 

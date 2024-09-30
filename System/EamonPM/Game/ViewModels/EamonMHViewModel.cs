@@ -10,11 +10,11 @@ namespace EamonPM.Game.ViewModels
 {
 	public class EamonMHViewModel : ViewModelBase
 	{
-		public virtual List<PluginScript> PluginScriptList { get; set; }
+		public virtual List<PluginScript> NodeList { get; set; }
 
 		public EamonMHViewModel()
 		{
-			PluginScriptList = new List<PluginScript>() 
+			NodeList = new List<PluginScript>() 
 			{
 				CreatePluginScript("EnterMainHallUsingAdventures", "-pfn", "EamonMH.dll", "-fsfn", "ADVENTURES.DAT"),
 				CreatePluginScript("EnterMainHallUsingCatalog", "-pfn", "EamonMH.dll", "-fsfn", "CATALOG.DAT")

@@ -10,7 +10,7 @@ namespace EamonPM.Game.Views
 {
 	public partial class PluginsView : UserControl
 	{
-		public virtual void PluginListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		public virtual void NodeListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			var mainViewModel = App.GetViewModel(typeof(MainViewModel)) as MainViewModel;
 

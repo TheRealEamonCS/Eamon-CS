@@ -12,11 +12,11 @@ namespace EamonPM.Game.ViewModels
 {
 	public class EamonRTViewModel : ViewModelBase
 	{
-		public virtual List<PluginScript> PluginScriptList { get; set; }
+		public virtual List<PluginScript> NodeList { get; set; }
 
 		public EamonRTViewModel()
 		{
-			PluginScriptList = new List<PluginScript>();
+			NodeList = new List<PluginScript>();
 
 			var adventureDirs = App.GetAdventureDirs();
 
@@ -24,13 +24,13 @@ namespace EamonPM.Game.ViewModels
 			{
 				var pluginFileName = string.Format("{0}.dll", dir);
 
-				PluginScriptList.Add
+				NodeList.Add
 				(
 					CreatePluginScript(string.Format("Resume{0}", dir), "-pfn", App.PluginExists(pluginFileName) ? pluginFileName : "EamonRT.dll", "-wd", gEngine.Path.Combine("..", "..", "Adventures", dir))
 				);
 			}
 
-			PluginScriptList = PluginScriptList.OrderBy(ps => ps.Name).ToList();
+			NodeList = NodeList.OrderBy(ps => ps.Name).ToList();
 		}
 	}
 }

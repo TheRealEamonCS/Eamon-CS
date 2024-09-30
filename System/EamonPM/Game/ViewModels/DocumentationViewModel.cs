@@ -9,11 +9,11 @@ namespace EamonPM.Game.ViewModels
 {
 	public class DocumentationViewModel : ViewModelBase
 	{
-		public virtual List<string> BrowserList { get; set; }
+		public virtual List<string> NodeList { get; set; }
 
 		public DocumentationViewModel()
 		{
-			BrowserList = new List<string>()
+			NodeList = new List<string>()
 			{
 				"ViewDocumentationUsingBrowser"
 			};
