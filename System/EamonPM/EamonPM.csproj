@@ -49,8 +49,8 @@
     <Compile Update="Views\SettingsView.axaml.cs">
       <DependentUpon>SettingsView.axaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\PluginsView.axaml.cs">
-      <DependentUpon>PluginsView.axaml</DependentUpon>
+    <Compile Update="Views\PluginView.axaml.cs">
+      <DependentUpon>PluginView.axaml</DependentUpon>
     </Compile>
     <Compile Update="Views\PluginLauncherView.axaml.cs">
       <DependentUpon>PluginLauncherView.axaml</DependentUpon>

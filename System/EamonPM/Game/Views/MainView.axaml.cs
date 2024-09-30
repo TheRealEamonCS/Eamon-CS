@@ -40,9 +40,9 @@ namespace EamonPM.Game.Views
 				{
 					App.ResetListBox(eamonRTView.NodeListBox);
 				}
-				else if (currentView is PluginsView pluginsView)
+				else if (currentView is PluginView pluginView)
 				{
-					App.ResetListBox(pluginsView.NodeListBox);
+					App.ResetListBox(pluginView.NodeListBox);
 				}
 
 				viewModel.ViewStack.Pop();
