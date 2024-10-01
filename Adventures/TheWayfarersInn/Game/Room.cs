@@ -3,9 +3,9 @@
 
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System;
 using System.Linq;
 using Eamon.Framework;
 using Eamon.Game.Attributes;
@@ -16,10 +16,6 @@ namespace TheWayfarersInn.Game
 	[ClassMappings(typeof(IRoom))]
 	public class Room : Eamon.Game.Room, Framework.IRoom
 	{
-		public virtual long AboveRoomUid { get; set; }
-
-		public virtual long BelowRoomUid { get; set; }
-
 		public override long GetDir(long index)
 		{
 			if (gEngine.EnableMutateProperties)
@@ -44,18 +40,6 @@ namespace TheWayfarersInn.Game
 			// Suppress out in Temple and Small Graveyard
 
 			return (Uid != 17 && Uid != 18) || index != 12 ? base.IsDirectionInObviousExitsList(index) : false;
-		}
-
-		public override string GetYouAlsoSee(bool showDesc, IList<IMonster> monsterList, IList<IArtifact> artifactList, IList<IGameBase> recordList)
-		{
-			Debug.Assert(monsterList != null && artifactList != null && recordList != null);
-
-			// Always use "notice" when indoors haunting Artifact in artifactList (may be auditory)
-
-			return string.Format("{0}You {1}{2}",
-					!showDesc ? Environment.NewLine : "",
-					showDesc ? "also " : "",
-					IsWayfarersInnRoom() && artifactList.FirstOrDefault(a => a.Uid == 151) != null ? "notice " : showDesc && !monsterList.Any() ? "notice " : "see ");
 		}
 
 		public override bool IsArtifactListedInRoom(IArtifact artifact)

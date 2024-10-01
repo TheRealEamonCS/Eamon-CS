@@ -58,7 +58,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			gOut.WordWrap = true;
 
-			a2eac.AdventureFolderPath = Buf.Trim().ToString().Replace('/', '\\');
+			a2eac.AdventureFolderPath = Buf.Trim().ToString().Replace(gEngine.Path.DirectorySeparatorChar == '\\' ? '/' : '\\', gEngine.Path.DirectorySeparatorChar);
 
 			gOut.Print("{0}", gEngine.LineSep);
 
@@ -151,6 +151,8 @@ namespace EamonDD.Game.Menus.ActionMenus
 				x.NumEffects = a2eAdv._ne;
 
 				x.NumMonsters = a2eAdv._nm;
+
+				x.NumHints = gDatabase.GetHintCount();
 			});
 
 			gDatabase.AddModule(module);

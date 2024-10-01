@@ -832,7 +832,7 @@ namespace TheWayfarersInn.Game.Plugin
 				{ 20, new string[] { "stone temple", "stone temple door", "stone door", "temple door", "door" } },
 				{ 21, new string[] { "graveyard", "cemetary" } },
 				{ 24, new string[] { "pool" } },
-				{ 25, new string[] { "gravestones", "gravestone", "tombstones", "tombstone", "headstones", "headstone", "gravesites", "gravesite", "markers", "marker", "stones", "stone" } },
+				{ 25, new string[] { "gravestones", "gravestone", "tombstones", "tombstone", "headstones", "headstone", "gravesites", "gravesite", "markers", "marker", "stones", "stone", "inscriptions", "inscription" } },
 				{ 26, new string[] { "desk" } },
 				{ 27, new string[] { "key ring", "keys", "key" } },
 				{ 28, new string[] { "giant wood statue", "towering bear statue", "towering statue", "bear statue", "giant statue", "wooden statue", "wood statue", "statue", "statue base", "base", "giant bear", "bear", "ancient runes", "runes", "rune", "script", "text" } },
@@ -1419,12 +1419,12 @@ namespace TheWayfarersInn.Game.Plugin
 
 				room = RDB[rl] as Framework.IRoom;
 			}
-			while (!room.IsWayfarersInnRoom() || (omittedRoomUids != null && omittedRoomUids.Contains(room.Uid)) || (gCharRoom.IsWayfarersInnClearingRoom() && !gGameState.OutdoorsHauntingSeen && !IsWindowRoomUid(room.Uid)));
+			while (!room.IsWayfarersInnRoom() || (omittedRoomUids != null && omittedRoomUids.Contains(room.Uid)) || (gCharRoom.IsWayfarersInnClearingRoom() && !gGameState.HauntingSeen && !IsWindowRoomUid(room.Uid)));
 
 			return room;
 		}
 
-		public virtual void GetOutdoorsHauntingData(long charRoomUid, long unseenApparitionRoomUid, ref string stateDesc)
+		public virtual void GetHauntingData(long charRoomUid, long unseenApparitionRoomUid, ref string stateDesc)
 		{
 			switch (charRoomUid)
 			{
@@ -1552,11 +1552,6 @@ namespace TheWayfarersInn.Game.Plugin
 
 					break;
 			}
-		}
-
-		public virtual void GetIndoorsHauntingData(long charRoomUid, long unseenApparitionRoomUid)
-		{
-
 		}
 
 		public virtual void BuildDecorationArtifact(long artifactUid, long effectUid, string name, string[] synonyms, string stateDesc, ArticleType articleType = ArticleType.A, PluralType pluralType = PluralType.S, bool isPlural = false)

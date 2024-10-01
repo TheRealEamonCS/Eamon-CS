@@ -370,8 +370,6 @@ namespace TheWayfarersInn.Game.Commands
 
 						gGameState.AfterPrintPlayerRoomEventHeap.Insert02(gGameState.CurrTurn + 1, "ChildsApparition", 0, null);
 
-						gEngine.PrintEffectDesc(60);
-
 						northDoorArtifact.DoorGate.SetOpen(true);
 					}
 					else

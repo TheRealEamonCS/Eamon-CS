@@ -24,7 +24,7 @@ namespace EamonDD.Game.Menus.HierarchicalMenus
 					gEngine.Module != null ? gEngine.Module.Name : gEngine.UnknownName);
 			}
 
-			gOut.Print("Modules: 1");
+			gOut.Print("Modules: {0}", gDatabase.GetModuleCount());
 		}
 
 		public EditModuleRecordMenu()

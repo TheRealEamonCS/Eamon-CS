@@ -1,380 +1,60 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\..\packages\Xamarin.Forms.4.4.0.991265\build\Xamarin.Forms.props" Condition="Exists('..\..\packages\Xamarin.Forms.4.4.0.991265\build\Xamarin.Forms.props')" />
-  <Import Project="..\..\packages\Xamarin.Build.Download.0.4.7\build\Xamarin.Build.Download.props" Condition="Exists('..\..\packages\Xamarin.Build.Download.0.4.7\build\Xamarin.Build.Download.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7E4BD0D4-AF5B-4C95-8FFB-85B68159C9B6}</ProjectGuid>
-    <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <OutputType>Library</OutputType>
-    <RootNamespace>EamonPM</RootNamespace>
-    <AssemblyName>EamonPM.Android</AssemblyName>
-    <TargetFrameworkVersion>v8.1</TargetFrameworkVersion>
-    <AndroidApplication>True</AndroidApplication>
-    <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
-    <AndroidResgenClass>Resource</AndroidResgenClass>
-    <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
-    <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
-    <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
-    <AndroidTlsProvider>
-    </AndroidTlsProvider>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0-android34.0</TargetFramework>
+    <SupportedOSPlatformVersion>21</SupportedOSPlatformVersion>
+    <ApplicationId>EamonPM.Android</ApplicationId>
+    <ApplicationVersion>2</ApplicationVersion>
+    <ApplicationDisplayVersion>3.0.0.0</ApplicationDisplayVersion>
+    <AndroidPackageFormat>apk</AndroidPackageFormat>
+    <AndroidEnableProfiledAot>False</AndroidEnableProfiledAot>
+    <Authors>Michael Penner</Authors>
+    <Company>Michael Penner</Company>
+    <Product>The Wonderful World of Eamon CS</Product>
+    <Description>Eamon CS Plugin Manager</Description>
+    <Copyright>Copyright (C) 2014+</Copyright>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <OutputPath>..\Bin\</OutputPath>
-    <DefineConstants>DEBUG;PORTABLE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <AndroidLinkMode>None</AndroidLinkMode>
-    <AotAssemblies>false</AotAssemblies>
-    <EnableLLVM>false</EnableLLVM>
-    <BundleAssemblies>false</BundleAssemblies>
     <DocumentationFile>..\Bin\EamonPM.Android.xml</DocumentationFile>
+    <NoWarn>0419;1574;1591;1701;1702;1705</NoWarn>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <OutputPath>..\Bin\</OutputPath>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <AndroidManagedSymbols>true</AndroidManagedSymbols>
-    <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
-    <DefineConstants>PORTABLE</DefineConstants>
     <DocumentationFile>..\Bin\EamonPM.Android.xml</DocumentationFile>
-    <NoWarn>1591</NoWarn>
+    <NoWarn>0419;1574;1591;1701;1702;1705</NoWarn>
+    <RunAOTCompilation>False</RunAOTCompilation>
+    <PublishTrimmed>True</PublishTrimmed>
+    <TrimMode>partial</TrimMode>
   </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="ARuncibleCargo, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Bin\ARuncibleCargo.dll</HintPath>
-    </Reference>
-    <Reference Include="BeginnersForest, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Bin\BeginnersForest.dll</HintPath>
-    </Reference>
-    <Reference Include="Eamon, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Bin\Eamon.dll</HintPath>
-    </Reference>
-    <Reference Include="EamonDD, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Bin\EamonDD.dll</HintPath>
-    </Reference>
-    <Reference Include="EamonMH, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Bin\EamonMH.dll</HintPath>
-    </Reference>
-    <Reference Include="EamonRT, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Bin\EamonRT.dll</HintPath>
-    </Reference>
-    <Reference Include="FormsViewGroup, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Xamarin.Forms.4.4.0.991265\lib\MonoAndroid81\FormsViewGroup.dll</HintPath>
-    </Reference>
-    <Reference Include="Polenter.SharpSerializer, Version=3.0.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Bin\Polenter.SharpSerializer.dll</HintPath>
-    </Reference>
-    <Reference Include="StrongholdOfKahrDur, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Bin\StrongholdOfKahrDur.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Core" />
-    <Reference Include="Mono.Android" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="TheBeginnersCave, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Bin\TheBeginnersCave.dll</HintPath>
-    </Reference>
-    <Reference Include="TheTempleOfNgurct, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Bin\TheTempleOfNgurct.dll</HintPath>
-    </Reference>
-    <Reference Include="TheTrainingGround, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Bin\TheTrainingGround.dll</HintPath>
-    </Reference>
-    <Reference Include="WrenholdsSecretVigil, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Bin\WrenholdsSecretVigil.dll</HintPath>
-    </Reference>
-    <Reference Include="LandOfTheMountainKing, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Bin\LandOfTheMountainKing.dll</HintPath>
-    </Reference>
-    <Reference Include="TheVileGrimoireOfJaldial, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Bin\TheVileGrimoireOfJaldial.dll</HintPath>
-    </Reference>
-    <Reference Include="RiddlesOfTheDuergarKingdom, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Bin\RiddlesOfTheDuergarKingdom.dll</HintPath>
-    </Reference>
-    <Reference Include="BeginnersCaveII, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Bin\BeginnersCaveII.dll</HintPath>
-    </Reference>
-    <Reference Include="AlternateBeginnersCave, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Bin\AlternateBeginnersCave.dll</HintPath>
-    </Reference>
-    <Reference Include="TheDeepCanyon, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Bin\TheDeepCanyon.dll</HintPath>
-    </Reference>
-    <Reference Include="ThePyramidOfAnharos, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Bin\ThePyramidOfAnharos.dll</HintPath>
-    </Reference>
-    <Reference Include="SampleAdventure, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Bin\SampleAdventure.dll</HintPath>
-    </Reference>
-    <Reference Include="TheSubAquanLaboratory, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Bin\TheSubAquanLaboratory.dll</HintPath>
-    </Reference>
-    <Reference Include="TheWayfarersInn, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Bin\TheWayfarersInn.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Android.Arch.Core.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Xamarin.Android.Arch.Core.Common.1.1.1.3\lib\monoandroid81\Xamarin.Android.Arch.Core.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Android.Arch.Lifecycle.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Xamarin.Android.Arch.Lifecycle.Common.1.1.1.3\lib\monoandroid81\Xamarin.Android.Arch.Lifecycle.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Android.Arch.Lifecycle.Runtime, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Xamarin.Android.Arch.Lifecycle.Runtime.1.1.1.3\lib\monoandroid81\Xamarin.Android.Arch.Lifecycle.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Android.Support.Animated.Vector.Drawable, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Xamarin.Android.Support.Animated.Vector.Drawable.28.0.0.3\lib\monoandroid81\Xamarin.Android.Support.Animated.Vector.Drawable.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Android.Support.Annotations, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Xamarin.Android.Support.Annotations.28.0.0.3\lib\monoandroid81\Xamarin.Android.Support.Annotations.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Android.Support.Compat, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Xamarin.Android.Support.Compat.28.0.0.3\lib\monoandroid81\Xamarin.Android.Support.Compat.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Android.Support.Core.UI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Xamarin.Android.Support.Core.UI.28.0.0.3\lib\monoandroid81\Xamarin.Android.Support.Core.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Android.Support.Core.Utils, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Xamarin.Android.Support.Core.Utils.28.0.0.3\lib\monoandroid81\Xamarin.Android.Support.Core.Utils.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Android.Support.CustomTabs, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Xamarin.Android.Support.CustomTabs.28.0.0.3\lib\monoandroid81\Xamarin.Android.Support.CustomTabs.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Android.Support.Design, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Xamarin.Android.Support.Design.28.0.0.3\lib\monoandroid81\Xamarin.Android.Support.Design.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Android.Support.Fragment, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Xamarin.Android.Support.Fragment.28.0.0.3\lib\monoandroid81\Xamarin.Android.Support.Fragment.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Android.Support.Media.Compat, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Xamarin.Android.Support.Media.Compat.28.0.0.3\lib\monoandroid81\Xamarin.Android.Support.Media.Compat.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Android.Support.Transition, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Xamarin.Android.Support.Transition.28.0.0.3\lib\monoandroid81\Xamarin.Android.Support.Transition.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Android.Support.v4, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Xamarin.Android.Support.v4.28.0.0.3\lib\monoandroid81\Xamarin.Android.Support.v4.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Android.Support.v7.AppCompat, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Xamarin.Android.Support.v7.AppCompat.28.0.0.3\lib\monoandroid81\Xamarin.Android.Support.v7.AppCompat.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Android.Support.v7.CardView, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Xamarin.Android.Support.v7.CardView.28.0.0.3\lib\monoandroid81\Xamarin.Android.Support.v7.CardView.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Android.Support.v7.MediaRouter, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Xamarin.Android.Support.v7.MediaRouter.28.0.0.3\lib\monoandroid81\Xamarin.Android.Support.v7.MediaRouter.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Android.Support.v7.Palette, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Xamarin.Android.Support.v7.Palette.28.0.0.3\lib\monoandroid81\Xamarin.Android.Support.v7.Palette.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Android.Support.v7.RecyclerView, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Xamarin.Android.Support.v7.RecyclerView.28.0.0.3\lib\monoandroid81\Xamarin.Android.Support.v7.RecyclerView.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Android.Support.Vector.Drawable, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Xamarin.Android.Support.Vector.Drawable.28.0.0.3\lib\monoandroid81\Xamarin.Android.Support.Vector.Drawable.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Forms.Core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Xamarin.Forms.4.4.0.991265\lib\MonoAndroid81\Xamarin.Forms.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Forms.Platform, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Xamarin.Forms.4.4.0.991265\lib\MonoAndroid81\Xamarin.Forms.Platform.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Forms.Platform.Android, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Xamarin.Forms.4.4.0.991265\lib\MonoAndroid81\Xamarin.Forms.Platform.Android.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Forms.Xaml, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Xamarin.Forms.4.4.0.991265\lib\MonoAndroid81\Xamarin.Forms.Xaml.dll</HintPath>
-    </Reference>
+    <TrimmerRootAssembly Include="$(OutputPath)AlternateBeginnersCave.dll" RootMode="All" />
+    <TrimmerRootAssembly Include="$(OutputPath)ARuncibleCargo.dll" RootMode="All" />
+    <TrimmerRootAssembly Include="$(OutputPath)BeginnersCaveII.dll" RootMode="All" />
+    <TrimmerRootAssembly Include="$(OutputPath)BeginnersForest.dll" RootMode="All" />
+    <TrimmerRootAssembly Include="$(OutputPath)LandOfTheMountainKing.dll" RootMode="All" />
+    <TrimmerRootAssembly Include="$(OutputPath)RiddlesOfTheDuergarKingdom.dll" RootMode="All" />
+    <TrimmerRootAssembly Include="$(OutputPath)SampleAdventure.dll" RootMode="All" />
+    <TrimmerRootAssembly Include="$(OutputPath)StrongholdOfKahrDur.dll" RootMode="All" />
+    <TrimmerRootAssembly Include="$(OutputPath)TheBeginnersCave.dll" RootMode="All" />
+    <TrimmerRootAssembly Include="$(OutputPath)TheDeepCanyon.dll" RootMode="All" />
+    <TrimmerRootAssembly Include="$(OutputPath)ThePyramidOfAnharos.dll" RootMode="All" />
+    <TrimmerRootAssembly Include="$(OutputPath)TheSubAquanLaboratory.dll" RootMode="All" />
+    <TrimmerRootAssembly Include="$(OutputPath)TheTempleOfNgurct.dll" RootMode="All" />
+    <TrimmerRootAssembly Include="$(OutputPath)TheTrainingGround.dll" RootMode="All" />
+    <TrimmerRootAssembly Include="$(OutputPath)TheVileGrimoireOfJaldial.dll" RootMode="All" />
+    <TrimmerRootAssembly Include="$(OutputPath)TheWayfarersInn.dll" RootMode="All" />
+    <TrimmerRootAssembly Include="$(OutputPath)WrenholdsSecretVigil.dll" RootMode="All" />
+    <TrimmerRootAssembly Include="$(OutputPath)EamonDD.dll" RootMode="All" />
+    <TrimmerRootAssembly Include="$(OutputPath)EamonMH.dll" RootMode="All" />
+    <TrimmerRootAssembly Include="$(OutputPath)EamonRT.dll" RootMode="All" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Game\Portability\Directory.cs" />
-    <Compile Include="Game\Portability\File.cs" />
-    <Compile Include="Game\Portability\Mutex.cs" />
-    <Compile Include="Game\Portability\Path.cs" />
-    <Compile Include="Game\Portability\SharpSerializer.cs" />
-    <Compile Include="Game\Portability\TextReader.cs" />
-    <Compile Include="Game\Portability\TextWriter.cs" />
-    <Compile Include="Game\Portability\Thread.cs" />
-    <Compile Include="Game\Portability\TransferProtocol.cs" />
-    <Compile Include="MainActivity.cs" />
-    <Compile Include="Renderers\PluginLauncherEntryRenderer.cs" />
-    <Compile Include="Renderers\LongLabelRenderer.cs" />
-    <Compile Include="Renderers\SettingsEntryRenderer.cs" />
-    <Compile Include="Resources\Resource.designer.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SplashActivity.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-    <None Include="Resources\AboutResources.txt" />
-    <None Include="Properties\AndroidManifest.xml" />
-    <None Include="Assets\AboutAssets.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\layout\Tabbar.axml" />
-    <AndroidResource Include="Resources\layout\Toolbar.axml" />
-    <AndroidResource Include="Resources\values\styles.xml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\values\strings.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Eamon.Mobile\Eamon.Mobile.csproj">
-      <Project>{2ee2bd77-eeaa-4dca-bbd4-b0c1759a4f0d}</Project>
-      <Name>Eamon.Mobile</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\ARuncibleCargo\ARTIFACTS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\ARuncibleCargo\EFFECTS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\ARuncibleCargo\HINTS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\ARuncibleCargo\MODULE.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\ARuncibleCargo\MONSTERS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\ARuncibleCargo\ROOMS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\StrongholdOfKahrDur\ARTIFACTS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\StrongholdOfKahrDur\EFFECTS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\StrongholdOfKahrDur\HINTS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\StrongholdOfKahrDur\MODULE.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\StrongholdOfKahrDur\MONSTERS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\StrongholdOfKahrDur\ROOMS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\TestAdventure\ARTIFACTS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\TestAdventure\EFFECTS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\TestAdventure\HINTS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\TestAdventure\MODULE.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\TestAdventure\MONSTERS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\TestAdventure\ROOMS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\TheBeginnersCave\ARTIFACTS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\TheBeginnersCave\EFFECTS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\TheBeginnersCave\HINTS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\TheBeginnersCave\MODULE.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\TheBeginnersCave\MONSTERS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\TheBeginnersCave\ROOMS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\System\Bin\ADVENTURES.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\System\Bin\CATALOG.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\System\Bin\CHARACTERS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\System\Bin\CONTEMPORARY.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\System\Bin\FANTASY.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\System\Bin\SCIFI.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\System\Bin\HORROR.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\System\Bin\SNAPPY.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\System\Bin\TEST.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\System\Bin\WIP.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\System\Bin\WORKBENCH.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\System\Bin\GLOBAL_LAUNCH_PARAMETERS.TXT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\splash_screen.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\values\colors.xml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
-  </ItemGroup>
+
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-hdpi\eamon_dragon_neuc.png" />
   </ItemGroup>
@@ -435,388 +115,65 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxxhdpi\ten_sided_die.png" />
   </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\BeginnersForest\ROOMS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\BeginnersForest\ARTIFACTS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\BeginnersForest\EFFECTS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\BeginnersForest\HINTS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\BeginnersForest\MODULE.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\BeginnersForest\MONSTERS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\DemoAdventure\ARTIFACTS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\DemoAdventure\EFFECTS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\DemoAdventure\HINTS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\DemoAdventure\MODULE.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\DemoAdventure\MONSTERS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\DemoAdventure\ROOMS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\TheTrainingGround\HINTS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\TheTrainingGround\MODULE.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\TheTrainingGround\MONSTERS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\TheTrainingGround\ROOMS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\TheTrainingGround\ARTIFACTS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\TheTrainingGround\EFFECTS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\TheTempleOfNgurct\ROOMS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\TheTempleOfNgurct\ARTIFACTS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\TheTempleOfNgurct\EFFECTS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\TheTempleOfNgurct\HINTS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\TheTempleOfNgurct\MODULE.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\TheTempleOfNgurct\MONSTERS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\WrenholdsSecretVigil\ROOMS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\WrenholdsSecretVigil\ARTIFACTS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\WrenholdsSecretVigil\EFFECTS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\WrenholdsSecretVigil\HINTS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\WrenholdsSecretVigil\MODULE.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\WrenholdsSecretVigil\MONSTERS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\LandOfTheMountainKing\ROOMS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\LandOfTheMountainKing\ARTIFACTS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\LandOfTheMountainKing\EFFECTS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\LandOfTheMountainKing\HINTS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\LandOfTheMountainKing\MODULE.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\LandOfTheMountainKing\MONSTERS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\TheVileGrimoireOfJaldial\ROOMS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\TheVileGrimoireOfJaldial\ARTIFACTS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\TheVileGrimoireOfJaldial\EFFECTS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\TheVileGrimoireOfJaldial\HINTS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\TheVileGrimoireOfJaldial\MODULE.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\TheVileGrimoireOfJaldial\MONSTERS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\RiddlesOfTheDuergarKingdom\ROOMS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\RiddlesOfTheDuergarKingdom\ARTIFACTS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\RiddlesOfTheDuergarKingdom\EFFECTS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\RiddlesOfTheDuergarKingdom\HINTS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\RiddlesOfTheDuergarKingdom\MODULE.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\RiddlesOfTheDuergarKingdom\MONSTERS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\BeginnersCaveII\ROOMS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\BeginnersCaveII\ARTIFACTS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\BeginnersCaveII\EFFECTS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\BeginnersCaveII\HINTS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\BeginnersCaveII\MODULE.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\BeginnersCaveII\MONSTERS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\AlternateBeginnersCave\ROOMS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\AlternateBeginnersCave\ARTIFACTS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\AlternateBeginnersCave\EFFECTS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\AlternateBeginnersCave\HINTS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\AlternateBeginnersCave\MODULE.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\AlternateBeginnersCave\MONSTERS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\TheDeepCanyon\ROOMS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\TheDeepCanyon\ARTIFACTS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\TheDeepCanyon\EFFECTS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\TheDeepCanyon\HINTS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\TheDeepCanyon\MODULE.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\TheDeepCanyon\MONSTERS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\TheTowerOfEamon\ROOMS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\TheTowerOfEamon\ARTIFACTS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\TheTowerOfEamon\EFFECTS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\TheTowerOfEamon\HINTS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\TheTowerOfEamon\MODULE.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\TheTowerOfEamon\MONSTERS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\EscapeFromMtMoon\ROOMS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\EscapeFromMtMoon\ARTIFACTS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\EscapeFromMtMoon\EFFECTS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\EscapeFromMtMoon\HINTS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\EscapeFromMtMoon\MODULE.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\EscapeFromMtMoon\MONSTERS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\ThePyramidOfAnharos\ROOMS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\ThePyramidOfAnharos\ARTIFACTS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\ThePyramidOfAnharos\EFFECTS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\ThePyramidOfAnharos\HINTS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\ThePyramidOfAnharos\MODULE.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\ThePyramidOfAnharos\MONSTERS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\SampleAdventure\ROOMS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\SampleAdventure\EFFECTS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\SampleAdventure\HINTS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\SampleAdventure\MODULE.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\TheSubAquanLaboratory\ROOMS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\TheSubAquanLaboratory\ARTIFACTS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\TheSubAquanLaboratory\EFFECTS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\TheSubAquanLaboratory\HINTS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\TheSubAquanLaboratory\MODULE.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\TheSubAquanLaboratory\MONSTERS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\TheWayfarersInn\ROOMS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\TheWayfarersInn\ARTIFACTS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\TheWayfarersInn\EFFECTS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\TheWayfarersInn\HINTS.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\TheWayfarersInn\MODULE.DAT" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\Adventures\TheWayfarersInn\MONSTERS.DAT" />
-  </ItemGroup>
-  <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
-  <Import Project="..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets'))" />
-    <Error Condition="!Exists('..\..\packages\Xamarin.Build.Download.0.4.7\build\Xamarin.Build.Download.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Xamarin.Build.Download.0.4.7\build\Xamarin.Build.Download.props'))" />
-    <Error Condition="!Exists('..\..\packages\Xamarin.Build.Download.0.4.7\build\Xamarin.Build.Download.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Xamarin.Build.Download.0.4.7\build\Xamarin.Build.Download.targets'))" />
-    <Error Condition="!Exists('..\..\packages\Xamarin.Android.Support.Annotations.28.0.0.3\build\monoandroid81\Xamarin.Android.Support.Annotations.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Xamarin.Android.Support.Annotations.28.0.0.3\build\monoandroid81\Xamarin.Android.Support.Annotations.targets'))" />
-    <Error Condition="!Exists('..\..\packages\Xamarin.Android.Arch.Core.Common.1.1.1.3\build\monoandroid81\Xamarin.Android.Arch.Core.Common.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Xamarin.Android.Arch.Core.Common.1.1.1.3\build\monoandroid81\Xamarin.Android.Arch.Core.Common.targets'))" />
-    <Error Condition="!Exists('..\..\packages\Xamarin.Android.Arch.Lifecycle.Common.1.1.1.3\build\monoandroid81\Xamarin.Android.Arch.Lifecycle.Common.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Xamarin.Android.Arch.Lifecycle.Common.1.1.1.3\build\monoandroid81\Xamarin.Android.Arch.Lifecycle.Common.targets'))" />
-    <Error Condition="!Exists('..\..\packages\Xamarin.Android.Arch.Lifecycle.Runtime.1.1.1.3\build\monoandroid81\Xamarin.Android.Arch.Lifecycle.Runtime.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Xamarin.Android.Arch.Lifecycle.Runtime.1.1.1.3\build\monoandroid81\Xamarin.Android.Arch.Lifecycle.Runtime.targets'))" />
-    <Error Condition="!Exists('..\..\packages\Xamarin.Android.Support.Compat.28.0.0.3\build\monoandroid81\Xamarin.Android.Support.Compat.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Xamarin.Android.Support.Compat.28.0.0.3\build\monoandroid81\Xamarin.Android.Support.Compat.targets'))" />
-    <Error Condition="!Exists('..\..\packages\Xamarin.Android.Support.Core.UI.28.0.0.3\build\monoandroid81\Xamarin.Android.Support.Core.UI.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Xamarin.Android.Support.Core.UI.28.0.0.3\build\monoandroid81\Xamarin.Android.Support.Core.UI.targets'))" />
-    <Error Condition="!Exists('..\..\packages\Xamarin.Android.Support.Core.Utils.28.0.0.3\build\monoandroid81\Xamarin.Android.Support.Core.Utils.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Xamarin.Android.Support.Core.Utils.28.0.0.3\build\monoandroid81\Xamarin.Android.Support.Core.Utils.targets'))" />
-    <Error Condition="!Exists('..\..\packages\Xamarin.Android.Support.CustomTabs.28.0.0.3\build\monoandroid81\Xamarin.Android.Support.CustomTabs.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Xamarin.Android.Support.CustomTabs.28.0.0.3\build\monoandroid81\Xamarin.Android.Support.CustomTabs.targets'))" />
-    <Error Condition="!Exists('..\..\packages\Xamarin.Android.Support.Fragment.28.0.0.3\build\monoandroid81\Xamarin.Android.Support.Fragment.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Xamarin.Android.Support.Fragment.28.0.0.3\build\monoandroid81\Xamarin.Android.Support.Fragment.targets'))" />
-    <Error Condition="!Exists('..\..\packages\Xamarin.Android.Support.Media.Compat.28.0.0.3\build\monoandroid81\Xamarin.Android.Support.Media.Compat.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Xamarin.Android.Support.Media.Compat.28.0.0.3\build\monoandroid81\Xamarin.Android.Support.Media.Compat.targets'))" />
-    <Error Condition="!Exists('..\..\packages\Xamarin.Android.Support.Transition.28.0.0.3\build\monoandroid81\Xamarin.Android.Support.Transition.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Xamarin.Android.Support.Transition.28.0.0.3\build\monoandroid81\Xamarin.Android.Support.Transition.targets'))" />
-    <Error Condition="!Exists('..\..\packages\Xamarin.Android.Support.v4.28.0.0.3\build\monoandroid81\Xamarin.Android.Support.v4.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Xamarin.Android.Support.v4.28.0.0.3\build\monoandroid81\Xamarin.Android.Support.v4.targets'))" />
-    <Error Condition="!Exists('..\..\packages\Xamarin.Android.Support.v7.CardView.28.0.0.3\build\monoandroid81\Xamarin.Android.Support.v7.CardView.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Xamarin.Android.Support.v7.CardView.28.0.0.3\build\monoandroid81\Xamarin.Android.Support.v7.CardView.targets'))" />
-    <Error Condition="!Exists('..\..\packages\Xamarin.Android.Support.v7.Palette.28.0.0.3\build\monoandroid81\Xamarin.Android.Support.v7.Palette.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Xamarin.Android.Support.v7.Palette.28.0.0.3\build\monoandroid81\Xamarin.Android.Support.v7.Palette.targets'))" />
-    <Error Condition="!Exists('..\..\packages\Xamarin.Android.Support.v7.RecyclerView.28.0.0.3\build\monoandroid81\Xamarin.Android.Support.v7.RecyclerView.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Xamarin.Android.Support.v7.RecyclerView.28.0.0.3\build\monoandroid81\Xamarin.Android.Support.v7.RecyclerView.targets'))" />
-    <Error Condition="!Exists('..\..\packages\Xamarin.Android.Support.Vector.Drawable.28.0.0.3\build\monoandroid81\Xamarin.Android.Support.Vector.Drawable.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Xamarin.Android.Support.Vector.Drawable.28.0.0.3\build\monoandroid81\Xamarin.Android.Support.Vector.Drawable.targets'))" />
-    <Error Condition="!Exists('..\..\packages\Xamarin.Android.Support.Animated.Vector.Drawable.28.0.0.3\build\monoandroid81\Xamarin.Android.Support.Animated.Vector.Drawable.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Xamarin.Android.Support.Animated.Vector.Drawable.28.0.0.3\build\monoandroid81\Xamarin.Android.Support.Animated.Vector.Drawable.targets'))" />
-    <Error Condition="!Exists('..\..\packages\Xamarin.Android.Support.v7.AppCompat.28.0.0.3\build\monoandroid81\Xamarin.Android.Support.v7.AppCompat.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Xamarin.Android.Support.v7.AppCompat.28.0.0.3\build\monoandroid81\Xamarin.Android.Support.v7.AppCompat.targets'))" />
-    <Error Condition="!Exists('..\..\packages\Xamarin.Android.Support.Design.28.0.0.3\build\monoandroid81\Xamarin.Android.Support.Design.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Xamarin.Android.Support.Design.28.0.0.3\build\monoandroid81\Xamarin.Android.Support.Design.targets'))" />
-    <Error Condition="!Exists('..\..\packages\Xamarin.Android.Support.v7.MediaRouter.28.0.0.3\build\monoandroid81\Xamarin.Android.Support.v7.MediaRouter.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Xamarin.Android.Support.v7.MediaRouter.28.0.0.3\build\monoandroid81\Xamarin.Android.Support.v7.MediaRouter.targets'))" />
-    <Error Condition="!Exists('..\..\packages\Xamarin.Forms.4.4.0.991265\build\Xamarin.Forms.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Xamarin.Forms.4.4.0.991265\build\Xamarin.Forms.props'))" />
-    <Error Condition="!Exists('..\..\packages\Xamarin.Forms.4.4.0.991265\build\Xamarin.Forms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Xamarin.Forms.4.4.0.991265\build\Xamarin.Forms.targets'))" />
-  </Target>
+
   <PropertyGroup>
-    <PreBuildEvent>xcopy "$(TargetDir)*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
-xcopy "$(TargetDir)GLOBAL_LAUNCH_PARAMETERS.TXT" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
-xcopy "$(TargetDir)..\..\Adventures\ARuncibleCargo\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\ARuncibleCargo" /I /S /Y
-xcopy "$(TargetDir)..\..\Adventures\BeginnersForest\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\BeginnersForest" /I /S /Y
-xcopy "$(TargetDir)..\..\Adventures\DemoAdventure\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\DemoAdventure" /I /S /Y
-xcopy "$(TargetDir)..\..\Adventures\StrongholdOfKahrDur\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\StrongholdOfKahrDur" /I /S /Y
-xcopy "$(TargetDir)..\..\Adventures\TestAdventure\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\TestAdventure" /I /S /Y
-xcopy "$(TargetDir)..\..\Adventures\TheBeginnersCave\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\TheBeginnersCave" /I /S /Y
-xcopy "$(TargetDir)..\..\Adventures\TheTempleOfNgurct\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\TheTempleOfNgurct" /I /S /Y
-xcopy "$(TargetDir)..\..\Adventures\TheTrainingGround\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\TheTrainingGround" /I /S /Y
-xcopy "$(TargetDir)..\..\Adventures\WrenholdsSecretVigil\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\WrenholdsSecretVigil" /I /S /Y
-xcopy "$(TargetDir)..\..\Adventures\LandOfTheMountainKing\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\LandOfTheMountainKing" /I /S /Y
-xcopy "$(TargetDir)..\..\Adventures\TheVileGrimoireOfJaldial\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\TheVileGrimoireOfJaldial" /I /S /Y
-xcopy "$(TargetDir)..\..\Adventures\RiddlesOfTheDuergarKingdom\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\RiddlesOfTheDuergarKingdom" /I /S /Y
-xcopy "$(TargetDir)..\..\Adventures\BeginnersCaveII\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\BeginnersCaveII" /I /S /Y
-xcopy "$(TargetDir)..\..\Adventures\AlternateBeginnersCave\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\AlternateBeginnersCave" /I /S /Y
-xcopy "$(TargetDir)..\..\Adventures\TheDeepCanyon\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\TheDeepCanyon" /I /S /Y
-xcopy "$(TargetDir)..\..\Adventures\TheTowerOfEamon\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\TheTowerOfEamon" /I /S /Y
-xcopy "$(TargetDir)..\..\Adventures\EscapeFromMtMoon\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\EscapeFromMtMoon" /I /S /Y
-xcopy "$(TargetDir)..\..\Adventures\ThePyramidOfAnharos\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\ThePyramidOfAnharos" /I /S /Y
-xcopy "$(TargetDir)..\..\Adventures\SampleAdventure\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\SampleAdventure" /I /S /Y
-xcopy "$(TargetDir)..\..\Adventures\TheSubAquanLaboratory\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\TheSubAquanLaboratory" /I /S /Y
-xcopy "$(TargetDir)..\..\Adventures\TheWayfarersInn\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\TheWayfarersInn" /I /S /Y
-</PreBuildEvent>
+    <PreBuildEvent>
+      xcopy "$(TargetDir)AlternateBeginnersCave.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
+      xcopy "$(TargetDir)ARuncibleCargo.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
+      xcopy "$(TargetDir)BeginnersCaveII.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
+      xcopy "$(TargetDir)BeginnersForest.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
+      xcopy "$(TargetDir)LandOfTheMountainKing.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
+      xcopy "$(TargetDir)RiddlesOfTheDuergarKingdom.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
+      xcopy "$(TargetDir)SampleAdventure.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
+      xcopy "$(TargetDir)StrongholdOfKahrDur.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
+      xcopy "$(TargetDir)TheBeginnersCave.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
+      xcopy "$(TargetDir)TheDeepCanyon.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
+      xcopy "$(TargetDir)ThePyramidOfAnharos.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
+      xcopy "$(TargetDir)TheSubAquanLaboratory.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
+      xcopy "$(TargetDir)TheTempleOfNgurct.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
+      xcopy "$(TargetDir)TheTrainingGround.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
+      xcopy "$(TargetDir)TheVileGrimoireOfJaldial.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
+      xcopy "$(TargetDir)TheWayfarersInn.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
+      xcopy "$(TargetDir)WrenholdsSecretVigil.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
+      xcopy "$(TargetDir)EamonDD.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
+      xcopy "$(TargetDir)EamonMH.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
+      xcopy "$(TargetDir)EamonRT.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
+      xcopy "$(TargetDir)*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
+      xcopy "$(TargetDir)GLOBAL_LAUNCH_PARAMETERS.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
+      xcopy "$(TargetDir)..\..\Adventures\AlternateBeginnersCave\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\AlternateBeginnersCave" /I /S /Y
+      xcopy "$(TargetDir)..\..\Adventures\ARuncibleCargo\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\ARuncibleCargo" /I /S /Y
+      xcopy "$(TargetDir)..\..\Adventures\BeginnersCaveII\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\BeginnersCaveII" /I /S /Y
+      xcopy "$(TargetDir)..\..\Adventures\BeginnersForest\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\BeginnersForest" /I /S /Y
+      xcopy "$(TargetDir)..\..\Adventures\DemoAdventure\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\DemoAdventure" /I /S /Y
+      xcopy "$(TargetDir)..\..\Adventures\EscapeFromMtMoon\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\EscapeFromMtMoon" /I /S /Y
+      xcopy "$(TargetDir)..\..\Adventures\LandOfTheMountainKing\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\LandOfTheMountainKing" /I /S /Y
+      xcopy "$(TargetDir)..\..\Adventures\RiddlesOfTheDuergarKingdom\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\RiddlesOfTheDuergarKingdom" /I /S /Y
+      xcopy "$(TargetDir)..\..\Adventures\SampleAdventure\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\SampleAdventure" /I /S /Y
+      xcopy "$(TargetDir)..\..\Adventures\StrongholdOfKahrDur\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\StrongholdOfKahrDur" /I /S /Y
+      xcopy "$(TargetDir)..\..\Adventures\TestAdventure\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\TestAdventure" /I /S /Y
+      xcopy "$(TargetDir)..\..\Adventures\TheBeginnersCave\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\TheBeginnersCave" /I /S /Y
+      xcopy "$(TargetDir)..\..\Adventures\TheDeepCanyon\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\TheDeepCanyon" /I /S /Y
+      xcopy "$(TargetDir)..\..\Adventures\ThePyramidOfAnharos\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\ThePyramidOfAnharos" /I /S /Y
+      xcopy "$(TargetDir)..\..\Adventures\TheSubAquanLaboratory\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\TheSubAquanLaboratory" /I /S /Y
+      xcopy "$(TargetDir)..\..\Adventures\TheTempleOfNgurct\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\TheTempleOfNgurct" /I /S /Y
+      xcopy "$(TargetDir)..\..\Adventures\TheTowerOfEamon\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\TheTowerOfEamon" /I /S /Y
+      xcopy "$(TargetDir)..\..\Adventures\TheTrainingGround\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\TheTrainingGround" /I /S /Y
+      xcopy "$(TargetDir)..\..\Adventures\TheVileGrimoireOfJaldial\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\TheVileGrimoireOfJaldial" /I /S /Y
+      xcopy "$(TargetDir)..\..\Adventures\TheWayfarersInn\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\TheWayfarersInn" /I /S /Y
+      xcopy "$(TargetDir)..\..\Adventures\WrenholdsSecretVigil\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\WrenholdsSecretVigil" /I /S /Y
+    </PreBuildEvent>
   </PropertyGroup>
-  <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
-  </PropertyGroup>
-  <Import Project="..\..\packages\Xamarin.Build.Download.0.4.7\build\Xamarin.Build.Download.targets" Condition="Exists('..\..\packages\Xamarin.Build.Download.0.4.7\build\Xamarin.Build.Download.targets')" />
-  <Import Project="..\..\packages\Xamarin.Android.Support.Annotations.28.0.0.3\build\monoandroid81\Xamarin.Android.Support.Annotations.targets" Condition="Exists('..\..\packages\Xamarin.Android.Support.Annotations.28.0.0.3\build\monoandroid81\Xamarin.Android.Support.Annotations.targets')" />
-  <Import Project="..\..\packages\Xamarin.Android.Arch.Core.Common.1.1.1.3\build\monoandroid81\Xamarin.Android.Arch.Core.Common.targets" Condition="Exists('..\..\packages\Xamarin.Android.Arch.Core.Common.1.1.1.3\build\monoandroid81\Xamarin.Android.Arch.Core.Common.targets')" />
-  <Import Project="..\..\packages\Xamarin.Android.Arch.Lifecycle.Common.1.1.1.3\build\monoandroid81\Xamarin.Android.Arch.Lifecycle.Common.targets" Condition="Exists('..\..\packages\Xamarin.Android.Arch.Lifecycle.Common.1.1.1.3\build\monoandroid81\Xamarin.Android.Arch.Lifecycle.Common.targets')" />
-  <Import Project="..\..\packages\Xamarin.Android.Arch.Lifecycle.Runtime.1.1.1.3\build\monoandroid81\Xamarin.Android.Arch.Lifecycle.Runtime.targets" Condition="Exists('..\..\packages\Xamarin.Android.Arch.Lifecycle.Runtime.1.1.1.3\build\monoandroid81\Xamarin.Android.Arch.Lifecycle.Runtime.targets')" />
-  <Import Project="..\..\packages\Xamarin.Android.Support.Compat.28.0.0.3\build\monoandroid81\Xamarin.Android.Support.Compat.targets" Condition="Exists('..\..\packages\Xamarin.Android.Support.Compat.28.0.0.3\build\monoandroid81\Xamarin.Android.Support.Compat.targets')" />
-  <Import Project="..\..\packages\Xamarin.Android.Support.Core.UI.28.0.0.3\build\monoandroid81\Xamarin.Android.Support.Core.UI.targets" Condition="Exists('..\..\packages\Xamarin.Android.Support.Core.UI.28.0.0.3\build\monoandroid81\Xamarin.Android.Support.Core.UI.targets')" />
-  <Import Project="..\..\packages\Xamarin.Android.Support.Core.Utils.28.0.0.3\build\monoandroid81\Xamarin.Android.Support.Core.Utils.targets" Condition="Exists('..\..\packages\Xamarin.Android.Support.Core.Utils.28.0.0.3\build\monoandroid81\Xamarin.Android.Support.Core.Utils.targets')" />
-  <Import Project="..\..\packages\Xamarin.Android.Support.CustomTabs.28.0.0.3\build\monoandroid81\Xamarin.Android.Support.CustomTabs.targets" Condition="Exists('..\..\packages\Xamarin.Android.Support.CustomTabs.28.0.0.3\build\monoandroid81\Xamarin.Android.Support.CustomTabs.targets')" />
-  <Import Project="..\..\packages\Xamarin.Android.Support.Fragment.28.0.0.3\build\monoandroid81\Xamarin.Android.Support.Fragment.targets" Condition="Exists('..\..\packages\Xamarin.Android.Support.Fragment.28.0.0.3\build\monoandroid81\Xamarin.Android.Support.Fragment.targets')" />
-  <Import Project="..\..\packages\Xamarin.Android.Support.Media.Compat.28.0.0.3\build\monoandroid81\Xamarin.Android.Support.Media.Compat.targets" Condition="Exists('..\..\packages\Xamarin.Android.Support.Media.Compat.28.0.0.3\build\monoandroid81\Xamarin.Android.Support.Media.Compat.targets')" />
-  <Import Project="..\..\packages\Xamarin.Android.Support.Transition.28.0.0.3\build\monoandroid81\Xamarin.Android.Support.Transition.targets" Condition="Exists('..\..\packages\Xamarin.Android.Support.Transition.28.0.0.3\build\monoandroid81\Xamarin.Android.Support.Transition.targets')" />
-  <Import Project="..\..\packages\Xamarin.Android.Support.v4.28.0.0.3\build\monoandroid81\Xamarin.Android.Support.v4.targets" Condition="Exists('..\..\packages\Xamarin.Android.Support.v4.28.0.0.3\build\monoandroid81\Xamarin.Android.Support.v4.targets')" />
-  <Import Project="..\..\packages\Xamarin.Android.Support.v7.CardView.28.0.0.3\build\monoandroid81\Xamarin.Android.Support.v7.CardView.targets" Condition="Exists('..\..\packages\Xamarin.Android.Support.v7.CardView.28.0.0.3\build\monoandroid81\Xamarin.Android.Support.v7.CardView.targets')" />
-  <Import Project="..\..\packages\Xamarin.Android.Support.v7.Palette.28.0.0.3\build\monoandroid81\Xamarin.Android.Support.v7.Palette.targets" Condition="Exists('..\..\packages\Xamarin.Android.Support.v7.Palette.28.0.0.3\build\monoandroid81\Xamarin.Android.Support.v7.Palette.targets')" />
-  <Import Project="..\..\packages\Xamarin.Android.Support.v7.RecyclerView.28.0.0.3\build\monoandroid81\Xamarin.Android.Support.v7.RecyclerView.targets" Condition="Exists('..\..\packages\Xamarin.Android.Support.v7.RecyclerView.28.0.0.3\build\monoandroid81\Xamarin.Android.Support.v7.RecyclerView.targets')" />
-  <Import Project="..\..\packages\Xamarin.Android.Support.Vector.Drawable.28.0.0.3\build\monoandroid81\Xamarin.Android.Support.Vector.Drawable.targets" Condition="Exists('..\..\packages\Xamarin.Android.Support.Vector.Drawable.28.0.0.3\build\monoandroid81\Xamarin.Android.Support.Vector.Drawable.targets')" />
-  <Import Project="..\..\packages\Xamarin.Android.Support.Animated.Vector.Drawable.28.0.0.3\build\monoandroid81\Xamarin.Android.Support.Animated.Vector.Drawable.targets" Condition="Exists('..\..\packages\Xamarin.Android.Support.Animated.Vector.Drawable.28.0.0.3\build\monoandroid81\Xamarin.Android.Support.Animated.Vector.Drawable.targets')" />
-  <Import Project="..\..\packages\Xamarin.Android.Support.v7.AppCompat.28.0.0.3\build\monoandroid81\Xamarin.Android.Support.v7.AppCompat.targets" Condition="Exists('..\..\packages\Xamarin.Android.Support.v7.AppCompat.28.0.0.3\build\monoandroid81\Xamarin.Android.Support.v7.AppCompat.targets')" />
-  <Import Project="..\..\packages\Xamarin.Android.Support.Design.28.0.0.3\build\monoandroid81\Xamarin.Android.Support.Design.targets" Condition="Exists('..\..\packages\Xamarin.Android.Support.Design.28.0.0.3\build\monoandroid81\Xamarin.Android.Support.Design.targets')" />
-  <Import Project="..\..\packages\Xamarin.Android.Support.v7.MediaRouter.28.0.0.3\build\monoandroid81\Xamarin.Android.Support.v7.MediaRouter.targets" Condition="Exists('..\..\packages\Xamarin.Android.Support.v7.MediaRouter.28.0.0.3\build\monoandroid81\Xamarin.Android.Support.v7.MediaRouter.targets')" />
-  <Import Project="..\..\packages\Xamarin.Forms.4.4.0.991265\build\Xamarin.Forms.targets" Condition="Exists('..\..\packages\Xamarin.Forms.4.4.0.991265\build\Xamarin.Forms.targets')" />
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia.Android" Version="11.1.2" />
+    <PackageReference Include="Xamarin.AndroidX.Core.SplashScreen" Version="1.0.1.10" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EamonPM\EamonPM.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Assets\" />
+  </ItemGroup>
 </Project>

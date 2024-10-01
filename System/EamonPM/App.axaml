@@ -1,0 +1,24 @@
+<Application xmlns="https://github.com/avaloniaui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 x:Class="EamonPM.App"
+			 RequestedThemeVariant="Default">
+	<!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
+
+	<Application.Resources>
+	</Application.Resources>
+
+	<Application.Styles>
+		<FluentTheme />
+		<StyleInclude Source="avares://Avalonia.Controls.ColorPicker/Themes/Fluent/Fluent.xaml" />
+
+		<Style Selector="ListBox">
+			<Setter Property="BorderThickness" Value="0,1,0,0" />
+			<Setter Property="BorderBrush" Value="{DynamicResource RowDivider}" />
+		</Style>
+
+		<Style Selector="ListBoxItem">
+			<Setter Property="BorderThickness" Value="0,0,0,1" />
+			<Setter Property="BorderBrush" Value="{DynamicResource RowDivider}" />
+		</Style>
+	</Application.Styles>
+</Application>

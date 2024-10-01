@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>2.2.0.0</Version>
+    <Version>3.0.0.0</Version>
     <Authors>Michael Penner</Authors>
     <Company>Michael Penner</Company>
     <Product>The Wonderful World of Eamon CS</Product>
@@ -27,9 +27,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\System\EamonDD\EamonDD.csproj" />
     <ProjectReference Include="..\..\System\EamonRT\EamonRT.csproj" />
-    <ProjectReference Include="..\..\System\Eamon\Eamon.csproj" />
   </ItemGroup>
 
 </Project>

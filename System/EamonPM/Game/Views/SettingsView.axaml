@@ -1,0 +1,360 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:vm="clr-namespace:EamonPM.Game.ViewModels"
+			 mc:Ignorable="d" 
+			 d:DesignWidth="600" 
+			 d:DesignHeight="800"
+			 x:Class="EamonPM.Game.Views.SettingsView"
+			 x:DataType="vm:SettingsViewModel">
+	<Design.DataContext>
+		<!-- This only sets the DataContext for the previewer in an IDE,
+			 to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+		<vm:SettingsViewModel />
+	</Design.DataContext>
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*" />
+			<RowDefinition Height="Auto" />
+		</Grid.RowDefinitions>
+
+		<ScrollViewer Grid.Row="0" 
+					  Margin="0,10,0,10" 
+					  Background="{DynamicResource GeneralBackgroundColor}" 
+					  HorizontalScrollBarVisibility="Auto"
+					  VerticalScrollBarVisibility="Auto">
+			<Grid Margin="0" VerticalAlignment="Top">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="50"  />
+					<RowDefinition Height="1"  />
+					<RowDefinition Height="50"  />
+					<RowDefinition Height="1"  />
+					<RowDefinition Height="50" />
+					<RowDefinition Height="1"  />
+					<RowDefinition Height="50" />
+					<RowDefinition Height="1"  />
+					<RowDefinition Height="50" />
+					<RowDefinition Height="1"  />
+					<RowDefinition Height="50" />
+					<RowDefinition Height="1"  />
+					<RowDefinition Height="50" />
+					<RowDefinition Height="1"  />
+					<RowDefinition Height="50" />
+					<RowDefinition Height="1"  />
+					<RowDefinition Height="50" />
+					<RowDefinition Height="1"  />
+					<RowDefinition Height="50" />
+					<RowDefinition Height="1"  />
+					<RowDefinition Height="50" />
+					<RowDefinition Height="1"  />
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="189" />
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="*" />
+				</Grid.ColumnDefinitions>
+
+				<TextBlock Grid.Row="0"
+						   Grid.Column="0"
+						   Margin="10,0,10,0"
+						   VerticalAlignment="Center"
+						   Text="Application Theme" />
+
+				<Rectangle Grid.Row="0"
+						   Grid.Column="1"
+						   Grid.RowSpan="22"
+						   Width="1"
+						   VerticalAlignment="Stretch"
+						   Fill="{DynamicResource RowDivider}" />
+
+				<ComboBox Grid.Row="0"
+						  Grid.Column="2"
+						  Margin="10,0,10,0"
+						  MaxDropDownHeight="200"
+						  VerticalAlignment="Center"
+						  HorizontalAlignment="Left"
+						  ItemsSource="{Binding AppThemeList, Mode=TwoWay}"
+						  SelectionChanged="AppThemeComboBox_SelectionChanged"
+						  x:Name="AppThemeComboBox">
+					<ComboBox.ItemTemplate>
+						<DataTemplate>
+							<TextBlock Text="{Binding}" />
+						</DataTemplate>
+					</ComboBox.ItemTemplate>
+				</ComboBox>
+
+				<Rectangle Grid.Row="1"
+						   Grid.ColumnSpan="3"
+						   Height="1"
+						   HorizontalAlignment="Stretch"
+						   Fill="{DynamicResource RowDivider}" />
+
+				<TextBlock Grid.Row="2"
+						   Grid.Column="0"
+						   Margin="10,0,10,0"
+						   VerticalAlignment="Center"
+						   Text="Font Family" />
+
+				<ComboBox Grid.Row="2"
+						  Grid.Column="2"
+						  Margin="10,0,10,0"
+						  MaxDropDownHeight="200"
+						  VerticalAlignment="Center"
+						  HorizontalAlignment="Left"
+						  ItemsSource="{Binding FontFamilyList, Mode=TwoWay}"
+						  SelectionChanged="FontFamilyComboBox_SelectionChanged"
+						  x:Name="FontFamilyComboBox">
+					<ComboBox.ItemTemplate>
+						<DataTemplate>
+							<TextBlock Text="{Binding Name}" FontFamily="{Binding}" />
+						</DataTemplate>
+					</ComboBox.ItemTemplate>
+				</ComboBox>
+
+				<Rectangle Grid.Row="3"
+						   Grid.ColumnSpan="3"
+						   Height="1"
+						   HorizontalAlignment="Stretch"
+						   Fill="{DynamicResource RowDivider}" />
+
+
+
+
+				<TextBlock Grid.Row="4"
+						   Grid.Column="0"
+						   Margin="10,0,10,0"
+						   VerticalAlignment="Center"
+						   Text="Font Size" />
+
+				<ComboBox Grid.Row="4"
+						  Grid.Column="2"
+						  Margin="10,0,10,0"
+						  MaxDropDownHeight="200"
+						  VerticalAlignment="Center"
+						  HorizontalAlignment="Left"
+						  ItemsSource="{Binding FontSizeList, Mode=TwoWay}"
+						  SelectionChanged="FontSizeComboBox_SelectionChanged"
+						  x:Name="FontSizeComboBox">
+					<ComboBox.ItemTemplate>
+						<DataTemplate>
+							<TextBlock Text="{Binding}" />
+						</DataTemplate>
+					</ComboBox.ItemTemplate>
+				</ComboBox>
+
+				<Rectangle Grid.Row="5"
+						   Grid.ColumnSpan="3"
+						   Height="1"
+						   HorizontalAlignment="Stretch"
+						   Fill="{DynamicResource RowDivider}" />
+
+				<TextBlock Grid.Row="6"
+						   Grid.Column="0"
+						   Margin="10,0,10,0"
+						   VerticalAlignment="Center"
+						   Text="Font Weight" />
+
+				<ComboBox Grid.Row="6"
+						  Grid.Column="2"
+						  Margin="10,0,10,0"
+						  MaxDropDownHeight="200"
+						  VerticalAlignment="Center"
+						  HorizontalAlignment="Left"
+						  ItemsSource="{Binding FontWeightList, Mode=TwoWay}"
+						  SelectionChanged="FontWeightComboBox_SelectionChanged"
+						  x:Name="FontWeightComboBox">
+					<ComboBox.ItemTemplate>
+						<DataTemplate>
+							<TextBlock Text="{Binding}" FontWeight="{Binding}" />
+						</DataTemplate>
+					</ComboBox.ItemTemplate>
+				</ComboBox>
+
+				<Rectangle Grid.Row="7"
+						   Grid.ColumnSpan="3"
+						   Height="1"
+						   HorizontalAlignment="Stretch"
+						   Fill="{DynamicResource RowDivider}" />
+
+				<TextBlock Grid.Row="8"
+						   Grid.Column="0"
+						   Margin="10,0,10,0"
+						   VerticalAlignment="Center"
+						   Text="Scrollback Buffer Size" />
+
+				<ComboBox Grid.Row="8"
+						  Grid.Column="2"
+						  Margin="10,0,10,0"
+						  MaxDropDownHeight="200"
+						  VerticalAlignment="Center"
+						  HorizontalAlignment="Left"
+						  ItemsSource="{Binding OutputBufMaxSizeList, Mode=TwoWay}"
+						  SelectionChanged="OutputBufMaxSizeComboBox_SelectionChanged"
+						  x:Name="OutputBufMaxSizeComboBox">
+					<ComboBox.ItemTemplate>
+						<DataTemplate>
+							<TextBlock Text="{Binding}" />
+						</DataTemplate>
+					</ComboBox.ItemTemplate>
+				</ComboBox>
+
+				<Rectangle Grid.Row="9"
+						   Grid.ColumnSpan="3"
+						   Height="1"
+						   HorizontalAlignment="Stretch"
+						   Fill="{DynamicResource RowDivider}" />
+
+				<TextBlock Grid.Row="10"
+						   Grid.Column="0"
+						   Margin="10,0,10,0"
+						   VerticalAlignment="Center"
+						   Text="Scrollback Window Size" />
+
+				<ComboBox Grid.Row="10"
+						  Grid.Column="2"
+						  Margin="10,0,10,0"
+						  MaxDropDownHeight="200"
+						  VerticalAlignment="Center"
+						  HorizontalAlignment="Left"
+						  ItemsSource="{Binding OutputWindowMaxSizeList, Mode=TwoWay}"
+						  SelectionChanged="OutputWindowMaxSizeComboBox_SelectionChanged"
+						  x:Name="OutputWindowMaxSizeComboBox">
+					<ComboBox.ItemTemplate>
+						<DataTemplate>
+							<TextBlock Text="{Binding}" />
+						</DataTemplate>
+					</ComboBox.ItemTemplate>
+				</ComboBox>
+
+				<Rectangle Grid.Row="11"
+						   Grid.ColumnSpan="3"
+						   Height="1"
+						   HorizontalAlignment="Stretch"
+						   Fill="{DynamicResource RowDivider}" />
+
+				<TextBlock Grid.Row="12"
+						   Grid.Column="0"
+						   Margin="10,0,10,0"
+						   VerticalAlignment="Center"
+						   Text="Background Color" />
+
+				<ColorPicker Grid.Row="12"
+							 Grid.Column="2"
+							 Margin="10,0,10,0"
+							 VerticalAlignment="Center"
+							 HorizontalAlignment="Left"
+							 ColorChanged="BackgroundColorPicker_ColorChanged"
+							 x:Name="BackgroundColorPicker" />
+
+				<Rectangle Grid.Row="13"
+						   Grid.ColumnSpan="3"
+						   Height="1"
+						   HorizontalAlignment="Stretch"
+						   Fill="{DynamicResource RowDivider}" />
+
+				<TextBlock Grid.Row="14"
+						   Grid.Column="0"
+						   Margin="10,0,10,0"
+						   VerticalAlignment="Center"
+						   Text="Foreground Color" />
+
+				<ColorPicker Grid.Row="14"
+							 Grid.Column="2"
+							 Margin="10,0,10,0"
+							 VerticalAlignment="Center"
+							 HorizontalAlignment="Left"
+							 ColorChanged="ForegroundColorPicker_ColorChanged"
+							 x:Name="ForegroundColorPicker" />
+
+				<Rectangle Grid.Row="15"
+						   Grid.ColumnSpan="3"
+						   Height="1"
+						   HorizontalAlignment="Stretch"
+						   Fill="{DynamicResource RowDivider}" />
+
+				<TextBlock Grid.Row="16"
+						   Grid.Column="0"
+						   Margin="10,0,10,0"
+						   VerticalAlignment="Center"
+						   Text="Keep Keyboard Visible" />
+
+				<ToggleSwitch Grid.Row="16"
+							  Grid.Column="2"
+							  Margin="10,0,10,0"
+							  VerticalAlignment="Center"
+							  HorizontalAlignment="Left"
+							  IsChecked="{Binding KeepKeyboardVisible, Mode=TwoWay}"
+							  Checked="KeepKeyboardVisibleToggleSwitch_Changed"
+							  Unchecked="KeepKeyboardVisibleToggleSwitch_Changed"
+							  x:Name="KeepKeyboardVisibleToggleSwitch" />
+
+				<Rectangle Grid.Row="17"
+						   Grid.ColumnSpan="3"
+						   Height="1"
+						   HorizontalAlignment="Stretch"
+						   Fill="{DynamicResource RowDivider}" />
+
+				<TextBlock Grid.Row="18"
+						   Grid.Column="0"
+						   Margin="10,0,10,0"
+						   VerticalAlignment="Center"
+						   Text="Window Height" />
+
+				<TextBlock Grid.Row="18"
+						   Grid.Column="2"
+						   Margin="10,0,10,0"
+						   VerticalAlignment="Center"
+						   HorizontalAlignment="Left"
+						   Text="{Binding WindowHeight, Mode=TwoWay}"
+						   x:Name="WindowHeightTextBlock" />
+
+				<Rectangle Grid.Row="19"
+						   Grid.ColumnSpan="3"
+						   Height="1"
+						   HorizontalAlignment="Stretch"
+						   Fill="{DynamicResource RowDivider}" />
+
+				<TextBlock Grid.Row="20"
+						   Grid.Column="0"
+						   Margin="10,0,10,0"
+						   VerticalAlignment="Center"
+						   Text="Window Width" />
+
+				<TextBlock Grid.Row="20"
+						   Grid.Column="2"
+						   Margin="10,0,10,0"
+						   VerticalAlignment="Center"
+						   HorizontalAlignment="Left"
+						   Text="{Binding WindowWidth, Mode=TwoWay}"
+						   x:Name="WindowWidthTextBlock" />
+
+				<Rectangle Grid.Row="21"
+						   Grid.ColumnSpan="3"
+						   Height="1"
+						   HorizontalAlignment="Stretch"
+						   Fill="{DynamicResource RowDivider}" />
+
+			</Grid>
+		</ScrollViewer>
+		<Button Grid.Row="1"
+				Margin="0,0,0,10"
+				Background="{DynamicResource GeneralBackgroundColor}"
+				IsVisible="{Binding SettingsChanged, Mode=TwoWay}"
+				IsEnabled="{Binding SettingsChanged, Mode=TwoWay}"
+				HorizontalAlignment="Right"
+				VerticalAlignment="Bottom"
+				Click="SaveSettingsButton_Clicked"
+				Content="Save Settings"
+				x:Name="SaveSettingsButton">
+			<Button.Styles>
+				<Style Selector="Button:pointerover /template/ ContentPresenter">
+					<Setter Property="Background" Value="{DynamicResource GeneralBackgroundColor}" />
+				</Style>
+				<Style Selector="Button:pressed /template/ ContentPresenter">
+					<Setter Property="Background" Value="{DynamicResource GeneralBackgroundColor}" />
+				</Style>
+			</Button.Styles>
+		</Button>
+	</Grid>
+</UserControl>

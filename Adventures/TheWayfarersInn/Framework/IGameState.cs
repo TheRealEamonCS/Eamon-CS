@@ -46,16 +46,16 @@ namespace TheWayfarersInn.Framework
 		long[] EventStates { get; set; }
 
 		/// <summary></summary>
-		bool OutdoorsHauntingSeen { get; set; }
-
-		/// <summary></summary>
-		bool IndoorsHauntingSeen { get; set; }
+		bool HauntingSeen { get; set; }
 
 		/// <summary></summary>
 		bool UnseenApparitionMet { get; set; }
 
 		/// <summary></summary>
 		bool CharlottePeeks { get; set; }
+
+		/// <summary></summary>
+		bool CharlotteGreets { get; set; }
 
 		/// <summary></summary>
 		bool CharlotteDeathSeen { get; set; }
@@ -116,6 +116,9 @@ namespace TheWayfarersInn.Framework
 
 		/// <summary></summary>
 		bool BourbonNoticed { get; set; }
+
+		/// <summary></summary>
+		bool DoorCreaksOpen { get; set; }
 
 		/// <summary></summary>
 		bool DartboardCreepsOut { get; set; }

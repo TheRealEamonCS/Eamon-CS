@@ -5,6 +5,7 @@ ChangeLog: EamonRT
 
 Date            Version            Who            Notes
 ----------------------------------------------------------------------------------------------------------------------------------
+20240931        3.0.0              MP             Avalonia overhaul
 20240110        2.2.0              MP             gDatabase overhaul
 20230531                           MP             Player/Monster Command Unification overhaul
 20230531                           MP             Artifact Character/Monster Method Unification overhaul

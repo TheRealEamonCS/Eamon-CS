@@ -246,5 +246,9 @@ namespace Eamon.Framework.Portability
 		/// <param name="arg1"></param>
 		/// <param name="arg2"></param>
 		void WriteLine(string format, object arg0, object arg1, object arg2);
+
+		/// <summary></summary>
+		/// <param name="inputStr"></param>
+		void BackpatchLastCommand(string inputStr);
 	}
 }

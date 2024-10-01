@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "EamonPM.WindowsUnix": {
-      "commandName": "Project",
-      "commandLineArgs": "-pfn TheBeginnersCave.dll -wd ..\\..\\Adventures\\TheBeginnersCave -la -rge -rw"
-    }
-  }
-}

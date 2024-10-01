@@ -317,9 +317,6 @@ namespace Eamon.Framework.Plugin
 		string ValidWorkDirRegexPattern { get; }
 
 		/// <summary></summary>
-		string CoreLibRegexPattern { get; }
-
-		/// <summary></summary>
 		string MscorlibRegexPattern { get; }
 
 		/// <summary></summary>
@@ -336,9 +333,6 @@ namespace Eamon.Framework.Plugin
 
 		/// <summary></summary>
 		string CoreLibName { get; }
-
-		/// <summary></summary>
-		string MscorlibName { get; }
 
 		/// <summary>
 		/// Gets the format string used to produce error messages during <see cref="IGameBase">Record</see> interdependency checking.
@@ -377,9 +371,9 @@ namespace Eamon.Framework.Plugin
 		string ProcessMutexName { get; }
 
 		/// <summary>
-		/// Gets the Eamon CS Desktop Solution path and file name, relative to the working directory.
+		/// Gets the Eamon CS Solution path and file name, relative to the working directory.
 		/// </summary>
-		string EamonDesktopSlnFile { get; }
+		string EamonCSSlnFile { get; }
 
 		/// <summary>
 		/// Gets the relative path and name of the error file dumped when an unexpected system shutdown occurs.
@@ -575,9 +569,6 @@ namespace Eamon.Framework.Plugin
 		MemoryStream CloneStream { get; set; }
 
 		/// <summary></summary>
-		IntPtr ConsoleHandle { get; set; }
-
-		/// <summary></summary>
 		long MutatePropertyCounter { get; set; }
 
 		/// <summary></summary>
@@ -640,16 +631,10 @@ namespace Eamon.Framework.Plugin
 		bool DisableValidation { get; set; }
 
 		/// <summary></summary>
-		bool RepaintWindow { get; set; }
-		
-		/// <summary></summary>
 		bool RunGameEditor { get; set; }
 
 		/// <summary></summary>
 		bool DeleteGameStateFromMainHall { get; set; }
-
-		/// <summary></summary>
-		bool ConvertDatafileToMscorlib { get; set; }
 
 		/// <summary></summary>
 		Action<IDictionary<Type, Type>> LoadPortabilityClassMappings { get; set; }
@@ -680,9 +665,6 @@ namespace Eamon.Framework.Plugin
 
 		/// <summary></summary>
 		bool LineWrapUserInput { get; set; }
-
-		/// <summary></summary>
-		Coord CursorPosition { get; set; }
 
 		/// <summary>Gets or sets the <see cref="IConfig">Config</see> database quick-accessor.</summary>
 		/// <remarks>
