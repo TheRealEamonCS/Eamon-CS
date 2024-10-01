@@ -37,7 +37,18 @@ namespace TheWayfarersInn.Game.Commands
 		{
 			base.ProcessEvents(eventType);
 
-			if (eventType == EventType.AfterPutArtifact)
+			if (eventType == EventType.BeforePutArtifact)
+			{
+				// Put anything on kitchen shelf after riddle solved
+
+				if (IobjArtifact.Uid == 173 && gGameState.KitchenRiddleState == 4)
+				{
+					PrintDontNeedTo();
+
+					GotoCleanup = true;
+				}
+			}
+			else if (eventType == EventType.AfterPutArtifact)
 			{
 				// Put fine clothing on mannequin
 

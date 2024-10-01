@@ -57,7 +57,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			gOut.WordWrap = true;
 
-			edxac.AdventureFolderPath = Buf.Trim().ToString().Replace('/', '\\');
+			edxac.AdventureFolderPath = Buf.Trim().ToString().Replace(gEngine.Path.DirectorySeparatorChar == '\\' ? '/' : '\\', gEngine.Path.DirectorySeparatorChar);
 
 			gOut.Print("{0}", gEngine.LineSep);
 

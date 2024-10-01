@@ -1,0 +1,38 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:vm="clr-namespace:EamonPM.Game.ViewModels"
+			 mc:Ignorable="d" 
+			 d:DesignWidth="600"
+			 d:DesignHeight="800"
+			 x:Class="EamonPM.Game.Views.PluginView"
+			 x:DataType="vm:PluginViewModel">
+	<Design.DataContext>
+		<!-- This only sets the DataContext for the previewer in an IDE,
+			 to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+		<vm:PluginViewModel />
+	</Design.DataContext>
+
+	<Grid Margin="0">
+		<!-- Define a single row that takes all available space -->
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+
+		<ScrollViewer Margin="0,10,0,10"
+					  HorizontalScrollBarVisibility="Auto">
+			<ListBox ItemsSource="{Binding VFolderList, Mode=TwoWay}"
+					 SelectionChanged="VFolderListBox_SelectionChanged"
+					 Margin="0"
+					 Background="{DynamicResource GeneralBackgroundColor}"
+					 x:Name="VFolderListBox">
+				<ListBox.ItemTemplate>
+					<DataTemplate>
+						<TextBlock Text="{Binding}" Foreground="{DynamicResource GeneralForegroundColor}" />
+					</DataTemplate>
+				</ListBox.ItemTemplate>
+			</ListBox>
+		</ScrollViewer>
+	</Grid>
+</UserControl>

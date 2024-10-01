@@ -18,6 +18,11 @@ namespace Eamon.Framework.Portability
 		bool EqualPaths(string path1, string path2);
 
 		/// <summary></summary>
+		/// <param name="path"></param>
+		/// <returns></returns>
+		string NormalizePath(string path);
+
+		/// <summary></summary>
 		/// <param name="paths"></param>
 		/// <returns></returns>
 		string Combine(params string[] paths);

@@ -9,9 +9,9 @@ This project is Eamon CS (ECS), a C# port of the classic Eamon roleplaying game 
 
 #### Prerequisites
 
-Eamon CS includes precompiled binaries for Windows and Unix that require the .NET 6 Runtime or SDK (for developers) installed on your system.  Unfortunately, having the .NET installer in the Eamon CS distribution is not practical, but the QuickLaunch files auto-detect missing packages and tell you where to find them.  There are instructions for obtaining and installing these [PREREQUISITES](https://TheRealEamonCS.github.io/pages/TechnicalPaper/TechnicalPaper.html#ECSTP2) in Technical Paper on the [Eamon CS website](https://TheRealEamonCS.github.io).
+Eamon CS includes precompiled binaries for Linux, MacOS, and Windows that require the .NET 8 Runtime or SDK (for developers) installed on your system.  Unfortunately, having the .NET installer in the Eamon CS distribution is not practical, but the QuickLaunch files auto-detect missing packages and tell you where to find them.  There are instructions for obtaining and installing these [PREREQUISITES](https://TheRealEamonCS.github.io/pages/TechnicalPaper/TechnicalPaper.html#ECSTP2) in Technical Paper on the [Eamon CS website](https://TheRealEamonCS.github.io).
 
-Eamon CS Mobile currently runs on devices using Android 4.0 through 10.0.
+Eamon CS Mobile currently runs on devices using Android 8.0 and newer.
 
 #### Installing
 
@@ -21,11 +21,11 @@ To obtain Eamon CS Mobile, download the [EamonPM.Android-Signed.apk](https://git
 
 #### Playing
 
-ECS programs launch using a collection of batch files (or shell scripts in Unix) located under the QuickLaunch directory.  You can create a shortcut to this folder on your desktop to easily access the system.
+Inside the QuickLaunch directory, you'll find a platform-specific script called DetectDotnetAndConfigure.  Successfully running this script configures Eamon CS, making it playable. 
 
-ECS Mobile mirrors the hierarchical directory structure of ECS Desktop, making the experience very similar.
+The Eamon CS game runner, built with Avalonia UI, offers a consistent user experience across all supported platforms and includes a Settings tab for customization.  Please see [SUGGESTED GAMEPLAY SETTINGS](https://TheRealEamonCS.github.io/pages/TechnicalPaper/TechnicalPaper.html#ECSTP6) in the Technical Paper for more details.
 
-Players may benefit by reconfiguring their Command console before running Eamon CS, an optional step. If interested, please see [SUGGESTED GAMEPLAY SETTINGS](https://TheRealEamonCS.github.io/pages/TechnicalPaper/TechnicalPaper.html#ECSTP6) in the Technical Paper for more details.
+If helpful, you can move the generated EamonPM program shortcut to your desktop for easy access.
 
 #### Contributing
 

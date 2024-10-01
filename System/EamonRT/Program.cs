@@ -50,8 +50,6 @@ namespace EamonRT
 
 		public virtual bool LineWrapUserInput { get; set; }
 
-		public virtual bool ConvertDatafileToMscorlib { get; set; }
-
 		public virtual Action<IDictionary<Type, Type>> LoadPortabilityClassMappings { get; set; }
 
 		/// <summary></summary>
@@ -1088,7 +1086,7 @@ namespace EamonRT
 
 					gEngine.Error.Write("{0}Error: {1}.",
 						Environment.NewLine,
-						"Use EamonDD to define a start Room record for this adventure");
+						"Use EamonDD to define a Room record for this adventure");
 
 					gEngine.UnlinkOnFailure();
 
@@ -1266,8 +1264,6 @@ namespace EamonRT
 				PushEngine(EngineType);
 
 				gEngine.EnableStdio = EnableStdio;
-
-				gEngine.ConvertDatafileToMscorlib = ConvertDatafileToMscorlib;
 
 				gEngine.LoadPortabilityClassMappings = LoadPortabilityClassMappings;
 

@@ -1,0 +1,93 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:vm="clr-namespace:EamonPM.Game.ViewModels"
+			 mc:Ignorable="d" 
+			 d:DesignWidth="600" 
+			 d:DesignHeight="800"
+			 x:Class="EamonPM.Game.Views.AboutView"
+			 x:DataType="vm:AboutViewModel">
+	<Design.DataContext>
+		<!-- This only sets the DataContext for the previewer in an IDE,
+			 to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+		<vm:AboutViewModel />
+	</Design.DataContext>
+
+	<Grid Margin="0">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+
+		<Border Grid.Row="0" Margin="0,10,0,0" Background="{DynamicResource Accent}">
+			<Image Source="avares://EamonPM/Assets/eamon_dragon_neuc_mdpi.png"
+				   HorizontalAlignment="Center"
+				   VerticalAlignment="Center"
+				   Width="100"
+				   Height="100"
+				   Margin="0,10,0,10"/>
+		</Border>
+
+		<ScrollViewer Grid.Row="1" 
+					  Margin="0,0,0,10" 
+					  Background="{DynamicResource GeneralBackgroundColor}" 
+					  VerticalScrollBarVisibility="Auto">
+			<StackPanel Orientation="Vertical" VerticalAlignment="Center">
+				<TextBlock FontSize="22"
+						   HorizontalAlignment="Center"
+						   Foreground="{DynamicResource GeneralForegroundColor}"
+						   Margin="10,20,10,2">
+					<Run FontWeight="DemiBold" Text="Eamon CS Plugin Manager" />
+				</TextBlock>
+
+				<TextBlock FontSize="22"
+						   HorizontalAlignment="Center"
+						   Foreground="{DynamicResource GeneralForegroundColor}"
+						   Margin="10,0,10,10">
+					<Run FontWeight="DemiBold" Text="{Binding ProgramNameWithParens, Mode=TwoWay}" />
+					<Run Foreground="{DynamicResource LightTextColor}"> 3.0.0.</Run>
+				</TextBlock>
+
+				<TextBlock FontSize="10"
+						   HorizontalAlignment="Center"
+						   Foreground="{DynamicResource LightTextColor}"
+						   Margin="10,0,10,2"
+						   Text="Copyright (c) 2014+ by Michael Penner.  All rights reserved." />
+
+				<TextBlock FontSize="10"
+						   HorizontalAlignment="Center"
+						   Foreground="{DynamicResource LightTextColor}"
+						   Margin="10,0,10,10"
+						   Text="This MIT Licensed free software has ABSOLUTELY NO WARRANTY." />
+
+				<TextBlock FontSize="10"
+						   HorizontalAlignment="Center"
+						   Foreground="{DynamicResource LightTextColor}"
+						   Margin="10,0,10,40">
+					<Run>BuildGuid: </Run>
+					<Run Text="{Binding BuildGuidWithPeriod, Mode=TwoWay}" />
+				</TextBlock>
+
+				<TextBlock HorizontalAlignment="Center" 
+						   Foreground="{DynamicResource GeneralForegroundColor}" 
+						   Margin="10,0,10,20" 
+						   TextWrapping="Wrap" 
+						   SizeChanged="WelcomeMessageTextBlock_SizeChanged" 
+						   x:Name="WelcomeMessageTextBlock">
+					<Run>Welcome to </Run>
+					<Run FontWeight="Bold">Eamon CS</Run>,
+					<Run> a powerful, modernized version of the classic text-based roleplaying game </Run>
+					<Run FontWeight="Bold">The Wonderful World of Eamon</Run>.
+				</TextBlock>
+
+				<TextBlock HorizontalAlignment="Center" 
+						   Foreground="{DynamicResource GeneralForegroundColor}" 
+						   Margin="10,0,10,20" 
+						   TextWrapping="Wrap" 
+						   Text="You might explore a bustling city full of intrigue, plunder a hidden tomb packed with treasure, or trek through a sweltering jungle in search of lost ruins; whatever your destination, fun, and adventure await!"
+						   x:Name="AdventureDescriptionTextBlock" />
+			</StackPanel>
+		</ScrollViewer>
+	</Grid>
+</UserControl>

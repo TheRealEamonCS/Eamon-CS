@@ -141,8 +141,6 @@ namespace Eamon.Game.Plugin
 
 		public virtual string ValidWorkDirRegexPattern { get; protected set; } = @"^(NONE)$|^(\.)$|^(\.\.\\\.\.\\Adventures\\[a-zA-Z0-9]+)$|^(\.\.\/\.\.\/Adventures\/[a-zA-Z0-9]+)$";
 
-		public virtual string CoreLibRegexPattern { get; protected set; } = @"System\.Private\.CoreLib, Version=6\.0\.0\.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e";
-
 		public virtual string MscorlibRegexPattern { get; protected set; } = @"mscorlib, Version=4\.0\.0\.0, Culture=neutral, PublicKeyToken=b77a5c561934e089";
 
 		public virtual string CommandSepRegexPattern { get; protected set; } = @"\.|\!|\?|;|,| (?:and|then|also) ";
@@ -153,9 +151,7 @@ namespace Eamon.Game.Plugin
 
 		public virtual string ExceptRegexPattern { get; protected set; } = @" (?:except|excluding|omitting) ";
 
-		public virtual string CoreLibName { get; protected set; } = @"System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e";
-
-		public virtual string MscorlibName { get; protected set; } = @"mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089";
+		public virtual string CoreLibName { get; protected set; } = @"System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e";
 
 		public virtual string RecIdepErrorFmtStr { get; protected set; } = "The {0} field refers to {1} Uid {2}, {3}.";
 
@@ -169,13 +165,13 @@ namespace Eamon.Game.Plugin
 
 		public virtual string ProcessMutexName { get; protected set; }
 
-		public virtual string EamonDesktopSlnFile { get; protected set; } = @"..\..\Eamon.Desktop.sln";
+		public virtual string EamonCSSlnFile { get; protected set; } = @"..\..\Eamon-CS.sln";
 
 		public virtual string StackTraceFile { get; protected set; } = @".\STACKTRACE.TXT";
 
 		public virtual string GlobalLaunchParametersFile { get; protected set; } = @".\GLOBAL_LAUNCH_PARAMETERS.TXT";
 		
-		public virtual string ProgVersion { get; protected set; } = "2.2.0";
+		public virtual string ProgVersion { get; protected set; } = "3.0.0";
 
 		public virtual long InfiniteDrinkableEdible { get; protected set; } = 9999;
 
@@ -231,8 +227,6 @@ namespace Eamon.Game.Plugin
 
 		public virtual MemoryStream CloneStream { get; set; } = new MemoryStream();
 
-		public virtual IntPtr ConsoleHandle { get; set; }
-
 		public virtual long MutatePropertyCounter { get; set; } = 1;
 
 		public virtual string WorkDir { get; set; } = "";
@@ -265,13 +259,9 @@ namespace Eamon.Game.Plugin
 
 		public virtual bool DisableValidation { get; set; }
 
-		public virtual bool RepaintWindow { get; set; }
-		
 		public virtual bool RunGameEditor { get; set; }
 
 		public virtual bool DeleteGameStateFromMainHall { get; set; }
-
-		public virtual bool ConvertDatafileToMscorlib { get; set; }
 
 		public virtual Action<IDictionary<Type, Type>> LoadPortabilityClassMappings { get; set; }
 
@@ -304,8 +294,6 @@ namespace Eamon.Game.Plugin
 		public virtual string LineSep { get; set; }
 
 		public virtual bool LineWrapUserInput { get; set; }
-
-		public virtual Coord CursorPosition { get; set; }
 
 		public virtual IRecordDb<IConfig> CFGDB { get; set; }
 
@@ -540,10 +528,6 @@ namespace Eamon.Game.Plugin
 				else if (args[i].Equals("--disableValidation", StringComparison.OrdinalIgnoreCase) || args[i].Equals("-dv", StringComparison.OrdinalIgnoreCase))
 				{
 					DisableValidation = true;
-				}
-				else if (args[i].Equals("--repaintWindow", StringComparison.OrdinalIgnoreCase) || args[i].Equals("-rw", StringComparison.OrdinalIgnoreCase))
-				{
-					RepaintWindow = true;
 				}
 				else if (args[i].Equals("--runGameEditor", StringComparison.OrdinalIgnoreCase) || args[i].Equals("-rge", StringComparison.OrdinalIgnoreCase))
 				{
@@ -1132,8 +1116,6 @@ namespace Eamon.Game.Plugin
 			{
 				Mutex.CreateAndWaitOne();
 			}
-
-			ConsoleHandle = WindowRepainter.GetConsoleWindow01();
 
 			LineSep = EnableScreenReaderMode ? "" : new string('-', (int)RightMargin);
 
@@ -2033,23 +2015,11 @@ namespace Eamon.Game.Plugin
 
 			var contents = File.ReadAllText(fileName);
 
-			if (ConvertDatafileToMscorlib)
+			if (Regex.IsMatch(contents, MscorlibRegexPattern))
 			{
-				if (Regex.IsMatch(contents, CoreLibRegexPattern))
-				{
-					contents = Regex.Replace(contents, CoreLibRegexPattern, MscorlibName);
+				contents = Regex.Replace(contents, MscorlibRegexPattern, CoreLibName);
 
-					contentsModified = true;
-				}
-			}
-			else
-			{
-				if (Regex.IsMatch(contents, MscorlibRegexPattern))
-				{
-					contents = Regex.Replace(contents, MscorlibRegexPattern, CoreLibName);
-
-					contentsModified = true;
-				}
+				contentsModified = true;
 			}
 
 			if (contentsModified)
@@ -2481,6 +2451,25 @@ namespace Eamon.Game.Plugin
 							}
 						);
 					}
+				}
+				else if (firstLine.Contains("Version=2.2.0.0"))
+				{
+					ReplaceDatafileValues
+					(
+						fileName,
+						new string[]
+						{
+								@"Version=6\.0\.0\.0",
+								@"Version=2\.2\.0\.0",
+								@"EAMON CS 2\.2",
+						},
+						new string[]
+						{
+								"Version=8.0.0.0",
+								"Version=3.0.0.0",
+								"EAMON CS 3.0",
+						}
+					);
 				}
 				else
 				{

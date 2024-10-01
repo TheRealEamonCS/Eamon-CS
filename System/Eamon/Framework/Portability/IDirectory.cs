@@ -15,9 +15,9 @@ namespace Eamon.Framework.Portability
 
 		/// <summary></summary>
 		/// <param name="path"></param>
-		/// <param name="parentName"></param>
+		/// <param name="adventureName"></param>
 		/// <returns></returns>
-		bool IsEamonCSDirectory(string path, ref string parentName);
+		bool IsEamonCSAdventuresDirectory(string path, string adventureName);
 
 		/// <summary></summary>
 		/// <param name="path"></param>
@@ -28,6 +28,12 @@ namespace Eamon.Framework.Portability
 		/// <param name="path"></param>
 		/// <param name="recursive"></param>
 		void DeleteEmptySubdirectories(string path, bool recursive);
+
+		/// <summary></summary>
+		/// <param name="path"></param>
+		/// <param name="adventureName"></param>
+		/// <param name="recursive"></param>
+		void DeleteEmptySubdirectories01(string path, string adventureName, bool recursive);
 
 		/// <summary></summary>
 		/// <param name="path"></param>

@@ -1,0 +1,115 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:vm="clr-namespace:EamonPM.Game.ViewModels"
+			 xmlns:views="clr-namespace:EamonPM.Game.Views"
+			 mc:Ignorable="d" 
+			 d:DesignWidth="600" 
+			 d:DesignHeight="800"
+			 x:Class="EamonPM.Game.Views.MainView"
+			 x:DataType="vm:MainViewModel">
+	<Design.DataContext>
+		<!-- This only sets the DataContext for the previewer in an IDE,
+			 to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+		<vm:MainViewModel />
+	</Design.DataContext>
+
+	<Grid Margin="0">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+
+		<StackPanel Grid.Row="0"
+					Orientation="Horizontal"
+					HorizontalAlignment="Stretch"
+					Background="{DynamicResource Primary}">
+			<Button IsVisible="{Binding IsBackButtonActive, Mode=TwoWay}"
+					IsEnabled="{Binding IsBackButtonActive, Mode=TwoWay}"
+					Click="BackButton_Clicked"
+					Padding="0"
+					Background="{DynamicResource Primary}"
+					BorderThickness="0"
+					x:Name="BackButton">
+				<Button.Content>
+					<StackPanel Orientation="Horizontal">
+						<Image IsVisible="{Binding IsBackArrowActive, Mode=TwoWay}"
+							   IsEnabled="{Binding IsBackArrowActive, Mode=TwoWay}"
+							   Source="avares://EamonPM/Assets/back_arrow.png"
+							   HorizontalAlignment="Center"
+							   VerticalAlignment="Center" />
+						<Image IsVisible="{Binding IsBackArrowDarkActive, Mode=TwoWay}"
+							   IsEnabled="{Binding IsBackArrowDarkActive, Mode=TwoWay}"
+							   Source="avares://EamonPM/Assets/back_arrow_dark.png"
+							   HorizontalAlignment="Center"
+							   VerticalAlignment="Center" />
+					</StackPanel>
+				</Button.Content>
+				<Button.Styles>
+					<Style Selector="Button:pointerover">
+						<Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+							<Setter Property="Background" Value="{DynamicResource Primary}" />
+						</Style>
+					</Style>
+					<Style Selector="Button:pressed">
+						<Style Selector="^  /template/ ContentPresenter#PART_ContentPresenter">
+							<Setter Property="Background" Value="{DynamicResource Primary}" />
+						</Style>
+					</Style>
+				</Button.Styles>
+			</Button>
+			<TextBlock Text="{Binding MainTitle, Mode=TwoWay}"
+					   Padding="10,20,10,10"
+					   FontSize="28"
+					   Foreground="{DynamicResource TitleTabItemForegroundColor}"
+					   HorizontalAlignment="Stretch"
+					   TextAlignment="Left"
+					   x:Name="MainTitleTextBlock" />
+		</StackPanel>
+
+		<TabControl Grid.Row="1"
+					Background="{DynamicResource Primary}"
+					SelectionChanged="MainTabControl_SelectionChanged" 
+					x:Name="MainTabControl">
+			<TabControl.ItemsPanel>
+				<ItemsPanelTemplate>
+					<StackPanel Background="{DynamicResource Primary}" Orientation="Horizontal" HorizontalAlignment="Stretch" />
+				</ItemsPanelTemplate>
+			</TabControl.ItemsPanel>
+			<TabItem Header="GAMEPLAY" FontSize="18" Foreground="{DynamicResource TitleTabItemForegroundColor}">
+				<ContentControl Content="{Binding CurrentView, Mode=TwoWay}" />
+				<TabItem.Styles>
+					<Style Selector="TabItem:selected /template/ Border#PART_SelectedPipe">
+						<Setter Property="Background" Value="{DynamicResource TitleTabItemForegroundColor}" />
+					</Style>
+					<Style Selector="TabItem:pointerover /template/ Border#PART_LayoutRoot">
+						<Setter Property="TextElement.Foreground" Value="{DynamicResource TitleTabItemForegroundColor}" />
+					</Style>
+				</TabItem.Styles>
+			</TabItem>
+			<TabItem Header="SETTINGS" FontSize="18" Foreground="{DynamicResource TitleTabItemForegroundColor}">
+				<views:SettingsView />
+				<TabItem.Styles>
+					<Style Selector="TabItem:selected /template/ Border#PART_SelectedPipe">
+						<Setter Property="Background" Value="{DynamicResource TitleTabItemForegroundColor}" />
+					</Style>
+					<Style Selector="TabItem:pointerover /template/ Border#PART_LayoutRoot">
+						<Setter Property="TextElement.Foreground" Value="{DynamicResource TitleTabItemForegroundColor}" />
+					</Style>
+				</TabItem.Styles>
+			</TabItem>
+			<TabItem Header="ABOUT" FontSize="18" Foreground="{DynamicResource TitleTabItemForegroundColor}">
+				<views:AboutView />
+				<TabItem.Styles>
+					<Style Selector="TabItem:selected /template/ Border#PART_SelectedPipe">
+						<Setter Property="Background" Value="{DynamicResource TitleTabItemForegroundColor}" />
+					</Style>
+					<Style Selector="TabItem:pointerover /template/ Border#PART_LayoutRoot">
+						<Setter Property="TextElement.Foreground" Value="{DynamicResource TitleTabItemForegroundColor}" />
+					</Style>
+				</TabItem.Styles>
+			</TabItem>
+		</TabControl>
+	</Grid>
+</UserControl>

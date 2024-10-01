@@ -7,7 +7,7 @@
     <Description>Eamon CS Library</Description>
     <Company>Michael Penner</Company>
     <Authors>Michael Penner</Authors>
-    <Version>2.2.0.0</Version>
+    <Version>3.0.0.0</Version>
     <AssemblyName>Eamon</AssemblyName>
   </PropertyGroup>
 

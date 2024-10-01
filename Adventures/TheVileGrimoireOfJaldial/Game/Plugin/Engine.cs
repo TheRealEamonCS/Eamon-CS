@@ -231,6 +231,17 @@ namespace TheVileGrimoireOfJaldial.Game.Plugin
 				return buriedCasketArtifact.InContainer.IsOpen() ? "open" : "closed";
 			});
 
+			MacroFuncs.Add(11, () =>
+			{
+				var smashedArmor = ADB[47];
+
+				Debug.Assert(smashedArmor != null);
+
+				var room = smashedArmor.GetInRoom();
+
+				return room != null && room.Type == RoomType.Outdoors ? "ground" : "floor";
+			});
+
 			var synonyms = new Dictionary<long, string[]>()
 			{
 				{ 1, new string[] { "magi-torch", "torch instruction label", "torch instructions", "torch label", "instruction label", "instruction tag", "instructions", "label", "tag" } },

@@ -1,0 +1,22 @@
+<Window xmlns="https://github.com/avaloniaui"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		mc:Ignorable="d"
+		d:DesignWidth="680"
+		d:DesignHeight="420"
+		Width="680"
+		Height="420"
+		Background="#000000"
+		WindowStartupLocation="CenterScreen"
+		SystemDecorations="None"
+		Topmost="True"
+		x:Class="EamonPM.Game.Views.SplashScreen"
+		Title="SplashScreen">
+
+	<Image Source="avares://EamonPM/Assets/eamon_dragon_neuc.png"
+		   Height="208"
+		   Width="225"
+		   HorizontalAlignment="Center"
+		   VerticalAlignment="Center" />
+</Window>

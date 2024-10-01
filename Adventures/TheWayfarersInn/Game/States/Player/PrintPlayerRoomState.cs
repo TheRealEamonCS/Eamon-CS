@@ -78,22 +78,52 @@ namespace TheWayfarersInn.Game.States
 
 				Debug.Assert(hauntingArtifact != null);
 
-				// Bottle of bourbon / folded note noticed by player
-
-				if (gGameState.BourbonAppeared && !gGameState.BourbonNoticed && barArtifact.IsInRoom(gCharRoom) && gCharRoom.IsLit() && gEngine.ShouldPreTurnProcess && gSentenceParser.IsInputExhausted)
+				if (gEngine.ShouldPreTurnProcess && gSentenceParser.IsInputExhausted)
 				{
-					gEngine.PrintEffectDesc(133);
+					// Bottle of bourbon / folded note noticed by player
 
-					gGameState.BourbonNoticed = true;
-				}
+					if (gGameState.BourbonAppeared && !gGameState.BourbonNoticed && barArtifact.IsInRoom(gCharRoom) && gCharRoom.IsLit())
+					{
+						gEngine.PrintEffectDesc(133);
 
-				// Child's apparition peeks from behind the majestic oak tree
+						gGameState.BourbonNoticed = true;
+					}
 
-				if (gCharRoom.Uid == 31 && majesticOakTreeArtifact.Seen && !unseenApparitionMonster.IsInLimbo() && !unseenApparitionMonster.IsInRoom(gCharRoom) && !gGameState.CharlottePeeks && gEngine.ShouldPreTurnProcess && gSentenceParser.IsInputExhausted)
-				{
-					gEngine.PrintEffectDesc(128);
+					// Bedroom door creaks open
 
-					gGameState.CharlottePeeks = true;
+					if (gCharRoom.Uid == 38 && gGameState.CharlotteDeathSeen && !gGameState.DoorCreaksOpen)
+					{
+						gEngine.PrintEffectDesc(60);
+
+						gGameState.DoorCreaksOpen = true;
+					}
+
+					// Child's apparition peeks from behind the majestic oak tree
+
+					if (gCharRoom.Uid == 31 && majesticOakTreeArtifact.Seen && !unseenApparitionMonster.IsInLimbo() && !unseenApparitionMonster.IsInRoom(gCharRoom) && !gGameState.CharlottePeeks)
+					{
+						gEngine.PrintEffectDesc(128);
+
+						gGameState.CharlottePeeks = true;
+					}
+
+					// Go back to Charlotte (from Entryway)
+
+					if (gGameState.Ro == 23 && gGameState.R3 == 13 && gGameState.CharlotteMet && childsApparitionMonster.IsInRoomUid(gGameState.Ro) && !gGameState.CharlotteGreets)
+					{
+						gEngine.PrintEffectDesc(63);
+
+						gGameState.CharlotteGreets = true;
+					}
+
+					// Go into foyer after Charlotte rests in peace; Caldwell family reunited
+
+					if (gGameState.Ro == 23 && gGameState.R3 == 13 && gGameState.CharlotteRestInPeace && !gGameState.CharlotteReunited)
+					{
+						gEngine.PrintEffectDesc(57);
+
+						gGameState.CharlotteReunited = true;
+					}
 				}
 
 				var rl = gEngine.RollDice(1, 100, 0);
@@ -115,14 +145,7 @@ namespace TheWayfarersInn.Game.States
 
 					if (hauntingArtifact.IsInRoom(gCharRoom))
 					{
-						if (gCharRoom.IsWayfarersInnClearingRoom())
-						{
-							gOut.Print("{0} suddenly {1}!", hauntingArtifact.GetTheName(true), hauntingArtifact.EvalPlural("vanishes", "vanish"));
-						}
-						else
-						{
-							// TODO: implement
-						}
+						gOut.Print("{0} suddenly {1}!", hauntingArtifact.GetTheName(true), hauntingArtifact.EvalPlural("vanishes", "vanish"));
 
 						hauntingArtifactVanished = true;
 					}
@@ -134,30 +157,23 @@ namespace TheWayfarersInn.Game.States
 
 				if (hauntingArtifact.IsInLimbo() && !hauntingArtifactVanished)
 				{
-					if (gCharRoom.IsWayfarersInnClearingRoom())
+					var stateDesc = "";
+
+					gEngine.GetHauntingData(gCharRoom.Uid, unseenApparitionMonster.GetInRoomUid(), ref stateDesc);
+
+					rl = gEngine.RollDice(1, 100, 0);
+
+					if (!string.IsNullOrWhiteSpace(stateDesc) && (rl < 50 || !gGameState.HauntingSeen))
 					{
-						var stateDesc = "";
+						var name = gEngine.GetRandomElement(new string[] { "ghostly face", "ghostly figure", "ghostly form", "ghostly light" });
 
-						gEngine.GetOutdoorsHauntingData(gCharRoom.Uid, unseenApparitionMonster.GetInRoomUid(), ref stateDesc);
+						var synonyms = new string[] { name.Split(' ')[1] };
 
-						rl = gEngine.RollDice(1, 100, 0);
+						hauntingArtifact.Field1 = gEngine.RollDice(1, 4, -1);
 
-						if (!string.IsNullOrWhiteSpace(stateDesc) && (rl < 50 || !gGameState.OutdoorsHauntingSeen))
-						{
-							var name = gEngine.GetRandomElement(new string[] { "ghostly face", "ghostly figure", "ghostly form", "ghostly light" });
+						gEngine.BuildDecorationArtifact(151, 56, name, synonyms, stateDesc);
 
-							var synonyms = new string[] { name.Split(' ')[1] };
-
-							hauntingArtifact.Field1 = gEngine.RollDice(1, 4, -1);
-
-							gEngine.BuildDecorationArtifact(151, 56, name, synonyms, stateDesc);
-
-							gGameState.OutdoorsHauntingSeen = true;
-						}
-					}
-					else
-					{
-						// TODO: implement
+						gGameState.HauntingSeen = true;
 					}
 				}
 

@@ -775,7 +775,7 @@ namespace EamonRT.Game.Plugin
 
 		public virtual void PrintRestartGameUsingResume()
 		{
-			Out.Print("You can restart the game by running the Resume[GameName] .bat or .sh file.");
+			Out.Print("You can restart the game by running the Resume[AdventureName].ps vFile.");
 		}
 
 		public virtual void PrintMemorialService()
@@ -4148,10 +4148,6 @@ namespace EamonRT.Game.Plugin
 					// Do nothing
 				}
 				else if (Argv[i].Equals("--disableValidation", StringComparison.OrdinalIgnoreCase) || Argv[i].Equals("-dv", StringComparison.OrdinalIgnoreCase))
-				{
-					// Do nothing
-				}
-				else if (Argv[i].Equals("--repaintWindow", StringComparison.OrdinalIgnoreCase) || Argv[i].Equals("-rw", StringComparison.OrdinalIgnoreCase))
 				{
 					// Do nothing
 				}

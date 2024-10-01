@@ -78,9 +78,20 @@ namespace TheWayfarersInn.Game
 
 		public override bool HasWornInventory()
 		{
-			// Charlotte has no worn inventory list
+			var monsterUids = new long[] { 8, 15, 16, 17, 24 };
 
-			return Uid != 4 ? base.HasWornInventory() : false;
+			// Some monsters have no worn inventory list
+
+			return Uid == gGameState?.Cm || monsterUids.Contains(Uid) ? base.HasWornInventory() : false;
+		}
+
+		public override bool HasCarriedInventory()
+		{
+			var monsterUids = new long[] { 4, 8, 15, 16, 17, 24 };
+
+			// Some monsters have no carried inventory list
+
+			return Uid == gGameState?.Cm || monsterUids.Contains(Uid) ? base.HasCarriedInventory() : false;
 		}
 
 		public override bool HasHumanNaturalAttackDescs()
@@ -171,6 +182,13 @@ namespace TheWayfarersInn.Game
 			return !monsterUids.Contains(Uid) ? base.ShouldShowHealthStatusWhenInventoried() : false;
 		}
 
+		public override bool ShouldRefuseToAcceptGold()
+		{
+			// Charlotte
+
+			return Uid != 4 ? base.ShouldRefuseToAcceptGold() : true;
+		}
+
 		public override bool ShouldRefuseToAcceptGift(IArtifact artifact)
 		{
 			var artifactUids = new long[] { 30, 43, 52, 54, 55, 87, 93, 102, 110 };
@@ -179,7 +197,7 @@ namespace TheWayfarersInn.Game
 
 			// Charlotte accepts a few gifts
 
-			return Uid != 4 || !artifactUids.Contains(artifact.Uid) ? base.ShouldRefuseToAcceptGift(artifact) : false;
+			return Uid != 4 || artifactUids.Contains(artifact.Uid) ? base.ShouldRefuseToAcceptGift(artifact) : true;
 		}
 
 		public override bool ShouldPreferNaturalWeaponsToWeakerWeapon(IArtifact artifact)

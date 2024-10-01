@@ -24,8 +24,6 @@ namespace EamonMH
 
 		public virtual bool LineWrapUserInput { get; set; }
 
-		public virtual bool ConvertDatafileToMscorlib { get; set; }
-
 		public virtual Action<IDictionary<Type, Type>> LoadPortabilityClassMappings { get; set; }
 
 		/// <summary></summary>
@@ -50,8 +48,6 @@ namespace EamonMH
 				PushEngine(EngineType);
 
 				gEngine.EnableStdio = EnableStdio;
-
-				gEngine.ConvertDatafileToMscorlib = ConvertDatafileToMscorlib;
 
 				gEngine.LoadPortabilityClassMappings = LoadPortabilityClassMappings;
 

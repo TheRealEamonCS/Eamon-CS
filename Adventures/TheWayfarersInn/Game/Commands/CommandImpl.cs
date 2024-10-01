@@ -11,6 +11,7 @@ using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using Eamon.Game.Extensions;
 using EamonRT.Framework.Commands;
+using TheWayfarersInn.Framework.Primitive.Enums;
 using static TheWayfarersInn.Game.Plugin.Globals;
 
 namespace TheWayfarersInn.Game.Commands
@@ -169,12 +170,29 @@ namespace TheWayfarersInn.Game.Commands
 
 			if (artifact?.Uid == 189 && monster?.Uid == 4)
 			{
+				var disabledStates = new long[] { 2, 3 };
+
+				var eventState = gGameState.GetEventState(EventState.ChildsApparition);
+
+				if (disabledStates.Contains(eventState))
+				{
+					gEngine.PrintMonsterEmotes(monster);
+
+					gOut.WriteLine();
+
+					goto Cleanup;
+				}
+
 				gOut.Print("{0} hugs {1} like it's her only friend.", monster.GetTheName(true), artifact.GetTheName());
 			}
 			else
 			{
 				base.PrintObjBelongsToActor(artifact, monster);
 			}
+
+		Cleanup:
+
+			;
 		}
 
 		public override void PrintPutObjPrepContainer(IArtifact artifact, IArtifact container, ContainerType containerType)
