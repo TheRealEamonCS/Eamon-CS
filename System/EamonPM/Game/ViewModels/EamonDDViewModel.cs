@@ -12,23 +12,23 @@ namespace EamonPM.Game.ViewModels
 {
 	public class EamonDDViewModel : ViewModelBase
 	{
-		public virtual IList<PluginScript> NodeList { get; set; }
+		public virtual IList<PluginScriptVFile> VFileList { get; set; }
 
 		public EamonDDViewModel()
 		{
-			NodeList = new List<PluginScript>()
+			VFileList = new List<PluginScriptVFile>()
 			{
-				CreatePluginScript("EditAdventures", "-pfn", "EamonRT.dll", "-fsfn", "ADVENTURES.DAT", "-rge"),
-				CreatePluginScript("EditCatalog", "-pfn", "EamonRT.dll", "-fsfn", "CATALOG.DAT", "-rge"),
-				CreatePluginScript("EditCharacters", "-pfn", "EamonRT.dll", "-chrfn", "CHARACTERS.DAT", "-rge"),
-				CreatePluginScript("EditContemporary", "-pfn", "EamonRT.dll", "-fsfn", "CONTEMPORARY.DAT", "-rge"),
-				CreatePluginScript("EditFantasy", "-pfn", "EamonRT.dll", "-fsfn", "FANTASY.DAT", "-rge"),
-				CreatePluginScript("EditHorror", "-pfn", "EamonRT.dll", "-fsfn", "HORROR.DAT", "-rge"),
-				CreatePluginScript("EditSciFi", "-pfn", "EamonRT.dll", "-fsfn", "SCIFI.DAT", "-rge"),
-				CreatePluginScript("EditTest", "-pfn", "EamonRT.dll", "-fsfn", "TEST.DAT", "-rge"),
-				CreatePluginScript("EditWorkbench", "-pfn", "EamonRT.dll", "-fsfn", "WORKBENCH.DAT", "-rge"),
-				CreatePluginScript("EditWorkInProgress", "-pfn", "EamonRT.dll", "-fsfn", "WIP.DAT", "-rge"),
-				CreatePluginScript("LoadAdventureSupportMenu", "-pfn", "EamonRT.dll", "-rge")
+				CreatePluginScriptVFile("EditAdventures.ps", "-pfn", "EamonRT.dll", "-fsfn", "ADVENTURES.DAT", "-rge"),
+				CreatePluginScriptVFile("EditCatalog.ps", "-pfn", "EamonRT.dll", "-fsfn", "CATALOG.DAT", "-rge"),
+				CreatePluginScriptVFile("EditCharacters.ps", "-pfn", "EamonRT.dll", "-chrfn", "CHARACTERS.DAT", "-rge"),
+				CreatePluginScriptVFile("EditContemporary.ps", "-pfn", "EamonRT.dll", "-fsfn", "CONTEMPORARY.DAT", "-rge"),
+				CreatePluginScriptVFile("EditFantasy.ps", "-pfn", "EamonRT.dll", "-fsfn", "FANTASY.DAT", "-rge"),
+				CreatePluginScriptVFile("EditHorror.ps", "-pfn", "EamonRT.dll", "-fsfn", "HORROR.DAT", "-rge"),
+				CreatePluginScriptVFile("EditSciFi.ps", "-pfn", "EamonRT.dll", "-fsfn", "SCIFI.DAT", "-rge"),
+				CreatePluginScriptVFile("EditTest.ps", "-pfn", "EamonRT.dll", "-fsfn", "TEST.DAT", "-rge"),
+				CreatePluginScriptVFile("EditWorkbench.ps", "-pfn", "EamonRT.dll", "-fsfn", "WORKBENCH.DAT", "-rge"),
+				CreatePluginScriptVFile("EditWorkInProgress.ps", "-pfn", "EamonRT.dll", "-fsfn", "WIP.DAT", "-rge"),
+				CreatePluginScriptVFile("LoadAdventureSupportMenu.ps", "-pfn", "EamonRT.dll", "-rge")
 			};
 
 			var adventureDirs = App.GetAdventureDirs();
@@ -37,13 +37,13 @@ namespace EamonPM.Game.ViewModels
 			{
 				var pluginFileName = string.Format("{0}.dll", dir);
 
-				NodeList.Add
+				VFileList.Add
 				(
-					CreatePluginScript(string.Format("Edit{0}", dir), "-pfn", App.PluginExists(pluginFileName) ? pluginFileName : "EamonRT.dll", "-wd", gEngine.Path.Combine("..", "..", "Adventures", dir), "-la", "-rge")
+					CreatePluginScriptVFile(string.Format("Edit{0}.ps", dir), "-pfn", App.PluginExists(pluginFileName) ? pluginFileName : "EamonRT.dll", "-wd", gEngine.Path.Combine("..", "..", "Adventures", dir), "-la", "-rge")
 				);
 			}
 
-			NodeList = NodeList.OrderBy(ps => ps.Name).ToList();
+			VFileList = VFileList.OrderBy(psvf => psvf.Name).ToList();
 		}
 	}
 }

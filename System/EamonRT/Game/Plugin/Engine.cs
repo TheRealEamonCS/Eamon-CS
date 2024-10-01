@@ -775,7 +775,7 @@ namespace EamonRT.Game.Plugin
 
 		public virtual void PrintRestartGameUsingResume()
 		{
-			Out.Print("You can restart the game by selecting the Resume[AdventureName] node.");
+			Out.Print("You can restart the game by running the Resume[AdventureName].ps vFile.");
 		}
 
 		public virtual void PrintMemorialService()

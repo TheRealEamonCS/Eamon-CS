@@ -9,11 +9,11 @@ namespace EamonPM.Game.ViewModels
 {
 	public class PluginViewModel : ViewModelBase
 	{
-		public virtual IList<string> NodeList { get; set; }
+		public virtual IList<string> VFolderList { get; set; }
 
 		public PluginViewModel()
 		{
-			NodeList = new List<string>()
+			VFolderList = new List<string>()
 			{
 				"EamonDD",
 				"EamonMH",

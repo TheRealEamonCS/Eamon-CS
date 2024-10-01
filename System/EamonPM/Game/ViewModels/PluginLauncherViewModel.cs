@@ -38,7 +38,7 @@ namespace EamonPM.Game.ViewModels
 
 		public string _inputText;
 
-		public virtual PluginScript PluginScript { get; set; }
+		public virtual PluginScriptVFile PluginScriptVFile { get; set; }
 
 		public virtual FontFamily FontFamily
 		{

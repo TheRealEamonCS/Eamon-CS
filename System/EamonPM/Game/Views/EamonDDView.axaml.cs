@@ -11,7 +11,7 @@ namespace EamonPM.Game.Views
 {
 	public partial class EamonDDView : UserControl
 	{
-		public virtual void NodeListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		public virtual void VFileListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			var mainViewModel = App.GetViewModel(typeof(MainViewModel)) as MainViewModel;
 
@@ -25,9 +25,9 @@ namespace EamonPM.Game.Views
 
 				Debug.Assert(currentViewModel != null);
 
-				currentViewModel.PluginScript = eamonDDViewModel.NodeList[selectedIndex];
+				currentViewModel.PluginScriptVFile = eamonDDViewModel.VFileList[selectedIndex];
 
-				Debug.Assert(currentViewModel.PluginScript != null);
+				Debug.Assert(currentViewModel.PluginScriptVFile != null);
 
 				mainViewModel.NavigateTo(currentView, "EamonDD", false);
 

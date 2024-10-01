@@ -402,9 +402,9 @@ namespace EamonPM
 				IsBackground = true 
 			};
 
-			Debug.Assert(pluginLauncherViewModel.PluginScript != null);
+			Debug.Assert(pluginLauncherViewModel.PluginScriptVFile != null);
 
-			GameThread.Start(pluginLauncherViewModel.PluginScript.PluginArgs);
+			GameThread.Start(pluginLauncherViewModel.PluginScriptVFile.PluginArgs);
 		}
 
 		public static void KillProcess()
