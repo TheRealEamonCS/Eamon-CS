@@ -6,12 +6,12 @@
 			 mc:Ignorable="d" 
 			 d:DesignWidth="600"
 			 d:DesignHeight="800"
-			 x:Class="EamonPM.Game.Views.PluginView"
-			 x:DataType="vm:PluginViewModel">
+			 x:Class="EamonPM.Game.Views.QuickLaunchView"
+			 x:DataType="vm:QuickLaunchViewModel">
 	<Design.DataContext>
 		<!-- This only sets the DataContext for the previewer in an IDE,
 			 to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
-		<vm:PluginViewModel />
+		<vm:QuickLaunchViewModel />
 	</Design.DataContext>
 
 	<Grid Margin="0">

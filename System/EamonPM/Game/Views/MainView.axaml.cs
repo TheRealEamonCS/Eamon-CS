@@ -40,9 +40,9 @@ namespace EamonPM.Game.Views
 				{
 					App.ResetListBox(eamonRTView.VFileListBox);
 				}
-				else if (currentView is PluginView pluginView)
+				else if (currentView is QuickLaunchView quickLaunchView)
 				{
-					App.ResetListBox(pluginView.VFolderListBox);
+					App.ResetListBox(quickLaunchView.VFolderListBox);
 				}
 
 				viewModel.ViewStack.Pop();
