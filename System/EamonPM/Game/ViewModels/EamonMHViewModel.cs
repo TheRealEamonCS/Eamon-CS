@@ -16,8 +16,8 @@ namespace EamonPM.Game.ViewModels
 		{
 			VFileList = new List<PluginScriptVFile>() 
 			{
-				CreatePluginScriptVFile("EnterMainHallUsingAdventures.ps", "-pfn", "EamonMH.dll", "-fsfn", "ADVENTURES.DAT"),
-				CreatePluginScriptVFile("EnterMainHallUsingCatalog.ps", "-pfn", "EamonMH.dll", "-fsfn", "CATALOG.DAT")
+				CreatePluginScriptVFile("EnterMainHallUsingAdventures.psh", "-pfn", "EamonMH.dll", "-fsfn", "ADVENTURES.DAT"),
+				CreatePluginScriptVFile("EnterMainHallUsingCatalog.psh", "-pfn", "EamonMH.dll", "-fsfn", "CATALOG.DAT")
 			};
 		}
 	}

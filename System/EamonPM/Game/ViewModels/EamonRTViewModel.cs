@@ -26,7 +26,7 @@ namespace EamonPM.Game.ViewModels
 
 				VFileList.Add
 				(
-					CreatePluginScriptVFile(string.Format("Resume{0}.ps", dir), "-pfn", App.PluginExists(pluginFileName) ? pluginFileName : "EamonRT.dll", "-wd", gEngine.Path.Combine("..", "..", "Adventures", dir))
+					CreatePluginScriptVFile(string.Format("Resume{0}.psh", dir), "-pfn", App.PluginExists(pluginFileName) ? pluginFileName : "EamonRT.dll", "-wd", gEngine.Path.Combine("..", "..", "Adventures", dir))
 				);
 			}
 

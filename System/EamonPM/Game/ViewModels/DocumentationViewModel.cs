@@ -15,7 +15,7 @@ namespace EamonPM.Game.ViewModels
 		{
 			VFileList = new List<string>()
 			{
-				"ViewDocumentationUsingBrowser.ps"
+				"ViewDocumentationUsingBrowser.psh"
 			};
 		}
 	}
