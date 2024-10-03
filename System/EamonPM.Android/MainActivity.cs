@@ -140,7 +140,7 @@ namespace EamonPM.Android
 				{
 					var fileName = Path.Combine(path, file);
 
-					if (!fileName.EndsWith("CHARACTERS.DAT", StringComparison.OrdinalIgnoreCase) || !File.Exists(fileName))
+					if ((!fileName.EndsWith("CHARACTERS.DAT", StringComparison.OrdinalIgnoreCase) && !fileName.EndsWith("EAMONPM_SETTINGS.DAT", StringComparison.OrdinalIgnoreCase)) || !File.Exists(fileName))
 					{
 						fileName = Path.Combine("System", "Bin", file);
 

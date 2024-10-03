@@ -40,7 +40,7 @@ namespace EamonPM
 		/*
 			- leave the BuildGuid alone to upgrade only the binary .apk file
 
-			- change the BuildGuid to upgrade the binary .apk file and the .DAT datafiles in the filesystem (but not CHARACTERS.DAT)
+			- change the BuildGuid to upgrade the binary .apk file and the .DAT datafiles in the filesystem (but not CHARACTERS.DAT or EAMONPM_SETTINGS.DAT)
 		*/
 
 		public static IDictionary<Type, ViewModelBase> ViewModelDictionary { get; set; }
