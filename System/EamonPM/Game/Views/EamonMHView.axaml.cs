@@ -11,7 +11,7 @@ namespace EamonPM.Game.Views
 {
 	public partial class EamonMHView : UserControl
 	{
-		public virtual void VFileListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		public virtual void FileListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			var mainViewModel = App.GetViewModel(typeof(MainViewModel)) as MainViewModel;
 
@@ -25,9 +25,9 @@ namespace EamonPM.Game.Views
 
 				Debug.Assert(currentViewModel != null);
 
-				currentViewModel.PluginScriptVFile = eamonMHViewModel.VFileList[selectedIndex];
+				currentViewModel.PluginScriptFile = eamonMHViewModel.FileList[selectedIndex];
 
-				Debug.Assert(currentViewModel.PluginScriptVFile != null);
+				Debug.Assert(currentViewModel.PluginScriptFile != null);
 
 				mainViewModel.NavigateTo(currentView, "EamonMH", false);
 

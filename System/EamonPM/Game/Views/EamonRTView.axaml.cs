@@ -12,7 +12,7 @@ namespace EamonPM.Game.Views
 {
 	public partial class EamonRTView : UserControl
 	{
-		public virtual void VFileListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		public virtual void FileListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			var mainViewModel = App.GetViewModel(typeof(MainViewModel)) as MainViewModel;
 
@@ -26,11 +26,11 @@ namespace EamonPM.Game.Views
 
 				Debug.Assert(currentViewModel != null);
 
-				currentViewModel.PluginScriptVFile = eamonRTViewModel.VFileList[selectedIndex];
+				currentViewModel.PluginScriptFile = eamonRTViewModel.FileList[selectedIndex];
 
-				Debug.Assert(currentViewModel.PluginScriptVFile != null);
+				Debug.Assert(currentViewModel.PluginScriptFile != null);
 
-				var mainTitle = gEngine.Path.GetFileNameWithoutExtension(currentViewModel.PluginScriptVFile.PluginArgs[1]);
+				var mainTitle = gEngine.Path.GetFileNameWithoutExtension(currentViewModel.PluginScriptFile.PluginArgs[1]);
 
 				mainViewModel.NavigateTo(currentView, mainTitle, false);
 
