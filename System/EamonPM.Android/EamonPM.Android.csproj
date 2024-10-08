@@ -139,6 +139,7 @@
       xcopy "$(TargetDir)EamonMH.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
       xcopy "$(TargetDir)EamonRT.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
       xcopy "$(TargetDir)*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
+      xcopy "$(TargetDir)*_SCRIPTS.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
       xcopy "$(TargetDir)GLOBAL_LAUNCH_PARAMETERS.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
       xcopy "$(TargetDir)..\..\Adventures\AlternateBeginnersCave\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\AlternateBeginnersCave" /I /S /Y
       xcopy "$(TargetDir)..\..\Adventures\ARuncibleCargo\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\ARuncibleCargo" /I /S /Y

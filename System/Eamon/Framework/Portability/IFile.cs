@@ -3,6 +3,7 @@
 
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
+using System.Collections.Generic;
 using System.Text;
 
 namespace Eamon.Framework.Portability
@@ -36,6 +37,12 @@ namespace Eamon.Framework.Portability
 		/// <param name="encoding"></param>
 		/// <returns></returns>
 		string ReadAllText(string path, Encoding encoding = null);
+
+		/// <summary></summary>
+		/// <param name="path"></param>
+		/// <param name="encoding"></param>
+		/// <returns></returns>
+		IEnumerable<string> ReadLines(string path, Encoding encoding = null);
 
 		/// <summary></summary>
 		/// <param name="path"></param>

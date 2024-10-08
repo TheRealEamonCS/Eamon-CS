@@ -39,7 +39,7 @@ The current plan is to produce fully polished games as time allows.  You'll get 
 
 There are currently plans to port Eamon CS Mobile to iOS.
 
-Many 3rd party technologies can seamlessly integrate with ECS, some of which may push the game in new directions.  Stay tuned and see what comes of it.
+Many third-party technologies can seamlessly integrate with ECS, some of which may push the game in new directions.  Stay tuned and see what comes of it.
 
 #### License
 

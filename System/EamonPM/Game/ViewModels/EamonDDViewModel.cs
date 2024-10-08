@@ -3,7 +3,9 @@
 
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using EamonPM.Game.Primitive.Classes;
 using static Eamon.Game.Plugin.Globals;
@@ -16,20 +18,28 @@ namespace EamonPM.Game.ViewModels
 
 		public EamonDDViewModel()
 		{
-			FileList = new List<PluginScriptFile>()
+			FileList = new List<PluginScriptFile>();
+
+			try
 			{
-				CreatePluginScriptFile("EditAdventures.psh", "-pfn", "EamonRT.dll", "-fsfn", "ADVENTURES.DAT", "-rge"),
-				CreatePluginScriptFile("EditCatalog.psh", "-pfn", "EamonRT.dll", "-fsfn", "CATALOG.DAT", "-rge"),
-				CreatePluginScriptFile("EditCharacters.psh", "-pfn", "EamonRT.dll", "-chrfn", "CHARACTERS.DAT", "-rge"),
-				CreatePluginScriptFile("EditContemporary.psh", "-pfn", "EamonRT.dll", "-fsfn", "CONTEMPORARY.DAT", "-rge"),
-				CreatePluginScriptFile("EditFantasy.psh", "-pfn", "EamonRT.dll", "-fsfn", "FANTASY.DAT", "-rge"),
-				CreatePluginScriptFile("EditHorror.psh", "-pfn", "EamonRT.dll", "-fsfn", "HORROR.DAT", "-rge"),
-				CreatePluginScriptFile("EditSciFi.psh", "-pfn", "EamonRT.dll", "-fsfn", "SCIFI.DAT", "-rge"),
-				CreatePluginScriptFile("EditTest.psh", "-pfn", "EamonRT.dll", "-fsfn", "TEST.DAT", "-rge"),
-				CreatePluginScriptFile("EditWorkbench.psh", "-pfn", "EamonRT.dll", "-fsfn", "WORKBENCH.DAT", "-rge"),
-				CreatePluginScriptFile("EditWorkInProgress.psh", "-pfn", "EamonRT.dll", "-fsfn", "WIP.DAT", "-rge"),
-				CreatePluginScriptFile("LoadAdventureSupportMenu.psh", "-pfn", "EamonRT.dll", "-rge")
-			};
+				foreach (var line in gEngine.File.ReadLines("EAMONDD_SCRIPTS.TXT"))
+				{
+					Debug.Assert(!string.IsNullOrWhiteSpace(line));
+
+					var tokens = line.Split('|');
+
+					Debug.Assert(tokens.Length > 1);
+
+					FileList.Add
+					(
+						CreatePluginScriptFile(tokens[0], tokens.Skip(1).ToArray())
+					);
+				}
+			}
+			catch (Exception)
+			{
+				// Do nothing
+			}
 
 			var adventureDirs = App.GetAdventureDirs();
 

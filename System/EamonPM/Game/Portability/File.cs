@@ -3,6 +3,7 @@
 
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
+using System.Collections.Generic;
 using System.Text;
 using Eamon.Framework.Portability;
 using static Eamon.Game.Plugin.Globals;
@@ -108,6 +109,13 @@ namespace EamonPM.Game.Portability
 			}
 
 			return contents;
+		}
+
+		public virtual IEnumerable<string> ReadLines(string path, Encoding encoding = null)
+		{
+			var normalizedPath = gEngine.Path.NormalizePath(path);
+
+			return System.IO.File.ReadLines(normalizedPath, encoding ?? new UTF8Encoding(true));
 		}
 
 		public virtual System.IO.FileStream OpenRead(string path)

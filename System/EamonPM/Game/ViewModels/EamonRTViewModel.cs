@@ -3,7 +3,9 @@
 
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using EamonPM.Game.Primitive.Classes;
 using static Eamon.Game.Plugin.Globals;
@@ -17,6 +19,27 @@ namespace EamonPM.Game.ViewModels
 		public EamonRTViewModel()
 		{
 			FileList = new List<PluginScriptFile>();
+
+			try
+			{
+				foreach (var line in gEngine.File.ReadLines("EAMONRT_SCRIPTS.TXT"))
+				{
+					Debug.Assert(!string.IsNullOrWhiteSpace(line));
+
+					var tokens = line.Split('|');
+
+					Debug.Assert(tokens.Length > 1);
+
+					FileList.Add
+					(
+						CreatePluginScriptFile(tokens[0], tokens.Skip(1).ToArray())
+					);
+				}
+			}
+			catch (Exception)
+			{
+				// Do nothing
+			}
 
 			var adventureDirs = App.GetAdventureDirs();
 
