@@ -20,7 +20,7 @@ namespace EamonPM.Game.ViewModels
 		{
 			FileList = new List<PluginScriptFile>();
 
-			var scriptsFileName = gEngine.Path.Combine(App.BasePath, "System", "Bin", "EAMONDD_SCRIPTS.TXT");
+			var scriptsFileName = gEngine.Path.Combine(App.BasePath, "System", "Bin", "EAMONPM_SCRIPTS.TXT");
 
 			try
 			{
@@ -30,12 +30,15 @@ namespace EamonPM.Game.ViewModels
 
 					var tokens = line.Split('|');
 
-					Debug.Assert(tokens.Length > 1);
+					Debug.Assert(tokens.Length > 3);
 
-					FileList.Add
-					(
-						CreatePluginScriptFile(tokens[0], tokens.Skip(1).ToArray())
-					);
+					if (tokens[0].Equals("EamonDD", StringComparison.OrdinalIgnoreCase))
+					{
+						FileList.Add
+						(
+							CreatePluginScriptFile(tokens[1], tokens.Skip(2).ToArray())
+						);
+					}
 				}
 			}
 			catch (Exception)

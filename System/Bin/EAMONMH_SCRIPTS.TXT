@@ -1,2 +1,0 @@
-EnterMainHallUsingAdventures.psh|-pfn|EamonMH.dll|-fsfn|ADVENTURES.DAT
-EnterMainHallUsingCatalog.psh|-pfn|EamonMH.dll|-fsfn|CATALOG.DAT
