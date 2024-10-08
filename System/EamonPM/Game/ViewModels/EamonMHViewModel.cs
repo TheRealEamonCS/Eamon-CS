@@ -5,7 +5,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using EamonPM.Game.Primitive.Classes;
 using static Eamon.Game.Plugin.Globals;
@@ -26,18 +25,17 @@ namespace EamonPM.Game.ViewModels
 			{
 				foreach (var line in gEngine.File.ReadLines(scriptsFileName))
 				{
-					Debug.Assert(!string.IsNullOrWhiteSpace(line));
-
-					var tokens = line.Split('|');
-
-					Debug.Assert(tokens.Length > 3);
-
-					if (tokens[0].Equals("EamonMH", StringComparison.OrdinalIgnoreCase))
+					if (!string.IsNullOrWhiteSpace(line))
 					{
-						FileList.Add
-						(
-							CreatePluginScriptFile(tokens[1], tokens.Skip(2).ToArray())
-						);
+						var tokens = line.Split('|');
+
+						if (tokens.Length > 3 && tokens[0].Equals("EamonMH", StringComparison.OrdinalIgnoreCase))
+						{
+							FileList.Add
+							(
+								CreatePluginScriptFile(tokens[1], tokens.Skip(2).ToArray())
+							);
+						}
 					}
 				}
 			}
