@@ -20,9 +20,11 @@ namespace EamonPM.Game.ViewModels
 		{
 			FileList = new List<PluginScriptFile>();
 
+			var scriptsFileName = gEngine.Path.Combine(App.BasePath, "System", "Bin", "EAMONMH_SCRIPTS.TXT");
+
 			try
 			{
-				foreach (var line in gEngine.File.ReadLines("EAMONMH_SCRIPTS.TXT"))
+				foreach (var line in gEngine.File.ReadLines(scriptsFileName))
 				{
 					Debug.Assert(!string.IsNullOrWhiteSpace(line));
 
