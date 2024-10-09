@@ -27,7 +27,7 @@ namespace EamonPM.Game.ViewModels
 				{
 					if (!string.IsNullOrWhiteSpace(line))
 					{
-						var tokens = line.Split('|');
+						var tokens = line.Split('|').Select(t => t.Trim()).ToArray();
 
 						if (tokens.Length > 3 && tokens[0].Equals("EamonDD", StringComparison.OrdinalIgnoreCase))
 						{
