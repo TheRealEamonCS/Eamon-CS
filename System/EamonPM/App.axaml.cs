@@ -471,17 +471,17 @@ namespace EamonPM
 			{
 				case "Default Light":
 
-					resources["Primary"] = Color.Parse("#D9D9D9"); // Light Gray
-					resources["PrimaryDark"] = Color.Parse("#ABABAB"); // Darker Gray
-					resources["Accent"] = Color.Parse("#9B9B9B"); // Medium Gray
-					resources["TitleTabItemForegroundColor"] = Color.Parse("#313131"); // Dark Gray
-					resources["GeneralForegroundColor"] = Color.Parse("#212121"); // Dark Gray
+					resources["Primary"] = Color.Parse("#D1D1D1"); // Light Gray
+					resources["PrimaryDark"] = Color.Parse("#A3A3A3"); // Darker Gray
+					resources["Accent"] = Color.Parse("#949494"); // Medium Gray
+					resources["TitleTabItemForegroundColor"] = Color.Parse("#292929"); // Dark Gray
+					resources["GeneralForegroundColor"] = Color.Parse("#1A1A1A"); // Dark Gray
 					resources["LightBackgroundColor"] = Color.Parse("#FFFFFF"); // White
-					resources["DarkBackgroundColor"] = Color.Parse("#F5F5F5"); // Light Gray
-					resources["GeneralBackgroundColor"] = Color.Parse("#FAFAFA"); // Very Light Gray
-					resources["MediumGrayTextColor"] = Color.Parse("#757575"); // Medium Gray
-					resources["LightTextColor"] = Color.Parse("#878787"); // Light Gray
-					resources["RowDivider"] = Color.Parse("#D6D6D6"); // Light Gray
+					resources["DarkBackgroundColor"] = Color.Parse("#EDEDED"); // Light Gray
+					resources["GeneralBackgroundColor"] = Color.Parse("#FFFFFF"); // White
+					resources["MediumGrayTextColor"] = Color.Parse("#6E6E6E"); // Medium Gray
+					resources["LightTextColor"] = Color.Parse("#808080"); // Light Gray
+					resources["RowDivider"] = Color.Parse("#CFCFCF"); // Light Gray
 
 					break;
 
@@ -491,7 +491,7 @@ namespace EamonPM
 
 					resources["Primary"] = Color.Parse("#424242"); // Dark Gray
 					resources["PrimaryDark"] = Color.Parse("#303030"); // Darker Gray
-					resources["Accent"] = Color.Parse("#6F6F6F"); // Lighter Gray
+					resources["Accent"] = Color.Parse("#949494"); // Medium Gray
 					resources["TitleTabItemForegroundColor"] = Color.Parse("#FFFFFF"); // White
 					resources["GeneralForegroundColor"] = Color.Parse("#E0E0E0"); // Light Gray
 					resources["LightBackgroundColor"] = Color.Parse("#303030"); // Very Dark Gray
@@ -507,7 +507,7 @@ namespace EamonPM
 
 					resources["Primary"] = Color.Parse("#1970DB"); // Darker Rich Sky Blue
 					resources["PrimaryDark"] = Color.Parse("#12488F"); // Darker Deep Sky Blue
-					resources["Accent"] = Color.Parse("#64B5F6"); // Vibrant Light Blue
+					resources["Accent"] = Color.Parse("#62B2F2"); // Vibrant Light Blue
 					resources["TitleTabItemForegroundColor"] = Color.Parse("#FFFFFF"); // White
 					resources["GeneralForegroundColor"] = Color.Parse("#000000"); // Black
 					resources["LightBackgroundColor"] = Color.Parse("#E3F2FD"); // Very Light Sky Blue
@@ -523,7 +523,7 @@ namespace EamonPM
 
 					resources["Primary"] = Color.Parse("#217A3A"); // Deep Forest Green
 					resources["PrimaryDark"] = Color.Parse("#165225"); // Very Dark Forest Green
-					resources["Accent"] = Color.Parse("#D98B4A"); // Honey Bronze
+					resources["Accent"] = Color.Parse("#E0984C"); // Honey Bronze
 					resources["TitleTabItemForegroundColor"] = Color.Parse("#FFFFFF"); // White
 					resources["GeneralForegroundColor"] = Color.Parse("#000000"); // Black
 					resources["LightBackgroundColor"] = Color.Parse("#E8F5E9"); // Light Leaf Green
@@ -537,17 +537,17 @@ namespace EamonPM
 
 				case "Element Fire":
 
-					resources["Primary"] = Color.Parse("#B33B1B"); // Rich Ember Red
-					resources["PrimaryDark"] = Color.Parse("#8F2500"); // Deep Dark Red
-					resources["Accent"] = Color.Parse("#F57C00"); // Dark Orange
+					resources["Primary"] = Color.Parse("#AB401A"); // Rich Ember Red
+					resources["PrimaryDark"] = Color.Parse("#872B00"); // Deep Dark Red
+					resources["Accent"] = Color.Parse("#E87F00"); // Dark Orange
 					resources["TitleTabItemForegroundColor"] = Color.Parse("#FFFFFF"); // White
 					resources["GeneralForegroundColor"] = Color.Parse("#000000"); // Black
-					resources["LightBackgroundColor"] = Color.Parse("#FFF3E0"); // Very Light Orange
-					resources["DarkBackgroundColor"] = Color.Parse("#FFAB91"); // Light Muted Red
+					resources["LightBackgroundColor"] = Color.Parse("#F7EDD9"); // Very Light Orange
+					resources["DarkBackgroundColor"] = Color.Parse("#F7AB8D"); // Light Muted Red
 					resources["GeneralBackgroundColor"] = Color.Parse("#FFFFFF"); // White
-					resources["MediumGrayTextColor"] = Color.Parse("#6B4226"); // Muted Warm Red Brown
-					resources["LightTextColor"] = Color.Parse("#A04D2A"); // Soft Light Red Brown
-					resources["RowDivider"] = Color.Parse("#FFD1C4"); // Very Light Orangish Red
+					resources["MediumGrayTextColor"] = Color.Parse("#634023"); // Muted Warm Red Brown
+					resources["LightTextColor"] = Color.Parse("#995028"); // Soft Light Red Brown
+					resources["RowDivider"] = Color.Parse("#F7CDBE"); // Very Light Orangish Red
 
 					break;
 
@@ -555,7 +555,7 @@ namespace EamonPM
 
 					resources["Primary"] = Color.Parse("#0D47A1"); // Deep Blue
 					resources["PrimaryDark"] = Color.Parse("#002171"); // Darker Deep Blue
-					resources["Accent"] = Color.Parse("#00BCD4"); // Aqua Blue
+					resources["Accent"] = Color.Parse("#00B7CF"); // Aqua Blue
 					resources["TitleTabItemForegroundColor"] = Color.Parse("#FFFFFF"); // White
 					resources["GeneralForegroundColor"] = Color.Parse("#000000"); // Black
 					resources["LightBackgroundColor"] = Color.Parse("#E0F7FA"); // Very Light Aqua
