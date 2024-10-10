@@ -507,7 +507,7 @@ namespace EamonPM
 
 					resources["Primary"] = Color.Parse("#1970DB"); // Darker Rich Sky Blue
 					resources["PrimaryDark"] = Color.Parse("#12488F"); // Darker Deep Sky Blue
-					resources["Accent"] = Color.Parse("#62B2F2"); // Vibrant Light Blue
+					resources["Accent"] = Color.Parse("#63B4F5"); // Vibrant Light Blue
 					resources["TitleTabItemForegroundColor"] = Color.Parse("#FFFFFF"); // White
 					resources["GeneralForegroundColor"] = Color.Parse("#000000"); // Black
 					resources["LightBackgroundColor"] = Color.Parse("#E3F2FD"); // Very Light Sky Blue
