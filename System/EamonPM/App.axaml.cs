@@ -71,7 +71,7 @@ namespace EamonPM
 
 		public static Func<char, bool> InputTermCharFunc { get; set; }
 
-		public static string BuildGuid = "4C9208E5-07FE-4BA7-90A2-AE05060D2435";
+		public static string BuildGuid = "C4B1AC91-D1A8-4722-9837-3B0D34147BC0";
 
 		public static string ProgramName { get; set; }
 
