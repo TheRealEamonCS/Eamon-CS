@@ -498,8 +498,8 @@ namespace EamonPM
 					resources["DarkBackgroundColor"] = Color.Parse("#212121"); // Near Black
 					resources["GeneralBackgroundColor"] = Color.Parse("#121212"); // Black
 					resources["MediumGrayTextColor"] = Color.Parse("#B0BEC5"); // Light Blue-Gray
-					resources["LightTextColor"] = Color.Parse("#CFD8DC"); // Soft Blue-Gray
-					resources["RowDivider"] = Color.Parse("#37474F"); // Dark Blue-Gray
+					resources["LightTextColor"] = Color.Parse("#D1DADE"); // Soft Blue-Gray
+					resources["RowDivider"] = Color.Parse("#394952"); // Dark Blue-Gray
 
 					break;
 
@@ -546,7 +546,7 @@ namespace EamonPM
 					resources["DarkBackgroundColor"] = Color.Parse("#F7AB8D"); // Light Muted Red
 					resources["GeneralBackgroundColor"] = Color.Parse("#FFFFFF"); // White
 					resources["MediumGrayTextColor"] = Color.Parse("#634023"); // Muted Warm Red Brown
-					resources["LightTextColor"] = Color.Parse("#995028"); // Soft Light Red Brown
+					resources["LightTextColor"] = Color.Parse("#9E5329"); // Soft Light Red Brown
 					resources["RowDivider"] = Color.Parse("#F7CDBE"); // Very Light Orangish Red
 
 					break;
@@ -562,8 +562,8 @@ namespace EamonPM
 					resources["DarkBackgroundColor"] = Color.Parse("#B0BEC5"); // Light Grayish Blue
 					resources["GeneralBackgroundColor"] = Color.Parse("#FFFFFF"); // White
 					resources["MediumGrayTextColor"] = Color.Parse("#2C3B44"); // Darker Medium Grayish Blue
-					resources["LightTextColor"] = Color.Parse("#788997"); // Darker Light Grayish Blue
-					resources["RowDivider"] = Color.Parse("#CFD8DC"); // Very Light Grayish Blue
+					resources["LightTextColor"] = Color.Parse("#71828F"); // Darker Light Grayish Blue
+					resources["RowDivider"] = Color.Parse("#CCD5D9"); // Very Light Grayish Blue
 
 					break;
 
