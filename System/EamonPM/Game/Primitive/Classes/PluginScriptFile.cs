@@ -1,11 +1,11 @@
 ﻿
-// PluginScriptVFile.cs
+// PluginScriptFile.cs
 
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
 namespace EamonPM.Game.Primitive.Classes
 {
-	public class PluginScriptVFile
+	public class PluginScriptFile
 	{
 		public virtual string Name { get; set; }
 

@@ -1,0 +1,13 @@
+EamonDD|EditAdventures.psh|-pfn|EamonRT.dll|-fsfn|ADVENTURES.DAT|-rge
+EamonDD|EditCatalog.psh|-pfn|EamonRT.dll|-fsfn|CATALOG.DAT|-rge
+EamonDD|EditCharacters.psh|-pfn|EamonRT.dll|-chrfn|CHARACTERS.DAT|-rge
+EamonDD|EditContemporary.psh|-pfn|EamonRT.dll|-fsfn|CONTEMPORARY.DAT|-rge
+EamonDD|EditFantasy.psh|-pfn|EamonRT.dll|-fsfn|FANTASY.DAT|-rge
+EamonDD|EditHorror.psh|-pfn|EamonRT.dll|-fsfn|HORROR.DAT|-rge
+EamonDD|EditSciFi.psh|-pfn|EamonRT.dll|-fsfn|SCIFI.DAT|-rge
+EamonDD|EditTest.psh|-pfn|EamonRT.dll|-fsfn|TEST.DAT|-rge
+EamonDD|EditWorkbench.psh|-pfn|EamonRT.dll|-fsfn|WORKBENCH.DAT|-rge
+EamonDD|EditWorkInProgress.psh|-pfn|EamonRT.dll|-fsfn|WIP.DAT|-rge
+EamonDD|LoadAdventureSupportMenu.psh|-pfn|EamonRT.dll|-rge
+EamonMH|EnterMainHallUsingAdventures.psh|-pfn|EamonMH.dll|-fsfn|ADVENTURES.DAT
+EamonMH|EnterMainHallUsingCatalog.psh|-pfn|EamonMH.dll|-fsfn|CATALOG.DAT

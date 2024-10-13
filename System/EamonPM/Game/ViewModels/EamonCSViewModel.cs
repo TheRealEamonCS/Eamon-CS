@@ -9,14 +9,14 @@ namespace EamonPM.Game.ViewModels
 {
 	public class EamonCSViewModel : ViewModelBase
 	{
-		public virtual IList<string> VFolderList { get; set; }
+		public virtual IList<string> FolderList { get; set; }
 
 		public EamonCSViewModel()
 		{
-			VFolderList = new List<string>()
+			FolderList = new List<string>()
 			{
 				"Documentation",
-				"Plugin"
+				"QuickLaunch"
 			};
 		}
 	}

@@ -3,7 +3,7 @@
 
 #### Note: the Wiki now serves as a development log, to be updated periodically with the current project status.
 
-#### Last Wiki Update 20240531
+#### Last Wiki Update 20241013
 
 This project is Eamon CS (ECS), a C# port of the classic Eamon roleplaying game that debuted on the Apple II.  Initially created by Donald Brown, many variants have existed over the years on various computer systems.  ECS is the production version of Eamon AC (EAC), a prototype intended to convert the game from BASIC.  Hopefully, this Eamon will be the definitive version for the C family of languages, as EAC is obsolete.
 
@@ -39,7 +39,7 @@ The current plan is to produce fully polished games as time allows.  You'll get 
 
 There are currently plans to port Eamon CS Mobile to iOS.
 
-Many 3rd party technologies can seamlessly integrate with ECS, some of which may push the game in new directions.  Stay tuned and see what comes of it.
+Many third-party technologies can seamlessly integrate with ECS, some of which may push the game in new directions.  Stay tuned and see what comes of it.
 
 #### License
 

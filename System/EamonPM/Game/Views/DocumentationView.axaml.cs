@@ -12,7 +12,7 @@ namespace EamonPM.Game.Views
 {
 	public partial class DocumentationView : UserControl
 	{
-		public virtual async void VFileListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		public virtual async void FileListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			if (sender is ListBox listBox && listBox.SelectedItem != null)
 			{

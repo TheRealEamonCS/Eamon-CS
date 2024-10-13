@@ -23,11 +23,11 @@
 		<ScrollViewer Grid.Row="0"
 					  Margin="0,10,0,10"
 					  HorizontalScrollBarVisibility="Auto">
-			<ListBox ItemsSource="{Binding VFileList, Mode=TwoWay}"
-					 SelectionChanged="VFileListBox_SelectionChanged"
+			<ListBox ItemsSource="{Binding FileList, Mode=TwoWay}"
+					 SelectionChanged="FileListBox_SelectionChanged"
 					 Margin="0"
 					 Background="{DynamicResource GeneralBackgroundColor}"
-					 x:Name="VFileListBox">
+					 x:Name="FileListBox">
 				<ListBox.ItemTemplate>
 					<DataTemplate>
 						<TextBlock Text="{Binding}" Foreground="{DynamicResource GeneralForegroundColor}" />
