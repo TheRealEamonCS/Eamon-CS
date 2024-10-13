@@ -498,7 +498,7 @@ namespace EamonPM
 					resources["DarkBackgroundColor"] = Color.Parse("#212121"); // Near Black
 					resources["GeneralBackgroundColor"] = Color.Parse("#121212"); // Black
 					resources["MediumGrayTextColor"] = Color.Parse("#B0BEC5"); // Light Blue-Gray
-					resources["LightTextColor"] = Color.Parse("#D1DADE"); // Soft Blue-Gray
+					resources["LightTextColor"] = Color.Parse("#CFD8DC"); // Soft Blue-Gray
 					resources["RowDivider"] = Color.Parse("#394952"); // Dark Blue-Gray
 
 					break;
