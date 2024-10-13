@@ -9,13 +9,13 @@ namespace EamonPM.Game.ViewModels
 {
 	public class DocumentationViewModel : ViewModelBase
 	{
-		public virtual IList<string> VFileList { get; set; }
+		public virtual IList<string> FileList { get; set; }
 
 		public DocumentationViewModel()
 		{
-			VFileList = new List<string>()
+			FileList = new List<string>()
 			{
-				"ViewDocumentationUsingBrowser.ps"
+				"ViewDocumentationUsingBrowser.psh"
 			};
 		}
 	}

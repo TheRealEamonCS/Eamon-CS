@@ -10,7 +10,7 @@ namespace EamonPM.Game.Views
 {
 	public partial class EamonCSView : UserControl
 	{
-		public virtual void VFolderListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		public virtual void FolderListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			var mainViewModel = App.GetViewModel(typeof(MainViewModel)) as MainViewModel;
 
@@ -20,7 +20,7 @@ namespace EamonPM.Game.Views
 
 				var currentView = App.GetView(
 					selectedIndex == 0 ? typeof(DocumentationView) : 
-					typeof(PluginView)
+					typeof(QuickLaunchView)
 				) as UserControl;
 
 				mainViewModel.NavigateTo(currentView, listBox.SelectedItem.ToString().Replace("View", ""), true);
