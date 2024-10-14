@@ -102,11 +102,15 @@ setlocal EnableDelayedExpansion
 
 set SYSTEM_CONFIGURED=0
 
-if not exist ".\publish" (
+if not exist ".\_avalonia.zip" (
 	set SYSTEM_CONFIGURED=1
 )
 
-if not exist ".\runtimes" (
+if not exist ".\_win-arm64.zip" (
+	set SYSTEM_CONFIGURED=1
+)
+
+if not exist ".\_win-x64.zip" (
 	set SYSTEM_CONFIGURED=1
 )
 
@@ -139,11 +143,27 @@ if not defined TARGET (
 
 echo:
 
-xcopy ".\publish\%TARGET%\native\*" "." /I /S /Y
+powershell -ExecutionPolicy Bypass -Command "try { Expand-Archive -Path '.\_avalonia.zip' -DestinationPath '.' -Force; exit 0 } catch { exit 1 }" >nul 2>&1
+
+set AVALONIA_UNZIPPED=%ERRORLEVEL%
+
+if "%AVALONIA_UNZIPPED%"=="0" (
+    echo Avalonia package^(s^) unzip successful.
+) else (
+    echo Avalonia package^(s^) unzip failed.
+)
 
 echo:
 
-xcopy ".\runtimes\%TARGET%\native\*" "." /I /S /Y
+powershell -ExecutionPolicy Bypass -Command "try { Expand-Archive -Path '.\_%TARGET%.zip' -DestinationPath '.' -Force; exit 0 } catch { exit 1 }" >nul 2>&1
+
+set PLATFORM_UNZIPPED=%ERRORLEVEL%
+
+if "%PLATFORM_UNZIPPED%"=="0" (
+    echo Platform-specific package^(s^) unzip successful.
+) else (
+    echo Platform-specific package^(s^) unzip failed.
+)
 
 set "EXE_PATH=%BASE_PATH%\System\Bin\EamonPM.Desktop.exe"
 set "LNK_PATH=%BASE_PATH%\QuickLaunch\Windows\EamonPM.Desktop.exe.lnk"
@@ -158,59 +178,14 @@ if "%SHORTCUT_CREATED%"=="0" (
 
 	echo Shortcut creation successful.
 
-	del /f /q ".\publish\linux-arm64\native\EamonPM.Desktop" >nul 2>&1
-	del /f /q ".\publish\linux-x64\native\EamonPM.Desktop" >nul 2>&1
-	del /f /q ".\publish\osx-arm64\native\EamonPM.Desktop" >nul 2>&1
-	del /f /q ".\publish\osx-x64\native\EamonPM.Desktop" >nul 2>&1
-	del /f /q ".\publish\win-arm64\native\EamonPM.Desktop.exe" >nul 2>&1
-	del /f /q ".\publish\win-x64\native\EamonPM.Desktop.exe" >nul 2>&1
-
-	rd /q ".\publish\linux-arm64\native" >nul 2>&1
-	rd /q ".\publish\linux-arm64" >nul 2>&1
-	rd /q ".\publish\linux-x64\native" >nul 2>&1
-	rd /q ".\publish\linux-x64" >nul 2>&1
-
-	rd /q ".\publish\osx-arm64\native" >nul 2>&1
-	rd /q ".\publish\osx-arm64" >nul 2>&1
-	rd /q ".\publish\osx-x64\native" >nul 2>&1
-	rd /q ".\publish\osx-x64" >nul 2>&1
-
-	rd /q ".\publish\win-arm64\native" >nul 2>&1
-	rd /q ".\publish\win-arm64" >nul 2>&1
-	rd /q ".\publish\win-x64\native" >nul 2>&1
-	rd /q ".\publish\win-x64" >nul 2>&1
-
-	rd /q ".\publish" >nul 2>&1
-
-	del /f /q ".\runtimes\linux-arm64\native\libHarfBuzzSharp.so" >nul 2>&1
-	del /f /q ".\runtimes\linux-arm64\native\libSkiaSharp.so" >nul 2>&1
-	del /f /q ".\runtimes\linux-x64\native\libHarfBuzzSharp.so" >nul 2>&1
-	del /f /q ".\runtimes\linux-x64\native\libSkiaSharp.so" >nul 2>&1
-	del /f /q ".\runtimes\osx\native\libAvaloniaNative.dylib" >nul 2>&1
-	del /f /q ".\runtimes\osx\native\libHarfBuzzSharp.dylib" >nul 2>&1
-	del /f /q ".\runtimes\osx\native\libSkiaSharp.dylib" >nul 2>&1
-
-	del /f /q ".\runtimes\win-arm64\native\av_libglesv2.dll" >nul 2>&1
-	del /f /q ".\runtimes\win-arm64\native\libHarfBuzzSharp.dll" >nul 2>&1
-	del /f /q ".\runtimes\win-arm64\native\libSkiaSharp.dll" >nul 2>&1
-	del /f /q ".\runtimes\win-x64\native\av_libglesv2.dll" >nul 2>&1
-	del /f /q ".\runtimes\win-x64\native\libHarfBuzzSharp.dll" >nul 2>&1
-	del /f /q ".\runtimes\win-x64\native\libSkiaSharp.dll" >nul 2>&1
-
-	rd /q ".\runtimes\linux-arm64\native" >nul 2>&1
-	rd /q ".\runtimes\linux-arm64" >nul 2>&1
-	rd /q ".\runtimes\linux-x64\native" >nul 2>&1
-	rd /q ".\runtimes\linux-x64" >nul 2>&1
-
-	rd /q ".\runtimes\osx\native" >nul 2>&1
-	rd /q ".\runtimes\osx" >nul 2>&1
-
-	rd /q ".\runtimes\win-arm64\native" >nul 2>&1
-	rd /q ".\runtimes\win-arm64" >nul 2>&1
-	rd /q ".\runtimes\win-x64\native" >nul 2>&1
-	rd /q ".\runtimes\win-x64" >nul 2>&1
-
-	rd /q ".\runtimes" >nul 2>&1
+	del /f /q ".\_avalonia.zip" >nul 2>&1
+	del /f /q ".\_linux-arm64.zip" >nul 2>&1
+	del /f /q ".\_linux-x64.zip" >nul 2>&1
+	del /f /q ".\_osx.zip" >nul 2>&1
+	del /f /q ".\_osx-arm64.zip" >nul 2>&1
+	del /f /q ".\_osx-x64.zip" >nul 2>&1
+	del /f /q ".\_win-arm64.zip" >nul 2>&1
+	del /f /q ".\_win-x64.zip" >nul 2>&1
 
 	echo:
 

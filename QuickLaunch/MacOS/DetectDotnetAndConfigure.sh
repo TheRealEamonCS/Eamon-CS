@@ -6,11 +6,19 @@ dotnet_found()
 {
 	SYSTEM_CONFIGURED=0
 
-	if [ ! -d "./publish" ]; then
+	if [ ! -f "./_avalonia.zip" ]; then
 		SYSTEM_CONFIGURED=1
 	fi
 
-	if [ ! -d "./runtimes" ]; then
+	if [ ! -f "./_osx.zip" ]; then
+		SYSTEM_CONFIGURED=1
+	fi
+
+	if [ ! -f "./_osx-arm64.zip" ]; then
+		SYSTEM_CONFIGURED=1
+	fi
+
+	if [ ! -f "./_osx-x64.zip" ]; then
 		SYSTEM_CONFIGURED=1
 	fi
 
@@ -50,42 +58,35 @@ dotnet_found()
 
 	echo
 
-	# Copy publish files and list them
-	COUNT=0
-	
-	if [ -d "./publish/$TARGET/native" ]; then
-		for file in ./publish/$TARGET/native/*; do
-			cp "$file" .
-			echo "$file"
-			COUNT=$((COUNT + 1))
-		done
+	# Unzip Avalonia package(s)
+	if unzip -o -q "./_avalonia.zip" -d "." >/dev/null 2>&1; then
+		echo "Avalonia package(s) unzip successful."
 	else
-		echo "File not found - *"
+		echo "Avalonia package(s) unzip failed."
 	fi
-	
-	echo "$COUNT File(s) copied"
 
 	echo
 
-	# Copy runtime files and list them
-	COUNT=0
-	
-	if [ -d "./runtimes/osx/native" ]; then
-		for file in ./runtimes/osx/native/*; do
-			cp "$file" .
-			echo "$file"
-			COUNT=$((COUNT + 1))
-		done
+	# Unzip platform-specific package(s)
+	if unzip -o -q "./_osx.zip" -d "." >/dev/null 2>&1 && unzip -o -q "./_$TARGET.zip" -d "." >/dev/null 2>&1; then
+		echo "Platform-specific package(s) unzip successful."
 	else
-		echo "File not found - *"
+		echo "Platform-specific package(s) unzip failed."
 	fi
-		
-	echo "$COUNT File(s) copied"
 
 	# Extract script directory
 	EXE_PATH="$BASE_PATH/System/Bin/EamonPM.Desktop"
 	LNK_PATH="$BASE_PATH/QuickLaunch/MacOS/EamonPM.Desktop"
 	ICON_PATH="$BASE_PATH/System/EamonPM.Desktop/Resources/ten_sided_die.icns"
+
+	echo
+
+	# Chmod executable(s)
+	if chmod 770 "./fileicon" >/dev/null 2>&1 && chmod 770 "$EXE_PATH" >/dev/null 2>&1; then
+		echo "Executable(s) chmod successful."
+	else
+		echo "Executable(s) chmod failed."
+	fi
 
 	# Apply custom icon using fileicon utility
 	if [ -f "$EXE_PATH" ]; then
@@ -100,59 +101,14 @@ dotnet_found()
 		
 		echo "Shortcut creation successful."
 		
-		rm -f "./publish/linux-arm64/native/EamonPM.Desktop" >/dev/null 2>&1
-		rm -f "./publish/linux-x64/native/EamonPM.Desktop" >/dev/null 2>&1
-		rm -f "./publish/osx-arm64/native/EamonPM.Desktop" >/dev/null 2>&1
-		rm -f "./publish/osx-x64/native/EamonPM.Desktop" >/dev/null 2>&1
-		rm -f "./publish/win-arm64/native/EamonPM.Desktop.exe" >/dev/null 2>&1
-		rm -f "./publish/win-x64/native/EamonPM.Desktop.exe" >/dev/null 2>&1
-
-		rmdir "./publish/linux-arm64/native" >/dev/null 2>&1
-		rmdir "./publish/linux-arm64" >/dev/null 2>&1
-		rmdir "./publish/linux-x64/native" >/dev/null 2>&1
-		rmdir "./publish/linux-x64" >/dev/null 2>&1
-
-		rmdir "./publish/osx-arm64/native" >/dev/null 2>&1
-		rmdir "./publish/osx-arm64" >/dev/null 2>&1
-		rmdir "./publish/osx-x64/native" >/dev/null 2>&1
-		rmdir "./publish/osx-x64" >/dev/null 2>&1
-
-		rmdir "./publish/win-arm64/native" >/dev/null 2>&1
-		rmdir "./publish/win-arm64" >/dev/null 2>&1
-		rmdir "./publish/win-x64/native" >/dev/null 2>&1
-		rmdir "./publish/win-x64" >/dev/null 2>&1
-
-		rmdir "./publish" >/dev/null 2>&1
-
-		rm -f "./runtimes/linux-arm64/native/libHarfBuzzSharp.so" >/dev/null 2>&1
-		rm -f "./runtimes/linux-arm64/native/libSkiaSharp.so" >/dev/null 2>&1
-		rm -f "./runtimes/linux-x64/native/libHarfBuzzSharp.so" >/dev/null 2>&1
-		rm -f "./runtimes/linux-x64/native/libSkiaSharp.so" >/dev/null 2>&1
-		rm -f "./runtimes/osx/native/libAvaloniaNative.dylib" >/dev/null 2>&1
-		rm -f "./runtimes/osx/native/libHarfBuzzSharp.dylib" >/dev/null 2>&1
-		rm -f "./runtimes/osx/native/libSkiaSharp.dylib" >/dev/null 2>&1
-
-		rm -f "./runtimes/win-arm64/native/av_libglesv2.dll" >/dev/null 2>&1
-		rm -f "./runtimes/win-arm64/native/libHarfBuzzSharp.dll" >/dev/null 2>&1
-		rm -f "./runtimes/win-arm64/native/libSkiaSharp.dll" >/dev/null 2>&1
-		rm -f "./runtimes/win-x64/native/av_libglesv2.dll" >/dev/null 2>&1
-		rm -f "./runtimes/win-x64/native/libHarfBuzzSharp.dll" >/dev/null 2>&1
-		rm -f "./runtimes/win-x64/native/libSkiaSharp.dll" >/dev/null 2>&1
-
-		rmdir "./runtimes/linux-arm64/native" >/dev/null 2>&1
-		rmdir "./runtimes/linux-arm64" >/dev/null 2>&1
-		rmdir "./runtimes/linux-x64/native" >/dev/null 2>&1
-		rmdir "./runtimes/linux-x64" >/dev/null 2>&1
-
-		rmdir "./runtimes/osx/native" >/dev/null 2>&1
-		rmdir "./runtimes/osx" >/dev/null 2>&1
-
-		rmdir "./runtimes/win-arm64/native" >/dev/null 2>&1
-		rmdir "./runtimes/win-arm64" >/dev/null 2>&1
-		rmdir "./runtimes/win-x64/native" >/dev/null 2>&1
-		rmdir "./runtimes/win-x64" >/dev/null 2>&1
-
-		rmdir "./runtimes" >/dev/null 2>&1
+		rm -f "./_avalonia.zip" >/dev/null 2>&1
+		rm -f "./_linux-arm64.zip" >/dev/null 2>&1
+		rm -f "./_linux-x64.zip" >/dev/null 2>&1
+		rm -f "./_osx.zip" >/dev/null 2>&1
+		rm -f "./_osx-arm64.zip" >/dev/null 2>&1
+		rm -f "./_osx-x64.zip" >/dev/null 2>&1
+		rm -f "./_win-arm64.zip" >/dev/null 2>&1
+		rm -f "./_win-x64.zip" >/dev/null 2>&1
 
 		echo
 
