@@ -726,27 +726,6 @@ namespace EamonPM
 			return result;
 		}
 
-		public static string[] GetAdventureDirs()
-		{
-			var dirList = new List<string>();
-
-			try
-			{
-				var fullDirs = gEngine.Directory.GetDirectories(gEngine.Path.Combine(BasePath, "Adventures"));
-
-				foreach (var fullDir in fullDirs)
-				{
-					dirList.Add(gEngine.Path.GetFileNameWithoutExtension(fullDir));
-				}
-			}
-			catch (Exception)
-			{
-				// Do nothing
-			}
-
-			return dirList.ToArray();
-		}
-
 		public static bool PluginExists(string pluginFileName)
 		{
 			Debug.Assert(!string.IsNullOrWhiteSpace(pluginFileName));

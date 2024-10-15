@@ -3,7 +3,6 @@
 
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
-using System.Collections.Generic;
 using System.Text;
 using Eamon.Framework.Portability;
 using static Eamon.Game.Plugin.Globals;
@@ -111,11 +110,11 @@ namespace EamonPM.Game.Portability
 			return contents;
 		}
 
-		public virtual IEnumerable<string> ReadLines(string path, Encoding encoding = null)
+		public virtual string[] ReadAllLines(string path, Encoding encoding = null)
 		{
 			var normalizedPath = gEngine.Path.NormalizePath(path);
 
-			return System.IO.File.ReadLines(normalizedPath, encoding ?? new UTF8Encoding(true));
+			return System.IO.File.ReadAllLines(normalizedPath, encoding ?? new UTF8Encoding(true));
 		}
 
 		public virtual System.IO.FileStream OpenRead(string path)
@@ -146,6 +145,13 @@ namespace EamonPM.Game.Portability
 			{
 				System.IO.File.WriteAllText(normalizedPath, contents, encoding ?? new UTF8Encoding(true));
 			}
+		}
+
+		public virtual void WriteAllLines(string path, string[] contents, Encoding encoding = null)
+		{
+			var normalizedPath = gEngine.Path.NormalizePath(path);
+
+			System.IO.File.WriteAllLines(normalizedPath, contents, encoding ?? new UTF8Encoding(true));
 		}
 
 		public virtual void AppendAllText(string path, string contents, Encoding encoding = null)
