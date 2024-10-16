@@ -71,7 +71,7 @@ namespace EamonPM
 
 		public static Func<char, bool> InputTermCharFunc { get; set; }
 
-		public static string BuildGuid = "C4B1AC91-D1A8-4722-9837-3B0D34147BC0";
+		public static string BuildGuid = "2439B492-101A-4AEC-BDED-CAC5B61DDDB7";
 
 		public static string ProgramName { get; set; }
 
@@ -128,22 +128,26 @@ namespace EamonPM
 
 			if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
 			{
-				var splashScreen = GetView(typeof(SplashScreen)) as Window;
+				Window splashScreen = null;
 
-				desktop.MainWindow = splashScreen;
-
-				splashScreen.Show();
-
-				try
+				if (settingsViewModel.DisplaySplashScreen)
 				{
-					await Task.Delay(3000);
-				}
-				catch (Exception)
-				{
-					splashScreen.Close();
-					return;
-				}
+					splashScreen = GetView(typeof(SplashScreen)) as Window;
 
+					desktop.MainWindow = splashScreen;
+
+					splashScreen.Show();
+
+					try
+					{
+						await Task.Delay(3000);
+					}
+					catch (Exception)
+					{
+						splashScreen.Close();
+						return;
+					}
+				}
 
 				var mainWindow = GetView(typeof(MainWindow)) as Window;
 
@@ -161,7 +165,10 @@ namespace EamonPM
 
 				mainWindow.Show();
 
-				splashScreen.Close();
+				if (settingsViewModel.DisplaySplashScreen)
+				{
+					splashScreen.Close();
+				}
 			}
 			else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
 			{

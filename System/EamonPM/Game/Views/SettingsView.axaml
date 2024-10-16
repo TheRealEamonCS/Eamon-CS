@@ -48,6 +48,8 @@
 					<RowDefinition Height="1"  />
 					<RowDefinition Height="50" />
 					<RowDefinition Height="1"  />
+					<RowDefinition Height="50" />
+					<RowDefinition Height="1"  />
 				</Grid.RowDefinitions>
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="189" />
@@ -63,7 +65,7 @@
 
 				<Rectangle Grid.Row="0"
 						   Grid.Column="1"
-						   Grid.RowSpan="22"
+						   Grid.RowSpan="24"
 						   Width="1"
 						   VerticalAlignment="Stretch"
 						   Fill="{DynamicResource RowDivider}" />
@@ -117,9 +119,6 @@
 						   Height="1"
 						   HorizontalAlignment="Stretch"
 						   Fill="{DynamicResource RowDivider}" />
-
-
-
 
 				<TextBlock Grid.Row="4"
 						   Grid.Column="0"
@@ -277,17 +276,17 @@
 						   Grid.Column="0"
 						   Margin="10,0,10,0"
 						   VerticalAlignment="Center"
-						   Text="Keep Keyboard Visible" />
+						   Text="Display Splash Screen" />
 
 				<ToggleSwitch Grid.Row="16"
 							  Grid.Column="2"
 							  Margin="10,0,10,0"
 							  VerticalAlignment="Center"
 							  HorizontalAlignment="Left"
-							  IsChecked="{Binding KeepKeyboardVisible, Mode=TwoWay}"
-							  Checked="KeepKeyboardVisibleToggleSwitch_Changed"
-							  Unchecked="KeepKeyboardVisibleToggleSwitch_Changed"
-							  x:Name="KeepKeyboardVisibleToggleSwitch" />
+							  IsChecked="{Binding DisplaySplashScreen, Mode=TwoWay}"
+							  Checked="DisplaySplashScreenToggleSwitch_Changed"
+							  Unchecked="DisplaySplashScreenToggleSwitch_Changed"
+							  x:Name="DisplaySplashScreenToggleSwitch" />
 
 				<Rectangle Grid.Row="17"
 						   Grid.ColumnSpan="3"
@@ -299,15 +298,17 @@
 						   Grid.Column="0"
 						   Margin="10,0,10,0"
 						   VerticalAlignment="Center"
-						   Text="Window Height" />
+						   Text="Keep Keyboard Visible" />
 
-				<TextBlock Grid.Row="18"
-						   Grid.Column="2"
-						   Margin="10,0,10,0"
-						   VerticalAlignment="Center"
-						   HorizontalAlignment="Left"
-						   Text="{Binding WindowHeight, Mode=TwoWay}"
-						   x:Name="WindowHeightTextBlock" />
+				<ToggleSwitch Grid.Row="18"
+							  Grid.Column="2"
+							  Margin="10,0,10,0"
+							  VerticalAlignment="Center"
+							  HorizontalAlignment="Left"
+							  IsChecked="{Binding KeepKeyboardVisible, Mode=TwoWay}"
+							  Checked="KeepKeyboardVisibleToggleSwitch_Changed"
+							  Unchecked="KeepKeyboardVisibleToggleSwitch_Changed"
+							  x:Name="KeepKeyboardVisibleToggleSwitch" />
 
 				<Rectangle Grid.Row="19"
 						   Grid.ColumnSpan="3"
@@ -319,9 +320,29 @@
 						   Grid.Column="0"
 						   Margin="10,0,10,0"
 						   VerticalAlignment="Center"
-						   Text="Window Width" />
+						   Text="Window Height" />
 
 				<TextBlock Grid.Row="20"
+						   Grid.Column="2"
+						   Margin="10,0,10,0"
+						   VerticalAlignment="Center"
+						   HorizontalAlignment="Left"
+						   Text="{Binding WindowHeight, Mode=TwoWay}"
+						   x:Name="WindowHeightTextBlock" />
+
+				<Rectangle Grid.Row="21"
+						   Grid.ColumnSpan="3"
+						   Height="1"
+						   HorizontalAlignment="Stretch"
+						   Fill="{DynamicResource RowDivider}" />
+
+				<TextBlock Grid.Row="22"
+						   Grid.Column="0"
+						   Margin="10,0,10,0"
+						   VerticalAlignment="Center"
+						   Text="Window Width" />
+
+				<TextBlock Grid.Row="22"
 						   Grid.Column="2"
 						   Margin="10,0,10,0"
 						   VerticalAlignment="Center"
@@ -329,7 +350,7 @@
 						   Text="{Binding WindowWidth, Mode=TwoWay}"
 						   x:Name="WindowWidthTextBlock" />
 
-				<Rectangle Grid.Row="21"
+				<Rectangle Grid.Row="23"
 						   Grid.ColumnSpan="3"
 						   Height="1"
 						   HorizontalAlignment="Stretch"
