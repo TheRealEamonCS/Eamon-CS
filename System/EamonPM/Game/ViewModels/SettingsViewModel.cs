@@ -33,6 +33,8 @@ namespace EamonPM.Game.ViewModels
 
 		public string _foregroundColor;
 
+		public bool _displaySplashScreen;
+
 		public bool _keepKeyboardVisible;
 
 		public double _windowHeight;
@@ -166,6 +168,19 @@ namespace EamonPM.Game.ViewModels
 			}
 		}
 
+		public virtual bool DisplaySplashScreen
+		{
+			get
+			{
+				return _displaySplashScreen;
+			}
+
+			set
+			{
+				this.RaiseAndSetIfChanged(ref _displaySplashScreen, value);
+			}
+		}
+
 		public virtual bool KeepKeyboardVisible
 		{
 			get
@@ -289,6 +304,13 @@ namespace EamonPM.Game.ViewModels
 			SettingsChanged = true;
 		}
 
+		public virtual void DisplaySplashScreenToggleSwitchChanged(bool displaySplashScreen)
+		{
+			DisplaySplashScreen = displaySplashScreen;
+
+			SettingsChanged = true;
+		}
+
 		public virtual void KeepKeyboardVisibleToggleSwitchChanged(bool keepKeyboardVisible)
 		{
 			KeepKeyboardVisible = keepKeyboardVisible;
@@ -394,6 +416,8 @@ namespace EamonPM.Game.ViewModels
 			BackgroundColor = ColorHelper.ToHexString(Color.FromRgb(255, 255, 255));
 
 			ForegroundColor = ColorHelper.ToHexString(Color.FromRgb(0, 0, 0));
+
+			DisplaySplashScreen = true;
 
 			KeepKeyboardVisible = false;
 

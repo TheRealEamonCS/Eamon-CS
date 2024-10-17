@@ -202,6 +202,16 @@ namespace EamonPM.Game.Views
 			}
 		}
 
+		public virtual void DisplaySplashScreenToggleSwitch_Changed(object sender, RoutedEventArgs e)
+		{
+			if (sender is ToggleSwitch toggleSwitch && DataContext is SettingsViewModel settingsViewModel)
+			{
+				var displaySplashScreen = (bool)toggleSwitch.IsChecked;
+
+				settingsViewModel.DisplaySplashScreenToggleSwitchChanged(displaySplashScreen);
+			}
+		}
+
 		public virtual void KeepKeyboardVisibleToggleSwitch_Changed(object sender, RoutedEventArgs e)
 		{
 			var pluginLauncherViewModel = App.GetViewModel(typeof(PluginLauncherViewModel)) as PluginLauncherViewModel;
@@ -302,6 +312,8 @@ namespace EamonPM.Game.Views
 			ForegroundColorPicker.Color = ColorHelper.FromHexString(viewModel.ForegroundColor, Color.FromRgb(0, 0, 0));
 
 			ForegroundColorPicker_ColorChanged(ForegroundColorPicker, null);
+
+			DisplaySplashScreenToggleSwitch.IsChecked = viewModel.DisplaySplashScreen;
 
 			KeepKeyboardVisibleToggleSwitch.IsChecked = viewModel.KeepKeyboardVisible;
 

@@ -15,6 +15,8 @@ namespace EamonPM.Desktop
     {
         // MP NOTE: when changing this file regenerate both published executables and EamonPM.Desktop.dll (the former may be unchanged)
 
+        // MP NOTE: when publishing you can safely delete the System\Bin\runtimes folder since it contains only duplicates (verified with KDiff3)
+
         // Initialization code. Don't use any Avalonia, third-party APIs or any
         // SynchronizationContext-reliant code before AppMain is called: things aren't initialized
         // yet and stuff might break.

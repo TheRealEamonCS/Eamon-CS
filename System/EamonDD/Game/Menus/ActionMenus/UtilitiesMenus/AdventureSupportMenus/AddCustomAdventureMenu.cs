@@ -481,6 +481,8 @@ Date            Version            Who            Notes
 				goto Cleanup;
 			}
 
+			CreateQuickLaunchFiles();
+
 			CreateAdventureFolder();
 
 			CreateHintsXml();

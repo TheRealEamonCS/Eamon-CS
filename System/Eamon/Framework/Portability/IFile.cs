@@ -42,7 +42,7 @@ namespace Eamon.Framework.Portability
 		/// <param name="path"></param>
 		/// <param name="encoding"></param>
 		/// <returns></returns>
-		IEnumerable<string> ReadLines(string path, Encoding encoding = null);
+		string[] ReadAllLines(string path, Encoding encoding = null);
 
 		/// <summary></summary>
 		/// <param name="path"></param>
@@ -57,6 +57,12 @@ namespace Eamon.Framework.Portability
 		/// <param name="contents"></param>
 		/// <param name="encoding"></param>
 		void WriteAllText(string path, string contents, Encoding encoding = null);
+
+		/// <summary></summary>
+		/// <param name="path"></param>
+		/// <param name="contents"></param>
+		/// <param name="encoding"></param>
+		void WriteAllLines(string path, string[] contents, Encoding encoding = null);
 
 		/// <summary></summary>
 		/// <param name="path"></param>

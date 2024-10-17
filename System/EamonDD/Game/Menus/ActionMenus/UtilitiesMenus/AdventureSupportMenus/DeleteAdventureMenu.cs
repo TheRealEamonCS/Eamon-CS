@@ -5,7 +5,9 @@
 
 using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Runtime.InteropServices;
+using System.Text;
 using Eamon;
 using Eamon.Game.Attributes;
 using EamonDD.Framework.Menus.ActionMenus;
@@ -70,6 +72,8 @@ namespace EamonDD.Game.Menus.ActionMenus
 			}
 
 			DeleteAdventureFolder();
+
+			DeleteQuickLaunchFiles();
 
 			PrintAdventureDeleted();
 
@@ -188,6 +192,31 @@ namespace EamonDD.Game.Menus.ActionMenus
 				{
 					gEngine.Directory.Delete(gEngine.AndroidAdventuresDir + @"\" + AdventureName, true);
 				}
+			}
+		}
+
+		/// <summary></summary>
+		public virtual void DeleteQuickLaunchFiles()
+		{
+			if (IsAdventureNameValid())
+			{
+				var scriptFilePath = gEngine.Path.Combine(".", "EAMONPM_SCRIPTS.TXT");
+
+				var editFilePrefix = string.Format("EamonDD|Edit{0}", AdventureName);
+
+				var resumeFilePrefix = string.Format("EamonRT|Resume{0}", AdventureName);
+
+				// TODO: use try/catch ???
+
+				var linesList = gEngine.File.ReadAllLines(scriptFilePath).ToList();
+
+				Debug.Assert(linesList != null);
+
+				linesList = linesList.Where(line => !line.StartsWith(editFilePrefix, StringComparison.OrdinalIgnoreCase) && !line.StartsWith(resumeFilePrefix, StringComparison.OrdinalIgnoreCase)).ToList();
+
+				Debug.Assert(linesList != null);
+
+				gEngine.File.WriteAllLines(scriptFilePath, linesList.ToArray(), new ASCIIEncoding());
 			}
 		}
 

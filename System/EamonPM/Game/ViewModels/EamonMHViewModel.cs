@@ -23,7 +23,9 @@ namespace EamonPM.Game.ViewModels
 
 			try
 			{
-				foreach (var line in gEngine.File.ReadLines(scriptsFileName))
+				var lines = gEngine.File.ReadAllLines(scriptsFileName);
+
+				foreach (var line in lines)
 				{
 					if (!string.IsNullOrWhiteSpace(line))
 					{
