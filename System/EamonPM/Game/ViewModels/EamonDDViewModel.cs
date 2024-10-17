@@ -23,7 +23,9 @@ namespace EamonPM.Game.ViewModels
 
 			try
 			{
-				foreach (var line in gEngine.File.ReadLines(scriptsFileName))
+				var lines = gEngine.File.ReadAllLines(scriptsFileName);
+
+				foreach (var line in lines)
 				{
 					if (!string.IsNullOrWhiteSpace(line))
 					{
@@ -42,18 +44,6 @@ namespace EamonPM.Game.ViewModels
 			catch (Exception)
 			{
 				// Do nothing
-			}
-
-			var adventureDirs = App.GetAdventureDirs();
-
-			foreach (var dir in adventureDirs)
-			{
-				var pluginFileName = string.Format("{0}.dll", dir);
-
-				FileList.Add
-				(
-					CreatePluginScriptFile(string.Format("Edit{0}.psh", dir), "-pfn", App.PluginExists(pluginFileName) ? pluginFileName : "EamonRT.dll", "-wd", gEngine.Path.Combine("..", "..", "Adventures", dir), "-la", "-rge")
-				);
 			}
 
 			FileList = FileList.OrderBy(psf => psf.Name).ToList();

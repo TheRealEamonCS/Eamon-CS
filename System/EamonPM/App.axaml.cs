@@ -71,7 +71,7 @@ namespace EamonPM
 
 		public static Func<char, bool> InputTermCharFunc { get; set; }
 
-		public static string BuildGuid = "C4B1AC91-D1A8-4722-9837-3B0D34147BC0";
+		public static string BuildGuid = "2439B492-101A-4AEC-BDED-CAC5B61DDDB7";
 
 		public static string ProgramName { get; set; }
 
@@ -128,22 +128,26 @@ namespace EamonPM
 
 			if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
 			{
-				var splashScreen = GetView(typeof(SplashScreen)) as Window;
+				Window splashScreen = null;
 
-				desktop.MainWindow = splashScreen;
-
-				splashScreen.Show();
-
-				try
+				if (settingsViewModel.DisplaySplashScreen)
 				{
-					await Task.Delay(3000);
-				}
-				catch (Exception)
-				{
-					splashScreen.Close();
-					return;
-				}
+					splashScreen = GetView(typeof(SplashScreen)) as Window;
 
+					desktop.MainWindow = splashScreen;
+
+					splashScreen.Show();
+
+					try
+					{
+						await Task.Delay(3000);
+					}
+					catch (Exception)
+					{
+						splashScreen.Close();
+						return;
+					}
+				}
 
 				var mainWindow = GetView(typeof(MainWindow)) as Window;
 
@@ -161,7 +165,10 @@ namespace EamonPM
 
 				mainWindow.Show();
 
-				splashScreen.Close();
+				if (settingsViewModel.DisplaySplashScreen)
+				{
+					splashScreen.Close();
+				}
 			}
 			else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
 			{
@@ -481,7 +488,7 @@ namespace EamonPM
 					resources["GeneralBackgroundColor"] = Color.Parse("#FFFFFF"); // White
 					resources["MediumGrayTextColor"] = Color.Parse("#6E6E6E"); // Medium Gray
 					resources["LightTextColor"] = Color.Parse("#808080"); // Light Gray
-					resources["RowDivider"] = Color.Parse("#CFCFCF"); // Light Gray
+					resources["RowDivider"] = Color.Parse("#D6D6D6"); // Light Gray
 
 					break;
 
@@ -499,7 +506,7 @@ namespace EamonPM
 					resources["GeneralBackgroundColor"] = Color.Parse("#121212"); // Black
 					resources["MediumGrayTextColor"] = Color.Parse("#B0BEC5"); // Light Blue-Gray
 					resources["LightTextColor"] = Color.Parse("#CFD8DC"); // Soft Blue-Gray
-					resources["RowDivider"] = Color.Parse("#37474F"); // Dark Blue-Gray
+					resources["RowDivider"] = Color.Parse("#394952"); // Dark Blue-Gray
 
 					break;
 
@@ -546,8 +553,8 @@ namespace EamonPM
 					resources["DarkBackgroundColor"] = Color.Parse("#F7AB8D"); // Light Muted Red
 					resources["GeneralBackgroundColor"] = Color.Parse("#FFFFFF"); // White
 					resources["MediumGrayTextColor"] = Color.Parse("#634023"); // Muted Warm Red Brown
-					resources["LightTextColor"] = Color.Parse("#995028"); // Soft Light Red Brown
-					resources["RowDivider"] = Color.Parse("#F7CDBE"); // Very Light Orangish Red
+					resources["LightTextColor"] = Color.Parse("#9E5329"); // Soft Light Red Brown
+					resources["RowDivider"] = Color.Parse("#F5CBBC"); // Very Light Orangish Red
 
 					break;
 
@@ -562,8 +569,8 @@ namespace EamonPM
 					resources["DarkBackgroundColor"] = Color.Parse("#B0BEC5"); // Light Grayish Blue
 					resources["GeneralBackgroundColor"] = Color.Parse("#FFFFFF"); // White
 					resources["MediumGrayTextColor"] = Color.Parse("#2C3B44"); // Darker Medium Grayish Blue
-					resources["LightTextColor"] = Color.Parse("#788997"); // Darker Light Grayish Blue
-					resources["RowDivider"] = Color.Parse("#CFD8DC"); // Very Light Grayish Blue
+					resources["LightTextColor"] = Color.Parse("#71828F"); // Darker Light Grayish Blue
+					resources["RowDivider"] = Color.Parse("#CCD5D9"); // Very Light Grayish Blue
 
 					break;
 
@@ -724,27 +731,6 @@ namespace EamonPM
 			}
 
 			return result;
-		}
-
-		public static string[] GetAdventureDirs()
-		{
-			var dirList = new List<string>();
-
-			try
-			{
-				var fullDirs = gEngine.Directory.GetDirectories(gEngine.Path.Combine(BasePath, "Adventures"));
-
-				foreach (var fullDir in fullDirs)
-				{
-					dirList.Add(gEngine.Path.GetFileNameWithoutExtension(fullDir));
-				}
-			}
-			catch (Exception)
-			{
-				// Do nothing
-			}
-
-			return dirList.ToArray();
 		}
 
 		public static bool PluginExists(string pluginFileName)

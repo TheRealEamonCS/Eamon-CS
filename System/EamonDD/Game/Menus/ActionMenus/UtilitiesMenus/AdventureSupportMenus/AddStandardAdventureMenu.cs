@@ -43,6 +43,8 @@ namespace EamonDD.Game.Menus.ActionMenus
 				goto Cleanup;
 			}
 
+			CreateQuickLaunchFiles();
+
 			CreateAdventureFolder();
 
 			CreateHintsXml();

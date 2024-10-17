@@ -111,6 +111,12 @@ namespace EamonDD.Game.Menus.ActionMenus
 </Complex>";
 
 		/// <summary></summary>
+		public virtual string EditAdventurePshText { get; set; } = @"EamonDD|EditYourAdventureName.psh|-pfn|YourLibraryName.dll|-wd|..\..\Adventures\YourAdventureName|-la|-rge";
+
+		/// <summary></summary>
+		public virtual string ResumeAdventurePshText { get; set; } = @"EamonRT|ResumeYourAdventureName.psh|-pfn|YourLibraryName.dll|-wd|..\..\Adventures\YourAdventureName";
+
+		/// <summary></summary>
 		public virtual string InterfaceCsText { get; set; } =
 @"
 // YourInterfaceName.cs
@@ -566,6 +572,30 @@ namespace YourAdventureName.YourGameNamespaceName
 
 				GotoCleanup = true;
 			}
+		}
+
+		/// <summary></summary>
+		public virtual void CreateQuickLaunchFiles()
+		{
+			var yourLibraryName = this is IAddCustomAdventureMenu ? AdventureName : "EamonRT";
+
+			var scriptFilePath = gEngine.Path.Combine(".", "EAMONPM_SCRIPTS.TXT");
+
+			// TODO: use try/catch ???
+
+			var linesList = gEngine.File.ReadAllLines(scriptFilePath).ToList();
+
+			Debug.Assert(linesList != null);
+
+			var editFileText = EditAdventurePshText.Replace("YourLibraryName", yourLibraryName);
+
+			linesList.Add(ReplaceMacros(editFileText));
+
+			var resumeFileText = ResumeAdventurePshText.Replace("YourLibraryName", yourLibraryName);
+
+			linesList.Add(ReplaceMacros(resumeFileText));
+
+			gEngine.File.WriteAllLines(scriptFilePath, linesList.ToArray(), new ASCIIEncoding());
 		}
 
 		/// <summary></summary>
