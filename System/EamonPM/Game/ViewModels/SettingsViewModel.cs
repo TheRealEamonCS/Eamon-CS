@@ -366,7 +366,7 @@ namespace EamonPM.Game.ViewModels
 				"Nimbus Mono Ps", "Noto Sans Mono", "Noto Sans Mono Cjk Hk", "Noto Sans Mono Cjk Jp", "Noto Sans Mono Cjk Kr", "Noto Sans Mono Cjk Sc", "Noto Sans Mono Cjk Tc",
 				"Tlwg Mono", "Tlwg Typewriter", "Tlwg Typist", "Tlwg Typo", 
 
-				// MacOS
+				// macOS
 
 				"Andale Mono", 
 

@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <!--If you are willing to use Windows/MacOS native APIs you will need to create 3 projects.
-    One for Windows with net7.0-windows TFM, one for MacOS with net7.0-macos and one with net7.0 TFM for Linux.-->
+    <!--If you are willing to use Windows/macOS native APIs you will need to create 3 projects.
+    One for Windows with net7.0-windows TFM, one for macOS with net7.0-macos and one with net7.0 TFM for Linux.-->
     <TargetFramework>net8.0</TargetFramework>
     <ApplicationIcon>Resources\ten_sided_die.ico</ApplicationIcon>
     <Version>3.0.0.0</Version>
