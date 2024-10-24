@@ -271,6 +271,15 @@ namespace EamonPM
 
 			Debug.Assert(args[0].Equals("-pfn", StringComparison.OrdinalIgnoreCase));
 
+			var pluginLauncherView = GetView(typeof(PluginLauncherView)) as PluginLauncherView;
+
+			DispatcherUIThreadPost(() =>
+			{
+				pluginLauncherView.CommandList.Clear();
+
+				pluginLauncherView.CommandListIndex = -1;
+			});
+
 			var mainViewModel = GetViewModel(typeof(MainViewModel)) as MainViewModel;
 
 			var pluginFileName = gEngine.Path.GetFileNameWithoutExtension(args[1]);

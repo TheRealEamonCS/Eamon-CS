@@ -47,7 +47,11 @@ namespace EamonRT.Game.States
 
 					gSentenceParser.Clear();
 
+					gEngine.EnableCommandHistory = true;
+
 					gSentenceParser.InputBuf.SetFormat("{0}", gEngine.In.ReadLine());
+
+					gEngine.EnableCommandHistory = false;
 
 					gSentenceParser.Execute();
 				}
