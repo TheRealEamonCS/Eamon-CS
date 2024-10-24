@@ -142,7 +142,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 				for (var i = 0; i < j; i++)
 				{
-					var monster = monsterList.ElementAt(i);
+					var monster = monsterList[i];
 
 					Debug.Assert(monster != null);
 

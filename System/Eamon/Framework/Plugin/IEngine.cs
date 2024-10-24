@@ -608,7 +608,10 @@ namespace Eamon.Framework.Plugin
 
 		/// <summary></summary>
 		bool EnableScreenReaderMode { get; set; }
-		
+
+		/// <summary></summary>
+		bool EnableCommandHistory { get; set; }
+
 		/// <summary>
 		/// Gets or sets a value indicating whether the <see cref="Mutex">Mutex</see> should be ignored, allowing unlimited Eamon CS processes
 		/// to run simultaneously.

@@ -4,17 +4,25 @@
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using EamonPM.Game.ViewModels;
+using static Eamon.Game.Plugin.Globals;
 
 namespace EamonPM.Game.Views
 {
 	public partial class PluginLauncherView : UserControl
 	{
+		public virtual IList<string> CommandList { get; set; }
+
+		public virtual long CommandListIndex { get; set; }
+
 		public virtual void OutputScrollViewer_PointerWheelChanged(object sender, PointerWheelEventArgs e)
 		{
 			InputTextBoxLoseFocus();
@@ -134,9 +142,37 @@ namespace EamonPM.Game.Views
 		{
 			if (DataContext is PluginLauncherViewModel viewModel)
 			{
-				if (e.Key == Key.Escape)
+				if (e.Key == Key.Up && gEngine.EnableCommandHistory)
+				{
+					if (CommandListIndex + 1 < CommandList.Count)
+					{
+						InputTextBox.Text = CommandList[(int)CommandListIndex + 1];
+
+						CommandListIndex++;
+
+						InputTextBox.CaretIndex = InputTextBox.Text.Length;
+
+						InputTextBox.Focus();
+					}
+				}
+				else if (e.Key == Key.Down && gEngine.EnableCommandHistory)
+				{
+					if (CommandListIndex > -1)
+					{
+						InputTextBox.Text = CommandListIndex > 0 ? CommandList[(int)CommandListIndex - 1] : string.Empty;
+
+						CommandListIndex--;
+
+						InputTextBox.CaretIndex = InputTextBox.Text.Length;
+
+						InputTextBox.Focus();
+					}
+				}
+				else if (e.Key == Key.Escape)
 				{
 					InputTextBox.Text = string.Empty;
+
+					CommandListIndex = -1;
 
 					InputTextBox.Focus();
 				}
@@ -189,6 +225,34 @@ namespace EamonPM.Game.Views
 							SetInputTextNoEvents(App.InputEmptyVal);
 						}
 
+						var inputText = Regex.Replace(viewModel.InputText, @"\s+", " ").Trim();
+
+						if (inputText.Length > 0 && gEngine.EnableCommandHistory)
+						{
+							if (CommandList.Count > 0)
+							{
+								var index = CommandList.ToList().FindIndex(s =>	s.Equals(inputText, StringComparison.OrdinalIgnoreCase));
+
+								if (index >= 0)
+								{
+									CommandList.RemoveAt(index);
+								}
+
+								CommandList.Insert(0, inputText);
+
+								if (CommandList.Count > 100)
+								{
+									CommandList.RemoveAt(100);
+								}
+							}
+							else
+							{
+								CommandList.Add(inputText);
+							}
+						}
+
+						CommandListIndex = -1;
+
 						App.DispatcherUIThreadPost(() =>
 						{
 							if (App.ProgramName == "EamonPM.Android" && !viewModel.KeepKeyboardVisible)
@@ -234,6 +298,10 @@ namespace EamonPM.Game.Views
 			InitializeComponent();
 
 			DataContext = App.GetViewModel(typeof(PluginLauncherViewModel));
+
+			CommandList = new List<string>();
+
+			CommandListIndex = -1;
 
 			OutputScrollViewer.AddHandler(InputElement.PointerPressedEvent, OutputScrollViewer_PointerPressed, RoutingStrategies.Tunnel | RoutingStrategies.Bubble);
 
