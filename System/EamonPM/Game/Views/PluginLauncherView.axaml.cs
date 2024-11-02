@@ -231,7 +231,7 @@ namespace EamonPM.Game.Views
 						{
 							if (CommandList.Count > 0)
 							{
-								var index = CommandList.ToList().FindIndex(s =>	s.Equals(inputText, StringComparison.OrdinalIgnoreCase));
+								var index = CommandList.ToList().FindIndex(s => s.Equals(inputText, StringComparison.OrdinalIgnoreCase));
 
 								if (index >= 0)
 								{
