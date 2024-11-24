@@ -3,11 +3,11 @@ Eamon CS requires the .NET 8 Runtime or SDK (for developers) installed on your s
 
 For gamers who want to play on osx-x64 (Intel/AMD) systems:
 
-https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-8.0.5-macos-x64-installer
+https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-8.0.11-macos-x64-installer
 
 For gamers who want to play on osx-arm64 (Arm) systems:
 
-https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-8.0.5-macos-arm64-installer
+https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-8.0.11-macos-arm64-installer
 
 Please download the appropriate prerequisites and install them to proceed.
 
