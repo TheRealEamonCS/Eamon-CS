@@ -34,9 +34,9 @@ namespace Dharmaquest.Game
 
 		public virtual bool PythonMet { get; set; }
 
-		public virtual bool BullFriendly { get; set; }
+		public virtual bool PoseidonCurses { get; set; }
 
-		public virtual bool PythonFriendly { get; set; }
+		public virtual bool ApolloCurses { get; set; }
 
 		public GameState()
 		{

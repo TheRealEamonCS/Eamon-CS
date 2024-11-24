@@ -32,8 +32,8 @@ namespace Dharmaquest.Framework
 
 		bool PythonMet { get; set; }
 
-		bool BullFriendly { get; set; }
+		bool PoseidonCurses { get; set; }
 
-		bool PythonFriendly { get; set; }
+		bool ApolloCurses { get; set; }
 	}
 }

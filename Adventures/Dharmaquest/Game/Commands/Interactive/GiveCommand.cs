@@ -38,18 +38,7 @@ namespace Dharmaquest.Game.Commands
 
 						IobjMonster.Reaction = Friendliness.Friend;
 
-						if (IobjMonster.Uid == 16)
-						{
-							gGameState.BullFriendly = true;
-
-							gOut.Print("You have made a friend!");
-						}
-						else
-						{
-							gGameState.PythonFriendly = true;
-
-							gOut.Print("You have a friend for life!");
-						}
+						gOut.Print(IobjMonster.Uid == 16 ? "You have made a friend!" : "You have a friend for life!");
 					}
 					else
 					{
