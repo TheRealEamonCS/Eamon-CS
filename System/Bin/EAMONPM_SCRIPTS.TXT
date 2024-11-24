@@ -14,6 +14,7 @@ EamonDD|EditARuncibleCargo.psh|-pfn|ARuncibleCargo.dll|-wd|..\..\Adventures\ARun
 EamonDD|EditBeginnersCaveII.psh|-pfn|BeginnersCaveII.dll|-wd|..\..\Adventures\BeginnersCaveII|-la|-rge
 EamonDD|EditBeginnersForest.psh|-pfn|BeginnersForest.dll|-wd|..\..\Adventures\BeginnersForest|-la|-rge
 EamonDD|EditDemoAdventure.psh|-pfn|EamonRT.dll|-wd|..\..\Adventures\DemoAdventure|-la|-rge
+EamonDD|EditDharmaQuest.psh|-pfn|Dharmaquest.dll|-wd|..\..\Adventures\Dharmaquest|-la|-rge
 EamonDD|EditEscapeFromMtMoon.psh|-pfn|EamonRT.dll|-wd|..\..\Adventures\EscapeFromMtMoon|-la|-rge
 EamonDD|EditLandOfTheMountainKing.psh|-pfn|LandOfTheMountainKing.dll|-wd|..\..\Adventures\LandOfTheMountainKing|-la|-rge
 EamonDD|EditRiddlesOfTheDuergarKingdom.psh|-pfn|RiddlesOfTheDuergarKingdom.dll|-wd|..\..\Adventures\RiddlesOfTheDuergarKingdom|-la|-rge
@@ -37,6 +38,7 @@ EamonRT|ResumeARuncibleCargo.psh|-pfn|ARuncibleCargo.dll|-wd|..\..\Adventures\AR
 EamonRT|ResumeBeginnersCaveII.psh|-pfn|BeginnersCaveII.dll|-wd|..\..\Adventures\BeginnersCaveII
 EamonRT|ResumeBeginnersForest.psh|-pfn|BeginnersForest.dll|-wd|..\..\Adventures\BeginnersForest
 EamonRT|ResumeDemoAdventure.psh|-pfn|EamonRT.dll|-wd|..\..\Adventures\DemoAdventure
+EamonRT|ResumeDharmaQuest.psh|-pfn|Dharmaquest.dll|-wd|..\..\Adventures\Dharmaquest
 EamonRT|ResumeEscapeFromMtMoon.psh|-pfn|EamonRT.dll|-wd|..\..\Adventures\EscapeFromMtMoon
 EamonRT|ResumeLandOfTheMountainKing.psh|-pfn|LandOfTheMountainKing.dll|-wd|..\..\Adventures\LandOfTheMountainKing
 EamonRT|ResumeRiddlesOfTheDuergarKingdom.psh|-pfn|RiddlesOfTheDuergarKingdom.dll|-wd|..\..\Adventures\RiddlesOfTheDuergarKingdom

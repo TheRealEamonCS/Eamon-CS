@@ -37,6 +37,7 @@
     <TrimmerRootAssembly Include="$(OutputPath)ARuncibleCargo.dll" RootMode="All" />
     <TrimmerRootAssembly Include="$(OutputPath)BeginnersCaveII.dll" RootMode="All" />
     <TrimmerRootAssembly Include="$(OutputPath)BeginnersForest.dll" RootMode="All" />
+    <TrimmerRootAssembly Include="$(OutputPath)Dharmaquest.dll" RootMode="All" />
     <TrimmerRootAssembly Include="$(OutputPath)LandOfTheMountainKing.dll" RootMode="All" />
     <TrimmerRootAssembly Include="$(OutputPath)RiddlesOfTheDuergarKingdom.dll" RootMode="All" />
     <TrimmerRootAssembly Include="$(OutputPath)SampleAdventure.dll" RootMode="All" />
@@ -122,6 +123,7 @@
       xcopy "$(TargetDir)ARuncibleCargo.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
       xcopy "$(TargetDir)BeginnersCaveII.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
       xcopy "$(TargetDir)BeginnersForest.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
+      xcopy "$(TargetDir)Dharmaquest.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
       xcopy "$(TargetDir)LandOfTheMountainKing.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
       xcopy "$(TargetDir)RiddlesOfTheDuergarKingdom.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
       xcopy "$(TargetDir)SampleAdventure.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
@@ -145,6 +147,7 @@
       xcopy "$(TargetDir)..\..\Adventures\ARuncibleCargo\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\ARuncibleCargo" /I /S /Y
       xcopy "$(TargetDir)..\..\Adventures\BeginnersCaveII\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\BeginnersCaveII" /I /S /Y
       xcopy "$(TargetDir)..\..\Adventures\BeginnersForest\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\BeginnersForest" /I /S /Y
+      xcopy "$(TargetDir)..\..\Adventures\Dharmaquest\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\Dharmaquest" /I /S /Y
       xcopy "$(TargetDir)..\..\Adventures\DemoAdventure\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\DemoAdventure" /I /S /Y
       xcopy "$(TargetDir)..\..\Adventures\EscapeFromMtMoon\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\EscapeFromMtMoon" /I /S /Y
       xcopy "$(TargetDir)..\..\Adventures\LandOfTheMountainKing\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\LandOfTheMountainKing" /I /S /Y
