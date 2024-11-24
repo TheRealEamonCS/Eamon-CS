@@ -98,18 +98,18 @@ namespace Dharmaquest.Game.States
 
 				// Python killed
 
-				if (deadPythonArtifact.IsInRoom(gCharRoom) && !gGameState.PythonFriendly)
+				if (deadPythonArtifact.IsInRoom(gCharRoom) && !gGameState.ApolloCurses)
 				{
-					gGameState.PythonFriendly = true;
+					gGameState.ApolloCurses = true;
 
 					gEngine.ApolloCursesPlayer();
 				}
 
 				// Sacred bull killed
 
-				if (deadBullArtifact.IsInRoom(gCharRoom) && !gGameState.BullFriendly)
+				if (deadBullArtifact.IsInRoom(gCharRoom) && !gGameState.PoseidonCurses)
 				{
-					gGameState.BullFriendly = true;
+					gGameState.PoseidonCurses = true;
 
 					gEngine.PoseidonCursesPlayer(this);
 				}
