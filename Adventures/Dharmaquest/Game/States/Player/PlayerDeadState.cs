@@ -3,6 +3,8 @@
 
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
+using System.Diagnostics;
+using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.States;
 using static Dharmaquest.Game.Plugin.Globals;
@@ -14,6 +16,8 @@ namespace Dharmaquest.Game.States
 	{
 		public override void Execute()
 		{
+			Debug.Assert(gCharMonster != null);
+
 			var lastWordsArray = new string[] 
 			{
 				"whisper a prayer to Odin",
@@ -25,7 +29,9 @@ namespace Dharmaquest.Game.States
 				"call on Apollo to strike down your killer",
 				"think of home and close your eyes",
 				"laugh at your attacker",
-				"think of Sieglinde, the blonde adventuress from the Main Hall"
+				gCharMonster.Gender == Gender.Male ? 
+					"think of Sieglinde, the blonde adventuress from the Main Hall" :
+					"think of Siegfried, the blond adventurer from the Main Hall"
 			};
 
 			var lastWordsString = gEngine.GetRandomElement(lastWordsArray);
