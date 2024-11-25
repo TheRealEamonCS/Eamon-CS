@@ -80,7 +80,7 @@ namespace Dharmaquest.Game.States
 
 				// Patroclos killed
 
-				if (patroclosStatueArtifact02.IsInRoom(gCharRoom) && achillesMonster.IsInLimbo() && !gGameState.AchillesMet)
+				if (patroclosStatueArtifact02.IsInRoom(gCharRoom) && !gGameState.AchillesMet)
 				{
 					gGameState.AchillesMet = true;
 
@@ -89,7 +89,7 @@ namespace Dharmaquest.Game.States
 
 				// Achilles killed
 
-				if (achillesStatueArtifact.IsInRoom(gCharRoom) && neoptolemusMonster.IsInLimbo() && !gGameState.NeoptolemusMet)
+				if (achillesStatueArtifact.IsInRoom(gCharRoom) && !gGameState.NeoptolemusMet)
 				{
 					gGameState.NeoptolemusMet = true;
 
