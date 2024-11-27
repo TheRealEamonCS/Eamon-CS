@@ -4,9 +4,6 @@
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
 /*
-
-Originally based upon Eamon's Adventure #121 MAIN PGM:
-
  1  REM    EAMON ADVENTURE #121
  2  REM  WRENHOLD'S SECRET VIGIL
  3  REM  
@@ -18,12 +15,6 @@ Originally based upon Eamon's Adventure #121 MAIN PGM:
  10  REM 
  11  REM 
  12  REM LAST REV: 11/5/89
- 13  REM 
- 14  REM 
-EAMON ADVENTURER'S GUILD
-CLEMMONS, NC 27012
-
-
 */
 
 using Eamon.Framework.Portability;

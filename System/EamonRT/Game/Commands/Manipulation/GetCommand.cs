@@ -230,7 +230,7 @@ namespace EamonRT.Game.Commands
 			{
 				ProcessAction(1, () => gEngine.RevealDisguisedMonster(ActorRoom, artifact), ref nlFlag);
 			}
-			else if (artifact.Weight > 900)
+			else if (artifact.Weight == 999)
 			{
 				ProcessAction(2, () => PrintDontBeAbsurd(), ref nlFlag);
 			}
