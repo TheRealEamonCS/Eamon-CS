@@ -728,7 +728,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 					x.Location = a2eMonster._md5;
 
-					x.CombatCode = CombatCode.Attacks;
+					x.CombatCode = CombatCode.Weapons;
 
 					if (!string.IsNullOrWhiteSpace(a2eAdv._ver) && a2eAdv._ver.StartsWith("7"))
 					{
