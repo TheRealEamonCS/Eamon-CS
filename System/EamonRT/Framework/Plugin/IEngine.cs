@@ -536,6 +536,9 @@ namespace EamonRT.Framework.Plugin
 		void EnforceCharacterWeightLimits02(IRoom room = null, bool printOutput = false);
 
 		/// <summary></summary>
+		void NormalizeArtifactValuesAndWeights();
+
+		/// <summary></summary>
 		void AddUniqueCharsToArtifactAndMonsterNames();
 
 		/// <summary></summary>
