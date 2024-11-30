@@ -178,7 +178,7 @@ namespace EamonRT.Game.Commands
 				DobjArtAc = DobjArtifact.GetCategory(0);
 			}
 
-			if (DobjArtAc != null && DobjArtAc.Type != ArtifactType.DisguisedMonster && DobjArtifact.Weight <= 900 && !DobjArtifact.IsUnmovable01() && (DobjArtAc.Type != ArtifactType.DeadBody || DobjArtAc.Field1 == 1) && DobjArtAc.Type != ArtifactType.BoundMonster)
+			if (DobjArtAc != null && DobjArtAc.Type != ArtifactType.DisguisedMonster && !DobjArtifact.IsUnmovable() && (DobjArtAc.Type != ArtifactType.DeadBody || DobjArtAc.Field1 == 1) && DobjArtAc.Type != ArtifactType.BoundMonster)
 			{
 				OmitWeightCheck = DobjArtifact.IsCarriedByMonster(ActorMonster, true);
 

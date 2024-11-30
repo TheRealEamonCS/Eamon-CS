@@ -337,7 +337,7 @@ namespace Eamon.Game
 		{
 			if (roomFindFunc == null)
 			{
-				roomFindFunc = a => a.IsInRoom(this) && a.Weight <= 900 && !a.IsUnmovable01() && (a.DeadBody == null || a.DeadBody.Field1 == 1);
+				roomFindFunc = a => a.IsInRoom(this) && !a.IsUnmovable() && (a.DeadBody == null || a.DeadBody.Field1 == 1);
 			}
 
 			var artifactList = gEngine.GetArtifactList(a => roomFindFunc(a));
