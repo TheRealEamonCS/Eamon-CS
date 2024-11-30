@@ -1107,6 +1107,24 @@ namespace EamonRT.Game.Plugin
 			}
 		}
 
+		public virtual void NormalizeArtifactValuesAndWeights()
+		{
+			var artifactList = Database.ArtifactTable.Records.ToList();
+
+			foreach (var artifact in artifactList)
+			{
+				if (artifact.Value < 0)
+				{
+					artifact.Value = 0;
+				}
+
+				if (artifact.Weight < 0 && !artifact.IsUnmovable01())
+				{
+					artifact.Weight = 0;
+				}
+			}
+		}
+
 		public virtual void AddUniqueCharsToArtifactAndMonsterNames()
 		{
 			var recordList = new List<IGameBase>();
