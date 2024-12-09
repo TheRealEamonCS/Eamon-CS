@@ -29,6 +29,8 @@ namespace EamonPM.Game.ViewModels
 
 		public int _outputWindowMaxSize;
 
+		public int _outputLeftMargin;
+
 		public string _backgroundColor;
 
 		public string _foregroundColor;
@@ -63,6 +65,9 @@ namespace EamonPM.Game.ViewModels
 
 		[ExcludeFromSerialization]
 		public virtual ObservableCollection<int> OutputWindowMaxSizeList { get; set; }
+
+		[ExcludeFromSerialization]
+		public virtual IList<int> OutputLeftMarginList { get; set; }
 
 		public virtual string AppTheme
 		{
@@ -139,6 +144,19 @@ namespace EamonPM.Game.ViewModels
 			set
 			{
 				this.RaiseAndSetIfChanged(ref _outputWindowMaxSize, value);
+			}
+		}
+
+		public virtual int OutputLeftMargin
+		{
+			get
+			{
+				return _outputLeftMargin;
+			}
+
+			set
+			{
+				this.RaiseAndSetIfChanged(ref _outputLeftMargin, value);
 			}
 		}
 
@@ -290,6 +308,15 @@ namespace EamonPM.Game.ViewModels
 			SettingsChanged = true;
 		}
 
+		public virtual void OutputLeftMarginComboBoxSelectionChanged(int outputLeftMargin)
+		{
+			Debug.Assert(outputLeftMargin >= 0);
+
+			OutputLeftMargin = outputLeftMargin;
+
+			SettingsChanged = true;
+		}
+
 		public virtual void BackgroundColorPickerColorChanged(Color color)
 		{
 			BackgroundColor = ColorHelper.ToHexString(color);
@@ -401,6 +428,8 @@ namespace EamonPM.Game.ViewModels
 
 			OutputWindowMaxSizeList = new ObservableCollection<int> { 8192, 16384, 32768, 65536, 131072, 262144 };
 
+			OutputLeftMarginList = new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
+
 			AppTheme = AppThemeList[0];
 
 			FontFamily = FontFamilyList[0].Name;
@@ -412,6 +441,8 @@ namespace EamonPM.Game.ViewModels
 			OutputBufMaxSize = OutputBufMaxSizeList[5];
 
 			OutputWindowMaxSize = OutputWindowMaxSizeList[2];
+
+			OutputLeftMargin = OutputLeftMarginList[0];
 
 			BackgroundColor = ColorHelper.ToHexString(Color.FromRgb(255, 255, 255));
 

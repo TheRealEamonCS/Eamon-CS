@@ -50,6 +50,8 @@
 					<RowDefinition Height="1"  />
 					<RowDefinition Height="50" />
 					<RowDefinition Height="1"  />
+					<RowDefinition Height="50" />
+					<RowDefinition Height="1"  />
 				</Grid.RowDefinitions>
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="189" />
@@ -65,7 +67,7 @@
 
 				<Rectangle Grid.Row="0"
 						   Grid.Column="1"
-						   Grid.RowSpan="24"
+						   Grid.RowSpan="25"
 						   Width="1"
 						   VerticalAlignment="Stretch"
 						   Fill="{DynamicResource RowDivider}" />
@@ -236,15 +238,23 @@
 						   Grid.Column="0"
 						   Margin="10,0,10,0"
 						   VerticalAlignment="Center"
-						   Text="Background Color" />
+						   Text="Left Margin" />
 
-				<ColorPicker Grid.Row="12"
-							 Grid.Column="2"
-							 Margin="10,0,10,0"
-							 VerticalAlignment="Center"
-							 HorizontalAlignment="Left"
-							 ColorChanged="BackgroundColorPicker_ColorChanged"
-							 x:Name="BackgroundColorPicker" />
+				<ComboBox Grid.Row="12"
+						  Grid.Column="2"
+						  Margin="10,0,10,0"
+						  MaxDropDownHeight="200"
+						  VerticalAlignment="Center"
+						  HorizontalAlignment="Left"
+						  ItemsSource="{Binding OutputLeftMarginList, Mode=TwoWay}"
+						  SelectionChanged="OutputLeftMarginComboBox_SelectionChanged"
+						  x:Name="OutputLeftMarginComboBox">
+					<ComboBox.ItemTemplate>
+						<DataTemplate>
+							<TextBlock Text="{Binding}" />
+						</DataTemplate>
+					</ComboBox.ItemTemplate>
+				</ComboBox>
 
 				<Rectangle Grid.Row="13"
 						   Grid.ColumnSpan="3"
@@ -256,15 +266,15 @@
 						   Grid.Column="0"
 						   Margin="10,0,10,0"
 						   VerticalAlignment="Center"
-						   Text="Foreground Color" />
+						   Text="Background Color" />
 
 				<ColorPicker Grid.Row="14"
 							 Grid.Column="2"
 							 Margin="10,0,10,0"
 							 VerticalAlignment="Center"
 							 HorizontalAlignment="Left"
-							 ColorChanged="ForegroundColorPicker_ColorChanged"
-							 x:Name="ForegroundColorPicker" />
+							 ColorChanged="BackgroundColorPicker_ColorChanged"
+							 x:Name="BackgroundColorPicker" />
 
 				<Rectangle Grid.Row="15"
 						   Grid.ColumnSpan="3"
@@ -276,17 +286,15 @@
 						   Grid.Column="0"
 						   Margin="10,0,10,0"
 						   VerticalAlignment="Center"
-						   Text="Display Splash Screen" />
+						   Text="Foreground Color" />
 
-				<ToggleSwitch Grid.Row="16"
-							  Grid.Column="2"
-							  Margin="10,0,10,0"
-							  VerticalAlignment="Center"
-							  HorizontalAlignment="Left"
-							  IsChecked="{Binding DisplaySplashScreen, Mode=TwoWay}"
-							  Checked="DisplaySplashScreenToggleSwitch_Changed"
-							  Unchecked="DisplaySplashScreenToggleSwitch_Changed"
-							  x:Name="DisplaySplashScreenToggleSwitch" />
+				<ColorPicker Grid.Row="16"
+							 Grid.Column="2"
+							 Margin="10,0,10,0"
+							 VerticalAlignment="Center"
+							 HorizontalAlignment="Left"
+							 ColorChanged="ForegroundColorPicker_ColorChanged"
+							 x:Name="ForegroundColorPicker" />
 
 				<Rectangle Grid.Row="17"
 						   Grid.ColumnSpan="3"
@@ -298,17 +306,17 @@
 						   Grid.Column="0"
 						   Margin="10,0,10,0"
 						   VerticalAlignment="Center"
-						   Text="Keep Keyboard Visible" />
+						   Text="Display Splash Screen" />
 
 				<ToggleSwitch Grid.Row="18"
 							  Grid.Column="2"
 							  Margin="10,0,10,0"
 							  VerticalAlignment="Center"
 							  HorizontalAlignment="Left"
-							  IsChecked="{Binding KeepKeyboardVisible, Mode=TwoWay}"
-							  Checked="KeepKeyboardVisibleToggleSwitch_Changed"
-							  Unchecked="KeepKeyboardVisibleToggleSwitch_Changed"
-							  x:Name="KeepKeyboardVisibleToggleSwitch" />
+							  IsChecked="{Binding DisplaySplashScreen, Mode=TwoWay}"
+							  Checked="DisplaySplashScreenToggleSwitch_Changed"
+							  Unchecked="DisplaySplashScreenToggleSwitch_Changed"
+							  x:Name="DisplaySplashScreenToggleSwitch" />
 
 				<Rectangle Grid.Row="19"
 						   Grid.ColumnSpan="3"
@@ -320,15 +328,17 @@
 						   Grid.Column="0"
 						   Margin="10,0,10,0"
 						   VerticalAlignment="Center"
-						   Text="Window Height" />
+						   Text="Keep Keyboard Visible" />
 
-				<TextBlock Grid.Row="20"
-						   Grid.Column="2"
-						   Margin="10,0,10,0"
-						   VerticalAlignment="Center"
-						   HorizontalAlignment="Left"
-						   Text="{Binding WindowHeight, Mode=TwoWay}"
-						   x:Name="WindowHeightTextBlock" />
+				<ToggleSwitch Grid.Row="20"
+							  Grid.Column="2"
+							  Margin="10,0,10,0"
+							  VerticalAlignment="Center"
+							  HorizontalAlignment="Left"
+							  IsChecked="{Binding KeepKeyboardVisible, Mode=TwoWay}"
+							  Checked="KeepKeyboardVisibleToggleSwitch_Changed"
+							  Unchecked="KeepKeyboardVisibleToggleSwitch_Changed"
+							  x:Name="KeepKeyboardVisibleToggleSwitch" />
 
 				<Rectangle Grid.Row="21"
 						   Grid.ColumnSpan="3"
@@ -340,9 +350,29 @@
 						   Grid.Column="0"
 						   Margin="10,0,10,0"
 						   VerticalAlignment="Center"
-						   Text="Window Width" />
+						   Text="Window Height" />
 
 				<TextBlock Grid.Row="22"
+						   Grid.Column="2"
+						   Margin="10,0,10,0"
+						   VerticalAlignment="Center"
+						   HorizontalAlignment="Left"
+						   Text="{Binding WindowHeight, Mode=TwoWay}"
+						   x:Name="WindowHeightTextBlock" />
+
+				<Rectangle Grid.Row="23"
+						   Grid.ColumnSpan="3"
+						   Height="1"
+						   HorizontalAlignment="Stretch"
+						   Fill="{DynamicResource RowDivider}" />
+
+				<TextBlock Grid.Row="24"
+						   Grid.Column="0"
+						   Margin="10,0,10,0"
+						   VerticalAlignment="Center"
+						   Text="Window Width" />
+
+				<TextBlock Grid.Row="24"
 						   Grid.Column="2"
 						   Margin="10,0,10,0"
 						   VerticalAlignment="Center"
@@ -350,7 +380,7 @@
 						   Text="{Binding WindowWidth, Mode=TwoWay}"
 						   x:Name="WindowWidthTextBlock" />
 
-				<Rectangle Grid.Row="23"
+				<Rectangle Grid.Row="25"
 						   Grid.ColumnSpan="3"
 						   Height="1"
 						   HorizontalAlignment="Stretch"

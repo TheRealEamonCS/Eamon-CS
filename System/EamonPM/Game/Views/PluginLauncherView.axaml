@@ -25,7 +25,7 @@
 					  VerticalScrollBarVisibility="Auto" 
 					  PointerWheelChanged="OutputScrollViewer_PointerWheelChanged"
 					  x:Name="OutputScrollViewer">
-			<SelectableTextBlock Margin="0,0,30,30" 
+			<SelectableTextBlock Margin="{Binding OutputTextBlockMargin, Mode=TwoWay}"
 								 Foreground="{Binding ForegroundColor, Mode=TwoWay}"
 								 Background="{Binding BackgroundColor, Mode=TwoWay}"
 								 FontFamily="{Binding FontFamily, Mode=TwoWay}"
