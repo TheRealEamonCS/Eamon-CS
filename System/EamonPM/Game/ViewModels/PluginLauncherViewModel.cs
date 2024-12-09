@@ -30,6 +30,8 @@ namespace EamonPM.Game.ViewModels
 
 		public bool _keepKeyboardVisible;
 
+		public Thickness _outputTextBlockMargin;
+
 		public Thickness _inputTextBoxMargin;
 
 		public string _outputText;
@@ -144,6 +146,19 @@ namespace EamonPM.Game.ViewModels
 			}
 		}
 
+		public virtual Thickness OutputTextBlockMargin
+		{
+			get
+			{
+				return _outputTextBlockMargin;
+			}
+
+			set
+			{
+				this.RaiseAndSetIfChanged(ref _outputTextBlockMargin, value);
+			}
+		}
+
 		public virtual Thickness InputTextBoxMargin
 		{
 			get
@@ -228,6 +243,13 @@ namespace EamonPM.Game.ViewModels
 			OutputWindowMaxSize = outputWindowMaxSize;
 		}
 
+		public virtual void OutputLeftMarginComboBoxSelectionChanged(int outputLeftMargin)
+		{
+			Debug.Assert(outputLeftMargin >= 0);
+
+			OutputTextBlockMargin = new Thickness(outputLeftMargin, 0, 30, 30);
+		}
+
 		public virtual void BackgroundColorPickerColorChanged(Color color)
 		{
 			BackgroundColor = new SolidColorBrush(color);
@@ -250,6 +272,8 @@ namespace EamonPM.Game.ViewModels
 
 		public PluginLauncherViewModel()
 		{
+			OutputTextBlockMargin = new Thickness(0, 0, 30, 30);
+
 			InputTextBoxMargin = new Thickness(0, 0, 0, 10);
 		}
 	}

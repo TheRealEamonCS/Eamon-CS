@@ -174,6 +174,29 @@ namespace EamonPM.Game.Views
 			}
 		}
 
+		public virtual async void OutputLeftMarginComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			var pluginLauncherViewModel = App.GetViewModel(typeof(PluginLauncherViewModel)) as PluginLauncherViewModel;
+
+			if (sender is ComboBox comboBox && comboBox.SelectedItem != null && DataContext is SettingsViewModel settingsViewModel && pluginLauncherViewModel != null)
+			{
+				var outputLeftMargin = Convert.ToInt32(comboBox.SelectedItem);
+
+				settingsViewModel.OutputLeftMarginComboBoxSelectionChanged(outputLeftMargin);
+
+				pluginLauncherViewModel.OutputLeftMarginComboBoxSelectionChanged(outputLeftMargin);
+
+				if (!App.InitializeSettings)
+				{
+					await Task.Delay(50);
+
+					SaveSettingsButton.IsEnabled = false;
+
+					SaveSettingsButton.IsEnabled = true;
+				}
+			}
+		}
+
 		public virtual void BackgroundColorPicker_ColorChanged(object sender, ColorChangedEventArgs e)
 		{
 			var pluginLauncherViewModel = App.GetViewModel(typeof(PluginLauncherViewModel)) as PluginLauncherViewModel;
@@ -303,6 +326,13 @@ namespace EamonPM.Game.Views
 			if (OutputWindowMaxSizeComboBox.SelectedIndex < 0)
 			{
 				OutputWindowMaxSizeComboBox.SelectedIndex = Math.Min(viewModel.OutputWindowMaxSizeList.Count - 1, 2);
+			}
+
+			OutputLeftMarginComboBox.SelectedIndex = viewModel.OutputLeftMarginList.IndexOf(viewModel.OutputLeftMargin);
+
+			if (OutputLeftMarginComboBox.SelectedIndex < 0)
+			{
+				OutputLeftMarginComboBox.SelectedIndex = 0;
 			}
 
 			BackgroundColorPicker.Color = ColorHelper.FromHexString(viewModel.BackgroundColor, Color.FromRgb(255, 255, 255));
