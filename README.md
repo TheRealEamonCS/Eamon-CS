@@ -15,7 +15,7 @@ Eamon CS Mobile currently runs on devices using Android 8.0 and newer.
 
 #### Installing
 
-There is no formal installer for Eamon CS.  To obtain a copy of this repository, you can either do a Git Clone using Visual Studio 2022+ or, more simply, download a .zip file using the green Code button above.  You may need to eliminate security warning message boxes if you download a .zip file on Windows.  To do this, please see PREREQUISITES as mentioned above.
+There is no formal installer for Eamon CS.  To obtain a copy of this repository, you can either do a Git Clone using Visual Studio 2022+ or, more simply, download a .zip file using the green Code button above.  You may need to eliminate security warning message boxes if you download a .zip file on macOS or Windows.  To do this, please see PREREQUISITES as mentioned above.
 
 To obtain Eamon CS Mobile, download the [EamonPM.Android-Signed.apk](https://github.com/TheRealEamonCS/Eamon-CS-Misc/tree/master/System/Bin) file directly onto your mobile device and install it.
 
