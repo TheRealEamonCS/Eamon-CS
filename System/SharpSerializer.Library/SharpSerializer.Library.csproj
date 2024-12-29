@@ -1,26 +1,27 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFrameworks>netstandard2.0;net462</TargetFrameworks>
     <AssemblyName>Polenter.SharpSerializer</AssemblyName>
     <RootNamespace>Polenter.Serialization</RootNamespace>
     <SignAssembly>true</SignAssembly>
     <DelaySign>false</DelaySign>
     <AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
-    <Copyright>Copyright ©  2010-2021, Pawel Idzikowski</Copyright>
+    <Copyright>© 2010, Pawel Idzikowski</Copyright>
     <Product>SharpSerializer</Product>
     <Company>Polenter - Software Solutions</Company>
     <Authors>Pawel Idzikowski</Authors>
-    <Version>3.0.2</Version>
+    <Title>SharpSerializer</Title>
+    <Version>4.0.2</Version>
     <PackageId>SharpSerializer</PackageId>
     <PackageIconUrl>http://www.sharpserializer.com/SharpSerializer032.png</PackageIconUrl>
-    <PackageTags>serializer binary serializer xml serializer xml serialize binary serialize xml serialize serialization binary serialization xml serialization repository isolated storage tombstoning xbox winrt</PackageTags>
-    <PackageReleaseNotes>The NuGet package is based on .NET Standard 1.0 and therefore the minimum system requirements are: .NET Core 1.0, .NET 4.5, Mono 4.6, Xamarin.iOS 10.0, Xamarin.Mac 3.0, Xamarin Android 7.0, UWP 10.0, WinRT 8.0, Windows Phone 8.1 and Windows Phone Silverlight 8.0 and above</PackageReleaseNotes>
+    <PackageTags>serialize;deserialize;serializer;binary;xml;tombstoning;xbox;winrt;isolaged storage</PackageTags>
+    <PackageReleaseNotes>Support for .NET Standard 2.0 and .NET Framework 4.6.2.</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/polenter/SharpSerializer</PackageProjectUrl>
     <RepositoryUrl>https://github.com/polenter/SharpSerializer.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <Description>SharpSerializer is an open source XML and binary serializer for .NET.
-With only one line of code it can serialize types like: multidimensional array, nested array, array-of-arrays, polymorphic object (where value is inherited from the property type), generic type, generic listing (i.e. dictionary, collection) and many more...</Description>
+With only one line of code it can serialize types like: multidimensional array, nested array, array-of-arrays, polymorphic object (where value is inherited from the property type), generic type, generic listing (i.e. dictionary, collection) and many more.</Description>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
