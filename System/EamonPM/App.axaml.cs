@@ -71,7 +71,7 @@ namespace EamonPM
 
 		public static Func<char, bool> InputTermCharFunc { get; set; }
 
-		public static string BuildGuid = "E0C2CCBB-345B-4102-A967-1475B30F5AC6";
+		public static string BuildGuid = "C7CDE368-DA4A-40D7-8AFC-03FCB6079E1E";
 
 		public static string ProgramName { get; set; }
 
@@ -539,7 +539,7 @@ namespace EamonPM
 
 					resources["Primary"] = Color.Parse("#217A3A"); // Deep Forest Green
 					resources["PrimaryDark"] = Color.Parse("#165225"); // Very Dark Forest Green
-					resources["Accent"] = Color.Parse("#E0984C"); // Honey Bronze
+					resources["Accent"] = Color.Parse("#EBA800"); // Goldenrod
 					resources["TitleTabItemForegroundColor"] = Color.Parse("#FFFFFF"); // White
 					resources["GeneralForegroundColor"] = Color.Parse("#000000"); // Black
 					resources["LightBackgroundColor"] = Color.Parse("#E8F5E9"); // Light Leaf Green
@@ -571,7 +571,7 @@ namespace EamonPM
 
 					resources["Primary"] = Color.Parse("#0D47A1"); // Deep Blue
 					resources["PrimaryDark"] = Color.Parse("#002171"); // Darker Deep Blue
-					resources["Accent"] = Color.Parse("#00B7CF"); // Aqua Blue
+					resources["Accent"] = Color.Parse("#00B4CC"); // Aqua Blue
 					resources["TitleTabItemForegroundColor"] = Color.Parse("#FFFFFF"); // White
 					resources["GeneralForegroundColor"] = Color.Parse("#000000"); // Black
 					resources["LightBackgroundColor"] = Color.Parse("#E0F7FA"); // Very Light Aqua
