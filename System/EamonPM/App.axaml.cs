@@ -539,14 +539,14 @@ namespace EamonPM
 
 					resources["Primary"] = Color.Parse("#217A3A"); // Deep Forest Green
 					resources["PrimaryDark"] = Color.Parse("#165225"); // Very Dark Forest Green
-					resources["Accent"] = Color.Parse("#E0AA21"); // Goldenrod
+					resources["Accent"] = Color.Parse("#E0A526"); // Goldenrod
 					resources["TitleTabItemForegroundColor"] = Color.Parse("#FFFFFF"); // White
 					resources["GeneralForegroundColor"] = Color.Parse("#000000"); // Black
 					resources["LightBackgroundColor"] = Color.Parse("#E8F5E9"); // Light Leaf Green
 					resources["DarkBackgroundColor"] = Color.Parse("#4E6B58"); // Muted Olive Green
 					resources["GeneralBackgroundColor"] = Color.Parse("#FFFFFF"); // White
 					resources["MediumGrayTextColor"] = Color.Parse("#2E3B33"); // Dark Olive Green
-					resources["LightTextColor"] = Color.Parse("#73877B"); // Light Sage Green
+					resources["LightTextColor"] = Color.Parse("#73977B"); // Light Sage Green
 					resources["RowDivider"] = Color.Parse("#C5E3C6"); // Very Light Mint Green
 
 					break;
