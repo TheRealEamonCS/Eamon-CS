@@ -73,64 +73,61 @@ namespace TheBeginnersCave.Game
 				goto Cleanup;
 			}
 
-			if (IsDead())
+			var index = gEngine.GetMonsterHealthStatusIndex(Hardiness, DmgTaken);
+
+			// Historical status reports from original
+
+			if (index > 5)
 			{
 				result = "dead!";
 			}
-			else
+			else if (index == 5)
 			{
-				var x = DmgTaken;
-
-				x = (((long)((double)(x * 5) / (double)Hardiness)) + 1) * (x > 0 ? 1 : 0);
-
-				// Historical status reports from original
-
 				result = "at death's door, knocking loudly.";
+			}
+			else if (index == 4)
+			{
+				result = "very badly injured.";
+			}
+			else if (index == 3)
+			{
+				result = "in pain.";
+			}
+			else if (index == 2)
+			{
+				result = "hurting.";
+			}
+			else if (index == 1)
+			{
+				var str = buf.ToString();
 
-				if (x == 4)
+				if (str.EndsWith("You are ", StringComparison.OrdinalIgnoreCase))
 				{
-					result = "very badly injured.";
+					buf.Length -= 4;
 				}
-				else if (x == 3)
+				else if (str.Length > 3 && str.Substring(str.Length - 4).EndsWith(" is ", StringComparison.OrdinalIgnoreCase))
 				{
-					result = "in pain.";
+					buf.Length -= 3;
 				}
-				else if (x == 2)
-				{
-					result = "hurting.";
-				}
-				else if (x == 1)
-				{
-					var str = buf.ToString();
 
-					if (str.EndsWith("You are ", StringComparison.OrdinalIgnoreCase))
-					{
-						buf.Length -= 4;
-					}
-					else if (str.Length > 3 && str.Substring(str.Length - 4).EndsWith(" is ", StringComparison.OrdinalIgnoreCase))
-					{
-						buf.Length -= 3;
-					}
+				str = buf.ToString();
 
-					str = buf.ToString();
-
-					if (str.EndsWith("They are ", StringComparison.OrdinalIgnoreCase))
-					{
-						result = "taking damage but still in good shape.";
-					}
-					else if (str.EndsWith("You ", StringComparison.OrdinalIgnoreCase))
-					{
-						result = "have taken damage but are still in good shape.";
-					}
-					else
-					{
-						result = "has taken damage but is still in good shape.";
-					}
-				}
-				else if (x < 1)
+				if (str.EndsWith("They are ", StringComparison.OrdinalIgnoreCase))
 				{
-					result = "in perfect health.";
+					result = "taking damage but still in good shape.";
 				}
+				else if (str.EndsWith("You ", StringComparison.OrdinalIgnoreCase))
+				{
+					result = "have taken damage but are still in good shape.";
+				}
+				else
+				{
+					result = "has taken damage but is still in good shape.";
+				}
+			}
+			else if (index < 1)
+			{
+				result = "in perfect health.";
 			}
 
 			Debug.Assert(result != null);

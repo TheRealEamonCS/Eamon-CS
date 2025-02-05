@@ -10,8 +10,5 @@ namespace EamonRT.Framework.Commands
 	{
 		/// <summary></summary>
 		bool CastSpell { get; set; }
-
-		/// <summary></summary>
-		bool CheckAttack { get; set; }
 	}
 }

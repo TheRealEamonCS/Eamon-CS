@@ -32,7 +32,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.States
 
 				// Grad student companion won't go through the iron gate
 
-				if (room.IsLit() && gradStudentCompanionMonster.IsInRoom(room) && gradStudentCompanionMonster.Reaction == Friendliness.Friend)
+				if (room.IsViewable() && gradStudentCompanionMonster.IsInRoom(room) && gradStudentCompanionMonster.Reaction == Friendliness.Friend)
 				{
 					gEngine.PrintEffectDesc(54);
 				}
@@ -43,7 +43,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.States
 
 				// Highland ibex won't go through the iron gate
 
-				if (room.IsLit() && highlandIbexMonster.IsInRoom(room) && highlandIbexMonster.Reaction == Friendliness.Friend)
+				if (room.IsViewable() && highlandIbexMonster.IsInRoom(room) && highlandIbexMonster.Reaction == Friendliness.Friend)
 				{
 					gEngine.PrintEffectDesc(33);
 				}
@@ -77,7 +77,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.States
 
 			// Highland ibex abandons player
 
-			if (room != null && room.IsLit() && highlandIbexMonster.IsInRoom(room) && sluiceGateArtifact.DoorGate.IsOpen() && !gGameState.SewagePitVisited)
+			if (room != null && room.IsViewable() && highlandIbexMonster.IsInRoom(room) && sluiceGateArtifact.DoorGate.IsOpen() && !gGameState.SewagePitVisited)
 			{
 				gEngine.PrintEffectDesc(91);
 

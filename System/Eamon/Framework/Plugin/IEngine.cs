@@ -1251,6 +1251,12 @@ namespace Eamon.Framework.Plugin
 
 		/// <summary></summary>
 		/// <param name="hardiness"></param>
+		/// <param name="dmgTaken"></param>
+		/// <returns></returns>
+		long GetMonsterHealthStatusIndex(long hardiness, long dmgTaken);
+
+		/// <summary></summary>
+		/// <param name="hardiness"></param>
 		/// <returns></returns>
 		long GetWeightCarryableGronds(long hardiness);
 

@@ -37,6 +37,9 @@ namespace EamonRT.Framework.States
 		void PrintObjBlocksTheWay(IArtifact artifact);
 
 		/// <summary></summary>
+		void PrintSomethingBlocksTheWay();
+
+		/// <summary></summary>
 		/// <param name="artifact"></param>
 		/// <param name="turnCounter"></param>
 		void PrintLightAlmostOut(IArtifact artifact, long turnCounter);

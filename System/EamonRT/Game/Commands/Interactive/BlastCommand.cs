@@ -23,8 +23,6 @@ namespace EamonRT.Game.Commands
 
 		public virtual bool CastSpell { get; set; }
 
-		public virtual bool CheckAttack { get; set; }
-
 		/// <summary></summary>
 		public virtual IArtifactCategory DobjArtAc
 		{
@@ -78,7 +76,7 @@ namespace EamonRT.Game.Commands
 					goto Cleanup;
 				}
 
-				if (DobjMonster.Reaction != Friendliness.Enemy)
+				if (DobjMonster.ShouldCheckToAttackNonEnemy())
 				{
 					PrintAttackNonEnemy();
 

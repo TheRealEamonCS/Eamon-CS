@@ -38,7 +38,7 @@ namespace TheDeepCanyon.Game.States
 
 					Debug.Assert(resurrectMonster != null);
 
-					gOut.Print("{0}{1} comes back to life!", Environment.NewLine, room.IsLit() ? resurrectMonster.GetTheName(true) : "Something");
+					gOut.Print("{0}{1} comes back to life!", Environment.NewLine, room.IsViewable() ? resurrectMonster.GetTheName(true) : "Something");
 
 					resurrectMonster.DmgTaken = 0;
 
@@ -78,7 +78,7 @@ namespace TheDeepCanyon.Game.States
 				{
 					if (room.Uid == 80)
 					{
-						gOut.Print(room.IsLit() ? "You see a mouse scrurry around in the shadows and run back into a hole." : "You hear something scrurry around in the darkness.");
+						gOut.Print(room.IsViewable() ? "You see a mouse scrurry around in the shadows and run back into a hole." : "You hear something scrurry around in the darkness.");
 					}
 					else
 					{
@@ -103,7 +103,7 @@ namespace TheDeepCanyon.Game.States
 				{
 					if (mouseArtifact.IsInRoom(room))
 					{
-						gOut.Print(room.IsLit() ? "As you release the mouse it darts to the elephants. The elephants run away in fright." : "You hear a brief panicked stampede and then silence.");
+						gOut.Print(room.IsViewable() ? "As you release the mouse it darts to the elephants. The elephants run away in fright." : "You hear a brief panicked stampede and then silence.");
 					}
 
 					elephantsMonster.SetInLimbo();
@@ -117,7 +117,7 @@ namespace TheDeepCanyon.Game.States
 				{
 					if (mouseArtifact.IsInRoom(room))
 					{
-						if (room.IsLit())
+						if (room.IsViewable())
 						{
 							gOut.Print("The mouse scurries off {0}.", room.EvalRoomType("into the shadows", "into the underbrush"));
 						}
@@ -179,7 +179,7 @@ namespace TheDeepCanyon.Game.States
 					{
 						if (room.Uid == 26)
 						{
-							gOut.Print("{0} wakes up!", room.IsLit() ? "Fido" : "Something");
+							gOut.Print("{0} wakes up!", room.IsViewable() ? "Fido" : "Something");
 						}
 
 						gGameState.FidoSleepCounter = 0;

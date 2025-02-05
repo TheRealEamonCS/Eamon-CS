@@ -82,6 +82,10 @@ namespace Eamon.Framework
 		bool IsLit();
 
 		/// <summary></summary>
+		/// <returns></returns>
+		bool IsViewable();
+
+		/// <summary></summary>
 		/// <param name="index"></param>
 		/// <returns></returns>
 		bool IsDirectionInvalid(long index);
@@ -232,6 +236,12 @@ namespace Eamon.Framework
 		/// <param name="lightValue"></param>
 		/// <returns></returns>
 		T EvalLightLevel<T>(T darkValue, T lightValue);
+
+		/// <summary></summary>
+		/// <param name="nonviewableValue"></param>
+		/// <param name="viewableValue"></param>
+		/// <returns></returns>
+		T EvalViewability<T>(T nonviewableValue, T viewableValue);
 
 		/// <summary>
 		/// Evaluates this <see cref="IRoom">Room</see>'s <see cref="Type">Type</see>, returning a value of type T.

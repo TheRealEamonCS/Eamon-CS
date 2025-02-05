@@ -305,6 +305,9 @@ namespace EamonRT.Framework.Plugin
 		void PrintArtifactIsWorth(IArtifact artifact, long goldAmount);
 
 		/// <summary></summary>
+		void PrintEnemiesNearby();
+
+		/// <summary></summary>
 		void PrintNothingHappens();
 
 		/// <summary></summary>
@@ -789,6 +792,12 @@ namespace EamonRT.Framework.Plugin
 		/// <param name="buf"></param>
 		/// <returns></returns>
 		StringBuilder ReplacePrepositions(StringBuilder buf);
+
+		/// <summary></summary>
+		/// <param name="oldRoomUid"></param>
+		/// <param name="newRoomUid"></param>
+		/// <returns></returns>
+		bool IsValidRandomMoveDirection(long oldRoomUid, long newRoomUid);
 
 		/// <summary></summary>
 		/// <param name="command"></param>

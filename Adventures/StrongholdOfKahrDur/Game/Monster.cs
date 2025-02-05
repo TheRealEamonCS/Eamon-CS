@@ -72,38 +72,35 @@ namespace StrongholdOfKahrDur.Game
 				goto Cleanup;
 			}
 
-			if (IsDead())
+			var index = gEngine.GetMonsterHealthStatusIndex(Hardiness, DmgTaken);
+
+			if (index > 5)
 			{
 				result = "dead!";
 			}
-			else
+			else if (index == 5)
 			{
-				var x = DmgTaken;
-
-				x = (((long)((double)(x * 5) / (double)Hardiness)) + 1) * (x > 0 ? 1 : 0);
-
 				result = "at death's door, knocking loudly.";
-
-				if (x == 4)
-				{
-					result = "gravely injured.";
-				}
-				else if (x == 3)
-				{
-					result = "badly hurt.";
-				}
-				else if (x == 2)
-				{
-					result = "hurt.";
-				}
-				else if (x == 1)
-				{
-					result = "still in good shape.";
-				}
-				else if (x < 1)
-				{
-					result = "in perfect health.";
-				}
+			}
+			else if (index == 4)
+			{
+				result = "gravely injured.";
+			}
+			else if (index == 3)
+			{
+				result = "badly hurt.";
+			}
+			else if (index == 2)
+			{
+				result = "hurt.";
+			}
+			else if (index == 1)
+			{
+				result = "still in good shape.";
+			}
+			else if (index < 1)
+			{
+				result = "in perfect health.";
 			}
 
 			Debug.Assert(result != null);

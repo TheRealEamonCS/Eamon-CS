@@ -287,14 +287,14 @@ namespace ARuncibleCargo.Game.States
 
 				if (lilMonster.IsInRoom(room))       // && (room.Uid == 18 || room.Uid == 21 || room.Uid == 38 || room.Uid == 53)
 				{
-					if (!gGameState.AmazonLilWarning && amazonMonster.IsInRoom(room) && amazonMonster.Reaction == Friendliness.Friend && room.Uid != 50 && room.IsLit())
+					if (!gGameState.AmazonLilWarning && amazonMonster.IsInRoom(room) && amazonMonster.Reaction == Friendliness.Friend && room.Uid != 50 && room.IsViewable())
 					{
 						gEngine.PrintEffectDesc(117);
 
 						gGameState.AmazonLilWarning = true;
 					}
 
-					if (!gGameState.BillLilWarning && billMonster.IsInRoom(room) && billMonster.Reaction == Friendliness.Friend && room.Uid != 55 && room.IsLit())
+					if (!gGameState.BillLilWarning && billMonster.IsInRoom(room) && billMonster.Reaction == Friendliness.Friend && room.Uid != 55 && room.IsViewable())
 					{
 						gEngine.PrintEffectDesc(118);
 

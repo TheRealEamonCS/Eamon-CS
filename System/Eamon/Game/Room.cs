@@ -141,6 +141,11 @@ namespace Eamon.Game
 			return LightLvl > 0 || (gameState != null && Uid == gameState.Ro && gameState.Ls > 0);
 		}
 
+		public virtual bool IsViewable()
+		{
+			return IsLit();
+		}
+
 		public virtual bool IsDirectionInvalid(long index)
 		{
 			return GetDir(index) == 0;
@@ -326,6 +331,11 @@ namespace Eamon.Game
 		public virtual T EvalLightLevel<T>(T darkValue, T lightValue)
 		{
 			return IsLit() ? lightValue : darkValue;
+		}
+
+		public virtual T EvalViewability<T>(T nonviewableValue, T viewableValue)
+		{
+			return IsViewable() ? viewableValue : nonviewableValue;
 		}
 
 		public virtual T EvalRoomType<T>(T indoorsValue, T outdoorsValue)

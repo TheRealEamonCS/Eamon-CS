@@ -283,6 +283,10 @@ namespace Eamon.Framework
 
 		/// <summary></summary>
 		/// <returns></returns>
+		bool IsInRoomViewable();
+
+		/// <summary></summary>
+		/// <returns></returns>
 		bool ShouldFleeRoom();
 
 		/// <summary></summary>
@@ -310,6 +314,10 @@ namespace Eamon.Framework
 		/// <summary></summary>
 		/// <returns></returns>
 		bool ShouldShowVerboseNameStateDesc();
+
+		/// <summary></summary>
+		/// <returns></returns>
+		bool ShouldCheckToAttackNonEnemy();
 
 		/// <summary></summary>
 		/// <returns></returns>
@@ -376,6 +384,12 @@ namespace Eamon.Framework
 		/// <param name="lightValue"></param>
 		/// <returns></returns>
 		T EvalInRoomLightLevel<T>(T darkValue, T lightValue);
+
+		/// <summary></summary>
+		/// <param name="nonviewableValue"></param>
+		/// <param name="viewableValue"></param>
+		/// <returns></returns>
+		T EvalInRoomViewability<T>(T nonviewableValue, T viewableValue);
 
 		/// <summary></summary>
 		/// <param name="charisma"></param>

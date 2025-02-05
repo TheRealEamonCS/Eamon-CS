@@ -42,7 +42,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.States
 
 				var scheduleEvent = false;
 
-				var printMessage = monster.IsCharacterMonster() || (monsterRoom.Uid == gGameState.Ro && monsterRoom.IsLit());
+				var printMessage = monster.IsCharacterMonster() || (monsterRoom.Uid == gGameState.Ro && monsterRoom.IsViewable());
 
 				if (printMessage)
 				{

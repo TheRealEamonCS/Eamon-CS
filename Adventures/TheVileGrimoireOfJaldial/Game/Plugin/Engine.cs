@@ -417,7 +417,7 @@ namespace TheVileGrimoireOfJaldial.Game.Plugin
 
 			if (dobjMonster.Uid >= 1 && dobjMonster.Uid <= 17)
 			{
-				if (room.IsLit())
+				if (room.IsViewable())
 				{
 					Out.Print("{0}As {1} dies, its body {2}.", Environment.NewLine, dobjMonster.GetTheName(), room.IsCryptRoom() ? "is enveloped in a cloud of sinister black smoke" : "dissolves and is absorbed into the ground");
 				}

@@ -175,7 +175,7 @@ namespace EamonRT.Game.Commands
 
 				if (gCharMonster.IsInRoom(ActorRoom))
 				{
-					if (ActorRoom.IsLit())
+					if (ActorRoom.IsViewable())
 					{
 						PrintActorReadiesObj(ActorMonster, DobjArtifact);
 					}

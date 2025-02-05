@@ -81,7 +81,7 @@ namespace ThePyramidOfAnharos.Game.States
 
 				// Guards reanimate and attack
 
-				if (room.Uid == 17 && gGameState.KH != 1 && room.IsLit())
+				if (room.Uid == 17 && gGameState.KH != 1 && room.IsViewable())
 				{
 					gGameState.KH = 1;
 
@@ -113,7 +113,7 @@ namespace ThePyramidOfAnharos.Game.States
 
 				// Riddle
 
-				if (room.Uid == 30 && statueArtifact.IsInRoom(room) && gGameState.KU == 0 && room.IsLit())
+				if (room.Uid == 30 && statueArtifact.IsInRoom(room) && gGameState.KU == 0 && room.IsViewable())
 				{
 					gOut.PunctSpaceCode = PunctSpaceCode.None;
 
@@ -174,7 +174,7 @@ namespace ThePyramidOfAnharos.Game.States
 
 				// Pedestal room spectrum color puzzle
 
-				if (room.Uid > 31 && room.Uid < 40 && room.IsLit())
+				if (room.Uid > 31 && room.Uid < 40 && room.IsViewable())
 				{
 					switch (room.Uid)
 					{
@@ -329,9 +329,9 @@ namespace ThePyramidOfAnharos.Game.States
 						dice = 1;
 					}
 
-					if (monster != null && monster.IsInRoom(room) && (room.IsLit() || (gEngine.LastCommand != null && gEngine.LastCommand.IsDarkEnabled)))
+					if (monster != null && monster.IsInRoom(room) && (room.IsViewable() || (gEngine.LastCommand != null && gEngine.LastCommand.IsDarkEnabled)))
 					{
-						gOut.Print("{0} drains {1} life force.", monster.IsCharacterMonster() || room.IsLit() ? diamondOfPurityArtifact.GetTheName(true) : "Something", monster.IsCharacterMonster() ? "your" : room.EvalLightLevel("an entity's", monster.GetTheName(false).AddPossessiveSuffix()));
+						gOut.Print("{0} drains {1} life force.", monster.IsCharacterMonster() || room.IsViewable() ? diamondOfPurityArtifact.GetTheName(true) : "Something", monster.IsCharacterMonster() ? "your" : room.EvalViewability("an entity's", monster.GetTheName(false).AddPossessiveSuffix()));
 
 						var combatComponent = gEngine.CreateInstance<ICombatComponent>(x =>
 						{
@@ -357,7 +357,7 @@ namespace ThePyramidOfAnharos.Game.States
 
 				// Burn down water units
 
-				if (room.IsLit() || (gEngine.LastCommand != null && gEngine.LastCommand.IsDarkEnabled))
+				if (room.IsViewable() || (gEngine.LastCommand != null && gEngine.LastCommand.IsDarkEnabled))
 				{
 					var monsterList = gEngine.GetMonsterList(m => !m.IsCharacterMonster() && m.Reaction == Friendliness.Friend && m.IsInRoom(room));
 

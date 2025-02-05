@@ -28,7 +28,7 @@ namespace TheDeepCanyon.Game.States
 			{
 				var rl = gEngine.RollDice(1, 100, 0);
 
-				if (!room.IsLit() && rl > 70)
+				if (!room.IsViewable() && rl > 70)
 				{
 					gOut.Print("You bumped into an obstacle.");
 
@@ -51,17 +51,17 @@ namespace TheDeepCanyon.Game.States
 			{
 				if (gGameState.R2 == -25)
 				{
-					gOut.Print("{0} is blocking the passage to the south.", room.IsLit() ? "Fido" : "Something");
+					gOut.Print("{0} is blocking the passage to the south.", room.IsViewable() ? "Fido" : "Something");
 
 					GotoCleanup = true;
 				}
 				else if (gGameState.R2 == -45)
 				{
-					gOut.Print("{0} you from traveling west.", room.IsLit() ? "The elephants prevent" : "Something prevents");
+					gOut.Print("{0} you from traveling west.", room.IsViewable() ? "The elephants prevent" : "Something prevents");
 
 					GotoCleanup = true;
 				}
-				else if (!room.IsLit() && gGameState.R2 == 0)
+				else if (!room.IsViewable() && gGameState.R2 == 0)
 				{
 					gOut.Print("You bumped into an obstacle.");
 

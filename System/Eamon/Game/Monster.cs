@@ -586,6 +586,13 @@ namespace Eamon.Game
 			return room != null && room.IsLit();
 		}
 
+		public virtual bool IsInRoomViewable()
+		{
+			var room = GetInRoom();
+
+			return room != null && room.IsViewable();
+		}
+
 		public virtual bool ShouldFleeRoom()
 		{
 			return CheckNBTLHostility();
@@ -635,6 +642,11 @@ namespace Eamon.Game
 		public virtual bool ShouldShowVerboseNameStateDesc()
 		{
 			return true;
+		}
+
+		public virtual bool ShouldCheckToAttackNonEnemy()
+		{
+			return Reaction != Friendliness.Enemy;
 		}
 
 		public virtual bool ShouldProcessInGameLoop()
@@ -722,6 +734,11 @@ namespace Eamon.Game
 		public virtual T EvalInRoomLightLevel<T>(T darkValue, T lightValue)
 		{
 			return IsInRoomLit() ? lightValue : darkValue;
+		}
+
+		public virtual T EvalInRoomViewability<T>(T nonviewableValue, T viewableValue)
+		{
+			return IsInRoomViewable() ? viewableValue : nonviewableValue;
 		}
 
 		public virtual void ResolveReaction(long charisma)
@@ -1028,38 +1045,35 @@ namespace Eamon.Game
 				goto Cleanup;
 			}
 
-			if (IsDead())
+			var index = gEngine.GetMonsterHealthStatusIndex(Hardiness, DmgTaken);
+
+			if (index > 5)
 			{
 				result = "dead!";
 			}
-			else
+			else if (index == 5)
 			{
-				var x = DmgTaken;
-
-				x = (((long)((double)(x * 5) / (double)Hardiness)) + 1) * (x > 0 ? 1 : 0);
-
 				result = "at death's door, knocking loudly.";
-
-				if (x == 4)
-				{
-					result = (gEngine.IsRulesetVersion(5, 62) ? "very " : "") + "badly injured.";
-				}
-				else if (x == 3)
-				{
-					result = "in pain.";
-				}
-				else if (x == 2)
-				{
-					result = "hurting.";
-				}
-				else if (x == 1)
-				{
-					result = "still in good shape.";
-				}
-				else if (x < 1)
-				{
-					result = "in perfect health.";
-				}
+			}
+			else if (index == 4)
+			{
+				result = (gEngine.IsRulesetVersion(5, 62) ? "very " : "") + "badly injured.";
+			}
+			else if (index == 3)
+			{
+				result = "in pain.";
+			}
+			else if (index == 2)
+			{
+				result = "hurting.";
+			}
+			else if (index == 1)
+			{
+				result = "still in good shape.";
+			}
+			else if (index < 1)
+			{
+				result = "in perfect health.";
 			}
 
 			Debug.Assert(result != null);
@@ -1133,7 +1147,7 @@ namespace Eamon.Game
 
 			var attackDesc = "attack{0}";
 
-			if (IsCharacterMonster() || (room.IsLit() && CombatCode != CombatCode.Attacks && CombatCode != CombatCode.NaturalAttacks))
+			if (IsCharacterMonster() || (room.IsViewable() && CombatCode != CombatCode.Attacks && CombatCode != CombatCode.NaturalAttacks))
 			{
 				var attackDescs = artifact != null ? GetWeaponAttackDescs(artifact) : HasHumanNaturalAttackDescs() ? GetHumanAttackDescs() : GetNaturalAttackDescs();
 

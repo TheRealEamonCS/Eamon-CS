@@ -277,7 +277,7 @@ namespace TheVileGrimoireOfJaldial.Game.States
 								{
 									if (gGameState.GetNBTL(Friendliness.Enemy) > 0)
 									{
-										gOut.Print("{0} hears the sounds of battle, and comes wandering by.", room.EvalLightLevel("Something", monster.GetArticleName(true)));
+										gOut.Print("{0} hears the sounds of battle, and comes wandering by.", room.EvalViewability("Something", monster.GetArticleName(true)));
 									}
 									else if (room.IsGroundsRoom() && gGameState.IsNightTime())
 									{
@@ -297,7 +297,7 @@ namespace TheVileGrimoireOfJaldial.Game.States
 									}
 									else
 									{
-										gOut.Print("{0} wanders into the room!", room.EvalLightLevel("Something", monster.GetArticleName(true)));
+										gOut.Print("{0} wanders into the room!", room.EvalViewability("Something", monster.GetArticleName(true)));
 									}
 								}
 

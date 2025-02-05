@@ -31,7 +31,7 @@ namespace TheVileGrimoireOfJaldial.Game.States
 
 				// Describe secret doors
 
-				if (room.IsLit() && gSentenceParser.IsInputExhausted)
+				if (room.IsViewable() && gSentenceParser.IsInputExhausted)
 				{
 					if (room.Uid == 54 && (gGameState.GetSecretDoor(1) || gGameState.GetSecretDoor(2)))
 					{
@@ -110,7 +110,7 @@ namespace TheVileGrimoireOfJaldial.Game.States
 
 					if (!shadowMonster.IsInLimbo() && shadowMonster.DmgTaken > 0)
 					{
-						if (shadowMonster.IsInRoom(room) && room.IsLit())
+						if (shadowMonster.IsInRoom(room) && room.IsViewable())
 						{
 							gOut.Print("{0} regenerates some of its wounds!", shadowMonster.GetTheName(true));
 						}
@@ -131,7 +131,7 @@ namespace TheVileGrimoireOfJaldial.Game.States
 
 					if (!willOTheWispMonster.IsInLimbo() && willOTheWispMonster.DmgTaken > 0)
 					{
-						if (willOTheWispMonster.IsInRoom(room) && room.IsLit())
+						if (willOTheWispMonster.IsInRoom(room) && room.IsViewable())
 						{
 							gOut.Print("{0} regenerates!", willOTheWispMonster.GetTheName(true));
 						}
@@ -152,7 +152,7 @@ namespace TheVileGrimoireOfJaldial.Game.States
 
 					if (!specterMonster.IsInLimbo() && specterMonster.DmgTaken > 0)
 					{
-						if (specterMonster.IsInRoom(room) && room.IsLit())
+						if (specterMonster.IsInRoom(room) && room.IsViewable())
 						{
 							gOut.Print("{0} regenerates!", specterMonster.GetTheName(true));
 						}
@@ -173,7 +173,7 @@ namespace TheVileGrimoireOfJaldial.Game.States
 
 					if (!wraithMonster.IsInLimbo() && wraithMonster.DmgTaken > 0)
 					{
-						if (wraithMonster.IsInRoom(room) && room.IsLit())
+						if (wraithMonster.IsInRoom(room) && room.IsViewable())
 						{
 							gOut.Print("{0} regenerates!", wraithMonster.GetTheName(true));
 						}
@@ -194,7 +194,7 @@ namespace TheVileGrimoireOfJaldial.Game.States
 
 					if (!waterWeirdMonster.IsInLimbo() && waterWeirdMonster.DmgTaken > 0)
 					{
-						if (waterWeirdMonster.IsInRoom(room) && room.IsLit())
+						if (waterWeirdMonster.IsInRoom(room) && room.IsViewable())
 						{
 							gOut.Print("{0} regenerates all of its wounds!", waterWeirdMonster.GetTheName(true));
 						}
@@ -216,7 +216,7 @@ namespace TheVileGrimoireOfJaldial.Game.States
 						{
 							gGameState.ParalyzedTargets.Remove(monster.Uid);
 
-							if (monster.IsInRoom(room) && (monster.IsCharacterMonster() || room.IsLit()))
+							if (monster.IsInRoom(room) && (monster.IsCharacterMonster() || room.IsViewable()))
 							{
 								var monsterName = string.Empty;
 
@@ -266,7 +266,7 @@ namespace TheVileGrimoireOfJaldial.Game.States
 						{
 							gGameState.ClumsyTargets.Remove(monster.Uid);
 
-							if (monster.IsInRoom(room) && (monster.IsCharacterMonster() || room.IsLit()))
+							if (monster.IsInRoom(room) && (monster.IsCharacterMonster() || room.IsViewable()))
 							{
 								var monsterName = string.Empty;
 
@@ -284,7 +284,7 @@ namespace TheVileGrimoireOfJaldial.Game.States
 						}
 						else if (expiredSpells > 0)
 						{
-							if (monster.IsInRoom(room) && (monster.IsCharacterMonster() || room.IsLit()))
+							if (monster.IsInRoom(room) && (monster.IsCharacterMonster() || room.IsViewable()))
 							{
 								gOut.Print("{0} a little more agile.", monster.IsCharacterMonster() ? "You feel" : monster.GetTheName(true) + " looks");
 							}
@@ -303,7 +303,7 @@ namespace TheVileGrimoireOfJaldial.Game.States
 
 					if (!efreetiMonster.IsInLimbo() && (efreetiInRainyRoom || !efreetiMonster.IsInRoom(room) || !efreetiMonster.CheckNBTLHostility()) && (efreetiInRainyRoom || gEngine.RollDice(1, 100, 0) <= 50))
 					{
-						if (efreetiMonster.IsInRoom(room) && room.IsLit())
+						if (efreetiMonster.IsInRoom(room) && room.IsViewable())
 						{
 							gOut.Print("{0}{1} vanishes into thin air.", efreetiMonster.GetTheName(true), efreetiInRainyRoom ? ", seeing that it's raining," : efreetiMonster.Reaction == Friendliness.Friend ? ", seeing that you aren't in any immediate danger," : "");
 						}

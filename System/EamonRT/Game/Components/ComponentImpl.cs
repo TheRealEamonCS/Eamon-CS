@@ -97,11 +97,11 @@ namespace EamonRT.Game.Components
 			AttackDesc = actorMonster.GetAttackDescString(room, weapon);
 
 			ActorMonsterName = actorMonster.IsCharacterMonster() ? "You" :
-					room.EvalLightLevel(attackNumber == 1 ? "An unseen offender" : "The unseen offender",
+					room.EvalViewability(attackNumber == 1 ? "An unseen offender" : "The unseen offender",
 						actorMonster.InitGroupCount > 1 && attackNumber == 1 ? actorMonster.GetArticleName(true, true, false, false, true) : actorMonster.GetTheName(true, true, false, false, true));
 
 			DobjMonsterName = dobjMonster.IsCharacterMonster() ? "you" :
-					room.EvalLightLevel("an unseen defender",
+					room.EvalViewability("an unseen defender",
 					dobjMonster.InitGroupCount > 1 ? dobjMonster.GetArticleName(groupCountOne: true) : dobjMonster.GetTheName(groupCountOne: true));
 
 			gOut.Write("{0}{1} {2} {3}{4}.",
@@ -112,7 +112,7 @@ namespace EamonRT.Game.Components
 					weapon != null &&
 					(weaponRevealType == WeaponRevealType.Always ||
 					(weaponRevealType == WeaponRevealType.OnlyIfSeen && weapon.Seen)) ?
-						" with " + room.EvalLightLevel("a weapon", weapon.GetArticleName()) :
+						" with " + room.EvalViewability("a weapon", weapon.GetArticleName()) :
 						"");
 		}
 
@@ -142,9 +142,9 @@ namespace EamonRT.Game.Components
 			gOut.Write("{0}  {1} {2} {3}!",
 				Environment.NewLine,
 				monster.IsCharacterMonster() ? "You" :
-				room.EvalLightLevel("The offender", monster.GetTheName(true, true, false, false, true)),
+				room.EvalViewability("The offender", monster.GetTheName(true, true, false, false, true)),
 				monster.IsCharacterMonster() ? "drop" : "drops",
-				monster.IsCharacterMonster() || room.IsLit() ?
+				monster.IsCharacterMonster() || room.IsViewable() ?
 					(
 						(weaponRevealType == WeaponRevealType.Never ||
 						(weaponRevealType == WeaponRevealType.OnlyIfSeen && !weapon.Seen)) ?
@@ -165,7 +165,7 @@ namespace EamonRT.Game.Components
 
 			gOut.Write("{0}  Sparks fly from {1}!",
 				Environment.NewLine,
-				monster.IsCharacterMonster() || room.IsLit() ?
+				monster.IsCharacterMonster() || room.IsViewable() ?
 					(
 						(weaponRevealType == WeaponRevealType.Never ||
 						(weaponRevealType == WeaponRevealType.OnlyIfSeen && !weapon.Seen)) ?
@@ -228,8 +228,8 @@ namespace EamonRT.Game.Components
 			Debug.Assert(room != null && dobjMonster != null);
 
 			DobjMonsterName = dobjMonster.IsCharacterMonster() ? "You" :
-				blastSpell && dobjMonster.InitGroupCount > 1 ? room.EvalLightLevel(dobjMonster == actorMonster ? "An offender" : "A defender", dobjMonster.GetArticleName(true, true, false, false, true)) :
-				room.EvalLightLevel(nonCombat ? "The entity" : dobjMonster == actorMonster ? "The offender" : "The defender", dobjMonster.GetTheName(true, true, false, false, true));
+				blastSpell && dobjMonster.InitGroupCount > 1 ? room.EvalViewability(dobjMonster == actorMonster ? "An offender" : "A defender", dobjMonster.GetArticleName(true, true, false, false, true)) :
+				room.EvalViewability(nonCombat ? "The entity" : dobjMonster == actorMonster ? "The offender" : "The defender", dobjMonster.GetTheName(true, true, false, false, true));
 
 			gEngine.Buf.SetFormat("{0}{1} {2} ",
 				Environment.NewLine,

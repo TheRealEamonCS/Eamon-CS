@@ -106,7 +106,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.Components
 					gGameState.AfterPrintPlayerRoomEventHeap.Insert02(gGameState.CurrTurn + gEngine.PoisonInjuryTurns, "PoisonSickensMonsterEvent", DobjMonster.Uid);
 				}
 
-				if (DobjMonster.IsCharacterMonster() || room.IsLit())
+				if (DobjMonster.IsCharacterMonster() || room.IsViewable())
 				{
 					gOut.Write("{0}{1}{2}", Environment.NewLine, OmitBboaPadding ? "" : "  ", DobjMonster.IsCharacterMonster() ? "You are " + furtherString + "poisoned!" : DobjMonster.GetTheName(true, true, false, false, true) + " is " + furtherString + "poisoned!");
 				}

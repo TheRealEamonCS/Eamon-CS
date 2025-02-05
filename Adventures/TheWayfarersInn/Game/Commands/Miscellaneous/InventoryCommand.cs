@@ -20,7 +20,7 @@ namespace TheWayfarersInn.Game.Commands
 
 			// Unseen apparition
 
-			if (ActorRoom.IsLit() && DobjMonster != null && DobjMonster.Uid == 2)
+			if (ActorRoom.IsViewable() && DobjMonster != null && DobjMonster.Uid == 2)
 			{
 				PrintDontBeAbsurd();
 

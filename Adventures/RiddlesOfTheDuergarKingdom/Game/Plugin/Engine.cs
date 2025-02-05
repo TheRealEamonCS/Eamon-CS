@@ -488,7 +488,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.Plugin
 
 			foreach (var artifact in artifactList)
 			{
-				if (room.IsLit())
+				if (room.IsViewable())
 				{
 					Out.Print("{0} mangles {1} and tears {2} apart!", rockCrusherArtifact.GetTheName(true), artifact.GetTheName(), artifact.EvalPlural("it", "them"));
 
@@ -518,7 +518,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.Plugin
 
 			foreach (var artifact in artifactList)
 			{
-				if (room.IsLit())
+				if (room.IsViewable())
 				{
 					Out.Print("{0} mutilates {1} beyond recognition!", rockGrinderArtifact.GetTheName(true), artifact.GetTheName());
 
@@ -554,7 +554,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.Plugin
 					{
 						// TODO: implement
 					}
-					else if (room.IsLit())
+					else if (room.IsViewable())
 					{
 						Out.Print("{0} vibrates {1} violently but to little harm!", debrisSifterArtifact.GetTheName(true), artifact02.GetTheName());
 					}

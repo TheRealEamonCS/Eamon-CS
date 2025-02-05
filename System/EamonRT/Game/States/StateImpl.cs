@@ -38,6 +38,11 @@ namespace EamonRT.Game.States
 			gOut.Print("{0} block{1} the way!", artifact.GetTheName(true), artifact.EvalPlural("s", ""));
 		}
 
+		public virtual void PrintSomethingBlocksTheWay()
+		{
+			gOut.Print("Something blocks the way!");
+		}
+
 		public virtual void PrintLightAlmostOut(IArtifact artifact, long turnCounter)
 		{
 			Debug.Assert(artifact != null);
@@ -136,7 +141,7 @@ namespace EamonRT.Game.States
 
 		public virtual void PrintEnemiesNearby()
 		{
-			gOut.Print("You can't do that with unfriendlies about!");
+			gEngine.PrintEnemiesNearby();
 		}
 
 		public virtual void PrintSpeedSpellExpired()

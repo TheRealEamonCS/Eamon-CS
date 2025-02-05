@@ -937,7 +937,7 @@ namespace EamonRT.Game.Parsing
 		{
 			if (CurrToken < Tokens.Length)
 			{
-				if (ActorRoom.IsLit())
+				if (ActorRoom.IsViewable())
 				{
 					if (gEngine.IsRulesetVersion(5, 62))
 					{
@@ -1303,7 +1303,7 @@ namespace EamonRT.Game.Parsing
 				{
 					CurrToken++;
 				}
-				else if (ActorRoom.IsLit())
+				else if (ActorRoom.IsViewable())
 				{
 					ParseName();
 
