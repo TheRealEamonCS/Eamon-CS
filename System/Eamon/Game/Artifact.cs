@@ -1110,11 +1110,25 @@ namespace Eamon.Game
 			return room != null && room.IsLit();
 		}
 
+		public virtual bool IsInRoomViewable()
+		{
+			var room = GetInRoom();
+
+			return room != null && room.IsViewable();
+		}
+
 		public virtual bool IsEmbeddedInRoomLit()
 		{
 			var room = GetEmbeddedInRoom();
 
 			return room != null && room.IsLit();
+		}
+
+		public virtual bool IsEmbeddedInRoomViewable()
+		{
+			var room = GetEmbeddedInRoom();
+
+			return room != null && room.IsViewable();
 		}
 
 		public virtual bool IsFieldStrength(long value)
@@ -1259,7 +1273,14 @@ namespace Eamon.Game
 
 		public virtual bool ShouldShowContentsWhenOpened()
 		{
-			return true;
+			var room = GetInRoom(true);
+
+			if (room == null)
+			{
+				room = GetEmbeddedInRoom(true);
+			}
+
+			return room != null ? room.IsViewable() : true;
 		}
 
 		public virtual bool ShouldShowVerboseNameContentsNameList()
@@ -1322,9 +1343,19 @@ namespace Eamon.Game
 			return IsInRoomLit() ? lightValue : darkValue;
 		}
 
+		public virtual T EvalInRoomViewability<T>(T nonviewableValue, T viewableValue)
+		{
+			return IsInRoomViewable() ? viewableValue : nonviewableValue;
+		}
+
 		public virtual T EvalEmbeddedInRoomLightLevel<T>(T darkValue, T lightValue)
 		{
 			return IsEmbeddedInRoomLit() ? lightValue : darkValue;
+		}
+
+		public virtual T EvalEmbeddedInRoomViewability<T>(T nonviewableValue, T viewableValue)
+		{
+			return IsEmbeddedInRoomViewable() ? viewableValue : nonviewableValue;
 		}
 
 		public virtual IArtifactCategory GetArtifactCategory(ArtifactType artifactType)

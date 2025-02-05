@@ -40,7 +40,7 @@ namespace TheDeepCanyon.Game.States
 
 					if (LoopMonsterRoom.Uid == gGameState.Ro)
 					{
-						gOut.Print("{0} eats{1}, then goes to sleep for a while.", LoopMonsterRoom.IsLit() ? "Fido" : "Something", LoopMonsterRoom.IsLit() ? " " + mealArtifact.GetTheName() : "");
+						gOut.Print("{0} eats{1}, then goes to sleep for a while.", LoopMonsterRoom.IsViewable() ? "Fido" : "Something", LoopMonsterRoom.IsViewable() ? " " + mealArtifact.GetTheName() : "");
 					}
 
 					gGameState.FidoSleepCounter += mealArtifact.Weight;

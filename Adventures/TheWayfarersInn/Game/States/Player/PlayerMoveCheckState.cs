@@ -32,7 +32,7 @@ namespace TheWayfarersInn.Game.States
 
 				// Exit lit room without showing Charlotte her remains
 
-				if (gCharRoom.IsLit() && ((Enum.IsDefined(typeof(Direction), Direction) && gCharRoom.IsDirectionRoom(Direction)) || DoorGateArtifact != null) && childsApparitionMonster.IsInRoom(gCharRoom) && childsSkeletonArtifact.IsCarriedByMonster(gCharMonster, true) && !gGameState.CharlotteBonesGiven)
+				if (gCharRoom.IsViewable() && ((Enum.IsDefined(typeof(Direction), Direction) && gCharRoom.IsDirectionRoom(Direction)) || DoorGateArtifact != null) && childsApparitionMonster.IsInRoom(gCharRoom) && childsSkeletonArtifact.IsCarriedByMonster(gCharMonster, true) && !gGameState.CharlotteBonesGiven)
 				{
 					gEngine.PrintEffectDesc(19);
 

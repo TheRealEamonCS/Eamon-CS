@@ -204,7 +204,7 @@ namespace TheWayfarersInn.Game.States
 			{
 				case 1:
 
-					if (childsApparitionMonster.IsInRoom(gCharRoom) && gCharRoom.IsLit())
+					if (childsApparitionMonster.IsInRoom(gCharRoom) && gCharRoom.IsViewable())
 					{
 						rl = gEngine.RollDice(1, 100, 0);
 
@@ -273,7 +273,7 @@ namespace TheWayfarersInn.Game.States
 
 					if (childsApparitionMonster.IsInRoom(gCharRoom))
 					{
-						gOut.Print("{0} cries profusely.", gCharRoom.EvalLightLevel("An unseen entity", childsApparitionMonster.GetTheName(true)));
+						gOut.Print("{0} cries profusely.", gCharRoom.EvalViewability("An unseen entity", childsApparitionMonster.GetTheName(true)));
 					}
 
 					rl = gEngine.RollDice(1, 100, 0);
@@ -289,7 +289,7 @@ namespace TheWayfarersInn.Game.States
 
 					if (childsApparitionMonster.IsInRoom(gCharRoom))
 					{
-						gOut.Print("{0} sniffles{1}.", gCharRoom.EvalLightLevel("An unseen entity", childsApparitionMonster.GetTheName(true)), gCharRoom.EvalLightLevel("", ", wiping tears from her eyes"));
+						gOut.Print("{0} sniffles{1}.", gCharRoom.EvalViewability("An unseen entity", childsApparitionMonster.GetTheName(true)), gCharRoom.EvalViewability("", ", wiping tears from her eyes"));
 					}
 
 					rl = gEngine.RollDice(1, 100, 0);
@@ -303,7 +303,7 @@ namespace TheWayfarersInn.Game.States
 
 				case 4:
 
-					if (childsApparitionMonster.IsInRoom(gCharRoom) && gCharRoom.IsLit())
+					if (childsApparitionMonster.IsInRoom(gCharRoom) && gCharRoom.IsViewable())
 					{
 						gEngine.PrintEffectDesc(142);
 
@@ -320,7 +320,7 @@ namespace TheWayfarersInn.Game.States
 
 				case 5:
 
-					if (childsApparitionMonster.IsInRoom(gCharRoom) && gCharRoom.IsLit())
+					if (childsApparitionMonster.IsInRoom(gCharRoom) && gCharRoom.IsViewable())
 					{
 						gEngine.PrintEffectDesc(143);
 
@@ -333,7 +333,7 @@ namespace TheWayfarersInn.Game.States
 
 				case 6:
 
-					if (childsApparitionMonster.IsInRoom(gCharRoom) && gCharRoom.IsLit())
+					if (childsApparitionMonster.IsInRoom(gCharRoom) && gCharRoom.IsViewable())
 					{
 						gEngine.PrintEffectDesc(144);
 
@@ -346,7 +346,7 @@ namespace TheWayfarersInn.Game.States
 
 				case 7:
 
-					if (childsApparitionMonster.IsInRoom(gCharRoom) && gCharRoom.IsLit())
+					if (childsApparitionMonster.IsInRoom(gCharRoom) && gCharRoom.IsViewable())
 					{
 						var eventFunc = gEngine.ChildsApparitionEventFuncList[0];
 
@@ -365,7 +365,7 @@ namespace TheWayfarersInn.Game.States
 
 				case 8:
 
-					if (childsApparitionMonster.IsInRoom(gCharRoom) && gGameState.GetNBTL(Friendliness.Enemy) > 0 && gCharRoom.IsLit())
+					if (childsApparitionMonster.IsInRoom(gCharRoom) && gGameState.GetNBTL(Friendliness.Enemy) > 0 && gCharRoom.IsViewable())
 					{
 						gOut.Print("{0} looks bored as you fight for your life!", childsApparitionMonster.GetTheName(true));
 					}
@@ -376,7 +376,7 @@ namespace TheWayfarersInn.Game.States
 
 				case 9:
 
-					if (childsApparitionMonster.IsInRoom(gCharRoom) && hearthwatcherMonster.IsInRoom(gCharRoom) && gCharRoom.IsLit())
+					if (childsApparitionMonster.IsInRoom(gCharRoom) && hearthwatcherMonster.IsInRoom(gCharRoom) && gCharRoom.IsViewable())
 					{
 						gEngine.PrintEffectDesc(139);
 

@@ -28,7 +28,7 @@ namespace TheTrainingGround.Game.States
 
 				// Events only occur in lit rooms
 
-				if (characterRoom.IsLit())
+				if (characterRoom.IsViewable())
 				{
 					var redSunMonster = gMDB[1];
 

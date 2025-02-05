@@ -96,7 +96,7 @@ namespace TheWayfarersInn.Game.States
 
 				// Go down into boiler room
 
-				if (gGameState.Ro == 34 && gGameState.R3 == 32 && gCharRoom.IsLit())
+				if (gGameState.Ro == 34 && gGameState.R3 == 32 && gCharRoom.IsViewable())
 				{
 					gEngine.PrintEffectDesc(10);
 				}
@@ -122,7 +122,7 @@ namespace TheWayfarersInn.Game.States
 
 				// Go up the narrow staircase
 
-				if (gGameState.Ro == 37 && gGameState.R3 == 66 && gCharRoom.IsLit())
+				if (gGameState.Ro == 37 && gGameState.R3 == 66 && gCharRoom.IsViewable())
 				{
 					gEngine.PrintEffectDesc(66);
 				}

@@ -26,7 +26,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.Commands
 
 				if (IobjArtifact.Uid == 53)
 				{
-					if (ActorRoom.IsLit())
+					if (ActorRoom.IsViewable())
 					{
 						gOut.Print("{0} plummet{1} into the depths of the mountain!", DobjArtifact.GetTheName(true), DobjArtifact.EvalPlural("s", ""));
 					}

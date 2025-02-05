@@ -155,7 +155,7 @@ namespace EamonRT.Game.Commands
 
 					if (gCharMonster.IsInRoom(ActorRoom))
 					{
-						if (ActorRoom.IsLit())
+						if (ActorRoom.IsViewable())
 						{
 							PrintActorRemovesObjPrepContainer(ActorMonster, DobjArtifact, IobjArtifact, Prep.ContainerType, OmitWeightCheck);
 						}

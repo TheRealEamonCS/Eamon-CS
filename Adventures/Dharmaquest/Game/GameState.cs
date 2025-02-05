@@ -12,8 +12,10 @@ namespace Dharmaquest.Game
 	[ClassMappings(typeof(IGameState))]
 	public class GameState : Eamon.Game.GameState, Framework.IGameState
 	{
+		[FieldName(1121)]
 		public virtual string BlackWizardName { get; set; }
 
+		[FieldName(1122)]
 		public virtual long Karma { get; set; }
 
 		public virtual bool RiddleAnswered { get; set; }

@@ -38,7 +38,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.States
 
 				// Archaeology Department's shambolic retreat from excavation site
 
-				if (gGameState.VolcanoErupting && gEngine.ArchaeologyDepartmentAbandonedRoomUids.Contains(room.Uid) && room.IsLit() && gSentenceParser.IsInputExhausted)
+				if (gGameState.VolcanoErupting && gEngine.ArchaeologyDepartmentAbandonedRoomUids.Contains(room.Uid) && room.IsViewable() && gSentenceParser.IsInputExhausted)
 				{
 					gEngine.PrintEffectDesc(13);
 				}
@@ -66,7 +66,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.States
 
 					if (!gGameState.GradStudentRetreats && gradStudentCompanionMonster.IsInRoom(room) && gradStudentCompanionMonster.Reaction == Friendliness.Friend && gGameState.GetNBTL(Friendliness.Enemy) > 0 && gSentenceParser.IsInputExhausted)
 					{
-						if (room.IsLit())
+						if (room.IsViewable())
 						{
 							gEngine.PrintEffectDesc(32);
 						}
@@ -76,7 +76,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.States
 
 					// People try not to retch from the stench
 
-					if (gGameState.SewagePitVisited && room.IsLit() && gEngine.RollDice(1, 100, 0) > 90 && gSentenceParser.IsInputExhausted)
+					if (gGameState.SewagePitVisited && room.IsViewable() && gEngine.RollDice(1, 100, 0) > 90 && gSentenceParser.IsInputExhausted)
 					{
 						var monsterList = gEngine.GetMonsterList(m => m.IsInRoom(room) && gEngine.ArchaeologyDepartmentMonsterUids.Contains(m.Uid));
 
@@ -125,7 +125,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.States
 
 					// In the sewage pit (carrying lit lantern)
 
-					if (gGameState.Ro == 141 && room.IsLit())
+					if (gGameState.Ro == 141 && room.IsViewable())
 					{
 						gEngine.PrintEffectDesc(80);
 

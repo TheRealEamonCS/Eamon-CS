@@ -12,9 +12,6 @@ namespace EamonRT.Framework.Commands
 		bool BlastSpell { get; set; }
 
 		/// <summary></summary>
-		bool CheckAttack { get; set; }
-
-		/// <summary></summary>
 		long MemberNumber { get; set; }
 
 		/// <summary></summary>

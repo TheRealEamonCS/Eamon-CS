@@ -47,38 +47,35 @@ namespace ThePyramidOfAnharos.Game
 				goto Cleanup;
 			}
 
-			if (IsDead())
+			var index = gEngine.GetMonsterHealthStatusIndex(Hardiness, DmgTaken);
+
+			if (index > 5)
 			{
 				result = "dead!";
 			}
-			else
+			else if (index == 5)
 			{
-				var x = DmgTaken;
-
-				x = (((long)((double)(x * 5) / (double)Hardiness)) + 1) * (x > 0 ? 1 : 0);
-
 				result = "nearly dead.";
-
-				if (x == 4)
-				{
-					result = "reeling about.";
-				}
-				else if (x == 3)
-				{
-					result = "severely wounded.";
-				}
-				else if (x == 2)
-				{
-					result = "weakening.";
-				}
-				else if (x == 1)
-				{
-					result = "scratched.";
-				}
-				else if (x < 1)
-				{
-					result = "in perfect shape.";
-				}
+			}
+			else if (index == 4)
+			{
+				result = "reeling about.";
+			}
+			else if (index == 3)
+			{
+				result = "severely wounded.";
+			}
+			else if (index == 2)
+			{
+				result = "weakening.";
+			}
+			else if (index == 1)
+			{
+				result = "scratched.";
+			}
+			else if (index < 1)
+			{
+				result = "in perfect shape.";
 			}
 
 			Debug.Assert(result != null);

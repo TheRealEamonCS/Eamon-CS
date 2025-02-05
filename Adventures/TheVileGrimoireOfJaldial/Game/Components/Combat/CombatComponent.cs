@@ -37,7 +37,7 @@ namespace TheVileGrimoireOfJaldial.Game.Components
 			{
 				gEngine.MiscEventFuncList02.Add(() =>
 				{
-					if (griffinMonster.IsInRoom(ActorRoom) && ActorRoom.IsLit())
+					if (griffinMonster.IsInRoom(ActorRoom) && ActorRoom.IsViewable())
 					{
 						gEngine.PrintEffectDesc(82);
 					}
@@ -144,7 +144,7 @@ namespace TheVileGrimoireOfJaldial.Game.Components
 
 			if (ActorMonster?.Uid == 20 && DobjMonster.Uid == gGameState.BloodnettleVictimUid)
 			{
-				if (_rl > _odds)
+				if (_rl < 97 && _rl > _odds)
 				{
 					_rl = _odds;
 				}
@@ -215,7 +215,7 @@ namespace TheVileGrimoireOfJaldial.Game.Components
 						{
 							if (DobjMonster.IsInRoom(room))
 							{
-								gOut.Write("{0}{1}{2} seems unaffected{3}!", Environment.NewLine, OmitBboaPadding ? "" : "  ", room.EvalLightLevel("The defender", DobjMonster.GetTheName(true)), ActorWeapon != null ? " by the weapon" : "");
+								gOut.Write("{0}{1}{2} seems unaffected{3}!", Environment.NewLine, OmitBboaPadding ? "" : "  ", room.EvalViewability("The defender", DobjMonster.GetTheName(true)), ActorWeapon != null ? " by the weapon" : "");
 							}
 
 							CombatState = RTEnums.CombatState.EndAttack;
@@ -277,7 +277,7 @@ namespace TheVileGrimoireOfJaldial.Game.Components
 			{
 				if (DobjMonster.Uid > 17 && rl > 50)
 				{
-					if (DobjMonster.IsCharacterMonster() || room.IsLit())
+					if (DobjMonster.IsCharacterMonster() || room.IsViewable())
 					{
 						gOut.Write("{0}{1}{2}", Environment.NewLine, OmitBboaPadding ? "" : "  ", DobjMonster.IsCharacterMonster() ? "You suddenly feel weaker!" : DobjMonster.GetTheName(true) + " suddenly looks weaker!");
 					}
@@ -333,7 +333,7 @@ namespace TheVileGrimoireOfJaldial.Game.Components
 						{
 							gOut.Write("{0}{1}You are{2} paralyzed!", Environment.NewLine, OmitBboaPadding ? "" : "  ", !firstParalyzed ? " further" : "");
 						}
-						else if (room.IsLit())
+						else if (room.IsViewable())
 						{
 							gOut.Write("{0}{1}{2} is{3} paralyzed!", Environment.NewLine, OmitBboaPadding ? "" : "  ", DobjMonster.GetTheName(true), !firstParalyzed ? " further" : "");
 						}
@@ -350,7 +350,7 @@ namespace TheVileGrimoireOfJaldial.Game.Components
 			{
 				if (DobjMonster.Uid > 17 && rl > 60)
 				{
-					if (DobjMonster.IsCharacterMonster() || room.IsLit())
+					if (DobjMonster.IsCharacterMonster() || room.IsViewable())
 					{
 						gOut.Write("{0}{1}{2}", Environment.NewLine, OmitBboaPadding ? "" : "  ", DobjMonster.IsCharacterMonster() ? "You suddenly feel less skillful!" : DobjMonster.GetTheName(true) + " suddenly looks less skillful!");
 					}
@@ -417,12 +417,12 @@ namespace TheVileGrimoireOfJaldial.Game.Components
 						}
 						else
 						{
-							gOut.Write("{0}{1}{2} suddenly {3} {4}less agile!", Environment.NewLine, OmitBboaPadding ? "" : "  ", room.EvalLightLevel("The defender", DobjMonster.GetTheName(true)), room.EvalLightLevel("sounds", "looks"), ScoredCriticalHit ? "far " : "");
+							gOut.Write("{0}{1}{2} suddenly {3} {4}less agile!", Environment.NewLine, OmitBboaPadding ? "" : "  ", room.EvalViewability("The defender", DobjMonster.GetTheName(true)), room.EvalViewability("sounds", "looks"), ScoredCriticalHit ? "far " : "");
 						}
 					}
 					else
 					{
-						if (DobjMonster.IsCharacterMonster() || room.IsLit())
+						if (DobjMonster.IsCharacterMonster() || room.IsViewable())
 						{
 							gOut.Write("{0}{1}Spell resisted!", Environment.NewLine, OmitBboaPadding ? "" : "  ");
 						}
@@ -447,11 +447,11 @@ namespace TheVileGrimoireOfJaldial.Game.Components
 					{
 						if (DobjMonster.IsCharacterMonster())
 						{
-							gOut.Write("{0}{1}You are held down by {2}, and drown immediately!", Environment.NewLine, OmitBboaPadding ? "" : "  ", room.EvalLightLevel("the offender", ActorMonster?.GetTheName()));
+							gOut.Write("{0}{1}You are held down by {2}, and drown immediately!", Environment.NewLine, OmitBboaPadding ? "" : "  ", room.EvalViewability("the offender", ActorMonster?.GetTheName()));
 						}
 						else
 						{
-							gOut.Write("{0}{1}{2} is held down by {3}, and drowns immediately!", Environment.NewLine, OmitBboaPadding ? "" : "  ", room.EvalLightLevel("The defender", DobjMonster.GetTheName(true)), room.EvalLightLevel("the offender", ActorMonster?.GetTheName()));
+							gOut.Write("{0}{1}{2} is held down by {3}, and drowns immediately!", Environment.NewLine, OmitBboaPadding ? "" : "  ", room.EvalViewability("The defender", DobjMonster.GetTheName(true)), room.EvalViewability("the offender", ActorMonster?.GetTheName()));
 						}
 
 						DobjMonster.DmgTaken = DobjMonster.Hardiness;
@@ -460,11 +460,11 @@ namespace TheVileGrimoireOfJaldial.Game.Components
 					{
 						if (DobjMonster.IsCharacterMonster())
 						{
-							gOut.Write("{0}{1}You break free of {2}'s grip!", Environment.NewLine, OmitBboaPadding ? "" : "  ", room.EvalLightLevel("the offender", ActorMonster?.GetTheName()));
+							gOut.Write("{0}{1}You break free of {2}'s grip!", Environment.NewLine, OmitBboaPadding ? "" : "  ", room.EvalViewability("the offender", ActorMonster?.GetTheName()));
 						}
 						else
 						{
-							gOut.Write("{0}{1}{2} breaks free of {3}'s grip!", Environment.NewLine, OmitBboaPadding ? "" : "  ", room.EvalLightLevel("The defender", DobjMonster.GetTheName(true)), room.EvalLightLevel("the offender", ActorMonster?.GetTheName()));
+							gOut.Write("{0}{1}{2} breaks free of {3}'s grip!", Environment.NewLine, OmitBboaPadding ? "" : "  ", room.EvalViewability("The defender", DobjMonster.GetTheName(true)), room.EvalViewability("the offender", ActorMonster?.GetTheName()));
 						}
 
 						CombatState = RTEnums.CombatState.EndAttack;
@@ -474,7 +474,7 @@ namespace TheVileGrimoireOfJaldial.Game.Components
 				}
 			}
 
-			if (_d2 > 0 && gGameState.ShowCombatDamage && room.IsLit())
+			if (_d2 > 0 && gGameState.ShowCombatDamage && room.IsViewable())
 			{
 				gOut.Write("{0}{1}Blow does {2} point{3} of damage.{4}", Environment.NewLine, OmitBboaPadding ? "" : "  ", _d2, _d2 != 1 ? "s" : "", BlastSpell || CrossbowTrap ? Environment.NewLine : "");
 			}

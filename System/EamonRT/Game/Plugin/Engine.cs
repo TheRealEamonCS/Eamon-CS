@@ -473,7 +473,7 @@ namespace EamonRT.Game.Plugin
 		{
 			Debug.Assert(room != null && monster != null && artifact != null);
 
-			if (monster.IsCharacterMonster() || room.IsLit())
+			if (monster.IsCharacterMonster() || room.IsViewable())
 			{
 				Out.Print("{0}{1} break{2}!", prependNewLine ? Environment.NewLine : "", artifact.GetTheName(true), artifact.EvalPlural("s", ""));
 			}
@@ -514,6 +514,11 @@ namespace EamonRT.Game.Plugin
 					artifact.EvalPlural("is", "are"),
 					Buf01);
 			}
+		}
+
+		public virtual void PrintEnemiesNearby()
+		{
+			Out.Print("You can't do that with unfriendlies about!");
 		}
 
 		public virtual void PrintNothingHappens()
@@ -2253,7 +2258,7 @@ namespace EamonRT.Game.Plugin
 
 				if (containerTypeList.Count > 0)
 				{
-					RevealContainerContents02(room, monster, artifact, location, containerTypeList.ToArray(), printOutput && room.Uid == GameState.Ro && room.IsLit() && monster != null ? containerContentsList : null);
+					RevealContainerContents02(room, monster, artifact, location, containerTypeList.ToArray(), printOutput && room.Uid == GameState.Ro && room.IsViewable() && monster != null ? containerContentsList : null);
 				}
 
 				foreach (var containerContentsDesc in containerContentsList)
@@ -2542,7 +2547,7 @@ namespace EamonRT.Game.Plugin
 
 				if (found)
 				{
-					if (artifact.Seen && room.IsLit())
+					if (artifact.Seen && room.IsViewable())
 					{
 						ac.Field4 = 0;
 					}
@@ -2649,7 +2654,7 @@ namespace EamonRT.Game.Plugin
 					roomUid = 0;
 				}
 			}
-			while (roomUid == 0 || roomUid == room.Uid || IsValidRoomDirectionDoorUid01(roomUid) || (!monster.IsCharacterMonster() && (roomUid < 1 || RDB[roomUid] == null)));
+			while (roomUid == 0 || !IsValidRandomMoveDirection(room.Uid, roomUid) || IsValidRoomDirectionDoorUid01(roomUid) || (!monster.IsCharacterMonster() && (roomUid < 1 || RDB[roomUid] == null)));
 
 			direction = (Direction)rl;
 		}
@@ -2685,7 +2690,7 @@ namespace EamonRT.Game.Plugin
 
 			monster01.CurrGroupCount = rl;
 
-			var monsterName = monster01.EvalInRoomLightLevel(rl > 1 ? "Unseen entities" : "An unseen entity", monster01.InitGroupCount > rl ? monster01.GetArticleName(true) : monster01.GetTheName(true));
+			var monsterName = monster01.EvalInRoomViewability(rl > 1 ? "Unseen entities" : "An unseen entity", monster01.InitGroupCount > rl ? monster01.GetArticleName(true) : monster01.GetTheName(true));
 
 			if (numExits == 0)
 			{
@@ -2760,7 +2765,7 @@ namespace EamonRT.Game.Plugin
 
 				Debug.Assert(room01 != null);
 
-				var monsterName01 = monster.EvalInRoomLightLevel(rl > 1 ? "Unseen entities" : "An unseen entity", monster.GetArticleName(true));
+				var monsterName01 = monster.EvalInRoomViewability(rl > 1 ? "Unseen entities" : "An unseen entity", monster.GetArticleName(true));
 
 				var direction01 = GetDirection(direction);
 
@@ -3126,7 +3131,7 @@ namespace EamonRT.Game.Plugin
 		{
 			Debug.Assert(room != null && monster != null);
 
-			return room.IsLit() ? GetMonsterList(m => m.IsInRoom(room) && m != monster) : new List<IMonster>();
+			return room.IsViewable() ? GetMonsterList(m => m.IsInRoom(room) && m != monster) : new List<IMonster>();
 		}
 
 		public virtual IList<IArtifact> BuildLoopWeaponArtifactList(IMonster monster)
@@ -3447,6 +3452,11 @@ namespace EamonRT.Game.Plugin
 			buf = buf.Replace(" from behind ", " frombehind ");
 
 			return buf.Trim();
+		}
+
+		public virtual bool IsValidRandomMoveDirection(long oldRoomUid, long newRoomUid)
+		{
+			return oldRoomUid != newRoomUid;
 		}
 
 		public virtual bool IsQuotedStringCommand(ICommand command)

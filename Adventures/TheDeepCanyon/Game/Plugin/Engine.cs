@@ -289,7 +289,7 @@ namespace TheDeepCanyon.Game.Plugin
 				{
 					if (monster.IsInRoom(room))
 					{
-						Out.Print("{0} wakes up!", room.IsLit() ? "Fido" : "Something");
+						Out.Print("{0} wakes up!", room.IsViewable() ? "Fido" : "Something");
 					}
 
 					gGameState.FidoSleepCounter = 0;
@@ -331,7 +331,7 @@ namespace TheDeepCanyon.Game.Plugin
 
 			if (dobjMonster.Uid == 3 && goldCoinsArtifact.IsInLimbo())
 			{
-				if (room.IsLit())
+				if (room.IsViewable())
 				{
 					Out.Print("{0}The gold miner drops his only fortune to the ground.", Environment.NewLine);
 				}
@@ -343,7 +343,7 @@ namespace TheDeepCanyon.Game.Plugin
 
 			else if (dobjMonster.Uid == 4 && silverCoinsArtifact.IsInLimbo())
 			{
-				if (room.IsLit())
+				if (room.IsViewable())
 				{
 					Out.Print("{0}The falconer drops some silver coins as he dies.", Environment.NewLine);
 				}

@@ -138,7 +138,7 @@ namespace EamonRT.Game.Commands
 				NewlineFlag = false;
 			}
 
-			if (ActorRoom.IsLit())
+			if (ActorRoom.IsViewable())
 			{
 				if (!gEngine.AutoDisplayUnseenArtifactDescs && !GetAll && DobjArtifact.IsCarriedByMonster(ActorMonster) && !DobjArtifact.Seen)
 				{
@@ -190,7 +190,7 @@ namespace EamonRT.Game.Commands
 
 					if (gCharMonster.IsInRoom(ActorRoom))
 					{
-						if (ActorRoom.IsLit())
+						if (ActorRoom.IsViewable())
 						{
 							PrintActorPicksUpObj(ActorMonster, DobjArtifact);
 						}

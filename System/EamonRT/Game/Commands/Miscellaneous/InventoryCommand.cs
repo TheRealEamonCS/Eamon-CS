@@ -65,7 +65,7 @@ namespace EamonRT.Game.Commands
 		{
 			Debug.Assert(DobjArtifact != null || DobjMonster != null);
 
-			if (!ActorRoom.IsLit())
+			if (!ActorRoom.IsViewable())
 			{
 				Debug.Assert(DobjMonster != null && DobjMonster.IsCharacterMonster());
 			}

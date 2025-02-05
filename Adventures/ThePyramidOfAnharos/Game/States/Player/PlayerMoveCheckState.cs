@@ -189,7 +189,7 @@ namespace ThePyramidOfAnharos.Game.States
 
 				if (gGameState.R2 == -98)
 				{
-					if (room.IsLit())
+					if (room.IsViewable())
 					{
 						gEngine.PrintEffectDesc(1);
 					}

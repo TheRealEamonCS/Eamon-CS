@@ -135,7 +135,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.States
 
 				// Climb out of the wooden cart
 
-				if (gGameState.Ro == 31 && gGameState.R3 == 136 && room.IsLit())
+				if (gGameState.Ro == 31 && gGameState.R3 == 136 && room.IsViewable())
 				{
 					gEngine.PrintEffectDesc(47);
 
@@ -144,7 +144,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.States
 
 				// Climb out of the wooden cart
 
-				if (gGameState.Ro == 84 && gGameState.R3 == 136 && room.IsLit())
+				if (gGameState.Ro == 84 && gGameState.R3 == 136 && room.IsViewable())
 				{
 					gEngine.PrintEffectDesc(48);
 
@@ -187,7 +187,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.States
 
 				// Grad student companion follows close behind
 
-				if (gradStudentCompanionFollows && room.IsLit() && gradStudentCompanionMonster.IsInRoom(room) && gradStudentCompanionMonster.Reaction == Friendliness.Friend)
+				if (gradStudentCompanionFollows && room.IsViewable() && gradStudentCompanionMonster.IsInRoom(room) && gradStudentCompanionMonster.Reaction == Friendliness.Friend)
 				{
 					gEngine.PrintEffectDesc(52);
 				}
@@ -230,7 +230,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.States
 		{
 			var room = gRDB[gGameState.Ro];
 
-			gEngine.EnemyInExitedDarkRoom = room != null && !room.IsLit() && gGameState.GetNBTL(Friendliness.Enemy) > 0;
+			gEngine.EnemyInExitedDarkRoom = room != null && !room.IsViewable() && gGameState.GetNBTL(Friendliness.Enemy) > 0;
 
 			base.Execute();
 

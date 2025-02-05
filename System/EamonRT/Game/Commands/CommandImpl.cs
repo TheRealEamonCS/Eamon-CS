@@ -381,7 +381,14 @@ namespace EamonRT.Game.Commands
 		{
 			Debug.Assert(artifact != null);
 
-			gOut.Print("{0} already open.", artifact.EvalPlural("It's", "They're"));
+			if (gEngine.IsRulesetVersion(62) && artifact.Readable != null)
+			{
+				gOut.Print("Try READing it.");
+			}
+			else
+			{
+				gOut.Print("{0} already open.", artifact.EvalPlural("It's", "They're"));
+			}
 		}
 
 		public virtual void PrintWontOpen(IArtifact artifact)
@@ -1310,7 +1317,7 @@ namespace EamonRT.Game.Commands
 
 		public virtual bool ShouldShowUnseenArtifacts(IRoom room, IArtifact artifact)
 		{
-			if (room != null && !room.IsLit())
+			if (room != null && !room.IsViewable())
 			{
 				return false;
 			}

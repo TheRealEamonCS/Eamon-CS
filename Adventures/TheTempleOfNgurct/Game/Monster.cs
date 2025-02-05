@@ -31,38 +31,35 @@ namespace TheTempleOfNgurct.Game
 				goto Cleanup;
 			}
 
-			if (IsDead())
+			var index = gEngine.GetMonsterHealthStatusIndex(Hardiness, DmgTaken);
+
+			if (index > 5)
 			{
 				result = gEngine.FireDamage ? "burnt to a crisp!" : "dead!";       // Crispy critter
 			}
-			else
+			else if (index == 5)
 			{
-				var x = DmgTaken;
-
-				x = (((long)((double)(x * 5) / (double)Hardiness)) + 1) * (x > 0 ? 1 : 0);
-
 				result = gEngine.FireDamage ? "very badly burned." : "at death's door, knocking loudly.";
-
-				if (x == 4)
-				{
-					result = gEngine.FireDamage ? "badly scorched." : "very badly injured.";
-				}
-				else if (x == 3)
-				{
-					result = gEngine.FireDamage ? "scorched." : "badly injured.";
-				}
-				else if (x == 2)
-				{
-					result = gEngine.FireDamage ? "singed." : "lightly injured.";
-				}
-				else if (x == 1)
-				{
-					result = gEngine.FireDamage ? "still in good shape." : "in good shape.";
-				}
-				else if (x < 1)
-				{
-					result = "in perfect health.";
-				}
+			}
+			else if (index == 4)
+			{
+				result = gEngine.FireDamage ? "badly scorched." : "very badly injured.";
+			}
+			else if (index == 3)
+			{
+				result = gEngine.FireDamage ? "scorched." : "badly injured.";
+			}
+			else if (index == 2)
+			{
+				result = gEngine.FireDamage ? "singed." : "lightly injured.";
+			}
+			else if (index == 1)
+			{
+				result = gEngine.FireDamage ? "still in good shape." : "in good shape.";
+			}
+			else if (index < 1)
+			{
+				result = "in perfect health.";
 			}
 
 			Debug.Assert(result != null);

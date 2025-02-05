@@ -101,7 +101,7 @@ namespace EamonRT.Game.States
 
 				if (_doorGateFound)
 				{
-					if (OldRoom.IsLit())
+					if (OldRoom.IsViewable())
 					{
 						gEngine.RevealEmbeddedArtifact(OldRoom, DoorGateArtifact);
 					}
@@ -121,9 +121,15 @@ namespace EamonRT.Game.States
 
 						goto Cleanup;
 					}
-					else if (gGameState.R2 == 0 && OldRoom.IsLit())
+					else if (gGameState.R2 == 0 && OldRoom.IsViewable())
 					{
 						PrintObjBlocksTheWay(DoorGateArtifact);
+
+						goto Cleanup;
+					}
+					else if (gGameState.R2 == 0 && OldRoom.IsLit())
+					{
+						PrintSomethingBlocksTheWay();
 
 						goto Cleanup;
 					}

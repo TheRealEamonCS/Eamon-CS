@@ -17,6 +17,7 @@ EamonDD|EditDemoAdventure.psh|-pfn|EamonRT.dll|-wd|..\..\Adventures\DemoAdventur
 EamonDD|EditDharmaQuest.psh|-pfn|Dharmaquest.dll|-wd|..\..\Adventures\Dharmaquest|-la|-rge
 EamonDD|EditEscapeFromMtMoon.psh|-pfn|EamonRT.dll|-wd|..\..\Adventures\EscapeFromMtMoon|-la|-rge
 EamonDD|EditLandOfTheMountainKing.psh|-pfn|LandOfTheMountainKing.dll|-wd|..\..\Adventures\LandOfTheMountainKing|-la|-rge
+EamonDD|EditOrbOfMyLife.psh|-pfn|OrbOfMyLife.dll|-wd|..\..\Adventures\OrbOfMyLife|-la|-rge
 EamonDD|EditRiddlesOfTheDuergarKingdom.psh|-pfn|RiddlesOfTheDuergarKingdom.dll|-wd|..\..\Adventures\RiddlesOfTheDuergarKingdom|-la|-rge
 EamonDD|EditSampleAdventure.psh|-pfn|SampleAdventure.dll|-wd|..\..\Adventures\SampleAdventure|-la|-rge
 EamonDD|EditStrongholdOfKahrDur.psh|-pfn|StrongholdOfKahrDur.dll|-wd|..\..\Adventures\StrongholdOfKahrDur|-la|-rge
@@ -41,6 +42,7 @@ EamonRT|ResumeDemoAdventure.psh|-pfn|EamonRT.dll|-wd|..\..\Adventures\DemoAdvent
 EamonRT|ResumeDharmaQuest.psh|-pfn|Dharmaquest.dll|-wd|..\..\Adventures\Dharmaquest
 EamonRT|ResumeEscapeFromMtMoon.psh|-pfn|EamonRT.dll|-wd|..\..\Adventures\EscapeFromMtMoon
 EamonRT|ResumeLandOfTheMountainKing.psh|-pfn|LandOfTheMountainKing.dll|-wd|..\..\Adventures\LandOfTheMountainKing
+EamonRT|ResumeOrbOfMyLife.psh|-pfn|OrbOfMyLife.dll|-wd|..\..\Adventures\OrbOfMyLife
 EamonRT|ResumeRiddlesOfTheDuergarKingdom.psh|-pfn|RiddlesOfTheDuergarKingdom.dll|-wd|..\..\Adventures\RiddlesOfTheDuergarKingdom
 EamonRT|ResumeSampleAdventure.psh|-pfn|SampleAdventure.dll|-wd|..\..\Adventures\SampleAdventure
 EamonRT|ResumeStrongholdOfKahrDur.psh|-pfn|StrongholdOfKahrDur.dll|-wd|..\..\Adventures\StrongholdOfKahrDur

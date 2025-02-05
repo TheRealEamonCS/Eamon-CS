@@ -233,10 +233,7 @@ namespace EamonRT.Game.States
 							{
 								Debug.Assert(_spellTarget != null);
 
-								ActionCommand = gEngine.CreateInstance<IBlastCommand>(x =>
-								{
-									x.CheckAttack = true;
-								});
+								ActionCommand = gEngine.CreateInstance<IBlastCommand>();
 							}
 
 							break;

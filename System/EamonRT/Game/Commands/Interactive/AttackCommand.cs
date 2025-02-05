@@ -23,8 +23,6 @@ namespace EamonRT.Game.Commands
 
 		public virtual bool BlastSpell { get; set; }
 
-		public virtual bool CheckAttack { get; set; }
-
 		public virtual long MemberNumber { get; set; }
 
 		public virtual long AttackNumber { get; set; }
@@ -81,7 +79,7 @@ namespace EamonRT.Game.Commands
 						goto Cleanup;
 					}
 
-					if (DobjMonster.Reaction != Friendliness.Enemy)
+					if (DobjMonster.ShouldCheckToAttackNonEnemy())
 					{
 						PrintAttackNonEnemy();
 

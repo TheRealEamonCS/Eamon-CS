@@ -2720,6 +2720,13 @@ namespace Eamon.Game.Plugin
 			return weight == -999;
 		}
 
+		public virtual long GetMonsterHealthStatusIndex(long hardiness, long dmgTaken)
+		{
+			Debug.Assert(hardiness > 0 && dmgTaken >= 0);
+
+			return (((long)((double)(dmgTaken * 5) / (double)hardiness)) + 1) * (dmgTaken > 0 ? 1 : 0);
+		}
+
 		public virtual long GetWeightCarryableGronds(long hardiness)
 		{
 			return hardiness * 10;

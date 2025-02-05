@@ -41,7 +41,7 @@ namespace EamonRT.Game.States
 				goto Cleanup;
 			}
 
-			if (gGameState.GetNBTL(Friendliness.Enemy) > 0 && OldRoom.IsLit())
+			if (ShouldEnemiesNearbyPreventMovement())
 			{
 				PrintEnemiesNearby();
 
@@ -63,6 +63,11 @@ namespace EamonRT.Game.States
 			}
 
 			gEngine.NextState = NextState;
+		}
+
+		public virtual bool ShouldEnemiesNearbyPreventMovement()
+		{
+			return gGameState.GetNBTL(Friendliness.Enemy) > 0 && OldRoom.IsLit();
 		}
 
 		public BeforePlayerMoveState()

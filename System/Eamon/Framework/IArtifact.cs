@@ -514,7 +514,15 @@ namespace Eamon.Framework
 
 		/// <summary></summary>
 		/// <returns></returns>
+		bool IsInRoomViewable();
+
+		/// <summary></summary>
+		/// <returns></returns>
 		bool IsEmbeddedInRoomLit();
+
+		/// <summary></summary>
+		/// <returns></returns>
+		bool IsEmbeddedInRoomViewable();
 
 		/// <summary></summary>
 		/// <param name="value"></param>
@@ -677,10 +685,22 @@ namespace Eamon.Framework
 		T EvalInRoomLightLevel<T>(T darkValue, T lightValue);
 
 		/// <summary></summary>
+		/// <param name="nonviewableValue"></param>
+		/// <param name="viewableValue"></param>
+		/// <returns></returns>
+		T EvalInRoomViewability<T>(T nonviewableValue, T viewableValue);
+
+		/// <summary></summary>
 		/// <param name="darkValue"></param>
 		/// <param name="lightValue"></param>
 		/// <returns></returns>
 		T EvalEmbeddedInRoomLightLevel<T>(T darkValue, T lightValue);
+
+		/// <summary></summary>
+		/// <param name="nonviewableValue"></param>
+		/// <param name="viewableValue"></param>
+		/// <returns></returns>
+		T EvalEmbeddedInRoomViewability<T>(T nonviewableValue, T viewableValue);
 
 		/// <summary></summary>
 		/// <param name="artifactType"></param>

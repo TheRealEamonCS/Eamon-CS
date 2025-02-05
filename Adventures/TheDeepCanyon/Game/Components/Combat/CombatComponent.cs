@@ -63,7 +63,7 @@ namespace TheDeepCanyon.Game.Components
 			{
 				gOut.Write("{0}  {1} fails to launch!",
 					Environment.NewLine,
-					monster.IsCharacterMonster() || room.IsLit() ?
+					monster.IsCharacterMonster() || room.IsViewable() ?
 						(
 							(weaponRevealType == WeaponRevealType.Never ||
 							(weaponRevealType == WeaponRevealType.OnlyIfSeen && !weapon.Seen)) ?
@@ -128,7 +128,7 @@ namespace TheDeepCanyon.Game.Components
 
 			if (dobjMonster.IsDead())
 			{
-				gOut.Print("{0}{1} dead, Jim.", Environment.NewLine, dobjMonster.IsCharacterMonster() || room.IsLit() ? dobjMonster.EvalGender("He's", "She's", "It's") : "It's");
+				gOut.Print("{0}{1} dead, Jim.", Environment.NewLine, dobjMonster.IsCharacterMonster() || room.IsViewable() ? dobjMonster.EvalGender("He's", "She's", "It's") : "It's");
 			}
 		}
 
@@ -175,9 +175,9 @@ namespace TheDeepCanyon.Game.Components
 
 			if (ActorMonster.Uid > 6 && ActorMonster.Uid < 11 && isNetCarriedByDefender && rl > 50)
 			{
-				if (DobjMonster.IsCharacterMonster() || room.IsLit())
+				if (DobjMonster.IsCharacterMonster() || room.IsViewable())
 				{
-					gOut.Print("{0}{1} flies into the net that {2} carrying and is strangled!", Environment.NewLine, room.EvalLightLevel("The offender", ActorMonster.GetTheName(true)), DobjMonster.IsCharacterMonster() ? "you are" : DobjMonster.GetTheName() + " is");
+					gOut.Print("{0}{1} flies into the net that {2} carrying and is strangled!", Environment.NewLine, room.EvalViewability("The offender", ActorMonster.GetTheName(true)), DobjMonster.IsCharacterMonster() ? "you are" : DobjMonster.GetTheName() + " is");
 				}
 				else
 				{

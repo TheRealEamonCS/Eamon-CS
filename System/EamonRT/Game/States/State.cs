@@ -90,6 +90,11 @@ namespace EamonRT.Game.States
 			StateImpl.PrintObjBlocksTheWay(artifact);
 		}
 
+		public virtual void PrintSomethingBlocksTheWay()
+		{
+			StateImpl.PrintSomethingBlocksTheWay();
+		}
+
 		public virtual void PrintLightAlmostOut(IArtifact artifact, long turnCounter)
 		{
 			StateImpl.PrintLightAlmostOut(artifact, turnCounter);

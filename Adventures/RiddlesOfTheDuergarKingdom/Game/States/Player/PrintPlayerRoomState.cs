@@ -52,7 +52,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.States
 
 				// Meet Professor Berescroft
 
-				if (berescroftMonster.IsInRoom(room) && room.IsLit() && !gGameState.BerescroftMet)
+				if (berescroftMonster.IsInRoom(room) && room.IsViewable() && !gGameState.BerescroftMet)
 				{
 					gOut.Print("You have encountered Professor Berescroft, mentioned by the letter posted in the Main Hall, who is leading the archaeological survey.  A long-winded (but hopefully interesting) monologue follows.  A grad student will accompany you on your journey.  He hands you a fountain pen to sign the presented document, necessary to indemnify Eamon University.");			// TODO: refactor
 
@@ -134,7 +134,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.States
 
 				if (gGameState.VolcanoErupting && room.Uid == 31 && gradStudentCompanionMonster.IsInRoom(room))
 				{
-					if (room.IsLit())
+					if (room.IsViewable())
 					{
 						gEngine.PrintEffectDesc(51);
 					}
@@ -158,7 +158,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.States
 
 			// Grad student companion also sees room
 
-			if (room.IsLit() && gradStudentCompanionMonster.IsInRoom(room) && gradStudentCompanionMonster.Reaction == Friendliness.Friend)
+			if (room.IsViewable() && gradStudentCompanionMonster.IsInRoom(room) && gradStudentCompanionMonster.Reaction == Friendliness.Friend)
 			{
 				room.GradStudentCompanionSeen = true;
 			}

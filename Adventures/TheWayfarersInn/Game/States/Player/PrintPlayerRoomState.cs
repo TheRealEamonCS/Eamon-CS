@@ -82,7 +82,7 @@ namespace TheWayfarersInn.Game.States
 				{
 					// Bottle of bourbon / folded note noticed by player
 
-					if (gGameState.BourbonAppeared && !gGameState.BourbonNoticed && barArtifact.IsInRoom(gCharRoom) && gCharRoom.IsLit())
+					if (gGameState.BourbonAppeared && !gGameState.BourbonNoticed && barArtifact.IsInRoom(gCharRoom) && gCharRoom.IsViewable())
 					{
 						gEngine.PrintEffectDesc(133);
 

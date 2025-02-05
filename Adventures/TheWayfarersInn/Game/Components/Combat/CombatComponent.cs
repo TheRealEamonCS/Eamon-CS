@@ -52,7 +52,7 @@ namespace TheWayfarersInn.Game.Components
 
 				gOut.WriteLine();
 
-				gOut.Print("{0} takes no damage and is cleaved in two!", ActorRoom.EvalLightLevel("The defender", DobjMonster.GetTheName(true, true, false, false, true)));
+				gOut.Print("{0} takes no damage and is cleaved in two!", ActorRoom.EvalViewability("The defender", DobjMonster.GetTheName(true, true, false, false, true)));
 
 				DobjMonster.Hardiness = Math.Max(1, (long)Math.Round(((double)DobjMonster.Hardiness * (double)DobjMonster.CurrGroupCount) / (double)(DobjMonster.CurrGroupCount + 1)));
 
@@ -66,7 +66,7 @@ namespace TheWayfarersInn.Game.Components
 
 				if (ActorMonster.Uid == 24)
 				{
-					if (ActorRoom.IsLit())
+					if (ActorRoom.IsViewable())
 					{
 						gOut.Print("{0}{1} reconsiders his strategy!", Environment.NewLine, ActorMonster.GetTheName(true));
 					}
@@ -153,7 +153,7 @@ namespace TheWayfarersInn.Game.Components
 					}
 					else
 					{
-						if (ActorRoom.IsLit())
+						if (ActorRoom.IsViewable())
 						{
 							gOut.Print("{0}{1} grow{2} rusty!", Environment.NewLine, armorArtifact.GetTheName(true), armorArtifact.EvalPlural("s", ""));
 						}
@@ -196,7 +196,7 @@ namespace TheWayfarersInn.Game.Components
 
 						ActorWeapon.GeneralWeapon.Field4 = 1;
 					}
-					else if (ActorRoom.IsLit())
+					else if (ActorRoom.IsViewable())
 					{
 						gOut.Print("{0}{1} grow{2} rusty!", Environment.NewLine, ActorWeapon.GetTheName(true), ActorWeapon.EvalPlural("s", ""));
 					}
@@ -205,7 +205,7 @@ namespace TheWayfarersInn.Game.Components
 
 					if (ActorMonster.Uid == 24)
 					{
-						if (ActorRoom.IsLit())
+						if (ActorRoom.IsViewable())
 						{
 							gOut.Print("{0}{1} reconsiders his strategy!", Environment.NewLine, ActorMonster.GetTheName(true));
 						}
