@@ -714,12 +714,36 @@ namespace Eamon.Game
 
 		public virtual bool IsCarriedByMonster(MonsterType monsterType = MonsterType.NonCharMonster, bool recurse = false)
 		{
-			var artifact = recurse ? GetCarriedByContainer() : null;
+			var result = false;
 
-			return artifact != null ? artifact.IsCarriedByMonster(monsterType, recurse) :
-				monsterType == MonsterType.Any ? (Location < -1 && Location > -999) || Location == -1 :
-				monsterType == MonsterType.NonCharMonster ? Location < -1 && Location > -999 : 
-				Location == -1;
+			if (recurse)
+			{
+				var artifact = gADB[GetCarriedByContainerUid(recurse)];
+
+				if (artifact == null)
+				{
+					artifact = this;
+				}
+
+				result = artifact.IsCarriedByMonster(monsterType);
+			}
+			else
+			{
+				if (monsterType == MonsterType.Any)
+				{
+					result = (Location < -1 && Location > -999) || Location == -1;
+				}
+				else if (monsterType == MonsterType.NonCharMonster)
+				{
+					result = Location < -1 && Location > -999;
+				}
+				else
+				{
+					result = Location == -1;
+				}
+			}
+
+			return result;
 		}
 
 		public virtual bool IsCarriedByContainer()
@@ -729,75 +753,228 @@ namespace Eamon.Game
 
 		public virtual bool IsWornByMonster(MonsterType monsterType = MonsterType.NonCharMonster, bool recurse = false)
 		{
-			var artifact = recurse ? GetCarriedByContainer() : null;
+			var result = false;
 
-			return artifact != null ? artifact.IsWornByMonster(monsterType, recurse) : 
-				monsterType == MonsterType.Any ? Location < -1000 || Location == -999 : 
-				monsterType == MonsterType.NonCharMonster ? Location < -1000 :
-				Location == -999;
+			if (recurse)
+			{
+				var artifact = gADB[GetCarriedByContainerUid(recurse)];
+
+				if (artifact == null)
+				{
+					artifact = this;
+				}
+
+				result = artifact.IsWornByMonster(monsterType);
+			}
+			else
+			{
+				if (monsterType == MonsterType.Any)
+				{
+					result = Location < -1000 || Location == -999;
+				}
+				else if (monsterType == MonsterType.NonCharMonster)
+				{
+					result = Location < -1000;
+				}
+				else
+				{
+					result = Location == -999;
+				}
+			}
+
+			return result;
 		}
 
 		public virtual bool IsInRoom(bool recurse = false)
 		{
-			return recurse && GetCarriedByMonster(recurse) != null ? GetCarriedByMonster(recurse).IsInRoom() : 
-						recurse && GetWornByMonster(recurse) != null ? GetWornByMonster(recurse).IsInRoom() : 
-						recurse && GetCarriedByContainer(recurse) != null ? GetCarriedByContainer(recurse).IsInRoom() :
-						Location > 0 && Location < 1001;
+			var result = false;
+
+			if (recurse)
+			{
+				var monster = gMDB[GetCarriedByMonsterUid(recurse)];
+
+				if (monster == null)
+				{
+					monster = gMDB[GetWornByMonsterUid(recurse)];
+				}
+
+				if (monster != null)
+				{
+					result = monster.IsInRoom();
+				}
+				else
+				{
+					var artifact = gADB[GetCarriedByContainerUid(recurse)];
+
+					if (artifact == null)
+					{
+						artifact = this;
+					}
+
+					result = artifact.IsInRoom();
+				}
+			}
+			else
+			{
+				result = Location > 0 && Location < 1001;
+			}
+
+			return result;
 		}
 
 		public virtual bool IsEmbeddedInRoom(bool recurse = false)
 		{
-			var artifact = recurse ? GetCarriedByContainer() : null;
+			var result = false;
 
-			return artifact != null ? artifact.IsEmbeddedInRoom(recurse) : Location > 5000 && Location < 6001;
+			if (recurse)
+			{
+				var artifact = gADB[GetCarriedByContainerUid(recurse)];
+
+				if (artifact == null)
+				{
+					artifact = this;
+				}
+
+				result = artifact.IsEmbeddedInRoom();
+			}
+			else
+			{
+				result = Location > 5000 && Location < 6001;
+			}
+
+			return result;
 		}
 
 		public virtual bool IsCarriedByContainerContainerTypeExposedToMonster(MonsterType monsterType = MonsterType.NonCharMonster, bool recurse = false)
 		{
-			var artifact = GetCarriedByContainer();
+			var result = false;
+
+			var artifact = gADB[GetCarriedByContainerUid()];
 
 			var containerType = GetCarriedByContainerContainerType();
 
-			return artifact != null && artifact.ShouldExposeContentsToMonster(monsterType, containerType) && (containerType != ContainerType.In || (artifact.InContainer != null && artifact.InContainer.IsOpen()) || artifact.ShouldExposeInContentsWhenClosed()) && (!recurse || artifact.GetCarriedByContainer() == null || artifact.IsCarriedByContainerContainerTypeExposedToMonster(monsterType, recurse));
+			if (artifact != null)
+			{
+				if (artifact.ShouldExposeContentsToMonster(monsterType, containerType))
+				{
+					if (containerType != ContainerType.In || (artifact.InContainer != null && artifact.InContainer.IsOpen()) || artifact.ShouldExposeInContentsWhenClosed())
+					{
+						if (!recurse || gADB[artifact.GetCarriedByContainerUid()] == null || artifact.IsCarriedByContainerContainerTypeExposedToMonster(monsterType, recurse))
+						{
+							result = true;
+						}
+					}
+				}
+			}
+
+			return result;
 		}
 
 		public virtual bool IsCarriedByContainerContainerTypeExposedToRoom(bool recurse = false)
 		{
-			var artifact = GetCarriedByContainer();
+			var result = false;
+
+			var artifact = gADB[GetCarriedByContainerUid()];
 
 			var containerType = GetCarriedByContainerContainerType();
 
-			return artifact != null && artifact.ShouldExposeContentsToRoom(containerType) && (containerType != ContainerType.In || (artifact.InContainer != null && artifact.InContainer.IsOpen()) || artifact.ShouldExposeInContentsWhenClosed()) && (!recurse || artifact.GetCarriedByContainer() == null || artifact.IsCarriedByContainerContainerTypeExposedToRoom(recurse));
+			if (artifact != null)
+			{
+				if (artifact.ShouldExposeContentsToRoom(containerType))
+				{
+					if (containerType != ContainerType.In || (artifact.InContainer != null && artifact.InContainer.IsOpen()) || artifact.ShouldExposeInContentsWhenClosed())
+					{
+						if (!recurse || gADB[artifact.GetCarriedByContainerUid()] == null || artifact.IsCarriedByContainerContainerTypeExposedToRoom(recurse))
+						{
+							result = true;
+						}
+					}
+				}
+			}
+
+			return result;
 		}
 
 		public virtual bool IsInLimbo(bool recurse = false)
 		{
-			return recurse && GetCarriedByMonster(recurse) != null ? GetCarriedByMonster(recurse).IsInLimbo() :
-						recurse && GetWornByMonster(recurse) != null ? GetWornByMonster(recurse).IsInLimbo() :
-						recurse && GetCarriedByContainer(recurse) != null ? GetCarriedByContainer(recurse).IsInLimbo() :
-						Location == gEngine.LimboLocation;
+			var result = false;
+
+			if (recurse)
+			{
+				var monster = gMDB[GetCarriedByMonsterUid(recurse)];
+
+				if (monster == null)
+				{
+					monster = gMDB[GetWornByMonsterUid(recurse)];
+				}
+
+				if (monster != null)
+				{
+					result = monster.IsInLimbo();
+				}
+				else
+				{
+					var artifact = gADB[GetCarriedByContainerUid(recurse)];
+
+					if (artifact == null)
+					{
+						artifact = this;
+					}
+
+					result = artifact.IsInLimbo();
+				}
+			}
+			else
+			{
+				result = Location == gEngine.LimboLocation;
+			}
+
+			return result;
 		}
 
 		public virtual bool IsCarriedByMonsterUid(long monsterUid, bool recurse = false)
 		{
-			var gameState = gEngine.GetGameState();
+			var result = false;
 
-			var artifact = recurse ? GetCarriedByContainer() : null;
+			if (recurse)
+			{
+				var artifact = gADB[GetCarriedByContainerUid(recurse)];
 
-			return artifact != null ? artifact.IsCarriedByMonsterUid(monsterUid, recurse) :
-				monsterUid == long.MaxValue || (gameState != null && monsterUid == gameState.Cm) ? Location == -1 : 
-				Location == (-monsterUid - 1);
+				if (artifact == null)
+				{
+					artifact = this;
+				}
+
+				result = artifact.IsCarriedByMonsterUid(monsterUid);
+			}
+			else
+			{
+				var gameState = gEngine.GetGameState();
+
+				if (monsterUid == long.MaxValue || (gameState != null && monsterUid == gameState.Cm))
+				{
+					result = Location == -1;
+				}
+				else
+				{
+					result = Location == (-monsterUid - 1);
+				}
+			}
+
+			return result;
 		}
 
 		public virtual bool IsCarriedByContainerUid(long containerUid, bool recurse = false)
 		{
+			var result = false;
+
 			if (recurse)
 			{
-				var artifact = GetCarriedByContainer();
+				var artifact = gADB[GetCarriedByContainerUid()];
 
 				while (artifact != null && artifact.Uid != containerUid)
 				{
-					var artifact01 = artifact.GetCarriedByContainer();
+					var artifact01 = gADB[artifact.GetCarriedByContainerUid()];
 
 					if (artifact01 != null)
 					{
@@ -809,25 +986,54 @@ namespace Eamon.Game
 					}
 				}
 
-				return artifact != null && artifact.Uid == containerUid;
+				if (artifact != null)
+				{
+					result = artifact.Uid == containerUid;
+				}
 			}
 			else
 			{
 				var containerType = GetCarriedByContainerContainerType();
 
-				return Enum.IsDefined(typeof(ContainerType), containerType) && Location == (containerUid + (((long)containerType * 1000) + 1000));
+				if (Enum.IsDefined(typeof(ContainerType), containerType))
+				{
+					result = Location == (containerUid + (((long)containerType * 1000) + 1000));
+				}
 			}
+
+			return result;
 		}
 
 		public virtual bool IsWornByMonsterUid(long monsterUid, bool recurse = false)
 		{
-			var gameState = gEngine.GetGameState();
+			var result = false;
 
-			var artifact = recurse ? GetCarriedByContainer() : null;
+			if (recurse)
+			{
+				var artifact = gADB[GetCarriedByContainerUid(recurse)];
 
-			return artifact != null ? artifact.IsWornByMonsterUid(monsterUid, recurse) :
-				monsterUid == long.MaxValue || (gameState != null && monsterUid == gameState.Cm) ? Location == -999 : 
-				Location == (-monsterUid - 1000);
+				if (artifact == null)
+				{
+					artifact = this;
+				}
+
+				result = artifact.IsWornByMonsterUid(monsterUid);
+			}
+			else
+			{
+				var gameState = gEngine.GetGameState();
+
+				if (monsterUid == long.MaxValue || (gameState != null && monsterUid == gameState.Cm))
+				{
+					result = Location == -999;
+				}
+				else
+				{
+					result = Location == (-monsterUid - 1000);
+				}
+			}
+
+			return result;
 		}
 
 		public virtual bool IsReadyableByMonsterUid(long monsterUid)
@@ -837,39 +1043,116 @@ namespace Eamon.Game
 
 		public virtual bool IsInRoomUid(long roomUid, bool recurse = false)
 		{
-			return recurse && GetCarriedByMonster(recurse) != null ? GetCarriedByMonster(recurse).IsInRoomUid(roomUid) :
-						recurse && GetWornByMonster(recurse) != null ? GetWornByMonster(recurse).IsInRoomUid(roomUid) :
-						recurse && GetCarriedByContainer(recurse) != null ? GetCarriedByContainer(recurse).IsInRoomUid(roomUid) :
-						Location == roomUid;
+			var result = false;
+
+			if (recurse)
+			{
+				var monster = gMDB[GetCarriedByMonsterUid(recurse)];
+
+				if (monster == null)
+				{
+					monster = gMDB[GetWornByMonsterUid(recurse)];
+				}
+
+				if (monster != null)
+				{
+					result = monster.IsInRoomUid(roomUid);
+				}
+				else
+				{
+					var artifact = gADB[GetCarriedByContainerUid(recurse)];
+
+					if (artifact == null)
+					{
+						artifact = this;
+					}
+
+					result = artifact.IsInRoomUid(roomUid);
+				}
+			}
+			else
+			{
+				result = Location == roomUid;
+			}
+
+			return result;
 		}
 
 		public virtual bool IsEmbeddedInRoomUid(long roomUid, bool recurse = false)
 		{
-			var artifact = recurse ? GetCarriedByContainer() : null;
+			var result = false;
 
-			return artifact != null ? artifact.IsEmbeddedInRoomUid(roomUid, recurse) : Location == (roomUid + 5000);
+			if (recurse)
+			{
+				var artifact = gADB[GetCarriedByContainerUid(recurse)];
+
+				if (artifact == null)
+				{
+					artifact = this;
+				}
+
+				result = artifact.IsEmbeddedInRoomUid(roomUid);
+			}
+			else
+			{
+				result = Location == (roomUid + 5000);
+			}
+
+			return result;
 		}
 
 		public virtual bool IsCarriedByContainerContainerTypeExposedToMonsterUid(long monsterUid, bool recurse = false)
 		{
+			var result = false;
+
 			var gameState = gEngine.GetGameState();
 
-			var artifact = GetCarriedByContainer();
+			var artifact = gADB[GetCarriedByContainerUid()];
 
 			var monsterType = monsterUid == long.MaxValue || (gameState != null && monsterUid == gameState.Cm) ? MonsterType.CharMonster : MonsterType.NonCharMonster;
 
 			var containerType = GetCarriedByContainerContainerType();
 
-			return artifact != null && artifact.ShouldExposeContentsToMonster(monsterType, containerType) && (containerType != ContainerType.In || (artifact.InContainer != null && artifact.InContainer.IsOpen()) || artifact.ShouldExposeInContentsWhenClosed()) && (artifact.IsCarriedByMonsterUid(monsterUid) || (recurse && artifact.GetCarriedByContainer() != null && artifact.IsCarriedByContainerContainerTypeExposedToMonsterUid(monsterUid, recurse)));
+			if (artifact != null)
+			{
+				if (artifact.ShouldExposeContentsToMonster(monsterType, containerType))
+				{
+					if (containerType != ContainerType.In || (artifact.InContainer != null && artifact.InContainer.IsOpen()) || artifact.ShouldExposeInContentsWhenClosed())
+					{
+						if (artifact.IsCarriedByMonsterUid(monsterUid) || (recurse && gADB[artifact.GetCarriedByContainerUid()] != null && artifact.IsCarriedByContainerContainerTypeExposedToMonsterUid(monsterUid, recurse)))
+						{
+							result = true;
+						}
+					}
+				}
+			}
+
+			return result;
 		}
 
 		public virtual bool IsCarriedByContainerContainerTypeExposedToRoomUid(long roomUid, bool recurse = false)
 		{
-			var artifact = GetCarriedByContainer();
+			var result = false;
+
+			var artifact = gADB[GetCarriedByContainerUid()];
 
 			var containerType = GetCarriedByContainerContainerType();
 
-			return artifact != null && artifact.ShouldExposeContentsToRoom(containerType) && (containerType != ContainerType.In || (artifact.InContainer != null && artifact.InContainer.IsOpen()) || artifact.ShouldExposeInContentsWhenClosed()) && (artifact.IsInRoomUid(roomUid) || artifact.IsEmbeddedInRoomUid(roomUid) || (recurse && artifact.GetCarriedByContainer() != null && artifact.IsCarriedByContainerContainerTypeExposedToRoomUid(roomUid, recurse)));
+			if (artifact != null)
+			{
+				if (artifact.ShouldExposeContentsToRoom(containerType))
+				{
+					if (containerType != ContainerType.In || (artifact.InContainer != null && artifact.InContainer.IsOpen()) || artifact.ShouldExposeInContentsWhenClosed())
+					{
+						if (artifact.IsInRoomUid(roomUid) || artifact.IsEmbeddedInRoomUid(roomUid) || (recurse && gADB[artifact.GetCarriedByContainerUid()] != null && artifact.IsCarriedByContainerContainerTypeExposedToRoomUid(roomUid, recurse)))
+						{
+							result = true;
+						}
+					}
+				}
+			}
+
+			return result;
 		}
 
 		public virtual bool IsCarriedByMonster(IMonster monster, bool recurse = false)
@@ -922,25 +1205,47 @@ namespace Eamon.Game
 
 		public virtual long GetCarriedByMonsterUid(bool recurse = false)
 		{
-			var gameState = gEngine.GetGameState();
+			var monsterUid = 0L;
 
-			var artifact = recurse ? GetCarriedByContainer() : null;
+			if (recurse)
+			{
+				var artifact = gADB[GetCarriedByContainerUid(recurse)];
 
-			return artifact != null ? artifact.GetCarriedByMonsterUid(recurse) : 
-				IsCarriedByMonster(MonsterType.CharMonster) && gameState != null ? gameState.Cm : 
-				IsCarriedByMonster() ? -Location - 1 : 
-				0;
+				if (artifact == null)
+				{
+					artifact = this;
+				}
+
+				monsterUid = artifact.GetCarriedByMonsterUid();
+			}
+			else
+			{
+				var gameState = gEngine.GetGameState();
+
+				if (IsCarriedByMonster(MonsterType.CharMonster) && gameState != null)
+				{
+					monsterUid = gameState.Cm;
+				}
+				else if (IsCarriedByMonster())
+				{
+					monsterUid = -Location - 1;
+				}
+			}
+
+			return monsterUid;
 		}
 
 		public virtual long GetCarriedByContainerUid(bool recurse = false)
 		{
+			var artifactUid = 0L;
+
 			if (recurse)
 			{
-				var artifact = GetCarriedByContainer();
+				var artifact = gADB[GetCarriedByContainerUid()];
 
 				while (artifact != null)
 				{
-					var artifact01 = artifact.GetCarriedByContainer();
+					var artifact01 = gADB[artifact.GetCarriedByContainerUid()];
 
 					if (artifact01 != null)
 					{
@@ -952,76 +1257,155 @@ namespace Eamon.Game
 					}
 				}
 
-				return artifact != null ? artifact.Uid : 0;
+				if (artifact != null)
+				{
+					artifactUid = artifact.Uid;
+				}
 			}
 			else
 			{
 				var containerType = GetCarriedByContainerContainerType();
 
-				return IsCarriedByContainer() && Enum.IsDefined(typeof(ContainerType), containerType) ? Location - (((long)containerType * 1000) + 1000) : 0;
+				if (Enum.IsDefined(typeof(ContainerType), containerType))
+				{
+					artifactUid = Location - (((long)containerType * 1000) + 1000);
+				}
 			}
+
+			return artifactUid;
 		}
 
 		public virtual long GetWornByMonsterUid(bool recurse = false)
 		{
-			var gameState = gEngine.GetGameState();
+			var monsterUid = 0L;
 
-			var artifact = recurse ? GetCarriedByContainer() : null;
+			if (recurse)
+			{
+				var artifact = gADB[GetCarriedByContainerUid(recurse)];
 
-			return artifact != null ? artifact.GetWornByMonsterUid(recurse) : 
-				IsWornByMonster(MonsterType.CharMonster) && gameState != null ? gameState.Cm : 
-				IsWornByMonster() ? -Location - 1000 : 
-				0;
+				if (artifact == null)
+				{
+					artifact = this;
+				}
+
+				monsterUid = artifact.GetWornByMonsterUid();
+			}
+			else
+			{
+				var gameState = gEngine.GetGameState();
+
+				if (IsWornByMonster(MonsterType.CharMonster) && gameState != null)
+				{
+					monsterUid = gameState.Cm;
+				}
+				else if (IsWornByMonster())
+				{
+					monsterUid = -Location - 1000;
+				}
+			}
+
+			return monsterUid;
 		}
 
 		public virtual long GetInRoomUid(bool recurse = false)
 		{
-			return recurse && GetCarriedByMonster(recurse) != null ? GetCarriedByMonster(recurse).GetInRoomUid() :
-						recurse && GetWornByMonster(recurse) != null ? GetWornByMonster(recurse).GetInRoomUid() :
-						recurse && GetCarriedByContainer(recurse) != null ? GetCarriedByContainer(recurse).GetInRoomUid() :
-						IsInRoom() ? Location : 0;
+			var roomUid = 0L;
+
+			if (recurse)
+			{
+				var monster = gMDB[GetCarriedByMonsterUid(recurse)];
+
+				if (monster == null)
+				{
+					monster = gMDB[GetWornByMonsterUid(recurse)];
+				}
+
+				if (monster != null)
+				{
+					roomUid = monster.GetInRoomUid();
+				}
+				else
+				{
+					var artifact = gADB[GetCarriedByContainerUid(recurse)];
+
+					if (artifact == null)
+					{
+						artifact = this;
+					}
+
+					roomUid = artifact.GetInRoomUid();
+				}
+			}
+			else
+			{
+				if (IsInRoom())
+				{
+					roomUid = Location;
+				}
+			}
+
+			return roomUid;
 		}
 
 		public virtual long GetEmbeddedInRoomUid(bool recurse = false)
 		{
-			var artifact = recurse ? GetCarriedByContainer() : null;
+			var roomUid = 0L;
 
-			return artifact != null ? artifact.GetEmbeddedInRoomUid(recurse) : IsEmbeddedInRoom() ? Location - 5000 : 0;
+			if (recurse)
+			{
+				var artifact = gADB[GetCarriedByContainerUid(recurse)];
+
+				if (artifact == null)
+				{
+					artifact = this;
+				}
+
+				roomUid = artifact.GetEmbeddedInRoomUid();
+			}
+			else
+			{
+				if (IsEmbeddedInRoom())
+				{
+					roomUid = Location - 5000;
+				}
+			}
+
+			return roomUid;
 		}
 
 		public virtual IMonster GetCarriedByMonster(bool recurse = false)
 		{
-			var uid = GetCarriedByMonsterUid(recurse);
+			var monsterUid = GetCarriedByMonsterUid(recurse);
 
-			return gMDB[uid];
+			return gMDB[monsterUid];
 		}
 
 		public virtual IArtifact GetCarriedByContainer(bool recurse = false)
 		{
-			var uid = GetCarriedByContainerUid(recurse);
+			var artifactUid = GetCarriedByContainerUid(recurse);
 
-			return gADB[uid];
+			return gADB[artifactUid];
 		}
 
 		public virtual IMonster GetWornByMonster(bool recurse = false)
 		{
-			var uid = GetWornByMonsterUid(recurse);
+			var monsterUid = GetWornByMonsterUid(recurse);
 
-			return gMDB[uid];
+			return gMDB[monsterUid];
 		}
 
 		public virtual IRoom GetInRoom(bool recurse = false)
 		{
-			var uid = GetInRoomUid(recurse);
+			var roomUid = GetInRoomUid(recurse);
 
-			return gRDB[uid];
+			return gRDB[roomUid];
 		}
 
 		public virtual IRoom GetEmbeddedInRoom(bool recurse = false)
 		{
-			var uid = GetEmbeddedInRoomUid(recurse);
+			var roomUid = GetEmbeddedInRoomUid(recurse);
 
-			return gRDB[uid];
+			return gRDB[roomUid];
 		}
 
 		public virtual ContainerType GetCarriedByContainerContainerType()
