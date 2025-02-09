@@ -791,11 +791,18 @@ namespace Eamon.Game
 
 			if (recurse)
 			{
-				var monster = gMDB[GetCarriedByMonsterUid(recurse)];
+				var artifact = gADB[GetCarriedByContainerUid(recurse)];
+
+				if (artifact == null)
+				{
+					artifact = this;
+				}
+
+				var monster = gMDB[artifact.GetCarriedByMonsterUid()];
 
 				if (monster == null)
 				{
-					monster = gMDB[GetWornByMonsterUid(recurse)];
+					monster = gMDB[artifact.GetWornByMonsterUid()];
 				}
 
 				if (monster != null)
@@ -804,13 +811,6 @@ namespace Eamon.Game
 				}
 				else
 				{
-					var artifact = gADB[GetCarriedByContainerUid(recurse)];
-
-					if (artifact == null)
-					{
-						artifact = this;
-					}
-
 					result = artifact.IsInRoom();
 				}
 			}
@@ -901,11 +901,18 @@ namespace Eamon.Game
 
 			if (recurse)
 			{
-				var monster = gMDB[GetCarriedByMonsterUid(recurse)];
+				var artifact = gADB[GetCarriedByContainerUid(recurse)];
+
+				if (artifact == null)
+				{
+					artifact = this;
+				}
+
+				var monster = gMDB[artifact.GetCarriedByMonsterUid()];
 
 				if (monster == null)
 				{
-					monster = gMDB[GetWornByMonsterUid(recurse)];
+					monster = gMDB[artifact.GetWornByMonsterUid()];
 				}
 
 				if (monster != null)
@@ -914,13 +921,6 @@ namespace Eamon.Game
 				}
 				else
 				{
-					var artifact = gADB[GetCarriedByContainerUid(recurse)];
-
-					if (artifact == null)
-					{
-						artifact = this;
-					}
-
 					result = artifact.IsInLimbo();
 				}
 			}
@@ -1047,11 +1047,18 @@ namespace Eamon.Game
 
 			if (recurse)
 			{
-				var monster = gMDB[GetCarriedByMonsterUid(recurse)];
+				var artifact = gADB[GetCarriedByContainerUid(recurse)];
+
+				if (artifact == null)
+				{
+					artifact = this;
+				}
+
+				var monster = gMDB[artifact.GetCarriedByMonsterUid()];
 
 				if (monster == null)
 				{
-					monster = gMDB[GetWornByMonsterUid(recurse)];
+					monster = gMDB[artifact.GetWornByMonsterUid()];
 				}
 
 				if (monster != null)
@@ -1060,13 +1067,6 @@ namespace Eamon.Game
 				}
 				else
 				{
-					var artifact = gADB[GetCarriedByContainerUid(recurse)];
-
-					if (artifact == null)
-					{
-						artifact = this;
-					}
-
 					result = artifact.IsInRoomUid(roomUid);
 				}
 			}
@@ -1313,11 +1313,18 @@ namespace Eamon.Game
 
 			if (recurse)
 			{
-				var monster = gMDB[GetCarriedByMonsterUid(recurse)];
+				var artifact = gADB[GetCarriedByContainerUid(recurse)];
+
+				if (artifact == null)
+				{
+					artifact = this;
+				}
+
+				var monster = gMDB[artifact.GetCarriedByMonsterUid()];
 
 				if (monster == null)
 				{
-					monster = gMDB[GetWornByMonsterUid(recurse)];
+					monster = gMDB[artifact.GetWornByMonsterUid()];
 				}
 
 				if (monster != null)
@@ -1326,13 +1333,6 @@ namespace Eamon.Game
 				}
 				else
 				{
-					var artifact = gADB[GetCarriedByContainerUid(recurse)];
-
-					if (artifact == null)
-					{
-						artifact = this;
-					}
-
 					roomUid = artifact.GetInRoomUid();
 				}
 			}
