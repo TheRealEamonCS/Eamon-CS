@@ -29,6 +29,9 @@ namespace EamonRT.Game.Commands
 		public virtual IList<IMonster> FullMonsterList { get; set; }
 
 		/// <summary></summary>
+		public virtual IList<ICommand> EnhancedCombatCommandList { get; set; }
+
+		/// <summary></summary>
 		public virtual IList<IFileset> SaveFilesetList { get; set; }
 
 		/// <summary></summary>
@@ -237,6 +240,15 @@ namespace EamonRT.Game.Commands
 					gEngine.MainLoop.ShouldShutdown = false;
 
 					goto Cleanup;
+				}
+
+				EnhancedCombatCommandList = gEngine.CommandList.Where(c => c is IParryCommand).ToList();
+
+				foreach (var command in EnhancedCombatCommandList)
+				{
+					command.IsPlayerEnabled = gGameState.EnhancedCombat;
+
+					command.IsMonsterEnabled = gGameState.EnhancedCombat;
 				}
 
 				PrintGameRestored();

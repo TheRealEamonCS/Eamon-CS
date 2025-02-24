@@ -149,5 +149,10 @@ namespace TheBeginnersCave.Game.Plugin
 				base.MonsterDies(actorMonster, dobjMonster);
 			}
 		}
+
+		public Engine()
+		{
+			EnableEnhancedCombat = true;
+		}
 	}
 }

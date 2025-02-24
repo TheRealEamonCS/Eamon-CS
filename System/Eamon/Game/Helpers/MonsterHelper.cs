@@ -111,6 +111,27 @@ namespace Eamon.Game.Helpers
 
 		/// <summary></summary>
 		/// <returns></returns>
+		public virtual string GetPrintedNameParryCode()
+		{
+			return "Parry Code";
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual string GetPrintedNameParryOdds()
+		{
+			return "Parry Odds";
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual string GetPrintedNameParryTurns()
+		{
+			return "Parry Turns";
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
 		public virtual string GetPrintedNameWeapon()
 		{
 			return "Weapon Uid";
@@ -318,6 +339,34 @@ namespace Eamon.Game.Helpers
 
 		/// <summary></summary>
 		/// <returns></returns>
+		public virtual bool ValidateParryCode()
+		{
+			return gEngine.EnableEnhancedCombat ? Enum.IsDefined(typeof(ParryCode), Record.ParryCode) : Record.ParryCode == ParryCode.NeverVaries;
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateParry()
+		{
+			return gEngine.EnableEnhancedCombat ? Record.Parry >= 0 && Record.Parry <= 100 : Record.Parry == 0;
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateParryOdds()
+		{
+			return gEngine.EnableEnhancedCombat ? Record.ParryOdds >= 0 && Record.ParryOdds <= 100 : Record.ParryOdds == 0;
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateParryTurns()
+		{
+			return gEngine.EnableEnhancedCombat ? Record.ParryTurns >= 1 : Record.ParryTurns == 0;
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
 		public virtual bool ValidateArmor()
 		{
 			return gEngine.IsValidMonsterArmor(Record.Armor);
@@ -361,6 +410,18 @@ namespace Eamon.Game.Helpers
 			}
 
 			return Record.CurrGroupCount >= 0 && Record.CurrGroupCount <= Record.GroupCount;
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateInitParry()
+		{
+			if (Record.InitParry == -1)
+			{
+				Record.InitParry = Record.Parry;
+			}
+
+			return gEngine.EnableEnhancedCombat ? Record.InitParry >= 0 && Record.InitParry <= 100 : Record.InitParry == 0;
 		}
 
 		/// <summary></summary>
@@ -890,6 +951,53 @@ namespace Eamon.Game.Helpers
 		}
 
 		/// <summary></summary>
+		public virtual void PrintDescParryCode()
+		{
+			var fullDesc = "Enter the parry code that describes the Monster's combat behavior.";
+
+			var briefDesc = new StringBuilder(gEngine.BufSize);
+
+			var parryCodeValues = EnumUtil.GetValues<ParryCode>();
+
+			for (var j = 0; j < parryCodeValues.Count; j++)
+			{
+				briefDesc.AppendFormat("{0}{1}={2}", j != 0 ? "; " : "", (long)parryCodeValues[j], gEngine.GetParryCodeDesc(parryCodeValues[j]));
+			}
+
+			gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc.ToString());
+		}
+
+		/// <summary></summary>
+		public virtual void PrintDescParry()
+		{
+			var fullDesc = "Enter the preferred parry of the Monster." + Environment.NewLine + Environment.NewLine + "This measures the aggressiveness of the Monster's combat stance.";
+
+			var briefDesc = "0-20=Frenzied; 21-40=Offensive; 41-60=Neutral; 61-80=Defensive; 81-100=Fortified";
+
+			gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc);
+		}
+
+		/// <summary></summary>
+		public virtual void PrintDescParryOdds()
+		{
+			var fullDesc = "Enter the parry adjustment odds of the Monster." + Environment.NewLine + Environment.NewLine + "This is the probability that the monster will adjust its parry setting when a check is made.";
+
+			var briefDesc = "0-100=Parry adjustment odds";
+
+			gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc);
+		}
+
+		/// <summary></summary>
+		public virtual void PrintDescParryTurns()
+		{
+			var fullDesc = "Enter the number of turns between parry adjustment checks for the Monster." + Environment.NewLine + Environment.NewLine + "This is the number of turns between possible adjustments to the Monster's parry setting.";
+
+			var briefDesc = string.Format("{0}=Parry adjustment turns", gEngine.EnableEnhancedCombat ? "(GT 0)" : "(GTE 0)");
+
+			gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc);
+		}
+
+		/// <summary></summary>
 		public virtual void PrintDescArmor()
 		{
 			var fullDesc = "Enter the armor of the Monster." + Environment.NewLine + Environment.NewLine + "The Monster absorbs up to this many hit points of damage per strike before being injured in combat.";
@@ -1267,6 +1375,60 @@ namespace Eamon.Game.Helpers
 				{
 					gOut.Write("{0}{1}{2}", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("CombatCode"), null), (long)Record.CombatCode);
 				}
+			}
+		}
+
+		/// <summary></summary>
+		public virtual void ListParryCode()
+		{
+			if (FullDetail)
+			{
+				var listNum = NumberFields ? ListNum++ : 0;
+
+				if (LookupMsg)
+				{
+					gOut.Write("{0}{1}{2}",
+						Environment.NewLine,
+						gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("ParryCode"), null),
+						gEngine.BuildValue(51, ' ', 8, (long)Record.ParryCode, null, gEngine.GetParryCodeDesc(Record.ParryCode)));
+				}
+				else
+				{
+					gOut.Write("{0}{1}{2}", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("ParryCode"), null), (long)Record.ParryCode);
+				}
+			}
+		}
+
+		/// <summary></summary>
+		public virtual void ListParry()
+		{
+			if (FullDetail)
+			{
+				var listNum = NumberFields ? ListNum++ : 0;
+
+				gOut.Write("{0}{1}{2}%", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("Parry"), null), Record.Parry);
+			}
+		}
+
+		/// <summary></summary>
+		public virtual void ListParryOdds()
+		{
+			if (FullDetail)
+			{
+				var listNum = NumberFields ? ListNum++ : 0;
+
+				gOut.Write("{0}{1}{2}%", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("ParryOdds"), null), Record.ParryOdds);
+			}
+		}
+
+		/// <summary></summary>
+		public virtual void ListParryTurns()
+		{
+			if (FullDetail)
+			{
+				var listNum = NumberFields ? ListNum++ : 0;
+
+				gOut.Write("{0}{1}{2}", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("ParryTurns"), null), Record.ParryTurns);
 			}
 		}
 
@@ -1953,6 +2115,165 @@ namespace Eamon.Game.Helpers
 				}
 
 				if (!error && ValidateField("CombatCode"))
+				{
+					break;
+				}
+
+				fieldDesc = FieldDesc.Brief;
+			}
+
+			gOut.Print("{0}", gEngine.LineSep);
+		}
+
+		/// <summary></summary>
+		public virtual void InputParryCode()
+		{
+			var fieldDesc = FieldDesc;
+
+			var parryCode = Record.ParryCode;
+
+			while (true)
+			{
+				Buf.SetFormat(EditRec ? "{0}" : "", (long)parryCode);
+
+				PrintFieldDesc("ParryCode", EditRec, EditField, fieldDesc);
+
+				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("ParryCode"), "0"));
+
+				var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, "0", null, gEngine.IsCharPlusMinusDigit, null);
+
+				Debug.Assert(gEngine.IsSuccess(rc));
+
+				var error = false;
+
+				try
+				{
+					Record.ParryCode = (ParryCode)Convert.ToInt64(Buf.Trim().ToString());
+				}
+				catch (Exception)
+				{
+					error = true;
+				}
+
+				if (!error && ValidateField("ParryCode"))
+				{
+					break;
+				}
+
+				fieldDesc = FieldDesc.Brief;
+			}
+
+			gOut.Print("{0}", gEngine.LineSep);
+		}
+
+		/// <summary></summary>
+		public virtual void InputParry()
+		{
+			var fieldDesc = FieldDesc;
+
+			var parry = Record.Parry;
+
+			while (true)
+			{
+				Buf.SetFormat(EditRec ? "{0}" : "", parry);
+
+				PrintFieldDesc("Parry", EditRec, EditField, fieldDesc);
+
+				var defaultParry = gEngine.EnableEnhancedCombat ? "50" : "0";
+
+				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("Parry"), defaultParry));
+
+				var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, defaultParry, null, gEngine.IsCharDigit, null);
+
+				Debug.Assert(gEngine.IsSuccess(rc));
+
+				Record.Parry = Convert.ToInt64(Buf.Trim().ToString());
+
+				if (ValidateField("Parry"))
+				{
+					break;
+				}
+
+				fieldDesc = FieldDesc.Brief;
+			}
+
+			Record.InitParry = Record.Parry;
+
+			gOut.Print("{0}", gEngine.LineSep);
+		}
+
+		/// <summary></summary>
+		public virtual void InputParryOdds()
+		{
+			var fieldDesc = FieldDesc;
+
+			var parryOdds = Record.ParryOdds;
+
+			while (true)
+			{
+				Buf.SetFormat(EditRec ? "{0}" : "", parryOdds);
+
+				PrintFieldDesc("ParryOdds", EditRec, EditField, fieldDesc);
+
+				var defaultParryOdds = gEngine.EnableEnhancedCombat ? "30" : "0";
+
+				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("ParryOdds"), defaultParryOdds));
+
+				var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, defaultParryOdds, null, gEngine.IsCharDigit, null);
+
+				Debug.Assert(gEngine.IsSuccess(rc));
+
+				Record.ParryOdds = Convert.ToInt64(Buf.Trim().ToString());
+
+				if (ValidateField("ParryOdds"))
+				{
+					break;
+				}
+
+				fieldDesc = FieldDesc.Brief;
+			}
+
+			gOut.Print("{0}", gEngine.LineSep);
+		}
+
+		/// <summary></summary>
+		public virtual void InputParryTurns()
+		{
+			var fieldDesc = FieldDesc;
+
+			var parryTurns = Record.ParryTurns;
+
+			while (true)
+			{
+				Buf.SetFormat(EditRec ? "{0}" : "", parryTurns);
+
+				PrintFieldDesc("ParryTurns", EditRec, EditField, fieldDesc);
+
+				var parryCodeTurns = new string[] { "1", "4", "2", "2", "3", "1", "1", "5", "2", "2", "3", "2", "1", "4", "2", "1", "1", "1" };
+
+				var defaultParryTurns = "0";
+
+				if (gEngine.EnableEnhancedCombat)
+				{
+					if ((long)Record.ParryCode >= 0 && (long)Record.ParryCode < parryCodeTurns.Length)
+					{
+						defaultParryTurns = parryCodeTurns[(int)Record.ParryCode];
+					}
+					else
+					{
+						defaultParryTurns = "1";
+					}
+				}
+
+				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("ParryTurns"), defaultParryTurns));
+
+				var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, defaultParryTurns, null, gEngine.IsCharDigit, null);
+
+				Debug.Assert(gEngine.IsSuccess(rc));
+
+				Record.ParryTurns = Convert.ToInt64(Buf.Trim().ToString());
+
+				if (ValidateField("ParryTurns"))
 				{
 					break;
 				}

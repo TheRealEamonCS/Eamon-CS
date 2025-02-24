@@ -977,6 +977,29 @@ namespace EamonRT.Game.Parsing
 			}
 		}
 
+		public virtual void FinishParsingParryCommand()
+		{
+			long i;
+
+			var parryCommand = NextCommand as IParryCommand;
+
+			Debug.Assert(parryCommand != null);
+
+			if (CurrToken < Tokens.Length)
+			{
+				if (long.TryParse(Tokens[CurrToken], out i) && i >= 0 && i <= 100)
+				{
+					parryCommand.Parry = i;
+
+					CurrToken++;
+				}
+				else
+				{
+					ResolveRecord(true, false);
+				}
+			}
+		}
+
 		public virtual void FinishParsingQuitCommand()
 		{
 			gEngine.ShouldPreTurnProcess = false;
@@ -1239,6 +1262,12 @@ namespace EamonRT.Game.Parsing
 				else if (Tokens[CurrToken].Equals("interactivefiction", StringComparison.OrdinalIgnoreCase) && bool.TryParse(Tokens[CurrToken + 1], out boolValue))
 				{
 					settingsCommand.InteractiveFiction = boolValue;
+
+					CurrToken += 2;
+				}
+				else if (gEngine.EnableEnhancedCombat && Tokens[CurrToken].Equals("enhancedcombat", StringComparison.OrdinalIgnoreCase) && bool.TryParse(Tokens[CurrToken + 1], out boolValue))
+				{
+					settingsCommand.EnhancedCombat = boolValue;
 
 					CurrToken += 2;
 				}
@@ -1925,6 +1954,13 @@ namespace EamonRT.Game.Parsing
 						NextState = Activator.CreateInstance(command.GetType()) as IState;
 
 						Debug.Assert(NextCommand != null);
+
+						if (NextCommand is IParryCommand)
+						{
+							NextCommand.IsPlayerEnabled = gGameState.EnhancedCombat;
+
+							NextCommand.IsMonsterEnabled = gGameState.EnhancedCombat;
+						}
 
 						NextCommand.CommandParser = this;
 

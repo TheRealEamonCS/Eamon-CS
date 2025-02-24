@@ -71,6 +71,20 @@ namespace Eamon.Framework
 		/// </summary>
 		CombatCode CombatCode { get; set; }
 
+		/// <summary>
+		/// Gets or sets a value indicating this <see cref="IMonster">Monster</see>'s parrying behavior in combat.
+		/// </summary>
+		ParryCode ParryCode { get; set; }
+
+		/// <summary></summary>
+		long Parry { get; set; }
+
+		/// <summary></summary>
+		long ParryOdds { get; set; }
+
+		/// <summary></summary>
+		long ParryTurns { get; set; }
+
 		/// <summary></summary>
 		long Armor { get; set; }
 
@@ -122,6 +136,9 @@ namespace Eamon.Framework
 		/// Gets or sets the current number of members in this <see cref="IMonster">Monster</see>'s group (will be 1 for individuals).
 		/// </summary>
 		long CurrGroupCount { get; set; }
+
+		/// <summary></summary>
+		long InitParry { get; set; }
 
 		/// <summary></summary>
 		Friendliness Reaction { get; set; }
@@ -343,12 +360,28 @@ namespace Eamon.Framework
 		bool ShouldPreferNaturalWeaponsToWeakerWeapon(IArtifact artifact);
 
 		/// <summary></summary>
+		/// <param name="oldParry"></param>
+		/// <param name="newParry"></param>
+		/// <returns></returns>
+		bool ShouldCombatStanceChangedConsumeTurn(long oldParry, long newParry);
+
+		/// <summary></summary>
+		/// <param name="oldParry"></param>
+		/// <param name="newParry"></param>
+		/// <returns></returns>
+		bool ShouldPrintCombatStanceChanged(long oldParry, long newParry);
+
+		/// <summary></summary>
 		/// <returns></returns>
 		bool CheckNBTLHostility();
 
 		/// <summary></summary>
 		/// <returns></returns>
 		bool CheckCourage();
+
+		/// <summary></summary>
+		/// <returns></returns>
+		bool CheckParryAdjustment();
 
 		/// <summary>
 		/// Evaluates this <see cref="IMonster">Monster</see>'s <see cref="Reaction">Reaction</see>, returning a value of type T.
@@ -429,6 +462,43 @@ namespace Eamon.Framework
 		/// <summary></summary>
 		/// <returns></returns>
 		long GetMaxMemberAttackCount();
+
+		/// <summary></summary>
+		/// <returns></returns>
+		long GetInitParryResetOdds();
+
+		/// <summary></summary>
+		/// <param name="parry"></param>
+		/// <returns></returns>
+		long GetCombatStanceIndex(long parry);
+
+		/// <summary></summary>
+		/// <returns></returns>
+		long GetTrendToPreferredOdds();
+
+		/// <summary></summary>
+		/// <returns></returns>
+		long GetTrendToPreferredRange();
+
+		/// <summary></summary>
+		/// <returns></returns>
+		double GetTrendToPreferredMultiplier();
+
+		/// <summary></summary>
+		/// <returns></returns>
+		long GetCrowdAwareBonus();
+
+		/// <summary></summary>
+		/// <returns></returns>
+		long GetProgressivelyAggressiveModifier();
+
+		/// <summary></summary>
+		/// <returns></returns>
+		bool GetAbilityDependentReady();
+
+		/// <summary></summary>
+		/// <returns></returns>
+		long GetParryAdjustment();
 
 		/// <summary></summary>
 		/// <param name="spell"></param>
@@ -546,6 +616,22 @@ namespace Eamon.Framework
 		/// <param name="enterDirection"></param>
 		/// <returns></returns>
 		string GetEnterRoomDescString(IRoom room, string monsterName, bool isPlural, bool fleeing, Direction enterDirection);
+
+		/// <summary></summary>
+		/// <returns></returns>
+		string GetParryCombatStanceString();
+
+		/// <summary></summary>
+		/// <returns></returns>
+		string GetAssumeCombatStanceString();
+
+		/// <summary></summary>
+		/// <returns></returns>
+		string GetAssumeCombatStanceString01();
+
+		/// <summary></summary>
+		/// <returns></returns>
+		string GetCombatStanceString();
 
 		/// <summary></summary>
 		/// <param name="youString"></param>

@@ -52,6 +52,8 @@ namespace TheDeepCanyon.Game.States
 
 			gGameState.Die = 0;
 
+			charMonster.Parry = charMonster.InitParry;
+
 			charMonster.DmgTaken = 0;
 
 			gEngine.ResetMonsterStats(charMonster);

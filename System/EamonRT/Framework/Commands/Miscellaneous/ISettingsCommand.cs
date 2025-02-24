@@ -27,6 +27,9 @@ namespace EamonRT.Framework.Commands
 		bool? InteractiveFiction { get; set; }
 
 		/// <summary></summary>
+		bool? EnhancedCombat { get; set; }
+
+		/// <summary></summary>
 		bool? EnhancedParser { get; set; }
 
 		/// <summary></summary>

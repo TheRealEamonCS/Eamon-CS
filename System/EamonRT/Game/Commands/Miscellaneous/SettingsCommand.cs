@@ -3,7 +3,10 @@
 
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
+using Eamon.Framework;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
@@ -27,6 +30,8 @@ namespace EamonRT.Game.Commands
 
 		public virtual bool? InteractiveFiction { get; set; } = null;
 
+		public virtual bool? EnhancedCombat { get; set; } = null;
+
 		public virtual bool? EnhancedParser { get; set; } = null;
 
 		public virtual bool? IobjPronounAffinity { get; set; } = null;
@@ -39,9 +44,15 @@ namespace EamonRT.Game.Commands
 
 		public virtual long? PauseCombatActions { get; set; } = null;
 
+		/// <summary></summary>
+		public virtual IList<ICommand> EnhancedCombatCommandList { get; set; }
+
+		/// <summary></summary>
+		public virtual IList<IMonster> ResetMonsterList { get; set; }
+
 		public override void ExecuteForPlayer()
 		{
-			Debug.Assert(VerboseRooms != null || VerboseMonsters != null || VerboseArtifacts != null || VerboseNames != null || MatureContent != null || InteractiveFiction != null || EnhancedParser != null || IobjPronounAffinity != null || ShowPronounChanges != null || ShowFulfillMessages != null || PauseCombatMs != null || PauseCombatActions != null);
+			Debug.Assert(VerboseRooms != null || VerboseMonsters != null || VerboseArtifacts != null || VerboseNames != null || MatureContent != null || InteractiveFiction != null || EnhancedCombat != null || EnhancedParser != null || IobjPronounAffinity != null || ShowPronounChanges != null || ShowFulfillMessages != null || PauseCombatMs != null || PauseCombatActions != null);
 
 			if (VerboseRooms != null)
 			{
@@ -71,6 +82,27 @@ namespace EamonRT.Game.Commands
 			if (InteractiveFiction != null)
 			{
 				gGameState.InteractiveFiction = (bool)InteractiveFiction;
+			}
+
+			if (gEngine.EnableEnhancedCombat && EnhancedCombat != null)
+			{
+				gGameState.EnhancedCombat = (bool)EnhancedCombat;
+
+				EnhancedCombatCommandList = gEngine.CommandList.Where(c => c is IParryCommand).ToList();
+
+				foreach (var command in EnhancedCombatCommandList)
+				{
+					command.IsPlayerEnabled = gGameState.EnhancedCombat;
+
+					command.IsMonsterEnabled = gGameState.EnhancedCombat;
+				}
+
+				ResetMonsterList = gDatabase.MonsterTable.Records.ToList();
+
+				foreach (var monster in ResetMonsterList)
+				{
+					monster.Parry = monster.InitParry;
+				}
 			}
 
 			if (EnhancedParser != null)

@@ -714,6 +714,39 @@ namespace EamonRT.Game.Commands
 			gEngine.PrintHealthImproves(monster);
 		}
 
+		public virtual void PrintAssumeCombatStance(IMonster monster)
+		{
+			Debug.Assert(monster != null);
+
+			var assumeCombatStanceString = monster.GetAssumeCombatStanceString();
+
+			Debug.Assert(!string.IsNullOrWhiteSpace(assumeCombatStanceString));
+
+			gOut.Print("{0}", assumeCombatStanceString);
+		}
+
+		public virtual void PrintAssumeCombatStance01(IMonster monster)
+		{
+			Debug.Assert(monster != null);
+
+			var assumeCombatStanceString = monster.GetAssumeCombatStanceString01();
+
+			Debug.Assert(!string.IsNullOrWhiteSpace(assumeCombatStanceString));
+
+			gOut.Print("{0}", assumeCombatStanceString);
+		}
+
+		public virtual void PrintCombatStance(IMonster monster)
+		{
+			Debug.Assert(monster != null);
+
+			var combatStanceString = monster.GetCombatStanceString();
+
+			Debug.Assert(!string.IsNullOrWhiteSpace(combatStanceString));
+
+			gOut.Print("{0}", combatStanceString);
+		}
+
 		public virtual void PrintHaventSavedGameYet(IMonster monster)
 		{
 			Debug.Assert(monster != null);
@@ -1060,6 +1093,12 @@ namespace EamonRT.Game.Commands
 			gOut.WriteLine("  {0,-22}{1,-22}{2,-22}", "VerboseNames", "True, False", gGameState.Vn);
 			gOut.WriteLine("  {0,-22}{1,-22}{2,-22}", "MatureContent", "True, False", gGameState.MatureContent);
 			gOut.WriteLine("  {0,-22}{1,-22}{2,-22}", "InteractiveFiction", "True, False", gGameState.InteractiveFiction);
+
+			if (gEngine.EnableEnhancedCombat)
+			{
+				gOut.WriteLine("  {0,-22}{1,-22}{2,-22}", "EnhancedCombat", "True, False", gGameState.EnhancedCombat);
+			}
+
 			gOut.WriteLine("  {0,-22}{1,-22}{2,-22}", "EnhancedParser", "True, False", gGameState.EnhancedParser);
 
 			if (gGameState.EnhancedParser)

@@ -40,6 +40,8 @@ namespace TheDeepCanyon.Game.States
 
 					gOut.Print("{0}{1} comes back to life!", Environment.NewLine, room.IsViewable() ? resurrectMonster.GetTheName(true) : "Something");
 
+					resurrectMonster.Parry = resurrectMonster.InitParry;
+
 					resurrectMonster.DmgTaken = 0;
 
 					gEngine.MagicRingLowersMonsterStats(resurrectMonster);

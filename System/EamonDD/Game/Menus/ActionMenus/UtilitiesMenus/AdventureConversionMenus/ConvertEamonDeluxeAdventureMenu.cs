@@ -557,6 +557,8 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 					x.Gender = Gender.Neutral;
 
+					x.InitParry = gEngine.EnableEnhancedCombat ? 50 : 0;
+
 					x.Field1 = edxMonster._md12;
 
 					x.Field2 = edxMonster._md13;

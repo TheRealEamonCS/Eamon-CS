@@ -635,6 +635,21 @@ namespace EamonRT.Game.Commands
 			CommandImpl.PrintHealthImproves(monster);
 		}
 
+		public virtual void PrintAssumeCombatStance(IMonster monster)
+		{
+			CommandImpl.PrintAssumeCombatStance(monster);
+		}
+
+		public virtual void PrintAssumeCombatStance01(IMonster monster)
+		{
+			CommandImpl.PrintAssumeCombatStance01(monster);
+		}
+
+		public virtual void PrintCombatStance(IMonster monster)
+		{
+			CommandImpl.PrintCombatStance(monster);
+		}
+
 		public virtual void PrintHaventSavedGameYet(IMonster monster)
 		{
 			CommandImpl.PrintHaventSavedGameYet(monster);

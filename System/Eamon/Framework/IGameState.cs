@@ -119,6 +119,12 @@ namespace Eamon.Framework
 		bool InteractiveFiction { get; set; }
 
 		/// <summary>
+		/// Gets or sets a value indicating whether the game is using enhanced combat or traditional
+		/// Eamon combat.
+		/// </summary>
+		bool EnhancedCombat { get; set; }
+
+		/// <summary>
 		/// Gets or sets a value indicating whether the game is using an enhanced parser or traditional
 		/// Eamon parser.
 		/// </summary>

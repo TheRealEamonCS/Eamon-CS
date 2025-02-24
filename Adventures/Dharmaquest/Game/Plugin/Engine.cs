@@ -282,8 +282,6 @@ namespace Dharmaquest.Game.Plugin
 		{
 			Debug.Assert(gCharMonster != null);
 
-			Debug.Assert(gCharRoom != null);
-
 			// Curses
 
 			Out.Print("Apollo puts a curse on you for killing his sacred python!");
@@ -294,7 +292,7 @@ namespace Dharmaquest.Game.Plugin
 
 			// Allies become enemies
 
-			var monsterList = GetMonsterList(m => !m.IsCharacterMonster() && m.Reaction == Friendliness.Friend && m.IsInRoom(gCharRoom));
+			var monsterList = GetFriendlyMonsterList(gCharMonster);
 
 			foreach (var monster in monsterList)
 			{

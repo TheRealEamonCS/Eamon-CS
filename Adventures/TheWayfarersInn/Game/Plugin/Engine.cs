@@ -1406,7 +1406,9 @@ namespace TheWayfarersInn.Game.Plugin
 
 		public virtual IList<IMonster> GetCompanionList()
 		{
-			return GetMonsterList(m => !m.IsCharacterMonster() && m.Reaction == Friendliness.Friend && m.IsInRoomUid(GameState.Ro));
+			Debug.Assert(gCharMonster != null);
+			
+			return GetFriendlyMonsterList(gCharMonster);
 		}
 
 		public virtual IRoom GetRandomWayfarersInnRoom(long[] omittedRoomUids)

@@ -131,6 +131,13 @@ namespace EamonRT.Framework.Components
 		void PrintBlowTurned(IMonster monster, bool omitBboaPadding);
 
 		/// <summary></summary>
+		/// <param name="useCurlyBraces"></param>
+		/// <param name="omitBboaPadding"></param>
+		/// <param name="damage"></param>
+		/// <param name="appendNewLine"></param>
+		void PrintBlowDoesDamage(bool useCurlyBraces, bool omitBboaPadding, long damage, bool appendNewLine);
+
+		/// <summary></summary>
 		/// <param name="room"></param>
 		/// <param name="actorMonster"></param>
 		/// <param name="dobjMonster"></param>

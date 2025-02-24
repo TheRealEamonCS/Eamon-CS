@@ -125,6 +125,8 @@ namespace TheVileGrimoireOfJaldial.Game.Commands
 
 					m.SetInLimbo();
 
+					m.Parry = m.InitParry;
+
 					m.DmgTaken = 0;
 				}
 

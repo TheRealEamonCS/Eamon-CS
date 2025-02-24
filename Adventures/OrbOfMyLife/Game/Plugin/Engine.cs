@@ -505,6 +505,8 @@ namespace OrbOfMyLife.Game.Plugin
 
 			monster.Weapon = 0;
 
+			monster.Parry = monster.InitParry;
+
 			monster.DmgTaken = 0;
 
 			monster.SetInRoom(room);
