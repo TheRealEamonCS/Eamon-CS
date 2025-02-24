@@ -832,35 +832,35 @@ namespace EamonRT.Game.Plugin
 		{
 			Debug.Assert(himStr != null);
 
-			Out.Print("{{Changing him:  \"{0}\"}}", himStr);
+			Out.Print("{{Changing him:  \"{0}\".}}", himStr);
 		}
 
 		public virtual void PrintChangingHer(string herStr)
 		{
 			Debug.Assert(herStr != null);
 
-			Out.Print("{{Changing her:  \"{0}\"}}", herStr);
+			Out.Print("{{Changing her:  \"{0}\".}}", herStr);
 		}
 
 		public virtual void PrintChangingIt(string itStr)
 		{
 			Debug.Assert(itStr != null);
 
-			Out.Print("{{Changing it:  \"{0}\"}}", itStr);
+			Out.Print("{{Changing it:  \"{0}\".}}", itStr);
 		}
 
 		public virtual void PrintChangingThem(string themStr)
 		{
 			Debug.Assert(themStr != null);
 
-			Out.Print("{{Changing them:  \"{0}\"}}", themStr);
+			Out.Print("{{Changing them:  \"{0}\".}}", themStr);
 		}
 
 		public virtual void PrintDiscardMessage(string inputStr)
 		{
 			Debug.Assert(inputStr != null);
 
-			Out.Print("{{Discarding:  \"{0}\"}}", inputStr);
+			Out.Print("{{Discarding:  \"{0}\".}}", inputStr);
 		}
 
 		public virtual void PrintGoodsPayment(bool goodsExist, long goldAmount)
@@ -1491,6 +1491,8 @@ namespace EamonRT.Game.Plugin
 
 				x.CurrGroupCount = 1;
 
+				x.InitParry = EnableEnhancedCombat ? 50 : 0;
+
 				x.Reaction = Friendliness.Friend;
 			});
 
@@ -1540,6 +1542,8 @@ namespace EamonRT.Game.Plugin
 				x.Friendliness = (Friendliness)200;
 
 				x.Gender = Character.Gender;
+
+				x.InitParry = EnableEnhancedCombat ? 50 : 0;
 
 				x.Reaction = Friendliness.Friend;
 			});
@@ -2019,6 +2023,8 @@ namespace EamonRT.Game.Plugin
 
 					dobjMonster.CurrGroupCount--;
 
+					// dobjMonster.Parry = dobjMonster.InitParry;
+
 					dobjMonster.DmgTaken = 0;
 
 					if (EnforceMonsterWeightLimits)
@@ -2044,10 +2050,12 @@ namespace EamonRT.Game.Plugin
 					}
 
 					dobjMonster.SetInLimbo();
-
+					
 					dobjMonster.CurrGroupCount = dobjMonster.GroupCount;
 
-					// DobjMonster.ResolveReaction(Character);
+					// dobjMonster.ResolveReaction(Character);
+
+					dobjMonster.Parry = dobjMonster.InitParry;
 
 					dobjMonster.DmgTaken = 0;
 
@@ -3111,22 +3119,6 @@ namespace EamonRT.Game.Plugin
 			return artifactList;
 		}
 
-		public virtual IList<IMonster> GetHostileMonsterList(IMonster monster)
-		{
-			Debug.Assert(monster != null);
-
-			var room = monster.GetInRoom();
-
-			Debug.Assert(room != null);
-
-			var monsterList =
-					monster.Reaction == Friendliness.Friend ? GetMonsterList(m => m.Reaction == Friendliness.Enemy && m.IsInRoom(room) && m.IsAttackable(monster)) :
-					monster.Reaction == Friendliness.Enemy ? GetMonsterList(m => m.Reaction == Friendliness.Friend && m.IsInRoom(room) && m.IsAttackable(monster)) :
-					new List<IMonster>();
-
-			return monsterList;
-		}
-
 		public virtual IList<IMonster> GetEmotingMonsterList(IRoom room, IMonster monster, bool friendSmile = true)
 		{
 			Debug.Assert(room != null && monster != null);
@@ -3492,6 +3484,8 @@ namespace EamonRT.Game.Plugin
 				{
 					monster.SetInRoom(room);
 
+					monster.Parry = monster.InitParry;
+
 					monster.DmgTaken = 0;
 
 					artifact.SetInLimbo();
@@ -3738,7 +3732,7 @@ namespace EamonRT.Game.Plugin
 
 				combatComponent.ExecuteCalculateDamage(dice, 1);
 
-				if (gGameState.Die > 0)
+				if (GameState.Die > 0)
 				{
 					gotoCleanup = true;
 
@@ -4020,7 +4014,34 @@ namespace EamonRT.Game.Plugin
 				odds = (long)Math.Round((double)odds + ((double)d / 4.0));
 			}
 
-			oddsToHit = odds;
+			if (GameState != null && GameState.EnhancedCombat)
+			{
+				/*
+					This formula results in a smooth progression from ParrySetting 0 to 100.
+
+					Original formula:  
+					
+						ParryMod = ModMax - (ParrySetting / 100) * (ModMax - ModMin)
+
+					This formula: 
+				
+						ParryMod = 1.60 - (ParrySetting / 100) * (1.60 - 0.40)
+						ParryMod = 1.60 - (ParrySetting / 100) * 1.20
+						ParryMod = 1.60 - (ParrySetting * 0.012)
+
+					ParrySetting =   0 => ParryMod = 1.6 (max offense)
+					ParrySetting =  50 => ParryMod = 1.0 (neutral)
+					ParrySetting = 100 => ParryMod = 0.4 (max defense)
+				*/
+
+				var actorParryMod = 1.60 - ((double)actorMonster.Parry * 0.012);
+
+				var dobjParryMod = 1.60 - ((double)dobjMonster.Parry * 0.012);
+
+				odds = (long)Math.Round((double)odds * actorParryMod * dobjParryMod);
+			}
+
+			oddsToHit = Math.Max(5, odds);
 		}
 
 		public virtual void CreateInitialState(bool printLineSep)

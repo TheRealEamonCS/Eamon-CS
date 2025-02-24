@@ -476,7 +476,7 @@ namespace TheVileGrimoireOfJaldial.Game.Components
 
 			if (_d2 > 0 && gGameState.ShowCombatDamage && room.IsViewable())
 			{
-				gOut.Write("{0}{1}Blow does {2} point{3} of damage.{4}", Environment.NewLine, OmitBboaPadding ? "" : "  ", _d2, _d2 != 1 ? "s" : "", BlastSpell || CrossbowTrap ? Environment.NewLine : "");
+				PrintBlowDoesDamage(false, OmitBboaPadding, _d2, BlastSpell || CrossbowTrap);
 			}
 
 			base.CheckMonsterStatus();

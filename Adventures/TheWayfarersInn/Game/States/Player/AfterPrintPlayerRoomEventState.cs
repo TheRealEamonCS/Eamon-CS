@@ -382,6 +382,8 @@ namespace TheWayfarersInn.Game.States
 
 						gEngine.PrintEffectDesc(gCharRoom.Uid == 24 ? 140 : 141);
 
+						hearthwatcherMonster.Parry = hearthwatcherMonster.InitParry;
+
 						hearthwatcherMonster.DmgTaken = 0;
 
 						hearthwatcherMonster.SetInLimbo();

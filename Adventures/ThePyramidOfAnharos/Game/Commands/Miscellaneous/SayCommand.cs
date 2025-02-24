@@ -74,7 +74,7 @@ namespace ThePyramidOfAnharos.Game.Commands
 
 					// Friendlies also ride the flying carpet
 
-					var monsterList = gEngine.GetMonsterList(m => !m.IsCharacterMonster() && m.Reaction == Friendliness.Friend && m.IsInRoom(ActorRoom));
+					var monsterList = gEngine.GetFriendlyMonsterList(ActorMonster);
 
 					foreach (var monster in monsterList)
 					{

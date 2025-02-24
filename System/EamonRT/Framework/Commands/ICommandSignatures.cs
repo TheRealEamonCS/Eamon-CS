@@ -360,6 +360,18 @@ namespace EamonRT.Framework.Commands
 
 		/// <summary></summary>
 		/// <param name="monster"></param>
+		void PrintAssumeCombatStance(IMonster monster);
+
+		/// <summary></summary>
+		/// <param name="monster"></param>
+		void PrintAssumeCombatStance01(IMonster monster);
+
+		/// <summary></summary>
+		/// <param name="monster"></param>
+		void PrintCombatStance(IMonster monster);
+
+		/// <summary></summary>
+		/// <param name="monster"></param>
 		void PrintHaventSavedGameYet(IMonster monster);
 
 		/// <summary></summary>

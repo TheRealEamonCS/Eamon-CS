@@ -207,6 +207,13 @@ namespace Eamon.Game.Helpers
 
 		/// <summary></summary>
 		/// <returns></returns>
+		public virtual bool ValidateEnhancedCombat()
+		{
+			return gEngine.EnableEnhancedCombat || !Record.EnhancedCombat;
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
 		public virtual bool ValidateCurrTurn()
 		{
 			return Record.CurrTurn >= 0;

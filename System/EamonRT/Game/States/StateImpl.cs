@@ -104,7 +104,7 @@ namespace EamonRT.Game.States
 		{
 			Debug.Assert(inputStr != null);
 
-			gOut.Print("{{Fulfilling:  \"{0}\"}}", inputStr);
+			gOut.Print("{{Fulfilling:  \"{0}\".}}", inputStr);
 		}
 
 		public virtual void PrintDontFollowYou()

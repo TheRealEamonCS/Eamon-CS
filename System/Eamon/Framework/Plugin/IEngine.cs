@@ -612,6 +612,9 @@ namespace Eamon.Framework.Plugin
 		/// <summary></summary>
 		bool EnableCommandHistory { get; set; }
 
+		/// <summary></summary>
+		bool EnableEnhancedCombat { get; set; }
+
 		/// <summary>
 		/// Gets or sets a value indicating whether the <see cref="Mutex">Mutex</see> should be ignored, allowing unlimited Eamon CS processes
 		/// to run simultaneously.
@@ -1050,6 +1053,20 @@ namespace Eamon.Framework.Plugin
 		/// <param name="combatCode"></param>
 		/// <returns></returns>
 		string GetCombatCodeDesc(CombatCode combatCode);
+
+		/// <summary>
+		/// Gets the description for a given <see cref="ParryCode"/>.
+		/// </summary>
+		/// <param name="index"></param>
+		/// <returns></returns>
+		string GetParryCodeDesc(long index);
+
+		/// <summary>
+		/// Gets the description for a given <see cref="ParryCode"/>.
+		/// </summary>
+		/// <param name="parryCode"></param>
+		/// <returns></returns>
+		string GetParryCodeDesc(ParryCode parryCode);
 
 		/// <summary></summary>
 		/// <param name="index"></param>
@@ -1863,6 +1880,16 @@ namespace Eamon.Framework.Plugin
 		/// <param name="whereClauseFuncs"></param>
 		/// <returns></returns>
 		IList<IGameBase> GetRecordList(params Func<IGameBase, bool>[] whereClauseFuncs);
+
+		/// <summary></summary>
+		/// <param name="monster"></param>
+		/// <returns></returns>
+		IList<IMonster> GetFriendlyMonsterList(IMonster monster);
+
+		/// <summary></summary>
+		/// <param name="monster"></param>
+		/// <returns></returns>
+		IList<IMonster> GetHostileMonsterList(IMonster monster);
 
 		/// <summary></summary>
 		/// <param name="artifactList"></param>

@@ -91,6 +91,18 @@ namespace Eamon.Game
 		[FieldName(740)]
 		public virtual CombatCode CombatCode { get; set; }
 
+		[FieldName(744)]
+		public virtual ParryCode ParryCode { get; set; }
+
+		[FieldName(748)]
+		public virtual long Parry { get; set; }
+
+		[FieldName(754)]
+		public virtual long ParryOdds { get; set; }
+
+		[FieldName(758)]
+		public virtual long ParryTurns { get; set; }
+
 		[FieldName(760)]
 		public virtual long Armor { get; set; }
 
@@ -117,6 +129,9 @@ namespace Eamon.Game
 
 		[FieldName(920)]
 		public virtual long CurrGroupCount { get; set; }
+
+		[FieldName(930)]
+		public virtual long InitParry { get; set; }
 
 		[FieldName(940)]
 		public virtual Friendliness Reaction { get; set; }
@@ -678,6 +693,20 @@ namespace Eamon.Game
 			return true;
 		}
 
+		public virtual bool ShouldCombatStanceChangedConsumeTurn(long oldParry, long newParry)
+		{
+			var result = false;
+
+			result = GetCombatStanceIndex(oldParry) != GetCombatStanceIndex(newParry);
+
+			return result;
+		}
+
+		public virtual bool ShouldPrintCombatStanceChanged(long oldParry, long newParry)
+		{
+			return ShouldCombatStanceChangedConsumeTurn(oldParry, newParry);
+		}
+
 		public virtual bool CheckNBTLHostility()
 		{
 			var gameState = gEngine.GetGameState();
@@ -711,6 +740,29 @@ namespace Eamon.Game
 				var rl = gEngine.RollDice(1, 100, s * 5);
 
 				result = rl <= Courage;           // Courage >= 100 ||
+			}
+
+			return result;
+		}
+
+		public virtual bool CheckParryAdjustment()
+		{
+			var result = false;
+
+			var gameState = gEngine.GetGameState();
+
+			if (gameState != null && gameState.EnhancedCombat && ParryCode != ParryCode.NeverVaries && gameState.CurrTurn % ParryTurns == 0)
+			{
+				var initParryResetOdds = GetInitParryResetOdds();
+
+				var odds = CheckNBTLHostility() ? ParryOdds : Math.Min(initParryResetOdds, ParryOdds);
+
+				var rl = gEngine.RollDice(1, 100, 0);
+
+				if (rl <= odds)
+				{
+					result = true;
+				}
 			}
 
 			return result;
@@ -862,6 +914,268 @@ namespace Eamon.Game
 		public virtual long GetMaxMemberAttackCount()
 		{
 			return 25;
+		}
+
+		public virtual long GetInitParryResetOdds()
+		{
+			return 30;
+		}
+
+		public virtual long GetCombatStanceIndex(long parry)
+		{
+			Debug.Assert(parry >= 0 && parry <= 100);
+
+			return parry <= 20 ? 0 :
+				parry >= 21 && parry <= 40 ? 1 :
+				parry >= 41 && parry <= 60 ? 2 :
+				parry >= 61 && parry <= 80 ? 3 :
+				4;
+		}
+
+		public virtual long GetTrendToPreferredOdds()
+		{
+			return 20;
+		}
+
+		public virtual long GetTrendToPreferredRange()
+		{
+			return 20;
+		}
+
+		public virtual double GetTrendToPreferredMultiplier()
+		{
+			return 0.30;
+		}
+
+		public virtual long GetCrowdAwareBonus()
+		{
+			return 10;
+		}
+
+		public virtual long GetProgressivelyAggressiveModifier()
+		{
+			return 5;
+		}
+
+		public virtual bool GetAbilityDependentReady()
+		{
+			return true;
+		}
+
+		public virtual long GetParryAdjustment()
+		{
+			var result = InitParry;
+
+			var gameState = gEngine.GetGameState();
+
+			var charMonster = gameState != null ? gMDB[gameState.Cm] : null;
+
+			var healthPercent = (double)DmgTaken / (double)Hardiness;
+
+			if (gameState == null || !gameState.EnhancedCombat || ParryCode == ParryCode.NeverVaries || !CheckNBTLHostility())
+			{
+				goto Cleanup;
+			}
+
+			switch (ParryCode)
+			{
+				case ParryCode.Random:
+
+					result = gEngine.RollDice(1, 101, -1);
+
+					break;
+
+				case ParryCode.OffenseToDefense:
+
+					result = (long)Math.Max(InitParry, Math.Round(100 * healthPercent));
+
+					break;
+
+				case ParryCode.DefenseToOffense:
+
+					result = (long)Math.Min(InitParry, Math.Round(100 * (1.0 - healthPercent)));
+
+					break;
+
+				case ParryCode.TrendToPreferred:
+				{
+					var odds = GetTrendToPreferredOdds();
+
+					Debug.Assert(odds > 0 && odds < 100);
+
+					var range = GetTrendToPreferredRange();
+
+					Debug.Assert(range > 0 && range < 100);
+
+					var multiplier = GetTrendToPreferredMultiplier();
+
+					Debug.Assert(multiplier > 0.0 && multiplier < 1.0);
+
+					var rl = gEngine.RollDice(1, 100, 0);
+
+					if (rl > odds)
+					{
+						var distanceToPreferred = (double)(InitParry - Parry);
+
+						var adjustment = (long)Math.Round(distanceToPreferred * multiplier);
+
+						if (adjustment == 0)
+						{
+							if (Parry > InitParry)
+							{
+								adjustment = -1;
+							}
+							else if (Parry < InitParry)
+							{
+								adjustment = 1;
+							}
+						}
+
+						result = Parry + adjustment;
+					}
+					else
+					{
+						var minParry = Math.Max(0, Parry - range);
+
+						var maxParry = Math.Min(100, Parry + range);
+
+						result = gEngine.RollDice(1, maxParry - minParry + 1, minParry - 1);
+					}
+
+					result = result.Clamp(0, 100);
+					
+					break;
+				}
+
+				case ParryCode.MirrorPlayer:
+
+					if (charMonster != null && Uid != charMonster.Uid && charMonster.IsInRoomUid(Location))
+					{
+						result = charMonster.Parry;
+					}
+
+					break;
+
+				case ParryCode.CounterPlayer:
+
+					if (charMonster != null && Uid != charMonster.Uid && charMonster.IsInRoomUid(Location))
+					{
+						result = 100 - charMonster.Parry;
+					}
+
+					break;
+
+				case ParryCode.Alternating:
+
+					result = 100 - Parry;
+
+					break;
+
+				case ParryCode.CrowdAware:
+				{
+					var bonus = GetCrowdAwareBonus();
+
+					Debug.Assert(bonus > 0 && bonus < 100);
+
+					var monsterList = gEngine.GetHostileMonsterList(this);
+
+					var monsterCount = monsterList.Count() - 1;
+
+					if (monsterCount > 0)
+					{
+						result = Math.Min(100, InitParry + (monsterCount * bonus));
+					}
+
+					break;
+				}
+
+				case ParryCode.RangeDependent:
+
+					// TODO: implement
+
+					break;
+
+				case ParryCode.ProgressivelyAggressive:
+
+					var modifier = GetProgressivelyAggressiveModifier();
+
+					Debug.Assert(modifier > 0 && modifier < 100);
+
+					result = Math.Max(0, Parry - modifier);
+
+					break;
+
+				case ParryCode.CoordinatedTeam:
+				{
+					var monsterList = gEngine.GetFriendlyMonsterList(this);
+
+					var monsterCount = monsterList.Count();
+
+					if (monsterCount > 0)
+					{
+							var averageParry = (long)Math.Round(monsterList.Average(m => m.Parry));
+
+							result = Math.Min(100, Math.Max(0, 100 - averageParry));
+					}
+
+					break;
+				}
+
+				case ParryCode.AbilityDependent:
+				{
+					var ready = GetAbilityDependentReady();
+
+					result = ready ? InitParry : 100 - InitParry;
+
+					break;
+				}
+
+				case ParryCode.EnvironmentDependent:
+
+					// TODO: implement
+
+					break;
+
+				case ParryCode.PackMentality:
+				{
+					var monsterList = gEngine.GetFriendlyMonsterList(this).Where(m => m.Hardiness > Hardiness).OrderByDescending(m => m.Hardiness).ToList();
+
+					var monsterCount = monsterList.Count();
+
+					if (monsterCount > 0)
+					{
+						var alphaMonster = monsterList[0];
+
+						Debug.Assert(alphaMonster != null);
+
+						result = alphaMonster.Parry;
+					}
+
+					break;
+				}
+
+				case ParryCode.User1:
+
+				case ParryCode.User2:
+
+				case ParryCode.User3:
+
+					// Do nothing
+
+					break;
+
+				default:
+
+					Debug.Assert(1 == 0);
+
+					break;
+			}
+
+		Cleanup:
+
+			result = result.Clamp(0, 100);
+
+			return result;
 		}
 
 		public virtual IMonsterSpell GetMonsterSpell(Enums.Spell spell)
@@ -1290,6 +1604,64 @@ namespace Eamon.Game
 			return result;
 		}
 
+		public virtual string GetParryCombatStanceString()
+		{
+			var combatStanceStrings = new string[] { "frenzied", "offensive", "neutral", "defensive", "fortified" };
+
+			var index = GetCombatStanceIndex(Parry);
+
+			Debug.Assert(index >= 0 && index < combatStanceStrings.Length);
+
+			var result = combatStanceStrings[index];
+
+			return result;
+		}
+
+		public virtual string GetAssumeCombatStanceString()
+		{
+			string result;
+
+			var vowels = new char[] { 'a', 'e', 'i', 'o', 'u' };
+
+			var combatStanceString = GetParryCombatStanceString();
+
+			result = string.Format("{0} assume{1} {2} combat stance.",
+				IsCharacterMonster() ? "You" : GetTheName(true),
+				IsCharacterMonster() ? "" : EvalPlural("s", ""),
+				(vowels.Contains(combatStanceString.ToLower()[0]) ? "an " : "a ") + combatStanceString);
+
+			return result;
+		}
+
+		public virtual string GetAssumeCombatStanceString01()
+		{
+			string result;
+
+			result = string.Format("{0} assume{1} a different combat stance.",
+				EvalPlural("An unseen entity", "Some unseen entities"),
+				EvalPlural("s", ""));
+
+			return result;
+		}
+
+		public virtual string GetCombatStanceString()
+		{
+			string result;
+
+			var vowels = new char[] { 'a', 'e', 'i', 'o', 'u' };
+
+			var combatStanceString = GetParryCombatStanceString();
+
+			var parryString = IsCharacterMonster() ? string.Format(" (Parry {0}%)", Parry) : "";
+
+			result = string.Format("{0} {1} combat stance{2}.",
+				IsCharacterMonster() ? "You maintain" : GetTheName(true) + EvalPlural(" maintains", " maintain"),
+				(vowels.Contains(combatStanceString.ToLower()[0]) ? "an " : "a ") + combatStanceString,
+				parryString);
+
+			return result;
+		}
+
 		public virtual string GetPovString(string youString, string maleString, string femaleString, string neutralString, string groupString)
 		{
 			Debug.Assert(youString != null && maleString != null && femaleString != null && neutralString != null);
@@ -1304,6 +1676,17 @@ namespace Eamon.Game
 		public Monster()
 		{
 			StateDesc = "";
+
+			if (gEngine != null && gEngine.EnableEnhancedCombat)
+			{
+				Parry = 50;
+
+				ParryOdds = 30;
+
+				ParryTurns = 1;
+			}
+
+			InitParry = -1;
 		}
 
 		#endregion

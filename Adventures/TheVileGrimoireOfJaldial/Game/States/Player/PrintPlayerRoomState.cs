@@ -305,6 +305,8 @@ namespace TheVileGrimoireOfJaldial.Game.States
 
 								monster.CurrGroupCount = monster.GroupCount;
 
+								monster.Parry = monster.InitParry;
+
 								monster.DmgTaken = 0;
 
 								monster.SetInRoom(room);

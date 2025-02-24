@@ -265,6 +265,10 @@ namespace StrongholdOfKahrDur.Game.Plugin
 
 				monster.CurrGroupCount = 1;
 
+				// Reset parry to initial
+
+				monster.Parry = monster.InitParry;
+
 				// Reset to 0 damage taken
 
 				monster.DmgTaken = 0;

@@ -223,6 +223,20 @@ namespace EamonRT.Game.Components
 			}
 		}
 
+		public virtual void PrintBlowDoesDamage(bool useCurlyBraces, bool omitBboaPadding, long damage, bool appendNewLine)
+		{
+			Debug.Assert(damage >= 0);
+
+			gOut.Write("{0}{1}{2}Blow does {3} point{4} of damage.{5}{6}", 
+				Environment.NewLine, 
+				omitBboaPadding ? "" : "  ", 
+				useCurlyBraces ? "{" : "", 
+				damage, 
+				damage != 1 ? "s" : "", 
+				useCurlyBraces ? "}" : "", 
+				appendNewLine ? Environment.NewLine : "");
+		}
+
 		public virtual void PrintHealthStatus(IRoom room, IMonster actorMonster, IMonster dobjMonster, bool blastSpell, bool nonCombat)
 		{
 			Debug.Assert(room != null && dobjMonster != null);

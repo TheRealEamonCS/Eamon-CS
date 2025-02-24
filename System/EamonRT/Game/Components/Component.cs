@@ -251,6 +251,11 @@ namespace EamonRT.Game.Components
 			ComponentImpl.PrintBlowTurned(monster, omitBboaPadding);
 		}
 
+		public virtual void PrintBlowDoesDamage(bool useCurlyBraces, bool omitBboaPadding, long damage, bool appendNewLine)
+		{
+			ComponentImpl.PrintBlowDoesDamage(useCurlyBraces, omitBboaPadding, damage, appendNewLine);
+		}
+
 		public virtual void PrintHealthStatus(IRoom room, IMonster actorMonster, IMonster dobjMonster, bool blastSpell, bool nonCombat)
 		{
 			ComponentImpl.PrintHealthStatus(room, actorMonster, dobjMonster, blastSpell, nonCombat);

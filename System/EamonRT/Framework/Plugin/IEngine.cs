@@ -635,6 +635,7 @@ namespace EamonRT.Framework.Plugin
 
 		/// <summary></summary>
 		/// <param name="monster"></param>
+		/// <returns></returns>
 		string GetMonsterWeaponName(IMonster monster);
 
 		/// <summary></summary>
@@ -733,11 +734,6 @@ namespace EamonRT.Framework.Plugin
 		/// <param name="monster"></param>
 		/// <returns></returns>
 		IList<IArtifact> GetReadyableWeaponList(IMonster monster);
-
-		/// <summary></summary>
-		/// <param name="monster"></param>
-		/// <returns></returns>
-		IList<IMonster> GetHostileMonsterList(IMonster monster);
 
 		/// <summary></summary>
 		/// <param name="room"></param>

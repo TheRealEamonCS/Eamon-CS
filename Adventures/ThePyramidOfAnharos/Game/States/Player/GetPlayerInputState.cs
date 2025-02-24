@@ -359,7 +359,7 @@ namespace ThePyramidOfAnharos.Game.States
 
 				if (room.IsViewable() || (gEngine.LastCommand != null && gEngine.LastCommand.IsDarkEnabled))
 				{
-					var monsterList = gEngine.GetMonsterList(m => !m.IsCharacterMonster() && m.Reaction == Friendliness.Friend && m.IsInRoom(room));
+					var monsterList = gEngine.GetFriendlyMonsterList(gCharMonster);
 
 					gGameState.KW -= monsterList.Count;
 

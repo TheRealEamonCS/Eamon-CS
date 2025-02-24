@@ -85,6 +85,8 @@ namespace TheTrainingGround.Game.States
 
 								if (summonedMonster.IsInLimbo())
 								{
+									summonedMonster.Parry = summonedMonster.InitParry;
+
 									summonedMonster.DmgTaken = 0;
 								}
 

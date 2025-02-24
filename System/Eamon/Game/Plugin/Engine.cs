@@ -257,6 +257,8 @@ namespace Eamon.Game.Plugin
 
 		public virtual bool EnableCommandHistory { get; set; }
 
+		public virtual bool EnableEnhancedCombat { get; set; }
+
 		public virtual bool IgnoreMutex { get; set; }
 
 		public virtual bool DisableValidation { get; set; }
@@ -356,6 +358,11 @@ namespace Eamon.Game.Plugin
 		/// Gets or sets an array containing the description for each <see cref="CombatCode"/>.
 		/// </summary>
 		public virtual string[] CombatCodeDescs { get; set; }
+
+		/// <summary>
+		/// Gets or sets an array containing the description for each <see cref="ParryCode"/>.
+		/// </summary>
+		public virtual string[] ParryCodeDescs { get; set; }
 
 		/// <summary></summary>
 		public virtual string[] ContainerDisplayCodeDescs { get; set; }
@@ -2559,6 +2566,16 @@ namespace Eamon.Game.Plugin
 		public virtual string GetCombatCodeDesc(CombatCode combatCode)
 		{
 			return Enum.IsDefined(typeof(CombatCode), combatCode) ? GetCombatCodeDesc((long)combatCode + 2) : UnknownName;
+		}
+
+		public virtual string GetParryCodeDesc(long index)
+		{
+			return ParryCodeDescs[index];
+		}
+
+		public virtual string GetParryCodeDesc(ParryCode parryCode)
+		{
+			return Enum.IsDefined(typeof(ParryCode), parryCode) ? GetParryCodeDesc((long)parryCode) : UnknownName;
 		}
 
 		public virtual string GetContainerDisplayCodeDesc(long index)
@@ -4778,6 +4795,32 @@ namespace Eamon.Game.Plugin
 			return recordList;
 		}
 
+		public virtual IList<IMonster> GetFriendlyMonsterList(IMonster monster)
+		{
+			Debug.Assert(monster != null);
+
+			var room = monster.GetInRoom();
+
+			Debug.Assert(room != null);
+
+			var monsterList = GetMonsterList(m => m.Uid != monster.Uid && m.Reaction == monster.EvalReaction(Friendliness.Enemy, (Friendliness)(-1), Friendliness.Friend) && m.IsInRoom(room));
+
+			return monsterList;
+		}
+
+		public virtual IList<IMonster> GetHostileMonsterList(IMonster monster)
+		{
+			Debug.Assert(monster != null);
+
+			var room = monster.GetInRoom();
+
+			Debug.Assert(room != null);
+
+			var monsterList = GetMonsterList(m => m.Reaction == monster.EvalReaction(Friendliness.Friend, (Friendliness)(-1), Friendliness.Enemy) && m.IsInRoom(room) && m.IsAttackable(monster));
+
+			return monsterList;
+		}
+
 		public virtual IArtifact GetNthArtifact(IList<IArtifact> artifactList, long which, Func<IArtifact, bool> whereClauseFunc)
 		{
 			Debug.Assert(artifactList != null);
@@ -5068,6 +5111,28 @@ namespace Eamon.Game.Plugin
 				"Normal",
 				"Uses 'attacks' only (W)",			// "'ATTACKS' only" (Weapons)
 				"Uses 'attacks' only (NW)"			// "'ATTACKS' only" (NaturalWeapons)
+			};
+
+			ParryCodeDescs = new string[]
+			{
+				"Never varies",
+				"Random",
+				"Offense to defense",
+				"Defense to offense",
+				"Trend to preferred",
+				"Mirror player",
+				"Counter player",
+				"Alternating",
+				"Crowd aware",
+				"Range dependent",
+				"Progressively aggressive",
+				"Coordinated team",
+				"Ability dependent",
+				"Environment dependent",
+				"Pack mentality",
+				"User Defined #1",
+				"User Defined #2",
+				"User Defined #3"
 			};
 
 			ContainerDisplayCodeDescs = new string[]

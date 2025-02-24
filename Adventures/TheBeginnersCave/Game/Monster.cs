@@ -62,6 +62,20 @@ namespace TheBeginnersCave.Game
 			return !gEngine.IsRulesetVersion(5, 62) && (Reaction == Friendliness.Enemy || (Reaction == Friendliness.Neutral && artifact.Value < 3000));
 		}
 
+		public override bool ShouldCombatStanceChangedConsumeTurn(long oldParry, long newParry)
+		{
+			// Pirate
+
+			return Uid != 8 ? base.ShouldCombatStanceChangedConsumeTurn(oldParry, newParry) : false;
+		}
+
+		public override bool ShouldPrintCombatStanceChanged(long oldParry, long newParry)
+		{
+			// Pirate
+
+			return Uid != 8 ? base.ShouldPrintCombatStanceChanged(oldParry, newParry) : true;
+		}
+
 		public override void AddHealthStatus(StringBuilder buf, bool appendNewLine = true)
 		{
 			string result = null;
@@ -137,6 +151,20 @@ namespace TheBeginnersCave.Game
 		Cleanup:
 
 			;
+		}
+
+		public override string GetParryCombatStanceString()
+		{
+			// Pirate
+
+			if (Uid == 8)
+			{
+				return Parry > 50 ? "neutral (defensive)" : "neutral (offensive)";
+			}
+			else
+			{
+				return base.GetParryCombatStanceString();
+			}
 		}
 	}
 }

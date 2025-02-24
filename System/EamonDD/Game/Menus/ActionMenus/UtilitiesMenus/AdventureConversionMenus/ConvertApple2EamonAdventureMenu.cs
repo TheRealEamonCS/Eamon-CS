@@ -757,6 +757,8 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 					x.Gender = Gender.Neutral;
 
+					x.InitParry = gEngine.EnableEnhancedCombat ? 50 : 0;
+
 					if (string.IsNullOrWhiteSpace(a2eAdv._ver) || !a2eAdv._ver.StartsWith("7"))
 					{
 						x.Field1 = a2eMonster._md7;
