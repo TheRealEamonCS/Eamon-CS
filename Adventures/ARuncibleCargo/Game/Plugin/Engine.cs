@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
+using System.Text;
 using Eamon;
 using Eamon.Framework;
 using Eamon.Framework.Primitive.Classes;
@@ -17,6 +18,10 @@ namespace ARuncibleCargo.Game.Plugin
 {
 	public class Engine : EamonRT.Game.Plugin.Engine, Framework.Plugin.IEngine
 	{
+		StringBuilder Framework.Plugin.IEngine.Buf { get; set; }
+
+		StringBuilder Framework.Plugin.IEngine.Buf01 { get; set; }
+
 		public virtual string SnapshotFileName { get; protected set; } = "SNAPSHOT_001.DAT";
 
 		public virtual IList<IArtifactLinkage> DoubleDoorList { get; set; }
@@ -279,6 +284,10 @@ namespace ARuncibleCargo.Game.Plugin
 
 		public Engine()
 		{
+			((Framework.Plugin.IEngine)this).Buf = new StringBuilder(BufSize);
+
+			((Framework.Plugin.IEngine)this).Buf01 = new StringBuilder(BufSize);
+
 			PoundCharPolicy = PoundCharPolicy.PlayerArtifactsOnly;
 		}
 	}

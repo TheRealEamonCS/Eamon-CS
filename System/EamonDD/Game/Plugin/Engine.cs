@@ -3,20 +3,27 @@
 
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
+using System;
+using System.Reflection;
+using System.Text;
 using Eamon;
 using Eamon.Framework;
 using Eamon.Framework.Menus;
 using Eamon.Framework.Primitive.Enums;
 using EamonDD.Framework.Menus;
 using EamonDD.Framework.Plugin;
-using System;
-using System.Reflection;
 //using static EamonDD.Game.Plugin.Globals;
 
 namespace EamonDD.Game.Plugin
 {
 	public class Engine : Eamon.Game.Plugin.Engine, IEngine
 	{
+		#region Explicit Properties
+
+		StringBuilder IEngine.Buf { get; set; }
+
+		#endregion
+
 		#region Public Properties
 
 		public virtual string[] Argv { get; set; }
@@ -346,7 +353,7 @@ namespace EamonDD.Game.Plugin
 
 		public Engine()
 		{
-
+			((IEngine)this).Buf = new StringBuilder(BufSize);
 		}
 	}
 }

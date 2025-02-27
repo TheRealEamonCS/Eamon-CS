@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
+using System.Text;
 using Eamon;
 using Eamon.Framework;
 using Eamon.Framework.Primitive.Classes;
@@ -17,6 +18,10 @@ namespace BeginnersForest.Game.Plugin
 {
 	public class Engine : EamonRT.Game.Plugin.Engine, Framework.Plugin.IEngine
 	{
+		StringBuilder Framework.Plugin.IEngine.Buf { get; set; }
+
+		StringBuilder Framework.Plugin.IEngine.Buf01 { get; set; }
+
 		/// <summary></summary>
 		public virtual long HeldWpnIdx { get; set; }
 
@@ -197,6 +202,13 @@ namespace BeginnersForest.Game.Plugin
 			{
 				base.MonsterDies(actorMonster, dobjMonster);
 			}
+		}
+
+		public Engine()
+		{
+			((Framework.Plugin.IEngine)this).Buf = new StringBuilder(BufSize);
+
+			((Framework.Plugin.IEngine)this).Buf01 = new StringBuilder(BufSize);
 		}
 	}
 }

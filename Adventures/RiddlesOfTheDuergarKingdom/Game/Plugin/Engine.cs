@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using Eamon;
 using Eamon.Framework;
 using Eamon.Framework.Primitive.Enums;
@@ -16,6 +17,10 @@ namespace RiddlesOfTheDuergarKingdom.Game.Plugin
 {
 	public class Engine : EamonRT.Game.Plugin.Engine, Framework.Plugin.IEngine
 	{
+		StringBuilder Framework.Plugin.IEngine.Buf { get; set; }
+
+		StringBuilder Framework.Plugin.IEngine.Buf01 { get; set; }
+
 		public virtual long PoisonInjuryTurns { get; protected set; } = 7;
 
 		public virtual long IbexAbandonTurns { get; protected set; } = 15;
@@ -128,7 +133,7 @@ namespace RiddlesOfTheDuergarKingdom.Game.Plugin
 
 				Debug.Assert(goldNuggetsArtifact != null);
 
-				return GetStringFromNumber(goldNuggetsArtifact.Value / 2, false, Buf01);
+				return GetStringFromNumber(goldNuggetsArtifact.Value / 2, false, gEngine.Buf01);
 			});
 
 			var synonyms = new Dictionary<long, string[]>()
@@ -564,6 +569,10 @@ namespace RiddlesOfTheDuergarKingdom.Game.Plugin
 
 		public Engine()
 		{
+			((Framework.Plugin.IEngine)this).Buf = new StringBuilder(BufSize);
+
+			((Framework.Plugin.IEngine)this).Buf01 = new StringBuilder(BufSize);
+
 			ArchaeologyDepartmentMonsterUids = new long[] { 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
 
 			ArchaeologyDepartmentStartRoomUids = new long[] { 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 35, 129, 130, 131, 132, 133, 155 };

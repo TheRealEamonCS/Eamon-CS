@@ -3,6 +3,7 @@
 
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
+using System.Text;
 using Eamon.Framework;
 using Eamon.Framework.Menus;
 using Eamon.Framework.Primitive.Classes;
@@ -13,6 +14,13 @@ namespace EamonMH.Framework.Plugin
 	/// <inheritdoc />
 	public interface IEngine : Eamon.Framework.Plugin.IEngine
 	{
+		#region Explicit Properties
+
+		/// <summary></summary>
+		new StringBuilder Buf { get; set; }
+
+		#endregion
+
 		#region Public Properties
 
 		/// <summary></summary>

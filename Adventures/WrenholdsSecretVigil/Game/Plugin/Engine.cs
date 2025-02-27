@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
+using System.Text;
 using Eamon;
 using Eamon.Framework;
 using Eamon.Framework.Primitive.Enums;
@@ -16,6 +17,10 @@ namespace WrenholdsSecretVigil.Game.Plugin
 {
 	public class Engine : EamonRT.Game.Plugin.Engine, Framework.Plugin.IEngine
 	{
+		StringBuilder Framework.Plugin.IEngine.Buf { get; set; }
+
+		StringBuilder Framework.Plugin.IEngine.Buf01 { get; set; }
+
 		public virtual bool MonsterCurses { get; set; }
 
 		public virtual bool DeviceOpened { get; set; }
@@ -300,6 +305,10 @@ namespace WrenholdsSecretVigil.Game.Plugin
 
 		public Engine()
 		{
+			((Framework.Plugin.IEngine)this).Buf = new StringBuilder(BufSize);
+
+			((Framework.Plugin.IEngine)this).Buf01 = new StringBuilder(BufSize);
+
 			// Note: this is an example of a macro function that will be used by both EamonDD and EamonRT in macro
 			// resolution.  It is hardened to check for the existance of Character, which will only exist in
 			// EamonRT (the GameState object, though not used here, is another thing to always check for).

@@ -50,12 +50,18 @@ namespace YourAdventureName
 
 // Copyright (c) 2014+ by YourAuthorName.  All rights reserved.
 
+using System.Text;
+
 namespace YourAdventureName.Framework.Plugin
 {
 	/// <inheritdoc />
 	public interface IEngine : EamonRT.Framework.Plugin.IEngine
 	{
+		/// <summary></summary>
+		new StringBuilder Buf { get; set; }
 
+		/// <summary></summary>
+		new StringBuilder Buf01 { get; set; }
 	}
 }
 "
@@ -70,6 +76,7 @@ namespace YourAdventureName.Framework.Plugin
 // Copyright (c) 2014+ by YourAuthorName.  All rights reserved.
 
 using System.Reflection;
+using System.Text;
 using Eamon;
 using static YourAdventureName.Game.Plugin.Globals;
 
@@ -77,6 +84,10 @@ namespace YourAdventureName.Game.Plugin
 {
 	public class Engine : EamonRT.Game.Plugin.Engine, Framework.Plugin.IEngine
 	{
+		StringBuilder Framework.Plugin.IEngine.Buf { get; set; }
+
+		StringBuilder Framework.Plugin.IEngine.Buf01 { get; set; }
+
 		public override RetCode LoadPluginClassMappings()
 		{
 			RetCode rc;
@@ -93,6 +104,13 @@ namespace YourAdventureName.Game.Plugin
 		Cleanup:
 
 			return rc;
+		}
+
+		public Engine()
+		{
+			((Framework.Plugin.IEngine)this).Buf = new StringBuilder(BufSize);
+
+			((Framework.Plugin.IEngine)this).Buf01 = new StringBuilder(BufSize);
 		}
 	}
 }

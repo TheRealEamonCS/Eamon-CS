@@ -21,6 +21,16 @@ namespace EamonRT.Framework.Plugin
 	/// <inheritdoc />
 	public interface IEngine : EamonDD.Framework.Plugin.IEngine
 	{
+		#region Explicit Properties
+
+		/// <summary></summary>
+		new StringBuilder Buf { get; set; }
+
+		/// <summary></summary>
+		StringBuilder Buf01 { get; set; }
+
+		#endregion
+
 		#region Public Properties
 
 		/// <summary>
@@ -31,9 +41,6 @@ namespace EamonRT.Framework.Plugin
 		/// the next is accessed when the user presses Enter.
 		/// </remarks>
 		string PageSep { get; }
-
-		/// <summary></summary>
-		StringBuilder Buf01 { get; set; }
 
 		/// <summary></summary>
 		IList<ICommand> CommandList { get; set; }

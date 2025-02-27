@@ -31,11 +31,17 @@ namespace EamonRT.Game.Plugin
 {
 	public class Engine : EamonDD.Game.Plugin.Engine, IEngine
 	{
+		#region Explicit Properties
+
+		StringBuilder IEngine.Buf { get; set; }
+
+		StringBuilder IEngine.Buf01 { get; set; }
+
+		#endregion
+
 		#region Public Properties
 
 		public virtual string PageSep { get; protected set; } = "@@PB";
-
-		public virtual StringBuilder Buf01 { get; set; }
 
 		public virtual IList<ICommand> CommandList { get; set; }
 
@@ -378,13 +384,13 @@ namespace EamonRT.Game.Plugin
 		{
 			Debug.Assert(room != null);
 
-			Buf.Clear();
+			gEngine.Buf.Clear();
 
-			var rc = room.IsLit() ? room.BuildPrintedFullDesc(Buf, verboseRoomDesc: GameState.Vr, verboseMonsterDesc: GameState.Vm, verboseArtifactDesc: GameState.Va, verboseNames: GameState.Vn) : room.BuildPrintedTooDarkToSeeDesc(Buf);
+			var rc = room.IsLit() ? room.BuildPrintedFullDesc(gEngine.Buf, verboseRoomDesc: GameState.Vr, verboseMonsterDesc: GameState.Vm, verboseArtifactDesc: GameState.Va, verboseNames: GameState.Vn) : room.BuildPrintedTooDarkToSeeDesc(gEngine.Buf);
 
 			Debug.Assert(IsSuccess(rc));
 
-			Out.Write("{0}", Buf);
+			Out.Write("{0}", gEngine.Buf);
 		}
 
 		public virtual void PrintToWhom()
@@ -498,11 +504,11 @@ namespace EamonRT.Game.Plugin
 			{
 				if (goldAmount > 0)
 				{
-					Buf01.SetFormat("{0} gold piece{1}", goldAmount, goldAmount != 1 ? "s" : "");
+					gEngine.Buf01.SetFormat("{0} gold piece{1}", goldAmount, goldAmount != 1 ? "s" : "");
 				}
 				else
 				{
-					Buf01.SetFormat("nothing");
+					gEngine.Buf01.SetFormat("nothing");
 				}
 
 				var ac = artifact.Drinkable;
@@ -512,7 +518,7 @@ namespace EamonRT.Game.Plugin
 					artifact.GetTheName(true, false),
 					ac != null && ac.Field2 < 1 && !artifact.Name.Contains("empty", StringComparison.OrdinalIgnoreCase) ? " (empty)" : "",
 					artifact.EvalPlural("is", "are"),
-					Buf01);
+					gEngine.Buf01);
 			}
 		}
 
@@ -530,13 +536,13 @@ namespace EamonRT.Game.Plugin
 		{
 			Debug.Assert(artifact != null);
 
-			Buf.Clear();
+			gEngine.Buf.Clear();
 
-			var rc = artifact.BuildPrintedFullDesc(Buf, showName, showVerboseName);
+			var rc = artifact.BuildPrintedFullDesc(gEngine.Buf, showName, showVerboseName);
 
 			Debug.Assert(IsSuccess(rc));
 
-			Out.Write("{0}", Buf);
+			Out.Write("{0}", gEngine.Buf);
 		}
 
 		public virtual void PrintMonsterCantFindExit(IMonster monster, IRoom room, string monsterName, bool isPlural, bool fleeing)
@@ -606,13 +612,13 @@ namespace EamonRT.Game.Plugin
 		{
 			Debug.Assert(monster != null);
 
-			Buf.Clear();
+			gEngine.Buf.Clear();
 
-			var rc = monster.BuildPrintedFullDesc(Buf, showName, showVerboseName);
+			var rc = monster.BuildPrintedFullDesc(gEngine.Buf, showName, showVerboseName);
 
 			Debug.Assert(IsSuccess(rc));
 
-			Out.Write("{0}", Buf);
+			Out.Write("{0}", gEngine.Buf);
 		}
 
 		public virtual void PrintHealthImproves(IMonster monster)
@@ -643,16 +649,16 @@ namespace EamonRT.Game.Plugin
 
 			var isUninjuredGroupMonster = includeUninjuredGroupMonsters && monster.CurrGroupCount > 1 && monster.DmgTaken == 0;
 
-			Buf.SetFormat("{0}{1} {2} ",
+			gEngine.Buf.SetFormat("{0}{1} {2} ",
 				Environment.NewLine,
 				isCharMonster ? "You" :
 				isUninjuredGroupMonster ? "They" :
 				monster.GetTheName(true, true, false, false, true),
 				isCharMonster || isUninjuredGroupMonster ? "are" : "is");
 
-			monster.AddHealthStatus(Buf);
+			monster.AddHealthStatus(gEngine.Buf);
 
-			Out.Write("{0}", Buf);
+			Out.Write("{0}", gEngine.Buf);
 		}
 
 		public virtual void PrintDoesntHaveIt(IMonster monster)
@@ -683,7 +689,7 @@ namespace EamonRT.Game.Plugin
 
 		public virtual void PrintYourWeaponsAre()
 		{
-			Out.WriteLine("{0}Your weapons are:{0}{1}", Environment.NewLine, Buf);
+			Out.WriteLine("{0}Your weapons are:{0}{1}", Environment.NewLine, gEngine.Buf);
 		}
 
 		public virtual void PrintEnterWeaponToSell()
@@ -913,15 +919,15 @@ namespace EamonRT.Game.Plugin
 		{
 			Debug.Assert(artifact != null && revealContentsList != null && revealContentsList.Count > 0 && Enum.IsDefined(typeof(ContainerType), containerType));
 
-			Buf01.SetFormat("{0} {1}",
+			gEngine.Buf01.SetFormat("{0} {1}",
 				monster != null && !monster.IsCharacterMonster() ? (UseRevealContentMonsterTheName ? monster.GetTheName(groupCountOne: true) : monster.GetArticleName(groupCountOne: true)) : "you",
 				monster != null && !monster.IsCharacterMonster() ? "finds" : "find");
 
-			Buf.SetFormat("{0}{1} {2}, {3} ",
+			gEngine.Buf.SetFormat("{0}{1} {2}, {3} ",
 				Environment.NewLine,
 				EvalContainerType(containerType, "Inside", "On", "Under", "Behind"),
 				artifact.GetTheName(showCharOwned: showCharOwned),
-				Buf01.ToString());
+				gEngine.Buf01.ToString());
 
 			if (recordNameListArgs == null)
 			{
@@ -939,11 +945,11 @@ namespace EamonRT.Game.Plugin
 				});
 			}
 
-			var rc = GetRecordNameList(revealContentsList.Cast<IGameBase>().ToList(), recordNameListArgs, Buf);
+			var rc = GetRecordNameList(revealContentsList.Cast<IGameBase>().ToList(), recordNameListArgs, gEngine.Buf);
 
 			Debug.Assert(IsSuccess(rc));
 
-			Buf.AppendFormat(".{0}", Environment.NewLine);
+			gEngine.Buf.AppendFormat(".{0}", Environment.NewLine);
 		}
 
 		public virtual long WeaponPowerCompare(IArtifact artifact1, IArtifact artifact2)
@@ -1405,15 +1411,15 @@ namespace EamonRT.Game.Plugin
 
 				if (!string.IsNullOrWhiteSpace(artifact.Desc))
 				{
-					Buf.Clear();
+					gEngine.Buf.Clear();
 
-					var rc = ResolveUidMacros(artifact.Desc, Buf, true, true);
+					var rc = ResolveUidMacros(artifact.Desc, gEngine.Buf, true, true);
 
 					Debug.Assert(IsSuccess(rc));
 
-					if (Buf.Length <= CharArtDescLen)
+					if (gEngine.Buf.Length <= CharArtDescLen)
 					{
-						x.Desc = CloneInstance(Buf.ToString());
+						x.Desc = CloneInstance(gEngine.Buf.ToString());
 					}
 				}
 
@@ -1631,15 +1637,15 @@ namespace EamonRT.Game.Plugin
 
 					if (!string.IsNullOrWhiteSpace(artifact.Desc))
 					{
-						Buf.Clear();
+						gEngine.Buf.Clear();
 
-						var rc = ResolveUidMacros(artifact.Desc, Buf, true, true);
+						var rc = ResolveUidMacros(artifact.Desc, gEngine.Buf, true, true);
 
 						Debug.Assert(IsSuccess(rc));
 
-						if (Buf.Length <= CharArtDescLen)
+						if (gEngine.Buf.Length <= CharArtDescLen)
 						{
-							ca.Desc = CloneInstance(Buf.ToString());
+							ca.Desc = CloneInstance(gEngine.Buf.ToString());
 						}
 					}
 
@@ -1754,9 +1760,9 @@ namespace EamonRT.Game.Plugin
 				{
 					Out.Print("{0}", LineSep);
 
-					Buf.Clear();
+					gEngine.Buf.Clear();
 
-					var rc = ListRecords(weaponList.Cast<IGameBase>().ToList(), true, true, Buf);
+					var rc = ListRecords(weaponList.Cast<IGameBase>().ToList(), true, true, gEngine.Buf);
 
 					Debug.Assert(IsSuccess(rc));
 
@@ -1766,15 +1772,15 @@ namespace EamonRT.Game.Plugin
 
 					PrintEnterWeaponToSell();
 
-					Buf.Clear();
+					gEngine.Buf.Clear();
 
-					rc = In.ReadField(Buf, BufSize01, null, ' ', '\0', false, null, ModifyCharToUpper, IsCharDigit, null);
+					rc = In.ReadField(gEngine.Buf, BufSize01, null, ' ', '\0', false, null, ModifyCharToUpper, IsCharDigit, null);
 
 					Debug.Assert(IsSuccess(rc));
 
 					Thread.Sleep(150);
 
-					var m = Convert.ToInt64(Buf.Trim().ToString());
+					var m = Convert.ToInt64(gEngine.Buf.Trim().ToString());
 
 					if (m >= 1 && m <= weaponList.Count)
 					{
@@ -1823,7 +1829,7 @@ namespace EamonRT.Game.Plugin
 
 			PrintGoodsPayment(c == 1, w);
 
-			In.KeyPress(Buf);
+			In.KeyPress(gEngine.Buf);
 		}
 
 		public virtual void DeadMenu(bool printLineSep, ref bool restoreGame)
@@ -1849,13 +1855,13 @@ namespace EamonRT.Game.Plugin
 
 				PrintEnterDeadMenuChoice();
 
-				Buf.Clear();
+				gEngine.Buf.Clear();
 
-				var rc = In.ReadField(Buf, BufSize02, null, ' ', '\0', false, null, ModifyCharToUpper, IsChar1To3, null);
+				var rc = In.ReadField(gEngine.Buf, BufSize02, null, ' ', '\0', false, null, ModifyCharToUpper, IsChar1To3, null);
 
 				Debug.Assert(IsSuccess(rc));
 
-				var i = Convert.ToInt64(Buf.Trim().ToString());
+				var i = Convert.ToInt64(gEngine.Buf.Trim().ToString());
 
 				var confirmed = false;
 
@@ -1872,13 +1878,13 @@ namespace EamonRT.Game.Plugin
 						PrintReallyWantToAcceptDeath();
 					}
 
-					Buf.Clear();
+					gEngine.Buf.Clear();
 
-					rc = In.ReadField(Buf, BufSize02, null, ' ', '\0', false, null, ModifyCharToUpper, IsCharYOrN, null);
+					rc = In.ReadField(gEngine.Buf, BufSize02, null, ' ', '\0', false, null, ModifyCharToUpper, IsCharYOrN, null);
 
 					Debug.Assert(IsSuccess(rc));
 
-					if (Buf.Length > 0 && Buf[0] == 'Y')
+					if (gEngine.Buf.Length > 0 && gEngine.Buf[0] == 'Y')
 					{
 						confirmed = true;
 					}
@@ -2050,7 +2056,7 @@ namespace EamonRT.Game.Plugin
 					}
 
 					dobjMonster.SetInLimbo();
-					
+
 					dobjMonster.CurrGroupCount = dobjMonster.GroupCount;
 
 					// dobjMonster.ResolveReaction(Character);
@@ -2125,20 +2131,20 @@ namespace EamonRT.Game.Plugin
 
 					if (effect != null)
 					{
-						Buf.Clear();
+						gEngine.Buf.Clear();
 
-						rc = effect.BuildPrintedFullDesc(Buf);
+						rc = effect.BuildPrintedFullDesc(gEngine.Buf);
 					}
 					else
 					{
-						Buf.SetPrint("{0}", "???");
+						gEngine.Buf.SetPrint("{0}", "???");
 
 						rc = RetCode.Success;
 					}
 
 					Debug.Assert(IsSuccess(rc));
 
-					Out.Write("{0}", Buf);
+					Out.Write("{0}", gEngine.Buf);
 				}
 			}
 
@@ -2430,7 +2436,7 @@ namespace EamonRT.Game.Plugin
 					{
 						BuildRevealContentsListDescString(revealMonster != null ? revealMonster : monster, artifact, revealContentsList, containerType, showCharOwned, recordNameListArgs);
 
-						containerContentsList.Add(Buf.ToString());
+						containerContentsList.Add(gEngine.Buf.ToString());
 					}
 				}
 			}
@@ -3842,13 +3848,13 @@ namespace EamonRT.Game.Plugin
 			{
 				PrintEnterExtinguishLightChoice(artifact);
 
-				Buf.Clear();
+				gEngine.Buf.Clear();
 
-				var rc = In.ReadField(Buf, BufSize02, null, ' ', '\0', false, null, ModifyCharToUpper, IsCharYOrN, null);
+				var rc = In.ReadField(gEngine.Buf, BufSize02, null, ' ', '\0', false, null, ModifyCharToUpper, IsCharYOrN, null);
 
 				Debug.Assert(IsSuccess(rc));
 
-				if (Buf.Length > 0 && Buf[0] == 'Y')
+				if (gEngine.Buf.Length > 0 && gEngine.Buf[0] == 'Y')
 				{
 					rc = artifact.RemoveStateDesc(artifact.GetProvidingLightDesc());
 
@@ -3867,7 +3873,7 @@ namespace EamonRT.Game.Plugin
 
 			if (GameState.Die <= 0 && GameState.PauseCombatActions > 0 && PauseCombatActionsCounter % GameState.PauseCombatActions == 0)
 			{
-				In.KeyPress(Buf);
+				In.KeyPress(gEngine.Buf);
 
 				Out.Print("{0}", LineSep);
 			}
@@ -4517,7 +4523,9 @@ namespace EamonRT.Game.Plugin
 
 		public Engine()
 		{
-			Buf01 = new StringBuilder(BufSize);
+			((IEngine)this).Buf = new StringBuilder(BufSize);
+
+			((IEngine)this).Buf01 = new StringBuilder(BufSize);
 
 			RevealContainerContentsFunc = RevealContainerContents;
 

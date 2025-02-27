@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using Eamon;
 using Eamon.Framework;
 using Eamon.Framework.Primitive.Enums;
@@ -20,6 +21,10 @@ namespace OrbOfMyLife.Game.Plugin
 {
 	public class Engine : EamonRT.Game.Plugin.Engine, Framework.Plugin.IEngine
 	{
+		StringBuilder Framework.Plugin.IEngine.Buf { get; set; }
+
+		StringBuilder Framework.Plugin.IEngine.Buf01 { get; set; }
+
 		public virtual bool VerboseRoomDescOrNotSeen { get; set; }
 
 		public virtual bool RestoreGame { get; set; }
@@ -75,18 +80,18 @@ namespace OrbOfMyLife.Game.Plugin
 
 			if (gGameState.IC)
 			{
-				Buf.Clear();
+				gEngine.Buf.Clear();
 
-				Buf.Append("Your eyes are closed.");
+				gEngine.Buf.Append("Your eyes are closed.");
 
 				if (!room.IsViewable())
 				{
-					Buf.Append(" You can't see.");
+					gEngine.Buf.Append(" You can't see.");
 
 					printRoom = false;
 				}
 
-				Out.Print("{0}", Buf);
+				Out.Print("{0}", gEngine.Buf);
 			}
 			else
 			{
@@ -574,6 +579,10 @@ namespace OrbOfMyLife.Game.Plugin
 
 		public Engine()
 		{
+			((Framework.Plugin.IEngine)this).Buf = new StringBuilder(BufSize);
+
+			((Framework.Plugin.IEngine)this).Buf01 = new StringBuilder(BufSize);
+
 			PushRulesetVersion(62);
 
 			MacroFuncs.Add(4, () =>
