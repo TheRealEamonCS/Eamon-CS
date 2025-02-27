@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
+using System.Text;
 using Eamon;
 using Eamon.Framework;
 using Eamon.Framework.Primitive.Enums;
@@ -16,6 +17,10 @@ namespace ThePyramidOfAnharos.Game.Plugin
 {
 	public class Engine : EamonRT.Game.Plugin.Engine, Framework.Plugin.IEngine
 	{
+		StringBuilder Framework.Plugin.IEngine.Buf { get; set; }
+
+		StringBuilder Framework.Plugin.IEngine.Buf01 { get; set; }
+
 		public virtual string MapData { get; set; }
 
 		public virtual bool TaxLevied { get; set; }
@@ -210,7 +215,7 @@ namespace ThePyramidOfAnharos.Game.Plugin
 
 				Character.HeldGold = 0;
 
-				In.KeyPress(Buf);
+				In.KeyPress(gEngine.Buf);
 			}
 		}
 
@@ -283,6 +288,10 @@ namespace ThePyramidOfAnharos.Game.Plugin
 
 		public Engine()
 		{
+			((Framework.Plugin.IEngine)this).Buf = new StringBuilder(BufSize);
+
+			((Framework.Plugin.IEngine)this).Buf01 = new StringBuilder(BufSize);
+
 			PushRulesetVersion(62);
 
 			EnableNegativeRoomUidLinks = true;

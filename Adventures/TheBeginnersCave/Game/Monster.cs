@@ -159,7 +159,7 @@ namespace TheBeginnersCave.Game
 
 			if (Uid == 8)
 			{
-				return Parry > 50 ? "neutral (defensive)" : "neutral (offensive)";
+				return Parry > 50 ? "defensive" : "offensive";
 			}
 			else
 			{

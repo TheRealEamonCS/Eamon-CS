@@ -37,6 +37,13 @@ namespace Eamon.Framework.Plugin
 	/// </remarks>
 	public interface IEngine
 	{
+		#region Explicit Properties
+
+		/// <summary></summary>
+		StringBuilder Buf { get; set; }
+
+		#endregion
+
 		#region Public Properties
 
 		/// <summary></summary>
@@ -644,9 +651,6 @@ namespace Eamon.Framework.Plugin
 
 		/// <summary></summary>
 		Action<IDictionary<Type, Type>> LoadPortabilityClassMappings { get; set; }
-
-		/// <summary></summary>
-		StringBuilder Buf { get; set; }
 
 		/// <summary></summary>
 		IDatabase Database { get; }

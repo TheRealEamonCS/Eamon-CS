@@ -29,6 +29,12 @@ namespace Eamon.Game.Plugin
 {
 	public class Engine : IEngine
 	{
+		#region Explicit Properties
+
+		StringBuilder IEngine.Buf { get; set; }
+
+		#endregion
+
 		#region Public Properties
 
 		public virtual string[] CommandSepTokens { get; protected set; }
@@ -274,8 +280,6 @@ namespace Eamon.Game.Plugin
 
 		/// <summary></summary>
 		public virtual long RvStackTop { get; set; } = -1;
-
-		public virtual StringBuilder Buf { get; set; }
 
 		public virtual IDatabase Database
 		{
@@ -5024,6 +5028,8 @@ namespace Eamon.Game.Plugin
 
 		public Engine()
 		{
+			((IEngine)this).Buf = new StringBuilder(BufSize);
+
 			CommandSepTokens = new string[] { ".", "!", "?", ";", ",", "and", "then", "also" };
 
 			PronounTokens = new string[] { "him", "her", "it", "that", "them", "those" };
@@ -5035,8 +5041,6 @@ namespace Eamon.Game.Plugin
 			ProcessMutexName = string.Format(@"Global\Eamon_CS_{0}_Process_Mutex", ProgVersion);
 
 			RulesetVersions = new long[NumRulesetVersions];
-
-			Buf = new StringBuilder(BufSize);
 
 			MacroFuncs = new Dictionary<long, Func<string>>();
 

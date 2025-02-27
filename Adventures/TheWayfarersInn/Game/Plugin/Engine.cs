@@ -21,6 +21,10 @@ namespace TheWayfarersInn.Game.Plugin
 {
 	public class Engine : EamonRT.Game.Plugin.Engine, Framework.Plugin.IEngine
 	{
+		StringBuilder Framework.Plugin.IEngine.Buf { get; set; }
+
+		StringBuilder Framework.Plugin.IEngine.Buf01 { get; set; }
+
 		public virtual string AccountingLedgerData { get; set; }
 
 		public virtual string WallMuralData { get; set; }
@@ -1589,6 +1593,10 @@ namespace TheWayfarersInn.Game.Plugin
 
 		public Engine()
 		{
+			((Framework.Plugin.IEngine)this).Buf = new StringBuilder(BufSize);
+
+			((Framework.Plugin.IEngine)this).Buf01 = new StringBuilder(BufSize);
+
 			ArtDescLen = 510;
 
 			EffDescLen = 510;

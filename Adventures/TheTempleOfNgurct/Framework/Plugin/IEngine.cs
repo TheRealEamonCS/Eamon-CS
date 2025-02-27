@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Text;
 using Eamon.Framework;
 using EamonRT.Framework.States;
 
@@ -13,6 +14,12 @@ namespace TheTempleOfNgurct.Framework.Plugin
 	/// <inheritdoc />
 	public interface IEngine : EamonRT.Framework.Plugin.IEngine
 	{
+		/// <summary></summary>
+		new StringBuilder Buf { get; set; }
+
+		/// <summary></summary>
+		new StringBuilder Buf01 { get; set; }
+
 		/// <summary></summary>
 		bool FireDamage { get; set; }
 

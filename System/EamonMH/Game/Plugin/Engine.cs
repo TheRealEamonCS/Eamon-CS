@@ -6,6 +6,7 @@
 using System;
 using System.Diagnostics;
 using System.Reflection;
+using System.Text;
 using Eamon;
 using Eamon.Framework;
 using Eamon.Framework.Menus;
@@ -20,6 +21,12 @@ namespace EamonMH.Game.Plugin
 {
 	public class Engine : Eamon.Game.Plugin.Engine, IEngine
 	{
+		#region Explicit Properties
+
+		StringBuilder IEngine.Buf { get; set; }
+
+		#endregion
+
 		#region Public Properties
 
 		public virtual string[] Argv { get; set; }
@@ -361,5 +368,10 @@ namespace EamonMH.Game.Plugin
 		}
 
 		#endregion
+
+		public Engine()
+		{
+			((IEngine)this).Buf = new StringBuilder(BufSize);
+		}
 	}
 }
