@@ -3,6 +3,7 @@
 
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
+using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.States;
@@ -17,7 +18,7 @@ namespace OrbOfMyLife.Game.Commands
 		{
 			// Sagonne
 
-			if (DobjMonster?.Uid == 22)
+			if (DobjMonster?.Uid == 22 && gCharacter.GetSpellAbility(Spell.Heal) > 0)
 			{
 				gOut.Print("Sagonne can only be healed with his Life Orb.");
 
