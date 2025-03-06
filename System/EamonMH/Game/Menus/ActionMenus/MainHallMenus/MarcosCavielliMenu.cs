@@ -186,14 +186,21 @@ namespace EamonMH.Game.Menus.ActionMenus
 								var cw = gEngine.CreateInstance<ICharacterArtifact>(x =>
 								{
 									x.Name = gEngine.CloneInstance(weapon.MarcosName ?? weapon.Name).ToLower();
+									x.Desc = string.Format("{0} your {1}.", weapon.MarcosIsPlural ? "These are" : "This is", x.Name);
 									x.IsPlural = weapon.MarcosIsPlural;
 									x.PluralType = weapon.MarcosPluralType;
 									x.ArticleType = weapon.MarcosArticleType;
+									x.Weight = 15;
+									x.Type = ArtifactType.Weapon;
 									x.Field2 = i;
 									x.Field3 = weapon.MarcosDice;
 									x.Field4 = weapon.MarcosSides;
 									x.Field5 = weapon.MarcosNumHands;
 								});
+
+								var imw = false;
+								
+								cw.Value = (long)gEngine.GetWeaponPriceOrValue(cw, false, ref imw);
 
 								gOut.Print("Marcos says, \"Well, I just happen to have three {0}s in, of varying quality.  I've got a very good one for {1} GP, a fair one for {2} GP, and a kinda shabby one for {3} GP.  Which do you want?\"",
 									cw.Name,
@@ -453,6 +460,16 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 					case MenuState.BuyArmor:
 
+						if (gCharacter.Armor == null)
+						{
+							gCharacter.Armor = gEngine.CreateInstance<ICharacterArtifact>(x =>
+							{
+								x.Parent = gCharacter;
+							});
+
+							gEngine.CharactersModified = true;
+						}
+
 						a2 = (long)gCharacter.ArmorClass / 2;
 
 						sh = (long)gCharacter.ArmorClass % 2;
@@ -559,8 +576,6 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 								gCharacter.HeldGold -= ap;
 
-								gEngine.CharactersModified = true;
-
 								for (i = 0; i < armorValues.Count; i++)
 								{
 									if (gEngine.GetArmor(armorValues[(int)i]) == armor)
@@ -572,6 +587,27 @@ namespace EamonMH.Game.Menus.ActionMenus
 								Debug.Assert(i < armorValues.Count);
 
 								a2 = (long)armorValues[(int)i] / 2;
+
+								gCharacter.Armor.Name = string.Format("{0} armor", a2 == 1 ? "leather" : a2 == 2 ? "chain" : "plate");
+								gCharacter.Armor.Desc = string.Format("This is your {0}.", gCharacter.Armor.Name);
+								gCharacter.Armor.IsPlural = false;
+								gCharacter.Armor.PluralType = PluralType.None;
+								gCharacter.Armor.ArticleType = ArticleType.Some;
+								gCharacter.Armor.Weight = a2 == 1 ? 15 : a2 == 2 ? 25 : 35;
+								gCharacter.Armor.Type = ArtifactType.Wearable;
+								gCharacter.Armor.Field1 = a2 * 2;
+								gCharacter.Armor.Field2 = 0;
+
+								for (var m = 3; m <= gEngine.NumArtifactCategoryFields; m++)
+								{
+									gCharacter.Armor.SetPropertyValue(string.Format("Field{0}", m), 0);
+								}
+
+								ima = false;
+
+								gCharacter.Armor.Value = (long)gEngine.GetArmorPriceOrValue((Armor)(a2 * 2), false, ref ima);
+
+								gEngine.CharactersModified = true;
 							}
 							else
 							{
@@ -584,6 +620,16 @@ namespace EamonMH.Game.Menus.ActionMenus
 						break;
 
 					case MenuState.BuyShield:
+
+						if (gCharacter.Shield == null)
+						{
+							gCharacter.Shield = gEngine.CreateInstance<ICharacterArtifact>(x =>
+							{
+								x.Parent = gCharacter;
+							});
+
+							gEngine.CharactersModified = true;
+						}
 
 						if (sh != 1)
 						{
@@ -613,9 +659,25 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 									gCharacter.HeldGold -= ap;
 
-									gEngine.CharactersModified = true;
-
 									sh = 1;
+
+									gCharacter.Shield.Name = "shield";
+									gCharacter.Shield.Desc = "This is your shield.";
+									gCharacter.Shield.IsPlural = false;
+									gCharacter.Shield.PluralType = PluralType.S;
+									gCharacter.Shield.ArticleType = ArticleType.A;
+									gCharacter.Shield.Value = gEngine.ShieldPrice;
+									gCharacter.Shield.Weight = 15;
+									gCharacter.Shield.Type = ArtifactType.Wearable;
+									gCharacter.Shield.Field1 = sh;
+									gCharacter.Shield.Field2 = 0;
+
+									for (var m = 3; m <= gEngine.NumArtifactCategoryFields; m++)
+									{
+										gCharacter.Shield.SetPropertyValue(string.Format("Field{0}", m), 0);
+									}
+
+									gEngine.CharactersModified = true;
 								}
 								else
 								{
@@ -633,16 +695,6 @@ namespace EamonMH.Game.Menus.ActionMenus
 						if (gCharacter.ArmorClass != (Armor)(a2 * 2 + sh))
 						{
 							gCharacter.ArmorClass = (Armor)(a2 * 2 + sh);
-
-							gCharacter.Armor = gEngine.CreateInstance<ICharacterArtifact>(x =>
-							{
-								x.Parent = gCharacter;
-							});
-
-							gCharacter.Shield = gEngine.CreateInstance<ICharacterArtifact>(x =>
-							{
-								x.Parent = gCharacter;
-							});
 
 							gEngine.CharactersModified = true;
 						}
