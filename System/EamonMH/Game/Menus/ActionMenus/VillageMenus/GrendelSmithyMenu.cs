@@ -379,15 +379,22 @@ namespace EamonMH.Game.Menus.ActionMenus
 			var cw = gEngine.CreateInstance<ICharacterArtifact>(x =>
 			{
 				x.Name = name;
+				x.Desc = string.Format("This is {0}.", name);
 				x.IsPlural = false;
 				x.PluralType = PluralType.None;
 				x.ArticleType = ArticleType.None;
+				x.Weight = 15;
+				x.Type = (complexity >= 15 || dice * sides >= 25) ? ArtifactType.MagicWeapon : ArtifactType.Weapon;
 				x.Field1 = complexity;
 				x.Field2 = type;
 				x.Field3 = dice;
 				x.Field4 = sides;
 				x.Field5 = numHands;
 			});
+
+			var imw = false;
+			
+			cw.Value = (long)gEngine.GetWeaponPriceOrValue(cw, false, ref imw);
 
 			gCharacter.SetWeapon(i, cw);
 
