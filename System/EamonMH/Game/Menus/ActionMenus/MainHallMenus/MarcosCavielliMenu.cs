@@ -597,11 +597,16 @@ namespace EamonMH.Game.Menus.ActionMenus
 								gCharacter.Armor.Type = ArtifactType.Wearable;
 								gCharacter.Armor.Field1 = a2 * 2;
 								gCharacter.Armor.Field2 = 0;
+								gCharacter.Armor.Field3 = 0;
+								gCharacter.Armor.Field4 = 0;
+								gCharacter.Armor.Field5 = 0;
 
+								/*
 								for (var m = 3; m <= gEngine.NumArtifactCategoryFields; m++)
 								{
 									gCharacter.Armor.SetPropertyValue(string.Format("Field{0}", m), 0);
 								}
+								*/
 
 								ima = false;
 
@@ -671,11 +676,16 @@ namespace EamonMH.Game.Menus.ActionMenus
 									gCharacter.Shield.Type = ArtifactType.Wearable;
 									gCharacter.Shield.Field1 = sh;
 									gCharacter.Shield.Field2 = 0;
+									gCharacter.Shield.Field3 = 0;
+									gCharacter.Shield.Field4 = 0;
+									gCharacter.Shield.Field5 = 0;
 
+									/*
 									for (var m = 3; m <= gEngine.NumArtifactCategoryFields; m++)
 									{
 										gCharacter.Shield.SetPropertyValue(string.Format("Field{0}", m), 0);
 									}
+									*/
 
 									gEngine.CharactersModified = true;
 								}
