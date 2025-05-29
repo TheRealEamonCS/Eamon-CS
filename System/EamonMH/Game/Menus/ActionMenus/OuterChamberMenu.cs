@@ -49,8 +49,6 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 			Debug.Assert(gEngine.IsSuccess(rc));
 
-			gEngine.Thread.Sleep(150);
-
 			if (Buf.Length > 0 && Buf[0] == 'D')
 			{
 				menu = gEngine.CreateInstance<IRegistrationDeskMenu>();

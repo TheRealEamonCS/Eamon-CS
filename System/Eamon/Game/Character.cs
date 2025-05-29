@@ -6,7 +6,9 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Text;
+using Polenter.Serialization;
 using Eamon.Framework;
 using Eamon.Framework.Primitive.Classes;
 using Eamon.Framework.Primitive.Enums;
@@ -82,17 +84,23 @@ namespace Eamon.Game
 			}
 		}
 
+		[ExcludeFromSerialization]
 		[FieldName(780)]
-		public virtual Armor ArmorClass { get; set; }
+		public virtual Armor ArmorClass
+		{
+			get
+			{
+				var armorArtifact = GetWornList().FirstOrDefault(a => a.Wearable.Field1 >= 2);
 
-		[FieldName(800)]
-		public virtual ICharacterArtifact Armor { get; set; }
+				var shieldArtifact = GetWornList().FirstOrDefault(a => a.Wearable.Field1 == 1);
 
-		[FieldName(820)]
-		public virtual ICharacterArtifact Shield { get; set; }
+				var ar = armorArtifact != null ? armorArtifact.Wearable.Field1 : 0;
 
-		[FieldName(840)]
-		public virtual ICharacterArtifact[] Weapons { get; set; }
+				var sh = shieldArtifact != null ? shieldArtifact.Wearable.Field1 : 0;
+
+				return (Armor)(ar + sh);
+			}
+		}
 
 		#endregion
 
@@ -109,7 +117,7 @@ namespace Eamon.Game
 				// Get rid of managed resources
 			}
 
-			if (IsUidRecycled && Uid > 0)
+			if (Uid > 0)
 			{
 				gDatabase.FreeCharacterUid(Uid);
 
@@ -120,18 +128,6 @@ namespace Eamon.Game
 		#endregion
 
 		#region Interface IGameBase
-
-		public override void SetParentReferences()
-		{
-			Armor.Parent = this;
-
-			Shield.Parent = this;
-
-			foreach (var w in Weapons)
-			{
-				w.Parent = this;
-			}
-		}
 
 		public override string GetPluralName(string fieldName)
 		{
@@ -261,11 +257,6 @@ namespace Eamon.Game
 			return GetWeaponAbility((long)weapon);
 		}
 
-		public virtual ICharacterArtifact GetWeapon(long index)
-		{
-			return Weapons[index];
-		}
-
 		public virtual string GetSynonym(long index)
 		{
 			return Synonyms[index];
@@ -299,11 +290,6 @@ namespace Eamon.Game
 		public virtual void SetWeaponAbility(Weapon weapon, long value)
 		{
 			SetWeaponAbility((long)weapon, value);
-		}
-
-		public virtual void SetWeapon(long index, ICharacterArtifact value)
-		{
-			Weapons[index] = value;
 		}
 
 		public virtual void SetSynonym(long index, string value)
@@ -366,55 +352,69 @@ namespace Eamon.Game
 			return gEngine.GetMerchantAdjustedCharisma(GetStat(Stat.Charisma));
 		}
 
-		public virtual bool IsArmorActive()
-		{
-			return Armor.IsActive();
-		}
-
-		public virtual bool IsShieldActive()
-		{
-			return Shield.IsActive();
-		}
-
-		public virtual bool IsWeaponActive(long index)
-		{
-			Debug.Assert(index >= 0 && index < Weapons.Length);
-
-			return GetWeapon(index).IsActive();
-		}
-
 		public virtual T EvalGender<T>(T maleValue, T femaleValue, T neutralValue)
 		{
 			return gEngine.EvalGender(Gender, maleValue, femaleValue, neutralValue);
 		}
 
-		public virtual RetCode GetFullInventoryWeight(ref long weight, Func<IArtifact, bool> characterFindFunc = null, Func<IArtifact, bool> artifactFindFunc = null, bool recurse = false)
+		public virtual IList<IArtifact> GetCarriedList(Func<IArtifact, bool> characterFindFunc = null)
+		{
+			if (characterFindFunc == null)
+			{
+				characterFindFunc = a => a.IsCarriedByCharacter(this);
+			}
+
+			IList<IArtifact> artifactList = null;
+
+			gDatabase.ExecuteOnArtifactTable(ArtifactTableType.CharArt, () =>
+			{
+				artifactList = gEngine.GetArtifactList(a => characterFindFunc(a));
+			});
+
+			return artifactList;
+		}
+
+		public virtual IList<IArtifact> GetWornList(Func<IArtifact, bool> characterFindFunc = null)
+		{
+			if (characterFindFunc == null)
+			{
+				characterFindFunc = a => a.IsWornByCharacter(this);
+			}
+
+			IList<IArtifact> artifactList = null;
+
+			gDatabase.ExecuteOnArtifactTable(ArtifactTableType.CharArt, () =>
+			{
+				artifactList = gEngine.GetArtifactList(a => characterFindFunc(a));
+			});
+
+			return artifactList;
+		}
+
+		public virtual IList<IArtifact> GetContainedList(Func<IArtifact, bool> characterFindFunc = null)
+		{
+			if (characterFindFunc == null)
+			{
+				characterFindFunc = a => a.IsCarriedByCharacter(this) || a.IsWornByCharacter(this);
+			}
+
+			IList<IArtifact> artifactList = null;
+
+			gDatabase.ExecuteOnArtifactTable(ArtifactTableType.CharArt, () =>
+			{
+				artifactList = gEngine.GetArtifactList(a => characterFindFunc(a));
+			});
+
+			return artifactList;
+		}
+
+		public virtual RetCode GetFullInventoryWeight(ref long weight, Func<IArtifact, bool> characterFindFunc = null)
 		{
 			RetCode rc;
 
 			rc = RetCode.Success;
 
-			if (characterFindFunc == null)
-			{
-				characterFindFunc = a => a.IsCarriedByMonster(MonsterType.CharMonster) || a.IsWornByMonster(MonsterType.CharMonster);
-			}
-
-			var artifactList = gEngine.GetArtifactList(a => characterFindFunc(a));
-
-			if (recurse && artifactList.Count > 0)
-			{
-				var artifactList01 = new List<IArtifact>();
-
-				foreach (var a in artifactList)
-				{
-					if (a.GeneralContainer != null)
-					{
-						artifactList01.AddRange(a.GetContainedList(artifactFindFunc, (ContainerType)(-1), recurse));
-					}
-				}
-
-				artifactList.AddRange(artifactList01);
-			}
+			var artifactList = GetContainedList(characterFindFunc);
 
 			foreach (var a in artifactList)
 			{
@@ -427,7 +427,7 @@ namespace Eamon.Game
 			return rc;
 		}
 
-		public virtual RetCode GetBaseOddsToHit(ICharacterArtifact weapon, ref long baseOddsToHit)
+		public virtual RetCode GetBaseOddsToHit(IArtifact weapon, ref long baseOddsToHit)
 		{
 			long ar1, sh1, af, x, a, d, f, odds;
 			RetCode rc;
@@ -443,7 +443,7 @@ namespace Eamon.Game
 
 			rc = RetCode.Success;
 
-			if (!weapon.IsActive())
+			if (weapon.GeneralWeapon == null)
 			{
 				baseOddsToHit = 0;
 
@@ -522,33 +522,6 @@ namespace Eamon.Game
 			return rc;
 		}
 
-		public virtual RetCode GetBaseOddsToHit(long index, ref long baseOddsToHit)
-		{
-			Debug.Assert(index >= 0 && index < Weapons.Length);
-
-			return GetBaseOddsToHit(GetWeapon(index), ref baseOddsToHit);
-		}
-
-		public virtual RetCode GetWeaponCount(ref long count)
-		{
-			RetCode rc;
-			long i;
-
-			rc = RetCode.Success;
-
-			for (i = 0; i < Weapons.Length; i++)
-			{
-				if (!IsWeaponActive(i))
-				{
-					break;
-				}
-			}
-
-			count = i;
-
-			return rc;
-		}
-
 		public virtual RetCode ListWeapons(StringBuilder buf, bool capitalize = true)
 		{
 			RetCode rc;
@@ -567,28 +540,27 @@ namespace Eamon.Game
 
 			rc = RetCode.Success;
 
-			for (i = 0; i < Weapons.Length; i++)
+			var artifactList = GetCarriedList().Where(a => a.GeneralWeapon != null).OrderBy(a => a.Uid).ToList();
+
+			for (i = 0; i < artifactList.Count; i++)
 			{
-				if (IsWeaponActive(i))
-				{
-					weapon = gEngine.GetWeapon((Weapon)GetWeapon(i).Field2);
+				var artifact = artifactList[(int)i];
 
-					Debug.Assert(weapon != null);
+				Debug.Assert(artifact != null);
 
-					buf.AppendFormat("{0}{1,2}. {2} ({3,-8}/{4,3}%/{5,2}D{6,-2}/{7}H)",
-						Environment.NewLine,
-						i + 1,
-						capitalize ? gEngine.Capitalize(GetWeapon(i).Name.PadTRight(31, ' ')) : GetWeapon(i).Name.PadTRight(31, ' '),
-						weapon.Name,
-						GetWeapon(i).Field1,
-						GetWeapon(i).Field3,
-						GetWeapon(i).Field4,
-						GetWeapon(i).Field5);
-				}
-				else
-				{
-					break;
-				}
+				weapon = gEngine.GetWeapon((Weapon)artifact.Field2);
+
+				Debug.Assert(weapon != null);
+
+				buf.AppendFormat("{0}{1,2}. {2} ({3,-8}/{4,3}%/{5,2}D{6,-2}/{7}H)",
+					Environment.NewLine,
+					i + 1,
+					capitalize ? gEngine.Capitalize(artifact.Name.PadTRight(31, ' ')) : artifact.Name.PadTRight(31, ' '),
+					weapon.Name,
+					artifact.Field1,
+					artifact.Field3,
+					artifact.Field4,
+					artifact.Field5);
 			}
 
 		Cleanup:
@@ -596,122 +568,18 @@ namespace Eamon.Game
 			return rc;
 		}
 
-		public virtual void StripUniqueCharsFromWeaponNames()
+		public virtual bool StripUniqueCharsFromWeaponNames()
 		{
-			for (var i = 0; i < Weapons.Length; i++)
-			{
-				if (IsWeaponActive(i))
-				{
-					GetWeapon(i).Name = GetWeapon(i).Name.TrimEnd('#');
-				}
-			}
+			var artifactList = GetCarriedList().Where(a => a.GeneralWeapon != null).ToList();
+
+			return gEngine.StripUniqueCharsFromRecordNames(artifactList.Cast<IGameBase>().ToList());
 		}
 
-		public virtual void AddUniqueCharsToWeaponNames()
+		public virtual bool AddUniqueCharsToWeaponNames()
 		{
-			long c;
+			var artifactList = GetCarriedList().Where(a => a.GeneralWeapon != null).ToList();
 
-			do
-			{
-				c = 0;
-
-				for (var i = 0; i < Weapons.Length; i++)
-				{
-					if (IsWeaponActive(i))
-					{
-						for (var j = i + 1; j < Weapons.Length; j++)
-						{
-							if (IsWeaponActive(j) && GetWeapon(j).Name.Equals(GetWeapon(i).Name, StringComparison.OrdinalIgnoreCase))
-							{
-								GetWeapon(j).Name += "#";
-
-								c = 1;
-							}
-						}
-					}
-				}
-			}
-			while (c == 1);
-		}
-
-		public virtual RetCode CopyProperties(ICharacter character)
-		{
-			RetCode rc;
-
-			if (character == null)
-			{
-				rc = RetCode.InvalidArg;
-
-				// PrintError
-
-				goto Cleanup;
-			}
-
-			rc = RetCode.Success;
-
-			Uid = character.Uid;
-
-			IsUidRecycled = character.IsUidRecycled;
-
-			Name = gEngine.CloneInstance(character.Name);
-
-			Desc = gEngine.CloneInstance(character.Desc);
-
-			Debug.Assert(Synonyms == null && character.Synonyms == null);
-
-			Seen = character.Seen;
-
-			ArticleType = character.ArticleType;
-
-			Gender = character.Gender;
-
-			Status = character.Status;
-
-			Debug.Assert(Stats.Length == character.Stats.Length);
-
-			for (var i = 0; i < Stats.Length; i++)
-			{
-				SetStat(i, character.GetStat(i));
-			}
-
-			Debug.Assert(SpellAbilities.Length == character.SpellAbilities.Length);
-
-			for (var i = 0; i < SpellAbilities.Length; i++)
-			{
-				SetSpellAbility(i, character.GetSpellAbility(i));
-			}
-
-			Debug.Assert(WeaponAbilities.Length == character.WeaponAbilities.Length);
-
-			for (var i = 0; i < WeaponAbilities.Length; i++)
-			{
-				SetWeaponAbility(i, character.GetWeaponAbility(i));
-			}
-
-			ArmorExpertise = character.ArmorExpertise;
-
-			BankGold = 0;
-
-			HeldGold = character.HeldGold;
-
-			BankGold = character.BankGold;
-
-			ArmorClass = character.ArmorClass;
-
-			gEngine.CopyCharacterArtifactFields(Armor, character.Armor);
-
-			gEngine.CopyCharacterArtifactFields(Shield, character.Shield);
-
-			Debug.Assert(Weapons.Length == character.Weapons.Length);
-
-			for (var i = 0; i < Weapons.Length; i++)
-			{
-				gEngine.CopyCharacterArtifactFields(GetWeapon(i), character.GetWeapon(i));
-			}
-
-		Cleanup:
-
-			return rc;
+			return gEngine.AddUniqueCharsToRecordNames(artifactList.Cast<IGameBase>().ToList());
 		}
 
 		#endregion
@@ -805,36 +673,6 @@ namespace Eamon.Game
 			SpellAbilities = new long[(long)EnumUtil.GetLastValue<Spell>() + 1];
 
 			WeaponAbilities = new long[(long)EnumUtil.GetLastValue<Weapon>() + 1];
-
-			Armor = gEngine.CreateInstance<ICharacterArtifact>(x =>
-			{
-				x.Parent = this;
-			});
-
-			Shield = gEngine.CreateInstance<ICharacterArtifact>(x =>
-			{
-				x.Parent = this;
-			});
-
-			Weapons = new ICharacterArtifact[]
-			{
-				gEngine.CreateInstance<ICharacterArtifact>(x =>
-				{
-					x.Parent = this;
-				}),
-				gEngine.CreateInstance<ICharacterArtifact>(x =>
-				{
-					x.Parent = this;
-				}),
-				gEngine.CreateInstance<ICharacterArtifact>(x =>
-				{
-					x.Parent = this;
-				}),
-				gEngine.CreateInstance<ICharacterArtifact>(x =>
-				{
-					x.Parent = this;
-				})
-			};
 		}
 
 		#endregion

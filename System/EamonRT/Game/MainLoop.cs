@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 using Eamon.Framework;
+using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using EamonRT.Framework;
 using EamonRT.Framework.Commands;
@@ -28,15 +29,7 @@ namespace EamonRT.Game
 
 		public virtual void Startup()
 		{
-			gEngine.EnforceCharacterWeightLimits();
-
-			var monster = gEngine.ConvertCharacterToMonster();
-
-			Debug.Assert(monster != null);
-
-			gGameState.Cm = monster.Uid;
-
-			Debug.Assert(gGameState.Cm > 0);
+			gEngine.ConvertCharacterToMonster();
 
 			gEngine.NormalizeArtifactValuesAndWeights();
 
@@ -64,12 +57,19 @@ namespace EamonRT.Game
 
 			gEngine.Module.NumMonsters = gDatabase.GetMonsterCount();
 
+			gEngine.EnforceCharMonsterWeightLimits();
+
 			gEngine.CreateInitialState(false);
 		}
 
 		public virtual void Shutdown()
 		{
 			var weaponList = new List<IArtifact>();
+
+			gDatabase.ExecuteOnArtifactTable(ArtifactTableType.CharArt, () =>
+			{
+				gDatabase.ArtifactTable.FreeRecords();
+			});
 
 			gEngine.SetArmorClass();
 

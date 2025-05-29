@@ -13,7 +13,7 @@ namespace EamonDD.Framework.Menus.ActionMenus
 	public interface IAnalyseAllRecordInterdependenciesMenu : IMenu
 	{
 		/// <summary></summary>
-		IAnalyseRecordInterdependenciesMenu01<IGameBase>[] AnalyseMenus { get; set; }
+		IList<IAnalyseRecordInterdependenciesMenu01<IGameBase>> AnalyseMenuList { get; set; }
 
 		/// <summary></summary>
 		IList<string> SkipFieldNameList { get; set; }

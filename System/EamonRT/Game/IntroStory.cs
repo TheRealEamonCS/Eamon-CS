@@ -5,6 +5,7 @@
 
 using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Text;
 using Eamon;
 using Eamon.Framework.Primitive.Enums;
@@ -41,8 +42,6 @@ namespace EamonRT.Game
 					var rc = gEngine.In.ReadField(Buf, gEngine.BufSize02, null, ' ', '\0', true, "N", gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, null);
 
 					Debug.Assert(gEngine.IsSuccess(rc));
-
-					gEngine.Thread.Sleep(150);
 
 					if (Buf.Length > 0 && Buf[0] != 'Y')
 					{
@@ -82,13 +81,9 @@ namespace EamonRT.Game
 		/// <returns></returns>
 		public virtual bool IsCharWpnNum(char ch)
 		{
-			var i = 0L;
+			var artifactList = gCharacter.GetCarriedList().Where(a => a.GeneralWeapon != null).ToList();
 
-			var rc = gCharacter.GetWeaponCount(ref i);
-
-			Debug.Assert(gEngine.IsSuccess(rc));
-
-			return ch >= '1' && ch <= ('1' + (i - 1));
+			return ch >= '1' && ch <= ('1' + (artifactList.Count - 1));
 		}
 
 		/// <summary></summary>
@@ -130,13 +125,17 @@ namespace EamonRT.Game
 
 			PrintOutputBeginnersPrelude();
 
-			var i = 0L;       // Weird disambiguation hack
+			var artifactList = gCharacter.GetCarriedList().Where(a => a.GeneralWeapon != null).ToList();
 
-			if (!gCharacter.GetWeapon(i).IsActive())
+			if (artifactList.Count <= 0)
 			{
 				PrintOutputBeginnersNoWeapons();
 
+				gEngine.MainLoop.ShouldStartup = false;
+
 				gEngine.MainLoop.ShouldExecute = false;
+
+				gEngine.MainLoop.ShouldShutdown = false;
 
 				gEngine.ExitType = ExitType.GoToMainHall;
 			}
@@ -144,13 +143,17 @@ namespace EamonRT.Game
 			{
 				PrintOutputBeginnersNotABeginner();
 
+				gEngine.MainLoop.ShouldStartup = false;
+
 				gEngine.MainLoop.ShouldExecute = false;
+
+				gEngine.MainLoop.ShouldShutdown = false;
 
 				gEngine.ExitType = ExitType.GoToMainHall;
 			}
 			else
 			{
-				if (gCharacter.GetWeapon(1).IsActive())
+				if (artifactList.Count > 1)
 				{
 					PrintOutputBeginnersTooManyWeapons();
 
@@ -169,8 +172,6 @@ namespace EamonRT.Game
 					rc = gEngine.In.ReadField(Buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, IsCharWpnNum, null);
 
 					Debug.Assert(gEngine.IsSuccess(rc));
-
-					gEngine.Thread.Sleep(150);
 
 					gOut.Print("{0}", gEngine.LineSep);
 

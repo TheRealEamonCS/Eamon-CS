@@ -25,9 +25,6 @@ namespace AlternateBeginnersCave.Game.Plugin
 
 		StringBuilder Framework.Plugin.IEngine.Buf01 { get; set; }
 
-		/// <summary></summary>
-		public virtual long HeldWpnIdx { get; set; }
-
 		public override RetCode LoadPluginClassMappings()
 		{
 			RetCode rc;
@@ -268,22 +265,6 @@ namespace AlternateBeginnersCave.Game.Plugin
 			}
 		}
 
-		public override IArtifact ConvertWeaponToArtifact(ICharacterArtifact weapon)
-		{
-			var artifact = base.ConvertWeaponToArtifact(weapon);
-
-			var i = Array.FindIndex(Character.Weapons, x => x == weapon);
-
-			if (i != GameState.UsedWpnIdx)
-			{
-				artifact.SetInLimbo();
-
-				GameState.SetHeldWpnUid(HeldWpnIdx++, artifact.Uid);
-			}
-
-			return artifact;
-		}
-
 		public override void ResetMonsterStats(IMonster monster)
 		{
 			Debug.Assert(monster != null && monster.IsCharacterMonster());
@@ -298,23 +279,6 @@ namespace AlternateBeginnersCave.Game.Plugin
 
 				gGameState.MagicDaggerCounter = -1;
 			}
-		}
-
-		public override void ConvertToCarriedInventory(IList<IArtifact> weaponList)
-		{
-			for (var i = 0; i < GameState.HeldWpnUids.Length; i++)
-			{
-				if (GameState.GetHeldWpnUid(i) > 0)
-				{
-					var artifact = ADB[GameState.GetHeldWpnUid(i)];
-
-					Debug.Assert(artifact != null);
-
-					artifact.SetCarriedByMonster(gCharMonster);
-				}
-			}
-
-			base.ConvertToCarriedInventory(weaponList);
 		}
 
 		public Engine()

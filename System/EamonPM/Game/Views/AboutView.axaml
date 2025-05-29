@@ -46,7 +46,7 @@
 						   Foreground="{DynamicResource GeneralForegroundColor}"
 						   Margin="10,0,10,10">
 					<Run FontWeight="DemiBold" Text="{Binding ProgramNameWithParens, Mode=TwoWay}" />
-					<Run Foreground="{DynamicResource LightTextColor}"> 3.0.0.</Run>
+					<Run Foreground="{DynamicResource LightTextColor}"> 3.1.0.</Run>
 				</TextBlock>
 
 				<TextBlock FontSize="10"
@@ -71,7 +71,8 @@
 
 				<TextBlock HorizontalAlignment="Center" 
 						   Foreground="{DynamicResource GeneralForegroundColor}" 
-						   Margin="10,0,10,20" 
+						   Margin="10,0,10,20"
+						   MaxWidth="550"
 						   TextWrapping="Wrap" 
 						   SizeChanged="WelcomeMessageTextBlock_SizeChanged" 
 						   x:Name="WelcomeMessageTextBlock">
@@ -84,6 +85,7 @@
 				<TextBlock HorizontalAlignment="Center" 
 						   Foreground="{DynamicResource GeneralForegroundColor}" 
 						   Margin="10,0,10,20" 
+						   MaxWidth="550"
 						   TextWrapping="Wrap" 
 						   Text="You might explore a bustling city full of intrigue, plunder a hidden tomb packed with treasure, or trek through a sweltering jungle in search of lost ruins; whatever your destination, fun, and adventure await!"
 						   x:Name="AdventureDescriptionTextBlock" />

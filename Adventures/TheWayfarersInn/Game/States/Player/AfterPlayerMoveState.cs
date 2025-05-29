@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Linq;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
+using Eamon.Game.Extensions;
 using EamonRT.Framework.Components;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
@@ -107,15 +108,7 @@ namespace TheWayfarersInn.Game.States
 				{
 					mirrorArtifact.Type = ArtifactType.Treasure;
 
-					mirrorArtifact.Field1 = 0;
-
-					mirrorArtifact.Field2 = 0;
-
-					mirrorArtifact.Field3 = 0;
-
-					mirrorArtifact.Field4 = 0;
-
-					mirrorArtifact.Field5 = 0;
+					mirrorArtifact.SetFieldsValue(1, gEngine.NumArtifactCategoryFields, 0);
 
 					gGameState.MirrorPassphraseSpoken = false;
 				}

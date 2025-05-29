@@ -3,6 +3,7 @@
 
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
+using System;
 using System.Diagnostics;
 using Eamon.Framework;
 using Eamon.Framework.Primitive.Enums;
@@ -162,6 +163,8 @@ namespace EamonRT.Game.Commands
 
 					case "rungameeditor":
 
+						// Note: unstructured manipulation of live game data can lead to inconsistent game engine state and is for testing purposes only.
+
 						BortConfig = gEngine.CloneInstance(gEngine.Config);
 
 						Debug.Assert(BortConfig != null);
@@ -213,9 +216,15 @@ namespace EamonRT.Game.Commands
 
 						gEngine.Module = gEngine.GetModule();
 
-						Debug.Assert(gEngine.Module != null && gEngine.Module.Uid > 0);
+						if (gEngine.Module == null || gEngine.Module.Uid <= 0)
+						{
+							throw new InvalidOperationException("Adventure Module is not found or invalid.");
+						}
 
-						Debug.Assert(gRDB[gGameState.Ro] != null);
+						if (gRDB[gGameState.Ro] == null)
+						{
+							throw new InvalidOperationException("Player Room is not found.");
+						}
 
 						break;
 

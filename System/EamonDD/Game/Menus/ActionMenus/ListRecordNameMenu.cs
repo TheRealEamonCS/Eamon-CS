@@ -27,9 +27,13 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			var helper = gEngine.CreateInstance<U>();
 
+			helper.RecordTable = RecordTable;
+			
 			var j = RecordTable.GetRecordCount();
 
 			var i = 0;
+
+			gEngine.DdSuppressPostInputSleep = true;
 
 			foreach (var record in RecordTable.Records)
 			{
@@ -63,6 +67,8 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 				i++;
 			}
+
+			gEngine.DdSuppressPostInputSleep = false;
 
 			if (nlFlag)
 			{

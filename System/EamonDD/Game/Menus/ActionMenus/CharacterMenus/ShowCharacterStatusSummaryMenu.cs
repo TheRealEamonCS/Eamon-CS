@@ -80,6 +80,8 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 					Debug.Assert(gEngine.IsSuccess(rc));
 
+					gDatabase.PushArtifactTable(ArtifactTableType.CharArt);
+
 					rc = gDatabase.LoadCharacters(chrfn, printOutput: false);
 
 					Debug.Assert(gEngine.IsSuccess(rc));

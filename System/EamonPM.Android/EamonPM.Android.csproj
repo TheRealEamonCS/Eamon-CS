@@ -5,7 +5,7 @@
     <SupportedOSPlatformVersion>21</SupportedOSPlatformVersion>
     <ApplicationId>EamonPM.Android</ApplicationId>
     <ApplicationVersion>2</ApplicationVersion>
-    <ApplicationDisplayVersion>3.0.0.0</ApplicationDisplayVersion>
+    <ApplicationDisplayVersion>3.1.0.0</ApplicationDisplayVersion>
     <AndroidPackageFormat>apk</AndroidPackageFormat>
     <AndroidEnableProfiledAot>False</AndroidEnableProfiledAot>
     <Authors>Michael Penner</Authors>
@@ -40,7 +40,6 @@
     <TrimmerRootAssembly Include="$(OutputPath)Dharmaquest.dll" RootMode="All" />
     <TrimmerRootAssembly Include="$(OutputPath)LandOfTheMountainKing.dll" RootMode="All" />
     <TrimmerRootAssembly Include="$(OutputPath)OrbOfMyLife.dll" RootMode="All" />
-    <TrimmerRootAssembly Include="$(OutputPath)RiddlesOfTheDuergarKingdom.dll" RootMode="All" />
     <TrimmerRootAssembly Include="$(OutputPath)SampleAdventure.dll" RootMode="All" />
     <TrimmerRootAssembly Include="$(OutputPath)StrongholdOfKahrDur.dll" RootMode="All" />
     <TrimmerRootAssembly Include="$(OutputPath)TheBeginnersCave.dll" RootMode="All" />
@@ -127,7 +126,6 @@
       xcopy "$(TargetDir)Dharmaquest.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
       xcopy "$(TargetDir)LandOfTheMountainKing.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
       xcopy "$(TargetDir)OrbOfMyLife.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
-      xcopy "$(TargetDir)RiddlesOfTheDuergarKingdom.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
       xcopy "$(TargetDir)SampleAdventure.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
       xcopy "$(TargetDir)StrongholdOfKahrDur.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
       xcopy "$(TargetDir)TheBeginnersCave.*" "$(TargetDir)..\EamonPM.Android\Assets\System\Bin" /I /S /Y
@@ -154,7 +152,6 @@
       xcopy "$(TargetDir)..\..\Adventures\EscapeFromMtMoon\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\EscapeFromMtMoon" /I /S /Y
       xcopy "$(TargetDir)..\..\Adventures\LandOfTheMountainKing\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\LandOfTheMountainKing" /I /S /Y
       xcopy "$(TargetDir)..\..\Adventures\OrbOfMyLife\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\OrbOfMyLife" /I /S /Y
-      xcopy "$(TargetDir)..\..\Adventures\RiddlesOfTheDuergarKingdom\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\RiddlesOfTheDuergarKingdom" /I /S /Y
       xcopy "$(TargetDir)..\..\Adventures\SampleAdventure\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\SampleAdventure" /I /S /Y
       xcopy "$(TargetDir)..\..\Adventures\StrongholdOfKahrDur\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\StrongholdOfKahrDur" /I /S /Y
       xcopy "$(TargetDir)..\..\Adventures\TestAdventure\*.DAT" "$(TargetDir)..\EamonPM.Android\Assets\Adventures\TestAdventure" /I /S /Y

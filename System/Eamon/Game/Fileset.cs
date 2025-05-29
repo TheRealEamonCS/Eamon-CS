@@ -45,6 +45,9 @@ namespace Eamon.Game
 		[FieldName(760)]
 		public virtual string ArtifactFileName { get; set; }
 
+		[FieldName(770)]
+		public virtual string CharArtFileName { get; set; }
+
 		[FieldName(780)]
 		public virtual string EffectFileName { get; set; }
 
@@ -72,7 +75,7 @@ namespace Eamon.Game
 				// Get rid of managed resources
 			}
 
-			if (IsUidRecycled && Uid > 0)
+			if (Uid > 0)
 			{
 				gDatabase.FreeFilesetUid(Uid);
 
@@ -169,6 +172,8 @@ namespace Eamon.Game
 			RoomFileName = "";
 
 			ArtifactFileName = "";
+
+			CharArtFileName = "";
 
 			EffectFileName = "";
 

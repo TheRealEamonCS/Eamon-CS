@@ -6,6 +6,7 @@
 using System;
 using System.Diagnostics;
 using System.Linq;
+using System.Text;
 using Eamon.Framework;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
@@ -41,22 +42,22 @@ namespace TheWayfarersInn.Game.Commands
 			}
 		}
 
-		public override void BuildPrepContainerYouSeePrefix(IArtifact artifact, ContainerType containerType, bool showCharOwned)
+		public override void BuildPrepContainerYouSeePrefix(IArtifact artifact, ContainerType containerType, bool showCharOwned, StringBuilder buf)
 		{
-			Debug.Assert(artifact != null && Enum.IsDefined(typeof(ContainerType), containerType));
+			Debug.Assert(artifact != null && Enum.IsDefined(typeof(ContainerType), containerType) && buf != null);
 
 			// Burlap sack
 
 			if (artifact.Uid == 34)
 			{
-				gEngine.Buf.SetFormat("{0}{1} the unique void fragments of {2}, you see ",
+				buf.SetFormat("{0}{1} the unique void fragments of {2}, you see ",
 					Environment.NewLine,
 					gEngine.EvalContainerType(containerType, "Inside", "On", "Under", "Behind"),
 					artifact.GetTheName(showCharOwned: showCharOwned));
 			}
 			else
 			{
-				base.BuildPrepContainerYouSeePrefix(artifact, containerType, showCharOwned);
+				base.BuildPrepContainerYouSeePrefix(artifact, containerType, showCharOwned, buf);
 			}
 		}
 

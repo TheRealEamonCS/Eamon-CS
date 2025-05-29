@@ -246,6 +246,321 @@ namespace Eamon.Game
 		}
 
 		[ExcludeFromSerialization]
+		public virtual long Field6
+		{
+			get
+			{
+				var ac = GetCategory(0);
+
+				return ac != null ? ac.Field6 : 0;
+			}
+
+			set
+			{
+				var ac = GetCategory(0);
+
+				if (ac != null)
+				{
+					ac.Field6 = value;
+				}
+			}
+		}
+
+		[ExcludeFromSerialization]
+		public virtual long Field7
+		{
+			get
+			{
+				var ac = GetCategory(0);
+
+				return ac != null ? ac.Field7 : 0;
+			}
+
+			set
+			{
+				var ac = GetCategory(0);
+
+				if (ac != null)
+				{
+					ac.Field7 = value;
+				}
+			}
+		}
+
+		[ExcludeFromSerialization]
+		public virtual long Field8
+		{
+			get
+			{
+				var ac = GetCategory(0);
+
+				return ac != null ? ac.Field8 : 0;
+			}
+
+			set
+			{
+				var ac = GetCategory(0);
+
+				if (ac != null)
+				{
+					ac.Field8 = value;
+				}
+			}
+		}
+
+		[ExcludeFromSerialization]
+		public virtual long Field9
+		{
+			get
+			{
+				var ac = GetCategory(0);
+
+				return ac != null ? ac.Field9 : 0;
+			}
+
+			set
+			{
+				var ac = GetCategory(0);
+
+				if (ac != null)
+				{
+					ac.Field9 = value;
+				}
+			}
+		}
+
+		[ExcludeFromSerialization]
+		public virtual long Field10
+		{
+			get
+			{
+				var ac = GetCategory(0);
+
+				return ac != null ? ac.Field10 : 0;
+			}
+
+			set
+			{
+				var ac = GetCategory(0);
+
+				if (ac != null)
+				{
+					ac.Field10 = value;
+				}
+			}
+		}
+
+		[ExcludeFromSerialization]
+		public virtual long Field11
+		{
+			get
+			{
+				var ac = GetCategory(0);
+
+				return ac != null ? ac.Field11 : 0;
+			}
+
+			set
+			{
+				var ac = GetCategory(0);
+
+				if (ac != null)
+				{
+					ac.Field11 = value;
+				}
+			}
+		}
+
+		[ExcludeFromSerialization]
+		public virtual long Field12
+		{
+			get
+			{
+				var ac = GetCategory(0);
+
+				return ac != null ? ac.Field12 : 0;
+			}
+
+			set
+			{
+				var ac = GetCategory(0);
+
+				if (ac != null)
+				{
+					ac.Field12 = value;
+				}
+			}
+		}
+
+		[ExcludeFromSerialization]
+		public virtual long Field13
+		{
+			get
+			{
+				var ac = GetCategory(0);
+
+				return ac != null ? ac.Field13 : 0;
+			}
+
+			set
+			{
+				var ac = GetCategory(0);
+
+				if (ac != null)
+				{
+					ac.Field13 = value;
+				}
+			}
+		}
+
+		[ExcludeFromSerialization]
+		public virtual long Field14
+		{
+			get
+			{
+				var ac = GetCategory(0);
+
+				return ac != null ? ac.Field14 : 0;
+			}
+
+			set
+			{
+				var ac = GetCategory(0);
+
+				if (ac != null)
+				{
+					ac.Field14 = value;
+				}
+			}
+		}
+
+		[ExcludeFromSerialization]
+		public virtual long Field15
+		{
+			get
+			{
+				var ac = GetCategory(0);
+
+				return ac != null ? ac.Field15 : 0;
+			}
+
+			set
+			{
+				var ac = GetCategory(0);
+
+				if (ac != null)
+				{
+					ac.Field15 = value;
+				}
+			}
+		}
+
+		[ExcludeFromSerialization]
+		public virtual long Field16
+		{
+			get
+			{
+				var ac = GetCategory(0);
+
+				return ac != null ? ac.Field16 : 0;
+			}
+
+			set
+			{
+				var ac = GetCategory(0);
+
+				if (ac != null)
+				{
+					ac.Field16 = value;
+				}
+			}
+		}
+
+		[ExcludeFromSerialization]
+		public virtual long Field17
+		{
+			get
+			{
+				var ac = GetCategory(0);
+
+				return ac != null ? ac.Field17 : 0;
+			}
+
+			set
+			{
+				var ac = GetCategory(0);
+
+				if (ac != null)
+				{
+					ac.Field17 = value;
+				}
+			}
+		}
+
+		[ExcludeFromSerialization]
+		public virtual long Field18
+		{
+			get
+			{
+				var ac = GetCategory(0);
+
+				return ac != null ? ac.Field18 : 0;
+			}
+
+			set
+			{
+				var ac = GetCategory(0);
+
+				if (ac != null)
+				{
+					ac.Field18 = value;
+				}
+			}
+		}
+
+		[ExcludeFromSerialization]
+		public virtual long Field19
+		{
+			get
+			{
+				var ac = GetCategory(0);
+
+				return ac != null ? ac.Field19 : 0;
+			}
+
+			set
+			{
+				var ac = GetCategory(0);
+
+				if (ac != null)
+				{
+					ac.Field19 = value;
+				}
+			}
+		}
+
+		[ExcludeFromSerialization]
+		public virtual long Field20
+		{
+			get
+			{
+				var ac = GetCategory(0);
+
+				return ac != null ? ac.Field20 : 0;
+			}
+
+			set
+			{
+				var ac = GetCategory(0);
+
+				if (ac != null)
+				{
+					ac.Field20 = value;
+				}
+			}
+		}
+
+		[ExcludeFromSerialization]
 		public virtual IArtifactCategory Gold
 		{
 			get
@@ -465,7 +780,7 @@ namespace Eamon.Game
 				// Get rid of managed resources
 			}
 
-			if (IsUidRecycled && Uid > 0)
+			if (Uid > 0)
 			{
 				gDatabase.FreeArtifactUid(Uid);
 
@@ -495,7 +810,7 @@ namespace Eamon.Game
 			{
 				if (ac != null && ac.Type != ArtifactType.None)
 				{
-					ac.SyncArtifactCategories();
+					SyncArtifactCategories(ac);
 				}
 			}
 		}
@@ -712,6 +1027,11 @@ namespace Eamon.Game
 			return oldLocation != gEngine.LimboLocation && newLocation < 0 && newLocation > -999;
 		}
 
+		public virtual bool IsCarriedByCharacter()
+		{
+			return Location < -2000 && Location > -3001;
+		}
+
 		public virtual bool IsCarriedByMonster(MonsterType monsterType = MonsterType.NonCharMonster, bool recurse = false)
 		{
 			var result = false;
@@ -751,6 +1071,11 @@ namespace Eamon.Game
 			return Location > 1000 && Location < 5001;
 		}
 
+		public virtual bool IsWornByCharacter()
+		{
+			return Location < -3000 && Location > -4001;
+		}
+
 		public virtual bool IsWornByMonster(MonsterType monsterType = MonsterType.NonCharMonster, bool recurse = false)
 		{
 			var result = false;
@@ -770,11 +1095,11 @@ namespace Eamon.Game
 			{
 				if (monsterType == MonsterType.Any)
 				{
-					result = Location < -1000 || Location == -999;
+					result = (Location < -1000 && Location > -2001) || Location == -999;
 				}
 				else if (monsterType == MonsterType.NonCharMonster)
 				{
-					result = Location < -1000;
+					result = Location < -1000 && Location > -2001;
 				}
 				else
 				{
@@ -932,6 +1257,11 @@ namespace Eamon.Game
 			return result;
 		}
 
+		public virtual bool IsCarriedByCharacterUid(long characterUid)
+		{
+			return Location == (-characterUid - 2000);
+		}
+
 		public virtual bool IsCarriedByMonsterUid(long monsterUid, bool recurse = false)
 		{
 			var result = false;
@@ -1002,6 +1332,11 @@ namespace Eamon.Game
 			}
 
 			return result;
+		}
+
+		public virtual bool IsWornByCharacterUid(long characterUid)
+		{
+			return Location == (-characterUid - 3000);
 		}
 
 		public virtual bool IsWornByMonsterUid(long monsterUid, bool recurse = false)
@@ -1155,6 +1490,13 @@ namespace Eamon.Game
 			return result;
 		}
 
+		public virtual bool IsCarriedByCharacter(ICharacter character)
+		{
+			Debug.Assert(character != null);
+
+			return IsCarriedByCharacterUid(character.Uid);
+		}
+
 		public virtual bool IsCarriedByMonster(IMonster monster, bool recurse = false)
 		{
 			return IsCarriedByMonsterUid(monster != null ? monster.Uid : long.MaxValue, recurse);
@@ -1165,6 +1507,13 @@ namespace Eamon.Game
 			Debug.Assert(container != null);
 
 			return IsCarriedByContainerUid(container.Uid, recurse);
+		}
+
+		public virtual bool IsWornByCharacter(ICharacter character)
+		{
+			Debug.Assert(character != null);
+
+			return IsWornByCharacterUid(character.Uid);
 		}
 
 		public virtual bool IsWornByMonster(IMonster monster, bool recurse = false)
@@ -1201,6 +1550,11 @@ namespace Eamon.Game
 			Debug.Assert(room != null);
 
 			return IsCarriedByContainerContainerTypeExposedToRoomUid(room.Uid, recurse);
+		}
+
+		public virtual long GetCarriedByCharacterUid()
+		{
+			return IsCarriedByCharacter() ? -Location - 2000 : 0L;
 		}
 
 		public virtual long GetCarriedByMonsterUid(bool recurse = false)
@@ -1273,6 +1627,11 @@ namespace Eamon.Game
 			}
 
 			return artifactUid;
+		}
+
+		public virtual long GetWornByCharacterUid()
+		{
+			return IsWornByCharacter() ? -Location - 3000 : 0L;
 		}
 
 		public virtual long GetWornByMonsterUid(bool recurse = false)
@@ -1373,6 +1732,13 @@ namespace Eamon.Game
 			return roomUid;
 		}
 
+		public virtual ICharacter GetCarriedByCharacter()
+		{
+			var characterUid = GetCarriedByCharacterUid();
+
+			return gCHRDB[characterUid];
+		}
+
 		public virtual IMonster GetCarriedByMonster(bool recurse = false)
 		{
 			var monsterUid = GetCarriedByMonsterUid(recurse);
@@ -1385,6 +1751,13 @@ namespace Eamon.Game
 			var artifactUid = GetCarriedByContainerUid(recurse);
 
 			return gADB[artifactUid];
+		}
+
+		public virtual ICharacter GetWornByCharacter()
+		{
+			var characterUid = GetWornByCharacterUid();
+
+			return gCHRDB[characterUid];
 		}
 
 		public virtual IMonster GetWornByMonster(bool recurse = false)
@@ -1417,6 +1790,11 @@ namespace Eamon.Game
 						(ContainerType)(-1);
 		}
 
+		public virtual void SetCarriedByCharacterUid(long characterUid)
+		{
+			Location = -characterUid - 2000;
+		}
+
 		public virtual void SetCarriedByMonsterUid(long monsterUid)
 		{
 			var gameState = gEngine.GetGameState();
@@ -1432,6 +1810,11 @@ namespace Eamon.Game
 			}
 
 			Location = (containerUid + (((long)containerType * 1000) + 1000));
+		}
+
+		public virtual void SetWornByCharacterUid(long characterUid)
+		{
+			Location = -characterUid - 3000;
 		}
 
 		public virtual void SetWornByMonsterUid(long monsterUid)
@@ -1456,6 +1839,13 @@ namespace Eamon.Game
 			Location = gEngine.LimboLocation;
 		}
 
+		public virtual void SetCarriedByCharacter(ICharacter character)
+		{
+			Debug.Assert(character != null);
+
+			SetCarriedByCharacterUid(character.Uid);
+		}
+
 		public virtual void SetCarriedByMonster(IMonster monster)
 		{
 			SetCarriedByMonsterUid(monster != null ? monster.Uid : long.MaxValue);
@@ -1466,6 +1856,13 @@ namespace Eamon.Game
 			Debug.Assert(container != null);
 
 			SetCarriedByContainerUid(container.Uid, containerType);
+		}
+
+		public virtual void SetWornByCharacter(ICharacter character)
+		{
+			Debug.Assert(character != null);
+
+			SetWornByCharacterUid(character.Uid);
 		}
 
 		public virtual void SetWornByMonster(IMonster monster)
@@ -2105,6 +2502,150 @@ namespace Eamon.Game
 			}
 
 			return result;
+		}
+
+		public virtual void SyncArtifactCategories(IArtifactCategory modifiedAc)
+		{
+			Debug.Assert(modifiedAc != null);
+
+			if (Categories != null)
+			{
+				switch (modifiedAc.Type)
+				{
+					case ArtifactType.InContainer:
+					case ArtifactType.DoorGate:
+					{
+						foreach (var ac in Categories)
+						{
+							if (ac != null && ac != modifiedAc && ac.Type != ArtifactType.None)
+							{
+								ac.SyncFields = false;
+
+								if (ac.IsLockable())
+								{
+									ac.SetKeyUid(modifiedAc.GetKeyUid());
+								}
+
+								if (ac.IsOpenable())
+								{
+									if (modifiedAc.GetBreakageStrength() > 0)
+									{
+										if (ac.Type == ArtifactType.InContainer || ac.Type == ArtifactType.DoorGate)
+										{
+											ac.SetBreakageStrength(modifiedAc.GetBreakageStrength());
+										}
+										else
+										{
+											ac.SetOpen(modifiedAc.IsOpen());
+										}
+									}
+									else if (ac.GetBreakageStrength() <= 0 || modifiedAc.IsOpen())
+									{
+										ac.SetOpen(modifiedAc.IsOpen());
+									}
+								}
+
+								ac.SyncFields = true;
+							}
+						}
+
+						break;
+					}
+
+					case ArtifactType.Drinkable:
+					case ArtifactType.Edible:
+					{
+						foreach (var ac in Categories)
+						{
+							if (ac != null && ac != modifiedAc && ac.Type != ArtifactType.None)
+							{
+								ac.SyncFields = false;
+
+								if (ac.Type == ArtifactType.Drinkable || ac.Type == ArtifactType.Edible)
+								{
+									ac.Field1 = modifiedAc.Field1;
+
+									ac.Field2 = modifiedAc.Field2;
+								}
+
+								if (ac.IsOpenable() && (ac.GetBreakageStrength() <= 0 || modifiedAc.IsOpen()))
+								{
+									ac.SetOpen(modifiedAc.IsOpen());
+								}
+
+								ac.SyncFields = true;
+							}
+						}
+
+						break;
+					}
+
+					case ArtifactType.Readable:
+					{
+						foreach (var ac in Categories)
+						{
+							if (ac != null && ac != modifiedAc && ac.Type != ArtifactType.None)
+							{
+								ac.SyncFields = false;
+
+								if (ac.IsOpenable() && (ac.GetBreakageStrength() <= 0 || modifiedAc.IsOpen()))
+								{
+									ac.SetOpen(modifiedAc.IsOpen());
+								}
+
+								ac.SyncFields = true;
+							}
+						}
+
+						break;
+					}
+
+					case ArtifactType.BoundMonster:
+					{
+						foreach (var ac in Categories)
+						{
+							if (ac != null && ac != modifiedAc && ac.Type != ArtifactType.None)
+							{
+								ac.SyncFields = false;
+
+								if (ac.Type == ArtifactType.DisguisedMonster)
+								{
+									ac.Field1 = modifiedAc.Field1;
+								}
+
+								if (ac.IsLockable())
+								{
+									ac.SetKeyUid(modifiedAc.GetKeyUid());
+								}
+
+								ac.SyncFields = true;
+							}
+						}
+
+						break;
+					}
+
+					case ArtifactType.DisguisedMonster:
+					{
+						foreach (var ac in Categories)
+						{
+							if (ac != null && ac != modifiedAc && ac.Type != ArtifactType.None)
+							{
+								ac.SyncFields = false;
+
+								if (ac.Type == ArtifactType.BoundMonster)
+								{
+									ac.Field1 = modifiedAc.Field1;
+								}
+
+								ac.SyncFields = true;
+							}
+						}
+
+						break;
+					}
+				}
+			}
 		}
 
 		#endregion

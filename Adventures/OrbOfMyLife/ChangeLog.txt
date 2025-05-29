@@ -5,4 +5,5 @@ ChangeLog: OrbOfMyLife
 
 Date            Version            Who            Notes
 ----------------------------------------------------------------------------------------------------------------------------------
+20250531        3.1.0              MP             CharacterArtifact removal/20-Field Artifact overhaul
 20250205        3.0.0              MP             Code complete 3.0.0

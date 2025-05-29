@@ -8,12 +8,14 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Text;
+using System.Xml.Linq;
 using Eamon.Framework.Args;
 using Eamon.Framework.DataStorage;
 using Eamon.Framework.DataStorage.Generic;
 using Eamon.Framework.Portability;
 using Eamon.Framework.Primitive.Classes;
 using Eamon.Framework.Primitive.Enums;
+using Eamon.Framework.Utilities;
 
 namespace Eamon.Framework.Plugin
 {
@@ -77,16 +79,6 @@ namespace Eamon.Framework.Plugin
 		/// Gets the maximum length of a <see cref="ICharacter">Character</see> <see cref="IGameBase.Name">Name</see>.
 		/// </summary>
 		int CharNameLen { get; }
-
-		/// <summary>
-		/// Gets the maximum length of a <see cref="ICharacter">Character</see> <see cref="IArtifact">Artifact</see> <see cref="IGameBase.Name">Name</see> (e.g., armor, shield, or weapon).
-		/// </summary>
-		int CharArtNameLen { get; }
-
-		/// <summary>
-		/// Gets the maximum length of a <see cref="ICharacter">Character</see> <see cref="IArtifact">Artifact</see> <see cref="IGameBase.Desc">Desc</see> (e.g., armor, shield, or weapon).
-		/// </summary>
-		int CharArtDescLen { get; }
 
 		/// <summary>
 		/// Gets the maximum length of an <see cref="IEffect">Effect</see> <see cref="IGameBase.Desc">Desc</see>.
@@ -264,26 +256,19 @@ namespace Eamon.Framework.Plugin
 		long FountainPrice { get; }
 
 		/// <summary>
-		/// Gets the maximum number of <see cref="IDatabase">Database</see>s allowed in the database stack.
+		/// Gets the maximum number of <see cref="IGameBase">Record</see>s allowed in a database table.
 		/// </summary>
-		/// <remarks>
-		/// When a plugin is loaded, a new plugin-specific database is instantiated and pushed onto the stack. For example, EamonMH
-		/// might use a database containing <see cref="ICharacter">Character</see>s, (snappy) <see cref="IEffect">Effect</see>s and
-		/// (adventure) <see cref="IFileset">Fileset</see>s. But, when an adventure starts, a new database with game-specific
-		/// records is pushed onto the stack. Then, when the game exits, the game database is popped off the stack, and the
-		/// EamonMH database is restored. There may be other scenarios as well.
-		/// </remarks>
-		long NumDatabases { get; }
+		long NumRecords { get; }
 
 		/// <summary>
-		/// Gets the maximum number of <see cref="RulesetVersion">RulesetVersion</see>s allowed in the ruleset version stack.
+		/// Gets the maximum number of weapon Artifacts allowed in a <see cref="ICharacter">Character</see>'s inventory.
 		/// </summary>
-		/// <remarks>
-		/// The game engine emulates different versions of Eamon using a stack of ruleset versions. It is possible to alter game
-		/// behavior at key points by pushing a different ruleset version on the stack, then later popping it off. Various games
-		/// actually do this. But pushing a single ruleset version on and leaving it is more typical.
-		/// </remarks>
-		long NumRulesetVersions { get; }
+		long NumCharacterWeapons { get; }
+
+		/// <summary>
+		/// Gets the maximum number of Artifacts allowed in a <see cref="ICharacter">Character</see>'s inventory.
+		/// </summary>
+		long NumCharacterArtifacts { get; }
 
 		/// <summary>
 		/// Gets the maximum number of Categories assignable to a single <see cref="IArtifact">Artifact</see>.
@@ -293,6 +278,9 @@ namespace Eamon.Framework.Plugin
 		/// manipulated by various Commands during the game.
 		/// </remarks>
 		long NumArtifactCategories { get; }
+
+		/// <summary></summary>
+		long NumArtifactCategoryFields { get; }
 
 		/// <summary>
 		/// Gets the default size for large, discardable StringBuilders created during system processing.
@@ -324,9 +312,6 @@ namespace Eamon.Framework.Plugin
 		string ValidWorkDirRegexPattern { get; }
 
 		/// <summary></summary>
-		string MscorlibRegexPattern { get; }
-
-		/// <summary></summary>
 		string CommandSepRegexPattern { get; }
 
 		/// <summary></summary>
@@ -337,9 +322,6 @@ namespace Eamon.Framework.Plugin
 
 		/// <summary></summary>
 		string ExceptRegexPattern { get; }
-
-		/// <summary></summary>
-		string CoreLibName { get; }
 
 		/// <summary>
 		/// Gets the format string used to produce error messages during <see cref="IGameBase">Record</see> interdependency checking.
@@ -650,6 +632,9 @@ namespace Eamon.Framework.Plugin
 		bool DeleteGameStateFromMainHall { get; set; }
 
 		/// <summary></summary>
+		bool GetMainMenuInput { get; set; }
+
+		/// <summary></summary>
 		Action<IDictionary<Type, Type>> LoadPortabilityClassMappings { get; set; }
 
 		/// <summary></summary>
@@ -879,11 +864,6 @@ namespace Eamon.Framework.Plugin
 		RetCode GetRvStackTop(ref long rvStackTop);
 
 		/// <summary></summary>
-		/// <param name="rvStackSize"></param>
-		/// <returns></returns>
-		RetCode GetRvStackSize(ref long rvStackSize);
-
-		/// <summary></summary>
 		/// <param name="ifaceType"></param>
 		/// <param name="initialize"></param>
 		/// <returns></returns>
@@ -959,11 +939,6 @@ namespace Eamon.Framework.Plugin
 		RetCode GetDbStackTop(ref long dbStackTop);
 
 		/// <summary></summary>
-		/// <param name="dbStackSize"></param>
-		/// <returns></returns>
-		RetCode GetDbStackSize(ref long dbStackSize);
-
-		/// <summary></summary>
 		void InitSystem();
 
 		/// <summary></summary>
@@ -981,11 +956,29 @@ namespace Eamon.Framework.Plugin
 
 		/// <summary></summary>
 		/// <param name="fileName"></param>
-		void ReplaceDatafileValues01(string fileName);
+		void UpgradeDatafile(string fileName);
 
 		/// <summary></summary>
-		/// <param name="fileName"></param>
-		void UpgradeDatafile(string fileName);
+		/// <param name="characterFileName"></param>
+		/// <returns></returns>
+		string Upgrade300DatafileGetCharArtFileName(string characterFileName);
+
+		/// <summary></summary>
+		/// <param name="xmlString"></param>
+		/// <returns></returns>
+		IList<ICharArtListData> Upgrade300DatafileParseCharacters(string xmlString);
+
+		/// <summary></summary>
+		/// <param name="charArtData"></param>
+		/// <param name="propertyName"></param>
+		/// <param name="element"></param>
+		/// <returns></returns>
+		IArtifact Upgrade300DatafileGetCharArtifact(ICharArtListData charArtData, string propertyName, XElement element);
+
+		/// <summary></summary>
+		/// <param name="xmlString"></param>
+		/// <returns></returns>
+		string Upgrade300DatafileStripEquipment(string xmlString);
 
 		/// <summary>
 		/// Gets the sentence preposition (e.g., "to", "from", "inside", etc).
@@ -1837,7 +1830,7 @@ namespace Eamon.Framework.Plugin
 		/// <param name="calcPrice"></param>
 		/// <param name="isMarcosWeapon"></param>
 		/// <returns></returns>
-		double GetWeaponPriceOrValue(ICharacterArtifact weapon, bool calcPrice, ref bool isMarcosWeapon);
+		double GetWeaponPriceOrValue(IArtifact weapon, bool calcPrice, ref bool isMarcosWeapon);
 
 		/// <summary></summary>
 		/// <param name="armor"></param>
@@ -1859,16 +1852,6 @@ namespace Eamon.Framework.Plugin
 		/// <param name="fullDesc"></param>
 		/// <param name="briefDesc"></param>
 		void AppendFieldDesc(FieldDesc fieldDesc, StringBuilder buf, string fullDesc, string briefDesc);
-
-		/// <summary></summary>
-		/// <param name="destCa"></param>
-		/// <param name="sourceCa"></param>
-		void CopyCharacterArtifactFields(ICharacterArtifact destCa, ICharacterArtifact sourceCa);
-
-		/// <summary></summary>
-		/// <param name="destAc"></param>
-		/// <param name="sourceAc"></param>
-		void CopyArtifactCategoryFields(IArtifactCategory destAc, IArtifactCategory sourceAc);
 
 		/// <summary></summary>
 		/// <param name="whereClauseFuncs"></param>
@@ -1918,11 +1901,24 @@ namespace Eamon.Framework.Plugin
 
 		/// <summary></summary>
 		/// <param name="recordList"></param>
-		void StripUniqueCharsFromRecordNames(IList<IGameBase> recordList);
+		/// <returns></returns>
+		bool StripUniqueCharsFromRecordNames(IList<IGameBase> recordList);
 
 		/// <summary></summary>
 		/// <param name="recordList"></param>
-		void AddUniqueCharsToRecordNames(IList<IGameBase> recordList);
+		/// <returns></returns>
+		bool AddUniqueCharsToRecordNames(IList<IGameBase> recordList);
+
+		/// <summary></summary>
+		/// <param name="character"></param>
+		/// <returns></returns>
+		bool SwapGreaterArmorUidWithLesserShieldUid(ICharacter character);
+
+		/// <summary></summary>
+		/// <param name="buf"></param>
+		/// <param name="inputFillChar"></param>
+		/// <returns></returns>
+		bool ShouldSleepAfterInput(StringBuilder buf, char inputFillChar);
 
 		/// <summary></summary>
 		/// <param name="artifact"></param>

@@ -42,6 +42,11 @@ namespace EamonRT.Framework.Plugin
 		/// </remarks>
 		string PageSep { get; }
 
+		/*
+		/// <summary></summary>
+		HashSet<string> IgnoredTokenHashSet { get; set; }
+		*/
+
 		/// <summary></summary>
 		IList<ICommand> CommandList { get; set; }
 
@@ -161,6 +166,9 @@ namespace EamonRT.Framework.Plugin
 
 		/// <summary></summary>
 		bool UseRevealContentMonsterTheName { get; set; }
+
+		/// <summary></summary>
+		bool RtSuppressPostInputSleep { get; set; }
 
 		/// <summary></summary>
 		bool PlayerMoved { get; set; }
@@ -540,10 +548,7 @@ namespace EamonRT.Framework.Plugin
 		long GetMostPowerfulWeaponUid(IList<IArtifact> artifactList);
 
 		/// <summary></summary>
-		void EnforceCharacterWeightLimits();
-
-		/// <summary></summary>
-		void EnforceCharacterWeightLimits02(IRoom room = null, bool printOutput = false);
+		void EnforceCharMonsterWeightLimits(IRoom room = null, bool printOutput = false);
 
 		/// <summary></summary>
 		void NormalizeArtifactValuesAndWeights();
@@ -573,14 +578,10 @@ namespace EamonRT.Framework.Plugin
 		void InitMonsterScaledHardinessValues();
 
 		/// <summary></summary>
-		/// <param name="weapon"></param>
-		/// <returns></returns>
-		IArtifact ConvertWeaponToArtifact(ICharacterArtifact weapon);
-
-		/// <summary></summary>
 		/// <param name="artifact"></param>
+		/// <param name="ac"></param>
 		/// <returns></returns>
-		ICharacterArtifact ConvertArtifactToWeapon(IArtifact artifact);
+		void ConvertArtifactToCharArtifact(IArtifact artifact, IArtifactCategory ac);
 
 		/// <summary></summary>
 		/// <param name="artifact"></param>
@@ -590,8 +591,7 @@ namespace EamonRT.Framework.Plugin
 		IMonster ConvertArtifactToMonster(IArtifact artifact, Action<IMonster> initialize = null, bool addToDatabase = false);
 
 		/// <summary></summary>
-		/// <returns></returns>
-		IMonster ConvertCharacterToMonster();
+		void ConvertCharacterToMonster();
 
 		/// <summary></summary>
 		/// <param name="monster"></param>

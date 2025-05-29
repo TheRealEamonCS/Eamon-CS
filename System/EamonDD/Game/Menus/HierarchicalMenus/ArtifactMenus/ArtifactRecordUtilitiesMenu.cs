@@ -37,14 +37,17 @@ namespace EamonDD.Game.Menus.HierarchicalMenus
 				x.SubMenu = gEngine.CreateInstance<IGenerateDummyArtifactRecordsMenu>();
 			}));
 
-			MenuItemList.Add(gEngine.CreateInstance<IMenuItem>(x =>
-			{
-				x.SelectChar = (char)('1' + MenuItemList.Count);
-				x.LineText = string.Format("{0}{1}. Generate dead body Artifact records.", Environment.NewLine, MenuItemList.Count + 1);
-				x.SubMenu = gEngine.CreateInstance<IGenerateDeadBodyArtifactRecordsMenu>();
-			}));
-
 			if (gEngine.IsAdventureFilesetLoaded())
+			{
+				MenuItemList.Add(gEngine.CreateInstance<IMenuItem>(x =>
+				{
+					x.SelectChar = (char)('1' + MenuItemList.Count);
+					x.LineText = string.Format("{0}{1}. Generate dead body Artifact records.", Environment.NewLine, MenuItemList.Count + 1);
+					x.SubMenu = gEngine.CreateInstance<IGenerateDeadBodyArtifactRecordsMenu>();
+				}));
+			}
+
+			if (gEngine.IsAdventureFilesetLoaded() || gEngine.IsCharacterInventoryLoaded())
 			{
 				MenuItemList.Add(gEngine.CreateInstance<IMenuItem>(x =>
 				{

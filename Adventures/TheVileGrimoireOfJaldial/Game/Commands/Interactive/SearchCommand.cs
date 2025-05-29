@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Linq;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
+using Eamon.Game.Extensions;
 using EamonRT.Framework.States;
 using static TheVileGrimoireOfJaldial.Game.Plugin.Globals;
 
@@ -374,11 +375,7 @@ namespace TheVileGrimoireOfJaldial.Game.Commands
 
 				largeFountainArtifact.Field2 = -1;
 
-				largeFountainArtifact.Field3 = 0;
-
-				largeFountainArtifact.Field4 = 0;
-
-				largeFountainArtifact.Field5 = 0;
+				largeFountainArtifact.SetFieldsValue(3, gEngine.NumArtifactCategoryFields, 0);
 
 				largeFountainArtifact.Synonyms = largeFountainArtifact.Synonyms.Concat(new string[] { "secret door", "secret panel", "door", "panel" }).ToArray();
 			}

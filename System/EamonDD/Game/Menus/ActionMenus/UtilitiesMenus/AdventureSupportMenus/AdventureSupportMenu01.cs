@@ -48,20 +48,19 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 		/// <summary></summary>
 		public virtual string HintsXmlText { get; set; } =
-@"<Complex name=""Root"" type=""Eamon.Game.DataStorage.HintDbTable, Eamon, Version=3.0.0.0, Culture=neutral, PublicKeyToken=null"">
+@"<Complex name=""Root"" type=""Eamon.Game.DataStorage.HintDbTable, Eamon, Version=3.1.0.0, Culture=neutral, PublicKeyToken=null"">
   <Properties>
-    <Collection name=""Records"" type=""Eamon.ThirdParty.BTree`1[[Eamon.Framework.IHint, Eamon, Version=3.0.0.0, Culture=neutral, PublicKeyToken=null]], Eamon, Version=3.0.0.0, Culture=neutral, PublicKeyToken=null"">
+    <Collection name=""Records"" type=""Eamon.ThirdParty.BTree`1[[Eamon.Framework.IHint, Eamon, Version=3.1.0.0, Culture=neutral, PublicKeyToken=null]], Eamon, Version=3.1.0.0, Culture=neutral, PublicKeyToken=null"">
       <Properties>
         <Simple name=""IsReadOnly"" value=""False"" />
         <Simple name=""AllowDuplicates"" value=""False"" />
       </Properties>
       <Items>
-        <Complex type=""YourAdventureName.Game.Hint, YourAdventureName, Version=3.0.0.0, Culture=neutral, PublicKeyToken=null"">
+        <Complex type=""YourAdventureName.Game.Hint, YourAdventureName, Version=3.1.0.0, Culture=neutral, PublicKeyToken=null"">
           <Properties>
             <Simple name=""Uid"" value=""1"" />
-            <Simple name=""IsUidRecycled"" value=""True"" />
             <Simple name=""Active"" value=""True"" />
-            <Simple name=""Question"" value=""EAMON CS 3.0 GENERAL HELP."" />
+            <Simple name=""Question"" value=""EAMON CS 3.1 GENERAL HELP."" />
             <Simple name=""NumAnswers"" value=""8"" />
             <SingleArray name=""Answers"">
               <Items>
@@ -77,12 +76,11 @@ namespace EamonDD.Game.Menus.ActionMenus
             </SingleArray>
           </Properties>
         </Complex>
-        <Complex type=""YourAdventureName.Game.Hint, YourAdventureName, Version=3.0.0.0, Culture=neutral, PublicKeyToken=null"">
+        <Complex type=""YourAdventureName.Game.Hint, YourAdventureName, Version=3.1.0.0, Culture=neutral, PublicKeyToken=null"">
           <Properties>
             <Simple name=""Uid"" value=""2"" />
-            <Simple name=""IsUidRecycled"" value=""True"" />
             <Simple name=""Active"" value=""True"" />
-            <Simple name=""Question"" value=""EAMON CS 3.0 NEW COMMANDS."" />
+            <Simple name=""Question"" value=""EAMON CS 3.1 NEW COMMANDS."" />
             <Simple name=""NumAnswers"" value=""3"" />
             <SingleArray name=""Answers"">
               <Items>
@@ -100,10 +98,7 @@ namespace EamonDD.Game.Menus.ActionMenus
         </Complex>
       </Items>
     </Collection>
-    <Collection name=""FreeUids"" type=""System.Collections.Generic.List`1[[System.Int64, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e"">
-      <Properties>
-        <Simple name=""Capacity"" value=""0"" />
-      </Properties>
+    <Collection name=""FreeUids"">
       <Items />
     </Collection>
     <Simple name=""CurrUid"" value=""2"" />
@@ -449,6 +444,8 @@ namespace YourAdventureName.YourGameNamespaceName
 			{
 				var inputDefaultValue = "Y";
 
+				gEngine.DdSuppressPostInputSleep = true;
+
 				foreach (var advDbDataFile in advDbDataFiles)
 				{
 					gOut.Print("{0}", gEngine.LineSep);
@@ -471,6 +468,8 @@ namespace YourAdventureName.YourGameNamespaceName
 						}
 					}
 				}
+
+				gEngine.DdSuppressPostInputSleep = false;
 			}
 			else
 			{
@@ -523,9 +522,13 @@ namespace YourAdventureName.YourGameNamespaceName
 
 			Buf.Clear();
 
+			gEngine.DdSuppressPostInputSleep = true;
+
 			rc = gEngine.In.ReadField(Buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, null);
 
 			Debug.Assert(gEngine.IsSuccess(rc));
+
+			gEngine.DdSuppressPostInputSleep = false;
 
 			if (Buf.Length == 0 || Buf[0] != 'Y')
 			{
@@ -764,8 +767,6 @@ namespace YourAdventureName.YourGameNamespaceName
 					{
 						x.Uid = gDatabase.GetFilesetUid();
 
-						x.IsUidRecycled = true;
-
 						x.Name = AdventureName01;
 
 						x.WorkDir = gEngine.AdventuresDir + @"\" + AdventureName;
@@ -783,6 +784,8 @@ namespace YourAdventureName.YourGameNamespaceName
 						x.RoomFileName = "ROOMS.DAT";
 
 						x.ArtifactFileName = "ARTIFACTS.DAT";
+
+						x.CharArtFileName = "NONE";
 
 						x.EffectFileName = "EFFECTS.DAT";
 

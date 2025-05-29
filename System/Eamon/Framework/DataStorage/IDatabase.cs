@@ -6,6 +6,7 @@
 using System;
 using Eamon.Framework.DataStorage.Generic;
 using Eamon.Framework.Helpers.Generic;
+using Eamon.Framework.Primitive.Enums;
 
 namespace Eamon.Framework.DataStorage
 {
@@ -41,6 +42,9 @@ namespace Eamon.Framework.DataStorage
 
 		/// <summary></summary>
 		IDbTable<IGameState> GameStateTable { get; set; }
+
+		/// <summary></summary>
+		ArtifactTableType ArtifactTableType { get; }
 
 		/// <summary></summary>
 		/// <param name="table"></param>
@@ -581,5 +585,17 @@ namespace Eamon.Framework.DataStorage
 		/// <summary></summary>
 		/// <param name="uid"></param>
 		void FreeGameStateUid(long uid);
+
+		/// <summary></summary>
+		/// <param name="tableType"></param>
+		void PushArtifactTable(ArtifactTableType tableType);
+
+		/// <summary></summary>
+		void PopArtifactTable();
+
+		/// <summary></summary>
+		/// <param name="tableType"></param>
+		/// <param name="tableFunc"></param>
+		void ExecuteOnArtifactTable(ArtifactTableType tableType, Action tableFunc);
 	}
 }

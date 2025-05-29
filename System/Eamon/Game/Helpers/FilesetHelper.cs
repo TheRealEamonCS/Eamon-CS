@@ -96,6 +96,13 @@ namespace Eamon.Game.Helpers
 
 		/// <summary></summary>
 		/// <returns></returns>
+		public virtual string GetPrintedNameCharArtFileName()
+		{
+			return "CharArt Filename";
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
 		public virtual string GetPrintedNameEffectFileName()
 		{
 			return "Effect Filename";
@@ -142,7 +149,7 @@ namespace Eamon.Game.Helpers
 		/// <returns></returns>
 		public virtual bool ValidateUid()
 		{
-			return Record.Uid > 0;
+			return Record.Uid > 0 && Record.Uid <= gEngine.NumRecords;
 		}
 
 		/// <summary></summary>
@@ -211,6 +218,18 @@ namespace Eamon.Game.Helpers
 		public virtual bool ValidateArtifactFileName()
 		{
 			return string.IsNullOrWhiteSpace(Record.ArtifactFileName) == false && Record.ArtifactFileName.IndexOf(gEngine.Path.DirectorySeparatorChar) == -1 && Record.ArtifactFileName.Length <= gEngine.FsFileNameLen;
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateCharArtFileName()
+		{
+			if (string.IsNullOrWhiteSpace(Record.CharArtFileName))
+			{
+				Record.CharArtFileName = "NONE";
+			}
+
+			return string.IsNullOrWhiteSpace(Record.CharArtFileName) == false && Record.CharArtFileName.IndexOf(gEngine.Path.DirectorySeparatorChar) == -1 && Record.CharArtFileName.Length <= gEngine.FsFileNameLen;
 		}
 
 		/// <summary></summary>
@@ -319,6 +338,14 @@ namespace Eamon.Game.Helpers
 		public virtual void PrintDescArtifactFileName()
 		{
 			var fullDesc = "Enter the Artifact filename of the Fileset.";
+
+			gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, null);
+		}
+
+		/// <summary></summary>
+		public virtual void PrintDescCharArtFileName()
+		{
+			var fullDesc = "Enter the CharArt filename of the Fileset.";
 
 			gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, null);
 		}
@@ -494,6 +521,20 @@ namespace Eamon.Game.Helpers
 					Environment.NewLine,
 					gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("ArtifactFileName"), null),
 					Record.ArtifactFileName);
+			}
+		}
+
+		/// <summary></summary>
+		public virtual void ListCharArtFileName()
+		{
+			if (FullDetail)
+			{
+				var listNum = NumberFields ? ListNum++ : 0;
+
+				gOut.WriteLine("{0}{1}{0}{0}{2}",
+					Environment.NewLine,
+					gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("CharArtFileName"), null),
+					Record.CharArtFileName);
 			}
 		}
 
@@ -858,6 +899,38 @@ namespace Eamon.Game.Helpers
 		}
 
 		/// <summary></summary>
+		public virtual void InputCharArtFileName()
+		{
+			var fieldDesc = FieldDesc;
+
+			var charArtFileName = Record.CharArtFileName;
+
+			while (true)
+			{
+				Buf.SetFormat(EditRec ? "{0}" : "", charArtFileName);
+
+				PrintFieldDesc("CharArtFileName", EditRec, EditField, fieldDesc);
+
+				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("CharArtFileName"), "NONE"));
+
+				var rc = gEngine.In.ReadField(Buf, gEngine.FsFileNameLen, null, '_', '\0', true, "NONE", null, null, null);
+
+				Debug.Assert(gEngine.IsSuccess(rc));
+
+				Record.CharArtFileName = Buf.Trim().ToString();
+
+				if (ValidateField("CharArtFileName"))
+				{
+					break;
+				}
+
+				fieldDesc = FieldDesc.Brief;
+			}
+
+			gOut.Print("{0}", gEngine.LineSep);
+		}
+
+		/// <summary></summary>
 		public virtual void InputEffectFileName()
 		{
 			var fieldDesc = FieldDesc;
@@ -1002,12 +1075,6 @@ namespace Eamon.Game.Helpers
 			if (Record.Uid <= 0)
 			{
 				Record.Uid = gDatabase.GetFilesetUid();
-
-				Record.IsUidRecycled = true;
-			}
-			else if (!EditRec)
-			{
-				Record.IsUidRecycled = false;
 			}
 		}
 

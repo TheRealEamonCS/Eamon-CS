@@ -88,6 +88,8 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			gOut.Print("{0}", gEngine.LineSep);
 
+			gEngine.DdSuppressPostInputSleep = true;
+
 			if (Buf.Length == 0 || Buf[0] != 'N')
 			{
 				var i = 0;
@@ -149,6 +151,8 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 				gOut.Print("{0}", gEngine.LineSep);
 			}
+
+			gEngine.DdSuppressPostInputSleep = false;
 
 			if (nlFlag)
 			{

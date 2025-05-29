@@ -98,6 +98,8 @@ namespace EamonMH
 
 					gEngine.Config.GenerateUids = true;
 
+					gEngine.Config.DeleteCharArts = true;
+
 					gEngine.Config.FieldDesc = FieldDesc.Full;
 
 					gEngine.Config.WordWrapMargin = gEngine.RightMargin;
@@ -160,6 +162,8 @@ namespace EamonMH
 
 					gEngine.Config.MhCharacterFileName = "CHARACTERS.DAT";
 
+					gEngine.Config.MhCharArtFileName = "INVENTORY.DAT";
+
 					gEngine.Config.MhEffectFileName = "SNAPPY.DAT";
 
 					if (gEngine.WorkDir.Length > 0)
@@ -179,8 +183,6 @@ namespace EamonMH
 							rc = gEngine.In.ReadField(gEngine.Buf, gEngine.BufSize02, null, ' ', '\0', true, "N", gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, gEngine.IsCharYOrN);
 
 							Debug.Assert(gEngine.IsSuccess(rc));
-
-							gEngine.Thread.Sleep(150);
 
 							if (gEngine.Buf[0] != 'Y')
 							{
@@ -232,6 +234,13 @@ namespace EamonMH
 								gEngine.ConfigsModified = true;
 							}
 
+							if (config.MhCharArtFileName.Length == 0)
+							{
+								config.MhCharArtFileName = gEngine.Config.MhCharArtFileName;
+
+								gEngine.ConfigsModified = true;
+							}
+
 							if (config.MhEffectFileName.Length == 0)
 							{
 								config.MhEffectFileName = gEngine.Config.MhEffectFileName;
@@ -242,8 +251,6 @@ namespace EamonMH
 						else
 						{
 							gEngine.Config.Uid = gDatabase.GetConfigUid();
-
-							gEngine.Config.IsUidRecycled = true;
 
 							rc = gDatabase.AddConfig(gEngine.Config);
 
@@ -279,6 +286,8 @@ namespace EamonMH
 
 					gOut.Print("{0}", gEngine.LineSep);
 
+					gDatabase.PushArtifactTable(ArtifactTableType.CharArt);
+
 					rc = gDatabase.LoadFilesets(gEngine.Config.MhFilesetFileName);
 
 					if (gEngine.IsFailure(rc))
@@ -293,6 +302,15 @@ namespace EamonMH
 					if (gEngine.IsFailure(rc))
 					{
 						gEngine.Error.Write("Error: LoadCharacters function call failed.");
+
+						goto Cleanup;
+					}
+
+					rc = gDatabase.LoadArtifacts(gEngine.Config.MhCharArtFileName);
+
+					if (gEngine.IsFailure(rc))
+					{
+						gEngine.Error.Write("Error: LoadArtifacts function call failed.");
 
 						goto Cleanup;
 					}
@@ -337,7 +355,7 @@ namespace EamonMH
 
 					gEngine.Menu.Execute();
 
-					var saveDataFiles = (gEngine.ConfigFileName.Length > 0 && gEngine.ConfigsModified) || gEngine.FilesetsModified || gEngine.CharactersModified || gEngine.EffectsModified;
+					var saveDataFiles = (gEngine.ConfigFileName.Length > 0 && gEngine.ConfigsModified) || gEngine.FilesetsModified || gEngine.CharactersModified || gEngine.CharArtsModified || gEngine.EffectsModified;
 
 					// Save datafiles, if any modifications were made
 
@@ -354,6 +372,20 @@ namespace EamonMH
 							if (gEngine.IsFailure(rc))
 							{
 								gEngine.Error.Write("Error: SaveEffects function call failed.");
+
+								rc = RetCode.Success;
+
+								// goto Cleanup omitted
+							}
+						}
+
+						if (gEngine.CharArtsModified)
+						{
+							rc = gDatabase.SaveArtifacts(gEngine.Config.MhCharArtFileName);
+
+							if (gEngine.IsFailure(rc))
+							{
+								gEngine.Error.Write("Error: SaveArtifacts function call failed.");
 
 								rc = RetCode.Success;
 

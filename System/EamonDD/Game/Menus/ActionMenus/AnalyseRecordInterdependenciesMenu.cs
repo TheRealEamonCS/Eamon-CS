@@ -34,6 +34,8 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			var errorHelper = gEngine.CreateInstance<U>(x =>
 			{
+				x.RecordTable = RecordTable;
+				
 				x.Record = ErrorRecord;
 
 				x.Index = ValidateHelper.Index;
@@ -75,7 +77,14 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 				ModifyFlag = true;
 
-				if (ErrorRecord is IArtifact)
+				if (ErrorRecord is ICharacter)
+				{
+					menu = gEngine.CreateInstance<IEditCharacterRecordManyFieldsMenu>(x =>
+					{
+						x.EditRecord = (ICharacter)ErrorRecord;
+					});
+				}
+				else if (ErrorRecord is IArtifact)
 				{
 					menu = gEngine.CreateInstance<IEditArtifactRecordManyFieldsMenu>(x =>
 					{
@@ -130,7 +139,14 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 				if (ValidateHelper.NewRecordUid > 0)
 				{
-					if (ValidateHelper.RecordType == typeof(IArtifact))
+					if (ValidateHelper.RecordType == typeof(ICharacter))
+					{
+						menu = gEngine.CreateInstance<IAddCharacterRecordManualMenu>(x =>
+						{
+							x.NewRecordUid = ValidateHelper.NewRecordUid;
+						});
+					}
+					else if (ValidateHelper.RecordType == typeof(IArtifact))
 					{
 						menu = gEngine.CreateInstance<IAddArtifactRecordManualMenu>(x =>
 						{
@@ -177,7 +193,14 @@ namespace EamonDD.Game.Menus.ActionMenus
 				}
 				else
 				{
-					if (ValidateHelper.RecordType == typeof(IArtifact))
+					if (ValidateHelper.RecordType == typeof(ICharacter))
+					{
+						menu = gEngine.CreateInstance<IEditCharacterRecordManyFieldsMenu>(x =>
+						{
+							x.EditRecord = (ICharacter)ValidateHelper.EditRecord;
+						});
+					}
+					else if (ValidateHelper.RecordType == typeof(IArtifact))
 					{
 						menu = gEngine.CreateInstance<IEditArtifactRecordManyFieldsMenu>(x =>
 						{
@@ -250,6 +273,8 @@ namespace EamonDD.Game.Menus.ActionMenus
 			{
 				ErrorRecord = default(T);
 
+				ValidateHelper.RecordTable = RecordTable;
+				
 				foreach (var record in RecordTable.Records)
 				{
 					ValidateHelper.Record = record;

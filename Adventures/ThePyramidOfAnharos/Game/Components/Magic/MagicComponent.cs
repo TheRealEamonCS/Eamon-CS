@@ -3,6 +3,7 @@
 
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
+using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Components;
 using EamonRT.Framework.Primitive.Enums;
@@ -17,7 +18,7 @@ namespace ThePyramidOfAnharos.Game.Components
 		{
 			PowerEventRoll = gEngine.RollDice(1, 100, 0);
 
-			if (PowerEventRoll > 80 /* && ActorRoom.Zone != 2 */)
+			if (PowerEventRoll > 80 && ActorRoom.Type == RoomType.Outdoors)
 			{
 				gOut.Print("A dust storm blows up suddenly. The stinging sand flays your skin.");
 

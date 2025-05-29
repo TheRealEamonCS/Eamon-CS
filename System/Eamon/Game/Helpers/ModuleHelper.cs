@@ -140,7 +140,7 @@ namespace Eamon.Game.Helpers
 		/// <returns></returns>
 		public virtual bool ValidateUid()
 		{
-			return Record.Uid > 0;
+			return Record.Uid > 0 && Record.Uid <= gEngine.NumRecords;
 		}
 
 		/// <summary></summary>
@@ -281,26 +281,21 @@ namespace Eamon.Game.Helpers
 		{
 			var result = true;
 
-			if (Record.IntroStory > 0)
+			var effectUid = Record.IntroStory;
+
+			if (effectUid > 0 && gEDB[effectUid] == null)
 			{
-				var effectUid = Record.IntroStory;
+				result = false;
 
-				var effect = gEDB[effectUid];
+				Buf.SetFormat(gEngine.RecIdepErrorFmtStr, GetPrintedName("IntroStory"), "Effect", effectUid, "which doesn't exist");
 
-				if (effect == null)
-				{
-					result = false;
+				ErrorMessage = Buf.ToString();
 
-					Buf.SetFormat(gEngine.RecIdepErrorFmtStr, GetPrintedName("IntroStory"), "Effect", effectUid, "which doesn't exist");
+				RecordType = typeof(IEffect);
 
-					ErrorMessage = Buf.ToString();
+				NewRecordUid = effectUid;
 
-					RecordType = typeof(IEffect);
-
-					NewRecordUid = effectUid;
-
-					goto Cleanup;
-				}
+				goto Cleanup;
 			}
 
 		Cleanup:
@@ -922,12 +917,6 @@ namespace Eamon.Game.Helpers
 			if (Record.Uid <= 0)
 			{
 				Record.Uid = gDatabase.GetModuleUid();
-
-				Record.IsUidRecycled = true;
-			}
-			else if (!EditRec)
-			{
-				Record.IsUidRecycled = false;
 			}
 		}
 

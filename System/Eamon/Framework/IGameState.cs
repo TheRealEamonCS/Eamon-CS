@@ -4,6 +4,7 @@
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Framework.Utilities;
 
@@ -164,12 +165,6 @@ namespace Eamon.Framework
 		long PauseCombatActions { get; set; }
 
 		/// <summary>
-		/// Gets or sets a value that indexes <see cref="ImportedArtUids">ImportedArtUids</see> and indicates the next
-		/// available element to store an imported <see cref="IArtifact">Artifact</see><see cref="IGameBase.Uid"> Uid</see>.
-		/// </summary>
-		long ImportedArtUidsIdx { get; set; }
-
-		/// <summary>
 		/// Gets or sets a value that indexes <see cref="HeldWpnUids">HeldWpnUids</see> and indicates which weapon in that
 		/// array is being used by the player in the game (Beginner's adventures only).
 		/// </summary>
@@ -192,32 +187,30 @@ namespace Eamon.Framework
 		long[] Sa { get; set; }
 
 		/// <summary>
-		/// Gets or sets an array of <see cref="IArtifact">Artifact</see><see cref="IGameBase.Uid"> Uid</see>s corresponding
+		/// Gets or sets a list of <see cref="IArtifact">Artifact</see><see cref="IGameBase.Uid"> Uid</see>s corresponding
 		/// to the Artifacts brought into the game by the player (armor, shield and weapons).
 		/// </summary>
 		/// <remarks>
-		/// This array is loaded during game startup. The <see cref="ImportedArtUidsIdx">ImportedArtUidsIdx</see> property
-		/// indicates the number of <see cref="IArtifact">Artifact</see><see cref="IGameBase.Uid"> Uid</see>s stored in the
-		/// array (and also the next element available to store another). Avoid accessing array elements directly in favor
-		/// of using Getter/Setter methods to ensure games can override when necessary.
+		/// This list is loaded during game startup. Avoid accessing list elements directly in favor of using Getter/Setter
+		/// methods to ensure games can override when necessary.
 		/// </remarks>
 		/// <seealso cref="GetImportedArtUid(long)"/>
-		/// <seealso cref="SetImportedArtUid(long, long)"/>
-		long[] ImportedArtUids { get; set; }
+		/// <seealso cref="SetImportedArtUid(long)"/>
+		IList<long> ImportedArtUids { get; set; }
 
 		/// <summary>
-		/// Gets or sets an array of <see cref="IArtifact">Artifact</see><see cref="IGameBase.Uid"> Uid</see>s corresponding
+		/// Gets or sets a list of <see cref="IArtifact">Artifact</see><see cref="IGameBase.Uid"> Uid</see>s corresponding
 		/// to the weapons brought into the game by the player (Beginner's adventures only).
 		/// </summary>
 		/// <remarks>
 		/// All but one of these weapons is put in limbo at game startup; the <see cref="UsedWpnIdx">UsedWpnIdx</see> property
 		/// indicates which weapon is being used by the player in the game.  All weapons are returned to the player when the
-		/// game is exited. Avoid accessing array elements directly in favor of using Getter/Setter methods to ensure games
+		/// game is exited. Avoid accessing list elements directly in favor of using Getter/Setter methods to ensure games
 		/// can override when necessary.
 		/// </remarks>
 		/// <seealso cref="GetHeldWpnUid(long)"/>
-		/// <seealso cref="SetHeldWpnUid(long, long)"/>
-		long[] HeldWpnUids { get; set; }
+		/// <seealso cref="SetHeldWpnUid(long)"/>
+		IList<long> HeldWpnUids { get; set; }
 
 		/// <summary>
 		/// Gets or sets the data structure that holds events to be fired before the player character's current
@@ -312,15 +305,15 @@ namespace Eamon.Framework
 		long GetSa(Spell spell);
 
 		/// <summary>Gets the imported <see cref="IArtifact">Artifact</see><see cref="IGameBase.Uid"> Uid</see> at a given index.</summary>
-		/// <param name="index">The array index.</param>
-		/// <remarks>The <see cref="ImportedArtUids">ImportedArtUids</see> array stores Artifacts imported by the player into the game. This
+		/// <param name="index">The list index.</param>
+		/// <remarks>The <see cref="ImportedArtUids">ImportedArtUids</see> list stores Artifacts imported by the player into the game. This
 		/// method can be overridden in games when necessary.</remarks>
 		/// <returns>The imported Artifact Uid.</returns>
 		long GetImportedArtUid(long index);
 
 		/// <summary>Gets the held weapon <see cref="IArtifact">Artifact</see><see cref="IGameBase.Uid"> Uid</see> at a given index.</summary>
-		/// <param name="index">The array index.</param>
-		/// <remarks>The <see cref="HeldWpnUids">HeldWpnUids</see> array stores all weapon Artifacts brought into a Beginner's adventure. This
+		/// <param name="index">The list index.</param>
+		/// <remarks>The <see cref="HeldWpnUids">HeldWpnUids</see> list stores all weapon Artifacts brought into a Beginner's adventure. This
 		/// method can be overridden in games when necessary.</remarks>
 		/// <returns>The held weapon Artifact Uid.</returns>
 		long GetHeldWpnUid(long index);
@@ -345,28 +338,24 @@ namespace Eamon.Framework
 		void SetSa(Spell spell, long value);
 
 		/// <summary>
-		/// Sets the imported <see cref="IArtifact">Artifact</see><see cref="IGameBase.Uid"> Uid</see> at a
-		/// specified index to a given value.
+		/// Adds the imported <see cref="IArtifact">Artifact</see><see cref="IGameBase.Uid"> Uid</see> to the list.
 		/// </summary>
-		/// <param name="index">The array index.</param>
 		/// <param name="value">The new imported Artifact Uid.</param>
 		/// <remarks>
-		/// The imported Artifact Uid is stored in the <see cref="ImportedArtUids">ImportedArtUids</see>
-		/// array. This method can be overridden in games when necessary.
+		/// The imported Artifact Uid is appended to the <see cref="ImportedArtUids">ImportedArtUids</see>
+		/// list. This method can be overridden in games when necessary.
 		/// </remarks>
-		void SetImportedArtUid(long index, long value);
+		void SetImportedArtUid(long value);
 
 		/// <summary>
-		/// Sets the held weapon <see cref="IArtifact">Artifact</see><see cref="IGameBase.Uid"> Uid</see> at a
-		/// specified index to a given value.
+		/// Adds the held weapon <see cref="IArtifact">Artifact</see><see cref="IGameBase.Uid"> Uid</see> to the list.
 		/// </summary>
-		/// <param name="index">The array index.</param>
 		/// <param name="value">The new held weapon Artifact Uid.</param>
 		/// <remarks>
-		/// The held weapon Artifact Uid is stored in the <see cref="HeldWpnUids">HeldWpnUids</see> array.
+		/// The held weapon Artifact Uid is appended to the <see cref="HeldWpnUids">HeldWpnUids</see> list.
 		/// This method can be overridden in games when necessary.
 		/// </remarks>
-		void SetHeldWpnUid(long index, long value);
+		void SetHeldWpnUid(long value);
 
 		/// <summary>Modifies the player's current ability for a given <see cref="Spell"/>.</summary>
 		/// <param name="index">The Spell value expressed as a long datatype.</param>

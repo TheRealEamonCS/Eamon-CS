@@ -683,22 +683,29 @@ namespace EamonRT.Game.Parsing
 
 			ObjData.RecordMatchFunc = () =>
 			{
-				NextCommand.ContainerType = NextCommand.Prep != null ? NextCommand.Prep.ContainerType : (ContainerType)(-1);
-
-				if (ObjData.FilterRecordList.Count > 1)
+				if (NextCommand.Prep == null)
 				{
-					NextCommand.PrintDoYouMeanObj1OrObj2(ObjData.FilterRecordList[0], ObjData.FilterRecordList[1]);
+					NextCommand.ContainerType = (ContainerType)(-1);
 
-					NextState = gEngine.CreateInstance<IStartState>();
-				}
-				else if (ObjData.FilterRecordList.Count == 1)
-				{
-					if (ObjData.FilterRecordList[0] is IArtifact artifact)
+					if (ObjData.FilterRecordList.Count > 1)
 					{
-						ObjData.RevealEmbeddedArtifactFunc(ActorRoom, artifact);
-					}
+						NextCommand.PrintDoYouMeanObj1OrObj2(ObjData.FilterRecordList[0], ObjData.FilterRecordList[1]);
 
-					SetRecord(ObjData.FilterRecordList[0]);
+						NextState = gEngine.CreateInstance<IStartState>();
+					}
+					else if (ObjData.FilterRecordList.Count == 1)
+					{
+						if (ObjData.FilterRecordList[0] is IArtifact artifact)
+						{
+							ObjData.RevealEmbeddedArtifactFunc(ActorRoom, artifact);
+						}
+
+						SetRecord(ObjData.FilterRecordList[0]);
+					}
+				}
+				else
+				{
+					NextCommand.ContainerType = NextCommand.Prep.ContainerType;
 				}
 			};
 

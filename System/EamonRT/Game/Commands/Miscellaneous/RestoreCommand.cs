@@ -116,6 +116,8 @@ namespace EamonRT.Game.Commands
 
 				SaveConfig.RtArtifactFileName = gEngine.CloneInstance(SaveFileset.ArtifactFileName);
 
+				SaveConfig.RtCharArtFileName = gEngine.CloneInstance(SaveFileset.CharArtFileName);
+
 				SaveConfig.RtEffectFileName = gEngine.CloneInstance(SaveFileset.EffectFileName);
 
 				SaveConfig.RtMonsterFileName = gEngine.CloneInstance(SaveFileset.MonsterFileName);

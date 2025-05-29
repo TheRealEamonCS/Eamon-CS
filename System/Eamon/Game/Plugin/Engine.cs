@@ -11,15 +11,18 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Xml.Linq;
 using Eamon.Framework;
 using Eamon.Framework.Args;
 using Eamon.Framework.DataStorage;
 using Eamon.Framework.DataStorage.Generic;
 using Eamon.Framework.Helpers;
+using Eamon.Framework.Helpers.Generic;
 using Eamon.Framework.Plugin;
 using Eamon.Framework.Portability;
 using Eamon.Framework.Primitive.Classes;
 using Eamon.Framework.Primitive.Enums;
+using Eamon.Framework.Utilities;
 using Eamon.Game.Attributes;
 using Eamon.Game.Extensions;
 using Eamon.Game.Utilities;
@@ -52,10 +55,6 @@ namespace Eamon.Game.Plugin
 		public virtual int ArtDescLen { get; protected set; } = 256;
 
 		public virtual int CharNameLen { get; protected set; } = 32;
-
-		public virtual int CharArtNameLen { get; protected set; } = 40;
-
-		public virtual int CharArtDescLen { get; protected set; } = 256;
 
 		public virtual int EffDescLen { get; protected set; } = 256;
 
@@ -127,11 +126,15 @@ namespace Eamon.Game.Plugin
 
 		public virtual long FountainPrice { get; protected set; } = 20;
 
-		public virtual long NumDatabases { get; protected set; } = 10;
+		public virtual long NumRecords { get; protected set; } = 1000;
 
-		public virtual long NumRulesetVersions { get; protected set; } = 10;
+		public virtual long NumCharacterWeapons { get; protected set; } = 4;
+
+		public virtual long NumCharacterArtifacts { get; protected set; }
 
 		public virtual long NumArtifactCategories { get; protected set; } = 4;
+
+		public virtual long NumArtifactCategoryFields { get; protected set; } = 20;
 
 		public virtual int BufSize { get; protected set; } = 1024;
 
@@ -147,8 +150,6 @@ namespace Eamon.Game.Plugin
 
 		public virtual string ValidWorkDirRegexPattern { get; protected set; } = @"^(NONE)$|^(\.)$|^(\.\.\\\.\.\\Adventures\\[a-zA-Z0-9]+)$|^(\.\.\/\.\.\/Adventures\/[a-zA-Z0-9]+)$";
 
-		public virtual string MscorlibRegexPattern { get; protected set; } = @"mscorlib, Version=4\.0\.0\.0, Culture=neutral, PublicKeyToken=b77a5c561934e089";
-
 		public virtual string CommandSepRegexPattern { get; protected set; } = @"\.|\!|\?|;|,| (?:and|then|also) ";
 
 		public virtual string PronounRegexPattern { get; protected set; } = @" (?:those|them|that|him|her|it) ";
@@ -156,8 +157,6 @@ namespace Eamon.Game.Plugin
 		public virtual string EverythingRegexPattern { get; protected set; } = @" everything ";
 
 		public virtual string ExceptRegexPattern { get; protected set; } = @" (?:except|excluding|omitting) ";
-
-		public virtual string CoreLibName { get; protected set; } = @"System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e";
 
 		public virtual string RecIdepErrorFmtStr { get; protected set; } = "The {0} field refers to {1} Uid {2}, {3}.";
 
@@ -177,7 +176,7 @@ namespace Eamon.Game.Plugin
 
 		public virtual string GlobalLaunchParametersFile { get; protected set; } = @".\GLOBAL_LAUNCH_PARAMETERS.TXT";
 		
-		public virtual string ProgVersion { get; protected set; } = "3.0.0";
+		public virtual string ProgVersion { get; protected set; } = "3.1.0";
 
 		public virtual long InfiniteDrinkableEdible { get; protected set; } = 9999;
 
@@ -243,7 +242,7 @@ namespace Eamon.Game.Plugin
 		{
 			get
 			{
-				return RulesetVersions != null && RvStackTop >= 0 && RvStackTop < RulesetVersions.Length ? RulesetVersions[RvStackTop] : 0;
+				return RulesetVersionList != null && RulesetVersionList.Count > 0 ? RulesetVersionList[RulesetVersionList.Count - 1] : 0;
 			}
 		}
 
@@ -273,19 +272,18 @@ namespace Eamon.Game.Plugin
 
 		public virtual bool DeleteGameStateFromMainHall { get; set; }
 
+		public virtual bool GetMainMenuInput { get; set; }
+
 		public virtual Action<IDictionary<Type, Type>> LoadPortabilityClassMappings { get; set; }
 
 		/// <summary></summary>
-		public virtual long[] RulesetVersions { get; set; }
-
-		/// <summary></summary>
-		public virtual long RvStackTop { get; set; } = -1;
+		public virtual IList<long> RulesetVersionList { get; set; }
 
 		public virtual IDatabase Database
 		{
 			get
 			{
-				return Databases != null && DbStackTop >= 0 && DbStackTop < Databases.Length ? Databases[DbStackTop] : null;
+				return DatabaseList != null && DatabaseList.Count > 0 ? DatabaseList[DatabaseList.Count - 1] : null;
 			}
 		}
 
@@ -324,10 +322,7 @@ namespace Eamon.Game.Plugin
 		public virtual IRecordDb<IGameState> GSDB { get; set; }
 
 		/// <summary></summary>
-		public virtual IDatabase[] Databases { get; set; }
-
-		/// <summary></summary>
-		public virtual long DbStackTop { get; set; }
+		public virtual IList<IDatabase> DatabaseList { get; set; }
 
 		public virtual IDictionary<long, Func<string>> MacroFuncs { get; set; }
 
@@ -626,14 +621,14 @@ namespace Eamon.Game.Plugin
 
 			rc = RetCode.Success;
 
-			if (RulesetVersions == null || RvStackTop + 1 >= RulesetVersions.Length)
+			if (RulesetVersionList == null)
 			{
 				rc = RetCode.IsFull;
 
 				goto Cleanup;
 			}
 
-			RulesetVersions[++RvStackTop] = rulesetVersion;
+			RulesetVersionList.Add(rulesetVersion);
 
 		Cleanup:
 
@@ -646,14 +641,14 @@ namespace Eamon.Game.Plugin
 
 			rc = RetCode.Success;
 
-			if (RulesetVersions == null || RvStackTop < 0)
+			if (RulesetVersionList == null || RulesetVersionList.Count <= 0)
 			{
 				rc = RetCode.IsEmpty;
 
 				goto Cleanup;
 			}
 
-			RulesetVersions[RvStackTop--] = 0;
+			RulesetVersionList.RemoveAt(RulesetVersionList.Count - 1);
 
 		Cleanup:
 
@@ -666,7 +661,7 @@ namespace Eamon.Game.Plugin
 
 			rc = RetCode.Success;
 
-			while (RvStackTop >= 0)
+			while (RulesetVersionList != null && RulesetVersionList.Count > 0)
 			{
 				rc = PopRulesetVersion();
 
@@ -685,18 +680,7 @@ namespace Eamon.Game.Plugin
 
 			rc = RetCode.Success;
 
-			rvStackTop = RvStackTop;
-
-			return rc;
-		}
-
-		public virtual RetCode GetRvStackSize(ref long rvStackSize)
-		{
-			RetCode rc;
-
-			rc = RetCode.Success;
-
-			rvStackSize = RulesetVersions != null ? RulesetVersions.Length : 0;
+			rvStackTop = RulesetVersionList != null ? RulesetVersionList.Count - 1 : -1;
 
 			return rc;
 		}
@@ -883,14 +867,16 @@ namespace Eamon.Game.Plugin
 
 			rc = RetCode.Success;
 
-			if (Databases == null || DbStackTop + 1 >= Databases.Length)
+			if (DatabaseList == null)
 			{
 				rc = RetCode.IsFull;
 
 				goto Cleanup;
 			}
 
-			Databases[++DbStackTop] = CreateInstance<IDatabase>();
+			var database = CreateInstance<IDatabase>();
+
+			DatabaseList.Add(database);
 
 		Cleanup:
 
@@ -912,14 +898,14 @@ namespace Eamon.Game.Plugin
 
 			rc = RetCode.Success;
 
-			if (Databases == null || DbStackTop + 1 >= Databases.Length)
+			if (DatabaseList == null)
 			{
 				rc = RetCode.IsFull;
 
 				goto Cleanup;
 			}
 
-			Databases[++DbStackTop] = database;
+			DatabaseList.Add(database);
 
 		Cleanup:
 
@@ -932,7 +918,7 @@ namespace Eamon.Game.Plugin
 
 			rc = RetCode.Success;
 
-			if (Databases == null || DbStackTop < 0)
+			if (DatabaseList == null || DatabaseList.Count <= 0)
 			{
 				rc = RetCode.IsEmpty;
 
@@ -962,7 +948,7 @@ namespace Eamon.Game.Plugin
 				Database.FreeGameStates();
 			}
 
-			Databases[DbStackTop--] = null;
+			DatabaseList.RemoveAt(DatabaseList.Count - 1);
 
 		Cleanup:
 
@@ -973,7 +959,7 @@ namespace Eamon.Game.Plugin
 		{
 			RetCode rc;
 
-			if (Databases == null || index < 0 || index > DbStackTop)
+			if (DatabaseList == null || index < 0 || index >= DatabaseList.Count)
 			{
 				rc = RetCode.InvalidArg;
 
@@ -984,7 +970,7 @@ namespace Eamon.Game.Plugin
 
 			rc = RetCode.Success;
 
-			database = Databases[index];
+			database = DatabaseList[(int)index];
 
 		Cleanup:
 
@@ -1006,7 +992,7 @@ namespace Eamon.Game.Plugin
 
 			rc = RetCode.Success;
 
-			if (Databases == null || DbStackTop < 0 || Database == null)
+			if (DatabaseList == null || DatabaseList.Count <= 0 || Database == null)
 			{
 				rc = RetCode.IsEmpty;
 
@@ -1015,7 +1001,11 @@ namespace Eamon.Game.Plugin
 
 			File.Delete(fileName);
 
+			Database.PushArtifactTable(ArtifactTableType.Default);
+
 			SharpSerializer.Serialize(Database, fileName);
+
+			Database.PopArtifactTable();
 
 		Cleanup:
 
@@ -1037,7 +1027,7 @@ namespace Eamon.Game.Plugin
 
 			rc = RetCode.Success;
 
-			if (Databases == null || DbStackTop + 1 >= Databases.Length)
+			if (DatabaseList == null)
 			{
 				rc = RetCode.IsFull;
 
@@ -1052,30 +1042,102 @@ namespace Eamon.Game.Plugin
 			{
 				rc = RetCode.Failure;
 
+				Error.WriteLine("Error: Deserialize function call failed.");
+
 				goto Cleanup;
 			}
 
-			RestoreRecords(database.ConfigTable?.Records?.Cast<IGameBase>().ToList());
+			DatabaseList.Add(database);
 
-			RestoreRecords(database.FilesetTable?.Records?.Cast<IGameBase>().ToList());
+			rc = RestoreRecords<IConfig, IConfigHelper>(database.ConfigTable);
 
-			RestoreRecords(database.CharacterTable?.Records?.Cast<IGameBase>().ToList());
+			if (IsFailure(rc))
+			{
+				Error.WriteLine("Error: RestoreConfigRecords function call failed.");
 
-			RestoreRecords(database.ModuleTable?.Records?.Cast<IGameBase>().ToList());
+				goto Cleanup;
+			}
 
-			RestoreRecords(database.RoomTable?.Records?.Cast<IGameBase>().ToList());
+			rc = RestoreRecords<IFileset, IFilesetHelper>(database.FilesetTable);
 
-			RestoreRecords(database.ArtifactTable?.Records?.Cast<IGameBase>().ToList());
+			if (IsFailure(rc))
+			{
+				Error.WriteLine("Error: RestoreFilesetRecords function call failed.");
 
-			RestoreRecords(database.EffectTable?.Records?.Cast<IGameBase>().ToList());
+				goto Cleanup;
+			}
 
-			RestoreRecords(database.MonsterTable?.Records?.Cast<IGameBase>().ToList());
+			rc = RestoreRecords<ICharacter, ICharacterHelper>(database.CharacterTable);
 
-			RestoreRecords(database.HintTable?.Records?.Cast<IGameBase>().ToList());
+			if (IsFailure(rc))
+			{
+				Error.WriteLine("Error: RestoreCharacterRecords function call failed.");
 
-			RestoreRecords(database.GameStateTable?.Records?.Cast<IGameBase>().ToList());
+				goto Cleanup;
+			}
 
-			Databases[++DbStackTop] = database;
+			rc = RestoreRecords<IModule, IModuleHelper>(database.ModuleTable);
+
+			if (IsFailure(rc))
+			{
+				Error.WriteLine("Error: RestoreModuleRecords function call failed.");
+
+				goto Cleanup;
+			}
+
+			rc = RestoreRecords<IRoom, IRoomHelper>(database.RoomTable);
+
+			if (IsFailure(rc))
+			{
+				Error.WriteLine("Error: RestoreRoomRecords function call failed.");
+
+				goto Cleanup;
+			}
+
+			rc = RestoreRecords<IArtifact, IArtifactHelper>(database.ArtifactTable);
+
+			if (IsFailure(rc))
+			{
+				Error.WriteLine("Error: RestoreArtifactRecords function call failed.");
+
+				goto Cleanup;
+			}
+
+			rc = RestoreRecords<IEffect, IEffectHelper>(database.EffectTable);
+
+			if (IsFailure(rc))
+			{
+				Error.WriteLine("Error: RestoreEffectRecords function call failed.");
+
+				goto Cleanup;
+			}
+
+			rc = RestoreRecords<IMonster, IMonsterHelper>(database.MonsterTable);
+
+			if (IsFailure(rc))
+			{
+				Error.WriteLine("Error: RestoreMonsterRecords function call failed.");
+
+				goto Cleanup;
+			}
+
+			rc = RestoreRecords<IHint, IHintHelper>(database.HintTable);
+
+			if (IsFailure(rc))
+			{
+				Error.WriteLine("Error: RestoreHintRecords function call failed.");
+
+				goto Cleanup;
+			}
+
+			rc = RestoreRecords<IGameState, IGameStateHelper>(database.GameStateTable);
+
+			if (IsFailure(rc))
+			{
+				Error.WriteLine("Error: RestoreGameStateRecords function call failed.");
+
+				goto Cleanup;
+			}
 
 		Cleanup:
 
@@ -1088,7 +1150,7 @@ namespace Eamon.Game.Plugin
 
 			rc = RetCode.Success;
 
-			while (DbStackTop >= 0)
+			while (DatabaseList != null && DatabaseList.Count > 0)
 			{
 				rc = PopDatabase();
 
@@ -1107,18 +1169,7 @@ namespace Eamon.Game.Plugin
 
 			rc = RetCode.Success;
 
-			dbStackTop = DbStackTop;
-
-			return rc;
-		}
-
-		public virtual RetCode GetDbStackSize(ref long dbStackSize)
-		{
-			RetCode rc;
-
-			rc = RetCode.Success;
-
-			dbStackSize = Databases != null ? Databases.Length : 0;
+			dbStackTop = DatabaseList != null ? DatabaseList.Count - 1 : -1;
 
 			return rc;
 		}
@@ -1138,9 +1189,7 @@ namespace Eamon.Game.Plugin
 
 			RevealContentCounter = 1;
 
-			Databases = new IDatabase[NumDatabases];
-
-			DbStackTop = -1;
+			DatabaseList = new List<IDatabase>();
 
 			PushDatabase();
 
@@ -1651,6 +1700,36 @@ namespace Eamon.Game.Plugin
 					x.Field4EmptyVal = "0";
 					x.Field5Name = "Field5";
 					x.Field5EmptyVal = "0";
+					x.Field6Name = "Field6";
+					x.Field6EmptyVal = "0";
+					x.Field7Name = "Field7";
+					x.Field7EmptyVal = "0";
+					x.Field8Name = "Field8";
+					x.Field8EmptyVal = "0";
+					x.Field9Name = "Field9";
+					x.Field9EmptyVal = "0";
+					x.Field10Name = "Field10";
+					x.Field10EmptyVal = "0";
+					x.Field11Name = "Field11";
+					x.Field11EmptyVal = "0";
+					x.Field12Name = "Field12";
+					x.Field12EmptyVal = "0";
+					x.Field13Name = "Field13";
+					x.Field13EmptyVal = "0";
+					x.Field14Name = "Field14";
+					x.Field14EmptyVal = "0";
+					x.Field15Name = "Field15";
+					x.Field15EmptyVal = "0";
+					x.Field16Name = "Field16";
+					x.Field16EmptyVal = "0";
+					x.Field17Name = "Field17";
+					x.Field17EmptyVal = "0";
+					x.Field18Name = "Field18";
+					x.Field18EmptyVal = "0";
+					x.Field19Name = "Field19";
+					x.Field19EmptyVal = "0";
+					x.Field20Name = "Field20";
+					x.Field20EmptyVal = "0";
 				}),
 				CreateInstance<IArtifactType>(x =>
 				{
@@ -1667,6 +1746,36 @@ namespace Eamon.Game.Plugin
 					x.Field4EmptyVal = "0";
 					x.Field5Name = "Field5";
 					x.Field5EmptyVal = "0";
+					x.Field6Name = "Field6";
+					x.Field6EmptyVal = "0";
+					x.Field7Name = "Field7";
+					x.Field7EmptyVal = "0";
+					x.Field8Name = "Field8";
+					x.Field8EmptyVal = "0";
+					x.Field9Name = "Field9";
+					x.Field9EmptyVal = "0";
+					x.Field10Name = "Field10";
+					x.Field10EmptyVal = "0";
+					x.Field11Name = "Field11";
+					x.Field11EmptyVal = "0";
+					x.Field12Name = "Field12";
+					x.Field12EmptyVal = "0";
+					x.Field13Name = "Field13";
+					x.Field13EmptyVal = "0";
+					x.Field14Name = "Field14";
+					x.Field14EmptyVal = "0";
+					x.Field15Name = "Field15";
+					x.Field15EmptyVal = "0";
+					x.Field16Name = "Field16";
+					x.Field16EmptyVal = "0";
+					x.Field17Name = "Field17";
+					x.Field17EmptyVal = "0";
+					x.Field18Name = "Field18";
+					x.Field18EmptyVal = "0";
+					x.Field19Name = "Field19";
+					x.Field19EmptyVal = "0";
+					x.Field20Name = "Field20";
+					x.Field20EmptyVal = "0";
 				}),
 				CreateInstance<IArtifactType>(x =>
 				{
@@ -1683,6 +1792,36 @@ namespace Eamon.Game.Plugin
 					x.Field4EmptyVal = "6";
 					x.Field5Name = "Number Of Hands";
 					x.Field5EmptyVal = "1";
+					x.Field6Name = "Field6";
+					x.Field6EmptyVal = "0";
+					x.Field7Name = "Field7";
+					x.Field7EmptyVal = "0";
+					x.Field8Name = "Field8";
+					x.Field8EmptyVal = "0";
+					x.Field9Name = "Field9";
+					x.Field9EmptyVal = "0";
+					x.Field10Name = "Field10";
+					x.Field10EmptyVal = "0";
+					x.Field11Name = "Field11";
+					x.Field11EmptyVal = "0";
+					x.Field12Name = "Field12";
+					x.Field12EmptyVal = "0";
+					x.Field13Name = "Field13";
+					x.Field13EmptyVal = "0";
+					x.Field14Name = "Field14";
+					x.Field14EmptyVal = "0";
+					x.Field15Name = "Field15";
+					x.Field15EmptyVal = "0";
+					x.Field16Name = "Field16";
+					x.Field16EmptyVal = "0";
+					x.Field17Name = "Field17";
+					x.Field17EmptyVal = "0";
+					x.Field18Name = "Field18";
+					x.Field18EmptyVal = "0";
+					x.Field19Name = "Field19";
+					x.Field19EmptyVal = "0";
+					x.Field20Name = "Field20";
+					x.Field20EmptyVal = "0";
 				}),
 				CreateInstance<IArtifactType>(x =>
 				{
@@ -1699,6 +1838,36 @@ namespace Eamon.Game.Plugin
 					x.Field4EmptyVal = "10";
 					x.Field5Name = "Number Of Hands";
 					x.Field5EmptyVal = "1";
+					x.Field6Name = "Field6";
+					x.Field6EmptyVal = "0";
+					x.Field7Name = "Field7";
+					x.Field7EmptyVal = "0";
+					x.Field8Name = "Field8";
+					x.Field8EmptyVal = "0";
+					x.Field9Name = "Field9";
+					x.Field9EmptyVal = "0";
+					x.Field10Name = "Field10";
+					x.Field10EmptyVal = "0";
+					x.Field11Name = "Field11";
+					x.Field11EmptyVal = "0";
+					x.Field12Name = "Field12";
+					x.Field12EmptyVal = "0";
+					x.Field13Name = "Field13";
+					x.Field13EmptyVal = "0";
+					x.Field14Name = "Field14";
+					x.Field14EmptyVal = "0";
+					x.Field15Name = "Field15";
+					x.Field15EmptyVal = "0";
+					x.Field16Name = "Field16";
+					x.Field16EmptyVal = "0";
+					x.Field17Name = "Field17";
+					x.Field17EmptyVal = "0";
+					x.Field18Name = "Field18";
+					x.Field18EmptyVal = "0";
+					x.Field19Name = "Field19";
+					x.Field19EmptyVal = "0";
+					x.Field20Name = "Field20";
+					x.Field20EmptyVal = "0";
 				}),
 				CreateInstance<IArtifactType>(x =>
 				{
@@ -1715,6 +1884,36 @@ namespace Eamon.Game.Plugin
 					x.Field4EmptyVal = "0";
 					x.Field5Name = "Display Code";
 					x.Field5EmptyVal = "0";
+					x.Field6Name = "Field6";
+					x.Field6EmptyVal = "0";
+					x.Field7Name = "Field7";
+					x.Field7EmptyVal = "0";
+					x.Field8Name = "Field8";
+					x.Field8EmptyVal = "0";
+					x.Field9Name = "Field9";
+					x.Field9EmptyVal = "0";
+					x.Field10Name = "Field10";
+					x.Field10EmptyVal = "0";
+					x.Field11Name = "Field11";
+					x.Field11EmptyVal = "0";
+					x.Field12Name = "Field12";
+					x.Field12EmptyVal = "0";
+					x.Field13Name = "Field13";
+					x.Field13EmptyVal = "0";
+					x.Field14Name = "Field14";
+					x.Field14EmptyVal = "0";
+					x.Field15Name = "Field15";
+					x.Field15EmptyVal = "0";
+					x.Field16Name = "Field16";
+					x.Field16EmptyVal = "0";
+					x.Field17Name = "Field17";
+					x.Field17EmptyVal = "0";
+					x.Field18Name = "Field18";
+					x.Field18EmptyVal = "0";
+					x.Field19Name = "Field19";
+					x.Field19EmptyVal = "0";
+					x.Field20Name = "Field20";
+					x.Field20EmptyVal = "0";
 				}),
 				CreateInstance<IArtifactType>(x =>
 				{
@@ -1731,6 +1930,36 @@ namespace Eamon.Game.Plugin
 					x.Field4EmptyVal = "0";
 					x.Field5Name = "Display Code";
 					x.Field5EmptyVal = "0";
+					x.Field6Name = "Field6";
+					x.Field6EmptyVal = "0";
+					x.Field7Name = "Field7";
+					x.Field7EmptyVal = "0";
+					x.Field8Name = "Field8";
+					x.Field8EmptyVal = "0";
+					x.Field9Name = "Field9";
+					x.Field9EmptyVal = "0";
+					x.Field10Name = "Field10";
+					x.Field10EmptyVal = "0";
+					x.Field11Name = "Field11";
+					x.Field11EmptyVal = "0";
+					x.Field12Name = "Field12";
+					x.Field12EmptyVal = "0";
+					x.Field13Name = "Field13";
+					x.Field13EmptyVal = "0";
+					x.Field14Name = "Field14";
+					x.Field14EmptyVal = "0";
+					x.Field15Name = "Field15";
+					x.Field15EmptyVal = "0";
+					x.Field16Name = "Field16";
+					x.Field16EmptyVal = "0";
+					x.Field17Name = "Field17";
+					x.Field17EmptyVal = "0";
+					x.Field18Name = "Field18";
+					x.Field18EmptyVal = "0";
+					x.Field19Name = "Field19";
+					x.Field19EmptyVal = "0";
+					x.Field20Name = "Field20";
+					x.Field20EmptyVal = "0";
 				}),
 				CreateInstance<IArtifactType>(x =>
 				{
@@ -1747,6 +1976,36 @@ namespace Eamon.Game.Plugin
 					x.Field4EmptyVal = "0";
 					x.Field5Name = "Display Code";
 					x.Field5EmptyVal = "0";
+					x.Field6Name = "Field6";
+					x.Field6EmptyVal = "0";
+					x.Field7Name = "Field7";
+					x.Field7EmptyVal = "0";
+					x.Field8Name = "Field8";
+					x.Field8EmptyVal = "0";
+					x.Field9Name = "Field9";
+					x.Field9EmptyVal = "0";
+					x.Field10Name = "Field10";
+					x.Field10EmptyVal = "0";
+					x.Field11Name = "Field11";
+					x.Field11EmptyVal = "0";
+					x.Field12Name = "Field12";
+					x.Field12EmptyVal = "0";
+					x.Field13Name = "Field13";
+					x.Field13EmptyVal = "0";
+					x.Field14Name = "Field14";
+					x.Field14EmptyVal = "0";
+					x.Field15Name = "Field15";
+					x.Field15EmptyVal = "0";
+					x.Field16Name = "Field16";
+					x.Field16EmptyVal = "0";
+					x.Field17Name = "Field17";
+					x.Field17EmptyVal = "0";
+					x.Field18Name = "Field18";
+					x.Field18EmptyVal = "0";
+					x.Field19Name = "Field19";
+					x.Field19EmptyVal = "0";
+					x.Field20Name = "Field20";
+					x.Field20EmptyVal = "0";
 				}),
 				CreateInstance<IArtifactType>(x =>
 				{
@@ -1763,6 +2022,36 @@ namespace Eamon.Game.Plugin
 					x.Field4EmptyVal = "0";
 					x.Field5Name = "Display Code";
 					x.Field5EmptyVal = "0";
+					x.Field6Name = "Field6";
+					x.Field6EmptyVal = "0";
+					x.Field7Name = "Field7";
+					x.Field7EmptyVal = "0";
+					x.Field8Name = "Field8";
+					x.Field8EmptyVal = "0";
+					x.Field9Name = "Field9";
+					x.Field9EmptyVal = "0";
+					x.Field10Name = "Field10";
+					x.Field10EmptyVal = "0";
+					x.Field11Name = "Field11";
+					x.Field11EmptyVal = "0";
+					x.Field12Name = "Field12";
+					x.Field12EmptyVal = "0";
+					x.Field13Name = "Field13";
+					x.Field13EmptyVal = "0";
+					x.Field14Name = "Field14";
+					x.Field14EmptyVal = "0";
+					x.Field15Name = "Field15";
+					x.Field15EmptyVal = "0";
+					x.Field16Name = "Field16";
+					x.Field16EmptyVal = "0";
+					x.Field17Name = "Field17";
+					x.Field17EmptyVal = "0";
+					x.Field18Name = "Field18";
+					x.Field18EmptyVal = "0";
+					x.Field19Name = "Field19";
+					x.Field19EmptyVal = "0";
+					x.Field20Name = "Field20";
+					x.Field20EmptyVal = "0";
 				}),
 				CreateInstance<IArtifactType>(x =>
 				{
@@ -1779,6 +2068,36 @@ namespace Eamon.Game.Plugin
 					x.Field4EmptyVal = "0";
 					x.Field5Name = "Field5";
 					x.Field5EmptyVal = "0";
+					x.Field6Name = "Field6";
+					x.Field6EmptyVal = "0";
+					x.Field7Name = "Field7";
+					x.Field7EmptyVal = "0";
+					x.Field8Name = "Field8";
+					x.Field8EmptyVal = "0";
+					x.Field9Name = "Field9";
+					x.Field9EmptyVal = "0";
+					x.Field10Name = "Field10";
+					x.Field10EmptyVal = "0";
+					x.Field11Name = "Field11";
+					x.Field11EmptyVal = "0";
+					x.Field12Name = "Field12";
+					x.Field12EmptyVal = "0";
+					x.Field13Name = "Field13";
+					x.Field13EmptyVal = "0";
+					x.Field14Name = "Field14";
+					x.Field14EmptyVal = "0";
+					x.Field15Name = "Field15";
+					x.Field15EmptyVal = "0";
+					x.Field16Name = "Field16";
+					x.Field16EmptyVal = "0";
+					x.Field17Name = "Field17";
+					x.Field17EmptyVal = "0";
+					x.Field18Name = "Field18";
+					x.Field18EmptyVal = "0";
+					x.Field19Name = "Field19";
+					x.Field19EmptyVal = "0";
+					x.Field20Name = "Field20";
+					x.Field20EmptyVal = "0";
 				}),
 				CreateInstance<IArtifactType>(x =>
 				{
@@ -1795,6 +2114,36 @@ namespace Eamon.Game.Plugin
 					x.Field4EmptyVal = "0";
 					x.Field5Name = "Field5";
 					x.Field5EmptyVal = "0";
+					x.Field6Name = "Field6";
+					x.Field6EmptyVal = "0";
+					x.Field7Name = "Field7";
+					x.Field7EmptyVal = "0";
+					x.Field8Name = "Field8";
+					x.Field8EmptyVal = "0";
+					x.Field9Name = "Field9";
+					x.Field9EmptyVal = "0";
+					x.Field10Name = "Field10";
+					x.Field10EmptyVal = "0";
+					x.Field11Name = "Field11";
+					x.Field11EmptyVal = "0";
+					x.Field12Name = "Field12";
+					x.Field12EmptyVal = "0";
+					x.Field13Name = "Field13";
+					x.Field13EmptyVal = "0";
+					x.Field14Name = "Field14";
+					x.Field14EmptyVal = "0";
+					x.Field15Name = "Field15";
+					x.Field15EmptyVal = "0";
+					x.Field16Name = "Field16";
+					x.Field16EmptyVal = "0";
+					x.Field17Name = "Field17";
+					x.Field17EmptyVal = "0";
+					x.Field18Name = "Field18";
+					x.Field18EmptyVal = "0";
+					x.Field19Name = "Field19";
+					x.Field19EmptyVal = "0";
+					x.Field20Name = "Field20";
+					x.Field20EmptyVal = "0";
 				}),
 				CreateInstance<IArtifactType>(x =>
 				{
@@ -1811,6 +2160,36 @@ namespace Eamon.Game.Plugin
 					x.Field4EmptyVal = "0";
 					x.Field5Name = "Field5";
 					x.Field5EmptyVal = "0";
+					x.Field6Name = "Field6";
+					x.Field6EmptyVal = "0";
+					x.Field7Name = "Field7";
+					x.Field7EmptyVal = "0";
+					x.Field8Name = "Field8";
+					x.Field8EmptyVal = "0";
+					x.Field9Name = "Field9";
+					x.Field9EmptyVal = "0";
+					x.Field10Name = "Field10";
+					x.Field10EmptyVal = "0";
+					x.Field11Name = "Field11";
+					x.Field11EmptyVal = "0";
+					x.Field12Name = "Field12";
+					x.Field12EmptyVal = "0";
+					x.Field13Name = "Field13";
+					x.Field13EmptyVal = "0";
+					x.Field14Name = "Field14";
+					x.Field14EmptyVal = "0";
+					x.Field15Name = "Field15";
+					x.Field15EmptyVal = "0";
+					x.Field16Name = "Field16";
+					x.Field16EmptyVal = "0";
+					x.Field17Name = "Field17";
+					x.Field17EmptyVal = "0";
+					x.Field18Name = "Field18";
+					x.Field18EmptyVal = "0";
+					x.Field19Name = "Field19";
+					x.Field19EmptyVal = "0";
+					x.Field20Name = "Field20";
+					x.Field20EmptyVal = "0";
 				}),
 				CreateInstance<IArtifactType>(x =>
 				{
@@ -1827,6 +2206,36 @@ namespace Eamon.Game.Plugin
 					x.Field4EmptyVal = "0";
 					x.Field5Name = "Field5";
 					x.Field5EmptyVal = "0";
+					x.Field6Name = "Field6";
+					x.Field6EmptyVal = "0";
+					x.Field7Name = "Field7";
+					x.Field7EmptyVal = "0";
+					x.Field8Name = "Field8";
+					x.Field8EmptyVal = "0";
+					x.Field9Name = "Field9";
+					x.Field9EmptyVal = "0";
+					x.Field10Name = "Field10";
+					x.Field10EmptyVal = "0";
+					x.Field11Name = "Field11";
+					x.Field11EmptyVal = "0";
+					x.Field12Name = "Field12";
+					x.Field12EmptyVal = "0";
+					x.Field13Name = "Field13";
+					x.Field13EmptyVal = "0";
+					x.Field14Name = "Field14";
+					x.Field14EmptyVal = "0";
+					x.Field15Name = "Field15";
+					x.Field15EmptyVal = "0";
+					x.Field16Name = "Field16";
+					x.Field16EmptyVal = "0";
+					x.Field17Name = "Field17";
+					x.Field17EmptyVal = "0";
+					x.Field18Name = "Field18";
+					x.Field18EmptyVal = "0";
+					x.Field19Name = "Field19";
+					x.Field19EmptyVal = "0";
+					x.Field20Name = "Field20";
+					x.Field20EmptyVal = "0";
 				}),
 				CreateInstance<IArtifactType>(x =>
 				{
@@ -1843,6 +2252,36 @@ namespace Eamon.Game.Plugin
 					x.Field4EmptyVal = "0";
 					x.Field5Name = "Field5";
 					x.Field5EmptyVal = "0";
+					x.Field6Name = "Field6";
+					x.Field6EmptyVal = "0";
+					x.Field7Name = "Field7";
+					x.Field7EmptyVal = "0";
+					x.Field8Name = "Field8";
+					x.Field8EmptyVal = "0";
+					x.Field9Name = "Field9";
+					x.Field9EmptyVal = "0";
+					x.Field10Name = "Field10";
+					x.Field10EmptyVal = "0";
+					x.Field11Name = "Field11";
+					x.Field11EmptyVal = "0";
+					x.Field12Name = "Field12";
+					x.Field12EmptyVal = "0";
+					x.Field13Name = "Field13";
+					x.Field13EmptyVal = "0";
+					x.Field14Name = "Field14";
+					x.Field14EmptyVal = "0";
+					x.Field15Name = "Field15";
+					x.Field15EmptyVal = "0";
+					x.Field16Name = "Field16";
+					x.Field16EmptyVal = "0";
+					x.Field17Name = "Field17";
+					x.Field17EmptyVal = "0";
+					x.Field18Name = "Field18";
+					x.Field18EmptyVal = "0";
+					x.Field19Name = "Field19";
+					x.Field19EmptyVal = "0";
+					x.Field20Name = "Field20";
+					x.Field20EmptyVal = "0";
 				}),
 				CreateInstance<IArtifactType>(x =>
 				{
@@ -1859,6 +2298,36 @@ namespace Eamon.Game.Plugin
 					x.Field4EmptyVal = "0";
 					x.Field5Name = "Field5";
 					x.Field5EmptyVal = "0";
+					x.Field6Name = "Field6";
+					x.Field6EmptyVal = "0";
+					x.Field7Name = "Field7";
+					x.Field7EmptyVal = "0";
+					x.Field8Name = "Field8";
+					x.Field8EmptyVal = "0";
+					x.Field9Name = "Field9";
+					x.Field9EmptyVal = "0";
+					x.Field10Name = "Field10";
+					x.Field10EmptyVal = "0";
+					x.Field11Name = "Field11";
+					x.Field11EmptyVal = "0";
+					x.Field12Name = "Field12";
+					x.Field12EmptyVal = "0";
+					x.Field13Name = "Field13";
+					x.Field13EmptyVal = "0";
+					x.Field14Name = "Field14";
+					x.Field14EmptyVal = "0";
+					x.Field15Name = "Field15";
+					x.Field15EmptyVal = "0";
+					x.Field16Name = "Field16";
+					x.Field16EmptyVal = "0";
+					x.Field17Name = "Field17";
+					x.Field17EmptyVal = "0";
+					x.Field18Name = "Field18";
+					x.Field18EmptyVal = "0";
+					x.Field19Name = "Field19";
+					x.Field19EmptyVal = "0";
+					x.Field20Name = "Field20";
+					x.Field20EmptyVal = "0";
 				}),
 				CreateInstance<IArtifactType>(x =>
 				{
@@ -1866,7 +2335,7 @@ namespace Eamon.Game.Plugin
 					x.WeightEmptyVal = "15";
 					x.LocationEmptyVal = "0";
 					x.Field1Name = "Armor Class";
-					x.Field1EmptyVal = "0";
+					x.Field1EmptyVal = "1";
 					x.Field2Name = "Clothing Type";
 					x.Field2EmptyVal = "0";
 					x.Field3Name = "Field3";
@@ -1875,6 +2344,36 @@ namespace Eamon.Game.Plugin
 					x.Field4EmptyVal = "0";
 					x.Field5Name = "Field5";
 					x.Field5EmptyVal = "0";
+					x.Field6Name = "Field6";
+					x.Field6EmptyVal = "0";
+					x.Field7Name = "Field7";
+					x.Field7EmptyVal = "0";
+					x.Field8Name = "Field8";
+					x.Field8EmptyVal = "0";
+					x.Field9Name = "Field9";
+					x.Field9EmptyVal = "0";
+					x.Field10Name = "Field10";
+					x.Field10EmptyVal = "0";
+					x.Field11Name = "Field11";
+					x.Field11EmptyVal = "0";
+					x.Field12Name = "Field12";
+					x.Field12EmptyVal = "0";
+					x.Field13Name = "Field13";
+					x.Field13EmptyVal = "0";
+					x.Field14Name = "Field14";
+					x.Field14EmptyVal = "0";
+					x.Field15Name = "Field15";
+					x.Field15EmptyVal = "0";
+					x.Field16Name = "Field16";
+					x.Field16EmptyVal = "0";
+					x.Field17Name = "Field17";
+					x.Field17EmptyVal = "0";
+					x.Field18Name = "Field18";
+					x.Field18EmptyVal = "0";
+					x.Field19Name = "Field19";
+					x.Field19EmptyVal = "0";
+					x.Field20Name = "Field20";
+					x.Field20EmptyVal = "0";
 				}),
 				CreateInstance<IArtifactType>(x =>
 				{
@@ -1891,6 +2390,36 @@ namespace Eamon.Game.Plugin
 					x.Field4EmptyVal = "0";
 					x.Field5Name = "Field5";
 					x.Field5EmptyVal = "0";
+					x.Field6Name = "Field6";
+					x.Field6EmptyVal = "0";
+					x.Field7Name = "Field7";
+					x.Field7EmptyVal = "0";
+					x.Field8Name = "Field8";
+					x.Field8EmptyVal = "0";
+					x.Field9Name = "Field9";
+					x.Field9EmptyVal = "0";
+					x.Field10Name = "Field10";
+					x.Field10EmptyVal = "0";
+					x.Field11Name = "Field11";
+					x.Field11EmptyVal = "0";
+					x.Field12Name = "Field12";
+					x.Field12EmptyVal = "0";
+					x.Field13Name = "Field13";
+					x.Field13EmptyVal = "0";
+					x.Field14Name = "Field14";
+					x.Field14EmptyVal = "0";
+					x.Field15Name = "Field15";
+					x.Field15EmptyVal = "0";
+					x.Field16Name = "Field16";
+					x.Field16EmptyVal = "0";
+					x.Field17Name = "Field17";
+					x.Field17EmptyVal = "0";
+					x.Field18Name = "Field18";
+					x.Field18EmptyVal = "0";
+					x.Field19Name = "Field19";
+					x.Field19EmptyVal = "0";
+					x.Field20Name = "Field20";
+					x.Field20EmptyVal = "0";
 				}),
 				CreateInstance<IArtifactType>(x =>
 				{
@@ -1907,6 +2436,36 @@ namespace Eamon.Game.Plugin
 					x.Field4EmptyVal = "0";
 					x.Field5Name = "Field5";
 					x.Field5EmptyVal = "0";
+					x.Field6Name = "Field6";
+					x.Field6EmptyVal = "0";
+					x.Field7Name = "Field7";
+					x.Field7EmptyVal = "0";
+					x.Field8Name = "Field8";
+					x.Field8EmptyVal = "0";
+					x.Field9Name = "Field9";
+					x.Field9EmptyVal = "0";
+					x.Field10Name = "Field10";
+					x.Field10EmptyVal = "0";
+					x.Field11Name = "Field11";
+					x.Field11EmptyVal = "0";
+					x.Field12Name = "Field12";
+					x.Field12EmptyVal = "0";
+					x.Field13Name = "Field13";
+					x.Field13EmptyVal = "0";
+					x.Field14Name = "Field14";
+					x.Field14EmptyVal = "0";
+					x.Field15Name = "Field15";
+					x.Field15EmptyVal = "0";
+					x.Field16Name = "Field16";
+					x.Field16EmptyVal = "0";
+					x.Field17Name = "Field17";
+					x.Field17EmptyVal = "0";
+					x.Field18Name = "Field18";
+					x.Field18EmptyVal = "0";
+					x.Field19Name = "Field19";
+					x.Field19EmptyVal = "0";
+					x.Field20Name = "Field20";
+					x.Field20EmptyVal = "0";
 				}),
 				CreateInstance<IArtifactType>(x =>
 				{
@@ -1923,6 +2482,36 @@ namespace Eamon.Game.Plugin
 					x.Field4EmptyVal = "0";
 					x.Field5Name = "Field5";
 					x.Field5EmptyVal = "0";
+					x.Field6Name = "Field6";
+					x.Field6EmptyVal = "0";
+					x.Field7Name = "Field7";
+					x.Field7EmptyVal = "0";
+					x.Field8Name = "Field8";
+					x.Field8EmptyVal = "0";
+					x.Field9Name = "Field9";
+					x.Field9EmptyVal = "0";
+					x.Field10Name = "Field10";
+					x.Field10EmptyVal = "0";
+					x.Field11Name = "Field11";
+					x.Field11EmptyVal = "0";
+					x.Field12Name = "Field12";
+					x.Field12EmptyVal = "0";
+					x.Field13Name = "Field13";
+					x.Field13EmptyVal = "0";
+					x.Field14Name = "Field14";
+					x.Field14EmptyVal = "0";
+					x.Field15Name = "Field15";
+					x.Field15EmptyVal = "0";
+					x.Field16Name = "Field16";
+					x.Field16EmptyVal = "0";
+					x.Field17Name = "Field17";
+					x.Field17EmptyVal = "0";
+					x.Field18Name = "Field18";
+					x.Field18EmptyVal = "0";
+					x.Field19Name = "Field19";
+					x.Field19EmptyVal = "0";
+					x.Field20Name = "Field20";
+					x.Field20EmptyVal = "0";
 				}),
 				CreateInstance<IArtifactType>(x =>
 				{
@@ -1939,6 +2528,36 @@ namespace Eamon.Game.Plugin
 					x.Field4EmptyVal = "0";
 					x.Field5Name = "Field5";
 					x.Field5EmptyVal = "0";
+					x.Field6Name = "Field6";
+					x.Field6EmptyVal = "0";
+					x.Field7Name = "Field7";
+					x.Field7EmptyVal = "0";
+					x.Field8Name = "Field8";
+					x.Field8EmptyVal = "0";
+					x.Field9Name = "Field9";
+					x.Field9EmptyVal = "0";
+					x.Field10Name = "Field10";
+					x.Field10EmptyVal = "0";
+					x.Field11Name = "Field11";
+					x.Field11EmptyVal = "0";
+					x.Field12Name = "Field12";
+					x.Field12EmptyVal = "0";
+					x.Field13Name = "Field13";
+					x.Field13EmptyVal = "0";
+					x.Field14Name = "Field14";
+					x.Field14EmptyVal = "0";
+					x.Field15Name = "Field15";
+					x.Field15EmptyVal = "0";
+					x.Field16Name = "Field16";
+					x.Field16EmptyVal = "0";
+					x.Field17Name = "Field17";
+					x.Field17EmptyVal = "0";
+					x.Field18Name = "Field18";
+					x.Field18EmptyVal = "0";
+					x.Field19Name = "Field19";
+					x.Field19EmptyVal = "0";
+					x.Field20Name = "Field20";
+					x.Field20EmptyVal = "0";
 				}),
 				CreateInstance<IArtifactType>(x =>
 				{
@@ -1955,6 +2574,36 @@ namespace Eamon.Game.Plugin
 					x.Field4EmptyVal = "0";
 					x.Field5Name = "Field5";
 					x.Field5EmptyVal = "0";
+					x.Field6Name = "Field6";
+					x.Field6EmptyVal = "0";
+					x.Field7Name = "Field7";
+					x.Field7EmptyVal = "0";
+					x.Field8Name = "Field8";
+					x.Field8EmptyVal = "0";
+					x.Field9Name = "Field9";
+					x.Field9EmptyVal = "0";
+					x.Field10Name = "Field10";
+					x.Field10EmptyVal = "0";
+					x.Field11Name = "Field11";
+					x.Field11EmptyVal = "0";
+					x.Field12Name = "Field12";
+					x.Field12EmptyVal = "0";
+					x.Field13Name = "Field13";
+					x.Field13EmptyVal = "0";
+					x.Field14Name = "Field14";
+					x.Field14EmptyVal = "0";
+					x.Field15Name = "Field15";
+					x.Field15EmptyVal = "0";
+					x.Field16Name = "Field16";
+					x.Field16EmptyVal = "0";
+					x.Field17Name = "Field17";
+					x.Field17EmptyVal = "0";
+					x.Field18Name = "Field18";
+					x.Field18EmptyVal = "0";
+					x.Field19Name = "Field19";
+					x.Field19EmptyVal = "0";
+					x.Field20Name = "Field20";
+					x.Field20EmptyVal = "0";
 				})
 			};
 		}
@@ -2009,36 +2658,6 @@ namespace Eamon.Game.Plugin
 			}
 
 			File.WriteAllText(fileName, contents);
-
-		Cleanup:
-
-			;
-		}
-
-		public virtual void ReplaceDatafileValues01(string fileName)
-		{
-			if (string.IsNullOrWhiteSpace(fileName))
-			{
-				// PrintError
-
-				goto Cleanup;
-			}
-
-			var contentsModified = false;
-
-			var contents = File.ReadAllText(fileName);
-
-			if (Regex.IsMatch(contents, MscorlibRegexPattern))
-			{
-				contents = Regex.Replace(contents, MscorlibRegexPattern, CoreLibName);
-
-				contentsModified = true;
-			}
-
-			if (contentsModified)
-			{
-				File.WriteAllText(fileName, contents);
-			}
 
 		Cleanup:
 
@@ -2417,11 +3036,13 @@ namespace Eamon.Game.Plugin
 							{
 								@"Version=1\.8\.0\.0",
 								@"EAMON CS 1\.8",
+								"mscorlib, Version=4\\.0\\.0\\.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
 							},
 							new string[]
 							{
 								"Version=2.1.0.0",
 								"EAMON CS 2.1",
+								"System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
 							}
 						);
 					}
@@ -2484,37 +3105,597 @@ namespace Eamon.Game.Plugin
 						}
 					);
 				}
+				else if (firstLine.Contains("Version=3.0.0.0"))
+				{
+					if (firstLine.Contains("Game.DataStorage.CharacterDbTable"))
+					{
+						var timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
+
+						var backupFileName = string.Format("{0}.300.{1}", fileName, timestamp);
+
+						File.Copy(fileName, backupFileName, true);
+
+						var charArtFileName = Upgrade300DatafileGetCharArtFileName(fileName);
+
+						var xmlString = File.ReadAllText(fileName);
+
+						var charArtList = Upgrade300DatafileParseCharacters(xmlString);
+
+						var rc = PushDatabase();
+
+						Debug.Assert(IsSuccess(rc));
+
+						Database.PushArtifactTable(ArtifactTableType.CharArt);
+
+						foreach (var charArtData in charArtList)
+						{
+							if (charArtData.Armor != null && !string.IsNullOrWhiteSpace(charArtData.Armor.Name) && !charArtData.Armor.Name.Equals("NONE", StringComparison.OrdinalIgnoreCase))
+							{
+								charArtData.Armor.Uid = Database.GetArtifactUid();
+
+								rc = Database.AddArtifact(charArtData.Armor);
+
+								Debug.Assert(IsSuccess(rc));
+							}
+
+							if (charArtData.Shield != null && !string.IsNullOrWhiteSpace(charArtData.Shield.Name) && !charArtData.Shield.Name.Equals("NONE", StringComparison.OrdinalIgnoreCase))
+							{
+								charArtData.Shield.Uid = Database.GetArtifactUid();
+
+								rc = Database.AddArtifact(charArtData.Shield);
+
+								Debug.Assert(IsSuccess(rc));
+							}
+
+							foreach (var weapon in charArtData.Weapons)
+							{
+								if (weapon != null && !string.IsNullOrWhiteSpace(weapon.Name) && !weapon.Name.Equals("NONE", StringComparison.OrdinalIgnoreCase))
+								{
+									weapon.Uid = Database.GetArtifactUid();
+
+									rc = Database.AddArtifact(weapon);
+
+									Debug.Assert(IsSuccess(rc));
+								}
+							}
+						}
+
+						rc = Database.SaveArtifacts(charArtFileName, false);
+
+						Debug.Assert(IsSuccess(rc));
+
+						rc = Database.FreeArtifacts();
+
+						Debug.Assert(IsSuccess(rc));
+
+						rc = PopDatabase();
+
+						Debug.Assert(IsSuccess(rc));
+
+						xmlString = Upgrade300DatafileStripEquipment(xmlString);
+
+						File.WriteAllText(fileName, xmlString);
+					}
+
+					ReplaceDatafileValues
+					(
+						fileName,
+						new string[]
+						{
+							@"Version=3\.0\.0\.0",
+							@"EAMON CS 3\.0",
+							"<Collection name=\"FreeUids\" type=\"System\\.Collections\\.Generic\\.List`1\\[\\[System\\.Int64.*\">",
+						},
+						new string[]
+						{
+							"Version=3.1.0.0",
+							"EAMON CS 3.1",
+							"<Collection name=\"FreeUids\">",
+						}
+					);
+				}
 				else
 				{
 					needsUpgrade = false;
 				}
 			}
 
-			ReplaceDatafileValues01(fileName);
-
 		Cleanup:
 
 			;
 		}
 
-		/// <summary></summary>
-		/// <param name="recordList"></param>
-		public virtual void RestoreRecords(IList<IGameBase> recordList)
+		public virtual string Upgrade300DatafileGetCharArtFileName(string characterFileName)
 		{
-			if (recordList != null)
-			{
-				foreach (var r in recordList)
-				{
-					r.SetParentReferences();
+			var result = string.Empty;
 
-					// Note: may want to be really rigorous here and also validate record
+			Debug.Assert(!string.IsNullOrWhiteSpace(characterFileName));
+
+			var baseFileName = Path.GetFileNameWithoutExtension(characterFileName);
+
+			if (baseFileName.Equals("CHARACTERS", StringComparison.OrdinalIgnoreCase))
+			{
+				result = "INVENTORY.DAT";
+
+				goto Cleanup;
+			}
+
+			var lengthToTake = Math.Min(10, baseFileName.Length);
+
+			var prefix = baseFileName.Substring(0, lengthToTake);
+
+			result = string.Format("{0}_INV.DAT", prefix);
+
+		Cleanup:
+
+			return result;
+		}
+
+		public virtual IList<ICharArtListData> Upgrade300DatafileParseCharacters(string xmlString)
+		{
+			Debug.Assert(!string.IsNullOrWhiteSpace(xmlString));
+
+			try
+			{
+				var doc = XDocument.Parse(xmlString);
+
+				var records = doc.Descendants("Collection").FirstOrDefault(c => c.Attribute("name")?.Value == "Records");
+
+				if (records == null)
+				{
+					throw new ArgumentException("No 'Records' collection found in XML.");
+				}
+
+				var charArtList = new List<ICharArtListData>();
+
+				var charElements = records.Descendants("Complex").Where(c => c.Attribute("type")?.Value == "Eamon.Game.Character, Eamon, Version=3.0.0.0, Culture=neutral, PublicKeyToken=null");
+
+				foreach (var charElement in charElements)
+				{
+					var props = charElement.Element("Properties");
+
+					if (props == null)
+					{
+						continue;
+					}
+
+					var charArtData = CreateInstance<ICharArtListData>();
+
+					var armorClassValue = Armor.SkinClothes;
+
+					foreach (var prop in props.Elements("Simple"))
+					{
+						var name = prop.Attribute("name")?.Value;
+
+						var value = prop.Attribute("value")?.Value;
+
+						if (name == "ArmorClass")
+						{
+							charArtData.ArmorClass = Enum.TryParse(value, out armorClassValue) ? armorClassValue : Armor.SkinClothes;
+						}
+						else if (name == "Uid")
+						{
+							charArtData.CharUid = long.Parse(value);
+						}
+					}
+
+					foreach (var complex in props.Elements("Complex"))
+					{
+						var name = complex.Attribute("name")?.Value;
+
+						if (name == "Armor")
+						{
+							charArtData.Armor = (Artifact)Upgrade300DatafileGetCharArtifact(charArtData, name, complex);
+						}
+						else if (name == "Shield")
+						{
+							charArtData.Shield = (Artifact)Upgrade300DatafileGetCharArtifact(charArtData, name, complex);
+						}
+					}
+
+					var weaponsArray = props.Elements("SingleArray").FirstOrDefault(a => a.Attribute("name")?.Value == "Weapons");
+
+					if (weaponsArray != null)
+					{
+						var items = weaponsArray.Element("Items");
+
+						if (items != null)
+						{
+							charArtData.Weapons.AddRange(items.Elements("Complex").Select(w => Upgrade300DatafileGetCharArtifact(charArtData, "Weapons", w)));
+						}
+					}
+
+					charArtList.Add(charArtData);
+				}
+
+				return charArtList;
+			}
+			catch (Exception ex)
+			{
+				throw new ArgumentException("Failed to parse XML or extract character data.", ex);
+			}
+		}
+
+		public virtual IArtifact Upgrade300DatafileGetCharArtifact(ICharArtListData charArtData, string propertyName, XElement element)
+		{
+			Debug.Assert(charArtData != null);
+
+			Debug.Assert(!string.IsNullOrWhiteSpace(propertyName));
+
+			Debug.Assert(element != null);
+
+			var artifact = new Artifact();
+
+			artifact.SetArtifactCategoryCount(1);
+
+			var ac = new Primitive.Classes.ArtifactCategory();
+
+			artifact.SetCategory(0, ac);
+
+			artifact.SetParentReferences();
+
+			var artifactTypeValue = ArtifactType.Gold;
+
+			var pluralTypeValue = PluralType.None;
+
+			var articleTypeValue = ArticleType.None;
+
+			var longValue = 0L;
+
+			var boolValue = false;
+
+			var props = element.Element("Properties");
+
+			foreach (var prop in props.Elements("Simple"))
+			{
+				var name = prop.Attribute("name")?.Value;
+
+				var value = prop.Attribute("value")?.Value;
+
+				switch (name)
+				{
+					case "Name":
+
+						artifact.Name = !string.IsNullOrWhiteSpace(value) ? value : "NONE";
+
+						break;
+
+					case "Desc":
+
+						artifact.Desc = !string.IsNullOrWhiteSpace(value) ? value : "";
+
+						break;
+
+					case "Value":
+
+						artifact.Value = long.TryParse(value, out longValue) ? longValue : 0;
+
+						break;
+
+					case "Weight":
+
+						artifact.Weight = long.TryParse(value, out longValue) ? longValue : 0;
+
+						break;
+
+					case "Type":
+
+						artifact.Type = Enum.TryParse(value, out artifactTypeValue) ? artifactTypeValue : ArtifactType.Gold;
+
+						break;
+
+					case "Field1":
+
+						artifact.Field1 = long.TryParse(value, out longValue) ? longValue : 0;
+
+						break;
+
+					case "Field2":
+
+						artifact.Field2 = long.TryParse(value, out longValue) ? longValue : 0;
+
+						break;
+
+					case "Field3":
+
+						artifact.Field3 = long.TryParse(value, out longValue) ? longValue : 0;
+
+						break;
+
+					case "Field4":
+
+						artifact.Field4 = long.TryParse(value, out longValue) ? longValue : 0;
+
+						break;
+
+					case "Field5":
+
+						artifact.Field5 = long.TryParse(value, out longValue) ? longValue : 0;
+
+						break;
+
+					case "IsPlural":
+
+						artifact.IsPlural = bool.TryParse(value, out boolValue) ? boolValue : false;
+
+						break;
+
+					case "PluralType":
+
+						artifact.PluralType = Enum.TryParse(value, out pluralTypeValue) ? pluralTypeValue : PluralType.None;
+
+						break;
+
+					case "ArticleType":
+
+						artifact.ArticleType = Enum.TryParse(value, out articleTypeValue) ? articleTypeValue : ArticleType.None;
+
+						break;
+				}
+			}
+
+			var isActive = !string.IsNullOrWhiteSpace(artifact.Name) && !artifact.Name.Equals("NONE", StringComparison.OrdinalIgnoreCase);
+
+			var startField = 6;
+
+			if (propertyName == "Armor")
+			{
+				var a2 = (long)charArtData.ArmorClass / 2;
+
+				if (a2 > 0)
+				{
+					if (!isActive)
+					{
+						artifact.Name = string.Format("{0} armor", a2 == 1 ? "leather" : a2 == 2 ? "chain" : a2 == 3 ? "plate" : "magic");
+					}
+
+					if (string.IsNullOrWhiteSpace(artifact.Desc))
+					{
+						artifact.Desc = string.Format("This is your {0}.", artifact.Name);
+					}
+
+					if (artifact.Name.Contains("armor", StringComparison.OrdinalIgnoreCase))
+					{
+						artifact.Synonyms = new string[] { "armor" };
+					}
+
+					if (!isActive)
+					{
+						artifact.IsPlural = false;
+
+						artifact.PluralType = PluralType.None;
+
+						artifact.ArticleType = ArticleType.Some;
+
+						artifact.Type = ArtifactType.Wearable;
+
+						artifact.Field1 = a2 * 2;
+
+						artifact.Field2 = 0;
+
+						var ima = false;
+
+						artifact.Value = (long)GetArmorPriceOrValue(charArtData.ArmorClass, false, ref ima);
+
+						artifact.Weight = a2 == 1 ? 15 : a2 == 2 ? 25 : 35;
+					}
+
+					isActive = true;
+
+					startField = 3;
+				}
+				else
+				{
+					artifact.Name = "NONE";
+
+					isActive = false;
+				}
+			}
+			else if (propertyName == "Shield")
+			{
+				var sh = (long)charArtData.ArmorClass % 2;
+
+				if (sh == 1)
+				{
+					if (!isActive)
+					{
+						artifact.Name = "shield";
+					}
+
+					if (string.IsNullOrWhiteSpace(artifact.Desc))
+					{
+						artifact.Desc = string.Format("This is your {0}.", artifact.Name);
+					}
+
+					if (!isActive)
+					{
+						artifact.IsPlural = false;
+
+						artifact.PluralType = PluralType.S;
+
+						artifact.ArticleType = ArticleType.A;
+
+						artifact.Type = ArtifactType.Wearable;
+
+						artifact.Field1 = 1;
+
+						artifact.Field2 = 0;
+
+						artifact.Value = ShieldPrice;
+
+						artifact.Weight = 15;
+					}
+
+					isActive = true;
+
+					startField = 3;
+				}
+				else
+				{
+					artifact.Name = "NONE";
+
+					isActive = false;
+				}
+			}
+			else
+			{
+				Debug.Assert(propertyName.Equals("Weapons", StringComparison.OrdinalIgnoreCase));
+
+				if (isActive)
+				{
+					if (string.IsNullOrWhiteSpace(artifact.Desc))
+					{
+						artifact.Desc = string.Format("This is your {0}.", artifact.Name);
+					}
+
+					if (artifact.Type != ArtifactType.Weapon && artifact.Type != ArtifactType.MagicWeapon)
+					{
+						var d = artifact.Field3 * artifact.Field4;
+
+						artifact.Type = (artifact.Field1 >= 15 || d >= 25) ? ArtifactType.MagicWeapon : ArtifactType.Weapon;
+
+						var imw = false;
+
+						artifact.Value = (long)GetWeaponPriceOrValue(artifact, false, ref imw);
+
+						artifact.Weight = 15;
+					}
+
+					if (artifact.Field5 != 1 && artifact.Field5 != 2)
+					{
+						artifact.Field5 = artifact.Field2 == (long)Weapon.Bow ? 2 : 1;
+					}
+				}
+			}
+
+			if (isActive)
+			{
+				artifact.Seen = true;
+
+				artifact.Moved = true;
+
+				artifact.IsCharOwned = true;
+
+				artifact.IsListed = true;
+
+				if (artifact.Type == ArtifactType.Wearable)
+				{
+					artifact.SetWornByCharacterUid(charArtData.CharUid);
+				}
+				else
+				{
+					artifact.SetCarriedByCharacterUid(charArtData.CharUid);
+				}
+
+				ac.SetFieldsValue(startField, NumArtifactCategoryFields, 0);
+			}
+
+			return artifact;
+		}
+
+		public virtual string Upgrade300DatafileStripEquipment(string xmlString)
+		{
+			Debug.Assert(!string.IsNullOrWhiteSpace(xmlString));
+
+			try
+			{
+				var doc = XDocument.Parse(xmlString);
+
+				var charElements = doc.Descendants("Complex").Where(c => c.Attribute("type")?.Value == "Eamon.Game.Character, Eamon, Version=3.0.0.0, Culture=neutral, PublicKeyToken=null");
+
+				foreach (var charElement in charElements)
+				{
+					var props = charElement.Element("Properties");
+
+					if (props == null)
+					{
+						continue;
+					}
+
+					props.Elements("Complex").Where(e => e.Attribute("name")?.Value == "Armor" || e.Attribute("name")?.Value == "Shield").Remove();
+
+					props.Elements("SingleArray").Where(e => e.Attribute("name")?.Value == "Weapons").Remove();
+
+					props.Elements("Simple").Where(e => e.Attribute("name")?.Value == "ArmorClass").Remove();
+
+					var seenNode = props.Elements("Simple").FirstOrDefault(e => e.Attribute("name")?.Value == "Seen");
+
+					if (seenNode != null)
+					{
+						var movedNode = new XElement("Simple",
+							new XAttribute("name", "Moved"),
+							new XAttribute("value", "False"));
+
+						seenNode.AddAfterSelf(movedNode);
+					}
+				}
+
+				return doc.ToString(SaveOptions.None);
+			}
+			catch (Exception ex)
+			{
+				throw new ArgumentException("Failed to parse or modify XML.", ex);
+			}
+		}
+
+		/// <summary></summary>
+		/// <param name="table"></param>
+		/// <returns></returns>
+		public virtual RetCode RestoreRecords<T, U>(IDbTable<T> table) where T : class, IGameBase where U : class, IHelper<T>
+		{
+			RetCode rc;
+
+			if (table == null || table.Records == null)
+			{
+				rc = RetCode.InvalidArg;
+
+				// PrintError
+
+				goto Cleanup;
+			}
+
+			rc = RetCode.Success;
+
+			if (!DisableValidation)
+			{
+				var helper = CreateInstance<U>();
+
+				helper.RecordTable = table;
+
+				long i = 1;
+
+				foreach (var r in table.Records)
+				{
+					helper.Record = r;
+
+					if (helper.ValidateRecord() == false)
+					{
+						rc = RetCode.Failure;
+
+						Error.WriteLine("{0}Error: Expected valid [{1} value], found [{2}].", Environment.NewLine, helper.GetName(helper.ErrorFieldName), helper.GetValue(helper.ErrorFieldName) ?? "null");
+
+						Error.WriteLine("Error: Validate function call failed for record number {0}.", i);
+
+						goto Cleanup;
+					}
 
 					if (r is IMonster)
 					{
 						// Note: may want to be really rigorous here and also validate weapon/shield combo
 					}
+
+					i++;
 				}
 			}
+
+			foreach (var r in table.Records)
+			{
+				r.SetParentReferences();
+			}
+
+		Cleanup:
+
+			return rc;
 		}
 
 		public virtual IPrep GetPrep(long index)
@@ -2674,7 +3855,7 @@ namespace Eamon.Game.Plugin
 
 		public virtual bool IsValidPluralType(PluralType pluralType)
 		{
-			return Enum.IsDefined(typeof(PluralType), pluralType) || (long)pluralType > 1000;
+			return Enum.IsDefined(typeof(PluralType), pluralType) || ((long)pluralType > 1000 && (long)pluralType <= 1000 + NumRecords);
 		}
 
 		public virtual bool IsValidArtifactType(ArtifactType artifactType)
@@ -3763,7 +4944,7 @@ namespace Eamon.Game.Plugin
 
 			try
 			{
-				File.Delete("FRESHMEAT.DAT");
+				File.Delete("SAVEGAME.DAT");
 			}
 			catch (Exception ex)
 			{
@@ -3775,7 +4956,19 @@ namespace Eamon.Game.Plugin
 
 			try
 			{
-				File.Delete("SAVEGAME.DAT");
+				File.Delete("FRESHGEAR.DAT");
+			}
+			catch (Exception ex)
+			{
+				if (ex != null)
+				{
+					// Do nothing
+				}
+			}
+
+			try
+			{
+				File.Delete("FRESHMEAT.DAT");
 			}
 			catch (Exception ex)
 			{
@@ -4006,6 +5199,8 @@ namespace Eamon.Game.Plugin
 
 			var monsterHelper = CreateInstance<IMonsterHelper>();
 
+			monsterHelper.RecordTable = Database.MonsterTable;
+			
 			var monsterList = Database.MonsterTable.Records.ToList();
 
 			long i = 1;
@@ -4020,7 +5215,7 @@ namespace Eamon.Game.Plugin
 
 					Error.WriteLine("{0}Error: Expected valid [{1} value], found [{2}].", Environment.NewLine, monsterHelper.GetName(monsterHelper.ErrorFieldName), monsterHelper.GetValue(monsterHelper.ErrorFieldName) ?? "null");
 
-					Error.WriteLine("Error: ValidateAfterDatabaseLoaded function call failed for Monster record number {0}.", i);
+					Error.WriteLine("Error: ValidateRecordAfterDatabaseLoaded function call failed for Monster record number {0}.", i);
 
 					goto Cleanup;
 				}
@@ -4605,9 +5800,11 @@ namespace Eamon.Game.Plugin
 			return wp;
 		}
 
-		public virtual double GetWeaponPriceOrValue(ICharacterArtifact weapon, bool calcPrice, ref bool isMarcosWeapon)
+		public virtual double GetWeaponPriceOrValue(IArtifact weapon, bool calcPrice, ref bool isMarcosWeapon)
 		{
 			Debug.Assert(weapon != null);
+
+			Debug.Assert(weapon.GeneralWeapon != null);
 
 			return GetWeaponPriceOrValue(weapon.Name, weapon.Field1, (Weapon)weapon.Field2, weapon.Field3, weapon.Field4, weapon.Field5, calcPrice, ref isMarcosWeapon);
 		}
@@ -4697,56 +5894,6 @@ namespace Eamon.Game.Plugin
 					buf.AppendPrint("{0}", fullDesc);
 				}
 			}
-		}
-
-		public virtual void CopyCharacterArtifactFields(ICharacterArtifact destCa, ICharacterArtifact sourceCa)
-		{
-			Debug.Assert(destCa != null);
-
-			Debug.Assert(sourceCa != null);
-
-			destCa.Name = CloneInstance(sourceCa.Name);
-
-			destCa.Desc = CloneInstance(sourceCa.Desc);
-
-			destCa.IsPlural = sourceCa.IsPlural;
-
-			destCa.PluralType = sourceCa.PluralType;
-
-			destCa.ArticleType = sourceCa.ArticleType;
-
-			destCa.Value = sourceCa.Value;
-
-			destCa.Weight = sourceCa.Weight;
-
-			destCa.Type = sourceCa.Type;
-
-			destCa.Field1 = sourceCa.Field1;
-
-			destCa.Field2 = sourceCa.Field2;
-
-			destCa.Field3 = sourceCa.Field3;
-
-			destCa.Field4 = sourceCa.Field4;
-
-			destCa.Field5 = sourceCa.Field5;
-		}
-
-		public virtual void CopyArtifactCategoryFields(IArtifactCategory destAc, IArtifactCategory sourceAc)
-		{
-			Debug.Assert(destAc != null);
-
-			Debug.Assert(sourceAc != null);
-
-			destAc.Field1 = sourceAc.Field1;
-
-			destAc.Field2 = sourceAc.Field2;
-
-			destAc.Field3 = sourceAc.Field3;
-
-			destAc.Field4 = sourceAc.Field4;
-
-			destAc.Field5 = sourceAc.Field5;
 		}
 
 		public virtual IList<IArtifact> GetArtifactList(params Func<IArtifact, bool>[] whereClauseFuncs)
@@ -4863,20 +6010,31 @@ namespace Eamon.Game.Plugin
 			}).Skip((int)(which - 1)).Take(1).FirstOrDefault();
 		}
 
-		public virtual void StripUniqueCharsFromRecordNames(IList<IGameBase> recordList)
+		public virtual bool StripUniqueCharsFromRecordNames(IList<IGameBase> recordList)
 		{
+			var result = false;
+
 			Debug.Assert(recordList != null);
 
 			var sz = recordList.Count();
 
 			for (var i = 0; i < sz; i++)
 			{
+				if (result == false)
+				{
+					result = recordList[i].Name.EndsWith(recordList[i] is IArtifact ? "#" : "%");
+				}
+
 				recordList[i].Name = recordList[i].Name.TrimEnd(recordList[i] is IArtifact ? '#' : '%');
 			}
+
+			return result;
 		}
 
-		public virtual void AddUniqueCharsToRecordNames(IList<IGameBase> recordList)
+		public virtual bool AddUniqueCharsToRecordNames(IList<IGameBase> recordList)
 		{
+			var result = false;
+
 			long c;
 
 			Debug.Assert(recordList != null);
@@ -4897,6 +6055,8 @@ namespace Eamon.Game.Plugin
 							{
 								recordList[j].Name += (recordList[j] is IArtifact ? "#" : "%");
 
+								result = true;
+
 								c = 1;
 							}
 						}
@@ -4904,6 +6064,49 @@ namespace Eamon.Game.Plugin
 				}
 			}
 			while (c == 1);
+
+			return result;
+		}
+
+		public virtual bool SwapGreaterArmorUidWithLesserShieldUid(ICharacter character)
+		{
+			var result = false;
+
+			Debug.Assert(character != null);
+
+			var armorArtifact = character.GetWornList().FirstOrDefault(a => a.Wearable.Field1 >= 2);
+
+			var shieldArtifact = character.GetWornList().FirstOrDefault(a => a.Wearable.Field1 == 1);
+
+			if (armorArtifact != null && shieldArtifact != null && armorArtifact.Uid > shieldArtifact.Uid)
+			{
+				Database.RemoveArtifact(armorArtifact.Uid);
+
+				Database.RemoveArtifact(shieldArtifact.Uid);
+
+				var armorArtifactUid = armorArtifact.Uid;
+
+				armorArtifact.Uid = shieldArtifact.Uid;
+
+				shieldArtifact.Uid = armorArtifactUid;
+
+				var rc = Database.AddArtifact(armorArtifact);
+
+				Debug.Assert(IsSuccess(rc));
+
+				rc = Database.AddArtifact(shieldArtifact);
+
+				Debug.Assert(IsSuccess(rc));
+
+				result = true;
+			}
+
+			return result;
+		}
+
+		public virtual bool ShouldSleepAfterInput(StringBuilder buf, char inputFillChar)
+		{
+			return false;
 		}
 
 		public virtual void ConvertWeaponToGoldOrTreasure(IArtifact artifact, bool convertToGold)
@@ -4924,15 +6127,7 @@ namespace Eamon.Game.Plugin
 
 					ac.Type = convertToGold ? ArtifactType.Gold : ArtifactType.Treasure;
 
-					ac.Field1 = 0;
-
-					ac.Field2 = 0;
-
-					ac.Field3 = 0;
-
-					ac.Field4 = 0;
-
-					ac.Field5 = 0;
+					ac.SetFieldsValue(1, NumArtifactCategoryFields, 0);
 				}
 				else
 				{
@@ -4981,6 +6176,8 @@ namespace Eamon.Game.Plugin
 
 					ac.Field5 = 0;
 
+					ac.SetFieldsValue(6, NumArtifactCategoryFields, 0);
+
 					break;
 
 				case ContainerType.On:
@@ -5013,15 +6210,7 @@ namespace Eamon.Game.Plugin
 
 			ac.Type = ArtifactType.Treasure;
 
-			ac.Field1 = 0;
-
-			ac.Field2 = 0;
-
-			ac.Field3 = 0;
-
-			ac.Field4 = 0;
-
-			ac.Field5 = 0;
+			ac.SetFieldsValue(1, NumArtifactCategoryFields, 0);
 		}
 
 		#endregion
@@ -5038,9 +6227,11 @@ namespace Eamon.Game.Plugin
 
 			CourageDesc = string.Format("Courage works as follows:{0}{0}1-100% - the chance the Monster won't flee combat and/or follow a fleeing player (if enemy).  If the Monster is injured or gravely injured, then effective courage is reduced by 5% or 10%, respectively.{0}200% - the Monster will never flee and always follow the player.", Environment.NewLine);
 
+			NumCharacterArtifacts = NumCharacterWeapons + 2;
+
 			ProcessMutexName = string.Format(@"Global\Eamon_CS_{0}_Process_Mutex", ProgVersion);
 
-			RulesetVersions = new long[NumRulesetVersions];
+			RulesetVersionList = new List<long>();
 
 			MacroFuncs = new Dictionary<long, Func<string>>();
 

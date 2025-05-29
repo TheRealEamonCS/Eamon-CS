@@ -39,7 +39,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			gEngine.PrintTitle("GENERATE DEAD BODY ARTIFACT RECORDS", true);
 
-			var maxMonUid = gDatabase.GetMonsterUid(false);
+			var maxMonUid = gDatabase.MonsterTable.CurrUid;
 
 			gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(43, '\0', 0, "Enter the starting Monster Uid", "1"));
 
@@ -67,6 +67,15 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			var k = monsterList.Count();
 
+			var artifactCount = gDatabase.GetArtifactCount();
+
+			if (artifactCount + k > gEngine.NumRecords)
+			{
+				k = (int)(gEngine.NumRecords - artifactCount);
+
+				monsterList = monsterList.Take(k).ToList();
+			}
+
 			if (k > 0)
 			{
 				gOut.Print("{0}", gEngine.LineSep);
@@ -74,6 +83,8 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			var helper = gEngine.CreateInstance<IMonsterHelper>();
 
+			helper.RecordTable = gDatabase.MonsterTable;
+			
 			var j = 0;
 
 			foreach (var monster in monsterList)
@@ -133,8 +144,6 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
-				gEngine.Thread.Sleep(150);
-
 				if (Buf.Length > 0 && Buf[0] == 'N')
 				{
 					goto Cleanup;
@@ -146,12 +155,10 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 					Debug.Assert(monster != null);
 
-					var lastChar = monster.Name.Length > 0 ? monster.Name[monster.Name.Length - 1] : '\0';
-
 					artifact = gEngine.CreateInstance<IArtifact>(x =>
 					{
 						x.Uid = gDatabase.GetArtifactUid();
-						x.Name = string.Format("{0}{1} body", monster.Name, char.ToUpper(lastChar) != 'S' ? "'s" : "'");
+						x.Name = string.Format("dead {0}", monster.Name);
 						x.Desc = string.Format("You see {0}.", x.Name);
 						x.IsListed = true;
 						x.Weight = 150;
@@ -173,7 +180,16 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 					Debug.Assert(gEngine.IsSuccess(rc));
 
+					Debug.Assert(gDatabase.ArtifactTableType == ArtifactTableType.Default);
+					
 					gEngine.ArtifactsModified = true;
+
+					if (monster.DeadBody == 0)
+					{
+						monster.DeadBody = artifact.Uid;
+
+						gEngine.MonstersModified = true;
+					}
 
 					if (gEngine.Module != null)
 					{

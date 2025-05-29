@@ -29,22 +29,35 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			gEngine.PrintTitle(Title, true);
 
+			var recordCount = RecordTable.GetRecordCount();
+
+			if (recordCount + 1 > gEngine.NumRecords)
+			{
+				gOut.Print("{0} database table has exhausted all available Uids.", RecordTypeName);
+
+				goto Cleanup;
+			}
+
 			if (!gEngine.Config.GenerateUids && NewRecordUid == 0)
 			{
-				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(55, '\0', 0, string.Format("Enter the Uid of the {0} record to add", RecordTypeName), null));
+				do
+				{
+					gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(55, '\0', 0, string.Format("Enter the Uid of the {0} record to add", RecordTypeName), null));
 
-				Buf.Clear();
+					Buf.Clear();
 
-				rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', false, null, null, gEngine.IsCharDigit, null);
+					rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', false, null, null, gEngine.IsCharDigit, null);
 
-				Debug.Assert(gEngine.IsSuccess(rc));
+					Debug.Assert(gEngine.IsSuccess(rc));
 
-				NewRecordUid = Convert.ToInt64(Buf.Trim().ToString());
-
-				gOut.Print("{0}", gEngine.LineSep);
+					NewRecordUid = Convert.ToInt64(Buf.Trim().ToString());
+				}
+				while (NewRecordUid < 0 || NewRecordUid > gEngine.NumRecords);
 
 				if (NewRecordUid > 0)
 				{
+					gOut.Print("{0}", gEngine.LineSep);
+
 					record = RecordTable.FindRecord(NewRecordUid);
 
 					if (record != null)
@@ -53,8 +66,10 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 						goto Cleanup;
 					}
-
-					RecordTable.FreeUids.Remove(NewRecordUid);
+				}
+				else
+				{
+					goto Cleanup;
 				}
 			}
 
@@ -62,15 +77,24 @@ namespace EamonDD.Game.Menus.ActionMenus
 			{
 				x.Uid = NewRecordUid;
 			});
-			
+
+			var artifact = record as IArtifact;
+
+			if (artifact != null && gDatabase.ArtifactTableType == ArtifactTableType.CharArt)
+			{
+				artifact.SetArtifactCategoryCount(1);
+			}
+
 			var helper = gEngine.CreateInstance<U>(x =>
 			{
+				x.RecordTable = RecordTable;
+
 				x.Record = record;
 			});
 			
 			helper.InputRecord(false, gEngine.Config.FieldDesc);
 
-			gEngine.Thread.Sleep(150);
+			RecordTable.FreeUids.Remove(record.Uid);
 
 			gOut.Write("{0}Would you like to save this {1} record (Y/N): ", Environment.NewLine, RecordTypeName);
 
@@ -79,8 +103,6 @@ namespace EamonDD.Game.Menus.ActionMenus
 			rc = gEngine.In.ReadField(Buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, gEngine.IsCharYOrN);
 
 			Debug.Assert(gEngine.IsSuccess(rc));
-
-			gEngine.Thread.Sleep(150);
 
 			if (Buf.Length > 0 && Buf[0] == 'N')
 			{
@@ -91,14 +113,14 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			var character = record as ICharacter;
 
-			if (character != null)
+			artifact = record as IArtifact;
+
+			if (character == null && artifact != null)
 			{
-				character.StripUniqueCharsFromWeaponNames();
+				var characterUid = artifact.IsCarriedByCharacter() ? artifact.GetCarriedByCharacterUid() : artifact.GetWornByCharacterUid();
 
-				character.AddUniqueCharsToWeaponNames();
+				character = gDatabase.FindCharacter(characterUid);
 			}
-
-			var artifact = record as IArtifact;
 
 			if (artifact != null)
 			{
@@ -131,6 +153,20 @@ namespace EamonDD.Game.Menus.ActionMenus
 			rc = RecordTable.AddRecord(record);
 
 			Debug.Assert(gEngine.IsSuccess(rc));
+
+			if (character != null && gDatabase.ArtifactTableType == ArtifactTableType.CharArt)
+			{
+				var result1 = gEngine.SwapGreaterArmorUidWithLesserShieldUid(character);
+
+				var result2 = character.StripUniqueCharsFromWeaponNames();
+
+				var result3 = character.AddUniqueCharsToWeaponNames();
+
+				if (result1 || result2 || result3)
+				{
+					gEngine.CharArtsModified = true;
+				}
+			}
 
 			UpdateGlobals();
 

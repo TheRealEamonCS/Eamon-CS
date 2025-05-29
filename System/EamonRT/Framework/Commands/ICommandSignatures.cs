@@ -95,7 +95,8 @@ namespace EamonRT.Framework.Commands
 		/// <param name="artifact"></param>
 		/// <param name="containerType"></param>
 		/// <param name="showCharOwned"></param>
-		void BuildPrepContainerYouSeePrefix(IArtifact artifact, ContainerType containerType, bool showCharOwned);
+		/// <param name="buf"></param>
+		void BuildPrepContainerYouSeePrefix(IArtifact artifact, ContainerType containerType, bool showCharOwned, StringBuilder buf);
 
 		/// <summary></summary>
 		/// <param name="obj"></param>

@@ -28,6 +28,9 @@ namespace Eamon.Game
 		[FieldName(660)]
 		public virtual bool GenerateUids { get; set; }
 
+		[FieldName(670)]
+		public virtual bool DeleteCharArts { get; set; }
+
 		[FieldName(680)]
 		public virtual FieldDesc FieldDesc { get; set; }
 
@@ -49,6 +52,9 @@ namespace Eamon.Game
 		[FieldName(800)]
 		public virtual string DdArtifactFileName { get; set; }
 
+		[FieldName(810)]
+		public virtual string DdCharArtFileName { get; set; }
+
 		[FieldName(820)]
 		public virtual string DdEffectFileName { get; set; }
 
@@ -67,6 +73,9 @@ namespace Eamon.Game
 		[FieldName(960)]
 		public virtual string MhCharacterFileName { get; set; }
 
+		[FieldName(970)]
+		public virtual string MhCharArtFileName { get; set; }
+
 		[FieldName(980)]
 		public virtual string MhEffectFileName { get; set; }
 
@@ -84,6 +93,9 @@ namespace Eamon.Game
 
 		[FieldName(1080)]
 		public virtual string RtArtifactFileName { get; set; }
+
+		[FieldName(1090)]
+		public virtual string RtCharArtFileName { get; set; }
 
 		[FieldName(1100)]
 		public virtual string RtEffectFileName { get; set; }
@@ -112,6 +124,9 @@ namespace Eamon.Game
 		[FieldName(1300)]
 		public virtual bool DdEditingArtifacts { get; set; }
 
+		[FieldName(1310)]
+		public virtual bool DdEditingCharArts { get; set; }
+
 		[FieldName(1320)]
 		public virtual bool DdEditingEffects { get; set; }
 
@@ -136,7 +151,7 @@ namespace Eamon.Game
 				// Get rid of managed resources
 			}
 
-			if (IsUidRecycled && Uid > 0)
+			if (Uid > 0)
 			{
 				gDatabase.FreeConfigUid(Uid);
 
@@ -175,6 +190,18 @@ namespace Eamon.Game
 			if (gEngine.IsFailure(rc))
 			{
 				gEngine.Error.WriteLine("Error: LoadCharacters function call failed.");
+
+				goto Cleanup;
+			}
+
+			gDatabase.ExecuteOnArtifactTable(ArtifactTableType.CharArt, () =>
+			{
+				rc = gDatabase.LoadArtifacts(RtCharArtFileName, validate, printOutput);
+			});
+
+			if (gEngine.IsFailure(rc))
+			{
+				gEngine.Error.WriteLine("Error: LoadArtifacts function call failed.");
 
 				goto Cleanup;
 			}
@@ -314,6 +341,18 @@ namespace Eamon.Game
 				goto Cleanup;
 			}
 
+			gDatabase.ExecuteOnArtifactTable(ArtifactTableType.CharArt, () =>
+			{
+				rc = gDatabase.SaveArtifacts(RtCharArtFileName, printOutput);
+			});
+
+			if (gEngine.IsFailure(rc))
+			{
+				gEngine.Error.WriteLine("Error: SaveArtifacts function call failed.");
+
+				goto Cleanup;
+			}
+
 			rc = gDatabase.SaveCharacters(RtCharacterFileName, printOutput);
 
 			if (gEngine.IsFailure(rc))
@@ -385,7 +424,7 @@ namespace Eamon.Game
 
 				try
 				{
-					gEngine.File.Delete(RtCharacterFileName);
+					gEngine.File.Delete(RtFilesetFileName);
 				}
 				catch (Exception ex)
 				{
@@ -397,7 +436,19 @@ namespace Eamon.Game
 
 				try
 				{
-					gEngine.File.Delete(RtFilesetFileName);
+					gEngine.File.Delete(RtCharArtFileName);
+				}
+				catch (Exception ex)
+				{
+					if (ex != null)
+					{
+						// Do nothing
+					}
+				}
+
+				try
+				{
+					gEngine.File.Delete(RtCharacterFileName);
 				}
 				catch (Exception ex)
 				{
@@ -407,98 +458,6 @@ namespace Eamon.Game
 					}
 				}
 			}
-
-		Cleanup:
-
-			return rc;
-		}
-
-		public virtual RetCode CopyProperties(IConfig config)
-		{
-			RetCode rc;
-
-			if (config == null)
-			{
-				rc = RetCode.InvalidArg;
-
-				// PrintError
-
-				goto Cleanup;
-			}
-
-			rc = RetCode.Success;
-
-			Uid = config.Uid;
-
-			IsUidRecycled = config.IsUidRecycled;
-
-			ShowDesc = config.ShowDesc;
-
-			ResolveEffects = config.ResolveEffects;
-
-			GenerateUids = config.GenerateUids;
-
-			FieldDesc = config.FieldDesc;
-
-			WordWrapMargin = config.WordWrapMargin;
-
-			DdFilesetFileName = gEngine.CloneInstance(config.DdFilesetFileName);
-
-			DdCharacterFileName = gEngine.CloneInstance(config.DdCharacterFileName);
-
-			DdModuleFileName = gEngine.CloneInstance(config.DdModuleFileName);
-
-			DdRoomFileName = gEngine.CloneInstance(config.DdRoomFileName);
-
-			DdArtifactFileName = gEngine.CloneInstance(config.DdArtifactFileName);
-
-			DdEffectFileName = gEngine.CloneInstance(config.DdEffectFileName);
-
-			DdMonsterFileName = gEngine.CloneInstance(config.DdMonsterFileName);
-
-			DdHintFileName = gEngine.CloneInstance(config.DdHintFileName);
-
-			MhWorkDir = gEngine.CloneInstance(config.MhWorkDir);
-
-			MhFilesetFileName = gEngine.CloneInstance(config.MhFilesetFileName);
-
-			MhCharacterFileName = gEngine.CloneInstance(config.MhCharacterFileName);
-
-			MhEffectFileName = gEngine.CloneInstance(config.MhEffectFileName);
-
-			RtFilesetFileName = gEngine.CloneInstance(config.RtFilesetFileName);
-
-			RtCharacterFileName = gEngine.CloneInstance(config.RtCharacterFileName);
-
-			RtModuleFileName = gEngine.CloneInstance(config.RtModuleFileName);
-
-			RtRoomFileName = gEngine.CloneInstance(config.RtRoomFileName);
-
-			RtArtifactFileName = gEngine.CloneInstance(config.RtArtifactFileName);
-
-			RtEffectFileName = gEngine.CloneInstance(config.RtEffectFileName);
-
-			RtMonsterFileName = gEngine.CloneInstance(config.RtMonsterFileName);
-
-			RtHintFileName = gEngine.CloneInstance(config.RtHintFileName);
-
-			RtGameStateFileName = gEngine.CloneInstance(config.RtGameStateFileName);
-
-			DdEditingFilesets = config.DdEditingFilesets;
-
-			DdEditingCharacters = config.DdEditingCharacters;
-
-			DdEditingModules = config.DdEditingModules;
-
-			DdEditingRooms = config.DdEditingRooms;
-
-			DdEditingArtifacts = config.DdEditingArtifacts;
-
-			DdEditingEffects = config.DdEditingEffects;
-
-			DdEditingMonsters = config.DdEditingMonsters;
-
-			DdEditingHints = config.DdEditingHints;
 
 		Cleanup:
 
@@ -521,6 +480,8 @@ namespace Eamon.Game
 
 			DdArtifactFileName = "";
 
+			DdCharArtFileName = "";
+
 			DdEffectFileName = "";
 
 			DdMonsterFileName = "";
@@ -533,6 +494,8 @@ namespace Eamon.Game
 
 			MhCharacterFileName = "";
 
+			MhCharArtFileName = "";
+
 			MhEffectFileName = "";
 
 			RtFilesetFileName = "";
@@ -544,6 +507,8 @@ namespace Eamon.Game
 			RtRoomFileName = "";
 
 			RtArtifactFileName = "";
+
+			RtCharArtFileName = "";
 
 			RtEffectFileName = "";
 

@@ -251,6 +251,14 @@ namespace EamonRT.Game.Commands
 
 				SaveFileset.ArtifactFileName = gEngine.Buf.ToString().Truncate(gEngine.FsFileNameLen);
 
+				rc = gEngine.SplitPath(gEngine.Config.RtCharArtFileName, ref _saveFilePath, ref _saveFileName, ref _saveFileExtension);
+
+				Debug.Assert(gEngine.IsSuccess(rc));
+
+				gEngine.Buf.SetFormat("{0}{1}_{2}{3}", SaveFilePath, SaveFileName, SaveSlotString, SaveFileExtension);
+
+				SaveFileset.CharArtFileName = gEngine.Buf.ToString().Truncate(gEngine.FsFileNameLen);
+
 				rc = gEngine.SplitPath(gEngine.Config.RtEffectFileName, ref _saveFilePath, ref _saveFileName, ref _saveFileExtension);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
@@ -293,6 +301,8 @@ namespace EamonRT.Game.Commands
 
 				SaveConfig.RtArtifactFileName = gEngine.CloneInstance(SaveFileset.ArtifactFileName);
 
+				SaveConfig.RtCharArtFileName = gEngine.CloneInstance(SaveFileset.CharArtFileName);
+
 				SaveConfig.RtEffectFileName = gEngine.CloneInstance(SaveFileset.EffectFileName);
 
 				SaveConfig.RtMonsterFileName = gEngine.CloneInstance(SaveFileset.MonsterFileName);
@@ -311,6 +321,8 @@ namespace EamonRT.Game.Commands
 
 				gEngine.Config.DdArtifactFileName = SaveConfig.RtArtifactFileName;
 
+				gEngine.Config.DdCharArtFileName = SaveConfig.RtCharArtFileName;
+
 				gEngine.Config.DdEffectFileName = SaveConfig.RtEffectFileName;
 
 				gEngine.Config.DdMonsterFileName = SaveConfig.RtMonsterFileName;
@@ -326,6 +338,8 @@ namespace EamonRT.Game.Commands
 				gEngine.Config.DdEditingRooms = true;
 
 				gEngine.Config.DdEditingArtifacts = true;
+
+				gEngine.Config.DdEditingCharArts = true;
 
 				gEngine.Config.DdEditingEffects = true;
 

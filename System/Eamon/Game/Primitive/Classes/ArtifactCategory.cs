@@ -24,6 +24,7 @@ namespace Eamon.Game.Primitive.Classes
 		public long _field3;
 
 		[ExcludeFromSerialization]
+		[ExcludeFromDeepCopy]
 		public virtual IArtifact Parent { get; set; }
 
 		[ExcludeFromSerialization]
@@ -42,9 +43,9 @@ namespace Eamon.Game.Primitive.Classes
 			{
 				_field1 = value;
 
-				if (SyncFields)
+				if (SyncFields && Parent != null)
 				{
-					SyncArtifactCategories();
+					Parent.SyncArtifactCategories(this);
 				}
 			}
 		}
@@ -60,9 +61,9 @@ namespace Eamon.Game.Primitive.Classes
 			{
 				_field2 = value;
 
-				if (SyncFields)
+				if (SyncFields && Parent != null)
 				{
-					SyncArtifactCategories();
+					Parent.SyncArtifactCategories(this);
 				}
 			}
 		}
@@ -78,9 +79,9 @@ namespace Eamon.Game.Primitive.Classes
 			{
 				_field3 = value;
 
-				if (SyncFields)
+				if (SyncFields && Parent != null)
 				{
-					SyncArtifactCategories();
+					Parent.SyncArtifactCategories(this);
 				}
 			}
 		}
@@ -88,6 +89,36 @@ namespace Eamon.Game.Primitive.Classes
 		public virtual long Field4 { get; set; }
 
 		public virtual long Field5 { get; set; }
+
+		public virtual long Field6 { get; set; }
+
+		public virtual long Field7 { get; set; }
+
+		public virtual long Field8 { get; set; }
+
+		public virtual long Field9 { get; set; }
+
+		public virtual long Field10 { get; set; }
+
+		public virtual long Field11 { get; set; }
+
+		public virtual long Field12 { get; set; }
+
+		public virtual long Field13 { get; set; }
+
+		public virtual long Field14 { get; set; }
+
+		public virtual long Field15 { get; set; }
+
+		public virtual long Field16 { get; set; }
+
+		public virtual long Field17 { get; set; }
+
+		public virtual long Field18 { get; set; }
+
+		public virtual long Field19 { get; set; }
+
+		public virtual long Field20 { get; set; }
 
 		public virtual bool IsOpenable()
 		{
@@ -306,148 +337,6 @@ namespace Eamon.Game.Primitive.Classes
 			}
 
 			return result;
-		}
-
-		public virtual void SyncArtifactCategories()
-		{
-			if (Parent != null && Parent.Categories != null)
-			{
-				switch (Type)
-				{
-					case Enums.ArtifactType.InContainer:
-					case Enums.ArtifactType.DoorGate:
-					{
-						foreach (var ac in Parent.Categories)
-						{
-							if (ac != null && ac != this && ac.Type != Enums.ArtifactType.None)
-							{
-								ac.SyncFields = false;
-
-								if (ac.IsLockable())
-								{
-									ac.SetKeyUid(GetKeyUid());
-								}
-
-								if (ac.IsOpenable())
-								{
-									if (GetBreakageStrength() > 0)
-									{
-										if (ac.Type == Enums.ArtifactType.InContainer || ac.Type == Enums.ArtifactType.DoorGate)
-										{
-											ac.SetBreakageStrength(GetBreakageStrength());
-										}
-										else
-										{
-											ac.SetOpen(IsOpen());
-										}
-									}
-									else if (ac.GetBreakageStrength() <= 0 || IsOpen())
-									{
-										ac.SetOpen(IsOpen());
-									}
-								}
-
-								ac.SyncFields = true;
-							}
-						}
-
-						break;
-					}
-
-					case Enums.ArtifactType.Drinkable:
-					case Enums.ArtifactType.Edible:
-					{
-						foreach (var ac in Parent.Categories)
-						{
-							if (ac != null && ac != this && ac.Type != Enums.ArtifactType.None)
-							{
-								ac.SyncFields = false;
-
-								if (ac.Type == Enums.ArtifactType.Drinkable || ac.Type == Enums.ArtifactType.Edible)
-								{
-									ac.Field1 = Field1;
-
-									ac.Field2 = Field2;
-								}
-
-								if (ac.IsOpenable() && (ac.GetBreakageStrength() <= 0 || IsOpen()))
-								{
-									ac.SetOpen(IsOpen());
-								}
-
-								ac.SyncFields = true;
-							}
-						}
-
-						break;
-					}
-
-					case Enums.ArtifactType.Readable:
-					{
-						foreach (var ac in Parent.Categories)
-						{
-							if (ac != null && ac != this && ac.Type != Enums.ArtifactType.None)
-							{
-								ac.SyncFields = false;
-
-								if (ac.IsOpenable() && (ac.GetBreakageStrength() <= 0 || IsOpen()))
-								{
-									ac.SetOpen(IsOpen());
-								}
-
-								ac.SyncFields = true;
-							}
-						}
-
-						break;
-					}
-
-					case Enums.ArtifactType.BoundMonster:
-					{
-						foreach (var ac in Parent.Categories)
-						{
-							if (ac != null && ac != this && ac.Type != Enums.ArtifactType.None)
-							{
-								ac.SyncFields = false;
-
-								if (ac.Type == Enums.ArtifactType.DisguisedMonster)
-								{
-									ac.Field1 = Field1;
-								}
-
-								if (ac.IsLockable())
-								{
-									ac.SetKeyUid(GetKeyUid());
-								}
-
-								ac.SyncFields = true;
-							}
-						}
-
-						break;
-					}
-
-					case Enums.ArtifactType.DisguisedMonster:
-					{
-						foreach (var ac in Parent.Categories)
-						{
-							if (ac != null && ac != this && ac.Type != Enums.ArtifactType.None)
-							{
-								ac.SyncFields = false;
-
-								if (ac.Type == Enums.ArtifactType.BoundMonster)
-								{
-									ac.Field1 = Field1;
-								}
-
-								ac.SyncFields = true;
-							}
-						}
-
-						break;
-					}
-				}
-			}
 		}
 
 		public ArtifactCategory()

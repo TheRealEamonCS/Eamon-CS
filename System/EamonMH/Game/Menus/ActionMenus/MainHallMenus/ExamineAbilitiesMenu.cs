@@ -5,6 +5,7 @@
 
 using System;
 using System.Diagnostics;
+using System.Linq;
 using Eamon;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
@@ -134,29 +135,28 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 			long odds = 0;
 
-			if (gCharacter.IsWeaponActive(0))
+			var artifactList = gCharacter.GetCarriedList().Where(a => a.GeneralWeapon != null).ToList();
+
+			if (artifactList.Count > 0)
 			{
-				for (i = 0; i < gCharacter.Weapons.Length; i++)
+				for (i = 0; i < artifactList.Count; i++)
 				{
-					if (gCharacter.IsWeaponActive(i))
-					{
-						rc = gCharacter.GetBaseOddsToHit(i, ref odds);
+					var artifact = artifactList[(int)i];
 
-						Debug.Assert(gEngine.IsSuccess(rc));
+					Debug.Assert(artifact != null);
 
-						gOut.Write("{0} {1} {2,3}%{3,9}D{4,-9}{5,-12}{6,3}%",
-							Environment.NewLine,
-							gEngine.Capitalize(gCharacter.GetWeapon(i).Name.PadTRight(29, ' ')),
-							gCharacter.GetWeapon(i).Field1,
-							gCharacter.GetWeapon(i).Field3,
-							gCharacter.GetWeapon(i).Field4,
-							gCharacter.GetWeapon(i).Field5,
-							odds);
-					}
-					else
-					{
-						break;
-					}
+					rc = gCharacter.GetBaseOddsToHit(artifact, ref odds);
+
+					Debug.Assert(gEngine.IsSuccess(rc));
+
+					gOut.Write("{0} {1} {2,3}%{3,9}D{4,-9}{5,-12}{6,3}%",
+						Environment.NewLine,
+						gEngine.Capitalize(artifact.Name.PadTRight(29, ' ')),
+						artifact.Field1,
+						artifact.Field3,
+						artifact.Field4,
+						artifact.Field5,
+						odds);
 				}
 			}
 			else

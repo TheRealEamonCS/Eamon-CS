@@ -5,4 +5,5 @@ ChangeLog: EamonPM
 
 Date            Version            Who            Notes
 ----------------------------------------------------------------------------------------------------------------------------------
+20250531        3.1.0              MP             CharacterArtifact removal/20-Field Artifact overhaul
 20240931        3.0.0              MP             Initial commit EamonPM

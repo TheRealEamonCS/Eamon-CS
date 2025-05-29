@@ -28,8 +28,6 @@ namespace TheVileGrimoireOfJaldial.Game.States
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
-				gEngine.Thread.Sleep(150);
-
 				gOut.Print("{0}", gEngine.LineSep);
 
 				if (++gGameState.PlayerResurrections <= 2)

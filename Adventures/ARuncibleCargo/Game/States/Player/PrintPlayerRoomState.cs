@@ -58,6 +58,8 @@ namespace ARuncibleCargo.Game.States
 
 					// Nothing in the dream affects the real world; revert game state now that player is awake
 
+					var charArtFileName = gEngine.CloneInstance(gEngine.Config.RtCharArtFileName);
+
 					var filesetTable = gEngine.CloneInstance(gDatabase.FilesetTable);
 
 					Debug.Assert(filesetTable != null);
@@ -72,7 +74,25 @@ namespace ARuncibleCargo.Game.States
 
 					rc = gEngine.RestoreDatabase(gEngine.SnapshotFileName);
 
-					Debug.Assert(gEngine.IsSuccess(rc));
+					if (gEngine.IsFailure(rc))
+					{
+						gEngine.Error.Write("Error: RestoreDatabase function call failed.");
+
+						gEngine.ExitType = ExitType.Error;
+
+						gEngine.MainLoop.ShouldShutdown = false;
+
+						GotoCleanup = true;
+
+						goto Cleanup;
+					}
+
+					gDatabase.ExecuteOnArtifactTable(ArtifactTableType.CharArt, () =>
+					{
+						rc = gDatabase.LoadArtifacts(charArtFileName, printOutput: false);
+
+						Debug.Assert(gEngine.IsSuccess(rc));
+					});
 
 					gDatabase.FilesetTable = filesetTable;
 
@@ -278,6 +298,10 @@ namespace ARuncibleCargo.Game.States
 					}
 				}
 			}
+
+		Cleanup:
+
+			;
 		}
 	}
 }

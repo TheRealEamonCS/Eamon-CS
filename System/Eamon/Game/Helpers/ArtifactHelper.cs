@@ -4,7 +4,9 @@
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using Eamon.Framework;
@@ -98,58 +100,159 @@ namespace Eamon.Game.Helpers
 		}
 
 		/// <summary></summary>
+		/// <param name="fieldNumber"></param>
 		/// <returns></returns>
-		public virtual string GetPrintedNameCategoriesField1()
+		public virtual string GetPrintedNameCategoriesField(long fieldNumber)
 		{
 			var i = Index;
 
 			var artType = gEngine.GetArtifactType(Record.GetCategory(i).Type);
 
-			return string.Format("Cat #{0} {1}", i + 1, artType != null ? artType.Field1Name : "Field1");
+			var property = artType != null ? artType.GetType().GetProperty(string.Format("Field{0}Name", fieldNumber)) : null;
+
+			var fieldName = property != null ? (string)property.GetValue(artType) : string.Format("Field{0}", fieldNumber);
+
+			return string.Format("Cat #{0} {1}", i + 1, fieldName);
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual string GetPrintedNameCategoriesField1()
+		{
+			return GetPrintedNameCategoriesField(1);
 		}
 
 		/// <summary></summary>
 		/// <returns></returns>
 		public virtual string GetPrintedNameCategoriesField2()
 		{
-			var i = Index;
-
-			var artType = gEngine.GetArtifactType(Record.GetCategory(i).Type);
-
-			return string.Format("Cat #{0} {1}", i + 1, artType != null ? artType.Field2Name : "Field2");
+			return GetPrintedNameCategoriesField(2);
 		}
 
 		/// <summary></summary>
 		/// <returns></returns>
 		public virtual string GetPrintedNameCategoriesField3()
 		{
-			var i = Index;
-
-			var artType = gEngine.GetArtifactType(Record.GetCategory(i).Type);
-
-			return string.Format("Cat #{0} {1}", i + 1, artType != null ? artType.Field3Name : "Field3");
+			return GetPrintedNameCategoriesField(3);
 		}
 
 		/// <summary></summary>
 		/// <returns></returns>
 		public virtual string GetPrintedNameCategoriesField4()
 		{
-			var i = Index;
-
-			var artType = gEngine.GetArtifactType(Record.GetCategory(i).Type);
-
-			return string.Format("Cat #{0} {1}", i + 1, artType != null ? artType.Field4Name : "Field4");
+			return GetPrintedNameCategoriesField(4);
 		}
 
 		/// <summary></summary>
 		/// <returns></returns>
 		public virtual string GetPrintedNameCategoriesField5()
 		{
-			var i = Index;
+			return GetPrintedNameCategoriesField(5);
+		}
 
-			var artType = gEngine.GetArtifactType(Record.GetCategory(i).Type);
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual string GetPrintedNameCategoriesField6()
+		{
+			return GetPrintedNameCategoriesField(6);
+		}
 
-			return string.Format("Cat #{0} {1}", i + 1, artType != null ? artType.Field5Name : "Field5");
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual string GetPrintedNameCategoriesField7()
+		{
+			return GetPrintedNameCategoriesField(7);
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual string GetPrintedNameCategoriesField8()
+		{
+			return GetPrintedNameCategoriesField(8);
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual string GetPrintedNameCategoriesField9()
+		{
+			return GetPrintedNameCategoriesField(9);
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual string GetPrintedNameCategoriesField10()
+		{
+			return GetPrintedNameCategoriesField(10);
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual string GetPrintedNameCategoriesField11()
+		{
+			return GetPrintedNameCategoriesField(11);
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual string GetPrintedNameCategoriesField12()
+		{
+			return GetPrintedNameCategoriesField(12);
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual string GetPrintedNameCategoriesField13()
+		{
+			return GetPrintedNameCategoriesField(13);
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual string GetPrintedNameCategoriesField14()
+		{
+			return GetPrintedNameCategoriesField(14);
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual string GetPrintedNameCategoriesField15()
+		{
+			return GetPrintedNameCategoriesField(15);
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual string GetPrintedNameCategoriesField16()
+		{
+			return GetPrintedNameCategoriesField(16);
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual string GetPrintedNameCategoriesField17()
+		{
+			return GetPrintedNameCategoriesField(17);
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual string GetPrintedNameCategoriesField18()
+		{
+			return GetPrintedNameCategoriesField(18);
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual string GetPrintedNameCategoriesField19()
+		{
+			return GetPrintedNameCategoriesField(19);
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual string GetPrintedNameCategoriesField20()
+		{
+			return GetPrintedNameCategoriesField(20);
 		}
 
 		#endregion
@@ -169,9 +272,39 @@ namespace Eamon.Game.Helpers
 				GetName("CategoriesField3", addToNameList);
 				GetName("CategoriesField4", addToNameList);
 				GetName("CategoriesField5", addToNameList);
+				GetName("CategoriesField6", addToNameList);
+				GetName("CategoriesField7", addToNameList);
+				GetName("CategoriesField8", addToNameList);
+				GetName("CategoriesField9", addToNameList);
+				GetName("CategoriesField10", addToNameList);
+				GetName("CategoriesField11", addToNameList);
+				GetName("CategoriesField12", addToNameList);
+				GetName("CategoriesField13", addToNameList);
+				GetName("CategoriesField14", addToNameList);
+				GetName("CategoriesField15", addToNameList);
+				GetName("CategoriesField16", addToNameList);
+				GetName("CategoriesField17", addToNameList);
+				GetName("CategoriesField18", addToNameList);
+				GetName("CategoriesField19", addToNameList);
+				GetName("CategoriesField20", addToNameList);
 			}
 
 			return "Categories";
+		}
+
+		/// <summary></summary>
+		/// <param name="addToNameList"></param>
+		/// <returns></returns>
+		public virtual string GetNameCategoriesLength(bool addToNameList)
+		{
+			var result = "Categories.Length";
+
+			if (addToNameList)
+			{
+				NameList.Add(result);
+			}
+
+			return result;
 		}
 
 		/// <summary></summary>
@@ -192,13 +325,14 @@ namespace Eamon.Game.Helpers
 		}
 
 		/// <summary></summary>
+		/// <param name="fieldNumber"></param>
 		/// <param name="addToNameList"></param>
 		/// <returns></returns>
-		public virtual string GetNameCategoriesField1(bool addToNameList)
+		public virtual string GetNameCategoriesField(long fieldNumber, bool addToNameList)
 		{
 			var i = Index;
 
-			var result = string.Format("Categories[{0}].Field1", i);
+			var result = string.Format("Categories[{0}].Field{1}", i, fieldNumber);
 
 			if (addToNameList)
 			{
@@ -206,6 +340,14 @@ namespace Eamon.Game.Helpers
 			}
 
 			return result;
+		}
+
+		/// <summary></summary>
+		/// <param name="addToNameList"></param>
+		/// <returns></returns>
+		public virtual string GetNameCategoriesField1(bool addToNameList)
+		{
+			return GetNameCategoriesField(1, addToNameList);
 		}
 
 		/// <summary></summary>
@@ -213,16 +355,7 @@ namespace Eamon.Game.Helpers
 		/// <returns></returns>
 		public virtual string GetNameCategoriesField2(bool addToNameList)
 		{
-			var i = Index;
-
-			var result = string.Format("Categories[{0}].Field2", i);
-
-			if (addToNameList)
-			{
-				NameList.Add(result);
-			}
-
-			return result;
+			return GetNameCategoriesField(2, addToNameList);
 		}
 
 		/// <summary></summary>
@@ -230,16 +363,7 @@ namespace Eamon.Game.Helpers
 		/// <returns></returns>
 		public virtual string GetNameCategoriesField3(bool addToNameList)
 		{
-			var i = Index;
-
-			var result = string.Format("Categories[{0}].Field3", i);
-
-			if (addToNameList)
-			{
-				NameList.Add(result);
-			}
-
-			return result;
+			return GetNameCategoriesField(3, addToNameList);
 		}
 
 		/// <summary></summary>
@@ -247,16 +371,7 @@ namespace Eamon.Game.Helpers
 		/// <returns></returns>
 		public virtual string GetNameCategoriesField4(bool addToNameList)
 		{
-			var i = Index;
-
-			var result = string.Format("Categories[{0}].Field4", i);
-
-			if (addToNameList)
-			{
-				NameList.Add(result);
-			}
-
-			return result;
+			return GetNameCategoriesField(4, addToNameList);
 		}
 
 		/// <summary></summary>
@@ -264,21 +379,146 @@ namespace Eamon.Game.Helpers
 		/// <returns></returns>
 		public virtual string GetNameCategoriesField5(bool addToNameList)
 		{
-			var i = Index;
+			return GetNameCategoriesField(5, addToNameList);
+		}
 
-			var result = string.Format("Categories[{0}].Field5", i);
+		/// <summary></summary>
+		/// <param name="addToNameList"></param>
+		/// <returns></returns>
+		public virtual string GetNameCategoriesField6(bool addToNameList)
+		{
+			return GetNameCategoriesField(6, addToNameList);
+		}
 
-			if (addToNameList)
-			{
-				NameList.Add(result);
-			}
+		/// <summary></summary>
+		/// <param name="addToNameList"></param>
+		/// <returns></returns>
+		public virtual string GetNameCategoriesField7(bool addToNameList)
+		{
+			return GetNameCategoriesField(7, addToNameList);
+		}
 
-			return result;
+		/// <summary></summary>
+		/// <param name="addToNameList"></param>
+		/// <returns></returns>
+		public virtual string GetNameCategoriesField8(bool addToNameList)
+		{
+			return GetNameCategoriesField(8, addToNameList);
+		}
+
+		/// <summary></summary>
+		/// <param name="addToNameList"></param>
+		/// <returns></returns>
+		public virtual string GetNameCategoriesField9(bool addToNameList)
+		{
+			return GetNameCategoriesField(9, addToNameList);
+		}
+
+		/// <summary></summary>
+		/// <param name="addToNameList"></param>
+		/// <returns></returns>
+		public virtual string GetNameCategoriesField10(bool addToNameList)
+		{
+			return GetNameCategoriesField(10, addToNameList);
+		}
+
+		/// <summary></summary>
+		/// <param name="addToNameList"></param>
+		/// <returns></returns>
+		public virtual string GetNameCategoriesField11(bool addToNameList)
+		{
+			return GetNameCategoriesField(11, addToNameList);
+		}
+
+		/// <summary></summary>
+		/// <param name="addToNameList"></param>
+		/// <returns></returns>
+		public virtual string GetNameCategoriesField12(bool addToNameList)
+		{
+			return GetNameCategoriesField(12, addToNameList);
+		}
+
+		/// <summary></summary>
+		/// <param name="addToNameList"></param>
+		/// <returns></returns>
+		public virtual string GetNameCategoriesField13(bool addToNameList)
+		{
+			return GetNameCategoriesField(13, addToNameList);
+		}
+
+		/// <summary></summary>
+		/// <param name="addToNameList"></param>
+		/// <returns></returns>
+		public virtual string GetNameCategoriesField14(bool addToNameList)
+		{
+			return GetNameCategoriesField(14, addToNameList);
+		}
+
+		/// <summary></summary>
+		/// <param name="addToNameList"></param>
+		/// <returns></returns>
+		public virtual string GetNameCategoriesField15(bool addToNameList)
+		{
+			return GetNameCategoriesField(15, addToNameList);
+		}
+
+		/// <summary></summary>
+		/// <param name="addToNameList"></param>
+		/// <returns></returns>
+		public virtual string GetNameCategoriesField16(bool addToNameList)
+		{
+			return GetNameCategoriesField(16, addToNameList);
+		}
+
+		/// <summary></summary>
+		/// <param name="addToNameList"></param>
+		/// <returns></returns>
+		public virtual string GetNameCategoriesField17(bool addToNameList)
+		{
+			return GetNameCategoriesField(17, addToNameList);
+		}
+
+		/// <summary></summary>
+		/// <param name="addToNameList"></param>
+		/// <returns></returns>
+		public virtual string GetNameCategoriesField18(bool addToNameList)
+		{
+			return GetNameCategoriesField(18, addToNameList);
+		}
+
+		/// <summary></summary>
+		/// <param name="addToNameList"></param>
+		/// <returns></returns>
+		public virtual string GetNameCategoriesField19(bool addToNameList)
+		{
+			return GetNameCategoriesField(19, addToNameList);
+		}
+
+		/// <summary></summary>
+		/// <param name="addToNameList"></param>
+		/// <returns></returns>
+		public virtual string GetNameCategoriesField20(bool addToNameList)
+		{
+			return GetNameCategoriesField(20, addToNameList);
 		}
 
 		#endregion
 
 		#region GetValue Methods
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual object GetValueLocation()
+		{
+			return Record.Location;
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual object GetValueCategoriesLength()
+		{
+			return Record.Categories.Length;
+		}
 
 		/// <summary></summary>
 		/// <returns></returns>
@@ -290,48 +530,157 @@ namespace Eamon.Game.Helpers
 		}
 
 		/// <summary></summary>
+		/// <param name="fieldNumber"></param>
 		/// <returns></returns>
-		public virtual object GetValueCategoriesField1()
+		public virtual object GetValueCategoriesField(long fieldNumber)
 		{
 			var i = Index;
 
-			return Record.GetCategory(i).Field1;
+			var category = Record.GetCategory(i);
+
+			var fieldProperty = category != null ? category.GetType().GetProperty(string.Format("Field{0}", fieldNumber)) : null;
+
+			return fieldProperty != null ? fieldProperty.GetValue(category) : 0L;
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual object GetValueCategoriesField1()
+		{
+			return GetValueCategoriesField(1);
 		}
 
 		/// <summary></summary>
 		/// <returns></returns>
 		public virtual object GetValueCategoriesField2()
 		{
-			var i = Index;
-
-			return Record.GetCategory(i).Field2;
+			return GetValueCategoriesField(2);
 		}
 
 		/// <summary></summary>
 		/// <returns></returns>
 		public virtual object GetValueCategoriesField3()
 		{
-			var i = Index;
-
-			return Record.GetCategory(i).Field3;
+			return GetValueCategoriesField(3);
 		}
 
 		/// <summary></summary>
 		/// <returns></returns>
 		public virtual object GetValueCategoriesField4()
 		{
-			var i = Index;
-
-			return Record.GetCategory(i).Field4;
+			return GetValueCategoriesField(4);
 		}
 
 		/// <summary></summary>
 		/// <returns></returns>
 		public virtual object GetValueCategoriesField5()
 		{
-			var i = Index;
+			return GetValueCategoriesField(5);
+		}
 
-			return Record.GetCategory(i).Field5;
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual object GetValueCategoriesField6()
+		{
+			return GetValueCategoriesField(6);
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual object GetValueCategoriesField7()
+		{
+			return GetValueCategoriesField(7);
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual object GetValueCategoriesField8()
+		{
+			return GetValueCategoriesField(8);
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual object GetValueCategoriesField9()
+		{
+			return GetValueCategoriesField(9);
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual object GetValueCategoriesField10()
+		{
+			return GetValueCategoriesField(10);
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual object GetValueCategoriesField11()
+		{
+			return GetValueCategoriesField(11);
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual object GetValueCategoriesField12()
+		{
+			return GetValueCategoriesField(12);
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual object GetValueCategoriesField13()
+		{
+			return GetValueCategoriesField(13);
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual object GetValueCategoriesField14()
+		{
+			return GetValueCategoriesField(14);
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual object GetValueCategoriesField15()
+		{
+			return GetValueCategoriesField(15);
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual object GetValueCategoriesField16()
+		{
+			return GetValueCategoriesField(16);
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual object GetValueCategoriesField17()
+		{
+			return GetValueCategoriesField(17);
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual object GetValueCategoriesField18()
+		{
+			return GetValueCategoriesField(18);
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual object GetValueCategoriesField19()
+		{
+			return GetValueCategoriesField(19);
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual object GetValueCategoriesField20()
+		{
+			return GetValueCategoriesField(20);
 		}
 
 		#endregion
@@ -342,7 +691,7 @@ namespace Eamon.Game.Helpers
 		/// <returns></returns>
 		public virtual bool ValidateUid()
 		{
-			return Record.Uid > 0;
+			return Record.Uid > 0 && Record.Uid <= gEngine.NumRecords;
 		}
 
 		/// <summary></summary>
@@ -418,26 +767,108 @@ namespace Eamon.Game.Helpers
 
 		/// <summary></summary>
 		/// <returns></returns>
-		public virtual bool ValidateCategories()
+		public virtual bool ValidateLocation()
 		{
 			var result = true;
 
-			for (Index = 0; Index < Record.Categories.Length; Index++)
+			if (gDatabase.ArtifactTableType == ArtifactTableType.CharArt)
 			{
-				result = ValidateField("CategoriesType") &&
-								ValidateField("CategoriesField1") &&
-								ValidateField("CategoriesField2") &&
-								ValidateField("CategoriesField3") &&
-								ValidateField("CategoriesField4") &&
-								ValidateField("CategoriesField5");
+				Debug.Assert(RecordTable != null);
 
-				if (result == false)
+				if (Record.IsCarriedByCharacter())
 				{
-					break;
+					if (Record.GetCategory(0).Type != ArtifactType.None)
+					{
+						result = Record.GetCategory(0).Type == ArtifactType.Weapon || Record.GetCategory(0).Type == ArtifactType.MagicWeapon;
+					}
+
+					if (result)
+					{
+						var artifactList = RecordTable.Records.Where(a => a.Uid != Record.Uid && a.GeneralWeapon != null && a.Location == Record.Location).ToList();
+
+						result = artifactList.Count < gEngine.NumCharacterWeapons;
+					}
+				}
+				else if (Record.IsWornByCharacter())
+				{
+					if (Record.GetCategory(0).Type != ArtifactType.None)
+					{
+						result = Record.GetCategory(0).Type == ArtifactType.Wearable;
+
+						if (result)
+						{
+							var wornArtifact = RecordTable.Records.FirstOrDefault(a => a.Uid != Record.Uid && a.Wearable != null && ((a.Wearable.Field1 >= 2 && Record.Wearable.Field1 >= 2) || (a.Wearable.Field1 == 1 && Record.Wearable.Field1 == 1)) && a.Location == Record.Location);
+
+							result = wornArtifact == null;
+						}
+					}
+					else
+					{
+						var artifactList = RecordTable.Records.Where(a => a.Uid != Record.Uid && a.Wearable != null && a.Location == Record.Location).ToList();
+
+						result = artifactList.Count < 2;
+					}
+				}
+				else
+				{
+					result = Record.Location == 0;
+				}
+			}
+			else
+			{
+				result = Record.Location > -2001;
+			}
+
+			return result;
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateCategories()
+		{
+			var result = ValidateField("CategoriesLength");
+
+			if (result)
+			{
+				for (Index = 0; Index < Record.Categories.Length; Index++)
+				{
+					result = ValidateField("CategoriesType") &&
+									ValidateField("CategoriesField1") &&
+									ValidateField("CategoriesField2") &&
+									ValidateField("CategoriesField3") &&
+									ValidateField("CategoriesField4") &&
+									ValidateField("CategoriesField5") &&
+									ValidateField("CategoriesField6") &&
+									ValidateField("CategoriesField7") &&
+									ValidateField("CategoriesField8") &&
+									ValidateField("CategoriesField9") &&
+									ValidateField("CategoriesField10") &&
+									ValidateField("CategoriesField11") &&
+									ValidateField("CategoriesField12") &&
+									ValidateField("CategoriesField13") &&
+									ValidateField("CategoriesField14") &&
+									ValidateField("CategoriesField15") &&
+									ValidateField("CategoriesField16") &&
+									ValidateField("CategoriesField17") &&
+									ValidateField("CategoriesField18") &&
+									ValidateField("CategoriesField19") &&
+									ValidateField("CategoriesField20");
+
+					if (result == false)
+					{
+						break;
+					}
 				}
 			}
 
 			return result;
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateCategoriesLength()
+		{
+			return gDatabase.ArtifactTableType == ArtifactTableType.CharArt ? Record.Categories.Length == 1 : Record.Categories.Length >= 1 && Record.Categories.Length <= gEngine.NumArtifactCategories;
 		}
 
 		/// <summary></summary>
@@ -462,7 +893,25 @@ namespace Eamon.Game.Helpers
 
 			if (activeCategory)
 			{
-				result = gEngine.IsValidArtifactType(Record.GetCategory(i).Type);
+				if (gDatabase.ArtifactTableType == ArtifactTableType.CharArt)
+				{
+					if (Record.IsCarriedByCharacter())
+					{
+						result = Record.GetCategory(i).Type == ArtifactType.Weapon || Record.GetCategory(i).Type == ArtifactType.MagicWeapon;
+					}
+					else if (Record.IsWornByCharacter())
+					{
+						result = Record.GetCategory(i).Type == ArtifactType.Wearable;
+					}
+					else
+					{
+						result = Record.GetCategory(i).Type == ArtifactType.Weapon || Record.GetCategory(i).Type == ArtifactType.MagicWeapon || Record.GetCategory(i).Type == ArtifactType.Wearable;
+					}
+				}
+				else
+				{
+					result = gEngine.IsValidArtifactType(Record.GetCategory(i).Type);
+				}
 
 				if (result)
 				{
@@ -497,8 +946,9 @@ namespace Eamon.Game.Helpers
 		}
 
 		/// <summary></summary>
+		/// <param name="fieldNumber"></param>
 		/// <returns></returns>
-		public virtual bool ValidateCategoriesField1()
+		public virtual bool ValidateCategoriesField(long fieldNumber)
 		{
 			var result = true;
 
@@ -516,343 +966,376 @@ namespace Eamon.Game.Helpers
 				}
 			}
 
+			var category = Record.GetCategory(i);
+
+			var fieldProperty = category != null ? category.GetType().GetProperty(string.Format("Field{0}", fieldNumber)) : null;
+
+			var fieldValue = fieldProperty != null ? Convert.ToInt64(fieldProperty.GetValue(category)) : 0L;
+
 			if (activeCategory)
 			{
-				switch (Record.GetCategory(i).Type)
+				switch (category.Type)
 				{
 					case ArtifactType.Weapon:
 					case ArtifactType.MagicWeapon:
 
-						result = Record.GetCategory(i).Field1 >= gEngine.MinWeaponComplexity && Record.GetCategory(i).Field1 <= gEngine.MaxWeaponComplexity;
+						if (fieldNumber == 5 && fieldValue == 0)    // Auto-upgrade old weapons
+						{
+							fieldValue = category.Field2 == (long)Weapon.Bow ? 2 : 1;
+
+							if (fieldProperty != null)
+							{
+								fieldProperty.SetValue(category, fieldValue);
+							}
+						}
+
+						if (fieldNumber >= 6 && fieldNumber <= 13)  // Auto-upgrade old weapons
+						{
+							// TODO: implement
+						}
+
+						if (fieldNumber == 1)
+						{
+							result = fieldValue >= gEngine.MinWeaponComplexity && fieldValue <= gEngine.MaxWeaponComplexity;
+						}
+						else if (fieldNumber == 2)
+						{
+							result = Enum.IsDefined(typeof(Weapon), fieldValue);
+						}
+						else if (fieldNumber == 3 || fieldNumber == 4)
+						{
+							result = fieldValue >= 1 && fieldValue <= 25;
+						}
+						else if (fieldNumber == 5)
+						{
+							result = fieldValue >= 1 && fieldValue <= 2;
+						}
+						else if (fieldNumber >= 6 && fieldNumber <= 13)
+						{
+							// TODO: implement
+						}
 
 						break;
 
 					case ArtifactType.InContainer:
 
-						result = Record.GetCategory(i).Field1 >= -2;         // -2=Broken
+						if (fieldNumber == 1)
+						{
+							result = fieldValue >= -2 && fieldValue <= gEngine.NumRecords;         // -2=Broken
+						}
+						else if (fieldNumber == 2)
+						{
+							result = (fieldValue >= 0 && fieldValue <= 1) || gEngine.IsArtifactFieldStrength(fieldValue);
+						}
+						else if (fieldNumber == 3 || fieldNumber == 4)
+						{
+							result = fieldValue >= 0;
+						}
+						else if (fieldNumber == 5)
+						{
+							result = Enum.IsDefined(typeof(ContainerDisplayCode), fieldValue);
+						}
+
+						break;
+
+					case ArtifactType.OnContainer:
+					case ArtifactType.UnderContainer:
+					case ArtifactType.BehindContainer:
+
+						if (fieldNumber == 3 || fieldNumber == 4)
+						{
+							result = fieldValue >= 0;
+						}
+						else if (fieldNumber == 5)
+						{
+							result = Enum.IsDefined(typeof(ContainerDisplayCode), fieldValue);
+						}
 
 						break;
 
 					case ArtifactType.LightSource:
 
-						result = Record.GetCategory(i).Field1 >= -1;
+						if (fieldNumber == 1)
+						{
+							result = fieldValue >= -1;
+						}
+
+						break;
+
+					case ArtifactType.Drinkable:
+					case ArtifactType.Edible:
+
+						if (fieldNumber == 2)
+						{
+							result = fieldValue >= 0;
+						}
+						else if (fieldNumber == 3)
+						{
+							result = fieldValue >= 0 && fieldValue <= 1;
+						}
 
 						break;
 
 					case ArtifactType.Readable:
+
+						if (fieldNumber == 1)
+						{
+							result = fieldValue > 0 && (fieldValue + Math.Max(1, category.Field2) - 1) <= gEngine.NumRecords;
+						}
+						else if (fieldNumber == 2)
+						{
+							result = fieldValue > 0 && (Math.Max(1, category.Field1) + fieldValue - 1) <= gEngine.NumRecords;
+						}
+						else if (fieldNumber == 3)
+						{
+							result = fieldValue >= 0 && fieldValue <= 1;
+						}
+
+						break;
+
+					case ArtifactType.DoorGate:
+
+						if (fieldNumber == 2)
+						{
+							result = fieldValue >= -2 && fieldValue <= gEngine.NumRecords;         // -2=Broken
+						}
+						else if (fieldNumber == 3)
+						{
+							result = (fieldValue >= 0 && fieldValue <= 1) || gEngine.IsArtifactFieldStrength(fieldValue);
+						}
+						else if (fieldNumber == 4)
+						{
+							result = fieldValue >= 0 && fieldValue <= 1;
+						}
+
+						break;
+
 					case ArtifactType.BoundMonster:
+
+						if (fieldNumber == 1)
+						{
+							result = fieldValue > 0 && fieldValue <= gEngine.NumRecords;
+						}
+						else if (fieldNumber == 2)
+						{
+							result = fieldValue >= -1 && fieldValue <= gEngine.NumRecords;
+						}
+						else if (fieldNumber == 3)
+						{
+							result = fieldValue >= 0 && fieldValue <= gEngine.NumRecords;
+						}
+
+						break;
+
 					case ArtifactType.DisguisedMonster:
 
-						result = Record.GetCategory(i).Field1 > 0;
+						if (fieldNumber == 1)
+						{
+							result = fieldValue > 0 && fieldValue <= gEngine.NumRecords;
+						}
+						else if (fieldNumber == 2)
+						{
+							result = fieldValue > 0 && (fieldValue + Math.Max(1, category.Field3) - 1) <= gEngine.NumRecords;
+						}
+						else if (fieldNumber == 3)
+						{
+							result = fieldValue > 0 && (Math.Max(1, category.Field2) + fieldValue - 1) <= gEngine.NumRecords;
+						}
 
 						break;
 
 					case ArtifactType.Wearable:
 
-						result = gEngine.IsValidArtifactArmor(Record.GetCategory(i).Field1);
+						if (fieldNumber == 1)
+						{
+							result = gEngine.IsValidArtifactArmor(fieldValue);
+
+							if (result && gDatabase.ArtifactTableType == ArtifactTableType.CharArt)
+							{
+								Debug.Assert(RecordTable != null);
+
+								result = fieldValue >= 1;
+
+								if (result && Record.IsWornByCharacter())
+								{
+									var wornArtifact = RecordTable.Records.FirstOrDefault(a => a.Uid != Record.Uid && a.Wearable != null && ((a.Wearable.Field1 >= 2 && fieldValue >= 2) || (a.Wearable.Field1 == 1 && fieldValue == 1)) && a.Location == Record.Location);
+
+									result = wornArtifact == null;
+								}
+							}
+						}
+						else if (fieldNumber == 2)
+						{
+							result = Enum.IsDefined(typeof(Clothing), fieldValue);
+
+							if (result && gDatabase.ArtifactTableType == ArtifactTableType.CharArt)
+							{
+								result = fieldValue == (long)Clothing.ArmorShields;
+							}
+						}
 
 						break;
 
 					case ArtifactType.DeadBody:
 
-						result = Record.GetCategory(i).Field1 >= 0 && Record.GetCategory(i).Field1 <= 1;
+						if (fieldNumber == 1)
+						{
+							result = fieldValue >= 0 && fieldValue <= 1;
+						}
 
 						break;
 
 					default:
-
-						// Do nothing
 
 						break;
 				}
 			}
 			else
 			{
-				result = Record.GetCategory(i).Field1 == 0;
+				result = fieldValue == 0;
 			}
 
 			return result;
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateCategoriesField1()
+		{
+			return ValidateCategoriesField(1);
 		}
 
 		/// <summary></summary>
 		/// <returns></returns>
 		public virtual bool ValidateCategoriesField2()
 		{
-			var result = true;
-
-			var activeCategory = true;
-
-			var i = Index;
-
-			for (var h = 1; h <= i; h++)
-			{
-				if (Record.GetCategory(h).Type == ArtifactType.None)
-				{
-					activeCategory = false;
-
-					break;
-				}
-			}
-
-			if (activeCategory)
-			{
-				switch (Record.GetCategory(i).Type)
-				{
-					case ArtifactType.Weapon:
-					case ArtifactType.MagicWeapon:
-
-						result = Enum.IsDefined(typeof(Weapon), Record.GetCategory(i).Field2);
-
-						break;
-
-					case ArtifactType.InContainer:
-
-						result = (Record.GetCategory(i).Field2 >= 0 && Record.GetCategory(i).Field2 <= 1) || gEngine.IsArtifactFieldStrength(Record.GetCategory(i).Field2);
-
-						break;
-
-					case ArtifactType.Drinkable:
-					case ArtifactType.Edible:
-
-						result = Record.GetCategory(i).Field2 >= 0;
-
-						break;
-
-					case ArtifactType.Readable:
-					case ArtifactType.DisguisedMonster:
-
-						result = Record.GetCategory(i).Field2 > 0;
-
-						break;
-
-					case ArtifactType.DoorGate:
-
-						result = Record.GetCategory(i).Field2 >= -2;         // -2=Broken
-
-						break;
-
-					case ArtifactType.BoundMonster:
-
-						result = Record.GetCategory(i).Field2 >= -1;
-
-						break;
-
-					case ArtifactType.Wearable:
-
-						result = Enum.IsDefined(typeof(Clothing), Record.GetCategory(i).Field2);
-
-						break;
-
-					default:
-
-						// Do nothing
-
-						break;
-				}
-			}
-			else
-			{
-				result = Record.GetCategory(i).Field2 == 0;
-			}
-
-			return result;
+			return ValidateCategoriesField(2);
 		}
 
 		/// <summary></summary>
 		/// <returns></returns>
 		public virtual bool ValidateCategoriesField3()
 		{
-			var result = true;
-
-			var activeCategory = true;
-
-			var i = Index;
-
-			for (var h = 1; h <= i; h++)
-			{
-				if (Record.GetCategory(h).Type == ArtifactType.None)
-				{
-					activeCategory = false;
-
-					break;
-				}
-			}
-
-			if (activeCategory)
-			{
-				switch (Record.GetCategory(i).Type)
-				{
-					case ArtifactType.Weapon:
-					case ArtifactType.MagicWeapon:
-
-						result = Record.GetCategory(i).Field3 >= 1 && Record.GetCategory(i).Field3 <= 25;
-
-						break;
-
-					case ArtifactType.InContainer:
-					case ArtifactType.OnContainer:
-					case ArtifactType.UnderContainer:
-					case ArtifactType.BehindContainer:
-					case ArtifactType.BoundMonster:
-
-						result = Record.GetCategory(i).Field3 >= 0;
-
-						break;
-
-					case ArtifactType.Drinkable:
-					case ArtifactType.Edible:
-					case ArtifactType.Readable:
-
-						result = Record.GetCategory(i).Field3 >= 0 && Record.GetCategory(i).Field3 <= 1;
-
-						break;
-
-					case ArtifactType.DoorGate:
-
-						result = (Record.GetCategory(i).Field3 >= 0 && Record.GetCategory(i).Field3 <= 1) || gEngine.IsArtifactFieldStrength(Record.GetCategory(i).Field3);
-
-						break;
-
-					case ArtifactType.DisguisedMonster:
-
-						result = Record.GetCategory(i).Field3 > 0;
-
-						break;
-
-					default:
-
-						// Do nothing
-
-						break;
-				}
-			}
-			else
-			{
-				result = Record.GetCategory(i).Field3 == 0;
-			}
-
-			return result;
+			return ValidateCategoriesField(3);
 		}
 
 		/// <summary></summary>
 		/// <returns></returns>
 		public virtual bool ValidateCategoriesField4()
 		{
-			var result = true;
-
-			var activeCategory = true;
-
-			var i = Index;
-
-			for (var h = 1; h <= i; h++)
-			{
-				if (Record.GetCategory(h).Type == ArtifactType.None)
-				{
-					activeCategory = false;
-
-					break;
-				}
-			}
-
-			if (activeCategory)
-			{
-				switch (Record.GetCategory(i).Type)
-				{
-					case ArtifactType.Weapon:
-					case ArtifactType.MagicWeapon:
-
-						result = Record.GetCategory(i).Field4 >= 1 && Record.GetCategory(i).Field4 <= 25;
-
-						break;
-
-					case ArtifactType.InContainer:
-					case ArtifactType.OnContainer:
-					case ArtifactType.UnderContainer:
-					case ArtifactType.BehindContainer:
-
-						result = Record.GetCategory(i).Field4 >= 0;
-
-						break;
-
-					case ArtifactType.DoorGate:
-
-						result = Record.GetCategory(i).Field4 >= 0 && Record.GetCategory(i).Field4 <= 1;
-
-						break;
-
-					default:
-
-						// Do nothing
-
-						break;
-				}
-			}
-			else
-			{
-				result = Record.GetCategory(i).Field4 == 0;
-			}
-
-			return result;
+			return ValidateCategoriesField(4);
 		}
 
 		/// <summary></summary>
 		/// <returns></returns>
 		public virtual bool ValidateCategoriesField5()
 		{
-			var result = true;
+			return ValidateCategoriesField(5);
+		}
 
-			var activeCategory = true;
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateCategoriesField6()
+		{
+			return ValidateCategoriesField(6);
+		}
 
-			var i = Index;
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateCategoriesField7()
+		{
+			return ValidateCategoriesField(7);
+		}
 
-			for (var h = 1; h <= i; h++)
-			{
-				if (Record.GetCategory(h).Type == ArtifactType.None)
-				{
-					activeCategory = false;
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateCategoriesField8()
+		{
+			return ValidateCategoriesField(8);
+		}
 
-					break;
-				}
-			}
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateCategoriesField9()
+		{
+			return ValidateCategoriesField(9);
+		}
 
-			if (activeCategory)
-			{
-				switch (Record.GetCategory(i).Type)
-				{
-					case ArtifactType.Weapon:
-					case ArtifactType.MagicWeapon:
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateCategoriesField10()
+		{
+			return ValidateCategoriesField(10);
+		}
 
-						if (Record.GetCategory(i).Field5 == 0)	// Auto-upgrade old weapons
-						{
-							Record.GetCategory(i).Field5 = Record.GetCategory(i).Field2 == (long)Weapon.Bow ? 2 : 1;
-						}
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateCategoriesField11()
+		{
+			return ValidateCategoriesField(11);
+		}
 
-						result = Record.GetCategory(i).Field5 >= 1 && Record.GetCategory(i).Field5 <= 2;
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateCategoriesField12()
+		{
+			return ValidateCategoriesField(12);
+		}
 
-						break;
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateCategoriesField13()
+		{
+			return ValidateCategoriesField(13);
+		}
 
-					case ArtifactType.InContainer:
-					case ArtifactType.OnContainer:
-					case ArtifactType.UnderContainer:
-					case ArtifactType.BehindContainer:
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateCategoriesField14()
+		{
+			return ValidateCategoriesField(14);
+		}
 
-						result = Enum.IsDefined(typeof(ContainerDisplayCode), Record.GetCategory(i).Field5);
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateCategoriesField15()
+		{
+			return ValidateCategoriesField(15);
+		}
 
-						break;
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateCategoriesField16()
+		{
+			return ValidateCategoriesField(16);
+		}
 
-					default:
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateCategoriesField17()
+		{
+			return ValidateCategoriesField(17);
+		}
 
-						// Do nothing
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateCategoriesField18()
+		{
+			return ValidateCategoriesField(18);
+		}
 
-						break;
-				}
-			}
-			else
-			{
-				result = Record.GetCategory(i).Field5 == 0;
-			}
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateCategoriesField19()
+		{
+			return ValidateCategoriesField(19);
+		}
 
-			return result;
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateCategoriesField20()
+		{
+			return ValidateCategoriesField(20);
 		}
 
 		#endregion
@@ -899,27 +1382,18 @@ namespace Eamon.Game.Helpers
 
 			var effectUid = gEngine.GetPluralTypeEffectUid(Record.PluralType);
 
-			if (effectUid > 0)
+			if (effectUid > 0 && gEDB[effectUid] == null)
 			{
-				var effect = gEDB[effectUid];
+				result = false;
 
-				if (effect == null)
-				{
-					result = false;
+				Buf.SetFormat(gEngine.RecIdepErrorFmtStr, GetPrintedName("PluralType"), "Effect", effectUid, "which doesn't exist");
 
-					Buf.SetFormat(gEngine.RecIdepErrorFmtStr, GetPrintedName("PluralType"), "Effect", effectUid, "which doesn't exist");
+				ErrorMessage = Buf.ToString();
 
-					ErrorMessage = Buf.ToString();
+				RecordType = typeof(IEffect);
 
-					RecordType = typeof(IEffect);
-
-					NewRecordUid = effectUid;
-
-					goto Cleanup;
-				}
+				NewRecordUid = effectUid;
 			}
-
-		Cleanup:
 
 			return result;
 		}
@@ -930,157 +1404,163 @@ namespace Eamon.Game.Helpers
 		{
 			var result = true;
 
+			var charUid = Record.GetWornByCharacterUid();
+
+			if (charUid > 0 && gCHRDB[charUid] == null)
+			{
+				result = false;
+
+				Buf.SetFormat(gEngine.RecIdepErrorFmtStr, GetPrintedName("Location"), "Character", charUid, "which doesn't exist");
+
+				ErrorMessage = Buf.ToString();
+
+				RecordType = typeof(ICharacter);
+
+				NewRecordUid = charUid;
+
+				goto Cleanup;
+			}
+
+			charUid = Record.GetCarriedByCharacterUid();
+
+			if (charUid > 0 && gCHRDB[charUid] == null)
+			{
+				result = false;
+
+				Buf.SetFormat(gEngine.RecIdepErrorFmtStr, GetPrintedName("Location"), "Character", charUid, "which doesn't exist");
+
+				ErrorMessage = Buf.ToString();
+
+				RecordType = typeof(ICharacter);
+
+				NewRecordUid = charUid;
+
+				goto Cleanup;
+			}
+
 			var monUid = Record.GetWornByMonsterUid();
 
-			if (monUid > 0)
+			if (monUid > 0 && gMDB[monUid] == null)
 			{
-				var monster = gMDB[monUid];
+				result = false;
 
-				if (monster == null)
+				Buf.SetFormat(gEngine.RecIdepErrorFmtStr, GetPrintedName("Location"), "Monster", monUid, "which doesn't exist");
+
+				ErrorMessage = Buf.ToString();
+
+				RecordType = typeof(IMonster);
+
+				NewRecordUid = monUid;
+
+				goto Cleanup;
+			}
+
+			monUid = Record.GetCarriedByMonsterUid();
+
+			if (monUid > 0 && gMDB[monUid] == null)
+			{
+				result = false;
+
+				Buf.SetFormat(gEngine.RecIdepErrorFmtStr, GetPrintedName("Location"), "Monster", monUid, "which doesn't exist");
+
+				ErrorMessage = Buf.ToString();
+
+				RecordType = typeof(IMonster);
+
+				NewRecordUid = monUid;
+
+				goto Cleanup;
+			}
+
+			var roomUid = Record.GetInRoomUid();
+
+			if (roomUid > 0 && gRDB[roomUid] == null)
+			{
+				result = false;
+
+				Buf.SetFormat(gEngine.RecIdepErrorFmtStr, GetPrintedName("Location"), "Room", roomUid, "which doesn't exist");
+
+				ErrorMessage = Buf.ToString();
+
+				RecordType = typeof(IRoom);
+
+				NewRecordUid = roomUid;
+
+				goto Cleanup;
+			}
+
+			roomUid = Record.GetEmbeddedInRoomUid();
+
+			if (roomUid > 0 && gRDB[roomUid] == null)
+			{
+				result = false;
+
+				Buf.SetFormat(gEngine.RecIdepErrorFmtStr, GetPrintedName("Location"), "Room", roomUid, "which doesn't exist");
+
+				ErrorMessage = Buf.ToString();
+
+				RecordType = typeof(IRoom);
+
+				NewRecordUid = roomUid;
+
+				goto Cleanup;
+			}
+
+			var containerType = Record.GetCarriedByContainerContainerType();
+
+			var artUid = Enum.IsDefined(typeof(ContainerType), containerType) ? Record.GetCarriedByContainerUid() : 0;
+
+			if (artUid > 0)
+			{
+				var artifact = gADB[artUid];
+
+				if (artifact == null)
 				{
 					result = false;
 
-					Buf.SetFormat(gEngine.RecIdepErrorFmtStr, GetPrintedName("Location"), "Monster", monUid, "which doesn't exist");
+					Buf.SetFormat(gEngine.RecIdepErrorFmtStr, GetPrintedName("Location"), "Artifact", artUid, "which doesn't exist");
 
 					ErrorMessage = Buf.ToString();
 
-					RecordType = typeof(IMonster);
+					RecordType = typeof(IArtifact);
 
-					NewRecordUid = monUid;
+					NewRecordUid = artUid;
 
 					goto Cleanup;
 				}
-			}
-			else
-			{
-				monUid = Record.GetCarriedByMonsterUid();
-
-				if (monUid > 0)
+				else if (artifact.GetArtifactCategory(gEngine.EvalContainerType(containerType, ArtifactType.InContainer, ArtifactType.OnContainer, ArtifactType.UnderContainer, ArtifactType.BehindContainer)) == null)
 				{
-					var monster = gMDB[monUid];
+					result = false;
 
-					if (monster == null)
-					{
-						result = false;
+					Buf.SetFormat(gEngine.RecIdepErrorFmtStr, GetPrintedName("Location"), "Artifact", artUid, string.Format("which should be {0}, but isn't", gEngine.EvalContainerType(containerType, "an In Container", "an On Container", "an Under Container", "a Behind Container")));
 
-						Buf.SetFormat(gEngine.RecIdepErrorFmtStr, GetPrintedName("Location"), "Monster", monUid, "which doesn't exist");
+					ErrorMessage = Buf.ToString();
 
-						ErrorMessage = Buf.ToString();
+					RecordType = typeof(IArtifact);
 
-						RecordType = typeof(IMonster);
+					EditRecord = artifact;
 
-						NewRecordUid = monUid;
-
-						goto Cleanup;
-					}
+					goto Cleanup;
 				}
 				else
 				{
-					var roomUid = Record.GetInRoomUid();
+					var containedList = Record.GetContainedList(containerType: (ContainerType)(-1), recurse: true);
 
-					if (roomUid > 0)
+					containedList.Add(Record);
+
+					if (containedList.Contains(artifact))
 					{
-						var room = gRDB[roomUid];
+						result = false;
 
-						if (room == null)
-						{
-							result = false;
+						Buf.SetFormat(gEngine.RecIdepErrorFmtStr, GetPrintedName("Location"), "Artifact", artUid, "which produces a cyclic graph");
 
-							Buf.SetFormat(gEngine.RecIdepErrorFmtStr, GetPrintedName("Location"), "Room", roomUid, "which doesn't exist");
+						ErrorMessage = Buf.ToString();
 
-							ErrorMessage = Buf.ToString();
+						RecordType = typeof(IArtifact);
 
-							RecordType = typeof(IRoom);
+						EditRecord = artifact;
 
-							NewRecordUid = roomUid;
-
-							goto Cleanup;
-						}
-					}
-					else
-					{
-						roomUid = Record.GetEmbeddedInRoomUid();
-
-						if (roomUid > 0)
-						{
-							var room = gRDB[roomUid];
-
-							if (room == null)
-							{
-								result = false;
-
-								Buf.SetFormat(gEngine.RecIdepErrorFmtStr, GetPrintedName("Location"), "Room", roomUid, "which doesn't exist");
-
-								ErrorMessage = Buf.ToString();
-
-								RecordType = typeof(IRoom);
-
-								NewRecordUid = roomUid;
-
-								goto Cleanup;
-							}
-						}
-						else
-						{
-							var containerType = Record.GetCarriedByContainerContainerType();
-
-							var artUid = Enum.IsDefined(typeof(ContainerType), containerType) ? Record.GetCarriedByContainerUid() : 0;
-
-							if (artUid > 0)
-							{
-								var artifact = gADB[artUid];
-
-								if (artifact == null)
-								{
-									result = false;
-
-									Buf.SetFormat(gEngine.RecIdepErrorFmtStr, GetPrintedName("Location"), "Artifact", artUid, "which doesn't exist");
-
-									ErrorMessage = Buf.ToString();
-
-									RecordType = typeof(IArtifact);
-
-									NewRecordUid = artUid;
-
-									goto Cleanup;
-								}
-								else if (artifact.GetArtifactCategory(gEngine.EvalContainerType(containerType, ArtifactType.InContainer, ArtifactType.OnContainer, ArtifactType.UnderContainer, ArtifactType.BehindContainer)) == null)
-								{
-									result = false;
-
-									Buf.SetFormat(gEngine.RecIdepErrorFmtStr, GetPrintedName("Location"), "Artifact", artUid, string.Format("which should be {0}, but isn't", gEngine.EvalContainerType(containerType, "an In Container", "an On Container", "an Under Container", "a Behind Container")));
-
-									ErrorMessage = Buf.ToString();
-
-									RecordType = typeof(IArtifact);
-
-									EditRecord = artifact;
-
-									goto Cleanup;
-								}
-								else
-								{
-									var containedList = Record.GetContainedList(containerType: (ContainerType)(-1), recurse: true);
-
-									containedList.Add(Record);
-
-									if (containedList.Contains(artifact))
-									{
-										result = false;
-
-										Buf.SetFormat(gEngine.RecIdepErrorFmtStr, GetPrintedName("Location"), "Artifact", artUid, "which produces a cyclic graph");
-
-										ErrorMessage = Buf.ToString();
-
-										RecordType = typeof(IArtifact);
-
-										EditRecord = artifact;
-
-										goto Cleanup;
-									}
-								}
-							}
-						}
+						goto Cleanup;
 					}
 				}
 			}
@@ -1103,7 +1583,22 @@ namespace Eamon.Game.Helpers
 								ValidateFieldInterdependencies("CategoriesField2") &&
 								ValidateFieldInterdependencies("CategoriesField3") &&
 								ValidateFieldInterdependencies("CategoriesField4") &&
-								ValidateFieldInterdependencies("CategoriesField5");
+								ValidateFieldInterdependencies("CategoriesField5") &&
+								ValidateFieldInterdependencies("CategoriesField6") &&
+								ValidateFieldInterdependencies("CategoriesField7") &&
+								ValidateFieldInterdependencies("CategoriesField8") &&
+								ValidateFieldInterdependencies("CategoriesField9") &&
+								ValidateFieldInterdependencies("CategoriesField10") &&
+								ValidateFieldInterdependencies("CategoriesField11") &&
+								ValidateFieldInterdependencies("CategoriesField12") &&
+								ValidateFieldInterdependencies("CategoriesField13") &&
+								ValidateFieldInterdependencies("CategoriesField14") &&
+								ValidateFieldInterdependencies("CategoriesField15") &&
+								ValidateFieldInterdependencies("CategoriesField16") &&
+								ValidateFieldInterdependencies("CategoriesField17") &&
+								ValidateFieldInterdependencies("CategoriesField18") &&
+								ValidateFieldInterdependencies("CategoriesField19") &&
+								ValidateFieldInterdependencies("CategoriesField20");
 
 				if (result == false)
 				{
@@ -1115,8 +1610,9 @@ namespace Eamon.Game.Helpers
 		}
 
 		/// <summary></summary>
+		/// <param name="fieldNumber"></param>
 		/// <returns></returns>
-		public virtual bool ValidateInterdependenciesCategoriesField1()
+		public virtual bool ValidateInterdependenciesCategoriesField(long fieldNumber)
 		{
 			var result = true;
 
@@ -1124,385 +1620,341 @@ namespace Eamon.Game.Helpers
 
 			Debug.Assert(i >= 0 && i < Record.Categories.Length);
 
-			if (Record.GetCategory(i).Type != ArtifactType.None)
+			var category = Record.GetCategory(i);
+
+			if (category != null && category.Type != ArtifactType.None)
 			{
-				switch (Record.GetCategory(i).Type)
+				var fieldProperty = category.GetType().GetProperty(string.Format("Field{0}", fieldNumber));
+
+				var fieldValue = fieldProperty != null ? Convert.ToInt64(fieldProperty.GetValue(category)) : 0L;
+
+				switch (fieldNumber)
 				{
-					case ArtifactType.InContainer:
-					{
-						var artUid = Record.GetCategory(i).Field1;
+					case 1:
 
-						if (artUid > 0)
+						if (category.Type == ArtifactType.InContainer)
 						{
-							var artifact = gADB[artUid];
-
-							if (artifact == null)
+							if (fieldValue > 0 && gADB[fieldValue] == null)
 							{
 								result = false;
 
-								Buf.SetFormat(gEngine.RecIdepErrorFmtStr, GetPrintedName("CategoriesField1"), "Artifact", artUid, "which doesn't exist");
+								Buf.SetFormat(gEngine.RecIdepErrorFmtStr, GetPrintedName("CategoriesField1"), "Artifact", fieldValue, "which doesn't exist");
 
 								ErrorMessage = Buf.ToString();
 
 								RecordType = typeof(IArtifact);
 
-								NewRecordUid = artUid;
-
-								goto Cleanup;
+								NewRecordUid = fieldValue;
 							}
 						}
-
-						break;
-					}
-
-					case ArtifactType.Readable:
-					{
-						var effectUid = Record.GetCategory(i).Field1;
-
-						if (effectUid > 0)
+						else if (category.Type == ArtifactType.Readable)
 						{
-							var effect = gEDB[effectUid];
-
-							if (effect == null)
+							if (fieldValue > 0 && gEDB[fieldValue] == null)
 							{
 								result = false;
 
-								Buf.SetFormat(gEngine.RecIdepErrorFmtStr, GetPrintedName("CategoriesField1"), "Effect", effectUid, "which doesn't exist");
+								Buf.SetFormat(gEngine.RecIdepErrorFmtStr, GetPrintedName("CategoriesField1"), "Effect", fieldValue, "which doesn't exist");
 
 								ErrorMessage = Buf.ToString();
 
 								RecordType = typeof(IEffect);
 
-								NewRecordUid = effectUid;
-
-								goto Cleanup;
+								NewRecordUid = fieldValue;
 							}
 						}
-
-						break;
-					}
-
-					case ArtifactType.DoorGate:
-					{
-						var roomUid = Record.GetCategory(i).Field1;
-
-						if (roomUid > 0)
+						else if (category.Type == ArtifactType.DoorGate)
 						{
-							var room = gRDB[roomUid];
-
-							if (room == null)
+							if (fieldValue > 0 && gRDB[fieldValue] == null)
 							{
 								result = false;
 
-								Buf.SetFormat(gEngine.RecIdepErrorFmtStr, GetPrintedName("CategoriesField1"), "Room", roomUid, "which doesn't exist");
+								Buf.SetFormat(gEngine.RecIdepErrorFmtStr, GetPrintedName("CategoriesField1"), "Room", fieldValue, "which doesn't exist");
 
 								ErrorMessage = Buf.ToString();
 
 								RecordType = typeof(IRoom);
 
-								NewRecordUid = roomUid;
-
-								goto Cleanup;
+								NewRecordUid = fieldValue;
 							}
 						}
-
-						break;
-					}
-
-					case ArtifactType.BoundMonster:
-					{
-						var monUid = Record.GetCategory(i).Field1;
-
-						if (monUid > 0)
+						else if (category.Type == ArtifactType.BoundMonster || category.Type == ArtifactType.DisguisedMonster)
 						{
-							var monster = gMDB[monUid];
-
-							if (monster == null)
+							if (fieldValue > 0 && gMDB[fieldValue] == null)
 							{
 								result = false;
 
-								Buf.SetFormat(gEngine.RecIdepErrorFmtStr, GetPrintedName("CategoriesField1"), "Monster", monUid, "which doesn't exist");
+								Buf.SetFormat(gEngine.RecIdepErrorFmtStr, GetPrintedName("CategoriesField1"), "Monster", fieldValue, "which doesn't exist");
 
 								ErrorMessage = Buf.ToString();
 
 								RecordType = typeof(IMonster);
 
-								NewRecordUid = monUid;
-
-								goto Cleanup;
+								NewRecordUid = fieldValue;
 							}
 						}
 
 						break;
-					}
 
-					case ArtifactType.DisguisedMonster:
-					{
-						var monUid = Record.GetCategory(i).Field1;
+					case 2:
 
-						if (monUid > 0)
+						if (category.Type == ArtifactType.Readable)
 						{
-							var monster = gMDB[monUid];
+							var effectUid = category.Field1;
 
-							if (monster == null)
+							if (effectUid > 0)
+							{
+								effectUid++;
+
+								for (var j = 1; j < fieldValue; j++, effectUid++)
+								{
+									if (gEDB[effectUid] == null)
+									{
+										result = false;
+
+										Buf.SetFormat(gEngine.RecIdepErrorFmtStr, GetPrintedName("CategoriesField2"), "Effect", effectUid, "which doesn't exist");
+
+										ErrorMessage = Buf.ToString();
+
+										RecordType = typeof(IEffect);
+
+										NewRecordUid = effectUid;
+
+										goto Cleanup;
+									}
+								}
+							}
+						}
+						else if (category.Type == ArtifactType.DoorGate || category.Type == ArtifactType.BoundMonster)
+						{
+							if (fieldValue > 0 && gADB[fieldValue] == null)
 							{
 								result = false;
 
-								Buf.SetFormat(gEngine.RecIdepErrorFmtStr, GetPrintedName("CategoriesField1"), "Monster", monUid, "which doesn't exist");
+								Buf.SetFormat(gEngine.RecIdepErrorFmtStr, GetPrintedName("CategoriesField2"), "Artifact", fieldValue, "which doesn't exist");
+
+								ErrorMessage = Buf.ToString();
+
+								RecordType = typeof(IArtifact);
+
+								NewRecordUid = fieldValue;
+							}
+						}
+						else if (category.Type == ArtifactType.DisguisedMonster)
+						{
+							if (fieldValue > 0 && gEDB[fieldValue] == null)
+							{
+								result = false;
+
+								Buf.SetFormat(gEngine.RecIdepErrorFmtStr, GetPrintedName("CategoriesField2"), "Effect", fieldValue, "which doesn't exist");
+
+								ErrorMessage = Buf.ToString();
+
+								RecordType = typeof(IEffect);
+
+								NewRecordUid = fieldValue;
+							}
+						}
+
+						break;
+
+					case 3:
+
+						if (category.Type == ArtifactType.BoundMonster)
+						{
+							if (fieldValue > 0 && gMDB[fieldValue] == null)
+							{
+								result = false;
+
+								Buf.SetFormat(gEngine.RecIdepErrorFmtStr, GetPrintedName("CategoriesField3"), "Monster", fieldValue, "which doesn't exist");
 
 								ErrorMessage = Buf.ToString();
 
 								RecordType = typeof(IMonster);
 
-								NewRecordUid = monUid;
+								NewRecordUid = fieldValue;
+							}
+						}
+						else if (category.Type == ArtifactType.DisguisedMonster)
+						{
+							var effectUid = category.Field2;
 
-								goto Cleanup;
+							if (effectUid > 0)
+							{
+								effectUid++;
+
+								for (var j = 1; j < fieldValue; j++, effectUid++)
+								{
+									if (gEDB[effectUid] == null)
+									{
+										result = false;
+
+										Buf.SetFormat(gEngine.RecIdepErrorFmtStr, GetPrintedName("CategoriesField3"), "Effect", effectUid, "which doesn't exist");
+
+										ErrorMessage = Buf.ToString();
+
+										RecordType = typeof(IEffect);
+
+										NewRecordUid = effectUid;
+
+										goto Cleanup;
+									}
+								}
 							}
 						}
 
 						break;
-					}
 
 					default:
-					{
+
 						// Do nothing
 
 						break;
-					}
 				}
 			}
 
 		Cleanup:
 
 			return result;
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateInterdependenciesCategoriesField1()
+		{
+			return ValidateInterdependenciesCategoriesField(1);
 		}
 
 		/// <summary></summary>
 		/// <returns></returns>
 		public virtual bool ValidateInterdependenciesCategoriesField2()
 		{
-			var result = true;
-
-			var i = Index;
-
-			Debug.Assert(i >= 0 && i < Record.Categories.Length);
-
-			if (Record.GetCategory(i).Type != ArtifactType.None)
-			{
-				switch (Record.GetCategory(i).Type)
-				{
-					case ArtifactType.Readable:
-					{
-						var effectUid = Record.GetCategory(i).Field1;
-
-						if (effectUid > 0)
-						{
-							effectUid++;
-
-							for (var j = 1; j < Record.GetCategory(i).Field2; j++, effectUid++)
-							{
-								var effect = gEDB[effectUid];
-
-								if (effect == null)
-								{
-									result = false;
-
-									Buf.SetFormat(gEngine.RecIdepErrorFmtStr, GetPrintedName("CategoriesField2"), "Effect", effectUid, "which doesn't exist");
-
-									ErrorMessage = Buf.ToString();
-
-									RecordType = typeof(IEffect);
-
-									NewRecordUid = effectUid;
-
-									goto Cleanup;
-								}
-							}
-						}
-
-						break;
-					}
-
-					case ArtifactType.DoorGate:
-					{
-						var artUid = Record.GetCategory(i).Field2;
-
-						if (artUid > 0)
-						{
-							var artifact = gADB[artUid];
-
-							if (artifact == null)
-							{
-								result = false;
-
-								Buf.SetFormat(gEngine.RecIdepErrorFmtStr, GetPrintedName("CategoriesField2"), "Artifact", artUid, "which doesn't exist");
-
-								ErrorMessage = Buf.ToString();
-
-								RecordType = typeof(IArtifact);
-
-								NewRecordUid = artUid;
-
-								goto Cleanup;
-							}
-						}
-
-						break;
-					}
-
-					case ArtifactType.BoundMonster:
-					{
-						var artUid = Record.GetCategory(i).Field2;
-
-						if (artUid > 0)
-						{
-							var artifact = gADB[artUid];
-
-							if (artifact == null)
-							{
-								result = false;
-
-								Buf.SetFormat(gEngine.RecIdepErrorFmtStr, GetPrintedName("CategoriesField2"), "Artifact", artUid, "which doesn't exist");
-
-								ErrorMessage = Buf.ToString();
-
-								RecordType = typeof(IArtifact);
-
-								NewRecordUid = artUid;
-
-								goto Cleanup;
-							}
-						}
-
-						break;
-					}
-
-					case ArtifactType.DisguisedMonster:
-					{
-						var effectUid = Record.GetCategory(i).Field2;
-
-						if (effectUid > 0)
-						{
-							var effect = gEDB[effectUid];
-
-							if (effect == null)
-							{
-								result = false;
-
-								Buf.SetFormat(gEngine.RecIdepErrorFmtStr, GetPrintedName("CategoriesField2"), "Effect", effectUid, "which doesn't exist");
-
-								ErrorMessage = Buf.ToString();
-
-								RecordType = typeof(IEffect);
-
-								NewRecordUid = effectUid;
-
-								goto Cleanup;
-							}
-						}
-
-						break;
-					}
-
-					default:
-					{
-						// Do nothing
-
-						break;
-					}
-				}
-			}
-
-		Cleanup:
-
-			return result;
+			return ValidateInterdependenciesCategoriesField(2);
 		}
 
 		/// <summary></summary>
 		/// <returns></returns>
 		public virtual bool ValidateInterdependenciesCategoriesField3()
 		{
-			var result = true;
+			return ValidateInterdependenciesCategoriesField(3);
+		}
 
-			var i = Index;
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateInterdependenciesCategoriesField4()
+		{
+			return ValidateInterdependenciesCategoriesField(4);
+		}
 
-			Debug.Assert(i >= 0 && i < Record.Categories.Length);
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateInterdependenciesCategoriesField5()
+		{
+			return ValidateInterdependenciesCategoriesField(5);
+		}
 
-			if (Record.GetCategory(i).Type != ArtifactType.None)
-			{
-				switch (Record.GetCategory(i).Type)
-				{
-					case ArtifactType.BoundMonster:
-					{
-						var monUid = Record.GetCategory(i).Field3;
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateInterdependenciesCategoriesField6()
+		{
+			return ValidateInterdependenciesCategoriesField(6);
+		}
 
-						if (monUid > 0)
-						{
-							var monster = gMDB[monUid];
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateInterdependenciesCategoriesField7()
+		{
+			return ValidateInterdependenciesCategoriesField(7);
+		}
 
-							if (monster == null)
-							{
-								result = false;
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateInterdependenciesCategoriesField8()
+		{
+			return ValidateInterdependenciesCategoriesField(8);
+		}
 
-								Buf.SetFormat(gEngine.RecIdepErrorFmtStr, GetPrintedName("CategoriesField3"), "Monster", monUid, "which doesn't exist");
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateInterdependenciesCategoriesField9()
+		{
+			return ValidateInterdependenciesCategoriesField(9);
+		}
 
-								ErrorMessage = Buf.ToString();
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateInterdependenciesCategoriesField10()
+		{
+			return ValidateInterdependenciesCategoriesField(10);
+		}
 
-								RecordType = typeof(IMonster);
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateInterdependenciesCategoriesField11()
+		{
+			return ValidateInterdependenciesCategoriesField(11);
+		}
 
-								NewRecordUid = monUid;
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateInterdependenciesCategoriesField12()
+		{
+			return ValidateInterdependenciesCategoriesField(12);
+		}
 
-								goto Cleanup;
-							}
-						}
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateInterdependenciesCategoriesField13()
+		{
+			return ValidateInterdependenciesCategoriesField(13);
+		}
 
-						break;
-					}
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateInterdependenciesCategoriesField14()
+		{
+			return ValidateInterdependenciesCategoriesField(14);
+		}
 
-					case ArtifactType.DisguisedMonster:
-					{
-						var effectUid = Record.GetCategory(i).Field2;
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateInterdependenciesCategoriesField15()
+		{
+			return ValidateInterdependenciesCategoriesField(15);
+		}
 
-						if (effectUid > 0)
-						{
-							effectUid++;
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateInterdependenciesCategoriesField16()
+		{
+			return ValidateInterdependenciesCategoriesField(16);
+		}
 
-							for (var j = 1; j < Record.GetCategory(i).Field3; j++, effectUid++)
-							{
-								var effect = gEDB[effectUid];
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateInterdependenciesCategoriesField17()
+		{
+			return ValidateInterdependenciesCategoriesField(17);
+		}
 
-								if (effect == null)
-								{
-									result = false;
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateInterdependenciesCategoriesField18()
+		{
+			return ValidateInterdependenciesCategoriesField(18);
+		}
 
-									Buf.SetFormat(gEngine.RecIdepErrorFmtStr, GetPrintedName("CategoriesField3"), "Effect", effectUid, "which doesn't exist");
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateInterdependenciesCategoriesField19()
+		{
+			return ValidateInterdependenciesCategoriesField(19);
+		}
 
-									ErrorMessage = Buf.ToString();
-
-									RecordType = typeof(IEffect);
-
-									NewRecordUid = effectUid;
-
-									goto Cleanup;
-								}
-							}
-						}
-
-						break;
-					}
-
-					default:
-					{
-						// Do nothing
-
-						break;
-					}
-				}
-			}
-
-		Cleanup:
-
-			return result;
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateInterdependenciesCategoriesField20()
+		{
+			return ValidateInterdependenciesCategoriesField(20);
 		}
 
 		#endregion
@@ -1618,7 +2070,7 @@ namespace Eamon.Game.Helpers
 		{
 			var fullDesc = "Enter the location of the Artifact.";
 
-			var briefDesc = "(-1000 - N)=Worn by Monster Uid N; -999=Worn by player; (-N - 1)=Carried by Monster Uid N; -1=Carried by player; 0=Limbo; 1-1000=Room Uid; (1000 + N)=Inside Artifact Uid N; (2000 + N)=On Artifact Uid N; (3000 + N)=Under Artifact Uid N; (4000 + N)=Behind Artifact Uid N; (5000 + N)=Embedded in Room Uid N";
+			var briefDesc = gDatabase.ArtifactTableType == ArtifactTableType.CharArt ? "(-3000 - N)=Worn by Character Uid N; (-N - 2000)=Carried by Character Uid N; 0=Limbo" : "(-1000 - N)=Worn by Monster Uid N; -999=Worn by player; (-N - 1)=Carried by Monster Uid N; -1=Carried by player; 0=Limbo; 1-1000=Room Uid; (1000 + N)=Inside Artifact Uid N; (2000 + N)=On Artifact Uid N; (3000 + N)=Under Artifact Uid N; (4000 + N)=Behind Artifact Uid N; (5000 + N)=Embedded in Room Uid N";
 
 			gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc);
 		}
@@ -1634,7 +2086,7 @@ namespace Eamon.Game.Helpers
 
 			fullDesc.Append("Enter the type of the Artifact.");
 
-			var artTypeValues = EnumUtil.GetValues<ArtifactType>(at => at != ArtifactType.None);
+			var artTypeValues = gDatabase.ArtifactTableType == ArtifactTableType.CharArt ? new List<ArtifactType>() { ArtifactType.Weapon, ArtifactType.MagicWeapon, ArtifactType.Wearable } : EnumUtil.GetValues<ArtifactType>(at => at != ArtifactType.None);
 
 			for (var j = 0; j < artTypeValues.Count; j++)
 			{
@@ -1649,434 +2101,458 @@ namespace Eamon.Game.Helpers
 		}
 
 		/// <summary></summary>
-		public virtual void PrintDescCategoriesField1()
+		/// <param name="fieldNumber"></param>
+		public virtual void PrintDescCategoriesField(long fieldNumber)
 		{
 			var i = Index;
+
+			var category = Record.GetCategory(i);
+
+			if (category == null)
+			{
+				goto Cleanup;
+			}
 
 			var fullDesc = new StringBuilder(gEngine.BufSize);
 
 			var briefDesc = new StringBuilder(gEngine.BufSize);
 
-			switch (Record.GetCategory(i).Type)
+			Action field3Func = () =>
+			{
+				var containerType = gEngine.GetContainerType(category.Type);
+
+				fullDesc.AppendFormat("Enter the maximum weight allowed in the Artifact's container content list.{0}{0}This is the total combined weight of all Artifacts immediately {1} the container (not including their contents).", Environment.NewLine, gEngine.EvalContainerType(containerType, "inside", "on", "under", "behind"));
+
+				briefDesc.Append("(GE 0)=Valid value");
+			};
+
+			Action field3Func02 = () =>
+			{
+				fullDesc.Append("Enter whether the Artifact is open/closed.");
+
+				briefDesc.Append("0=Closed; 1=Open");
+			};
+
+			Action field4Func = () =>
+			{
+				var containerType = gEngine.GetContainerType(category.Type);
+
+				fullDesc.AppendFormat("Enter the maximum number of items allowed in the Artifact's container content list.{0}{0}Additionally, you can specify that the player can't put anything {1} the container.", Environment.NewLine, gEngine.EvalContainerType(containerType, "inside", "on", "under", "behind"));
+
+				briefDesc.AppendFormat("0=Player can't put anything {0}; (GT 0)=Valid value", gEngine.EvalContainerType(containerType, "inside", "on", "under", "behind"));
+			};
+
+			Action field5Func = () =>
+			{
+				fullDesc.Append("Enter the display code that describes how to show the Artifact's container content list.");
+
+				var containerDisplayCodeValues = EnumUtil.GetValues<ContainerDisplayCode>();
+
+				for (var j = 0; j < containerDisplayCodeValues.Count; j++)
+				{
+					briefDesc.AppendFormat("{0}{1}={2}", j != 0 ? "; " : "", (long)containerDisplayCodeValues[j], gEngine.GetContainerDisplayCodeDesc(containerDisplayCodeValues[j]));
+				}
+			};
+
+			switch (category.Type)
 			{
 				case ArtifactType.Weapon:
 				case ArtifactType.MagicWeapon:
 
-					fullDesc.Append("Enter the Artifact's weapon complexity.");
+					if (fieldNumber == 1)
+					{
+						fullDesc.Append("Enter the Artifact's weapon complexity.");
 
-					briefDesc.Append("-50-50=Valid value");
+						briefDesc.Append("-50-50=Valid value");
+					}
+					else if (fieldNumber == 2)
+					{
+						fullDesc.Append("Enter the Artifact's weapon type.");
 
-					gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc);
+						var weaponValues = EnumUtil.GetValues<Weapon>();
+
+						for (var j = 0; j < weaponValues.Count; j++)
+						{
+							var weapon = gEngine.GetWeapon(weaponValues[j]);
+
+							Debug.Assert(weapon != null);
+
+							briefDesc.AppendFormat("{0}{1}={2}", j != 0 ? "; " : "", (long)weaponValues[j], weapon.Name);
+						}
+					}
+					else if (fieldNumber == 3)
+					{
+						fullDesc.Append("Enter the Artifact's weapon hit dice.");
+
+						briefDesc.Append("1-25=Valid value");
+					}
+					else if (fieldNumber == 4)
+					{
+						fullDesc.Append("Enter the Artifact's weapon hit dice sides.");
+
+						briefDesc.Append("1-25=Valid value");
+					}
+					else if (fieldNumber == 5)
+					{
+						fullDesc.Append("Enter the Artifact's weapon number of hands required.");
+
+						briefDesc.Append("1-2=Valid value");
+					}
+					else if (fieldNumber >= 6 && fieldNumber <= 13)
+					{
+						// Do nothing
+					}
 
 					break;
 
 				case ArtifactType.InContainer:
 
-					fullDesc.Append("Enter the Artifact Uid of the key used to lock/unlock the container.");
+					if (fieldNumber == 1)
+					{
+						fullDesc.Append("Enter the Artifact Uid of the key used to lock/unlock the container.");
 
-					briefDesc.Append("-1=Can't be unlocked/opened normally; 0=No key; (GT 0)=Key Artifact Uid");
+						briefDesc.AppendFormat("-1=Can't be unlocked/opened normally; 0=No key; 1-{0}=Key Artifact Uid", gEngine.NumRecords);
+					}
+					else if (fieldNumber == 2)
+					{
+						fullDesc.AppendFormat("Enter whether the Artifact is open/closed.{0}{0}Additionally, you can specify that the container must be forced open.", Environment.NewLine);
 
-					gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc);
+						briefDesc.Append("0=Closed; 1=Open; (1000 + N)=Forced open with N hits damage");
+					}
+					else if (fieldNumber == 3)
+					{
+						field3Func();
+					}
+					else if (fieldNumber == 4)
+					{
+						field4Func();
+					}
+					else if (fieldNumber == 5)
+					{
+						field5Func();
+					}
+
+					break;
+
+				case ArtifactType.OnContainer:
+				case ArtifactType.UnderContainer:
+				case ArtifactType.BehindContainer:
+
+					if (fieldNumber == 3)
+					{
+						field3Func();
+					}
+					else if (fieldNumber == 4)
+					{
+						field4Func();
+					}
+					else if (fieldNumber == 5)
+					{
+						field5Func();
+					}
 
 					break;
 
 				case ArtifactType.LightSource:
 
-					fullDesc.Append("Enter the number of rounds before the light source is exhausted/goes out.");
+					if (fieldNumber == 1)
+					{
+						fullDesc.Append("Enter the number of rounds before the light source is exhausted/goes out.");
 
-					briefDesc.Append("-1=Never runs out; (GE 0)=Valid value");
-
-					gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc);
+						briefDesc.Append("-1=Never runs out; (GE 0)=Valid value");
+					}
 
 					break;
 
 				case ArtifactType.Drinkable:
 				case ArtifactType.Edible:
 
-					fullDesc.Append("Enter the number of hits healed (or inflicted, if negative) for the Artifact.");
+					if (fieldNumber == 1)
+					{
+						fullDesc.Append("Enter the number of hits healed (or inflicted, if negative) for the Artifact.");
+					}
+					else if (fieldNumber == 2)
+					{
+						fullDesc.Append("Enter the number of times the Artifact can be used.");
 
-					gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, null);
+						briefDesc.Append("(GTE 0)=Valid value");
+					}
+					else if (fieldNumber == 3)
+					{
+						field3Func02();
+					}
 
 					break;
 
 				case ArtifactType.Readable:
 
-					fullDesc.Append("Enter the Uid of the first Effect displayed when the Artifact is read.");
+					if (fieldNumber == 1)
+					{
+						fullDesc.Append("Enter the Uid of the first Effect displayed when the Artifact is read.");
 
-					briefDesc.Append("(GT 0)=Effect Uid");
+						briefDesc.AppendFormat("1-{0}=Effect Uid", gEngine.NumRecords);
+					}
+					else if (fieldNumber == 2)
+					{
+						fullDesc.Append("Enter the number of sequential Effects displayed when the Artifact is read.");
 
-					gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc);
+						briefDesc.Append("(GT 0)=Valid value");
+					}
+					else if (fieldNumber == 3)
+					{
+						field3Func02();
+					}
 
 					break;
 
 				case ArtifactType.DoorGate:
 
-					fullDesc.Append("Enter the Uid of the Room on the opposite side of the door/gate.");
+					if (fieldNumber == 1)
+					{
+						fullDesc.Append("Enter the Uid of the Room on the opposite side of the door/gate.");
+					}
+					else if (fieldNumber == 2)
+					{
+						fullDesc.Append("Enter the Artifact Uid of the key used to lock/unlock the door/gate.");
 
-					gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, null);
+						briefDesc.AppendFormat("-1=Can't be unlocked/opened normally; 0=No key; 1-{0}=Key Artifact Uid", gEngine.NumRecords);
+					}
+					else if (fieldNumber == 3)
+					{
+						fullDesc.AppendFormat("Enter whether the Artifact is open/closed.{0}{0}Additionally, you can specify that the door/gate must be forced open.", Environment.NewLine);
+
+						briefDesc.Append("0=Open; 1=Closed; (1000 + N)=Forced open with N hits damage");
+					}
+					else if (fieldNumber == 4)
+					{
+						fullDesc.Append("Enter whether the Artifact is normal/hidden.");
+
+						briefDesc.Append("0=Normal; 1=Hidden");
+					}
 
 					break;
 
 				case ArtifactType.BoundMonster:
 
-					fullDesc.Append("Enter the Uid of the Monster that is bound.");
+					if (fieldNumber == 1)
+					{
+						fullDesc.Append("Enter the Uid of the Monster that is bound.");
 
-					briefDesc.Append("(GT 0)=Bound Monster Uid");
+						briefDesc.AppendFormat("1-{0}=Bound Monster Uid", gEngine.NumRecords);
+					}
+					else if (fieldNumber == 2)
+					{
+						fullDesc.Append("Enter the Artifact Uid of the key used to lock/unlock the bound Monster.");
 
-					gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc);
+						briefDesc.AppendFormat("-1=Can't be unlocked/opened normally; 0=No key; 1-{0}=Key Artifact Uid", gEngine.NumRecords);
+					}
+					else if (fieldNumber == 3)
+					{
+						fullDesc.Append("Enter the Uid of the Monster that is guarding the bound Monster.");
+
+						briefDesc.AppendFormat("0=No guard; 1-{0}=Guard Monster Uid", gEngine.NumRecords);
+					}
 
 					break;
 
 				case ArtifactType.Wearable:
 
-					fullDesc.Append("Enter the armor class of the Artifact.");
-
-					var armorValues = EnumUtil.GetValues<Armor>(a => a == Armor.ClothesShield || ((long)a) % 2 == 0);
-
-					for (var j = 0; j < armorValues.Count; j++)
+					if (fieldNumber == 1)
 					{
-						var armor = gEngine.GetArmor(armorValues[j]);
+						fullDesc.Append("Enter the armor class of the Artifact.");
 
-						Debug.Assert(armor != null);
+						var armorValues = EnumUtil.GetValues<Armor>(a => (a == Armor.ClothesShield || ((long)a) % 2 == 0) && (gDatabase.ArtifactTableType == ArtifactTableType.Default || a != Armor.SkinClothes));
 
-						briefDesc.AppendFormat("{0}{1}={2}", j != 0 ? "; " : "", (long)armorValues[j], armor.Name);
+						for (var j = 0; j < armorValues.Count; j++)
+						{
+							var armor = gEngine.GetArmor(armorValues[j]);
+
+							Debug.Assert(armor != null);
+
+							briefDesc.AppendFormat("{0}{1}={2}", j != 0 ? "; " : "", (long)armorValues[j], armor.Name);
+						}
 					}
+					else if (fieldNumber == 2)
+					{
+						fullDesc.Append("Enter the clothing type of the Artifact.");
 
-					gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc);
+						var clothingValues = gDatabase.ArtifactTableType == ArtifactTableType.CharArt ? new List<Clothing>() { Clothing.ArmorShields } : EnumUtil.GetValues<Clothing>();
+
+						for (var j = 0; j < clothingValues.Count; j++)
+						{
+							briefDesc.AppendFormat("{0}{1}={2}", j != 0 ? "; " : "", (long)clothingValues[j], gEngine.GetClothingName(clothingValues[j]));
+						}
+					}
 
 					break;
 
 				case ArtifactType.DisguisedMonster:
 
-					fullDesc.Append("Enter the Uid of the Monster that is disguised.");
+					if (fieldNumber == 1)
+					{
+						fullDesc.Append("Enter the Uid of the Monster that is disguised.");
 
-					briefDesc.Append("(GT 0)=Disguised Monster Uid");
+						briefDesc.AppendFormat("1-{0}=Disguised Monster Uid", gEngine.NumRecords);
+					}
+					else if (fieldNumber == 2)
+					{
+						fullDesc.Append("Enter the Uid of the first Effect displayed when the disguised Monster is revealed.");
 
-					gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc);
+						briefDesc.AppendFormat("1-{0}=Effect Uid", gEngine.NumRecords);
+					}
+					else if (fieldNumber == 3)
+					{
+						fullDesc.Append("Enter the number of sequential Effects displayed when the disguised Monster is revealed.");
+
+						briefDesc.Append("(GT 0)=Valid value");
+					}
 
 					break;
 
 				case ArtifactType.DeadBody:
 
-					fullDesc.AppendFormat("Enter whether the Artifact is takeable.{0}{0}Typically, dead bodies should not be takeable unless it serves some useful purpose.", Environment.NewLine);
+					if (fieldNumber == 1)
+					{
+						fullDesc.AppendFormat("Enter whether the Artifact is takeable.{0}{0}Typically, dead bodies should not be takeable unless it serves some useful purpose.", Environment.NewLine);
 
-					briefDesc.Append("0=Not takeable; 1=Takeable");
-
-					gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc);
+						briefDesc.Append("0=Not takeable; 1=Takeable");
+					}
 
 					break;
 
 				default:
 
-					// Do nothing
-
 					break;
 			}
+
+			if (fullDesc.Length > 0)
+			{
+				gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc.Length > 0 ? briefDesc : null);
+			}
+
+		Cleanup:
+
+			;
+		}
+
+		/// <summary></summary>
+		public virtual void PrintDescCategoriesField1()
+		{
+			PrintDescCategoriesField(1);
 		}
 
 		/// <summary></summary>
 		public virtual void PrintDescCategoriesField2()
 		{
-			var i = Index;
-
-			var fullDesc = new StringBuilder(gEngine.BufSize);
-
-			var briefDesc = new StringBuilder(gEngine.BufSize);
-
-			switch (Record.GetCategory(i).Type)
-			{
-				case ArtifactType.Weapon:
-				case ArtifactType.MagicWeapon:
-
-					fullDesc.Append("Enter the Artifact's weapon type.");
-
-					var weaponValues = EnumUtil.GetValues<Weapon>();
-
-					for (var j = 0; j < weaponValues.Count; j++)
-					{
-						var weapon = gEngine.GetWeapon(weaponValues[j]);
-
-						Debug.Assert(weapon != null);
-
-						briefDesc.AppendFormat("{0}{1}={2}", j != 0 ? "; " : "", (long)weaponValues[j], weapon.Name);
-					}
-
-					gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc);
-
-					break;
-
-				case ArtifactType.InContainer:
-
-					fullDesc.AppendFormat("Enter whether the Artifact is open/closed.{0}{0}Additionally, you can specify that the container must be forced open.", Environment.NewLine);
-
-					briefDesc.Append("0=Closed; 1=Open; (1000 + N)=Forced open with N hits damage");
-
-					gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc);
-
-					break;
-
-				case ArtifactType.Drinkable:
-				case ArtifactType.Edible:
-
-					fullDesc.Append("Enter the number of times the Artifact can be used.");
-
-					briefDesc.Append("(GTE 0)=Valid value");
-
-					gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc);
-
-					break;
-
-				case ArtifactType.Readable:
-
-					fullDesc.Append("Enter the number of sequential Effects displayed when the Artifact is read.");
-
-					briefDesc.Append("(GT 0)=Valid value");
-
-					gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc);
-
-					break;
-
-				case ArtifactType.DoorGate:
-
-					fullDesc.Append("Enter the Artifact Uid of the key used to lock/unlock the door/gate.");
-
-					briefDesc.Append("-1=Can't be unlocked/opened normally; 0=No key; (GT 0)=Key Artifact Uid");
-
-					gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc);
-
-					break;
-
-				case ArtifactType.BoundMonster:
-
-					fullDesc.Append("Enter the Artifact Uid of the key used to lock/unlock the bound Monster.");
-
-					briefDesc.Append("-1=Can't be unlocked/opened normally; 0=No key; (GT 0)=Key Artifact Uid");
-
-					gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc);
-
-					break;
-
-				case ArtifactType.Wearable:
-
-					fullDesc.Append("Enter the clothing type of the Artifact.");
-
-					var clothingValues = EnumUtil.GetValues<Clothing>();
-
-					for (var j = 0; j < clothingValues.Count; j++)
-					{
-						briefDesc.AppendFormat("{0}{1}={2}", j != 0 ? "; " : "", (long)clothingValues[j], gEngine.GetClothingName(clothingValues[j]));
-					}
-
-					gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc);
-
-					break;
-
-				case ArtifactType.DisguisedMonster:
-
-					fullDesc.Append("Enter the Uid of the first Effect displayed when the disguised Monster is revealed.");
-
-					briefDesc.Append("(GT 0)=Effect Uid");
-
-					gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc);
-
-					break;
-
-				default:
-
-					// Do nothing
-
-					break;
-			}
+			PrintDescCategoriesField(2);
 		}
 
 		/// <summary></summary>
 		public virtual void PrintDescCategoriesField3()
 		{
-			var i = Index;
-
-			var fullDesc = new StringBuilder(gEngine.BufSize);
-
-			var briefDesc = new StringBuilder(gEngine.BufSize);
-
-			switch (Record.GetCategory(i).Type)
-			{
-				case ArtifactType.Weapon:
-				case ArtifactType.MagicWeapon:
-
-					fullDesc.Append("Enter the Artifact's weapon hit dice.");
-
-					briefDesc.Append("1-25=Valid value");
-
-					gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc);
-
-					break;
-
-				case ArtifactType.InContainer:
-				case ArtifactType.OnContainer:
-				case ArtifactType.UnderContainer:
-				case ArtifactType.BehindContainer:
-
-					var containerType = gEngine.GetContainerType(Record.GetCategory(i).Type);
-
-					fullDesc.AppendFormat("Enter the maximum weight allowed in the Artifact's container content list.{0}{0}This is the total combined weight of all Artifacts immediately {1} the container (not including their contents).", Environment.NewLine, gEngine.EvalContainerType(containerType, "inside", "on", "under", "behind"));
-
-					briefDesc.Append("(GE 0)=Valid value");
-
-					gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc);
-
-					break;
-
-				case ArtifactType.Drinkable:
-				case ArtifactType.Edible:
-				case ArtifactType.Readable:
-
-					fullDesc.Append("Enter whether the Artifact is open/closed.");
-
-					briefDesc.Append("0=Closed; 1=Open");
-
-					gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc);
-
-					break;
-
-				case ArtifactType.DoorGate:
-
-					fullDesc.AppendFormat("Enter whether the Artifact is open/closed.{0}{0}Additionally, you can specify that the door/gate must be forced open.", Environment.NewLine);
-
-					briefDesc.Append("0=Open; 1=Closed; (1000 + N)=Forced open with N hits damage");
-
-					gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc);
-
-					break;
-
-				case ArtifactType.BoundMonster:
-
-					fullDesc.Append("Enter the Uid of the Monster that is guarding the bound Monster.");
-
-					briefDesc.Append("0=No guard; (GT 0)=Guard Monster Uid");
-
-					gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc);
-
-					break;
-
-				case ArtifactType.DisguisedMonster:
-
-					fullDesc.Append("Enter the number of sequential Effects displayed when the disguised Monster is revealed.");
-
-					briefDesc.Append("(GT 0)=Valid value");
-
-					gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc);
-
-					break;
-
-				default:
-
-					// Do nothing
-
-					break;
-			}
+			PrintDescCategoriesField(3);
 		}
 
 		/// <summary></summary>
 		public virtual void PrintDescCategoriesField4()
 		{
-			var i = Index;
-
-			var fullDesc = new StringBuilder(gEngine.BufSize);
-
-			var briefDesc = new StringBuilder(gEngine.BufSize);
-
-			switch (Record.GetCategory(i).Type)
-			{
-				case ArtifactType.Weapon:
-				case ArtifactType.MagicWeapon:
-
-					fullDesc.Append("Enter the Artifact's weapon hit dice sides.");
-
-					briefDesc.Append("1-25=Valid value");
-
-					gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc);
-
-					break;
-
-				case ArtifactType.InContainer:
-				case ArtifactType.OnContainer:
-				case ArtifactType.UnderContainer:
-				case ArtifactType.BehindContainer:
-
-					var containerType = gEngine.GetContainerType(Record.GetCategory(i).Type);
-
-					fullDesc.AppendFormat("Enter the maximum number of items allowed in the Artifact's container content list.{0}{0}Additionally, you can specify that the player can't put anything {1} the container.", Environment.NewLine, gEngine.EvalContainerType(containerType, "inside", "on", "under", "behind"));
-
-					briefDesc.AppendFormat("0=Player can't put anything {0}; (GT 0)=Valid value", gEngine.EvalContainerType(containerType, "inside", "on", "under", "behind"));
-
-					gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc);
-
-					break;
-
-				case ArtifactType.DoorGate:
-
-					fullDesc.Append("Enter whether the Artifact is normal/hidden.");
-
-					briefDesc.Append("0=Normal; 1=Hidden");
-
-					gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc);
-
-					break;
-
-				default:
-
-					// Do nothing
-
-					break;
-			}
+			PrintDescCategoriesField(4);
 		}
 
 		/// <summary></summary>
 		public virtual void PrintDescCategoriesField5()
 		{
-			var i = Index;
+			PrintDescCategoriesField(5);
+		}
 
-			var fullDesc = new StringBuilder(gEngine.BufSize);
+		/// <summary></summary>
+		public virtual void PrintDescCategoriesField6()
+		{
+			PrintDescCategoriesField(6);
+		}
 
-			var briefDesc = new StringBuilder(gEngine.BufSize);
+		/// <summary></summary>
+		public virtual void PrintDescCategoriesField7()
+		{
+			PrintDescCategoriesField(7);
+		}
 
-			switch (Record.GetCategory(i).Type)
-			{
-				case ArtifactType.Weapon:
-				case ArtifactType.MagicWeapon:
+		/// <summary></summary>
+		public virtual void PrintDescCategoriesField8()
+		{
+			PrintDescCategoriesField(8);
+		}
 
-					fullDesc.Append("Enter the Artifact's weapon number of hands required.");
+		/// <summary></summary>
+		public virtual void PrintDescCategoriesField9()
+		{
+			PrintDescCategoriesField(9);
+		}
 
-					briefDesc.Append("1-2=Valid value");
+		/// <summary></summary>
+		public virtual void PrintDescCategoriesField10()
+		{
+			PrintDescCategoriesField(10);
+		}
 
-					gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc);
+		/// <summary></summary>
+		public virtual void PrintDescCategoriesField11()
+		{
+			PrintDescCategoriesField(11);
+		}
 
-					break;
+		/// <summary></summary>
+		public virtual void PrintDescCategoriesField12()
+		{
+			PrintDescCategoriesField(12);
+		}
 
-				case ArtifactType.InContainer:
-				case ArtifactType.OnContainer:
-				case ArtifactType.UnderContainer:
-				case ArtifactType.BehindContainer:
+		/// <summary></summary>
+		public virtual void PrintDescCategoriesField13()
+		{
+			PrintDescCategoriesField(13);
+		}
 
-					fullDesc.Append("Enter the display code that describes how to show the Artifact's container content list.");
+		/// <summary></summary>
+		public virtual void PrintDescCategoriesField14()
+		{
+			PrintDescCategoriesField(14);
+		}
 
-					var containerDisplayCodeValues = EnumUtil.GetValues<ContainerDisplayCode>();
+		/// <summary></summary>
+		public virtual void PrintDescCategoriesField15()
+		{
+			PrintDescCategoriesField(15);
+		}
 
-					for (var j = 0; j < containerDisplayCodeValues.Count; j++)
-					{
-						briefDesc.AppendFormat("{0}{1}={2}", j != 0 ? "; " : "", (long)containerDisplayCodeValues[j], gEngine.GetContainerDisplayCodeDesc(containerDisplayCodeValues[j]));
-					}
+		/// <summary></summary>
+		public virtual void PrintDescCategoriesField16()
+		{
+			PrintDescCategoriesField(16);
+		}
 
-					gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc);
+		/// <summary></summary>
+		public virtual void PrintDescCategoriesField17()
+		{
+			PrintDescCategoriesField(17);
+		}
 
-					break;
+		/// <summary></summary>
+		public virtual void PrintDescCategoriesField18()
+		{
+			PrintDescCategoriesField(18);
+		}
 
-				default:
+		/// <summary></summary>
+		public virtual void PrintDescCategoriesField19()
+		{
+			PrintDescCategoriesField(19);
+		}
 
-					// Do nothing
-
-					break;
-			}
+		/// <summary></summary>
+		public virtual void PrintDescCategoriesField20()
+		{
+			PrintDescCategoriesField(20);
 		}
 
 		#endregion
@@ -2329,6 +2805,8 @@ namespace Eamon.Game.Helpers
 		/// <summary></summary>
 		public virtual void ListCategories()
 		{
+			var artTypes = new ArtifactType[] { /* ArtifactType.Weapon, ArtifactType.MagicWeapon */ };		// TODO: uncomment when needed
+
 			for (Index = 0; Index < Record.Categories.Length; Index++)
 			{
 				ListField("CategoriesType");
@@ -2337,6 +2815,30 @@ namespace Eamon.Game.Helpers
 				ListField("CategoriesField3");
 				ListField("CategoriesField4");
 				ListField("CategoriesField5");
+
+				var category = Record.GetCategory(Index);
+
+				if (gEngine.EnableEnhancedCombat && category != null && artTypes.Contains(category.Type))
+				{
+					ListField("CategoriesField6");
+					ListField("CategoriesField7");
+					ListField("CategoriesField8");
+					ListField("CategoriesField9");
+					ListField("CategoriesField10");
+					ListField("CategoriesField11");
+					ListField("CategoriesField12");
+					ListField("CategoriesField13");
+				}
+
+				/*
+				ListField("CategoriesField14");
+				ListField("CategoriesField15");
+				ListField("CategoriesField16");
+				ListField("CategoriesField17");
+				ListField("CategoriesField18");
+				ListField("CategoriesField19");
+				ListField("CategoriesField20");
+				*/
 			}
 
 			AddToListedNames = false;
@@ -2369,7 +2871,8 @@ namespace Eamon.Game.Helpers
 		}
 
 		/// <summary></summary>
-		public virtual void ListCategoriesField1()
+		/// <param name="fieldNumber"></param>
+		public virtual void ListCategoriesField(long fieldNumber)
 		{
 			var i = Index;
 
@@ -2379,123 +2882,150 @@ namespace Eamon.Game.Helpers
 				{
 					var listNum = NumberFields ? ListNum++ : 0;
 
+					var fieldName = string.Format("CategoriesField{0}", fieldNumber);
+
 					if (LookupMsg)
 					{
 						gOut.Write("{0}{1}{2}",
 							Environment.NewLine,
-							gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("CategoriesField1"), null),
-							BuildValue(51, ' ', 8, "CategoriesField1"));
+							gEngine.BuildPrompt(27, '.', listNum, GetPrintedName(fieldName), null),
+							BuildValue(51, ' ', 8, fieldName));
 					}
 					else
 					{
-						gOut.Write("{0}{1}{2}", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("CategoriesField1"), null), Record.GetCategory(i).Field1);
+						var category = Record.GetCategory(i);
+
+						var property = category != null ? category.GetType().GetProperty(string.Format("Field{0}", fieldNumber)) : null;
+
+						var fieldValue = property != null ? Convert.ToInt64(property.GetValue(category)) : 0L;
+
+						gOut.Write("{0}{1}{2}",
+							Environment.NewLine,
+							gEngine.BuildPrompt(27, '.', listNum, GetPrintedName(fieldName), null),
+							fieldValue);
 					}
 				}
 			}
+		}
+
+		/// <summary></summary>
+		public virtual void ListCategoriesField1()
+		{
+			ListCategoriesField(1);
 		}
 
 		/// <summary></summary>
 		public virtual void ListCategoriesField2()
 		{
-			var i = Index;
-
-			if (FullDetail)
-			{
-				if (!ExcludeROFields || Record.GetCategory(i).Type != ArtifactType.None)
-				{
-					var listNum = NumberFields ? ListNum++ : 0;
-
-					if (LookupMsg)
-					{
-						gOut.Write("{0}{1}{2}",
-							Environment.NewLine,
-							gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("CategoriesField2"), null),
-							BuildValue(51, ' ', 8, "CategoriesField2"));
-					}
-					else
-					{
-						gOut.Write("{0}{1}{2}", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("CategoriesField2"), null), Record.GetCategory(i).Field2);
-					}
-				}
-			}
+			ListCategoriesField(2);
 		}
 
 		/// <summary></summary>
 		public virtual void ListCategoriesField3()
 		{
-			var i = Index;
-
-			if (FullDetail)
-			{
-				if (!ExcludeROFields || Record.GetCategory(i).Type != ArtifactType.None)
-				{
-					var listNum = NumberFields ? ListNum++ : 0;
-
-					if (LookupMsg)
-					{
-						gOut.Write("{0}{1}{2}",
-							Environment.NewLine,
-							gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("CategoriesField3"), null),
-							BuildValue(51, ' ', 8, "CategoriesField3"));
-					}
-					else
-					{
-						gOut.Write("{0}{1}{2}", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("CategoriesField3"), null), Record.GetCategory(i).Field3);
-					}
-				}
-			}
+			ListCategoriesField(3);
 		}
 
 		/// <summary></summary>
 		public virtual void ListCategoriesField4()
 		{
-			var i = Index;
-
-			if (FullDetail)
-			{
-				if (!ExcludeROFields || Record.GetCategory(i).Type != ArtifactType.None)
-				{
-					var listNum = NumberFields ? ListNum++ : 0;
-
-					if (LookupMsg)
-					{
-						gOut.Write("{0}{1}{2}",
-							Environment.NewLine,
-							gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("CategoriesField4"), null),
-							BuildValue(51, ' ', 8, "CategoriesField4"));
-					}
-					else
-					{
-						gOut.Write("{0}{1}{2}", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("CategoriesField4"), null), Record.GetCategory(i).Field4);
-					}
-				}
-			}
+			ListCategoriesField(4);
 		}
 
 		/// <summary></summary>
 		public virtual void ListCategoriesField5()
 		{
-			var i = Index;
+			ListCategoriesField(5);
+		}
 
-			if (FullDetail)
-			{
-				if (!ExcludeROFields || Record.GetCategory(i).Type != ArtifactType.None)
-				{
-					var listNum = NumberFields ? ListNum++ : 0;
+		/// <summary></summary>
+		public virtual void ListCategoriesField6()
+		{
+			ListCategoriesField(6);
+		}
 
-					if (LookupMsg)
-					{
-						gOut.Write("{0}{1}{2}",
-							Environment.NewLine,
-							gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("CategoriesField5"), null),
-							BuildValue(51, ' ', 8, "CategoriesField5"));
-					}
-					else
-					{
-						gOut.Write("{0}{1}{2}", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("CategoriesField5"), null), Record.GetCategory(i).Field5);
-					}
-				}
-			}
+		/// <summary></summary>
+		public virtual void ListCategoriesField7()
+		{
+			ListCategoriesField(7);
+		}
+
+		/// <summary></summary>
+		public virtual void ListCategoriesField8()
+		{
+			ListCategoriesField(8);
+		}
+
+		/// <summary></summary>
+		public virtual void ListCategoriesField9()
+		{
+			ListCategoriesField(9);
+		}
+
+		/// <summary></summary>
+		public virtual void ListCategoriesField10()
+		{
+			ListCategoriesField(10);
+		}
+
+		/// <summary></summary>
+		public virtual void ListCategoriesField11()
+		{
+			ListCategoriesField(11);
+		}
+
+		/// <summary></summary>
+		public virtual void ListCategoriesField12()
+		{
+			ListCategoriesField(12);
+		}
+
+		/// <summary></summary>
+		public virtual void ListCategoriesField13()
+		{
+			ListCategoriesField(13);
+		}
+
+		/// <summary></summary>
+		public virtual void ListCategoriesField14()
+		{
+			ListCategoriesField(14);
+		}
+
+		/// <summary></summary>
+		public virtual void ListCategoriesField15()
+		{
+			ListCategoriesField(15);
+		}
+
+		/// <summary></summary>
+		public virtual void ListCategoriesField16()
+		{
+			ListCategoriesField(16);
+		}
+
+		/// <summary></summary>
+		public virtual void ListCategoriesField17()
+		{
+			ListCategoriesField(17);
+		}
+
+		/// <summary></summary>
+		public virtual void ListCategoriesField18()
+		{
+			ListCategoriesField(18);
+		}
+
+		/// <summary></summary>
+		public virtual void ListCategoriesField19()
+		{
+			ListCategoriesField(19);
+		}
+
+		/// <summary></summary>
+		public virtual void ListCategoriesField20()
+		{
+			ListCategoriesField(20);
 		}
 
 		#endregion
@@ -2940,6 +3470,8 @@ namespace Eamon.Game.Helpers
 		/// <summary></summary>
 		public virtual void InputCategories()
 		{
+			var artTypes = new ArtifactType[] { ArtifactType.Weapon, ArtifactType.MagicWeapon };
+
 			for (Index = 0; Index < Record.Categories.Length; Index++)
 			{
 				InputField("CategoriesType");
@@ -2948,6 +3480,30 @@ namespace Eamon.Game.Helpers
 				InputField("CategoriesField3");
 				InputField("CategoriesField4");
 				InputField("CategoriesField5");
+
+				var category = Record.GetCategory(Index);
+
+				if (gEngine.EnableEnhancedCombat && category != null && artTypes.Contains(category.Type))
+				{
+					InputField("CategoriesField6");
+					InputField("CategoriesField7");
+					InputField("CategoriesField8");
+					InputField("CategoriesField9");
+					InputField("CategoriesField10");
+					InputField("CategoriesField11");
+					InputField("CategoriesField12");
+					InputField("CategoriesField13");
+				}
+
+				/*
+				InputField("CategoriesField14");
+				InputField("CategoriesField15");
+				InputField("CategoriesField16");
+				InputField("CategoriesField17");
+				InputField("CategoriesField18");
+				InputField("CategoriesField19");
+				InputField("CategoriesField20");
+				*/
 			}
 		}
 
@@ -2968,9 +3524,11 @@ namespace Eamon.Game.Helpers
 
 					PrintFieldDesc("CategoriesType", EditRec, EditField, fieldDesc);
 
-					gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("CategoriesType"), i == 0 ? "1" : "-1"));
+					var defaultArtType = gDatabase.ArtifactTableType == ArtifactTableType.CharArt ? "2" : i == 0 ? "1" : "-1";
 
-					var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, i == 0 ? "1" : "-1", null, i == 0 ? (Func<char, bool>)gEngine.IsCharDigit : gEngine.IsCharPlusMinusDigit, null);
+					gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("CategoriesType"), defaultArtType));
+
+					var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, defaultArtType, null, i == 0 ? (Func<char, bool>)gEngine.IsCharDigit : gEngine.IsCharPlusMinusDigit, null);
 
 					Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -3001,15 +3559,17 @@ namespace Eamon.Game.Helpers
 
 						Debug.Assert(artType != null);
 
-						Record.GetCategory(i).Field1 = Convert.ToInt64(artType.Field1EmptyVal);
+						for (var m = 1; m <= gEngine.NumArtifactCategoryFields; m++)
+						{
+							var destProperty = Record.GetCategory(i).GetType().GetProperty(string.Format("Field{0}", m));
 
-						Record.GetCategory(i).Field2 = Convert.ToInt64(artType.Field2EmptyVal);
+							var srcProperty = artType.GetType().GetProperty(string.Format("Field{0}EmptyVal", m));
 
-						Record.GetCategory(i).Field3 = Convert.ToInt64(artType.Field3EmptyVal);
-
-						Record.GetCategory(i).Field4 = Convert.ToInt64(artType.Field4EmptyVal);
-
-						Record.GetCategory(i).Field5 = Convert.ToInt64(artType.Field5EmptyVal);
+							if (destProperty != null && srcProperty != null && srcProperty.CanRead && destProperty.CanWrite)
+							{
+								destProperty.SetValue(Record.GetCategory(i), Convert.ToInt64(srcProperty.GetValue(artType)));
+							}
+						}
 					}
 				}
 				else
@@ -3018,15 +3578,7 @@ namespace Eamon.Game.Helpers
 					{
 						Record.GetCategory(k).Type = ArtifactType.None;
 
-						Record.GetCategory(k).Field1 = 0;
-
-						Record.GetCategory(k).Field2 = 0;
-
-						Record.GetCategory(k).Field3 = 0;
-
-						Record.GetCategory(k).Field4 = 0;
-
-						Record.GetCategory(k).Field5 = 0;
+						Record.GetCategory(k).SetFieldsValue(1, gEngine.NumArtifactCategoryFields, 0);
 					}
 				}
 
@@ -3039,29 +3591,38 @@ namespace Eamon.Game.Helpers
 		}
 
 		/// <summary></summary>
-		public virtual void InputCategoriesField1()
+		/// <param name="fieldNumber"></param>
+		public virtual void InputCategoriesField(long fieldNumber)
 		{
 			var i = Index;
 
-			if (Record.GetCategory(i).Type != ArtifactType.None)
-			{
-				var artType = gEngine.GetArtifactType(Record.GetCategory(i).Type);
+			var category = Record.GetCategory(i);
 
-				Debug.Assert(artType != null);
+			var fieldProperty = category != null ? category.GetType().GetProperty(string.Format("Field{0}", fieldNumber)) : null;
+
+			if (category != null && category.Type != ArtifactType.None)
+			{
+				var artType = gEngine.GetArtifactType(category.Type);
 
 				var fieldDesc = FieldDesc;
 
-				var field1 = Record.GetCategory(i).Field1;
+				var fieldValue = fieldProperty != null ? Convert.ToInt64(fieldProperty.GetValue(category)) : 0L;
+
+				var artTypeFieldEmptyValProperty = artType != null ? artType.GetType().GetProperty(string.Format("Field{0}EmptyVal", fieldNumber)) : null;
+
+				var fieldEmptyVal = artTypeFieldEmptyValProperty != null ? (artTypeFieldEmptyValProperty.GetValue(artType)?.ToString() ?? "0") : "0";
 
 				while (true)
 				{
-					Buf.SetFormat(EditRec ? "{0}" : "", field1);
+					Buf.SetFormat(EditRec ? "{0}" : "", fieldValue);
 
-					PrintFieldDesc("CategoriesField1", EditRec, EditField, fieldDesc);
+					var fieldName = string.Format("CategoriesField{0}", fieldNumber);
 
-					gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("CategoriesField1"), artType.Field1EmptyVal));
+					PrintFieldDesc(fieldName, EditRec, EditField, fieldDesc);
 
-					var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, artType.Field1EmptyVal, null, gEngine.IsCharPlusMinusDigit, null);
+					gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName(fieldName), fieldEmptyVal));
+
+					var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, fieldEmptyVal, null, gEngine.IsCharPlusMinusDigit, null);
 
 					Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -3069,14 +3630,19 @@ namespace Eamon.Game.Helpers
 
 					try
 					{
-						Record.GetCategory(i).Field1 = Convert.ToInt64(Buf.Trim().ToString());
+						var newValue = Convert.ToInt64(Buf.Trim().ToString());
+
+						if (fieldProperty != null)
+						{
+							fieldProperty.SetValue(category, newValue);
+						}
 					}
 					catch (Exception)
 					{
 						error = true;
 					}
 
-					if (!error && ValidateField("CategoriesField1"))
+					if (!error && ValidateField(fieldName))
 					{
 						break;
 					}
@@ -3088,224 +3654,131 @@ namespace Eamon.Game.Helpers
 			}
 			else
 			{
-				Record.GetCategory(i).Field1 = 0;
+				if (fieldProperty != null)
+				{
+					fieldProperty.SetValue(category, 0L);
+				}
 			}
+		}
+
+		/// <summary></summary>
+		public virtual void InputCategoriesField1()
+		{
+			InputCategoriesField(1);
 		}
 
 		/// <summary></summary>
 		public virtual void InputCategoriesField2()
 		{
-			var i = Index;
-
-			if (Record.GetCategory(i).Type != ArtifactType.None)
-			{
-				var artType = gEngine.GetArtifactType(Record.GetCategory(i).Type);
-
-				Debug.Assert(artType != null);
-
-				var fieldDesc = FieldDesc;
-
-				var field2 = Record.GetCategory(i).Field2;
-
-				while (true)
-				{
-					Buf.SetFormat(EditRec ? "{0}" : "", field2);
-
-					PrintFieldDesc("CategoriesField2", EditRec, EditField, fieldDesc);
-
-					gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("CategoriesField2"), artType.Field2EmptyVal));
-
-					var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, artType.Field2EmptyVal, null, gEngine.IsCharPlusMinusDigit, null);
-
-					Debug.Assert(gEngine.IsSuccess(rc));
-
-					var error = false;
-
-					try
-					{
-						Record.GetCategory(i).Field2 = Convert.ToInt64(Buf.Trim().ToString());
-					}
-					catch (Exception)
-					{
-						error = true;
-					}
-
-					if (!error && ValidateField("CategoriesField2"))
-					{
-						break;
-					}
-
-					fieldDesc = FieldDesc.Brief;
-				}
-
-				gOut.Print("{0}", gEngine.LineSep);
-			}
-			else
-			{
-				Record.GetCategory(i).Field2 = 0;
-			}
+			InputCategoriesField(2);
 		}
 
 		/// <summary></summary>
 		public virtual void InputCategoriesField3()
 		{
-			var i = Index;
-
-			if (Record.GetCategory(i).Type != ArtifactType.None)
-			{
-				var artType = gEngine.GetArtifactType(Record.GetCategory(i).Type);
-
-				Debug.Assert(artType != null);
-
-				var fieldDesc = FieldDesc;
-
-				var field3 = Record.GetCategory(i).Field3;
-
-				while (true)
-				{
-					Buf.SetFormat(EditRec ? "{0}" : "", field3);
-
-					PrintFieldDesc("CategoriesField3", EditRec, EditField, fieldDesc);
-
-					gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("CategoriesField3"), artType.Field3EmptyVal));
-
-					var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, artType.Field3EmptyVal, null, gEngine.IsCharPlusMinusDigit, null);
-
-					Debug.Assert(gEngine.IsSuccess(rc));
-
-					var error = false;
-
-					try
-					{
-						Record.GetCategory(i).Field3 = Convert.ToInt64(Buf.Trim().ToString());
-					}
-					catch (Exception)
-					{
-						error = true;
-					}
-
-					if (!error && ValidateField("CategoriesField3"))
-					{
-						break;
-					}
-
-					fieldDesc = FieldDesc.Brief;
-				}
-
-				gOut.Print("{0}", gEngine.LineSep);
-			}
-			else
-			{
-				Record.GetCategory(i).Field3 = 0;
-			}
+			InputCategoriesField(3);
 		}
 
 		/// <summary></summary>
 		public virtual void InputCategoriesField4()
 		{
-			var i = Index;
-
-			if (Record.GetCategory(i).Type != ArtifactType.None)
-			{
-				var artType = gEngine.GetArtifactType(Record.GetCategory(i).Type);
-
-				Debug.Assert(artType != null);
-
-				var fieldDesc = FieldDesc;
-
-				var field4 = Record.GetCategory(i).Field4;
-
-				while (true)
-				{
-					Buf.SetFormat(EditRec ? "{0}" : "", field4);
-
-					PrintFieldDesc("CategoriesField4", EditRec, EditField, fieldDesc);
-
-					gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("CategoriesField4"), artType.Field4EmptyVal));
-
-					var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, artType.Field4EmptyVal, null, gEngine.IsCharPlusMinusDigit, null);
-
-					Debug.Assert(gEngine.IsSuccess(rc));
-
-					var error = false;
-
-					try
-					{
-						Record.GetCategory(i).Field4 = Convert.ToInt64(Buf.Trim().ToString());
-					}
-					catch (Exception)
-					{
-						error = true;
-					}
-
-					if (!error && ValidateField("CategoriesField4"))
-					{
-						break;
-					}
-
-					fieldDesc = FieldDesc.Brief;
-				}
-
-				gOut.Print("{0}", gEngine.LineSep);
-			}
-			else
-			{
-				Record.GetCategory(i).Field4 = 0;
-			}
+			InputCategoriesField(4);
 		}
 
 		/// <summary></summary>
 		public virtual void InputCategoriesField5()
 		{
-			var i = Index;
+			InputCategoriesField(5);
+		}
 
-			if (Record.GetCategory(i).Type != ArtifactType.None)
-			{
-				var artType = gEngine.GetArtifactType(Record.GetCategory(i).Type);
+		/// <summary></summary>
+		public virtual void InputCategoriesField6()
+		{
+			InputCategoriesField(6);
+		}
 
-				Debug.Assert(artType != null);
+		/// <summary></summary>
+		public virtual void InputCategoriesField7()
+		{
+			InputCategoriesField(7);
+		}
 
-				var fieldDesc = FieldDesc;
+		/// <summary></summary>
+		public virtual void InputCategoriesField8()
+		{
+			InputCategoriesField(8);
+		}
 
-				var field5 = Record.GetCategory(i).Field5;
+		/// <summary></summary>
+		public virtual void InputCategoriesField9()
+		{
+			InputCategoriesField(9);
+		}
 
-				while (true)
-				{
-					Buf.SetFormat(EditRec ? "{0}" : "", field5);
+		/// <summary></summary>
+		public virtual void InputCategoriesField10()
+		{
+			InputCategoriesField(10);
+		}
 
-					PrintFieldDesc("CategoriesField5", EditRec, EditField, fieldDesc);
+		/// <summary></summary>
+		public virtual void InputCategoriesField11()
+		{
+			InputCategoriesField(11);
+		}
 
-					gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("CategoriesField5"), artType.Field5EmptyVal));
+		/// <summary></summary>
+		public virtual void InputCategoriesField12()
+		{
+			InputCategoriesField(12);
+		}
 
-					var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, artType.Field5EmptyVal, null, gEngine.IsCharPlusMinusDigit, null);
+		/// <summary></summary>
+		public virtual void InputCategoriesField13()
+		{
+			InputCategoriesField(13);
+		}
 
-					Debug.Assert(gEngine.IsSuccess(rc));
+		/// <summary></summary>
+		public virtual void InputCategoriesField14()
+		{
+			InputCategoriesField(14);
+		}
 
-					var error = false;
+		/// <summary></summary>
+		public virtual void InputCategoriesField15()
+		{
+			InputCategoriesField(15);
+		}
 
-					try
-					{
-						Record.GetCategory(i).Field5 = Convert.ToInt64(Buf.Trim().ToString());
-					}
-					catch (Exception)
-					{
-						error = true;
-					}
+		/// <summary></summary>
+		public virtual void InputCategoriesField16()
+		{
+			InputCategoriesField(16);
+		}
 
-					if (!error && ValidateField("CategoriesField5"))
-					{
-						break;
-					}
+		/// <summary></summary>
+		public virtual void InputCategoriesField17()
+		{
+			InputCategoriesField(17);
+		}
 
-					fieldDesc = FieldDesc.Brief;
-				}
+		/// <summary></summary>
+		public virtual void InputCategoriesField18()
+		{
+			InputCategoriesField(18);
+		}
 
-				gOut.Print("{0}", gEngine.LineSep);
-			}
-			else
-			{
-				Record.GetCategory(i).Field5 = 0;
-			}
+		/// <summary></summary>
+		public virtual void InputCategoriesField19()
+		{
+			InputCategoriesField(19);
+		}
+
+		/// <summary></summary>
+		public virtual void InputCategoriesField20()
+		{
+			InputCategoriesField(20);
 		}
 
 		#endregion
@@ -3327,7 +3800,21 @@ namespace Eamon.Game.Helpers
 		{
 			string lookupMsg;
 
-			if (Record.IsCarriedByMonster(MonsterType.CharMonster))
+			if (Record.IsCarriedByCharacter())
+			{
+				var character = Record.GetCarriedByCharacter();
+
+				lookupMsg = string.Format("Carried by {0}",
+					character != null ? gEngine.Capitalize(character.Name.Length > 29 ? character.Name.Substring(0, 26) + "..." : character.Name) : gEngine.UnknownName);
+			}
+			else if (Record.IsWornByCharacter())
+			{
+				var character = Record.GetWornByCharacter();
+
+				lookupMsg = string.Format("Worn by {0}",
+					character != null ? gEngine.Capitalize(character.Name.Length > 32 ? character.Name.Substring(0, 29) + "..." : character.Name) : gEngine.UnknownName);
+			}
+			else if (Record.IsCarriedByMonster(MonsterType.CharMonster))
 			{
 				lookupMsg = "Carried by Player Character";
 			}
@@ -3396,254 +3883,356 @@ namespace Eamon.Game.Helpers
 		}
 
 		/// <summary></summary>
+		/// <param name="fieldNumber"></param>
 		/// <returns></returns>
-		public virtual string BuildValueCategoriesField1()
+		public virtual string BuildValueCategoriesField(long fieldNumber)
 		{
 			var i = Index;
 
-			switch (Record.GetCategory(i).Type)
+			var category = Record.GetCategory(i);
+
+			if (category == null)
+			{
+				goto Cleanup;
+			}
+
+			var fieldProperty = category.GetType().GetProperty(string.Format("Field{0}", fieldNumber));
+
+			var fieldValue = fieldProperty != null ? Convert.ToInt64(fieldProperty.GetValue(category)) : 0L;
+
+			string stringVal = null;
+
+			string lookupMsg = null;
+
+			Action artLookupFunc = () =>
+			{
+				var artifact = gADB[fieldValue];
+
+				lookupMsg = artifact != null ? gEngine.Capitalize(artifact.Name) : gEngine.UnknownName;
+			};
+
+			Action monLookupFunc = () =>
+			{
+				var monster = gMDB[fieldValue];
+
+				lookupMsg = monster != null ? gEngine.Capitalize(monster.Name) : gEngine.UnknownName;
+			};
+
+			switch (category.Type)
 			{
 				case ArtifactType.Weapon:
 				case ArtifactType.MagicWeapon:
 
-					var stringVal = string.Format("{0}%", Record.GetCategory(i).Field1);
+					if (fieldNumber == 1)
+					{
+						stringVal = string.Format("{0}%", fieldValue);
 
-					Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, 0, stringVal, null));
+						fieldValue = 0;
+					}
+					else if (fieldNumber == 2)
+					{
+						var weapon = gEngine.GetWeapon((Weapon)fieldValue);
+
+						Debug.Assert(weapon != null);
+
+						lookupMsg = weapon.Name;
+					}
 
 					break;
 
 				case ArtifactType.InContainer:
 
-					if (Record.GetCategory(i).Field1 > 0)
+					if (fieldNumber == 1)
 					{
-						var artifact = gADB[Record.GetCategory(i).Field1];
-
-						Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, Record.GetCategory(i).Field1, null, artifact != null ? gEngine.Capitalize(artifact.Name) : gEngine.UnknownName));
+						if (fieldValue > 0)
+						{
+							artLookupFunc();
+						}
 					}
-					else
+					else if (fieldNumber == 2)
 					{
-						Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, Record.GetCategory(i).Field1, null, null));
+						if (Record.IsFieldStrength(fieldValue))
+						{
+							lookupMsg = string.Format("Strength of {0}", Record.GetFieldStrength(fieldValue));
+						}
+						else
+						{
+							lookupMsg = fieldValue == 1 ? "Open" : "Closed";
+						}
+					}
+					else if (fieldNumber == 5)
+					{
+						lookupMsg = gEngine.GetContainerDisplayCodeDesc((ContainerDisplayCode)fieldValue);
 					}
 
 					break;
 
-				case ArtifactType.BoundMonster:
-				case ArtifactType.DisguisedMonster:
+				case ArtifactType.OnContainer:
+				case ArtifactType.UnderContainer:
+				case ArtifactType.BehindContainer:
 
-					var monster = gMDB[Record.GetCategory(i).Field1];
+					if (fieldNumber == 5)
+					{
+						lookupMsg = gEngine.GetContainerDisplayCodeDesc((ContainerDisplayCode)fieldValue);
+					}
 
-					Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, Record.GetCategory(i).Field1, null, monster != null ? gEngine.Capitalize(monster.Name) : gEngine.UnknownName));
+					break;
+
+				case ArtifactType.Drinkable:
+				case ArtifactType.Readable:
+				case ArtifactType.Edible:
+
+					if (fieldNumber == 3)
+					{
+						lookupMsg = category.IsOpen() ? "Open" : "Closed";
+					}
 
 					break;
 
 				case ArtifactType.DoorGate:
 
-					if (Record.GetCategory(i).Field1 > 0)
+					if (fieldNumber == 1)
 					{
-						var room = gRDB[Record.GetCategory(i).Field1];
+						if (fieldValue > 0)
+						{
+							var room = gRDB[fieldValue];
 
-						Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, Record.GetCategory(i).Field1, null, room != null ? gEngine.Capitalize(room.Name) : gEngine.UnknownName));
+							lookupMsg = room != null ? gEngine.Capitalize(room.Name) : gEngine.UnknownName;
+						}
 					}
-					else
+					else if (fieldNumber == 2)
 					{
-						Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, Record.GetCategory(i).Field1, null, null));
+						if (fieldValue > 0)
+						{
+							artLookupFunc();
+						}
+					}
+					else if (fieldNumber == 3)
+					{
+						if (Record.IsFieldStrength(fieldValue))
+						{
+							lookupMsg = string.Format("Strength of {0}", Record.GetFieldStrength(fieldValue));
+						}
+						else
+						{
+							lookupMsg = category.IsOpen() ? "Open" : "Closed";
+						}
+					}
+					else if (fieldNumber == 4)
+					{
+						lookupMsg = fieldValue == 1 ? "Hidden" : "Normal";
+					}
+
+					break;
+
+				case ArtifactType.BoundMonster:
+
+					if (fieldNumber == 1)
+					{
+						monLookupFunc();
+					}
+					else if (fieldNumber == 2)
+					{
+						if (fieldValue > 0)
+						{
+							artLookupFunc();
+						}
+					}
+					else if (fieldNumber == 3)
+					{
+						if (fieldValue > 0)
+						{
+							monLookupFunc();
+						}
 					}
 
 					break;
 
 				case ArtifactType.Wearable:
 
-					var armor = gEngine.GetArmor((Armor)Record.GetCategory(i).Field1);
+					if (fieldNumber == 1)
+					{
+						var armor = gEngine.GetArmor((Armor)fieldValue);
 
-					Debug.Assert(armor != null);
+						Debug.Assert(armor != null);
 
-					Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, Record.GetCategory(i).Field1, null, armor.Name));
+						lookupMsg = armor.Name;
+					}
+					else if (fieldNumber == 2)
+					{
+						lookupMsg = gEngine.GetClothingName((Clothing)fieldValue);
+					}
+
+					break;
+
+				case ArtifactType.DisguisedMonster:
+
+					if (fieldNumber == 1)
+					{
+						monLookupFunc();
+					}
 
 					break;
 
 				case ArtifactType.DeadBody:
 
-					Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, Record.GetCategory(i).Field1, null, Record.GetCategory(i).Field1 == 1 ? "Takeable" : "Not Takeable"));
+					if (fieldNumber == 1)
+					{
+						lookupMsg = fieldValue == 1 ? "Takeable" : "Not Takeable";
+					}
 
 					break;
 
 				default:
 
-					Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, Record.GetCategory(i).Field1, null, null));
-
 					break;
 			}
 
+			Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, fieldValue, stringVal, lookupMsg));
+
+		Cleanup:
+
 			return Buf01.ToString();
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual string BuildValueCategoriesField1()
+		{
+			return BuildValueCategoriesField(1);
 		}
 
 		/// <summary></summary>
 		/// <returns></returns>
 		public virtual string BuildValueCategoriesField2()
 		{
-			var i = Index;
-
-			switch (Record.GetCategory(i).Type)
-			{
-				case ArtifactType.Weapon:
-				case ArtifactType.MagicWeapon:
-
-					var weapon = gEngine.GetWeapon((Weapon)Record.GetCategory(i).Field2);
-
-					Debug.Assert(weapon != null);
-
-					Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, Record.GetCategory(i).Field2, null, weapon.Name));
-
-					break;
-
-				case ArtifactType.InContainer:
-
-					var lookupMsg = string.Empty;
-
-					if (Record.IsFieldStrength(Record.GetCategory(i).Field2))
-					{
-						lookupMsg = string.Format("Strength of {0}", Record.GetFieldStrength(Record.GetCategory(i).Field2));
-					}
-
-					Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, Record.GetCategory(i).Field2, null, Record.IsFieldStrength(Record.GetCategory(i).Field2) ? lookupMsg : Record.GetCategory(i).Field2 == 1 ? "Open" : "Closed"));
-
-					break;
-
-				case ArtifactType.BoundMonster:
-				case ArtifactType.DoorGate:
-
-					if (Record.GetCategory(i).Field2 > 0)
-					{
-						var artifact = gADB[Record.GetCategory(i).Field2];
-
-						Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, Record.GetCategory(i).Field2, null, artifact != null ? gEngine.Capitalize(artifact.Name) : gEngine.UnknownName));
-					}
-					else
-					{
-						Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, Record.GetCategory(i).Field2, null, null));
-					}
-
-					break;
-
-				case ArtifactType.Wearable:
-
-					Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, Record.GetCategory(i).Field2, null, gEngine.GetClothingName((Clothing)Record.GetCategory(i).Field2)));
-
-					break;
-
-				default:
-
-					Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, Record.GetCategory(i).Field2, null, null));
-
-					break;
-			}
-
-			return Buf01.ToString();
+			return BuildValueCategoriesField(2);
 		}
 
 		/// <summary></summary>
 		/// <returns></returns>
 		public virtual string BuildValueCategoriesField3()
 		{
-			var i = Index;
-
-			switch (Record.GetCategory(i).Type)
-			{
-				case ArtifactType.Drinkable:
-				case ArtifactType.Readable:
-				case ArtifactType.Edible:
-
-					Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, Record.GetCategory(i).Field3, null, Record.GetCategory(i).IsOpen() ? "Open" : "Closed"));
-
-					break;
-
-				case ArtifactType.BoundMonster:
-
-					if (Record.GetCategory(i).Field3 > 0)
-					{
-						var monster = gMDB[Record.GetCategory(i).Field3];
-
-						Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, Record.GetCategory(i).Field3, null, monster != null ? gEngine.Capitalize(monster.Name) : gEngine.UnknownName));
-					}
-					else
-					{
-						Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, Record.GetCategory(i).Field3, null, null));
-					}
-
-					break;
-
-				case ArtifactType.DoorGate:
-
-					var lookupMsg = string.Empty;
-
-					if (Record.IsFieldStrength(Record.GetCategory(i).Field3))
-					{
-						lookupMsg = string.Format("Strength of {0}", Record.GetFieldStrength(Record.GetCategory(i).Field3));
-					}
-
-					Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, Record.GetCategory(i).Field3, null, Record.IsFieldStrength(Record.GetCategory(i).Field3) ? lookupMsg : Record.GetCategory(i).IsOpen() ? "Open" : "Closed"));
-
-					break;
-
-				default:
-
-					Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, Record.GetCategory(i).Field3, null, null));
-
-					break;
-			}
-
-			return Buf01.ToString();
+			return BuildValueCategoriesField(3);
 		}
 
 		/// <summary></summary>
 		/// <returns></returns>
 		public virtual string BuildValueCategoriesField4()
 		{
-			var i = Index;
-
-			switch (Record.GetCategory(i).Type)
-			{
-				case ArtifactType.DoorGate:
-
-					Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, Record.GetCategory(i).Field4, null, Record.GetCategory(i).Field4 == 1 ? "Hidden" : "Normal"));
-
-					break;
-
-				default:
-
-					Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, Record.GetCategory(i).Field4, null, null));
-
-					break;
-			}
-
-			return Buf01.ToString();
+			return BuildValueCategoriesField(4);
 		}
 
 		/// <summary></summary>
 		/// <returns></returns>
 		public virtual string BuildValueCategoriesField5()
 		{
-			var i = Index;
+			return BuildValueCategoriesField(5);
+		}
 
-			switch (Record.GetCategory(i).Type)
-			{
-				case ArtifactType.InContainer:
-				case ArtifactType.OnContainer:
-				case ArtifactType.UnderContainer:
-				case ArtifactType.BehindContainer:
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual string BuildValueCategoriesField6()
+		{
+			return BuildValueCategoriesField(6);
+		}
 
-					Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, Record.GetCategory(i).Field5, null, gEngine.GetContainerDisplayCodeDesc((ContainerDisplayCode)Record.GetCategory(i).Field5)));
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual string BuildValueCategoriesField7()
+		{
+			return BuildValueCategoriesField(7);
+		}
 
-					break;
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual string BuildValueCategoriesField8()
+		{
+			return BuildValueCategoriesField(8);
+		}
 
-				default:
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual string BuildValueCategoriesField9()
+		{
+			return BuildValueCategoriesField(9);
+		}
 
-					Buf01.Append(gEngine.BuildValue(BufSize, FillChar, Offset, Record.GetCategory(i).Field5, null, null));
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual string BuildValueCategoriesField10()
+		{
+			return BuildValueCategoriesField(10);
+		}
 
-					break;
-			}
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual string BuildValueCategoriesField11()
+		{
+			return BuildValueCategoriesField(11);
+		}
 
-			return Buf01.ToString();
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual string BuildValueCategoriesField12()
+		{
+			return BuildValueCategoriesField(12);
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual string BuildValueCategoriesField13()
+		{
+			return BuildValueCategoriesField(13);
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual string BuildValueCategoriesField14()
+		{
+			return BuildValueCategoriesField(14);
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual string BuildValueCategoriesField15()
+		{
+			return BuildValueCategoriesField(15);
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual string BuildValueCategoriesField16()
+		{
+			return BuildValueCategoriesField(16);
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual string BuildValueCategoriesField17()
+		{
+			return BuildValueCategoriesField(17);
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual string BuildValueCategoriesField18()
+		{
+			return BuildValueCategoriesField(18);
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual string BuildValueCategoriesField19()
+		{
+			return BuildValueCategoriesField(19);
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual string BuildValueCategoriesField20()
+		{
+			return BuildValueCategoriesField(20);
 		}
 
 		/// <summary></summary>
@@ -3690,12 +4279,6 @@ namespace Eamon.Game.Helpers
 			if (Record.Uid <= 0)
 			{
 				Record.Uid = gDatabase.GetArtifactUid();
-
-				Record.IsUidRecycled = true;
-			}
-			else if (!EditRec)
-			{
-				Record.IsUidRecycled = false;
 			}
 		}
 

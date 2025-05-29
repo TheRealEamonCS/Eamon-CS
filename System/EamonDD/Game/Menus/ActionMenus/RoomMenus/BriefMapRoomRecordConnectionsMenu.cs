@@ -47,6 +47,8 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			var i = 0;
 
+			gEngine.DdSuppressPostInputSleep = true;
+
 			foreach (var room in gDatabase.RoomTable.Records)
 			{
 				if (showHeader)
@@ -143,6 +145,8 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 				i++;
 			}
+
+			gEngine.DdSuppressPostInputSleep = false;
 
 			if (nlFlag)
 			{

@@ -73,17 +73,22 @@ namespace Eamon.Game.Menus
 
 				Buf.Clear();
 
+				if (Title == "MAIN MENU")
+				{
+					gEngine.GetMainMenuInput = true;
+				}
+
 				rc = gEngine.In.ReadField(Buf, gEngine.BufSize02, null, ' ', '\0', true, "X", gEngine.ModifyCharToUpper, IsCharMenuItem, IsCharMenuItem);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
-				gEngine.Thread.Sleep(150);
+				gEngine.GetMainMenuInput = false;
 
 				var menuItem = MenuItemList.FirstOrDefault(mi => mi.SelectChar == Buf[0]);
 
 				Debug.Assert(menuItem != null);
 
-				if (menuItem.SubMenu == null)
+				if (menuItem == null || menuItem.SubMenu == null)
 				{
 					break;
 				}

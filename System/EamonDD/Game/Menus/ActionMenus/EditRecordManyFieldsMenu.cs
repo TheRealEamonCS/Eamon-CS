@@ -9,6 +9,7 @@ using System.Text;
 using Eamon;
 using Eamon.Framework;
 using Eamon.Framework.Helpers.Generic;
+using Eamon.Framework.Primitive.Enums;
 using EamonDD.Framework.Menus.ActionMenus;
 using static EamonDD.Game.Plugin.Globals;
 
@@ -53,15 +54,28 @@ namespace EamonDD.Game.Menus.ActionMenus
 			var editRecord01 = gEngine.CloneInstance(EditRecord);
 
 			Debug.Assert(editRecord01 != null);
-			
+
+			ICharacter character = null;
+
+			ICharacter character01 = null;
+
+			var artifact = editRecord01 as IArtifact;
+
+			if (artifact != null && gDatabase.ArtifactTableType == ArtifactTableType.CharArt)
+			{
+				var characterUid = artifact.IsCarriedByCharacter() ? artifact.GetCarriedByCharacterUid() : artifact.GetWornByCharacterUid();
+
+				character = gDatabase.FindCharacter(characterUid);
+			}
+
 			var helper = gEngine.CreateInstance<U>(x =>
 			{
+				x.RecordTable = RecordTable;
+
 				x.Record = editRecord01;
 			});
 			
 			helper.InputRecord(true, gEngine.Config.FieldDesc);
-
-			gEngine.Thread.Sleep(150);
 
 			if (!gEngine.CompareInstances(EditRecord, editRecord01))
 			{
@@ -73,23 +87,17 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
-				gEngine.Thread.Sleep(150);
-
 				if (Buf.Length > 0 && Buf[0] == 'N')
 				{
 					goto Cleanup;
 				}
 
-				var character = editRecord01 as ICharacter;
-
-				if (character != null)
+				if (artifact != null && gDatabase.ArtifactTableType == ArtifactTableType.CharArt)
 				{
-					character.StripUniqueCharsFromWeaponNames();
+					var characterUid = artifact.IsCarriedByCharacter() ? artifact.GetCarriedByCharacterUid() : artifact.GetWornByCharacterUid();
 
-					character.AddUniqueCharsToWeaponNames();
+					character01 = gDatabase.FindCharacter(characterUid);
 				}
-
-				var artifact = editRecord01 as IArtifact;
 
 				if (artifact != null)
 				{
@@ -117,6 +125,37 @@ namespace EamonDD.Game.Menus.ActionMenus
 				rc = RecordTable.AddRecord(editRecord01);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
+
+				if (gDatabase.ArtifactTableType == ArtifactTableType.CharArt)
+				{
+					if (character != null)
+					{
+						var result1 = gEngine.SwapGreaterArmorUidWithLesserShieldUid(character);
+
+						var result2 = character.StripUniqueCharsFromWeaponNames();
+
+						var result3 = character.AddUniqueCharsToWeaponNames();
+
+						if (result1 || result2 || result3)
+						{
+							gEngine.CharArtsModified = true;
+						}
+					}
+
+					if (character01 != null && character01 != character)
+					{
+						var result1 = gEngine.SwapGreaterArmorUidWithLesserShieldUid(character01);
+
+						var result2 = character01.StripUniqueCharsFromWeaponNames();
+
+						var result3 = character01.AddUniqueCharsToWeaponNames();
+
+						if (result1 || result2 || result3)
+						{
+							gEngine.CharArtsModified = true;
+						}
+					}
+				}
 
 				UpdateGlobals();
 			}

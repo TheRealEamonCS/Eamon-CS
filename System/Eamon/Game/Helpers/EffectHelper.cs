@@ -64,7 +64,7 @@ namespace Eamon.Game.Helpers
 		/// <returns></returns>
 		public virtual bool ValidateUid()
 		{
-			return Record.Uid > 0;
+			return Record.Uid > 0 && Record.Uid <= gEngine.NumRecords;
 		}
 
 		/// <summary></summary>
@@ -223,12 +223,6 @@ namespace Eamon.Game.Helpers
 			if (Record.Uid <= 0)
 			{
 				Record.Uid = gDatabase.GetEffectUid();
-
-				Record.IsUidRecycled = true;
-			}
-			else if (!EditRec)
-			{
-				Record.IsUidRecycled = false;
 			}
 		}
 

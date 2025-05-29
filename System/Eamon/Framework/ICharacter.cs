@@ -4,9 +4,8 @@
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Text;
-using Eamon.Framework.Args;
-using Eamon.Framework.Primitive.Classes;
 using Eamon.Framework.Primitive.Enums;
 
 namespace Eamon.Framework
@@ -44,16 +43,7 @@ namespace Eamon.Framework
 		long BankGold { get; set; }
 
 		/// <summary></summary>
-		Armor ArmorClass { get; set; }
-
-		/// <summary></summary>
-		ICharacterArtifact Armor { get; set; }
-
-		/// <summary></summary>
-		ICharacterArtifact Shield { get; set; }
-
-		/// <summary></summary>
-		ICharacterArtifact[] Weapons { get; set; }
+		Armor ArmorClass { get; }
 
 		#endregion
 
@@ -92,11 +82,6 @@ namespace Eamon.Framework
 		/// <summary></summary>
 		/// <param name="index"></param>
 		/// <returns></returns>
-		ICharacterArtifact GetWeapon(long index);
-
-		/// <summary></summary>
-		/// <param name="index"></param>
-		/// <returns></returns>
 		string GetSynonym(long index);
 
 		/// <summary></summary>
@@ -128,11 +113,6 @@ namespace Eamon.Framework
 		/// <param name="weapon"></param>
 		/// <param name="value"></param>
 		void SetWeaponAbility(Weapon weapon, long value);
-
-		/// <summary></summary>
-		/// <param name="index"></param>
-		/// <param name="value"></param>
-		void SetWeapon(long index, ICharacterArtifact value);
 
 		/// <summary></summary>
 		/// <param name="index"></param>
@@ -189,19 +169,6 @@ namespace Eamon.Framework
 		/// <returns></returns>
 		long GetMerchantAdjustedCharisma();
 
-		/// <summary></summary>
-		/// <returns></returns>
-		bool IsArmorActive();
-
-		/// <summary></summary>
-		/// <returns></returns>
-		bool IsShieldActive();
-
-		/// <summary></summary>
-		/// <param name="index"></param>
-		/// <returns></returns>
-		bool IsWeaponActive(long index);
-
 		/// <summary>
 		/// Evaluates this <see cref="ICharacter">Character</see>'s <see cref="Gender">Gender</see>, returning a value of type T.
 		/// </summary>
@@ -212,29 +179,31 @@ namespace Eamon.Framework
 		T EvalGender<T>(T maleValue, T femaleValue, T neutralValue);
 
 		/// <summary></summary>
+		/// <param name="characterFindFunc"></param>
+		/// <returns></returns>
+		IList<IArtifact> GetCarriedList(Func<IArtifact, bool> characterFindFunc = null);
+
+		/// <summary></summary>
+		/// <param name="characterFindFunc"></param>
+		/// <returns></returns>
+		IList<IArtifact> GetWornList(Func<IArtifact, bool> characterFindFunc = null);
+
+		/// <summary></summary>
+		/// <param name="characterFindFunc"></param>
+		/// <returns></returns>
+		IList<IArtifact> GetContainedList(Func<IArtifact, bool> characterFindFunc = null);
+
+		/// <summary></summary>
 		/// <param name="weight"></param>
 		/// <param name="characterFindFunc"></param>
-		/// <param name="artifactFindFunc"></param>
-		/// <param name="recurse"></param>
 		/// <returns></returns>
-		RetCode GetFullInventoryWeight(ref long weight, Func<IArtifact, bool> characterFindFunc = null, Func<IArtifact, bool> artifactFindFunc = null, bool recurse = false);
+		RetCode GetFullInventoryWeight(ref long weight, Func<IArtifact, bool> characterFindFunc = null);
 
 		/// <summary></summary>
 		/// <param name="weapon"></param>
 		/// <param name="baseOddsToHit"></param>
 		/// <returns></returns>
-		RetCode GetBaseOddsToHit(ICharacterArtifact weapon, ref long baseOddsToHit);
-
-		/// <summary></summary>
-		/// <param name="index"></param>
-		/// <param name="baseOddsToHit"></param>
-		/// <returns></returns>
-		RetCode GetBaseOddsToHit(long index, ref long baseOddsToHit);
-
-		/// <summary></summary>
-		/// <param name="count"></param>
-		/// <returns></returns>
-		RetCode GetWeaponCount(ref long count);
+		RetCode GetBaseOddsToHit(IArtifact weapon, ref long baseOddsToHit);
 
 		/// <summary></summary>
 		/// <param name="buf"></param>
@@ -243,15 +212,12 @@ namespace Eamon.Framework
 		RetCode ListWeapons(StringBuilder buf, bool capitalize = true);
 
 		/// <summary></summary>
-		void StripUniqueCharsFromWeaponNames();
-
-		/// <summary></summary>
-		void AddUniqueCharsToWeaponNames();
-
-		/// <summary></summary>
-		/// <param name="character"></param>
 		/// <returns></returns>
-		RetCode CopyProperties(ICharacter character);
+		bool StripUniqueCharsFromWeaponNames();
+
+		/// <summary></summary>
+		/// <returns></returns>
+		bool AddUniqueCharsToWeaponNames();
 
 		#endregion
 	}

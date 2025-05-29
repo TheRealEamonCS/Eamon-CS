@@ -5,7 +5,7 @@
     One for Windows with net7.0-windows TFM, one for macOS with net7.0-macos and one with net7.0 TFM for Linux.-->
     <TargetFramework>net8.0</TargetFramework>
     <ApplicationIcon>Resources\ten_sided_die.ico</ApplicationIcon>
-    <Version>3.0.0.0</Version>
+    <Version>3.1.0.0</Version>
     <Authors>Michael Penner</Authors>
     <Company>Michael Penner</Company>
     <Product>The Wonderful World of Eamon CS</Product>

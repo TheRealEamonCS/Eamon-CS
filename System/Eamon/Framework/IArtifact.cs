@@ -103,6 +103,96 @@ namespace Eamon.Framework
 		long Field5 { get; set; }
 
 		/// <summary>
+		/// Gets or sets the primary <see cref="IArtifactCategory.Field6">Field6</see> of this <see cref="IArtifact">Artifact</see>,
+		/// a convenience to emulate Eamon Deluxe.
+		/// </summary>
+		long Field6 { get; set; }
+
+		/// <summary>
+		/// Gets or sets the primary <see cref="IArtifactCategory.Field7">Field7</see> of this <see cref="IArtifact">Artifact</see>,
+		/// a convenience to emulate Eamon Deluxe.
+		/// </summary>
+		long Field7 { get; set; }
+
+		/// <summary>
+		/// Gets or sets the primary <see cref="IArtifactCategory.Field8">Field8</see> of this <see cref="IArtifact">Artifact</see>,
+		/// a convenience to emulate Eamon Deluxe.
+		/// </summary>
+		long Field8 { get; set; }
+
+		/// <summary>
+		/// Gets or sets the primary <see cref="IArtifactCategory.Field9">Field9</see> of this <see cref="IArtifact">Artifact</see>,
+		/// a convenience to emulate Eamon Deluxe.
+		/// </summary>
+		long Field9 { get; set; }
+
+		/// <summary>
+		/// Gets or sets the primary <see cref="IArtifactCategory.Field10">Field10</see> of this <see cref="IArtifact">Artifact</see>,
+		/// a convenience to emulate Eamon Deluxe.
+		/// </summary>
+		long Field10 { get; set; }
+
+		/// <summary>
+		/// Gets or sets the primary <see cref="IArtifactCategory.Field11">Field11</see> of this <see cref="IArtifact">Artifact</see>,
+		/// a convenience to emulate Eamon Deluxe.
+		/// </summary>
+		long Field11 { get; set; }
+
+		/// <summary>
+		/// Gets or sets the primary <see cref="IArtifactCategory.Field12">Field12</see> of this <see cref="IArtifact">Artifact</see>,
+		/// a convenience to emulate Eamon Deluxe.
+		/// </summary>
+		long Field12 { get; set; }
+
+		/// <summary>
+		/// Gets or sets the primary <see cref="IArtifactCategory.Field13">Field13</see> of this <see cref="IArtifact">Artifact</see>,
+		/// a convenience to emulate Eamon Deluxe.
+		/// </summary>
+		long Field13 { get; set; }
+
+		/// <summary>
+		/// Gets or sets the primary <see cref="IArtifactCategory.Field14">Field14</see> of this <see cref="IArtifact">Artifact</see>,
+		/// a convenience to emulate Eamon Deluxe.
+		/// </summary>
+		long Field14 { get; set; }
+
+		/// <summary>
+		/// Gets or sets the primary <see cref="IArtifactCategory.Field15">Field15</see> of this <see cref="IArtifact">Artifact</see>,
+		/// a convenience to emulate Eamon Deluxe.
+		/// </summary>
+		long Field15 { get; set; }
+
+		/// <summary>
+		/// Gets or sets the primary <see cref="IArtifactCategory.Field16">Field16</see> of this <see cref="IArtifact">Artifact</see>,
+		/// a convenience to emulate Eamon Deluxe.
+		/// </summary>
+		long Field16 { get; set; }
+
+		/// <summary>
+		/// Gets or sets the primary <see cref="IArtifactCategory.Field17">Field17</see> of this <see cref="IArtifact">Artifact</see>,
+		/// a convenience to emulate Eamon Deluxe.
+		/// </summary>
+		long Field17 { get; set; }
+
+		/// <summary>
+		/// Gets or sets the primary <see cref="IArtifactCategory.Field18">Field18</see> of this <see cref="IArtifact">Artifact</see>,
+		/// a convenience to emulate Eamon Deluxe.
+		/// </summary>
+		long Field18 { get; set; }
+
+		/// <summary>
+		/// Gets or sets the primary <see cref="IArtifactCategory.Field19">Field19</see> of this <see cref="IArtifact">Artifact</see>,
+		/// a convenience to emulate Eamon Deluxe.
+		/// </summary>
+		long Field19 { get; set; }
+
+		/// <summary>
+		/// Gets or sets the primary <see cref="IArtifactCategory.Field20">Field20</see> of this <see cref="IArtifact">Artifact</see>,
+		/// a convenience to emulate Eamon Deluxe.
+		/// </summary>
+		long Field20 { get; set; }
+
+		/// <summary>
 		/// Gets the <see cref="IArtifactCategory">ArtifactCategory</see> for this <see cref="IArtifact">Artifact</see> corresponding
 		/// to <see cref="ArtifactType.Gold">Gold</see>; intended as a convenience.
 		/// </summary>
@@ -274,6 +364,10 @@ namespace Eamon.Framework
 		bool HasMoved(long oldLocation, long newLocation);
 
 		/// <summary></summary>
+		/// <returns></returns>
+		bool IsCarriedByCharacter();
+
+		/// <summary></summary>
 		/// <param name="monsterType"></param>
 		/// <param name="recurse"></param>
 		/// <returns></returns>
@@ -282,6 +376,10 @@ namespace Eamon.Framework
 		/// <summary></summary>
 		/// <returns></returns>
 		bool IsCarriedByContainer();
+
+		/// <summary></summary>
+		/// <returns></returns>
+		bool IsWornByCharacter();
 
 		/// <summary></summary>
 		/// <param name="monsterType"></param>
@@ -316,6 +414,11 @@ namespace Eamon.Framework
 		bool IsInLimbo(bool recurse = false);
 
 		/// <summary></summary>
+		/// <param name="characterUid"></param>
+		/// <returns></returns>
+		bool IsCarriedByCharacterUid(long characterUid);
+
+		/// <summary></summary>
 		/// <param name="monsterUid"></param>
 		/// <param name="recurse"></param>
 		/// <returns></returns>
@@ -326,6 +429,11 @@ namespace Eamon.Framework
 		/// <param name="recurse"></param>
 		/// <returns></returns>
 		bool IsCarriedByContainerUid(long containerUid, bool recurse = false);
+
+		/// <summary></summary>
+		/// <param name="characterUid"></param>
+		/// <returns></returns>
+		bool IsWornByCharacterUid(long characterUid);
 
 		/// <summary></summary>
 		/// <param name="monsterUid"></param>
@@ -363,6 +471,11 @@ namespace Eamon.Framework
 		bool IsCarriedByContainerContainerTypeExposedToRoomUid(long roomUid, bool recurse = false);
 
 		/// <summary></summary>
+		/// <param name="character"></param>
+		/// <returns></returns>
+		bool IsCarriedByCharacter(ICharacter character);
+
+		/// <summary></summary>
 		/// <param name="monster"></param>
 		/// <param name="recurse"></param>
 		/// <returns></returns>
@@ -373,6 +486,11 @@ namespace Eamon.Framework
 		/// <param name="recurse"></param>
 		/// <returns></returns>
 		bool IsCarriedByContainer(IArtifact container, bool recurse = false);
+
+		/// <summary></summary>
+		/// <param name="character"></param>
+		/// <returns></returns>
+		bool IsWornByCharacter(ICharacter character);
 
 		/// <summary></summary>
 		/// <param name="monster"></param>
@@ -410,6 +528,10 @@ namespace Eamon.Framework
 		bool IsCarriedByContainerContainerTypeExposedToRoom(IRoom room, bool recurse = false);
 
 		/// <summary></summary>
+		/// <returns></returns>
+		long GetCarriedByCharacterUid();
+
+		/// <summary></summary>
 		/// <param name="recurse"></param>
 		/// <returns></returns>
 		long GetCarriedByMonsterUid(bool recurse = false);
@@ -418,6 +540,10 @@ namespace Eamon.Framework
 		/// <param name="recurse"></param>
 		/// <returns></returns>
 		long GetCarriedByContainerUid(bool recurse = false);
+
+		/// <summary></summary>
+		/// <returns></returns>
+		long GetWornByCharacterUid();
 
 		/// <summary></summary>
 		/// <param name="recurse"></param>
@@ -435,6 +561,10 @@ namespace Eamon.Framework
 		long GetEmbeddedInRoomUid(bool recurse = false);
 
 		/// <summary></summary>
+		/// <returns></returns>
+		ICharacter GetCarriedByCharacter();
+
+		/// <summary></summary>
 		/// <param name="recurse"></param>
 		/// <returns></returns>
 		IMonster GetCarriedByMonster(bool recurse = false);
@@ -443,6 +573,10 @@ namespace Eamon.Framework
 		/// <param name="recurse"></param>
 		/// <returns></returns>
 		IArtifact GetCarriedByContainer(bool recurse = false);
+
+		/// <summary></summary>
+		/// <returns></returns>
+		ICharacter GetWornByCharacter();
 
 		/// <summary></summary>
 		/// <param name="recurse"></param>
@@ -464,6 +598,10 @@ namespace Eamon.Framework
 		ContainerType GetCarriedByContainerContainerType();
 
 		/// <summary></summary>
+		/// <param name="characterUid"></param>
+		void SetCarriedByCharacterUid(long characterUid);
+
+		/// <summary></summary>
 		/// <param name="monsterUid"></param>
 		void SetCarriedByMonsterUid(long monsterUid);
 
@@ -471,6 +609,10 @@ namespace Eamon.Framework
 		/// <param name="containerUid"></param>
 		/// <param name="containerType"></param>
 		void SetCarriedByContainerUid(long containerUid, ContainerType containerType = ContainerType.In);
+
+		/// <summary></summary>
+		/// <param name="characterUid"></param>
+		void SetWornByCharacterUid(long characterUid);
 
 		/// <summary></summary>
 		/// <param name="monsterUid"></param>
@@ -488,6 +630,10 @@ namespace Eamon.Framework
 		void SetInLimbo();
 
 		/// <summary></summary>
+		/// <param name="character"></param>
+		void SetCarriedByCharacter(ICharacter character);
+
+		/// <summary></summary>
 		/// <param name="monster"></param>
 		void SetCarriedByMonster(IMonster monster);
 
@@ -495,6 +641,10 @@ namespace Eamon.Framework
 		/// <param name="container"></param>
 		/// <param name="containerType"></param>
 		void SetCarriedByContainer(IArtifact container, ContainerType containerType = ContainerType.In);
+
+		/// <summary></summary>
+		/// <param name="character"></param>
+		void SetWornByCharacter(ICharacter character);
 
 		/// <summary></summary>
 		/// <param name="monster"></param>
@@ -760,6 +910,10 @@ namespace Eamon.Framework
 		/// <param name="recordNameListArgs"></param>
 		/// <returns></returns>
 		string GetContainerContentsDesc(IRecordNameListArgs recordNameListArgs = null);
+
+		/// <summary></summary>
+		/// <param name="modifiedAc"></param>
+		void SyncArtifactCategories(IArtifactCategory modifiedAc);
 
 		#endregion
 	}

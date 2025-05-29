@@ -38,6 +38,9 @@ namespace Eamon.Framework
 		string ArtifactFileName { get; set; }
 
 		/// <summary></summary>
+		string CharArtFileName { get; set; }
+
+		/// <summary></summary>
 		string EffectFileName { get; set; }
 
 		/// <summary></summary>

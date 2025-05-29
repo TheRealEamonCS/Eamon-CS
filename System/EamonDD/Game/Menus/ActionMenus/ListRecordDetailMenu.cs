@@ -29,7 +29,7 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			gEngine.PrintTitle(Title, true);
 
-			var maxRecUid = RecordTable.GetRecordUid(false);
+			var maxRecUid = RecordTable.CurrUid;
 
 			gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(43, '\0', 0, string.Format("Enter the starting {0} Uid", RecordTypeName), "1"));
 
@@ -55,7 +55,11 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			var helper = gEngine.CreateInstance<U>();
 
+			helper.RecordTable = RecordTable;
+			
 			var records = RecordTable.Records.Where(x => x.Uid >= recUids[0] && x.Uid <= recUids[1]);
+
+			gEngine.DdSuppressPostInputSleep = true;
 
 			foreach (var record in records)
 			{
@@ -80,6 +84,8 @@ namespace EamonDD.Game.Menus.ActionMenus
 					break;
 				}
 			}
+
+			gEngine.DdSuppressPostInputSleep = false;
 
 			gOut.Print("{0}", gEngine.LineSep);
 

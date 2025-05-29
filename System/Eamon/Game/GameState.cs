@@ -9,6 +9,7 @@ using Eamon.Framework;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Framework.Utilities;
 using Eamon.Game.Attributes;
+using Eamon.Game.Utilities;
 using static Eamon.Game.Plugin.Globals;
 
 namespace Eamon.Game
@@ -89,9 +90,6 @@ namespace Eamon.Game
 		[FieldName(990)]
 		public virtual long PauseCombatActions { get; set; }
 
-		[FieldName(1000)]
-		public virtual long ImportedArtUidsIdx { get; set; }
-
 		[FieldName(1020)]
 		public virtual long UsedWpnIdx { get; set; }
 
@@ -99,10 +97,10 @@ namespace Eamon.Game
 		public virtual long[] Sa { get; set; }
 
 		[FieldName(1060)]
-		public virtual long[] ImportedArtUids { get; set; }
+		public virtual IList<long> ImportedArtUids { get; set; }
 
 		[FieldName(1080)]
-		public virtual long[] HeldWpnUids { get; set; }
+		public virtual IList<long> HeldWpnUids { get; set; }
 
 		[FieldName(1100)]
 		public virtual IEventHeap BeforePrintPlayerRoomEventHeap { get; set; }
@@ -125,7 +123,7 @@ namespace Eamon.Game
 				// Get rid of managed resources
 			}
 
-			if (IsUidRecycled && Uid > 0)
+			if (Uid > 0)
 			{
 				gDatabase.FreeGameStateUid(Uid);
 
@@ -200,12 +198,12 @@ namespace Eamon.Game
 
 		public virtual long GetImportedArtUid(long index)
 		{
-			return ImportedArtUids[index];
+			return ImportedArtUids[(int)index];
 		}
 
 		public virtual long GetHeldWpnUid(long index)
 		{
-			return HeldWpnUids[index];
+			return HeldWpnUids[(int)index];
 		}
 
 		public virtual void SetSa(long index, long value)
@@ -218,14 +216,14 @@ namespace Eamon.Game
 			SetSa((long)spell, value);
 		}
 
-		public virtual void SetImportedArtUid(long index, long value)
+		public virtual void SetImportedArtUid(long value)
 		{
-			ImportedArtUids[index] = value;
+			ImportedArtUids.Add(value);
 		}
 
-		public virtual void SetHeldWpnUid(long index, long value)
+		public virtual void SetHeldWpnUid(long value)
 		{
-			HeldWpnUids[index] = value;
+			HeldWpnUids.Add(value);
 		}
 
 		public virtual void ModSa(long index, long value)
@@ -244,17 +242,15 @@ namespace Eamon.Game
 
 		public GameState()
 		{
-			var character = gEngine.CreateInstance<ICharacter>();
-
-			Debug.Assert(character != null);
-
 			EnhancedParser = !gEngine.IsRulesetVersion(5);
 
-			Sa = new long[character.SpellAbilities.Length];
+			Sa = new long[(long)EnumUtil.GetLastValue<Spell>() + 1];
 
-			ImportedArtUids = new long[character.Weapons.Length + 2];
+			UsedWpnIdx = -1;
 
-			HeldWpnUids = new long[character.Weapons.Length];
+			ImportedArtUids = new List<long>();
+
+			HeldWpnUids = new List<long>();
 
 			BeforePrintPlayerRoomEventHeap = gEngine.CreateInstance<IEventHeap>();
 

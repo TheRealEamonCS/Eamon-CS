@@ -6,12 +6,12 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using Eamon;
 using Eamon.Framework;
 using Eamon.Framework.Helpers;
-using Eamon.Framework.Primitive.Classes;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using Eamon.Game.Extensions;
@@ -35,7 +35,6 @@ namespace EamonMH.Game.Menus.ActionMenus
 			long ap = 0;
 			long ap0;
 			long ap1;
-			long i;
 
 			gOut.Print("{0}", gEngine.LineSep);
 
@@ -53,9 +52,9 @@ namespace EamonMH.Game.Menus.ActionMenus
 				Rtio = gEngine.GetMerchantRtio(c2);
 			}
 
-			i = Array.FindIndex(gCharacter.Weapons, w => !w.IsActive());
+			var artifactList = gCharacter.GetCarriedList().Where(a => a.GeneralWeapon != null).ToList();
 
-			if (i < 0)
+			if (artifactList.Count >= gEngine.NumCharacterWeapons)
 			{
 				gOut.Print("Grendel says, \"I'm sorry, but you're going to have to try and sell one of your weapons at the store to the north.  You know the law:  No more than four weapons per person!  Come back when you've sold a weapon.\"");
 
@@ -73,8 +72,6 @@ namespace EamonMH.Game.Menus.ActionMenus
 			rc = gEngine.In.ReadField(Buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharUOrCOrX, gEngine.IsCharUOrCOrX);
 
 			Debug.Assert(gEngine.IsSuccess(rc));
-
-			gEngine.Thread.Sleep(150);
 
 			gOut.Print("{0}", gEngine.LineSep);
 
@@ -121,8 +118,6 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
-				gEngine.Thread.Sleep(150);
-
 				gOut.Print("{0}", gEngine.LineSep);
 
 				if (Buf.Length == 0 || Buf[0] == 'X')
@@ -138,7 +133,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 				{
 					gOut.Print("\"Good choice!  A great bargain!\"");
 
-					UpdateCharacterWeapon(i, ap, gEngine.CloneInstance(weaponList[j][k - 1]), j, 12 * k, 2, 8 * k, j == (long)Weapon.Bow ? 2 : 1);
+					CreateCharacterWeapon(ap, gEngine.CloneInstance(weaponList[j][k - 1]), j, 12 * k, 2, 8 * k, j == (long)Weapon.Bow ? 2 : 1);
 
 					goto Cleanup;
 				}
@@ -173,7 +168,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 				Buf.Clear();
 
-				rc = gEngine.In.ReadField(Buf, gEngine.CharArtNameLen, null, ' ', '\0', false, null, null, null, null);
+				rc = gEngine.In.ReadField(Buf, gEngine.ArtNameLen, null, ' ', '\0', false, null, null, null, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -188,12 +183,12 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 				var artifactHelper = gEngine.CreateInstance<IArtifactHelper>(x =>
 				{
+					x.RecordTable = gDatabase.ArtifactTable;
+					
 					x.Record = wpnArtifact;
 				});
 
 				Debug.Assert(artifactHelper != null);
-
-				gEngine.Thread.Sleep(150);
 
 				if (!artifactHelper.ValidateField("Name") || wpnArtifact.Name.Equals("NONE", StringComparison.OrdinalIgnoreCase))
 				{
@@ -291,8 +286,6 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
-				gEngine.Thread.Sleep(150);
-
 				gOut.Print("{0}", gEngine.LineSep);
 
 				if (Buf.Length == 0 || Buf[0] == 'N')
@@ -304,7 +297,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 				{
 					gOut.Print("Grendel works on your weapon, often calling in wizards and weapon experts.  Finally he finishes.  \"I think you will be satisfied with this.\" he says modestly.");
 
-					UpdateCharacterWeapon(i, ap, wpnName01, j, wpnComplexity, wpnDice, wpnSides, j == (long)Weapon.Bow ? 2 : 1);
+					CreateCharacterWeapon(ap, wpnName01, j, wpnComplexity, wpnDice, wpnSides, j == (long)Weapon.Bow ? 2 : 1);
 
 					goto Cleanup;
 				}
@@ -356,8 +349,6 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 			Debug.Assert(gEngine.IsSuccess(rc));
 
-			gEngine.Thread.Sleep(150);
-
 			gOut.Print("{0}", gEngine.LineSep);
 
 			Debug.Assert(Buf.Length > 0);
@@ -366,7 +357,6 @@ namespace EamonMH.Game.Menus.ActionMenus
 		}
 
 		/// <summary></summary>
-		/// <param name="i"></param>
 		/// <param name="ap"></param>
 		/// <param name="name"></param>
 		/// <param name="type"></param>
@@ -374,39 +364,76 @@ namespace EamonMH.Game.Menus.ActionMenus
 		/// <param name="dice"></param>
 		/// <param name="sides"></param>
 		/// <param name="numHands"></param>
-		public virtual void UpdateCharacterWeapon(long i, long ap, string name, long type, long complexity, long dice, long sides, long numHands)
+		public virtual void CreateCharacterWeapon(long ap, string name, long type, long complexity, long dice, long sides, long numHands)
 		{
-			var cw = gEngine.CreateInstance<ICharacterArtifact>(x =>
+			var weapon = gEngine.GetWeapon((Weapon)type);
+
+			Debug.Assert(weapon != null);
+
+			var weaponName = gEngine.CloneInstance(weapon.MarcosName ?? weapon.Name).ToLower();
+
+			gCharacter.HeldGold -= ap;
+
+			var artifact = gEngine.CreateInstance<IArtifact>(x =>
 			{
+				x.SetArtifactCategoryCount(1);
+
+				x.Uid = gDatabase.GetArtifactUid();
+
 				x.Name = name;
-				x.Desc = string.Format("This is {0}.", name);
+
+				x.Desc = string.Format("{0} your {1}, {2}.", weapon.MarcosIsPlural ? "These are" : "This is", weaponName, name);
+
+				x.Synonyms = new string[] { weaponName };
+
+				x.Seen = true;
+
+				x.Moved = true;
+
+				x.IsCharOwned = true;
+
+				x.IsListed = true;
+
 				x.IsPlural = false;
+
 				x.PluralType = PluralType.None;
+
 				x.ArticleType = ArticleType.None;
-				x.Weight = 15;
+
 				x.Type = (complexity >= 15 || dice * sides >= 25) ? ArtifactType.MagicWeapon : ArtifactType.Weapon;
+
 				x.Field1 = complexity;
+
 				x.Field2 = type;
+
 				x.Field3 = dice;
+
 				x.Field4 = sides;
+
 				x.Field5 = numHands;
+
+				x.SetFieldsValue(6, gEngine.NumArtifactCategoryFields, 0);
+
+				var imw = false;
+
+				x.Value = (long)gEngine.GetWeaponPriceOrValue(name, complexity, (Weapon)type, dice, sides, numHands, false, ref imw);
+
+				x.Weight = 15;
+
+				x.SetCarriedByCharacter(gCharacter);
 			});
 
-			var imw = false;
-			
-			cw.Value = (long)gEngine.GetWeaponPriceOrValue(cw, false, ref imw);
+			var rc = gDatabase.AddArtifact(artifact);
 
-			gCharacter.SetWeapon(i, cw);
-
-			gCharacter.GetWeapon(i).Parent = gCharacter;
+			Debug.Assert(gEngine.IsSuccess(rc));
 
 			gCharacter.StripUniqueCharsFromWeaponNames();
 
 			gCharacter.AddUniqueCharsToWeaponNames();
 
-			gCharacter.HeldGold -= ap;
-
 			gEngine.CharactersModified = true;
+
+			gEngine.CharArtsModified = true;
 		}
 
 		/// <summary></summary>

@@ -62,6 +62,19 @@ namespace Eamon.Game.Plugin
 			}
 		}
 
+		/// <summary>Gets the <see cref="ICharacter">Character</see> database.</summary>
+		/// <remarks>
+		/// The <see cref="IRecordDb{T}.Records">Records</see> property provides access to the Character collection. Additionally, you can 
+		/// get or set a specific Character by using its <see cref="IGameBase.Uid">Uid</see> as an indexer.
+		/// </remarks>
+		public static IRecordDb<ICharacter> gCHRDB
+		{
+			get
+			{
+				return gEngine.CHRDB;
+			}
+		}
+
 		/// <summary>Gets the <see cref="IRoom">Room</see> database.</summary>
 		/// <remarks>
 		/// The <see cref="IRecordDb{T}.Records">Records</see> property provides access to the Room collection. Additionally, you can 

@@ -100,9 +100,13 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			Buf.Clear();
 
+			gEngine.DdSuppressPostInputSleep = true;
+
 			rc = gEngine.In.ReadField(Buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, null);
 
 			Debug.Assert(gEngine.IsSuccess(rc));
+
+			gEngine.DdSuppressPostInputSleep = false;
 
 			if (Buf.Length == 0 || Buf[0] != 'Y')
 			{

@@ -15,6 +15,7 @@ namespace Eamon.Game.Primitive.Classes
 	public class MonsterSpell : IMonsterSpell
 	{
 		[ExcludeFromSerialization]
+		[ExcludeFromDeepCopy]
 		public virtual IMonster Parent { get; set; }
 
 		public virtual Enums.Spell Spell { get; set; }

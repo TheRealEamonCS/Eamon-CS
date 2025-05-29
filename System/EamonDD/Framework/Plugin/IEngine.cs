@@ -50,6 +50,9 @@ namespace EamonDD.Framework.Plugin
 		bool BortCommand { get; set; }
 
 		/// <summary></summary>
+		bool DdSuppressPostInputSleep { get; set; }
+
+		/// <summary></summary>
 		bool ConfigsModified { get; set; }
 
 		/// <summary></summary>
@@ -68,6 +71,9 @@ namespace EamonDD.Framework.Plugin
 		bool ArtifactsModified { get; set; }
 
 		/// <summary></summary>
+		bool CharArtsModified { get; set; }
+
+		/// <summary></summary>
 		bool EffectsModified { get; set; }
 
 		/// <summary></summary>
@@ -83,6 +89,10 @@ namespace EamonDD.Framework.Plugin
 		/// <summary></summary>
 		/// <returns></returns>
 		bool IsAdventureFilesetLoaded();
+
+		/// <summary></summary>
+		/// <returns></returns>
+		bool IsCharacterInventoryLoaded();
 
 		/// <summary></summary>
 		/// <param name="secondPass"></param>

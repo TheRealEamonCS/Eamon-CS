@@ -48,7 +48,18 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			var character = record as ICharacter;
 
-			if (character != null && character.Status != Status.Alive && character.Status != Status.Dead)
+			var artifact = record as IArtifact;
+
+			if (character == null && artifact != null)
+			{
+				var characterUid = artifact.IsCarriedByCharacter() ? artifact.GetCarriedByCharacterUid() : artifact.GetWornByCharacterUid();
+
+				character = gDatabase.FindCharacter(characterUid);
+			}
+
+			var character01 = record as ICharacter;
+
+			if (character01 != null && character01.Status != Status.Alive && character01.Status != Status.Dead)
 			{
 				gOut.Print("{0} record Status not marked as Alive or Dead.", RecordTypeName);
 
@@ -57,14 +68,14 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			var helper = gEngine.CreateInstance<U>(x =>
 			{
+				x.RecordTable = RecordTable;
+				
 				x.Record = record;
 			});
 			
 			helper.ListRecord(true, true, false, true, false, false);
 
 			PrintPostListLineSep();
-
-			gEngine.Thread.Sleep(150);
 
 			gOut.Write("{0}Would you like to delete this {1} record (Y/N): ", Environment.NewLine, RecordTypeName);
 
@@ -74,16 +85,49 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			Debug.Assert(gEngine.IsSuccess(rc));
 
-			gEngine.Thread.Sleep(150);
-
 			if (Buf.Length > 0 && Buf[0] == 'N')
 			{
 				goto Cleanup;
 			}
 
+			if (character01 != null && gEngine.Config.DeleteCharArts && gDatabase.ArtifactTableType == ArtifactTableType.CharArt)
+			{
+				var artifactList = character01.GetContainedList();
+
+				foreach (var artifact01 in artifactList)
+				{
+					var artifact02 = gDatabase.RemoveArtifact(artifact01.Uid);
+
+					Debug.Assert(artifact02 != null);
+
+					artifact02.Dispose();
+
+					artifact02 = null;
+				}
+
+				if (artifactList.Count > 0)
+				{
+					gEngine.CharArtsModified = true;
+				}
+			}
+
 			record = RecordTable.RemoveRecord(recordUid);
 
 			Debug.Assert(record != null);
+
+			if (character != null && artifact != null && gDatabase.ArtifactTableType == ArtifactTableType.CharArt)
+			{
+				var result1 = gEngine.SwapGreaterArmorUidWithLesserShieldUid(character);
+
+				var result2 = character.StripUniqueCharsFromWeaponNames();
+
+				var result3 = character.AddUniqueCharsToWeaponNames();
+
+				if (result1 || result2 || result3)
+				{
+					gEngine.CharArtsModified = true;
+				}
+			}
 
 			record.Dispose();
 

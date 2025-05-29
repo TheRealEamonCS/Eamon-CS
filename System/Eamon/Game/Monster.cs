@@ -163,7 +163,7 @@ namespace Eamon.Game
 				// Get rid of managed resources
 			}
 
-			if (IsUidRecycled && Uid > 0)
+			if (Uid > 0)
 			{
 				gDatabase.FreeMonsterUid(Uid);
 
@@ -1269,6 +1269,8 @@ namespace Eamon.Game
 			RetCode rc;
 
 			long c, w, mwt;
+
+			Debug.Assert(!IsCharacterMonster());
 
 			rc = RetCode.Success;
 

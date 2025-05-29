@@ -4,13 +4,16 @@
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using Polenter.Serialization;
 using Eamon.Framework;
 using Eamon.Framework.DataStorage;
 using Eamon.Framework.DataStorage.Generic;
 using Eamon.Framework.Helpers;
 using Eamon.Framework.Helpers.Generic;
+using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using static Eamon.Game.Plugin.Globals;
 
@@ -19,6 +22,13 @@ namespace Eamon.Game.DataStorage
 	[ClassMappings]
 	public class Database : IDatabase
 	{
+		public IDbTable<IArtifact> _artifactTable;
+
+		public IDbTable<IArtifact> _charArtTable;
+
+		[ExcludeFromSerialization]
+		public virtual Stack<IDbTable<IArtifact>> ArtifactTableStack { get; set; }
+
 		public virtual IDbTable<IConfig> ConfigTable { get; set; }
 
 		public virtual IDbTable<IFileset> FilesetTable { get; set; }
@@ -29,7 +39,44 @@ namespace Eamon.Game.DataStorage
 
 		public virtual IDbTable<IRoom> RoomTable { get; set; }
 
-		public virtual IDbTable<IArtifact> ArtifactTable { get; set; }
+		public virtual IDbTable<IArtifact> ArtifactTable
+		{
+			get
+			{
+				return ArtifactTableStack.Count > 0 ? ArtifactTableStack.Peek() : _artifactTable;
+			}
+
+			set
+			{
+				if (ArtifactTableStack.Count > 0)
+				{
+					var table = ArtifactTableStack.Pop();
+
+					if (table == _charArtTable)
+					{
+						_charArtTable = value;
+
+						if (_charArtTable != null)
+						{
+							ArtifactTableStack.Push(_charArtTable);
+						}
+					}
+					else
+					{
+						_artifactTable = value;
+
+						if (_artifactTable != null)
+						{
+							ArtifactTableStack.Push(_artifactTable);
+						}
+					}
+				}
+				else
+				{
+					_artifactTable = value;
+				}
+			}
+		}
 
 		public virtual IDbTable<IEffect> EffectTable { get; set; }
 
@@ -38,6 +85,15 @@ namespace Eamon.Game.DataStorage
 		public virtual IDbTable<IHint> HintTable { get; set; }
 
 		public virtual IDbTable<IGameState> GameStateTable { get; set; }
+
+		[ExcludeFromSerialization]
+		public virtual ArtifactTableType ArtifactTableType
+		{
+			get
+			{
+				return ArtifactTableStack.Count > 0 && ArtifactTableStack.Peek() == _charArtTable && _charArtTable != null ? ArtifactTableType.CharArt : ArtifactTableType.Default;
+			}
+		}
 
 		public virtual RetCode LoadRecords<T, U>(ref IDbTable<T> table, string fileName, bool validate = true, bool printOutput = true) where T : class, IGameBase where U : class, IHelper<T>
 		{
@@ -81,6 +137,8 @@ namespace Eamon.Game.DataStorage
 			if (!gEngine.DisableValidation && validate)
 			{
 				var helper = gEngine.CreateInstance<U>();
+
+				helper.RecordTable = table01;
 
 				long i = 1;
 
@@ -1005,8 +1063,76 @@ namespace Eamon.Game.DataStorage
 			FreeRecordUid(GameStateTable, uid);
 		}
 
+		public virtual void PushArtifactTable(ArtifactTableType tableType)
+		{
+			if (!Enum.IsDefined(typeof(ArtifactTableType), tableType))
+			{
+				// PrintError
+
+				goto Cleanup;
+			}
+
+			var table = tableType == ArtifactTableType.CharArt ? _charArtTable : _artifactTable;
+
+			if (table == null)
+			{
+				// PrintError
+
+				goto Cleanup;
+			}
+
+			ArtifactTableStack.Push(table);
+
+		Cleanup:
+
+			;
+		}
+
+		public virtual void PopArtifactTable()
+		{
+			if (ArtifactTableStack.Count <= 0)
+			{
+				// PrintError
+
+				goto Cleanup;
+			}
+
+			ArtifactTableStack.Pop();
+
+		Cleanup:
+
+			;
+		}
+
+		public virtual void ExecuteOnArtifactTable(ArtifactTableType tableType, Action tableFunc)
+		{
+			if (!Enum.IsDefined(typeof(ArtifactTableType), tableType) || tableFunc == null)
+			{
+				// PrintError
+
+				goto Cleanup;
+			}
+
+			try
+			{
+				PushArtifactTable(tableType);
+
+				tableFunc();
+			}
+			finally
+			{
+				PopArtifactTable();
+			}
+
+		Cleanup:
+
+			;
+		}
+
 		public Database()
 		{
+			ArtifactTableStack = new Stack<IDbTable<IArtifact>>();
+
 			ConfigTable = gEngine.CreateInstance<IDbTable<IConfig>>();
 
 			FilesetTable = gEngine.CreateInstance<IDbTable<IFileset>>();
@@ -1017,7 +1143,9 @@ namespace Eamon.Game.DataStorage
 
 			RoomTable = gEngine.CreateInstance<IDbTable<IRoom>>();
 
-			ArtifactTable = gEngine.CreateInstance<IDbTable<IArtifact>>();
+			_artifactTable = gEngine.CreateInstance<IDbTable<IArtifact>>();
+
+			_charArtTable = gEngine.CreateInstance<IDbTable<IArtifact>>();
 
 			EffectTable = gEngine.CreateInstance<IDbTable<IEffect>>();
 

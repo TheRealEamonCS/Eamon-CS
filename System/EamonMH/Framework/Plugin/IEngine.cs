@@ -66,6 +66,9 @@ namespace EamonMH.Framework.Plugin
 		bool CharactersModified { get; set; }
 
 		/// <summary></summary>
+		bool CharArtsModified { get; set; }
+
+		/// <summary></summary>
 		bool EffectsModified { get; set; }
 
 		#endregion

@@ -10,6 +10,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using Eamon.Framework;
+using Eamon.Framework.DataStorage.Generic;
 using Eamon.Framework.Helpers.Generic;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
@@ -33,6 +34,8 @@ namespace Eamon.Game.Helpers.Generic
 		#endregion
 
 		#region Public Properties
+
+		public virtual IDbTable<T> RecordTable { get; set; }
 
 		public virtual T Record
 		{
@@ -582,13 +585,6 @@ namespace Eamon.Game.Helpers.Generic
 			ExcludeROFields = false;
 
 			ListNum = 1;
-		}
-
-		/// <summary></summary>
-		/// <returns></returns>
-		public virtual string GetPrintedNameIsUidRecycled()
-		{
-			return "Is Uid Recycled";
 		}
 
 		/// <summary></summary>

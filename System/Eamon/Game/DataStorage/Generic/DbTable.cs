@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Polenter.Serialization;
 using Eamon.Framework;
@@ -18,7 +19,7 @@ namespace Eamon.Game.DataStorage.Generic
 	{
 		public virtual ICollection<T> Records { get; set; }
 
-		public virtual IList<long> FreeUids { get; set; }
+		public virtual SortedSet<long> FreeUids { get; set; }
 
 		[ExcludeFromSerialization]
 		public virtual T FindRec { get; set; }
@@ -27,6 +28,8 @@ namespace Eamon.Game.DataStorage.Generic
 
 		public virtual RetCode FreeRecords(bool dispose = true)
 		{
+			Debug.Assert(CurrUid >= 0);
+
 			if (dispose)
 			{
 				foreach (var record in Records)
@@ -123,9 +126,16 @@ namespace Eamon.Game.DataStorage.Generic
 
 			Records.Add(result);
 
-			if (record.Uid > CurrUid)
+			Debug.Assert(CurrUid >= 0);
+
+			while (CurrUid < record.Uid)
 			{
-				CurrUid = record.Uid;
+				if (CurrUid + 1 < record.Uid)
+				{
+					FreeUids.Add(CurrUid + 1);
+				}
+
+				CurrUid++;
 			}
 
 		Cleanup:
@@ -185,24 +195,34 @@ namespace Eamon.Game.DataStorage.Generic
 
 			result = -1;
 
-			if (allocate)
+			Debug.Assert(CurrUid >= 0);
+
+			if (FreeUids.Count > 0)
 			{
-				if (FreeUids.Count > 0)
-				{
-					result = FreeUids[0];
+				result = FreeUids.Min;
 
-					FreeUids.RemoveAt(0);
-				}
-				else
+				if (allocate)
 				{
-					CurrUid++;
-
-					result = CurrUid;
+					FreeUids.Remove(result);
 				}
 			}
 			else
 			{
-				result = CurrUid;
+				result = CurrUid + 1;
+
+				if (result > gEngine.NumRecords)
+				{
+					var record = Records.FirstOrDefault();
+
+					var recordTypeName = record != null ? record.GetType().Name : gEngine.UnknownName;
+
+					throw new InvalidOperationException(string.Format("{0} database table has exhausted all available Uids.", recordTypeName));
+				}
+
+				if (allocate)
+				{
+					CurrUid++;
+				}
 			}
 
 			return result;
@@ -217,11 +237,18 @@ namespace Eamon.Game.DataStorage.Generic
 				goto Cleanup;
 			}
 
+			Debug.Assert(CurrUid >= 0);
+
 			if (CurrUid == uid)
 			{
 				CurrUid--;
+
+				while (FreeUids.Count > 0 && FreeUids.Remove(CurrUid))
+				{
+					CurrUid--;
+				}
 			}
-			else if (!FreeUids.Contains(uid))
+			else if (CurrUid > uid)
 			{
 				FreeUids.Add(uid);
 			}
@@ -235,7 +262,7 @@ namespace Eamon.Game.DataStorage.Generic
 		{
 			Records = new BTree<T>(16);
 
-			FreeUids = new List<long>();
+			FreeUids = new SortedSet<long>();
 
 			FindRec = gEngine.CreateInstance<T>();
 		}

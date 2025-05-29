@@ -54,6 +54,13 @@ namespace Eamon.Game.Helpers
 
 		/// <summary></summary>
 		/// <returns></returns>
+		public virtual string GetPrintedNameDeleteCharArts()
+		{
+			return "Delete CharArts";
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
 		public virtual string GetPrintedNameFieldDesc()
 		{
 			return "Field Descs";
@@ -79,7 +86,7 @@ namespace Eamon.Game.Helpers
 		/// <returns></returns>
 		public virtual bool ValidateUid()
 		{
-			return Record.Uid > 0;
+			return Record.Uid > 0 && Record.Uid <= gEngine.NumRecords;
 		}
 
 		/// <summary></summary>
@@ -132,6 +139,16 @@ namespace Eamon.Game.Helpers
 			var fullDesc = "Enter whether to allow user input of Uids or use system generated Uids when adding new records.";
 
 			var briefDesc = string.Format("{0}=Allow user input of Uids; {1}=Use system generated Uids", Convert.ToInt64(false), Convert.ToInt64(true));
+
+			gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc);
+		}
+
+		/// <summary></summary>
+		public virtual void PrintDescDeleteCharArts()
+		{
+			var fullDesc = "Enter whether to cascade deletion of Character records to associated Artifact records.";
+
+			var briefDesc = string.Format("{0}=Disable cascade delete; {1}=Enable cascade delete", Convert.ToInt64(false), Convert.ToInt64(true));
 
 			gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc);
 		}
@@ -190,6 +207,14 @@ namespace Eamon.Game.Helpers
 			var listNum = NumberFields ? ListNum++ : 0;
 
 			gOut.Write("{0}{1}{2}", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("GenerateUids"), null), Convert.ToInt64(Record.GenerateUids));
+		}
+
+		/// <summary></summary>
+		public virtual void ListDeleteCharArts()
+		{
+			var listNum = NumberFields ? ListNum++ : 0;
+
+			gOut.Write("{0}{1}{2}", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("DeleteCharArts"), null), Convert.ToInt64(Record.DeleteCharArts));
 		}
 
 		/// <summary></summary>
@@ -309,6 +334,38 @@ namespace Eamon.Game.Helpers
 		}
 
 		/// <summary></summary>
+		public virtual void InputDeleteCharArts()
+		{
+			var fieldDesc = FieldDesc;
+
+			var deleteCharArts = Record.DeleteCharArts;
+
+			while (true)
+			{
+				Buf.SetFormat(EditRec ? "{0}" : "", Convert.ToInt64(deleteCharArts));
+
+				PrintFieldDesc("DeleteCharArts", EditRec, EditField, fieldDesc);
+
+				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("DeleteCharArts"), "1"));
+
+				var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, "1", null, gEngine.IsChar0Or1, null);
+
+				Debug.Assert(gEngine.IsSuccess(rc));
+
+				Record.DeleteCharArts = Convert.ToInt64(Buf.Trim().ToString()) != 0 ? true : false;
+
+				if (ValidateField("DeleteCharArts"))
+				{
+					break;
+				}
+
+				fieldDesc = FieldDesc.Brief;
+			}
+
+			gOut.Print("{0}", gEngine.LineSep);
+		}
+
+		/// <summary></summary>
 		public virtual void InputFieldDesc()
 		{
 			var fieldDesc = FieldDesc;
@@ -357,12 +414,6 @@ namespace Eamon.Game.Helpers
 			if (Record.Uid <= 0)
 			{
 				Record.Uid = gDatabase.GetConfigUid();
-
-				Record.IsUidRecycled = true;
-			}
-			else if (!EditRec)
-			{
-				Record.IsUidRecycled = false;
 			}
 		}
 

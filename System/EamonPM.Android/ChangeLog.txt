@@ -5,6 +5,7 @@ ChangeLog: EamonPM.Android
 
 Date            Version            Who            Notes
 ----------------------------------------------------------------------------------------------------------------------------------
+20250531        3.1.0              MP             CharacterArtifact removal/20-Field Artifact overhaul
 20240931        3.0.0              MP             Avalonia overhaul
 20221031        2.1.0              MP             Plugin Class Unification overhaul
 20210331                           MP             GZip datafile overhaul

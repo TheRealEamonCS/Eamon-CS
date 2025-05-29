@@ -24,6 +24,7 @@ using EamonRT.Framework.Commands;
 using EamonRT.Framework.Components;
 using EamonRT.Framework.Parsing;
 using EamonRT.Framework.Plugin;
+using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
 using static EamonRT.Game.Plugin.Globals;
 
@@ -42,6 +43,10 @@ namespace EamonRT.Game.Plugin
 		#region Public Properties
 
 		public virtual string PageSep { get; protected set; } = "@@PB";
+
+		/*
+		public virtual HashSet<string> IgnoredTokenHashSet { get; set; }
+		*/
 
 		public virtual IList<ICommand> CommandList { get; set; }
 
@@ -128,6 +133,8 @@ namespace EamonRT.Game.Plugin
 		public virtual bool PauseCombatAfterSkillGains { get; set; }
 
 		public virtual bool UseRevealContentMonsterTheName { get; set; }
+
+		public virtual bool RtSuppressPostInputSleep { get; set; }
 
 		public virtual bool PlayerMoved { get; set; }
 
@@ -378,6 +385,11 @@ namespace EamonRT.Game.Plugin
 
 					break;
 			}
+		}
+
+		public override bool ShouldSleepAfterInput(StringBuilder buf, char inputFillChar)
+		{
+			return GameState == null || BortCommand ? base.ShouldSleepAfterInput(buf, inputFillChar) : RtSuppressPostInputSleep ? false : true;
 		}
 
 		public virtual void PrintPlayerRoom(IRoom room)
@@ -1006,50 +1018,12 @@ namespace EamonRT.Game.Plugin
 			return cw != null ? cw.Uid : 0;     // Note: -1 not returned!
 		}
 
-		public virtual void EnforceCharacterWeightLimits()
+		public virtual void EnforceCharMonsterWeightLimits(IRoom room = null, bool printOutput = false)
 		{
-			try
-			{
-				RevealContentCounter--;
+			Debug.Assert(gCharMonster != null);
 
-				var artifactList = GetArtifactList(a => a.IsCarriedByMonster(gCharMonster) || a.IsWornByMonster(gCharMonster)).OrderByDescending(a => a.RecursiveWeight).ToList();
+			Debug.Assert(gCharRoom != null);
 
-				foreach (var artifact in artifactList)
-				{
-					if (artifact.IsWornByMonster(gCharMonster))
-					{
-						if (artifact.Wearable == null || artifact.Wearable.Field1 > 0)
-						{
-							artifact.SetCarriedByMonster(gCharMonster);
-						}
-					}
-
-					Debug.Assert(!artifact.IsUnmovable01());
-
-					var charWeight = 0L;
-
-					var rc = Character.GetFullInventoryWeight(ref charWeight, recurse: true);
-
-					Debug.Assert(IsSuccess(rc));
-
-					if (charWeight > Character.GetWeightCarryableGronds())
-					{
-						artifact.SetInRoomUid(StartRoom);
-					}
-					else
-					{
-						break;
-					}
-				}
-			}
-			finally
-			{
-				RevealContentCounter++;
-			}
-		}
-
-		public virtual void EnforceCharacterWeightLimits02(IRoom room = null, bool printOutput = false)
-		{
 			var enableOutput = Out.EnableOutput;
 
 			try
@@ -1060,40 +1034,30 @@ namespace EamonRT.Game.Plugin
 
 				if (room == null)
 				{
-					room = gCharMonster.GetInRoom();
-
-					Debug.Assert(room != null);
+					room = gCharRoom;
 				}
 
-				var artifactList = GetArtifactList(a => a.IsCarriedByMonster(gCharMonster) || a.IsWornByMonster(gCharMonster)).OrderByDescending(a => a.RecursiveWeight).ToList();
+				var artifactList = gCharMonster.GetContainedList().OrderByDescending(a => a.RecursiveWeight).ToList();
 
-				foreach (var artifact in artifactList)
+				var charWeight = 0L;
+
+				var rc = gCharMonster.GetFullInventoryWeight(ref charWeight, recurse: true);
+
+				Debug.Assert(IsSuccess(rc));
+
+				while (artifactList.Count > 0 && charWeight > gCharMonster.GetWeightCarryableGronds())
 				{
+					var artifact = artifactList[0];
+
+					Debug.Assert(artifact != null);
+
 					Debug.Assert(!artifact.IsUnmovable01());
 
-					var charWeight = 0L;
+					artifactList.RemoveAt(0);
 
-					var rc = gCharMonster.GetFullInventoryWeight(ref charWeight, recurse: true);
-
-					Debug.Assert(IsSuccess(rc));
-
-					if (charWeight > gCharMonster.GetWeightCarryableGronds())
+					if (artifact.IsWornByMonster(gCharMonster))
 					{
-						if (artifact.IsWornByMonster(gCharMonster))
-						{
-							var removeCommand = CreateInstance<IRemoveCommand>(x =>
-							{
-								x.ActorMonster = gCharMonster;
-
-								x.ActorRoom = room;
-
-								x.Dobj = artifact;
-							});
-
-							removeCommand.Execute();
-						}
-
-						var dropCommand = CreateInstance<IDropCommand>(x =>
+						var removeCommand = CreateInstance<IRemoveCommand>(x =>
 						{
 							x.ActorMonster = gCharMonster;
 
@@ -1102,12 +1066,21 @@ namespace EamonRT.Game.Plugin
 							x.Dobj = artifact;
 						});
 
-						dropCommand.Execute();
+						removeCommand.Execute();
 					}
-					else
+
+					var dropCommand = CreateInstance<IDropCommand>(x =>
 					{
-						break;
-					}
+						x.ActorMonster = gCharMonster;
+
+						x.ActorRoom = room;
+
+						x.Dobj = artifact;
+					});
+
+					dropCommand.Execute();
+
+					charWeight -= artifact.RecursiveWeight;
 				}
 			}
 			finally
@@ -1309,144 +1282,81 @@ namespace EamonRT.Game.Plugin
 			}
 		}
 
-		public virtual IArtifact ConvertWeaponToArtifact(ICharacterArtifact weapon)
+		public virtual void ConvertArtifactToCharArtifact(IArtifact artifact, IArtifactCategory ac)
 		{
 			RetCode rc;
 
-			Debug.Assert(weapon != null);
-
-			var artifact = CreateInstance<IArtifact>(x =>
-			{
-				x.SetArtifactCategoryCount(1);
-
-				x.Uid = Database.GetArtifactUid();
-
-				x.Name = weapon.Name.Trim().TrimEnd('#');
-
-				Debug.Assert(!string.IsNullOrWhiteSpace(x.Name));
-
-				x.Desc = !string.IsNullOrWhiteSpace(weapon.Desc) ? CloneInstance(weapon.Desc) : null;
-
-				x.Seen = true;
-
-				x.IsCharOwned = true;
-
-				x.IsListed = true;
-
-				x.IsPlural = weapon.IsPlural;
-
-				x.PluralType = weapon.PluralType;
-
-				x.ArticleType = weapon.ArticleType;
-
-				x.GetCategory(0).Field1 = weapon.Field1;
-
-				x.GetCategory(0).Field2 = weapon.Field2;
-
-				x.GetCategory(0).Field3 = weapon.Field3;
-
-				x.GetCategory(0).Field4 = weapon.Field4;
-
-				x.GetCategory(0).Field5 = weapon.Field5;
-
-				if (weapon.Type != 0)
-				{
-					x.GetCategory(0).Type = weapon.Type;
-
-					x.Value = weapon.Value;
-
-					x.Weight = weapon.Weight;
-				}
-				else
-				{
-					var d = weapon.Field3 * weapon.Field4;
-
-					x.GetCategory(0).Type = (weapon.Field1 >= 15 || d >= 25) ? ArtifactType.MagicWeapon : ArtifactType.Weapon;
-
-					var imw = false;
-
-					x.Value = (long)GetWeaponPriceOrValue(weapon, false, ref imw);
-
-					x.Weight = 15;
-				}
-
-				var charWeight = 0L;
-
-				rc = Character.GetFullInventoryWeight(ref charWeight, recurse: true);
-
-				Debug.Assert(IsSuccess(rc));
-
-				if (x.Weight + charWeight <= Character.GetWeightCarryableGronds())
-				{
-					x.SetCarriedByMonsterUid(long.MaxValue);
-				}
-				else
-				{
-					x.SetInRoomUid(StartRoom);
-				}
-			});
-
-			rc = Database.AddArtifact(artifact);
-
-			Debug.Assert(IsSuccess(rc));
-
-			GameState.SetImportedArtUid(GameState.ImportedArtUidsIdx++, artifact.Uid);
-
-			return artifact;
-		}
-
-		public virtual ICharacterArtifact ConvertArtifactToWeapon(IArtifact artifact)
-		{
 			Debug.Assert(artifact != null);
-
-			var ac = artifact.GeneralWeapon;
 
 			Debug.Assert(ac != null);
 
-			var weapon = CreateInstance<ICharacterArtifact>(x =>
+			var artifact01 = new Eamon.Game.Artifact();         // Create export Artifact using explicit base class
+
+			Debug.Assert(artifact01 != null);
+
+			artifact01.CopyPropertiesFrom(artifact, recurse: true);
+
+			artifact01.Name = artifact01.Name.Trim().TrimEnd('#');
+
+			Debug.Assert(!string.IsNullOrWhiteSpace(artifact01.Name));
+
+			if (ac.Type == ArtifactType.Weapon || ac.Type == ArtifactType.MagicWeapon)
 			{
-				x.Name = artifact.Name.Trim().TrimEnd('#');
+				rc = artifact01.RemoveStateDesc(artifact01.GetReadyWeaponDesc());
 
-				Debug.Assert(!string.IsNullOrWhiteSpace(x.Name));
+				Debug.Assert(IsSuccess(rc));
+			}
 
-				if (!string.IsNullOrWhiteSpace(artifact.Desc))
+			if (!string.IsNullOrWhiteSpace(artifact01.Desc))
+			{
+				gEngine.Buf.Clear();
+
+				rc = ResolveUidMacros(artifact01.Desc, gEngine.Buf, true, true);
+
+				Debug.Assert(IsSuccess(rc));
+
+				if (gEngine.Buf.Length <= ArtDescLen)
 				{
-					gEngine.Buf.Clear();
-
-					var rc = ResolveUidMacros(artifact.Desc, gEngine.Buf, true, true);
-
-					Debug.Assert(IsSuccess(rc));
-
-					if (gEngine.Buf.Length <= CharArtDescLen)
-					{
-						x.Desc = CloneInstance(gEngine.Buf.ToString());
-					}
+					artifact01.Desc = CloneInstance(gEngine.Buf.ToString());
 				}
+			}
 
-				x.IsPlural = artifact.IsPlural;
+			artifact01.IsCharOwned = true;
 
-				x.PluralType = artifact.PluralType;
+			var ac01 = new Eamon.Game.Primitive.Classes.ArtifactCategory();         // Create export ArtifactCategory using explicit base class
 
-				x.ArticleType = artifact.ArticleType;
+			Debug.Assert(ac01 != null);
 
-				x.Value = artifact.Value;
+			ac01.CopyPropertiesFrom(ac, recurse: true);
 
-				x.Weight = artifact.Weight;
+			artifact01.SetArtifactCategoryCount(1);
 
-				x.Type = ac.Type;
+			artifact01.SetCategory(0, ac01);
 
-				x.Field1 = ac.Field1;
-
-				x.Field2 = ac.Field2;
-
-				x.Field3 = ac.Field3;
-
-				x.Field4 = ac.Field4;
-
-				x.Field5 = ac.Field5;
+			gDatabase.ExecuteOnArtifactTable(ArtifactTableType.CharArt, () =>
+			{
+				artifact01.Uid = Database.GetArtifactUid();
 			});
 
-			return weapon;
+			artifact01.SetParentReferences();
+
+			if (ac.Type == ArtifactType.Wearable)
+			{
+				artifact01.SetWornByCharacter(Character);
+			}
+			else
+			{
+				artifact01.SetCarriedByCharacter(Character);
+			}
+
+			gDatabase.ExecuteOnArtifactTable(ArtifactTableType.CharArt, () =>
+			{
+				rc = Database.AddArtifact(artifact01);
+
+				Debug.Assert(IsSuccess(rc));
+			});
+
+			artifact.SetInLimbo();
 		}
 
 		public virtual IMonster ConvertArtifactToMonster(IArtifact artifact, Action<IMonster> initialize = null, bool addToDatabase = false)
@@ -1456,8 +1366,6 @@ namespace EamonRT.Game.Plugin
 			var monster = CreateInstance<IMonster>(x =>
 			{
 				x.Uid = Database.GetMonsterUid();
-
-				x.IsUidRecycled = true;
 
 				x.Name = CloneInstance(artifact.Name);
 
@@ -1517,8 +1425,10 @@ namespace EamonRT.Game.Plugin
 			return monster;
 		}
 
-		public virtual IMonster ConvertCharacterToMonster()
+		public virtual void ConvertCharacterToMonster()
 		{
+			RetCode rc;
+
 			var monster = CreateInstance<IMonster>(x =>
 			{
 				x.Uid = Database.GetMonsterUid();
@@ -1537,9 +1447,9 @@ namespace EamonRT.Game.Plugin
 
 				x.CurrGroupCount = 1;
 
-				x.Armor = ConvertArmorToArtifacts();
+				x.Armor = 0;
 
-				x.Weapon = ConvertWeaponsToArtifacts();
+				x.Weapon = -1;
 
 				x.NwDice = 1;
 
@@ -1554,11 +1464,15 @@ namespace EamonRT.Game.Plugin
 				x.Reaction = Friendliness.Friend;
 			});
 
-			var rc = Database.AddMonster(monster);
+			rc = Database.AddMonster(monster);
 
 			Debug.Assert(IsSuccess(rc));
 
-			return monster;
+			GameState.Cm = monster.Uid;
+
+			Debug.Assert(GameState.Cm > 0);
+
+			ConvertCharArtifactsToArtifacts(monster);
 		}
 
 		public virtual void ConvertMonsterToCharacter(IMonster monster, IList<IArtifact> weaponList)
@@ -1567,7 +1481,7 @@ namespace EamonRT.Game.Plugin
 
 			ResetMonsterStats(monster);
 
-			Character.Name = monster.Name.Trim();
+			Character.Name = monster.Name.Trim().TrimEnd('%');
 
 			Character.SetStat(Stat.Hardiness, monster.Hardiness);
 
@@ -1575,11 +1489,17 @@ namespace EamonRT.Game.Plugin
 
 			Character.Gender = monster.Gender;
 
-			for (var i = 0; i < Character.Weapons.Length; i++)
+			for (var i = 0; i < weaponList.Count; i++)
 			{
-				Character.SetWeapon(i, (i < weaponList.Count ? ConvertArtifactToWeapon(weaponList[i]) : CreateInstance<ICharacterArtifact>()));
+				var artifact = weaponList[i];
 
-				Character.GetWeapon(i).Parent = Character;
+				Debug.Assert(artifact != null);
+
+				var ac = artifact.GeneralWeapon;
+
+				Debug.Assert(ac != null);
+
+				ConvertArtifactToCharArtifact(artifact, ac);
 			}
 
 			Character.AddUniqueCharsToWeaponNames();
@@ -1603,18 +1523,6 @@ namespace EamonRT.Game.Plugin
 		{
 			var artUids = new long[] { GameState.Ar, GameState.Sh };
 
-			Character.ArmorClass = Armor.SkinClothes;
-
-			Character.Armor = CreateInstance<ICharacterArtifact>(x =>
-			{
-				x.Parent = Character;
-			});
-
-			Character.Shield = CreateInstance<ICharacterArtifact>(x =>
-			{
-				x.Parent = Character;
-			});
-
 			foreach (var artUid in artUids)
 			{
 				if (artUid > 0)
@@ -1627,51 +1535,7 @@ namespace EamonRT.Game.Plugin
 
 					Debug.Assert(ac != null);
 
-					Character.ArmorClass += ac.Field1;
-
-					var ca = (artUid == GameState.Ar) ? Character.Armor : Character.Shield;
-
-					ca.Name = artifact.Name.Trim().TrimEnd('#');
-
-					Debug.Assert(!string.IsNullOrWhiteSpace(ca.Name));
-
-					if (!string.IsNullOrWhiteSpace(artifact.Desc))
-					{
-						gEngine.Buf.Clear();
-
-						var rc = ResolveUidMacros(artifact.Desc, gEngine.Buf, true, true);
-
-						Debug.Assert(IsSuccess(rc));
-
-						if (gEngine.Buf.Length <= CharArtDescLen)
-						{
-							ca.Desc = CloneInstance(gEngine.Buf.ToString());
-						}
-					}
-
-					ca.IsPlural = artifact.IsPlural;
-
-					ca.PluralType = artifact.PluralType;
-
-					ca.ArticleType = artifact.ArticleType;
-
-					ca.Value = artifact.Value;
-
-					ca.Weight = artifact.Weight;
-
-					ca.Type = ac.Type;
-
-					ca.Field1 = ac.Field1;
-
-					ca.Field2 = ac.Field2;
-
-					ca.Field3 = ac.Field3;
-
-					ca.Field4 = ac.Field4;
-
-					ca.Field5 = ac.Field5;
-
-					artifact.SetInLimbo();
+					ConvertArtifactToCharArtifact(artifact, ac);
 				}
 			}
 
@@ -1687,6 +1551,20 @@ namespace EamonRT.Game.Plugin
 			Debug.Assert(weaponList != null);
 
 			weaponList.Clear();
+
+			for (var i = 0; i < GameState.HeldWpnUids.Count; i++)
+			{
+				var artifactUid = GameState.GetHeldWpnUid(i);
+
+				if (artifactUid > 0)
+				{
+					var artifact = ADB[artifactUid];
+
+					Debug.Assert(artifact != null);
+
+					artifact.SetCarriedByMonster(gCharMonster);
+				}
+			}
 
 			var artifactList = GetArtifactList(a => a.IsWornByMonster(gCharMonster));
 
@@ -1727,22 +1605,25 @@ namespace EamonRT.Game.Plugin
 
 			foreach (var artifact in artifactList)
 			{
-				artifact.Seen = false;
-
 				if (artifact.IsCarriedByMonster(gCharMonster))
 				{
 					var ac = artifact.GeneralWeapon;
 
-					if (ac != null && ac == artifact.GetCategory(0) && artifact.IsReadyableByMonster(gCharMonster))
+					if (ac != null && ac == artifact.GetCategory(0) && artifact.IsReadyableByMonster(gCharMonster))         // Note: ancillary non-Category(0) weapon Artifacts are sold to Sam Slicker
 					{
 						weaponList.Add(artifact);
 
 						artifact.SetInLimbo();
 					}
 				}
+
+				if (artifact.Uid != GameState.Ar && artifact.Uid != GameState.Sh && !weaponList.Contains(artifact))
+				{
+					artifact.Seen = false;
+				}
 			}
 
-			if (weaponList.Count > Character.Weapons.Length)
+			if (weaponList.Count > NumCharacterWeapons)
 			{
 				Out.Print("{0}", LineSep);
 			}
@@ -1752,11 +1633,11 @@ namespace EamonRT.Game.Plugin
 		{
 			Debug.Assert(weaponList != null);
 
-			if (weaponList.Count > Character.Weapons.Length)
+			if (weaponList.Count > NumCharacterWeapons)
 			{
 				PrintTooManyWeapons();
 
-				while (weaponList.Count > Character.Weapons.Length)
+				while (weaponList.Count > NumCharacterWeapons)
 				{
 					Out.Print("{0}", LineSep);
 
@@ -1777,8 +1658,6 @@ namespace EamonRT.Game.Plugin
 					rc = In.ReadField(gEngine.Buf, BufSize01, null, ' ', '\0', false, null, ModifyCharToUpper, IsCharDigit, null);
 
 					Debug.Assert(IsSuccess(rc));
-
-					Thread.Sleep(150);
 
 					var m = Convert.ToInt64(gEngine.Buf.Trim().ToString());
 
@@ -2877,6 +2756,94 @@ namespace EamonRT.Game.Plugin
 				{
 					var result = false;
 
+					var cmpName = r is IArtifact ? name : name01;
+
+					result = r.Name.StartsWith(cmpName, StringComparison.OrdinalIgnoreCase) || r.Name.EndsWith(cmpName, StringComparison.OrdinalIgnoreCase);
+
+					if (result)
+					{
+						r.ParserMatchName = CloneInstance(r.Name);
+					}
+
+					return result;
+
+				}).ToList();
+			}
+
+			/*
+			if (filteredRecordList.Count == 0)
+			{
+				filteredRecordList = recordList.Where(r =>
+				{
+					var result = false;
+
+					var cmpName = r is IArtifact ? name : name01;
+
+					tokens = r.Name.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+					result = tokens.FirstOrDefault(t =>
+					{
+						var result01 = false;
+
+						if (!IgnoredTokenHashSet.Contains(t))
+						{
+							result01 = t.Equals(cmpName, StringComparison.OrdinalIgnoreCase);
+						}
+
+						return result01;
+
+					}) != null;
+
+					if (result)
+					{
+						r.ParserMatchName = CloneInstance(r.Name);
+					}
+
+					return result;
+
+				}).ToList();
+			}
+
+			if (filteredRecordList.Count == 0)
+			{
+				filteredRecordList = recordList.Where(r =>
+				{
+					var result = false;
+
+					var cmpName = r is IArtifact ? name : name01;
+
+					tokens = r.Name.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+					result = tokens.FirstOrDefault(t =>
+					{
+						var result01 = false;
+
+						if (!IgnoredTokenHashSet.Contains(t))
+						{
+							result01 = t.StartsWith(cmpName, StringComparison.OrdinalIgnoreCase) || t.EndsWith(cmpName, StringComparison.OrdinalIgnoreCase);
+						}
+
+						return result01;
+
+					}) != null;
+
+					if (result)
+					{
+						r.ParserMatchName = CloneInstance(r.Name);
+					}
+
+					return result;
+
+				}).ToList();
+			}
+			*/
+
+			if (filteredRecordList.Count == 0)
+			{
+				filteredRecordList = recordList.Where(r =>
+				{
+					var result = false;
+
 					var pluralName = r.GetPluralName01();
 
 					if (r is IArtifact a)
@@ -2897,6 +2864,115 @@ namespace EamonRT.Game.Plugin
 
 				}).ToList();
 			}
+
+			if (filteredRecordList.Count == 0)
+			{
+				filteredRecordList = recordList.Where(r =>
+				{
+					var result = false;
+
+					var pluralName = r.GetPluralName01();
+
+					if (r is IArtifact a)
+					{
+						result = a.IsPlural && (pluralName.StartsWith(name, StringComparison.OrdinalIgnoreCase) || pluralName.EndsWith(name, StringComparison.OrdinalIgnoreCase));
+					}
+					else if (r is IMonster m)
+					{
+						result = m.GroupCount > 1 && (pluralName.StartsWith(name01, StringComparison.OrdinalIgnoreCase) || pluralName.EndsWith(name01, StringComparison.OrdinalIgnoreCase));
+					}
+
+					if (result)
+					{
+						r.ParserMatchName = CloneInstance(pluralName);
+					}
+
+					return result;
+
+				}).ToList();
+			}
+
+			/*
+			if (filteredRecordList.Count == 0)
+			{
+				filteredRecordList = recordList.Where(r =>
+				{
+					var result = false;
+
+					var pluralName = r.GetPluralName01();
+
+					tokens = pluralName.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+					result = tokens.FirstOrDefault(t =>
+					{
+						var result01 = false;
+
+						if (!IgnoredTokenHashSet.Contains(t))
+						{
+							if (r is IArtifact a)
+							{
+								result01 = a.IsPlural && t.Equals(name, StringComparison.OrdinalIgnoreCase);
+							}
+							else if (r is IMonster m)
+							{
+								result01 = m.GroupCount > 1 && t.Equals(name01, StringComparison.OrdinalIgnoreCase);
+							}
+						}
+
+						return result01;
+
+					}) != null;
+
+					if (result)
+					{
+						r.ParserMatchName = CloneInstance(pluralName);
+					}
+
+					return result;
+
+				}).ToList();
+			}
+
+			if (filteredRecordList.Count == 0)
+			{
+				filteredRecordList = recordList.Where(r =>
+				{
+					var result = false;
+
+					var pluralName = r.GetPluralName01();
+
+					tokens = pluralName.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+					result = tokens.FirstOrDefault(t =>
+					{
+						var result01 = false;
+
+						if (!IgnoredTokenHashSet.Contains(t))
+						{
+							if (r is IArtifact a)
+							{
+								result01 = a.IsPlural && (t.StartsWith(name, StringComparison.OrdinalIgnoreCase) || t.EndsWith(name, StringComparison.OrdinalIgnoreCase));
+							}
+							else if (r is IMonster m)
+							{
+								result01 = m.GroupCount > 1 && (t.StartsWith(name01, StringComparison.OrdinalIgnoreCase) || t.EndsWith(name01, StringComparison.OrdinalIgnoreCase));
+							}
+						}
+
+						return result01;
+
+					}) != null;
+
+					if (result)
+					{
+						r.ParserMatchName = CloneInstance(pluralName);
+					}
+
+					return result;
+
+				}).ToList();
+			}
+			*/
 
 			if (filteredRecordList.Count == 0)
 			{
@@ -2934,53 +3010,6 @@ namespace EamonRT.Game.Plugin
 
 					var cmpName = r is IArtifact ? name : name01;
 
-					result = r.Name.StartsWith(cmpName, StringComparison.OrdinalIgnoreCase) || r.Name.EndsWith(cmpName, StringComparison.OrdinalIgnoreCase);
-
-					if (result)
-					{
-						r.ParserMatchName = CloneInstance(r.Name);
-					}
-
-					return result;
-
-				}).ToList();
-			}
-
-			if (filteredRecordList.Count == 0)
-			{
-				filteredRecordList = recordList.Where(r =>
-				{
-					var result = false;
-
-					var pluralName = r.GetPluralName01();
-
-					if (r is IArtifact a)
-					{
-						result = a.IsPlural && (pluralName.StartsWith(name, StringComparison.OrdinalIgnoreCase) || pluralName.EndsWith(name, StringComparison.OrdinalIgnoreCase));
-					}
-					else if (r is IMonster m)
-					{
-						result = m.GroupCount > 1 && (pluralName.StartsWith(name01, StringComparison.OrdinalIgnoreCase) || pluralName.EndsWith(name01, StringComparison.OrdinalIgnoreCase));
-					}
-
-					if (result)
-					{
-						r.ParserMatchName = CloneInstance(pluralName);
-					}
-
-					return result;
-
-				}).ToList();
-			}
-
-			if (filteredRecordList.Count == 0)
-			{
-				filteredRecordList = recordList.Where(r =>
-				{
-					var result = false;
-
-					var cmpName = r is IArtifact ? name : name01;
-
 					result = r.Synonyms != null && r.Synonyms.FirstOrDefault(s =>
 					{
 						var result01 = false;
@@ -3000,6 +3029,90 @@ namespace EamonRT.Game.Plugin
 
 				}).ToList();
 			}
+
+			/*
+			if (filteredRecordList.Count == 0)
+			{
+				filteredRecordList = recordList.Where(r =>
+				{
+					var result = false;
+
+					var cmpName = r is IArtifact ? name : name01;
+
+					if (r.Synonyms != null)
+					{
+						foreach (var s in r.Synonyms)
+						{
+							tokens = s.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+							result = tokens.FirstOrDefault(t =>
+							{
+								var result01 = false;
+
+								if (!IgnoredTokenHashSet.Contains(t))
+								{
+									result01 = t.Equals(cmpName, StringComparison.OrdinalIgnoreCase);
+								}
+
+								return result01;
+
+							}) != null;
+
+							if (result)
+							{
+								r.ParserMatchName = CloneInstance(s);
+
+								break;
+							}
+						}
+					}
+
+					return result;
+
+				}).ToList();
+			}
+
+			if (filteredRecordList.Count == 0)
+			{
+				filteredRecordList = recordList.Where(r =>
+				{
+					var result = false;
+
+					var cmpName = r is IArtifact ? name : name01;
+
+					if (r.Synonyms != null)
+					{
+						foreach (var s in r.Synonyms)
+						{
+							tokens = s.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+							result = tokens.FirstOrDefault(t =>
+							{
+								var result01 = false;
+
+								if (!IgnoredTokenHashSet.Contains(t))
+								{
+									result01 = t.StartsWith(cmpName, StringComparison.OrdinalIgnoreCase) || t.EndsWith(cmpName, StringComparison.OrdinalIgnoreCase);
+								}
+
+								return result01;
+
+							}) != null;
+
+							if (result)
+							{
+								r.ParserMatchName = CloneInstance(s);
+
+								break;
+							}
+						}
+					}
+
+					return result;
+
+				}).ToList();
+			}
+			*/
 
 			filteredRecordList = filteredRecordList.Distinct().GroupBy(r =>
 			{
@@ -3054,7 +3167,7 @@ namespace EamonRT.Game.Plugin
 					{
 						result = monsterList.FirstOrDefault(m => m.Weapon == -a.Uid - 1) == null &&
 										(monster.Weapon == -a.Uid - 1 || a.Seen || !room.IsLit()) &&
-										(charMonster.Weapon > 0 || !a.IsCharOwned || monster.Reaction == Friendliness.Friend);
+										(charMonster.Weapon > 0 || !a.IsCharOwned);
 					}
 					else if (a.IsCarriedByContainerContainerTypeExposedToMonster(monster, ExposeContainersRecursively) || a.IsCarriedByContainerContainerTypeExposedToRoom(room, ExposeContainersRecursively))
 					{
@@ -3062,7 +3175,7 @@ namespace EamonRT.Game.Plugin
 										monsterList.FirstOrDefault(m => m.Weapon == -a.Uid - 1) == null &&
 										(monster.Weapon == -a.Uid - 1 || a.GetCarriedByContainer().Seen || !room.IsLit()) &&
 										(monster.Weapon == -a.Uid - 1 || a.Seen || !room.IsLit()) &&
-										(charMonster.Weapon > 0 || !a.IsCharOwned || monster.Reaction == Friendliness.Friend);
+										(charMonster.Weapon > 0 || !a.IsCharOwned);
 					}
 				}
 
@@ -3172,7 +3285,7 @@ namespace EamonRT.Game.Plugin
 
 			if (GameState != null)
 			{
-				for (var i = 0; i < GameState.ImportedArtUidsIdx; i++)
+				for (var i = 0; i < GameState.ImportedArtUids.Count; i++)
 				{
 					var artifact = ADB[GameState.GetImportedArtUid(i)];
 
@@ -4228,241 +4341,122 @@ namespace EamonRT.Game.Plugin
 		}
 
 		/// <summary></summary>
-		/// <returns></returns>
-		public virtual long ConvertWeaponsToArtifacts()
-		{
-			long cw = -1;
-
-			foreach (var weapon in Character.Weapons)
-			{
-				if (weapon.IsActive())
-				{
-					var artifact = ConvertWeaponToArtifact(weapon);
-
-					Debug.Assert(artifact != null);
-
-					var ac = artifact.GeneralWeapon;
-
-					Debug.Assert(ac != null);
-
-					if (artifact.IsCarriedByMonster(gCharMonster) && (cw == -1 || WeaponPowerCompare(artifact.Uid, cw) > 0) && (GameState.Sh < 1 || ac.Field5 < 2))
-					{
-						cw = artifact.Uid;
-
-						Debug.Assert(cw > 0);
-					}
-				}
-			}
-
-			return cw;
-		}
-
-		/// <summary></summary>
-		/// <returns></returns>
-		public virtual long ConvertArmorToArtifacts()
+		public virtual void ConvertCharArtifactsToArtifacts(IMonster monster)
 		{
 			RetCode rc;
 
-			var armorNames = new string[]
+			Debug.Assert(monster != null);
+
+			var artifactList = Character.GetContainedList().OrderBy(a => a.Uid).ToList();
+
+			var weaponList = artifactList.Where(a => a.GeneralWeapon != null).OrderBy(a => a.Uid).ToList();
+
+			if (IntroStory.StoryType == IntroStoryType.Beginners && weaponList.Count > 1 && GameState.UsedWpnIdx < 0)
 			{
-					"",
-					"leather",
-					"chain",
-					"plate",
-					"magic"
-			};
+				GameState.UsedWpnIdx = 0;
+			}
 
-			var a2 = (long)Character.ArmorClass / 2;
-
-			var x = (long)Character.ArmorClass % 2;
-
-			var s = a2 + ((4 - a2) * (a2 > 4 ? 1 : 0));
-
-			if (a2 > 0)
+			for (var i = 0; i < artifactList.Count; i++)
 			{
-				var armor = Character.Armor;
+				var artifact = artifactList[i];
 
-				Debug.Assert(armor != null);
+				Debug.Assert(artifact != null);
 
-				var artifact = CreateInstance<IArtifact>(y =>
+				var ac = artifact.GetCategory(0);
+
+				Debug.Assert(ac != null);
+
+				var artifact01 = CreateInstance<IArtifact>();			// Create game Artifact using dependency injection
+
+				Debug.Assert(artifact01 != null);
+
+				artifact01.CopyPropertiesFrom(artifact, recurse: true);
+
+				if (artifact.GeneralWeapon != null)
 				{
-					y.SetArtifactCategoryCount(1);
+					artifact01.Name = artifact01.Name.Trim().TrimEnd('#');
+				}
 
-					y.Uid = Database.GetArtifactUid();
+				Debug.Assert(!string.IsNullOrWhiteSpace(artifact01.Name));
 
-					y.Name = armor.IsActive() ? CloneInstance(armor.Name) : string.Format("{0} armor", armorNames[s]);
+				var ac01 = CreateInstance<IArtifactCategory>();         // Create game ArtifactCategory using dependency injection
 
-					Debug.Assert(!string.IsNullOrWhiteSpace(y.Name));
+				Debug.Assert(ac01 != null);
 
-					y.Desc = armor.IsActive() && !string.IsNullOrWhiteSpace(armor.Desc) ? CloneInstance(armor.Desc) : null;
+				ac01.CopyPropertiesFrom(ac, recurse: true);
 
-					y.Seen = true;
+				artifact01.SetArtifactCategoryCount(1);
 
-					y.IsCharOwned = true;
+				artifact01.SetCategory(0, ac01);
 
-					y.IsListed = true;
+				artifact01.Uid = Database.GetArtifactUid();
 
-					if (armor.IsActive())
+				artifact01.SetParentReferences();
+
+				if (artifact.IsWornByCharacter())
+				{
+					artifact01.SetWornByMonster(monster);
+				}
+				else if (artifact.IsCarriedByCharacter())
+				{
+					if (artifact.GeneralWeapon != null && GameState.UsedWpnIdx >= 0 && weaponList[(int)GameState.UsedWpnIdx] != artifact)
 					{
-						y.IsPlural = armor.IsPlural;
+						artifact01.SetInLimbo();
 
-						y.PluralType = armor.PluralType;
-
-						y.ArticleType = armor.ArticleType;
-
-						y.GetCategory(0).Field1 = armor.Field1;
-
-						y.GetCategory(0).Field2 = armor.Field2;
-
-						y.GetCategory(0).Type = armor.Type;
-
-						y.Value = armor.Value;
-
-						y.Weight = armor.Weight;
+						GameState.SetHeldWpnUid(artifact01.Uid);
 					}
 					else
 					{
-						y.IsPlural = false;
-
-						y.PluralType = PluralType.None;
-
-						y.ArticleType = ArticleType.Some;
-
-						y.GetCategory(0).Field1 = a2 * 2;
-
-						y.GetCategory(0).Field2 = 0;
-
-						y.GetCategory(0).Type = ArtifactType.Wearable;
-
-						var ima = false;
-
-						y.Value = (long)GetArmorPriceOrValue(Character.ArmorClass, false, ref ima);
-
-						y.Weight = (a2 == 1 ? 15 : a2 == 2 ? 25 : 35);
+						artifact01.SetCarriedByMonster(monster);
 					}
+				}
+				else
+				{
+					Debug.Assert(1 == 0);
+				}
 
-					var charWeight = 0L;
-
-					rc = Character.GetFullInventoryWeight(ref charWeight, recurse: true);
-
-					Debug.Assert(IsSuccess(rc));
-
-					if (y.Weight + charWeight <= Character.GetWeightCarryableGronds())
-					{
-						y.SetWornByMonsterUid(long.MaxValue);
-					}
-					else
-					{
-						y.SetInRoomUid(StartRoom);
-					}
-				});
-
-				rc = Database.AddArtifact(artifact);
+				rc = Database.AddArtifact(artifact01);
 
 				Debug.Assert(IsSuccess(rc));
 
-				GameState.SetImportedArtUid(GameState.ImportedArtUidsIdx++, artifact.Uid);
-
-				if (artifact.IsWornByMonster(gCharMonster))
-				{
-					GameState.Ar = artifact.Uid;
-
-					Debug.Assert(GameState.Ar > 0);
-				}
+				GameState.SetImportedArtUid(artifact01.Uid);
 			}
 
-			if (x == 1)
+			var armorArtifact = monster.GetWornList().FirstOrDefault(a => a.Wearable.Field1 >= 2);
+
+			if (armorArtifact != null)
 			{
-				var shield = Character.Shield;
+				GameState.Ar = armorArtifact.Uid;
 
-				Debug.Assert(shield != null);
+				Debug.Assert(GameState.Ar > 0);
 
-				var artifact = CreateInstance<IArtifact>(y =>
+				monster.Armor = armorArtifact.Wearable.Field1 / 2;
+
+				if (monster.Armor >= 3)
 				{
-					y.SetArtifactCategoryCount(1);
-
-					y.Uid = Database.GetArtifactUid();
-
-					y.Name = shield.IsActive() ? CloneInstance(shield.Name) : "shield";
-
-					Debug.Assert(!string.IsNullOrWhiteSpace(y.Name));
-
-					y.Desc = shield.IsActive() && !string.IsNullOrWhiteSpace(shield.Desc) ? CloneInstance(shield.Desc) : null;
-
-					y.Seen = true;
-
-					y.IsCharOwned = true;
-
-					y.IsListed = true;
-
-					if (shield.IsActive())
-					{
-						y.IsPlural = shield.IsPlural;
-
-						y.PluralType = shield.PluralType;
-
-						y.ArticleType = shield.ArticleType;
-
-						y.GetCategory(0).Field1 = shield.Field1;
-
-						y.GetCategory(0).Field2 = shield.Field2;
-
-						y.GetCategory(0).Type = shield.Type;
-
-						y.Value = shield.Value;
-
-						y.Weight = shield.Weight;
-					}
-					else
-					{
-						y.IsPlural = false;
-
-						y.PluralType = PluralType.S;
-
-						y.ArticleType = ArticleType.A;
-
-						y.GetCategory(0).Field1 = 1;
-
-						y.GetCategory(0).Field2 = 0;
-
-						y.GetCategory(0).Type = ArtifactType.Wearable;
-
-						y.Value = ShieldPrice;
-
-						y.Weight = 15;
-					}
-
-					var charWeight = 0L;
-
-					rc = Character.GetFullInventoryWeight(ref charWeight, recurse: true);
-
-					Debug.Assert(IsSuccess(rc));
-
-					if (y.Weight + charWeight <= Character.GetWeightCarryableGronds())
-					{
-						y.SetWornByMonsterUid(long.MaxValue);
-					}
-					else
-					{
-						y.SetInRoomUid(StartRoom);
-					}
-				});
-
-				rc = Database.AddArtifact(artifact);
-
-				Debug.Assert(IsSuccess(rc));
-
-				GameState.SetImportedArtUid(GameState.ImportedArtUidsIdx++, artifact.Uid);
-
-				if (artifact.IsWornByMonster(gCharMonster))
-				{
-					GameState.Sh = artifact.Uid;
-
-					Debug.Assert(GameState.Sh > 0);
+					monster.Armor += 2;
 				}
 			}
 
-			return (a2 + x) + (a2 >= 3 ? 2 : 0);
+			var shieldArtifact = monster.GetWornList().FirstOrDefault(a => a.Wearable.Field1 == 1);
+
+			if (shieldArtifact != null)
+			{
+				GameState.Sh = shieldArtifact.Uid;
+
+				Debug.Assert(GameState.Sh > 0);
+
+				monster.Armor += shieldArtifact.Wearable.Field1;
+			}
+
+			var weaponArtifact = monster.GetCarriedList().Where(a => a.GeneralWeapon != null && (a.GeneralWeapon.Field5 == 1 || shieldArtifact == null)).OrderByDescending(a => a.Field3 * a.Field4).FirstOrDefault();
+
+			if (weaponArtifact != null)
+			{
+				monster.Weapon = weaponArtifact.Uid;
+
+				Debug.Assert(monster.Weapon > 0);
+			}
 		}
 
 		/// <summary>Encode an 6-digit number where the high 3 digits are the maxValue and the low 3 digits are the minValue</summary>
@@ -4526,6 +4520,16 @@ namespace EamonRT.Game.Plugin
 			((IEngine)this).Buf = new StringBuilder(BufSize);
 
 			((IEngine)this).Buf01 = new StringBuilder(BufSize);
+
+			/*
+			IgnoredTokenHashSet = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+			{
+				"a", "an", "the", "of", "in", "on", "at", "to", "with", "by", "for", "from",
+				"and", "or", "but", "is", "are", "was", "were", "be", "being", "been",
+				"this", "that", "these", "those", "it", "its", "they", "their", "there",
+				"here", "where", "when", "what", "which", "who", "whom", "whose"
+			};
+			*/
 
 			RevealContainerContentsFunc = RevealContainerContents;
 

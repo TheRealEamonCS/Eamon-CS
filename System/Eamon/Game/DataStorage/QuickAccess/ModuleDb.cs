@@ -20,19 +20,19 @@ namespace Eamon.Game.DataStorage.QuickAccess
 		{
 			get
 			{
-				return gDatabase.FindModule(uid);
+				return gDatabase?.FindModule(uid);
 			}
 
 			set
 			{
 				if (value == null || value.Uid == uid)
 				{
-					gDatabase.RemoveModule(uid);
+					gDatabase?.RemoveModule(uid);
 				}
 
 				if (value != null && value.Uid == uid)
 				{
-					gDatabase.AddModule(value, CopyAddedRecord);
+					gDatabase?.AddModule(value, CopyAddedRecord);
 				}
 			}
 		}

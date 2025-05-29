@@ -202,7 +202,7 @@ namespace WrenholdsSecretVigil.Game.States
 
 							gEngine.Buf.Clear();
 
-							rc = gEngine.In.ReadField(gEngine.Buf, gEngine.CharArtNameLen, null, ' ', '\0', false, null, null, null, null);
+							rc = gEngine.In.ReadField(gEngine.Buf, gEngine.ArtNameLen, null, ' ', '\0', false, null, null, null, null);
 
 							Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -212,6 +212,8 @@ namespace WrenholdsSecretVigil.Game.States
 
 							var artifactHelper = gEngine.CreateInstance<IArtifactHelper>(x =>
 							{
+								x.RecordTable = gDatabase.ArtifactTable;
+								
 								x.Record = magicBowArtifact;
 							});
 

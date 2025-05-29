@@ -24,6 +24,9 @@ namespace Eamon.Framework
 		bool GenerateUids { get; set; }
 
 		/// <summary></summary>
+		bool DeleteCharArts { get; set; }
+
+		/// <summary></summary>
 		FieldDesc FieldDesc { get; set; }
 
 		/// <summary></summary>
@@ -45,6 +48,9 @@ namespace Eamon.Framework
 		string DdArtifactFileName { get; set; }
 
 		/// <summary></summary>
+		string DdCharArtFileName { get; set; }
+
+		/// <summary></summary>
 		string DdEffectFileName { get; set; }
 
 		/// <summary></summary>
@@ -63,6 +69,9 @@ namespace Eamon.Framework
 		string MhCharacterFileName { get; set; }
 
 		/// <summary></summary>
+		string MhCharArtFileName { get; set; }
+
+		/// <summary></summary>
 		string MhEffectFileName { get; set; }
 
 		/// <summary></summary>
@@ -79,6 +88,9 @@ namespace Eamon.Framework
 
 		/// <summary></summary>
 		string RtArtifactFileName { get; set; }
+
+		/// <summary></summary>
+		string RtCharArtFileName { get; set; }
 
 		/// <summary></summary>
 		string RtEffectFileName { get; set; }
@@ -106,6 +118,9 @@ namespace Eamon.Framework
 
 		/// <summary></summary>
 		bool DdEditingArtifacts { get; set; }
+
+		/// <summary></summary>
+		bool DdEditingCharArts { get; set; }
 
 		/// <summary></summary>
 		bool DdEditingEffects { get; set; }
@@ -136,11 +151,6 @@ namespace Eamon.Framework
 		/// <param name="startOver"></param>
 		/// <returns></returns>
 		RetCode DeleteGameState(string configFileName, bool startOver);
-
-		/// <summary></summary>
-		/// <param name="config"></param>
-		/// <returns></returns>
-		RetCode CopyProperties(IConfig config);
 
 		#endregion
 	}

@@ -76,7 +76,7 @@ namespace EamonDD.Game.Menus.HierarchicalMenus
 				}));
 			}
 
-			if (gEngine.Config.DdEditingArtifacts)
+			if (gEngine.Config.DdEditingArtifacts || (!gEngine.BortCommand && gEngine.Config.DdEditingCharArts))
 			{
 				MenuItemList.Add(gEngine.CreateInstance<IMenuItem>(x =>
 				{

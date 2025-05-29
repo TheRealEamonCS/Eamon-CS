@@ -5,10 +5,8 @@
 
 using System;
 using System.Diagnostics;
-using System.Linq;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
-using Eamon.Game.Extensions;
 using EamonRT.Framework;
 using static TheVileGrimoireOfJaldial.Game.Plugin.Globals;
 
@@ -114,11 +112,18 @@ namespace TheVileGrimoireOfJaldial.Game
 
 			Debug.Assert(cloakArtifact != null);
 
-			if (armorArtifact != null && armorArtifact.Uid != 19 && cloakArtifact.IsWornByMonster(gCharMonster))
+			if (cloakArtifact.IsWornByMonster(gCharMonster))
 			{
-				if (armorArtifact.Desc.Length + cloakArtifact.Desc.Length + 2 <= gEngine.ArtDescLen)
+				var newArmorDesc = armorArtifact != null && armorArtifact.Uid != 19 ? string.Format("{1}{0}{0}{2}", Environment.NewLine, armorArtifact.Desc, cloakArtifact.Desc) : null;
+
+				if (newArmorDesc != null && newArmorDesc.Length <= gEngine.ArtDescLen)
 				{
-					armorArtifact.Desc = string.Format("{0}  {1}", armorArtifact.Desc, cloakArtifact.Desc);
+					armorArtifact.Desc = newArmorDesc;
+				}
+
+				if (armorArtifact != null && armorArtifact.Uid == 19)
+				{
+					armorArtifact.Wearable.Field2 = (long)Clothing.ArmorShields;
 				}
 
 				cloakArtifact.SetInLimbo();
@@ -132,9 +137,11 @@ namespace TheVileGrimoireOfJaldial.Game
 
 			if (gauntletsArtifact.IsWornByMonster(gCharMonster))
 			{
-				if (armorArtifact != null && armorArtifact.Desc.Length + gauntletsArtifact.Desc.Length + 2 <= gEngine.ArtDescLen)
+				var newArmorDesc = armorArtifact != null ? string.Format("{1}{0}{0}{2}", Environment.NewLine, armorArtifact.Desc, gauntletsArtifact.Desc) : null;
+
+				if (newArmorDesc != null && newArmorDesc.Length <= gEngine.ArtDescLen)
 				{
-					armorArtifact.Desc = string.Format("{0}  {1}", armorArtifact.Desc, gauntletsArtifact.Desc);
+					armorArtifact.Desc = newArmorDesc;
 				}
 
 				gauntletsArtifact.SetInLimbo();

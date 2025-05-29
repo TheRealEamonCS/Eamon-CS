@@ -5,6 +5,7 @@
 
 using System;
 using System.Diagnostics;
+using System.Linq;
 using Eamon;
 using Eamon.Game.Attributes;
 using Eamon.Game.Menus;
@@ -41,8 +42,6 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 			Debug.Assert(gEngine.IsSuccess(rc));
 
-			gEngine.Thread.Sleep(150);
-
 			gOut.Print("{0}", gEngine.LineSep);
 
 			if (Buf.Length == 0 || Buf[0] == 'N')
@@ -52,21 +51,24 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 			if (gCharacter.HeldGold >= p)
 			{
-				var wc = 0L;
+				var artifactList = gCharacter.GetCarriedList().Where(a => a.GeneralWeapon != null).ToList();
 
-				rc = gCharacter.GetWeaponCount(ref wc);
-
-				Debug.Assert(gEngine.IsSuccess(rc));
-
-				if (wc > 0 && !AddedPotency)
+				if (artifactList.Count > 0 && !AddedPotency)
 				{
 					gOut.Print("\"For your generosity I will increase the potency of one of your weapons!\"");
 
-					var rl = gEngine.RollDice(1, wc, 0);
+					var rl = gEngine.RollDice(1, artifactList.Count, -1);
 
-					gCharacter.GetWeapon(rl - 1).Field4++;
+					var artifact = artifactList[(int)rl];
 
-					// ClearExtraFields call omitted
+					Debug.Assert(artifact != null);
+
+					if (artifact.Field4 + 1 <= 25)
+					{
+						artifact.Field4++;
+
+						gEngine.CharArtsModified = true;
+					}
 
 					AddedPotency = true;
 				}

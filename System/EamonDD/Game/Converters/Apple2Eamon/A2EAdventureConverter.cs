@@ -102,7 +102,7 @@ namespace EamonDD.Game.Converters.Apple2Eamon
 
 					if (string.IsNullOrWhiteSpace(adventure.Name))
 					{
-						throw new Exception("Error: IsNullOrWhiteSpace function call returned true for Name.");
+						throw new Exception("IsNullOrWhiteSpace function call returned true for Name.");
 					}
 
 					try
@@ -183,39 +183,39 @@ namespace EamonDD.Game.Converters.Apple2Eamon
 
 					if (!long.TryParse(tokens[0].Trim(), out adventure._nr))
 					{
-						throw new Exception("Error: TryParse function call failed for _nr.");
+						throw new Exception("TryParse function call failed for _nr.");
 					}
 
 					if (!long.TryParse(tokens[1].Trim(), out adventure._na))
 					{
-						throw new Exception("Error: TryParse function call failed for _na.");
+						throw new Exception("TryParse function call failed for _na.");
 					}
 
 					if (!long.TryParse(tokens[2].Trim(), out adventure._ne))
 					{
-						throw new Exception("Error: TryParse function call failed for _ne.");
+						throw new Exception("TryParse function call failed for _ne.");
 					}
 
 					if (!long.TryParse(tokens[3].Trim(), out adventure._nm))
 					{
-						throw new Exception("Error: TryParse function call failed for _nm.");
+						throw new Exception("TryParse function call failed for _nm.");
 					}
 
 					if (!string.IsNullOrWhiteSpace(adventure._ver) && adventure._ver.StartsWith("7"))
 					{
 						if (!long.TryParse(tokens[4].Trim(), out adventure._rlen))
 						{
-							throw new Exception("Error: TryParse function call failed for _rlen.");
+							throw new Exception("TryParse function call failed for _rlen.");
 						}
 
 						if (!long.TryParse(tokens[5].Trim(), out adventure._mlen))
 						{
-							throw new Exception("Error: TryParse function call failed for _mlen.");
+							throw new Exception("TryParse function call failed for _mlen.");
 						}
 
 						if (!long.TryParse(tokens[6].Trim(), out adventure._alen))
 						{
-							throw new Exception("Error: TryParse function call failed for _alen.");
+							throw new Exception("TryParse function call failed for _alen.");
 						}
 					}
 				}

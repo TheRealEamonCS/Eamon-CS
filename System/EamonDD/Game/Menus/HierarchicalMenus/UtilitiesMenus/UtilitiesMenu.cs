@@ -61,6 +61,22 @@ namespace EamonDD.Game.Menus.HierarchicalMenus
 					x.SubMenu = gEngine.CreateInstance<IAnalyseAdventureRecordTreeMenu>();
 				}));
 			}
+			else if (gEngine.IsCharacterInventoryLoaded())
+			{
+				MenuItemList.Add(gEngine.CreateInstance<IMenuItem>(x =>
+				{
+					x.SelectChar = (char)('1' + MenuItemList.Count);
+					x.LineText = string.Format("{0}{1}. Analyse all record interdependencies.", Environment.NewLine, MenuItemList.Count + 1);
+					x.SubMenu = gEngine.CreateInstance<IAnalyseAllRecordInterdependenciesMenu>();
+				}));
+
+				MenuItemList.Add(gEngine.CreateInstance<IMenuItem>(x =>
+				{
+					x.SelectChar = (char)('1' + MenuItemList.Count);
+					x.LineText = string.Format("{0}{1}. Analyse Character record tree.", Environment.NewLine, MenuItemList.Count + 1);
+					x.SubMenu = gEngine.CreateInstance<IAnalyseCharacterRecordTreeMenu>();
+				}));
+			}
 			else
 			{
 				MenuItemList.Add(gEngine.CreateInstance<IMenuItem>(x =>

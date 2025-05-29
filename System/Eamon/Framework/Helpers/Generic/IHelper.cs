@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Eamon.Framework.DataStorage.Generic;
 using Eamon.Framework.Primitive.Enums;
 
 namespace Eamon.Framework.Helpers.Generic
@@ -14,6 +15,9 @@ namespace Eamon.Framework.Helpers.Generic
 	public interface IHelper<T> where T : class, IGameBase
 	{
 		#region Properties
+
+		/// <summary></summary>
+		IDbTable<T> RecordTable { get; set; }
 
 		/// <summary></summary>
 		T Record { get; set; }

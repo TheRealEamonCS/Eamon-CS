@@ -1,6 +1,6 @@
 EamonDD|EditAdventures.psh|-pfn|EamonRT.dll|-fsfn|ADVENTURES.DAT|-rge
 EamonDD|EditCatalog.psh|-pfn|EamonRT.dll|-fsfn|CATALOG.DAT|-rge
-EamonDD|EditCharacters.psh|-pfn|EamonRT.dll|-chrfn|CHARACTERS.DAT|-rge
+EamonDD|EditCharacters.psh|-pfn|EamonRT.dll|-chrfn|CHARACTERS.DAT|-cafn|INVENTORY.DAT|-rge
 EamonDD|EditContemporary.psh|-pfn|EamonRT.dll|-fsfn|CONTEMPORARY.DAT|-rge
 EamonDD|EditFantasy.psh|-pfn|EamonRT.dll|-fsfn|FANTASY.DAT|-rge
 EamonDD|EditHorror.psh|-pfn|EamonRT.dll|-fsfn|HORROR.DAT|-rge
@@ -18,7 +18,6 @@ EamonDD|EditDharmaQuest.psh|-pfn|Dharmaquest.dll|-wd|..\..\Adventures\Dharmaques
 EamonDD|EditEscapeFromMtMoon.psh|-pfn|EamonRT.dll|-wd|..\..\Adventures\EscapeFromMtMoon|-la|-rge
 EamonDD|EditLandOfTheMountainKing.psh|-pfn|LandOfTheMountainKing.dll|-wd|..\..\Adventures\LandOfTheMountainKing|-la|-rge
 EamonDD|EditOrbOfMyLife.psh|-pfn|OrbOfMyLife.dll|-wd|..\..\Adventures\OrbOfMyLife|-la|-rge
-EamonDD|EditRiddlesOfTheDuergarKingdom.psh|-pfn|RiddlesOfTheDuergarKingdom.dll|-wd|..\..\Adventures\RiddlesOfTheDuergarKingdom|-la|-rge
 EamonDD|EditSampleAdventure.psh|-pfn|SampleAdventure.dll|-wd|..\..\Adventures\SampleAdventure|-la|-rge
 EamonDD|EditStrongholdOfKahrDur.psh|-pfn|StrongholdOfKahrDur.dll|-wd|..\..\Adventures\StrongholdOfKahrDur|-la|-rge
 EamonDD|EditTestAdventure.psh|-pfn|EamonRT.dll|-wd|..\..\Adventures\TestAdventure|-la|-rge
@@ -43,7 +42,6 @@ EamonRT|ResumeDharmaQuest.psh|-pfn|Dharmaquest.dll|-wd|..\..\Adventures\Dharmaqu
 EamonRT|ResumeEscapeFromMtMoon.psh|-pfn|EamonRT.dll|-wd|..\..\Adventures\EscapeFromMtMoon
 EamonRT|ResumeLandOfTheMountainKing.psh|-pfn|LandOfTheMountainKing.dll|-wd|..\..\Adventures\LandOfTheMountainKing
 EamonRT|ResumeOrbOfMyLife.psh|-pfn|OrbOfMyLife.dll|-wd|..\..\Adventures\OrbOfMyLife
-EamonRT|ResumeRiddlesOfTheDuergarKingdom.psh|-pfn|RiddlesOfTheDuergarKingdom.dll|-wd|..\..\Adventures\RiddlesOfTheDuergarKingdom
 EamonRT|ResumeSampleAdventure.psh|-pfn|SampleAdventure.dll|-wd|..\..\Adventures\SampleAdventure
 EamonRT|ResumeStrongholdOfKahrDur.psh|-pfn|StrongholdOfKahrDur.dll|-wd|..\..\Adventures\StrongholdOfKahrDur
 EamonRT|ResumeTestAdventure.psh|-pfn|EamonRT.dll|-wd|..\..\Adventures\TestAdventure

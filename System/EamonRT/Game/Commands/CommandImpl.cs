@@ -160,11 +160,11 @@ namespace EamonRT.Game.Commands
 
 		public virtual bool IsMonsterEnabled { get; set; }
 
-		public virtual void BuildPrepContainerYouSeePrefix(IArtifact artifact, ContainerType containerType, bool showCharOwned)
+		public virtual void BuildPrepContainerYouSeePrefix(IArtifact artifact, ContainerType containerType, bool showCharOwned, StringBuilder buf)
 		{
-			Debug.Assert(artifact != null && Enum.IsDefined(typeof(ContainerType), containerType));
+			Debug.Assert(artifact != null && Enum.IsDefined(typeof(ContainerType), containerType) && buf != null);
 
-			gEngine.Buf.SetFormat("{0}{1} {2}, you see ",
+			buf.SetFormat("{0}{1} {2}, you see ",
 				Environment.NewLine,
 				gEngine.EvalContainerType(containerType, "Inside", "On", "Under", "Behind"),
 				artifact.GetTheName(showCharOwned: showCharOwned));
@@ -620,7 +620,7 @@ namespace EamonRT.Game.Commands
 		{
 			Debug.Assert(artifact != null && containerArtifactList != null && containerArtifactList.Count > 0 && Enum.IsDefined(typeof(ContainerType), containerType));
 
-			Command.BuildPrepContainerYouSeePrefix(artifact, containerType, showCharOwned);
+			Command.BuildPrepContainerYouSeePrefix(artifact, containerType, showCharOwned, gEngine.Buf);
 
 			if (recordNameListArgs == null)
 			{

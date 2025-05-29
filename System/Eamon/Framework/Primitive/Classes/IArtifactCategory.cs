@@ -33,6 +33,51 @@ namespace Eamon.Framework.Primitive.Classes
 		long Field5 { get; set; }
 
 		/// <summary></summary>
+		long Field6 { get; set; }
+
+		/// <summary></summary>
+		long Field7 { get; set; }
+
+		/// <summary></summary>
+		long Field8 { get; set; }
+
+		/// <summary></summary>
+		long Field9 { get; set; }
+
+		/// <summary></summary>
+		long Field10 { get; set; }
+
+		/// <summary></summary>
+		long Field11 { get; set; }
+
+		/// <summary></summary>
+		long Field12 { get; set; }
+
+		/// <summary></summary>
+		long Field13 { get; set; }
+
+		/// <summary></summary>
+		long Field14 { get; set; }
+
+		/// <summary></summary>
+		long Field15 { get; set; }
+
+		/// <summary></summary>
+		long Field16 { get; set; }
+
+		/// <summary></summary>
+		long Field17 { get; set; }
+
+		/// <summary></summary>
+		long Field18 { get; set; }
+
+		/// <summary></summary>
+		long Field19 { get; set; }
+
+		/// <summary></summary>
+		long Field20 { get; set; }
+
+		/// <summary></summary>
 		/// <returns></returns>
 		bool IsOpenable();
 
@@ -108,8 +153,5 @@ namespace Eamon.Framework.Primitive.Classes
 		/// <summary></summary>
 		/// <returns></returns>
 		long GetMonsterUid();
-
-		/// <summary></summary>
-		void SyncArtifactCategories();
 	}
 }

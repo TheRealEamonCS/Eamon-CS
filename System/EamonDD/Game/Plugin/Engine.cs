@@ -4,6 +4,7 @@
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
 using System;
+using System.Diagnostics;
 using System.Reflection;
 using System.Text;
 using Eamon;
@@ -44,6 +45,8 @@ namespace EamonDD.Game.Plugin
 
 		public virtual bool BortCommand { get; set; }
 
+		public virtual bool DdSuppressPostInputSleep { get; set; }
+
 		public virtual bool ConfigsModified { get; set; }
 
 		public virtual bool FilesetsModified { get; set; }
@@ -55,6 +58,8 @@ namespace EamonDD.Game.Plugin
 		public virtual bool RoomsModified { get; set; }
 
 		public virtual bool ArtifactsModified { get; set; }
+
+		public virtual bool CharArtsModified { get; set; }
 
 		public virtual bool EffectsModified { get; set; }
 
@@ -110,11 +115,30 @@ namespace EamonDD.Game.Plugin
 			base.ResetProperties(resetCode);
 		}
 
+		public override bool ShouldSleepAfterInput(StringBuilder buf, char inputFillChar)
+		{
+			Debug.Assert(buf != null);
+
+			return (GetMainMenuInput && buf.ToString().Equals("X", StringComparison.OrdinalIgnoreCase)) || DdSuppressPostInputSleep || (inputFillChar != '\0' && inputFillChar != ' ') ? base.ShouldSleepAfterInput(buf, inputFillChar) : true;
+		}
+
 		public virtual bool IsAdventureFilesetLoaded()
 		{
 			if (Config != null)
 			{
 				return Config.DdEditingModules && Config.DdEditingRooms && Config.DdEditingArtifacts && Config.DdEditingEffects && Config.DdEditingMonsters && Config.DdEditingHints;
+			}
+			else
+			{
+				return false;
+			}
+		}
+
+		public virtual bool IsCharacterInventoryLoaded()
+		{
+			if (Config != null)
+			{
+				return Config.DdEditingCharacters && Config.DdEditingCharArts;
 			}
 			else
 			{
@@ -233,6 +257,24 @@ namespace EamonDD.Game.Plugin
 							Config.DdArtifactFileName = Argv[i].Trim();
 
 							Config.DdEditingArtifacts = true;
+
+							ConfigsModified = true;
+						}
+						else
+						{
+							ddfnFlag = true;
+						}
+					}
+				}
+				else if (Argv[i].Equals("--charArtFileName", StringComparison.OrdinalIgnoreCase) || Argv[i].Equals("-cafn", StringComparison.OrdinalIgnoreCase))
+				{
+					if (++i < Argv.Length)
+					{
+						if (secondPass)
+						{
+							Config.DdCharArtFileName = Argv[i].Trim();
+
+							Config.DdEditingCharArts = true;
 
 							ConfigsModified = true;
 						}

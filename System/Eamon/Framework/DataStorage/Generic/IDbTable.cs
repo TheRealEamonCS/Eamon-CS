@@ -21,7 +21,7 @@ namespace Eamon.Framework.DataStorage.Generic
 		/// <summary>
 		/// Gets or sets the collection of Uids available for reuse by new instances of this record type; may be empty.
 		/// </summary>
-		IList<long> FreeUids { get; set; }
+		SortedSet<long> FreeUids { get; set; }
 
 		/// <summary>
 		/// Gets or sets a sequence number representing the last Uid (unique ID) allocated to a record of type T.

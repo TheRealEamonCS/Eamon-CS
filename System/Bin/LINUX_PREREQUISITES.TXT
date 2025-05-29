@@ -6,4 +6,3 @@ For gamers who want to play:
 https://dotnet.microsoft.com/en-us/download/dotnet/8.0
 
 Please download the appropriate prerequisites and install them to proceed.
-

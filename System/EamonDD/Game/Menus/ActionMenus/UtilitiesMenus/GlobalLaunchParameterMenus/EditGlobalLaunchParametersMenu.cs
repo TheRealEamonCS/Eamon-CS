@@ -59,8 +59,6 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			gOut.WordWrap = true;
 
-			gEngine.Thread.Sleep(150);
-
 			var currFileText = Regex.Replace(Buf.ToString(), @"\s+", " ").Trim();
 
 			if (!currFileText.Equals(origFileText, StringComparison.OrdinalIgnoreCase))
@@ -74,8 +72,6 @@ namespace EamonDD.Game.Menus.ActionMenus
 				rc = gEngine.In.ReadField(Buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, gEngine.IsCharYOrN);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
-
-				gEngine.Thread.Sleep(150);
 
 				if (Buf.Length > 0 && Buf[0] == 'N')
 				{

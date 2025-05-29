@@ -9,6 +9,7 @@ using Eamon.Framework;
 using Eamon.Framework.Primitive.Classes;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
+using Eamon.Game.Extensions;
 using EamonRT.Framework.Commands;
 using static WrenholdsSecretVigil.Game.Plugin.Globals;
 
@@ -142,15 +143,7 @@ namespace WrenholdsSecretVigil.Game.Commands
 
 				ac.Type = ArtifactType.Treasure;
 
-				ac.Field1 = 0;
-
-				ac.Field2 = 0;
-
-				ac.Field3 = 0;
-
-				ac.Field4 = 0;
-
-				ac.Field5 = 0;
+				ac.SetFieldsValue(1, gEngine.NumArtifactCategoryFields, 0);
 			}
 			else
 			{

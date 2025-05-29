@@ -5,9 +5,10 @@
 
 using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Text;
 using Eamon;
-using Eamon.Framework.Primitive.Classes;
+using Eamon.Framework;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using Eamon.Game.Extensions;
@@ -46,9 +47,6 @@ namespace EamonMH.Game.Menus.ActionMenus
 			BuyShield,
 
 			/// <summary></summary>
-			SetArmorClass,
-
-			/// <summary></summary>
 			LeaveShop
 		}
 
@@ -73,6 +71,8 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 			long ti = 0;
 
+			long wc = 0;
+
 			var menuState = MenuState.BuyOrSell;
 
 			gOut.Print("{0}", gEngine.LineSep);
@@ -81,7 +81,11 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 			while (true)
 			{
-				switch(menuState)
+				var armorArtifact = gCharacter.GetWornList().FirstOrDefault(a => a.Wearable.Field1 >= 2);
+
+				var weaponList = gCharacter.GetCarriedList().Where(a => a.GeneralWeapon != null).OrderBy(a => a.Uid).ToList();
+
+				switch (menuState)
 				{
 					case MenuState.BuyOrSell:
 
@@ -94,8 +98,6 @@ namespace EamonMH.Game.Menus.ActionMenus
 						rc = gEngine.In.ReadField(Buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharBOrSOrAOrX, gEngine.IsCharBOrSOrAOrX);
 
 						Debug.Assert(gEngine.IsSuccess(rc));
-
-						gEngine.Thread.Sleep(150);
 
 						if (Buf.Length == 0 || Buf[0] == 'X')
 						{
@@ -137,9 +139,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 					case MenuState.BuyWeapon:
 
-						i = gCharacter.Weapons.Length - 1;
-
-						if (!gCharacter.IsWeaponActive(i))
+						if (weaponList.Count < gEngine.NumCharacterWeapons)
 						{
 							gOut.Print("Marcos smiles at you and says, \"Good!  I gotta the best.  What kind do you want?\"");
 
@@ -171,8 +171,6 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 							Debug.Assert(gEngine.IsSuccess(rc));
 
-							gEngine.Thread.Sleep(150);
-
 							gOut.Print("{0}", gEngine.LineSep);
 
 							if (Buf.Length > 0 && Buf[0] != 'X')
@@ -183,27 +181,10 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 								Debug.Assert(weapon != null);
 
-								var cw = gEngine.CreateInstance<ICharacterArtifact>(x =>
-								{
-									x.Name = gEngine.CloneInstance(weapon.MarcosName ?? weapon.Name).ToLower();
-									x.Desc = string.Format("{0} your {1}.", weapon.MarcosIsPlural ? "These are" : "This is", x.Name);
-									x.IsPlural = weapon.MarcosIsPlural;
-									x.PluralType = weapon.MarcosPluralType;
-									x.ArticleType = weapon.MarcosArticleType;
-									x.Weight = 15;
-									x.Type = ArtifactType.Weapon;
-									x.Field2 = i;
-									x.Field3 = weapon.MarcosDice;
-									x.Field4 = weapon.MarcosSides;
-									x.Field5 = weapon.MarcosNumHands;
-								});
-
-								var imw = false;
-								
-								cw.Value = (long)gEngine.GetWeaponPriceOrValue(cw, false, ref imw);
+								var weaponName = gEngine.CloneInstance(weapon.MarcosName ?? weapon.Name).ToLower();
 
 								gOut.Print("Marcos says, \"Well, I just happen to have three {0}s in, of varying quality.  I've got a very good one for {1} GP, a fair one for {2} GP, and a kinda shabby one for {3} GP.  Which do you want?\"",
-									cw.Name,
+									weaponName,
 									gEngine.GetMerchantAskPrice(weapon.MarcosPrice, (double)Rtio),
 									gEngine.GetMerchantAskPrice(weapon.MarcosPrice * 0.80, (double)Rtio),
 									gEngine.GetMerchantAskPrice(weapon.MarcosPrice * 0.60, (double)Rtio));
@@ -218,8 +199,6 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 								Debug.Assert(gEngine.IsSuccess(rc));
 
-								gEngine.Thread.Sleep(150);
-
 								gOut.Print("{0}", gEngine.LineSep);
 
 								if (Buf.Length > 0 && Buf[0] != 'X')
@@ -228,7 +207,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 									{
 										ap = gEngine.GetMerchantAskPrice(weapon.MarcosPrice, (double)Rtio);
 
-										cw.Field1 = 10;
+										wc = 10;
 									}
 									else if (Buf[0] == 'F')
 									{
@@ -240,7 +219,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 										ap = gEngine.GetMerchantAskPrice(weapon.MarcosPrice * 0.60, (double)Rtio);
 
-										cw.Field1 = -10;
+										wc = -10;
 									}
 
 									if (ap > gCharacter.HeldGold)
@@ -252,23 +231,68 @@ namespace EamonMH.Game.Menus.ActionMenus
 										goto Cleanup;
 									}
 
-									rc = gCharacter.GetWeaponCount(ref i);
+									gOut.Print("Marcos hands you your weapon and takes the price from you.");
+
+									gCharacter.HeldGold -= ap;
+
+									var artifact = gEngine.CreateInstance<IArtifact>(x =>
+									{
+										x.SetArtifactCategoryCount(1);
+
+										x.Uid = gDatabase.GetArtifactUid();
+
+										x.Name = weaponName;
+
+										x.Desc = string.Format("{0} your {1}.", weapon.MarcosIsPlural ? "These are" : "This is", weaponName);
+
+										x.Seen = true;
+
+										x.Moved = true;
+
+										x.IsCharOwned = true;
+
+										x.IsListed = true;
+
+										x.IsPlural = weapon.MarcosIsPlural;
+
+										x.PluralType = weapon.MarcosPluralType;
+
+										x.ArticleType = weapon.MarcosArticleType;
+
+										x.Type = ArtifactType.Weapon;
+
+										x.Field1 = wc;
+
+										x.Field2 = i;
+
+										x.Field3 = weapon.MarcosDice;
+
+										x.Field4 = weapon.MarcosSides;
+
+										x.Field5 = weapon.MarcosNumHands;
+
+										x.SetFieldsValue(6, gEngine.NumArtifactCategoryFields, 0);
+
+										var imw = false;
+
+										x.Value = (long)gEngine.GetWeaponPriceOrValue(weaponName, wc, (Weapon)i, weapon.MarcosDice, weapon.MarcosSides, weapon.MarcosNumHands, false, ref imw);
+
+										x.Weight = 15;
+
+										x.SetCarriedByCharacter(gCharacter);
+									});
+
+									rc = gDatabase.AddArtifact(artifact);
 
 									Debug.Assert(gEngine.IsSuccess(rc));
-
-									gCharacter.SetWeapon(i, cw);
-
-									gCharacter.GetWeapon(i).Parent = gCharacter;
 
 									gCharacter.StripUniqueCharsFromWeaponNames();
 
 									gCharacter.AddUniqueCharsToWeaponNames();
 
-									gCharacter.HeldGold -= ap;
-
 									gEngine.CharactersModified = true;
 
-									gOut.Print("Marcos hands you your weapon and takes the price from you.");
+									gEngine.CharArtsModified = true;
 
 									menuState = MenuState.CheckShield;
 								}
@@ -309,8 +333,6 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 							Debug.Assert(gEngine.IsSuccess(rc));
 
-							gEngine.Thread.Sleep(150);
-
 							gOut.Print("{0}", gEngine.LineSep);
 
 							if (Buf.Length > 0 && Buf[0] == 'Y')
@@ -331,7 +353,7 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 					case MenuState.SellWeapon:
 
-						if (gCharacter.IsWeaponActive(0))
+						if (weaponList.Count > 0)
 						{
 							Buf.SetPrint("Marcos says, \"Okay, what've you got?\"");
 
@@ -351,17 +373,19 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 							Debug.Assert(gEngine.IsSuccess(rc));
 
-							gEngine.Thread.Sleep(150);
-
 							gOut.Print("{0}", gEngine.LineSep);
 
 							if (Buf.Length > 0 && Buf[0] != 'X')
 							{
 								i = Convert.ToInt64(Buf.Trim().ToString()) - 1;
 
+								var artifact = weaponList[(int)i];
+
+								Debug.Assert(artifact != null);
+
 								var imw = false;
 
-								var weaponPrice = gEngine.GetWeaponPriceOrValue(gCharacter.GetWeapon(i), true, ref imw);
+								var weaponPrice = gEngine.GetWeaponPriceOrValue(artifact, true, ref imw);
 
 								ap = gEngine.GetMerchantAskPrice(weaponPrice, (double)Rtio);
 
@@ -370,8 +394,8 @@ namespace EamonMH.Game.Menus.ActionMenus
 								ti = Math.Min(ap, bp) / 4;
 
 								gOut.Print("Marcos examines your weapon and says, \"{0}Well, {1}I can give you {2} gold piece{3} for it, take it or leave it.\"",
-									gCharacter.GetWeapon(i).Field3 * gCharacter.GetWeapon(i).Field4 > 25 ? "Very nice, this is a magical weapon.  " :
-									gCharacter.GetWeapon(i).Field3 * gCharacter.GetWeapon(i).Field4 > 15 || gCharacter.GetWeapon(i).Field1 > 10 ? "Hey, this is a pretty good weapon!  " : "",
+									artifact.Field3 * artifact.Field4 > 25 ? "Very nice, this is a magical weapon.  " :
+									artifact.Field3 * artifact.Field4 > 15 || artifact.Field1 > 10 ? "Hey, this is a pretty good weapon!  " : "",
 									imw ? "you've banged it up a bit, but " : "",
 									ti,
 									ti != 1 ? "s" : "");
@@ -386,8 +410,6 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 								Debug.Assert(gEngine.IsSuccess(rc));
 
-								gEngine.Thread.Sleep(150);
-
 								gOut.Print("{0}", gEngine.LineSep);
 
 								if (Buf.Length > 0 && Buf[0] == 'T')
@@ -396,23 +418,19 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 									gCharacter.HeldGold += ti;
 
-									while (i + 1 < gCharacter.Weapons.Length)
-									{
-										gCharacter.SetWeapon(i, gCharacter.GetWeapon(i + 1));
+									gDatabase.RemoveArtifact(artifact.Uid);
 
-										i++;
-									}
+									artifact.Dispose();
 
-									gCharacter.SetWeapon(i, gEngine.CreateInstance<ICharacterArtifact>(x =>
-									{
-										x.Parent = gCharacter;
-									}));
+									artifact = null;
 
 									gCharacter.StripUniqueCharsFromWeaponNames();
 
 									gCharacter.AddUniqueCharsToWeaponNames();
 
 									gEngine.CharactersModified = true;
+
+									gEngine.CharArtsModified = true;
 
 									gOut.Print("Marcos asks you, \"How about buying a weapon?\"");
 
@@ -425,8 +443,6 @@ namespace EamonMH.Game.Menus.ActionMenus
 									rc = gEngine.In.ReadField(Buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, gEngine.IsCharYOrN);
 
 									Debug.Assert(gEngine.IsSuccess(rc));
-
-									gEngine.Thread.Sleep(150);
 
 									gOut.Print("{0}", gEngine.LineSep);
 
@@ -459,16 +475,6 @@ namespace EamonMH.Game.Menus.ActionMenus
 						break;
 
 					case MenuState.BuyArmor:
-
-						if (gCharacter.Armor == null)
-						{
-							gCharacter.Armor = gEngine.CreateInstance<ICharacterArtifact>(x =>
-							{
-								x.Parent = gCharacter;
-							});
-
-							gEngine.CharactersModified = true;
-						}
 
 						a2 = (long)gCharacter.ArmorClass / 2;
 
@@ -554,8 +560,6 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 						Debug.Assert(gEngine.IsSuccess(rc));
 
-						gEngine.Thread.Sleep(150);
-
 						gOut.Print("{0}", gEngine.LineSep);
 
 						if (Buf.Length > 0 && Buf[0] != 'X')
@@ -576,6 +580,15 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 								gCharacter.HeldGold -= ap;
 
+								if (armorArtifact != null)
+								{
+									gDatabase.RemoveArtifact(armorArtifact.Uid);
+
+									armorArtifact.Dispose();
+
+									armorArtifact = null;
+								}
+
 								for (i = 0; i < armorValues.Count; i++)
 								{
 									if (gEngine.GetArmor(armorValues[(int)i]) == armor)
@@ -588,31 +601,58 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 								a2 = (long)armorValues[(int)i] / 2;
 
-								gCharacter.Armor.Name = string.Format("{0} armor", a2 == 1 ? "leather" : a2 == 2 ? "chain" : "plate");
-								gCharacter.Armor.Desc = string.Format("This is your {0}.", gCharacter.Armor.Name);
-								gCharacter.Armor.IsPlural = false;
-								gCharacter.Armor.PluralType = PluralType.None;
-								gCharacter.Armor.ArticleType = ArticleType.Some;
-								gCharacter.Armor.Weight = a2 == 1 ? 15 : a2 == 2 ? 25 : 35;
-								gCharacter.Armor.Type = ArtifactType.Wearable;
-								gCharacter.Armor.Field1 = a2 * 2;
-								gCharacter.Armor.Field2 = 0;
-								gCharacter.Armor.Field3 = 0;
-								gCharacter.Armor.Field4 = 0;
-								gCharacter.Armor.Field5 = 0;
-
-								/*
-								for (var m = 3; m <= gEngine.NumArtifactCategoryFields; m++)
+								var artifact = gEngine.CreateInstance<IArtifact>(x =>
 								{
-									gCharacter.Armor.SetPropertyValue(string.Format("Field{0}", m), 0);
-								}
-								*/
+									x.SetArtifactCategoryCount(1);
 
-								ima = false;
+									x.Uid = gDatabase.GetArtifactUid();
 
-								gCharacter.Armor.Value = (long)gEngine.GetArmorPriceOrValue((Armor)(a2 * 2), false, ref ima);
+									x.Name = string.Format("{0} armor", a2 == 1 ? "leather" : a2 == 2 ? "chain" : "plate");
+
+									x.Desc = string.Format("This is your {0}.", x.Name);
+
+									x.Synonyms = new string[] { "armor" };
+
+									x.Seen = true;
+
+									x.Moved = true;
+
+									x.IsCharOwned = true;
+
+									x.IsListed = true;
+
+									x.IsPlural = false;
+									
+									x.PluralType = PluralType.None;
+									
+									x.ArticleType = ArticleType.Some;
+
+									x.Type = ArtifactType.Wearable;
+
+									x.Field1 = a2 * 2;
+
+									x.Field2 = 0;
+
+									x.SetFieldsValue(3, gEngine.NumArtifactCategoryFields, 0);
+
+									ima = false;
+
+									x.Value = (long)gEngine.GetArmorPriceOrValue((Armor)(a2 * 2), false, ref ima);
+
+									x.Weight = a2 == 1 ? 15 : a2 == 2 ? 25 : 35;
+
+									x.SetWornByCharacter(gCharacter);
+								});
+
+								rc = gDatabase.AddArtifact(artifact);
+
+								Debug.Assert(gEngine.IsSuccess(rc));
+
+								gEngine.SwapGreaterArmorUidWithLesserShieldUid(gCharacter);
 
 								gEngine.CharactersModified = true;
+
+								gEngine.CharArtsModified = true;
 							}
 							else
 							{
@@ -625,16 +665,6 @@ namespace EamonMH.Game.Menus.ActionMenus
 						break;
 
 					case MenuState.BuyShield:
-
-						if (gCharacter.Shield == null)
-						{
-							gCharacter.Shield = gEngine.CreateInstance<ICharacterArtifact>(x =>
-							{
-								x.Parent = gCharacter;
-							});
-
-							gEngine.CharactersModified = true;
-						}
 
 						if (sh != 1)
 						{
@@ -652,8 +682,6 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 							Debug.Assert(gEngine.IsSuccess(rc));
 
-							gEngine.Thread.Sleep(150);
-
 							gOut.Print("{0}", gEngine.LineSep);
 
 							if (Buf.Length > 0 && Buf[0] == 'Y')
@@ -666,47 +694,60 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 									sh = 1;
 
-									gCharacter.Shield.Name = "shield";
-									gCharacter.Shield.Desc = "This is your shield.";
-									gCharacter.Shield.IsPlural = false;
-									gCharacter.Shield.PluralType = PluralType.S;
-									gCharacter.Shield.ArticleType = ArticleType.A;
-									gCharacter.Shield.Value = gEngine.ShieldPrice;
-									gCharacter.Shield.Weight = 15;
-									gCharacter.Shield.Type = ArtifactType.Wearable;
-									gCharacter.Shield.Field1 = sh;
-									gCharacter.Shield.Field2 = 0;
-									gCharacter.Shield.Field3 = 0;
-									gCharacter.Shield.Field4 = 0;
-									gCharacter.Shield.Field5 = 0;
-
-									/*
-									for (var m = 3; m <= gEngine.NumArtifactCategoryFields; m++)
+									var artifact = gEngine.CreateInstance<IArtifact>(x =>
 									{
-										gCharacter.Shield.SetPropertyValue(string.Format("Field{0}", m), 0);
-									}
-									*/
+										x.SetArtifactCategoryCount(1);
+
+										x.Uid = gDatabase.GetArtifactUid();
+
+										x.Name = "shield";
+
+										x.Desc = "This is your shield.";
+
+										x.Seen = true;
+
+										x.Moved = true;
+
+										x.IsCharOwned = true;
+
+										x.IsListed = true;
+
+										x.IsPlural = false;
+
+										x.PluralType = PluralType.S;
+
+										x.ArticleType = ArticleType.A;
+
+										x.Type = ArtifactType.Wearable;
+
+										x.Field1 = sh;
+
+										x.Field2 = 0;
+
+										x.SetFieldsValue(3, gEngine.NumArtifactCategoryFields, 0);
+
+										x.Value = gEngine.ShieldPrice;
+
+										x.Weight = 15;
+
+										x.SetWornByCharacter(gCharacter);
+									});
+
+									rc = gDatabase.AddArtifact(artifact);
+
+									Debug.Assert(gEngine.IsSuccess(rc));
+
+									gEngine.SwapGreaterArmorUidWithLesserShieldUid(gCharacter);
 
 									gEngine.CharactersModified = true;
+
+									gEngine.CharArtsModified = true;
 								}
 								else
 								{
 									gOut.Print("When he sees that you do not have enough gold to buy the shield, Marcos frowns and says, \"I'm sorry, but I don't give credit!\"");
 								}
 							}
-						}
-
-						menuState = MenuState.SetArmorClass;
-
-						break;
-
-					case MenuState.SetArmorClass:
-
-						if (gCharacter.ArmorClass != (Armor)(a2 * 2 + sh))
-						{
-							gCharacter.ArmorClass = (Armor)(a2 * 2 + sh);
-
-							gEngine.CharactersModified = true;
 						}
 
 						menuState = MenuState.LeaveShop;

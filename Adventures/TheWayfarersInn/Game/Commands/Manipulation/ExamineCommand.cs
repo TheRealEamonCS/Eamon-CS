@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Text;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
+using Eamon.Game.Extensions;
 using EamonRT.Framework.Commands;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
@@ -47,8 +48,6 @@ namespace TheWayfarersInn.Game.Commands
 					var rc = gEngine.In.ReadField(gEngine.Buf, gEngine.BufSize02, null, ' ', '\0', true, null, gEngine.ModifyCharToNull, null, gEngine.IsCharAny);
 
 					Debug.Assert(gEngine.IsSuccess(rc));
-
-					gEngine.Thread.Sleep(150);
 
 					gOut.Print("{0}", gEngine.LineSep);
 
@@ -113,11 +112,7 @@ namespace TheWayfarersInn.Game.Commands
 
 					DobjArtifact.Field2 = -1;
 
-					DobjArtifact.Field3 = 0;
-
-					DobjArtifact.Field4 = 0;
-
-					DobjArtifact.Field5 = 0;
+					DobjArtifact.SetFieldsValue(3, gEngine.NumArtifactCategoryFields, 0);
 				}
 
 				NextState = gEngine.CreateInstance<IMonsterStartState>();

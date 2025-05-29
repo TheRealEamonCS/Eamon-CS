@@ -20,19 +20,19 @@ namespace Eamon.Game.DataStorage.QuickAccess
 		{
 			get
 			{
-				return gDatabase.FindArtifact(uid);
+				return gDatabase?.FindArtifact(uid);
 			}
 
 			set
 			{
 				if (value == null || value.Uid == uid)
 				{
-					gDatabase.RemoveArtifact(uid);
+					gDatabase?.RemoveArtifact(uid);
 				}
 
 				if (value != null && value.Uid == uid)
 				{
-					gDatabase.AddArtifact(value, CopyAddedRecord);
+					gDatabase?.AddArtifact(value, CopyAddedRecord);
 				}
 			}
 		}

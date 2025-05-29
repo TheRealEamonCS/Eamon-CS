@@ -329,6 +329,8 @@ namespace EamonDD.Game.Menus.ActionMenus
 			var artifactHelper = gEngine.CreateInstance<IArtifactHelper>();
 
 			Debug.Assert(artifactHelper != null);
+			
+			artifactHelper.RecordTable = gDatabase.ArtifactTable;
 
 			for (var i = 0; i < edxAdv._na; i++)
 			{
@@ -416,6 +418,10 @@ namespace EamonDD.Game.Menus.ActionMenus
 					{
 						x.Field3 = edxArtifact._ad7;
 					}
+					else
+					{
+						x.Field3 = 0;
+					}
 
 					x.Field4 = edxArtifact._ad8;
 
@@ -423,6 +429,12 @@ namespace EamonDD.Game.Menus.ActionMenus
 					{
 						x.Field5 = edxArtifact._ad6 == 2 ? 2 : 1;
 					}
+					else
+					{
+						x.Field5 = 0;
+					}
+					
+					x.SetFieldsValue(6, gEngine.NumArtifactCategoryFields, 0);
 				});
 
 				artifact.SetArtifactCategoryCount(1);
@@ -455,6 +467,8 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 				container.Field3 = containedWeight;
 			}
+
+			Debug.Assert(gDatabase.ArtifactTableType == ArtifactTableType.Default);
 
 			gEngine.ArtifactsModified = true;
 
@@ -495,6 +509,8 @@ namespace EamonDD.Game.Menus.ActionMenus
 			var monsterHelper = gEngine.CreateInstance<IMonsterHelper>();
 
 			Debug.Assert(monsterHelper != null);
+			
+			monsterHelper.RecordTable = gDatabase.MonsterTable;
 
 			for (var i = 0; i < edxAdv._nm; i++)
 			{

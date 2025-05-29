@@ -4,6 +4,7 @@
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -22,8 +23,13 @@ namespace EamonMH.Game.Menus.ActionMenus
 	[ClassMappings]
 	public class GoOnAdventureMenu : Menu, IGoOnAdventureMenu
 	{
+		/// <summary></summary>
+		public virtual IList<IArtifact> ArtifactList { get; set; }
+
 		public override void Execute()
 		{
+			ArtifactList = gCharacter.GetContainedList().OrderBy(a => a.Uid).ToList();
+
 			SelectAdventure(0);
 		}
 
@@ -70,6 +76,8 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 				var helper = gEngine.CreateInstance<IFilesetHelper>();
 
+				helper.RecordTable = gDatabase.FilesetTable;
+				
 				var filesets = gDatabase.FilesetTable.Records;
 
 				foreach (var fileset01 in filesets)
@@ -93,8 +101,6 @@ namespace EamonMH.Game.Menus.ActionMenus
 						rc = gEngine.In.ReadField(Buf, gEngine.BufSize02, null, ' ', '\0', true, null, gEngine.ModifyCharToNullOrX, null, gEngine.IsCharAny);
 
 						Debug.Assert(gEngine.IsSuccess(rc));
-
-						gEngine.Thread.Sleep(150);
 
 						if (Buf.Length > 0 && Buf[0] == 'X')
 						{
@@ -124,8 +130,6 @@ namespace EamonMH.Game.Menus.ActionMenus
 				rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharDigitOrX, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
-
-				gEngine.Thread.Sleep(150);
 
 				if (Buf.Length > 0 && Buf[0] == 'X')
 				{
@@ -157,6 +161,8 @@ namespace EamonMH.Game.Menus.ActionMenus
 					rc = gEngine.PushDatabase();
 
 					Debug.Assert(gEngine.IsSuccess(rc));
+
+					gDatabase.PushArtifactTable(ArtifactTableType.CharArt);
 
 					if (!string.IsNullOrWhiteSpace(fileset.FilesetFileName) && !fileset.FilesetFileName.Equals("NONE", StringComparison.OrdinalIgnoreCase))
 					{
@@ -203,6 +209,19 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 						Debug.Assert(gEngine.IsSuccess(rc));
 
+						var cafn = gEngine.Path.Combine(fileset.WorkDir, "FRESHGEAR.DAT");
+
+						foreach (var artifact in ArtifactList)
+						{
+							rc = gDatabase.AddArtifact(artifact, true);
+
+							Debug.Assert(gEngine.IsSuccess(rc));
+						}
+
+						rc = gDatabase.SaveArtifacts(cafn, false);
+
+						Debug.Assert(gEngine.IsSuccess(rc));
+
 						var fsfn = gEngine.Path.Combine(fileset.WorkDir, "SAVEGAME.DAT");
 
 						rc = gDatabase.LoadFilesets(fsfn, printOutput: false);
@@ -234,8 +253,6 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 						config.Uid = gDatabase.GetConfigUid();
 
-						config.IsUidRecycled = true;
-
 						config.MhWorkDir = @"..\..\System\Bin";         // config.MhWorkDir = Engine.CloneInstance(Engine.WorkDir);
 
 						config.RtFilesetFileName = "SAVEGAME.DAT";
@@ -258,6 +275,10 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 						config.DdArtifactFileName = gEngine.CloneInstance(config.RtArtifactFileName);
 
+						config.RtCharArtFileName = "FRESHGEAR.DAT";
+
+						config.DdCharArtFileName = gEngine.CloneInstance(config.RtCharArtFileName);
+
 						config.RtEffectFileName = gEngine.CloneInstance(fileset.EffectFileName);
 
 						config.DdEffectFileName = gEngine.CloneInstance(config.RtEffectFileName);
@@ -275,6 +296,8 @@ namespace EamonMH.Game.Menus.ActionMenus
 						config.DdEditingFilesets = true;
 
 						config.DdEditingCharacters = true;
+
+						config.DdEditingCharArts = true;
 
 						rc = gDatabase.AddConfig(config);
 

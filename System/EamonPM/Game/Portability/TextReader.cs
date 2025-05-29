@@ -160,6 +160,11 @@ namespace EamonPM.Game.Portability
 				gEngine.Error.WriteLine("{0}", Buf01);
 			}
 
+			if (gEngine.ShouldSleepAfterInput(Buf01, App.InputFillChar))
+			{
+				gEngine.Thread.Sleep(150);
+			}
+
 		Cleanup:
 
 			return rc;
@@ -246,8 +251,6 @@ namespace EamonPM.Game.Portability
 				var rc = ReadField(buf, gEngine.BufSize02, null, ' ', '\0', true, null, gEngine.ModifyCharToNull, null, gEngine.IsCharAny);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
-
-				gEngine.Thread.Sleep(150);
 			}
 		}
 

@@ -31,20 +31,24 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 				if (!gEngine.Config.GenerateUids && NewRecordUid == 0)
 				{
-					gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(55, '\0', 0, "Enter the Uid of the Module record to add", null));
+					do
+					{
+						gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(55, '\0', 0, "Enter the Uid of the Module record to add", null));
 
-					Buf.Clear();
+						Buf.Clear();
 
-					rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', false, null, null, gEngine.IsCharDigit, null);
+						rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', false, null, null, gEngine.IsCharDigit, null);
 
-					Debug.Assert(gEngine.IsSuccess(rc));
+						Debug.Assert(gEngine.IsSuccess(rc));
 
-					NewRecordUid = Convert.ToInt64(Buf.Trim().ToString());
-
-					gOut.Print("{0}", gEngine.LineSep);
+						NewRecordUid = Convert.ToInt64(Buf.Trim().ToString());
+					}
+					while (NewRecordUid < 0 || NewRecordUid > gEngine.NumRecords);
 
 					if (NewRecordUid > 0)
 					{
+						gOut.Print("{0}", gEngine.LineSep);
+
 						module = gEngine.MODDB[NewRecordUid];
 
 						if (module != null)
@@ -53,8 +57,10 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 							goto Cleanup;
 						}
-
-						gDatabase.ModuleTable.FreeUids.Remove(NewRecordUid);
+					}
+					else
+					{
+						goto Cleanup;
 					}
 				}
 
@@ -62,15 +68,17 @@ namespace EamonDD.Game.Menus.ActionMenus
 				{
 					x.Uid = NewRecordUid;
 				});
-				
+
 				var helper = gEngine.CreateInstance<IModuleHelper>(x =>
 				{
+					x.RecordTable = gDatabase.ModuleTable;
+					
 					x.Record = module;
 				});
 				
 				helper.InputRecord(false, gEngine.Config.FieldDesc);
 
-				gEngine.Thread.Sleep(150);
+				gDatabase.ModuleTable.FreeUids.Remove(module.Uid);
 
 				gOut.Write("{0}Would you like to save this Module record (Y/N): ", Environment.NewLine);
 
@@ -79,8 +87,6 @@ namespace EamonDD.Game.Menus.ActionMenus
 				rc = gEngine.In.ReadField(Buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, gEngine.IsCharYOrN);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
-
-				gEngine.Thread.Sleep(150);
 
 				if (Buf.Length > 0 && Buf[0] == 'N')
 				{

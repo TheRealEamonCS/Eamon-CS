@@ -23,9 +23,6 @@ namespace Eamon.Game
 		[FieldName(100)]
 		public virtual long Uid { get; set; }
 
-		[FieldName(200)]
-		public virtual bool IsUidRecycled { get; set; }
-
 		[FieldName(300)]
 		public virtual string Name { get; set; }
 
@@ -44,6 +41,7 @@ namespace Eamon.Game
 		public virtual ArticleType ArticleType { get; set; }
 
 		[ExcludeFromSerialization]
+		[ExcludeFromDeepCopy]
 		public virtual string ParserMatchName { get; set; }
 
 		#endregion
@@ -168,8 +166,6 @@ namespace Eamon.Game
 
 		public GameBase()
 		{
-			IsUidRecycled = true;
-
 			Name = "";
 
 			Desc = "";

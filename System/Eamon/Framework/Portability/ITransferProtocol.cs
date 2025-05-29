@@ -12,9 +12,10 @@ namespace Eamon.Framework.Portability
 		/// <param name="filePrefix"></param>
 		/// <param name="filesetFileName"></param>
 		/// <param name="characterFileName"></param>
+		/// <param name="charArtFileName"></param>
 		/// <param name="effectFileName"></param>
 		/// <param name="characterName"></param>
-		void SendCharacterToMainHall(string filePrefix, string filesetFileName, string characterFileName, string effectFileName, string characterName);
+		void SendCharacterToMainHall(string filePrefix, string filesetFileName, string characterFileName, string charArtFileName, string effectFileName, string characterName);
 
 		/// <summary></summary>
 		/// <param name="workDir"></param>

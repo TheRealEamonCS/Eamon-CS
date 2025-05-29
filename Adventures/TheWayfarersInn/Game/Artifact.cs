@@ -160,11 +160,7 @@ namespace TheWayfarersInn.Game
 
 									Field2 = -1;
 
-									Field3 = 0;
-
-									Field4 = 0;
-
-									Field5 = 0;
+									this.SetFieldsValue(3, gEngine.NumArtifactCategoryFields, 0);
 
 									room20.SetDirectionDoorUid(Direction.Up, 112);
 
@@ -177,15 +173,7 @@ namespace TheWayfarersInn.Game
 
 								Type = ArtifactType.Treasure;
 
-								Field1 = 0;
-
-								Field2 = 0;
-
-								Field3 = 0;
-
-								Field4 = 0;
-
-								Field5 = 0;
+								this.SetFieldsValue(1, gEngine.NumArtifactCategoryFields, 0);
 
 								room20.SetDir(Direction.Up, 0);
 

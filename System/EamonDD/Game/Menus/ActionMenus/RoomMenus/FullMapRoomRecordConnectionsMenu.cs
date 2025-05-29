@@ -39,6 +39,8 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			var directionValues = EnumUtil.GetValues<Direction>();
 
+			gEngine.DdSuppressPostInputSleep = true;
+
 			foreach (var room in gDatabase.RoomTable.Records)
 			{
 				Buf.SetFormat("{0}\tRoom {1}: {2}", Environment.NewLine, room.Uid, room.Name);
@@ -73,6 +75,8 @@ namespace EamonDD.Game.Menus.ActionMenus
 					break;
 				}
 			}
+
+			gEngine.DdSuppressPostInputSleep = false;
 
 			gOut.Print("Done fully mapping Room record connections.");
 		}

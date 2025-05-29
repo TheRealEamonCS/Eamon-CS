@@ -23,9 +23,6 @@ namespace TheBeginnersCave.Game.Plugin
 
 		public virtual string AlightDesc { get; protected set; } = " (alight)";
 
-		/// <summary></summary>
-		public virtual long HeldWpnIdx { get; set; }
-
 		public override RetCode LoadPluginClassMappings()
 		{
 			RetCode rc;
@@ -93,37 +90,20 @@ namespace TheBeginnersCave.Game.Plugin
 			}
 		}
 
-		public override IArtifact ConvertWeaponToArtifact(ICharacterArtifact weapon)
+		public override void ConvertArtifactToCharArtifact(IArtifact artifact, IArtifactCategory ac)
 		{
-			var artifact = base.ConvertWeaponToArtifact(weapon);
+			Debug.Assert(artifact != null);
 
-			var i = Array.FindIndex(Character.Weapons, x => x == weapon);
+			// Trollsfire
 
-			if (i != GameState.UsedWpnIdx)
+			if (artifact.Uid == 10)
 			{
-				artifact.SetInLimbo();
+				var rc = artifact.RemoveStateDesc(AlightDesc);
 
-				GameState.SetHeldWpnUid(HeldWpnIdx++, artifact.Uid);
+				Debug.Assert(IsSuccess(rc));
 			}
 
-			return artifact;
-		}
-
-		public override void ConvertToCarriedInventory(IList<IArtifact> weaponList)
-		{
-			for (var i = 0; i < GameState.HeldWpnUids.Length; i++)
-			{
-				if (GameState.GetHeldWpnUid(i) > 0)
-				{
-					var artifact = ADB[GameState.GetHeldWpnUid(i)];
-
-					Debug.Assert(artifact != null);
-
-					artifact.SetCarriedByMonster(gCharMonster);
-				}
-			}
-
-			base.ConvertToCarriedInventory(weaponList);
+			base.ConvertArtifactToCharArtifact(artifact, ac);
 		}
 
 		public override void MonsterDies(IMonster actorMonster, IMonster dobjMonster)

@@ -4,6 +4,7 @@
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -25,6 +26,9 @@ namespace EamonMH.Game.Menus.ActionMenus
 	[ClassMappings]
 	public class RegistrationDeskMenu : Menu, IRegistrationDeskMenu
 	{
+		/// <summary></summary>
+		public virtual IList<IArtifact> ArtifactList { get; set; }
+
 		/// <summary></summary>
 		public virtual double? Rtio { get; set; }
 
@@ -67,6 +71,8 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
+				gDatabase.PushArtifactTable(ArtifactTableType.CharArt);
+
 				if (!string.IsNullOrWhiteSpace(fileset.FilesetFileName) && !fileset.FilesetFileName.Equals("NONE", StringComparison.OrdinalIgnoreCase))
 				{
 					var fsfn = gEngine.Path.Combine(fileset.WorkDir, fileset.FilesetFileName);
@@ -93,9 +99,33 @@ namespace EamonMH.Game.Menus.ActionMenus
 						{
 							AdventureName = fileset.Name;
 
+							gCharacter.CopyPropertiesFrom(character, recurse: true);
+
 							gCharacter.Status = Status.Alive;
 
 							gEngine.CharactersModified = true;
+
+							var cafn = gEngine.Path.Combine(fileset.WorkDir, "FRESHGEAR.DAT");
+
+							if (gEngine.File.Exists(cafn))
+							{
+								ArtifactList = new List<IArtifact>();
+
+								rc = gDatabase.LoadArtifacts(cafn, printOutput: false);
+
+								Debug.Assert(gEngine.IsSuccess(rc));
+
+								var cloneArtifactList = gCharacter.GetContainedList();
+
+								foreach (var artifact in cloneArtifactList)
+								{
+									var artifact02 = gEngine.CloneInstance(artifact);
+
+									Debug.Assert(artifact02 != null);
+
+									ArtifactList.Add(artifact02);
+								}
+							}
 
 							gEngine.TransferProtocol.RecallCharacterFromAdventure(fileset.WorkDir, gEngine.FilePrefix, fileset.PluginFileName);
 						}
@@ -110,6 +140,41 @@ namespace EamonMH.Game.Menus.ActionMenus
 				{
 					break;
 				}
+			}
+
+			var artifactCount = gDatabase.GetArtifactCount();
+
+			if (ArtifactList != null && artifactCount > 0)
+			{
+				var removeArtifactList = gCharacter.GetContainedList();
+
+				for (var i = 0; i < removeArtifactList.Count; i++)
+				{
+					var artifact = removeArtifactList[i];
+
+					Debug.Assert(artifact != null);
+
+					gDatabase.RemoveArtifact(artifact.Uid);
+
+					artifact.Dispose();
+
+					artifact = null;
+				}
+
+				foreach (var artifact in ArtifactList)
+				{
+					artifact.Uid = gDatabase.GetArtifactUid();
+
+					rc = gDatabase.AddArtifact(artifact);
+
+					Debug.Assert(gEngine.IsSuccess(rc));
+				}
+
+				gCharacter.StripUniqueCharsFromWeaponNames();
+
+				gCharacter.AddUniqueCharsToWeaponNames();
+
+				gEngine.CharArtsModified = true;
 			}
 		}
 
@@ -144,18 +209,16 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 			var helper = gEngine.CreateInstance<ICharacterHelper>(x =>
 			{
+				x.RecordTable = gDatabase.CharacterTable;
+				
 				x.Record = character;
 			});
 
 			Debug.Assert(helper.ValidateField("Gender"));
 
-			gEngine.Thread.Sleep(150);
-
 			gOut.Print("{0}", gEngine.LineSep);
 
 			character.Uid = gDatabase.GetCharacterUid();
-
-			character.IsUidRecycled = true;
 
 			character.Status = Status.Alive;
 
@@ -211,8 +274,6 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 					Debug.Assert(gEngine.IsSuccess(rc));
 
-					gEngine.Thread.Sleep(150);
-
 					if (Buf.Length > 0 && Buf[0] == 'Y')
 					{
 						gOut.Print("{0}", gEngine.LineSep);
@@ -245,8 +306,6 @@ namespace EamonMH.Game.Menus.ActionMenus
 			rc = gEngine.In.ReadField(Buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharROrT, gEngine.IsCharROrT);
 
 			Debug.Assert(gEngine.IsSuccess(rc));
-
-			gEngine.Thread.Sleep(150);
 
 			gOut.Print("{0}", gEngine.LineSep);
 
@@ -358,10 +417,10 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 				var helper = gEngine.CreateInstance<ICharacterHelper>(x =>
 				{
+					x.RecordTable = gDatabase.CharacterTable;
+					
 					x.Record = character;
 				});
-
-				gEngine.Thread.Sleep(150);
 
 				if (helper.ValidateField("Name"))
 				{
@@ -391,8 +450,6 @@ namespace EamonMH.Game.Menus.ActionMenus
 						rc = gEngine.In.ReadField(Buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, gEngine.IsCharYOrN);
 
 						Debug.Assert(gEngine.IsSuccess(rc));
-
-						gEngine.Thread.Sleep(150);
 
 						if (Buf.Length > 0 && Buf[0] == 'Y')
 						{
@@ -454,8 +511,6 @@ namespace EamonMH.Game.Menus.ActionMenus
 							rc = gEngine.In.ReadField(Buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, gEngine.IsCharYOrN);
 
 							Debug.Assert(gEngine.IsSuccess(rc));
-
-							gEngine.Thread.Sleep(150);
 
 							if (Buf.Length > 0 && Buf[0] == 'Y')
 							{

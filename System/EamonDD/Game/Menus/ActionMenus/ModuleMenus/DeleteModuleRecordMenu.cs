@@ -29,6 +29,8 @@ namespace EamonDD.Game.Menus.ActionMenus
 				
 				var helper = gEngine.CreateInstance<IModuleHelper>(x =>
 				{
+					x.RecordTable = gDatabase.ModuleTable;
+					
 					x.Record = gEngine.Module;
 				});
 				
@@ -45,8 +47,6 @@ namespace EamonDD.Game.Menus.ActionMenus
 				rc = gEngine.In.ReadField(Buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, gEngine.IsCharYOrN);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
-
-				gEngine.Thread.Sleep(150);
 
 				if (Buf.Length > 0 && Buf[0] == 'N')
 				{

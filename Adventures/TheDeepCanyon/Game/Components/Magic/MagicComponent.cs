@@ -103,7 +103,7 @@ namespace TheDeepCanyon.Game.Components
 
 					if (!processed)
 					{
-						for (var i = 0; i < gGameState.ImportedArtUidsIdx; i++)
+						for (var i = 0; i < gGameState.ImportedArtUids.Count; i++)
 						{
 							var artifact = gADB[gGameState.ImportedArtUids[i]];
 

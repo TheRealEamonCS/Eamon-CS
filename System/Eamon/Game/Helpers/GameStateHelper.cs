@@ -8,6 +8,7 @@ using Eamon.Framework;
 using Eamon.Framework.Helpers;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
+using Eamon.Game.Extensions;
 using Eamon.Game.Helpers.Generic;
 using Eamon.Game.Utilities;
 using static Eamon.Game.Plugin.Globals;
@@ -73,7 +74,7 @@ namespace Eamon.Game.Helpers
 		/// <returns></returns>
 		public virtual string GetNameImportedArtUids(bool addToNameList)
 		{
-			for (Index = 0; Index < Record.ImportedArtUids.Length; Index++)
+			for (Index = 0; Index < Record.ImportedArtUids.Count; Index++)
 			{
 				GetName("ImportedArtUidsElement", addToNameList);
 			}
@@ -103,7 +104,7 @@ namespace Eamon.Game.Helpers
 		/// <returns></returns>
 		public virtual string GetNameHeldWpnUids(bool addToNameList)
 		{
-			for (Index = 0; Index < Record.HeldWpnUids.Length; Index++)
+			for (Index = 0; Index < Record.HeldWpnUids.Count; Index++)
 			{
 				GetName("HeldWpnUidsElement", addToNameList);
 			}
@@ -167,7 +168,7 @@ namespace Eamon.Game.Helpers
 		/// <returns></returns>
 		public virtual bool ValidateUid()
 		{
-			return Record.Uid > 0;
+			return Record.Uid > 0 && Record.Uid <= gEngine.NumRecords;
 		}
 
 		/// <summary></summary>
@@ -235,16 +236,21 @@ namespace Eamon.Game.Helpers
 
 		/// <summary></summary>
 		/// <returns></returns>
-		public virtual bool ValidateImportedArtUidsIdx()
-		{
-			return Record.ImportedArtUidsIdx >= 0 && Record.ImportedArtUidsIdx <= Record.ImportedArtUids.Length;
-		}
-
-		/// <summary></summary>
-		/// <returns></returns>
 		public virtual bool ValidateUsedWpnIdx()
 		{
-			return Record.UsedWpnIdx >= 0 && Record.UsedWpnIdx < Record.HeldWpnUids.Length;
+			var numWeapons = 0L;
+
+			Record.ImportedArtUids.ForEach(artUid =>
+			{
+				var artifact = gADB[artUid];
+
+				if (artifact != null && artifact.GeneralWeapon != null)
+				{
+					numWeapons++;
+				}
+			});
+
+			return Record.UsedWpnIdx >= -1 && Record.UsedWpnIdx < numWeapons;
 		}
 
 		/// <summary></summary>
@@ -289,7 +295,7 @@ namespace Eamon.Game.Helpers
 		{
 			var result = true;
 
-			for (Index = 0; Index < Record.ImportedArtUids.Length; Index++)
+			for (Index = 0; Index < Record.ImportedArtUids.Count; Index++)
 			{
 				result = ValidateField("ImportedArtUidsElement");
 
@@ -308,7 +314,7 @@ namespace Eamon.Game.Helpers
 		{
 			var i = Index;
 
-			return Record.GetImportedArtUid(i) >= 0;
+			return Record.GetImportedArtUid(i) > 0;
 		}
 
 		/// <summary></summary>
@@ -317,7 +323,7 @@ namespace Eamon.Game.Helpers
 		{
 			var result = true;
 
-			for (Index = 0; Index < Record.HeldWpnUids.Length; Index++)
+			for (Index = 0; Index < Record.HeldWpnUids.Count; Index++)
 			{
 				result = ValidateField("HeldWpnUidsElement");
 
@@ -336,7 +342,7 @@ namespace Eamon.Game.Helpers
 		{
 			var i = Index;
 
-			return Record.GetHeldWpnUid(i) >= 0;
+			return Record.GetHeldWpnUid(i) > 0;
 		}
 
 		#endregion
@@ -380,12 +386,6 @@ namespace Eamon.Game.Helpers
 			if (Record.Uid <= 0)
 			{
 				Record.Uid = gDatabase.GetGameStateUid();
-
-				Record.IsUidRecycled = true;
-			}
-			else if (!EditRec)
-			{
-				Record.IsUidRecycled = false;
 			}
 		}
 

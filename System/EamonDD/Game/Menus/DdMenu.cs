@@ -45,7 +45,7 @@ namespace EamonDD.Game.Menus
 				gOut.Write("{0}Rooms: {1}", "  ", gDatabase.GetRoomCount());
 			}
 
-			if (gEngine.Config.DdEditingArtifacts)
+			if (gEngine.Config.DdEditingArtifacts || (!gEngine.BortCommand && gEngine.Config.DdEditingCharArts))
 			{
 				gOut.Write("{0}Artifacts: {1}", "  ", gDatabase.GetArtifactCount());
 			}

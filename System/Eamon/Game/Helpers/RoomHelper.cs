@@ -132,7 +132,7 @@ namespace Eamon.Game.Helpers
 		/// <returns></returns>
 		public virtual bool ValidateUid()
 		{
-			return Record.Uid > 0;
+			return Record.Uid > 0 && Record.Uid <= gEngine.NumRecords;
 		}
 
 		/// <summary></summary>
@@ -250,9 +250,7 @@ namespace Eamon.Game.Helpers
 				{
 					var roomUid = Record.GetDir(i);
 
-					var room = gRDB[roomUid];
-
-					if (room == null)
+					if (gRDB[roomUid] == null)
 					{
 						result = false;
 
@@ -892,12 +890,6 @@ namespace Eamon.Game.Helpers
 			if (Record.Uid <= 0)
 			{
 				Record.Uid = gDatabase.GetRoomUid();
-
-				Record.IsUidRecycled = true;
-			}
-			else if (!EditRec)
-			{
-				Record.IsUidRecycled = false;
 			}
 		}
 

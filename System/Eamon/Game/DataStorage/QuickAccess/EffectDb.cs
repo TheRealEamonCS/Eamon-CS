@@ -20,19 +20,19 @@ namespace Eamon.Game.DataStorage.QuickAccess
 		{
 			get
 			{
-				return gDatabase.FindEffect(uid);
+				return gDatabase?.FindEffect(uid);
 			}
 
 			set
 			{
 				if (value == null || value.Uid == uid)
 				{
-					gDatabase.RemoveEffect(uid);
+					gDatabase?.RemoveEffect(uid);
 				}
 
 				if (value != null && value.Uid == uid)
 				{
-					gDatabase.AddEffect(value, CopyAddedRecord);
+					gDatabase?.AddEffect(value, CopyAddedRecord);
 				}
 			}
 		}

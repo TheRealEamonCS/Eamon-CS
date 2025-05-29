@@ -40,8 +40,6 @@ namespace TheDeepCanyon.Game.States
 
 			Debug.Assert(gEngine.IsSuccess(rc));
 
-			gEngine.Thread.Sleep(150);
-
 			gOut.Print("{0}", gEngine.LineSep);
 
 			// gSentenceParser.PrintDiscardingCommands() not called for this abrupt reality shift
@@ -88,7 +86,7 @@ namespace TheDeepCanyon.Game.States
 
 			room.Seen = false;
 
-			gEngine.EnforceCharacterWeightLimits02(room);		// Needed because player stats have changed
+			gEngine.EnforceCharMonsterWeightLimits(room);		// Needed because player stats have changed
 
 			gGameState.Ro = 1;
 

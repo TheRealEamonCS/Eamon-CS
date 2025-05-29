@@ -27,6 +27,16 @@ namespace EamonPM.Android
 		ConfigurationChanges = ConfigChanges.Orientation | ConfigChanges.ScreenSize | ConfigChanges.UiMode)]
 	public class MainActivity : AvaloniaMainActivity<App>
 	{
+		protected override void OnCreate(Bundle savedInstanceState)
+		{
+			if (Build.VERSION.SdkInt >= BuildVersionCodes.S)	// S is for Android 12
+			{
+				AndroidX.Core.SplashScreen.SplashScreen.InstallSplashScreen(this);
+			}
+			
+			base.OnCreate(savedInstanceState);
+		}
+
 		public override void OnBackPressed()
 		{
 			if (App.ShouldStopApplicationOnBackPressed())

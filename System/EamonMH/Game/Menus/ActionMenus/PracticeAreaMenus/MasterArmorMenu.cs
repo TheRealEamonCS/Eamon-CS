@@ -65,8 +65,6 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 					Debug.Assert(gEngine.IsSuccess(rc));
 
-					gEngine.Thread.Sleep(150);
-
 					gOut.Print("{0}", gEngine.LineSep);
 
 					if (Buf.Length == 0 || Buf[0] == 'X')

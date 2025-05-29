@@ -5,6 +5,7 @@
 
 using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 using Eamon;
@@ -57,6 +58,8 @@ namespace EamonMH.Game.Plugin
 
 		public virtual bool CharactersModified { get; set; }
 
+		public virtual bool CharArtsModified { get; set; }
+
 		public virtual bool EffectsModified { get; set; }
 
 		#endregion
@@ -97,6 +100,11 @@ namespace EamonMH.Game.Plugin
 		public override void ResetProperties(PropertyResetCode resetCode)
 		{
 			base.ResetProperties(resetCode);
+		}
+
+		public override bool ShouldSleepAfterInput(StringBuilder buf, char inputFillChar)
+		{
+			return true;
 		}
 
 		public virtual bool IsCharDOrM(char ch)
@@ -216,15 +224,11 @@ namespace EamonMH.Game.Plugin
 
 		public virtual bool IsCharWpnNumOrX(char ch)
 		{
-			long i = 0;
-
-			var rc = Character.GetWeaponCount(ref i);
-
-			Debug.Assert(IsSuccess(rc));
+			var artifactList = Character.GetCarriedList().Where(a => a.GeneralWeapon != null).ToList();
 
 			ch = Char.ToUpper(ch);
 
-			return (ch >= '1' && ch <= ('1' + (i - 1))) || ch == 'X';
+			return (ch >= '1' && ch <= ('1' + (artifactList.Count - 1))) || ch == 'X';
 		}
 
 		public virtual bool IsCharStat(char ch)
@@ -321,6 +325,15 @@ namespace EamonMH.Game.Plugin
 					if (++i < Argv.Length && secondPass)
 					{
 						Config.MhCharacterFileName = Argv[i].Trim();
+
+						ConfigsModified = true;
+					}
+				}
+				else if (Argv[i].Equals("--charArtFileName", StringComparison.OrdinalIgnoreCase) || Argv[i].Equals("-cafn", StringComparison.OrdinalIgnoreCase))
+				{
+					if (++i < Argv.Length && secondPass)
+					{
+						Config.MhCharArtFileName = Argv[i].Trim();
 
 						ConfigsModified = true;
 					}

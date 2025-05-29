@@ -27,12 +27,6 @@ namespace Eamon.Framework
 		long Uid { get; set; }
 
 		/// <summary>
-		/// Gets or sets a value indicating whether this <see cref="IGameBase">Record</see>'s <see cref="Uid">Uid</see> should be
-		/// recycled (cached for reuse) when the Dispose method is called.
-		/// </summary>
-		bool IsUidRecycled { get; set; }
-
-		/// <summary>
 		/// Gets or sets the name of this <see cref="IGameBase">Record</see> as shown in various lists or the Record's full description.
 		/// </summary>
 		string Name { get; set; }

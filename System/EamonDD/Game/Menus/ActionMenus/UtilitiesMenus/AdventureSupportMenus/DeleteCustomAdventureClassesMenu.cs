@@ -102,6 +102,8 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			var classFileName = string.Empty;
 
+			gEngine.DdSuppressPostInputSleep = true;
+
 			while (true)
 			{
 				gOut.Print("{0}", gEngine.LineSep);
@@ -153,6 +155,8 @@ namespace EamonDD.Game.Menus.ActionMenus
 			}
 
 		Cleanup:
+
+			gEngine.DdSuppressPostInputSleep = false;
 
 			if (SelectedClassFileList.Count == 0)
 			{

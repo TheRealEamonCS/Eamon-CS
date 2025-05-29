@@ -29,6 +29,8 @@ namespace EamonDD.Game.Menus.ActionMenus
 				
 				var helper = gEngine.CreateInstance<IModuleHelper>(x =>
 				{
+					x.RecordTable = gDatabase.ModuleTable;
+					
 					x.Record = gEngine.Module;
 				});
 				

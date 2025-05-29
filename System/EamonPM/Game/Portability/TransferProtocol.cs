@@ -12,11 +12,13 @@ namespace EamonPM.Game.Portability
 {
 	public class TransferProtocol : ITransferProtocol
 	{
-		public virtual void SendCharacterToMainHall(string filePrefix, string filesetFileName, string characterFileName, string effectFileName, string characterName)
+		public virtual void SendCharacterToMainHall(string filePrefix, string filesetFileName, string characterFileName, string charArtFileName, string effectFileName, string characterName)
 		{
 			Debug.Assert(!string.IsNullOrWhiteSpace(filesetFileName));
 
 			Debug.Assert(!string.IsNullOrWhiteSpace(characterFileName));
+
+			Debug.Assert(!string.IsNullOrWhiteSpace(charArtFileName));
 
 			Debug.Assert(!string.IsNullOrWhiteSpace(effectFileName));
 
@@ -38,6 +40,10 @@ namespace EamonPM.Game.Portability
 			argsList.Add("-chrfn");
 
 			argsList.Add(characterFileName);
+
+			argsList.Add("-cafn");
+
+			argsList.Add(charArtFileName);
 
 			argsList.Add("-efn");
 

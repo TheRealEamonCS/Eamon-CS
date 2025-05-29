@@ -41,15 +41,33 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			var j = Convert.ToInt64(Buf.Trim().ToString());
 
+			var artifactCount = gDatabase.GetArtifactCount();
+
+			if (artifactCount + j > gEngine.NumRecords)
+			{
+				j = gEngine.NumRecords - artifactCount;
+			}
+
 			for (var i = 0; i < j; i++)
 			{
 				artifact = gEngine.CreateInstance<IArtifact>(x =>
 				{
 					x.Uid = gDatabase.GetArtifactUid();
-					x.Name = string.Format("artifact {0}", x.Uid);
-					x.Desc = string.Format("You see artifact {0}.", x.Uid);
+					x.Name = string.Format("dummy {0}", x.Uid);
+					x.Desc = string.Format("You see {0}.", x.Name);
 					x.IsListed = true;
-					x.GetCategory(0).Type = ArtifactType.Treasure;
+
+					if (gDatabase.ArtifactTableType == ArtifactTableType.CharArt)
+					{
+						x.GetCategory(0).Type = ArtifactType.Wearable;
+						x.GetCategory(0).Field1 = 1;
+						x.GetCategory(0).Field2 = 0;
+					}
+					else
+					{
+						x.GetCategory(0).Type = ArtifactType.Treasure;
+					}
+
 					x.SetArtifactCategoryCount(1);
 				});
 
@@ -67,13 +85,20 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
-				gEngine.ArtifactsModified = true;
-
-				if (gEngine.Module != null)
+				if (gDatabase.ArtifactTableType == ArtifactTableType.CharArt)
 				{
-					gEngine.Module.NumArtifacts++;
+					gEngine.CharArtsModified = true;
+				}
+				else
+				{
+					gEngine.ArtifactsModified = true;
 
-					gEngine.ModulesModified = true;
+					if (gEngine.Module != null)
+					{
+						gEngine.Module.NumArtifacts++;
+
+						gEngine.ModulesModified = true;
+					}
 				}
 			}
 

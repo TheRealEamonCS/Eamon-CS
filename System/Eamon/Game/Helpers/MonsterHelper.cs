@@ -223,7 +223,7 @@ namespace Eamon.Game.Helpers
 		/// <returns></returns>
 		public virtual bool ValidateUid()
 		{
-			return Record.Uid > 0;
+			return Record.Uid > 0 && Record.Uid <= gEngine.NumRecords;
 		}
 
 		/// <summary></summary>
@@ -604,24 +604,19 @@ namespace Eamon.Game.Helpers
 
 			var effectUid = gEngine.GetPluralTypeEffectUid(Record.PluralType);
 
-			if (effectUid > 0)
+			if (effectUid > 0 && gEDB[effectUid] == null)
 			{
-				var effect = gEDB[effectUid];
+				result = false;
 
-				if (effect == null)
-				{
-					result = false;
+				Buf.SetFormat(gEngine.RecIdepErrorFmtStr, GetPrintedName("PluralType"), "Effect", effectUid, "which doesn't exist");
 
-					Buf.SetFormat(gEngine.RecIdepErrorFmtStr, GetPrintedName("PluralType"), "Effect", effectUid, "which doesn't exist");
+				ErrorMessage = Buf.ToString();
 
-					ErrorMessage = Buf.ToString();
+				RecordType = typeof(IEffect);
 
-					RecordType = typeof(IEffect);
+				NewRecordUid = effectUid;
 
-					NewRecordUid = effectUid;
-
-					goto Cleanup;
-				}
+				goto Cleanup;
 			}
 
 		Cleanup:
@@ -637,24 +632,19 @@ namespace Eamon.Game.Helpers
 
 			var roomUid = Record.GetInRoomUid();
 
-			if (roomUid > 0)
+			if (roomUid > 0 && gRDB[roomUid] == null)
 			{
-				var room = gRDB[roomUid];
+				result = false;
 
-				if (room == null)
-				{
-					result = false;
+				Buf.SetFormat(gEngine.RecIdepErrorFmtStr, GetPrintedName("Location"), "Room", roomUid, "which doesn't exist");
 
-					Buf.SetFormat(gEngine.RecIdepErrorFmtStr, GetPrintedName("Location"), "Room", roomUid, "which doesn't exist");
+				ErrorMessage = Buf.ToString();
 
-					ErrorMessage = Buf.ToString();
+				RecordType = typeof(IRoom);
 
-					RecordType = typeof(IRoom);
+				NewRecordUid = roomUid;
 
-					NewRecordUid = roomUid;
-
-					goto Cleanup;
-				}
+				goto Cleanup;
 			}
 
 		Cleanup:
@@ -928,7 +918,7 @@ namespace Eamon.Game.Helpers
 		{
 			var fullDesc = "Enter the location of the Monster.";
 
-			var briefDesc = "(LE 0)=Limbo; (GT 0)=Room Uid";
+			var briefDesc = string.Format("(LE 0)=Limbo; 1-{0}=Room Uid", gEngine.NumRecords);
 
 			gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc);
 		}
@@ -1034,7 +1024,7 @@ namespace Eamon.Game.Helpers
 		{
 			var fullDesc = "Enter the weapon of the Monster.";
 
-			var briefDesc = "(LT 0)=Weaponless; 0=Natural weapons; (GT 0)=Weapon Artifact Uid";
+			var briefDesc = string.Format("(LT 0)=Weaponless; 0=Natural weapons; 1-{0}=Weapon Artifact Uid", gEngine.NumRecords);
 
 			gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc);
 		}
@@ -1064,7 +1054,7 @@ namespace Eamon.Game.Helpers
 		{
 			var fullDesc = "Enter the dead body of the Monster.";
 
-			var briefDesc = "0=No dead body used; (GT 0)=Dead body Artifact Uid";
+			var briefDesc = string.Format("0=No dead body used; 1-{0}=Dead body Artifact Uid", gEngine.NumRecords);
 
 			gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc);
 		}
@@ -2618,12 +2608,6 @@ namespace Eamon.Game.Helpers
 			if (Record.Uid <= 0)
 			{
 				Record.Uid = gDatabase.GetMonsterUid();
-
-				Record.IsUidRecycled = true;
-			}
-			else if (!EditRec)
-			{
-				Record.IsUidRecycled = false;
 			}
 		}
 

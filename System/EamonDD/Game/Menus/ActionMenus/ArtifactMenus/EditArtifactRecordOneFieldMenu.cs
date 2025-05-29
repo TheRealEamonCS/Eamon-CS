@@ -5,6 +5,7 @@
 
 using Eamon.Framework;
 using Eamon.Framework.Helpers;
+using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using EamonDD.Framework.Menus.ActionMenus;
 using static EamonDD.Game.Plugin.Globals;
@@ -16,7 +17,14 @@ namespace EamonDD.Game.Menus.ActionMenus
 	{
 		public override void UpdateGlobals()
 		{
-			gEngine.ArtifactsModified = true;
+			if (gDatabase.ArtifactTableType == ArtifactTableType.CharArt)
+			{
+				gEngine.CharArtsModified = true;
+			}
+			else
+			{
+				gEngine.ArtifactsModified = true;
+			}
 		}
 
 		public EditArtifactRecordOneFieldMenu()

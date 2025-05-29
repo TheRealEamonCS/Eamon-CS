@@ -5,6 +5,7 @@ ChangeLog: Eamon
 
 Date            Version            Who            Notes
 ----------------------------------------------------------------------------------------------------------------------------------
+20250531        3.1.0              MP             CharacterArtifact removal/20-Field Artifact overhaul
 20250218        3.0.0              MP             EnhancedCombat overhaul
 20250206                           MP             Artifact recursive method overhaul
 20240931                           MP             Avalonia overhaul

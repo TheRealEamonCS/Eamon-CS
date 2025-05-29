@@ -27,6 +27,8 @@ namespace EamonDD.Game.Menus.ActionMenus
 			
 			var helper = gEngine.CreateInstance<IConfigHelper>(x =>
 			{
+				x.RecordTable = gDatabase.ConfigTable;
+				
 				x.Record = gEngine.Config;
 			});
 			

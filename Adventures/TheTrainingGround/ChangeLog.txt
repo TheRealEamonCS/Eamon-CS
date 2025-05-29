@@ -5,6 +5,7 @@ ChangeLog: TheTrainingGround
 
 Date            Version            Who            Notes
 ----------------------------------------------------------------------------------------------------------------------------------
+20250531        3.1.0              MP             CharacterArtifact removal/20-Field Artifact overhaul
 20240931        3.0.0              MP             Avalonia overhaul
 20240110        2.2.0              MP             gDatabase overhaul
 20230531                           MP             Player/Monster Command Unification overhaul

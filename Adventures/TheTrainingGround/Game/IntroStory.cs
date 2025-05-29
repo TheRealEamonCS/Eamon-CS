@@ -29,7 +29,11 @@ namespace TheTrainingGround.Game
 			{
 				gEngine.PrintEffectDesc(18);
 
+				gEngine.MainLoop.ShouldStartup = false;
+
 				gEngine.MainLoop.ShouldExecute = false;
+
+				gEngine.MainLoop.ShouldShutdown = false;
 
 				gEngine.ExitType = ExitType.GoToMainHall;
 			}

@@ -370,6 +370,8 @@ namespace EamonDD.Game.Menus.ActionMenus
 			var artifactHelper = gEngine.CreateInstance<IArtifactHelper>();
 
 			Debug.Assert(artifactHelper != null);
+			
+			artifactHelper.RecordTable = gDatabase.ArtifactTable;
 
 			for (var i = 0; i < a2eAdv._na; i++)
 			{
@@ -478,6 +480,8 @@ namespace EamonDD.Game.Menus.ActionMenus
 						x.Type = a2eArtifact._ad2 > 11 ? ArtifactType.User1 + (a2eArtifact._ad2 - 12) : (ArtifactType)a2eArtifact._ad2;
 					}
 
+					var startField = 1;
+					
 					switch(a2eArtifact._ad2)
 					{
 						case 2:
@@ -493,6 +497,8 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 							x.Field5 = a2eArtifact._ad6 == 2 ? 2 : 1;
 
+							startField = 6;
+							
 							break;
 
 						case 4:
@@ -501,11 +507,15 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 							x.Field2 = a2eArtifact._ad6 > 0 ? 1000 + a2eArtifact._ad6 : a2eArtifact._ad7;
 
+							startField = 3;
+
 							break;
 
 						case 5:
 
 							x.Field1 = a2eArtifact._ad5;
+
+							startField = 2;
 
 							break;
 
@@ -519,6 +529,8 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 							x.Field3 = a2eArtifact._ad7;
 
+							startField = 4;
+
 							break;
 
 						case 8:
@@ -531,6 +543,8 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 							x.Field4 = a2eArtifact._ad8;
 
+							startField = 5;
+
 							embedArtifactInRoom = a2eArtifact._ad8 == 1;
 
 							break;
@@ -541,6 +555,8 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 							x.Field2 = a2eArtifact._ad6;
 
+							startField = 3;
+
 							break;
 
 						default:
@@ -549,6 +565,8 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 							break;
 					}
+					
+					x.SetFieldsValue(startField, gEngine.NumArtifactCategoryFields, 0);
 				});
 
 				artifact.SetArtifactCategoryCount(1);
@@ -593,6 +611,8 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 				container.Field4 = containedList.Count;
 			}
+
+			Debug.Assert(gDatabase.ArtifactTableType == ArtifactTableType.Default);
 
 			gEngine.ArtifactsModified = true;
 
@@ -649,6 +669,8 @@ namespace EamonDD.Game.Menus.ActionMenus
 			var monsterHelper = gEngine.CreateInstance<IMonsterHelper>();
 
 			Debug.Assert(monsterHelper != null);
+			
+			monsterHelper.RecordTable = gDatabase.MonsterTable;
 
 			for (var i = 0; i < a2eAdv._nm; i++)
 			{

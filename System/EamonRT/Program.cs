@@ -96,6 +96,8 @@ namespace EamonRT
 
 			gEngine.Config.GenerateUids = true;
 
+			gEngine.Config.DeleteCharArts = true;
+
 			gEngine.Config.FieldDesc = FieldDesc.Full;
 
 			gEngine.Config.WordWrapMargin = gEngine.RightMargin;
@@ -157,6 +159,8 @@ namespace EamonRT
 
 			gEngine.Config.DdArtifactFileName = "ARTIFACTS.DAT";
 
+			gEngine.Config.DdCharArtFileName = "INVENTORY.DAT";
+
 			gEngine.Config.DdEffectFileName = "EFFECTS.DAT";
 
 			gEngine.Config.DdMonsterFileName = "MONSTERS.DAT";
@@ -180,8 +184,6 @@ namespace EamonRT
 					rc = gEngine.In.ReadField(gEngine.Buf, gEngine.BufSize02, null, ' ', '\0', true, "N", gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, gEngine.IsCharYOrN);
 
 					Debug.Assert(gEngine.IsSuccess(rc));
-
-					gEngine.Thread.Sleep(150);
 
 					if (gEngine.Buf[0] != 'Y')
 					{
@@ -254,6 +256,13 @@ namespace EamonRT
 						gEngine.ConfigsModified = true;
 					}
 
+					if (config.DdCharArtFileName.Length == 0)
+					{
+						config.DdCharArtFileName = gEngine.Config.DdCharArtFileName;
+
+						gEngine.ConfigsModified = true;
+					}
+
 					if (config.DdEffectFileName.Length == 0)
 					{
 						config.DdEffectFileName = gEngine.Config.DdEffectFileName;
@@ -287,6 +296,8 @@ namespace EamonRT
 
 						config.DdEditingArtifacts = false;
 
+						config.DdEditingCharArts = false;
+
 						config.DdEditingEffects = false;
 
 						config.DdEditingMonsters = false;
@@ -299,8 +310,6 @@ namespace EamonRT
 				else
 				{
 					gEngine.Config.Uid = gDatabase.GetConfigUid();
-
-					gEngine.Config.IsUidRecycled = true;
 
 					rc = gDatabase.AddConfig(gEngine.Config);
 
@@ -334,9 +343,14 @@ namespace EamonRT
 
 			_nlFlag = true;
 
-			if (gEngine.Config.DdEditingFilesets || gEngine.Config.DdEditingCharacters || gEngine.Config.DdEditingModules || gEngine.Config.DdEditingRooms || gEngine.Config.DdEditingArtifacts || gEngine.Config.DdEditingEffects || gEngine.Config.DdEditingMonsters || gEngine.Config.DdEditingHints)
+			if (gEngine.Config.DdEditingFilesets || gEngine.Config.DdEditingCharacters || gEngine.Config.DdEditingModules || gEngine.Config.DdEditingRooms || gEngine.Config.DdEditingArtifacts || gEngine.Config.DdEditingCharArts || gEngine.Config.DdEditingEffects || gEngine.Config.DdEditingMonsters || gEngine.Config.DdEditingHints)
 			{
 				gOut.Print("{0}", gEngine.LineSep);
+			}
+
+			if (gEngine.IsCharacterInventoryLoaded())
+			{
+				gDatabase.PushArtifactTable(ArtifactTableType.CharArt);
 			}
 
 			if (gEngine.Config.DdEditingFilesets)
@@ -390,6 +404,18 @@ namespace EamonRT
 			if (gEngine.Config.DdEditingArtifacts)
 			{
 				rc = gDatabase.LoadArtifacts(gEngine.Config.DdArtifactFileName);
+
+				if (gEngine.IsFailure(rc))
+				{
+					gEngine.Error.Write("Error: LoadArtifacts function call failed.");
+
+					goto Cleanup;
+				}
+			}
+
+			if (gEngine.Config.DdEditingCharArts)
+			{
+				rc = gDatabase.LoadArtifacts(gEngine.Config.DdCharArtFileName);
 
 				if (gEngine.IsFailure(rc))
 				{
@@ -503,7 +529,7 @@ namespace EamonRT
 				}
 			}
 
-			if (gEngine.ConfigFileName.Length > 0 || gEngine.Config.DdEditingFilesets || gEngine.Config.DdEditingCharacters || gEngine.Config.DdEditingModules || gEngine.Config.DdEditingRooms || gEngine.Config.DdEditingArtifacts || gEngine.Config.DdEditingEffects || gEngine.Config.DdEditingMonsters || gEngine.Config.DdEditingHints)
+			if (gEngine.ConfigFileName.Length > 0 || gEngine.Config.DdEditingFilesets || gEngine.Config.DdEditingCharacters || gEngine.Config.DdEditingModules || gEngine.Config.DdEditingRooms || gEngine.Config.DdEditingArtifacts || gEngine.Config.DdEditingCharArts || gEngine.Config.DdEditingEffects || gEngine.Config.DdEditingMonsters || gEngine.Config.DdEditingHints)
 			{
 				gOut.WriteLine();
 			}
@@ -530,7 +556,7 @@ namespace EamonRT
 
 			// Prompt user to save datafiles, if any modifications were made
 
-			if ((gEngine.ConfigFileName.Length > 0 && gEngine.ConfigsModified) || gEngine.FilesetsModified || gEngine.CharactersModified || gEngine.ModulesModified || gEngine.RoomsModified || gEngine.ArtifactsModified || gEngine.EffectsModified || gEngine.MonstersModified || gEngine.HintsModified)
+			if ((gEngine.ConfigFileName.Length > 0 && gEngine.ConfigsModified) || gEngine.FilesetsModified || gEngine.CharactersModified || gEngine.ModulesModified || gEngine.RoomsModified || gEngine.ArtifactsModified || gEngine.CharArtsModified || gEngine.EffectsModified || gEngine.MonstersModified || gEngine.HintsModified)
 			{
 				gOut.Print("{0}", gEngine.LineSep);
 
@@ -543,8 +569,6 @@ namespace EamonRT
 				rc = gEngine.In.ReadField(gEngine.Buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, gEngine.IsCharYOrN);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
-
-				gEngine.Thread.Sleep(150);
 
 				if (gEngine.Buf.Length > 0 && gEngine.Buf[0] == 'N')
 				{
@@ -602,6 +626,20 @@ namespace EamonRT
 				if (gEngine.ArtifactsModified)
 				{
 					rc = gDatabase.SaveArtifacts(gEngine.Config.DdArtifactFileName);
+
+					if (gEngine.IsFailure(rc))
+					{
+						gEngine.Error.Write("Error: SaveArtifacts function call failed.");
+
+						rc = RetCode.Success;
+
+						// goto Cleanup omitted
+					}
+				}
+
+				if (gEngine.CharArtsModified)
+				{
+					rc = gDatabase.SaveArtifacts(gEngine.Config.DdCharArtFileName);
 
 					if (gEngine.IsFailure(rc))
 					{
@@ -719,6 +757,8 @@ namespace EamonRT
 
 			gEngine.Config.GenerateUids = true;
 
+			gEngine.Config.DeleteCharArts = true;
+
 			gEngine.Config.FieldDesc = FieldDesc.Full;
 
 			gEngine.Config.WordWrapMargin = gEngine.RightMargin;
@@ -796,6 +836,8 @@ namespace EamonRT
 
 			gEngine.Config.RtArtifactFileName = "ARTIFACTS.DAT";
 
+			gEngine.Config.RtCharArtFileName = "FRESHGEAR.DAT";
+
 			gEngine.Config.RtEffectFileName = "EFFECTS.DAT";
 
 			gEngine.Config.RtMonsterFileName = "MONSTERS.DAT";
@@ -821,8 +863,6 @@ namespace EamonRT
 					rc = gEngine.In.ReadField(gEngine.Buf, gEngine.BufSize02, null, ' ', '\0', true, "N", gEngine.ModifyCharToUpper, gEngine.IsCharYOrN, gEngine.IsCharYOrN);
 
 					Debug.Assert(gEngine.IsSuccess(rc));
-
-					gEngine.Thread.Sleep(150);
 
 					if (gEngine.Buf[0] != 'Y')
 					{
@@ -868,9 +908,7 @@ namespace EamonRT
 
 					Debug.Assert(config01 != null);
 
-					rc = config01.CopyProperties(config);
-
-					Debug.Assert(gEngine.IsSuccess(rc));
+					config01.CopyPropertiesFrom(config, recurse: true);
 
 					// config.Dispose() omitted (Uid still in use)
 
@@ -915,6 +953,13 @@ namespace EamonRT
 						gEngine.ConfigsModified = true;
 					}
 
+					if (config.RtCharArtFileName.Length == 0)
+					{
+						config.RtCharArtFileName = gEngine.Config.RtCharArtFileName;
+
+						gEngine.ConfigsModified = true;
+					}
+
 					if (config.RtEffectFileName.Length == 0)
 					{
 						config.RtEffectFileName = gEngine.Config.RtEffectFileName;
@@ -946,8 +991,6 @@ namespace EamonRT
 				else
 				{
 					gEngine.Config.Uid = gDatabase.GetConfigUid();
-
-					gEngine.Config.IsUidRecycled = true;
 
 					rc = gDatabase.AddConfig(gEngine.Config);
 
@@ -1008,9 +1051,7 @@ namespace EamonRT
 
 					Debug.Assert(character01 != null);
 
-					rc = character01.CopyProperties(character);
-
-					Debug.Assert(gEngine.IsSuccess(rc));
+					character01.CopyPropertiesFrom(character, recurse: true);
 
 					// character.Dispose() omitted (Uid still in use)
 
@@ -1130,7 +1171,11 @@ namespace EamonRT
 
 				if (gEngine.MainLoop.ShouldExecute)
 				{
+					gEngine.RtSuppressPostInputSleep = true;
+
 					gEngine.MainLoop.Execute();
+
+					gEngine.RtSuppressPostInputSleep = false;
 				}
 
 				if (gEngine.MainLoop.ShouldShutdown)
@@ -1154,13 +1199,21 @@ namespace EamonRT
 
 				if (gEngine.ExportCharacterGoToMainHall || gEngine.DeleteCharacter)
 				{
+					var exportArtifactList = gCharacter.GetContainedList().OrderBy(a => a.Uid).ToList();
+
 					gEngine.Directory.SetCurrentDirectory(gEngine.Config.MhWorkDir);
 
 					rc = gEngine.PushDatabase();
 
 					Debug.Assert(gEngine.IsSuccess(rc));
 
+					gDatabase.PushArtifactTable(ArtifactTableType.CharArt);
+
 					rc = gDatabase.LoadCharacters(gEngine.Config.MhCharacterFileName, printOutput: false);
+
+					Debug.Assert(gEngine.IsSuccess(rc));
+
+					rc = gDatabase.LoadArtifacts(gEngine.Config.MhCharArtFileName, printOutput: false);
 
 					Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -1168,6 +1221,22 @@ namespace EamonRT
 
 					if (character != null && gCharacter.Name.Equals(character.Name, StringComparison.OrdinalIgnoreCase))
 					{
+						if (gEngine.DeleteCharacter || gEngine.ExportCharacter)
+						{
+							var artifactList = character.GetContainedList();
+
+							for (i = 0; i < artifactList.Count; i++)
+							{
+								var artifact = artifactList[(int)i];
+
+								Debug.Assert(artifact != null);
+
+								gDatabase.RemoveArtifact(artifact.Uid);
+
+								artifact.Dispose();
+							}
+						}
+
 						if (gEngine.DeleteCharacter)
 						{
 							gDatabase.RemoveCharacter(character.Uid);
@@ -1178,13 +1247,28 @@ namespace EamonRT
 						{
 							if (gEngine.ExportCharacter)
 							{
-								rc = character.CopyProperties(gCharacter);
+								for (i = 0; i < exportArtifactList.Count; i++)
+								{
+									var artifact = exportArtifactList[(int)i];
 
-								Debug.Assert(gEngine.IsSuccess(rc));
+									Debug.Assert(artifact != null);
+
+									artifact.Uid = gDatabase.GetArtifactUid();
+
+									rc = gDatabase.AddArtifact(artifact);
+
+									Debug.Assert(gEngine.IsSuccess(rc));
+								}
+
+								character.CopyPropertiesFrom(gCharacter, recurse: true);
 							}
 
 							character.Status = (gGameState.Die != 1 ? Status.Alive : Status.Dead);
 						}
+
+						rc = gDatabase.SaveArtifacts(gEngine.Config.MhCharArtFileName, false);
+
+						Debug.Assert(gEngine.IsSuccess(rc));
 
 						rc = gDatabase.SaveCharacters(gEngine.Config.MhCharacterFileName, false);
 
@@ -1202,7 +1286,7 @@ namespace EamonRT
 
 							if (gGameState.Die != 1)
 							{
-								gEngine.TransferProtocol.SendCharacterToMainHall(gEngine.FilePrefix, gEngine.Config.MhFilesetFileName, gEngine.Config.MhCharacterFileName, gEngine.Config.MhEffectFileName, gCharacter.Name);
+								gEngine.TransferProtocol.SendCharacterToMainHall(gEngine.FilePrefix, gEngine.Config.MhFilesetFileName, gEngine.Config.MhCharacterFileName, gEngine.Config.MhCharArtFileName, gEngine.Config.MhEffectFileName, gCharacter.Name);
 							}
 							else
 							{
