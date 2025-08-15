@@ -7,6 +7,7 @@ using System.Diagnostics;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using Eamon.Game.Extensions;
+using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
 using static EamonRT.Game.Plugin.Globals;
 
@@ -42,7 +43,21 @@ namespace EamonRT.Game.States
 
 			Debug.Assert(gCharMonster != null);
 
+			ProcessEvents(EventType.BeforePlayerDeadResetProperties);
+
+			if (GotoCleanup)
+			{
+				goto Cleanup;
+			}
+
 			gEngine.ResetProperties(PropertyResetCode.SwitchContext);
+
+			ProcessEvents(EventType.BeforePlayerDeadPrintDeadMenu);
+
+			if (GotoCleanup)
+			{
+				goto Cleanup;
+			}
 
 			RestoreGame = false;
 

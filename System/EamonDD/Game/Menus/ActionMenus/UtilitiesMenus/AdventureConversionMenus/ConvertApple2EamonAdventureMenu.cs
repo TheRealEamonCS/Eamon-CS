@@ -737,6 +737,8 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 					x.GroupCount = !string.IsNullOrWhiteSpace(a2eAdv._ver) && a2eAdv._ver.StartsWith("7") ? a2eMonster._md3 : 1;
 
+					x.CurrGroupCount = x.GroupCount;
+
 					x.AttackCount = 1;
 
 					if (!string.IsNullOrWhiteSpace(a2eAdv._ver) && a2eAdv._ver.StartsWith("7"))
@@ -749,8 +751,6 @@ namespace EamonDD.Game.Menus.ActionMenus
 					}
 
 					x.Location = a2eMonster._md5;
-
-					x.CombatCode = CombatCode.Weapons;
 
 					if (!string.IsNullOrWhiteSpace(a2eAdv._ver) && a2eAdv._ver.StartsWith("7"))
 					{
@@ -776,6 +776,8 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 						x.Friendliness = (Friendliness)(100 + a2eMonster._md3);
 					}
+
+					x.CombatCode = x.Weapon != 0 && x.NwDice > 0 && x.NwSides > 0 ? CombatCode.NaturalWeapons : x.Weapon == 0 && (x.NwDice <= 0 || x.NwSides <= 0) ? CombatCode.NeverFights : CombatCode.Weapons;
 
 					x.Gender = Gender.Neutral;
 

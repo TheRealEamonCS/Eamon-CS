@@ -553,6 +553,8 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 					x.GroupCount = edxMonster._md3;
 
+					x.CurrGroupCount = x.GroupCount;
+
 					x.AttackCount = 1;
 
 					x.Courage = edxMonster._md4;

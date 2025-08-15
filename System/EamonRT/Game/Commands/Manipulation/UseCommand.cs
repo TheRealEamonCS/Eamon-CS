@@ -88,11 +88,23 @@ namespace EamonRT.Game.Commands
 				goto Cleanup;
 			}
 
-			Debug.Assert(DobjArtAc.Type == ArtifactType.Wearable);
+			if (DobjArtAc.Type == ArtifactType.Wearable)
+			{
+				NextState = gEngine.CreateInstance<IWearCommand>();
 
-			NextState = gEngine.CreateInstance<IWearCommand>();
+				CopyCommandData(NextState as ICommand);
 
-			CopyCommandData(NextState as ICommand);
+				goto Cleanup;
+			}
+
+			ProcessEvents(EventType.AfterUseArtifact);
+
+			if (GotoCleanup)
+			{
+				goto Cleanup;
+			}
+
+			PrintTryDifferentCommand(DobjArtifact);
 
 		Cleanup:
 

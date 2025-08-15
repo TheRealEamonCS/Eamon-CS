@@ -17,7 +17,7 @@ namespace TheTempleOfNgurct.Game
 	{
 		public override bool HasHumanNaturalAttackDescs()
 		{
-			return Uid == 26;
+			return Uid == 26 || base.HasHumanNaturalAttackDescs();
 		}
 
 		public override void AddHealthStatus(StringBuilder buf, bool appendNewLine = true)

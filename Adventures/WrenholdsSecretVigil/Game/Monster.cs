@@ -31,7 +31,7 @@ namespace WrenholdsSecretVigil.Game
 
 		public override bool HasHumanNaturalAttackDescs()
 		{
-			return Uid == 4 || Uid == 5;
+			return Uid == 4 || Uid == 5 || base.HasHumanNaturalAttackDescs();
 		}
 
 		public override bool ShouldFleeRoom()

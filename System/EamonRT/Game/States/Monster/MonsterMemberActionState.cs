@@ -78,7 +78,21 @@ namespace EamonRT.Game.States
 				goto Cleanup;
 			}
 
+			MonsterMemberMiscActionCheck01();
+
+			if (GotoCleanup)
+			{
+				goto Cleanup;
+			}
+
 			MonsterMemberReadiesNaturalWeaponCheck();
+
+			if (GotoCleanup)
+			{
+				goto Cleanup;
+			}
+
+			MonsterMemberMiscActionCheck02();
 
 			if (GotoCleanup)
 			{
@@ -92,6 +106,13 @@ namespace EamonRT.Game.States
 				goto Cleanup;
 			}
 
+			MonsterMemberMiscActionCheck03();
+
+			if (GotoCleanup)
+			{
+				goto Cleanup;
+			}
+
 			MonsterMemberAttacksEnemyCheck();
 
 			if (GotoCleanup)
@@ -99,7 +120,7 @@ namespace EamonRT.Game.States
 				goto Cleanup;
 			}
 
-			MonsterMemberMiscActionCheck02();
+			MonsterMemberMiscActionCheck04();
 
 			if (GotoCleanup)
 			{
@@ -207,12 +228,22 @@ namespace EamonRT.Game.States
 			}
 		}
 
+		public virtual void MonsterMemberMiscActionCheck01()
+		{
+			// Do nothing
+		}
+
 		public virtual void MonsterMemberReadiesNaturalWeaponCheck()
 		{
 			if ((LoopMonster.CombatCode == CombatCode.NaturalWeapons || LoopMonster.CombatCode == CombatCode.NaturalAttacks) && LoopMonster.Weapon < 0)
 			{
 				LoopMonster.Weapon = 0;
 			}
+		}
+
+		public virtual void MonsterMemberMiscActionCheck02()
+		{
+			// Do nothing
 		}
 
 		public virtual void MonsterMemberCastsSpellCheck()
@@ -281,6 +312,11 @@ namespace EamonRT.Game.States
 			}
 		}
 
+		public virtual void MonsterMemberMiscActionCheck03()
+		{
+			// Do nothing
+		}
+
 		public virtual void MonsterMemberAttacksEnemyCheck()
 		{
 			if (LoopMonster.CombatCode != CombatCode.NeverFights && LoopMonster.CheckNBTLHostility() && LoopMonster.Weapon >= 0)
@@ -291,7 +327,7 @@ namespace EamonRT.Game.States
 			}
 		}
 
-		public virtual void MonsterMemberMiscActionCheck02()
+		public virtual void MonsterMemberMiscActionCheck04()
 		{
 			// Do nothing
 		}

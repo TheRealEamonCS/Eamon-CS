@@ -514,9 +514,9 @@ namespace EamonRT.Game.Plugin
 
 			if (!IsRulesetVersion(5, 62))
 			{
-				if (goldAmount > 0)
+				if (goldAmount != 0)
 				{
-					gEngine.Buf01.SetFormat("{0} gold piece{1}", goldAmount, goldAmount != 1 ? "s" : "");
+					gEngine.Buf01.SetFormat("{0} gold piece{1}", goldAmount, Math.Abs(goldAmount) != 1 ? "s" : "");
 				}
 				else
 				{
@@ -885,11 +885,11 @@ namespace EamonRT.Game.Plugin
 		{
 			if (IsRulesetVersion(5, 62))
 			{
-				Out.Write("{0} gold piece{1}.{2}", goldAmount, goldAmount != 1 ? "s" : "", Environment.NewLine);
+				Out.Write("{0} gold piece{1}.{2}", goldAmount, Math.Abs(goldAmount) != 1 ? "s" : "", Environment.NewLine);
 			}
 			else
 			{
-				Out.Print("{0}He pays you {1} gold piece{2} total.", goodsExist ? Environment.NewLine : "", goldAmount, goldAmount != 1 ? "s" : "");
+				Out.Print("{0}He pays you {1} gold piece{2} total.", goodsExist ? Environment.NewLine : "", goldAmount, Math.Abs(goldAmount) != 1 ? "s" : "");
 			}
 		}
 
@@ -1097,7 +1097,7 @@ namespace EamonRT.Game.Plugin
 
 			foreach (var artifact in artifactList)
 			{
-				if (artifact.Value < 0)
+				if (!EnableNegativeArtifactValues && artifact.Value < 0)
 				{
 					artifact.Value = 0;
 				}
@@ -1322,6 +1322,11 @@ namespace EamonRT.Game.Plugin
 			}
 
 			artifact01.IsCharOwned = true;
+
+			if (artifact01.Value < 0)
+			{
+				artifact01.Value = 0;
+			}
 
 			var ac01 = new Eamon.Game.Primitive.Classes.ArtifactCategory();         // Create export ArtifactCategory using explicit base class
 
@@ -1689,11 +1694,20 @@ namespace EamonRT.Game.Plugin
 
 				foreach (var artifact in artifactList)
 				{
-					var m = artifact.Gold != null ? artifact.Value : GetMerchantBidPrice(artifact.Value, rtio);
+					var m = 0L;
 
-					if (m < 0)
+					if (!EnableNegativeArtifactValues || artifact.Value >= 0)
 					{
-						m = 0;
+						m = artifact.Gold != null ? artifact.Value : GetMerchantBidPrice(artifact.Value, rtio);
+
+						if (m < 0)
+						{
+							m = 0;
+						}
+					}
+					else
+					{
+						m = artifact.Value;
 					}
 
 					PrintArtifactIsWorth(artifact, m);
@@ -2737,9 +2751,14 @@ namespace EamonRT.Game.Plugin
 			{
 				var result = false;
 
-				var cmpName = r is IArtifact ? name : name01;
-
-				result = r.Name.Equals(cmpName, StringComparison.OrdinalIgnoreCase);
+				if (r is IArtifact a)
+				{
+					result = !a.IsPlural && r.Name.Equals(name, StringComparison.OrdinalIgnoreCase);
+				}
+				else if (r is IMonster m)
+				{
+					result = m.GroupCount == 1 && r.Name.Equals(name01, StringComparison.OrdinalIgnoreCase);
+				}
 
 				if (result)
 				{
@@ -2756,9 +2775,14 @@ namespace EamonRT.Game.Plugin
 				{
 					var result = false;
 
-					var cmpName = r is IArtifact ? name : name01;
-
-					result = r.Name.StartsWith(cmpName, StringComparison.OrdinalIgnoreCase) || r.Name.EndsWith(cmpName, StringComparison.OrdinalIgnoreCase);
+					if (r is IArtifact a)
+					{
+						result = !a.IsPlural && (r.Name.StartsWith(name, StringComparison.OrdinalIgnoreCase) || r.Name.EndsWith(name, StringComparison.OrdinalIgnoreCase));
+					}
+					else if (r is IMonster m)
+					{
+						result = m.GroupCount == 1 && (r.Name.StartsWith(name01, StringComparison.OrdinalIgnoreCase) || r.Name.EndsWith(name01, StringComparison.OrdinalIgnoreCase));
+					}
 
 					if (result)
 					{
@@ -2769,74 +2793,6 @@ namespace EamonRT.Game.Plugin
 
 				}).ToList();
 			}
-
-			/*
-			if (filteredRecordList.Count == 0)
-			{
-				filteredRecordList = recordList.Where(r =>
-				{
-					var result = false;
-
-					var cmpName = r is IArtifact ? name : name01;
-
-					tokens = r.Name.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-
-					result = tokens.FirstOrDefault(t =>
-					{
-						var result01 = false;
-
-						if (!IgnoredTokenHashSet.Contains(t))
-						{
-							result01 = t.Equals(cmpName, StringComparison.OrdinalIgnoreCase);
-						}
-
-						return result01;
-
-					}) != null;
-
-					if (result)
-					{
-						r.ParserMatchName = CloneInstance(r.Name);
-					}
-
-					return result;
-
-				}).ToList();
-			}
-
-			if (filteredRecordList.Count == 0)
-			{
-				filteredRecordList = recordList.Where(r =>
-				{
-					var result = false;
-
-					var cmpName = r is IArtifact ? name : name01;
-
-					tokens = r.Name.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-
-					result = tokens.FirstOrDefault(t =>
-					{
-						var result01 = false;
-
-						if (!IgnoredTokenHashSet.Contains(t))
-						{
-							result01 = t.StartsWith(cmpName, StringComparison.OrdinalIgnoreCase) || t.EndsWith(cmpName, StringComparison.OrdinalIgnoreCase);
-						}
-
-						return result01;
-
-					}) != null;
-
-					if (result)
-					{
-						r.ParserMatchName = CloneInstance(r.Name);
-					}
-
-					return result;
-
-				}).ToList();
-			}
-			*/
 
 			if (filteredRecordList.Count == 0)
 			{
@@ -2892,101 +2848,24 @@ namespace EamonRT.Game.Plugin
 				}).ToList();
 			}
 
-			/*
 			if (filteredRecordList.Count == 0)
 			{
 				filteredRecordList = recordList.Where(r =>
 				{
 					var result = false;
-
-					var pluralName = r.GetPluralName01();
-
-					tokens = pluralName.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-
-					result = tokens.FirstOrDefault(t =>
-					{
-						var result01 = false;
-
-						if (!IgnoredTokenHashSet.Contains(t))
-						{
-							if (r is IArtifact a)
-							{
-								result01 = a.IsPlural && t.Equals(name, StringComparison.OrdinalIgnoreCase);
-							}
-							else if (r is IMonster m)
-							{
-								result01 = m.GroupCount > 1 && t.Equals(name01, StringComparison.OrdinalIgnoreCase);
-							}
-						}
-
-						return result01;
-
-					}) != null;
-
-					if (result)
-					{
-						r.ParserMatchName = CloneInstance(pluralName);
-					}
-
-					return result;
-
-				}).ToList();
-			}
-
-			if (filteredRecordList.Count == 0)
-			{
-				filteredRecordList = recordList.Where(r =>
-				{
-					var result = false;
-
-					var pluralName = r.GetPluralName01();
-
-					tokens = pluralName.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-
-					result = tokens.FirstOrDefault(t =>
-					{
-						var result01 = false;
-
-						if (!IgnoredTokenHashSet.Contains(t))
-						{
-							if (r is IArtifact a)
-							{
-								result01 = a.IsPlural && (t.StartsWith(name, StringComparison.OrdinalIgnoreCase) || t.EndsWith(name, StringComparison.OrdinalIgnoreCase));
-							}
-							else if (r is IMonster m)
-							{
-								result01 = m.GroupCount > 1 && (t.StartsWith(name01, StringComparison.OrdinalIgnoreCase) || t.EndsWith(name01, StringComparison.OrdinalIgnoreCase));
-							}
-						}
-
-						return result01;
-
-					}) != null;
-
-					if (result)
-					{
-						r.ParserMatchName = CloneInstance(pluralName);
-					}
-
-					return result;
-
-				}).ToList();
-			}
-			*/
-
-			if (filteredRecordList.Count == 0)
-			{
-				filteredRecordList = recordList.Where(r =>
-				{
-					var result = false;
-
-					var cmpName = r is IArtifact ? name : name01;
 
 					result = r.Synonyms != null && r.Synonyms.FirstOrDefault(s =>
 					{
 						var result01 = false;
 
-						result01 = s.Equals(cmpName, StringComparison.OrdinalIgnoreCase);
+						if (r is IArtifact a)
+						{
+							result01 = !a.IsPlural && s.Equals(name, StringComparison.OrdinalIgnoreCase);
+						}
+						else if (r is IMonster m)
+						{
+							result01 = m.GroupCount == 1 && s.Equals(name01, StringComparison.OrdinalIgnoreCase);
+						}
 
 						if (result01)
 						{
@@ -3008,13 +2887,18 @@ namespace EamonRT.Game.Plugin
 				{
 					var result = false;
 
-					var cmpName = r is IArtifact ? name : name01;
-
 					result = r.Synonyms != null && r.Synonyms.FirstOrDefault(s =>
 					{
 						var result01 = false;
 
-						result01 = s.StartsWith(cmpName, StringComparison.OrdinalIgnoreCase) || s.EndsWith(cmpName, StringComparison.OrdinalIgnoreCase);
+						if (r is IArtifact a)
+						{
+							result01 = !a.IsPlural && (s.StartsWith(name, StringComparison.OrdinalIgnoreCase) || s.EndsWith(name, StringComparison.OrdinalIgnoreCase));
+						}
+						else if (r is IMonster m)
+						{
+							result01 = m.GroupCount == 1 && (s.StartsWith(name01, StringComparison.OrdinalIgnoreCase) || s.EndsWith(name01, StringComparison.OrdinalIgnoreCase));
+						}
 
 						if (result01)
 						{
@@ -3030,42 +2914,33 @@ namespace EamonRT.Game.Plugin
 				}).ToList();
 			}
 
-			/*
 			if (filteredRecordList.Count == 0)
 			{
 				filteredRecordList = recordList.Where(r =>
 				{
 					var result = false;
 
-					var cmpName = r is IArtifact ? name : name01;
-
-					if (r.Synonyms != null)
+					result = r.Synonyms != null && r.Synonyms.FirstOrDefault(s =>
 					{
-						foreach (var s in r.Synonyms)
+						var result01 = false;
+
+						if (r is IArtifact a)
 						{
-							tokens = s.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-
-							result = tokens.FirstOrDefault(t =>
-							{
-								var result01 = false;
-
-								if (!IgnoredTokenHashSet.Contains(t))
-								{
-									result01 = t.Equals(cmpName, StringComparison.OrdinalIgnoreCase);
-								}
-
-								return result01;
-
-							}) != null;
-
-							if (result)
-							{
-								r.ParserMatchName = CloneInstance(s);
-
-								break;
-							}
+							result01 = a.IsPlural && s.Equals(name, StringComparison.OrdinalIgnoreCase);
 						}
-					}
+						else if (r is IMonster m)
+						{
+							result01 = m.GroupCount > 1 && s.Equals(name01, StringComparison.OrdinalIgnoreCase);
+						}
+
+						if (result01)
+						{
+							r.ParserMatchName = CloneInstance(s);
+						}
+
+						return result01;
+
+					}) != null;
 
 					return result;
 
@@ -3078,41 +2953,32 @@ namespace EamonRT.Game.Plugin
 				{
 					var result = false;
 
-					var cmpName = r is IArtifact ? name : name01;
-
-					if (r.Synonyms != null)
+					result = r.Synonyms != null && r.Synonyms.FirstOrDefault(s =>
 					{
-						foreach (var s in r.Synonyms)
+						var result01 = false;
+
+						if (r is IArtifact a)
 						{
-							tokens = s.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-
-							result = tokens.FirstOrDefault(t =>
-							{
-								var result01 = false;
-
-								if (!IgnoredTokenHashSet.Contains(t))
-								{
-									result01 = t.StartsWith(cmpName, StringComparison.OrdinalIgnoreCase) || t.EndsWith(cmpName, StringComparison.OrdinalIgnoreCase);
-								}
-
-								return result01;
-
-							}) != null;
-
-							if (result)
-							{
-								r.ParserMatchName = CloneInstance(s);
-
-								break;
-							}
+							result01 = a.IsPlural && (s.StartsWith(name, StringComparison.OrdinalIgnoreCase) || s.EndsWith(name, StringComparison.OrdinalIgnoreCase));
 						}
-					}
+						else if (r is IMonster m)
+						{
+							result01 = m.GroupCount > 1 && (s.StartsWith(name01, StringComparison.OrdinalIgnoreCase) || s.EndsWith(name01, StringComparison.OrdinalIgnoreCase));
+						}
+
+						if (result01)
+						{
+							r.ParserMatchName = CloneInstance(s);
+						}
+
+						return result01;
+
+					}) != null;
 
 					return result;
 
 				}).ToList();
 			}
-			*/
 
 			filteredRecordList = filteredRecordList.Distinct().GroupBy(r =>
 			{
@@ -4379,7 +4245,7 @@ namespace EamonRT.Game.Plugin
 
 				Debug.Assert(!string.IsNullOrWhiteSpace(artifact01.Name));
 
-				var ac01 = CreateInstance<IArtifactCategory>();         // Create game ArtifactCategory using dependency injection
+				var ac01 = CreateInstance<IArtifactCategory>();			// Create game ArtifactCategory using dependency injection
 
 				Debug.Assert(ac01 != null);
 
@@ -4399,7 +4265,7 @@ namespace EamonRT.Game.Plugin
 				}
 				else if (artifact.IsCarriedByCharacter())
 				{
-					if (artifact.GeneralWeapon != null && GameState.UsedWpnIdx >= 0 && weaponList[(int)GameState.UsedWpnIdx] != artifact)
+					if (artifact.GeneralWeapon != null && ((GameState.UsedWpnIdx >= 0 && weaponList[(int)GameState.UsedWpnIdx] != artifact) || artifact01.ShouldAddToHeldWpnUids()))
 					{
 						artifact01.SetInLimbo();
 

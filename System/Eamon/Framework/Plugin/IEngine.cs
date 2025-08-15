@@ -596,6 +596,9 @@ namespace Eamon.Framework.Plugin
 		bool EnableNegativeRoomUidLinks { get; set; }
 
 		/// <summary></summary>
+		bool EnableNegativeArtifactValues { get; set; }
+
+		/// <summary></summary>
 		bool EnableScreenReaderMode { get; set; }
 
 		/// <summary></summary>

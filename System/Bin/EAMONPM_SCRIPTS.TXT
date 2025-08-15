@@ -16,6 +16,7 @@ EamonDD|EditBeginnersForest.psh|-pfn|BeginnersForest.dll|-wd|..\..\Adventures\Be
 EamonDD|EditDemoAdventure.psh|-pfn|EamonRT.dll|-wd|..\..\Adventures\DemoAdventure|-la|-rge
 EamonDD|EditDharmaQuest.psh|-pfn|Dharmaquest.dll|-wd|..\..\Adventures\Dharmaquest|-la|-rge
 EamonDD|EditEscapeFromMtMoon.psh|-pfn|EamonRT.dll|-wd|..\..\Adventures\EscapeFromMtMoon|-la|-rge
+EamonDD|EditFirestorm.psh|-pfn|Firestorm.dll|-wd|..\..\Adventures\Firestorm|-la|-rge
 EamonDD|EditLandOfTheMountainKing.psh|-pfn|LandOfTheMountainKing.dll|-wd|..\..\Adventures\LandOfTheMountainKing|-la|-rge
 EamonDD|EditOrbOfMyLife.psh|-pfn|OrbOfMyLife.dll|-wd|..\..\Adventures\OrbOfMyLife|-la|-rge
 EamonDD|EditSampleAdventure.psh|-pfn|SampleAdventure.dll|-wd|..\..\Adventures\SampleAdventure|-la|-rge
@@ -40,6 +41,7 @@ EamonRT|ResumeBeginnersForest.psh|-pfn|BeginnersForest.dll|-wd|..\..\Adventures\
 EamonRT|ResumeDemoAdventure.psh|-pfn|EamonRT.dll|-wd|..\..\Adventures\DemoAdventure
 EamonRT|ResumeDharmaQuest.psh|-pfn|Dharmaquest.dll|-wd|..\..\Adventures\Dharmaquest
 EamonRT|ResumeEscapeFromMtMoon.psh|-pfn|EamonRT.dll|-wd|..\..\Adventures\EscapeFromMtMoon
+EamonRT|ResumeFirestorm.psh|-pfn|Firestorm.dll|-wd|..\..\Adventures\Firestorm
 EamonRT|ResumeLandOfTheMountainKing.psh|-pfn|LandOfTheMountainKing.dll|-wd|..\..\Adventures\LandOfTheMountainKing
 EamonRT|ResumeOrbOfMyLife.psh|-pfn|OrbOfMyLife.dll|-wd|..\..\Adventures\OrbOfMyLife
 EamonRT|ResumeSampleAdventure.psh|-pfn|SampleAdventure.dll|-wd|..\..\Adventures\SampleAdventure

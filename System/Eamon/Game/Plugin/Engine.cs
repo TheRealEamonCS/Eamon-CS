@@ -258,6 +258,8 @@ namespace Eamon.Game.Plugin
 
 		public virtual bool EnableNegativeRoomUidLinks { get; set; }
 
+		public virtual bool EnableNegativeArtifactValues { get; set; }
+
 		public virtual bool EnableScreenReaderMode { get; set; }
 
 		public virtual bool EnableCommandHistory { get; set; }

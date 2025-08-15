@@ -189,6 +189,11 @@ namespace EamonRT.Framework.Primitive.Enums
 		BeforeUseArtifact,
 
 		/// <summary>
+		/// An event that fires after checking for used <see cref="IArtifact">Artifact</see> redirection.
+		/// </summary>
+		AfterUseArtifact,
+
+		/// <summary>
 		/// An event that fires before an <see cref="IArtifact">Artifact</see> is worn.
 		/// </summary>
 		BeforeWearArtifact,
@@ -267,5 +272,15 @@ namespace EamonRT.Framework.Primitive.Enums
 		/// An event that fires after checking if a <see cref="IMonster">Monster</see> should refuse to accept a dead body gift.
 		/// </summary>
 		AfterRefuseDeadBodyCheck,
+
+		/// <summary>
+		/// An event that fires before resetting game properties when the player character dies.
+		/// </summary>
+		BeforePlayerDeadResetProperties,
+
+		/// <summary>
+		/// An event that fires before printing the "Dead Menu" when the player character dies.
+		/// </summary>
+		BeforePlayerDeadPrintDeadMenu,
 	}
 }

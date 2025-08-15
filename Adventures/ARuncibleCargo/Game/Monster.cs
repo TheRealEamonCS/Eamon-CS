@@ -42,7 +42,7 @@ namespace ARuncibleCargo.Game
 		{
 			// Use appropriate natural attack descriptions for humans
 
-			return (Uid > 3 && Uid < 13) || Uid == 15 || (Uid > 21 && Uid < 24) || (Uid > 24 && Uid < 40);
+			return (Uid > 3 && Uid < 13) || Uid == 15 || (Uid > 21 && Uid < 24) || (Uid > 24 && Uid < 40) || base.HasHumanNaturalAttackDescs();
 		}
 		
 		public override bool CanMoveToRoomUid(long roomUid, bool fleeing)

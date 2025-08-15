@@ -2037,6 +2037,11 @@ namespace Eamon.Game
 			return true;
 		}
 
+		public virtual bool ShouldAddToHeldWpnUids()
+		{
+			return false;
+		}
+
 		public virtual bool ShouldRevealContentsWhenMoved(ContainerType containerType = ContainerType.In)
 		{
 			return containerType == ContainerType.Under || containerType == ContainerType.Behind;

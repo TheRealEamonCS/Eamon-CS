@@ -767,6 +767,10 @@ namespace Eamon.Framework
 
 		/// <summary></summary>
 		/// <returns></returns>
+		bool ShouldAddToHeldWpnUids();
+
+		/// <summary></summary>
+		/// <returns></returns>
 		bool ShouldRevealContentsWhenMoved(ContainerType containerType = ContainerType.In);
 
 		/// <summary></summary>
