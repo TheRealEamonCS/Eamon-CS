@@ -2804,11 +2804,11 @@ namespace EamonRT.Game.Plugin
 
 					if (r is IArtifact a)
 					{
-						result = a.IsPlural && pluralName.Equals(name, StringComparison.OrdinalIgnoreCase);
+						result = a.IsPlural && (r.Name.Equals(name, StringComparison.OrdinalIgnoreCase) || pluralName.Equals(name, StringComparison.OrdinalIgnoreCase));
 					}
 					else if (r is IMonster m)
 					{
-						result = m.GroupCount > 1 && pluralName.Equals(name01, StringComparison.OrdinalIgnoreCase);
+						result = m.GroupCount > 1 && (r.Name.Equals(name01, StringComparison.OrdinalIgnoreCase) || pluralName.Equals(name01, StringComparison.OrdinalIgnoreCase));
 					}
 
 					if (result)
@@ -2831,11 +2831,11 @@ namespace EamonRT.Game.Plugin
 
 					if (r is IArtifact a)
 					{
-						result = a.IsPlural && (pluralName.StartsWith(name, StringComparison.OrdinalIgnoreCase) || pluralName.EndsWith(name, StringComparison.OrdinalIgnoreCase));
+						result = a.IsPlural && (r.Name.StartsWith(name, StringComparison.OrdinalIgnoreCase) || r.Name.EndsWith(name, StringComparison.OrdinalIgnoreCase) || pluralName.StartsWith(name, StringComparison.OrdinalIgnoreCase) || pluralName.EndsWith(name, StringComparison.OrdinalIgnoreCase));
 					}
 					else if (r is IMonster m)
 					{
-						result = m.GroupCount > 1 && (pluralName.StartsWith(name01, StringComparison.OrdinalIgnoreCase) || pluralName.EndsWith(name01, StringComparison.OrdinalIgnoreCase));
+						result = m.GroupCount > 1 && (r.Name.StartsWith(name01, StringComparison.OrdinalIgnoreCase) || r.Name.EndsWith(name01, StringComparison.OrdinalIgnoreCase) || pluralName.StartsWith(name01, StringComparison.OrdinalIgnoreCase) || pluralName.EndsWith(name01, StringComparison.OrdinalIgnoreCase));
 					}
 
 					if (result)
