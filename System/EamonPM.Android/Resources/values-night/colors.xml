@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+  <color name="primary">#BB86FC</color> <!-- Lighter purple, similar to the night mode primary color in Material Design -->
+  <color name="primaryDark">#3700B3</color> <!-- Darker shade of purple, keeping with the night theme -->
+  <color name="accent">#FF4081</color> <!-- A vibrant, yet slightly darker pink -->
+  <color name="window_background">#121212</color> <!-- Standard dark background for night mode -->
+  <color name="splash_background">#212121</color> <!-- Provided night mode splash background -->
+</resources>

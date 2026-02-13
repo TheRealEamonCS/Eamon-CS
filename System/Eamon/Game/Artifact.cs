@@ -16,6 +16,7 @@ using Eamon.Framework.Primitive.Classes;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using Eamon.Game.Extensions;
+using Eamon.Game.Utilities;
 using static Eamon.Game.Plugin.Globals;
 
 namespace Eamon.Game
@@ -118,6 +119,12 @@ namespace Eamon.Game
 				_location = value;
 			}
 		}
+
+		[FieldName(665)]
+		public virtual bool UseExtendedAttributes { get; set; }
+
+		[FieldName(675)]
+		public virtual ulong ExtendedAttributes { get; set; }
 
 		[ExcludeFromSerialization]
 		public virtual ArtifactType Type
@@ -1940,7 +1947,14 @@ namespace Eamon.Game
 
 		public virtual bool IsRequestable()
 		{
-			return true;
+			if (UseExtendedAttributes)
+			{
+				return BitFlags.Get(ExtendedAttributes, (ulong)ArtifactExtendedAttributes.IsRequestable);
+			}
+			else
+			{
+				return true;
+			}
 		}
 
 		public virtual bool IsUnmovable()
@@ -1988,7 +2002,14 @@ namespace Eamon.Game
 
 		public virtual bool IsInContainerOpenedFromTop()
 		{
-			return true;
+			if (UseExtendedAttributes)
+			{
+				return BitFlags.Get(ExtendedAttributes, (ulong)ArtifactExtendedAttributes.IsInContainerOpenedFromTop);
+			}
+			else
+			{
+				return true;
+			}
 		}
 
 		public virtual bool IsDoorGateInObviousExitsList()
@@ -2007,7 +2028,14 @@ namespace Eamon.Game
 
 		public virtual bool ShouldExposeInContentsWhenClosed()
 		{
-			return false;
+			if (UseExtendedAttributes)
+			{
+				return BitFlags.Get(ExtendedAttributes, (ulong)ArtifactExtendedAttributes.ShouldExposeInContentsWhenClosed);
+			}
+			else
+			{
+				return false;
+			}
 		}
 
 		public virtual bool ShouldExposeContentsToMonster(MonsterType monsterType = MonsterType.NonCharMonster, ContainerType containerType = ContainerType.In)
@@ -2034,12 +2062,26 @@ namespace Eamon.Game
 		{
 			Debug.Assert(artifact != null);
 
-			return true;
+			if (UseExtendedAttributes)
+			{
+				return BitFlags.Get(ExtendedAttributes, (ulong)ArtifactExtendedAttributes.ShouldAddContents);
+			}
+			else
+			{
+				return true;
+			}
 		}
 
 		public virtual bool ShouldAddToHeldWpnUids()
 		{
-			return false;
+			if (UseExtendedAttributes)
+			{
+				return BitFlags.Get(ExtendedAttributes, (ulong)ArtifactExtendedAttributes.ShouldAddToHeldWpnUids);
+			}
+			else
+			{
+				return false;
+			}
 		}
 
 		public virtual bool ShouldRevealContentsWhenMoved(ContainerType containerType = ContainerType.In)
@@ -2049,12 +2091,26 @@ namespace Eamon.Game
 
 		public virtual bool ShouldRevealContentsWhenMovedIntoLimbo(ContainerType containerType = ContainerType.In)
 		{
-			return false;
+			if (UseExtendedAttributes)
+			{
+				return BitFlags.Get(ExtendedAttributes, (ulong)ArtifactExtendedAttributes.ShouldRevealContentsWhenMovedIntoLimbo);
+			}
+			else
+			{
+				return false;
+			}
 		}
 
 		public virtual bool ShouldShowContentsWhenExamined()
 		{
-			return false;
+			if (UseExtendedAttributes)
+			{
+				return BitFlags.Get(ExtendedAttributes, (ulong)ArtifactExtendedAttributes.ShouldShowContentsWhenExamined);
+			}
+			else
+			{
+				return false;
+			}
 		}
 
 		public virtual bool ShouldShowContentsWhenOpened()
@@ -2071,12 +2127,26 @@ namespace Eamon.Game
 
 		public virtual bool ShouldShowVerboseNameContentsNameList()
 		{
-			return true;
+			if (UseExtendedAttributes)
+			{
+				return BitFlags.Get(ExtendedAttributes, (ulong)ArtifactExtendedAttributes.ShouldShowVerboseNameContentsNameList);
+			}
+			else
+			{
+				return true;
+			}
 		}
 
 		public virtual bool ShouldShowVerboseNameStateDesc()
 		{
-			return true;
+			if (UseExtendedAttributes)
+			{
+				return BitFlags.Get(ExtendedAttributes, (ulong)ArtifactExtendedAttributes.ShouldShowVerboseNameStateDesc);
+			}
+			else
+			{
+				return true;
+			}
 		}
 
 		public virtual long GetMaxContentsNameListCount(ContainerType containerType = ContainerType.In)

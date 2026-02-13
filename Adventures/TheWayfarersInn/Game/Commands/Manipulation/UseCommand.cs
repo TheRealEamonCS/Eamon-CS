@@ -562,7 +562,7 @@ namespace TheWayfarersInn.Game.Commands
 
 			// Using anvil / hammer
 
-			else if (DobjArtifact.Uid == 161 || (DobjArtifact.Uid == 164 && DobjArtifact.GetInRoomUid(true) == 65))
+			else if (DobjArtifact.Uid == 161 || DobjArtifact.Uid == 164)
 			{
 				if (gGameState.GetNBTL(Friendliness.Enemy) <= 0)
 				{
@@ -572,48 +572,55 @@ namespace TheWayfarersInn.Game.Commands
 
 					if (hammerArtifact.IsCarriedByMonster(ActorMonster))
 					{
-						var forgedArtifact = gEngine.GetArtifactList(a => a.IsCarriedByContainerUid(161) && a.GetCarriedByContainerContainerType() == ContainerType.On).FirstOrDefault();
-
-						if (forgedArtifact != null)
+						if (hammerArtifact.GetInRoomUid(true) == 65)
 						{
-							if (forgedArtifact.GeneralWeapon != null)
-							{
-								if (!gGameState.ForgedArtifactUids.Contains(forgedArtifact.Uid))
-								{
-									var rl = gEngine.RollDice(1, 5, 0);
+							var forgedArtifact = gEngine.GetArtifactList(a => a.IsCarriedByContainerUid(161) && a.GetCarriedByContainerContainerType() == ContainerType.On).FirstOrDefault();
 
-									if (gGameState.ForgecraftCodexRead)
+							if (forgedArtifact != null)
+							{
+								if (forgedArtifact.GeneralWeapon != null)
+								{
+									if (!gGameState.ForgedArtifactUids.Contains(forgedArtifact.Uid))
 									{
-										var improvementDescs = new string[] { "", "dubious", "fair", "good", "excellent", "amazing" };
+										var rl = gEngine.RollDice(1, 5, 0);
+
+										if (gGameState.ForgecraftCodexRead)
+										{
+											var improvementDescs = new string[] { "", "dubious", "fair", "good", "excellent", "amazing" };
 
 										gOut.Print("You get to work on {0}, given your newfound knowledge. The improvements to the weapon{1} are {2}.", forgedArtifact.GetTheName(), forgedArtifact.EvalPlural("", "s"), improvementDescs[rl]);
 
-										forgedArtifact.GeneralWeapon.Field1 = Math.Min(forgedArtifact.GeneralWeapon.Field1 + rl, 30);
-									}
-									else
-									{
-										var damageDescs = new string[] { "", "light", "limited", "bad", "severe", "catastrophic" };
+											forgedArtifact.GeneralWeapon.Field1 = Math.Min(forgedArtifact.GeneralWeapon.Field1 + rl, 30);
+										}
+										else
+										{
+											var damageDescs = new string[] { "", "light", "limited", "bad", "severe", "catastrophic" };
 
 										gOut.Print("You get to work on {0} despite your complete lack of knowledge. The damage to the weapon{1} is {2}.", forgedArtifact.GetTheName(), forgedArtifact.EvalPlural("", "s"), damageDescs[rl]);
 
-										forgedArtifact.GeneralWeapon.Field1 = Math.Max(forgedArtifact.GeneralWeapon.Field1 - rl, -30);
-									}
+											forgedArtifact.GeneralWeapon.Field1 = Math.Max(forgedArtifact.GeneralWeapon.Field1 - rl, -30);
+										}
 
-									gGameState.ForgedArtifactUids.Add(forgedArtifact.Uid);
+										gGameState.ForgedArtifactUids.Add(forgedArtifact.Uid);
+									}
+									else
+									{
+										gOut.Print("There isn't anything more you can do with {0}.", forgedArtifact.GetTheName());
+									}
 								}
 								else
 								{
-									gOut.Print("There isn't anything more you can do with {0}.", forgedArtifact.GetTheName());
+									gOut.Print("You can only attempt to forge weapons!");
 								}
 							}
 							else
 							{
-								gOut.Print("You can only attempt to forge weapons!");
+								gOut.Print("It's not clear what you want to attempt to forge.");
 							}
 						}
 						else
 						{
-							gOut.Print("It's not clear what you want to attempt to forge.");
+							gOut.Print("That doesn't do anything right now.");
 						}
 
 						NextState = gEngine.CreateInstance<IMonsterStartState>();

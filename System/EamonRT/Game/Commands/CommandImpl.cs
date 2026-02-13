@@ -714,26 +714,26 @@ namespace EamonRT.Game.Commands
 			gEngine.PrintHealthImproves(monster);
 		}
 
-		public virtual void PrintAssumeCombatStance(IMonster monster)
+		public virtual void PrintTakeCombatStance(IMonster monster)
 		{
 			Debug.Assert(monster != null);
 
-			var assumeCombatStanceString = monster.GetAssumeCombatStanceString();
+			var takeCombatStanceString = monster.GetTakeCombatStanceString();
 
-			Debug.Assert(!string.IsNullOrWhiteSpace(assumeCombatStanceString));
+			Debug.Assert(!string.IsNullOrWhiteSpace(takeCombatStanceString));
 
-			gOut.Print("{0}", assumeCombatStanceString);
+			gOut.Print("{0}", takeCombatStanceString);
 		}
 
-		public virtual void PrintAssumeCombatStance01(IMonster monster)
+		public virtual void PrintTakeCombatStance01(IMonster monster)
 		{
 			Debug.Assert(monster != null);
 
-			var assumeCombatStanceString = monster.GetAssumeCombatStanceString01();
+			var takeCombatStanceString = monster.GetTakeCombatStanceString01();
 
-			Debug.Assert(!string.IsNullOrWhiteSpace(assumeCombatStanceString));
+			Debug.Assert(!string.IsNullOrWhiteSpace(takeCombatStanceString));
 
-			gOut.Print("{0}", assumeCombatStanceString);
+			gOut.Print("{0}", takeCombatStanceString);
 		}
 
 		public virtual void PrintCombatStance(IMonster monster)

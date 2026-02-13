@@ -1688,7 +1688,7 @@ namespace TheWayfarersInn.Game.Plugin
 						numPaths++;
 					}
 
-					if (room.Seen && room02.Seen)
+					if (room02.Seen || (numPaths > 1 && room.Seen))
 					{
 						result += string.Format(" You must have missed {0} when you first explored the area.", numPaths > 1 ? "them" : "it");
 					}

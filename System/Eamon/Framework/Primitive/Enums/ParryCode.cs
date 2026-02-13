@@ -69,7 +69,7 @@ namespace Eamon.Framework.Primitive.Enums
 		ProgressivelyAggressive,
 
 		/// <summary>
-		/// The <see cref="IMonster">Monster</see>'s Parry setting maintains opposite values to nearby allied monsters.
+		/// The <see cref="IMonster">Monster</see>'s Parry setting has opposite values to nearby allied monsters.
 		/// </summary>
 		CoordinatedTeam,
 

@@ -635,14 +635,14 @@ namespace EamonRT.Game.Commands
 			CommandImpl.PrintHealthImproves(monster);
 		}
 
-		public virtual void PrintAssumeCombatStance(IMonster monster)
+		public virtual void PrintTakeCombatStance(IMonster monster)
 		{
-			CommandImpl.PrintAssumeCombatStance(monster);
+			CommandImpl.PrintTakeCombatStance(monster);
 		}
 
-		public virtual void PrintAssumeCombatStance01(IMonster monster)
+		public virtual void PrintTakeCombatStance01(IMonster monster)
 		{
-			CommandImpl.PrintAssumeCombatStance01(monster);
+			CommandImpl.PrintTakeCombatStance01(monster);
 		}
 
 		public virtual void PrintCombatStance(IMonster monster)

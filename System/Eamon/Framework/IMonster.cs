@@ -127,6 +127,16 @@ namespace Eamon.Framework
 		Gender Gender { get; set; }
 
 		/// <summary>
+		/// Gets or sets a value indicating whether this <see cref="IMonster">Monster</see> should use <see cref="ExtendedAttributes">ExtendedAttributes</see> bit flags.
+		/// </summary>
+		bool UseExtendedAttributes { get; set; }
+
+		/// <summary>
+		/// Gets or sets a set of bit flags used to configure return values from various methods for this <see cref="IMonster">Monster</see>.
+		/// </summary>
+		ulong ExtendedAttributes { get; set; }
+
+		/// <summary>
 		/// Gets or sets the initial number of members in this <see cref="IMonster">Monster</see>'s group at the beginning of the current
 		/// combat round (will be 1 for individuals).
 		/// </summary>
@@ -623,11 +633,11 @@ namespace Eamon.Framework
 
 		/// <summary></summary>
 		/// <returns></returns>
-		string GetAssumeCombatStanceString();
+		string GetTakeCombatStanceString();
 
 		/// <summary></summary>
 		/// <returns></returns>
-		string GetAssumeCombatStanceString01();
+		string GetTakeCombatStanceString01();
 
 		/// <summary></summary>
 		/// <returns></returns>

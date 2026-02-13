@@ -361,11 +361,11 @@ namespace EamonRT.Framework.Commands
 
 		/// <summary></summary>
 		/// <param name="monster"></param>
-		void PrintAssumeCombatStance(IMonster monster);
+		void PrintTakeCombatStance(IMonster monster);
 
 		/// <summary></summary>
 		/// <param name="monster"></param>
-		void PrintAssumeCombatStance01(IMonster monster);
+		void PrintTakeCombatStance01(IMonster monster);
 
 		/// <summary></summary>
 		/// <param name="monster"></param>

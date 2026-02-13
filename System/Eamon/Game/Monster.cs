@@ -14,6 +14,7 @@ using Eamon.Framework.Primitive.Classes;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using Eamon.Game.Extensions;
+using Eamon.Game.Utilities;
 using Enums = Eamon.Framework.Primitive.Enums;
 using static Eamon.Game.Plugin.Globals;
 
@@ -123,6 +124,12 @@ namespace Eamon.Game
 
 		[FieldName(880)]
 		public virtual Gender Gender { get; set; }
+
+		[FieldName(885)]
+		public virtual bool UseExtendedAttributes { get; set; }
+
+		[FieldName(895)]
+		public virtual ulong ExtendedAttributes { get; set; }
 
 		[FieldName(900)]
 		public virtual long InitGroupCount { get; set; }
@@ -436,17 +443,38 @@ namespace Eamon.Game
 
 		public virtual bool HasWornInventory()
 		{
-			return true;
+			if (UseExtendedAttributes)
+			{
+				return BitFlags.Get(ExtendedAttributes, (ulong)MonsterExtendedAttributes.HasWornInventory);
+			}
+			else
+			{
+				return true;
+			}
 		}
 
 		public virtual bool HasCarriedInventory()
 		{
-			return true;
+			if (UseExtendedAttributes)
+			{
+				return BitFlags.Get(ExtendedAttributes, (ulong)MonsterExtendedAttributes.HasCarriedInventory);
+			}
+			else
+			{
+				return true;
+			}
 		}
 
 		public virtual bool HasHumanNaturalAttackDescs()
 		{
-			return IsCharacterMonster();
+			if (UseExtendedAttributes)
+			{
+				return BitFlags.Get(ExtendedAttributes, (ulong)MonsterExtendedAttributes.HasHumanNaturalAttackDescs);
+			}
+			else
+			{
+				return IsCharacterMonster();
+			}
 		}
 
 		public virtual bool HasMoved(long oldLocation, long newLocation)
@@ -480,7 +508,14 @@ namespace Eamon.Game
 		{
 			Debug.Assert(monster != null);
 
-			return true;
+			if (UseExtendedAttributes)
+			{
+				return BitFlags.Get(ExtendedAttributes, (ulong)MonsterExtendedAttributes.IsAttackable);
+			}
+			else
+			{
+				return true;
+			}
 		}
 
 		public virtual bool CanMoveToRoomUid(long roomUid, bool fleeing)
@@ -504,7 +539,14 @@ namespace Eamon.Game
 
 		public virtual bool CanAttackWithMultipleWeapons()
 		{
-			return false;
+			if (UseExtendedAttributes)
+			{
+				return BitFlags.Get(ExtendedAttributes, (ulong)MonsterExtendedAttributes.CanAttackWithMultipleWeapons);
+			}
+			else
+			{
+				return false;
+			}
 		}
 
 		public virtual bool CanCarryArtifactWeight(IArtifact artifact)
@@ -636,27 +678,62 @@ namespace Eamon.Game
 
 		public virtual bool ShouldReadyWeapon()
 		{
-			return true;
+			if (UseExtendedAttributes)
+			{
+				return BitFlags.Get(ExtendedAttributes, (ulong)MonsterExtendedAttributes.ShouldReadyWeapon);
+			}
+			else
+			{
+				return true;
+			}
 		}
 
 		public virtual bool ShouldShowContentsWhenExamined()
 		{
-			return false;
+			if (UseExtendedAttributes)
+			{
+				return BitFlags.Get(ExtendedAttributes, (ulong)MonsterExtendedAttributes.ShouldShowContentsWhenExamined);
+			}
+			else
+			{
+				return false;
+			}
 		}
 
 		public virtual bool ShouldShowHealthStatusWhenExamined()
 		{
-			return true;
+			if (UseExtendedAttributes)
+			{
+				return BitFlags.Get(ExtendedAttributes, (ulong)MonsterExtendedAttributes.ShouldShowHealthStatusWhenExamined);
+			}
+			else
+			{
+				return true;
+			}
 		}
 
 		public virtual bool ShouldShowHealthStatusWhenInventoried()
 		{
-			return true;
+			if (UseExtendedAttributes)
+			{
+				return BitFlags.Get(ExtendedAttributes, (ulong)MonsterExtendedAttributes.ShouldShowHealthStatusWhenInventoried);
+			}
+			else
+			{
+				return true;
+			}
 		}
 
 		public virtual bool ShouldShowVerboseNameStateDesc()
 		{
-			return true;
+			if (UseExtendedAttributes)
+			{
+				return BitFlags.Get(ExtendedAttributes, (ulong)MonsterExtendedAttributes.ShouldShowVerboseNameStateDesc);
+			}
+			else
+			{
+				return true;
+			}
 		}
 
 		public virtual bool ShouldCheckToAttackNonEnemy()
@@ -673,7 +750,14 @@ namespace Eamon.Game
 
 		public virtual bool ShouldRefuseToAcceptGold()
 		{
-			return !HasCarriedInventory();
+			if (UseExtendedAttributes)
+			{
+				return BitFlags.Get(ExtendedAttributes, (ulong)MonsterExtendedAttributes.ShouldRefuseToAcceptGold);
+			}
+			else
+			{
+				return !HasCarriedInventory();
+			}
 		}
 
 		public virtual bool ShouldRefuseToAcceptGift(IArtifact artifact)
@@ -685,12 +769,26 @@ namespace Eamon.Game
 
 		public virtual bool ShouldRefuseToAcceptDeadBody(IArtifact artifact)
 		{
-			return true;
+			if (UseExtendedAttributes)
+			{
+				return BitFlags.Get(ExtendedAttributes, (ulong)MonsterExtendedAttributes.ShouldRefuseToAcceptDeadBody);
+			}
+			else
+			{
+				return true;
+			}
 		}
 
 		public virtual bool ShouldPreferNaturalWeaponsToWeakerWeapon(IArtifact artifact)
 		{
-			return true;
+			if (UseExtendedAttributes)
+			{
+				return BitFlags.Get(ExtendedAttributes, (ulong)MonsterExtendedAttributes.ShouldPreferNaturalWeaponsToWeakerWeapon);
+			}
+			else
+			{
+				return true;
+			}
 		}
 
 		public virtual bool ShouldCombatStanceChangedConsumeTurn(long oldParry, long newParry)
@@ -1619,7 +1717,7 @@ namespace Eamon.Game
 			return result;
 		}
 
-		public virtual string GetAssumeCombatStanceString()
+		public virtual string GetTakeCombatStanceString()
 		{
 			string result;
 
@@ -1627,7 +1725,7 @@ namespace Eamon.Game
 
 			var combatStanceString = GetParryCombatStanceString();
 
-			result = string.Format("{0} assume{1} {2} combat stance.",
+			result = string.Format("{0} take{1} {2} combat stance.",
 				IsCharacterMonster() ? "You" : GetTheName(true),
 				IsCharacterMonster() ? "" : EvalPlural("s", ""),
 				(vowels.Contains(combatStanceString.ToLower()[0]) ? "an " : "a ") + combatStanceString);
@@ -1635,11 +1733,11 @@ namespace Eamon.Game
 			return result;
 		}
 
-		public virtual string GetAssumeCombatStanceString01()
+		public virtual string GetTakeCombatStanceString01()
 		{
 			string result;
 
-			result = string.Format("{0} assume{1} a different combat stance.",
+			result = string.Format("{0} take{1} a different combat stance.",
 				EvalPlural("An unseen entity", "Some unseen entities"),
 				EvalPlural("s", ""));
 
@@ -1657,7 +1755,7 @@ namespace Eamon.Game
 			var parryString = IsCharacterMonster() ? string.Format(" (Parry {0}%)", Parry) : "";
 
 			result = string.Format("{0} {1} combat stance{2}.",
-				IsCharacterMonster() ? "You maintain" : GetTheName(true) + EvalPlural(" maintains", " maintain"),
+				IsCharacterMonster() ? "You have" : GetTheName(true) + EvalPlural(" has", " have"),
 				(vowels.Contains(combatStanceString.ToLower()[0]) ? "an " : "a ") + combatStanceString,
 				parryString);
 

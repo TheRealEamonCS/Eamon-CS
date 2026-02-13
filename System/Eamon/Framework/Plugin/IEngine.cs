@@ -466,6 +466,12 @@ namespace Eamon.Framework.Plugin
 		long MaxRecursionLevel { get; }
 
 		/// <summary></summary>
+		ulong DefaultArtExtAttributes { get; }
+
+		/// <summary></summary>
+		ulong DefaultMonExtAttributes { get; }
+
+		/// <summary></summary>
 		int WindowWidth { get; }
 
 		/// <summary></summary>

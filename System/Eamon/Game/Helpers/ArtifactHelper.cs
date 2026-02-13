@@ -92,6 +92,20 @@ namespace Eamon.Game.Helpers
 
 		/// <summary></summary>
 		/// <returns></returns>
+		public virtual string GetPrintedNameUseExtendedAttributes()
+		{
+			return "Use Ext Attributes";
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual string GetPrintedNameExtendedAttributes()
+		{
+			return "Ext Attributes";
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
 		public virtual string GetPrintedNameCategoriesType()
 		{
 			var i = Index;
@@ -820,6 +834,13 @@ namespace Eamon.Game.Helpers
 			}
 
 			return result;
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateExtendedAttributes()
+		{
+			return (!Record.UseExtendedAttributes && Record.ExtendedAttributes == 0) || (Record.UseExtendedAttributes && Record.ExtendedAttributes < 512);
 		}
 
 		/// <summary></summary>
@@ -2076,6 +2097,26 @@ namespace Eamon.Game.Helpers
 		}
 
 		/// <summary></summary>
+		public virtual void PrintDescUseExtendedAttributes()
+		{
+			var fullDesc = "Enter whether the Artifact is using extended attributes." + Environment.NewLine + Environment.NewLine + "This advanced feature allows a set of bit flags to determine various Artifact characteristics, previously settable only through programming.";
+
+			var briefDesc = "0=Not using Extended Attributes; 1=Using Extended Attributes";
+
+			gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc);
+		}
+
+		/// <summary></summary>
+		public virtual void PrintDescExtendedAttributes()
+		{
+			var fullDesc = "Enter the extended attributes of the Artifact." + Environment.NewLine + Environment.NewLine + "When disabled, the game engine uses default behavior. See the EXTENDED_ATTRIBUTES.html file for more details.";
+
+			var briefDesc = string.Format("0{0}=Extended Attributes bit flags", Record.UseExtendedAttributes ? "-511" : "");
+
+			gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc);
+		}
+
+		/// <summary></summary>
 		public virtual void PrintDescCategoriesType()
 		{
 			var i = Index;
@@ -2803,6 +2844,38 @@ namespace Eamon.Game.Helpers
 		}
 
 		/// <summary></summary>
+		public virtual void ListUseExtendedAttributes()
+		{
+			if (FullDetail)
+			{
+				var listNum = NumberFields ? ListNum++ : 0;
+
+				gOut.Write("{0}{1}{2}", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("UseExtendedAttributes"), null), Convert.ToInt64(Record.UseExtendedAttributes));
+			}
+		}
+
+		/// <summary></summary>
+		public virtual void ListExtendedAttributes()
+		{
+			if (FullDetail)
+			{
+				var listNum = NumberFields ? ListNum++ : 0;
+
+				if (LookupMsg && Record.UseExtendedAttributes)
+				{
+					gOut.Write("{0}{1}{2}",
+						Environment.NewLine,
+						gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("ExtendedAttributes"), null),
+						gEngine.BuildValue(51, ' ', 8, (long)Record.ExtendedAttributes, null, string.Join(",", BitFlags.GetSetBits(Record.ExtendedAttributes))));
+				}
+				else
+				{
+					gOut.Write("{0}{1}{2}", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("ExtendedAttributes"), null), Record.ExtendedAttributes);
+				}
+			}
+		}
+
+		/// <summary></summary>
 		public virtual void ListCategories()
 		{
 			var artTypes = new ArtifactType[] { /* ArtifactType.Weapon, ArtifactType.MagicWeapon */ };		// TODO: uncomment when needed
@@ -3457,6 +3530,74 @@ namespace Eamon.Game.Helpers
 				}
 
 				if (!error && ValidateField("Location"))
+				{
+					break;
+				}
+
+				fieldDesc = FieldDesc.Brief;
+			}
+
+			gOut.Print("{0}", gEngine.LineSep);
+		}
+
+		/// <summary></summary>
+		public virtual void InputUseExtendedAttributes()
+		{
+			var fieldDesc = FieldDesc;
+
+			var useExtendedAttributes = Record.UseExtendedAttributes;
+
+			while (true)
+			{
+				Buf.SetFormat(EditRec ? "{0}" : "", Convert.ToInt64(useExtendedAttributes));
+
+				PrintFieldDesc("UseExtendedAttributes", EditRec, EditField, fieldDesc);
+
+				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("UseExtendedAttributes"), "0"));
+
+				var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, "0", null, gEngine.IsChar0Or1, null);
+
+				Debug.Assert(gEngine.IsSuccess(rc));
+
+				Record.UseExtendedAttributes = Convert.ToInt64(Buf.Trim().ToString()) != 0 ? true : false;
+
+				if (ValidateField("UseExtendedAttributes"))
+				{
+					break;
+				}
+
+				fieldDesc = FieldDesc.Brief;
+			}
+
+			Record.ExtendedAttributes = Record.UseExtendedAttributes ? gEngine.DefaultArtExtAttributes : 0;
+
+			gOut.Print("{0}", gEngine.LineSep);
+		}
+
+		/// <summary></summary>
+		public virtual void InputExtendedAttributes()
+		{
+			var fieldDesc = FieldDesc;
+
+			var extendedAttributes = Record.ExtendedAttributes;
+
+			while (true)
+			{
+				Buf.SetFormat(EditRec ? "{0}" : "", extendedAttributes);
+
+				PrintFieldDesc("ExtendedAttributes", EditRec, EditField, fieldDesc);
+
+				var defaultExtAttributes = Record.UseExtendedAttributes ? gEngine.DefaultArtExtAttributes.ToString() : "0";
+
+				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("ExtendedAttributes"), defaultExtAttributes));
+
+				var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, defaultExtAttributes, null, gEngine.IsCharDigit, null);
+
+				Debug.Assert(gEngine.IsSuccess(rc));
+
+				Record.ExtendedAttributes = Convert.ToUInt64(Buf.Trim().ToString());
+
+				if (ValidateField("ExtendedAttributes"))
 				{
 					break;
 				}

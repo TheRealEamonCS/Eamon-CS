@@ -67,6 +67,16 @@ namespace Eamon.Framework
 		long Location { get; set; }
 
 		/// <summary>
+		/// Gets or sets a value indicating whether this <see cref="IArtifact">Artifact</see> should use <see cref="ExtendedAttributes">ExtendedAttributes</see> bit flags.
+		/// </summary>
+		bool UseExtendedAttributes { get; set; }
+
+		/// <summary>
+		/// Gets or sets a set of bit flags used to configure return values from various methods for this <see cref="IArtifact">Artifact</see>.
+		/// </summary>
+		ulong ExtendedAttributes { get; set; }
+
+		/// <summary>
 		/// Gets or sets the primary <see cref="IArtifactCategory.Type">Type</see> of this <see cref="IArtifact">Artifact</see>, 
 		/// a convenience to emulate Eamon Deluxe.
 		/// </summary>

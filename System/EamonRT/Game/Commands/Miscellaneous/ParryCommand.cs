@@ -32,7 +32,7 @@ namespace EamonRT.Game.Commands
 
 				if (PrintCombatStanceChanged)
 				{
-					PrintAssumeCombatStance(ActorMonster);
+					PrintTakeCombatStance(ActorMonster);
 				}
 
 				if (ActorMonster.ShouldCombatStanceChangedConsumeTurn(OldParry, Parry))
@@ -72,11 +72,11 @@ namespace EamonRT.Game.Commands
 				{
 					if (ActorRoom.IsViewable())
 					{
-						PrintAssumeCombatStance(ActorMonster);
+						PrintTakeCombatStance(ActorMonster);
 					}
 					else
 					{
-						PrintAssumeCombatStance01(ActorMonster);
+						PrintTakeCombatStance01(ActorMonster);
 					}
 				}
 			}

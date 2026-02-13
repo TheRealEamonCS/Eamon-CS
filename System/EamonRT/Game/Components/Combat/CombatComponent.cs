@@ -149,9 +149,9 @@ namespace EamonRT.Game.Components
 		{
 			CombatState = CombatState.CalculateDamage;
 
-			D = numDice;
+			D = Math.Max(1, numDice);
 
-			S = numSides;
+			S = Math.Max(1, numSides);
 
 			M = mod;
 
@@ -763,15 +763,15 @@ namespace EamonRT.Game.Components
 
 			if (ActorAc != null)
 			{
-				D = ActorAc.Field3;
+				D = Math.Max(1, ActorAc.Field3);
 
-				S = ActorAc.Field4;
+				S = Math.Max(1, ActorAc.Field4);
 			}
 			else
 			{
-				D = ActorMonster.NwDice;
+				D = Math.Max(1, ActorMonster.NwDice);
 
-				S = ActorMonster.NwSides;
+				S = Math.Max(1, ActorMonster.NwSides);
 			}
 
 			A = OmitArmor ? 0 : 1;
@@ -1089,15 +1089,15 @@ namespace EamonRT.Game.Components
 
 				if (ActorAc != null)
 				{
-					D = ActorAc.Field3;
+					D = Math.Max(1, ActorAc.Field3);
 
-					S = ActorAc.Field4;
+					S = Math.Max(1, ActorAc.Field4);
 				}
 				else
 				{
-					D = ActorMonster.NwDice;
+					D = Math.Max(1, ActorMonster.NwDice);
 
-					S = ActorMonster.NwSides;
+					S = Math.Max(1, ActorMonster.NwSides);
 				}
 			}
 

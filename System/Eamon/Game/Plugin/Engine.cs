@@ -196,6 +196,10 @@ namespace Eamon.Game.Plugin
 
 		public virtual long MaxRecursionLevel { get; protected set; } = 100;
 
+		public virtual ulong DefaultArtExtAttributes { get; protected set; } = 395;
+
+		public virtual ulong DefaultMonExtAttributes { get; protected set; } = 7083;
+
 		public virtual int WindowWidth { get; protected set; } = 80;
 
 		public virtual int WindowHeight { get; protected set; } = 50;
