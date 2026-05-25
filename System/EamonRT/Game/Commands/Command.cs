@@ -350,9 +350,29 @@ namespace EamonRT.Game.Commands
 			CommandImpl.PrintDoYouMeanObj1OrObj2(obj1, obj2);
 		}
 
+		public virtual void PrintTooClose(IGameBase obj)
+		{
+			CommandImpl.PrintTooClose(obj);
+		}
+
+		public virtual void PrintTooFarAway(IGameBase obj)
+		{
+			CommandImpl.PrintTooFarAway(obj);
+		}
+
+		public virtual void PrintObjIsHere(IGameBase obj)
+		{
+			CommandImpl.PrintObjIsHere(obj);
+		}
+
 		public virtual void PrintWhyAttack(IGameBase obj)
 		{
 			CommandImpl.PrintWhyAttack(obj);
+		}
+
+		public virtual void PrintCantRetreat(IRoom room)
+		{
+			CommandImpl.PrintCantRetreat(room);
 		}
 
 		public virtual void PrintTakingFirst(IArtifact artifact)
@@ -365,6 +385,11 @@ namespace EamonRT.Game.Commands
 			CommandImpl.PrintRemovingFirst(artifact);
 		}
 
+		public virtual void PrintClampingValue(long minValue, long maxValue)
+		{
+			CommandImpl.PrintClampingValue(minValue, maxValue);
+		}
+		
 		public virtual void PrintBestLeftAlone(IArtifact artifact)
 		{
 			CommandImpl.PrintBestLeftAlone(artifact);
@@ -545,6 +570,11 @@ namespace EamonRT.Game.Commands
 			CommandImpl.PrintNotReadyableWeapon(artifact);
 		}
 
+		public virtual void PrintOutOfAmmo(IArtifact weapon)
+		{
+			CommandImpl.PrintOutOfAmmo(weapon);
+		}
+
 		public virtual void PrintNotWhileCarryingObj(IArtifact artifact)
 		{
 			CommandImpl.PrintNotWhileCarryingObj(artifact);
@@ -585,9 +615,14 @@ namespace EamonRT.Game.Commands
 			CommandImpl.PrintWhamHitObj(artifact);
 		}
 
-		public virtual void PrintFullDesc(IArtifact artifact, bool showName, bool showVerboseName)
+		public virtual void PrintFullDesc(IArtifact artifact, bool showName, bool showVerboseName, bool showRange = false, bool showRangeBand = false)
 		{
-			CommandImpl.PrintFullDesc(artifact, showName, showVerboseName);
+			CommandImpl.PrintFullDesc(artifact, showName, showVerboseName, showRange, showRangeBand);
+		}
+
+		public virtual void PrintObjAmmoLeft(IArtifact artifact, AmmoType objAmmoType, long objAmmoCount)
+		{
+			CommandImpl.PrintObjAmmoLeft(artifact, objAmmoType, objAmmoCount);
 		}
 
 		public virtual void PrintObjAmountLeft(IArtifact artifact, long objAmount, bool objEdible)
@@ -655,9 +690,9 @@ namespace EamonRT.Game.Commands
 			CommandImpl.PrintHaventSavedGameYet(monster);
 		}
 
-		public virtual void PrintFullDesc(IMonster monster, bool showName, bool showVerboseName)
+		public virtual void PrintFullDesc(IMonster monster, bool showName, bool showVerboseName, bool showRange = false, bool showRangeBand = false)
 		{
-			CommandImpl.PrintFullDesc(monster, showName, showVerboseName);
+			CommandImpl.PrintFullDesc(monster, showName, showVerboseName, showRange, showRangeBand);
 		}
 
 		public virtual void PrintHealthStatus(IMonster monster, bool includeUninjuredGroupMonsters)
@@ -895,6 +930,11 @@ namespace EamonRT.Game.Commands
 			CommandImpl.PrintNothingHereByThatName();
 		}
 
+		public virtual void PrintNothingOfInterestNearby()
+		{
+			CommandImpl.PrintNothingOfInterestNearby();
+		}
+
 		public virtual void PrintYouSeeNothingSpecial()
 		{
 			CommandImpl.PrintYouSeeNothingSpecial();
@@ -1083,6 +1123,11 @@ namespace EamonRT.Game.Commands
 		public virtual bool IsPrepEnabled(IPrep prep)
 		{
 			return CommandImpl.IsPrepEnabled(prep);
+		}
+
+		public virtual void SetObjCoord(IGameBase destObj, IGameBase srcObj)
+		{
+			CommandImpl.SetObjCoord(destObj, srcObj);
 		}
 
 		public virtual void CopyCommandData(ICommand destCommand, bool includeIobj = true)

@@ -16,11 +16,11 @@ namespace ARuncibleCargo.Game
 	[ClassMappings]
 	public class Monster : Eamon.Game.Monster, IMonster
 	{
-		public override RetCode BuildPrintedFullDesc(StringBuilder buf, bool showName, bool showVerboseName)
+		public override RetCode BuildPrintedFullDesc(StringBuilder buf, bool showName, bool showVerboseName, bool showRange = false, bool showRangeBand = false)
 		{
 			RetCode rc;
 
-			rc = base.BuildPrintedFullDesc(buf, showName, showVerboseName);
+			rc = base.BuildPrintedFullDesc(buf, showName, showVerboseName, showRange, showRangeBand);
 
 			// Pookas
 

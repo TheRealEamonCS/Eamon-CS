@@ -85,6 +85,17 @@ namespace EamonRT.Game.Commands
 				goto Cleanup;
 			}
 
+			if (!ActorMonster.CanReach(IobjArtifact))
+			{
+				PrintTooFarAway(IobjArtifact);
+
+				NextState = gEngine.CreateInstance<IStartState>();
+
+				goto Cleanup;
+			}
+
+			SetObjCoord(ActorMonster, IobjArtifact);
+
 			IobjArtAc = gEngine.EvalContainerType(ContainerType, IobjArtifact.InContainer, IobjArtifact.OnContainer, IobjArtifact.UnderContainer, IobjArtifact.BehindContainer);
 
 			DobjAllContainerArtifactList = DobjArtifact.GetContainedList(containerType: (ContainerType)(-1), recurse: true);

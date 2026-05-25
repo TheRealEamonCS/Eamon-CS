@@ -43,6 +43,25 @@ namespace EamonRT.Game.Commands
 		{
 			Debug.Assert(DobjArtifact != null || DobjMonster != null);
 
+			if (DobjArtifact != null && !ActorMonster.CanReach(DobjArtifact))
+			{
+				PrintTooFarAway(DobjArtifact);
+
+				NextState = gEngine.CreateInstance<IStartState>();
+
+				goto Cleanup;
+			}
+			else if (DobjMonster != null && !ActorMonster.CanReach(DobjMonster))
+			{
+				PrintTooFarAway(DobjMonster);
+
+				NextState = gEngine.CreateInstance<IStartState>();
+
+				goto Cleanup;
+			}
+
+			SetObjCoord(ActorMonster, Dobj);
+
 			if (DobjMonster != null)
 			{
 				PrintCantVerbObj(DobjMonster);

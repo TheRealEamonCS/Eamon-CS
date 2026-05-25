@@ -168,6 +168,13 @@ namespace Firestorm.Game.Commands
 				
 				else if (IobjMonster.Uid == 45 && DobjArtifact.Uid == 66)
 				{
+					if (ActorMonster.Weapon == DobjArtifact.Uid)
+					{
+						DobjArtifact.RemoveStateDesc(DobjArtifact.GetReadyWeaponDesc());
+
+						ActorMonster.Weapon = -1;
+					}
+
 					DobjArtifact.SetCarriedByMonster(IobjMonster);
 
 					PrintGiveObjToActor(DobjArtifact, IobjMonster);

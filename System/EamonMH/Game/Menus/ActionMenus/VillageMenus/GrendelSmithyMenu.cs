@@ -412,7 +412,33 @@ namespace EamonMH.Game.Menus.ActionMenus
 
 				x.Field5 = numHands;
 
-				x.SetFieldsValue(6, gEngine.NumArtifactCategoryFields, 0);
+				x.Field6 = (long)weapon.AmmoType;
+
+				x.Field7 = weapon.AmmoCount;
+				
+				x.Field8 = weapon.MaxAmmoCount;
+				
+				x.Field9 = weapon.AmmoRecoveryOdds;
+				
+				x.Field10 = (long)weapon.AmmoRefillCode;
+
+				x.Field11 = weapon.MinRange;
+
+				x.Field12 = weapon.OptimalMin;
+
+				x.Field13 = weapon.OptimalMax;
+
+				x.Field14 = weapon.MaxRange;
+
+				x.Field15 = weapon.CloseOddsModifier; 
+				
+				x.Field16 = weapon.CloseDmgMultiplier; 
+
+				x.Field17 = weapon.FarOddsModifier; 
+
+				x.Field18 = weapon.FarDmgMultiplier;
+
+				x.SetFieldsValue(19, gEngine.NumArtifactCategoryFields, 0);
 
 				var imw = false;
 

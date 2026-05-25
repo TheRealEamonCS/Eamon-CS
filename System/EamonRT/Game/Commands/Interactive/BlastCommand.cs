@@ -40,6 +40,12 @@ namespace EamonRT.Game.Commands
 		/// <summary></summary>
 		public virtual IMagicComponent MagicComponent { get; set; }
 
+		/// <summary></summary>
+		public virtual ISpell BlastSpell { get; set; }
+
+		/// <summary></summary>
+		public virtual long Range { get; set; }
+
 		public override void ExecuteForPlayer()
 		{
 			RetCode rc;
@@ -58,8 +64,32 @@ namespace EamonRT.Game.Commands
 				goto Cleanup;
 			}
 
+			BlastSpell = gEngine.GetSpell(Spell.Blast);
+
 			if (DobjMonster != null)
 			{
+				if (gGameState.EnhancedCombat && BlastSpell != null)
+				{
+					Range = gEngine.GetRange(ActorMonster.Coord, DobjMonster.Coord);
+
+					if (Range < BlastSpell.MinRange)
+					{
+						PrintTooClose(DobjMonster);
+
+						NextState = gEngine.CreateInstance<IStartState>();
+
+						goto Cleanup;
+					}
+					else if (Range > BlastSpell.MaxRange)
+					{
+						PrintTooFarAway(DobjMonster);
+
+						NextState = gEngine.CreateInstance<IStartState>();
+
+						goto Cleanup;
+					}
+				}
+
 				ProcessEvents(EventType.BeforeAttackMonster);
 
 				if (GotoCleanup)
@@ -126,6 +156,28 @@ namespace EamonRT.Game.Commands
 				}
 
 				goto Cleanup;
+			}
+
+			if (gEngine.EnforceRangeUsage && BlastSpell != null)
+			{
+				Range = gEngine.GetRange(ActorMonster.Coord, DobjArtifact.Coord);
+
+				if (Range < BlastSpell.MinRange)
+				{
+					PrintTooClose(DobjArtifact);
+
+					NextState = gEngine.CreateInstance<IStartState>();
+
+					goto Cleanup;
+				}
+				else if (Range > BlastSpell.MaxRange)
+				{
+					PrintTooFarAway(DobjArtifact);
+
+					NextState = gEngine.CreateInstance<IStartState>();
+
+					goto Cleanup;
+				}
 			}
 
 			ProcessEvents(EventType.BeforeAttackArtifact);

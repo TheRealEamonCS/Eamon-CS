@@ -22,7 +22,7 @@ namespace WrenholdsSecretVigil.Game.Commands
 
 			// Player readies Trollsfire
 
-			if (ActorMonster.Weapon == DobjArtifact.Uid && DobjArtifact.Name.Equals("Trollsfire", StringComparison.OrdinalIgnoreCase) && DobjArtifact.Field4 == 10)
+			if (ActorMonster.Weapon == DobjArtifact.Uid && DobjArtifact.Name.Equals("Trollsfire", StringComparison.OrdinalIgnoreCase) && DobjArtifact.Desc.IndexOf("alight", StringComparison.OrdinalIgnoreCase) >= 0)
 			{
 				gEngine.PrintEffectDesc(6);
 			}

@@ -66,8 +66,17 @@ namespace Eamon.Game
 		[FieldName(890)]
 		public virtual bool InteractiveFiction { get; set; }
 
-		[FieldName(895)]
+		[FieldName(892)]
 		public virtual bool EnhancedCombat { get; set; }
+
+		[FieldName(894)]
+		public virtual bool ShowRangeBands { get; set; }        // Note: sync with EnhancedCombat on game startup if needed
+
+		[FieldName(896)]
+		public virtual bool ShowRanges { get; set; }        // Note: sync with EnhancedCombat on game startup if needed
+
+		[FieldName(898)]
+		public virtual bool ShowAmmoCounts { get; set; }        // Note: sync with EnhancedCombat on game startup if needed
 
 		[FieldName(900)]
 		public virtual bool EnhancedParser { get; set; }

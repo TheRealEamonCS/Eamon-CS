@@ -333,6 +333,15 @@ namespace Eamon.Framework.Plugin
 		string RecIdepErrorFmtStr { get; }
 
 		/// <summary>
+		/// Gets the format string used to produce error messages during <see cref="IGameBase">Record</see> field interdependency checking.
+		/// </summary>
+		/// <remarks>
+		/// The Eamon CS Dungeon Designer plugin (EamonDD) uses this format string to produce error messages when analysing
+		/// Record field interdependencies. A variety of potential error conditions can be caught during this process.
+		/// </remarks>
+		string RecIdepErrorFmtStr02 { get; }
+
+		/// <summary>
 		/// Gets the Adventures directory path on Android platforms, relative to the working directory.
 		/// </summary>
 		string AndroidAdventuresDir { get; }
@@ -438,6 +447,16 @@ namespace Eamon.Framework.Plugin
 		long MaxWeaponComplexity { get; }
 
 		/// <summary>
+		/// Gets the minimum value used as a weapon range to-hit modifier for the Enhanced Combat system.
+		/// </summary>
+		long MinRangeOddsModifier { get; }
+
+		/// <summary>
+		/// Gets the maximum value used as a weapon range to-hit modifier for the Enhanced Combat system.
+		/// </summary>
+		long MaxRangeOddsModifier { get; }
+
+		/// <summary>
 		/// Gets the minimum amount of gold the player character can carry or hold in the bank.
 		/// </summary>
 		/// <remarks>
@@ -452,6 +471,11 @@ namespace Eamon.Framework.Plugin
 		/// This maximum value applies separately to each.
 		/// </remarks>
 		long MaxGoldValue { get; }
+
+		/// <summary>
+		/// Gets the maximum value allowed for a Room's maximum coordinate for the Enhanced Combat system.
+		/// </summary>
+		long MaxRoomMaxCoord { get; }
 
 		/// <summary></summary>
 		long MaxPathLen { get; }
@@ -612,6 +636,16 @@ namespace Eamon.Framework.Plugin
 
 		/// <summary></summary>
 		bool EnableEnhancedCombat { get; set; }
+
+		/// <summary>
+		/// Gets a value indicating whether to enforce range usage for the Enhanced Combat system.
+		/// </summary>
+		/// <remarks>
+		/// This calculates as true when Enhanced Combat is enabled and one or more enemies are in the Room. Various Commands enforce range
+		/// measurements when accessing Artifacts or Monsters, including weapons during ranged combat. When the flag is false range
+		/// measurements are relaxed and Commands behave as normally expected.
+		/// </remarks>
+		bool EnforceRangeUsage { get; }
 
 		/// <summary>
 		/// Gets or sets a value indicating whether the <see cref="Mutex">Mutex</see> should be ignored, allowing unlimited Eamon CS processes
@@ -1061,6 +1095,62 @@ namespace Eamon.Framework.Plugin
 		string GetCombatCodeDesc(CombatCode combatCode);
 
 		/// <summary>
+		/// Gets the description for a given <see cref="CoordCode"/>.
+		/// </summary>
+		/// <param name="index"></param>
+		/// <returns></returns>
+		string GetCoordCodeDesc(long index);
+
+		/// <summary>
+		/// Gets the description for a given <see cref="CoordCode"/>.
+		/// </summary>
+		/// <param name="coordCode"></param>
+		/// <returns></returns>
+		string GetCoordCodeDesc(CoordCode coordCode);
+
+		/// <summary>
+		/// Gets the description for a given <see cref="FocusCode"/>.
+		/// </summary>
+		/// <param name="index"></param>
+		/// <returns></returns>
+		string GetFocusCodeDesc(long index);
+
+		/// <summary>
+		/// Gets the description for a given <see cref="FocusCode"/>.
+		/// </summary>
+		/// <param name="focusCode"></param>
+		/// <returns></returns>
+		string GetFocusCodeDesc(FocusCode focusCode);
+
+		/// <summary>
+		/// Gets the description for a given <see cref="TravelCode"/>.
+		/// </summary>
+		/// <param name="index"></param>
+		/// <returns></returns>
+		string GetTravelCodeDesc(long index);
+
+		/// <summary>
+		/// Gets the description for a given <see cref="TravelCode"/>.
+		/// </summary>
+		/// <param name="travelCode"></param>
+		/// <returns></returns>
+		string GetTravelCodeDesc(TravelCode travelCode);
+
+		/// <summary>
+		/// Gets the description for a given <see cref="RearmCode"/>.
+		/// </summary>
+		/// <param name="index"></param>
+		/// <returns></returns>
+		string GetRearmCodeDesc(long index);
+
+		/// <summary>
+		/// Gets the description for a given <see cref="RearmCode"/>.
+		/// </summary>
+		/// <param name="rearmCode"></param>
+		/// <returns></returns>
+		string GetRearmCodeDesc(RearmCode rearmCode);
+
+		/// <summary>
 		/// Gets the description for a given <see cref="ParryCode"/>.
 		/// </summary>
 		/// <param name="index"></param>
@@ -1272,6 +1362,35 @@ namespace Eamon.Framework.Plugin
 		/// <returns></returns>
 		bool IsUnmovable01(long weight);
 
+		/// <summary>
+		/// Recursively retrieves the coordinate of an Artifact, resolving embedded, contained, carried or worn artifacts up to their
+		/// parent Room object.</summary>
+		/// <param name="artifact"></param>
+		/// <returns></returns>
+		long GetRecursiveCoord(IArtifact artifact);
+
+		/// <summary>
+		/// Calculates the range distance between two coordinates.
+		/// </summary>
+		/// <param name="obj1Coord"></param>
+		/// <param name="obj2Coord"></param>
+		/// <returns></returns>
+		long GetRange(long obj1Coord, long obj2Coord);
+
+		/// <summary>
+		/// Returns the range band classification for a given range distance.
+		/// </summary>
+		/// <param name="range"></param>
+		/// <returns></returns>
+		RangeBand GetRangeBand(long range);
+
+		/// <summary>
+		/// Returns the display string for a given range band.
+		/// </summary>
+		/// <param name="rangeBand"></param>
+		/// <returns></returns>
+		string GetRangeBandString(RangeBand rangeBand);
+
 		/// <summary></summary>
 		/// <param name="hardiness"></param>
 		/// <param name="dmgTaken"></param>
@@ -1366,6 +1485,13 @@ namespace Eamon.Framework.Plugin
 		/// <param name="ch"></param>
 		/// <returns></returns>
 		bool IsCharSOrTOrROrX(char ch);
+
+		/// <summary>
+		/// Indicates whether a character is one of ['S', 'T', 'X'].
+		/// </summary>
+		/// <param name="ch"></param>
+		/// <returns></returns>
+		bool IsCharSOrTOrX(char ch);
 
 		/// <summary>
 		/// Indicates whether a character is one of ['N', 'S', 'E', 'W'].
@@ -1848,6 +1974,40 @@ namespace Eamon.Framework.Plugin
 		/// <returns></returns>
 		double GetArmorPriceOrValue(Armor armor, bool calcPrice, ref bool isMarcosArmor);
 
+		/// <summary>
+		/// Initializes the coordinate of an Artifact when it is placed in a Room for Enhanced Combat games.
+		/// </summary>
+		/// <param name="artifact"></param>
+		/// <param name="room"></param>
+		void InitArtifactCoord(IArtifact artifact, IRoom room);
+
+		/// <summary>
+		/// Initializes the coordinate of a Monster when it is placed in a Room for Enhanced Combat games.
+		/// </summary>
+		/// <param name="monster"></param>
+		/// <param name="room"></param>
+		void InitMonsterCoord(IMonster monster, IRoom room);
+
+		/// <summary>
+		/// Initializes the ammo count of a weapon Artifact based on its <see cref="AmmoRefillCode"/> for
+		/// Enhanced Combat games.
+		/// </summary>
+		/// <param name="weapon"></param>
+		/// <remarks>
+		/// Called at game start for new games only, not on save/restore. Has no effect when the weapon's
+		/// MaxAmmoCount is zero (i.e. melee weapons).
+		/// </remarks>
+		void InitWeaponAmmoCount(IArtifact weapon);
+
+		/// <summary>
+		/// Sets the coordinate of a destination object to match the coordinate of a source object.
+		/// Enhanced Combat games only. Has no effect when range is being enforced or Enhanced Combat
+		/// is disabled.
+		/// </summary>
+		/// <param name="destObj">The object whose coordinate is to be updated.</param>
+		/// <param name="srcObj">The object whose coordinate is used as the source.</param>
+		void SetObjCoord(IGameBase destObj, IGameBase srcObj);
+
 		/// <summary></summary>
 		/// <param name="fieldDesc"></param>
 		/// <param name="buf"></param>
@@ -1907,6 +2067,21 @@ namespace Eamon.Framework.Plugin
 		/// <param name="whereClauseFunc"></param>
 		/// <returns></returns>
 		IGameBase GetNthRecord(IList<IGameBase> recordList, long which, Func<IGameBase, bool> whereClauseFunc);
+
+		/// <summary>
+		/// Builds a sorted list of game Records paired with their range band and distance relative to a given Monster.
+		/// </summary>
+		/// <param name="recordList"></param>
+		/// <param name="actorMonster"></param>
+		/// <param name="sortByRangeBand"></param>
+		/// <remarks>
+		/// Used by RangeCommand, MapCommand, and Room display code to produce a unified view of Monsters and Artifacts
+		/// ordered by proximity. When <paramref name="sortByRangeBand"/> is true, Records are sorted by range band,
+		/// then Monsters before Artifacts, then by distance within each group. When false, Records are sorted by
+		/// type only (Monsters before Artifacts) without regard to distance.
+		/// </remarks>
+		/// <returns></returns>
+		IList<(IGameBase record, RangeBand rangeBand, long range)> BuildSortedRangeBandList(IList<IGameBase> recordList, IMonster actorMonster, bool sortByRangeBand = true);
 
 		/// <summary></summary>
 		/// <param name="recordList"></param>

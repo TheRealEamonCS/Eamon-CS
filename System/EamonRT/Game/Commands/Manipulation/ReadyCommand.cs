@@ -39,6 +39,17 @@ namespace EamonRT.Game.Commands
 
 			Debug.Assert(DobjArtifact != null);
 
+			if (!ActorMonster.CanReach(DobjArtifact))
+			{
+				PrintTooFarAway(DobjArtifact);
+
+				NextState = gEngine.CreateInstance<IStartState>();
+
+				goto Cleanup;
+			}
+
+			SetObjCoord(ActorMonster, DobjArtifact);
+
 			DobjArtAc = DobjArtifact.GetArtifactCategory(ArtTypes, false);
 
 			if (DobjArtAc == null)

@@ -126,8 +126,10 @@ namespace Eamon.Framework
 		/// <param name="buf"></param>
 		/// <param name="showName"></param>
 		/// <param name="showVerboseName"></param>
+		/// <param name="showRange"></param>
+		/// <param name="showRangeBand"></param>
 		/// <returns></returns>
-		RetCode BuildPrintedFullDesc(StringBuilder buf, bool showName, bool showVerboseName);
+		RetCode BuildPrintedFullDesc(StringBuilder buf, bool showName, bool showVerboseName, bool showRange = false, bool showRangeBand = false);
 
 		#endregion
 	}

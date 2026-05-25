@@ -244,7 +244,7 @@ namespace EamonRT.Game.Commands
 					goto Cleanup;
 				}
 
-				EnhancedCombatCommandList = gEngine.CommandList.Where(c => c is IParryCommand).ToList();
+				EnhancedCombatCommandList = gEngine.CommandList.Where(c => c is IParryCommand || c is IRangeCommand || c is IMapCommand || c is IApproachCommand || c is IRetreatCommand).ToList();
 
 				foreach (var command in EnhancedCombatCommandList)
 				{

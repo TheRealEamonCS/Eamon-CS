@@ -281,7 +281,7 @@ namespace Eamon.Game.Helpers
 		/// <summary></summary>
 		public virtual void PrintDescWorkDir()
 		{
-			var fullDesc = "Enter the working directory of the Fileset." + Environment.NewLine + Environment.NewLine + "This is where the files are found.  It can be an absolute or relative path, and should not end with a path separator.";
+			var fullDesc = "Enter the working directory of the Fileset." + Environment.NewLine + Environment.NewLine + "Where the files are found.  It can be an absolute or relative path, and should not end with a path separator.";
 
 			gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, null);
 		}

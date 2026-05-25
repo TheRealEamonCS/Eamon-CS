@@ -224,12 +224,15 @@ namespace ThePyramidOfAnharos.Game.Plugin
 			// Do nothing
 		}
 
-		public override void MoveMonsters(params Func<IMonster, bool>[] whereClauseFuncs)
+		public override void MoveMonsters(IRoom oldRoom = null, IRoom newRoom = null, Direction dir = 0, params Func<IMonster, bool>[] whereClauseFuncs)
 		{
 			// Move avatar of Alaxar / guards even when unseen
 
 			base.MoveMonsters
 			(
+				oldRoom,
+				newRoom,
+				dir,
 				whereClauseFuncs != null && whereClauseFuncs.Length > 0 ? 
 				whereClauseFuncs : 
 				new Func<IMonster, bool>[] { m => !m.IsCharacterMonster() && (m.Uid == 8 || m.Uid == 20 || m.Seen) && m.Location == GameState.R3 }

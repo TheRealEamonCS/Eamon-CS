@@ -27,6 +27,17 @@ namespace EamonRT.Game.Commands
 		{
 			Debug.Assert(DobjArtifact != null);
 
+			if (!ActorMonster.CanReach(DobjArtifact))
+			{
+				PrintTooFarAway(DobjArtifact);
+
+				NextState = gEngine.CreateInstance<IStartState>();
+
+				goto Cleanup;
+			}
+
+			SetObjCoord(ActorMonster, DobjArtifact);
+
 			ProcessEvents(EventType.BeforeDrinkArtifact);
 
 			if (GotoCleanup)

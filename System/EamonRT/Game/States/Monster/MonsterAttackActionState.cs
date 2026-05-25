@@ -5,6 +5,7 @@
 
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using Eamon.Framework;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
@@ -18,6 +19,9 @@ namespace EamonRT.Game.States
 	{
 		/// <summary></summary>
 		public virtual IList<IMonster> HostileMonsterList { get; set; }
+
+		/// <summary></summary>
+		public virtual IList<IMonster> FocusMonsterList { get; set; }
 
 		/// <summary></summary>
 		public virtual IMonster LoopMonster { get; set; }
@@ -84,6 +88,83 @@ namespace EamonRT.Game.States
 			HostileMonsterList = gEngine.GetHostileMonsterList(LoopMonster);
 
 			Debug.Assert(HostileMonsterList != null);
+
+			if (gGameState.EnhancedCombat)
+			{
+				long minRange;
+
+				long optimalMin;
+
+				long optimalMax;
+
+				long maxRange;
+
+				var artifact = LoopMonster.Weapon > 0 ? gADB[LoopMonster.Weapon] : null;
+
+				var ac = artifact != null ? artifact.GeneralWeapon : null;
+
+				if (ac != null)
+				{
+					minRange = ac.Field11;
+
+					optimalMin = ac.Field12;
+
+					optimalMax = ac.Field13;
+
+					maxRange = ac.Field14;
+				}
+				else
+				{
+					minRange = LoopMonster.NwMinRange;
+
+					optimalMin = LoopMonster.NwOptimalMin;
+
+					optimalMax = LoopMonster.NwOptimalMax;
+
+					maxRange = LoopMonster.NwMaxRange;
+				}
+
+				var rl = gEngine.RollDice(1, 100, 0);
+
+				FocusMonsterList = rl <= LoopMonster.GetFocusTargetOdds() ? HostileMonsterList.Where((m) =>
+				{
+					if (m.Uid == LoopMonster.FocusMonsterUid)
+					{
+						var currentRange = gEngine.GetRange(LoopMonster.Coord, m.Coord);
+
+						return currentRange >= optimalMin && currentRange <= optimalMax;
+					}
+					else
+					{
+						return false;
+					}
+
+				}).ToList() : new List<IMonster>();
+
+				if (FocusMonsterList.Count == 0)
+				{
+					FocusMonsterList = HostileMonsterList.Where((m) =>
+					{
+						var currentRange = gEngine.GetRange(LoopMonster.Coord, m.Coord);
+
+						return currentRange >= optimalMin && currentRange <= optimalMax;
+
+					}).ToList();
+				}
+
+				if (FocusMonsterList.Count == 0)
+				{
+					FocusMonsterList = HostileMonsterList.Where((m) =>
+					{
+						var currentRange = gEngine.GetRange(LoopMonster.Coord, m.Coord);
+
+						return currentRange >= minRange && currentRange <= maxRange;
+
+					}).ToList();
+				}
+
+				HostileMonsterList = FocusMonsterList;
+			}
 
 			if (HostileMonsterList.Count < 1)
 			{

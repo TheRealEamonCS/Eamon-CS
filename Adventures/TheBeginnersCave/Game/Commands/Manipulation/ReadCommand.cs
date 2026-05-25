@@ -71,8 +71,10 @@ namespace TheBeginnersCave.Game.Commands
 
 			// Change name of bottle
 
-			if (DobjArtifact.Uid == 3)
+			if (DobjArtifact.Uid == 3 && ActorMonster.CanReach(DobjArtifact))
 			{
+				SetObjCoord(ActorMonster, DobjArtifact);
+
 				DobjArtifact.Name = "healing potion";
 
 				gOut.Print("It says, \"HEALING POTION\".");

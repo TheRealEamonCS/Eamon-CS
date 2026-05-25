@@ -92,6 +92,20 @@ namespace Eamon.Game.Helpers
 
 		/// <summary></summary>
 		/// <returns></returns>
+		public virtual string GetPrintedNameCoordCode()
+		{
+			return "Coordinate Code";
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual string GetPrintedNameCoord()
+		{
+			return "Coordinate";
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
 		public virtual string GetPrintedNameUseExtendedAttributes()
 		{
 			return "Use Ext Attributes";
@@ -838,6 +852,20 @@ namespace Eamon.Game.Helpers
 
 		/// <summary></summary>
 		/// <returns></returns>
+		public virtual bool ValidateCoordCode()
+		{
+			return gEngine.EnableEnhancedCombat ? Enum.IsDefined(typeof(CoordCode), Record.CoordCode) : Record.CoordCode == CoordCode.Specified;
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateCoord()
+		{
+			return gEngine.EnableEnhancedCombat ? Record.Coord >= 0 : Record.Coord == 0;
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
 		public virtual bool ValidateExtendedAttributes()
 		{
 			return (!Record.UseExtendedAttributes && Record.ExtendedAttributes == 0) || (Record.UseExtendedAttributes && Record.ExtendedAttributes < 512);
@@ -1010,7 +1038,60 @@ namespace Eamon.Game.Helpers
 							}
 						}
 
-						if (fieldNumber >= 6 && fieldNumber <= 13)  // Auto-upgrade old weapons
+						if (gEngine.EnableEnhancedCombat && fieldNumber == 6 && fieldValue == 0 && category.Field7 == 0 && category.Field8 == 0 && category.Field9 == 0 && category.Field10 == 0 && category.Field2 == (long)Weapon.Bow)    // Auto-upgrade old weapons
+						{
+							category.Field6 = (long)AmmoType.Arrow;
+							category.Field7 = 20;
+							category.Field8 = 20;
+							category.Field9 = 60;
+							category.Field10 = (long)AmmoRefillCode.Full;
+						}
+						
+						if (gEngine.EnableEnhancedCombat && fieldNumber == 11 && fieldValue == 0 && category.Field12 == 0 && category.Field13 == 0 && category.Field14 == 0 && category.Field15 == 0 && category.Field16 == 0 && category.Field17 == 0 && category.Field18 == 0)  // Auto-upgrade old weapons
+						{
+							switch((Weapon)category.Field2)
+							{
+								case Weapon.Axe:
+									category.Field11 = 0;
+									category.Field12 = 0;
+									category.Field13 = 1;
+									category.Field14 = 1;
+									break;
+								case Weapon.Bow:
+									category.Field11 = 3;
+									category.Field12 = 10;
+									category.Field13 = 40;
+									category.Field14 = 60;
+									break;
+								case Weapon.Club:
+									category.Field11 = 0;
+									category.Field12 = 0;
+									category.Field13 = 1;
+									category.Field14 = 1;
+									break;
+								case Weapon.Spear:
+									category.Field11 = 1;
+									category.Field12 = 1;
+									category.Field13 = 3;
+									category.Field14 = 3;
+									break;
+								case Weapon.Sword:
+									category.Field11 = 0;
+									category.Field12 = 0;
+									category.Field13 = 1;
+									category.Field14 = 1;
+									break;
+							}
+
+							category.Field15 = -20;
+							category.Field16 = 100;
+							category.Field17 = -10;
+							category.Field18 = 75;
+
+							fieldValue = category.Field11;
+						}
+
+						if (fieldNumber >= 19 && fieldNumber <= 20)  // Auto-upgrade old weapons
 						{
 							// TODO: implement
 						}
@@ -1031,7 +1112,35 @@ namespace Eamon.Game.Helpers
 						{
 							result = fieldValue >= 1 && fieldValue <= 2;
 						}
-						else if (fieldNumber >= 6 && fieldNumber <= 13)
+						else if (fieldNumber == 6)
+						{
+							result = Enum.IsDefined(typeof(AmmoType), fieldValue);
+						}
+						else if (fieldNumber == 7 || fieldNumber == 8)
+						{
+							result = fieldValue >= 0;
+						}
+						else if (fieldNumber == 9)
+						{
+							result = fieldValue >= 0 && fieldValue <= 100;
+						}
+						else if (fieldNumber == 10)
+						{
+							result = Enum.IsDefined(typeof(AmmoRefillCode), fieldValue);
+						}
+						else if (fieldNumber >= 11 && fieldNumber <= 14)
+						{
+							result = fieldValue >= 0;
+						}
+						else if (fieldNumber == 15 || fieldNumber == 17)
+						{
+							result = fieldValue >= gEngine.MinRangeOddsModifier && fieldValue <= gEngine.MaxRangeOddsModifier;
+						}
+						else if (fieldNumber == 16 || fieldNumber == 18)
+						{
+							result = fieldValue >= 0 && fieldValue <= 100;
+						}
+						else if (fieldNumber >= 19 && fieldNumber <= 20)
 						{
 							// TODO: implement
 						}
@@ -1593,6 +1702,47 @@ namespace Eamon.Game.Helpers
 
 		/// <summary></summary>
 		/// <returns></returns>
+		public virtual bool ValidateInterdependenciesCoord()
+		{
+			var result = true;
+
+			if (gEngine.EnableEnhancedCombat)
+			{
+				var roomUid = Record.GetInRoomUid();
+
+				if (roomUid == 0)
+				{
+					roomUid = Record.GetEmbeddedInRoomUid();
+				}
+
+				if (roomUid > 0 && Record.CoordCode == CoordCode.Specified)
+				{
+					var room = gRDB[roomUid];
+
+					if (room != null && Record.Coord > room.MaxCoord)
+					{
+						result = false;
+
+						Buf.SetFormat(gEngine.RecIdepErrorFmtStr, GetPrintedName("Coord"), "Room", roomUid, "which should have a maximum coordinate compatible with this Artifact, but doesn't");
+
+						ErrorMessage = Buf.ToString();
+
+						RecordType = typeof(IRoom);
+
+						EditRecord = room;
+
+						goto Cleanup;
+					}
+				}
+			}
+
+		Cleanup:
+
+			return result;
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
 		public virtual bool ValidateInterdependenciesCategories()
 		{
 			var result = true;
@@ -1820,6 +1970,73 @@ namespace Eamon.Game.Helpers
 										goto Cleanup;
 									}
 								}
+							}
+						}
+
+						break;
+
+					case 6:
+					case 7:
+					case 8:
+					case 9:
+					case 10:
+
+						if (category.Type == ArtifactType.Weapon || category.Type == ArtifactType.MagicWeapon)
+						{
+							if (fieldValue != 0 && category.Field2 != (long)Weapon.Bow)
+							{
+								result = false;
+
+								Buf.SetFormat(gEngine.RecIdepErrorFmtStr02, GetPrintedNameCategoriesField(fieldNumber), "Artifact", Record.Uid, "should be 0 for non-Bow weapons, but isn't");
+
+								ErrorMessage = Buf.ToString();
+
+								ValidateCrossFields = true;
+
+								goto Cleanup;
+							}
+
+							// Note: Field7, Field8 must be Ammo Count, Max Ammo Count respectively
+
+							else if (fieldNumber == 7 && fieldValue > category.Field8 && category.Field2 == (long)Weapon.Bow)
+							{
+								result = false;
+
+								Buf.SetFormat(gEngine.RecIdepErrorFmtStr02, GetPrintedNameCategoriesField(fieldNumber), "Artifact", Record.Uid, string.Format("should be <= the {0} field, but isn't", GetPrintedNameCategoriesField(fieldNumber + 1)));
+
+								ErrorMessage = Buf.ToString();
+
+								ValidateCrossFields = true;
+
+								goto Cleanup;
+							}
+						}
+
+						break;
+
+					case 11:
+					case 12:
+					case 13:
+
+						// Note: Field11, Field12, Field13, Field14 must be Min Range, Optimal Min, Optimal Max, Max Range respectively
+
+						if (category.Type == ArtifactType.Weapon || category.Type == ArtifactType.MagicWeapon)
+						{
+							var fieldProperty02 = category.GetType().GetProperty(string.Format("Field{0}", fieldNumber + 1));
+
+							var fieldValue02 = fieldProperty02 != null ? (long)fieldProperty02.GetValue(category) : 0L;
+
+							if (fieldValue > fieldValue02)
+							{
+								result = false;
+
+								Buf.SetFormat(gEngine.RecIdepErrorFmtStr02, GetPrintedNameCategoriesField(fieldNumber), "Artifact", Record.Uid, string.Format("should be <= the {0} field, but isn't", GetPrintedNameCategoriesField(fieldNumber + 1)));
+
+								ErrorMessage = Buf.ToString();
+
+								ValidateCrossFields = true;
+
+								goto Cleanup;
 							}
 						}
 
@@ -2097,6 +2314,33 @@ namespace Eamon.Game.Helpers
 		}
 
 		/// <summary></summary>
+		public virtual void PrintDescCoordCode()
+		{
+			var fullDesc = "Enter the coordinate code that describes the Artifact's Room position.  Enhanced Combat games only.";
+
+			var briefDesc = new StringBuilder(gEngine.BufSize);
+
+			var coordCodeValues = EnumUtil.GetValues<CoordCode>();
+
+			for (var j = 0; j < coordCodeValues.Count; j++)
+			{
+				briefDesc.AppendFormat("{0}{1}={2}", j != 0 ? "; " : "", (long)coordCodeValues[j], gEngine.GetCoordCodeDesc(coordCodeValues[j]));
+			}
+
+			gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc.ToString());
+		}
+
+		/// <summary></summary>
+		public virtual void PrintDescCoord()
+		{
+			var fullDesc = "Enter the coordinate that describes the Artifact's Room position.  Enhanced Combat games only." + Environment.NewLine + Environment.NewLine + "A value between [0 .. MaxCoord] for the containing Room.";
+
+			var briefDesc = "(GTE 0)=Valid value";
+
+			gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc);
+		}
+
+		/// <summary></summary>
 		public virtual void PrintDescUseExtendedAttributes()
 		{
 			var fullDesc = "Enter whether the Artifact is using extended attributes." + Environment.NewLine + Environment.NewLine + "This advanced feature allows a set of bit flags to determine various Artifact characteristics, previously settable only through programming.";
@@ -2109,7 +2353,7 @@ namespace Eamon.Game.Helpers
 		/// <summary></summary>
 		public virtual void PrintDescExtendedAttributes()
 		{
-			var fullDesc = "Enter the extended attributes of the Artifact." + Environment.NewLine + Environment.NewLine + "When disabled, the game engine uses default behavior. See the EXTENDED_ATTRIBUTES.html file for more details.";
+			var fullDesc = "Enter the extended attributes of the Artifact." + Environment.NewLine + Environment.NewLine + "When disabled, the game engine uses default behavior.  See the EXTENDED_ATTRIBUTES.html file for more details.";
 
 			var briefDesc = string.Format("0{0}=Extended Attributes bit flags", Record.UseExtendedAttributes ? "-511" : "");
 
@@ -2162,9 +2406,9 @@ namespace Eamon.Game.Helpers
 			{
 				var containerType = gEngine.GetContainerType(category.Type);
 
-				fullDesc.AppendFormat("Enter the maximum weight allowed in the Artifact's container content list.{0}{0}This is the total combined weight of all Artifacts immediately {1} the container (not including their contents).", Environment.NewLine, gEngine.EvalContainerType(containerType, "inside", "on", "under", "behind"));
+				fullDesc.AppendFormat("Enter the maximum weight allowed in the Artifact's container content list.{0}{0}The total combined weight of all Artifacts immediately {1} the container (not including their contents).", Environment.NewLine, gEngine.EvalContainerType(containerType, "inside", "on", "under", "behind"));
 
-				briefDesc.Append("(GE 0)=Valid value");
+				briefDesc.Append("(GTE 0)=Valid value");
 			};
 
 			Action field3Func02 = () =>
@@ -2239,9 +2483,93 @@ namespace Eamon.Game.Helpers
 
 						briefDesc.Append("1-2=Valid value");
 					}
-					else if (fieldNumber >= 6 && fieldNumber <= 13)
+					else if (fieldNumber == 6)
 					{
-						// Do nothing
+						fullDesc.Append("Enter the Artifact's weapon ammunition type.  Enhanced Combat games only.");
+
+						var ammoTypeValues = EnumUtil.GetValues<AmmoType>();
+
+						for (var j = 0; j < ammoTypeValues.Count; j++)
+						{
+							briefDesc.AppendFormat("{0}{1}={2}", j != 0 ? "; " : "", (long)ammoTypeValues[j], ammoTypeValues[j].ToString());
+						}
+					}
+					else if (fieldNumber == 7)
+					{
+						fullDesc.Append("Enter the Artifact's weapon ammunition count.  Enhanced Combat games only.");
+
+						briefDesc.Append("(GTE 0)=Valid value");
+					}
+					else if (fieldNumber == 8)
+					{
+						fullDesc.Append("Enter the Artifact's weapon maximum ammunition count.  Enhanced Combat games only.");
+
+						briefDesc.Append("(GTE 0)=Valid value");
+					}
+					else if (fieldNumber == 9)
+					{
+						fullDesc.Append("Enter the Artifact's weapon ammunition recovery odds.  Enhanced Combat games only.");
+
+						briefDesc.Append("0-100=Valid value");
+					}
+					else if (fieldNumber == 10)
+					{
+						fullDesc.Append("Enter the Artifact's weapon ammunition refill code.  Enhanced Combat games only.");
+
+						var ammoRefillCodeValues = EnumUtil.GetValues<AmmoRefillCode>();
+
+						for (var j = 0; j < ammoRefillCodeValues.Count; j++)
+						{
+							briefDesc.AppendFormat("{0}{1}={2}", j != 0 ? "; " : "", (long)ammoRefillCodeValues[j], ammoRefillCodeValues[j].ToString());
+						}
+					}
+					else if (fieldNumber == 11)
+					{
+						fullDesc.Append("Enter the Artifact's weapon minimum range in varns.  Enhanced Combat games only." + Environment.NewLine + Environment.NewLine + "The minimum range at which this Artifact can be used to attack.");
+
+						briefDesc.Append("(GTE 0)=Valid value");
+					}
+					else if (fieldNumber == 12)
+					{
+						fullDesc.Append("Enter the Artifact's weapon optimal minimum range in varns.  Enhanced Combat games only." + Environment.NewLine + Environment.NewLine + "The minimum range at which this Artifact is most effective in combat.");
+
+						briefDesc.Append("(GTE 0)=Valid value");
+					}
+					else if (fieldNumber == 13)
+					{
+						fullDesc.Append("Enter the Artifact's weapon optimal maximum range in varns.  Enhanced Combat games only." + Environment.NewLine + Environment.NewLine + "The maximum range at which this Artifact is most effective in combat.");
+
+						briefDesc.Append("(GTE 0)=Valid value");
+					}
+					else if (fieldNumber == 14)
+					{
+						fullDesc.Append("Enter the Artifact's weapon maximum range in varns.  Enhanced Combat games only." + Environment.NewLine + Environment.NewLine + "The maximum range at which this Artifact can be used to attack.");
+
+						briefDesc.Append("(GTE 0)=Valid value");
+					}
+					else if (fieldNumber == 15)
+					{
+						fullDesc.Append("Enter the Artifact's weapon suboptimal close range odds to hit modifier.  Enhanced Combat games only." + Environment.NewLine + Environment.NewLine + "The odds to hit modifier applied when this Artifact is used to attack outside the optimal minimum range.");
+
+						briefDesc.AppendFormat("{0}-{1}=Valid value", gEngine.MinRangeOddsModifier, gEngine.MaxRangeOddsModifier);
+					}
+					else if (fieldNumber == 16)
+					{
+						fullDesc.Append("Enter the Artifact's weapon suboptimal close range damage multiplier.  Enhanced Combat games only." + Environment.NewLine + Environment.NewLine + "The damage multiplier (divided by 100) applied when this Artifact is used to attack outside the optimal minimum range.");
+
+						briefDesc.Append("0-100=Valid value");
+					}
+					else if (fieldNumber == 17)
+					{
+						fullDesc.Append("Enter the Artifact's weapon suboptimal far range odds to hit modifier.  Enhanced Combat games only." + Environment.NewLine + Environment.NewLine + "The odds to hit modifier applied when this Artifact is used to attack outside the optimal maximum range.");
+
+						briefDesc.AppendFormat("{0}-{1}=Valid value", gEngine.MinRangeOddsModifier, gEngine.MaxRangeOddsModifier);
+					}
+					else if (fieldNumber == 18)
+					{
+						fullDesc.Append("Enter the Artifact's weapon suboptimal far range damage multiplier.  Enhanced Combat games only." + Environment.NewLine + Environment.NewLine + "The damage multiplier (divided by 100) applied when this Artifact is used to attack outside the optimal maximum range.");
+
+						briefDesc.Append("0-100=Valid value");
 					}
 
 					break;
@@ -2300,7 +2628,7 @@ namespace Eamon.Game.Helpers
 					{
 						fullDesc.Append("Enter the number of rounds before the light source is exhausted/goes out.");
 
-						briefDesc.Append("-1=Never runs out; (GE 0)=Valid value");
+						briefDesc.Append("-1=Never runs out; (GTE 0)=Valid value");
 					}
 
 					break;
@@ -2751,10 +3079,10 @@ namespace Eamon.Game.Helpers
 						Environment.NewLine,
 						gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("PluralType"), null),
 						gEngine.BuildValue(51, ' ', 8, (long)Record.PluralType, null,
-						Record.PluralType == PluralType.None ? "No change" :
+						Record.PluralType == PluralType.None ? "No Change" :
 						Record.PluralType == PluralType.S ? "Use 's'" :
 						Record.PluralType == PluralType.Es ? "Use 'es'" :
-						Record.PluralType == PluralType.YIes ? "Use 'y' to 'ies'" :
+						Record.PluralType == PluralType.YIes ? "Use 'y' To 'ies'" :
 						Buf.ToString()));
 				}
 				else
@@ -2777,7 +3105,7 @@ namespace Eamon.Game.Helpers
 						Environment.NewLine,
 						gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("ArticleType"), null),
 						gEngine.BuildValue(51, ' ', 8, (long)Record.ArticleType, null,
-						Record.ArticleType == ArticleType.None ? "No article" :
+						Record.ArticleType == ArticleType.None ? "No Article" :
 						Record.ArticleType == ArticleType.A ? "Use 'a'" :
 						Record.ArticleType == ArticleType.An ? "Use 'an'" :
 						Record.ArticleType == ArticleType.Some ? "Use 'some'" :
@@ -2844,6 +3172,38 @@ namespace Eamon.Game.Helpers
 		}
 
 		/// <summary></summary>
+		public virtual void ListCoordCode()
+		{
+			if (FullDetail)
+			{
+				var listNum = NumberFields ? ListNum++ : 0;
+
+				if (LookupMsg)
+				{
+					gOut.Write("{0}{1}{2}",
+						Environment.NewLine,
+						gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("CoordCode"), null),
+						gEngine.BuildValue(51, ' ', 8, (long)Record.CoordCode, null, gEngine.GetCoordCodeDesc(Record.CoordCode)));
+				}
+				else
+				{
+					gOut.Write("{0}{1}{2}", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("CoordCode"), null), (long)Record.CoordCode);
+				}
+			}
+		}
+
+		/// <summary></summary>
+		public virtual void ListCoord()
+		{
+			if (FullDetail)
+			{
+				var listNum = NumberFields ? ListNum++ : 0;
+
+				gOut.Write("{0}{1}{2}", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("Coord"), null), Record.Coord);
+			}
+		}
+
+		/// <summary></summary>
 		public virtual void ListUseExtendedAttributes()
 		{
 			if (FullDetail)
@@ -2878,7 +3238,7 @@ namespace Eamon.Game.Helpers
 		/// <summary></summary>
 		public virtual void ListCategories()
 		{
-			var artTypes = new ArtifactType[] { /* ArtifactType.Weapon, ArtifactType.MagicWeapon */ };		// TODO: uncomment when needed
+			var artTypes = new ArtifactType[] { ArtifactType.Weapon, ArtifactType.MagicWeapon };
 
 			for (Index = 0; Index < Record.Categories.Length; Index++)
 			{
@@ -2891,7 +3251,7 @@ namespace Eamon.Game.Helpers
 
 				var category = Record.GetCategory(Index);
 
-				if (gEngine.EnableEnhancedCombat && category != null && artTypes.Contains(category.Type))
+				if (category != null && artTypes.Contains(category.Type))
 				{
 					ListField("CategoriesField6");
 					ListField("CategoriesField7");
@@ -2901,14 +3261,14 @@ namespace Eamon.Game.Helpers
 					ListField("CategoriesField11");
 					ListField("CategoriesField12");
 					ListField("CategoriesField13");
+					ListField("CategoriesField14");
+					ListField("CategoriesField15");
+					ListField("CategoriesField16");
+					ListField("CategoriesField17");
+					ListField("CategoriesField18");
 				}
 
 				/*
-				ListField("CategoriesField14");
-				ListField("CategoriesField15");
-				ListField("CategoriesField16");
-				ListField("CategoriesField17");
-				ListField("CategoriesField18");
 				ListField("CategoriesField19");
 				ListField("CategoriesField20");
 				*/
@@ -3541,6 +3901,79 @@ namespace Eamon.Game.Helpers
 		}
 
 		/// <summary></summary>
+		public virtual void InputCoordCode()
+		{
+			var fieldDesc = FieldDesc;
+
+			var coordCode = Record.CoordCode;
+
+			while (true)
+			{
+				Buf.SetFormat(EditRec ? "{0}" : "", (long)coordCode);
+
+				PrintFieldDesc("CoordCode", EditRec, EditField, fieldDesc);
+
+				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("CoordCode"), "0"));
+
+				var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, "0", null, gEngine.IsCharDigit, null);
+
+				Debug.Assert(gEngine.IsSuccess(rc));
+
+				var error = false;
+
+				try
+				{
+					Record.CoordCode = (CoordCode)Convert.ToInt64(Buf.Trim().ToString());
+				}
+				catch (Exception)
+				{
+					error = true;
+				}
+
+				if (!error && ValidateField("CoordCode"))
+				{
+					break;
+				}
+
+				fieldDesc = FieldDesc.Brief;
+			}
+
+			gOut.Print("{0}", gEngine.LineSep);
+		}
+
+		/// <summary></summary>
+		public virtual void InputCoord()
+		{
+			var fieldDesc = FieldDesc;
+
+			var coord = Record.Coord;
+
+			while (true)
+			{
+				Buf.SetFormat(EditRec ? "{0}" : "", coord);
+
+				PrintFieldDesc("Coord", EditRec, EditField, fieldDesc);
+
+				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("Coord"), "0"));
+
+				var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, "0", null, gEngine.IsCharDigit, null);
+
+				Debug.Assert(gEngine.IsSuccess(rc));
+
+				Record.Coord = Convert.ToInt64(Buf.Trim().ToString());
+
+				if (ValidateField("Coord"))
+				{
+					break;
+				}
+
+				fieldDesc = FieldDesc.Brief;
+			}
+
+			gOut.Print("{0}", gEngine.LineSep);
+		}
+
+		/// <summary></summary>
 		public virtual void InputUseExtendedAttributes()
 		{
 			var fieldDesc = FieldDesc;
@@ -3624,7 +4057,7 @@ namespace Eamon.Game.Helpers
 
 				var category = Record.GetCategory(Index);
 
-				if (gEngine.EnableEnhancedCombat && category != null && artTypes.Contains(category.Type))
+				if (category != null && artTypes.Contains(category.Type))
 				{
 					InputField("CategoriesField6");
 					InputField("CategoriesField7");
@@ -3634,14 +4067,14 @@ namespace Eamon.Game.Helpers
 					InputField("CategoriesField11");
 					InputField("CategoriesField12");
 					InputField("CategoriesField13");
+					InputField("CategoriesField14");
+					InputField("CategoriesField15");
+					InputField("CategoriesField16");
+					InputField("CategoriesField17");
+					InputField("CategoriesField18");
 				}
 
 				/*
-				InputField("CategoriesField14");
-				InputField("CategoriesField15");
-				InputField("CategoriesField16");
-				InputField("CategoriesField17");
-				InputField("CategoriesField18");
 				InputField("CategoriesField19");
 				InputField("CategoriesField20");
 				*/
@@ -3945,36 +4378,36 @@ namespace Eamon.Game.Helpers
 			{
 				var character = Record.GetCarriedByCharacter();
 
-				lookupMsg = string.Format("Carried by {0}",
+				lookupMsg = string.Format("Carried By {0}",
 					character != null ? gEngine.Capitalize(character.Name.Length > 29 ? character.Name.Substring(0, 26) + "..." : character.Name) : gEngine.UnknownName);
 			}
 			else if (Record.IsWornByCharacter())
 			{
 				var character = Record.GetWornByCharacter();
 
-				lookupMsg = string.Format("Worn by {0}",
+				lookupMsg = string.Format("Worn By {0}",
 					character != null ? gEngine.Capitalize(character.Name.Length > 32 ? character.Name.Substring(0, 29) + "..." : character.Name) : gEngine.UnknownName);
 			}
 			else if (Record.IsCarriedByMonster(MonsterType.CharMonster))
 			{
-				lookupMsg = "Carried by Player Character";
+				lookupMsg = "Carried By Player Character";
 			}
 			else if (Record.IsWornByMonster(MonsterType.CharMonster))
 			{
-				lookupMsg = "Worn by Player Character";
+				lookupMsg = "Worn By Player Character";
 			}
 			else if (Record.IsCarriedByMonster())
 			{
 				var monster = Record.GetCarriedByMonster();
 
-				lookupMsg = string.Format("Carried by {0}",
+				lookupMsg = string.Format("Carried By {0}",
 					monster != null ? gEngine.Capitalize(monster.Name.Length > 29 ? monster.Name.Substring(0, 26) + "..." : monster.Name) : gEngine.UnknownName);
 			}
 			else if (Record.IsWornByMonster())
 			{
 				var monster = Record.GetWornByMonster();
 
-				lookupMsg = string.Format("Worn by {0}",
+				lookupMsg = string.Format("Worn By {0}",
 					monster != null ? gEngine.Capitalize(monster.Name.Length > 32 ? monster.Name.Substring(0, 29) + "..." : monster.Name) : gEngine.UnknownName);
 			}
 			else if (Record.IsCarriedByContainer())
@@ -3991,7 +4424,7 @@ namespace Eamon.Game.Helpers
 			{
 				var room = Record.GetEmbeddedInRoom();
 
-				lookupMsg = string.Format("Embedded in {0}",
+				lookupMsg = string.Format("Embedded In {0}",
 					room != null ? gEngine.Capitalize(room.Name.Length > 28 ? room.Name.Substring(0, 25) + "..." : room.Name) : gEngine.UnknownName);
 			}
 			else if (Record.IsInRoom())
@@ -4078,6 +4511,24 @@ namespace Eamon.Game.Helpers
 
 						lookupMsg = weapon.Name;
 					}
+					else if (fieldNumber == 6)
+					{
+						lookupMsg = ((AmmoType)fieldValue).ToString();
+					}
+					else if (fieldNumber == 9)
+					{
+						stringVal = string.Format("{0}%", fieldValue);
+
+						fieldValue = 0;
+					}
+					else if (fieldNumber == 10)
+					{
+						lookupMsg = ((AmmoRefillCode)fieldValue).ToString();
+					}
+					else if (fieldNumber == 16 || fieldNumber == 18)
+					{
+						lookupMsg = string.Format("{0:0.00}", fieldValue / 100.0);
+					}
 
 					break;
 
@@ -4094,7 +4545,7 @@ namespace Eamon.Game.Helpers
 					{
 						if (Record.IsFieldStrength(fieldValue))
 						{
-							lookupMsg = string.Format("Strength of {0}", Record.GetFieldStrength(fieldValue));
+							lookupMsg = string.Format("Strength Of {0}", Record.GetFieldStrength(fieldValue));
 						}
 						else
 						{
@@ -4152,7 +4603,7 @@ namespace Eamon.Game.Helpers
 					{
 						if (Record.IsFieldStrength(fieldValue))
 						{
-							lookupMsg = string.Format("Strength of {0}", Record.GetFieldStrength(fieldValue));
+							lookupMsg = string.Format("Strength Of {0}", Record.GetFieldStrength(fieldValue));
 						}
 						else
 						{

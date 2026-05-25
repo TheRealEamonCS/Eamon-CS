@@ -22,5 +22,29 @@ namespace Eamon.Framework.Primitive.Classes
 
 		/// <summary></summary>
 		long MaxValue { get; set; }
+
+		/// <summary></summary>
+		long MinRange { get; set; }
+
+		/// <summary></summary>
+		long OptimalMin { get; set; }
+
+		/// <summary></summary>
+		long OptimalMax { get; set; }
+
+		/// <summary></summary>
+		long MaxRange { get; set; }
+		
+		/// <summary></summary>
+		long CloseOddsModifier { get; set; }
+
+		/// <summary></summary>
+		long CloseDmgMultiplier { get; set; }
+
+		/// <summary></summary>
+		long FarOddsModifier { get; set; }
+
+		/// <summary></summary>
+		long FarDmgMultiplier { get; set; }
 	}
 }

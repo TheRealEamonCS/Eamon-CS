@@ -80,6 +80,8 @@ namespace EamonRT.Game.Plugin
 
 		public virtual IMonster LoopLastDobjMonster { get; set; }
 
+		public virtual IArtifact LoopRearmArtifact { get; set; }
+
 		public virtual IIntroStory IntroStory { get; set; }
 
 		public virtual IMainLoop MainLoop { get; set; }
@@ -457,6 +459,66 @@ namespace EamonRT.Game.Plugin
 			Out.Print("Wham!  You hit {0}!", artifact.GetTheName());
 		}
 
+		public virtual void PrintObjApproaches(IRoom room, IGameBase record, IGameBase target, long targetRange)
+		{
+			Debug.Assert(room != null && record != null && target != null);
+
+			var artifact = record as IArtifact;
+
+			var monster = record as IMonster;
+
+			var artifact02 = target as IArtifact;
+
+			var monster02 = target as IMonster;
+
+			var rangeBand = GetRangeBand(targetRange);
+
+			var rangeString = room.IsViewable() && targetRange > 0 ?
+				string.Format(", now {0}{1}{2} at {3} varn{4}",
+					GetRangeBandString(rangeBand),
+					(monster == null || !monster.IsCharacterMonster()) && (monster02 == null || !monster02.IsCharacterMonster()) && (rangeBand == RangeBand.FarAway || rangeBand == RangeBand.VeryFarAway) ? " from" : "",
+					(monster != null && monster.IsCharacterMonster()) || (monster02 != null && monster02.IsCharacterMonster()) ? "" : room.IsViewable() ? (monster02 != null ? monster02.EvalPlural(monster02.EvalGender(" him", " her", " it"), " them") : artifact02 != null ? artifact02.EvalPlural(" it", " them") : " it") : (monster02 != null ? monster02.EvalPlural(" it", " them") : artifact02 != null ? artifact02.EvalPlural(" it", " them") : " it"),
+					targetRange,
+					targetRange != 1 ? "s" : "") :
+				"";
+
+			Out.Print("{0} {1} {2}{3}.",
+				monster != null && monster.IsCharacterMonster() ? "You" : room.IsViewable() ? record.GetTheName(true) : monster != null ? monster.EvalPlural("An unseen entity", "Some unseen entities") : artifact != null ? artifact.EvalPlural("An unseen object", "Some unseen objects") : "An unseen object",
+				monster != null ? monster.GetApproachOrReachString(targetRange > 0) : artifact != null ? artifact.GetApproachOrReachString(targetRange > 0) : targetRange > 0 ? "approaches" : "reaches",
+				monster02 != null && monster02.IsCharacterMonster() ? "you" : room.IsViewable() ? target.GetTheName() : monster02 != null ? monster02.EvalPlural("an unseen entity", "some unseen entities") : artifact02 != null ? artifact02.EvalPlural("an unseen object", "some unseen objects") : "an unseen object",
+				rangeString);
+		}
+
+		public virtual void PrintObjRetreats(IRoom room, IGameBase record, IGameBase target, long targetRange)
+		{
+			Debug.Assert(room != null && record != null && target != null && targetRange > 0);
+
+			var artifact = record as IArtifact;
+
+			var monster = record as IMonster;
+
+			var artifact02 = target as IArtifact;
+
+			var monster02 = target as IMonster;
+
+			var rangeBand = GetRangeBand(targetRange);
+
+			var rangeString = room.IsViewable() ?
+				string.Format(", now {0}{1}{2} at {3} varn{4}",
+					GetRangeBandString(rangeBand),
+					(monster == null || !monster.IsCharacterMonster()) && (monster02 == null || !monster02.IsCharacterMonster()) && (rangeBand == RangeBand.FarAway || rangeBand == RangeBand.VeryFarAway) ? " from" : "",
+					(monster != null && monster.IsCharacterMonster()) || (monster02 != null && monster02.IsCharacterMonster()) ? "" : room.IsViewable() ? (monster02 != null ? monster02.EvalPlural(monster02.EvalGender(" him", " her", " it"), " them") : artifact02 != null ? artifact02.EvalPlural(" it", " them") : " it") : (monster02 != null ? monster02.EvalPlural(" it", " them") : artifact02 != null ? artifact02.EvalPlural(" it", " them") : " it"),
+					targetRange,
+					targetRange != 1 ? "s" : "") :
+				"";
+
+			Out.Print("{0} {1} {2}{3}.",
+				monster != null && monster.IsCharacterMonster() ? "You" : room.IsViewable() ? record.GetTheName(true) : monster != null ? monster.EvalPlural("An unseen entity", "Some unseen entities") : artifact != null ? artifact.EvalPlural("An unseen object", "Some unseen objects") : "An unseen object",
+				monster != null ? monster.GetRetreatString() : artifact != null ? artifact.GetRetreatString() : "retreats from",
+				monster02 != null && monster02.IsCharacterMonster() ? "you" : room.IsViewable() ? target.GetTheName() : monster02 != null ? monster02.EvalPlural("an unseen entity", "some unseen entities") : artifact02 != null ? artifact02.EvalPlural("an unseen object", "some unseen objects") : "an unseen object",
+				rangeString);
+		}
+
 		public virtual void PrintMonsterAlive(IArtifact artifact)
 		{
 			Debug.Assert(artifact != null);
@@ -469,6 +531,105 @@ namespace EamonRT.Game.Plugin
 			Debug.Assert(artifact != null);
 
 			Out.Print("{0} goes out.", artifact.GetTheName(true));
+		}
+
+		public virtual void PrintObjAmmoLeft(IArtifact artifact, AmmoType objAmmoType, long objAmmoCount)
+		{
+			Debug.Assert(artifact != null);
+
+			Debug.Assert(Enum.IsDefined(typeof(AmmoType), objAmmoType));
+
+			Out.Print("There {0}{1}{2}{3} left.",
+				objAmmoCount != 1 ? "are " : "is ",
+				objAmmoCount > 0 ? GetStringFromNumber(objAmmoCount, false, gEngine.Buf) : "no",
+				string.Format(" {0}", objAmmoType.ToString().ToLower()),
+				objAmmoCount != 1 ? "s" : "");
+		}
+
+		public virtual void PrintOutOfAmmo(IArtifact weapon)
+		{
+			Debug.Assert(weapon != null);
+
+			Debug.Assert(weapon.GeneralWeapon != null);
+
+			var message = "";
+
+			switch ((AmmoType)weapon.GeneralWeapon.Field6)
+			{
+				case AmmoType.Arrow:
+
+					message = "You have no arrows left.";
+
+					break;
+
+				case AmmoType.Bolt:
+
+					message = "You have no bolts left.";
+
+					break;
+
+				case AmmoType.Bullet:
+
+					message = "You are out of bullets.";
+
+					break;
+
+				case AmmoType.Charge:
+
+					message = "The weapon has no charges remaining.";
+
+					break;
+
+				case AmmoType.Shell:
+
+					message = "You are out of shells.";
+
+					break;
+
+				case AmmoType.Stone:
+
+					message = "You have no stones left.";
+
+					break;
+
+				case AmmoType.Rocket:
+
+					message = "You have no rockets left.";
+
+					break;
+
+				case AmmoType.Dart:
+
+					message = "You have no darts left.";
+
+					break;
+
+				case AmmoType.Needle:
+
+					message = "You have no needles left.";
+
+					break;
+
+				case AmmoType.Pellet:
+
+					message = "You are out of pellets.";
+
+					break;
+
+				case AmmoType.Grenade:
+
+					message = "You have no grenades left.";
+
+					break;
+
+				default:
+
+					message = "Your weapon is out of ammunition.";
+
+					break;
+			}
+
+			Out.Print("{0}", message);
 		}
 
 		public virtual void PrintDeadBodyComesToLife(IArtifact artifact)
@@ -544,13 +705,13 @@ namespace EamonRT.Game.Plugin
 			Out.Print("Nothing happens.");
 		}
 
-		public virtual void PrintFullDesc(IArtifact artifact, bool showName, bool showVerboseName)
+		public virtual void PrintFullDesc(IArtifact artifact, bool showName, bool showVerboseName, bool showRange = false, bool showRangeBand = false)
 		{
 			Debug.Assert(artifact != null);
 
 			gEngine.Buf.Clear();
 
-			var rc = artifact.BuildPrintedFullDesc(gEngine.Buf, showName, showVerboseName);
+			var rc = artifact.BuildPrintedFullDesc(gEngine.Buf, showName, showVerboseName, showRange, showRangeBand);
 
 			Debug.Assert(IsSuccess(rc));
 
@@ -620,13 +781,13 @@ namespace EamonRT.Game.Plugin
 			}
 		}
 
-		public virtual void PrintFullDesc(IMonster monster, bool showName, bool showVerboseName)
+		public virtual void PrintFullDesc(IMonster monster, bool showName, bool showVerboseName, bool showRange = false, bool showRangeBand = false)
 		{
 			Debug.Assert(monster != null);
 
 			gEngine.Buf.Clear();
 
-			var rc = monster.BuildPrintedFullDesc(gEngine.Buf, showName, showVerboseName);
+			var rc = monster.BuildPrintedFullDesc(gEngine.Buf, showName, showVerboseName, showRange, showRangeBand);
 
 			Debug.Assert(IsSuccess(rc));
 
@@ -954,6 +1115,8 @@ namespace EamonRT.Game.Plugin
 					x.ShowContents = false;
 
 					x.GroupCountOne = false;
+					
+					x.ShowRange = false;
 				});
 			}
 
@@ -1206,6 +1369,23 @@ namespace EamonRT.Game.Plugin
 
 			foreach (var artifact in artifactList)
 			{
+				if (EnableEnhancedCombat)
+				{
+					var room = artifact.GetInRoom();
+
+					if (room == null)
+					{
+						room = artifact.GetEmbeddedInRoom();
+					}
+
+					InitArtifactCoord(artifact, room);
+
+					if (artifact.GeneralWeapon != null)
+					{
+						InitWeaponAmmoCount(artifact);
+					}
+				}
+
 				TruncatePluralTypeEffectDesc(artifact.PluralType, ArtNameLen);
 			}
 		}
@@ -1242,6 +1422,13 @@ namespace EamonRT.Game.Plugin
 					{
 						artifact.AddStateDesc(artifact.GetReadyWeaponDesc());
 					}
+				}
+
+				if (EnableEnhancedCombat)
+				{
+					var room = monster.GetInRoom();
+
+					InitMonsterCoord(monster, room);
 				}
 
 				TruncatePluralTypeEffectDesc(monster.PluralType, MonNameLen);
@@ -1328,6 +1515,13 @@ namespace EamonRT.Game.Plugin
 				artifact01.Value = 0;
 			}
 
+			if (EnableEnhancedCombat)
+			{
+				artifact01.CoordCode = CoordCode.Specified;
+
+				artifact01.Coord = 0;
+			}
+
 			var ac01 = new Eamon.Game.Primitive.Classes.ArtifactCategory();         // Create export ArtifactCategory using explicit base class
 
 			Debug.Assert(ac01 != null);
@@ -1404,6 +1598,25 @@ namespace EamonRT.Game.Plugin
 
 				x.NwSides = 4;
 
+				if (EnableEnhancedCombat)
+				{
+					x.NwMinRange = 0;
+
+					x.NwOptimalMin = 0;
+
+					x.NwOptimalMax = 1;
+
+					x.NwMaxRange = 1;
+					
+					x.NwCloseOddsModifier = -20;
+					
+					x.NwCloseDmgMultiplier = 100;
+					
+					x.NwFarOddsModifier = -10;
+					
+					x.NwFarDmgMultiplier = 75;
+				}
+				
 				x.Friendliness = (Friendliness)200;
 
 				x.Gender = Gender.Male;
@@ -1452,6 +1665,17 @@ namespace EamonRT.Game.Plugin
 
 				x.CurrGroupCount = 1;
 
+				if (EnableEnhancedCombat)
+				{
+					var travelRange = Character.GetStat(Stat.Agility) / 2;
+
+					travelRange = travelRange.Clamp(4, 15);
+
+					x.MinTravelRange = travelRange;
+
+					x.MaxTravelRange = travelRange;
+				}
+
 				x.Armor = 0;
 
 				x.Weapon = -1;
@@ -1459,6 +1683,25 @@ namespace EamonRT.Game.Plugin
 				x.NwDice = 1;
 
 				x.NwSides = 2;
+
+				if (EnableEnhancedCombat)
+				{
+					x.NwMinRange = 0;
+
+					x.NwOptimalMin = 0;
+
+					x.NwOptimalMax = 1;
+
+					x.NwMaxRange = 1;
+					
+					x.NwCloseOddsModifier = -20;
+					
+					x.NwCloseDmgMultiplier = 100;
+					
+					x.NwFarOddsModifier = -10;
+					
+					x.NwFarDmgMultiplier = 75;
+				}
 
 				x.Friendliness = (Friendliness)200;
 
@@ -1614,7 +1857,7 @@ namespace EamonRT.Game.Plugin
 				{
 					var ac = artifact.GeneralWeapon;
 
-					if (ac != null && ac == artifact.GetCategory(0) && artifact.IsReadyableByMonster(gCharMonster))         // Note: ancillary non-Category(0) weapon Artifacts are sold to Sam Slicker
+					if (ac != null && ac == artifact.GetCategory(0) && artifact.IsReadyableByMonster(gCharMonster, false))         // Note: ancillary non-Category(0) weapon Artifacts are sold to Sam Slicker
 					{
 						weaponList.Add(artifact);
 
@@ -1948,6 +2191,8 @@ namespace EamonRT.Game.Plugin
 						dobjMonster.Weapon = -1;
 					}
 
+					var coord = EnableEnhancedCombat ? dobjMonster.Coord : 0;
+
 					dobjMonster.SetInLimbo();
 
 					dobjMonster.CurrGroupCount = dobjMonster.GroupCount;
@@ -1958,11 +2203,21 @@ namespace EamonRT.Game.Plugin
 
 					dobjMonster.DmgTaken = 0;
 
+					if (EnableEnhancedCombat)
+					{
+						dobjMonster.FocusMonsterUid = 0;
+					}
+
 					var artifactList = GetArtifactList(a => a.IsCarriedByMonster(dobjMonster) || a.IsWornByMonster(dobjMonster));
 
 					foreach (var artifact in artifactList)
 					{
 						artifact.SetInRoom(room);
+
+						if (EnableEnhancedCombat)
+						{
+							artifact.Coord = coord;
+						}
 					}
 
 					ProcessMonsterDeathEvents(dobjMonster);
@@ -1976,6 +2231,11 @@ namespace EamonRT.Game.Plugin
 						if (!deadBody.IsCharOwned)
 						{
 							deadBody.SetInRoom(room);
+
+							if (EnableEnhancedCombat)
+							{
+								deadBody.Coord = coord;
+							}
 						}
 					}
 				}
@@ -2041,6 +2301,8 @@ namespace EamonRT.Game.Plugin
 				}
 			}
 
+			var coord = EnableEnhancedCombat ? artifact.Coord : 0;
+
 			artifact.SetInLimbo();
 
 			var monster = MDB[ac.Field1];
@@ -2048,6 +2310,11 @@ namespace EamonRT.Game.Plugin
 			Debug.Assert(monster != null);
 
 			monster.SetInRoomUid(GameState.Ro);
+
+			if (EnableEnhancedCombat)
+			{
+				monster.Coord = coord;
+			}
 		}
 
 		public virtual void RevealEmbeddedArtifact(IRoom room, IArtifact artifact)
@@ -2209,6 +2476,8 @@ namespace EamonRT.Game.Plugin
 				x.ShowContents = false;
 
 				x.GroupCountOne = false;
+				
+				x.ShowRange = false;
 			});
 
 			foreach (var containerType in containerTypes)
@@ -2428,6 +2697,45 @@ namespace EamonRT.Game.Plugin
 			}
 
 			return command;
+		}
+
+		public virtual RangeResult CheckWeaponRange(IArtifact artifact, long range)
+		{
+			Debug.Assert(artifact.GeneralWeapon != null);
+
+			Debug.Assert(range >= 0);
+
+			var result = RangeResult.SubOptimalFar;
+
+			// Check minimum range
+
+			if (range < artifact.GeneralWeapon.Field11)
+			{
+				result = RangeResult.TooClose;
+			}
+
+			// Check maximum range
+
+			else if (range > artifact.GeneralWeapon.Field14)
+			{
+				result = RangeResult.OutOfRange;
+			}
+
+			// Check optimal range
+
+			else if (range >= artifact.GeneralWeapon.Field12 && range <= artifact.GeneralWeapon.Field13)
+			{
+				result = RangeResult.InRange;
+			}
+
+			// Sub-optimal but within range
+
+			else if (range < artifact.GeneralWeapon.Field12)
+			{
+				result = RangeResult.SubOptimalClose;
+			}
+
+			return result;
 		}
 
 		public virtual void CheckDoor(IRoom room, IArtifact artifact, ref bool found, ref long roomUid)
@@ -2656,6 +2964,10 @@ namespace EamonRT.Game.Plugin
 
 				Debug.Assert(roomUid > 0);
 
+				var room01 = RDB[roomUid];
+
+				Debug.Assert(room01 != null);
+
 				if (gCharMonster.IsInRoom(room) && printOutput)
 				{
 					PrintMonsterExitsRoom(monster, room, monsterName, rl > 1, fleeing, direction);
@@ -2668,9 +2980,14 @@ namespace EamonRT.Game.Plugin
 
 				monster.Location = roomUid;
 
-				var room01 = RDB[roomUid];
+				if (EnableEnhancedCombat)
+				{
+					monster.Coord = room.GetDirCoord(direction);
 
-				Debug.Assert(room01 != null);
+					monster.Coord = monster.Coord.Clamp(0, room01.MaxCoord);
+
+					monster.FocusMonsterUid = 0;
+				}
 
 				var monsterName01 = monster.EvalInRoomViewability(rl > 1 ? "Unseen entities" : "An unseen entity", monster.GetArticleName(true));
 
@@ -3046,28 +3363,12 @@ namespace EamonRT.Game.Plugin
 				}
 
 				return result;
-
-			}).OrderByDescending(a01 =>
+			})
+			.OrderByDescending(a01 =>
 			{
-				if (monster.Weapon != -a01.Uid - 1)
-				{
-					var ac = a01.GeneralWeapon;
+				// Current weapon always sorts first — preserves existing priority
 
-					Debug.Assert(ac != null);
-
-					return ac.Field3 * ac.Field4;
-				}
-				else
-				{
-					return long.MaxValue;
-				}
-			}).ThenByDescending(a02 =>
-			{
-				if (a02.IsCarriedByMonster(monster))
-				{
-					return 2;
-				}
-				else if (a02.IsCarriedByMonster(monster, true))
+				if (monster.Weapon == -a01.Uid - 1)
 				{
 					return 1;
 				}
@@ -3075,7 +3376,48 @@ namespace EamonRT.Game.Plugin
 				{
 					return 0;
 				}
-			}).ToList();
+			})
+			.ThenBy(a02 =>
+			{
+				// When EnforceRangeUsage is active, prefer physically closer weapons —
+				// a nearby weapon can be reached sooner, costing less movement this turn.
+				// Skipped when EnforceRangeUsage is false — physical distance is irrelevant.
+
+				if (EnforceRangeUsage)
+				{
+					return GetRange(monster.Coord, a02.Coord);
+				}
+				else
+				{
+					return 0;
+				}
+			})
+			.ThenByDescending(a03 =>
+			{
+				var ac = a03.GeneralWeapon;
+
+				Debug.Assert(ac != null);
+
+				return ac.Field3 * ac.Field4;
+			})
+			.ThenByDescending(a04 =>
+			{
+				// Carried weapons rank above room weapons as a tiebreaker
+
+				if (a04.IsCarriedByMonster(monster))
+				{
+					return 2;
+				}
+				else if (a04.IsCarriedByMonster(monster, true))
+				{
+					return 1;
+				}
+				else
+				{
+					return 0;
+				}
+			})
+			.ToList();
 
 			// Filter out two-handed weapons if monster wearing shield
 
@@ -3097,6 +3439,21 @@ namespace EamonRT.Game.Plugin
 					Debug.Assert(ac != null);
 
 					return ac.Field5 < 2;
+
+				}).ToList();
+			}
+
+			// Filter out weapons with no ammunition
+
+			if (GameState.EnhancedCombat)
+			{
+				artifactList = artifactList.Where(a =>
+				{
+					var ac = a.GeneralWeapon;
+
+					Debug.Assert(ac != null);
+
+					return ac.Field8 <= 0 || ac.Field7 > 0;
 
 				}).ToList();
 			}
@@ -3935,7 +4292,7 @@ namespace EamonRT.Game.Plugin
 			monster.Synonyms = CloneInstance(synonyms);
 		}
 
-		public virtual void GetOddsToHit(IMonster actorMonster, IMonster dobjMonster, IArtifactCategory ac, long af, ref long oddsToHit)
+		public virtual void GetOddsToHit(IMonster actorMonster, IMonster dobjMonster, IArtifactCategory ac, long af, ref long oddsToHit, bool clamp = true)
 		{
 			Debug.Assert(actorMonster != null);
 
@@ -3999,34 +4356,7 @@ namespace EamonRT.Game.Plugin
 				odds = (long)Math.Round((double)odds + ((double)d / 4.0));
 			}
 
-			if (GameState != null && GameState.EnhancedCombat)
-			{
-				/*
-					This formula results in a smooth progression from ParrySetting 0 to 100.
-
-					Original formula:  
-					
-						ParryMod = ModMax - (ParrySetting / 100) * (ModMax - ModMin)
-
-					This formula: 
-				
-						ParryMod = 1.60 - (ParrySetting / 100) * (1.60 - 0.40)
-						ParryMod = 1.60 - (ParrySetting / 100) * 1.20
-						ParryMod = 1.60 - (ParrySetting * 0.012)
-
-					ParrySetting =   0 => ParryMod = 1.6 (max offense)
-					ParrySetting =  50 => ParryMod = 1.0 (neutral)
-					ParrySetting = 100 => ParryMod = 0.4 (max defense)
-				*/
-
-				var actorParryMod = 1.60 - ((double)actorMonster.Parry * 0.012);
-
-				var dobjParryMod = 1.60 - ((double)dobjMonster.Parry * 0.012);
-
-				odds = (long)Math.Round((double)odds * actorParryMod * dobjParryMod);
-			}
-
-			oddsToHit = Math.Max(5, odds);
+			oddsToHit = clamp ? odds.Clamp(5, 96) : odds;
 		}
 
 		public virtual void CreateInitialState(bool printLineSep)
@@ -4044,7 +4374,7 @@ namespace EamonRT.Game.Plugin
 			}
 		}
 
-		public virtual void MoveMonsters(params Func<IMonster, bool>[] whereClauseFuncs)
+		public virtual void MoveMonsters(IRoom oldRoom = null, IRoom newRoom = null, Direction dir = 0, params Func<IMonster, bool>[] whereClauseFuncs)
 		{
 			if (whereClauseFuncs == null || whereClauseFuncs.Length == 0)
 			{
@@ -4061,6 +4391,15 @@ namespace EamonRT.Game.Plugin
 				if (monster.CanMoveToRoomUid(GameState.Ro, false) && (monster.Reaction == Friendliness.Friend || (monster.Reaction == Friendliness.Enemy && monster.CheckCourage())))
 				{
 					monster.Location = GameState.Ro;
+
+					if (EnableEnhancedCombat && !(LastCommand is IRestoreCommand))
+					{
+						monster.Coord = oldRoom != null && dir != 0 ? oldRoom.GetDirCoord(dir) : 0;
+
+						monster.Coord = monster.Coord.Clamp(0, newRoom != null ? newRoom.MaxCoord : 1);
+
+						monster.FocusMonsterUid = 0;
+					}
 				}
 			}
 		}

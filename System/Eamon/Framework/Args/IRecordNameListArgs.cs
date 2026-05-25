@@ -24,5 +24,8 @@ namespace Eamon.Framework.Args
 
 		/// <summary></summary>
 		bool GroupCountOne { get; set; }
+
+		/// <summary></summary>
+		bool ShowRange { get; set; }
 	}
 }

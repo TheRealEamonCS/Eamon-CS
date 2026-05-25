@@ -63,7 +63,7 @@ namespace EamonRT.Game.Commands
 
 				DobjMonster.Seen = true;
 
-				if (DobjMonster.Reaction == Friendliness.Friend && DobjMonster.ShouldShowContentsWhenExamined())
+				if (ActorMonster.CanReach(DobjMonster) && DobjMonster.Reaction == Friendliness.Friend && DobjMonster.ShouldShowContentsWhenExamined())
 				{
 					RedirectCommand01 = gEngine.CreateInstance<IInventoryCommand>();
 
@@ -94,6 +94,20 @@ namespace EamonRT.Game.Commands
 				}
 
 				goto Cleanup;
+			}
+
+			if (!ActorMonster.CanReach(DobjArtifact) && Enum.IsDefined(typeof(ContainerType), ContainerType))
+			{
+				PrintTooFarAway(DobjArtifact);
+
+				NextState = gEngine.CreateInstance<IStartState>();
+
+				goto Cleanup;
+			}
+
+			if (gEngine.EnableEnhancedCombat && !gEngine.EnforceRangeUsage && Enum.IsDefined(typeof(ContainerType), ContainerType))
+			{
+				ActorMonster.Coord = DobjArtifact.Coord;
 			}
 
 			DobjArtAc = DobjArtifact.GetArtifactCategory(ArtTypes, false);
@@ -144,6 +158,11 @@ namespace EamonRT.Game.Commands
 				if (GotoCleanup)
 				{
 					goto Cleanup;
+				}
+
+				if (gGameState.EnhancedCombat && (DobjArtAc.Type == ArtifactType.Weapon || DobjArtAc.Type == ArtifactType.MagicWeapon) && DobjArtAc.Field8 > 0)
+				{
+					PrintObjAmmoLeft(DobjArtifact, (AmmoType)DobjArtAc.Field6, DobjArtAc.Field7);
 				}
 
 				if ((DobjArtAc.Type == ArtifactType.Drinkable || DobjArtAc.Type == ArtifactType.Edible) && DobjArtAc.Field2 != gEngine.InfiniteDrinkableEdible)
@@ -239,7 +258,9 @@ namespace EamonRT.Game.Commands
 
 			Type = CommandType.Manipulation;
 
-			ArtTypes = new ArtifactType[] { ArtifactType.DisguisedMonster, ArtifactType.DoorGate, ArtifactType.Drinkable, ArtifactType.Edible, ArtifactType.InContainer, ArtifactType.OnContainer, ArtifactType.UnderContainer, ArtifactType.BehindContainer };
+			ArtTypes = gGameState.EnhancedCombat ? 
+				new ArtifactType[] { ArtifactType.DisguisedMonster, ArtifactType.DoorGate, ArtifactType.Weapon, ArtifactType.MagicWeapon, ArtifactType.Drinkable, ArtifactType.Edible, ArtifactType.InContainer, ArtifactType.OnContainer, ArtifactType.UnderContainer, ArtifactType.BehindContainer } :
+				new ArtifactType[] { ArtifactType.DisguisedMonster, ArtifactType.DoorGate, ArtifactType.Drinkable, ArtifactType.Edible, ArtifactType.InContainer, ArtifactType.OnContainer, ArtifactType.UnderContainer, ArtifactType.BehindContainer };
 
 			CheckContainerTypeInDobjArtName = true;
 		}

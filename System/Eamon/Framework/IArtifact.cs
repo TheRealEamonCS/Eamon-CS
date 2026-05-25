@@ -66,6 +66,15 @@ namespace Eamon.Framework
 		/// </summary>
 		long Location { get; set; }
 
+		/// <summary></summary>
+		CoordCode CoordCode { get; set; }
+
+		/// <summary></summary>
+		long _Coord { get; }
+
+		/// <summary></summary>
+		long Coord { get; set; }
+
 		/// <summary>
 		/// Gets or sets a value indicating whether this <see cref="IArtifact">Artifact</see> should use <see cref="ExtendedAttributes">ExtendedAttributes</see> bit flags.
 		/// </summary>
@@ -453,8 +462,9 @@ namespace Eamon.Framework
 
 		/// <summary></summary>
 		/// <param name="monsterUid"></param>
+		/// <param name="includeAmmoCount"></param>
 		/// <returns></returns>
-		bool IsReadyableByMonsterUid(long monsterUid);
+		bool IsReadyableByMonsterUid(long monsterUid, bool includeAmmoCount = true);
 
 		/// <summary></summary>
 		/// <param name="roomUid"></param>
@@ -510,8 +520,9 @@ namespace Eamon.Framework
 
 		/// <summary></summary>
 		/// <param name="monster"></param>
+		/// <param name="includeAmmoCount"></param>
 		/// <returns></returns>
-		bool IsReadyableByMonster(IMonster monster);
+		bool IsReadyableByMonster(IMonster monster, bool includeAmmoCount = true);
 
 		/// <summary></summary>
 		/// <param name="room"></param>
@@ -804,6 +815,11 @@ namespace Eamon.Framework
 		bool ShouldShowVerboseNameStateDesc();
 
 		/// <summary></summary>
+		/// <param name="record"></param>
+		/// <returns></returns>
+		bool CanReach(IGameBase record);
+
+		/// <summary></summary>
 		/// <param name="containerType"></param>
 		/// <returns></returns>
 		long GetMaxContentsNameListCount(ContainerType containerType = ContainerType.In);
@@ -835,6 +851,15 @@ namespace Eamon.Framework
 		/// <summary></summary>
 		/// <returns></returns>
 		string GetEmptyDesc();
+
+		/// <summary></summary>
+		/// <param name="approach"></param>
+		/// <returns></returns>
+		string GetApproachOrReachString(bool approach);
+
+		/// <summary></summary>
+		/// <returns></returns>
+		string GetRetreatString();
 
 		/// <summary></summary>
 		/// <param name="singularValue"></param>

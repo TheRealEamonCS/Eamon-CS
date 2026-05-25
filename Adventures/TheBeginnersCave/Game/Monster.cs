@@ -16,6 +16,29 @@ namespace TheBeginnersCave.Game
 	[ClassMappings]
 	public class Monster : Eamon.Game.Monster, IMonster
 	{
+		public override long Coord
+		{
+			get
+			{
+				return _coord;
+			}
+
+			set
+			{
+				if (_coord != value)
+				{
+					// Mimic
+
+					if (gEngine.EnableMutateProperties && gCharMonster != null && Uid == 7 && _location != gEngine.LimboLocation)
+					{
+						gCharMonster.Coord = value;
+					}
+
+					_coord = value;
+				}
+			}
+		}
+
 		public override long Weapon
 		{
 			get

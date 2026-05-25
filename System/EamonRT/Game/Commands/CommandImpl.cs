@@ -198,11 +198,51 @@ namespace EamonRT.Game.Commands
 			gOut.Print("Do you mean \"{0}\" or \"{1}\"?", obj1.GetNoneName(showCharOwned: false), obj2.GetNoneName(showCharOwned: false));
 		}
 
+		public virtual void PrintTooClose(IGameBase obj)
+		{
+			Debug.Assert(obj != null);
+
+			gOut.Print("{0} {1} too close.", 
+				obj.GetTheName(true), 
+				obj is IArtifact a ? a.EvalPlural("is", "are") :
+				obj is IMonster m ? m.EvalPlural("is", "are") :
+				"is");
+		}
+
+		public virtual void PrintTooFarAway(IGameBase obj)
+		{
+			Debug.Assert(obj != null);
+
+			gOut.Print("{0} {1} too far away.", 
+				obj.GetTheName(true), 
+				obj is IArtifact a ? a.EvalPlural("is", "are") : 
+				obj is IMonster m ? m.EvalPlural("is", "are") : 
+				"is");
+		}
+
+		public virtual void PrintObjIsHere(IGameBase obj)
+		{
+			Debug.Assert(obj != null);
+
+			gOut.Print("{0} {1} here.", 
+				obj.GetTheName(true), 
+				obj is IArtifact a ? a.EvalPlural("is", "are") : 
+				obj is IMonster m ? m.EvalPlural("is", "are") : 
+				"is");
+		}
+
 		public virtual void PrintWhyAttack(IGameBase obj)
 		{
 			Debug.Assert(obj != null);
 
 			gOut.Print("Why would you attack {0}?", obj.GetTheName());
+		}
+
+		public virtual void PrintCantRetreat(IRoom room)
+		{
+			Debug.Assert(room != null);
+
+			gOut.Print("You can't retreat beyond the edge of the {0}.", room.EvalRoomType("room", "area"));
 		}
 
 		public virtual void PrintTakingFirst(IArtifact artifact)
@@ -219,6 +259,13 @@ namespace EamonRT.Game.Commands
 			gOut.Print("[Removing {0} first{1}]", artifact.EvalPlural("it", "them"), gEngine.EnableScreenReaderMode ? "" : ".");
 		}
 
+		public virtual void PrintClampingValue(long minValue, long maxValue)
+		{
+			Debug.Assert(minValue <= maxValue);
+
+			gOut.Print("[Clamping value between {0} and {1}{2}]", minValue, maxValue, gEngine.EnableScreenReaderMode ? "" : ".");
+		}
+		
 		public virtual void PrintBestLeftAlone(IArtifact artifact)
 		{
 			Debug.Assert(artifact != null);
@@ -548,6 +595,11 @@ namespace EamonRT.Game.Commands
 			gOut.Print("{0} a weapon that you can use.", artifact.EvalPlural("That isn't", "They aren't"));
 		}
 
+		public virtual void PrintOutOfAmmo(IArtifact weapon)
+		{
+			gEngine.PrintOutOfAmmo(weapon);
+		}
+
 		public virtual void PrintNotWhileCarryingObj(IArtifact artifact)
 		{
 			Debug.Assert(artifact != null);
@@ -600,9 +652,14 @@ namespace EamonRT.Game.Commands
 			gEngine.PrintWhamHitObj(artifact);
 		}
 
-		public virtual void PrintFullDesc(IArtifact artifact, bool showName, bool showVerboseName)
+		public virtual void PrintFullDesc(IArtifact artifact, bool showName, bool showVerboseName, bool showRange = false, bool showRangeBand = false)
 		{
-			gEngine.PrintFullDesc(artifact, showName, showVerboseName);
+			gEngine.PrintFullDesc(artifact, showName, showVerboseName, showRange, showRangeBand);
+		}
+
+		public virtual void PrintObjAmmoLeft(IArtifact artifact, AmmoType objAmmoType, long objAmmoCount)
+		{
+			gEngine.PrintObjAmmoLeft(artifact, objAmmoType, objAmmoCount);
 		}
 
 		public virtual void PrintObjAmountLeft(IArtifact artifact, long objAmount, bool objEdible)
@@ -635,6 +692,8 @@ namespace EamonRT.Game.Commands
 					x.ShowContents = false;
 
 					x.GroupCountOne = false;
+					
+					x.ShowRange = false;
 				});
 			}
 
@@ -757,9 +816,9 @@ namespace EamonRT.Game.Commands
 				gEngine.EnableScreenReaderMode ? "" : ".");
 		}
 
-		public virtual void PrintFullDesc(IMonster monster, bool showName, bool showVerboseName)
+		public virtual void PrintFullDesc(IMonster monster, bool showName, bool showVerboseName, bool showRange = false, bool showRangeBand = false)
 		{
-			gEngine.PrintFullDesc(monster, showName, showVerboseName);
+			gEngine.PrintFullDesc(monster, showName, showVerboseName, showRange, showRangeBand);
 		}
 
 		public virtual void PrintHealthStatus(IMonster monster, bool includeUninjuredGroupMonsters)
@@ -799,6 +858,8 @@ namespace EamonRT.Game.Commands
 					x.ShowContents = isCharMonster ? true : false;
 
 					x.GroupCountOne = false;
+					
+					x.ShowRange = false;
 				});
 			}
 
@@ -839,6 +900,8 @@ namespace EamonRT.Game.Commands
 						x.ShowContents = isCharMonster ? true : false;
 
 						x.GroupCountOne = false;
+						
+						x.ShowRange = false;
 					});
 				}
 
@@ -1097,6 +1160,13 @@ namespace EamonRT.Game.Commands
 			if (gEngine.EnableEnhancedCombat)
 			{
 				gOut.WriteLine("  {0,-22}{1,-22}{2,-22}", "EnhancedCombat", "True, False", gGameState.EnhancedCombat);
+				
+				if (gGameState.EnhancedCombat)
+				{
+					gOut.WriteLine("  {0,-22}{1,-22}{2,-22}", "ShowRangeBands", "True, False", gGameState.ShowRangeBands);
+					gOut.WriteLine("  {0,-22}{1,-22}{2,-22}", "ShowRanges", "True, False", gGameState.ShowRanges);
+					gOut.WriteLine("  {0,-22}{1,-22}{2,-22}", "ShowAmmoCounts", "True, False", gGameState.ShowAmmoCounts);
+				}
 			}
 
 			gOut.WriteLine("  {0,-22}{1,-22}{2,-22}", "EnhancedParser", "True, False", gGameState.EnhancedParser);
@@ -1195,6 +1265,11 @@ namespace EamonRT.Game.Commands
 		public virtual void PrintNothingHereByThatName()
 		{
 			gOut.Print("Nothing here by that name!");
+		}
+
+		public virtual void PrintNothingOfInterestNearby()
+		{
+			gOut.Print("There's nothing of interest nearby.");
 		}
 
 		public virtual void PrintYouSeeNothingSpecial()
@@ -1504,6 +1579,11 @@ namespace EamonRT.Game.Commands
 			Debug.Assert(prep != null);
 
 			return true;
+		}
+
+		public virtual void SetObjCoord(IGameBase destObj, IGameBase srcObj)
+		{
+			gEngine.SetObjCoord(destObj, srcObj);
 		}
 
 		public virtual void CopyCommandData(ICommand destCommand, bool includeIobj = true)

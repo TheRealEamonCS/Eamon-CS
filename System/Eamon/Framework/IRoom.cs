@@ -36,6 +36,9 @@ namespace Eamon.Framework
 		/// </remarks>
 		long Zone { get; set; }
 
+		/// <summary></summary>
+		long MaxCoord { get; set; }
+
 		/// <summary>
 		/// Gets or sets an array of <see cref="IRoom">Room</see> exit links, each element corresponding to one <see cref="Direction">Direction</see>.
 		/// </summary>
@@ -50,6 +53,9 @@ namespace Eamon.Framework
 		/// <seealso cref="SetDir(long,long)"/>
 		/// <seealso cref="SetDir(Direction,long)"/>
 		long[] Dirs { get; set; }
+
+		/// <summary></summary>
+		long[] DirCoords { get; set; }
 
 		#endregion
 
@@ -74,6 +80,26 @@ namespace Eamon.Framework
 		/// <param name="dir"></param>
 		/// <param name="value"></param>
 		void SetDir(Direction dir, long value);
+
+		/// <summary></summary>
+		/// <param name="index"></param>
+		/// <returns></returns>
+		long GetDirCoord(long index);
+
+		/// <summary></summary>
+		/// <param name="dir"></param>
+		/// <returns></returns>
+		long GetDirCoord(Direction dir);
+
+		/// <summary></summary>
+		/// <param name="index"></param>
+		/// <param name="value"></param>
+		void SetDirCoord(long index, long value);
+
+		/// <summary></summary>
+		/// <param name="dir"></param>
+		/// <param name="value"></param>
+		void SetDirCoord(Direction dir, long value);
 
 		/// <summary>
 		/// Indicates whether this <see cref="IRoom">Room</see> is lit.
@@ -178,6 +204,11 @@ namespace Eamon.Framework
 		IArtifact GetDirectionDoor(Direction dir);
 
 		/// <summary></summary>
+		/// <param name="artifact"></param>
+		/// <returns></returns>
+		Direction GetDoorDirection(IArtifact artifact);
+
+		/// <summary></summary>
 		/// <param name="index"></param>
 		void SetDirectionExit(long index);
 
@@ -210,8 +241,10 @@ namespace Eamon.Framework
 		/// <param name="monsterList"></param>
 		/// <param name="artifactList"></param>
 		/// <param name="recordList"></param>
+		/// <param name="rangeBand"></param>
+		/// <param name="omitAlso"></param>
 		/// <returns></returns>
-		string GetYouAlsoSee(bool showDesc, IList<IMonster> monsterList, IList<IArtifact> artifactList, IList<IGameBase> recordList);
+		string GetYouAlsoSee(bool showDesc, IList<IMonster> monsterList, IList<IArtifact> artifactList, IList<IGameBase> recordList, bool rangeBand = false, bool omitAlso = false);
 
 		/// <summary>
 		/// Gets this <see cref="IRoom">Room</see>'s obvious exits prefix string, based on its <see cref="Type">Type</see>.

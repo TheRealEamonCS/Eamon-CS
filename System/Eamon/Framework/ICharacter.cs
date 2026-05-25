@@ -202,8 +202,9 @@ namespace Eamon.Framework
 		/// <summary></summary>
 		/// <param name="weapon"></param>
 		/// <param name="baseOddsToHit"></param>
+		/// <param name="clamp"></param>
 		/// <returns></returns>
-		RetCode GetBaseOddsToHit(IArtifact weapon, ref long baseOddsToHit);
+		RetCode GetBaseOddsToHit(IArtifact weapon, ref long baseOddsToHit, bool clamp = true);
 
 		/// <summary></summary>
 		/// <param name="buf"></param>

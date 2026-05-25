@@ -9,6 +9,8 @@ using Eamon;
 using Eamon.Framework;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
+using Eamon.Game.Extensions;
+using EamonRT.Framework.Commands;
 using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
 using static EamonRT.Game.Plugin.Globals;
@@ -23,6 +25,9 @@ namespace EamonRT.Game.States
 		public virtual IArtifact DoorGateArtifact { get; set; }
 
 		public virtual bool MoveMonsters { get; set; }
+
+		/// <summary></summary>
+		public virtual IRoom OldRoom { get; set; }
 
 		/// <summary></summary>
 		public virtual IRoom NewRoom { get; set; }
@@ -50,9 +55,15 @@ namespace EamonRT.Game.States
 
 			gGameState.Ro = gGameState.R2;
 
+			OldRoom = gRDB[gGameState.R3];
+
+			NewRoom = gRDB[gGameState.Ro];
+
+			Debug.Assert(NewRoom != null);
+
 			if (MoveMonsters)
 			{
-				gEngine.MoveMonsters();
+				gEngine.MoveMonsters(OldRoom, NewRoom, Direction);
 			}
 
 			ProcessEvents(EventType.AfterMoveMonsters);
@@ -65,6 +76,15 @@ namespace EamonRT.Game.States
 			Debug.Assert(gCharMonster != null);
 
 			gCharMonster.Location = gGameState.Ro;
+
+			if (gEngine.EnableEnhancedCombat && !(gEngine.LastCommand is IRestoreCommand))
+			{
+				gCharMonster.Coord = OldRoom != null && Direction != 0 ? OldRoom.GetDirCoord(Direction) : 0;
+
+				gCharMonster.Coord = gCharMonster.Coord.Clamp(0, NewRoom.MaxCoord);
+
+				gCharMonster.FocusMonsterUid = 0;
+			}
 
 			if (gGameState.Ls > 0 && gGameState.Ro != gGameState.R3)
 			{
@@ -81,10 +101,6 @@ namespace EamonRT.Game.States
 					gGameState.Ls = 0;
 				}
 			}
-
-			NewRoom = gRDB[gGameState.Ro];
-
-			Debug.Assert(NewRoom != null);
 
 			if (NewRoom.LightLvl > 0 && gGameState.Ls > 0)
 			{

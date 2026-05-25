@@ -28,7 +28,20 @@ namespace TheBeginnersCave.Game.Commands
 
 			if (trollsfireArtifact.IsInRoom(ActorRoom))
 			{
-				gOut.Print("Maybe you should pick it up first.");
+				// If Trollsfire is not reachable by player character
+
+				if (!ActorMonster.CanReach(trollsfireArtifact))
+				{
+					PrintTooFarAway(trollsfireArtifact);
+
+					NextState = gEngine.CreateInstance<IStartState>();
+				}
+				else
+				{
+					SetObjCoord(ActorMonster, trollsfireArtifact);
+
+					gOut.Print("Maybe you should pick it up first.");
+				}
 
 				goto Cleanup;
 			}

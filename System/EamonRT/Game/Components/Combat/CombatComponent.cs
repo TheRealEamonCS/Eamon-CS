@@ -50,6 +50,9 @@ namespace EamonRT.Game.Components
 		public virtual WeaponRevealType WeaponRevealType { get; set; }
 
 		/// <summary></summary>
+		public virtual RangeResult WeaponRangeResult { get; set; }
+
+		/// <summary></summary>
 		public virtual CombatState CombatState { get; set; }
 
 		/// <summary></summary>
@@ -83,6 +86,9 @@ namespace EamonRT.Game.Components
 		public virtual IArtifact DobjWeapon { get; set; }
 
 		/// <summary></summary>
+		public virtual ISpell ActorSpell { get; set; }
+
+		/// <summary></summary>
 		public virtual ContainerType SpilledArtifactContainerType { get; set; }
 
 		/// <summary></summary>
@@ -105,6 +111,9 @@ namespace EamonRT.Game.Components
 
 		/// <summary></summary>
 		public virtual bool LightOut { get; set; }
+
+		/// <summary></summary>
+		public virtual bool ShowAmmoCount { get; set; }
 
 		/// <summary></summary>
 		public virtual bool NonCombat { get; set; }
@@ -141,6 +150,21 @@ namespace EamonRT.Game.Components
 
 		/// <summary></summary>
 		public virtual long Af { get; set; }
+
+		/// <summary></summary>
+		public virtual long Range { get; set; }
+
+		/// <summary></summary>
+		public virtual long RangeOddsModifier { get; set; }
+
+		/// <summary></summary>
+		public virtual double RangeDmgMultiplier { get; set; }
+
+		/// <summary></summary>
+		public virtual double ActorParryMultiplier { get; set; }
+
+		/// <summary></summary>
+		public virtual double DobjParryMultiplier { get; set; }
 
 		/// <summary></summary>
 		public virtual double S2 { get; set; }
@@ -181,6 +205,30 @@ namespace EamonRT.Game.Components
 			{ 
 				if (BlastSpell)
 				{
+					if (gGameState.EnhancedCombat)
+					{
+						ActorSpell = gEngine.GetSpell(Spell.Blast);
+
+						Debug.Assert(ActorSpell != null);
+
+						Range = gEngine.GetRange(ActorMonster.Coord, DobjMonster.Coord);
+
+						WeaponRangeResult = Range < ActorSpell.MinRange ? RangeResult.TooClose :
+											Range < ActorSpell.OptimalMin ? RangeResult.SubOptimalClose :
+											Range > ActorSpell.MaxRange ? RangeResult.OutOfRange :
+											Range > ActorSpell.OptimalMax ? RangeResult.SubOptimalFar :
+											RangeResult.InRange;
+
+						if (WeaponRangeResult == RangeResult.TooClose)
+						{
+							WeaponRangeResult = RangeResult.SubOptimalClose;
+						}
+						else if (WeaponRangeResult == RangeResult.OutOfRange)
+						{
+							WeaponRangeResult = RangeResult.SubOptimalFar;
+						}
+					}
+
 					if (gEngine.IsRulesetVersion(5))
 					{
 						ExecuteCalculateDamage(1, 6, 0, false);
@@ -206,6 +254,30 @@ namespace EamonRT.Game.Components
 			}
 			else
 			{
+				if (gGameState.EnhancedCombat && BlastSpell)
+				{
+					ActorSpell = gEngine.GetSpell(Spell.Blast);
+
+					Debug.Assert(ActorSpell != null);
+
+					Range = gEngine.GetRange(ActorMonster.Coord, DobjArtifact.Coord);
+
+					WeaponRangeResult = Range < ActorSpell.MinRange ? RangeResult.TooClose :
+										Range < ActorSpell.OptimalMin ? RangeResult.SubOptimalClose :
+										Range > ActorSpell.MaxRange ? RangeResult.OutOfRange :
+										Range > ActorSpell.OptimalMax ? RangeResult.SubOptimalFar :
+										RangeResult.InRange;
+
+					if (WeaponRangeResult == RangeResult.TooClose)
+					{
+						WeaponRangeResult = RangeResult.SubOptimalClose;
+					}
+					else if (WeaponRangeResult == RangeResult.OutOfRange)
+					{
+						WeaponRangeResult = RangeResult.SubOptimalFar;
+					}
+				}
+
 				CombatState = CombatState.CheckDisguisedMonster;
 
 				ExecuteStateMachine();
@@ -379,7 +451,94 @@ namespace EamonRT.Game.Components
 
 			Af = gEngine.GetArmorFactor(gGameState.Ar, gGameState.Sh);
 
-			gEngine.GetOddsToHit(ActorMonster, DobjMonster, ActorAc, Af, ref _odds);
+			gEngine.GetOddsToHit(ActorMonster, DobjMonster, ActorAc, Af, ref _odds, false);
+
+			if (gGameState.EnhancedCombat)
+			{
+				RangeOddsModifier = 0;
+
+				Range = gEngine.GetRange(ActorMonster.Coord, DobjMonster.Coord);
+
+				if (ActorAc != null)
+				{
+					WeaponRangeResult = gEngine.CheckWeaponRange(ActorWeapon, Range);
+
+					if (WeaponRangeResult == RangeResult.TooClose)
+					{
+						WeaponRangeResult = RangeResult.SubOptimalClose;
+					}
+					else if (WeaponRangeResult == RangeResult.OutOfRange)
+					{
+						WeaponRangeResult = RangeResult.SubOptimalFar;
+					}
+
+					if (WeaponRangeResult == RangeResult.SubOptimalClose)
+					{
+						RangeOddsModifier = ActorAc.Field15;
+					}
+					else if (WeaponRangeResult == RangeResult.SubOptimalFar)
+					{
+						RangeOddsModifier = ActorAc.Field17;
+					}
+				}
+				else
+				{
+					WeaponRangeResult = Range < ActorMonster.NwMinRange ? RangeResult.TooClose :
+										Range < ActorMonster.NwOptimalMin ? RangeResult.SubOptimalClose :
+										Range > ActorMonster.NwMaxRange ? RangeResult.OutOfRange :
+										Range > ActorMonster.NwOptimalMax ? RangeResult.SubOptimalFar :
+										RangeResult.InRange;
+
+					if (WeaponRangeResult == RangeResult.TooClose)
+					{
+						WeaponRangeResult = RangeResult.SubOptimalClose;
+					}
+					else if (WeaponRangeResult == RangeResult.OutOfRange)
+					{
+						WeaponRangeResult = RangeResult.SubOptimalFar;
+					}
+
+					if (WeaponRangeResult == RangeResult.SubOptimalClose)
+					{
+						RangeOddsModifier = ActorMonster.NwCloseOddsModifier;
+					}
+					else if (WeaponRangeResult == RangeResult.SubOptimalFar)
+					{
+						RangeOddsModifier = ActorMonster.NwFarOddsModifier;
+					}
+				}
+
+				_odds += RangeOddsModifier;
+
+				/*
+					Parry modifier smoothly scales between offensive and defensive stances.
+
+					Formula:
+
+					ParryMod = ModMax - (ParrySetting / 100) * (ModMax - ModMin)
+
+					Using:
+
+					ModMax = 1.20
+					ModMin = 0.80
+
+					Simplified:
+
+					ParryMod = 1.20 - (ParrySetting * 0.004)
+
+					ParrySetting =   0 => ParryMod = 1.20 (maximum offense)
+					ParrySetting =  50 => ParryMod = 1.00 (neutral)
+					ParrySetting = 100 => ParryMod = 0.80 (maximum defense)
+				*/
+
+				ActorParryMultiplier = 1.20 - ((double)ActorMonster.Parry * 0.004);
+
+				DobjParryMultiplier = 1.20 - ((double)DobjMonster.Parry * 0.004);
+
+				_odds = (long)Math.Round((double)_odds * ActorParryMultiplier * DobjParryMultiplier);
+			}
+
+			_odds = _odds.Clamp(5, 96);
 
 			RollToHitOrMiss();
 
@@ -409,6 +568,21 @@ namespace EamonRT.Game.Components
 			}
 
 			ActorWeaponType = (Weapon)(ActorAc != null ? ActorAc.Field2 : 0);
+
+			if (gGameState.EnhancedCombat && ActorAc != null && ActorAc.Field8 > 0)
+			{
+				var arl = gEngine.RollDice(1, 100, 0);
+
+				if (arl > ActorAc.Field9)
+				{
+					ActorAc.Field7--;
+
+					if (gGameState.ShowAmmoCounts || ActorAc.Field7 <= 0)
+					{
+						ShowAmmoCount = true;
+					}
+				}
+			}
 
 			PrintAttack(ActorRoom, ActorMonster, DobjMonster, ActorWeapon, AttackNumber, WeaponRevealType);
 
@@ -583,7 +757,7 @@ namespace EamonRT.Game.Components
 
 			Dobj = ActorMonster;
 
-			_rl = gEngine.RollDice(1, 5, 95);
+			_rl = gEngine.RollDice(1, 5, 95);       // Note: maybe gEngine.RollDice(1, 4, 96) ???
 
 			CombatState = CombatState.AttackHit;
 
@@ -842,6 +1016,47 @@ namespace EamonRT.Game.Components
 				_d2 = MaxDamage ? (D * S) + M : gEngine.RollDice(D, S, M);
 			}
 
+			if (gGameState.EnhancedCombat && _d2 > 0)
+			{
+				RangeDmgMultiplier = 1.0;
+
+				if (ActorSpell != null)
+				{
+					if (WeaponRangeResult == RangeResult.SubOptimalClose)
+					{
+						RangeDmgMultiplier = (double)ActorSpell.CloseDmgMultiplier / 100.0;
+					}
+					else if (WeaponRangeResult == RangeResult.SubOptimalFar)
+					{
+						RangeDmgMultiplier = (double)ActorSpell.FarDmgMultiplier / 100.0;
+					}
+				}
+				else if (ActorAc != null)
+				{
+					if (WeaponRangeResult == RangeResult.SubOptimalClose)
+					{
+						RangeDmgMultiplier = (double)ActorAc.Field16 / 100.0;
+					}
+					else if (WeaponRangeResult == RangeResult.SubOptimalFar)
+					{
+						RangeDmgMultiplier = (double)ActorAc.Field18 / 100.0;
+					}
+				}
+				else if (ActorMonster != null)
+				{
+					if (WeaponRangeResult == RangeResult.SubOptimalClose)
+					{
+						RangeDmgMultiplier = (double)ActorMonster.NwCloseDmgMultiplier / 100.0;
+					}
+					else if (WeaponRangeResult == RangeResult.SubOptimalFar)
+					{
+						RangeDmgMultiplier = (double)ActorMonster.NwFarDmgMultiplier / 100.0;
+					}
+				}
+
+				_d2 = (long)Math.Round((double)_d2 * RangeDmgMultiplier);
+			}
+
 			_d2 -= (A * DobjMonster.Armor);
 
 			if (gGameState.InteractiveFiction)
@@ -930,6 +1145,8 @@ namespace EamonRT.Game.Components
 		/// <summary></summary>
 		public virtual void CheckDisguisedMonster()
 		{
+			Debug.Assert(ActorMonster != null);
+
 			Debug.Assert(SetNextStateFunc != null && CopyCommandDataFunc != null);
 
 			Debug.Assert(DobjArtAc != null);
@@ -974,6 +1191,32 @@ namespace EamonRT.Game.Components
 
 			if (!BlastSpell)
 			{
+				if (gGameState.EnhancedCombat)
+				{
+					ActorWeaponUid = ActorMonster.Weapon;
+
+					ActorWeapon = ActorWeaponUid > 0 ? gADB[ActorWeaponUid] : null;
+
+					Debug.Assert(ActorWeaponUid == 0 || (ActorWeapon != null && ActorWeapon.GeneralWeapon != null));
+
+					ActorAc = ActorWeapon != null ? ActorWeapon.GeneralWeapon : null;
+
+					if (ActorAc != null && ActorAc.Field8 > 0)
+					{
+						var arl = gEngine.RollDice(1, 100, 0);
+
+						if (arl > ActorAc.Field9)
+						{
+							ActorAc.Field7--;
+
+							if (gGameState.ShowAmmoCounts || ActorAc.Field7 <= 0)
+							{
+								ShowAmmoCount = true;
+							}
+						}
+					}
+				}
+
 				PrintWhamHitObj(DobjArtifact);
 			}
 
@@ -1122,6 +1365,47 @@ namespace EamonRT.Game.Components
 				_d2 = MaxDamage ? (D * S) + M : gEngine.RollDice(D, S, M);
 			}
 
+			if (gGameState.EnhancedCombat && _d2 > 0)
+			{
+				RangeDmgMultiplier = 1.0;
+
+				if (ActorSpell != null)
+				{
+					if (WeaponRangeResult == RangeResult.SubOptimalClose)
+					{
+						RangeDmgMultiplier = (double)ActorSpell.CloseDmgMultiplier / 100.0;
+					}
+					else if (WeaponRangeResult == RangeResult.SubOptimalFar)
+					{
+						RangeDmgMultiplier = (double)ActorSpell.FarDmgMultiplier / 100.0;
+					}
+				}
+				else if (ActorAc != null)
+				{
+					if (WeaponRangeResult == RangeResult.SubOptimalClose)
+					{
+						RangeDmgMultiplier = (double)ActorAc.Field16 / 100.0;
+					}
+					else if (WeaponRangeResult == RangeResult.SubOptimalFar)
+					{
+						RangeDmgMultiplier = (double)ActorAc.Field18 / 100.0;
+					}
+				}
+				else if (ActorMonster != null)      // Note: branch currently unused
+				{
+					if (WeaponRangeResult == RangeResult.SubOptimalClose)
+					{
+						RangeDmgMultiplier = (double)ActorMonster.NwCloseDmgMultiplier / 100.0;
+					}
+					else if (WeaponRangeResult == RangeResult.SubOptimalFar)
+					{
+						RangeDmgMultiplier = (double)ActorMonster.NwFarDmgMultiplier / 100.0;
+					}
+				}
+
+				_d2 = (long)Math.Round((double)_d2 * RangeDmgMultiplier);
+			}
+
 			CombatState = CombatState.CheckArtifactStatus;
 		}
 
@@ -1249,6 +1533,8 @@ namespace EamonRT.Game.Components
 		/// <summary></summary>
 		public virtual void ExecuteStateMachine()
 		{
+			RetCode rc;
+
 			Debug.Assert(CombatState == CombatState.BeginAttack || CombatState == CombatState.CalculateDamage || CombatState == CombatState.CheckMonsterStatus || CombatState == CombatState.CheckDisguisedMonster);
 
 			while (true)
@@ -1367,6 +1653,37 @@ namespace EamonRT.Game.Components
 			if (LightOut && ActorWeapon != null)
 			{
 				gEngine.LightOut(ActorWeapon);
+			}
+
+			if (gGameState.EnhancedCombat && ShowAmmoCount && ActorWeapon != null)
+			{
+				var acMonster = ActorMonster != null && ActorMonster.Weapon == ActorWeapon.Uid ? ActorMonster :
+					DobjMonster != null && DobjMonster.Weapon == ActorWeapon.Uid ? DobjMonster :
+					null;
+
+				if (acMonster != null)
+				{
+					if (ActorAc.Field7 > 0)
+					{
+						if (acMonster.IsCharacterMonster())
+						{
+							gEngine.PrintObjAmmoLeft(ActorWeapon, (AmmoType)ActorAc.Field6, ActorAc.Field7);
+						}
+					}
+					else
+					{
+						if (acMonster.IsCharacterMonster())
+						{
+							gEngine.PrintOutOfAmmo(ActorWeapon);
+						}
+
+						rc = ActorWeapon.RemoveStateDesc(ActorWeapon.GetReadyWeaponDesc());
+
+						Debug.Assert(gEngine.IsSuccess(rc));
+
+						acMonster.Weapon = -1;
+					}
+				}
 			}
 		}
 

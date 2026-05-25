@@ -181,7 +181,7 @@ namespace Eamon.Game
 			return result;
 		}
 
-		public override RetCode BuildPrintedFullDesc(StringBuilder buf, bool showName, bool showVerboseName)
+		public override RetCode BuildPrintedFullDesc(StringBuilder buf, bool showName, bool showVerboseName, bool showRange = false, bool showRangeBand = false)
 		{
 			RetCode rc;
 
@@ -427,7 +427,7 @@ namespace Eamon.Game
 			return rc;
 		}
 
-		public virtual RetCode GetBaseOddsToHit(IArtifact weapon, ref long baseOddsToHit)
+		public virtual RetCode GetBaseOddsToHit(IArtifact weapon, ref long baseOddsToHit, bool clamp = true)
 		{
 			long ar1, sh1, af, x, a, d, f, odds;
 			RetCode rc;
@@ -515,7 +515,7 @@ namespace Eamon.Game
 			}
 			*/
 
-			baseOddsToHit = odds;
+			baseOddsToHit = clamp ? odds.Clamp(5, 96) : odds;
 
 		Cleanup:
 

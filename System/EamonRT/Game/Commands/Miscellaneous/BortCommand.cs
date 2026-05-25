@@ -141,6 +141,11 @@ namespace EamonRT.Game.Commands
 							gEngine.RevealContentCounter--;
 
 							BortArtifact.SetInRoom(ActorRoom);
+
+							if (gEngine.EnableEnhancedCombat)
+							{
+								BortArtifact.Coord = 0;
+							}
 						}
 						finally
 						{
@@ -158,6 +163,11 @@ namespace EamonRT.Game.Commands
 						PrintBortRecallMonster(ActorRoom, BortMonster);
 
 						BortMonster.SetInRoom(ActorRoom);
+
+						if (gEngine.EnableEnhancedCombat)
+						{
+							BortMonster.Coord = 0;
+						}
 
 						break;
 

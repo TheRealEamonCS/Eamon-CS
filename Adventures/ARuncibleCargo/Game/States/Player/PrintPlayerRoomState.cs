@@ -128,6 +128,12 @@ namespace ARuncibleCargo.Game.States
 
 					gameState.EnhancedCombat = gameState01.EnhancedCombat;
 
+					gameState.ShowRangeBands = gameState01.ShowRangeBands;
+
+					gameState.ShowRanges = gameState01.ShowRanges;
+
+					gameState.ShowAmmoCounts = gameState01.ShowAmmoCounts;
+
 					gameState.EnhancedParser = gameState01.EnhancedParser;
 
 					gameState.IobjPronounAffinity = gameState01.IobjPronounAffinity;

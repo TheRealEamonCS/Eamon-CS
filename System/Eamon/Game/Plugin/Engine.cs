@@ -160,6 +160,8 @@ namespace Eamon.Game.Plugin
 
 		public virtual string RecIdepErrorFmtStr { get; protected set; } = "The {0} field refers to {1} Uid {2}, {3}.";
 
+		public virtual string RecIdepErrorFmtStr02 { get; protected set; } = "The {0} field for {1} Uid {2} {3}.";
+
 		public virtual string AndroidAdventuresDir { get; protected set; } = @"..\EamonPM.Android\Assets\Adventures";
 
 		public virtual string AdventuresDir { get; protected set; } = @"..\..\Adventures";
@@ -188,9 +190,15 @@ namespace Eamon.Game.Plugin
 
 		public virtual long MaxWeaponComplexity { get; protected set; } = 50;
 
+		public virtual long MinRangeOddsModifier { get; } = -50;
+
+		public virtual long MaxRangeOddsModifier { get; } = 0;
+
 		public virtual long MinGoldValue { get; protected set; } = -99999;
 
 		public virtual long MaxGoldValue { get; protected set; } = 999999;
+
+		public virtual long MaxRoomMaxCoord { get; } = 1000;
 
 		public virtual long MaxPathLen { get; protected set; } = 256;
 
@@ -269,6 +277,16 @@ namespace Eamon.Game.Plugin
 		public virtual bool EnableCommandHistory { get; set; }
 
 		public virtual bool EnableEnhancedCombat { get; set; }
+
+		public virtual bool EnforceRangeUsage
+		{
+			get
+			{
+				var gameState = GetGameState();
+
+				return EnableEnhancedCombat && gameState != null && gameState.EnhancedCombat && gameState.GetNBTL(Friendliness.Enemy) > 0;
+			}
+		}
 
 		public virtual bool IgnoreMutex { get; set; }
 
@@ -363,6 +381,26 @@ namespace Eamon.Game.Plugin
 		/// Gets or sets an array containing the description for each <see cref="CombatCode"/>.
 		/// </summary>
 		public virtual string[] CombatCodeDescs { get; set; }
+
+		/// <summary>
+		/// Gets or sets an array containing the description for each <see cref="CoordCode"/>.
+		/// </summary>
+		public virtual string[] CoordCodeDescs { get; set; }
+
+		/// <summary>
+		/// Gets or sets an array containing the description for each <see cref="FocusCode"/>.
+		/// </summary>
+		public virtual string[] FocusCodeDescs { get; set; }
+
+		/// <summary>
+		/// Gets or sets an array containing the description for each <see cref="TravelCode"/>.
+		/// </summary>
+		public virtual string[] TravelCodeDescs { get; set; }
+
+		/// <summary>
+		/// Gets or sets an array containing the description for each <see cref="RearmCode"/>.
+		/// </summary>
+		public virtual string[] RearmCodeDescs { get; set; }
 
 		/// <summary>
 		/// Gets or sets an array containing the description for each <see cref="ParryCode"/>.
@@ -1363,6 +1401,14 @@ namespace Eamon.Game.Plugin
 					x.HokasPrice = BlastPrice;
 					x.MinValue = 0;
 					x.MaxValue = 500;
+					x.MinRange = 0;
+					x.OptimalMin = 0;
+					x.OptimalMax = 60;
+					x.MaxRange = 60;
+					x.CloseOddsModifier = 0;
+					x.CloseDmgMultiplier = 100;
+					x.FarOddsModifier = 0;
+					x.FarDmgMultiplier = 100;
 				}),
 				CreateInstance<ISpell>(x =>
 				{
@@ -1371,6 +1417,14 @@ namespace Eamon.Game.Plugin
 					x.HokasPrice = HealPrice;
 					x.MinValue = 0;
 					x.MaxValue = 500;
+					x.MinRange = 0;
+					x.OptimalMin = 0;
+					x.OptimalMax = 0;
+					x.MaxRange = 0;
+					x.CloseOddsModifier = 0;
+					x.CloseDmgMultiplier = 0;
+					x.FarOddsModifier = 0;
+					x.FarDmgMultiplier = 0;
 				}),
 				CreateInstance<ISpell>(x =>
 				{
@@ -1379,6 +1433,14 @@ namespace Eamon.Game.Plugin
 					x.HokasPrice = SpeedPrice;
 					x.MinValue = 0;
 					x.MaxValue = 500;
+					x.MinRange = 0;
+					x.OptimalMin = 0;
+					x.OptimalMax = 0;
+					x.MaxRange = 0;
+					x.CloseOddsModifier = 0;
+					x.CloseDmgMultiplier = 0;
+					x.FarOddsModifier = 0;
+					x.FarDmgMultiplier = 0;
 				}),
 				CreateInstance<ISpell>(x =>
 				{
@@ -1387,6 +1449,14 @@ namespace Eamon.Game.Plugin
 					x.HokasPrice = PowerPrice;
 					x.MinValue = 0;
 					x.MaxValue = 500;
+					x.MinRange = 0;
+					x.OptimalMin = 0;
+					x.OptimalMax = 0;
+					x.MaxRange = 0;
+					x.CloseOddsModifier = 0;
+					x.CloseDmgMultiplier = 0;
+					x.FarOddsModifier = 0;
+					x.FarDmgMultiplier = 0;
 				})
 			};
 
@@ -1406,6 +1476,19 @@ namespace Eamon.Game.Plugin
 					x.MarcosNumHands = 1;
 					x.MinValue = -50;
 					x.MaxValue = 122;
+					x.AmmoType = AmmoType.None;
+					x.AmmoCount = 0;
+					x.MaxAmmoCount = 0;
+					x.AmmoRecoveryOdds = 0;
+					x.AmmoRefillCode = AmmoRefillCode.None;
+					x.MinRange = 0;
+					x.OptimalMin = 0;
+					x.OptimalMax = 1;
+					x.MaxRange = 1;
+					x.CloseOddsModifier = -20;
+					x.CloseDmgMultiplier = 100;
+					x.FarOddsModifier = -10;
+					x.FarDmgMultiplier = 75;
 				}),
 				CreateInstance<IWeapon>(x =>
 				{
@@ -1421,6 +1504,19 @@ namespace Eamon.Game.Plugin
 					x.MarcosNumHands = 2;
 					x.MinValue = -50;
 					x.MaxValue = 122;
+					x.AmmoType = AmmoType.Arrow;
+					x.AmmoCount = 20;
+					x.MaxAmmoCount = 20;
+					x.AmmoRecoveryOdds = 60;
+					x.AmmoRefillCode = AmmoRefillCode.Full;
+					x.MinRange = 3;
+					x.OptimalMin = 10;
+					x.OptimalMax = 40;
+					x.MaxRange = 60;
+					x.CloseOddsModifier = -20;
+					x.CloseDmgMultiplier = 100;
+					x.FarOddsModifier = -10;
+					x.FarDmgMultiplier = 75;
 				}),
 				CreateInstance<IWeapon>(x =>
 				{
@@ -1436,6 +1532,19 @@ namespace Eamon.Game.Plugin
 					x.MarcosNumHands = 1;
 					x.MinValue = -50;
 					x.MaxValue = 122;
+					x.AmmoType = AmmoType.None;
+					x.AmmoCount = 0;
+					x.MaxAmmoCount = 0;
+					x.AmmoRecoveryOdds = 0;
+					x.AmmoRefillCode = AmmoRefillCode.None;
+					x.MinRange = 0;
+					x.OptimalMin = 0;
+					x.OptimalMax = 1;
+					x.MaxRange = 1;
+					x.CloseOddsModifier = -20;
+					x.CloseDmgMultiplier = 100;
+					x.FarOddsModifier = -10;
+					x.FarDmgMultiplier = 75;
 				}),
 				CreateInstance<IWeapon>(x =>
 				{
@@ -1451,6 +1560,19 @@ namespace Eamon.Game.Plugin
 					x.MarcosNumHands = 1;
 					x.MinValue = -50;
 					x.MaxValue = 122;
+					x.AmmoType = AmmoType.None;
+					x.AmmoCount = 0;
+					x.MaxAmmoCount = 0;
+					x.AmmoRecoveryOdds = 0;
+					x.AmmoRefillCode = AmmoRefillCode.None;
+					x.MinRange = 1;
+					x.OptimalMin = 1;
+					x.OptimalMax = 3;
+					x.MaxRange = 3;
+					x.CloseOddsModifier = -20;
+					x.CloseDmgMultiplier = 100;
+					x.FarOddsModifier = -10;
+					x.FarDmgMultiplier = 75;
 				}),
 				CreateInstance<IWeapon>(x =>
 				{
@@ -1466,6 +1588,19 @@ namespace Eamon.Game.Plugin
 					x.MarcosNumHands = 1;
 					x.MinValue = -50;
 					x.MaxValue = 122;
+					x.AmmoType = AmmoType.None;
+					x.AmmoCount = 0;
+					x.MaxAmmoCount = 0;
+					x.AmmoRecoveryOdds = 0;
+					x.AmmoRefillCode = AmmoRefillCode.None;
+					x.MinRange = 0;
+					x.OptimalMin = 0;
+					x.OptimalMax = 1;
+					x.MaxRange = 1;
+					x.CloseOddsModifier = -20;
+					x.CloseDmgMultiplier = 100;
+					x.FarOddsModifier = -10;
+					x.FarDmgMultiplier = 75;
 				})
 			};
 
@@ -1798,32 +1933,32 @@ namespace Eamon.Game.Plugin
 					x.Field4EmptyVal = "6";
 					x.Field5Name = "Number Of Hands";
 					x.Field5EmptyVal = "1";
-					x.Field6Name = "Field6";
+					x.Field6Name = "Ammo Type";
 					x.Field6EmptyVal = "0";
-					x.Field7Name = "Field7";
+					x.Field7Name = "Ammo Count";
 					x.Field7EmptyVal = "0";
-					x.Field8Name = "Field8";
+					x.Field8Name = "Max Ammo Count";
 					x.Field8EmptyVal = "0";
-					x.Field9Name = "Field9";
+					x.Field9Name = "Ammo Recovery Odds";
 					x.Field9EmptyVal = "0";
-					x.Field10Name = "Field10";
+					x.Field10Name = "Ammo Refill Code";
 					x.Field10EmptyVal = "0";
-					x.Field11Name = "Field11";
+					x.Field11Name = "Min Range";
 					x.Field11EmptyVal = "0";
-					x.Field12Name = "Field12";
+					x.Field12Name = "Optimal Min";
 					x.Field12EmptyVal = "0";
-					x.Field13Name = "Field13";
-					x.Field13EmptyVal = "0";
-					x.Field14Name = "Field14";
-					x.Field14EmptyVal = "0";
-					x.Field15Name = "Field15";
-					x.Field15EmptyVal = "0";
-					x.Field16Name = "Field16";
-					x.Field16EmptyVal = "0";
-					x.Field17Name = "Field17";
-					x.Field17EmptyVal = "0";
-					x.Field18Name = "Field18";
-					x.Field18EmptyVal = "0";
+					x.Field13Name = "Optimal Max";
+					x.Field13EmptyVal = "1";
+					x.Field14Name = "Max Range";
+					x.Field14EmptyVal = "1";
+					x.Field15Name = "Close Odds Mod";
+					x.Field15EmptyVal = "-20";
+					x.Field16Name = "Close Dmg Mult";
+					x.Field16EmptyVal = "100";
+					x.Field17Name = "Far Odds Mod";
+					x.Field17EmptyVal = "-10";
+					x.Field18Name = "Far Dmg Mult";
+					x.Field18EmptyVal = "75";
 					x.Field19Name = "Field19";
 					x.Field19EmptyVal = "0";
 					x.Field20Name = "Field20";
@@ -1844,32 +1979,32 @@ namespace Eamon.Game.Plugin
 					x.Field4EmptyVal = "10";
 					x.Field5Name = "Number Of Hands";
 					x.Field5EmptyVal = "1";
-					x.Field6Name = "Field6";
+					x.Field6Name = "Ammo Type";
 					x.Field6EmptyVal = "0";
-					x.Field7Name = "Field7";
+					x.Field7Name = "Ammo Count";
 					x.Field7EmptyVal = "0";
-					x.Field8Name = "Field8";
+					x.Field8Name = "Max Ammo Count";
 					x.Field8EmptyVal = "0";
-					x.Field9Name = "Field9";
+					x.Field9Name = "Ammo Recovery Odds";
 					x.Field9EmptyVal = "0";
-					x.Field10Name = "Field10";
+					x.Field10Name = "Ammo Refill Code";
 					x.Field10EmptyVal = "0";
-					x.Field11Name = "Field11";
+					x.Field11Name = "Min Range";
 					x.Field11EmptyVal = "0";
-					x.Field12Name = "Field12";
+					x.Field12Name = "Optimal Min";
 					x.Field12EmptyVal = "0";
-					x.Field13Name = "Field13";
-					x.Field13EmptyVal = "0";
-					x.Field14Name = "Field14";
-					x.Field14EmptyVal = "0";
-					x.Field15Name = "Field15";
-					x.Field15EmptyVal = "0";
-					x.Field16Name = "Field16";
-					x.Field16EmptyVal = "0";
-					x.Field17Name = "Field17";
-					x.Field17EmptyVal = "0";
-					x.Field18Name = "Field18";
-					x.Field18EmptyVal = "0";
+					x.Field13Name = "Optimal Max";
+					x.Field13EmptyVal = "1";
+					x.Field14Name = "Max Range";
+					x.Field14EmptyVal = "1";
+					x.Field15Name = "Close Odds Mod";
+					x.Field15EmptyVal = "-20";
+					x.Field16Name = "Close Dmg Mult";
+					x.Field16EmptyVal = "100";
+					x.Field17Name = "Far Odds Mod";
+					x.Field17EmptyVal = "-10";
+					x.Field18Name = "Far Dmg Mult";
+					x.Field18EmptyVal = "75";
 					x.Field19Name = "Field19";
 					x.Field19EmptyVal = "0";
 					x.Field20Name = "Field20";
@@ -3759,6 +3894,46 @@ namespace Eamon.Game.Plugin
 			return Enum.IsDefined(typeof(CombatCode), combatCode) ? GetCombatCodeDesc((long)combatCode + 2) : UnknownName;
 		}
 
+		public virtual string GetCoordCodeDesc(long index)
+		{
+			return CoordCodeDescs[index];
+		}
+
+		public virtual string GetCoordCodeDesc(CoordCode coordCode)
+		{
+			return Enum.IsDefined(typeof(CoordCode), coordCode) ? GetCoordCodeDesc((long)coordCode) : UnknownName;
+		}
+
+		public virtual string GetFocusCodeDesc(long index)
+		{
+			return FocusCodeDescs[index];
+		}
+
+		public virtual string GetFocusCodeDesc(FocusCode focusCode)
+		{
+			return Enum.IsDefined(typeof(FocusCode), focusCode) ? GetFocusCodeDesc((long)focusCode) : UnknownName;
+		}
+
+		public virtual string GetTravelCodeDesc(long index)
+		{
+			return TravelCodeDescs[index];
+		}
+
+		public virtual string GetTravelCodeDesc(TravelCode travelCode)
+		{
+			return Enum.IsDefined(typeof(TravelCode), travelCode) ? GetTravelCodeDesc((long)travelCode) : UnknownName;
+		}
+
+		public virtual string GetRearmCodeDesc(long index)
+		{
+			return RearmCodeDescs[index];
+		}
+
+		public virtual string GetRearmCodeDesc(RearmCode rearmCode)
+		{
+			return Enum.IsDefined(typeof(RearmCode), rearmCode) ? GetRearmCodeDesc((long)rearmCode) : UnknownName;
+		}
+
 		public virtual string GetParryCodeDesc(long index)
 		{
 			return ParryCodeDescs[index];
@@ -3926,6 +4101,109 @@ namespace Eamon.Game.Plugin
 		public virtual bool IsUnmovable01(long weight)
 		{
 			return weight == -999;
+		}
+
+		public virtual long GetRecursiveCoord(IArtifact artifact)
+		{
+			Debug.Assert(artifact != null);
+
+			var result = artifact._Coord;
+
+			var monster = artifact.GetCarriedByMonster();
+
+			if (monster == null)
+			{
+				monster = artifact.GetWornByMonster();
+			}
+
+			if (monster != null)
+			{
+				result = monster.Coord;
+
+				goto Cleanup;
+			}
+
+			var container = artifact.GetCarriedByContainer();
+
+			if (container != null)
+			{
+				result = GetRecursiveCoord(container);
+
+				goto Cleanup;
+			}
+
+		Cleanup:
+
+			return result;
+		}
+
+		public virtual long GetRange(long obj1Coord, long obj2Coord)
+		{
+			Debug.Assert(obj1Coord >= 0 && obj2Coord >= 0);
+
+			return Math.Abs(obj1Coord - obj2Coord);
+		}
+
+		public virtual RangeBand GetRangeBand(long range)
+		{
+			Debug.Assert(range >= 0);
+
+			var result = RangeBand.VeryFarAway;
+
+			if (range == 0)
+			{
+				result = RangeBand.Here;
+			}
+			else if (range <= 3)
+			{
+				result = RangeBand.CloseBy;
+			}
+			else if (range <= 15)
+			{
+				result = RangeBand.Nearby;
+			}
+			else if (range <= 40)
+			{
+				result = RangeBand.FarAway;
+			}
+
+			return result;
+		}
+
+		public virtual string GetRangeBandString(RangeBand rangeBand)
+		{
+			Debug.Assert(Enum.IsDefined(typeof(RangeBand), rangeBand));
+
+			var result = "here";
+
+			switch (rangeBand)
+			{
+				case RangeBand.CloseBy:
+
+					result = "close by";
+
+					break;
+
+				case RangeBand.Nearby:
+
+					result = "nearby";
+
+					break;
+
+				case RangeBand.FarAway:
+
+					result = "far away";
+
+					break;
+
+				case RangeBand.VeryFarAway:
+
+					result = "very far away";
+
+					break;
+			}
+
+			return result;
 		}
 
 		public virtual long GetMonsterHealthStatusIndex(long hardiness, long dmgTaken)
@@ -4097,6 +4375,13 @@ namespace Eamon.Game.Plugin
 			ch = Char.ToUpper(ch);
 
 			return ch == 'S' || ch == 'T' || ch == 'R' || ch == 'X';
+		}
+
+		public virtual bool IsCharSOrTOrX(char ch)
+		{
+			ch = Char.ToUpper(ch);
+
+			return ch == 'S' || ch == 'T' || ch == 'X';
 		}
 
 		public virtual bool IsCharNOrSOrEOrW(char ch)
@@ -5383,8 +5668,16 @@ namespace Eamon.Game.Plugin
 
 			rc = RetCode.Success;
 
+			var gameState = GetGameState();
+
+			var charMonster = gameState != null && MDB != null ? MDB[gameState.Cm] : null;
+
+			var buf01 = new StringBuilder(BufSize);
+
 			for (i = 0; i < recordList.Count; i++)
 			{
+				buf01.Clear();
+
 				var r = recordList[(int)i];
 
 				var a = r as IArtifact;
@@ -5403,7 +5696,19 @@ namespace Eamon.Game.Plugin
 					showStateDesc = args.StateDescCode == StateDescDisplayCode.SideNotesOnly && m.IsStateDescSideNotes();
 				}
 
-				buf.AppendFormat("{0}{1}",
+				if (charMonster != null && gameState.EnhancedCombat)
+				{
+					var coord = a != null ? a.Coord : m != null ? m.Coord : 0;
+
+					var range = GetRange(charMonster.Coord, coord);
+
+					if (args.ShowRange && range > 0)
+					{
+						buf01.SetFormat(" ({0})", range);
+					}
+				}
+
+				buf.AppendFormat("{0}{1}{2}",
 					i == 0 ? "" : i == recordList.Count - 1 && recordList.Count > 2 ? ", and " : i == recordList.Count - 1 ? " and " : ", ",
 					r.GetDecoratedName
 					(
@@ -5411,10 +5716,11 @@ namespace Eamon.Game.Plugin
 						args.ArticleType == ArticleType.None || args.ArticleType == ArticleType.The ? args.ArticleType : r.ArticleType,
 						false,
 						args.ShowCharOwned,
-						showStateDesc,
-						args.ShowContents,
+						showStateDesc && charMonster != null && ((a != null && charMonster.CanReach(a)) || (m != null && charMonster.CanReach(m))),
+						args.ShowContents && charMonster != null && ((a != null && charMonster.CanReach(a)) || (m != null && charMonster.CanReach(m))),
 						args.GroupCountOne
-					)
+					),
+					buf01.ToString()
 				);
 			}
 
@@ -5873,6 +6179,172 @@ namespace Eamon.Game.Plugin
 			return ap;
 		}
 
+		public virtual void InitArtifactCoord(IArtifact artifact, IRoom room)
+		{
+			Debug.Assert(artifact != null);
+
+			switch (artifact.CoordCode)
+			{
+				case CoordCode.Specified:
+
+					// Do nothing
+
+					break;
+
+				case CoordCode.Random:
+
+					artifact.Coord = room != null ? RollDice(1, room.MaxCoord + 1, -1) : 0;
+
+					break;
+
+				case CoordCode.Mid:
+
+					artifact.Coord = room != null ? room.MaxCoord / 2 : 0;
+
+					break;
+
+				case CoordCode.Max:
+
+					artifact.Coord = room != null ? room.MaxCoord : 0;
+
+					break;
+
+				default:
+
+					artifact.Coord = 0;
+
+					break;
+			}
+
+			artifact.Coord = artifact.Coord.Clamp(0, room != null ? room.MaxCoord : 1);
+		}
+
+		public virtual void InitMonsterCoord(IMonster monster, IRoom room)
+		{
+			Debug.Assert(monster != null);
+
+			switch (monster.CoordCode)
+			{
+				case CoordCode.Specified:
+
+					// Do nothing
+
+					break;
+
+				case CoordCode.Random:
+
+					monster.Coord = room != null ? RollDice(1, room.MaxCoord + 1, -1) : 0;
+
+					break;
+
+				case CoordCode.Mid:
+
+					monster.Coord = room != null ? room.MaxCoord / 2 : 0;
+
+					break;
+
+				case CoordCode.Max:
+
+					monster.Coord = room != null ? room.MaxCoord : 0;
+
+					break;
+
+				default:
+
+					monster.Coord = 0;
+
+					break;
+			}
+
+			monster.Coord = monster.Coord.Clamp(0, room != null ? room.MaxCoord : 1);
+		}
+
+		public virtual void InitWeaponAmmoCount(IArtifact weapon)
+		{
+			Debug.Assert(weapon != null);
+
+			Debug.Assert(weapon.GeneralWeapon != null);
+
+			var gw = weapon.GeneralWeapon;
+
+			var rl = 0L;
+
+			if (gw.Field8 > 0)
+			{
+				switch ((AmmoRefillCode)gw.Field10)
+				{
+					case AmmoRefillCode.None:
+					{
+						// Do nothing
+
+						break;
+					}
+
+					case AmmoRefillCode.Full:
+					{
+						gw.Field7 = gw.Field8;
+
+						break;
+					}
+
+					case AmmoRefillCode.Half:
+					{
+						gw.Field7 = gw.Field8 / 2;
+
+						break;
+					}
+
+					case AmmoRefillCode.Quarter:
+					{
+						gw.Field7 = gw.Field8 / 4;
+
+						break;
+					}
+
+					case AmmoRefillCode.Random:
+					{
+						gw.Field7 = RollDice(1, gw.Field8, 0);
+
+						break;
+					}
+
+					case AmmoRefillCode.Recovery:
+					{
+						gw.Field7 = 0;
+
+						for (var i = 1; i <= gw.Field8; i++)
+						{
+							rl = RollDice(1, 100, 0);
+
+							if (rl <= gw.Field9)
+							{
+								gw.Field7++;
+							}
+						}
+
+						break;
+					}
+				}
+			}
+		}
+
+		public virtual void SetObjCoord(IGameBase destObj, IGameBase srcObj)
+		{
+			Debug.Assert(destObj != null && srcObj != null);
+
+			if (EnableEnhancedCombat && !EnforceRangeUsage)
+			{
+				if (destObj is IArtifact da)
+				{
+					da.Coord = srcObj is IArtifact sa ? sa.Coord : srcObj is IMonster sm ? sm.Coord : da.Coord;
+				}
+				else if (destObj is IMonster dm)
+				{
+					dm.Coord = srcObj is IArtifact sa ? sa.Coord : srcObj is IMonster sm ? sm.Coord : dm.Coord;
+				}
+			}
+		}
+
 		public virtual void AppendFieldDesc(FieldDesc fieldDesc, StringBuilder buf, StringBuilder fullDesc, StringBuilder briefDesc)
 		{
 			AppendFieldDesc(fieldDesc, buf, fullDesc != null ? fullDesc.ToString() : null, briefDesc != null ? briefDesc.ToString() : null);
@@ -6014,6 +6486,47 @@ namespace Eamon.Game.Plugin
 				return string.Format("{0}_{1}", r.Name.ToLower(), r.Uid);
 
 			}).Skip((int)(which - 1)).Take(1).FirstOrDefault();
+		}
+
+		public virtual IList<(IGameBase record, RangeBand rangeBand, long range)> BuildSortedRangeBandList(IList<IGameBase> recordList, IMonster actorMonster, bool sortByRangeBand = true)
+		{
+			Debug.Assert(recordList != null);
+
+			Debug.Assert(actorMonster != null);
+
+			var rangeBandList = new List<(IGameBase record, RangeBand rangeBand, long range)>();
+
+			foreach (var record in recordList)
+			{
+				long range = 0;
+
+				if (record is IArtifact artifact)
+				{
+					range = GetRange(actorMonster.Coord, artifact.Coord);
+				}
+				else if (record is IMonster monster)
+				{
+					range = GetRange(actorMonster.Coord, monster.Coord);
+				}
+				else
+				{
+					Debug.Assert(1 == 0);
+				}
+
+				var rangeBand = GetRangeBand(range);
+
+				rangeBandList.Add((record, rangeBand, range));
+			}
+
+			return sortByRangeBand
+				? rangeBandList
+					.OrderBy(x => x.rangeBand)
+					.ThenBy(x => x.record is IMonster ? 0 : 1)
+					.ThenBy(x => x.range)
+					.ToList()
+				: rangeBandList
+					.OrderBy(x => x.record is IMonster ? 0 : 1)
+					.ToList();
 		}
 
 		public virtual bool StripUniqueCharsFromRecordNames(IList<IGameBase> recordList)
@@ -6307,30 +6820,76 @@ namespace Eamon.Game.Plugin
 
 			CombatCodeDescs = new string[]
 			{
-				"Doesn't fight",
-				"Uses weapons or natural weapons",		// "Will use wep. or nat. weapons", 
+				"Doesn't Fight",
+				"Uses Weapons Or Natural Weapons",		// "Will use wep. or nat. weapons", 
 				"Normal",
-				"Uses 'attacks' only (W)",			// "'ATTACKS' only" (Weapons)
-				"Uses 'attacks' only (NW)"			// "'ATTACKS' only" (NaturalWeapons)
+				"Uses 'attacks' Only (W)",			// "'ATTACKS' only" (Weapons)
+				"Uses 'attacks' Only (NW)"			// "'ATTACKS' only" (NaturalWeapons)
+			};
+
+			CoordCodeDescs = new string[]
+			{
+				"Specified",
+				"Random",
+				"Start Of Room",
+				"Middle Of Room",
+				"End Of Room"
+			};
+
+			FocusCodeDescs = new string[]
+			{
+				"None",
+				"Closest",
+				"Farthest",
+				"Weakest",
+				"Strongest",
+				"Most Injured",
+				"Least Injured",
+				"Random",
+				"User Defined #1",
+				"User Defined #2",
+				"User Defined #3"
+			};
+
+			TravelCodeDescs = new string[]
+			{
+				"None",
+				"Close",
+				"Maintain",
+				"Open",
+				"User Defined #1",
+				"User Defined #2",
+				"User Defined #3"
+			};
+
+			RearmCodeDescs = new string[]
+			{
+				"None",
+				"Best For Range",
+				"Strongest",
+				"Random",
+				"User Defined #1",
+				"User Defined #2",
+				"User Defined #3"
 			};
 
 			ParryCodeDescs = new string[]
 			{
-				"Never varies",
+				"Never Varies",
 				"Random",
-				"Offense to defense",
-				"Defense to offense",
-				"Trend to preferred",
-				"Mirror player",
-				"Counter player",
+				"Offense To Defense",
+				"Defense To Offense",
+				"Trend To Preferred",
+				"Mirror Player",
+				"Counter Player",
 				"Alternating",
-				"Crowd aware",
-				"Range dependent",
-				"Progressively aggressive",
-				"Coordinated team",
-				"Ability dependent",
-				"Environment dependent",
-				"Pack mentality",
+				"Crowd Aware",
+				"Range Dependent",
+				"Progressively Aggressive",
+				"Coordinated Team",
+				"Ability Dependent",
+				"Environment Dependent",
+				"Pack Mentality",
 				"User Defined #1",
 				"User Defined #2",
 				"User Defined #3"

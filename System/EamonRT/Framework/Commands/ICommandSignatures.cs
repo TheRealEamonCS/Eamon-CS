@@ -117,7 +117,23 @@ namespace EamonRT.Framework.Commands
 
 		/// <summary></summary>
 		/// <param name="obj"></param>
+		void PrintTooClose(IGameBase obj);
+
+		/// <summary></summary>
+		/// <param name="obj"></param>
+		void PrintTooFarAway(IGameBase obj);
+
+		/// <summary></summary>
+		/// <param name="obj"></param>
+		void PrintObjIsHere(IGameBase obj);
+
+		/// <summary></summary>
+		/// <param name="obj"></param>
 		void PrintWhyAttack(IGameBase obj);
+
+		/// <summary></summary>
+		/// <param name="room"></param>
+		void PrintCantRetreat(IRoom room);
 
 		/// <summary></summary>
 		/// <param name="artifact"></param>
@@ -126,6 +142,11 @@ namespace EamonRT.Framework.Commands
 		/// <summary></summary>
 		/// <param name="artifact"></param>
 		void PrintRemovingFirst(IArtifact artifact);
+
+		/// <summary></summary>
+		/// <param name="minValue"></param>
+		/// <param name="maxValue"></param>
+		void PrintClampingValue(long minValue, long maxValue);
 
 		/// <summary></summary>
 		/// <param name="artifact"></param>
@@ -276,6 +297,10 @@ namespace EamonRT.Framework.Commands
 		void PrintNotReadyableWeapon(IArtifact artifact);
 
 		/// <summary></summary>
+		/// <param name="weapon"></param>
+		void PrintOutOfAmmo(IArtifact weapon);
+
+		/// <summary></summary>
 		/// <param name="artifact"></param>
 		void PrintNotWhileCarryingObj(IArtifact artifact);
 
@@ -311,7 +336,15 @@ namespace EamonRT.Framework.Commands
 		/// <param name="artifact"></param>
 		/// <param name="showName"></param>
 		/// <param name="showVerboseName"></param>
-		void PrintFullDesc(IArtifact artifact, bool showName, bool showVerboseName);
+		/// <param name="showRange"></param>
+		/// <param name="showRangeBand"></param>
+		void PrintFullDesc(IArtifact artifact, bool showName, bool showVerboseName, bool showRange = false, bool showRangeBand = false);
+
+		/// <summary></summary>
+		/// <param name="artifact"></param>
+		/// <param name="objAmmoType"></param>
+		/// <param name="objAmmoCount"></param>
+		void PrintObjAmmoLeft(IArtifact artifact, AmmoType objAmmoType, long objAmmoCount);
 
 		/// <summary></summary>
 		/// <param name="artifact"></param>
@@ -379,7 +412,9 @@ namespace EamonRT.Framework.Commands
 		/// <param name="monster"></param>
 		/// <param name="showName"></param>
 		/// <param name="showVerboseName"></param>
-		void PrintFullDesc(IMonster monster, bool showName, bool showVerboseName);
+		/// <param name="showRange"></param>
+		/// <param name="showRangeBand"></param>
+		void PrintFullDesc(IMonster monster, bool showName, bool showVerboseName, bool showRange = false, bool showRangeBand = false);
 
 		/// <summary></summary>
 		/// <param name="monster"></param>
@@ -587,6 +622,9 @@ namespace EamonRT.Framework.Commands
 		void PrintNothingHereByThatName();
 
 		/// <summary></summary>
+		void PrintNothingOfInterestNearby();
+
+		/// <summary></summary>
 		void PrintYouSeeNothingSpecial();
 
 		/// <summary></summary>
@@ -707,6 +745,11 @@ namespace EamonRT.Framework.Commands
 		/// <param name="prep"></param>
 		/// <returns></returns>
 		bool IsPrepEnabled(IPrep prep);
+
+		/// <summary></summary>
+		/// <param name="destObj"></param>
+		/// <param name="srcObj"></param>
+		void SetObjCoord(IGameBase destObj, IGameBase srcObj);
 
 		/// <summary></summary>
 		/// <param name="destCommand"></param>

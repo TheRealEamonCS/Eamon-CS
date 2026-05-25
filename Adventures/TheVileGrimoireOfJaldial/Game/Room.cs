@@ -210,7 +210,7 @@ namespace TheVileGrimoireOfJaldial.Game
 			return base.IsDirectionInObviousExitsList(index) && !secretDoorExitDir;
 		}
 
-		public override string GetYouAlsoSee(bool showDesc, IList<IMonster> monsterList, IList<IArtifact> artifactList, IList<IGameBase> recordList)
+		public override string GetYouAlsoSee(bool showDesc, IList<IMonster> monsterList, IList<IArtifact> artifactList, IList<IGameBase> recordList, bool rangeBand = false, bool omitAlso = false)
 		{
 			Debug.Assert(monsterList != null && artifactList != null && recordList != null);
 

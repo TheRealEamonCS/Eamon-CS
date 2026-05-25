@@ -34,8 +34,14 @@ namespace Eamon.Game
 		[FieldName(660)]
 		public virtual long Zone { get; set; }
 
+		[FieldName(670)]
+		public virtual long MaxCoord { get; set; }
+
 		[FieldName(680)]
 		public virtual long[] Dirs { get; set; }
+
+		[FieldName(700)]
+		public virtual long[] DirCoords { get; set; }
 
 		#endregion
 
@@ -64,7 +70,7 @@ namespace Eamon.Game
 
 		#region Interface IGameBase
 
-		public override RetCode BuildPrintedFullDesc(StringBuilder buf, bool showName, bool showVerboseName)
+		public override RetCode BuildPrintedFullDesc(StringBuilder buf, bool showName, bool showVerboseName, bool showRange = false, bool showRangeBand = false)
 		{
 			RetCode rc;
 
@@ -132,6 +138,29 @@ namespace Eamon.Game
 		public virtual void SetDir(Direction dir, long value)
 		{
 			SetDir((long)dir, value);
+		}
+
+		public virtual long GetDirCoord(long index)
+		{
+			return DirCoords != null ? DirCoords[index] : 0;
+		}
+
+		public virtual long GetDirCoord(Direction dir)
+		{
+			return GetDirCoord((long)dir);
+		}
+
+		public virtual void SetDirCoord(long index, long value)
+		{
+			if (DirCoords != null)
+			{
+				DirCoords[index] = value;
+			}
+		}
+
+		public virtual void SetDirCoord(Direction dir, long value)
+		{
+			SetDirCoord((long)dir, value);
 		}
 
 		public virtual bool IsLit()
@@ -247,6 +276,27 @@ namespace Eamon.Game
 			return GetDirectionDoor((long)dir);
 		}
 
+		public virtual Direction GetDoorDirection(IArtifact artifact)
+		{
+			Debug.Assert(artifact != null);
+
+			var result = (Direction)(-1);
+
+			var directionValues = EnumUtil.GetValues<Direction>();
+
+			foreach (var dv in directionValues)
+			{
+				if (GetDirectionDoorUid(dv) == artifact.Uid)
+				{
+					result = dv;
+
+					break;
+				}
+			}
+
+			return result;
+		}
+
 		public virtual void SetDirectionExit(long index)
 		{
 			SetDir(index, gEngine.DirectionExit);
@@ -279,13 +329,14 @@ namespace Eamon.Game
 			SetDirectionDoor((long)dir, artifact);
 		}
 
-		public virtual string GetYouAlsoSee(bool showDesc, IList<IMonster> monsterList, IList<IArtifact> artifactList, IList<IGameBase> recordList)
+		public virtual string GetYouAlsoSee(bool showDesc, IList<IMonster> monsterList, IList<IArtifact> artifactList, IList<IGameBase> recordList, bool rangeBand = false, bool omitAlso = false)
 		{
 			Debug.Assert(monsterList != null && artifactList != null && recordList != null);
 
-			return string.Format("{0}You {1}{2}",
-					!showDesc ? Environment.NewLine : "",
-					showDesc ? "also " : "",
+			return string.Format("{0}{1} {2}{3}",
+					!showDesc && !rangeBand ? Environment.NewLine : "",
+					!rangeBand ? "You" : "you",
+					(showDesc && !rangeBand) || (!omitAlso && rangeBand) ? "also " : "",
 					showDesc && !monsterList.Any() ? "notice " : "see ");
 		}
 
@@ -517,6 +568,10 @@ namespace Eamon.Game
 
 			showDesc = false;
 
+			var gameState = gEngine.GetGameState();
+
+			var charMonster = gameState != null && gMDB != null ? gMDB[gameState.Cm] : null;
+
 			if (monsterFindFunc == null)
 			{
 				monsterFindFunc = IsMonsterListedInRoom;
@@ -566,8 +621,6 @@ namespace Eamon.Game
 
 			if (recordList.Any())
 			{
-				buf.AppendFormat(GetYouAlsoSee(showDesc, monsterList, artifactList, recordList));
-
 				if (recordNameListArgs == null)
 				{
 					recordNameListArgs = gEngine.CreateInstance<IRecordNameListArgs>(x =>
@@ -581,19 +634,69 @@ namespace Eamon.Game
 						x.ShowContents = true;
 
 						x.GroupCountOne = false;
+
+						x.ShowRange = charMonster != null && gameState.EnhancedCombat && gameState.ShowRanges;
 					});
 				}
 
-				rc = gEngine.GetRecordNameList(recordList, recordNameListArgs, buf);
-
-				if (gEngine.IsFailure(rc))
+				if (charMonster != null && gameState.EnhancedCombat && gameState.ShowRangeBands)
 				{
-					// PrintError
+					var sortedRangeBandList = gEngine.BuildSortedRangeBandList(recordList, charMonster);
 
-					goto Cleanup;
+					var rangeBandRecordList = new List<IGameBase>();
+
+					var rangeBandCount = 0;
+
+					if (!showDesc)
+					{
+						buf.Append(Environment.NewLine);
+					}
+
+					var orderedRangeBands = sortedRangeBandList.Select(x => x.rangeBand).Distinct().ToList();
+
+					foreach (var rangeBand in orderedRangeBands)
+					{
+						buf.AppendFormat("{0}{1}, ", rangeBandCount > 0 ? "  " : "", gEngine.GetRangeBandString(rangeBand).FirstCharToUpper());
+
+						rangeBandRecordList.Clear();
+
+						rangeBandRecordList.AddRange(sortedRangeBandList.Where(x => x.rangeBand == rangeBand).Select(x => x.record));
+
+						var rangeBandMonsterList = rangeBandRecordList.OfType<IMonster>().ToList();
+
+						var rangeBandArtifactList = rangeBandRecordList.OfType<IArtifact>().ToList();
+
+						buf.AppendFormat(GetYouAlsoSee(showDesc, rangeBandMonsterList, rangeBandArtifactList, rangeBandRecordList, true, !showDesc || rangeBandCount > 0));
+
+						rc = gEngine.GetRecordNameList(rangeBandRecordList, recordNameListArgs, buf);
+
+						if (gEngine.IsFailure(rc))
+						{
+							// PrintError
+
+							goto Cleanup;
+						}
+
+						buf.Append(".");
+
+						rangeBandCount++;
+					}
 				}
+				else
+				{
+					buf.AppendFormat(GetYouAlsoSee(showDesc, monsterList, artifactList, recordList));
 
-				buf.Append(".");
+					rc = gEngine.GetRecordNameList(recordList, recordNameListArgs, buf);
+
+					if (gEngine.IsFailure(rc))
+					{
+						// PrintError
+
+						goto Cleanup;
+					}
+
+					buf.Append(".");
+				}
 			}
 			else if (!showDesc)
 			{
@@ -619,18 +722,50 @@ namespace Eamon.Game
 
 			recordList.AddRange(artifactList.Where(a => verboseArtifactDesc || !a.Seen));
 
-			foreach (var r in recordList)
+			if (recordList.Any() && charMonster != null && gameState.EnhancedCombat && gameState.ShowRangeBands)
 			{
-				rc = r.BuildPrintedFullDesc(buf, true, verboseNames);
+				var sortedRangeBandList = gEngine.BuildSortedRangeBandList(recordList, charMonster);
 
-				if (gEngine.IsFailure(rc))
+				var rangeBandRecordList = new List<IGameBase>();
+
+				var orderedRangeBands = sortedRangeBandList.Select(x => x.rangeBand).Distinct().ToList();
+
+				foreach (var rangeBand in orderedRangeBands)
 				{
-					// PrintError
+					rangeBandRecordList.Clear();
 
-					goto Cleanup;
+					rangeBandRecordList.AddRange(sortedRangeBandList.Where(x => x.rangeBand == rangeBand).Select(x => x.record));
+
+					foreach (var r in rangeBandRecordList)
+					{
+						rc = r.BuildPrintedFullDesc(buf, true, verboseNames, gameState.ShowRanges, gameState.ShowRangeBands);
+
+						if (gEngine.IsFailure(rc))
+						{
+							// PrintError
+
+							goto Cleanup;
+						}
+
+						r.Seen = true;
+					}
 				}
+			}
+			else
+			{
+				foreach (var r in recordList)
+				{
+					rc = r.BuildPrintedFullDesc(buf, true, verboseNames, charMonster != null && gameState.EnhancedCombat && gameState.ShowRanges);
 
-				r.Seen = true;
+					if (gEngine.IsFailure(rc))
+					{
+						// PrintError
+
+						goto Cleanup;
+					}
+
+					r.Seen = true;
+				}
 			}
 
 		Cleanup:
@@ -667,6 +802,8 @@ namespace Eamon.Game
 		public Room()
 		{
 			Dirs = new long[(long)EnumUtil.GetLastValue<Direction>() + 1];
+
+			DirCoords = new long[(long)EnumUtil.GetLastValue<Direction>() + 1];
 		}
 
 		#endregion

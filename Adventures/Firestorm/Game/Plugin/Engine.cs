@@ -10,8 +10,11 @@ using System.Reflection;
 using System.Text;
 using Eamon;
 using Eamon.Framework;
+using Eamon.Framework.Args;
+using Eamon.Framework.Primitive.Classes;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Extensions;
+using Eamon.Game.Utilities;
 using static Firestorm.Game.Plugin.Globals;
 
 namespace Firestorm.Game.Plugin
@@ -44,6 +47,115 @@ namespace Firestorm.Game.Plugin
 			}
 
 			rc = LoadPluginClassMappings01(Assembly.GetExecutingAssembly());
+
+		Cleanup:
+
+			return rc;
+		}
+
+		public override RetCode StatDisplay(IStatDisplayArgs args)
+		{
+			StringBuilder buf01, buf02;
+			RetCode rc;
+			long i, j;
+
+			IWeapon weapon;
+
+			if (args == null || args.Character == null || args.Monster == null || args.ArmorString == null || args.SpellAbilities == null)
+			{
+				rc = RetCode.InvalidArg;
+
+				// PrintError
+
+				goto Cleanup;
+			}
+
+			rc = RetCode.Success;
+
+			var origPunctSpaceCode = Out.PunctSpaceCode;
+
+			Out.PunctSpaceCode = PunctSpaceCode.None;
+
+			buf01 = new StringBuilder(BufSize);
+
+			buf02 = new StringBuilder(BufSize);
+
+			var omitSkillStats = IsRulesetVersion(5, 62) && GetGameState() != null;
+
+			Out.Print("{0,-36}Gender: {1,-9}Damage Taken: {2}/{3}",
+				args.Monster.Name.ToUpper(),
+				args.Character.EvalGender("Male", "Female", "Neutral"),
+				args.Monster.DmgTaken,
+				args.Monster.Hardiness);
+
+			var ibp = GetIntellectBonusPct(args.Character.GetStat(Stat.Intellect));
+
+			buf01.AppendFormat("{0}{1}{2}%)",
+				"(Learning: ",
+				ibp > 0 ? "+" : "",
+				ibp);
+
+			buf02.AppendFormat("{0}{1}",
+				args.Speed > 0 ? args.Monster.Agility / 2 : args.Monster.Agility,
+				args.Speed > 0 ? "x2" : "");
+
+			Out.WriteLine("{0}{1}{2,-2}{3,20}{4,15}{5}{0}{6}{7,-3}{8,34}{9,-2}{10,15}{11}{12}%)",
+				Environment.NewLine,
+				"Intellect:  ", args.Character.GetStat(Stat.Intellect),
+				buf01.ToString(),
+				"Agility :  ", buf02.ToString(),
+				"Hardiness:  ", args.Monster.Hardiness,
+				"Charisma:  ", args.Character.GetStat(Stat.Charisma),
+				"(Charm Mon: ",
+				args.CharmMon > 0 ? "+" : "",
+				args.CharmMon);
+
+			if (!omitSkillStats)
+			{
+				Out.Write("{0}{1}",
+					Environment.NewLine,
+					"Weapon Abilities:");
+
+				var weaponValues = EnumUtil.GetValues<Weapon>();
+
+				i = (long)weaponValues[0];
+
+				j = (long)weaponValues[weaponValues.Count - 1];
+
+				while (i <= j)
+				{
+					Out.WriteLine();
+
+					weapon = GetWeapon((Weapon)i);
+
+					Debug.Assert(weapon != null);
+
+					Out.Write(" {0,-5}: {1,3}%",
+						weapon.Name,
+						args.Character.GetWeaponAbility(i));
+
+					i++;
+				}
+			}
+
+			Out.WriteLine("{0}{0}{1}{2,-30}{3}{4,-6}",
+				Environment.NewLine,
+				"Gold: ",
+				args.Character.HeldGold,
+				"In bank: ",
+				args.Character.BankGold);
+
+			Out.Print("Armor:  {0}{1}",
+				args.ArmorString.PadTRight(28, ' '),
+				!omitSkillStats ? string.Format(" Armor Expertise:  {0}%", args.Character.ArmorExpertise) : "");
+
+			var wcg = GetWeightCarryableGronds(args.Monster.Hardiness);
+
+			Out.Print("Weight carried: {0}/{1} Gronds (One Grond = Ten DOS)",
+				args.Weight,
+				wcg);
+
+			Out.PunctSpaceCode = origPunctSpaceCode;
 
 		Cleanup:
 

@@ -28,6 +28,9 @@ namespace EamonRT.Game.Components
 
 		public virtual IList<Spell> SpellValueList { get; set; }
 
+		/// <summary></summary>
+		public virtual RangeResult SpellRangeResult { get; set; }
+
 		public virtual bool CastSpell { get; set; }
 
 		/// <summary></summary>
@@ -38,6 +41,12 @@ namespace EamonRT.Game.Components
 
 		/// <summary></summary>
 		public virtual long PowerEventRoll { get; set; }
+
+		/// <summary></summary>
+		public virtual long Range { get; set; }
+
+		/// <summary></summary>
+		public virtual long RangeOddsModifier { get; set; }
 
 		/// <summary></summary>
 		public virtual MagicState MagicState { get; set; }
@@ -97,6 +106,37 @@ namespace EamonRT.Game.Components
 
 			Debug.Assert(spell != null);
 
+			RangeOddsModifier = 0;
+
+			if (gGameState.EnhancedCombat && s == Spell.Blast)
+			{
+				Range = gEngine.GetRange(ActorMonster.Coord, DobjArtifact != null ? DobjArtifact.Coord : DobjMonster != null ? DobjMonster.Coord : ActorMonster.Coord);
+
+				SpellRangeResult = Range < spell.MinRange ? RangeResult.TooClose :
+									Range < spell.OptimalMin ? RangeResult.SubOptimalClose :
+									Range > spell.MaxRange ? RangeResult.OutOfRange :
+									Range > spell.OptimalMax ? RangeResult.SubOptimalFar :
+									RangeResult.InRange;
+
+				if (SpellRangeResult == RangeResult.TooClose)
+				{
+					SpellRangeResult = RangeResult.SubOptimalClose;
+				}
+				else if (SpellRangeResult == RangeResult.OutOfRange)
+				{
+					SpellRangeResult = RangeResult.SubOptimalFar;
+				}
+
+				if (SpellRangeResult == RangeResult.SubOptimalClose)
+				{
+					RangeOddsModifier = spell.CloseOddsModifier;
+				}
+				else if (SpellRangeResult == RangeResult.SubOptimalFar)
+				{
+					RangeOddsModifier = spell.FarOddsModifier;
+				}
+			}
+
 			if (gGameState.GetSa(s) > 0 && gCharacter.GetSpellAbility(s) > 0)
 			{
 				rl = gGameState.InteractiveFiction ? 1 : gEngine.RollDice(1, 100, 0);
@@ -109,7 +149,7 @@ namespace EamonRT.Game.Components
 				goto Cleanup;
 			}
 
-			if (rl > 0 && rl < 95 && (rl < 5 || rl <= gGameState.GetSa(s)))
+			if (rl > 0 && rl < 95 && (rl < 5 || rl <= gGameState.GetSa(s) + RangeOddsModifier))
 			{
 				result = true;
 

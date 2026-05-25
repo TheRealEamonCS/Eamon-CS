@@ -13,11 +13,11 @@ namespace TheTempleOfNgurct.Game
 	[ClassMappings]
 	public class Artifact : Eamon.Game.Artifact, IArtifact
 	{
-		public override bool IsReadyableByMonsterUid(long monsterUid)
+		public override bool IsReadyableByMonsterUid(long monsterUid, bool includeAmmoCount = true)
 		{
 			// Only player can wield fireball wand
 
-			return Uid != 63 || monsterUid == gCharMonster.Uid ? base.IsReadyableByMonsterUid(monsterUid) : false;
+			return Uid != 63 || monsterUid == gCharMonster.Uid ? base.IsReadyableByMonsterUid(monsterUid, includeAmmoCount) : false;
 		}
 
 		public override bool IsAttackable(ref IArtifactCategory ac)

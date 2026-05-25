@@ -7,6 +7,7 @@ using System.Diagnostics;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
 using EamonRT.Framework.Commands;
+using EamonRT.Framework.Primitive.Enums;
 using EamonRT.Framework.States;
 using static EamonRT.Game.Plugin.Globals;
 
@@ -26,6 +27,13 @@ namespace EamonRT.Game.Commands
 		{
 			if (Parry >= 0 && Parry <= 100)
 			{
+				ProcessEvents(EventType.BeforeAdjustParry);
+
+				if (GotoCleanup)
+				{
+					goto Cleanup;
+				}
+
 				OldParry = ActorMonster.Parry;
 
 				ActorMonster.Parry = Parry;
@@ -46,13 +54,38 @@ namespace EamonRT.Game.Commands
 				{ 
 					NextState = gEngine.CreateInstance<IStartState>();
 				}
+
+				ProcessEvents(EventType.AfterAdjustParry);
+
+				if (GotoCleanup)
+				{
+					goto Cleanup;
+				}
 			}
 			else
 			{
+				gEngine.ShouldPreTurnProcess = false;
+
+				ProcessEvents(EventType.BeforeCheckParry);
+
+				if (GotoCleanup)
+				{
+					goto Cleanup;
+				}
+
 				PrintCombatStance(DobjMonster != null ? DobjMonster : ActorMonster);
 
 				NextState = gEngine.CreateInstance<IStartState>();
+
+				ProcessEvents(EventType.AfterCheckParry);
+
+				if (GotoCleanup)
+				{
+					goto Cleanup;
+				}
 			}
+
+		Cleanup:
 
 			if (NextState == null)
 			{
@@ -64,6 +97,8 @@ namespace EamonRT.Game.Commands
 		{
 			if (Parry >= 0 && Parry <= 100)
 			{
+				OldParry = ActorMonster.Parry;
+	
 				ActorMonster.Parry = Parry;
 
 				Debug.Assert(gCharMonster != null);
@@ -79,6 +114,16 @@ namespace EamonRT.Game.Commands
 						PrintTakeCombatStance01(ActorMonster);
 					}
 				}
+				
+				if (ActorMonster.ShouldCombatStanceChangedConsumeTurn(OldParry, Parry))
+				{
+					if (ActorMonster.CheckNBTLHostility())
+					{
+						gEngine.PauseCombat();
+					}
+
+					GotoCleanup = true;
+				}
 			}
 
 			if (NextState == null)
@@ -92,7 +137,9 @@ namespace EamonRT.Game.Commands
 
 		public ParryCommand()
 		{
-			SortOrder = 345;
+			SortOrder = 343;
+
+			IsDarkEnabled = true;
 
 			IsPlayerEnabled = false;
 

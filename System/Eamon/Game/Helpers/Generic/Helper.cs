@@ -113,6 +113,8 @@ namespace Eamon.Game.Helpers.Generic
 
 		public virtual bool ExcludeROFields { get; set; }
 
+		public virtual bool ValidateCrossFields { get; set; }
+
 		public virtual bool AddToListedNames { get; set; }
 
 		public virtual long ListNum { get; set; }
@@ -583,6 +585,8 @@ namespace Eamon.Game.Helpers.Generic
 			NumberFields = false;
 
 			ExcludeROFields = false;
+
+			ValidateCrossFields = false;
 
 			ListNum = 1;
 		}

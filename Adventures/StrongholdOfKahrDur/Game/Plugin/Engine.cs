@@ -200,7 +200,7 @@ namespace StrongholdOfKahrDur.Game.Plugin
 			}
 		}
 
-		public override void MoveMonsters(params Func<IMonster, bool>[] whereClauseFuncs)
+		public override void MoveMonsters(IRoom oldRoom = null, IRoom newRoom = null, Direction dir = 0, params Func<IMonster, bool>[] whereClauseFuncs)
 		{
 			// Monsters can't move in/out of pit w/o magical help
 
@@ -213,7 +213,7 @@ namespace StrongholdOfKahrDur.Game.Plugin
 
 			if (!pitMove)
 			{
-				base.MoveMonsters(whereClauseFuncs);
+				base.MoveMonsters(oldRoom, newRoom, dir, whereClauseFuncs);
 			}
 		}
 

@@ -125,6 +125,15 @@ namespace Eamon.Framework
 		/// </summary>
 		bool EnhancedCombat { get; set; }
 
+		/// <summary></summary>
+		bool ShowRangeBands { get; set; }
+
+		/// <summary></summary>
+		bool ShowRanges { get; set; }
+
+		/// <summary></summary>
+		bool ShowAmmoCounts { get; set; }
+
 		/// <summary>
 		/// Gets or sets a value indicating whether the game is using an enhanced parser or traditional
 		/// Eamon parser.

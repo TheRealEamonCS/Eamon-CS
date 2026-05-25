@@ -17,7 +17,7 @@ namespace LandOfTheMountainKing.Game
 	[ClassMappings]
 	public class Artifact : Eamon.Game.Artifact, IArtifact
 	{
-		public override RetCode BuildPrintedFullDesc(StringBuilder buf, bool showName, bool showVerboseName)
+		public override RetCode BuildPrintedFullDesc(StringBuilder buf, bool showName, bool showVerboseName, bool showRange = false, bool showRangeBand = false)
 		{
 			RetCode rc;
 
@@ -49,7 +49,7 @@ namespace LandOfTheMountainKing.Game
 			}
 			else
 			{
-				rc = base.BuildPrintedFullDesc(buf, showName, showVerboseName);
+				rc = base.BuildPrintedFullDesc(buf, showName, showVerboseName, showRange, showRangeBand);
 			}
 
 			return rc;

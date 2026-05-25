@@ -5,6 +5,7 @@
 
 using System.Diagnostics;
 using Eamon;
+using Eamon.Framework;
 using Eamon.Framework.Primitive.Classes;
 using Eamon.Framework.Primitive.Enums;
 using Eamon.Game.Attributes;
@@ -44,10 +45,16 @@ namespace EamonRT.Game.Commands
 		/// <summary></summary>
 		public virtual ICombatComponent CombatComponent { get; set; }
 
+		/// <summary></summary>
+		public virtual IArtifact WeaponArtifact { get; set; }
+
+		/// <summary></summary>
+		public virtual long Range { get; set; }
+
 		public override void ExecuteForPlayer()
 		{
 			RetCode rc;
-
+			
 			Debug.Assert(DobjArtifact != null || DobjMonster != null);
 
 			if (!BlastSpell && ActorMonster.Weapon < 0)
@@ -59,10 +66,34 @@ namespace EamonRT.Game.Commands
 				goto Cleanup;
 			}
 
+			WeaponArtifact = ActorMonster.Weapon > 0 ? gADB[ActorMonster.Weapon] : null;
+
 			if (DobjMonster != null)
 			{
 				if (!BlastSpell)
 				{
+					if (gGameState.EnhancedCombat && WeaponArtifact != null && WeaponArtifact.GeneralWeapon != null)
+					{
+						Range = gEngine.GetRange(ActorMonster.Coord, DobjMonster.Coord);
+
+						if (Range < WeaponArtifact.GeneralWeapon.Field11)
+						{
+							PrintTooClose(DobjMonster);
+
+							NextState = gEngine.CreateInstance<IStartState>();
+
+							goto Cleanup;
+						}
+						else if (Range > WeaponArtifact.GeneralWeapon.Field14)
+						{
+							PrintTooFarAway(DobjMonster);
+
+							NextState = gEngine.CreateInstance<IStartState>();
+
+							goto Cleanup;
+						}
+					}
+
 					ProcessEvents(EventType.BeforeAttackMonster);
 
 					if (GotoCleanup)
@@ -143,6 +174,28 @@ namespace EamonRT.Game.Commands
 
 			if (!BlastSpell)
 			{
+				if (gEngine.EnforceRangeUsage && WeaponArtifact != null && WeaponArtifact.GeneralWeapon != null)
+				{
+					Range = gEngine.GetRange(ActorMonster.Coord, DobjArtifact.Coord);
+
+					if (Range < WeaponArtifact.GeneralWeapon.Field11)
+					{
+						PrintTooClose(DobjArtifact);
+
+						NextState = gEngine.CreateInstance<IStartState>();
+
+						goto Cleanup;
+					}
+					else if (Range > WeaponArtifact.GeneralWeapon.Field14)
+					{
+						PrintTooFarAway(DobjArtifact);
+
+						NextState = gEngine.CreateInstance<IStartState>();
+
+						goto Cleanup;
+					}
+				}
+
 				ProcessEvents(EventType.BeforeAttackArtifact);
 
 				if (GotoCleanup)

@@ -282,5 +282,29 @@ namespace EamonRT.Framework.Primitive.Enums
 		/// An event that fires before printing the "Dead Menu" when the player character dies.
 		/// </summary>
 		BeforePlayerDeadPrintDeadMenu,
+
+		/// <summary></summary>
+		BeforeApproach,
+
+		/// <summary></summary>
+		AfterApproach,
+
+		/// <summary></summary>
+		BeforeRetreat,
+
+		/// <summary></summary>
+		AfterRetreat,
+
+		/// <summary></summary>
+		BeforeAdjustParry,
+
+		/// <summary></summary>
+		AfterAdjustParry,
+
+		/// <summary></summary>
+		BeforeCheckParry,
+
+		/// <summary></summary>
+		AfterCheckParry,
 	}
 }

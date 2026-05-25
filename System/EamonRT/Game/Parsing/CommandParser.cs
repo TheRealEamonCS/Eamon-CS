@@ -261,7 +261,7 @@ namespace EamonRT.Game.Parsing
 				r => r is IMonster m && m.IsInRoom(ActorRoom) && m != ActorMonster,
 				r => r is IArtifact a && a.IsInRoom(ActorRoom),
 				r => r is IArtifact a && a.IsEmbeddedInRoom(ActorRoom),
-				r => r is IArtifact a && a.IsCarriedByContainerContainerTypeExposedToRoom(ActorRoom, gEngine.ExposeContainersRecursively)
+				r => r is IArtifact a && a.IsCarriedByContainerContainerTypeExposedToRoom(ActorRoom, gEngine.ExposeContainersRecursively) && ActorMonster.CanReach(a)
 			};
 		}
 
@@ -272,7 +272,7 @@ namespace EamonRT.Game.Parsing
 				r => r is IMonster m && m.IsInRoom(ActorRoom) && m != ActorMonster,
 				r => r is IArtifact a && a.IsInRoom(ActorRoom),
 				r => r is IArtifact a && a.IsEmbeddedInRoom(ActorRoom),
-				r => r is IArtifact a && a.IsCarriedByContainerContainerTypeExposedToRoom(ActorRoom, gEngine.ExposeContainersRecursively)
+				r => r is IArtifact a && a.IsCarriedByContainerContainerTypeExposedToRoom(ActorRoom, gEngine.ExposeContainersRecursively) && ActorMonster.CanReach(a)
 			};
 		}
 
@@ -282,7 +282,7 @@ namespace EamonRT.Game.Parsing
 			{
 				r => r is IArtifact a && (a.IsCarriedByMonster(ActorMonster) || a.IsInRoom(ActorRoom)),
 				r => r is IArtifact a && a.IsEmbeddedInRoom(ActorRoom),
-				r => r is IArtifact a && (a.IsCarriedByContainerContainerTypeExposedToMonster(ActorMonster, gEngine.ExposeContainersRecursively) || a.IsCarriedByContainerContainerTypeExposedToRoom(ActorRoom, gEngine.ExposeContainersRecursively)),
+				r => r is IArtifact a && (a.IsCarriedByContainerContainerTypeExposedToMonster(ActorMonster, gEngine.ExposeContainersRecursively) || a.IsCarriedByContainerContainerTypeExposedToRoom(ActorRoom, gEngine.ExposeContainersRecursively)) && ActorMonster.CanReach(a),
 				r => r is IMonster m && m.IsInRoom(ActorRoom) && m != ActorMonster
 			};
 		}
@@ -293,7 +293,7 @@ namespace EamonRT.Game.Parsing
 			{
 				r => r is IArtifact a && (a.IsCarriedByMonster(ActorMonster) || a.IsInRoom(ActorRoom)),
 				r => r is IArtifact a && a.IsEmbeddedInRoom(ActorRoom),
-				r => r is IArtifact a && (a.IsCarriedByContainerContainerTypeExposedToMonster(ActorMonster, gEngine.ExposeContainersRecursively) || a.IsCarriedByContainerContainerTypeExposedToRoom(ActorRoom, gEngine.ExposeContainersRecursively)),
+				r => r is IArtifact a && (a.IsCarriedByContainerContainerTypeExposedToMonster(ActorMonster, gEngine.ExposeContainersRecursively) || a.IsCarriedByContainerContainerTypeExposedToRoom(ActorRoom, gEngine.ExposeContainersRecursively)) && ActorMonster.CanReach(a),
 				r => r is IArtifact a && a.IsWornByMonster(ActorMonster)
 			};
 		}
@@ -323,7 +323,7 @@ namespace EamonRT.Game.Parsing
 			{
 				r => (r is IArtifact a && (a.IsCarriedByMonster(ActorMonster) || a.IsInRoom(ActorRoom))) || (r is IMonster m && m.IsInRoom(ActorRoom) && m != ActorMonster),
 				r => r is IArtifact a && a.IsEmbeddedInRoom(ActorRoom),
-				r => r is IArtifact a && (a.IsCarriedByContainerContainerTypeExposedToMonster(ActorMonster, gEngine.ExposeContainersRecursively) || a.IsCarriedByContainerContainerTypeExposedToRoom(ActorRoom, gEngine.ExposeContainersRecursively)),
+				r => r is IArtifact a && (a.IsCarriedByContainerContainerTypeExposedToMonster(ActorMonster, gEngine.ExposeContainersRecursively) || a.IsCarriedByContainerContainerTypeExposedToRoom(ActorRoom, gEngine.ExposeContainersRecursively)) && ActorMonster.CanReach(a),
 				r => r is IArtifact a && a.IsWornByMonster(ActorMonster)
 			};
 		}
@@ -334,7 +334,7 @@ namespace EamonRT.Game.Parsing
 			{
 				r => r is IArtifact a && a.IsInRoom(ActorRoom),
 				r => r is IArtifact a && a.IsEmbeddedInRoom(ActorRoom),
-				r => r is IArtifact a && (a.IsCarriedByContainerContainerTypeExposedToMonster(ActorMonster, gEngine.ExposeContainersRecursively) || a.IsCarriedByContainerContainerTypeExposedToRoom(ActorRoom, gEngine.ExposeContainersRecursively))
+				r => r is IArtifact a && (a.IsCarriedByContainerContainerTypeExposedToMonster(ActorMonster, gEngine.ExposeContainersRecursively) || a.IsCarriedByContainerContainerTypeExposedToRoom(ActorRoom, gEngine.ExposeContainersRecursively)) && ActorMonster.CanReach(a)
 			};
 		}
 
@@ -360,7 +360,7 @@ namespace EamonRT.Game.Parsing
 			{
 				r => (r is IArtifact a && (a.IsCarriedByMonster(ActorMonster) || a.IsInRoom(ActorRoom))) || (r is IMonster m && m.IsInRoom(ActorRoom) && m != ActorMonster),
 				r => r is IArtifact a && a.IsEmbeddedInRoom(ActorRoom),
-				r => r is IArtifact a && (a.IsCarriedByContainerContainerTypeExposedToMonster(ActorMonster, gEngine.ExposeContainersRecursively) || a.IsCarriedByContainerContainerTypeExposedToRoom(ActorRoom, gEngine.ExposeContainersRecursively))
+				r => r is IArtifact a && (a.IsCarriedByContainerContainerTypeExposedToMonster(ActorMonster, gEngine.ExposeContainersRecursively) || a.IsCarriedByContainerContainerTypeExposedToRoom(ActorRoom, gEngine.ExposeContainersRecursively)) && ActorMonster.CanReach(a)
 			};
 		}
 
@@ -370,7 +370,7 @@ namespace EamonRT.Game.Parsing
 			{
 				r => r is IArtifact a && (a.IsCarriedByMonster(ActorMonster) || a.IsInRoom(ActorRoom)),
 				r => r is IArtifact a && a.IsEmbeddedInRoom(ActorRoom),
-				r => r is IArtifact a && (a.IsCarriedByContainerContainerTypeExposedToMonster(ActorMonster, gEngine.ExposeContainersRecursively) || a.IsCarriedByContainerContainerTypeExposedToRoom(ActorRoom, gEngine.ExposeContainersRecursively)),
+				r => r is IArtifact a && (a.IsCarriedByContainerContainerTypeExposedToMonster(ActorMonster, gEngine.ExposeContainersRecursively) || a.IsCarriedByContainerContainerTypeExposedToRoom(ActorRoom, gEngine.ExposeContainersRecursively)) && ActorMonster.CanReach(a),
 				r => r is IArtifact a && a.IsWornByMonster(ActorMonster)
 			};
 		}
@@ -391,13 +391,39 @@ namespace EamonRT.Game.Parsing
 			};
 		}
 
+		public virtual IList<Func<IGameBase, bool>> GetRecordWhereClauseListRangeCommand()
+		{
+			return new List<Func<IGameBase, bool>>()
+			{
+				r => r is IMonster m && m.IsInRoom(ActorRoom) && m != ActorMonster,
+				r => r is IArtifact a && a.IsInRoom(ActorRoom),
+				r => r is IArtifact a && a.IsEmbeddedInRoom(ActorRoom),
+				/*
+				r => r is IArtifact a && a.IsCarriedByContainerContainerTypeExposedToRoom(ActorRoom, gEngine.ExposeContainersRecursively) && ActorMonster.CanReach(a)
+				*/
+			};
+		}
+
 		public virtual IList<Func<IGameBase, bool>> GetRecordWhereClauseListInventoryCommand()
 		{
 			return new List<Func<IGameBase, bool>>()
 			{
 				r => (r is IArtifact a && (a.IsCarriedByMonster(ActorMonster) || a.IsInRoom(ActorRoom))) || (r is IMonster m && m.IsInRoom(ActorRoom) && m != ActorMonster),
 				r => r is IArtifact a && a.IsEmbeddedInRoom(ActorRoom),
-				r => r is IArtifact a && (a.IsCarriedByContainerContainerTypeExposedToMonster(ActorMonster, gEngine.ExposeContainersRecursively) || a.IsCarriedByContainerContainerTypeExposedToRoom(ActorRoom, gEngine.ExposeContainersRecursively))
+				r => r is IArtifact a && (a.IsCarriedByContainerContainerTypeExposedToMonster(ActorMonster, gEngine.ExposeContainersRecursively) || a.IsCarriedByContainerContainerTypeExposedToRoom(ActorRoom, gEngine.ExposeContainersRecursively)) && ActorMonster.CanReach(a)
+			};
+		}
+
+		public virtual IList<Func<IGameBase, bool>> GetRecordWhereClauseListApproachCommand()
+		{
+			return new List<Func<IGameBase, bool>>()
+			{
+				r => r is IMonster m && m.IsInRoom(ActorRoom) && m != ActorMonster,
+				r => r is IArtifact a && a.IsInRoom(ActorRoom),
+				r => r is IArtifact a && a.IsEmbeddedInRoom(ActorRoom),
+				/*
+				r => r is IArtifact a && a.IsCarriedByContainerContainerTypeExposedToRoom(ActorRoom, gEngine.ExposeContainersRecursively) && ActorMonster.CanReach(a)
+				*/
 			};
 		}
 
@@ -407,7 +433,7 @@ namespace EamonRT.Game.Parsing
 			{
 				r => r is IArtifact a && a.IsInRoom(ActorRoom),
 				r => r is IArtifact a && a.IsEmbeddedInRoom(ActorRoom),
-				r => r is IArtifact a && a.IsCarriedByContainerContainerTypeExposedToRoom(ActorRoom, gEngine.ExposeContainersRecursively)
+				r => r is IArtifact a && a.IsCarriedByContainerContainerTypeExposedToRoom(ActorRoom, gEngine.ExposeContainersRecursively) && ActorMonster.CanReach(a)
 			};
 		}
 
@@ -417,7 +443,20 @@ namespace EamonRT.Game.Parsing
 			{
 				r => r is IArtifact a && a.IsInRoom(ActorRoom),
 				r => r is IArtifact a && a.IsEmbeddedInRoom(ActorRoom),
-				r => r is IArtifact a && a.IsCarriedByContainerContainerTypeExposedToRoom(ActorRoom, gEngine.ExposeContainersRecursively)
+				r => r is IArtifact a && a.IsCarriedByContainerContainerTypeExposedToRoom(ActorRoom, gEngine.ExposeContainersRecursively) && ActorMonster.CanReach(a)
+			};
+		}
+
+		public virtual IList<Func<IGameBase, bool>> GetRecordWhereClauseListRetreatCommand()
+		{
+			return new List<Func<IGameBase, bool>>()
+			{
+				r => r is IMonster m && m.IsInRoom(ActorRoom) && m != ActorMonster,
+				r => r is IArtifact a && a.IsInRoom(ActorRoom),
+				r => r is IArtifact a && a.IsEmbeddedInRoom(ActorRoom),
+				/*
+				r => r is IArtifact a && a.IsCarriedByContainerContainerTypeExposedToRoom(ActorRoom, gEngine.ExposeContainersRecursively) && ActorMonster.CanReach(a)
+				*/
 			};
 		}
 
@@ -428,7 +467,7 @@ namespace EamonRT.Game.Parsing
 				r => r is IMonster m && m.IsInRoom(ActorRoom) && m != ActorMonster,
 				r => r is IArtifact a && (a.IsCarriedByMonster(ActorMonster) || a.IsInRoom(ActorRoom)),
 				r => r is IArtifact a && a.IsEmbeddedInRoom(ActorRoom),
-				r => r is IArtifact a && (a.IsCarriedByContainerContainerTypeExposedToMonster(ActorMonster, gEngine.ExposeContainersRecursively) || a.IsCarriedByContainerContainerTypeExposedToRoom(ActorRoom, gEngine.ExposeContainersRecursively))
+				r => r is IArtifact a && (a.IsCarriedByContainerContainerTypeExposedToMonster(ActorMonster, gEngine.ExposeContainersRecursively) || a.IsCarriedByContainerContainerTypeExposedToRoom(ActorRoom, gEngine.ExposeContainersRecursively)) && ActorMonster.CanReach(a)
 			};
 		}
 
@@ -446,7 +485,7 @@ namespace EamonRT.Game.Parsing
 			{
 				r => r is IArtifact a && (a.IsCarriedByMonster(ActorMonster) || a.IsInRoom(ActorRoom)),
 				r => r is IArtifact a && a.IsEmbeddedInRoom(ActorRoom),
-				r => r is IArtifact a && (a.IsCarriedByContainerContainerTypeExposedToMonster(ActorMonster, gEngine.ExposeContainersRecursively) || a.IsCarriedByContainerContainerTypeExposedToRoom(ActorRoom, gEngine.ExposeContainersRecursively))
+				r => r is IArtifact a && (a.IsCarriedByContainerContainerTypeExposedToMonster(ActorMonster, gEngine.ExposeContainersRecursively) || a.IsCarriedByContainerContainerTypeExposedToRoom(ActorRoom, gEngine.ExposeContainersRecursively)) && ActorMonster.CanReach(a)
 			};
 		}
 
@@ -732,30 +771,41 @@ namespace EamonRT.Game.Parsing
 
 					var ac = gEngine.EvalContainerType(NextCommand.ContainerType, IobjArtifact.InContainer, IobjArtifact.OnContainer, IobjArtifact.UnderContainer, IobjArtifact.BehindContainer);
 
-					if (ac != null)
+					if (ActorMonster.CanReach(IobjArtifact))
 					{
-						if (ac != IobjArtifact.InContainer || ac.IsOpen() || IobjArtifact.ShouldExposeInContentsWhenClosed())
+						NextCommand.SetObjCoord(ActorMonster, IobjArtifact);
+
+						if (ac != null)
 						{
-							ObjData = DobjData;
+							if (ac != IobjArtifact.InContainer || ac.IsOpen() || IobjArtifact.ShouldExposeInContentsWhenClosed())
+							{
+								ObjData = DobjData;
 
-							ObjData.RecordWhereClauseList = GetRecordWhereClauseListRemoveCommand01();
+								ObjData.RecordWhereClauseList = GetRecordWhereClauseListRemoveCommand01();
 
-							ObjData.RecordMatchFunc = RecordMatch;
+								ObjData.RecordMatchFunc = RecordMatch;
 
-							ObjData.RecordNotFoundFunc = NextCommand.PrintDontFollowYou;
+								ObjData.RecordNotFoundFunc = NextCommand.PrintDontFollowYou;
 
-							ResolveRecord(false);
+								ResolveRecord(false);
+							}
+							else
+							{
+								NextCommand.PrintMustFirstOpen(IobjArtifact);
+
+								NextState = gEngine.CreateInstance<IStartState>();
+							}
 						}
 						else
 						{
-							NextCommand.PrintMustFirstOpen(IobjArtifact);
+							NextCommand.PrintDontFollowYou();
 
 							NextState = gEngine.CreateInstance<IStartState>();
 						}
 					}
 					else
 					{
-						NextCommand.PrintDontFollowYou();
+						NextCommand.PrintTooFarAway(IobjArtifact);
 
 						NextState = gEngine.CreateInstance<IStartState>();
 					}
@@ -940,6 +990,18 @@ namespace EamonRT.Game.Parsing
 			}
 		}
 
+		public virtual void FinishParsingRangeCommand()
+		{
+			gEngine.ShouldPreTurnProcess = false;
+
+			if (CurrToken < Tokens.Length)
+			{
+				ObjData.RecordWhereClauseList = GetRecordWhereClauseListRangeCommand();
+
+				ResolveRecord();
+			}
+		}
+
 		public virtual void FinishParsingInventoryCommand()
 		{
 			if (CurrToken < Tokens.Length)
@@ -1000,9 +1062,13 @@ namespace EamonRT.Game.Parsing
 
 					CurrToken++;
 				}
-				else
+				else if (ActorRoom.IsViewable())
 				{
 					ResolveRecord(true, false);
+				}
+				else
+				{
+					NextState = gEngine.CreateInstance<IStartState>();
 				}
 			}
 		}
@@ -1278,6 +1344,24 @@ namespace EamonRT.Game.Parsing
 
 					CurrToken += 2;
 				}
+				else if (gGameState.EnhancedCombat && Tokens[CurrToken].Equals("showrangebands", StringComparison.OrdinalIgnoreCase) && bool.TryParse(Tokens[CurrToken + 1], out boolValue))
+				{
+					settingsCommand.ShowRangeBands = boolValue;
+
+					CurrToken += 2;
+				}
+				else if (gGameState.EnhancedCombat && Tokens[CurrToken].Equals("showranges", StringComparison.OrdinalIgnoreCase) && bool.TryParse(Tokens[CurrToken + 1], out boolValue))
+				{
+					settingsCommand.ShowRanges = boolValue;
+
+					CurrToken += 2;
+				}
+				else if (gGameState.EnhancedCombat && Tokens[CurrToken].Equals("showammocounts", StringComparison.OrdinalIgnoreCase) && bool.TryParse(Tokens[CurrToken + 1], out boolValue))
+				{
+					settingsCommand.ShowAmmoCounts = boolValue;
+
+					CurrToken += 2;
+				}
 				else if (Tokens[CurrToken].Equals("enhancedparser", StringComparison.OrdinalIgnoreCase) && bool.TryParse(Tokens[CurrToken + 1], out boolValue))
 				{
 					settingsCommand.EnhancedParser = boolValue;
@@ -1329,6 +1413,31 @@ namespace EamonRT.Game.Parsing
 			}
 		}
 
+		public virtual void FinishParsingApproachCommand()
+		{
+			long longValue = 0;
+
+			var approachCommand = NextCommand as IApproachCommand;
+
+			Debug.Assert(approachCommand != null);
+
+			if (CurrToken < Tokens.Length)
+			{
+				if (long.TryParse(Tokens[Tokens.Length - 1], out longValue) && longValue >= 0)
+				{
+					approachCommand.Range = longValue;
+
+					Tokens = Tokens.Take(Tokens.Length - 1).ToArray();
+
+					OrigInputStr = string.Join(" ", Tokens);
+				}
+			}
+
+			ObjData.RecordWhereClauseList = GetRecordWhereClauseListApproachCommand();
+
+			ResolveRecord();
+		}
+
 		public virtual void FinishParsingFleeCommand()
 		{
 			if (CurrToken < Tokens.Length)
@@ -1365,6 +1474,31 @@ namespace EamonRT.Game.Parsing
 			ObjData.RecordNotFoundFunc = NextCommand.PrintNothingHereByThatName;
 
 			ResolveRecord(false);
+		}
+
+		public virtual void FinishParsingRetreatCommand()
+		{
+			long longValue = 0;
+
+			var retreatCommand = NextCommand as IRetreatCommand;
+
+			Debug.Assert(retreatCommand != null);
+
+			if (CurrToken < Tokens.Length)
+			{
+				if (long.TryParse(Tokens[Tokens.Length - 1], out longValue) && longValue >= 0)
+				{
+					retreatCommand.Range = longValue;
+
+					Tokens = Tokens.Take(Tokens.Length - 1).ToArray();
+
+					OrigInputStr = string.Join(" ", Tokens);
+				}
+			}
+
+			ObjData.RecordWhereClauseList = GetRecordWhereClauseListRetreatCommand();
+
+			ResolveRecord();
 		}
 
 		// Note: could be dual-moded based on call to ActorMonster.IsCharacterMonster
@@ -1940,9 +2074,9 @@ namespace EamonRT.Game.Parsing
 					{
 						Tokens[CurrToken] = "???";
 					}
-					else if (Tokens[CurrToken].Equals("at", StringComparison.OrdinalIgnoreCase))
+					else if (Tokens[CurrToken].Equals("a", StringComparison.OrdinalIgnoreCase) || Tokens[CurrToken].Equals("at", StringComparison.OrdinalIgnoreCase))
 					{
-						Tokens[CurrToken] = "a";
+						Tokens[CurrToken] = "att";
 					}
 
 					var command = gEngine.GetCommandUsingToken(ActorMonster, Tokens[CurrToken]);
@@ -1962,7 +2096,7 @@ namespace EamonRT.Game.Parsing
 
 						Debug.Assert(NextCommand != null);
 
-						if (NextCommand is IParryCommand)
+						if (NextCommand is IParryCommand || NextCommand is IRangeCommand || NextCommand is IMapCommand || NextCommand is IApproachCommand || NextCommand is IRetreatCommand)
 						{
 							NextCommand.IsPlayerEnabled = gGameState.EnhancedCombat;
 

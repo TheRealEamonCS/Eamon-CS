@@ -30,6 +30,20 @@ namespace EamonRT.Game.Commands
 
 			Debug.Assert(DobjArtifact != null);
 
+			if (!ActorMonster.CanReach(DobjArtifact))
+			{
+				if (ActorMonster.IsInRoomLit())
+				{
+					PrintTooFarAway(DobjArtifact);
+				}
+
+				NextState = gEngine.CreateInstance<IStartState>();
+
+				goto Cleanup;
+			}
+
+			SetObjCoord(ActorMonster, DobjArtifact);
+
 			DobjArtAc = DobjArtifact.LightSource;
 
 			if (DobjArtAc == null)

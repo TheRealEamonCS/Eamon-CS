@@ -42,9 +42,11 @@ namespace Eamon.Game.Helpers
 				gOut.WriteLine("{0}{1}{0}{0}{2}", Environment.NewLine, gEngine.BuildPrompt(27, '.', 0, GetPrintedName("Desc"), null), Record.Desc);
 			}
 
-			if (ErrorFieldName.Equals("IntroStory", StringComparison.OrdinalIgnoreCase))
+			if (!ErrorFieldName.Equals("Desc", StringComparison.OrdinalIgnoreCase))
 			{
-				gOut.Print("{0}{1}", gEngine.BuildPrompt(27, '.', 0, GetPrintedName("IntroStory"), null), Record.IntroStory);
+				gOut.Print("{0}{1}",
+					gEngine.BuildPrompt(27, '.', 0, GetPrintedName(ErrorFieldName), null),
+					Convert.ToInt64(GetValue(ErrorFieldName)));
 			}
 		}
 
@@ -352,7 +354,7 @@ namespace Eamon.Game.Helpers
 		{
 			var fullDesc = "Enter the Effect Uid of the introduction story for the Module." + Environment.NewLine + Environment.NewLine + "You can link multiple Effects together to create an extended story segment.";
 
-			var briefDesc = "(GE 0)=Valid value";
+			var briefDesc = "(GTE 0)=Valid value";
 
 			gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc);
 		}

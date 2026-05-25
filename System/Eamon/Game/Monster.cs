@@ -29,6 +29,8 @@ namespace Eamon.Game
 
 		public long _location;
 
+		public long _coord;
+
 		#endregion
 
 		#region Public Properties
@@ -89,25 +91,79 @@ namespace Eamon.Game
 			}
 		}
 
-		[FieldName(740)]
+		[FieldName(725)]
 		public virtual CombatCode CombatCode { get; set; }
 
-		[FieldName(744)]
-		public virtual ParryCode ParryCode { get; set; }
+		[FieldName(728)]
+		public virtual CoordCode CoordCode { get; set; }
 
-		[FieldName(748)]
-		public virtual long Parry { get; set; }
+		[FieldName(731)]
+		public virtual long Coord
+		{
+			get
+			{
+				var result = _coord;
 
-		[FieldName(754)]
-		public virtual long ParryOdds { get; set; }
+				// TODO: implement
+
+				return result;
+			}
+
+			set
+			{
+				_coord = value;
+			}
+		}
+
+		[FieldName(734)]
+		public virtual FocusCode FocusCode { get; set; }
+
+		[FieldName(737)]
+		public virtual long FocusOdds { get; set; }
+
+		[FieldName(740)]
+		public virtual long FocusTurns { get; set; }
+
+		[FieldName(743)]
+		public virtual TravelCode TravelCode { get; set; }
+
+		[FieldName(746)]
+		public virtual long TravelOdds { get; set; }
+
+		[FieldName(749)]
+		public virtual long TravelTurns { get; set; }
+
+		[FieldName(752)]
+		public virtual long MinTravelRange { get; set; }
+
+		[FieldName(755)]
+		public virtual long MaxTravelRange { get; set; }
 
 		[FieldName(758)]
+		public virtual RearmCode RearmCode { get; set; }
+
+		[FieldName(761)]
+		public virtual long RearmOdds { get; set; }
+
+		[FieldName(764)]
+		public virtual long RearmTurns { get; set; }
+
+		[FieldName(767)]
+		public virtual ParryCode ParryCode { get; set; }
+
+		[FieldName(770)]
+		public virtual long ParryOdds { get; set; }
+
+		[FieldName(773)]
 		public virtual long ParryTurns { get; set; }
 
-		[FieldName(760)]
-		public virtual long Armor { get; set; }
+		[FieldName(776)]
+		public virtual long Parry { get; set; }
 
 		[FieldName(780)]
+		public virtual long Armor { get; set; }
+
+		[FieldName(790)]
 		public virtual long Weapon { get; set; }
 
 		[FieldName(800)]
@@ -116,7 +172,31 @@ namespace Eamon.Game
 		[FieldName(820)]
 		public virtual long NwSides { get; set; }
 
-		[FieldName(840)]
+		[FieldName(823)]
+		public virtual long NwMinRange { get; set; }
+
+		[FieldName(826)]
+		public virtual long NwOptimalMin { get; set; }
+
+		[FieldName(829)]
+		public virtual long NwOptimalMax { get; set; }
+
+		[FieldName(832)]
+		public virtual long NwMaxRange { get; set; }
+
+		[FieldName(835)]
+		public virtual long NwCloseOddsModifier { get; set; }
+
+		[FieldName(838)]
+		public virtual long NwCloseDmgMultiplier { get; set; }
+
+		[FieldName(841)]
+		public virtual long NwFarOddsModifier { get; set; }
+
+		[FieldName(844)]
+		public virtual long NwFarDmgMultiplier { get; set; }
+
+		[FieldName(850)]
 		public virtual long DeadBody { get; set; }
 
 		[FieldName(860)]
@@ -145,6 +225,9 @@ namespace Eamon.Game
 
 		[FieldName(960)]
 		public virtual long DmgTaken { get; set; }
+
+		[FieldName(970)]
+		public virtual long FocusMonsterUid { get; set; }
 
 		[FieldName(980)]
 		public virtual long Field1 { get; set; }
@@ -363,7 +446,7 @@ namespace Eamon.Game
 			return result;
 		}
 
-		public override RetCode BuildPrintedFullDesc(StringBuilder buf, bool showName, bool showVerboseName)
+		public override RetCode BuildPrintedFullDesc(StringBuilder buf, bool showName, bool showVerboseName, bool showRange = false, bool showRangeBand = false)
 		{
 			RetCode rc;
 
@@ -378,18 +461,45 @@ namespace Eamon.Game
 
 			rc = RetCode.Success;
 
+			var gameState = gEngine.GetGameState();
+
+			var charMonster = gameState != null && gMDB != null ? gMDB[gameState.Cm] : null;
+
+			var buf01 = new StringBuilder(gEngine.BufSize);
+
+			var buf02 = new StringBuilder(gEngine.BufSize);
+
 			if (showName || showVerboseName)
 			{
-				buf.AppendFormat("{0}[{1}]",
+				if (charMonster != null && gameState.EnhancedCombat)
+				{
+					var range = gEngine.GetRange(charMonster.Coord, Coord);
+
+					var rangeBand = gEngine.GetRangeBand(range);
+
+					if (showRangeBand)
+					{
+						buf01.SetFormat("{0}, ", gEngine.GetRangeBandString(rangeBand).FirstCharToUpper());
+					}
+
+					if (showRange && range > 0)
+					{
+						buf02.SetFormat(" ({0})", range);
+					}
+				}
+
+				buf.AppendFormat("{0}[{1}{2}{3}]",
 					Environment.NewLine,
+					buf01.ToString(),
 					GetArticleName
 					(
-						true, 
+						buf01.Length == 0,
 						true,
 						showVerboseName && !string.IsNullOrWhiteSpace(StateDesc) && ShouldShowVerboseNameStateDesc(),
 						false,
 						false
-					)
+					),
+					buf02.ToString()
 				);
 			}
 
@@ -588,6 +698,13 @@ namespace Eamon.Game
 			}
 
 			return result;
+		}
+
+		public virtual bool CanReach(IGameBase record)
+		{
+			Debug.Assert(record != null);
+
+			return !gEngine.EnforceRangeUsage || gEngine.GetRange(record is IArtifact a ? a.Coord : record is IMonster m ? m.Coord : 0, Coord) == 0;
 		}
 
 		public virtual long GetCarryingWeaponUid()
@@ -866,6 +983,20 @@ namespace Eamon.Game
 			return result;
 		}
 
+		public virtual bool CheckRangeAdjustment()
+		{
+			var result = false;
+
+			var gameState = gEngine.GetGameState();
+
+			if (gameState != null && gameState.EnhancedCombat && CombatCode != CombatCode.NeverFights)
+			{
+				result = true;
+			}
+
+			return result;
+		}
+
 		public virtual T EvalReaction<T>(T enemyValue, T neutralValue, T friendValue)
 		{
 			return gEngine.EvalFriendliness(Reaction, enemyValue, neutralValue, friendValue);
@@ -1012,6 +1143,11 @@ namespace Eamon.Game
 		public virtual long GetMaxMemberAttackCount()
 		{
 			return 25;
+		}
+
+		public virtual long GetFocusTargetOdds()
+		{
+			return 66;
 		}
 
 		public virtual long GetInitParryResetOdds()
@@ -1272,6 +1408,17 @@ namespace Eamon.Game
 		Cleanup:
 
 			result = result.Clamp(0, 100);
+
+			return result;
+		}
+
+		public virtual long GetTravelRange()
+		{
+			var min = Math.Max(1, MinTravelRange);
+		
+			var max = Math.Max(min, MaxTravelRange);
+			
+			var result = gEngine.RollDice(1, max - min + 1, min - 1);
 
 			return result;
 		}
@@ -1704,6 +1851,20 @@ namespace Eamon.Game
 			return result;
 		}
 
+		public virtual string GetApproachOrReachString(bool approach)
+		{
+			var result = string.Format(approach ? "approach{0}" : "reach{0}", IsCharacterMonster() ? "" : EvalPlural("es", ""));
+
+			return result;
+		}
+
+		public virtual string GetRetreatString()
+		{
+			var result = string.Format("retreat{0} from", IsCharacterMonster() ? "" : EvalPlural("s", ""));
+
+			return result;
+		}
+
 		public virtual string GetParryCombatStanceString()
 		{
 			var combatStanceStrings = new string[] { "frenzied", "offensive", "neutral", "defensive", "fortified" };
@@ -1752,7 +1913,7 @@ namespace Eamon.Game
 
 			var combatStanceString = GetParryCombatStanceString();
 
-			var parryString = IsCharacterMonster() ? string.Format(" (Parry {0}%)", Parry) : "";
+			var parryString = IsCharacterMonster() ? string.Format(" at {0}% parry", Parry) : "";
 
 			result = string.Format("{0} {1} combat stance{2}.",
 				IsCharacterMonster() ? "You have" : GetTheName(true) + EvalPlural(" has", " have"),
@@ -1779,11 +1940,17 @@ namespace Eamon.Game
 
 			if (gEngine != null && gEngine.EnableEnhancedCombat)
 			{
-				Parry = 50;
+				FocusTurns = 1;
+
+				TravelTurns = 1;
+
+				RearmTurns = 1;
 
 				ParryOdds = 30;
 
 				ParryTurns = 1;
+
+				Parry = 50;
 			}
 
 			InitParry = -1;

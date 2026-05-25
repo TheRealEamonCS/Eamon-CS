@@ -71,19 +71,100 @@ namespace Eamon.Framework
 		/// </summary>
 		CombatCode CombatCode { get; set; }
 
+		/// <summary></summary>
+		CoordCode CoordCode { get; set; }
+
+		/// <summary></summary>
+		long Coord { get; set; }
+
+		/// <summary>
+		/// Gets or sets a value controlling how this <see cref="IMonster">Monster</see>
+		/// selects its range combat positioning target.
+		/// </summary>
+		FocusCode FocusCode { get; set; }
+
+		/// <summary>
+		/// Gets or sets the percentage odds that this <see cref="IMonster">Monster</see>
+		/// will reset its range combat target when an focus check fires.
+		/// </summary>
+		long FocusOdds { get; set; }
+
+		/// <summary>
+		/// Gets or sets the number of turns between focus checks for this
+		/// <see cref="IMonster">Monster</see>'s range combat target selection.
+		/// Set to 0 to disable the mechanic entirely.
+		/// </summary>
+		long FocusTurns { get; set; }
+
+		/// <summary>
+		/// Gets or sets a value controlling how this <see cref="IMonster">Monster</see>
+		/// moves relative to its focus target each turn. Enhanced Combat games only.
+		/// </summary>
+		TravelCode TravelCode { get; set; }
+
+		/// <summary>
+		/// Gets or sets the probability (0–100) that this <see cref="IMonster">Monster</see>
+		/// will attempt to reposition when its travel evaluation fires.
+		/// A value of 100 means the monster always repositions when it should.
+		/// Enhanced Combat games only.
+		/// </summary>
+		long TravelOdds { get; set; }
+
+		/// <summary>
+		/// Gets or sets the number of turns between travel evaluations for this
+		/// <see cref="IMonster">Monster</see>. 1 = evaluate every turn. Enhanced Combat games only.
+		/// </summary>
+		long TravelTurns { get; set; }
+
+		/// <summary>
+		/// Gets or sets the minimum distance in varns this <see cref="IMonster">Monster</see> 
+		/// travels when repositioning. Enhanced Combat games only.
+		/// </summary>
+		long MinTravelRange { get; set; }
+
+		/// <summary>
+		/// Gets or sets the maximum distance in varns this <see cref="IMonster">Monster</see>
+		/// travels when repositioning. Enhanced Combat games only.
+		/// </summary>
+		/// <remarks>
+		/// Each turn the actual travel distance is rolled randomly between MinTravelRange and
+		/// MaxTravelRange. Setting both to the same value produces deterministic movement.
+		/// Setting both to 0 disables range repositioning movement entirely for this monster.
+		/// </remarks>
+		long MaxTravelRange { get; set; }
+
+		/// <summary>
+		/// Gets or sets a value controlling how this <see cref="IMonster">Monster</see>
+		/// selects a new weapon when its rearm evaluation fires. Enhanced Combat games only.
+		/// </summary>
+		RearmCode RearmCode { get; set; }
+
+		/// <summary>
+		/// Gets or sets the probability (0–100) that this <see cref="IMonster">Monster</see>
+		/// will switch weapons when its rearm evaluation fires and a better weapon is found.
+		/// Enhanced Combat games only.
+		/// </summary>
+		long RearmOdds { get; set; }
+
+		/// <summary>
+		/// Gets or sets the number of turns between rearm evaluations for this
+		/// <see cref="IMonster">Monster</see>. 1 = evaluate every turn. Enhanced Combat games only.
+		/// </summary>
+		long RearmTurns { get; set; }
+
 		/// <summary>
 		/// Gets or sets a value indicating this <see cref="IMonster">Monster</see>'s parrying behavior in combat.
 		/// </summary>
 		ParryCode ParryCode { get; set; }
 
 		/// <summary></summary>
-		long Parry { get; set; }
-
-		/// <summary></summary>
 		long ParryOdds { get; set; }
 
 		/// <summary></summary>
 		long ParryTurns { get; set; }
+
+		/// <summary></summary>
+		long Parry { get; set; }
 
 		/// <summary></summary>
 		long Armor { get; set; }
@@ -111,6 +192,66 @@ namespace Eamon.Framework
 		/// In the XdY nomenclature used by roleplaying games, this is Y.
 		/// </remarks>
 		long NwSides { get; set; }
+
+		/// <summary>
+		/// Gets or sets the minimum range for the <see cref="IMonster">Monster</see>'s natural weapon attack. Attacks are blocked below
+		/// this distance.
+		/// </summary>
+		long NwMinRange { get; set; }
+
+		/// <summary>
+		/// Gets or sets the optimal minimum range for the <see cref="IMonster">Monster</see>'s natural weapon attack. Attacks between
+		/// NwMinRange and this value incur a close-range penalty.
+		/// </summary>
+		long NwOptimalMin { get; set; }
+
+		/// <summary>
+		/// Gets or sets the optimal maximum range for the <see cref="IMonster">Monster</see>'s natural weapon attack. Attacks between
+		/// this value and NwMaxRange incur a far-range penalty.
+		/// </summary>
+		long NwOptimalMax { get; set; }
+
+		/// <summary>
+		/// Gets or sets the maximum range for the <see cref="IMonster">Monster</see>'s natural weapon attack. Attacks are blocked beyond
+		/// this distance.
+		/// </summary>
+		long NwMaxRange { get; set; }
+
+		/// <summary>
+		/// Gets or sets the odds modifier applied to the <see cref="IMonster">Monster</see>'s natural weapon attack when the target is at
+		/// suboptimal close range.
+		/// </summary>
+		/// <remarks>
+		/// Expressed as a signed integer added directly to the hit odds. Negative values reduce the chance to hit.
+		/// </remarks>
+		long NwCloseOddsModifier { get; set; }
+
+		/// <summary>
+		/// Gets or sets the damage multiplier applied to the <see cref="IMonster">Monster</see>'s natural weapon attack when the target is
+		/// at suboptimal close range.
+		/// </summary>
+		/// <remarks>
+		/// Expressed as an integer percentage; divide by 100 to obtain the actual multiplier. A value of 100 means no damage penalty.
+		/// </remarks>
+		long NwCloseDmgMultiplier { get; set; }
+
+		/// <summary>
+		/// Gets or sets the odds modifier applied to the <see cref="IMonster">Monster</see>'s natural weapon attack when the target is at
+		/// suboptimal far range.
+		/// </summary>
+		/// <remarks>
+		/// Expressed as a signed integer added directly to the hit odds. Negative values reduce the chance to hit.
+		/// </remarks>
+		long NwFarOddsModifier { get; set; }
+
+		/// <summary>
+		/// Gets or sets the damage multiplier applied to the <see cref="IMonster">Monster</see>'s natural weapon attack when the target is
+		/// at suboptimal far range.
+		/// </summary>
+		/// <remarks>
+		/// Expressed as an integer percentage; divide by 100 to obtain the actual multiplier. A value of 75 means 25% reduced damage.
+		/// </remarks>
+		long NwFarDmgMultiplier { get; set; }
 
 		/// <summary>
 		/// Gets or sets the <see cref="IArtifact">Artifact</see><see cref="IGameBase.Uid"> Uid</see> for this <see cref="IMonster">Monster</see>'s
@@ -157,6 +298,12 @@ namespace Eamon.Framework
 		/// Gets or sets the number of hit points of damage taken by this <see cref="IMonster">Monster</see>, either in combat or otherwise.
 		/// </summary>
 		long DmgTaken { get; set; }
+
+		/// <summary>
+		/// Gets or sets the Uid of the target <see cref="IMonster">Monster</see> this Monster is currently focused on in ranged operations.
+		/// Will be 0 when no target is selected.
+		/// </summary>
+		long FocusMonsterUid { get; set; }
 
 		/// <summary>
 		/// Gets or sets a value that is unused by Eamon CS, but provided for game developer usage.
@@ -278,6 +425,11 @@ namespace Eamon.Framework
 		bool CanCarryArtifactWeight(IArtifact artifact);
 
 		/// <summary></summary>
+		/// <param name="record"></param>
+		/// <returns></returns>
+		bool CanReach(IGameBase record);
+
+		/// <summary></summary>
 		/// <returns></returns>
 		long GetCarryingWeaponUid();
 
@@ -393,6 +545,10 @@ namespace Eamon.Framework
 		/// <returns></returns>
 		bool CheckParryAdjustment();
 
+		/// <summary></summary>
+		/// <returns></returns>
+		bool CheckRangeAdjustment();
+
 		/// <summary>
 		/// Evaluates this <see cref="IMonster">Monster</see>'s <see cref="Reaction">Reaction</see>, returning a value of type T.
 		/// </summary>
@@ -475,6 +631,10 @@ namespace Eamon.Framework
 
 		/// <summary></summary>
 		/// <returns></returns>
+		long GetFocusTargetOdds();
+
+		/// <summary></summary>
+		/// <returns></returns>
 		long GetInitParryResetOdds();
 
 		/// <summary></summary>
@@ -509,6 +669,10 @@ namespace Eamon.Framework
 		/// <summary></summary>
 		/// <returns></returns>
 		long GetParryAdjustment();
+
+		/// <summary></summary>
+		/// <returns></returns>
+		long GetTravelRange();
 
 		/// <summary></summary>
 		/// <param name="spell"></param>
@@ -626,6 +790,15 @@ namespace Eamon.Framework
 		/// <param name="enterDirection"></param>
 		/// <returns></returns>
 		string GetEnterRoomDescString(IRoom room, string monsterName, bool isPlural, bool fleeing, Direction enterDirection);
+
+		/// <summary></summary>
+		/// <param name="approach"></param>
+		/// <returns></returns>
+		string GetApproachOrReachString(bool approach);
+
+		/// <summary></summary>
+		/// <returns></returns>
+		string GetRetreatString();
 
 		/// <summary></summary>
 		/// <returns></returns>

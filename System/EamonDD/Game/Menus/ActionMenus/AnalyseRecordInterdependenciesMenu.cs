@@ -51,13 +51,23 @@ namespace EamonDD.Game.Menus.ActionMenus
 
 			gOut.Print("{0}", gEngine.LineSep);
 
-			gOut.Write("{0}S=Skip field; T=Edit this record; R={1} referred to record; X=Exit: ",
-				Environment.NewLine,
-				ValidateHelper.NewRecordUid > 0 ? "Add" : "Edit");
+			if (!ValidateHelper.ValidateCrossFields)
+			{
+				gOut.Write("{0}S=Skip field; T=Edit this record; R={1} referred to record; X=Exit: ",
+					Environment.NewLine,
+					ValidateHelper.NewRecordUid > 0 ? "Add" : "Edit");
+			}
+			else
+			{
+				gOut.Write("{0}S=Skip field; T=Edit this record; X=Exit: ",
+					Environment.NewLine);
+			}
 
 			ValidateHelper.Buf.Clear();
 
-			var rc = gEngine.In.ReadField(ValidateHelper.Buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, gEngine.IsCharSOrTOrROrX, gEngine.IsCharSOrTOrROrX);
+			var validCharFunc = !ValidateHelper.ValidateCrossFields ? (Func<char, bool>)gEngine.IsCharSOrTOrROrX : gEngine.IsCharSOrTOrX;
+
+			var rc = gEngine.In.ReadField(ValidateHelper.Buf, gEngine.BufSize02, null, ' ', '\0', false, null, gEngine.ModifyCharToUpper, validCharFunc, validCharFunc);
 
 			Debug.Assert(gEngine.IsSuccess(rc));
 

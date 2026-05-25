@@ -39,7 +39,7 @@ namespace TheBeginnersCave.Game.Commands
 
 				if (mimicMonster.IsInRoom(ActorRoom))
 				{
-					gOut.Print("You are held fast by the mimic and cannot flee!");
+					gEngine.PrintHeldFast(true);
 
 					NextState = gEngine.CreateInstance<IMonsterStartState>();
 

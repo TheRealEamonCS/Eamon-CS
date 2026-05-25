@@ -515,9 +515,9 @@ namespace TheVileGrimoireOfJaldial.Game.Plugin
 			// Do nothing
 		}
 
-		public override void MoveMonsters(params Func<IMonster, bool>[] whereClauseFuncs)
+		public override void MoveMonsters(IRoom oldRoom = null, IRoom newRoom = null, Direction dir = 0, params Func<IMonster, bool>[] whereClauseFuncs)
 		{
-			base.MoveMonsters(m => !m.IsCharacterMonster() && (m.Cast<Framework.IMonster>().Seen02 || m.Reaction == Friendliness.Friend) && m.Location == GameState.R3);
+			base.MoveMonsters(oldRoom, newRoom, dir, m => !m.IsCharacterMonster() && (m.Cast<Framework.IMonster>().Seen02 || m.Reaction == Friendliness.Friend) && m.Location == GameState.R3);
 		}
 
 		public Engine()

@@ -42,6 +42,17 @@ namespace EamonRT.Game.Commands
 
 			if (GoldAmount > 0)
 			{
+				if (!ActorMonster.CanReach(IobjMonster))
+				{
+					PrintTooFarAway(IobjMonster);
+
+					NextState = gEngine.CreateInstance<IStartState>();
+
+					goto Cleanup;
+				}
+
+				SetObjCoord(ActorMonster, IobjMonster);
+
 				PrintGiveGoldPiecesTo(IobjMonster, GoldAmount);
 
 				PrintAreYouSure();
@@ -139,6 +150,17 @@ namespace EamonRT.Game.Commands
 
 				goto Cleanup;
 			}
+
+			if (!ActorMonster.CanReach(IobjMonster))
+			{
+				PrintTooFarAway(IobjMonster);
+
+				NextState = gEngine.CreateInstance<IStartState>();
+
+				goto Cleanup;
+			}
+
+			SetObjCoord(ActorMonster, IobjMonster);
 
 			if (IobjMonster.ShouldRefuseToAcceptGift(DobjArtifact))
 			{

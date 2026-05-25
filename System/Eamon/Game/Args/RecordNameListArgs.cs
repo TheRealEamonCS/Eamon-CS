@@ -22,6 +22,8 @@ namespace Eamon.Game.Args
 
 		public virtual bool GroupCountOne { get; set; }
 
+		public virtual bool ShowRange { get; set; }
+
 		public RecordNameListArgs()
 		{
 

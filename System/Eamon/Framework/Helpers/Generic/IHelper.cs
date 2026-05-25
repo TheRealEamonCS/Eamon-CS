@@ -83,6 +83,9 @@ namespace Eamon.Framework.Helpers.Generic
 		bool ExcludeROFields { get; set; }
 
 		/// <summary></summary>
+		bool ValidateCrossFields { get; set; }
+
+		/// <summary></summary>
 		bool AddToListedNames { get; set; }
 
 		/// <summary></summary>

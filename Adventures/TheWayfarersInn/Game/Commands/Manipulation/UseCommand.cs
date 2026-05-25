@@ -588,7 +588,7 @@ namespace TheWayfarersInn.Game.Commands
 										{
 											var improvementDescs = new string[] { "", "dubious", "fair", "good", "excellent", "amazing" };
 
-										gOut.Print("You get to work on {0}, given your newfound knowledge. The improvements to the weapon{1} are {2}.", forgedArtifact.GetTheName(), forgedArtifact.EvalPlural("", "s"), improvementDescs[rl]);
+											gOut.Print("You get to work on {0}, given your newfound knowledge. The improvements to the weapon{1} are {2}.", forgedArtifact.GetTheName(), forgedArtifact.EvalPlural("", "s"), improvementDescs[rl]);
 
 											forgedArtifact.GeneralWeapon.Field1 = Math.Min(forgedArtifact.GeneralWeapon.Field1 + rl, 30);
 										}
@@ -596,7 +596,7 @@ namespace TheWayfarersInn.Game.Commands
 										{
 											var damageDescs = new string[] { "", "light", "limited", "bad", "severe", "catastrophic" };
 
-										gOut.Print("You get to work on {0} despite your complete lack of knowledge. The damage to the weapon{1} is {2}.", forgedArtifact.GetTheName(), forgedArtifact.EvalPlural("", "s"), damageDescs[rl]);
+											gOut.Print("You get to work on {0} despite your complete lack of knowledge. The damage to the weapon{1} is {2}.", forgedArtifact.GetTheName(), forgedArtifact.EvalPlural("", "s"), damageDescs[rl]);
 
 											forgedArtifact.GeneralWeapon.Field1 = Math.Max(forgedArtifact.GeneralWeapon.Field1 - rl, -30);
 										}

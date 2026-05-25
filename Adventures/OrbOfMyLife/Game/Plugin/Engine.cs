@@ -430,7 +430,7 @@ namespace OrbOfMyLife.Game.Plugin
 			}
 		}
 
-		public override void MoveMonsters(params Func<IMonster, bool>[] whereClauseFuncs)
+		public override void MoveMonsters(IRoom oldRoom = null, IRoom newRoom = null, Direction dir = 0, params Func<IMonster, bool>[] whereClauseFuncs)
 		{
 			Debug.Assert(gCharRoom != null);
 
@@ -440,6 +440,9 @@ namespace OrbOfMyLife.Game.Plugin
 
 			base.MoveMonsters
 			(
+				oldRoom,
+				newRoom,
+				dir,
 				whereClauseFuncs != null && whereClauseFuncs.Length > 0 ?
 				whereClauseFuncs :
 				new Func<IMonster, bool>[] { m => !m.IsCharacterMonster() && (m.Seen || gGameState.IC) && (m.Reaction == Friendliness.Friend || !gGameState.IV || partyCount > 0) && m.Location == GameState.R3 }

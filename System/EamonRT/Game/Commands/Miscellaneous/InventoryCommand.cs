@@ -72,6 +72,17 @@ namespace EamonRT.Game.Commands
 
 			if (DobjArtifact != null)
 			{
+				if (!ActorMonster.CanReach(DobjArtifact))
+				{
+					PrintTooFarAway(DobjArtifact);
+
+					NextState = gEngine.CreateInstance<IStartState>();
+
+					goto Cleanup;
+				}
+
+				SetObjCoord(ActorMonster, DobjArtifact);
+
 				DobjArtAc = DobjArtifact.InContainer;
 
 				if (DobjArtAc == null)
@@ -129,6 +140,17 @@ namespace EamonRT.Game.Commands
 
 				goto Cleanup;
 			}
+
+			if (!ActorMonster.CanReach(DobjMonster))
+			{
+				PrintTooFarAway(DobjMonster);
+
+				NextState = gEngine.CreateInstance<IStartState>();
+
+				goto Cleanup;
+			}
+
+			SetObjCoord(ActorMonster, DobjMonster);
 
 			IsCharMonster = DobjMonster.IsCharacterMonster();
 

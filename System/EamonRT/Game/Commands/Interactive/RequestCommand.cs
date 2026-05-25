@@ -22,6 +22,17 @@ namespace EamonRT.Game.Commands
 
 			Debug.Assert(DobjArtifact != null && IobjMonster != null);
 
+			if (!ActorMonster.CanReach(IobjMonster))
+			{
+				PrintTooFarAway(IobjMonster);
+
+				NextState = gEngine.CreateInstance<IStartState>();
+
+				goto Cleanup;
+			}
+
+			SetObjCoord(ActorMonster, IobjMonster);
+
 			if (IobjMonster.Reaction < Friendliness.Friend)
 			{
 				gEngine.PrintMonsterEmotes(IobjMonster);

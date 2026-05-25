@@ -10,7 +10,19 @@ namespace Eamon.Framework.Primitive.Enums
 	//	2. MonsterHelper.cs - InputParryTurns method, parryCodeTurns array
 	//	3. Engine.cs - Engine constructor, ParryCodeDescs array
 
-	/// <summary></summary>
+	/// <summary>
+	/// Defines the strategy used to adjust a Monster's parry setting during Enhanced Combat.
+	/// </summary>
+	/// <remarks>
+	/// Controls how a Monster's Parry value changes over the course of combat. The adjustment is
+	/// evaluated periodically based on the Monster's ParryTurns and ParryOdds properties. More
+	/// sophisticated codes such as <see cref="MirrorPlayer"/> and <see cref="CounterPlayer"/> allow
+	/// Monsters to respond dynamically to the player's own parry decisions, while codes such as
+	/// <see cref="OffenseToDefense"/> and <see cref="RangeDependent"/> tie behavior to combat
+	/// conditions. <see cref="NeverVaries"/> disables adjustment entirely, locking the Monster
+	/// into its initial Parry setting. User-defined codes (<see cref="User1"/>, <see cref="User2"/>,
+	/// <see cref="User3"/>) are reserved for adventure-specific behavior.
+	/// </remarks>
 	public enum ParryCode : long
 	{
 		/// <summary>

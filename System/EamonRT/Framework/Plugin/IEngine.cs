@@ -104,6 +104,9 @@ namespace EamonRT.Framework.Plugin
 		IMonster LoopLastDobjMonster { get; set; }
 
 		/// <summary></summary>
+		IArtifact LoopRearmArtifact { get; set; }
+
+		/// <summary></summary>
 		IIntroStory IntroStory { get; set; }
 
 		/// <summary></summary>
@@ -288,12 +291,36 @@ namespace EamonRT.Framework.Plugin
 		void PrintWhamHitObj(IArtifact artifact);
 
 		/// <summary></summary>
+		/// <param name="room"></param>
+		/// <param name="record"></param>
+		/// <param name="target"></param>
+		/// <param name="targetRange"></param>
+		void PrintObjApproaches(IRoom room, IGameBase record, IGameBase target, long targetRange);
+
+		/// <summary></summary>
+		/// <param name="room"></param>
+		/// <param name="record"></param>
+		/// <param name="target"></param>
+		/// <param name="targetRange"></param>
+		void PrintObjRetreats(IRoom room, IGameBase record, IGameBase target, long targetRange);
+
+		/// <summary></summary>
 		/// <param name="artifact"></param>
 		void PrintMonsterAlive(IArtifact artifact);
 
 		/// <summary></summary>
 		/// <param name="artifact"></param>
 		void PrintLightOut(IArtifact artifact);
+
+		/// <summary></summary>
+		/// <param name="artifact"></param>
+		/// <param name="objAmmoType"></param>
+		/// <param name="objAmmoCount"></param>
+		void PrintObjAmmoLeft(IArtifact artifact, AmmoType objAmmoType, long objAmmoCount);
+
+		/// <summary></summary>
+		/// <param name="weapon"></param>
+		void PrintOutOfAmmo(IArtifact weapon);
 
 		/// <summary></summary>
 		/// <param name="artifact"></param>
@@ -329,7 +356,9 @@ namespace EamonRT.Framework.Plugin
 		/// <param name="artifact"></param>
 		/// <param name="showName"></param>
 		/// <param name="showVerboseName"></param>
-		void PrintFullDesc(IArtifact artifact, bool showName, bool showVerboseName);
+		/// <param name="showRange"></param>
+		/// <param name="showRangeBand"></param>
+		void PrintFullDesc(IArtifact artifact, bool showName, bool showVerboseName, bool showRange = false, bool showRangeBand = false);
 
 		/// <summary></summary>
 		/// <param name="monster"></param>
@@ -379,7 +408,9 @@ namespace EamonRT.Framework.Plugin
 		/// <param name="monster"></param>
 		/// <param name="showName"></param>
 		/// <param name="showVerboseName"></param>
-		void PrintFullDesc(IMonster monster, bool showName, bool showVerboseName);
+		/// <param name="showRange"></param>
+		/// <param name="showRangeBand"></param>
+		void PrintFullDesc(IMonster monster, bool showName, bool showVerboseName, bool showRange = false, bool showRangeBand = false);
 
 		/// <summary></summary>
 		/// <param name="monster"></param>
@@ -688,6 +719,12 @@ namespace EamonRT.Framework.Plugin
 		ICommand GetCommandUsingToken(IMonster monster, string token, bool synonymMatch = true, bool partialMatch = true);
 
 		/// <summary></summary>
+		/// <param name="artifact"></param>
+		/// <param name="range"></param>
+		/// <returns></returns>
+		RangeResult CheckWeaponRange(IArtifact artifact, long range);
+
+		/// <summary></summary>
 		/// <param name="room"></param>
 		/// <param name="artifact"></param>
 		/// <param name="found"></param>
@@ -884,14 +921,15 @@ namespace EamonRT.Framework.Plugin
 		/// <param name="ac"></param>
 		/// <param name="af"></param>
 		/// <param name="oddsToHit"></param>
-		void GetOddsToHit(IMonster actorMonster, IMonster dobjMonster, IArtifactCategory ac, long af, ref long oddsToHit);
+		/// <param name="clamp"></param>
+		void GetOddsToHit(IMonster actorMonster, IMonster dobjMonster, IArtifactCategory ac, long af, ref long oddsToHit, bool clamp = true);
 
 		/// <summary></summary>
 		/// <param name="printLineSep"></param>
 		void CreateInitialState(bool printLineSep);
 
 		/// <summary></summary>
-		void MoveMonsters(params Func<IMonster, bool>[] whereClauseFuncs);
+		void MoveMonsters(IRoom oldRoom = null, IRoom newRoom = null, Direction dir = 0, params Func<IMonster, bool>[] whereClauseFuncs);
 
 		/// <summary></summary>
 		/// <param name="secondPass"></param>

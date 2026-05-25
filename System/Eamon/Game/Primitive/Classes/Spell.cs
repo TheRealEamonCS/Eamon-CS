@@ -20,5 +20,21 @@ namespace Eamon.Game.Primitive.Classes
 		public virtual long MinValue { get; set; }
 
 		public virtual long MaxValue { get; set; }
+
+		public virtual long MinRange { get; set; }
+
+		public virtual long OptimalMin { get; set; }
+
+		public virtual long OptimalMax { get; set; }
+
+		public virtual long MaxRange { get; set; }
+		
+		public virtual long CloseOddsModifier { get; set; }
+
+		public virtual long CloseDmgMultiplier { get; set; }
+
+		public virtual long FarOddsModifier { get; set; }
+
+		public virtual long FarDmgMultiplier { get; set; }
 	}
 }

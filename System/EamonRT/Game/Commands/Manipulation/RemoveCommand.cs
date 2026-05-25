@@ -53,6 +53,17 @@ namespace EamonRT.Game.Commands
 
 			if (IobjArtifact != null)
 			{
+				if (!ActorMonster.CanReach(IobjArtifact))
+				{
+					PrintTooFarAway(IobjArtifact);
+
+					NextState = gEngine.CreateInstance<IStartState>();
+
+					goto Cleanup;
+				}
+
+				SetObjCoord(ActorMonster, IobjArtifact);
+
 				if (!GetCommandCalled)
 				{
 					RedirectToGetCommand<IRemoveCommand>(DobjArtifact, false);
@@ -149,6 +160,8 @@ namespace EamonRT.Game.Commands
 
 				if (!gEngine.EnforceMonsterWeightLimits || OmitWeightCheck || ActorMonster.CanCarryArtifactWeight(DobjArtifact))
 				{
+					SetObjCoord(ActorMonster, IobjArtifact);
+
 					DobjArtifact.SetCarriedByMonster(ActorMonster);
 
 					Debug.Assert(gCharMonster != null);

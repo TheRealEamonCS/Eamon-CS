@@ -30,6 +30,15 @@ namespace EamonRT.Framework.Commands
 		bool? EnhancedCombat { get; set; }
 
 		/// <summary></summary>
+		bool? ShowRangeBands { get; set; }
+
+		/// <summary></summary>
+		bool? ShowRanges { get; set; }
+
+		/// <summary></summary>
+		bool? ShowAmmoCounts { get; set; }
+
+		/// <summary></summary>
 		bool? EnhancedParser { get; set; }
 
 		/// <summary></summary>

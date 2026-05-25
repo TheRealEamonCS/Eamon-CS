@@ -55,13 +55,27 @@ namespace EamonRT.Game.Commands
 		{
 			Debug.Assert(Direction == 0 || Enum.IsDefined(typeof(Direction), Direction));
 
-			if (DobjArtifact != null && DobjArtifact.DoorGate == null)
+			if (DobjArtifact != null)
 			{
-				PrintDontFollowYou();
+				if (!ActorMonster.CanReach(DobjArtifact) && !Enum.IsDefined(typeof(Direction), ActorRoom.GetDoorDirection(DobjArtifact)))
+				{
+					PrintTooFarAway(DobjArtifact);
 
-				NextState = gEngine.CreateInstance<IStartState>();
+					NextState = gEngine.CreateInstance<IStartState>();
 
-				goto Cleanup;
+					goto Cleanup;
+				}
+
+				SetObjCoord(ActorMonster, DobjArtifact);
+
+				if (DobjArtifact.DoorGate == null)
+				{
+					PrintDontFollowYou();
+
+					NextState = gEngine.CreateInstance<IStartState>();
+
+					goto Cleanup;
+				}
 			}
 
 			if (!ActorMonster.CheckNBTLHostility())
@@ -156,7 +170,7 @@ namespace EamonRT.Game.Commands
 
 		public FleeCommand()
 		{
-			Synonyms = new string[] { "retreat", "escape" };
+			Synonyms = new string[] { "escape" };
 
 			SortOrder = 100;
 

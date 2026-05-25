@@ -47,21 +47,11 @@ namespace Eamon.Game.Helpers
 				gOut.WriteLine("{0}{1}{0}{0}{2}", Environment.NewLine, gEngine.BuildPrompt(27, '.', 0, GetPrintedName("Desc"), null), Record.Desc);
 			}
 
-			if (ErrorFieldName.Equals("PluralType", StringComparison.OrdinalIgnoreCase))
+			if (!ErrorFieldName.Equals("Desc", StringComparison.OrdinalIgnoreCase))
 			{
-				gOut.Print("{0}{1}", gEngine.BuildPrompt(27, '.', 0, GetPrintedName("PluralType"), null), (long)Record.PluralType);
-			}
-			else if (ErrorFieldName.Equals("Location", StringComparison.OrdinalIgnoreCase))
-			{
-				gOut.Print("{0}{1}", gEngine.BuildPrompt(27, '.', 0, GetPrintedName("Location"), null), Record.Location);
-			}
-			else if (ErrorFieldName.Equals("Weapon", StringComparison.OrdinalIgnoreCase))
-			{
-				gOut.Print("{0}{1}", gEngine.BuildPrompt(27, '.', 0, GetPrintedName("Weapon"), null), Record.Weapon);
-			}
-			else if (ErrorFieldName.Equals("DeadBody", StringComparison.OrdinalIgnoreCase))
-			{
-				gOut.Print("{0}{1}", gEngine.BuildPrompt(27, '.', 0, GetPrintedName("DeadBody"), null), Record.DeadBody);
+				gOut.Print("{0}{1}",
+					gEngine.BuildPrompt(27, '.', 0, GetPrintedName(ErrorFieldName), null),
+					Convert.ToInt64(GetValue(ErrorFieldName)));
 			}
 		}
 
@@ -111,6 +101,97 @@ namespace Eamon.Game.Helpers
 
 		/// <summary></summary>
 		/// <returns></returns>
+		public virtual string GetPrintedNameCoordCode()
+		{
+			return "Coordinate Code";
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual string GetPrintedNameCoord()
+		{
+			return "Coordinate";
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual string GetPrintedNameFocusCode()
+		{
+			return "Focus Code";
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual string GetPrintedNameFocusOdds()
+		{
+			return "Focus Odds";
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual string GetPrintedNameFocusTurns()
+		{
+			return "Focus Turns";
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual string GetPrintedNameTravelCode()
+		{
+			return "Travel Code";
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual string GetPrintedNameTravelOdds()
+		{
+			return "Travel Odds";
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual string GetPrintedNameTravelTurns()
+		{
+			return "Travel Turns";
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual string GetPrintedNameMinTravelRange()
+		{
+			return "Min Travel Range";
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual string GetPrintedNameMaxTravelRange()
+		{
+			return "Max Travel Range";
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual string GetPrintedNameRearmCode()
+		{
+			return "Rearm Code";
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual string GetPrintedNameRearmOdds()
+		{
+			return "Rearm Odds";
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual string GetPrintedNameRearmTurns()
+		{
+			return "Rearm Turns";
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
 		public virtual string GetPrintedNameParryCode()
 		{
 			return "Parry Code";
@@ -149,6 +230,62 @@ namespace Eamon.Game.Helpers
 		public virtual string GetPrintedNameNwSides()
 		{
 			return "Natural Wpn Sides";
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual string GetPrintedNameNwMinRange()
+		{
+			return "Nw Min Range";
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual string GetPrintedNameNwOptimalMin()
+		{
+			return "Nw Optimal Min";
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual string GetPrintedNameNwOptimalMax()
+		{
+			return "Nw Optimal Max";
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual string GetPrintedNameNwMaxRange()
+		{
+			return "Nw Max Range";
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual string GetPrintedNameNwCloseOddsModifier()
+		{
+			return "Nw Close Odds Mod";
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual string GetPrintedNameNwCloseDmgMultiplier()
+		{
+			return "Nw Close Dmg Mult";
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual string GetPrintedNameNwFarOddsModifier()
+		{
+			return "Nw Far Odds Mod";
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual string GetPrintedNameNwFarDmgMultiplier()
+		{
+			return "Nw Far Dmg Mult";
 		}
 
 		/// <summary></summary>
@@ -353,16 +490,166 @@ namespace Eamon.Game.Helpers
 
 		/// <summary></summary>
 		/// <returns></returns>
-		public virtual bool ValidateParryCode()
+		public virtual bool ValidateCoordCode()
 		{
-			return gEngine.EnableEnhancedCombat ? Enum.IsDefined(typeof(ParryCode), Record.ParryCode) : Record.ParryCode == ParryCode.NeverVaries;
+			return gEngine.EnableEnhancedCombat ? Enum.IsDefined(typeof(CoordCode), Record.CoordCode) : Record.CoordCode == CoordCode.Specified;
 		}
 
 		/// <summary></summary>
 		/// <returns></returns>
-		public virtual bool ValidateParry()
+		public virtual bool ValidateCoord()
 		{
-			return gEngine.EnableEnhancedCombat ? Record.Parry >= 0 && Record.Parry <= 100 : Record.Parry == 0;
+			return gEngine.EnableEnhancedCombat ? Record.Coord >= 0 : Record.Coord == 0;
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateFocusCode()
+		{
+			if (gEngine.EnableEnhancedCombat)
+			{
+				if (Record.FocusCode == FocusCode.None && Record.FocusOdds == 0 && Record.FocusTurns == 0)      // Auto-upgrade old Monsters
+				{
+					Record.FocusCode = FocusCode.Closest;
+
+					Record.FocusOdds = 30;
+
+					Record.FocusTurns = 5;
+				}
+
+				return Enum.IsDefined(typeof(FocusCode), Record.FocusCode);
+			}
+			else
+			{
+				return Record.FocusCode == FocusCode.None;
+			}
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateFocusOdds()
+		{
+			return gEngine.EnableEnhancedCombat ? Record.FocusOdds >= 0 && Record.FocusOdds <= 100 : Record.FocusOdds == 0;
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateFocusTurns()
+		{
+			return gEngine.EnableEnhancedCombat ? Record.FocusTurns >= 1 : Record.FocusTurns == 0;
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateTravelCode()
+		{
+			if (gEngine.EnableEnhancedCombat)
+			{
+				if (Record.TravelCode == TravelCode.None && Record.TravelOdds == 0 && Record.TravelTurns == 0 && Record.MinTravelRange == 0 && Record.MaxTravelRange == 0)
+				{
+					Record.TravelCode = TravelCode.Maintain;
+
+					Record.TravelOdds = 100;
+
+					Record.TravelTurns = 1;
+
+					Record.MinTravelRange = 3;
+
+					Record.MaxTravelRange = 5;
+				}
+
+				return Enum.IsDefined(typeof(TravelCode), Record.TravelCode);
+			}
+			else
+			{
+				return Record.TravelCode == TravelCode.None;
+			}
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateTravelOdds()
+		{
+			return gEngine.EnableEnhancedCombat ? Record.TravelOdds >= 0 && Record.TravelOdds <= 100 : Record.TravelOdds == 0;
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateTravelTurns()
+		{
+			return gEngine.EnableEnhancedCombat ? Record.TravelTurns >= 1 : Record.TravelTurns == 0;
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateMinTravelRange()
+		{
+			return gEngine.EnableEnhancedCombat ? Record.MinTravelRange >= 0 : Record.MinTravelRange == 0;
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateMaxTravelRange()
+		{
+			return gEngine.EnableEnhancedCombat ? Record.MaxTravelRange >= 0 : Record.MaxTravelRange == 0;
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateRearmCode()
+		{
+			if (gEngine.EnableEnhancedCombat)
+			{
+				if (Record.RearmCode == RearmCode.None && Record.RearmOdds == 0 && Record.RearmTurns == 0)      // Auto-upgrade old Monsters
+				{
+					Record.RearmOdds = 100;
+
+					Record.RearmTurns = 1;
+				}
+
+				return Enum.IsDefined(typeof(RearmCode), Record.RearmCode);
+			}
+			else
+			{
+				return Record.RearmCode == RearmCode.None;
+			}
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateRearmOdds()
+		{
+			return gEngine.EnableEnhancedCombat ? Record.RearmOdds >= 0 && Record.RearmOdds <= 100 : Record.RearmOdds == 0;
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateRearmTurns()
+		{
+			return gEngine.EnableEnhancedCombat ? Record.RearmTurns >= 1 : Record.RearmTurns == 0;
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateParryCode()
+		{
+			if (gEngine.EnableEnhancedCombat)
+			{
+				if (Record.ParryCode == ParryCode.NeverVaries && Record.ParryOdds == 0 && Record.ParryTurns == 0 && Record.Parry == 0)      // Auto-upgrade old Monsters
+				{
+					Record.ParryOdds = 30;
+
+					Record.ParryTurns = 1;
+
+					Record.Parry = 50;
+				}
+
+				return Enum.IsDefined(typeof(ParryCode), Record.ParryCode);
+			}
+			else
+			{
+				return Record.ParryCode == ParryCode.NeverVaries;
+			}
 		}
 
 		/// <summary></summary>
@@ -377,6 +664,13 @@ namespace Eamon.Game.Helpers
 		public virtual bool ValidateParryTurns()
 		{
 			return gEngine.EnableEnhancedCombat ? Record.ParryTurns >= 1 : Record.ParryTurns == 0;
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateParry()
+		{
+			return gEngine.EnableEnhancedCombat ? Record.Parry >= 0 && Record.Parry <= 100 : Record.Parry == 0;
 		}
 
 		/// <summary></summary>
@@ -408,6 +702,84 @@ namespace Eamon.Game.Helpers
 			}
 
 			return Record.NwSides >= 1;
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateNwMinRange()
+		{
+			if (gEngine.EnableEnhancedCombat)
+			{
+				if (Record.NwMinRange == 0 && Record.NwOptimalMin == 0 && Record.NwOptimalMax == 0 && Record.NwMaxRange == 0 && Record.NwCloseOddsModifier == 0 && Record.NwCloseDmgMultiplier == 0 && Record.NwFarOddsModifier == 0 && Record.NwFarDmgMultiplier == 0)      // Auto-upgrade old Monsters
+				{
+					Record.NwOptimalMax = 1;
+
+					Record.NwMaxRange = 1;
+
+					Record.NwCloseOddsModifier = -20;
+
+					Record.NwCloseDmgMultiplier = 100;
+
+					Record.NwFarOddsModifier = -10;
+
+					Record.NwFarDmgMultiplier = 75;
+				}
+
+				return Record.NwMinRange >= 0;
+			}
+			else
+			{
+				return Record.NwMinRange == 0;
+			}
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateNwOptimalMin()
+		{
+			return gEngine.EnableEnhancedCombat ? Record.NwOptimalMin >= 0 : Record.NwOptimalMin == 0;
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateNwOptimalMax()
+		{
+			return gEngine.EnableEnhancedCombat ? Record.NwOptimalMax >= 0 : Record.NwOptimalMax == 0;
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateNwMaxRange()
+		{
+			return gEngine.EnableEnhancedCombat ? Record.NwMaxRange >= 0 : Record.NwMaxRange == 0;
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateNwCloseOddsModifier()
+		{
+			return gEngine.EnableEnhancedCombat ? Record.NwCloseOddsModifier >= gEngine.MinRangeOddsModifier && Record.NwCloseOddsModifier <= gEngine.MaxRangeOddsModifier : Record.NwCloseOddsModifier == 0;
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateNwCloseDmgMultiplier()
+		{
+			return gEngine.EnableEnhancedCombat ? Record.NwCloseDmgMultiplier >= 0 && Record.NwCloseDmgMultiplier <= 100 : Record.NwCloseDmgMultiplier == 0;
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateNwFarOddsModifier()
+		{
+			return gEngine.EnableEnhancedCombat ? Record.NwFarOddsModifier >= gEngine.MinRangeOddsModifier && Record.NwFarOddsModifier <= gEngine.MaxRangeOddsModifier : Record.NwFarOddsModifier == 0;
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateNwFarDmgMultiplier()
+		{
+			return gEngine.EnableEnhancedCombat ? Record.NwFarDmgMultiplier >= 0 && Record.NwFarDmgMultiplier <= 100 : Record.NwFarDmgMultiplier == 0;
 		}
 
 		/// <summary></summary>
@@ -685,6 +1057,66 @@ namespace Eamon.Game.Helpers
 
 		/// <summary></summary>
 		/// <returns></returns>
+		public virtual bool ValidateInterdependenciesCoord()
+		{
+			var result = true;
+
+			if (gEngine.EnableEnhancedCombat)
+			{
+				var roomUid = Record.GetInRoomUid();
+
+				if (roomUid > 0 && Record.CoordCode == CoordCode.Specified)
+				{
+					var room = gRDB[roomUid];
+
+					if (room != null && Record.Coord > room.MaxCoord)
+					{
+						result = false;
+
+						Buf.SetFormat(gEngine.RecIdepErrorFmtStr, GetPrintedName("Coord"), "Room", roomUid, "which should have a maximum coordinate compatible with this Monster, but doesn't");
+
+						ErrorMessage = Buf.ToString();
+
+						RecordType = typeof(IRoom);
+
+						EditRecord = room;
+
+						goto Cleanup;
+					}
+				}
+			}
+
+		Cleanup:
+
+			return result;
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateInterdependenciesMinTravelRange()
+		{
+			var result = true;
+
+			if (gEngine.EnableEnhancedCombat && Record.MinTravelRange > Record.MaxTravelRange)
+			{
+				result = false;
+
+				Buf.SetFormat(gEngine.RecIdepErrorFmtStr02, GetPrintedName("MinTravelRange"), "Monster", Record.Uid, "should be <= the Max Travel Range field, but isn't");
+
+				ErrorMessage = Buf.ToString();
+
+				ValidateCrossFields = true;
+
+				goto Cleanup;
+			}
+
+		Cleanup:
+
+			return result;
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
 		public virtual bool ValidateInterdependenciesWeapon()
 		{
 			var result = true;
@@ -737,6 +1169,78 @@ namespace Eamon.Game.Helpers
 
 					goto Cleanup;
 				}
+			}
+
+		Cleanup:
+
+			return result;
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateInterdependenciesNwMinRange()
+		{
+			var result = true;
+
+			if (gEngine.EnableEnhancedCombat && Record.NwMinRange > Record.NwOptimalMin)
+			{
+				result = false;
+
+				Buf.SetFormat(gEngine.RecIdepErrorFmtStr02, GetPrintedName("NwMinRange"), "Monster", Record.Uid, "should be <= the Nw Optimal Min field, but isn't");
+
+				ErrorMessage = Buf.ToString();
+
+				ValidateCrossFields = true;
+
+				goto Cleanup;
+			}
+
+		Cleanup:
+
+			return result;
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateInterdependenciesNwOptimalMin()
+		{
+			var result = true;
+
+			if (gEngine.EnableEnhancedCombat && Record.NwOptimalMin > Record.NwOptimalMax)
+			{
+				result = false;
+
+				Buf.SetFormat(gEngine.RecIdepErrorFmtStr02, GetPrintedName("NwOptimalMin"), "Monster", Record.Uid, "should be <= the Nw Optimal Max field, but isn't");
+
+				ErrorMessage = Buf.ToString();
+
+				ValidateCrossFields = true;
+
+				goto Cleanup;
+			}
+
+		Cleanup:
+
+			return result;
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateInterdependenciesNwOptimalMax()
+		{
+			var result = true;
+
+			if (gEngine.EnableEnhancedCombat && Record.NwOptimalMax > Record.NwMaxRange)
+			{
+				result = false;
+
+				Buf.SetFormat(gEngine.RecIdepErrorFmtStr02, GetPrintedName("NwOptimalMax"), "Monster", Record.Uid, "should be <= the Nw Max Range field, but isn't");
+
+				ErrorMessage = Buf.ToString();
+
+				ValidateCrossFields = true;
+
+				goto Cleanup;
 			}
 
 		Cleanup:
@@ -949,7 +1453,7 @@ namespace Eamon.Game.Helpers
 		{
 			var fullDesc = "Enter the location of the Monster.";
 
-			var briefDesc = string.Format("(LE 0)=Limbo; 1-{0}=Room Uid", gEngine.NumRecords);
+			var briefDesc = string.Format("(LTE 0)=Limbo; 1-{0}=Room Uid", gEngine.NumRecords);
 
 			gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc);
 		}
@@ -972,9 +1476,167 @@ namespace Eamon.Game.Helpers
 		}
 
 		/// <summary></summary>
+		public virtual void PrintDescCoordCode()
+		{
+			var fullDesc = "Enter the coordinate code that describes the Monster's Room position.  Enhanced Combat games only.";
+
+			var briefDesc = new StringBuilder(gEngine.BufSize);
+
+			var coordCodeValues = EnumUtil.GetValues<CoordCode>();
+
+			for (var j = 0; j < coordCodeValues.Count; j++)
+			{
+				briefDesc.AppendFormat("{0}{1}={2}", j != 0 ? "; " : "", (long)coordCodeValues[j], gEngine.GetCoordCodeDesc(coordCodeValues[j]));
+			}
+
+			gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc.ToString());
+		}
+
+		/// <summary></summary>
+		public virtual void PrintDescCoord()
+		{
+			var fullDesc = "Enter the coordinate that describes the Monster's Room position.  Enhanced Combat games only." + Environment.NewLine + Environment.NewLine + "A value between [0 .. MaxCoord] for the containing Room.";
+
+			var briefDesc = "(GTE 0)=Valid value";
+
+			gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc);
+		}
+
+		/// <summary></summary>
+		public virtual void PrintDescFocusCode()
+		{
+			var fullDesc = "Enter the focus code that describes the Monster's range-based combat target selection behavior.  Enhanced Combat games only.";
+
+			var briefDesc = new StringBuilder(gEngine.BufSize);
+
+			var focusCodeValues = EnumUtil.GetValues<FocusCode>();
+
+			for (var j = 0; j < focusCodeValues.Count; j++)
+			{
+				briefDesc.AppendFormat("{0}{1}={2}", j != 0 ? "; " : "", (long)focusCodeValues[j], gEngine.GetFocusCodeDesc(focusCodeValues[j]));
+			}
+
+			gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc.ToString());
+		}
+
+		/// <summary></summary>
+		public virtual void PrintDescFocusOdds()
+		{
+			var fullDesc = "Enter the range focus adjustment odds of the Monster.  Enhanced Combat games only." + Environment.NewLine + Environment.NewLine + "The probability that the monster will select a new range focus combat target when a check is made.";
+
+			var briefDesc = "0-100=Monster focus adjustment odds";
+
+			gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc);
+		}
+
+		/// <summary></summary>
+		public virtual void PrintDescFocusTurns()
+		{
+			var fullDesc = "Enter the number of turns between range focus adjustment checks for the Monster.  Enhanced Combat games only." + Environment.NewLine + Environment.NewLine + "The number of turns between possible changes to the Monster's range focus combat target.";
+
+			var briefDesc = "(GTE 0)=Monster focus adjustment turns";
+
+			gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc);
+		}
+
+		/// <summary></summary>
+		public virtual void PrintDescTravelCode()
+		{
+			var fullDesc = "Enter the travel code of the Monster.  Enhanced Combat games only." + Environment.NewLine + Environment.NewLine + "Controls how the Monster moves relative to its focus target each turn.  None=never repositions; Close=always minimizes distance; Maintain=stays in optimal range band; Open=always maximizes distance.";
+
+			var briefDesc = new StringBuilder(gEngine.BufSize);
+
+			var travelCodeValues = EnumUtil.GetValues<TravelCode>();
+
+			for (var j = 0; j < travelCodeValues.Count; j++)
+			{
+				briefDesc.AppendFormat("{0}{1}={2}", j != 0 ? "; " : "", (long)travelCodeValues[j], gEngine.GetTravelCodeDesc(travelCodeValues[j]));
+			}
+
+			gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc.ToString());
+		}
+
+		/// <summary></summary>
+		public virtual void PrintDescTravelOdds()
+		{
+			var fullDesc = "Enter the travel odds of the Monster.  Enhanced Combat games only." + Environment.NewLine + Environment.NewLine + "The probability (0-100) that the Monster will attempt to reposition when its travel evaluation fires.  100=always repositions when it should.  50=coin flip each evaluation.";
+
+			var briefDesc = "0-100=Travel odds";
+
+			gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc);
+		}
+
+		/// <summary></summary>
+		public virtual void PrintDescTravelTurns()
+		{
+			var fullDesc = "Enter the travel turns of the Monster.  Enhanced Combat games only." + Environment.NewLine + Environment.NewLine + "The number of turns between travel evaluations.  1=evaluate every turn.  3=evaluate every third turn only.";
+
+			var briefDesc = "(GTE 1)=Valid value";
+
+			gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc);
+		}
+
+		/// <summary></summary>
+		public virtual void PrintDescMinTravelRange()
+		{
+			var fullDesc = "Enter the minimum distance in varns the Monster travels when repositioning.  Enhanced Combat games only." + Environment.NewLine + Environment.NewLine + "Each turn the actual travel distance is rolled randomly between MinTravelRange and MaxTravelRange.  Set to 0 to disable range repositioning movement entirely.";
+
+			var briefDesc = "(GTE 0)=Valid value";
+
+			gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc);
+		}
+
+		/// <summary></summary>
+		public virtual void PrintDescMaxTravelRange()
+		{
+			var fullDesc = "Enter the maximum distance in varns the Monster travels when repositioning.  Enhanced Combat games only." + Environment.NewLine + Environment.NewLine + "Each turn the actual travel distance is rolled randomly between MinTravelRange and MaxTravelRange.  Setting equal to MinTravelRange produces deterministic movement.";
+
+			var briefDesc = "(GTE 0)=Valid value";
+
+			gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc);
+		}
+
+		/// <summary></summary>
+		public virtual void PrintDescRearmCode()
+		{
+			var fullDesc = "Enter the rearm code of the Monster.  Enhanced Combat games only." + Environment.NewLine + Environment.NewLine + "Controls how the Monster selects a new weapon when its rearm evaluation fires.  None=never switches weapons voluntarily.";
+
+			var briefDesc = new StringBuilder(gEngine.BufSize);
+
+			var rearmCodeValues = EnumUtil.GetValues<RearmCode>();
+
+			for (var j = 0; j < rearmCodeValues.Count; j++)
+			{
+				briefDesc.AppendFormat("{0}{1}={2}", j != 0 ? "; " : "", (long)rearmCodeValues[j], gEngine.GetRearmCodeDesc(rearmCodeValues[j]));
+			}
+
+			gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc.ToString());
+		}
+
+		/// <summary></summary>
+		public virtual void PrintDescRearmOdds()
+		{
+			var fullDesc = "Enter the rearm odds of the Monster.  Enhanced Combat games only." + Environment.NewLine + Environment.NewLine + "The probability (0-100) that the Monster will switch weapons when its rearm evaluation fires and a better weapon is found.";
+
+			var briefDesc = "0-100=Rearm odds";
+
+			gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc);
+		}
+
+		/// <summary></summary>
+		public virtual void PrintDescRearmTurns()
+		{
+			var fullDesc = "Enter the rearm turns of the Monster.  Enhanced Combat games only." + Environment.NewLine + Environment.NewLine + "The number of turns between rearm evaluations.  1=evaluate every turn.";
+
+			var briefDesc = "(GTE 1)=Valid value";
+
+			gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc);
+		}
+
+		/// <summary></summary>
 		public virtual void PrintDescParryCode()
 		{
-			var fullDesc = "Enter the parry code that describes the Monster's combat behavior.";
+			var fullDesc = "Enter the parry code that describes the Monster's combat behavior.  Enhanced Combat games only.";
 
 			var briefDesc = new StringBuilder(gEngine.BufSize);
 
@@ -989,19 +1651,9 @@ namespace Eamon.Game.Helpers
 		}
 
 		/// <summary></summary>
-		public virtual void PrintDescParry()
-		{
-			var fullDesc = "Enter the preferred parry of the Monster." + Environment.NewLine + Environment.NewLine + "This measures the aggressiveness of the Monster's combat stance.";
-
-			var briefDesc = "0-20=Frenzied; 21-40=Offensive; 41-60=Neutral; 61-80=Defensive; 81-100=Fortified";
-
-			gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc);
-		}
-
-		/// <summary></summary>
 		public virtual void PrintDescParryOdds()
 		{
-			var fullDesc = "Enter the parry adjustment odds of the Monster." + Environment.NewLine + Environment.NewLine + "This is the probability that the monster will adjust its parry setting when a check is made.";
+			var fullDesc = "Enter the parry adjustment odds of the Monster.  Enhanced Combat games only." + Environment.NewLine + Environment.NewLine + "The probability that the monster will adjust its parry setting when a check is made.";
 
 			var briefDesc = "0-100=Parry adjustment odds";
 
@@ -1011,9 +1663,19 @@ namespace Eamon.Game.Helpers
 		/// <summary></summary>
 		public virtual void PrintDescParryTurns()
 		{
-			var fullDesc = "Enter the number of turns between parry adjustment checks for the Monster." + Environment.NewLine + Environment.NewLine + "This is the number of turns between possible adjustments to the Monster's parry setting.";
+			var fullDesc = "Enter the number of turns between parry adjustment checks for the Monster.  Enhanced Combat games only." + Environment.NewLine + Environment.NewLine + "The number of turns between possible adjustments to the Monster's parry setting.";
 
-			var briefDesc = string.Format("{0}=Parry adjustment turns", gEngine.EnableEnhancedCombat ? "(GT 0)" : "(GTE 0)");
+			var briefDesc = "(GTE 0)=Parry adjustment turns";
+
+			gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc);
+		}
+
+		/// <summary></summary>
+		public virtual void PrintDescParry()
+		{
+			var fullDesc = "Enter the preferred parry of the Monster.  Enhanced Combat games only." + Environment.NewLine + Environment.NewLine + "Measures the aggressiveness of the Monster's combat stance.";
+
+			var briefDesc = "0-20=Frenzied; 21-40=Offensive; 41-60=Neutral; 61-80=Defensive; 81-100=Fortified";
 
 			gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc);
 		}
@@ -1081,6 +1743,86 @@ namespace Eamon.Game.Helpers
 		}
 
 		/// <summary></summary>
+		public virtual void PrintDescNwMinRange()
+		{
+			var fullDesc = "Enter the Monster's natural weapon minimum range in varns.  Enhanced Combat games only." + Environment.NewLine + Environment.NewLine + "The minimum range at which this Monster can attack using natural weapons.";
+
+			var briefDesc = "(GTE 0)=Valid value";
+
+			gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc);
+		}
+
+		/// <summary></summary>
+		public virtual void PrintDescNwOptimalMin()
+		{
+			var fullDesc = "Enter the Monster's natural weapon optimal minimum range in varns.  Enhanced Combat games only." + Environment.NewLine + Environment.NewLine + "The minimum range at which this Monster's natural weapons are most effective.";
+
+			var briefDesc = "(GTE 0)=Valid value";
+
+			gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc);
+		}
+
+		/// <summary></summary>
+		public virtual void PrintDescNwOptimalMax()
+		{
+			var fullDesc = "Enter the Monster's natural weapon optimal maximum range in varns.  Enhanced Combat games only." + Environment.NewLine + Environment.NewLine + "The maximum range at which this Monster's natural weapons are most effective.";
+
+			var briefDesc = "(GTE 0)=Valid value";
+
+			gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc);
+		}
+
+		/// <summary></summary>
+		public virtual void PrintDescNwMaxRange()
+		{
+			var fullDesc = "Enter the Monster's natural weapon maximum range in varns.  Enhanced Combat games only." + Environment.NewLine + Environment.NewLine + "The maximum range at which this Monster can attack using natural weapons.";
+
+			var briefDesc = "(GTE 0)=Valid value";
+
+			gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc);
+		}
+
+		/// <summary></summary>
+		public virtual void PrintDescNwCloseOddsModifier()
+		{
+			var fullDesc = "Enter the Monster's natural weapon suboptimal close range odds to hit modifier.  Enhanced Combat games only." + Environment.NewLine + Environment.NewLine + "The odds to hit modifier applied when this Monster attacks with natural weapons outside the optimal minimum range.";
+
+			var briefDesc = string.Format("{0}-{1}=Valid value", gEngine.MinRangeOddsModifier, gEngine.MaxRangeOddsModifier);
+
+			gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc);
+		}
+
+		/// <summary></summary>
+		public virtual void PrintDescNwCloseDmgMultiplier()
+		{
+			var fullDesc = "Enter the Monster's natural weapon suboptimal close range damage multiplier.  Enhanced Combat games only." + Environment.NewLine + Environment.NewLine + "The damage multiplier (divided by 100) applied when this Monster attacks with natural weapons outside the optimal minimum range.";
+
+			var briefDesc = "0-100=Valid value";
+
+			gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc);
+		}
+
+		/// <summary></summary>
+		public virtual void PrintDescNwFarOddsModifier()
+		{
+			var fullDesc = "Enter the Monster's natural weapon suboptimal far range odds to hit modifier.  Enhanced Combat games only." + Environment.NewLine + Environment.NewLine + "The odds to hit modifier applied when this Monster attacks with natural weapons outside the optimal maximum range.";
+
+			var briefDesc = string.Format("{0}-{1}=Valid value", gEngine.MinRangeOddsModifier, gEngine.MaxRangeOddsModifier);
+
+			gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc);
+		}
+
+		/// <summary></summary>
+		public virtual void PrintDescNwFarDmgMultiplier()
+		{
+			var fullDesc = "Enter the Monster's natural weapon suboptimal far range damage multiplier.  Enhanced Combat games only." + Environment.NewLine + Environment.NewLine + "The damage multiplier (divided by 100) applied when this Monster attacks with natural weapons outside the optimal maximum range.";
+
+			var briefDesc = "0-100=Valid value";
+
+			gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc);
+		}
+
+		/// <summary></summary>
 		public virtual void PrintDescDeadBody()
 		{
 			var fullDesc = "Enter the dead body of the Monster.";
@@ -1141,7 +1883,7 @@ namespace Eamon.Game.Helpers
 		/// <summary></summary>
 		public virtual void PrintDescExtendedAttributes()
 		{
-			var fullDesc = "Enter the extended attributes of the Monster." + Environment.NewLine + Environment.NewLine + "When disabled, the game engine uses default behavior. See the EXTENDED_ATTRIBUTES.html file for more details.";
+			var fullDesc = "Enter the extended attributes of the Monster." + Environment.NewLine + Environment.NewLine + "When disabled, the game engine uses default behavior.  See the EXTENDED_ATTRIBUTES.html file for more details.";
 
 			var briefDesc = string.Format("0{0}=Extended Attributes bit flags", Record.UseExtendedAttributes ? "-8191" : "");
 
@@ -1281,10 +2023,10 @@ namespace Eamon.Game.Helpers
 						Environment.NewLine,
 						gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("PluralType"), null),
 						gEngine.BuildValue(51, ' ', 8, (long)Record.PluralType, null,
-						Record.PluralType == PluralType.None ? "No change" :
+						Record.PluralType == PluralType.None ? "No Change" :
 						Record.PluralType == PluralType.S ? "Use 's'" :
 						Record.PluralType == PluralType.Es ? "Use 'es'" :
-						Record.PluralType == PluralType.YIes ? "Use 'y' to 'ies'" :
+						Record.PluralType == PluralType.YIes ? "Use 'y' To 'ies'" :
 						Buf.ToString()));
 				}
 				else
@@ -1307,7 +2049,7 @@ namespace Eamon.Game.Helpers
 						Environment.NewLine,
 						gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("ArticleType"), null),
 						gEngine.BuildValue(51, ' ', 8, (long)Record.ArticleType, null,
-						Record.ArticleType == ArticleType.None ? "No article" :
+						Record.ArticleType == ArticleType.None ? "No Article" :
 						Record.ArticleType == ArticleType.A ? "Use 'a'" :
 						Record.ArticleType == ArticleType.An ? "Use 'an'" :
 						Record.ArticleType == ArticleType.Some ? "Use 'some'" :
@@ -1420,6 +2162,189 @@ namespace Eamon.Game.Helpers
 		}
 
 		/// <summary></summary>
+		public virtual void ListCoordCode()
+		{
+			if (FullDetail)
+			{
+				var listNum = NumberFields ? ListNum++ : 0;
+
+				if (LookupMsg)
+				{
+					gOut.Write("{0}{1}{2}",
+						Environment.NewLine,
+						gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("CoordCode"), null),
+						gEngine.BuildValue(51, ' ', 8, (long)Record.CoordCode, null, gEngine.GetCoordCodeDesc(Record.CoordCode)));
+				}
+				else
+				{
+					gOut.Write("{0}{1}{2}", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("CoordCode"), null), (long)Record.CoordCode);
+				}
+			}
+		}
+
+		/// <summary></summary>
+		public virtual void ListCoord()
+		{
+			if (FullDetail)
+			{
+				var listNum = NumberFields ? ListNum++ : 0;
+
+				gOut.Write("{0}{1}{2}", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("Coord"), null), Record.Coord);
+			}
+		}
+
+		/// <summary></summary>
+		public virtual void ListFocusCode()
+		{
+			if (FullDetail)
+			{
+				var listNum = NumberFields ? ListNum++ : 0;
+
+				if (LookupMsg)
+				{
+					gOut.Write("{0}{1}{2}",
+						Environment.NewLine,
+						gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("FocusCode"), null),
+						gEngine.BuildValue(51, ' ', 8, (long)Record.FocusCode, null, gEngine.GetFocusCodeDesc(Record.FocusCode)));
+				}
+				else
+				{
+					gOut.Write("{0}{1}{2}", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("FocusCode"), null), (long)Record.FocusCode);
+				}
+			}
+		}
+
+		/// <summary></summary>
+		public virtual void ListFocusOdds()
+		{
+			if (FullDetail)
+			{
+				var listNum = NumberFields ? ListNum++ : 0;
+
+				gOut.Write("{0}{1}{2}%", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("FocusOdds"), null), Record.FocusOdds);
+			}
+		}
+
+		/// <summary></summary>
+		public virtual void ListFocusTurns()
+		{
+			if (FullDetail)
+			{
+				var listNum = NumberFields ? ListNum++ : 0;
+
+				gOut.Write("{0}{1}{2}", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("FocusTurns"), null), Record.FocusTurns);
+			}
+		}
+
+		/// <summary></summary>
+		public virtual void ListTravelCode()
+		{
+			if (FullDetail)
+			{
+				var listNum = NumberFields ? ListNum++ : 0;
+
+				if (LookupMsg)
+				{
+					gOut.Write("{0}{1}{2}",
+						Environment.NewLine,
+						gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("TravelCode"), null),
+						gEngine.BuildValue(51, ' ', 8, (long)Record.TravelCode, null, gEngine.GetTravelCodeDesc(Record.TravelCode)));
+				}
+				else
+				{
+					gOut.Write("{0}{1}{2}", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("TravelCode"), null), (long)Record.TravelCode);
+				}
+			}
+		}
+
+		/// <summary></summary>
+		public virtual void ListTravelOdds()
+		{
+			if (FullDetail)
+			{
+				var listNum = NumberFields ? ListNum++ : 0;
+
+				gOut.Write("{0}{1}{2}%", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("TravelOdds"), null), Record.TravelOdds);
+			}
+		}
+
+		/// <summary></summary>
+		public virtual void ListTravelTurns()
+		{
+			if (FullDetail)
+			{
+				var listNum = NumberFields ? ListNum++ : 0;
+
+				gOut.Write("{0}{1}{2}", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("TravelTurns"), null), Record.TravelTurns);
+			}
+		}
+
+		/// <summary></summary>
+		public virtual void ListMinTravelRange()
+		{
+			if (FullDetail)
+			{
+				var listNum = NumberFields ? ListNum++ : 0;
+
+				gOut.Write("{0}{1}{2}", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("MinTravelRange"), null), Record.MinTravelRange);
+			}
+		}
+
+		/// <summary></summary>
+		public virtual void ListMaxTravelRange()
+		{
+			if (FullDetail)
+			{
+				var listNum = NumberFields ? ListNum++ : 0;
+
+				gOut.Write("{0}{1}{2}", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("MaxTravelRange"), null), Record.MaxTravelRange);
+			}
+		}
+
+		/// <summary></summary>
+		public virtual void ListRearmCode()
+		{
+			if (FullDetail)
+			{
+				var listNum = NumberFields ? ListNum++ : 0;
+
+				if (LookupMsg)
+				{
+					gOut.Write("{0}{1}{2}",
+						Environment.NewLine,
+						gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("RearmCode"), null),
+						gEngine.BuildValue(51, ' ', 8, (long)Record.RearmCode, null, gEngine.GetRearmCodeDesc(Record.RearmCode)));
+				}
+				else
+				{
+					gOut.Write("{0}{1}{2}", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("RearmCode"), null), (long)Record.RearmCode);
+				}
+			}
+		}
+
+		/// <summary></summary>
+		public virtual void ListRearmOdds()
+		{
+			if (FullDetail)
+			{
+				var listNum = NumberFields ? ListNum++ : 0;
+
+				gOut.Write("{0}{1}{2}%", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("RearmOdds"), null), Record.RearmOdds);
+			}
+		}
+
+		/// <summary></summary>
+		public virtual void ListRearmTurns()
+		{
+			if (FullDetail)
+			{
+				var listNum = NumberFields ? ListNum++ : 0;
+
+				gOut.Write("{0}{1}{2}", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("RearmTurns"), null), Record.RearmTurns);
+			}
+		}
+
+		/// <summary></summary>
 		public virtual void ListParryCode()
 		{
 			if (FullDetail)
@@ -1437,17 +2362,6 @@ namespace Eamon.Game.Helpers
 				{
 					gOut.Write("{0}{1}{2}", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("ParryCode"), null), (long)Record.ParryCode);
 				}
-			}
-		}
-
-		/// <summary></summary>
-		public virtual void ListParry()
-		{
-			if (FullDetail)
-			{
-				var listNum = NumberFields ? ListNum++ : 0;
-
-				gOut.Write("{0}{1}{2}%", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("Parry"), null), Record.Parry);
 			}
 		}
 
@@ -1470,6 +2384,17 @@ namespace Eamon.Game.Helpers
 				var listNum = NumberFields ? ListNum++ : 0;
 
 				gOut.Write("{0}{1}{2}", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("ParryTurns"), null), Record.ParryTurns);
+			}
+		}
+
+		/// <summary></summary>
+		public virtual void ListParry()
+		{
+			if (FullDetail)
+			{
+				var listNum = NumberFields ? ListNum++ : 0;
+
+				gOut.Write("{0}{1}{2}%", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("Parry"), null), Record.Parry);
 			}
 		}
 
@@ -1521,7 +2446,7 @@ namespace Eamon.Game.Helpers
 						gOut.Write("{0}{1}{2}",
 							Environment.NewLine,
 							gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("Weapon"), null),
-							gEngine.BuildValue(51, ' ', 8, Record.Weapon, null, Record.Weapon == 0 ? "Natural weapons" : "Weaponless"));
+							gEngine.BuildValue(51, ' ', 8, Record.Weapon, null, Record.Weapon == 0 ? "Natural Weapons" : "Weaponless"));
 					}
 				}
 				else
@@ -1554,6 +2479,118 @@ namespace Eamon.Game.Helpers
 		}
 
 		/// <summary></summary>
+		public virtual void ListNwMinRange()
+		{
+			if (FullDetail)
+			{
+				var listNum = NumberFields ? ListNum++ : 0;
+
+				gOut.Write("{0}{1}{2}", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("NwMinRange"), null), Record.NwMinRange);
+			}
+		}
+
+		/// <summary></summary>
+		public virtual void ListNwOptimalMin()
+		{
+			if (FullDetail)
+			{
+				var listNum = NumberFields ? ListNum++ : 0;
+
+				gOut.Write("{0}{1}{2}", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("NwOptimalMin"), null), Record.NwOptimalMin);
+			}
+		}
+
+		/// <summary></summary>
+		public virtual void ListNwOptimalMax()
+		{
+			if (FullDetail)
+			{
+				var listNum = NumberFields ? ListNum++ : 0;
+
+				gOut.Write("{0}{1}{2}", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("NwOptimalMax"), null), Record.NwOptimalMax);
+			}
+		}
+
+		/// <summary></summary>
+		public virtual void ListNwMaxRange()
+		{
+			if (FullDetail)
+			{
+				var listNum = NumberFields ? ListNum++ : 0;
+
+				gOut.Write("{0}{1}{2}", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("NwMaxRange"), null), Record.NwMaxRange);
+			}
+		}
+
+		/// <summary></summary>
+		public virtual void ListNwCloseOddsModifier()
+		{
+			if (FullDetail)
+			{
+				var listNum = NumberFields ? ListNum++ : 0;
+
+				gOut.Write("{0}{1}{2}", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("NwCloseOddsModifier"), null), Record.NwCloseOddsModifier);
+			}
+		}
+
+		/// <summary></summary>
+		public virtual void ListNwCloseDmgMultiplier()
+		{
+			if (FullDetail)
+			{
+				var listNum = NumberFields ? ListNum++ : 0;
+
+				if (LookupMsg)
+				{
+					Buf.SetFormat("{0:0.00}", Record.NwCloseDmgMultiplier / 100.0);
+
+					gOut.Write("{0}{1}{2}",
+						Environment.NewLine,
+						gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("NwCloseDmgMultiplier"), null),
+						gEngine.BuildValue(51, ' ', 8, Record.NwCloseDmgMultiplier, null, Buf.ToString()));
+				}
+				else
+				{
+					gOut.Write("{0}{1}{2}", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("NwCloseDmgMultiplier"), null), Record.NwCloseDmgMultiplier);
+				}
+			}
+		}
+
+		/// <summary></summary>
+		public virtual void ListNwFarOddsModifier()
+		{
+			if (FullDetail)
+			{
+				var listNum = NumberFields ? ListNum++ : 0;
+
+				gOut.Write("{0}{1}{2}", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("NwFarOddsModifier"), null), Record.NwFarOddsModifier);
+			}
+		}
+
+		/// <summary></summary>
+		public virtual void ListNwFarDmgMultiplier()
+		{
+			if (FullDetail)
+			{
+				var listNum = NumberFields ? ListNum++ : 0;
+
+				if (LookupMsg)
+				{
+					Buf.SetFormat("{0:0.00}", Record.NwFarDmgMultiplier / 100.0);
+
+					gOut.Write("{0}{1}{2}",
+						Environment.NewLine,
+						gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("NwFarDmgMultiplier"), null),
+						gEngine.BuildValue(51, ' ', 8, Record.NwFarDmgMultiplier, null, Buf.ToString()));
+				}
+				else
+				{
+					gOut.Write("{0}{1}{2}", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("NwFarDmgMultiplier"), null), Record.NwFarDmgMultiplier);
+				}
+			}
+		}
+
+		/// <summary></summary>
 		public virtual void ListDeadBody()
 		{
 			if (FullDetail)
@@ -1576,7 +2613,7 @@ namespace Eamon.Game.Helpers
 						gOut.Write("{0}{1}{2}",
 							Environment.NewLine,
 							gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("DeadBody"), null),
-							gEngine.BuildValue(51, ' ', 8, Record.DeadBody, null, "No dead body"));
+							gEngine.BuildValue(51, ' ', 8, Record.DeadBody, null, "No Dead Body"));
 					}
 				}
 				else
@@ -2199,6 +3236,460 @@ namespace Eamon.Game.Helpers
 		}
 
 		/// <summary></summary>
+		public virtual void InputCoordCode()
+		{
+			var fieldDesc = FieldDesc;
+
+			var coordCode = Record.CoordCode;
+
+			while (true)
+			{
+				Buf.SetFormat(EditRec ? "{0}" : "", (long)coordCode);
+
+				PrintFieldDesc("CoordCode", EditRec, EditField, fieldDesc);
+
+				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("CoordCode"), "0"));
+
+				var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, "0", null, gEngine.IsCharDigit, null);
+
+				Debug.Assert(gEngine.IsSuccess(rc));
+
+				var error = false;
+
+				try
+				{
+					Record.CoordCode = (CoordCode)Convert.ToInt64(Buf.Trim().ToString());
+				}
+				catch (Exception)
+				{
+					error = true;
+				}
+
+				if (!error && ValidateField("CoordCode"))
+				{
+					break;
+				}
+
+				fieldDesc = FieldDesc.Brief;
+			}
+
+			gOut.Print("{0}", gEngine.LineSep);
+		}
+
+		/// <summary></summary>
+		public virtual void InputCoord()
+		{
+			var fieldDesc = FieldDesc;
+
+			var coord = Record.Coord;
+
+			while (true)
+			{
+				Buf.SetFormat(EditRec ? "{0}" : "", coord);
+
+				PrintFieldDesc("Coord", EditRec, EditField, fieldDesc);
+
+				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("Coord"), "0"));
+
+				var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, "0", null, gEngine.IsCharDigit, null);
+
+				Debug.Assert(gEngine.IsSuccess(rc));
+
+				Record.Coord = Convert.ToInt64(Buf.Trim().ToString());
+
+				if (ValidateField("Coord"))
+				{
+					break;
+				}
+
+				fieldDesc = FieldDesc.Brief;
+			}
+
+			gOut.Print("{0}", gEngine.LineSep);
+		}
+
+		/// <summary></summary>
+		public virtual void InputFocusCode()
+		{
+			var fieldDesc = FieldDesc;
+
+			var focusCode = Record.FocusCode;
+
+			while (true)
+			{
+				Buf.SetFormat(EditRec ? "{0}" : "", (long)focusCode);
+
+				PrintFieldDesc("FocusCode", EditRec, EditField, fieldDesc);
+
+				var defaultFocusCode = gEngine.EnableEnhancedCombat ? "1" : "0";
+
+				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("FocusCode"), defaultFocusCode));
+
+				var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, defaultFocusCode, null, gEngine.IsCharDigit, null);
+
+				Debug.Assert(gEngine.IsSuccess(rc));
+
+				var error = false;
+
+				try
+				{
+					Record.FocusCode = (FocusCode)Convert.ToInt64(Buf.Trim().ToString());
+				}
+				catch (Exception)
+				{
+					error = true;
+				}
+
+				if (!error && ValidateField("FocusCode"))
+				{
+					break;
+				}
+
+				fieldDesc = FieldDesc.Brief;
+			}
+
+			gOut.Print("{0}", gEngine.LineSep);
+		}
+
+		/// <summary></summary>
+		public virtual void InputFocusOdds()
+		{
+			var fieldDesc = FieldDesc;
+
+			var focusOdds = Record.FocusOdds;
+
+			while (true)
+			{
+				Buf.SetFormat(EditRec ? "{0}" : "", focusOdds);
+
+				PrintFieldDesc("FocusOdds", EditRec, EditField, fieldDesc);
+
+				var defaultFocusOdds = gEngine.EnableEnhancedCombat ? "30" : "0";
+
+				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("FocusOdds"), defaultFocusOdds));
+
+				var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, defaultFocusOdds, null, gEngine.IsCharDigit, null);
+
+				Debug.Assert(gEngine.IsSuccess(rc));
+
+				Record.FocusOdds = Convert.ToInt64(Buf.Trim().ToString());
+
+				if (ValidateField("FocusOdds"))
+				{
+					break;
+				}
+
+				fieldDesc = FieldDesc.Brief;
+			}
+
+			gOut.Print("{0}", gEngine.LineSep);
+		}
+
+		/// <summary></summary>
+		public virtual void InputFocusTurns()
+		{
+			var fieldDesc = FieldDesc;
+
+			var focusTurns = Record.FocusTurns;
+
+			while (true)
+			{
+				Buf.SetFormat(EditRec ? "{0}" : "", focusTurns);
+
+				PrintFieldDesc("FocusTurns", EditRec, EditField, fieldDesc);
+
+				var defaultFocusTurns = gEngine.EnableEnhancedCombat ? "5" : "0";
+
+				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("FocusTurns"), defaultFocusTurns));
+
+				var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, defaultFocusTurns, null, gEngine.IsCharDigit, null);
+
+				Debug.Assert(gEngine.IsSuccess(rc));
+
+				Record.FocusTurns = Convert.ToInt64(Buf.Trim().ToString());
+
+				if (ValidateField("FocusTurns"))
+				{
+					break;
+				}
+
+				fieldDesc = FieldDesc.Brief;
+			}
+
+			gOut.Print("{0}", gEngine.LineSep);
+		}
+
+		/// <summary></summary>
+		public virtual void InputTravelCode()
+		{
+			var fieldDesc = FieldDesc;
+
+			var travelCode = Record.TravelCode;
+
+			while (true)
+			{
+				Buf.SetFormat(EditRec ? "{0}" : "", (long)travelCode);
+
+				PrintFieldDesc("TravelCode", EditRec, EditField, fieldDesc);
+
+				var defaultTravelCode = gEngine.EnableEnhancedCombat ? "2" : "0";    // Maintain=2, None=0
+
+				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("TravelCode"), defaultTravelCode));
+
+				var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, defaultTravelCode, null, gEngine.IsCharDigit, null);
+
+				Debug.Assert(gEngine.IsSuccess(rc));
+
+				Record.TravelCode = (TravelCode)Convert.ToInt64(Buf.Trim().ToString());
+
+				if (ValidateField("TravelCode"))
+				{
+					break;
+				}
+
+				fieldDesc = FieldDesc.Brief;
+			}
+
+			gOut.Print("{0}", gEngine.LineSep);
+		}
+
+		/// <summary></summary>
+		public virtual void InputTravelOdds()
+		{
+			var fieldDesc = FieldDesc;
+
+			var travelOdds = Record.TravelOdds;
+
+			while (true)
+			{
+				Buf.SetFormat(EditRec ? "{0}" : "", travelOdds);
+
+				PrintFieldDesc("TravelOdds", EditRec, EditField, fieldDesc);
+
+				var defaultTravelOdds = gEngine.EnableEnhancedCombat ? "100" : "0";
+
+				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("TravelOdds"), defaultTravelOdds));
+
+				var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, defaultTravelOdds, null, gEngine.IsCharDigit, null);
+
+				Debug.Assert(gEngine.IsSuccess(rc));
+
+				Record.TravelOdds = Convert.ToInt64(Buf.Trim().ToString());
+
+				if (ValidateField("TravelOdds"))
+				{
+					break;
+				}
+
+				fieldDesc = FieldDesc.Brief;
+			}
+
+			gOut.Print("{0}", gEngine.LineSep);
+		}
+
+		/// <summary></summary>
+		public virtual void InputTravelTurns()
+		{
+			var fieldDesc = FieldDesc;
+
+			var travelTurns = Record.TravelTurns;
+
+			while (true)
+			{
+				Buf.SetFormat(EditRec ? "{0}" : "", travelTurns);
+
+				PrintFieldDesc("TravelTurns", EditRec, EditField, fieldDesc);
+
+				var defaultTravelTurns = gEngine.EnableEnhancedCombat ? "1" : "0";
+
+				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("TravelTurns"), defaultTravelTurns));
+
+				var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, defaultTravelTurns, null, gEngine.IsCharDigit, null);
+
+				Debug.Assert(gEngine.IsSuccess(rc));
+
+				Record.TravelTurns = Convert.ToInt64(Buf.Trim().ToString());
+
+				if (ValidateField("TravelTurns"))
+				{
+					break;
+				}
+
+				fieldDesc = FieldDesc.Brief;
+			}
+
+			gOut.Print("{0}", gEngine.LineSep);
+		}
+
+		/// <summary></summary>
+		public virtual void InputMinTravelRange()
+		{
+			var fieldDesc = FieldDesc;
+
+			var minTravelRange = Record.MinTravelRange;
+
+			while (true)
+			{
+				Buf.SetFormat(EditRec ? "{0}" : "", minTravelRange);
+
+				PrintFieldDesc("MinTravelRange", EditRec, EditField, fieldDesc);
+
+				var defaultMinTravelRange = gEngine.EnableEnhancedCombat ? "3" : "0";
+
+				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("MinTravelRange"), defaultMinTravelRange));
+
+				var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, defaultMinTravelRange, null, gEngine.IsCharDigit, null);
+
+				Debug.Assert(gEngine.IsSuccess(rc));
+
+				Record.MinTravelRange = Convert.ToInt64(Buf.Trim().ToString());
+
+				if (ValidateField("MinTravelRange"))
+				{
+					break;
+				}
+
+				fieldDesc = FieldDesc.Brief;
+			}
+
+			gOut.Print("{0}", gEngine.LineSep);
+		}
+
+		/// <summary></summary>
+		public virtual void InputMaxTravelRange()
+		{
+			var fieldDesc = FieldDesc;
+
+			var maxTravelRange = Record.MaxTravelRange;
+
+			while (true)
+			{
+				Buf.SetFormat(EditRec ? "{0}" : "", maxTravelRange);
+
+				PrintFieldDesc("MaxTravelRange", EditRec, EditField, fieldDesc);
+
+				var defaultMaxTravelRange = gEngine.EnableEnhancedCombat ? "5" : "0";
+
+				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("MaxTravelRange"), defaultMaxTravelRange));
+
+				var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, defaultMaxTravelRange, null, gEngine.IsCharDigit, null);
+
+				Debug.Assert(gEngine.IsSuccess(rc));
+
+				Record.MaxTravelRange = Convert.ToInt64(Buf.Trim().ToString());
+
+				if (ValidateField("MaxTravelRange"))
+				{
+					break;
+				}
+
+				fieldDesc = FieldDesc.Brief;
+			}
+
+			gOut.Print("{0}", gEngine.LineSep);
+		}
+
+		/// <summary></summary>
+		public virtual void InputRearmCode()
+		{
+			var fieldDesc = FieldDesc;
+
+			var rearmCode = Record.RearmCode;
+
+			while (true)
+			{
+				Buf.SetFormat(EditRec ? "{0}" : "", (long)rearmCode);
+
+				PrintFieldDesc("RearmCode", EditRec, EditField, fieldDesc);
+
+				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("RearmCode"), "0"));
+
+				var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, "0", null, gEngine.IsCharDigit, null);
+
+				Debug.Assert(gEngine.IsSuccess(rc));
+
+				Record.RearmCode = (RearmCode)Convert.ToInt64(Buf.Trim().ToString());
+
+				if (ValidateField("RearmCode"))
+				{
+					break;
+				}
+
+				fieldDesc = FieldDesc.Brief;
+			}
+
+			gOut.Print("{0}", gEngine.LineSep);
+		}
+
+		/// <summary></summary>
+		public virtual void InputRearmOdds()
+		{
+			var fieldDesc = FieldDesc;
+
+			var rearmOdds = Record.RearmOdds;
+
+			while (true)
+			{
+				Buf.SetFormat(EditRec ? "{0}" : "", rearmOdds);
+
+				PrintFieldDesc("RearmOdds", EditRec, EditField, fieldDesc);
+
+				var defaultRearmOdds = gEngine.EnableEnhancedCombat ? "100" : "0";
+
+				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("RearmOdds"), defaultRearmOdds));
+
+				var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, defaultRearmOdds, null, gEngine.IsCharDigit, null);
+
+				Debug.Assert(gEngine.IsSuccess(rc));
+
+				Record.RearmOdds = Convert.ToInt64(Buf.Trim().ToString());
+
+				if (ValidateField("RearmOdds"))
+				{
+					break;
+				}
+
+				fieldDesc = FieldDesc.Brief;
+			}
+
+			gOut.Print("{0}", gEngine.LineSep);
+		}
+
+		/// <summary></summary>
+		public virtual void InputRearmTurns()
+		{
+			var fieldDesc = FieldDesc;
+
+			var rearmTurns = Record.RearmTurns;
+
+			while (true)
+			{
+				Buf.SetFormat(EditRec ? "{0}" : "", rearmTurns);
+
+				PrintFieldDesc("RearmTurns", EditRec, EditField, fieldDesc);
+
+				var defaultRearmTurns = gEngine.EnableEnhancedCombat ? "1" : "0";
+
+				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("RearmTurns"), defaultRearmTurns));
+
+				var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, defaultRearmTurns, null, gEngine.IsCharDigit, null);
+
+				Debug.Assert(gEngine.IsSuccess(rc));
+
+				Record.RearmTurns = Convert.ToInt64(Buf.Trim().ToString());
+
+				if (ValidateField("RearmTurns"))
+				{
+					break;
+				}
+
+				fieldDesc = FieldDesc.Brief;
+			}
+
+			gOut.Print("{0}", gEngine.LineSep);
+		}
+
+		/// <summary></summary>
 		public virtual void InputParryCode()
 		{
 			var fieldDesc = FieldDesc;
@@ -2213,7 +3704,7 @@ namespace Eamon.Game.Helpers
 
 				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("ParryCode"), "0"));
 
-				var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, "0", null, gEngine.IsCharPlusMinusDigit, null);
+				var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, "0", null, gEngine.IsCharDigit, null);
 
 				Debug.Assert(gEngine.IsSuccess(rc));
 
@@ -2235,42 +3726,6 @@ namespace Eamon.Game.Helpers
 
 				fieldDesc = FieldDesc.Brief;
 			}
-
-			gOut.Print("{0}", gEngine.LineSep);
-		}
-
-		/// <summary></summary>
-		public virtual void InputParry()
-		{
-			var fieldDesc = FieldDesc;
-
-			var parry = Record.Parry;
-
-			while (true)
-			{
-				Buf.SetFormat(EditRec ? "{0}" : "", parry);
-
-				PrintFieldDesc("Parry", EditRec, EditField, fieldDesc);
-
-				var defaultParry = gEngine.EnableEnhancedCombat ? "50" : "0";
-
-				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("Parry"), defaultParry));
-
-				var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, defaultParry, null, gEngine.IsCharDigit, null);
-
-				Debug.Assert(gEngine.IsSuccess(rc));
-
-				Record.Parry = Convert.ToInt64(Buf.Trim().ToString());
-
-				if (ValidateField("Parry"))
-				{
-					break;
-				}
-
-				fieldDesc = FieldDesc.Brief;
-			}
-
-			Record.InitParry = Record.Parry;
 
 			gOut.Print("{0}", gEngine.LineSep);
 		}
@@ -2353,6 +3808,42 @@ namespace Eamon.Game.Helpers
 
 				fieldDesc = FieldDesc.Brief;
 			}
+
+			gOut.Print("{0}", gEngine.LineSep);
+		}
+
+		/// <summary></summary>
+		public virtual void InputParry()
+		{
+			var fieldDesc = FieldDesc;
+
+			var parry = Record.Parry;
+
+			while (true)
+			{
+				Buf.SetFormat(EditRec ? "{0}" : "", parry);
+
+				PrintFieldDesc("Parry", EditRec, EditField, fieldDesc);
+
+				var defaultParry = gEngine.EnableEnhancedCombat ? "50" : "0";
+
+				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("Parry"), defaultParry));
+
+				var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, defaultParry, null, gEngine.IsCharDigit, null);
+
+				Debug.Assert(gEngine.IsSuccess(rc));
+
+				Record.Parry = Convert.ToInt64(Buf.Trim().ToString());
+
+				if (ValidateField("Parry"))
+				{
+					break;
+				}
+
+				fieldDesc = FieldDesc.Brief;
+			}
+
+			Record.InitParry = Record.Parry;
 
 			gOut.Print("{0}", gEngine.LineSep);
 		}
@@ -2484,6 +3975,274 @@ namespace Eamon.Game.Helpers
 				Record.NwSides = Convert.ToInt64(Buf.Trim().ToString());
 
 				if (ValidateField("NwSides"))
+				{
+					break;
+				}
+
+				fieldDesc = FieldDesc.Brief;
+			}
+
+			gOut.Print("{0}", gEngine.LineSep);
+		}
+
+		/// <summary></summary>
+		public virtual void InputNwMinRange()
+		{
+			var fieldDesc = FieldDesc;
+
+			var nwMinRange = Record.NwMinRange;
+
+			while (true)
+			{
+				Buf.SetFormat(EditRec ? "{0}" : "", nwMinRange);
+
+				PrintFieldDesc("NwMinRange", EditRec, EditField, fieldDesc);
+
+				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("NwMinRange"), "0"));
+
+				var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, "0", null, gEngine.IsCharDigit, null);
+
+				Debug.Assert(gEngine.IsSuccess(rc));
+
+				Record.NwMinRange = Convert.ToInt64(Buf.Trim().ToString());
+
+				if (ValidateField("NwMinRange"))
+				{
+					break;
+				}
+
+				fieldDesc = FieldDesc.Brief;
+			}
+
+			gOut.Print("{0}", gEngine.LineSep);
+		}
+
+		/// <summary></summary>
+		public virtual void InputNwOptimalMin()
+		{
+			var fieldDesc = FieldDesc;
+
+			var nwOptimalMin = Record.NwOptimalMin;
+
+			while (true)
+			{
+				Buf.SetFormat(EditRec ? "{0}" : "", nwOptimalMin);
+
+				PrintFieldDesc("NwOptimalMin", EditRec, EditField, fieldDesc);
+
+				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("NwOptimalMin"), "0"));
+
+				var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, "0", null, gEngine.IsCharDigit, null);
+
+				Debug.Assert(gEngine.IsSuccess(rc));
+
+				Record.NwOptimalMin = Convert.ToInt64(Buf.Trim().ToString());
+
+				if (ValidateField("NwOptimalMin"))
+				{
+					break;
+				}
+
+				fieldDesc = FieldDesc.Brief;
+			}
+
+			gOut.Print("{0}", gEngine.LineSep);
+		}
+
+		/// <summary></summary>
+		public virtual void InputNwOptimalMax()
+		{
+			var fieldDesc = FieldDesc;
+
+			var nwOptimalMax = Record.NwOptimalMax;
+
+			while (true)
+			{
+				Buf.SetFormat(EditRec ? "{0}" : "", nwOptimalMax);
+
+				PrintFieldDesc("NwOptimalMax", EditRec, EditField, fieldDesc);
+
+				var defaultNwOptimalMax = gEngine.EnableEnhancedCombat ? "1" : "0";
+
+				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("NwOptimalMax"), defaultNwOptimalMax));
+
+				var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, defaultNwOptimalMax, null, gEngine.IsCharDigit, null);
+
+				Debug.Assert(gEngine.IsSuccess(rc));
+
+				Record.NwOptimalMax = Convert.ToInt64(Buf.Trim().ToString());
+
+				if (ValidateField("NwOptimalMax"))
+				{
+					break;
+				}
+
+				fieldDesc = FieldDesc.Brief;
+			}
+
+			gOut.Print("{0}", gEngine.LineSep);
+		}
+
+		/// <summary></summary>
+		public virtual void InputNwMaxRange()
+		{
+			var fieldDesc = FieldDesc;
+
+			var nwMaxRange = Record.NwMaxRange;
+
+			while (true)
+			{
+				Buf.SetFormat(EditRec ? "{0}" : "", nwMaxRange);
+
+				PrintFieldDesc("NwMaxRange", EditRec, EditField, fieldDesc);
+
+				var defaultNwMaxRange = gEngine.EnableEnhancedCombat ? "1" : "0";
+
+				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("NwMaxRange"), defaultNwMaxRange));
+
+				var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, defaultNwMaxRange, null, gEngine.IsCharDigit, null);
+
+				Debug.Assert(gEngine.IsSuccess(rc));
+
+				Record.NwMaxRange = Convert.ToInt64(Buf.Trim().ToString());
+
+				if (ValidateField("NwMaxRange"))
+				{
+					break;
+				}
+
+				fieldDesc = FieldDesc.Brief;
+			}
+
+			gOut.Print("{0}", gEngine.LineSep);
+		}
+
+		/// <summary></summary>
+		public virtual void InputNwCloseOddsModifier()
+		{
+			var fieldDesc = FieldDesc;
+
+			var nwCloseOddsModifier = Record.NwCloseOddsModifier;
+
+			while (true)
+			{
+				Buf.SetFormat(EditRec ? "{0}" : "", nwCloseOddsModifier);
+
+				PrintFieldDesc("NwCloseOddsModifier", EditRec, EditField, fieldDesc);
+
+				var defaultNwCloseOddsModifier = gEngine.EnableEnhancedCombat ? "-20" : "0";
+
+				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("NwCloseOddsModifier"), defaultNwCloseOddsModifier));
+
+				var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, defaultNwCloseOddsModifier, null, gEngine.IsCharPlusMinusDigit, null);
+
+				Debug.Assert(gEngine.IsSuccess(rc));
+
+				Record.NwCloseOddsModifier = Convert.ToInt64(Buf.Trim().ToString());
+
+				if (ValidateField("NwCloseOddsModifier"))
+				{
+					break;
+				}
+
+				fieldDesc = FieldDesc.Brief;
+			}
+
+			gOut.Print("{0}", gEngine.LineSep);
+		}
+
+		/// <summary></summary>
+		public virtual void InputNwCloseDmgMultiplier()
+		{
+			var fieldDesc = FieldDesc;
+
+			var nwCloseDmgMultiplier = Record.NwCloseDmgMultiplier;
+
+			while (true)
+			{
+				Buf.SetFormat(EditRec ? "{0}" : "", nwCloseDmgMultiplier);
+
+				PrintFieldDesc("NwCloseDmgMultiplier", EditRec, EditField, fieldDesc);
+
+				var defaultNwCloseDmgMultiplier = gEngine.EnableEnhancedCombat ? "100" : "0";
+
+				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("NwCloseDmgMultiplier"), defaultNwCloseDmgMultiplier));
+
+				var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, defaultNwCloseDmgMultiplier, null, gEngine.IsCharDigit, null);
+
+				Debug.Assert(gEngine.IsSuccess(rc));
+
+				Record.NwCloseDmgMultiplier = Convert.ToInt64(Buf.Trim().ToString());
+
+				if (ValidateField("NwCloseDmgMultiplier"))
+				{
+					break;
+				}
+
+				fieldDesc = FieldDesc.Brief;
+			}
+
+			gOut.Print("{0}", gEngine.LineSep);
+		}
+
+		/// <summary></summary>
+		public virtual void InputNwFarOddsModifier()
+		{
+			var fieldDesc = FieldDesc;
+
+			var nwFarOddsModifier = Record.NwFarOddsModifier;
+
+			while (true)
+			{
+				Buf.SetFormat(EditRec ? "{0}" : "", nwFarOddsModifier);
+
+				PrintFieldDesc("NwFarOddsModifier", EditRec, EditField, fieldDesc);
+
+				var defaultNwFarOddsModifier = gEngine.EnableEnhancedCombat ? "-10" : "0";
+
+				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("NwFarOddsModifier"), defaultNwFarOddsModifier));
+
+				var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, defaultNwFarOddsModifier, null, gEngine.IsCharPlusMinusDigit, null);
+
+				Debug.Assert(gEngine.IsSuccess(rc));
+
+				Record.NwFarOddsModifier = Convert.ToInt64(Buf.Trim().ToString());
+
+				if (ValidateField("NwFarOddsModifier"))
+				{
+					break;
+				}
+
+				fieldDesc = FieldDesc.Brief;
+			}
+
+			gOut.Print("{0}", gEngine.LineSep);
+		}
+
+		/// <summary></summary>
+		public virtual void InputNwFarDmgMultiplier()
+		{
+			var fieldDesc = FieldDesc;
+
+			var nwFarDmgMultiplier = Record.NwFarDmgMultiplier;
+
+			while (true)
+			{
+				Buf.SetFormat(EditRec ? "{0}" : "", nwFarDmgMultiplier);
+
+				PrintFieldDesc("NwFarDmgMultiplier", EditRec, EditField, fieldDesc);
+
+				var defaultNwFarDmgMultiplier = gEngine.EnableEnhancedCombat ? "75" : "0";
+
+				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("NwFarDmgMultiplier"), defaultNwFarDmgMultiplier));
+
+				var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, defaultNwFarDmgMultiplier, null, gEngine.IsCharDigit, null);
+
+				Debug.Assert(gEngine.IsSuccess(rc));
+
+				Record.NwFarDmgMultiplier = Convert.ToInt64(Buf.Trim().ToString());
+
+				if (ValidateField("NwFarDmgMultiplier"))
 				{
 					break;
 				}

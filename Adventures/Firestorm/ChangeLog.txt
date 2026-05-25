@@ -5,4 +5,5 @@ ChangeLog: Firestorm
 
 Date            Version            Who            Notes
 ----------------------------------------------------------------------------------------------------------------------------------
-20250831        3.1.0              MP             Code complete 3.1.0
+20260531        3.1.0              MP             EnhancedCombat overhaul #2
+20250831                           MP             Code complete 3.1.0

@@ -135,6 +135,11 @@ namespace TheBeginnersCave.Game.Plugin
 			}
 		}
 
+		public virtual void PrintHeldFast(bool fleeing)
+		{
+			Out.Print("You are held fast by the mimic and cannot {0}!", fleeing ? "flee" : "move");
+		}
+
 		public Engine()
 		{
 			((Framework.Plugin.IEngine)this).Buf = new StringBuilder(BufSize);

@@ -138,7 +138,7 @@ namespace Eamon.Game
 			return GetDecoratedName("Name", ArticleType.The, upshift, showCharOwned, showStateDesc, showContents, groupCountOne);
 		}
 
-		public virtual RetCode BuildPrintedFullDesc(StringBuilder buf, bool showName, bool showVerboseName)
+		public virtual RetCode BuildPrintedFullDesc(StringBuilder buf, bool showName, bool showVerboseName, bool showRange = false, bool showRangeBand = false)
 		{
 			RetCode rc;
 

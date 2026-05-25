@@ -62,7 +62,7 @@ namespace TheTempleOfNgurct.Game
 
 			if (carryingMedallion)
 			{
-				gOut.Print("You also receive the 2,000 gold pieces for the return of the gold medallion of Ngurct.  It is immediately destroyed by the King.");
+				gOut.Print("You also receive the 2000 gold pieces for the return of the gold medallion of Ngurct.  It is immediately destroyed by the King.");
 
 				reward += 2000;
 			}

@@ -3,6 +3,7 @@
 
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
+using System;
 using System.Diagnostics;
 using Eamon.Framework.Primitive.Classes;
 using Eamon.Framework.Primitive.Enums;
@@ -22,6 +23,17 @@ namespace EamonRT.Game.Commands
 		public override void ExecuteForPlayer()
 		{
 			Debug.Assert(DobjArtifact != null);
+
+			if (!ActorMonster.CanReach(DobjArtifact) && !Enum.IsDefined(typeof(Direction), ActorRoom.GetDoorDirection(DobjArtifact)))
+			{
+				PrintTooFarAway(DobjArtifact);
+
+				NextState = gEngine.CreateInstance<IStartState>();
+
+				goto Cleanup;
+			}
+
+			SetObjCoord(ActorMonster, DobjArtifact);
 
 			DobjArtAc = DobjArtifact.DoorGate;
 

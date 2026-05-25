@@ -28,6 +28,8 @@ namespace Eamon.Game
 
 		public long _location;
 
+		public long _coord;
+
 		public IArtifactCategory _lastArtifactCategory;
 
 		#endregion
@@ -79,7 +81,7 @@ namespace Eamon.Game
 			}
 		}
 
-		[FieldName(660)]
+		[FieldName(650)]
 		public virtual long Location
 		{
 			get
@@ -89,6 +91,8 @@ namespace Eamon.Game
 
 			set
 			{
+				var initRangeNewLocation = false;
+
 				if (gEngine.EnableMutateProperties && _location != value)
 				{
 					if (gEngine.RevealContentCounter > 0 && GeneralContainer != null && !gEngine.RevealContentArtifactList.Contains(this))
@@ -110,6 +114,18 @@ namespace Eamon.Game
 						});
 					}
 
+					if (gEngine.EnableEnhancedCombat)
+					{
+						if ((value > 0 && value < 1001) || (value > 5000 && value < 6001))		// Note: hardcoded IsInRoom or IsEmbeddedInRoom
+						{
+							_coord = gEngine.GetRecursiveCoord(this);
+						}
+						else /* if (value != gEngine.LimboLocation) */		// TODO: is this needed ???
+						{
+							initRangeNewLocation = true;
+						}
+					}
+
 					if (HasMoved(_location, value))
 					{
 						Moved = true;
@@ -117,13 +133,51 @@ namespace Eamon.Game
 				}
 
 				_location = value;
+
+				if (initRangeNewLocation)
+				{
+					_coord = gEngine.GetRecursiveCoord(this);
+				}
+			}
+		}
+
+		[FieldName(655)]
+		public virtual CoordCode CoordCode { get; set; }
+
+		[ExcludeFromSerialization]
+		public virtual long _Coord
+		{
+			get
+			{
+				return _coord;
+			}
+		}
+
+		[FieldName(660)]
+		public virtual long Coord 
+		{
+			get
+			{
+				var result = _coord;
+
+				if (gEngine.EnableMutateProperties && gEngine.EnableEnhancedCombat)
+				{
+					result = gEngine.GetRecursiveCoord(this);
+				}
+
+				return result;
+			}
+
+			set
+			{
+				_coord = value;
 			}
 		}
 
 		[FieldName(665)]
 		public virtual bool UseExtendedAttributes { get; set; }
 
-		[FieldName(675)]
+		[FieldName(670)]
 		public virtual ulong ExtendedAttributes { get; set; }
 
 		[ExcludeFromSerialization]
@@ -891,7 +945,7 @@ namespace Eamon.Game
 			switch (articleType)
 			{
 				case ArticleType.None:
-
+					
 					buf.AppendFormat
 					(
 						"{0}{1}{2}",
@@ -949,7 +1003,7 @@ namespace Eamon.Game
 			return result;
 		}
 
-		public override RetCode BuildPrintedFullDesc(StringBuilder buf, bool showName, bool showVerboseName)
+		public override RetCode BuildPrintedFullDesc(StringBuilder buf, bool showName, bool showVerboseName, bool showRange = false, bool showRangeBand = false)
 		{
 			RetCode rc;
 
@@ -964,18 +1018,45 @@ namespace Eamon.Game
 
 			rc = RetCode.Success;
 
+			var gameState = gEngine.GetGameState();
+
+			var charMonster = gameState != null && gMDB != null ? gMDB[gameState.Cm] : null;
+
+			var buf01 = new StringBuilder(gEngine.BufSize);
+
+			var buf02 = new StringBuilder(gEngine.BufSize);
+
 			if (showName || showVerboseName)
 			{
-				buf.AppendFormat("{0}[{1}]",
+				if (charMonster != null && gameState.EnhancedCombat)
+				{
+					var range = gEngine.GetRange(charMonster.Coord, Coord);
+
+					var rangeBand = gEngine.GetRangeBand(range);
+
+					if (showRangeBand)
+					{
+						buf01.SetFormat("{0}, ", gEngine.GetRangeBandString(rangeBand).FirstCharToUpper());
+					}
+
+					if (showRange && range > 0)
+					{
+						buf02.SetFormat(" ({0})", range);
+					}
+				}
+
+				buf.AppendFormat("{0}[{1}{2}{3}]",
 					Environment.NewLine,
+					buf01.ToString(),
 					GetArticleName
 					(
-						true, 
-						true, 
-						showVerboseName && !string.IsNullOrWhiteSpace(StateDesc) && ShouldShowVerboseNameStateDesc(), 
-						showVerboseName && GeneralContainer != null && ShouldShowVerboseNameContentsNameList(),
+						buf01.Length == 0,
+						true,
+						showVerboseName && charMonster != null && charMonster.CanReach(this) && !string.IsNullOrWhiteSpace(StateDesc) && ShouldShowVerboseNameStateDesc(),
+						showVerboseName && charMonster != null && charMonster.CanReach(this) && GeneralContainer != null && ShouldShowVerboseNameContentsNameList(),
 						false
-					)
+					),
+					buf02.ToString()
 				);
 			}
 
@@ -1378,9 +1459,18 @@ namespace Eamon.Game
 			return result;
 		}
 
-		public virtual bool IsReadyableByMonsterUid(long monsterUid)
+		public virtual bool IsReadyableByMonsterUid(long monsterUid, bool includeAmmoCount = true)
 		{
-			return GeneralWeapon != null;
+			var gameState = gEngine.GetGameState();
+
+			if (gameState != null && gameState.EnhancedCombat)
+			{
+				return GeneralWeapon != null && (!includeAmmoCount || GeneralWeapon.Field8 <= 0 || GeneralWeapon.Field7 > 0);
+			}
+			else
+			{
+				return GeneralWeapon != null;
+			}
 		}
 
 		public virtual bool IsInRoomUid(long roomUid, bool recurse = false)
@@ -1528,9 +1618,9 @@ namespace Eamon.Game
 			return IsWornByMonsterUid(monster != null ? monster.Uid : long.MaxValue, recurse);
 		}
 
-		public virtual bool IsReadyableByMonster(IMonster monster)
+		public virtual bool IsReadyableByMonster(IMonster monster, bool includeAmmoCount = true)
 		{
-			return IsReadyableByMonsterUid(monster != null ? monster.Uid : long.MaxValue);
+			return IsReadyableByMonsterUid(monster != null ? monster.Uid : long.MaxValue, includeAmmoCount);
 		}
 
 		public virtual bool IsInRoom(IRoom room, bool recurse = false)
@@ -2149,6 +2239,13 @@ namespace Eamon.Game
 			}
 		}
 
+		public virtual bool CanReach(IGameBase record)
+		{
+			Debug.Assert(record != null);
+
+			return !gEngine.EnforceRangeUsage || gEngine.GetRange(record is IArtifact a ? a.Coord : record is IMonster m ? m.Coord : 0, Coord) == 0;
+		}
+
 		public virtual long GetMaxContentsNameListCount(ContainerType containerType = ContainerType.In)
 		{
 			return long.MaxValue;
@@ -2187,6 +2284,20 @@ namespace Eamon.Game
 		public virtual string GetEmptyDesc()
 		{
 			return " (empty)";
+		}
+
+		public virtual string GetApproachOrReachString(bool approach)
+		{
+			var result = string.Format(approach ? "approach{0}" : "reach{0}", EvalPlural("es", ""));
+
+			return result;
+		}
+
+		public virtual string GetRetreatString()
+		{
+			var result = string.Format("retreat{0} from", EvalPlural("s", ""));
+
+			return result;
 		}
 
 		public virtual T EvalPlural<T>(T singularValue, T pluralValue)
@@ -2557,6 +2668,8 @@ namespace Eamon.Game
 								x.ShowContents = false;
 
 								x.GroupCountOne = false;
+								
+								x.ShowRange = false;
 							});
 						}
 

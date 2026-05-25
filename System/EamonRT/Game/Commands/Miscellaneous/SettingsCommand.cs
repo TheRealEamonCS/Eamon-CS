@@ -32,6 +32,12 @@ namespace EamonRT.Game.Commands
 
 		public virtual bool? EnhancedCombat { get; set; } = null;
 
+		public virtual bool? ShowRangeBands { get; set; } = null;
+
+		public virtual bool? ShowRanges { get; set; } = null;
+
+		public virtual bool? ShowAmmoCounts { get; set; } = null;
+
 		public virtual bool? EnhancedParser { get; set; } = null;
 
 		public virtual bool? IobjPronounAffinity { get; set; } = null;
@@ -50,9 +56,12 @@ namespace EamonRT.Game.Commands
 		/// <summary></summary>
 		public virtual IList<IMonster> ResetMonsterList { get; set; }
 
+		/// <summary></summary>
+		public virtual bool OrigEnhancedCombat { get; set; }
+
 		public override void ExecuteForPlayer()
 		{
-			Debug.Assert(VerboseRooms != null || VerboseMonsters != null || VerboseArtifacts != null || VerboseNames != null || MatureContent != null || InteractiveFiction != null || EnhancedCombat != null || EnhancedParser != null || IobjPronounAffinity != null || ShowPronounChanges != null || ShowFulfillMessages != null || PauseCombatMs != null || PauseCombatActions != null);
+			Debug.Assert(VerboseRooms != null || VerboseMonsters != null || VerboseArtifacts != null || VerboseNames != null || MatureContent != null || InteractiveFiction != null || EnhancedCombat != null || ShowRangeBands != null || ShowRanges != null || ShowAmmoCounts != null || EnhancedParser != null || IobjPronounAffinity != null || ShowPronounChanges != null || ShowFulfillMessages != null || PauseCombatMs != null || PauseCombatActions != null);
 
 			if (VerboseRooms != null)
 			{
@@ -86,9 +95,11 @@ namespace EamonRT.Game.Commands
 
 			if (gEngine.EnableEnhancedCombat && EnhancedCombat != null)
 			{
+				OrigEnhancedCombat = gGameState.EnhancedCombat;
+
 				gGameState.EnhancedCombat = (bool)EnhancedCombat;
 
-				EnhancedCombatCommandList = gEngine.CommandList.Where(c => c is IParryCommand).ToList();
+				EnhancedCombatCommandList = gEngine.CommandList.Where(c => c is IParryCommand || c is IRangeCommand || c is IMapCommand || c is IApproachCommand || c is IRetreatCommand).ToList();
 
 				foreach (var command in EnhancedCombatCommandList)
 				{
@@ -97,12 +108,36 @@ namespace EamonRT.Game.Commands
 					command.IsMonsterEnabled = gGameState.EnhancedCombat;
 				}
 
-				ResetMonsterList = gDatabase.MonsterTable.Records.ToList();
-
-				foreach (var monster in ResetMonsterList)
+				if (gGameState.EnhancedCombat != OrigEnhancedCombat)
 				{
-					monster.Parry = monster.InitParry;
+					ResetMonsterList = gDatabase.MonsterTable.Records.ToList();
+
+					foreach (var monster in ResetMonsterList)
+					{
+						monster.Parry = monster.InitParry;
+					}
+
+					gGameState.ShowRangeBands = gGameState.EnhancedCombat;
+
+					gGameState.ShowRanges = false;
+
+					gGameState.ShowAmmoCounts = false;
 				}
+			}
+
+			if (ShowRangeBands != null)
+			{
+				gGameState.ShowRangeBands = (bool)ShowRangeBands;
+			}
+
+			if (ShowRanges != null)
+			{
+				gGameState.ShowRanges = (bool)ShowRanges;
+			}
+
+			if (ShowAmmoCounts != null)
+			{
+				gGameState.ShowAmmoCounts = (bool)ShowAmmoCounts;
 			}
 
 			if (EnhancedParser != null)

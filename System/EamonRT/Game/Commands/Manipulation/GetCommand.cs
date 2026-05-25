@@ -49,6 +49,9 @@ namespace EamonRT.Game.Commands
 		public virtual ICommand RedirectCommand { get; set; }
 
 		/// <summary></summary>
+		public virtual long DistantArtifacts { get; set; }
+
+		/// <summary></summary>
 		public virtual bool OmitWeightCheck { get; set; }
 
 		/// <summary></summary>
@@ -163,7 +166,14 @@ namespace EamonRT.Game.Commands
 
 			if (NextState == null)
 			{
-				NextState = gEngine.CreateInstance<IMonsterStartState>();
+				if (gEngine.EnforceRangeUsage && DistantArtifacts > 0 && DistantArtifacts == TakenArtifactList.Count)
+				{
+					NextState = gEngine.CreateInstance<IStartState>();
+				}
+				else
+				{
+					NextState = gEngine.CreateInstance<IMonsterStartState>();
+				}
 			}
 		}
 
@@ -184,6 +194,8 @@ namespace EamonRT.Game.Commands
 
 				if (!gEngine.EnforceMonsterWeightLimits || OmitWeightCheck || ActorMonster.CanCarryArtifactWeight(DobjArtifact))
 				{
+					SetObjCoord(ActorMonster, DobjArtifact);
+
 					DobjArtifact.SetCarriedByMonster(ActorMonster);
 
 					Debug.Assert(gCharMonster != null);
@@ -226,29 +238,38 @@ namespace EamonRT.Game.Commands
 
 			Debug.Assert(ac != null);
 
+			if (!ActorMonster.CanReach(artifact))
+			{
+				ProcessAction(1, () => { PrintTooFarAway(artifact); DistantArtifacts++; }, ref nlFlag);
+
+				goto Cleanup;
+			}
+
+			SetObjCoord(ActorMonster, artifact);
+
 			if (ac.Type == ArtifactType.DisguisedMonster)
 			{
-				ProcessAction(1, () => gEngine.RevealDisguisedMonster(ActorRoom, artifact), ref nlFlag);
+				ProcessAction(2, () => gEngine.RevealDisguisedMonster(ActorRoom, artifact), ref nlFlag);
 			}
 			else if (artifact.Weight == 999)
 			{
-				ProcessAction(2, () => PrintDontBeAbsurd(), ref nlFlag);
+				ProcessAction(3, () => PrintDontBeAbsurd(), ref nlFlag);
 			}
 			else if (artifact.IsUnmovable01())
 			{
-				ProcessAction(3, () => PrintCantVerbThat(artifact), ref nlFlag);
+				ProcessAction(4, () => PrintCantVerbThat(artifact), ref nlFlag);
 			}
 			else if (ac.Type == ArtifactType.DeadBody && ac.Field1 != 1)
 			{
-				ProcessAction(4, () => PrintBestLeftAlone(artifact), ref nlFlag);
+				ProcessAction(5, () => PrintBestLeftAlone(artifact), ref nlFlag);
 			}
 			else if (!OmitWeightCheck && !ActorMonster.CanCarryArtifactWeight(artifact))
 			{
-				ProcessAction(5, () => PrintTooHeavy(artifact, GetAll), ref nlFlag);
+				ProcessAction(6, () => PrintTooHeavy(artifact, GetAll), ref nlFlag);
 			}
 			else if (ac.Type == ArtifactType.BoundMonster)
 			{
-				ProcessAction(6, () => PrintMustBeFreed(artifact), ref nlFlag);
+				ProcessAction(7, () => PrintMustBeFreed(artifact), ref nlFlag);
 			}
 			else
 			{
@@ -256,13 +277,17 @@ namespace EamonRT.Game.Commands
 
 				if (WeaponAffinityMonster != null)
 				{
-					ProcessAction(7, () => PrintObjBelongsToActor(artifact, WeaponAffinityMonster), ref nlFlag);
+					ProcessAction(8, () => PrintObjBelongsToActor(artifact, WeaponAffinityMonster), ref nlFlag);
 				}
 				else
 				{
 					ProcessArtifact01(artifact, ac, ref nlFlag);
 				}
 			}
+
+		Cleanup:
+
+			;
 		}
 
 		public virtual void ProcessArtifact01(IArtifact artifact, IArtifactCategory ac, ref bool nlFlag)

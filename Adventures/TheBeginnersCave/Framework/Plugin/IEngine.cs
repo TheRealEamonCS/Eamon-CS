@@ -18,5 +18,8 @@ namespace TheBeginnersCave.Framework.Plugin
 
 		/// <summary></summary>
 		string AlightDesc { get; }
+
+		/// <summary></summary>
+		void PrintHeldFast(bool fleeing);
 	}
 }

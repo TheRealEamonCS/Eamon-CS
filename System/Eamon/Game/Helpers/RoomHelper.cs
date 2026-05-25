@@ -49,6 +49,18 @@ namespace Eamon.Game.Helpers
 
 				gOut.Print("{0}{1}", gEngine.BuildPrompt(27, '.', 0, GetPrintedName("DirsElement"), null), Record.GetDir(i));
 			}
+			else if (ErrorFieldName.Equals("DirCoordsElement", StringComparison.OrdinalIgnoreCase))
+			{
+				var i = Index;
+
+				gOut.Print("{0}{1}", gEngine.BuildPrompt(27, '.', 0, GetPrintedName("DirCoordsElement"), null), Record.GetDirCoord(i));
+			}
+			else if (!ErrorFieldName.Equals("Desc", StringComparison.OrdinalIgnoreCase))
+			{
+				gOut.Print("{0}{1}",
+					gEngine.BuildPrompt(27, '.', 0, GetPrintedName(ErrorFieldName), null),
+					Convert.ToInt64(GetValue(ErrorFieldName)));
+			}
 		}
 
 		#region GetPrintedName Methods
@@ -62,6 +74,13 @@ namespace Eamon.Game.Helpers
 
 		/// <summary></summary>
 		/// <returns></returns>
+		public virtual string GetPrintedNameMaxCoord()
+		{
+			return "Max Coordinate";
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
 		public virtual string GetPrintedNameDirsElement()
 		{
 			var i = Index;
@@ -71,6 +90,21 @@ namespace Eamon.Game.Helpers
 			Debug.Assert(direction != null);
 
 			return direction.Name;
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual string GetPrintedNameDirCoordsElement()
+		{
+			var i = Index;
+
+			var direction = gEngine.GetDirection((Direction)i);
+
+			Debug.Assert(direction != null);
+
+			var result = string.Format("{0} Coordinate", direction.Name);
+
+			return result;
 		}
 
 		#endregion
@@ -111,6 +145,40 @@ namespace Eamon.Game.Helpers
 			return result;
 		}
 
+		/// <summary></summary>
+		/// <param name="addToNameList"></param>
+		/// <returns></returns>
+		public virtual string GetNameDirCoords(bool addToNameList)
+		{
+			var directionValues = EnumUtil.GetValues<Direction>();
+
+			foreach (var dv in directionValues)
+			{
+				Index = (long)dv;
+
+				GetName("DirCoordsElement", addToNameList);
+			}
+
+			return "DirCoords";
+		}
+
+		/// <summary></summary>
+		/// <param name="addToNameList"></param>
+		/// <returns></returns>
+		public virtual string GetNameDirCoordsElement(bool addToNameList)
+		{
+			var i = Index;
+
+			var result = string.Format("DirCoords[{0}].Element", i);
+
+			if (addToNameList)
+			{
+				NameList.Add(result);
+			}
+
+			return result;
+		}
+
 		#endregion
 
 		#region GetValue Methods
@@ -122,6 +190,15 @@ namespace Eamon.Game.Helpers
 			var i = Index;
 
 			return Record.GetDir(i);
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual object GetValueDirCoordsElement()
+		{
+			var i = Index;
+
+			return Record.GetDirCoord(i);
 		}
 
 		#endregion
@@ -173,6 +250,45 @@ namespace Eamon.Game.Helpers
 		public virtual bool ValidateZone()
 		{
 			return Record.Zone > 0;
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateMaxCoord()
+		{
+			return gEngine.EnableEnhancedCombat ? Record.MaxCoord > 0 && Record.MaxCoord <= gEngine.MaxRoomMaxCoord : Record.MaxCoord == 0;
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateDirCoords()
+		{
+			var result = true;
+
+			var directionValues = EnumUtil.GetValues<Direction>();
+
+			foreach (var dv in directionValues)
+			{
+				Index = (long)dv;
+
+				result = ValidateField("DirCoordsElement");
+
+				if (result == false)
+				{
+					break;
+				}
+			}
+
+			return result;
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateDirCoordsElement()
+		{
+			var i = Index;
+
+			return gEngine.EnableEnhancedCombat ? Record.GetDirCoord(i) >= 0 : Record.GetDirCoord(i) == 0;
 		}
 
 		#endregion
@@ -321,6 +437,85 @@ namespace Eamon.Game.Helpers
 			return result;
 		}
 
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateInterdependenciesDirCoords()
+		{
+			var result = true;
+
+			var directionValues = EnumUtil.GetValues<Direction>();
+
+			foreach (var dv in directionValues)
+			{
+				Index = (long)dv;
+
+				result = ValidateFieldInterdependencies("DirCoordsElement");
+
+				if (result == false)
+				{
+					break;
+				}
+			}
+
+			return result;
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateInterdependenciesDirCoordsElement()
+		{
+			var result = true;
+
+			var i = Index;
+
+			var dv = (Direction)i;
+
+			if (gEngine.EnableEnhancedCombat && gEngine.IsValidDirection(dv))
+			{
+				var roomUid = 0L;
+
+				if (Record.IsDirectionRoom(dv))
+				{
+					roomUid = Record.GetDir(i);
+				}
+				else if (Record.IsDirectionDoor(dv))
+				{
+					var artUid = Record.GetDirectionDoorUid(dv);
+
+					var artifact = gADB[artUid];
+
+					if (artifact != null && artifact.DoorGate != null)
+					{
+						roomUid = artifact.DoorGate.Field1;
+					}
+				}
+
+				if (roomUid > 0)
+				{
+					var room = gRDB[roomUid];
+
+					if (room != null && Record.GetDirCoord(i) > room.MaxCoord)
+					{
+						result = false;
+
+						Buf.SetFormat(gEngine.RecIdepErrorFmtStr, GetPrintedName("DirCoordsElement"), "Room", roomUid, "which should have a maximum coordinate compatible with this Room, but doesn't");
+
+						ErrorMessage = Buf.ToString();
+
+						RecordType = typeof(IRoom);
+
+						EditRecord = room;
+
+						goto Cleanup;
+					}
+				}
+			}
+
+		Cleanup:
+
+			return result;
+		}
+
 		#endregion
 
 		#region PrintDesc Methods
@@ -328,7 +523,7 @@ namespace Eamon.Game.Helpers
 		/// <summary></summary>
 		public virtual void PrintDescName()
 		{
-			var fullDesc = "Enter the name of the Room." + Environment.NewLine + Environment.NewLine + "Room names should always be able to stand alone inside a pair of brackets: [Room name].";
+			var fullDesc = "Enter the name of the Room." + Environment.NewLine + Environment.NewLine + "Room names should always be able to stand alone inside a pair of brackets:  [Room name].";
 
 			gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, null);
 		}
@@ -388,9 +583,19 @@ namespace Eamon.Game.Helpers
 		/// <summary></summary>
 		public virtual void PrintDescZone()
 		{
-			var fullDesc = "Enter the zone of the Room." + Environment.NewLine + Environment.NewLine + "This value allows the arbitrary grouping of Rooms.  Ignored by Eamon CS, utilizing it requires special (user-programmed) events.";
+			var fullDesc = "Enter the zone of the Room." + Environment.NewLine + Environment.NewLine + "Allows the arbitrary grouping of Rooms.  Ignored by Eamon CS, utilizing it requires special (user-programmed) events.";
 
 			var briefDesc = "(GT 0)=Valid value";
+
+			gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc);
+		}
+
+		/// <summary></summary>
+		public virtual void PrintDescMaxCoord()
+		{
+			var fullDesc = "Enter the maximum coordinate of the Room in varns.  Enhanced Combat games only." + Environment.NewLine + Environment.NewLine + "Values exceeding 200 may degrade Map command ruler readability, but shouldn't affect program correctness.";
+
+			var briefDesc = string.Format("1-{0}=Valid value", gEngine.MaxRoomMaxCoord);
 
 			gEngine.AppendFieldDesc(FieldDesc, Buf01, fullDesc, briefDesc);
 		}
@@ -406,16 +611,34 @@ namespace Eamon.Game.Helpers
 
 			var briefDesc = "-999=Return to Main Hall; (LT 0)=Special (user-programmed) event; 0=No connection; 1-1000=Room Uid; (1000 + N)=Door with Artifact Uid N";
 
-			if ((EditRec && EditField) || i == 1)
+			if (FieldDesc == FieldDesc.Full && ((EditRec && EditField) || i == 1))
 			{
-				if (FieldDesc == FieldDesc.Full)
-				{
-					Buf01.AppendFormat("{0}{1}{0}{0}{2}{0}", Environment.NewLine, (EditRec && EditField) ? fullDesc : fullDesc01, briefDesc);
-				}
-				else if (FieldDesc == FieldDesc.Brief)
-				{
-					Buf01.AppendPrint("{0}", briefDesc);
-				}
+				Buf01.AppendFormat("{0}{1}{0}{0}{2}{0}", Environment.NewLine, (EditRec && EditField) ? fullDesc : fullDesc01, briefDesc);
+			}
+			else if (FieldDesc == FieldDesc.Brief)		// TODO: fix for EamonDD Config.FieldDesc == FieldDesc.Brief (output suppression needed)
+			{
+				Buf01.AppendPrint("{0}", briefDesc);
+			}
+		}
+
+		/// <summary></summary>
+		public virtual void PrintDescDirCoordsElement()
+		{
+			var i = Index;
+
+			var fullDesc = "Enter a coordinate value in varns for the direction.  Enhanced Combat games only.";
+
+			var fullDesc01 = "Enter a coordinate value in varns for each direction the player can move in.  Enhanced Combat games only." + Environment.NewLine + Environment.NewLine + "The player is placed at the corresponding coordinate when moving into an adjacent Room.";
+
+			var briefDesc = "(GTE 0)=valid value";
+
+			if (FieldDesc == FieldDesc.Full && ((EditRec && EditField) || i == 1))
+			{
+				Buf01.AppendFormat("{0}{1}{0}{0}{2}{0}", Environment.NewLine, (EditRec && EditField) ? fullDesc : fullDesc01, briefDesc);
+			}
+			else if (FieldDesc == FieldDesc.Brief)      // TODO: fix for EamonDD Config.FieldDesc == FieldDesc.Brief (output suppression needed)
+			{
+				Buf01.AppendPrint("{0}", briefDesc);
 			}
 		}
 
@@ -531,6 +754,17 @@ namespace Eamon.Game.Helpers
 		}
 
 		/// <summary></summary>
+		public virtual void ListMaxCoord()
+		{
+			if (FullDetail)
+			{
+				var listNum = NumberFields ? ListNum++ : 0;
+
+				gOut.Write("{0}{1}{2}", Environment.NewLine, gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("MaxCoord"), null), Record.MaxCoord);
+			}
+		}
+
+		/// <summary></summary>
 		public virtual void ListDirs()
 		{
 			var directionValues = EnumUtil.GetValues<Direction>();
@@ -597,6 +831,38 @@ namespace Eamon.Game.Helpers
 						Environment.NewLine,
 						gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("DirsElement"), null), Record.GetDir(i));
 				}
+			}
+		}
+
+		/// <summary></summary>
+		public virtual void ListDirCoords()
+		{
+			var directionValues = EnumUtil.GetValues<Direction>();
+
+			foreach (var dv in directionValues)
+			{
+				Index = (long)dv;
+
+				ListField("DirCoordsElement");
+			}
+
+			AddToListedNames = false;
+		}
+
+		/// <summary></summary>
+		public virtual void ListDirCoordsElement()
+		{
+			var i = Index;
+
+			var dv = (Direction)i;
+
+			if (FullDetail && gEngine.IsValidDirection(dv))
+			{
+				var listNum = NumberFields ? ListNum++ : 0;
+
+				gOut.Write("{0}{1}{2}",
+					Environment.NewLine,
+					gEngine.BuildPrompt(27, '.', listNum, GetPrintedName("DirCoordsElement"), null), Record.GetDirCoord(i));
 			}
 		}
 
@@ -809,6 +1075,40 @@ namespace Eamon.Game.Helpers
 		}
 
 		/// <summary></summary>
+		public virtual void InputMaxCoord()
+		{
+			var fieldDesc = FieldDesc;
+
+			var maxCoord = Record.MaxCoord;
+
+			while (true)
+			{
+				Buf.SetFormat(EditRec ? "{0}" : "", maxCoord);
+
+				PrintFieldDesc("MaxCoord", EditRec, EditField, fieldDesc);
+
+				var defaultMaxCoord = gEngine.EnableEnhancedCombat ? "10" : "0";
+
+				gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("MaxCoord"), defaultMaxCoord));
+
+				var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, defaultMaxCoord, null, gEngine.IsCharDigit, null);
+
+				Debug.Assert(gEngine.IsSuccess(rc));
+
+				Record.MaxCoord = Convert.ToInt64(Buf.Trim().ToString());
+
+				if (ValidateField("MaxCoord"))
+				{
+					break;
+				}
+
+				fieldDesc = FieldDesc.Brief;
+			}
+
+			gOut.Print("{0}", gEngine.LineSep);
+		}
+
+		/// <summary></summary>
 		public virtual void InputDirs()
 		{
 			var directionValues = EnumUtil.GetValues<Direction>();
@@ -870,6 +1170,71 @@ namespace Eamon.Game.Helpers
 			else
 			{
 				Record.SetDir(i, 0);
+			}
+		}
+
+		/// <summary></summary>
+		public virtual void InputDirCoords()
+		{
+			var directionValues = EnumUtil.GetValues<Direction>();
+
+			foreach (var dv in directionValues)
+			{
+				Index = (long)dv;
+
+				InputField("DirCoordsElement");
+			}
+		}
+
+		/// <summary></summary>
+		public virtual void InputDirCoordsElement()
+		{
+			var i = Index;
+
+			var dv = (Direction)i;
+
+			if (gEngine.IsValidDirection(dv))
+			{
+				var fieldDesc = FieldDesc;
+
+				var value = Record.GetDirCoord(i);
+
+				while (true)
+				{
+					Buf.SetFormat(EditRec ? "{0}" : "", value);
+
+					PrintFieldDesc("DirCoordsElement", EditRec, EditField, fieldDesc);
+
+					gOut.Write("{0}{1}", Environment.NewLine, gEngine.BuildPrompt(27, '\0', 0, GetPrintedName("DirCoordsElement"), "0"));
+
+					var rc = gEngine.In.ReadField(Buf, gEngine.BufSize01, null, '_', '\0', true, "0", null, gEngine.IsCharDigit, null);
+
+					Debug.Assert(gEngine.IsSuccess(rc));
+
+					var error = false;
+
+					try
+					{
+						Record.SetDirCoord(i, Convert.ToInt64(Buf.Trim().ToString()));
+					}
+					catch (Exception)
+					{
+						error = true;
+					}
+
+					if (!error && ValidateField("DirCoordsElement"))
+					{
+						break;
+					}
+
+					fieldDesc = FieldDesc.Brief;
+				}
+
+				gOut.Print("{0}", gEngine.LineSep);
+			}
+			else
+			{
+				Record.SetDirCoord(i, 0);
 			}
 		}
 
