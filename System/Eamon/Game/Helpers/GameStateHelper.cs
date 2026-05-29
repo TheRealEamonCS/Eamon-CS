@@ -210,7 +210,28 @@ namespace Eamon.Game.Helpers
 		/// <returns></returns>
 		public virtual bool ValidateEnhancedCombat()
 		{
-			return gEngine.EnableEnhancedCombat || !Record.EnhancedCombat;
+			return (gEngine.EnableEnhancedCombat && !gEngine.EnableScreenReaderMode) || !Record.EnhancedCombat;
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateShowRangeBands()
+		{
+			return Record.EnhancedCombat || !Record.ShowRangeBands;
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateShowRanges()
+		{
+			return Record.EnhancedCombat || !Record.ShowRanges;
+		}
+
+		/// <summary></summary>
+		/// <returns></returns>
+		public virtual bool ValidateShowAmmoCounts()
+		{
+			return Record.EnhancedCombat || !Record.ShowAmmoCounts;
 		}
 
 		/// <summary></summary>

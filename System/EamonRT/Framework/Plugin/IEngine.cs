@@ -683,8 +683,9 @@ namespace EamonRT.Framework.Plugin
 
 		/// <summary></summary>
 		/// <param name="room"></param>
+		/// <param name="monster"></param>
 		/// <param name="artifact"></param>
-		void RevealEmbeddedArtifact(IRoom room, IArtifact artifact);
+		void RevealEmbeddedArtifact(IRoom room, IMonster monster, IArtifact artifact);
 
 		/// <summary></summary>
 		/// <param name="room"></param>

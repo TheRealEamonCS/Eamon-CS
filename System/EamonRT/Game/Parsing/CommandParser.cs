@@ -634,7 +634,7 @@ namespace EamonRT.Game.Parsing
 
 				if (!Enum.IsDefined(typeof(ContainerType), NextCommand.ContainerType))
 				{
-					ObjData.RevealEmbeddedArtifactFunc = (r, a) => { };
+					ObjData.RevealEmbeddedArtifactFunc = (r, m, a) => { };
 				}
 
 				ObjData.RecordMatchFunc = RecordMatch01;
@@ -736,7 +736,7 @@ namespace EamonRT.Game.Parsing
 					{
 						if (ObjData.FilterRecordList[0] is IArtifact artifact)
 						{
-							ObjData.RevealEmbeddedArtifactFunc(ActorRoom, artifact);
+							ObjData.RevealEmbeddedArtifactFunc(ActorRoom, ActorMonster, artifact);
 						}
 
 						SetRecord(ObjData.FilterRecordList[0]);
@@ -1338,7 +1338,7 @@ namespace EamonRT.Game.Parsing
 
 					CurrToken += 2;
 				}
-				else if (gEngine.EnableEnhancedCombat && Tokens[CurrToken].Equals("enhancedcombat", StringComparison.OrdinalIgnoreCase) && bool.TryParse(Tokens[CurrToken + 1], out boolValue))
+				else if (gEngine.EnableEnhancedCombat && !gEngine.EnableScreenReaderMode && Tokens[CurrToken].Equals("enhancedcombat", StringComparison.OrdinalIgnoreCase) && bool.TryParse(Tokens[CurrToken + 1], out boolValue))
 				{
 					settingsCommand.EnhancedCombat = boolValue;
 
@@ -1521,7 +1521,7 @@ namespace EamonRT.Game.Parsing
 			{
 				if (ObjData.FilterRecordList[0] is IArtifact artifact)
 				{
-					ObjData.RevealEmbeddedArtifactFunc(ActorRoom, artifact);
+					ObjData.RevealEmbeddedArtifactFunc(ActorRoom, ActorMonster, artifact);
 				}
 
 				SetRecord(ObjData.FilterRecordList[0]);
@@ -1548,7 +1548,7 @@ namespace EamonRT.Game.Parsing
 			{
 				if (ObjData.FilterRecordList[0] is IArtifact artifact)
 				{
-					ObjData.RevealEmbeddedArtifactFunc(ActorRoom, artifact);
+					ObjData.RevealEmbeddedArtifactFunc(ActorRoom, ActorMonster, artifact);
 				}
 
 				SetRecord(ObjData.FilterRecordList[0]);

@@ -1157,7 +1157,7 @@ namespace EamonRT.Game.Commands
 			gOut.WriteLine("  {0,-22}{1,-22}{2,-22}", "MatureContent", "True, False", gGameState.MatureContent);
 			gOut.WriteLine("  {0,-22}{1,-22}{2,-22}", "InteractiveFiction", "True, False", gGameState.InteractiveFiction);
 
-			if (gEngine.EnableEnhancedCombat)
+			if (gEngine.EnableEnhancedCombat && !gEngine.EnableScreenReaderMode)
 			{
 				gOut.WriteLine("  {0,-22}{1,-22}{2,-22}", "EnhancedCombat", "True, False", gGameState.EnhancedCombat);
 				

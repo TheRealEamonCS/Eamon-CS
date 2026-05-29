@@ -151,7 +151,7 @@ namespace OrbOfMyLife.Game.Parsing
 
 				if (!Enum.IsDefined(typeof(ContainerType), NextCommand.ContainerType))
 				{
-					ObjData.RevealEmbeddedArtifactFunc = (r, a) => { };
+					ObjData.RevealEmbeddedArtifactFunc = (r, m, a) => { };
 				}
 
 				ObjData.RecordMatchFunc = RecordMatch01;

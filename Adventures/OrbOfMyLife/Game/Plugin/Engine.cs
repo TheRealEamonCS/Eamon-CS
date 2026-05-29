@@ -374,7 +374,7 @@ namespace OrbOfMyLife.Game.Plugin
 			}
 		}
 
-		public override void RevealEmbeddedArtifact(IRoom room, IArtifact artifact)
+		public override void RevealEmbeddedArtifact(IRoom room, IMonster monster, IArtifact artifact)
 		{
 			Debug.Assert(room != null);
 
@@ -382,7 +382,7 @@ namespace OrbOfMyLife.Game.Plugin
 
 			if (room.IsViewable())
 			{
-				base.RevealEmbeddedArtifact(room, artifact);
+				base.RevealEmbeddedArtifact(room, monster, artifact);
 			}
 		}
 

@@ -39,7 +39,7 @@ namespace TheTempleOfNgurct.Game.Commands
 
 					room1.SetDirectionDoor(Direction.North, secretDoorArtifact1);
 
-					gEngine.RevealEmbeddedArtifact(ActorRoom, secretDoorArtifact1);
+					gEngine.RevealEmbeddedArtifact(ActorRoom, ActorMonster, secretDoorArtifact1);
 				}
 
 				var room2 = gRDB[48];
@@ -58,7 +58,7 @@ namespace TheTempleOfNgurct.Game.Commands
 
 					room2.SetDirectionDoor(Direction.South, secretDoorArtifact2);
 
-					gEngine.RevealEmbeddedArtifact(ActorRoom, secretDoorArtifact2);
+					gEngine.RevealEmbeddedArtifact(ActorRoom, ActorMonster, secretDoorArtifact2);
 				}
 
 				var scarabArtifact = gADB[65];

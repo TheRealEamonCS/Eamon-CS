@@ -2317,9 +2317,11 @@ namespace EamonRT.Game.Plugin
 			}
 		}
 
-		public virtual void RevealEmbeddedArtifact(IRoom room, IArtifact artifact)
+		public virtual void RevealEmbeddedArtifact(IRoom room, IMonster monster, IArtifact artifact)
 		{
 			Debug.Assert(room != null);
+
+			Debug.Assert(monster != null);
 
 			Debug.Assert(artifact != null);
 

@@ -33,7 +33,8 @@ namespace Eamon.Framework
 		/// and printing its <see cref="IGameBase.Desc">Desc</see>ription if necessary.
 		/// </summary>
 		/// <param name="room"></param>
+		/// <param name="monster"></param>
 		/// <param name="artifact"></param>
-		public delegate void RevealEmbeddedArtifactFunc(IRoom room, IArtifact artifact);
+		public delegate void RevealEmbeddedArtifactFunc(IRoom room, IMonster monster, IArtifact artifact);
 	}
 }

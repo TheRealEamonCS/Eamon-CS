@@ -127,7 +127,7 @@ namespace WrenholdsSecretVigil.Game.States
 
 				else if (gGameState.R2 == -102)
 				{
-					gEngine.RevealEmbeddedArtifact(OldRoom, ropeArtifact);
+					gEngine.RevealEmbeddedArtifact(OldRoom, gCharMonster, ropeArtifact);
 
 					gEngine.PrintEffectDesc(25);
 

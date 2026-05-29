@@ -211,8 +211,6 @@ namespace EamonRT.Game.Commands
 
 			SortOrder = 345;
 
-			IsSentenceParserEnabled = false;
-
 			IsPlayerEnabled = false;
 
 			IsMonsterEnabled = false;

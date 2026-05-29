@@ -212,9 +212,9 @@ namespace EamonRT.Game.Parsing
 						{
 							Tokens[CurrToken] = "???";
 						}
-						else if (Tokens[CurrToken].Equals("at", StringComparison.OrdinalIgnoreCase))
+						else if (Tokens[CurrToken].Equals("a", StringComparison.OrdinalIgnoreCase) || Tokens[CurrToken].Equals("at", StringComparison.OrdinalIgnoreCase))
 						{
-							Tokens[CurrToken] = "a";
+							Tokens[CurrToken] = "att";
 						}
 
 						TokenCommand = gEngine.GetCommandUsingToken(gCharMonster, Tokens[CurrToken]);

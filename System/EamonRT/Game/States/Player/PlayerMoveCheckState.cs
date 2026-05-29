@@ -103,7 +103,7 @@ namespace EamonRT.Game.States
 				{
 					if (OldRoom.IsViewable())
 					{
-						gEngine.RevealEmbeddedArtifact(OldRoom, DoorGateArtifact);
+						gEngine.RevealEmbeddedArtifact(OldRoom, gCharMonster, DoorGateArtifact);
 					}
 
 					gGameState.R2 = _newRoomUid;

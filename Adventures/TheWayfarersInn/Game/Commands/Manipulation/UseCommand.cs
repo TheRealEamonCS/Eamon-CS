@@ -184,7 +184,7 @@ namespace TheWayfarersInn.Game.Commands
 
 				if (waterWellArtifact.IsInRoom(ActorRoom) || waterWellArtifact.IsEmbeddedInRoom(ActorRoom))
 				{
-					gEngine.RevealEmbeddedArtifact(ActorRoom, waterWellArtifact);
+					gEngine.RevealEmbeddedArtifact(ActorRoom, ActorMonster, waterWellArtifact);
 
 					if (waterArtifact.IsInLimbo())
 					{
@@ -222,7 +222,7 @@ namespace TheWayfarersInn.Game.Commands
 				}
 				else if (purificationPoolArtifact.IsInRoom(ActorRoom) || purificationPoolArtifact.IsEmbeddedInRoom(ActorRoom))
 				{
-					gEngine.RevealEmbeddedArtifact(ActorRoom, purificationPoolArtifact);
+					gEngine.RevealEmbeddedArtifact(ActorRoom, ActorMonster, purificationPoolArtifact);
 
 					if (waterArtifact.IsCarriedByContainer(DobjArtifact))
 					{
