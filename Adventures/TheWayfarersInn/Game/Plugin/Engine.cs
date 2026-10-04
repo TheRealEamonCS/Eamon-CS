@@ -204,7 +204,7 @@ namespace TheWayfarersInn.Game.Plugin
 
 					if (!kennelOccupied)
 					{
-						result = ", now home to little more than assorted vermin";
+						result = ", now home to only assorted vermin";
 					}
 				}
 
@@ -213,11 +213,11 @@ namespace TheWayfarersInn.Game.Plugin
 
 			MacroFuncs.Add(10, () =>
 			{
-				var result = "; vibrant green ferns and shrubs grow at their base";
+				var result = "; green ferns and shrubs grow at their base";
 
 				if (gGameState != null && gGameState.WallMapRead)
 				{
-					result = ". Vibrant green ferns and shrubs grow at their base; however, a treeline gap leads into the forest depths";
+					result = ". Green ferns and shrubs grow at their base, though a treeline gap leads into the forest depths";
 				}
 
 				return result;
@@ -225,7 +225,7 @@ namespace TheWayfarersInn.Game.Plugin
 
 			MacroFuncs.Add(24, () =>
 			{
-				var result = "a framed portrait hangs next to";
+				var result = "a framed portrait hangs beside";
 
 				if (GameState != null)
 				{
@@ -367,7 +367,7 @@ namespace TheWayfarersInn.Game.Plugin
 
 			MacroFuncs.Add(61, () => gGameState.LadderUsed ? " a" : " an unreachable");
 
-			var roomDescTemplate = @"You are in {0} room{1} with {2} furniture set{3}. The {4} window in the {5} wall overlooks {6} and casts {7} glow across the space. The {8} air smells faintly of {9}. {10}";
+			var roomDescTemplate = @"You are in {0} room{1} with {2} furniture set{3}. The {4} window in the {5} wall overlooks {6}, casting {7} glow across the space. The {8} air smells faintly of {9}. {10}";
 
 			var adjectiveList = new List<string>() { "a dimly lit", "a musty", "a dusty", "a dirty", "a tidy", "a ramshackle", "an unremarkable" };
 
@@ -411,12 +411,12 @@ namespace TheWayfarersInn.Game.Plugin
 
 				room.Desc = string.Format(roomDescTemplate,
 					GetNonRepeatingRandomElement(adjectiveList, usedAdjectiveList),
-					room.Uid == 42 ? " adorned with glyphs, transformed into a fortified outpost" :
-					room.Uid == 63 ? ", clearly under renovation" :
+					room.Uid == 42 ? " adorned with glyphs, fortified as an outpost" :
+					room.Uid == 63 ? " under renovation," :
 					"",
 					GetNonRepeatingRandomElement(colorList, usedColorList),
-					room.Uid == 42 ? ", strategically placed" :
-					room.Uid == 63 ? ", haphazardly placed" :
+					room.Uid == 42 ? " strategically placed" :
+					room.Uid == 63 ? " haphazardly placed" :
 					"",
 					GetNonRepeatingRandomElement(windowNuanceList, usedWindowNuanceList),
 					GetNonRepeatingRandomElement(wallTypeList, usedWallTypeList),
@@ -424,8 +424,8 @@ namespace TheWayfarersInn.Game.Plugin
 					GetNonRepeatingRandomElement(lightList, usedLightList),
 					GetNonRepeatingRandomElement(temperatureList, usedTemperatureList),
 					GetNonRepeatingRandomElement(scentList, usedScentList),
-					room.Uid == 42 || room.Uid == 59 ? " There is a jagged breach in the north wall." :
-					room.Uid == 45 || room.Uid == 57 ? " There is a jagged breach in the south wall." :
+					room.Uid == 42 || room.Uid == 59 ? " A jagged breach exists in the north wall." :
+					room.Uid == 45 || room.Uid == 57 ? " A jagged breach exists in the south wall." :
 					"");
 			}
 		}
@@ -449,7 +449,7 @@ namespace TheWayfarersInn.Game.Plugin
 
 				if (southDoorArtifact.DoorGate.IsOpen())
 				{
-					result = " A series of deep gouges mar the inner wood, as if made by some large animal.";
+					result = " Deep gouges mar the inside, as if made by a large animal.";
 				}
 
 				return result;
@@ -465,7 +465,7 @@ namespace TheWayfarersInn.Game.Plugin
 
 				if (eastDoorArtifact.DoorGate.IsOpen())
 				{
-					result = " The outer wood is slightly faded, as if exposed to sunlight for an extended period.";
+					result = " The outer wood is slightly faded from years of sunlight exposure.";
 				}
 
 				return result;
@@ -481,7 +481,7 @@ namespace TheWayfarersInn.Game.Plugin
 
 				if (northDoorArtifact.DoorGate.IsOpen())
 				{
-					result = " The door creaks loudly as you push it open.";
+					result = " The door creaks as you push it open.";
 				}
 
 				return result;
@@ -502,7 +502,7 @@ namespace TheWayfarersInn.Game.Plugin
 
 				if (diaryArtifact.Readable.IsOpen())
 				{
-					result = ", but the ink is still legible. It contains handwritten entries dating back years";
+					result = ", but the ink is still legible. The handwritten entries date back years";
 				}
 
 				return result;
@@ -519,7 +519,7 @@ namespace TheWayfarersInn.Game.Plugin
 
 			MacroFuncs.Add(17, () =>
 			{
-				var reactionStringArray = new string[] { "chills you to the bone", "makes your skin crawl", "gives you goosebumps", "fills you with dread" };
+				var reactionStringArray = new string[] { "chilling you to the bone", "making your skin crawl", "giving you goosebumps", "making your stomach drop" };
 
 				var hauntingArtifact = ADB[151];
 
@@ -604,7 +604,7 @@ namespace TheWayfarersInn.Game.Plugin
 
 				if (accountingLedgerArtifact.Readable.IsOpen())
 				{
-					result = " with faded ink, crossed-out entries, and smudges";
+					result = " Inside, yellowed, musty pages bear faded ink, crossed-out entries, and smudges.";
 				}
 
 				return result;
@@ -662,17 +662,17 @@ namespace TheWayfarersInn.Game.Plugin
 
 			MacroFuncs.Add(34, () => ADB[34].Moved ? "You see a moldy burlap sack" : "A moldy burlap sack lies discarded in a dimly lit corner of the cellar");      // Burlap sack
 
-			MacroFuncs.Add(35, () => ADB[46].Moved ? "You see a mop here" : "A mop leans against the wall");      // Mop
+			MacroFuncs.Add(35, () => ADB[46].Moved ? "You see a mop" : "A mop leans against the wall");      // Mop
 
-			MacroFuncs.Add(36, () => ADB[55].Moved ? "" : " clutched tightly in the skeleton's arms");      // Teddy bear
+			MacroFuncs.Add(36, () => ADB[55].Moved ? "" : " clutched tightly in the skeleton's arms, small finger bones still curled around it");      // Teddy bear
 
-			MacroFuncs.Add(37, () => ADB[87].Moved ? " has been" : " lies on the floor nearby,");      // Severed hand
+			MacroFuncs.Add(37, () => ADB[87].Moved ? " has recently been" : " lies on the floor nearby, recently");      // Severed hand
 
-			MacroFuncs.Add(38, () => ADB[93].Moved ? "" : " lies nearby on a dark stain in the floor");      // Desiccated thigh bone
+			MacroFuncs.Add(38, () => ADB[93].Moved ? " is here" : " lies nearby on a dark stain on the floor");      // Desiccated thigh bone
 
 			MacroFuncs.Add(39, () => ADB[102].Moved ? " has been" : " lies on the floor,");      // Severed arm
 
-			MacroFuncs.Add(40, () => ADB[111].Moved ? " here" : " lying in a corner");      // Broom
+			MacroFuncs.Add(40, () => ADB[111].Moved ? " abandoned here" : " lying in a corner");      // Broom
 
 			MacroFuncs.Add(41, () => ADB[112].Moved ? "" : " propped against the wall");      // Ladder
 
@@ -682,15 +682,15 @@ namespace TheWayfarersInn.Game.Plugin
 
 			MacroFuncs.Add(44, () => ADB[123].Moved ? "You see" : "Behind the bales of hay, you spot");      // Glass jar
 
-			MacroFuncs.Add(45, () => ADB[124].Moved ? "" : ", draped over large objects of various sizes throughout the barn. They appear oddly lumpy in places as if something is moving underneath");      // Canvas covers
+			MacroFuncs.Add(45, () => ADB[124].Moved ? "" : ", draped over large objects throughout the barn. Here and there, they bulge oddly, as if something shifts beneath");      // Canvas covers
 
-			MacroFuncs.Add(46, () => ADB[127].Moved ? " that were once supple are" : " hang over the sides of the stalls, once supple but");      // Horse harnesses
+			MacroFuncs.Add(46, () => ADB[127].Moved ? " are here," : " hang over the sides of the stalls,");      // Horse harnesses
 
 			MacroFuncs.Add(47, () => ADB[128].Moved ? "" : " perched atop a wooden rack");      // Saddle
 
-			MacroFuncs.Add(48, () => ADB[139].Moved ? " is present" : " hangs on the back wall of the room");      // Dartboard
+			MacroFuncs.Add(48, () => ADB[139].Moved ? " is present" : " hangs on the back wall");      // Dartboard
 
-			MacroFuncs.Add(49, () => ADB[140].Moved ? "You see some wooden chess pieces" : "Amidst the debris, you spot wooden chess pieces scattered across the floor");      // Wooden chess pieces
+			MacroFuncs.Add(49, () => ADB[140].Moved ? "You see some carved wooden chess pieces" : "You spot carved wooden chess pieces scattered in the debris");      // Wooden chess pieces
 
 			MacroFuncs.Add(50, () => ADB[164].Moved ? " is here" : " hangs on the workshop wall");      // Hammer
 
@@ -710,7 +710,7 @@ namespace TheWayfarersInn.Game.Plugin
 
 				if (waterArtifact.IsCarriedByContainerUid(24))
 				{
-					result = " It has been filled with water.";
+					result = " It is filled with water.";
 				}
 
 				return result;
@@ -718,17 +718,17 @@ namespace TheWayfarersInn.Game.Plugin
 
 			MacroFuncs.Add(56, () =>
 			{
-				var result = " at an odd angle. Its unevenness adds a sense of disarray to the room.";
+				var result = " at an odd angle.";
 
 				if (GameState != null)
 				{
 					if (gGameState.KitchenRiddleState == 2)
 					{
-						result = " at an odd angle, roughly balanced by the placement of the plates.";
+						result = " at an odd angle, roughly balanced by the plates.";
 					}
 					else if (IsKitchenShelfBalanced())
 					{
-						result = ", finely balanced by the placement of the plates and utensils.";
+						result = ", finely balanced by the plates and utensils.";
 					}
 				}
 
@@ -745,7 +745,7 @@ namespace TheWayfarersInn.Game.Plugin
 
 				if (smallBarnArtifact.DoorGate.IsOpen())
 				{
-					result = string.Format(" The door hangs ajar{0}.", GameState.Ls > 0 ? ", revealing a derelict interior" : "");
+					result = string.Format(" The door hangs ajar{0}.", GameState.Ls > 0 ? ", revealing the interior" : "");
 				}
 
 				return result;
@@ -761,7 +761,7 @@ namespace TheWayfarersInn.Game.Plugin
 
 				if (liquorCabinetArtifact.InContainer.IsOpen())
 				{
-					result = " Its shelves are empty of the colorful bottles and jars that once filled them.";
+					result = " Its bare shelves hold no bottles or jars.";
 				}
 
 				return result;
@@ -777,7 +777,7 @@ namespace TheWayfarersInn.Game.Plugin
 
 				if (burlapSackArtifact.InContainer.IsOpen())
 				{
-					result = " The inside is an odd, swirling black vortex.";
+					result = " Inside is a swirling black vortex.";
 				}
 
 				return result;
@@ -793,7 +793,7 @@ namespace TheWayfarersInn.Game.Plugin
 
 				if (bottleOfBourbonArtifact.Drinkable.Field2 > 0)
 				{
-					result = string.Format(" The bourbon inside has a deep amber color{0}.", bottleOfBourbonArtifact.Drinkable.IsOpen() ? " and a smoky aroma with notes of vanilla and caramel" : "");
+					result = string.Format(" The bourbon inside has a deep amber color{0}.", bottleOfBourbonArtifact.Drinkable.IsOpen() ? " with a smoky aroma of vanilla and caramel" : "");
 				}
 
 				return result;
@@ -809,7 +809,7 @@ namespace TheWayfarersInn.Game.Plugin
 
 				if (!armoireArtifact.InContainer.IsOpen())
 				{
-					result = string.Format(" The closed doors, possibly concealing secrets, are safeguarded by a{0}.", armoireArtifact.InContainer.GetBreakageStrength() > 1000 ? " sturdy padlock, warding off potential thieves" : " broken padlock");
+					result = string.Format(" A{0} padlock secures the closed doors.", armoireArtifact.InContainer.GetBreakageStrength() > 1000 ? "" : " broken");
 				}
 
 				return result;
@@ -821,7 +821,7 @@ namespace TheWayfarersInn.Game.Plugin
 				{ 2, new string[] { "weathered sign", "wooden sign" } },
 				{ 3, new string[] { "west wing", "west building", "wayfarers inn", "inn" } },
 				{ 4, new string[] { "east wing", "east building", "collapsed east wing", "collapsed east building", "collapsed wing", "collapsed building", "wayfarers inn", "inn" } },
-				{ 5, new string[] { "supplies", "supply" } },
+				{ 5, new string[] { "supplies", "supply", "canopy" } },
 				{ 6, new string[] { "bottle of oil", "kerosene bottle", "oil bottle", "bottle", "kerosene", "oil", "kerosene label", "label" } },
 				{ 7, new string[] { "toolshed door", "shed door", "shed", "door" } },
 				{ 8, new string[] { "small barn door", "barn door", "barn", "door" } },
@@ -836,7 +836,7 @@ namespace TheWayfarersInn.Game.Plugin
 				{ 20, new string[] { "stone temple", "stone temple door", "stone door", "temple door", "door" } },
 				{ 21, new string[] { "graveyard", "cemetary" } },
 				{ 24, new string[] { "pool" } },
-				{ 25, new string[] { "gravestones", "gravestone", "tombstones", "tombstone", "headstones", "headstone", "gravesites", "gravesite", "markers", "marker", "stones", "stone", "inscriptions", "inscription" } },
+				{ 25, new string[] { "gravestones", "gravestone", "tombstones", "tombstone", "headstones", "headstone", "wooden crosses", "wooden cross", "crosses", "cross", "gravesites", "gravesite", "markers", "marker", "stones", "stone", "inscriptions", "inscription" } },
 				{ 26, new string[] { "desk" } },
 				{ 27, new string[] { "key ring", "keys", "key" } },
 				{ 28, new string[] { "giant wood statue", "towering bear statue", "towering statue", "bear statue", "giant statue", "wooden statue", "wood statue", "statue", "statue base", "base", "giant bear", "bear", "ancient runes", "runes", "rune", "script", "text" } },
@@ -845,7 +845,7 @@ namespace TheWayfarersInn.Game.Plugin
 				{ 31, new string[] { "plaque" } },
 				{ 32, new string[] { "doors", "door" } },
 				{ 33, new string[] { "cellar", "door" } },
-				{ 34, new string[] { "sack" } },
+				{ 34, new string[] { "sack", "burlap bag", "bag" } },
 				{ 35, new string[] { "great stairway", "great stairs", "staircase", "stairway", "stairs" } },
 				{ 36, new string[] { "leather sectional", "leather sofas", "leather sofa", "leather couches", "leather couch", "leather furniture", "sectionals", "sectional", "sofas", "sofa", "couches", "couch", "furniture" } },
 				{ 37, new string[] { "fireplace" } },
@@ -866,7 +866,7 @@ namespace TheWayfarersInn.Game.Plugin
 				{ 55, new string[] { "stuffed bear", "stuffed toy", "teddy", "bear", "toy" } },
 				{ 56, new string[] { "tanks", "tank" } },
 				{ 57, new string[] { "moldy goop", "black goop", "goop" } },
-				{ 58, new string[] { "freshly dug hole", "fresh hole", "dug hole", "ground hole", "open grave", "hole", "grave" } },
+				{ 58, new string[] { "freshly-dug hole", "fresh hole", "dug hole", "ground hole", "open grave", "hole", "grave" } },
 				{ 59, new string[] { "dirt mound", "mound", "dirt" } },
 				{ 61, new string[] { "door" } },
 				{ 62, new string[] { "desk" } },
@@ -900,7 +900,7 @@ namespace TheWayfarersInn.Game.Plugin
 				{ 95, new string[] { "door" } },
 				{ 96, new string[] { "east wing", "east building", "collapsed east wing", "collapsed east building", "collapsed wing", "collapsed building", "wayfarers inn", "inn" } },
 				{ 97, new string[] { "court", "yard" } },
-				{ 98, new string[] { "spire" } },
+				{ 98, new string[] { "temple spire", "spire" } },
 				{ 99, new string[] { "majestic tree", "oak tree", "oak", "tree" } },
 				{ 100, new string[] { "door" } },
 				{ 101, new string[] { "door" } },
@@ -922,7 +922,7 @@ namespace TheWayfarersInn.Game.Plugin
 				{ 122, new string[] { "hay bales", "hay bale", "hay", "bales", "bale" } },
 				{ 123, new string[] { "gold coins", "gold coin", "coins", "coin", "jar" } },
 				{ 124, new string[] { "canvas", "covers", "cover" } },
-				{ 125, new string[] { "furniture" } },
+				{ 125, new string[] { "furniture", "armchair", "chair", "table", "china cabinet", "cabinet", "faded tags", "tags" } },
 				{ 126, new string[] { "horseshoes", "horseshoe", "pile", "shoes", "shoe" } },
 				{ 127, new string[] { "harnesses", "harness" } },
 				{ 130, new string[] { "bourbon bottle", "liquor bottle", "bottle", "bourbon", "alcohol", "liquor", "Jax Darnel's", "bourbon label", "label" } },
@@ -982,16 +982,16 @@ namespace TheWayfarersInn.Game.Plugin
 
 			var foundArtifactNicknacksArray = new[]
 			{
-				new { Name = "weathered book", Desc = "You discover a weathered book of faded illustrations.", Weight = 5, Synonyms = new string[] { "book" } },
-				new { Name = "pocket watch", Desc = "You discover a broken pocket watch, silent and still.", Weight = 1, Synonyms = new string[] { "watch" } },
-				new { Name = "copper hairpin", Desc = "You discover a tarnished copper hairpin with delicate engravings.", Weight = 0, Synonyms = new string[] { "hairpin", "hair pin" } },
-				new { Name = "chipped teacup", Desc = "You discover a chipped teacup with a faded floral design.", Weight = 1, Synonyms = new string[] { "chipped tea cup", "teacup", "tea cup" } },
-				new { Name = "wooden marionette", Desc = "You discover a wooden marionette with tangled strings and faded paint.", Weight = 3, Synonyms = new string[] { "wooden puppet", "marionette", "puppet" } },
-				new { Name = "dried flower", Desc = "You discover a dried, pressed flower between the pages of a diary.", Weight = 0, Synonyms = new string[] { "flower" } },
-				new { Name = "rusty key", Desc = "You discover a rusty key that doesn't match any locks nearby.", Weight = 1, Synonyms = new string[] { "key" } },
-				new { Name = "lace handkerchief", Desc = "You discover a tattered lace handkerchief with embroidered initials.", Weight = 0, Synonyms = new string[] { "handkerchief", "hanky" } },
-				new { Name = "feather quill", Desc = "You discover a feather quill with worn and faded plumage.", Weight = 1, Synonyms = new string[] { "quill" } },
-				new { Name = "faded painting", Desc = "You discover a faded painting portraying a picturesque landscape.", Weight = 7, Synonyms = new string[] { "painting" } },
+				new { Name = "weathered book", Desc = "You find a weathered book of illustrations.", Weight = 5, Synonyms = new string[] { "book" } },
+				new { Name = "pocket watch", Desc = "You find a broken pocket watch.", Weight = 1, Synonyms = new string[] { "watch" } },
+				new { Name = "copper hairpin", Desc = "You find a tarnished copper hairpin with simple engravings.", Weight = 0, Synonyms = new string[] { "hairpin", "hair pin" } },
+				new { Name = "chipped teacup", Desc = "You find a chipped teacup with a floral design.", Weight = 1, Synonyms = new string[] { "chipped tea cup", "teacup", "tea cup" } },
+				new { Name = "wooden marionette", Desc = "You find a painted wooden marionette with tangled strings.", Weight = 3, Synonyms = new string[] { "wooden puppet", "marionette", "puppet" } },
+				new { Name = "dried flower", Desc = "You find a dried, pressed flower.", Weight = 0, Synonyms = new string[] { "flower" } },
+				new { Name = "rusty key", Desc = "You find a rusty key that doesn't match any nearby locks.", Weight = 1, Synonyms = new string[] { "key" } },
+				new { Name = "lace handkerchief", Desc = "You find a tattered lace handkerchief with embroidered initials.", Weight = 0, Synonyms = new string[] { "handkerchief", "hanky" } },
+				new { Name = "feather quill", Desc = "You find a feather quill with worn, faded plumage.", Weight = 1, Synonyms = new string[] { "quill" } },
+				new { Name = "faded painting", Desc = "You find a faded painting of a picturesque landscape.", Weight = 7, Synonyms = new string[] { "painting" } },
 			};
 
 			var foundArtifactNicknacksList = foundArtifactNicknacksArray.ToList();
@@ -1019,16 +1019,16 @@ namespace TheWayfarersInn.Game.Plugin
 
 			var foundArtifactValuablesArray = new[]
 			{
-				new { Name = "jeweled pendant", Desc = "You discover an ornate pendant adorned with jewels and an unknown crest.", IsPlural = false, Weight = 1, Synonyms = new string[] { "ornate pendant", "pendant" } },
-				new { Name = "silver candelabra", Desc = "You discover a silver candelabra with intricate carvings.", IsPlural = false, Weight = 7, Synonyms = new string[] { "candelabra" } },
-				new { Name = "tarnished coin", Desc = "You discover some tarnished coins from a lost kingdom of antiquity.", IsPlural = true, Weight = 10, Synonyms = new string[] { "coins", "coin" } },
-				new { Name = "music box", Desc = "You discover an exquisite wooden music box with a haunting melody.", IsPlural = false, Weight = 3, Synonyms = new string[] { "box" } },
-				new { Name = "gemstone", Desc = "You discover a collection of valuable gemstones wrapped in a velvet cloth.", IsPlural = true, Weight = 5, Synonyms = new string[] { "gems", "gemstone collection", "collection" } },
-				new { Name = "crystal vial", Desc = "You discover a small, delicate crystal vial filled with shimmering dust.", IsPlural = false, Weight = 2, Synonyms = new string[] { "vial" } },
-				new { Name = "feathered mask", Desc = "You discover an elaborate mask adorned with feathers and gemstones.", IsPlural = false, Weight = 3, Synonyms = new string[] { "mask" } },
-				new { Name = "moth specimen", Desc = "You discover a rare and perfectly preserved moth specimen encased in glass.", IsPlural = false, Weight = 5, Synonyms = new string[] { "moth", "specimen" } },
-				new { Name = "crystal sphere", Desc = "You discover a set of delicate, crystal-clear spheres, each containing a mesmerizing scene of distant landscapes.", IsPlural = true, Weight = 6, Synonyms = new string[] { "spheres", "sphere" } },
-				new { Name = "gold letter opener", Desc = "You discover an elegant gold letter opener with subtle engravings on the blade.", IsPlural = false, Weight = 2, Synonyms = new string[] { "gold opener", "letter opener", "opener" } },
+				new { Name = "jeweled pendant", Desc = "You find a jeweled pendant adorned with an unknown crest.", IsPlural = false, Weight = 1, Synonyms = new string[] { "pendant" } },
+				new { Name = "silver candelabra", Desc = "You find an intricately carved silver candelabra.", IsPlural = false, Weight = 7, Synonyms = new string[] { "candelabra" } },
+				new { Name = "tarnished coin", Desc = "You find some tarnished coins from a lost kingdom.", IsPlural = true, Weight = 10, Synonyms = new string[] { "coins", "coin" } },
+				new { Name = "music box", Desc = "You find an exquisite wooden music box with a haunting melody.", IsPlural = false, Weight = 3, Synonyms = new string[] { "box" } },
+				new { Name = "gemstone", Desc = "You find some valuable gemstones wrapped in velvet cloth.", IsPlural = true, Weight = 5, Synonyms = new string[] { "gems" } },
+				new { Name = "crystal vial", Desc = "You find a small, delicate crystal vial filled with shimmering dust.", IsPlural = false, Weight = 2, Synonyms = new string[] { "vial" } },
+				new { Name = "feathered mask", Desc = "You find an elaborate feathered mask adorned with gemstones.", IsPlural = false, Weight = 3, Synonyms = new string[] { "mask" } },
+				new { Name = "moth specimen", Desc = "You find a rare, perfectly preserved moth specimen encased in glass.", IsPlural = false, Weight = 5, Synonyms = new string[] { "moth", "specimen" } },
+				new { Name = "crystal sphere", Desc = "You find some delicate crystal spheres, each containing a landscape scene.", IsPlural = true, Weight = 6, Synonyms = new string[] { "spheres", "sphere" } },
+				new { Name = "letter opener", Desc = "You find a gold letter opener with subtle engravings on the blade.", IsPlural = false, Weight = 2, Synonyms = new string[] { "opener" } },
 			};
 
 			var foundArtifactValuablesList = foundArtifactValuablesArray.ToList();
@@ -1067,15 +1067,15 @@ namespace TheWayfarersInn.Game.Plugin
 
 			var furnitureSetDescTemplate = @"You see {0}, {1}, and {2}. Nearby sits {3} and {4}.";
 
-			var bedList = new List<string>() { "a creaky four-poster bed draped in dusty curtains", "a rusted iron-framed bed with tattered beddings", "a makeshift bed with a lumpy straw mattress", "a tattered canopy bed with moth-eaten curtains", "a worn-out sleigh bed with creaky springs" };
+			var bedList = new List<string>() { "a creaky four-poster bed draped in dusty curtains", "a rusted iron-framed bed with tattered bedding", "a makeshift bed with a lumpy straw mattress", "a canopy bed with moth-eaten curtains", "a worn sleigh bed with creaky springs" };
 
-			var nightstandList = new List<string>() { "a bedside nightstand with peeling paint", "a small nightstand with chipped edges", "a wobbly nightstand stacked with old candles", "a chipped nightstand with a cracked oil lamp", "a weathered nightstand with a stack of yellowed letters" };
+			var nightstandList = new List<string>() { "a nightstand with peeling paint", "a small nightstand with chipped edges", "a wobbly nightstand stacked with old candles", "a chipped nightstand with a cracked oil lamp", "a nightstand stacked with yellowed letters" };
 
-			var dresserList = new List<string>() { "a cracked wooden dresser with missing knobs", "a dusty dresser with drawers slightly ajar", "a cracked dresser missing a drawer", "a dusty dresser with a broken mirror", "a peeling dresser with mismatched knobs" };
+			var dresserList = new List<string>() { "a cracked wooden dresser with missing knobs", "a dusty dresser with slightly ajar drawers", "a splintered dresser missing a drawer", "a grimy dresser with a broken mirror", "a peeling dresser with mismatched handles" };
 
-			var armchairList = new List<string>() { "a moth-eaten armchair covered in cobwebs", "a sagging armchair with torn upholstery", "a tattered armchair with an unraveling cushion", "a threadbare armchair with a missing leg", "a faded armchair with cobwebs in the corners" };
+			var armchairList = new List<string>() { "a moth-eaten armchair covered in cobwebs", "a sagging armchair with torn upholstery", "an armchair with an unraveling cushion", "a threadbare armchair with a missing leg", "a faded armchair with cobwebs in the corners" };
 
-			var writingDeskList = new List<string>() { "a weathered writing desk with faded ink stains", "a warped writing desk with a scratched surface", "a splintered writing desk with dry inkwells", "a warped writing desk with moldy parchment", "a splintered writing desk with crumbling quills" };
+			var writingDeskList = new List<string>() { "a writing desk with faded ink stains", "a warped writing desk with a scratched surface", "a splintered writing desk with dry inkwells", "a swollen writing desk with moldy parchment", "a cracked writing desk with crumbling quills" };
 
 			var usedBedList = new List<string>();
 
@@ -1114,18 +1114,18 @@ namespace TheWayfarersInn.Game.Plugin
 				gGameState.GuestRoomDictionary.Add(roomUid, guestRoomData);
 			}
 
-			var fineClothingDescTemplate = @"The fine clothing ensemble consists of {0}.";
+			var fineClothingDescTemplate = @"The fine clothing ensemble includes {0}.";
 
 			var fineClothingDescArray = new string[]
 			{
-				"a muted blue and gray jacket, a loose-fitting shirt, trousers, knee-high boots, a silk scarf, and a wide-brimmed hat",
-				"a deep purple and gold waistcoat, flowing shirt, fitted trousers, knee-high boots, a wide belt, and a feathered hat",
+				"a muted blue-gray jacket, a loose-fitting shirt, trousers, knee-high boots, a silk scarf, and a wide-brimmed hat",
+				"a deep purple-gold waistcoat, flowing shirt, fitted trousers, knee-high boots, a wide belt, and a feathered hat",
 				"a rustic brown tunic, rugged trousers, a hooded cloak, leather boots, and a wide leather belt",
 				"a burgundy jacket with silver patterns, a white shirt, fitted trousers, leather boots, a silk ascot, and a wide-brimmed hat",
-				"a sandy beige tunic, wide-legged trousers, patterned scarf, leather vest, leather boots, and some beaded bracelets",
-				"a deep violet robe with silver celestial patterns, fitted trousers, velvet cloak, knee-high boots, and a moon-shaped pendant",
-				"a fitted leather jacket, comfortable shirt, well-worn trousers, sturdy boots, wide belt, and leather wristbands",
-				"an emerald waistcoat, gold filigree, ruffled shirt, slim trousers, polished leather shoes, pocket watch chain, and emerald brooch",
+				"a sandy beige tunic, wide-legged trousers, patterned scarf, leather vest, leather boots, and beaded bracelets",
+				"a deep violet robe with silver celestial patterns, fitted trousers, a velvet cloak, knee-high boots, and a moon-shaped pendant",
+				"a fitted leather jacket, plain shirt, well-worn trousers, sturdy boots, wide belt, and leather wristbands",
+				"an emerald waistcoat, gold filigree, a ruffled shirt, slim trousers, polished leather shoes, a pocket watch chain, and an emerald brooch",
 			};
 
 			// Procedurally generate fine clothing
@@ -1631,7 +1631,7 @@ namespace TheWayfarersInn.Game.Plugin
 
 				if (monsterList.Count > 0)
 				{
-					result = " and your companions";
+					result = " upon you and your companions";
 				}
 
 				return result;
@@ -1645,7 +1645,7 @@ namespace TheWayfarersInn.Game.Plugin
 
 				if (monsterList.Count > 0)
 				{
-					result = string.Format("You can hear your companions' screams echoing through the {0} as it tears them limb from limb. You", gCharRoom.EvalRoomType("room", "area"));
+					result = string.Format("You hear your companions' screams echoing through the {0} as it tears them limb from limb. You", gCharRoom.EvalRoomType("room", "area"));
 				}
 
 				return result;
@@ -1683,17 +1683,17 @@ namespace TheWayfarersInn.Game.Plugin
 				{
 					if (gGameState.WoodenBridgeUseCounter > 2)
 					{
-						result += " There is also a path leading south in the southeast corner of the clearing.";
+						result += " A path in the southeast corner also leads south.";
 
 						numPaths++;
 					}
 
 					if (room02.Seen || (numPaths > 1 && room.Seen))
 					{
-						result += string.Format(" You must have missed {0} when you first explored the area.", numPaths > 1 ? "them" : "it");
+						result += string.Format(" When you first explored the area, you missed {0}.", numPaths > 1 ? "them" : "it");
 					}
 
-					result += string.Format(" You make a mental note to investigate {0} later.", numPaths > 1 ? "these" : "this");
+					result += string.Format(" You note {0} for later investigation.", numPaths > 1 ? "these" : "this");
 				}
 
 				return result;
@@ -1708,11 +1708,11 @@ namespace TheWayfarersInn.Game.Plugin
 
 			MacroFuncs.Add(14, () =>
 			{
-				return GameState != null && GameState.Ro == 13 && GameState.R3 == 9 ? "You" : 
-							"You work your way around the massive building, admiring its fine but crumbling stonework architecture. Eventually, you";
+				return GameState != null && GameState.Ro == 13 && GameState.R3 == 9 ? "You" :
+							"You circle the massive building, its fine stonework crumbling with age. Eventually, you";
 			});
 
-			MacroFuncs.Add(23, () =>
+			MacroFuncs.Add(23, () =>		// +++ UNUSED +++
 			{
 				return Character != null ? Character.EvalGender(" of man", " of woman", "") : "";
 			});
@@ -1860,7 +1860,7 @@ namespace TheWayfarersInn.Game.Plugin
 
 			NonEmotingMonsterUids = new long[] { 1, 2, 12, 13, 14, 18, 19 };
 
-			ForestEventFuncList = new List<Action<IRoom>> 
+			ForestEventFuncList = new List<Action<IRoom>>
 			{ 
 				r => PrintEffectDesc(71),
 				r => BuildDecorationArtifact(150, 72, "red fox", new string[] { "wildlife", "animals", "animal", "red fox", "fox" }, null),
@@ -1894,11 +1894,11 @@ namespace TheWayfarersInn.Game.Plugin
 
 			ChildsApparitionEventFuncList = new List<Action<IRoom, IMonster>>
 			{
-				(r, m) => Out.Print("{0} plays with her spectral teddy, {1}.", m.GetTheName(true), GetRandomElement(new string[] { "fiddling with its stubby ears", "pulling gently at its button eyes", "stroking its fur", "poking at its belly", "holding it by the arms" })),
-				(r, m) => Out.Print("{0} shifts her stance from her {1} foot.", m.GetTheName(true), GetRandomElement(new string[] { "right to left", "left to right" })),
-				(r, m) => Out.Print("{0} hums to herself, what sounds like {1}.", m.GetTheName(true), GetRandomElement(new string[] { "a lullaby", "a local folk song", "a made-up song" })),
-				(r, m) => Out.Print("{0} {1}.", m.GetTheName(true), GetRandomElement(new string[] { "stands on one foot, trying to balance herself", "plays a game of hopscotch", "waves her arms in the air like a bird flapping its wings", "makes finger puppets with her little hands" })),
-				(r, m) => Out.Print("{0} {1}, though probably just out of habit.", m.GetTheName(true), GetRandomElement(new string[] { "yawns", "hiccups", "sneezes", "shivers", "scratches an itch" })),
+				(r, m) => Out.Print("{0} plays with her spectral teddy, {1}.", m.GetTheName(true), GetRandomElement(new string[] { "fiddling with its stubby ears", "gently pulling its button eyes", "stroking its fur", "poking its belly", "holding its arms" })),
+				(r, m) => Out.Print("{0} shifts her stance from her {1} foot.", m.GetTheName(true), GetRandomElement(new string[] { "right to her left", "left to her right" })),
+				(r, m) => Out.Print("{0} quietly hums {1}.", m.GetTheName(true), GetRandomElement(new string[] { "a lullaby", "a local folk song", "a made-up song" })),
+				(r, m) => Out.Print("{0} {1}.", m.GetTheName(true), GetRandomElement(new string[] { "tries to balance on one foot", "plays hopscotch", "flaps her arms in the air like a bird", "makes finger puppets" })),
+				(r, m) => Out.Print("{0} {1}, probably out of habit.", m.GetTheName(true), GetRandomElement(new string[] { "yawns", "hiccups", "sneezes", "shivers", "scratches an itch" })),
 				(r, m) =>
 				{
 					var excludedArtifactUids = new long[] { 30, 54, 55 };
@@ -1991,7 +1991,7 @@ namespace TheWayfarersInn.Game.Plugin
 
 						var a02 = record as IArtifact;
 
-						Out.Print("{0} tries to touch {1}, but {2} hand passes through{3}.",
+						Out.Print("{0} reaches for {1}, but {2} hand passes through{3}.",
 							m.GetTheName(true),
 							m02 != null && m02.IsCharacterMonster() ? "you" : record.GetTheName(),
 							m.EvalGender("his", "her", "its"),
@@ -2002,7 +2002,7 @@ namespace TheWayfarersInn.Game.Plugin
 				{
 					var surfaceType = RollDice(1, r.EvalRoomType(3, 2), 0);
 
-					Out.Print("{0} {1} through {2} but reappears shortly after.", 
+					Out.Print("{0} {1} through {2} but reappears shortly thereafter.", 
 						m.GetTheName(true), 
 						surfaceType == 1 || surfaceType == 2 ? "vanishes" : "floats", 
 						surfaceType == 1 ? "a wall" : surfaceType == 2 ? r.EvalRoomType("the floor", "the ground") : "the ceiling");

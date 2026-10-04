@@ -25,7 +25,7 @@ namespace TheWayfarersInn.Game.Commands
 
 			if (IobjArtifact.Uid == 26 && ContainerType == ContainerType.In)
 			{
-				gOut.Print("You can see the floor through the rotted-out bottom of the drawer.");
+				gOut.Print("The drawer's rotted-out bottom reveals the floor beneath.");
 			}
 			else
 			{
@@ -96,7 +96,7 @@ namespace TheWayfarersInn.Game.Commands
 				{
 					if (DobjArtifact.Field1 > 0)
 					{
-						gOut.Print("You put some kerosene in {0}.", IobjArtifact.GetTheName());
+						gOut.Print("You put kerosene in {0}.", IobjArtifact.GetTheName());
 
 						var amount = Math.Min(200 - IobjArtifact.Field1, DobjArtifact.Field1);
 
@@ -178,10 +178,10 @@ namespace TheWayfarersInn.Game.Commands
 					gOut.EnableOutput = true;
 
 					gOut.Print(IobjArtifact.Uid == 17 ? 
-						"You drop {0} into the water well. {1} into the inky blackness and a few moments later you hear a faint splash." :
+						"You drop {0} into the water well. {1} into the inky blackness, and a few moments later you hear a faint splash." :
 						IobjArtifact.Uid == 97 ?
-						"You drop {0} over the guard rail. {1} through the air, hitting the ground below with a thud." :
-						"You absent-mindedly throw {0} into the gorge. {1} into the raging river, swept downstream beyond any hope of recovery.",
+						"You drop {0} over the guard rail. {1} through the air to land with a thud below." :
+						"You throw {0} into the gorge. {1} into the raging river and is swept downstream beyond recovery.",
 						DobjArtifact.GetTheName(), DobjArtifact.EvalPlural("It tumbles", "They tumble"));
 
 					if (IobjArtifact.Uid == 97)

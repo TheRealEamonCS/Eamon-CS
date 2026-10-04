@@ -93,7 +93,7 @@ namespace TheWayfarersInn.Game.Commands
 									}
 									else
 									{
-										gOut.Print("While Charlotte's bones are in a far better place, you sense her spirit may still linger.");
+										gOut.Print("Charlotte's bones rest easier now, though her spirit may yet linger.");
 									}
 								}
 
@@ -109,7 +109,7 @@ namespace TheWayfarersInn.Game.Commands
 					}
 					else
 					{
-						var digResult = ActorRoom.Type == RoomType.Outdoors && !roomUids.Contains(ActorRoom.Uid) ? "You dig for a while but find nothing of interest." : "This isn't a suitable place for digging!";
+						var digResult = ActorRoom.Type == RoomType.Outdoors && !roomUids.Contains(ActorRoom.Uid) ? "You dig for a while but find nothing of interest." : "You can't dig here!";
 
 						gOut.Print(digResult);
 					}
@@ -157,7 +157,7 @@ namespace TheWayfarersInn.Game.Commands
 			{
 				var actionType = DobjArtifact.Uid == 46 ? "mop" : "sweep";
 
-				var actionResult = ActorRoom.Type == RoomType.Indoors || roomUids.Contains(ActorRoom.Uid) ? $"You {actionType} the floor for a while, which looks a little bit cleaner." : $"You want to {actionType}... the ground?";
+				var actionResult = ActorRoom.Type == RoomType.Indoors || roomUids.Contains(ActorRoom.Uid) ? $"You {actionType} the floor, leaving it a little cleaner." : $"You want to {actionType}... the ground?";
 
 				gOut.Print(actionResult);
 
@@ -188,7 +188,7 @@ namespace TheWayfarersInn.Game.Commands
 
 					if (waterArtifact.IsInLimbo())
 					{
-						gOut.Print("You fill {0} with fresh water from {1}.", DobjArtifact.GetTheName(), waterWellArtifact.GetTheName());
+						gOut.Print("You fill {0} with fresh water from the well.", DobjArtifact.GetTheName());
 
 						waterArtifact.SetCarriedByContainer(DobjArtifact);
 
@@ -294,7 +294,7 @@ namespace TheWayfarersInn.Game.Commands
 
 				Debug.Assert(waterArtifact != null);
 
-				gOut.Print("You sit in {0}, bow your head in reverence, then pray to a higher power.", DobjArtifact.GetTheName());
+				gOut.Print("You sit in {0}, head bowed, and pray to a higher power.", DobjArtifact.GetTheName());
 
 				if (childsSkeletonArtifact.IsCarriedByContainer(purificationPoolArtifact) && waterArtifact.IsCarriedByContainer(purificationPoolArtifact) && !gGameState.CharlotteBonesPurified)
 				{
@@ -374,7 +374,7 @@ namespace TheWayfarersInn.Game.Commands
 					}
 					else
 					{
-						gOut.Print("You can't bring yourself to use {0} ever again!", DobjArtifact.GetTheName());
+						gOut.Print("You'll never fall asleep in {0} ever again!", DobjArtifact.GetTheName());
 					}
 
 					NextState = gEngine.CreateInstance<IMonsterStartState>();
@@ -430,7 +430,7 @@ namespace TheWayfarersInn.Game.Commands
 
 			else if (DobjArtifact.Uid == 120)
 			{
-				gOut.Print(gActorRoom(this).IsWayfarersInnRoom() ? "Most unwise - whatever arrives will likely give you very poor service." : "Ding!");
+				gOut.Print(gActorRoom(this).IsWayfarersInnRoom() ? "Whatever answers will give you very poor service." : "Ding!");
 
 				NextState = gEngine.CreateInstance<IMonsterStartState>();
 			}
@@ -441,7 +441,7 @@ namespace TheWayfarersInn.Game.Commands
 			{
 				if (gGameState.GetNBTL(Friendliness.Enemy) <= 0)
 				{
-					gOut.Print("{0} has long since seen its last game of pool.", DobjArtifact.GetTheName(true));
+					gOut.Print("{0} saw its last game long ago.", DobjArtifact.GetTheName(true));
 
 					NextState = gEngine.CreateInstance<IMonsterStartState>();
 				}
@@ -461,7 +461,7 @@ namespace TheWayfarersInn.Game.Commands
 				{
 					if (ActorRoom.Uid == 27 && DobjArtifact.IsInRoom(ActorRoom))
 					{
-						if (!gGameState.CharlotteRestInPeace && !gGameState.DartboardCreepsOut)
+						if (!unseenApparitionMonster.IsInLimbo() && !unseenApparitionMonster.IsInRoom(ActorRoom) && !gGameState.DartboardCreepsOut)
 						{
 							gEngine.PrintEffectDesc(131);
 
@@ -472,9 +472,9 @@ namespace TheWayfarersInn.Game.Commands
 
 						var rl = gEngine.RollDice(1, 100, 0);
 
-						gOut.Print("You{0} play a quick game of darts{1}",
+						gOut.Print("You{0} play darts.{1}",
 							nolanMonster.Reaction == Friendliness.Friend && nolanMonster.IsInRoom(ActorRoom) ? " and Nolan" : "",
-							nolanMonster.Reaction == Friendliness.Friend && nolanMonster.IsInRoom(ActorRoom) ? string.Format(" and {0} handily!", rl > 50 ? "you beat him" : "he beats you") : ".");
+							nolanMonster.Reaction == Friendliness.Friend && nolanMonster.IsInRoom(ActorRoom) ? string.Format(" {0} handily!", rl > 50 ? "You win" : "He wins") : "");
 					}
 					else
 					{
@@ -517,9 +517,9 @@ namespace TheWayfarersInn.Game.Commands
 				{
 					var rl = gEngine.RollDice(1, 100, 0);
 
-					gOut.Print("You{0} play a quick game of cards{1}",
+					gOut.Print("You{0} play cards.{1}",
 						nolanMonster.Reaction == Friendliness.Friend && nolanMonster.IsInRoom(ActorRoom) ? " and Nolan" : "",
-						nolanMonster.Reaction == Friendliness.Friend && nolanMonster.IsInRoom(ActorRoom) ? string.Format(" and {0} handily!", rl > 50 ? "you beat him" : "he beats you") : ".");
+						nolanMonster.Reaction == Friendliness.Friend && nolanMonster.IsInRoom(ActorRoom) ? string.Format(" {0} handily!", rl > 50 ? "You win" : "He wins") : "");
 
 					// Using deck of cards damages its value
 
@@ -588,7 +588,7 @@ namespace TheWayfarersInn.Game.Commands
 										{
 											var improvementDescs = new string[] { "", "dubious", "fair", "good", "excellent", "amazing" };
 
-											gOut.Print("You get to work on {0}, given your newfound knowledge. The improvements to the weapon{1} are {2}.", forgedArtifact.GetTheName(), forgedArtifact.EvalPlural("", "s"), improvementDescs[rl]);
+											gOut.Print("You work on {0}, applying your newfound knowledge. The improvements to the weapon{1} are {2}.", forgedArtifact.GetTheName(), forgedArtifact.EvalPlural("", "s"), improvementDescs[rl]);
 
 											forgedArtifact.GeneralWeapon.Field1 = Math.Min(forgedArtifact.GeneralWeapon.Field1 + rl, 30);
 										}
@@ -596,7 +596,7 @@ namespace TheWayfarersInn.Game.Commands
 										{
 											var damageDescs = new string[] { "", "light", "limited", "bad", "severe", "catastrophic" };
 
-											gOut.Print("You get to work on {0} despite your complete lack of knowledge. The damage to the weapon{1} is {2}.", forgedArtifact.GetTheName(), forgedArtifact.EvalPlural("", "s"), damageDescs[rl]);
+											gOut.Print("You work on {0} despite your lack of knowledge. The damage inflicted on the weapon{1} is {2}.", forgedArtifact.GetTheName(), forgedArtifact.EvalPlural("", "s"), damageDescs[rl]);
 
 											forgedArtifact.GeneralWeapon.Field1 = Math.Max(forgedArtifact.GeneralWeapon.Field1 - rl, -30);
 										}
@@ -605,17 +605,17 @@ namespace TheWayfarersInn.Game.Commands
 									}
 									else
 									{
-										gOut.Print("There isn't anything more you can do with {0}.", forgedArtifact.GetTheName());
+										gOut.Print("Nothing more can be done with {0}.", forgedArtifact.GetTheName());
 									}
 								}
 								else
 								{
-									gOut.Print("You can only attempt to forge weapons!");
+									gOut.Print("Only weapons can be forged!");
 								}
 							}
 							else
 							{
-								gOut.Print("It's not clear what you want to attempt to forge.");
+								gOut.Print("It's not clear what you want to forge.");
 							}
 						}
 						else
@@ -644,7 +644,7 @@ namespace TheWayfarersInn.Game.Commands
 
 			else if (DobjArtifact.Uid == 187)
 			{
-				gOut.Print("You quickly realize this is just a collection of useless junk.");
+				gOut.Print("This is just a collection of useless junk.");
 
 				NextState = gEngine.CreateInstance<IMonsterStartState>();
 			}

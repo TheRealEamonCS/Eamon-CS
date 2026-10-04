@@ -71,7 +71,7 @@ namespace EamonPM
 
 		public static Func<char, bool> InputTermCharFunc { get; set; }
 
-		public static string BuildGuid = "5AD3923D-F936-4DC6-B4E0-6C87B324D745";
+		public static string BuildGuid = "C4B6D312-1019-44B5-8EE6-35ED2506A26B";
 
 		public static string ProgramName { get; set; }
 
@@ -252,6 +252,24 @@ namespace EamonPM
 
 			foreach (var dependency in assembly.GetReferencedAssemblies())
 			{
+				// Skip anything already loaded into the default load context. This
+				// matters most for the .NET runtime's own assemblies (eg
+				// System.Private.CoreLib) - under a self-contained deployment they
+				// sit as loose files right next to the plugins in WorkDir, but the
+				// CLR bootstraps CoreLib itself before any of our code runs, and an
+				// explicit second load of it throws FileLoadException. Checking the
+				// load context first (rather than only checking for a same-named
+				// file in WorkDir) is correct in general, not just a workaround for
+				// that case - it also avoids redundantly reloading any dependency
+				// a previously-loaded plugin already brought in.
+				var alreadyLoaded = AssemblyLoadContext.Default.Assemblies.Any(loaded =>
+					string.Equals(loaded.GetName().Name, dependency.Name, StringComparison.OrdinalIgnoreCase));
+
+				if (alreadyLoaded)
+				{
+					continue;
+				}
+
 				var dependencyPath = gEngine.Path.Combine(WorkDir, dependency.Name + ".dll");
 
 				if (gEngine.File.Exists(dependencyPath))

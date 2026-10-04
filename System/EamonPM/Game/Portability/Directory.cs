@@ -65,7 +65,7 @@ namespace EamonPM.Game.Portability
 
 				if (result)
 				{
-					result = Regex.IsMatch(fullPath, pattern);
+					result = !string.IsNullOrWhiteSpace(pattern) ? Regex.IsMatch(fullPath, pattern) : false;
 				}
 			}
 

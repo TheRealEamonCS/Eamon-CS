@@ -65,7 +65,7 @@ namespace TheWayfarersInn.Game.Parsing
 
 				else if (!(NextCommand is IExamineCommand) && NextCommand.Type != CommandType.Movement && DobjArtifact != null && (DobjArtifact.Uid == 151 || DobjArtifact.Uid == 153))
 				{
-					gOut.Print("{0} {1} not accessible from here.", DobjArtifact.GetTheName(true), DobjArtifact.EvalPlural("is", "are"));
+					gOut.Print("You can't reach {0} from here.", DobjArtifact.GetTheName());
 
 					NextState = gEngine.CreateInstance<IMonsterStartState>();
 				}
@@ -86,7 +86,7 @@ namespace TheWayfarersInn.Game.Parsing
 						}
 						else if (NextCommand is IBlastCommand || ActorMonster.Weapon != 12)
 						{
-							gOut.Print("Surely there are tools better suited for that job!");
+							gOut.Print("Surely better tools exist for that job!");
 
 							NextState = gEngine.CreateInstance<IMonsterStartState>();
 						}
@@ -105,7 +105,7 @@ namespace TheWayfarersInn.Game.Parsing
 	
 					else if (DobjArtifact != null && DobjArtifact.Uid == 137)
 					{
-						gOut.Print("The investors syndicate would not be happy with your vandalism.");
+						gOut.Print("The investment syndicate won't take kindly to vandalism.");
 
 						NextState = gEngine.CreateInstance<IMonsterStartState>();
 					}

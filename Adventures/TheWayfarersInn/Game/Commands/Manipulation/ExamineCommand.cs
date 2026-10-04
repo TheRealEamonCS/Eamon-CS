@@ -73,12 +73,11 @@ namespace TheWayfarersInn.Game.Commands
 			{
 				var goldFound = gEngine.RollDice(1, 5, 0);
 
-				gOut.Print("You scrounge {0} {1} and turn up {2} gold piece{3}, probably lost from the pocket{3} of {4}unlucky traveler{3}!",
+				gOut.Print("Scrounging {0} {1}, you turn up {2} gold piece{3}, likely lost from some unlucky traveler's pocket!",
 					ContainerType.ToString().ToLower(),
 					DobjArtifact.GetTheName(),
 					gEngine.GetStringFromNumber(goldFound, false, gEngine.Buf01),
-					goldFound != 1 ? "s" : "",
-					goldFound != 1 ? "" : "an ");
+					goldFound != 1 ? "s" : "");
 
 				gCharacter.HeldGold += goldFound;
 
@@ -98,7 +97,7 @@ namespace TheWayfarersInn.Game.Commands
 
 			else if (DobjArtifact != null && DobjArtifact.Uid == 71 && ContainerType == ContainerType.In)
 			{
-				gOut.Print("Your whole body is reflected back in {0}.", DobjArtifact.GetTheName());
+				gOut.Print("{0} reflects your whole body.", DobjArtifact.GetTheName(true));
 
 				// Trigger mirror doorway (step 2)
 

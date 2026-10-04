@@ -46,6 +46,12 @@ namespace TheWayfarersInn.Game
 				fineClothingArtifact.SetInLimbo();
 			}
 
+			gOut.Print("{0}", gEngine.LineSep);
+
+			gOut.Print("You return to the village of Geldhaven to retrieve your stored venison.");
+
+			gEngine.In.KeyPress(gEngine.Buf);
+
 			// Reward for overdue property taxes levied on former owner (Greer Blackthorn)	
 
 			if (propertyDeedArtifact.IsCarriedByMonster(gCharMonster, true))

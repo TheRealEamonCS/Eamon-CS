@@ -37,7 +37,7 @@ namespace TheWayfarersInn.Game.States
 		{
 			if (!gGameState.MatureContent)
 			{
-				gOut.Print("To play this game you must opt-in by typing SET MATURECONTENT TRUE.");
+				gOut.Print("To play this game, opt in by typing SET MATURECONTENT TRUE.");
 			}
 
 			base.BeforePrintCommands();

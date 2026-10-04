@@ -3,9 +3,6 @@
 
 // Copyright (c) 2014+ by Michael Penner.  All rights reserved.
 
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using Eamon.Framework;
 using Eamon.Game.Attributes;

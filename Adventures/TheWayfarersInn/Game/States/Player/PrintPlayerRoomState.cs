@@ -39,7 +39,7 @@ namespace TheWayfarersInn.Game.States
 
 					if (gGameState.BedroomTurnCounter == 10)
 					{
-						gOut.Print("You sense {0} is becoming aggravated.", unseenApparitionMonster.GetTheName());
+						gOut.Print("{0} grows aggravated.", unseenApparitionMonster.GetTheName(true));
 					}
 					else if (gGameState.BedroomTurnCounter > 15)
 					{
@@ -136,7 +136,7 @@ namespace TheWayfarersInn.Game.States
 				{
 					if (unseenApparitionMonster.IsInRoom(gCharRoom) && !gEngine.PlayerMoved)
 					{
-						gOut.Print("You sense {0} is no longer present.", unseenApparitionMonster.GetTheName());
+						gOut.Print("{0} is no longer present.", unseenApparitionMonster.GetTheName(true));
 					}
 
 					var room = gEngine.GetRandomWayfarersInnRoom(new long[] { unseenApparitionMonster.Location, 42 });
@@ -189,7 +189,7 @@ namespace TheWayfarersInn.Game.States
 					}
 					else
 					{
-						gOut.Print("You sense {0} lurking nearby.", unseenApparitionMonster.GetArticleName());
+						gOut.Print("{0} lurks nearby.", unseenApparitionMonster.GetArticleName(true));
 					}
 				}
 

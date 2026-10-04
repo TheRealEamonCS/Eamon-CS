@@ -105,7 +105,7 @@ namespace TheWayfarersInn.Game.Commands
 
 			if (obj is IArtifact artifact && artifactUids.Contains(artifact.Uid))
 			{
-				gOut.Print("{0} {1} not accessible from here.", artifact.GetTheName(true), artifact.EvalPlural("is", "are"));
+				gOut.Print("You can't reach {0} from here.", artifact.GetTheName());
 			}
 			else
 			{
@@ -157,7 +157,7 @@ namespace TheWayfarersInn.Game.Commands
 
 			if (artifact.Uid == 26 && containerType == ContainerType.In)
 			{
-				gOut.Print("You can see the floor through the rotted-out bottom of the drawer.");
+				gOut.Print("The drawer's rotted-out bottom reveals the floor beneath.");
 			}
 			else
 			{

@@ -31,7 +31,7 @@ namespace TheWayfarersInn.Game.States
 
 			if (artifact != null && artifact.IsCarriedByMonster(gCharMonster))
 			{
-				gOut.Print("You decide to discard {0}, finding {1} repulsive.", artifact.GetTheName(), artifact.EvalPlural("it", "them"));
+				gOut.Print("You discard {0}, which {1} repulsive.", artifact.GetTheName(), artifact.EvalPlural("is", "are"));
 
 				var dropCommand = gEngine.CreateInstance<IDropCommand>(x =>
 				{

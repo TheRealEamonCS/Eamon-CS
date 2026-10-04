@@ -23,7 +23,7 @@ namespace TheWayfarersInn.Game.Commands
 
 			if (eventType == EventType.BeforePrintArtifactOpen && DobjArtifact.Uid == 44 && !gGameState.CharlotteArtisansStory)
 			{
-				gOut.Print("You unlock {0} with {1}, but {2} refuses to open.", DobjArtifact.EvalPlural("it", "them"), KeyArtifact.GetTheName(), DobjArtifact.GetTheName());
+				gOut.Print("You unlock {0} with {1}, but {2} won't budge.", DobjArtifact.EvalPlural("it", "them"), KeyArtifact.GetTheName(), DobjArtifact.GetTheName());
 
 				DobjArtifact.DoorGate.SetOpen(false);
 

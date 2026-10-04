@@ -42,7 +42,7 @@ namespace TheWayfarersInn.Game.Commands
 					}
 					else
 					{
-						gOut.Print("Sadly, it is well beyond your reach.");
+						gOut.Print("It is well beyond your reach.");
 
 						NextState = gEngine.CreateInstance<IStartState>();
 					}
@@ -84,7 +84,7 @@ namespace TheWayfarersInn.Game.Commands
 			{
 				if (!ActorMonster.CheckNBTLHostility())
 				{
-					gOut.Print("Well, well, well, aren't we feeling adventurous?");
+					gOut.Print("Well, well, aren't we adventurous?");
 				}
 				else
 				{

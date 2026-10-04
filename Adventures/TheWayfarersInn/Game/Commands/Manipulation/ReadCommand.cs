@@ -77,7 +77,7 @@ namespace TheWayfarersInn.Game.Commands
 
 			else if (DobjArtifact.Uid == 25)
 			{
-				gOut.Print("You read the markers and ponder the lives lost over so many years.");
+				gOut.Print("Reading the markers, you ponder the lives lost over so many years.");
 
 				NextState = gEngine.CreateInstance<IMonsterStartState>();
 			}
@@ -86,7 +86,7 @@ namespace TheWayfarersInn.Game.Commands
 
 			else if (DobjArtifact.Uid == 68 && DobjArtifact.Readable.IsOpen())
 			{
-				gOut.Print("Poring over the accounting ledger, you see some entries that shortly precede an abrupt change in the handwriting style (which you find peculiar){0}", gEngine.EnableScreenReaderMode ? "." : ":");
+				gOut.Print("Poring over the accounting ledger, you see entries that shortly precede an abrupt shift in handwriting style{0}", gEngine.EnableScreenReaderMode ? "." : ":");
 
 				if (!gEngine.EnableScreenReaderMode)
 				{
@@ -149,7 +149,7 @@ namespace TheWayfarersInn.Game.Commands
 
 				if (doorArtifact.Uid == 86)
 				{
-					gOut.Print("The glyph resembles one of warding, though no variant you're familiar with.");
+					gOut.Print("The glyph resembles a warding sign, though no variant you recognize.");
 				}
 
 				NextState = gEngine.CreateInstance<IMonsterStartState>();

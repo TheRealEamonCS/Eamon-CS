@@ -46,7 +46,7 @@ namespace TheWayfarersInn.Game.Commands
 					{
 						if (!gGameState.CharlottePortraitGiven)
 						{
-							gOut.Print("{0} smiles and says, \"That's my Mommy, and Daddy and me!\" She reaches out to touch the image of her parents, but as her hand passes through the canvas, the smile slowly fades. Tears well up in her eyes.", IobjMonster.GetTheName(true));
+							gOut.Print("{0} smiles. \"That's my Mommy, and Daddy and me!\" She reaches for the image of her parents, but her hand passes through the canvas. Her smile fades as tears well in her eyes.", IobjMonster.GetTheName(true));
 
 							gGameState.SetEventState(EventState.ChildsApparition, 2);
 
@@ -54,7 +54,7 @@ namespace TheWayfarersInn.Game.Commands
 						}
 						else
 						{
-							gOut.Print("{0} refuses to go anywhere near it.", IobjMonster.GetTheName(true));
+							gOut.Print("{0} refuses to go near it.", IobjMonster.GetTheName(true));
 						}
 
 						GotoCleanup = true;
@@ -74,7 +74,7 @@ namespace TheWayfarersInn.Game.Commands
 						}
 						else
 						{
-							gOut.Print("{0} refuses to go anywhere near it.", IobjMonster.GetTheName(true));
+							gOut.Print("{0} refuses to go near it.", IobjMonster.GetTheName(true));
 						}
 
 						GotoCleanup = true;
@@ -93,7 +93,7 @@ namespace TheWayfarersInn.Game.Commands
 
 					else if (gDobjArtifact(this).IsArtisanBodyPartArtifact())
 					{
-						gOut.Print("{0} gets a mischievous glint in her eye and {1}then looks at the {2}.", IobjMonster.GetTheName(true), gGameState.CharlotteArtisansStory ? "says, \"One of the others with hammers and saws...\" She " : "", ActorRoom.EvalRoomType("floor", "ground"));
+						gOut.Print("{0} gets a mischievous glint in her eye. {1}She looks at the {2}.", IobjMonster.GetTheName(true), gGameState.CharlotteArtisansStory ? "\"One of the others with hammers and saws...\" " : "", ActorRoom.EvalRoomType("floor", "ground"));
 
 						GotoCleanup = true;
 					}
