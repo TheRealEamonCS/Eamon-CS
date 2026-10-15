@@ -178,7 +178,7 @@ namespace TheWayfarersInn.Game.Commands
 					gOut.EnableOutput = true;
 
 					gOut.Print(IobjArtifact.Uid == 17 ? 
-						"You drop {0} into the water well. {1} into the inky blackness, and a few moments later you hear a faint splash." :
+						"You drop {0} into the well. {1} into the inky blackness, and moments later you hear a faint splash." :
 						IobjArtifact.Uid == 97 ?
 						"You drop {0} over the guard rail. {1} through the air to land with a thud below." :
 						"You throw {0} into the gorge. {1} into the raging river and is swept downstream beyond recovery.",

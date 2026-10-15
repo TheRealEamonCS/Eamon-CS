@@ -155,7 +155,7 @@ namespace TheWayfarersInn.Game.Components
 					{
 						if (ActorRoom.IsViewable())
 						{
-							gOut.Print("{0}{1} grow{2} rusty!", Environment.NewLine, armorArtifact.GetTheName(true), armorArtifact.EvalPlural("s", ""));
+							gOut.Print("{0}{1} rust{2}!", Environment.NewLine, armorArtifact.GetTheName(true), armorArtifact.EvalPlural("s", ""));
 						}
 
 						gOut.EnableOutput = false;
@@ -198,7 +198,7 @@ namespace TheWayfarersInn.Game.Components
 					}
 					else if (ActorRoom.IsViewable())
 					{
-						gOut.Print("{0}{1} grow{2} rusty!", Environment.NewLine, ActorWeapon.GetTheName(true), ActorWeapon.EvalPlural("s", ""));
+						gOut.Print("{0}{1} rust{2}!", Environment.NewLine, ActorWeapon.GetTheName(true), ActorWeapon.EvalPlural("s", ""));
 					}
 
 					// Nolan figures it out

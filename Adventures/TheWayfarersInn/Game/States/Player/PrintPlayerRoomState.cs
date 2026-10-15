@@ -145,7 +145,7 @@ namespace TheWayfarersInn.Game.States
 
 					if (hauntingArtifact.IsInRoom(gCharRoom))
 					{
-						gOut.Print("{0} suddenly {1}!", hauntingArtifact.GetTheName(true), hauntingArtifact.EvalPlural("vanishes", "vanish"));
+						gOut.Print("{0} {1}!", hauntingArtifact.GetTheName(true), hauntingArtifact.EvalPlural("vanishes", "vanish"));
 
 						hauntingArtifactVanished = true;
 					}

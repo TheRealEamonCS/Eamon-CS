@@ -514,7 +514,7 @@ namespace TheWayfarersInn.Game.Plugin
 
 				Debug.Assert(hauntingArtifact != null);
 
-				return string.Format("{0}{1}", hauntingArtifact.GetArticleName(), hauntingArtifact.StateDesc);
+				return string.Format("{0} appears{1}", hauntingArtifact.GetArticleName(true), hauntingArtifact.StateDesc);
 			});
 
 			MacroFuncs.Add(17, () =>
@@ -793,7 +793,7 @@ namespace TheWayfarersInn.Game.Plugin
 
 				if (bottleOfBourbonArtifact.Drinkable.Field2 > 0)
 				{
-					result = string.Format(" The bourbon inside has a deep amber color{0}.", bottleOfBourbonArtifact.Drinkable.IsOpen() ? " with a smoky aroma of vanilla and caramel" : "");
+					result = string.Format(" The bourbon inside is a deep amber color{0}.", bottleOfBourbonArtifact.Drinkable.IsOpen() ? ", with a smoky vanilla-and-caramel aroma" : "");
 				}
 
 				return result;
@@ -901,7 +901,7 @@ namespace TheWayfarersInn.Game.Plugin
 				{ 96, new string[] { "east wing", "east building", "collapsed east wing", "collapsed east building", "collapsed wing", "collapsed building", "wayfarers inn", "inn" } },
 				{ 97, new string[] { "court", "yard" } },
 				{ 98, new string[] { "temple spire", "spire" } },
-				{ 99, new string[] { "majestic tree", "oak tree", "oak", "tree" } },
+				{ 99, new string[] { "majestic tree", "oak tree", "oak", "tree", "branches" } },
 				{ 100, new string[] { "door" } },
 				{ 101, new string[] { "door" } },
 				{ 102, new string[] { "arm" } },
@@ -1432,6 +1432,8 @@ namespace TheWayfarersInn.Game.Plugin
 
 		public virtual void GetHauntingData(long charRoomUid, long unseenApparitionRoomUid, ref string stateDesc)
 		{
+			var formatStr = " in the west wing's {0} window";
+
 			switch (charRoomUid)
 			{
 				case 9:
@@ -1440,31 +1442,31 @@ namespace TheWayfarersInn.Game.Plugin
 					{
 						case 39:
 
-							stateDesc = " in a western third-floor window";
+							stateDesc = string.Format(formatStr, "third-floor west");
 
 							break;
 
 						case 45:
 
-							stateDesc = " in a southern first-floor window";
+							stateDesc = string.Format(formatStr, "first-floor south");
 
 							break;
 
 						case 48:
 
-							stateDesc = " in a southwestern first-floor window";
+							stateDesc = string.Format(formatStr, "first-floor southwest");
 
 							break;
 
 						case 60:
 
-							stateDesc = " in a southern second-floor window";
+							stateDesc = string.Format(formatStr, "second-floor south");
 
 							break;
 
 						case 63:
 
-							stateDesc = " in a southwestern second-floor window";
+							stateDesc = string.Format(formatStr, "second-floor southwest");
 
 							break;
 					}
@@ -1477,13 +1479,13 @@ namespace TheWayfarersInn.Game.Plugin
 					{
 						case 54:
 
-							stateDesc = " in a southeastern second-floor window";
+							stateDesc = string.Format(formatStr, "second-floor southeast");
 
 							break;
 
 						case 57:
 
-							stateDesc = " in a southern second-floor window";
+							stateDesc = string.Format(formatStr, "second-floor south");
 
 							break;
 					}
@@ -1496,19 +1498,19 @@ namespace TheWayfarersInn.Game.Plugin
 					{
 						case 38:
 
-							stateDesc = " in a northern third-floor window";
+							stateDesc = string.Format(formatStr, "third-floor north");
 
 							break;
 
 						case 53:
 
-							stateDesc = " in a northeastern second-floor window";
+							stateDesc = string.Format(formatStr, "second-floor northeast");
 
 							break;
 
 						case 56:
 
-							stateDesc = " in a northern second-floor window";
+							stateDesc = string.Format(formatStr, "second-floor north");
 
 							break;
 					}
@@ -1521,37 +1523,37 @@ namespace TheWayfarersInn.Game.Plugin
 					{
 						case 44:
 
-							stateDesc = " in a northern first-floor window";
+							stateDesc = string.Format(formatStr, "first-floor north");
 
 							break;
 
 						case 46:
 
-							stateDesc = " in a western first-floor window";
+							stateDesc = string.Format(formatStr, "first-floor west");
 
 							break;
 
 						case 47:
 
-							stateDesc = " in a northwestern first-floor window";
+							stateDesc = string.Format(formatStr, "first-floor northwest");
 
 							break;
 
 						case 59:
 
-							stateDesc = " in a northern second-floor window";
+							stateDesc = string.Format(formatStr, "second-floor north");
 
 							break;
 
 						case 61:
 
-							stateDesc = " in a western second-floor window";
+							stateDesc = string.Format(formatStr, "second-floor west");
 
 							break;
 
 						case 62:
 
-							stateDesc = " in a northwestern second-floor window";
+							stateDesc = string.Format(formatStr, "second-floor northwest");
 
 							break;
 					}
@@ -1683,14 +1685,14 @@ namespace TheWayfarersInn.Game.Plugin
 				{
 					if (gGameState.WoodenBridgeUseCounter > 2)
 					{
-						result += " A path in the southeast corner also leads south.";
+						result += " A second path in the southeast corner also leads south.";
 
 						numPaths++;
 					}
 
 					if (room02.Seen || (numPaths > 1 && room.Seen))
 					{
-						result += string.Format(" When you first explored the area, you missed {0}.", numPaths > 1 ? "them" : "it");
+						result += string.Format(" You missed {0} the first time you explored the area.", numPaths > 1 ? "them" : "it");
 					}
 
 					result += string.Format(" You note {0} for later investigation.", numPaths > 1 ? "these" : "this");
@@ -1709,7 +1711,7 @@ namespace TheWayfarersInn.Game.Plugin
 			MacroFuncs.Add(14, () =>
 			{
 				return GameState != null && GameState.Ro == 13 && GameState.R3 == 9 ? "You" :
-							"You circle the massive building, its fine stonework crumbling with age. Eventually, you";
+							"You circle the imposing building, its fine stonework crumbling with age. Eventually, you";
 			});
 
 			MacroFuncs.Add(23, () =>		// +++ UNUSED +++
